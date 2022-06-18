@@ -1,0 +1,42 @@
+Spooky mod is a work-in-progress mod that adds in a bunch of halloween themed content, generally with the themeing of some of the more goofy parts of halloween, to really give the game a full halloween feel
+
+[i:1725]The mod currently offers[i:1725]
+
+2 brand new biomes:
+
+[c/d07709:The Spooky Forest]- A new spooky themed forest biome, with it's own content, new enemies, and loot. It also generates directly on your spawn point, so this biome is where your spooky adventure will begin!
+
+[c/8c63c9:The Living Underworld]- A creepy biome themed around body horror. Filled with things like eye stalk trees, fingers and even gross teeth! Also has it's own unique enemies, brand new structures, and some loot!
+
+[c/ea0235:IMPORTANT]: both biomes are created upon making a new world, so you'll need a new world to fully experience the mod and all of it's content!
+Also, this mod adds quite a bit of world generation and will add more in the future, so avoid playing this with other larger mods that add in large biomes or other worldgen
+
+2 new bosses:
+
+[c/d07709:Rot-Gourd], a giant, rotten pumpkin and former guardian who can be fought in the spooky forest
+
+[c/1db50d:Orro-Boro], Two parasitic worms who feed off each other and work together to fight off any threat
+
+(there will likely be more bosses in the future as well)
+
+This mod also has boss checklist support if you do not know much about the bosses or progression
+
+[i:1725]Other misc features[i:1725]
+
+-All bosses will now drop a bunch of goodie bags (Works for vanilla and modded bosses)
+
+-With this mod enabled, the halloween seasonal event will always be active in your world
+
+
+Thanks to the rest of the spooky contributers who helped with the mod!
+
+[c/946ca0:Renk], for helping out with code and 1.4 porting
+[c/4be8d6:Seasalt], for making some sprites
+[c/23d022:Hugekraken], for making some sprites
+[c/ac4949:HondaCivic], for making some sprites
+[c/fb8904:Taco], for making concepts and some sprites
+[c/fbeb04:BananaLizard], for making the mod's banger music
+
+And of course, thanks to everyone who has supported the mod!
+
+

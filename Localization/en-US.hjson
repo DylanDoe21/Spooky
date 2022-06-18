@@ -1,0 +1,65 @@
+﻿Mods: 
+{
+	Spooky: 
+    {
+        BiomeName: 
+        {
+			SpookyBiome: Spooky Forest
+			SpookyBiomeUg: Spooky Underground
+			SpookyHellBiome: Living Hell
+		}
+
+        TownNPCMood: 
+        {
+			LittleBone: 
+            {
+                #crowded dialogue
+                LoveSpace: I love the free room, makes it much more peaceful here!
+                DislikeCrowded: There is a lot of people here, I wish it wasn't so loud.
+                HateCrowded: I don't like the amount of people. It's scaring me, someone almost tripped on me!
+
+                #npc dialogue
+                LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
+				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
+				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
+				HateNPC: "{NPCName} has tried to steal me and sell me overseas! I do not like when he comes around."
+
+                #biome dialogue, leave all of it blank as he wont go to other biomes unless spawned in with cheat mods
+                Content: I feel great as always!
+                LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy, guess I am glad I can't really leave here.
+                LikeBiome: ""
+                DislikeBiome: ""
+                HateBiome: ""
+
+                #home dialogue, leave this blank because he doesnt actually move into a home
+				NoHome: ""
+				FarFromHome: ""
+			}
+
+            LittleBoneSleeping: 
+            {
+                #crowded dialogue
+                LoveSpace: I love the free room, makes it much more peaceful here!
+                DislikeCrowded: There is a lot of people here, I wish it wasn't so loud.
+                HateCrowded: I don't like the amount of people. It's scaring me, someone almost tripped on me!
+
+                #npc dialogue
+                LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
+				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
+				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
+				HateNPC: "{NPCName} has tried to steal me and sell me overseas! I do not like when he comes around."
+
+                #biome dialogue, leave all of it blank as he wont go to other biomes unless spawned in with cheat mods
+                Content: I feel great as always!
+                LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy, guess I am glad I can't really leave here.
+                LikeBiome: ""
+                DislikeBiome: ""
+                HateBiome: ""
+
+                #home dialogue, leave this blank because he doesnt actually move into a home
+				NoHome: ""
+				FarFromHome: ""
+			}
+		}
+    }
+}   

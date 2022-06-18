@@ -1,0 +1,60 @@
+using Terraria;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using System;
+
+using Spooky.Core;
+
+namespace Spooky.Content.Dusts
+{
+    public class FogDust : ModDust
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            dust.velocity *= 0.05f;
+            dust.velocity.Y *= 0.5f;
+            dust.noGravity = true;
+            dust.noLight = true;
+            dust.frame = new Rectangle((Main.rand.Next(0, 1) == 0) ? 0 : 250, 0, 250, 115);
+            dust.alpha = 200;
+            dust.fadeIn = 12f;
+            dust.scale *= Main.rand.NextFloat(0.75f, 1.5f);
+            //dust.scale *= Main.rand.NextFloat(0.25f, 0.95f); //original values
+
+            dust.color.R = 109;
+			dust.color.G = 97;
+			dust.color.B = 179;
+        }
+
+        /*
+        public override Color? GetAlpha(Dust dust, Color lightColor)
+        {
+            return Color.White;
+        }
+        */
+
+        public override bool Update(Dust dust)
+        {
+            Lighting.AddLight(dust.position, Color.Purple.ToVector3() * 0.5f);
+
+            if (Main.rand.Next(20) == 0 || !SpookyWorld.GhostEvent) 
+            {
+                dust.alpha++;
+            }
+            
+            if (Main.rand.Next(12) == 0) 
+            {
+                dust.velocity.Y += Main.rand.NextFloat(0.02f, 0.08f);
+            }
+
+            dust.position -= dust.velocity;
+            
+            if (dust.alpha > 255)
+            {
+                dust.active = false;
+            }
+
+            return false;
+        }
+    }
+}

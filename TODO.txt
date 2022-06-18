@@ -1,0 +1,5 @@
+-finish eye valley biome and gen
+-finish the night time enemies for spooky forest
+-rework enemies in the eye valley
+-re-add old spooky pumpkin drops as items as little bone items he sells
+-make little bone just a normal npc vendor but he sells new stuff as you progress

@@ -1,0 +1,11 @@
+displayName = [c/FAAE06:Spooky Mod]
+author = DylanDoe21
+version = 0.3.2
+
+homepage = https://forums.terraria.org/index.php?threads/spooky-mod.111311/
+
+buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, *.piskel, Unused\*
+hideResources = true
+includeSource = false
+hideCode = true
+includePDB = false
