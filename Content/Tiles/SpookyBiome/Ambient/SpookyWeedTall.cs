@@ -14,13 +14,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileCut[Type] = true;
 			Main.tileFrameImportant[Type] = true;
-            Main.tileLighted[Type] = true;
+			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
-            TileObjectData.newTile.Height = 2;
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
+            Main.tileLighted[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(30, 68, 27));

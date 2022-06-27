@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             DisplayName.SetDefault("Chained Eyes");
             Tooltip.SetDefault("Shoots out two long range eye flails"
             + "\nThe smaller eye flail travels further but deals less damage"
-            + "\nThe bigger eye flail travels less far, but deals more damage");
+            + "\nThe bigger eye flail travels less far but deals more damage");
 			SacrificeTotal = 1;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -33,11 +33,11 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.autoReuse = true;
             Item.width = 50;
             Item.height = 64;
-            Item.useTime = 24;
-            Item.useAnimation = 6;
-            Item.useStyle = 5;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
-            Item.rare = 5;
+            Item.rare = ItemRarityID.LightRed;
            	Item.value = Item.buyPrice(gold: 2);
             Item.UseSound = SoundID.Item10;
             Item.shoot = ModContent.ProjectileType<EyeFlailProj>();

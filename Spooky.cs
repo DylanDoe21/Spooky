@@ -66,7 +66,7 @@ namespace Spooky
 
         public enum SpookyMessageType : byte
         {
-            SpawnMoco,
+            SpawnOrroboro,
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -74,9 +74,9 @@ namespace Spooky
             SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
             switch (messageType)
             {
-                case SpookyMessageType.SpawnMoco:
+                case SpookyMessageType.SpawnOrroboro:
                 {
-                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Content.NPCs.SpookyHell.Moco>());
+                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>());
                     break;
                 }
                 default:

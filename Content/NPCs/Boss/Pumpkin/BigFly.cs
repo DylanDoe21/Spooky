@@ -31,7 +31,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath32;
             NPC.aiStyle = -1;
-            NPC.alpha = 0;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -137,9 +136,9 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
         public override bool CheckDead() 
 		{
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore3").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore1").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore2").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore3").Type);
 
             return true;
 		}

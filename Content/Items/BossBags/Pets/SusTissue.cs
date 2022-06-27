@@ -22,21 +22,10 @@ namespace Spooky.Content.Items.BossBags.Pets
 			Item.CloneDefaults(ItemID.Fish);
 			Item.width = 30;
 			Item.height = 34;
-			Item.rare = ItemRarityID.Master;
-			Item.master = true;
+			Item.rare = ItemRarityID.Orange;
 			Item.shoot = ModContent.ProjectileType<MocoPet>();
 			Item.buffType = ModContent.BuffType<MocoPetBuff>();
 		}
-
-		/*
-		public override void UseStyle(Player player)
-		{
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0) 
-            {
-				player.AddBuff(Item.buffType, 3600, true);
-			}
-		}
-		*/
 
 		public override bool CanUseItem(Player player)
 		{

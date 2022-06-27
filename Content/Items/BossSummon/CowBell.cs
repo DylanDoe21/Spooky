@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.BossSummon
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-        public static readonly SoundStyle CowBellSound = new SoundStyle("Spooky/Content/Sounds/CowBell", SoundType.Sound);
+        public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
 
         public override void SetDefaults()
         {
@@ -30,9 +30,9 @@ namespace Spooky.Content.Items.BossSummon
             Item.height = 28;
             Item.useTime = 45;
             Item.useAnimation = 45;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
-            Item.rare = 1;   
+            Item.rare = ItemRarityID.Blue;   
             Item.value = Item.buyPrice(silver: 50);
             Item.UseSound = CowBellSound;
         }

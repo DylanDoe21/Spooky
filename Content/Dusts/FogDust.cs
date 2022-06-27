@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System;
 
 using Spooky.Core;
 
@@ -19,19 +18,11 @@ namespace Spooky.Content.Dusts
             dust.alpha = 200;
             dust.fadeIn = 12f;
             dust.scale *= Main.rand.NextFloat(0.75f, 1.5f);
-            //dust.scale *= Main.rand.NextFloat(0.25f, 0.95f); //original values
 
             dust.color.R = 109;
 			dust.color.G = 97;
 			dust.color.B = 179;
         }
-
-        /*
-        public override Color? GetAlpha(Dust dust, Color lightColor)
-        {
-            return Color.White;
-        }
-        */
 
         public override bool Update(Dust dust)
         {

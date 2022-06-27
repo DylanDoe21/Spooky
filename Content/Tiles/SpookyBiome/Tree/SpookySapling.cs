@@ -16,6 +16,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
+			TileID.Sets.SwaysInWindBasic[Type] = true;
 			TileID.Sets.CommonSapling[Type] = true;
 			TileID.Sets.TreeSapling[Type] = true;
 			TileObjectData.newTile.Width = 1;

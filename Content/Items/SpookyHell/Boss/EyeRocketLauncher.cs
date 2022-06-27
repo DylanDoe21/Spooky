@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("I.C.U");
-			Tooltip.SetDefault("Shoots an explosive homing eye rocket");
+			Tooltip.SetDefault("Shoots homing eye missiles");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -25,15 +25,14 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.autoReuse = true;
 			Item.width = 78;
 			Item.height = 28;
-			Item.useTime = 50;
-			Item.useAnimation = 50;
-			Item.useStyle = 5;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item98;
-			Item.useAmmo = AmmoID.Rocket;
-			Item.shoot = ProjectileID.RocketI;
+			Item.shoot = ModContent.ProjectileType<EyeRocket>();
 			Item.shootSpeed = 10f;
 		}
 

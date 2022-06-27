@@ -19,9 +19,10 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 
 		public override void SetDefaults()
 		{
+			Item.CloneDefaults(ItemID.Fish);
 			Item.width = 20;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.shoot = ModContent.ProjectileType<SpookyWisp>();
 			Item.buffType = ModContent.BuffType<SpookyWispBuff>();
 		}

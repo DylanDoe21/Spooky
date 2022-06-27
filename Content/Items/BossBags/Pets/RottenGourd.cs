@@ -13,7 +13,8 @@ namespace Spooky.Content.Items.BossBags.Pets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rotten Gourd");
-			Tooltip.SetDefault("Summons a rotten gourd to follow you\n'It smells really bad'");
+			Tooltip.SetDefault("Summons a rotten gourd to follow you"
+			+ "\n'It smells really bad'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -27,16 +28,6 @@ namespace Spooky.Content.Items.BossBags.Pets
 			Item.shoot = ModContent.ProjectileType<RotGourdPet>();
 			Item.buffType = ModContent.BuffType<RotGourdPetBuff>();
 		}
-		
-		/*
-		public override void UseStyle(Player player)
-		{
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0) 
-            {
-				player.AddBuff(Item.buffType, 3600, true);
-			}
-		}
-		*/
 
 		public override bool CanUseItem(Player player)
 		{

@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Valley Moss");
+            DisplayName.SetDefault("Living Flesh");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 
@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 999;
-			Item.createTile = ModContent.TileType<SpookyMush>();
+			Item.createTile = ModContent.TileType<EyeBlock>();
         }
     }
 }

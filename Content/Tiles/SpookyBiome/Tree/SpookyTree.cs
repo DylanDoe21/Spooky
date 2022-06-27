@@ -60,16 +60,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 		}
 
 		//special settings for the tree tops
-		public override void SetTreeFoliageSettings(Tile tile, int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight) 
+		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
 		{
 			topTextureFrameWidth = 228;
             topTextureFrameHeight = 136;
             floorY = 2;
 		}
 
-        public override int GrowthFXGore()
-        {
+		public override int TreeLeaf()
+		{
 			return ModContent.GoreType<LeafOrangeTreeFX>();
         }
-    }
+
+		public override bool Shake(int x, int y, ref bool createLeaves)
+		{
+			return false;
+		}
+	}
 }

@@ -85,7 +85,7 @@ namespace Spooky.Content.Generation
                 {
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
                     {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(35, 55), WorldGen.genRand.Next(35, 55), 
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(45, 55), WorldGen.genRand.Next(45, 55), 
                         ModContent.TileType<SpookyStone>(), false, 0f, 0f, false, true);
                     }
                 }
@@ -111,6 +111,35 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(10, 15), WorldGen.genRand.Next(10, 15), 
                         ModContent.TileType<SpookyGrassGreen>(), false, 0f, 0f, false, true);
+                    }
+                }
+            }
+
+            //place clumps of vanilla ores
+            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 10E-05); l++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
+                {
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                    {
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 10), WorldGen.genRand.Next(3, 10), TileID.Copper, false, 0f, 0f, false, true);
+                    }
+                }
+            }
+
+            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); l++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
+                {
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                    {
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(2, 8), TileID.Iron, false, 0f, 0f, false, true);
                     }
                 }
             }
@@ -260,11 +289,12 @@ namespace Spooky.Content.Generation
             {
                 for (int PlaceY = 0; PlaceY < BlocksArray.GetLength(0); PlaceY++)
                 {
-                    int HouseX = X - 3 + PlaceX;
-                    int HouseY = Y - 6 + PlaceY;
-                    if (WorldGen.InWorld(HouseX, HouseY, 30))
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
                     {
-                        Tile tile = Framing.GetTileSafely(HouseX, HouseY);
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
                         switch (BlocksArray[PlaceY, PlaceX])
                         {
                             //dont touch
@@ -276,42 +306,42 @@ namespace Spooky.Content.Generation
                             case 1:
                             {
                                 tile.ClearEverything();
-                                WorldGen.PlaceTile(HouseX, HouseY, ModContent.TileType<SpookyWood>());
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyWood>());
                                 break;
                             }
                             //wood platform
                             case 2:
                             {
                                 tile.ClearEverything();
-					            WorldGen.PlaceTile(HouseX, HouseY, TileID.Platforms, mute: true);
+					            WorldGen.PlaceTile(StructureX, StructureY, TileID.Platforms, mute: true);
                                 break;
                             }
                             //hay bale blocks
                             case 3:
                             {
                                 tile.ClearEverything();
-					            WorldGen.PlaceTile(HouseX, HouseY, TileID.HayBlock);
+					            WorldGen.PlaceTile(StructureX, StructureY, TileID.HayBlock);
                                 break;
                             }
                             //spooky forest wood wall
                             case 4:
                             {
                                 tile.ClearEverything();
-					            WorldGen.PlaceWall(HouseX, HouseY, ModContent.WallType<SpookyWoodWall>());
+					            WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<SpookyWoodWall>());
                                 break;
                             }
                             //spooky moss stone
                             case 5:
                             {
                                 tile.ClearEverything();
-                                WorldGen.PlaceTile(HouseX, HouseY, ModContent.TileType<SpookyStone>());
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyStone>());
                                 break;
                             }
                             //spooky grass
                             case 6:
                             {
                                 tile.ClearEverything();
-                                WorldGen.PlaceTile(HouseX, HouseY, ModContent.TileType<SpookyGrass>());
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyGrass>());
                                 break;
                             }
                         }
@@ -323,32 +353,38 @@ namespace Spooky.Content.Generation
             {
                 for (int PlaceY = 0; PlaceY < ObjectArray.GetLength(0); PlaceY++)
                 {
-                    int HouseX = X - 3 + PlaceX;
-                    int HouseY = Y - 6 + PlaceY;
-                    if (WorldGen.InWorld(HouseX, HouseY, 30))
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
                     {
-                        Tile tile = Framing.GetTileSafely(HouseX, HouseY);
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
                         switch (ObjectArray[PlaceY, PlaceX])
                         {
+                            //dont touch
+                            case 0:
+                            {
+                                break;
+                            }
                             //cobwebs
-                            case 7:
+                            case 1:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(HouseX, HouseY, TileID.Cobweb);
+                                WorldGen.PlaceTile(StructureX, StructureY, TileID.Cobweb);
                                 break;
                             }
                             //wooden beam
-                            case 8:
+                            case 2:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(HouseX, HouseY, TileID.WoodenBeam);
+                                WorldGen.PlaceTile(StructureX, StructureY, TileID.WoodenBeam);
                                 break;
                             }
                             //potted skull
-                            case 9:
+                            case 3:
                             {
                                 tile.ClearTile();
-                                NPC.NewNPC(null, HouseX * 16, HouseY * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
+                                NPC.NewNPC(null, StructureX * 16, StructureY * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
                                 break;
                             }
                         }
@@ -359,6 +395,7 @@ namespace Spooky.Content.Generation
 
         public void GenRuinedHouse(GenerationProgress progress, GameConfiguration configuration)
         {
+            //tiles
             //0 = dont touch
             //1 = spooky forest wood
             //2 = wood platform
@@ -366,9 +403,12 @@ namespace Spooky.Content.Generation
             //4 = spooky forest wood wall
             //5 = spooky moss stone
             //6 = spooky grass
-            //7 = cobwebs
-            //8 = wooden beams
-            //9 = little bone npc
+
+            //objects
+            //0 = dont touch
+            //1 = cobwebs
+            //2 = wooden beams
+            //3 = little bone npc
 
             //first house
             int[,] RuinedHouse1 = new int[,]
@@ -404,19 +444,19 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,8,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,8,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,7,7,8,0,7,7,0,0,0,7,8,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,7,7,7,8,0,7,0,7,0,7,7,8,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,7,0,7,8,7,0,0,8,0,7,0,8,7,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,8,7,7,0,8,0,0,0,8,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,1,2,0,1,1,0,0,0,1,2,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,1,1,2,0,1,0,1,0,1,1,2,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,0,1,2,1,0,0,2,0,1,0,2,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,2,1,1,0,2,0,0,0,2,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,7,7,0,0,8,7,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,0,7,0,0,8,7,0,0,8,7,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,8,0,0,7,8,0,0,7,8,7,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,8,0,0,7,8,0,0,7,8,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,8,0,0,0,8,0,0,0,8,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,1,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,0,1,0,0,2,1,0,0,2,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,2,0,0,1,2,0,0,1,2,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,2,0,0,1,2,0,0,1,2,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -459,17 +499,17 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,7,8,7,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,7,7,0,7,7,7,7,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,7,7,0,8,7,0,7,7,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,0,8,0,0,0,7,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,1,0,2,1,0,1,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,0,2,0,0,0,1,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,8,0,0,7,7,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,7,8,0,0,0,7,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,7,8,7,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,8,7,7,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,2,0,0,1,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,2,0,0,0,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -516,21 +556,21 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,8,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,7,0,7,8,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,8,7,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,8,7,0,0,7,7,7,7,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,7,7,8,7,0,0,7,0,7,7,7,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,7,7,8,0,0,0,8,0,0,0,7,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,7,7,0,8,0,0,0,8,0,9,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,7,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,8,7,7,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,8,0,7,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,7,8,0,0,0,8,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,7,8,0,0,0,8,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2,1,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,2,1,0,0,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,1,0,1,1,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,1,2,0,0,0,2,0,0,0,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,2,0,0,0,2,0,3,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,1,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,2,0,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -596,9 +636,9 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-                PlaceRuinedHouse(House1X - 12, House1Y - 10, RuinedHouse1, RuinedHouseObjects1);
-                PlaceRuinedHouse(House2X - 12, House2Y - 10, RuinedHouse2, RuinedHouseObjects2);
-                PlaceRuinedHouse(House3X - 12, House3Y - 16, RuinedHouse3, RuinedHouseObjects3);
+                PlaceRuinedHouse(House1X - 12, House1Y - 18, RuinedHouse1, RuinedHouseObjects1);
+                PlaceRuinedHouse(House2X - 12, House2Y - 18, RuinedHouse2, RuinedHouseObjects2);
+                PlaceRuinedHouse(House3X - 12, House3Y - 22, RuinedHouse3, RuinedHouseObjects3);
 
                 placed = true;
             }
@@ -610,11 +650,12 @@ namespace Spooky.Content.Generation
             {
                 for (int PlaceY = 0; PlaceY < BlocksArray.GetLength(0); PlaceY++)
                 {
-                    int HouseX = X - 3 + PlaceX;
-                    int HouseY = Y - 6 + PlaceY;
-                    if (WorldGen.InWorld(HouseX, HouseY, 30))
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
                     {
-                        Tile tile = Framing.GetTileSafely(HouseX, HouseY);
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
                         switch (BlocksArray[PlaceY, PlaceX])
                         {
                             //dont touch
@@ -632,7 +673,7 @@ namespace Spooky.Content.Generation
                             case 2:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(HouseX, HouseY, ModContent.TileType<SpookyWood>());
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyWood>());
                                 tile.HasTile.Equals(true);
                                 break;
                             }
@@ -640,29 +681,29 @@ namespace Spooky.Content.Generation
                             case 3:
                             {
                                 tile.ClearTile();
-					            WorldGen.PlaceTile(HouseX, HouseY, TileID.Platforms, mute: true);
+					            WorldGen.PlaceTile(StructureX, StructureY, TileID.Platforms, mute: true);
                                 break;
                             }
                             //wood beams
                             case 4:
                             {
                                 tile.ClearTile();
-					            WorldGen.PlaceTile(HouseX, HouseY, TileID.WoodenBeam);
+					            WorldGen.PlaceTile(StructureX, StructureY, TileID.WoodenBeam);
                                 break;
                             }
                             //spooky forest wood wall
                             case 5:
                             {
                                 tile.ClearTile();
-                                WorldGen.KillWall(HouseX, HouseY);
-					            WorldGen.PlaceWall(HouseX, HouseY, ModContent.WallType<SpookyWoodWall>());
+                                WorldGen.KillWall(StructureX, StructureY);
+					            WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<SpookyWoodWall>());
                                 break;
                             }
                             //moss stone
                             case 6:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(HouseX, HouseY, ModContent.TileType<SpookyStone>());
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyStone>());
                                 tile.HasTile.Equals(true);
                                 break;
                             }
@@ -675,60 +716,66 @@ namespace Spooky.Content.Generation
             {
                 for (int PlaceY = 0; PlaceY < ObjectArray.GetLength(0); PlaceY++)
                 {
-                    int HouseX = X - 3 + PlaceX;
-                    int HouseY = Y - 6 + PlaceY;
-                    if (WorldGen.InWorld(HouseX, HouseY, 30))
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
                     {
-                        Tile tile = Framing.GetTileSafely(HouseX, HouseY);
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
                         switch (ObjectArray[PlaceY, PlaceX])
                         {
+                            //dont touch
+                            case 0:
+                            {
+                                break;
+                            }
                             //place cobwebs
-                            case 7:
+                            case 1:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(HouseX, HouseY, TileID.Cobweb);
+                                WorldGen.PlaceTile(StructureX, StructureY, TileID.Cobweb);
                                 break;
                             }
                             //place lanterns
-                            case 8:
+                            case 2:
                             {
-                                Framing.GetTileSafely(HouseX, HouseY).ClearTile();
-                                WorldGen.PlaceObject(HouseX, HouseY, 42, true, 3);
+                                Framing.GetTileSafely(StructureX, StructureY).ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, 42, true, 3);
                                 break;
                             }
                             //place chest
-                            case 9:
+                            case 3:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(HouseX, HouseY, (ushort)ModContent.TileType<HalloweenChest>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest>(), false, 0);
                                 break;
                             }
                             //place chest
-                            case 10:
+                            case 4:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(HouseX, HouseY, (ushort)ModContent.TileType<HalloweenChest2>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest2>(), false, 0);
                                 break;
                             }
                             //place chest
-                            case 11:
+                            case 5:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(HouseX, HouseY, (ushort)ModContent.TileType<HalloweenChest3>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest3>(), false, 0);
                                 break;
                             }
                             //place chest
-                            case 12:
+                            case 6:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(HouseX, HouseY, (ushort)ModContent.TileType<HalloweenChest4>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest4>(), false, 0);
                                 break;
                             }
                             //place chest
-                            case 13:
+                            case 7:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(HouseX, HouseY, (ushort)ModContent.TileType<HalloweenChest5>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest5>(), false, 0);
                                 break;
                             }
                         }
@@ -739,6 +786,7 @@ namespace Spooky.Content.Generation
 
         public void GenerateChestHouses(GenerationProgress progress, GameConfiguration configuration)
         {
+            //tiles
             //0 = dont touch
             //1 = clear everything
             //2 = spooky forest wood
@@ -746,9 +794,12 @@ namespace Spooky.Content.Generation
             //4 = wooden beam
             //5 = spooky forest wood wall
             //6 = moss stone
-            //7 = cobwebs
-            //8 = lanterns
-            //9 = halloween chest
+
+            //objects
+            //0 = dont touch
+            //1 = cobwebs
+            //2 = lanterns
+            //3-7 = halloween chest
             
             //first chest room
             int[,] ChestHouseShape1 = new int[,]
@@ -773,14 +824,14 @@ namespace Spooky.Content.Generation
             int[,] ChestHouseObjects1 = new int[,]
             {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,7,7,0,0,0,7,7,8,7,7,0,0},
-                {0,0,7,7,0,0,0,0,7,0,7,7,0,0},
-                {0,0,0,7,0,0,0,0,0,0,7,7,7,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,7,0},
-                {0,0,0,0,0,9,0,0,0,0,0,0,0,0},
+                {0,0,1,1,0,0,0,1,1,2,1,1,0,0},
+                {0,0,1,1,0,0,0,0,1,0,1,1,0,0},
+                {0,0,0,1,0,0,0,0,0,0,1,1,1,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,0,0,0,0,3,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,7,7,0,7,0,0,0,7,0,7,0},
-                {0,0,0,0,7,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,1,0,1,0,0,0,1,0,1,0},
+                {0,0,0,0,1,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -808,11 +859,11 @@ namespace Spooky.Content.Generation
             int[,] ChestHouseObjects2 = new int[,]
             {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,7,7,8,7,0,0,0,7,7,7,0,0},
-                {0,0,7,7,0,7,0,0,0,0,7,7,7,0},
-                {0,7,7,7,0,0,0,0,0,0,7,0,7,0},
-                {0,7,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,7,0,0,0,0,10,0,0,0,0,0,0,0},
+                {0,0,1,1,2,1,0,0,0,1,1,1,0,0},
+                {0,0,1,1,0,1,0,0,0,0,1,1,1,0},
+                {0,1,1,1,0,0,0,0,0,0,1,0,1,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,1,0,0,0,0,4,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -823,11 +874,11 @@ namespace Spooky.Content.Generation
             int[,] ChestHouseObjects2Alt = new int[,]
             {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,7,7,8,7,0,0,0,7,7,7,0,0},
-                {0,0,7,7,0,7,0,0,0,0,7,7,7,0},
-                {0,7,7,7,0,0,0,0,0,0,7,0,7,0},
-                {0,7,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,7,0,0,0,0,11,0,0,0,0,0,0,0},
+                {0,0,1,1,2,1,0,0,0,1,1,1,0,0},
+                {0,0,1,1,0,1,0,0,0,0,1,1,1,0},
+                {0,1,1,1,0,0,0,0,0,0,1,0,1,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,1,0,0,0,0,5,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -862,11 +913,11 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,7,7,7,8,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,7,7,7,0,0,0,7,7,7,0,0,0},
-                {0,0,0,0,0,0,7,0,7,0,0,0,0,0,7,0,0,0},
+                {0,0,0,0,0,0,0,1,1,1,2,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+                {0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -881,11 +932,11 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,7,7,7,8,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,7,7,7,0,0,0,7,7,7,0,0,0},
-                {0,0,0,0,0,0,7,0,7,0,0,0,0,0,7,0,0,0},
+                {0,0,0,0,0,0,0,1,1,1,2,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+                {0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,13,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -894,13 +945,23 @@ namespace Spooky.Content.Generation
             };
 
             int ChestX = PositionX;
-            int ChestY = (int)Main.worldSurface + 50;
+            int Chest1Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
+            int Chest2Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
+            int Chest3Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
+            int Chest4Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
+            int Chest5Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
 
-            PlaceChestHouses(ChestX - 95, ChestY + WorldGen.genRand.Next(-15, 25), ChestHouseShape1, ChestHouseObjects1);
-            PlaceChestHouses(ChestX - 45, ChestY + WorldGen.genRand.Next(-15, 25), ChestHouseShape2, ChestHouseObjects2);
-            PlaceChestHouses(ChestX + WorldGen.genRand.Next(-15, 15), ChestY, ChestHouseShape2, ChestHouseObjects2Alt);
-            PlaceChestHouses(ChestX + 45, ChestY + WorldGen.genRand.Next(-15, 25), ChestHouseShape3, ChestHouseObjects3);
-            PlaceChestHouses(ChestX + 95, ChestY + WorldGen.genRand.Next(-15, 25), ChestHouseShape3, ChestHouseObjects3Alt);
+            SpookyWorldMethods.Circle(ChestX - 95, Chest1Y, 12, 0, true);
+            SpookyWorldMethods.Circle(ChestX - 45, Chest2Y, 12, 0, true);
+            SpookyWorldMethods.Circle(ChestX, Chest3Y, 12, 0, true);
+            SpookyWorldMethods.Circle(ChestX + 45, Chest4Y, 12, 0, true);
+            SpookyWorldMethods.Circle(ChestX + 95, Chest5Y, 12, 0, true);
+            
+            PlaceChestHouses(ChestX - 100, Chest1Y, ChestHouseShape1, ChestHouseObjects1);
+            PlaceChestHouses(ChestX - 50, Chest2Y, ChestHouseShape2, ChestHouseObjects2);
+            PlaceChestHouses(ChestX - 8, Chest3Y, ChestHouseShape2, ChestHouseObjects2Alt);
+            PlaceChestHouses(ChestX + 40, Chest4Y, ChestHouseShape3, ChestHouseObjects3);
+            PlaceChestHouses(ChestX + 90, Chest5Y, ChestHouseShape3, ChestHouseObjects3Alt);
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)

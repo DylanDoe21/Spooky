@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acid Flame");
+            DisplayName.SetDefault("Acidic Flames");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -37,7 +37,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Lime) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Color color = Projectile.GetAlpha(Color.Red) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.localAI[0] > 20)
             {
-                Projectile.alpha -= 10;
+                Projectile.alpha -= 5;
                 
                 if (Projectile.alpha <= 0)
                 {

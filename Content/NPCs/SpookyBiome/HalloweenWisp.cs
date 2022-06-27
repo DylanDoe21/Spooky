@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 //spawn on the surface during the night
                 if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !Main.dayTime)
                 {
-                    return 15f;
+                    return 18f;
                 }
             }
 
@@ -83,20 +83,21 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.spriteDirection = -NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.07f;
 
-            Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0f);
+            Lighting.AddLight(NPC.Center, 1f, 0.7f, 0f);
         }
 
         public override bool CheckDead() 
 		{
 			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{
-				int GhostDust = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 158, 0f, 0f, 100, default(Color), 2f);
-				Main.dust[GhostDust].velocity *= 3f;
-				Main.dust[GhostDust].noGravity = true;
+				int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, 158, 0f, 0f, 100, default(Color), 2f);
+				Main.dust[DustGore].velocity *= 3f;
+				Main.dust[DustGore].noGravity = true;
+
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.dust[GhostDust].scale = 0.5f;
-					Main.dust[GhostDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+					Main.dust[DustGore].scale = 0.5f;
+					Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
 				}
 			}
 

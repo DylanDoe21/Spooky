@@ -22,14 +22,13 @@ namespace Spooky.Content.Buffs.Minion
 				player.GetModPlayer<SpookyPlayer>().SkullWisp = true;
 			}
 
-			if (!player.GetModPlayer<SpookyPlayer>().SkullWisp) 
+			if (player.GetModPlayer<SpookyPlayer>().SkullWisp) 
 			{
-				player.DelBuff(buffIndex);
-				buffIndex--;
+				player.buffTime[buffIndex] = 2;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 18000;
+				player.buffTime[buffIndex] = 0;
 			}
 		}
 	}

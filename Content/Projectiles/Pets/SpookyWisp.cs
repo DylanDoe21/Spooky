@@ -42,7 +42,7 @@ namespace Spooky.Content.Projectiles.Pets
 				Projectile.timeLeft = 2;
             }
 
-            Lighting.AddLight(Projectile.Center, 0.4f, 0.2f, 0.1f);
+            Lighting.AddLight(Projectile.Center, 0.8f, 0.5f, 0f);
 
 			Projectile.frameCounter++;
 			if (Projectile.frameCounter >= 6) 

@@ -13,12 +13,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
     {
         public override void SetStaticDefaults()
         {
+            Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileSolid[Type] = false;
-            Main.tileSolidTop[Type] = false;
-            Main.tileFrameImportant[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            TileObjectData.newTile.LavaDeath = false;
+            TileID.Sets.SwaysInWindBasic[Type] = true;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.addTile(Type);

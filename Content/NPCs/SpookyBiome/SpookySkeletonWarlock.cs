@@ -10,16 +10,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Armor;
+using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class SpookySkeletonWarlock : ModNPC  
     {
-        int AIState = 0;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Warlock");
@@ -29,12 +27,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void SetDefaults()
 		{
             NPC.lifeMax = 120;
-            NPC.damage = 30;
-            NPC.defense = 0;
+            NPC.damage = 22;
+            NPC.defense = 5;
             NPC.width = 25;
-			NPC.height = 58;
+			NPC.height = 60;
 			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 0, 50);
+            NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>().Type };
@@ -45,7 +43,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("The skeletal warlocks of the spooky biome possess great magic, allowing them to conjure spells at foes.")
+				new FlavorTextBestiaryInfoElement("The skeletal warlocks of the underground spooky forest possess great magic, allowing them to conjure magic attacks at foes.")
 			});
 		}
 
@@ -57,7 +55,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn underground
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>()))
+                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookySkeletonWarlock>()))
                 {
                     return 10f;
                 }
@@ -69,7 +67,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void FindFrame(int frameHeight)
         {
             //use regular walking anim when in walking state
-            if (AIState == 0)
+            if (NPC.localAI[0] <= 420)
             {
                 //running animation
                 NPC.frameCounter += 1;
@@ -91,7 +89,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
             }
             //use casting animation during casting ai
-            if (AIState == 1)
+            if (NPC.localAI[0] > 420)
             {
                 //casting animation
                 NPC.frameCounter += 1;
@@ -112,55 +110,40 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
 			NPC.spriteDirection = NPC.direction;
 
-            switch ((int)AIState)
+            int Damage = Main.expertMode ? 12 : 15;
+
+            NPC.localAI[0]++;
+
+            if (NPC.localAI[0] <= 420)
             {
-                //walk towards the player (fighter ai lol)
-                case 0:
+                NPC.aiStyle = 3;
+                AIType = NPCID.Crab;
+            }
+
+            if (NPC.localAI[0] > 420)
+            {
+                NPC.aiStyle = 0;
+
+                if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500 || NPC.localAI[0] == 520)
                 {
-                    NPC.localAI[0]++;
+                    SoundEngine.PlaySound(SoundID.Item8, NPC.position);
 
-                    NPC.aiStyle = 3;
-			        AIType = NPCID.Crab;
-
-                    if (NPC.localAI[0] >= 420)
+                    Vector2 ShootSpeed = Main.player[NPC.target].Center - NPC.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed.X *= 4.5f;
+                    ShootSpeed.Y *= 4.5f;
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        NPC.localAI[0] = 0;
-                        AIState++;
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
+                        ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), Damage, 1, NPC.target, 0, 0);
                     }
-
-                    break;
                 }
-                //casting ai state
-                case 1:
-                {
-                    NPC.localAI[0]++;
+            }
 
-                    NPC.aiStyle = 0;
-
-                    if (NPC.localAI[0] == 60 || NPC.localAI[0] == 80 || NPC.localAI[0] == 100)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item8, NPC.position);
-
-                        Vector2 ShootSpeed = Main.player[NPC.target].Center - NPC.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed.X *= 4.5f;
-                        ShootSpeed.Y *= 4.5f;
-                        
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), NPC.damage / 4, 1, NPC.target, 0, 0);
-                        }
-                    }
-
-                    if (NPC.localAI[0] >= 120)
-                    {
-                        NPC.localAI[0] = 0;
-                        AIState = 0;
-                    }
-
-                    break;
-                }
+            if (NPC.localAI[0] >= 560)
+            {
+                NPC.localAI[0] = 0;
             }
         }
 
@@ -172,10 +155,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool CheckDead() 
 		{
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore3").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore4").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore1").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore2").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore3").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore4").Type);
 
             return true;
 		}

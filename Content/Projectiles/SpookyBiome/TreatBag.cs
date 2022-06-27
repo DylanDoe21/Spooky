@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -44,83 +45,102 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            bool flag64 = Projectile.type == ModContent.ProjectileType<PumpkinHead>();
             Player player = Main.player[Projectile.owner];
-            SpookyPlayer modPlayer = player.GetModPlayer<SpookyPlayer>();
             
             if (player.dead)
             {
-                modPlayer.TreatBag = false;
+                player.GetModPlayer<SpookyPlayer>().TreatBag = false;
             }
-            if (modPlayer.TreatBag)
+            if (player.GetModPlayer<SpookyPlayer>().TreatBag)
             {
                 Projectile.timeLeft = 2;
                 player.AddBuff(ModContent.BuffType<TreatBagBuff>(), 1, false);
             }
-            if (!modPlayer.TreatBag)
+            if (!player.GetModPlayer<SpookyPlayer>().TreatBag)
             {
                 Projectile.Kill();
             }
 
-            //movement code, copied from moco pet lol
-            if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
+            Projectile.localAI[0]++;
+            
+            //movement
+            if (Projectile.localAI[0] < 1440)
             {
-                Projectile.ai[0] = 1f;
-            }
-
-            float speed = 8f;
-            if (Projectile.ai[0] == 1f)
-            {
-                speed = 15f;
-            }
-
-            Vector2 center = Projectile.Center;
-            Vector2 direction = player.Center - center;
-            Projectile.ai[1] = 3600f;
-            Projectile.netUpdate = true;
-            int num = 1;
-            for (int k = 0; k < Projectile.whoAmI; k++)
-            {
-                if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
+                if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
                 {
-                    num++;
+                    Projectile.ai[0] = 1f;
+                }
+
+                float speed = 8f;
+                if (Projectile.ai[0] == 1f)
+                {
+                    speed = 15f;
+                }
+
+                Vector2 center = Projectile.Center;
+                Vector2 direction = player.Center - center;
+                Projectile.ai[1] = 3600f;
+                Projectile.netUpdate = true;
+                int num = 1;
+                for (int k = 0; k < Projectile.whoAmI; k++)
+                {
+                    if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
+                    {
+                        num++;
+                    }
+                }
+                
+                direction.Y -= 70f;
+                float distanceTo = direction.Length();
+                if (distanceTo > 200f && speed < 9f)
+                {
+                    speed = 9f;
+                }
+                if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+                {
+                    Projectile.ai[0] = 0f;
+                    Projectile.netUpdate = true;
+                }
+                if (distanceTo > 2000f)
+                {
+                    Projectile.Center = player.Center;
+                }
+                if (distanceTo > 48f)
+                {
+                    direction.Normalize();
+                    direction *= speed;
+                    float temp = 40 / 2f;
+                    Projectile.velocity = (Projectile.velocity * temp + direction) / (temp + 1);
+                }
+                else
+                {
+                    Projectile.direction = Main.player[Projectile.owner].direction;
+                    Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
+                }
+
+                Projectile.rotation = Projectile.velocity.X * 0.05f;
+
+                if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
+                {
+                    Projectile.spriteDirection = -Projectile.direction;
+                    return;
                 }
             }
-            //direction.X -= (float)((10 + num * 40) * player.direction);
-            direction.Y -= 70f;
-            float distanceTo = direction.Length();
-            if (distanceTo > 200f && speed < 9f)
+
+            //slow down
+            if (Projectile.localAI[0] >= 1440)
             {
-                speed = 9f;
-            }
-            if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
-            {
-                Projectile.ai[0] = 0f;
-                Projectile.netUpdate = true;
-            }
-            if (distanceTo > 2000f)
-            {
-                Projectile.Center = player.Center;
-            }
-            if (distanceTo > 48f)
-            {
-                direction.Normalize();
-                direction *= speed;
-                float temp = 40 / 2f;
-                Projectile.velocity = (Projectile.velocity * temp + direction) / (temp + 1);
-            }
-            else
-            {
-                Projectile.direction = Main.player[Projectile.owner].direction;
-                Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
+                Projectile.velocity *= 0.98f;
             }
 
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
-
-            if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
+            //drop candy
+            if (Projectile.localAI[0] >= 1500)
             {
-                Projectile.spriteDirection = -Projectile.direction;
-                return;
+                int[] Candies = new int[] { ModContent.ItemType<Candy1>(), ModContent.ItemType<Candy2>(), ModContent.ItemType<Candy3>() };
+
+                Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, Projectile.Size, Main.rand.Next(Candies));
+                SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
+                Projectile.localAI[0] = 0;
             }
         }
     }

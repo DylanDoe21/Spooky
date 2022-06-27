@@ -31,9 +31,9 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.height = 44;         
 			Item.useTime = 38;         
 			Item.useAnimation = 38;         
-			Item.useStyle = 5;          
+			Item.useStyle = ItemUseStyleID.Shoot;          
 			Item.knockBack = 1;
-			Item.rare = 1;  
+			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(silver: 50);
 			Item.UseSound = SoundID.Item70;     
 			Item.buffType = ModContent.BuffType<SkullWispBuff>();

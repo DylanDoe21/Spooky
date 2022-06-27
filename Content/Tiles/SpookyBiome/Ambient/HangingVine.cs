@@ -20,9 +20,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileLighted[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
 			TileObjectData.newTile.Height = 3;
-			TileObjectData.newTile.Width = 1;
+			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
 			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
-			TileObjectData.newTile.AnchorBottom = default(AnchorData); TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
+			TileObjectData.newTile.AnchorBottom = default(AnchorData);
 			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(12, 49, 10));

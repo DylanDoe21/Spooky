@@ -49,7 +49,18 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;	
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] < 60)
+            {
+                Projectile.tileCollide = false;
+            }
+            else
+            {
+                Projectile.tileCollide = true;
+            }	
 
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
 

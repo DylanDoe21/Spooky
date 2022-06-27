@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Valley Moss");
+            DisplayName.SetDefault("Mossy Ash");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

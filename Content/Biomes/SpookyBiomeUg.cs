@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 
@@ -25,7 +24,7 @@ namespace Spooky.Content.Biomes
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
-        public override void SpecialVisuals(Player player)
+        public override void SpecialVisuals(Player player, bool isActive)
         {
             player.ManageSpecialBiomeVisuals("Spooky:HalloweenSky", player.InModBiome(ModContent.GetInstance<SpookyBiome>()), player.Center);
         }
@@ -35,7 +34,7 @@ namespace Spooky.Content.Biomes
         }
 
         //bestiary stuff
-        public override string BestiaryIcon => "Content/Biomes/SpookyBiomeUgIcon";
+        public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeUgIcon";
         public override string BackgroundPath => base.BackgroundPath;
         public override Color? BackgroundColor => Color.Orange;
 

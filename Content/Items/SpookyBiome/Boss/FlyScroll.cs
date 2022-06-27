@@ -20,20 +20,20 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 18;
+			Item.damage = 12;
+			Item.mana = 12;
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
 			Item.autoReuse = true;
-			Item.mana = 12;
 			Item.width = 36;
             Item.height = 36;
             Item.useTime = 35;
             Item.useAnimation = 35;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.knockBack = 2f;
-            Item.rare = 1;
-           	Item.value = Item.buyPrice(silver: 50);
-            Item.UseSound = SoundID.Item77;
+            Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 1);
+			Item.UseSound = SoundID.Item77;
             Item.shoot = ModContent.ProjectileType<FlyMinion>();
             Item.shootSpeed = 10f;
 		}

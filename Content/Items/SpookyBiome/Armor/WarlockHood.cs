@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			Item.height = 18;
 			Item.vanity = true;
 			Item.value = Item.buyPrice(silver: 25);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 		}
 	}
 }

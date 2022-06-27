@@ -22,11 +22,11 @@ namespace Spooky.Content.Items.BossSummon
         {
             Item.width = 24;
             Item.height = 32;
+            Item.consumable = true;
             Item.useTime = 45;
             Item.useAnimation = 45;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.maxStack = 20;
-            Item.consumable = true;
         }
 		
         public override bool CanUseItem(Player player)

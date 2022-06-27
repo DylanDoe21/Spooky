@@ -12,9 +12,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toxic Spit");
+            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            Main.projFrames[Projectile.type] = 4;
         }
 		
         public override void SetDefaults()
@@ -80,16 +80,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 15; i++)
+			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[num].noGravity = true;
-				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0f, -2f, 0, default(Color), 1.5f);
+				Main.dust[DustGore].noGravity = true;
+				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
                 
-				if (Main.dust[num].position != Projectile.Center)
+				if (Main.dust[DustGore].position != Projectile.Center)
                 {
-				    Main.dust[num].velocity = Projectile.DirectionTo(Main.dust[num].position) * 2f;
+				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
                 }
 			}
 		}

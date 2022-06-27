@@ -22,9 +22,9 @@ namespace Spooky.Content.Items.BossSummon
         {
             Item.width = 40;
             Item.height = 26;
-            Item.useStyle = 4;
-            Item.maxStack = 20;
             Item.consumable = true;
+            Item.rare = ItemRarityID.Green;
+            Item.maxStack = 20;
         }
 		
         public override bool CanUseItem(Player player)
@@ -39,7 +39,7 @@ namespace Spooky.Content.Items.BossSummon
             .AddIngredient(ModContent.ItemType<Flask2>())
             .AddIngredient(ModContent.ItemType<Flask3>())
             .AddIngredient(ModContent.ItemType<Flask4>())
-            .AddIngredient(ModContent.ItemType<MonsterChunk>(), 20)
+            .AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
             .AddIngredient(ItemID.Bone, 12)
             .AddRecipeGroup("SpookyMod:AnyMechBossSoul", 5)
             .AddTile(TileID.DemonAltar)

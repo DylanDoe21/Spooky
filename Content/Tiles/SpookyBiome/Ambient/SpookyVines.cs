@@ -14,10 +14,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		{
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
-			Main.tileLavaDeath[Type] = true;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			TileObjectData.newTile.DrawYOffset = -2;
+			//TileObjectData.newTile.DrawYOffset = -2;
 			AddMapEntry(new Color(138, 61, 8));
 			DustType = ModContent.DustType<HalloweenGrassDust>();
 			HitSound = SoundID.Grass;

@@ -8,6 +8,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\BossChecklist\**" />
+    <Compile Remove="Content\UI\**" />
+    <EmbeddedResource Remove="Content\BossChecklist\**" />
+    <EmbeddedResource Remove="Content\UI\**" />
+    <None Remove="Content\BossChecklist\**" />
+    <None Remove="Content\UI\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
@@ -17,9 +25,7 @@
     <Folder Include="Content\Backgrounds\" />
     <Folder Include="Content\Dusts\" />
     <Folder Include="Content\Buffs\" />
-    <Folder Include="Content\BossChecklist\" />
     <Folder Include="Content\Sounds\" />
-    <Folder Include="Content\UI\" />
     <Folder Include="Content\Tiles\" />
     <Folder Include="Content\Projectiles\" />
     <Folder Include="Content\NPCs\" />

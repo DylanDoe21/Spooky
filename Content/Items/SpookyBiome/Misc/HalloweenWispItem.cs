@@ -21,14 +21,9 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 
         public override void SetDefaults()
         {
-            Item.width = 18;
-            Item.height = 24;
-            Item.useTime = 7;
-			Item.useAnimation = 15; 
-            Item.value = Item.buyPrice(silver: 1);
+            Item.CloneDefaults(ItemID.Bunny);
 			Item.makeNPC = (short)ModContent.NPCType<HalloweenWisp>();
-            Item.rare = 1; 
-            Item.maxStack = 999;
+            Item.rare = ItemRarityID.Blue;
         }
     }
 }

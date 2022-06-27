@@ -1,8 +1,6 @@
 using Terraria;
-using Terraria.Graphics.Capture;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System;
 
 using Spooky.Core;
 
@@ -19,7 +17,7 @@ namespace Spooky.Content.Biomes
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
-        public override void SpecialVisuals(Player player)
+        public override void SpecialVisuals(Player player, bool isActive)
         {
             player.ManageSpecialBiomeVisuals("Spooky:SpookyHellTint", player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()), player.Center);
         }
@@ -28,10 +26,10 @@ namespace Spooky.Content.Biomes
             player.ManageSpecialBiomeVisuals("Spooky:SpookyHellTint", false, player.Center);
         }
 
-        //bestiary stuff, will change this to my own stuff when i finish the actual port
-        public override string BestiaryIcon => base.BestiaryIcon;
+        //bestiary stuff
+        public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyHellBiomeIcon";
         public override string BackgroundPath => base.BackgroundPath;
-        public override Color? BackgroundColor => base.BackgroundColor;
+        public override Color? BackgroundColor => Color.Orange;
 
         public override bool IsBiomeActive(Player player)
         {

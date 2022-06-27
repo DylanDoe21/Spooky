@@ -51,10 +51,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] == 40)
-            {
-                Projectile.damage = Projectile.damage * 2;
-            }
+            
             if (Projectile.ai[0] >= 40)
             {
                 Projectile.velocity.X = 0;
@@ -68,6 +65,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Main.dust[newDust].scale = 1f;
 			Main.dust[newDust].fadeIn = 0.5f;
 			Main.dust[newDust].noGravity = true;
+		}
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
+        {
+            if (Projectile.ai[0] >= 40)
+            {
+			    Projectile.damage = (int)(damage * 2f);
+            }
 		}
 
 		public override void Kill(int timeLeft)

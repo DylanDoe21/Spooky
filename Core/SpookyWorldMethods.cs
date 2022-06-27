@@ -1,22 +1,13 @@
 ﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.WorldBuilding;
-using Terraria.DataStructures;
-using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System;
-using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-
-using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Core
 {
 	public class SpookyWorldMethods
 	{
-		//clear/make a circle
+		//clear or make a circle
 		public static void Circle(int i, int j, int size, int tileType, bool killTile = true)
 		{
 			int BaseRadius = size;
@@ -41,160 +32,6 @@ namespace Spooky.Core
 
 				radius = BaseRadius - WorldGen.genRand.Next(-1, 2);
 			}
-		}
-
-		/*
-		//idk if i even still need these
-
-		//small tunnel, specifically made to have ore in some tunnels for the spooky hell biome
-		public static void SmallTunnel(int x, int y, int tunnellength, int oreTile)
-		{
-			int PositionX = x + 30;
-			int PositionY = y;
-
-			bool Left = false;
-
-			if (Main.rand.Next(2) == 0)
-			{
-				Left = true;
-			}
-
-			//dig tunnels
-			if (Left)
-			{
-				//dig left tunnel
-				for (int TunnelX = PositionX; TunnelX > PositionX - tunnellength; TunnelX--)
-				{
-					WorldGen.digTunnel(TunnelX, PositionY, 0, 0, 1, 3, false);
-				}
-			}
-			else
-			{
-				//dig right tunnel
-				for (int TunnelX = PositionX; TunnelX < PositionX + tunnellength; TunnelX++)
-				{
-					WorldGen.digTunnel(TunnelX, PositionY, 0, 0, 1, 3, false);
-				}
-			}
-
-			//dig a special glow ore room at the end of some tunnels
-			if (Main.rand.Next(5) == 0)
-			{
-				int SmallPitX = Main.rand.Next(PositionX, PositionX + tunnellength);
-				int SmallPitX2 = Main.rand.Next(PositionX - tunnellength, PositionX);
-
-				if (Left)
-				{
-					WorldGen.digTunnel(SmallPitX2, PositionY, 0, 0, 8, 8, false);
-					WorldGen.TileRunner(SmallPitX2, PositionY, 35, 1, oreTile, false, 0f, 0f, false, true);
-				}
-				else
-				{
-					WorldGen.digTunnel(SmallPitX, PositionY, 0, 0, 8, 8, false);
-					WorldGen.TileRunner(SmallPitX, PositionY, 35, 1, oreTile, false, 0f, 0f, false, true);
-				}
-			}
-		}
-
-		//dig 2 large tunnels next to each other, then dig smaller holes within those tunnels
-		public static void ConnectingTunnel(int x, int y, int tunnellength)
-		{
-			int PositionX = x + 30;
-			int PositionY = y + 40;
-
-			//dig left tunnel
-			for (int TunnelX = PositionX; TunnelX > PositionX - tunnellength; TunnelX--)
-			{
-				WorldGen.digTunnel(TunnelX - 50, PositionY, 0, 0, 1, 6, false);
-			}
-
-			//dig right tunnel
-			for (int TunnelX = PositionX; TunnelX < PositionX + tunnellength; TunnelX++)
-			{
-				WorldGen.digTunnel(TunnelX + 50, PositionY, 0, 0, 1, 6, false);
-			}
-
-			//dig smaller pits within the main tunnel
-			for (int SmallPits = 0; SmallPits < 5; SmallPits++)
-			{
-				int SmallPitX = Main.rand.Next(PositionX, PositionX + tunnellength);
-				int SmallPitX2 = Main.rand.Next(PositionX - tunnellength, PositionX);
-
-				int SmallPitDepth = Main.rand.Next(20, 40);
-
-				//dig smaller pits in the right tunnel
-				for (int SmallPitY = PositionY; SmallPitY < PositionY + SmallPitDepth; SmallPitY++)
-				{
-					WorldGen.digTunnel(SmallPitX, SmallPitY, 0, 0, 1, 4, false);
-				}
-
-				//dig smaller pits in the left tunnel
-				for (int SmallPitY2 = PositionY; SmallPitY2 < PositionY + SmallPitDepth; SmallPitY2++)
-				{
-					WorldGen.digTunnel(SmallPitX2, SmallPitY2, 0, 0, 1, 4, false);
-				}
-			}
-		}
-		*/
-
-		//large pit for big craters, specifically made to have wall blending for the spooky hell biomes underground and surface
-		public static void LargePit(int x, int y, int height, int tileType, int tileType2, int wallType)
-		{
-			int digDir = 0;
-			int[] xAdds = new int[height];
-			int x3 = x;
-			int x2 = x;
-
-			for (int i = 0; i < height; i++)
-			{
-				if (WorldGen.genRand.NextBool())
-				{
-					xAdds[i] = digDir;
-					x += xAdds[i];
-				}
-
-				for (int j = 0; j < 20; j++)
-				{
-					WorldGen.PlaceTile(x - 10 + j, y + i, tileType2, true, true);
-					if (i < height / 2 + 15)
-					{
-						Framing.GetTileSafely(x - 10 + j, y + i).WallType = (ushort)wallType;
-					}
-
-					if (i >= height / 2 + 15 && i < height / 2 + 20)
-					{
-						if (Main.rand.Next(3) == 0)
-						{
-							Framing.GetTileSafely(x - 10 + j, y + i).WallType = (ushort)wallType;
-						}
-					}
-				}
-
-				if (i < height / 2)
-				{
-					WorldGen.TileRunner(x, y + i, WorldGen.genRand.Next(20, 28), 5, tileType2, true);
-				}
-			}
-
-			for (int i = 0; i < 10; i++)
-			{
-				WorldGen.digTunnel(x2, y - i, digDir, 5f, 2, 6, false);
-			}
-
-			for (int i = 0; i < height; i++)
-			{
-				x2 += xAdds[i];
-				WorldGen.digTunnel(x2, y + i, digDir, 1f, 2, 6, false);
-			}
-
-			WorldGen.TileRunner(x, y + height + 4, WorldGen.genRand.Next(18, 25), 6, tileType, false);
-			WorldGen.digTunnel(x - digDir, y + height - 6, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x - digDir, y + height - 5, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x - digDir, y + height - 4, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x, y + height - 3, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x, y + height - 2, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x, y + height - 1, digDir, 1f, 5, 6, false);
-			WorldGen.digTunnel(x, y + height, digDir, 1f, 5, 6, false);
 		}
 
 		//this is basically a heavily modified version of vanillas tile runner specifically for the spooky forest biome

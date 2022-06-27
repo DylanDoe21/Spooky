@@ -32,11 +32,11 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
             Item.height = 32;
             Item.useTime = 32;
             Item.useAnimation = 32;
-            Item.useStyle = 5;
-            Item.knockBack = 1;
-            Item.rare = 1;
-           	Item.value = Item.buyPrice(silver: 50);
-            Item.UseSound = SoundID.Item69;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 1;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 1);
+			Item.UseSound = SoundID.Item69;
             Item.shoot = ModContent.ProjectileType<Blank>();
             Item.shootSpeed = 4.5f;
 		}

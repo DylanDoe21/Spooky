@@ -5,6 +5,8 @@ using Terraria.GameContent;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Tiles.SpookyHell;
+
 namespace Spooky.Content.Tiles.SpookyHell.Tree
 {
 	public class EyeTree : ModTree
@@ -22,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		//the tiles this tree can grow on
 		public override void SetStaticDefaults() 
 		{
-			GrowsOnTileId = new int[1] { ModContent.TileType<SpookyMush>() };
+			GrowsOnTileId = new int[2] { ModContent.TileType<SpookyMush>(), ModContent.TileType<EyeBlock>() };
 		}
 
 		//the sapling that grows into this tree
@@ -35,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		//drop wood
 		public override int DropWood()
 		{
-			return -1; //ItemID.DynastyWood;
+			return ModContent.ItemType<EyeBlockItem>();
 		}
 
 		//get the tree trunk texture
@@ -57,16 +59,21 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		}
 
 		//special settings for the tree tops
-		public override void SetTreeFoliageSettings(Tile tile, int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight) 
-		{
+		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
+        {
 			topTextureFrameWidth = 248;
-            topTextureFrameHeight = 108;
-            floorY = 2;
+			topTextureFrameHeight = 108;
+			floorY = 2;
 		}
 
-        public override int GrowthFXGore()
+        public override int TreeLeaf()
         {
 			return -1;
-        }
-    }
+		}
+
+		public override bool Shake(int x, int y, ref bool createLeaves)
+		{
+			return false;
+		}
+	}
 }

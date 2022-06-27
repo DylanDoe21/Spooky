@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
@@ -18,10 +19,10 @@ namespace Spooky.Content.Items.SpookyBiome
 
         public override void SetDefaults()
         {
-            Item.accessory = true;
             Item.width = 24;
             Item.height = 36;
-            Item.rare = 1;  
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
         }
        

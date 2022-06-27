@@ -9,10 +9,12 @@ namespace Spooky.Content.Tiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
+			Main.tileMerge[Type][ModContent.TileType<SpookyMush>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<EyeBlock>()] = true;
             Main.tileMerge[Type][TileID.Ash] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(70, 70, 84));
+            AddMapEntry(new Color(189, 219, 191));
             ItemDrop = ModContent.ItemType<CarapaceItem>();
 			DustType = -1;
             HitSound = SoundID.Dig;

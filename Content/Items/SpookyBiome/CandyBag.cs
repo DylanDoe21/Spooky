@@ -14,17 +14,17 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             DisplayName.SetDefault("Bag O' Treats");
             Tooltip.SetDefault("Summons a magical bag of candy to float above you"
-            + "\nThe candy bag will randomly drop pieces of candy"
+            + "\nThe candy bag will drop pieces of candy every 25 seconds"
             + "\nPicking up candies will provide different summoner benefits");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.accessory = true;
             Item.width = 30;
             Item.height = 28;
-            Item.rare = 1;  
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Blue;  
             Item.value = Item.buyPrice(gold: 1);
         }
        

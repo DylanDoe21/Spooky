@@ -21,9 +21,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             Projectile.height = 2;
             Projectile.tileCollide = false;
             Projectile.aiStyle = -1;
-            Projectile.penetrate = -1;
+            Projectile.timeLeft = 3600;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 3600;  
         }
 
         public override bool CanHitPlayer(Player target)

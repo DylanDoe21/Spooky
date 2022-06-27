@@ -20,11 +20,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 2;
-			Projectile.height = 2;
 			DrawOffsetX = 0;
 			DrawOriginOffsetY = -16;
 			DrawOriginOffsetX = -80;
+			Projectile.width = 2;
+			Projectile.height = 2;
 			Projectile.hostile = true;
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
@@ -37,15 +37,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			return Projectile.ai[1] > 0 ? null : false;
 		}
 
-		// Change the way of collision check of the projectile
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Vector2 unit = new Vector2(1, 0).RotatedBy(Projectile.rotation);
 			float Distance = Projectile.ai[1];
 
 			float point = 0f;
-			// Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
-			// It will look for collisions on the given line using AABB
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + unit * Distance, 5, ref point);
 		}
 

@@ -5,8 +5,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 using Spooky.Content.NPCs.Boss.Pumpkin.Projectiles;
 
@@ -21,11 +19,11 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
         public static int secondStageHeadSlot = -1;
 
-        public static readonly SoundStyle FlyBuzz = new SoundStyle("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
+        public static readonly SoundStyle FlyBuzz = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rot-Gourd");
+            DisplayName.SetDefault("Rot Gourd");
             Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -46,8 +44,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             NPC.boss = true;
             NPC.HitSound = SoundID.NPCHit7;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PumpkinBoss");
             NPC.aiStyle = -1;
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PumpkinBoss");
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -63,7 +61,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 			string texture = BossHeadTexture + "_P2";
 			secondStageHeadSlot = Mod.AddBossHeadTexture(texture, -1);
 		}
-
 		public override void BossHeadSlot(ref int index) 
         {
 			int slot = secondStageHeadSlot;
@@ -79,12 +76,13 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 			if (NPC.velocity != Vector2.Zero) 
 			{
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-				Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, (NPC.height * 0.5f));
-				for (int k = 0; k < NPC.oldPos.Length; k++)
+				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+
+				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
 				{
 					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-					Vector2 drawPos = NPC.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-					Color color = NPC.GetAlpha(Color.Brown) * (float)(((float)(NPC.oldPos.Length - k) / (float)NPC.oldPos.Length) / 2);
+					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
+					Color color = NPC.GetAlpha(Color.Brown) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
 					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 				}
 			}
@@ -151,15 +149,14 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
         }
 
         public override void AI()
-        {
+        {   
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 18;
+
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.04f;
-
-            int Damage = Main.expertMode ? 12 : 20;
-
-            NPC.TargetClosest(true);
-            NPC.netUpdate = true;
-            Player player = Main.player[NPC.target];
 
             //fade away and despawn when all players die or if you leave the biome
             if (Main.player[NPC.target].dead || !player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()))
@@ -184,9 +181,13 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    Vector2 vector2_2 = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, vector2_2.X, vector2_2.Y, 
-                    ModContent.ProjectileType<Fly>(), 0, 0.0f, Main.myPlayer, 0.0f, (float)NPC.whoAmI);
+                    Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, vector.X, vector.Y, 
+                        ModContent.ProjectileType<Fly>(), 0, 0.0f, Main.myPlayer, 0.0f, (float)NPC.whoAmI);
+                    }
                 }
 
                 NPC.netUpdate = true;
@@ -243,7 +244,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         
                         if (NPC.localAI[1] < 3)
                         {
-                            Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
+                            Vector2 JumpTo = new(player.Center.X, player.Center.Y - 400);
                             Vector2 velocity = JumpTo - NPC.Center;
 
                             //actual jumping
@@ -262,23 +263,31 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 NPC.noTileCollide = true;
                             }
 
-                            //charge down after jumping while in the air
+                            //charge down
                             if (NPC.localAI[0] == 115)
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
+                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                                NPC.noTileCollide = false;
                                 NPC.noGravity = true;
 
-                                int FallSpeed = Phase2 ? 20 : 15;
+                                int Speed = Phase2 ? 20 : 15;
 
                                 Vector2 ChargeDirection = NPC.velocity;
                                 ChargeDirection.Normalize();
                                         
                                 ChargeDirection.X *= 0;
-                                ChargeDirection.Y = FallSpeed;  
+                                ChargeDirection.Y = Speed;  
                                 NPC.velocity.X = ChargeDirection.X;
                                 NPC.velocity.Y = ChargeDirection.Y;
+                            }
+
+                            //set tile collide to true after jumping so you cant avoid them
+                            if (NPC.localAI[0] > 115)
+                            {
+                                if (NPC.position.Y >= player.Center.Y - 150)
+                                {
+                                    NPC.noTileCollide = false;
+                                }
                             }
 
                             //slam the ground
@@ -288,44 +297,38 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                                 NPC.velocity.X *= 0;
 
-                                /*
-                                foreach (Player Player in Main.player.Where(Player => Vector2.Distance(Player.Center, NPC.Center) <= 1000))
-                                {
-                                    Player.GetModPlayer<Core.SpookyPlayer>().Shake = (350 - (int)Vector2.Distance(Player.Center, NPC.Center)) / 12;
-                                }
-                                */
-
+                                //push player in the air if they are on the ground
                                 if (player.velocity.Y == 0)
                                 {
                                     player.velocity.Y -= 8f;
                                 }
 
-                                SoundEngine.PlaySound(SoundID.Item14, NPC.position);
+                                SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                                 //make cool dust effect when slamming the ground
                                 for (int i = 0; i < 65; i++)
                                 {                                                                                  
-                                    int num = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
-                                    Main.dust[num].noGravity = true;
-                                    Main.dust[num].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-                                    Main.dust[num].position.Y += 104;
-                                    Main.dust[num].scale = 3f;
+                                    int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+                                    Main.dust[slamDust].noGravity = true;
+                                    Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+                                    Main.dust[slamDust].position.Y += 104;
+                                    Main.dust[slamDust].scale = 3f;
                                     
-                                    if (Main.dust[num].position != NPC.Center)
+                                    if (Main.dust[slamDust].position != NPC.Center)
                                     {
-                                        Main.dust[num].velocity = NPC.DirectionTo(Main.dust[num].position) * 2f;
+                                        Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
                                     }
                                 }
                                 
                                 //in phase 2 shoot random spreads of bolts upward
                                 if (Phase2)
                                 {
-                                    SoundEngine.PlaySound(SoundID.Item70, NPC.position);
+                                    SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
 
                                     int NumProjectiles = Main.rand.Next(10, 15);
                                     for (int i = 0; i < NumProjectiles; ++i)
                                     {
-                                        float Spread = (float)Main.rand.Next(-1500, 1500) * 0.01f;
+                                        float Spread = Main.rand.Next(-1500, 1500) * 0.01f;
 
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
@@ -386,21 +389,22 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         //attempt to crush the player
                         if (NPC.localAI[0] == 70)
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
-                            
-                            int FallSpeed = Phase2 ? 30 : 25;
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
                             
                             NPC.noGravity = true;
 
-                            Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                            int Speed = Phase2 ? 30 : 25;
+
+                            Vector2 ChargeDirection = NPC.velocity;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 0;
-                            ChargeDirection.Y = ChargeDirection.Y * FallSpeed;  
+                            ChargeDirection.X *= 0;
+                            ChargeDirection.Y = Speed;  
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
+                        //set tile collide to true after jumping so you cant avoid them
                         if (NPC.localAI[0] > 70)
                         {
                             if (NPC.position.Y >= player.Center.Y - 150)
@@ -416,13 +420,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                             NPC.velocity.X *= 0;
                             
-                            /*
-                            foreach (Player Player in Main.player.Where(Player => Vector2.Distance(Player.Center, NPC.Center) <= 1000))
-                            {
-                                Player.GetModPlayer<Core.SpookyPlayer>().Shake = (450 - (int)Vector2.Distance(Player.Center, NPC.Center)) / 12;
-                            }
-                            */
-                            
+                            //push player in the air if they are on the ground
                             if (player.velocity.Y == 0)
                             {
                                 player.velocity.Y -= 10f;
@@ -431,30 +429,30 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             //make cool dust effect when slamming the ground
                             for (int i = 0; i < 65; i++)
                             {                                                                                  
-                                int num = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
-                                Main.dust[num].noGravity = true;
-                                Main.dust[num].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-                                Main.dust[num].position.Y += 104;
-                                Main.dust[num].scale = 3f;
+                                int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+                                Main.dust[slamDust].noGravity = true;
+                                Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+                                Main.dust[slamDust].position.Y += 104;
+                                Main.dust[slamDust].scale = 3f;
                                 
-                                if (Main.dust[num].position != NPC.Center)
+                                if (Main.dust[slamDust].position != NPC.Center)
                                 {
-                                    Main.dust[num].velocity = NPC.DirectionTo(Main.dust[num].position) * 2f;
+                                    Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
                                 }
                             }
 
-                            SoundEngine.PlaySound(SoundID.Item14, NPC.position);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                             //in phase 2, shoot root spikes from the ground
                             if (Phase2)
                             {
-                                SoundEngine.PlaySound(SoundID.Item69, NPC.position);
+                                SoundEngine.PlaySound(SoundID.Item69, NPC.Center);
 
                                 for (int j = 1; j <= 5; j++)
                                 {
                                     for (int i = -1; i <= 1; i += 2) 
                                     {
-                                        Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y + NPC.height / 4);
+                                        Vector2 center = new(NPC.Center.X, NPC.Center.Y + NPC.height / 4);
                                         center.X += j * 50 * i; //50 is the distance between each one
                                         int numtries = 0;
                                         int x = (int)(center.X / 16);
@@ -480,7 +478,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y, 0, 0, 
-                                            ModContent.ProjectileType<RootTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                            ModContent.ProjectileType<RootTelegraph>(), Damage, 0, Main.myPlayer, 0, 0);
                                         }
                                     }
                                 }
@@ -493,7 +491,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         if (NPC.localAI[0] >= 180 && NPC.localAI[2] > 0)
                         {
                             NPC.localAI[0] = 0;
-                            NPC.localAI[2] = 0; //reset for the projectile smash in phase 2
+                            NPC.localAI[2] = 0;
                             NPC.ai[0]++;
                         }
 
@@ -511,17 +509,17 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                             if (Main.rand.Next(7) == 0)
                             {
-                                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
+                                SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                    Main.rand.Next(-1, 1), Main.rand.Next(-4, -2), ModContent.ProjectileType<PumpkinSeed>(), Damage, 1, Main.myPlayer, 0, 0);
+                                    Main.rand.Next(-1, 1), Main.rand.Next(-4, -2), ModContent.ProjectileType<PumpkinSeed>(), Damage, 3, Main.myPlayer, 0, 0);
                                 }
                             }
                         }
 
-                        if (NPC.localAI[0] > 200)
+                        if (NPC.localAI[0] >= 200)
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
@@ -556,43 +554,43 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                         if (NPC.localAI[0] == 80)
                         {
-                            SoundEngine.PlaySound(FlyBuzz, NPC.position);
+                            SoundEngine.PlaySound(FlyBuzz, NPC.Center);
                         }
 
                         if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 130)
                         {
-                            float rotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);
-
                             if (Main.rand.Next(5) == 0)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), Main.rand.NextFloat(-8f, 8f), 
-                                    Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<FlyProj>(), Damage, 1, Main.myPlayer, 0, 0);	
+                                    Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<FlyProj>(), Damage, 2, Main.myPlayer, 0, 0);	
                                 }
                             }
                         }
 
                         if (NPC.localAI[0] > 130)
                         {
-                            NPC.velocity.X *= 0.92f;
                             NPC.noTileCollide = false;
+                            NPC.velocity.X *= 0.92f;
                         }
 
                         if (NPC.localAI[0] >= 320)
                         {
+                            //reset back when in phase 1
                             if (!Phase2)
                             {
                                 NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0; //reset for the jumping attack loop
-                                NPC.ai[0] = 0; //reset back to 0 when in phase 1 so it doesnt use any phase 2 attacks yet
+                                NPC.localAI[1] = 0;
+                                NPC.ai[0] = 0;
                             }
 
+                            //go on to phase 2 attacks
                             if (Phase2)
                             {
                                 NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0; //reset for the jumping attack loop
-                                NPC.ai[0]++; //go to new attacks in phase 2
+                                NPC.localAI[1] = 0;
+                                NPC.ai[0]++;
                             }
                         }
 
@@ -622,22 +620,22 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         //Charge at the player
                         if (NPC.localAI[0] == 60)
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                            Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 22;
-                            ChargeDirection.Y = ChargeDirection.Y * 1;  
+                            ChargeDirection.X *= 22;
+                            ChargeDirection.Y *= 0;  
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
                         if (NPC.localAI[0] >= 90)
                         {
-                            NPC.noTileCollide = false;
                             NPC.noGravity = false;
-                            NPC.velocity.X *= 0.95f;                        
+                            NPC.noTileCollide = false;
+                            NPC.velocity.X *= 0.92f;                       
                         }
 
                         if (NPC.localAI[0] >= 160)
@@ -676,19 +674,17 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         //shoot spreads of root spikes at the player
                         if (NPC.localAI[0] == 60 || NPC.localAI[0] == 80 || NPC.localAI[0] == 100) 
                         {
-                            SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-
-                            float Spread = (float)Main.rand.Next(-1000, 1000) * 0.01f;
+                            SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                             
-                            for (int j = 0; j < 3; j++)
+                            for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                             {
-                                Vector2 ShootSpeed = Main.player[NPC.target].Center - NPC.Center;
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
                                 ShootSpeed.X *= 6f;
                                 ShootSpeed.Y *= 6f;
                                 
-                                float SpreadX = (float)Main.rand.Next(-200, 200) * 0.01f;
-                                float SpreadY = (float)Main.rand.Next(-200, 200) * 0.01f;
+                                float SpreadX = Main.rand.Next(-200, 200) * 0.01f;
+                                float SpreadY = Main.rand.Next(-200, 200) * 0.01f;
                                 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {

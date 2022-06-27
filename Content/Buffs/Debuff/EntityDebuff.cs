@@ -24,6 +24,7 @@ namespace Spooky.Content.Buffs.Debuff
 		}  
     }
 
+	//disable spawns with this debuff
 	public class EntityDebuffSpawnRate : GlobalNPC
     {
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)

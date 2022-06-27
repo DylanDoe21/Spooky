@@ -22,17 +22,18 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 
 		public override void SetDefaults()
 		{
-			Item.damage = 15;           
+			Item.damage = 15;  
+			Item.mana = 20;         
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;       
 			Item.width = 38;           
 			Item.height = 44;         
 			Item.useTime = 38;         
-			Item.useAnimation = 38;         
-			Item.useStyle = 5;          
-			Item.knockBack = 6;
-			Item.rare = 1;  
-			Item.value = Item.buyPrice(silver: 50);
+			Item.useAnimation = 38;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item70;     
 			Item.shoot = ModContent.ProjectileType<PumpkinStaffShard>();
 			Item.shootSpeed = 12f;

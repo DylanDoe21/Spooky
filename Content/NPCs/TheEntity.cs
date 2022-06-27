@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs
             if (NPC.localAI[2] % 5 == 0)
             {
                 const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+";
-                string nameString = new string(Enumerable.Repeat(chars, 12).Select(s => s[Main.rand.Next(s.Length)]).ToArray());
+                string nameString = new(Enumerable.Repeat(chars, 12).Select(s => s[Main.rand.Next(s.Length)]).ToArray());
                 NPC.GivenName = nameString;
             }
 
@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs
 
                     for (int i = 0; i < 20; i++)
                     {
-                        Vector2 offset = new Vector2();
+                        Vector2 offset = new();
                         double angle = Main.rand.NextDouble() * 2d * Math.PI;
                         offset.X += (float)(Math.Sin(angle) * NPC.localAI[0]);
                         offset.Y += (float)(Math.Cos(angle) * NPC.localAI[0]);
@@ -137,8 +137,8 @@ namespace Spooky.Content.NPCs
                         Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
                         ChargeDirection.Normalize();
 
-                        ChargeDirection.X = ChargeDirection.X * 100;
-                        ChargeDirection.Y = ChargeDirection.Y * 100;
+                        ChargeDirection.X *= 100;
+                        ChargeDirection.Y *= 100;
                         NPC.velocity.X = ChargeDirection.X;
                         NPC.velocity.Y = ChargeDirection.Y;
                     }

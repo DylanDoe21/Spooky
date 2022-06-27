@@ -19,12 +19,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 45;
-            NPC.damage = 30;
-            NPC.defense = 0;
-            NPC.width = 36;
+            NPC.lifeMax = 40;
+            NPC.damage = 22;
+            NPC.width = 25;
 			NPC.height = 56;
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0.75f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
@@ -89,10 +88,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool CheckDead() 
 		{
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore3").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore4").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore2").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore3").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore4").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore5").Type);
 
             return true;
 		}

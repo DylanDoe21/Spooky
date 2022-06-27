@@ -28,10 +28,10 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.width = 70;           
 			Item.height = 28;         
 			Item.useTime = 4;         
-			Item.useAnimation = 8;         
-			Item.useStyle = 5;          
+			Item.useAnimation = 8;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.rare = 5;  
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item34;
 			Item.shoot = ModContent.ProjectileType<Blank>();
@@ -45,7 +45,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 70f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;

@@ -1,8 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Buffs.Debuff
 {

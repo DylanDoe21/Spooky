@@ -28,11 +28,11 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
             Item.width = 28;
             Item.height = 26;
             Item.useTime = 45;       
-            Item.useAnimation = 45;  
-            Item.useStyle = 1;      
-            Item.knockBack = 6;
-            Item.rare = 1;
-            Item.value = Item.buyPrice(silver: 25);   
+            Item.useAnimation = 45;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 3;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<PumpkinShurikenProj>();  
             Item.shootSpeed = 5f;     

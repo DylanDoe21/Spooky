@@ -1,5 +1,16 @@
--finish eye valley biome and gen
--finish the night time enemies for spooky forest
--rework enemies in the eye valley
--re-add old spooky pumpkin drops as items as little bone items he sells
--make little bone just a normal npc vendor but he sells new stuff as you progress
+-make pumpkin sentry enemy
+-resprite rot gourds armor set    
+
+-old wood workbenches, table, and chair                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+-moco resprite and rework (can be done later)
+                                               
+-make each living hell chest have items in them
+-make eye tendril summon for the living hell chests
+-make orroboro charge at the player right after bursting out of the egg
+-make orroboro spike ball projectiles spit balls that linger on the ground instead
+-resprite orroboro thorn pillars, make the thorn telegraph match the new purple palette
+-redo orroboro icons
+-redo creepy flesh sprite
+
+-make bosses immune to debuffs
+-go through files and get rid of unnecessary using statements and warnings

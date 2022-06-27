@@ -15,12 +15,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
     {
         public override void SetStaticDefaults()
         {
+            Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileSolid[Type] = false;
-            Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);   
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.addTile(Type);
             TileObjectData.newTile.DrawYOffset = 2;

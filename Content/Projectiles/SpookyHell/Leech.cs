@@ -49,7 +49,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - k) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Color.Lerp(Color.Orange, Color.Orange, k / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Color color = Projectile.GetAlpha(Color.Red) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
@@ -75,8 +75,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			if (Projectile.ai[0] == 0) 
             {
-				player.statLife -= 15;
-				player.HealEffect(-15);
+				player.statLife -= 10;
+				player.HealEffect(-10);
 
                 Projectile.ai[0] = 1;
 			}
@@ -92,8 +92,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
                 {
-                    NPC n = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = Projectile.DirectionTo(n.Center) * 25;
+                    NPC target = Main.npc[foundTarget];
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 15);
                 }
                 else
@@ -174,10 +174,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(Projectile) && (!n.wet || homingCanAimAtWetEnemies))
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile) && (!target.wet || homingCanAimAtWetEnemies))
                 {
-                    float distance = Projectile.Distance(n.Center);
+                    float distance = Projectile.Distance(target.Center);
                     if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
                     {
                         selectedTarget = i;
@@ -192,17 +192,21 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{	
 			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
 
-			for (int i = 0; i < 50; i++)
-			{
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[num].noGravity = true;
-				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				if (Main.dust[num].position != Projectile.Center)
-				{
-					Main.dust[num].velocity = Projectile.DirectionTo(Main.dust[num].position) * 2f;
-				}
-			}
+			for (int numDust = 0; numDust < 20; numDust++)
+            {
+                int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
+                Projectile.width, Projectile.height, 5, 0f, 0f, 100, default(Color), 2f);
+
+                Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
+                Main.dust[DustGore].velocity *= 3f;
+                Main.dust[DustGore].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
+                {
+                    Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
 		}
     }
 }

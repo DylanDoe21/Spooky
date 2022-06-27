@@ -11,9 +11,11 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
+using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 {
@@ -21,8 +23,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
     public class BoroHead : ModNPC
     {
         Vector2 SavePoint;
+        private bool spawned;
 
-        public static readonly SoundStyle GrowlSound = new SoundStyle("Spooky/Content/Sounds/OrroboroGrowl2", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/OrroboroGrowl2", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -31,7 +34,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/BossTextures/BoroBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/Boss/Orroboro/BoroBestiary",
                 Position = new Vector2(40f, 24f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 20f
@@ -41,13 +44,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 10000;
+            NPC.lifeMax = Main.masterMode ? 18000 / 3 : Main.expertMode ? 14500 / 2 : 10000;
             NPC.damage = 55;
             NPC.defense = 30;
             NPC.width = 62;
             NPC.height = 62;
+            NPC.npcSlots = 15f;
             NPC.knockBackResist = 0f;
-            NPC.npcSlots = 1f;
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -55,15 +58,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.behindTiles = true;
             NPC.netAlways = true;
             NPC.HitSound = SoundID.NPCHit9;
-            NPC.DeathSound = SoundID.NPCDeath5; //mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/OrroboroSplit").WithVolume(3f);
+            NPC.DeathSound = SoundID.NPCDeath5;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
-        }
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            NPC.lifeMax = 12500;
-            NPC.damage = 70;
-            NPC.defense = 20;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -71,7 +68,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("It is said that the valley of eyes was born from the chunks of flesh left forgotten by this parasitic pair of abominations.")
+				new FlavorTextBestiaryInfoElement("A blind and aggressive creature that will work together with Orro to defend its territory. It is said that the living hell is made from the chunks of flesh left forgotten by this strange duo.")
 			});
 		}
 
@@ -115,11 +112,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 {
                     Main.NewText("Orro has been defeated!", 171, 64, 255);
 
-                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Orro].position, Main.npc[NPCGlobal.Orro].velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Orro].position, Main.npc[NPCGlobal.Orro].velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Orro].Center, Main.npc[NPCGlobal.Orro].velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Orro].Center, Main.npc[NPCGlobal.Orro].velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
 
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
 
                     NPC.life = 0;
                     Main.npc[NPCGlobal.Orro].life = 0;
@@ -128,40 +125,35 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     return true;
                 }
             }
+            else
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
+
+                return true;
+            }
             
             return true;
         }
-
-        public override void HitEffect (int hitDirection, double damage)
-		{
-            //if orro has "died", spawn gores normally
-            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && NPC.life <= 0)
-            {
-                Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
-            }
-		}
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //if boro is in its death state
             if (NPC.ai[3] > 0)
             {
-                float num108 = 4;
-                float num107 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
-                float num106 = 0f;
+                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
 
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-                Vector2 vector33 = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity;
-                Color color29 = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.LimeGreen);
-                for (int num103 = 0; num103 < 4; num103++)
+                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
+
+                for (int numEffect = 0; numEffect < 4; numEffect++)
                 {
-                    Color color28 = color29;
-                    color28 = NPC.GetAlpha(color28);
-                    color28 *= 1f - num107;
-                    Vector2 vector29 = new Vector2(NPC.Center.X, NPC.Center.Y) + ((float)num103 / (float)num108 * 6.28318548f + NPC.rotation + num106).ToRotationVector2() * (4f * num107 + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * (float)num103;
-                    Main.EntitySpriteDraw(tex, vector29, NPC.frame, color28, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                    Color newColor = color;
+                    newColor = NPC.GetAlpha(newColor);
+                    newColor *= 1f - fade;
+                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6.28318548f + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
+                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
                 }
             }
 
@@ -207,25 +199,26 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                //use ai 1 to track if the segments are spawned or not
-                if (NPC.ai[1] == 0)
+                if (!spawned)
                 {
                     NPC.realLife = NPC.whoAmI;
                     int latestNPC = NPC.whoAmI;
 
                     for (int i = 0; i < 2; ++i)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
-                        Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
-                        Main.npc[(int)latestNPC].ai[2] = NPC.whoAmI;
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        Main.npc[latestNPC].realLife = NPC.whoAmI;
+                        Main.npc[latestNPC].ai[2] = NPC.whoAmI;
+                        Main.npc[latestNPC].netUpdate = true;
                     }
 
-                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
-                    Main.npc[(int)latestNPC].ai[2] = NPC.whoAmI;
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].realLife = NPC.whoAmI;
+                    Main.npc[latestNPC].ai[2] = NPC.whoAmI;
+                    Main.npc[latestNPC].netUpdate = true;
 
-                    NPC.ai[1] = 1;
                     NPC.netUpdate = true;
+                    spawned = true;
                 }
             }
 
@@ -253,25 +246,25 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         {
                             NPC.velocity *= 0.02f;
 
-                            NPC.position.X = (NPC.Center.X < player.Center.X) ? player.position.X - 1200 : player.position.X + 1200;
-                            NPC.position.Y = player.position.Y;
+                            NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1200 : player.Center.X + 1200;
+                            NPC.position.Y = player.Center.Y;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), (NPC.Center.X < player.Center.X) ? player.Center.X - 400 : player.Center.X + 400, 
-                                player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphOrange>(), 0, 0f, 0);
+                                player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                             }
                         }
 
                         if (NPC.localAI[0] == 100)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.position);
+                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
-                            Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 30;
-                            ChargeDirection.Y = ChargeDirection.Y * 0;  
+                            ChargeDirection.X *= 30;
+                            ChargeDirection.Y *= 0;  
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
@@ -303,13 +296,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     {
                         if (NPC.localAI[0] == 50 || NPC.localAI[0] == 100 || NPC.localAI[0] == 150)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.position);
+                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
-                            Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 20 + Main.rand.Next(-5, 5);
-                            ChargeDirection.Y = ChargeDirection.Y * 20 + Main.rand.Next(-5, 5);  
+                            ChargeDirection.X *= 20 + Main.rand.Next(-5, 5);
+                            ChargeDirection.Y *= 20 + Main.rand.Next(-5, 5);  
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
@@ -361,13 +354,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 550, player.Center.Y, 0, 0,
-                            ModContent.ProjectileType<TelegraphOrange>(), 0, 0f, 0);
+                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                         }
                     }
 
                     if (NPC.localAI[0] == 120)
                     {
-                        SoundEngine.PlaySound(GrowlSound, NPC.position);
+                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
                         NPC.velocity.X = -40;
                         NPC.velocity.Y *= 0;
@@ -417,7 +410,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     break;
                 }
 
-                //charge and shoot acidic flames when nearby while orro drops acid
+                //charge and shoot acidic flames while orro drops acid
                 case 3:
                 {
                     NPC.localAI[0]++;
@@ -439,30 +432,26 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             SavePoint = CenterPoint;
                         }
 
+                        //charge towards where the telegraphs saved point is
                         if (NPC.localAI[0] == 20 || NPC.localAI[0] == 100 || NPC.localAI[0] == 180)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.position);
-                            SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.position);
+                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 
                             Vector2 ChargeDirection = SavePoint - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 28;
-                            ChargeDirection.Y = ChargeDirection.Y * 28;  
+                            ChargeDirection.X *= 28;
+                            ChargeDirection.Y *= 28;  
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
                         
                         if ((NPC.localAI[0] > 20 && NPC.localAI[0] < 40) || (NPC.localAI[0] > 100 && NPC.localAI[0] < 120) || (NPC.localAI[0] > 180 && NPC.localAI[0] < 200))
                         {
-                            Vector2 Position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-                            if (Main.rand.Next(2) == 0)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), Position.X + (NPC.velocity.X / 3), Position.Y + (NPC.velocity.Y / 3), 
-                                NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
-                                ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
-                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
+                            NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
+                            ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
                         }
                             
                         if (NPC.localAI[0] >= 240)
@@ -473,13 +462,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     }
                     else
                     {
-                        if (NPC.localAI[0] >= 60)
-                        {
-                            NPC.velocity *= 0.25f;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0]++; 
-                        }
+                        NPC.velocity *= 0.25f;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0; 
+                        NPC.ai[0]++; 
                     }
                     
                     break;
@@ -493,7 +479,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     if (NPC.localAI[1] < 3)
                     {
                         Vector2 GoTo = player.Center;
-
                         GoTo.X += 0;
                         GoTo.Y += 600;
 
@@ -516,7 +501,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             {
                                 for (int i = 0; i <= 0; i += 1) 
                                 {
-                                    Vector2 center = new Vector2(NPC.Center.X, player.Center.Y + player.height / 4);
+                                    Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
                                     center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
                                     int numtries = 0;
                                     int x = (int)(center.X / 16);
@@ -600,7 +585,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                     if (NPC.localAI[0] == 200)
                     {
-                        SoundEngine.PlaySound(GrowlSound, NPC.position);
+                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
                         NPC.velocity.X = -20;
                         NPC.velocity.Y *= 0;
@@ -630,13 +615,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 450, 0, 0, 
-                            ModContent.ProjectileType<TelegraphOrange>(), 0, 0f, Main.myPlayer, 0, 0);
+                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, Main.myPlayer, 0, 0);
                         }
                     }
 
                     if (NPC.localAI[0] == 350)
                     {
-                        SoundEngine.PlaySound(GrowlSound, NPC.position);
+                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
                         NPC.velocity.X *= 0;
                         NPC.velocity.Y = 35;
@@ -679,11 +664,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     {
                         SoundEngine.PlaySound(GrowlSound, NPC.position);
 
-                        Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                        Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X = ChargeDirection.X * 40;
-                        ChargeDirection.Y = ChargeDirection.Y * 0;  
+                        ChargeDirection.X *= 40;
+                        ChargeDirection.Y *= 0;  
                         NPC.velocity.X = ChargeDirection.X;
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
@@ -735,21 +720,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrroboro>()));
 
-            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<EyeRocketLauncher>(), 
-            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<Scycler>() };
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(MainItem[Main.rand.Next(5)]));
+            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
+            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
+            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-            if (Main.rand.Next(5) == 0)
-            {
-                notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroHeart>()));
-            }
+            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            int itemType = ModContent.ItemType<MonsterChunk>();
+            int itemType = ModContent.ItemType<CreepyChunk>();
             var parameters = new DropOneByOne.Parameters() 
             {
                 ChanceNumerator = 1,

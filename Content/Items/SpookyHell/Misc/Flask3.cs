@@ -18,9 +18,9 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         {
             Item.width = 18;
             Item.height = 28;
-            Item.maxStack = 999; 
-            Item.value = Item.buyPrice(silver: 1); 
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(gold: 1);
+            Item.maxStack = 999;
         }
     }
 }

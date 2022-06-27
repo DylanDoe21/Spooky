@@ -24,12 +24,12 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void SetDefaults()
         {
-			Item.width = 34;
-			Item.height = 38;
+			Item.width = 32;
+			Item.height = 32;
 			Item.consumable = true;
 			Item.expert = true;
+			Item.rare = ItemRarityID.Expert;
 			Item.maxStack = 999;
-			Item.rare = -12;
 		}
 
 		public override bool CanRightClick() 
@@ -39,17 +39,13 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<EyeRocketLauncher>(), 
-            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<Scycler>() };
+			int[] MainItem1 = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), ModContent.ItemType<EyeRocketLauncher>() };
+			int[] MainItem2 = new int[] { ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), MainItem[Main.rand.Next(5)]);
+            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
 
-			if (Main.rand.Next(3) == 0)
-            {
-                player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroHeart>());
-            }
-
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<MonsterChunk>(), Main.rand.Next(20, 35));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<CreepyChunk>(), Main.rand.Next(20, 35));
 				
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroEmbryo>());
@@ -124,14 +120,14 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(121, 195, 20, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(182, 62, 59, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(121, 195, 20, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(182, 62, 59, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

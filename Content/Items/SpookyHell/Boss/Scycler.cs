@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scycler");
-            Tooltip.SetDefault("Deals damage rapidly"
+            Tooltip.SetDefault("Throws piercing discs"
             + "\nOnly up to 5 discs can be out at once");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -27,10 +27,10 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.width = 60;
             Item.height = 44;
             Item.useTime = 25;       
-            Item.useAnimation = 25;  
-            Item.useStyle = 1;      
-            Item.knockBack = 6;
-            Item.rare = 5;
+            Item.useAnimation = 25;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 2;
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 2);   
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<ScyclerProj>();  

@@ -20,11 +20,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void SetDefaults()
 		{
             NPC.lifeMax = 45;
-            NPC.damage = 30;
-            NPC.defense = 0;
+            NPC.damage = 22;
+            NPC.defense = 5;
             NPC.width = 25;
-			NPC.height = 48;
-			NPC.knockBackResist = 0.5f;
+			NPC.height = 50;
+			NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("The spooky scary skeletons are very real, and they live in the spooky forest. They are rather slow, but not to be messed with.")
+				new FlavorTextBestiaryInfoElement("These spooky skeletons dwell underneath the spooky forest. They may look weak, but are not to be underestimated.")
 			});
 		}
 
@@ -87,10 +87,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool CheckDead() 
 		{
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore3").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookySkeletonGore4").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore1").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore2").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore3").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonGore4").Type);
 
             return true;
 		}

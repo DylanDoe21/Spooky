@@ -27,7 +27,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 0;
             NPC.width = 40;
 			NPC.height = 56;
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -54,9 +54,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn on the surface during the day, or underground
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()))
+                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookyDance>()))
                 {
-                    return 1f;
+                    return 3f;
                 }
             }
 
@@ -75,22 +75,22 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 30) * 30;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override bool CheckDead() 
 		{
-			if (NPC.life <= 0)
-			{
-            	for (int numDusts = 0; numDusts < 20; numDusts++)
-				{
-					int GhostDust = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 65, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[GhostDust].velocity *= 3f;
-                    Main.dust[GhostDust].noGravity = true;
-					if (Main.rand.Next(2) == 0)
-					{
-						Main.dust[GhostDust].scale = 0.5f;
-						Main.dust[GhostDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-					}
-				}
-			}
+            for (int numDusts = 0; numDusts < 20; numDusts++)
+            {
+                int GhostDust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default(Color), 2f);
+                Main.dust[GhostDust].velocity *= 3f;
+                Main.dust[GhostDust].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
+                {
+                    Main.dust[GhostDust].scale = 0.5f;
+                    Main.dust[GhostDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
+
+            return true;
 		}
     }
 }

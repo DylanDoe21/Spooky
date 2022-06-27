@@ -48,28 +48,28 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 0.80f;
 
-            Projectile.ai[0] += 1f;
+            Projectile.ai[0]++;
 
-            if (Projectile.ai[0] == 1f)
-            {
-                Projectile.damage = Projectile.damage * 2;
-            }
-
-            if (Projectile.ai[0] <= 12f)
+            if (Projectile.ai[0] <= 12)
             {
                 Projectile.tileCollide = false;
             }
 
-            if (Projectile.ai[0] > 12f)
+            if (Projectile.ai[0] > 12)
             {
                 Projectile.tileCollide = true;
             }
 
-            if (Projectile.ai[0] >= 45f)
+            if (Projectile.ai[0] >= 45)
             {
                 Projectile.velocity.X = Projectile.velocity.X * 0.97f;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
             }
+		}
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
+        {
+			Projectile.damage = (int)(damage * 2f);
 		}
 
 		public override void Kill(int timeLeft)

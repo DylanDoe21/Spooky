@@ -11,15 +11,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
     {
         public override void SetStaticDefaults()
         {
-            Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
+            Main.tileSolid[Type] = false;
+            Main.tileLighted[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-            TileObjectData.newTile.Origin = new Point16(0, 1);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(138, 31, 40));
+            AddMapEntry(new Color(182, 62, 59));
             DustType = DustID.Blood;
             HitSound = SoundID.NPCHit13;
         }
@@ -33,14 +31,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
     {
         public override void SetStaticDefaults()
         {
-            Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
+            Main.tileSolid[Type] = false;
+            Main.tileLighted[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(138, 31, 40));
+            AddMapEntry(new Color(182, 62, 59));
             DustType = DustID.Blood;
             HitSound = SoundID.NPCHit13;
         }

@@ -18,12 +18,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 45;
-            NPC.damage = 32;
-            NPC.defense = 0;
+            NPC.lifeMax = 25;
+            NPC.damage = 10;
             NPC.width = 38;
             NPC.height = 26;
-            NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
@@ -72,29 +70,23 @@ namespace Spooky.Content.NPCs.SpookyBiome
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override bool CheckDead() 
 		{
-			if (NPC.life <= 0)
-			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 30;
-				NPC.height = 30;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-                
-				for (int num621 = 0; num621 < 20; num621++)
-				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 288, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-                    Main.dust[num622].noGravity = true;
-					if (Main.rand.Next(2) == 0)
-					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-					}
-				}
-			}
+            for (int numDust = 0; numDust < 20; numDust++)
+            {
+                int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default(Color), 2f);
+
+                Main.dust[DustGore].velocity *= 3f;
+                Main.dust[DustGore].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
+                {
+                    Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
+
+            return true;
         }
     }
 }

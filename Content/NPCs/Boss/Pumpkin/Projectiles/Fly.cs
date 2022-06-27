@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.NPCs.Boss.Pumpkin;
+
 namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 {
 	public class Fly : ModProjectile
@@ -40,11 +42,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
             }
 
             int index1 = (int)Projectile.ai[1];
-
-			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkin>();
-            int PumpkinP2 = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkinP2>();
             
-            if (Main.npc[index1].active && (Main.npc[index1].type == Pumpkin || Main.npc[index1].type == PumpkinP2)) 
+            if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<SpookyPumpkin>() || Main.npc[index1].type == ModContent.NPCType<SpookyPumpkinP2>())) 
             {
                 float goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
                 float goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);

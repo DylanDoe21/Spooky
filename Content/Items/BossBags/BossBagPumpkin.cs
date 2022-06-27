@@ -28,8 +28,8 @@ namespace Spooky.Content.Items.BossBags
 			Item.height = 32;
 			Item.consumable = true;
 			Item.expert = true;
+			Item.rare = ItemRarityID.Expert;
 			Item.maxStack = 999;
-			Item.rare = -12;
 		}
 
 		public override bool CanRightClick() 
@@ -39,11 +39,14 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			int[] MainItem = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
-            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>(), ModContent.ItemType<PumpkinStaff>(), 
-			ModContent.ItemType<PumpkinTome>(), ModContent.ItemType<FlyScroll>() };
+			int[] MainItem1 = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
+            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>() };
+			
+			int[] MainItem2 = new int[] { ModContent.ItemType<PumpkinStaff>(), ModContent.ItemType<PumpkinTome>(), 
+			ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), MainItem[Main.rand.Next(7)]);
+            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
 
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<PumpkinCore>());

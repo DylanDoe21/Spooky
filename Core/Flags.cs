@@ -1,18 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.DataStructures;
-using Terraria.GameContent.Events;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.Utilities;
-using Spooky.Content.Tiles;
-using Spooky.Core;
+using System.IO;
 
 namespace Spooky.Core
 {
@@ -23,7 +12,6 @@ namespace Spooky.Core
         public static bool downedOrroboro = false;
 
         public static bool SpookyBackgroundAlt = false;
-        public static bool CorrodedEgg = false;
 
         public override void SaveWorldData(TagCompound tag)
         {
@@ -32,7 +20,6 @@ namespace Spooky.Core
             if (downedOrroboro) tag["downedOrroboro"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
-            if (CorrodedEgg) tag["CorrodedEgg"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -42,7 +29,6 @@ namespace Spooky.Core
             downedOrroboro = tag.ContainsKey("downedOrroboro");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
-            CorrodedEgg = tag.ContainsKey("CorrodedEgg");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -55,7 +41,6 @@ namespace Spooky.Core
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
-            miscFlags[1] = CorrodedEgg;
             writer.Write(miscFlags);
         }
 
@@ -68,7 +53,6 @@ namespace Spooky.Core
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
-            CorrodedEgg = miscFlags[1];
         }
     }
 }

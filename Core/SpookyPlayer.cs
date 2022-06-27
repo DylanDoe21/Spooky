@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;

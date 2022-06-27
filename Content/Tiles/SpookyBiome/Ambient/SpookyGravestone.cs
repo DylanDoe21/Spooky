@@ -15,7 +15,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);

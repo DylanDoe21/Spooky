@@ -46,7 +46,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
 			name.SetDefault("Locked Monster Chest");
 			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
-			DustType = -1;
+			DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
 
