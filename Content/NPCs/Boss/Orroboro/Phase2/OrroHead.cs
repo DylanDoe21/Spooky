@@ -25,7 +25,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         //bools for animation
         public bool Chomp = false;
         public bool OpenMouth = false;
-        public bool Synced = false;
         private bool spawned;
 
         public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/OrroboroCrunch", SoundType.Sound);
@@ -53,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.defense = 30;
             NPC.width = 62;
             NPC.height = 62;
-            NPC.npcSlots = 15f;
+            NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.boss = true;
             NPC.lavaImmune = true;
@@ -264,12 +263,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     else
                     {
                         //sync boros ai here because their ai had a weird issue where it was slightly off
-                        if (!Synced && NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+                        if (NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
                         {
                             Main.npc[NPCGlobal.Boro].localAI[0] = 0;
                             Main.npc[NPCGlobal.Boro].localAI[1] = 0;
                             Main.npc[NPCGlobal.Boro].ai[0] = 1;
-                            Synced = true;
                         }
 
                         Chomp = false;
@@ -300,7 +298,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                         if (NPC.localAI[0] == 80)
                         {
-                            NPC.velocity *= 0.02f;
+                            NPC.velocity *= 0;
 
                             NPC.position.X = player.Center.X;
                             NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
@@ -363,7 +361,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     //set exact position right before so the curling up is always even
                     if (NPC.localAI[0] == 100)
                     {
-                        NPC.velocity *= 0.02f;
+                        NPC.velocity *= 0;
 
                         //this is slightly offset so its even with the other worm in game
                         NPC.position.X = player.Center.X - 1250;
@@ -505,12 +503,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                                 {
                                     SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                                 }
-                                
-                                Vector2 position = new(NPC.Center.X + (NPC.width / 2), NPC.Center.Y + (NPC.height / 2));
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, NPC.velocity.X * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, 
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, NPC.velocity.X * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, 
                                     NPC.velocity.Y * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, 0);
                                 }
                             }  
@@ -555,13 +551,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                     if (NPC.localAI[0] == 180)
                     {
-                        NPC.velocity *= 0.02f;
+                        NPC.velocity *= 0;
 
                         //this is slightly offset so its even with the other worm in game
                         NPC.position.X = player.Center.X - 1600;
                         NPC.position.Y = player.Center.Y - 750;
 
-                        for (int i = 150; i <= 750; i += 150)
+                        for (int i = 230; i <= 750; i += 175)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -591,15 +587,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         }
                     }
 
-                    if (NPC.localAI[0] == 275)
+                    if (NPC.localAI[0] == 280)
                     {
-                        NPC.velocity *= 0.2f;
+                        NPC.velocity *= 0;
                     }
 
                     if (NPC.localAI[0] == 300)
                     {
-                        NPC.velocity *= 0f;
-
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 450, 0, 0, 

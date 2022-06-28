@@ -21,8 +21,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.tileCollide = true;
             Projectile.timeLeft = 2000;
             Projectile.penetrate = 1;
-            Projectile.extraUpdates = 1;
             Projectile.aiStyle = 0;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()

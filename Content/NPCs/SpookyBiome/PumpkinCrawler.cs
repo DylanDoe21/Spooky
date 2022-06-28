@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -24,6 +21,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.damage = 20;
             NPC.width = 48;
 			NPC.height = 50;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0.75f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit1;
@@ -50,7 +48,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn on the surface during the night
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !Main.dayTime)
+                if (player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !Main.dayTime)
                 {
                     return 25f;
                 }
@@ -95,7 +93,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default(Color), 2f);
+                int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default, 2f);
 
                 Main.dust[DustGore].velocity *= 3f;
                 Main.dust[DustGore].noGravity = true;
@@ -103,7 +101,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 if (Main.rand.Next(2) == 0)
                 {
                     Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
 

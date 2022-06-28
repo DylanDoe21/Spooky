@@ -35,14 +35,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override bool PreDraw(ref Color lightColor)
         {
            	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Green) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Green) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
             }
 			
@@ -62,8 +62,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Vector2 ChargeDirection = mouse - Projectile.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X = ChargeDirection.X * 12;
-                ChargeDirection.Y = ChargeDirection.Y * 12;  
+                ChargeDirection.X *= 12;
+                ChargeDirection.Y *= 12;  
                 Projectile.velocity.X = ChargeDirection.X;
                 Projectile.velocity.Y = ChargeDirection.Y;
             }
@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
             for (int i = 0; i < 10; i++)
 			{                                                                                  
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
+				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 				Main.dust[num].noGravity = true;
 				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

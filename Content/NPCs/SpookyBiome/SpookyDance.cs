@@ -1,14 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -23,10 +19,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void SetDefaults()
 		{
             NPC.lifeMax = 45;
-            NPC.damage = 0;
-            NPC.defense = 0;
             NPC.width = 40;
 			NPC.height = 56;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.noGravity = true;
@@ -54,9 +49,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn on the surface during the day, or underground
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookyDance>()))
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookyDance>()))
                 {
-                    return 3f;
+                    return 5f;
                 }
             }
 
@@ -79,14 +74,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
             for (int numDusts = 0; numDusts < 20; numDusts++)
             {
-                int GhostDust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default(Color), 2f);
+                int GhostDust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
                 Main.dust[GhostDust].velocity *= 3f;
                 Main.dust[GhostDust].noGravity = true;
 
                 if (Main.rand.Next(2) == 0)
                 {
                     Main.dust[GhostDust].scale = 0.5f;
-                    Main.dust[GhostDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
 

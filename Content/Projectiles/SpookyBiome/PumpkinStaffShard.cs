@@ -31,13 +31,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Brown) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Brown) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 
@@ -54,34 +54,27 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             
             if (Projectile.ai[0] >= 40)
             {
+                Projectile.damage *= 2;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 20;
             }
 
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
 
-			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, 0f, 0, default(Color), 1f);
+			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, 0f, 0, default, 1f);
 			Main.dust[newDust].position = position;
             Main.dust[newDust].scale = 1f;
 			Main.dust[newDust].fadeIn = 0.5f;
 			Main.dust[newDust].noGravity = true;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
-        {
-            if (Projectile.ai[0] >= 40)
-            {
-			    Projectile.damage = (int)(damage * 2f);
-            }
-		}
-
 		public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
-			for (int i = 0; i < 25; i++)
+			for (int numDust = 0; numDust < 25; numDust++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].noGravity = true;
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

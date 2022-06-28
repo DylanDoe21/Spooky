@@ -2,9 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Pets;
  
@@ -52,7 +49,6 @@ public class OrroboroMount : ModMount
     {
         player.gravity = 0;
         player.fallStart = (int)(player.position.Y / 16.0);
-        float num1 = 0.5f;
         float acc = 0.3f;
 
         float yvelcap = -1f / 10000f;

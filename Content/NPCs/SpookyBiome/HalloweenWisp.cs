@@ -1,12 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -27,15 +25,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.defense = 0;
 			NPC.width = 18;
 			NPC.height = 24;
-            NPC.knockBackResist = 0.5f;
-            NPC.npcSlots = 1;
+            NPC.npcSlots = 1f;
             NPC.noGravity = true;
 			NPC.catchItem = ModContent.ItemType<HalloweenWispItem>();
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = 64;
 			AIType = NPCID.Firefly;
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiome>().Type };
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -55,7 +52,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn on the surface during the night
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && !Main.dayTime)
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !Main.dayTime)
                 {
                     return 18f;
                 }
@@ -90,14 +87,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
 			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{
-				int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, 158, 0f, 0f, 100, default(Color), 2f);
+				int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
 				Main.dust[DustGore].velocity *= 3f;
 				Main.dust[DustGore].noGravity = true;
 
 				if (Main.rand.Next(2) == 0)
 				{
 					Main.dust[DustGore].scale = 0.5f;
-					Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+					Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
 				}
 			}
 

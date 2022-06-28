@@ -37,6 +37,17 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void AI()
 		{
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
             Projectile.rotation = Projectile.velocity.ToRotation();
 
@@ -118,10 +129,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
 
             //prevent Projectiles clumping together
-            for (int k = 0; k < Main.projectile.Length; k++)
+            for (int num = 0; num < Main.projectile.Length; num++)
             {
-                Projectile other = Main.projectile[k];
-                if (k != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                Projectile other = Main.projectile[num];
+                if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
                 {
                     const float pushAway = 0.08f;
                     if (Projectile.position.X < other.position.X)
@@ -140,17 +151,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     {
                         Projectile.velocity.Y += pushAway;
                     }
-                }
-            }
-
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 4)
-            {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= 3)
-                {
-                    Projectile.frame = 0;
                 }
             }
 		}

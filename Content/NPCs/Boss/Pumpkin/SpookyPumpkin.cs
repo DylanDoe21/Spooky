@@ -179,7 +179,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             //spawn swarm of flies when spawned
             if (NPC.ai[2] <= 0)
             {
-                for (int i = 0; i < 20; i++)
+                for (int numFlies = 0; numFlies < 20; numFlies++)
                 {
                     Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
 
@@ -303,7 +303,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                     player.velocity.Y -= 8f;
                                 }
 
-                                SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
                                 //make cool dust effect when slamming the ground
                                 for (int i = 0; i < 65; i++)
@@ -425,6 +425,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             {
                                 player.velocity.Y -= 10f;
                             }
+
+                            SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
                             
                             //make cool dust effect when slamming the ground
                             for (int i = 0; i < 65; i++)
@@ -440,8 +442,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                     Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
                                 }
                             }
-
-                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                             //in phase 2, shoot root spikes from the ground
                             if (Phase2)

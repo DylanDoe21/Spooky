@@ -1,14 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -28,6 +26,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.defense = 0;
             NPC.width = 88;
             NPC.height = 84;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
@@ -36,7 +35,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 14;
             AIType = NPCID.Raven;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -52,7 +51,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
 			{
                 return 30f;
             }
@@ -96,13 +95,13 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             if (NPC.localAI[0] == 420)
             {
-                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
+                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X = ChargeDirection.X * 12;
-                ChargeDirection.Y = ChargeDirection.Y * 12;  
+                ChargeDirection.X *= 12;
+                ChargeDirection.Y *= 12;  
                 NPC.velocity.X = ChargeDirection.X;
                 NPC.velocity.Y = ChargeDirection.Y;
             }

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -11,12 +10,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class LeechWhipProj : ModProjectile
 	{
-		private float Timer 
-		{
-			get => Projectile.ai[0];
-			set => Projectile.ai[0] = value;
-		}
-
 		private float ChargeTime 
 		{
 			get => Projectile.ai[1];
@@ -77,45 +70,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
 		}
 
-		/*
-		// This method draws a line between all points of the whip, in case there's empty space between the sprites.
-		private void DrawLine(List<Vector2> list) 
-		{
-			Texture2D texture = TextureAssets.FishingLine.Value;
-			Rectangle frame = texture.Frame();
-			Vector2 origin = new Vector2(frame.Width / 2, 2);
-
-			Vector2 pos = list[0];
-
-			for (int i = 0; i < list.Count - 1; i++) 
-			{
-				Vector2 element = list[i];
-				Vector2 diff = list[i + 1] - element;
-
-				float rotation = diff.ToRotation() - MathHelper.PiOver2;
-				Color color = Lighting.GetColor(element.ToTileCoordinates(), Color.Red);
-				Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
-
-				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
-
-				pos += diff;
-			}
-		}
-		*/
-
 		public override bool PreDraw(ref Color lightColor) 
         {
-			List<Vector2> list = new List<Vector2>();
+			List<Vector2> list = new();
 			Projectile.FillWhipControlPoints(Projectile, list);
-
-			//DrawLine(list);
-
-			//Main.DrawWhip_WhipBland(Projectile, list);
-			// The code below is for custom drawing.
-			// If you don't want that, you can remove it all and instead call one of vanilla's DrawWhip methods, like above.
-			// However, you must adhere to how they draw if you do.
-
-			//SpriteEffects flip = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			Main.instance.LoadProjectile(Type);
 			Texture2D texture = TextureAssets.Projectile[Type].Value;
@@ -125,8 +83,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			for (int i = 0; i < list.Count - 1; i++) 
             {
 				//14 is the width of the whole whip, 26 is the height for the tips hotbox
-				Rectangle frame = new Rectangle(0, 0, 20, 26);
-				Vector2 origin = new Vector2(5, 8);
+				Rectangle frame = new(0, 0, 20, 26);
+				Vector2 origin = new(5, 8);
 				float scale = 1;
 
 				// These statements determine what part of the spritesheet to draw for the current segment.

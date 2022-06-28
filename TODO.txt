@@ -1,7 +1,9 @@
 -make pumpkin sentry enemy
 -resprite rot gourds armor set    
 
--old wood workbenches, table, and chair                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+-old wood workbenches, table, and chair      
+
+-make new icons for the bosses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 -moco resprite and rework (can be done later)
                                                
 -make each living hell chest have items in them
@@ -9,8 +11,6 @@
 -make orroboro charge at the player right after bursting out of the egg
 -make orroboro spike ball projectiles spit balls that linger on the ground instead
 -resprite orroboro thorn pillars, make the thorn telegraph match the new purple palette
--redo orroboro icons
 -redo creepy flesh sprite
 
 -make bosses immune to debuffs
--go through files and get rid of unnecessary using statements and warnings

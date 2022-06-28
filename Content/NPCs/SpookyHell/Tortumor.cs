@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -16,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public static readonly SoundStyle ScreechSound = new SoundStyle("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound);
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound);
 
 		public override void SetStaticDefaults()
         {
@@ -31,14 +30,14 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.defense = 20;
             NPC.width = 58;
             NPC.height = 62;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
-            NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -54,7 +53,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
 			{
                 return 15f;
             }
@@ -117,7 +116,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
                     int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                    NPC.width / 2, NPC.height / 2, 5, 0f, 0f, 100, default(Color), 2f);
+                    NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
 
                     Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                     Main.dust[DustGore].velocity *= 3f;
@@ -126,7 +125,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (Main.rand.Next(2) == 0)
                     {
                         Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
             }
@@ -174,7 +173,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     for (int numDust = 0; numDust < 20; numDust++)
                     {
                         int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                        NPC.width / 2, NPC.height / 2, 5, 0f, 0f, 100, default(Color), 2f);
+                        NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
 
                         Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                         Main.dust[DustGore].velocity *= 3f;
@@ -183,14 +182,14 @@ namespace Spooky.Content.NPCs.SpookyHell
                         if (Main.rand.Next(2) == 0)
                         {
                             Main.dust[DustGore].scale = 0.5f;
-                            Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                            Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                         }
                     }
 
+                    Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
-
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
                         vector.X, vector.Y, ModContent.ProjectileType<TumorOrb1>(), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
 
@@ -219,7 +218,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             for (int numDust = 0; numDust < 20; numDust++)
             {
                 int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                NPC.width / 2, NPC.height / 2, 5, 0f, 0f, 100, default(Color), 2f);
+                NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
 
                 Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                 Main.dust[DustGore].velocity *= 3f;
@@ -228,7 +227,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 if (Main.rand.Next(2) == 0)
                 {
                     Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
 

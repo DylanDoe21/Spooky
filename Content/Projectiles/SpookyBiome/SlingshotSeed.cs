@@ -31,13 +31,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyBiome/SlingshotSeedTrail").Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Chocolate) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Chocolate) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 

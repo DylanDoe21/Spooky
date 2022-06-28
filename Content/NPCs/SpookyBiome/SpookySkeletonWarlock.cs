@@ -2,14 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Armor;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
@@ -31,11 +28,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 5;
             NPC.width = 25;
 			NPC.height = 60;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -55,7 +53,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn underground
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookySkeletonWarlock>()))
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookySkeletonWarlock>()))
                 {
                     return 10f;
                 }
@@ -108,9 +106,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
         
         public override void AI()
 		{
-			NPC.spriteDirection = NPC.direction;
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.expertMode ? 12 : 15;
+
+            NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;
 
@@ -126,9 +126,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500 || NPC.localAI[0] == 520)
                 {
-                    SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                    SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
-                    Vector2 ShootSpeed = Main.player[NPC.target].Center - NPC.Center;
+                    Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed.X *= 4.5f;
                     ShootSpeed.Y *= 4.5f;

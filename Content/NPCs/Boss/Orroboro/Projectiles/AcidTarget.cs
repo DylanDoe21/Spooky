@@ -31,8 +31,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 		{
 			Color[] ColorList = new Color[]
             {
-                new Color(138, 31, 40),
-                new Color(86, 2, 28)
+                new Color(182, 62, 59),
+                new Color(138, 31, 40)
             };
 
             float fade = Main.GameUpdateCount % 20 / 20f;

@@ -82,13 +82,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			for (int i = 0; i < 50; i++)
 			{
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[num].noGravity = true;
-				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				if (Main.dust[num].position != Projectile.Center)
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default(Color), 1.5f);
+				Main.dust[dustGore].noGravity = true;
+				Main.dust[dustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+
+				if (Main.dust[dustGore].position != Projectile.Center)
 				{
-					Main.dust[num].velocity = Projectile.DirectionTo(Main.dust[num].position) * 2f;
+					Main.dust[dustGore].velocity = Projectile.DirectionTo(Main.dust[dustGore].position) * 2f;
 				}
 			}
 		}

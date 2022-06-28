@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.defense = 30;
             NPC.width = 62;
             NPC.height = 62;
-            NPC.npcSlots = 15f;
+            NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.boss = true;
             NPC.lavaImmune = true;
@@ -244,7 +244,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                         if (NPC.localAI[0] == 80)
                         {
-                            NPC.velocity *= 0.02f;
+                            NPC.velocity *= 0;
 
                             NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1200 : player.Center.X + 1200;
                             NPC.position.Y = player.Center.Y;
@@ -345,7 +345,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     //set exact position right before so the curling up is always even
                     if (NPC.localAI[0] == 100)
                     {
-                        NPC.velocity *= 0.02f;
+                        NPC.velocity *= 0;
 
                         //this is slightly offset so its even with the other worm in game
                         NPC.position.X = player.Center.X + 1200;
@@ -567,13 +567,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                     if (NPC.localAI[0] == 180)
                     {
-                        NPC.velocity *= 0.02f;
+                        NPC.velocity *= 0;
 
                         //this is slightly offset so its even with the other worm in game
                         NPC.position.X = player.Center.X + 1550;
                         NPC.position.Y = player.Center.Y - 750;
 
-                        for (int i = 150; i <= 750; i += 150)
+                        for (int i = 230; i <= 750; i += 175)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -603,15 +603,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         }
                     }
 
-                    if (NPC.localAI[0] == 275)
+                    if (NPC.localAI[0] == 280)
                     {
-                        NPC.velocity *= 0.2f;
+                        NPC.velocity *= 0;
                     }
 
                     if (NPC.localAI[0] == 300)
                     {
-                        NPC.velocity *= 0f;
-
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 450, 0, 0, 

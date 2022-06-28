@@ -5,10 +5,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
@@ -40,7 +38,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             //only draw if the parent is active
             if (Main.npc[(int)NPC.ai[3]].active)
 			{
-                Vector2 owner = NPC.Center;
                 Vector2 rootPosition = Main.npc[(int)NPC.ai[3]].Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), NPC.Center + new Vector2(-30 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(-12 * NPC.direction, 0).RotatedBy(NPC.rotation) };
@@ -48,7 +45,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 float bezierIncrement = 10;
 
                 Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ManHoleEyeChain").Value;
-                Vector2 textureCenter = new Vector2(8, 8);
+                Vector2 textureCenter = new(8, 8);
 
                 float rotation;
 
@@ -78,7 +75,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
 
             //rotation
-            Vector2 vector92 = new Vector2(NPC.Center.X, NPC.Center.Y);
+            Vector2 vector92 = new(NPC.Center.X, NPC.Center.Y);
             float num740 = Main.player[NPC.target].Center.X - vector92.X;
             float num741 = Main.player[NPC.target].Center.Y - vector92.Y;
             NPC.rotation = (float)Math.Atan2((double)num741, (double)num740) + 4.71f;
@@ -97,8 +94,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X = ChargeDirection.X * 35;
-                        ChargeDirection.Y = ChargeDirection.Y * 25;  
+                        ChargeDirection.X *= 35;
+                        ChargeDirection.Y *= 25;  
                         NPC.velocity.X = ChargeDirection.X;
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
@@ -118,14 +115,12 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
             
             //idle, float above parent
-            int index1 = (int)NPC.ai[2];
-            
             if (Main.npc[(int)NPC.ai[3]].active)
             {
                 float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
                 float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
 
-                float speed = 0.5f;
+                float speed;
 
                 if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
                 {
@@ -185,6 +180,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 }
             }
 
+            //kill npc if parent is not active
             if (!Main.npc[(int)NPC.ai[3]].active)
             {
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleEyeGore").Type);

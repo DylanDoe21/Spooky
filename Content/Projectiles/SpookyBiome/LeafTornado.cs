@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -32,17 +31,17 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override bool PreDraw(ref Color lightColor)
         {
-           	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-			
+
             return true;
         }
 		
@@ -81,13 +80,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            for (int numDust = 0; numDust < 5; numDust++)
             {
-                int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(),
-                ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), 
-                ModContent.GoreType<Content.Gores.LeafRedTreeFX>(), ModContent.GoreType<Content.Gores.LeafRedTreeFX>() };
+                int[] Leaves = new int[] { ModContent.GoreType<Gores.LeafGreenTreeFX>(),
+                ModContent.GoreType<Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Gores.LeafOrangeTreeFX>(), 
+                ModContent.GoreType<Gores.LeafRedTreeFX>(), ModContent.GoreType<Gores.LeafRedTreeFX>() };
 
-                int LeafGore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), Vector2.Zero, Leaves[i], 1f);
+                int LeafGore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), Vector2.Zero, Leaves[numDust], 1f);
                 Main.gore[LeafGore].rotation = 0f;
                 Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
                 Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.5f);

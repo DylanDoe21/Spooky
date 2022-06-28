@@ -1,15 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Core;
-using Spooky.Content.NPCs.SpookyHell.Projectiles;
 using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -38,6 +34,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.defense = 20;
             NPC.width = 70;
             NPC.height = 40;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noTileCollide = false;
@@ -45,7 +42,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath5;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -61,7 +58,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
 			{
                 return 20f;
             }

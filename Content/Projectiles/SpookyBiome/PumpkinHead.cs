@@ -54,7 +54,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            bool flag64 = Projectile.type == ModContent.ProjectileType<PumpkinHead>();
             Player player = Main.player[Projectile.owner];
             SpookyPlayer modPlayer = player.GetModPlayer<SpookyPlayer>();
             
@@ -81,7 +80,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= max)
                 {
                     int numberProjectiles = 1;
-                    Vector2 vector8 = new Vector2(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+                    Vector2 vector8 = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
                     int type = ProjectileID.AmberBolt;
                     float Speed = 12f;
                     float rotation = (float)Math.Atan2(vector8.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector8.X - (NPC.position.X + (NPC.width * 0.5f)));
@@ -102,10 +101,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
 
             Dust newDust = Main.dust[Dust.NewDust(Projectile.position, (Projectile.spriteDirection == -1 ? Projectile.width + 13 : Projectile.width - 28), 
-            Projectile.height + 40, 6, 0f, 0f, 0, default(Color), 1f)];
+            Projectile.height + 40, DustID.Torch, 0f, 0f, 0, default, 1f)];
 
             newDust.position = position;
-            newDust.velocity = Projectile.velocity.RotatedBy(Math.PI / 2, default(Vector2)) * 0.33F + Projectile.velocity / 4;
+            newDust.velocity = Projectile.velocity.RotatedBy(Math.PI / 2, default) * 0.33F + Projectile.velocity / 4;
             newDust.fadeIn = 0.5f;
             newDust.noGravity = true;
 
@@ -175,13 +174,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
 			for (int i = 0; i < 10; i++)
 			{                                                                                  
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 65, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[num].noGravity = true;
-				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				if (Main.dust[num].position != Projectile.Center)
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+
+				if (Main.dust[newDust].position != Projectile.Center)
                 {
-				    Main.dust[num].velocity = Projectile.DirectionTo(Main.dust[num].position) * 2f;
+				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
                 }
 			}
 		}

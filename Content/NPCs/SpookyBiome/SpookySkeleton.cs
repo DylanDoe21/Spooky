@@ -1,11 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -24,13 +21,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 5;
             NPC.width = 25;
 			NPC.height = 50;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 3;
 			AIType = NPCID.ArmoredSkeleton;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -50,7 +48,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
                 //spawn underground
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiomeUg>()))
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
                 {
                     return 30f;
                 }

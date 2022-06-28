@@ -163,7 +163,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             //spawn swarm of flies when spawned
             if (NPC.ai[2] <= 0)
             {
-                for (int i = 0; i < 20; i++)
+                for (int numFlies = 0; numFlies < 20; numFlies++)
                 {
                     Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
                         
@@ -271,7 +271,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             }
 
                             //slow down right before charging
-                            if (NPC.localAI[0] == 80)
+                            if (NPC.localAI[0] == 85)
                             {
                                 NPC.velocity *= 0;
                             }
@@ -281,7 +281,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             {
                                 SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                                int ChargeSpeed = Enraged ? 20 : 18;
+                                int ChargeSpeed = Enraged ? 25 : 20;
                                 
                                 Vector2 ChargeDirection = player.Center - NPC.Center;
                                 ChargeDirection.Normalize();
@@ -597,6 +597,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 {
                                     player.velocity.Y -= 10f;
                                 }
+
+                                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
                                 
                                 //make cool dust effect when slamming the ground
                                 for (int i = 0; i < 65; i++)
@@ -613,9 +615,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                     }
                                 }
 
-                                //play both sounds at the same time because it sounds cool
                                 SoundEngine.PlaySound(SoundID.Item69, NPC.Center);
-                                SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                                 //shoot upward spreads of root spikes
                                 int NumProjectiles = Main.rand.Next(10, 15);
