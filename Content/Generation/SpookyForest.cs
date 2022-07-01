@@ -313,7 +313,7 @@ namespace Spooky.Content.Generation
                             case 2:
                             {
                                 tile.ClearEverything();
-					            WorldGen.PlaceTile(StructureX, StructureY, TileID.Platforms, mute: true);
+					            WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyPlatform>());
                                 break;
                             }
                             //hay bale blocks
@@ -637,7 +637,7 @@ namespace Spooky.Content.Generation
 				}
 
                 PlaceRuinedHouse(House1X - 12, House1Y - 18, RuinedHouse1, RuinedHouseObjects1);
-                PlaceRuinedHouse(House2X - 12, House2Y - 18, RuinedHouse2, RuinedHouseObjects2);
+                PlaceRuinedHouse(House2X - 12, House2Y - 16, RuinedHouse2, RuinedHouseObjects2);
                 PlaceRuinedHouse(House3X - 12, House3Y - 22, RuinedHouse3, RuinedHouseObjects3);
 
                 placed = true;
@@ -995,8 +995,6 @@ namespace Spooky.Content.Generation
         //post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
-            int[] FirstItem = new int[] { ModContent.ItemType<CandyBag>(), ModContent.ItemType<CreepyCandle>(), 
-            ModContent.ItemType<LeafBlower>(), ModContent.ItemType<NecromancyTome>(), ModContent.ItemType<ToiletPaper>() };
             int[] Bars = new int[] { ItemID.CopperBar, ItemID.TinBar, ItemID.IronBar, ItemID.LeadBar };
             int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
             int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
@@ -1017,29 +1015,30 @@ namespace Spooky.Content.Generation
                             //the actual main item
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest>())
                             {
-                                chest.item[0].SetDefaults(FirstItem[0], false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<CandyBag>(), false);
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest2>())
                             {
-                                chest.item[0].SetDefaults(FirstItem[1], false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<LeafBlower>(), false);
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest3>())
                             {
-                                chest.item[0].SetDefaults(FirstItem[2], false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<ToiletPaper>(), false);
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest4>())
                             {
-                                chest.item[0].SetDefaults(FirstItem[3], false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<CreepyCandle>(), false);
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest5>())
                             {
-                                chest.item[0].SetDefaults(FirstItem[4], false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<NecromancyTome>(), false);
                                 chest.item[0].stack = 1;
                             }
+
                             //iron or lead bars
 							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars), false);
 							chest.item[1].stack = WorldGen.genRand.Next(3, 8);

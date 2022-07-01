@@ -1,16 +1,23 @@
--make pumpkin sentry enemy
--resprite rot gourds armor set    
+general changes:
 
--old wood workbenches, table, and chair      
+-old wood workbenches, table, chair, door, lamp, lantern  
+-finish new spooky hell bgs
+-recolor rot gourds armor set  
+-make rot gourds armor set bonus make the players head vanish again
+-make sure little bones advice works
+-make bosses immune to debuffs
+-make new icons for the bosses
+-masks and trophies for bosses
 
--make new icons for the bosses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
--moco resprite and rework (can be done later)
-                                               
+major stuff:
+
+-moco resprite and rework (can be done later)   
+-make purple tortumor summon for the living hell chests
 -make each living hell chest have items in them
--make eye tendril summon for the living hell chests
--make orroboro charge at the player right after bursting out of the egg
+
+can be done whenever:
+
 -make orroboro spike ball projectiles spit balls that linger on the ground instead
 -resprite orroboro thorn pillars, make the thorn telegraph match the new purple palette
--redo creepy flesh sprite
-
--make bosses immune to debuffs
+-add orroboro armor set
+-add eye bat wings

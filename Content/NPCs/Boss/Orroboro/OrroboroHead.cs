@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
             //despawn if all players are dead or not in the biome
-            if (player.dead || !player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
                 NPC.localAI[3]++;
                 if (NPC.localAI[3] >= 120)
@@ -255,7 +255,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 case 2:
                 {
                     NPC.localAI[0]++;
-                    if (NPC.localAI[0] < 100)
+                    if (NPC.localAI[0] < 80)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo.X += 0;
@@ -265,11 +265,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
+                    if (NPC.localAI[0] == 90)
+                    {
+                        NPC.velocity *= 0;
+                    }
+
                     if (NPC.localAI[0] == 100)
                     {
-                        NPC.velocity *= 0.02f;
-
-                        NPC.position.X = player.Center.X;
+                        NPC.position.X = player.Center.X - 20;
                         NPC.position.Y = player.Center.Y + 750;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -473,7 +476,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.velocity *= 0.02f;
 
-                        NPC.position.X = player.Center.X;
+                        NPC.position.X = player.Center.X - 20;
                         NPC.position.Y = player.Center.Y + 750;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -653,7 +656,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] < 100)
+                    if (NPC.localAI[0] < 90)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo.X += 0;
@@ -663,12 +666,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
+                    if (NPC.localAI[0] == 90)
+                    {
+                        NPC.velocity *= 0;
+                    }
+
                     if (NPC.localAI[0] == 100)
                     {
-                        NPC.velocity *= 0.02f;
-
-                        NPC.position.X = player.Center.X;
-                        NPC.position.Y = player.Center.Y + 700;
+                        NPC.position.X = player.Center.X - 20;
+                        NPC.position.Y = player.Center.Y + 750;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

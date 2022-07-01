@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -68,6 +69,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 NPC.frame.Y = (NPC.frame.Y + frameHeight) % (Main.npcFrameCount[NPC.type] * frameHeight);
                 NPC.frameCounter = 1;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 0, 1, 2));
         }
 
         public override bool CheckDead()

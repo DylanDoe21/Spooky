@@ -98,23 +98,27 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void AI()
         {
+            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.expertMode ? 25 : 35;
+            int Damage = Main.expertMode ? 18 : 25;
 
             NPC.ai[0]++;
-            if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)
+            if (NPC.ai[0] > 450 && NPC.ai[0] <= 500)
             {
                 if (Main.rand.Next(8) == 0)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
 
-                    float Spread = Main.rand.Next(-250, 250) * 0.01f;
-
+                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed.X *= 6.5f;
+                    ShootSpeed.Y *= 0f;
+                    
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, -10,
-                        ModContent.ProjectileType<PumpkinSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
+                        ShootSpeed.Y, ModContent.ProjectileType<PumpkinSpit>(), Damage, 1, NPC.target, 0, 0);
                     }
                 }
             }

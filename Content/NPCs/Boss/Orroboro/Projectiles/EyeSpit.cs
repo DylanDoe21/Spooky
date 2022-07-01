@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Toxic Spit");
+            DisplayName.SetDefault("Saliva Ball");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return Color.LightGray;
         }
         
         public override bool PreDraw(ref Color lightColor)
@@ -48,13 +48,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
 
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 

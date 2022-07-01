@@ -23,6 +23,8 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
             Projectile.hostile = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 200;
+            Projectile.scale = 0.8f;
+            Projectile.alpha = 255;
         }
         
         public override bool PreDraw(ref Color lightColor)
@@ -43,25 +45,30 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 		
         public override void AI()
         {    
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            //fix Projectile direction
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
-            
-            if (Projectile.spriteDirection == -1)
+
+            if (Projectile.alpha > 0)
             {
-                Projectile.rotation += MathHelper.Pi;
+                Projectile.alpha -= 5;
+            }
+
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] > 30)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-
             for (int numDust = 0; numDust < 20; numDust++)
             {
                 int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
                 Projectile.width, Projectile.height, 288, 0f, 0f, 100, default, 2f);
 
-                Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                 Main.dust[DustGore].velocity *= 3f;
                 Main.dust[DustGore].noGravity = true;
 

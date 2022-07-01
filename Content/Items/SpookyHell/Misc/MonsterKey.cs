@@ -23,5 +23,13 @@ namespace Spooky.Content.Items.SpookyHell.Misc
             Item.maxStack = 99;
 
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }

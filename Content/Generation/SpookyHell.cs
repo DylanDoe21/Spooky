@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -1081,5 +1083,62 @@ namespace Spooky.Content.Generation
             tasks.Insert(SpookyHellIndex + 4, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
             tasks.Insert(SpookyHellIndex + 5, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
 		}
+
+        //post worldgen to place items in the spooky biome chests
+        public override void PostWorldGen()
+		{
+            int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex]; 
+
+				if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>() || 
+                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>()))
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 5; inventoryIndex++) 
+                    {
+						if (chest.item[inventoryIndex].type == ItemID.None) 
+                        {
+                            //the actual main item
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>())
+                            {
+                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterBloodVial>(), false);
+                                chest.item[0].stack = 1;
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask1>(), false);
+                                chest.item[1].stack = 1;
+                            }
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>())
+                            {
+                                chest.item[0].SetDefaults(ModContent.ItemType<NerveWhip>(), false);
+                                chest.item[0].stack = 1;
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask2>(), false);
+                                chest.item[1].stack = 1;
+                            }
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>())
+                            {
+                                chest.item[0].SetDefaults(4680, false);
+                                chest.item[0].stack = 1;
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask3>(), false);
+                                chest.item[1].stack = 1;
+                            }
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>())
+                            {
+                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterHeart>(), false);
+                                chest.item[0].stack = 1;
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask4>(), false);
+                                chest.item[1].stack = 1;
+                            }
+
+                            /*
+                            //potions
+							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
+							chest.item[3].stack = WorldGen.genRand.Next(2, 3);
+                            */
+						}
+					}
+                }
+            }
+        }
     }
 }

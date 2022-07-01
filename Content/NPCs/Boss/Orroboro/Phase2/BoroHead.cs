@@ -178,7 +178,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
             //despawn if all players are dead or not in the biome
-            if (Main.player[NPC.target].dead || !player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+            if (Main.player[NPC.target].dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
                 NPC.localAI[3]++;
                 if (NPC.localAI[3] >= 120)
