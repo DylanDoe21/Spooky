@@ -12,20 +12,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Saliva Ball");
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 		
         public override void SetDefaults()
         {
-            Projectile.width = 18;                   			 
-            Projectile.height = 18;          
+            Projectile.width = 26;
+            Projectile.height = 26;          
 			Projectile.friendly = false;
             Projectile.hostile = true;                 			  		
             Projectile.tileCollide = false;
-            Projectile.ignoreWater = false;
-            Projectile.penetrate = 1;                  					
+            Projectile.ignoreWater = false;                					
             Projectile.timeLeft = 180;
 		}
 
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 7)
                 {
                     Projectile.frame = 0;
                 }
@@ -52,10 +51,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;
@@ -67,14 +67,27 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
-            Projectile.localAI[0]++;
-            if (Projectile.localAI[0] <= 30)
-            {   
-                Projectile.velocity *= 0.97f;
-            }
-            if (Projectile.localAI[0] >= 30 && Projectile.localAI[0] <= 75)
+            if (Projectile.ai[0] == 0)
             {
-                Projectile.velocity *= 1.05f;
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] <= 30)
+                {   
+                    Projectile.velocity *= 0.97f;
+                }
+                if (Projectile.ai[1] >= 30 && Projectile.ai[1] <= 75)
+                {
+                    Projectile.velocity *= 1.05f;
+                }
+            }
+
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] >= 35)
+                {   
+                    Projectile.velocity.X = Projectile.velocity.X * 0.99f;
+                    Projectile.velocity.Y = Projectile.velocity.Y + 0.30f;
+                }
             }
 		}
 

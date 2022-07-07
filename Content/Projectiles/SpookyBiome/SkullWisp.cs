@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = true;
 			Projectile.netImportant = true;
-			Projectile.timeLeft = 18000;
+			Projectile.timeLeft = 2;
 			Projectile.penetrate = -1;
 			Projectile.minionSlots = 1;
 			AIType = ProjectileID.Raven;
@@ -65,17 +65,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
 			Player player = Main.player[Projectile.owner];
 
-			if (Projectile.active)
+			if (player.dead)
 			{
-				if (player.dead)
-				{
-					player.GetModPlayer<SpookyPlayer>().SkullWisp = false;
-				}
+				player.GetModPlayer<SpookyPlayer>().SkullWisp = false;
+			}
 
-				if (player.GetModPlayer<SpookyPlayer>().SkullWisp)
-				{
-					Projectile.timeLeft = 2;
-				}
+			if (player.GetModPlayer<SpookyPlayer>().SkullWisp)
+			{
+				Projectile.timeLeft = 2;
 			}
 
 			//prevent Projectiles clumping together

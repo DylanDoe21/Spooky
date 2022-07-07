@@ -23,7 +23,7 @@ namespace Spooky.Content.Buffs.Pets
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<MocoPet>()] < 1)
 			{
 				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 
-				0f, 0f, ModContent.ProjectileType<MocoPet>(), 0, 0f, player.whoAmI, 0f, 0f);
+				0f, 0f, ModContent.ProjectileType<MocoPet>(), 0, 0f, player.whoAmI);
 			}
 
 			if (player.GetModPlayer<SpookyPlayer>().MocoPet)

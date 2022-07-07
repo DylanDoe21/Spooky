@@ -27,20 +27,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			HitSound = SoundID.Dig;
 		}
 
-		/*
-		//dont think this is needed
-		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 
-		{
-			Tile tile = Main.tile[i, j];
-			if (tile.TileFrameY == 0) 
-			{
-				r = 0.3f;
-				g = 0.2f;
-				b = 0f;
-			}
-		}
-		*/
-
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData) 
 		{
 			if (Main.gamePaused || !Main.instance.IsActive || Lighting.UpdateEveryFrame && !Main.rand.NextBool(4)) 

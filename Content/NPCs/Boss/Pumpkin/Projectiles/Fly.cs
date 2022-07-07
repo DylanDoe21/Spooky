@@ -24,8 +24,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 			Projectile.friendly = false;
             Projectile.hostile = false;
 			Projectile.tileCollide = false;
-			Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+			Projectile.timeLeft = 500;
             Projectile.alpha = 100;
             Projectile.scale = 0.85f;
             Projectile.aiStyle = -1;
@@ -45,6 +44,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
             
             if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<SpookyPumpkin>() || Main.npc[index1].type == ModContent.NPCType<SpookyPumpkinP2>())) 
             {
+                Projectile.timeLeft = 500;
+
                 float goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
                 float goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
 

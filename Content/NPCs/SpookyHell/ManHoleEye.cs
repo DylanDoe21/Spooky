@@ -75,10 +75,10 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
 
             //rotation
-            Vector2 vector92 = new(NPC.Center.X, NPC.Center.Y);
-            float num740 = Main.player[NPC.target].Center.X - vector92.X;
-            float num741 = Main.player[NPC.target].Center.Y - vector92.Y;
-            NPC.rotation = (float)Math.Atan2((double)num741, (double)num740) + 4.71f;
+            Vector2 vector = new(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
             //attack player if nearby
             if (NPC.Distance(player.Center) <= 500f) 

@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
 			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.Next(15) == 0) 
+                if (Main.rand.Next(8) == 0) 
                 {
                     Below.TileType = (ushort)ModContent.TileType<SpookyVines>();
                     Below.HasTile = true;
@@ -44,7 +44,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
-                if (Main.rand.Next(15) == 0)
+                if (Main.rand.Next(5) == 0)
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyWeeds>();
                     Above.HasTile = true;
@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     }
 				}
 
-                if (Main.rand.Next(20) == 0) 
+                if (Main.rand.Next(8) == 0) 
                 {
                     ushort[] TallWeeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedTall1>(), 
                     (ushort)ModContent.TileType<SpookyWeedTall2>(), (ushort)ModContent.TileType<SpookyWeedTall3>() };
@@ -65,7 +65,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     WorldGen.PlaceObject(i, j, Main.rand.Next(TallWeeds));
                 }
 
-                if (Main.rand.Next(25) == 0) 
+                if (Main.rand.Next(15) == 0) 
                 {
                     ushort[] BigWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), 
                     (ushort)ModContent.TileType<SpookyWeedBig2>(), (ushort)ModContent.TileType<SpookyWeedBig3>() };

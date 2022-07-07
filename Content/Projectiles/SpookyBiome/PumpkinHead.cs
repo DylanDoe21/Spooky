@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
@@ -31,20 +32,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+            Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-
-        public override void AI()
+        public override bool PreDraw(ref Color lightColor)
         {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 16)
+            if (Projectile.frameCounter >= 6)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
@@ -54,6 +49,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
+            return true;
+        }
+
+        public override void AI()
+        {
             Player player = Main.player[Projectile.owner];
             SpookyPlayer modPlayer = player.GetModPlayer<SpookyPlayer>();
             
@@ -71,44 +71,31 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.Kill();
             }
 
-            shootTimer--;
-            float max = 400f;
-            Projectile.tileCollide = false;
+            Lighting.AddLight(Projectile.Center, 0.6f, 0.3f, 0f);
+
+            shootTimer++;
+
             for (int i = 0; i < 200; i++)
             {
                 NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= max)
+                if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
                 {
-                    int numberProjectiles = 1;
-                    Vector2 vector8 = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-                    int type = ProjectileID.AmberBolt;
-                    float Speed = 12f;
-                    float rotation = (float)Math.Atan2(vector8.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector8.X - (NPC.position.X + (NPC.width * 0.5f)));
-                    int damage = 20;
-                    if (shootTimer <= 0)
+                    if (shootTimer >= 40)
                     {
-                        for (int l = 0; l < numberProjectiles; l++)
-                        {
-                            Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), vector8.X, vector8.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, 0f, Main.myPlayer, 0f, 0f);
-                        }
-                        shootTimer = 50;
+                        float Speed = 8f;
+                        Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+                        float rotation = (float)Math.Atan2(vector.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector.X - (NPC.position.X + (NPC.width * 0.5f)));
+                        Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
+                        
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                        perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadSeed>(), 30, 0f, Main.myPlayer, 0f, 0f);
+
+                        shootTimer = 0;
                     }
                 }
             }
 
-            //make cool fire dust effect from the pumpkins eye
-            Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
-
-            Dust newDust = Main.dust[Dust.NewDust(Projectile.position, (Projectile.spriteDirection == -1 ? Projectile.width + 13 : Projectile.width - 28), 
-            Projectile.height + 40, DustID.Torch, 0f, 0f, 0, default, 1f)];
-
-            newDust.position = position;
-            newDust.velocity = Projectile.velocity.RotatedBy(Math.PI / 2, default) * 0.33F + Projectile.velocity / 4;
-            newDust.fadeIn = 0.5f;
-            newDust.noGravity = true;
-
-            //movement code, copied from moco pet lol
+            //movement
             if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {
                 Projectile.ai[0] = 1f;
@@ -172,18 +159,19 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 10; i++)
-			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].noGravity = true;
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+			for (int numDust = 0; numDust < 20; numDust++)
+            {
+                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 288, 0f, 0f, 100, default, 2f);
 
-				if (Main.dust[newDust].position != Projectile.Center)
+                Main.dust[DustGore].velocity *= 1.5f;
+                Main.dust[DustGore].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
                 {
-				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+                    Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                 }
-			}
+            }
 		}
     }
 }

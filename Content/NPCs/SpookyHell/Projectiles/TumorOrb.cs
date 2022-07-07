@@ -97,6 +97,10 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                         }
                     }
                 }
+                else
+                {
+                    Projectile.Kill();
+                }
             }
             
             if (Projectile.ai[0] == 180)

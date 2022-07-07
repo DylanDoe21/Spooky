@@ -27,11 +27,11 @@ namespace Spooky.Content.Generation
             //decide whether or not to use the alt background
             if (Main.rand.Next(2) == 0)
             {
-                Flags.SpookyBackgroundAlt = true;
+                Flags.SpookyBackgroundAlt = false;
             }
             else
             {
-                Flags.SpookyBackgroundAlt = false;
+                Flags.SpookyBackgroundAlt = true;
             }
 
             //set to default values in case of non vanilla world sizes

@@ -23,8 +23,7 @@ namespace Spooky.Content.Projectiles.Pets
             Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+            Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
 		}
 

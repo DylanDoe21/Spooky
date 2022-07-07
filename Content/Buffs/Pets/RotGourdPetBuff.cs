@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
@@ -24,7 +23,7 @@ namespace Spooky.Content.Buffs.Pets
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<RotGourdPet>()] < 1)
 			{
 				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y,
-				0f, 0f, ModContent.ProjectileType<RotGourdPet>(), 0, 0f, player.whoAmI, 0f, 0f);
+				0f, 0f, ModContent.ProjectileType<RotGourdPet>(), 0, 0f, player.whoAmI);
 			}
 
 			if (player.GetModPlayer<SpookyPlayer>().RotGourdPet)

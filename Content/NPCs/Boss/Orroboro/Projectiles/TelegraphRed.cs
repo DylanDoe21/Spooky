@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 35;  
+            Projectile.timeLeft = 20;  
         }
        
         public override Color? GetAlpha(Color lightColor)

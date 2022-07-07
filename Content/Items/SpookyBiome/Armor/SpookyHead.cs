@@ -14,18 +14,17 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Spooky Horseman's Pumpkin");
-			Tooltip.SetDefault("2% increased critical strike chance"
-			+ "\nEnemies are more likely to target you");
+			Tooltip.SetDefault("2% increased critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
-			Item.width = 18;
-			Item.height = 18;
+			Item.defense = 2;
+			Item.width = 24;
+			Item.height = 26;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
-			Item.rare = 1;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 
@@ -35,11 +34,11 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "\nYour own head will now fight for you!";
+			player.setBonus = "Your own head will now fight for you!";
 			player.GetModPlayer<SpookyPlayer>().SpookySet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PumpkinHead>()] <= 0;
-			if (NotSpawned && player.whoAmI == Main.myPlayer)
+			if (NotSpawned)
 			{
 				//leave the source as null for right now
 				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, 
@@ -47,15 +46,9 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			}
 		}
 
-		public override void ArmorSetShadows(Player player)
-		{
-			player.armorEffectDrawShadow = true;
-		}
-
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance<GenericDamageClass>() += 2;
-			player.aggro += 100;
+			player.GetCritChance(DamageClass.Generic) += 2;
 		}
 	}
 }

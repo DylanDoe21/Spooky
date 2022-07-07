@@ -19,12 +19,11 @@ namespace Spooky.Content.Projectiles.Pets
 		public override void SetDefaults()
 		{
 			Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.height = 36;
             Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+            Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
 		}
 

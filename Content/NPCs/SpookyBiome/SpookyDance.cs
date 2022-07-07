@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
             for (int numDusts = 0; numDusts < 20; numDusts++)
             {
-                int GhostDust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
+                int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
                 Main.dust[GhostDust].velocity *= 3f;
                 Main.dust[GhostDust].noGravity = true;
 

@@ -938,7 +938,7 @@ namespace Spooky.Content.Generation
                     continue;
                 }
 
-                PlaceStructures(NestX, NestY - 15, BoneNestShape, BoneNestObjects);
+                PlaceStructures(NestX - 20, NestY - 15, BoneNestShape, BoneNestObjects);
 
                 //dig crater that leads to each alchemy room
                 for (int CraterDepth = Main.maxTilesY - 160; CraterDepth <= Main.maxTilesY - 100; CraterDepth++)

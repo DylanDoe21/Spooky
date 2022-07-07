@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             NPC.TargetClosest(true);
 
-            int Damage = Main.expertMode ? 25 : 35;
+            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 55 / 2 : 35;
 
             NPC.ai[0]++;
             if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)

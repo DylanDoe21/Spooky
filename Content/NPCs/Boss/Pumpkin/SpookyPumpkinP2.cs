@@ -49,8 +49,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 2350 / 3 : Main.expertMode ? 1850 / 2 : 1420;
-            NPC.damage = 45;
+            NPC.lifeMax = Main.masterMode ? 2400 / 3 : Main.expertMode ? 1850 / 2 : 1420;
+            NPC.damage = 30;
             NPC.defense = 5;
             NPC.width = 200;
             NPC.height = 110;
@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
 					Color color = NPC.GetAlpha(Color.Brown) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+					spriteBatch.Draw(tex, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 				}
 			}
 
@@ -137,7 +137,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 55 / 3 : Main.expertMode ? 40 / 2 : 25;
+            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 25;
 
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.04f;
@@ -498,18 +498,17 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             
                             for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                             {
-                                Vector2 ShootSpeed = Main.player[NPC.target].Center - NPC.Center;
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
                                 ShootSpeed.X *= 6f;
                                 ShootSpeed.Y *= 6f;
                                 
-                                float SpreadX = Main.rand.Next(-200, 200) * 0.01f;
-                                float SpreadY = Main.rand.Next(-200, 200) * 0.01f;
-                                
+                                float Spread = Main.rand.Next(-2, 2);
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + SpreadX, 
-                                    ShootSpeed.Y + SpreadY, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                                    ShootSpeed.Y + Spread, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
                                 }
                             }
                         }
@@ -706,7 +705,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagPumpkin>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<SpookyPumpkinBag>()));
             
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookyPumpkinRelicItem>()));

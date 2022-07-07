@@ -46,8 +46,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 		
 		public override void AI()
         {
-            
-            
             if (Projectile.alpha > 0)
 			{
 				Projectile.alpha -= 5;
@@ -88,16 +86,17 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 25; i++)
+			for (int numDust = 0; numDust < 25; numDust++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 262, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 288, 0f, -2f, 0, default(Color), 1.5f);
 
-				if (Main.dust[dust].position != Projectile.Center)
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
 				{
-					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
 				}
 			}
 		}

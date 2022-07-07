@@ -24,7 +24,7 @@ namespace Spooky.Content.Buffs.Minion
 
 			if (player.GetModPlayer<SpookyPlayer>().SkullWisp) 
 			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 1;
 			}
 			else
 			{

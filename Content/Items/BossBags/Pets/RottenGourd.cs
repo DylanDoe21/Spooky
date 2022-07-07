@@ -29,6 +29,12 @@ namespace Spooky.Content.Items.BossBags.Pets
 			Item.buffType = ModContent.BuffType<RotGourdPetBuff>();
 		}
 
+		public override bool? UseItem(Player player)
+        {
+			player.AddBuff(Item.buffType, 2);
+			return true;
+        }
+
 		public override bool CanUseItem(Player player)
 		{
 			return player.miscEquips[0].IsAir;

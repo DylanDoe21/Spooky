@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
+
 namespace Spooky.Content.Tiles.SpookyBiome
 {
     public class SpookyWoodItem : ModItem
@@ -25,6 +27,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useStyle = 1;
 			Item.maxStack = 999;
 			Item.createTile = ModContent.TileType<SpookyWood>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpookyPlatformItem>(), 2)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

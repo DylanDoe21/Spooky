@@ -14,7 +14,7 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetDamage<SummonDamageClass>() += 0.05f;
+			player.GetDamage(DamageClass.Summon) += 0.05f;
 		}
 	}
 }

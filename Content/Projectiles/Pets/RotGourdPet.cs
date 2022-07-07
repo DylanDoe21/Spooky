@@ -21,15 +21,14 @@ namespace Spooky.Content.Projectiles.Pets
 			AIType = ProjectileID.Sapling;
 			Projectile.width = 40;
 			Projectile.height = 40;
-            Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+            Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
 		}
 
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-            
+
 			if (player.dead)
             {
 				player.GetModPlayer<SpookyPlayer>().RotGourdPet = false;

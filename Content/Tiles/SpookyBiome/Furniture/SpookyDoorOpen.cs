@@ -61,7 +61,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.AnchorBottom = new AnchorData(AnchorType.SolidTile, 1, 1);
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceLeft;
 			TileObjectData.addAlternate(1);
-            TileObjectData.newTile.DrawYOffset = -1;
+			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
             CloseDoorID = ModContent.TileType<SpookyDoorClosed>();
             ModTranslation name = CreateMapEntryName();

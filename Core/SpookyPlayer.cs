@@ -1,9 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Buffs;
@@ -17,6 +19,7 @@ namespace Spooky.Core
     {
         //armors and accessories
         public bool SpookySet = false;
+        public bool GoreArmorSet = false;
         public bool TreatBag = false;
         public bool MagicCandle = false;
         public bool PumpkinCore = false;
@@ -35,6 +38,7 @@ namespace Spooky.Core
         {
             //armors and accessories
             SpookySet = false;
+            GoreArmorSet = false;
             TreatBag = false;
             MagicCandle = false;
             PumpkinCore = false;
@@ -57,7 +61,7 @@ namespace Spooky.Core
             //embryo revive ability
             if (Player.statLife <= 0)
             {
-                if (OrroboroEmbyro && Player.FindBuffIndex(ModContent.BuffType<EmbryoCooldown>()) < 0)
+                if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
                 {
                     Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
                     Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
@@ -70,19 +74,39 @@ namespace Spooky.Core
             return ShouldRevive;
         }
 
-        /*
-        //Idk how to port this ngl
-        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
+            {
+                damage = 0;
+                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 2700);
+                SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
+                Player.statLife = Player.statLife;
+
+                for (int numDust = 0; numDust < 20; numDust++)
+                {
+                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, 90, 0f, 0f, 100, default, 2f);
+                    Main.dust[dustEffect].velocity *= 3f;
+                    Main.dust[dustEffect].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[dustEffect].scale = 0.5f;
+                        Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
             if (SpookySet)
             {
-                PlayerLayer.Head.visible = false;
-                PlayerLayer.Skin.visible = false;
-                PlayerLayer.Hair.visible = false;
-                PlayerLayer.Face.visible = false;
+                PlayerDrawLayers.Head.Hide();
             }
         }
-        */
 
         public override void PreUpdate()
         {
@@ -102,7 +126,7 @@ namespace Spooky.Core
             }
 
             //spawn falling leaves while in the spooky forest
-            int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(), 
+            int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(),
             ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Content.Gores.LeafRedTreeFX>() };
 
             if (Main.rand.Next(40) == 0 && Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && Player.ZoneOverworldHeight)
@@ -126,7 +150,7 @@ namespace Spooky.Core
                 Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
                 Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
             }
-            
+
             if (SpookyWorld.GhostEvent && Player.ZoneOverworldHeight)
             {
                 SpawnTileFog();
@@ -150,6 +174,36 @@ namespace Spooky.Core
                     }
                 }
             }
+        }
+    }
+
+    public class GoreAura : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return !drawInfo.drawPlayer.HasBuff<GoreAuraCooldown>() && drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().GoreArmorSet;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Texture2D tex;
+
+            if (!drawInfo.drawPlayer.armorEffectDrawOutlines && !drawInfo.drawPlayer.armorEffectDrawShadow)
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Armor/GoreAuraEffect2").Value;
+            }
+            else
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Armor/GoreAuraEffect").Value;
+            }
+
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+
+            Color color = Color.Lerp(Color.Lerp(Color.Transparent, new Color(220, 20, 60, 100), fade), Color.Transparent, fade);
+
+            Main.EntitySpriteDraw(tex, drawInfo.drawPlayer.MountedCenter - Main.screenPosition, null, color, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 }

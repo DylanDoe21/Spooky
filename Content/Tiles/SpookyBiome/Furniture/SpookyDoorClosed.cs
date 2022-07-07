@@ -22,7 +22,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileID.Sets.HasOutlines[Type] = true;
-			TileID.Sets.DisableSmartCursor[Type] = true;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AdjTiles = new int[] { TileID.ClosedDoor };
 			TileObjectData.newTile.Width = 1;

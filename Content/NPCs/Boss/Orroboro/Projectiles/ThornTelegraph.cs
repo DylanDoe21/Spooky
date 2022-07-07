@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {      
-            Main.EntitySpriteDraw((Texture2D)TextureAssets.MagicPixel, Projectile.position - new Vector2(3, 4000) - Main.screenPosition, null, new Color(87, 69, 135) * (1 - ((float)Projectile.alpha /255f)), Projectile.rotation, Vector2.Zero, new Vector2(6, 4), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw((Texture2D)TextureAssets.MagicPixel, Projectile.position - new Vector2(3, 4000) - Main.screenPosition, null, new Color(140, 99, 201) * (1 - ((float)Projectile.alpha /255f)), Projectile.rotation, Vector2.Zero, new Vector2(6, 4), SpriteEffects.None, 0);
             return false;
         }
     }

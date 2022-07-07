@@ -49,7 +49,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
 		public override void RandomUpdate(int i, int j)
 		{
-			if (WorldGen.genRand.Next(2) == 0)
+			if (WorldGen.genRand.Next(12) == 0)
 			{
 				bool isPlayerNear = WorldGen.PlayerLOS(i, j);
 				bool success = WorldGen.GrowTree(i, j);

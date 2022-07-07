@@ -23,8 +23,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.height = 16;
 			Projectile.friendly = true; 
 			Projectile.tileCollide = false;
-			Projectile.timeLeft = 999999999;
-            Projectile.timeLeft *= 999999999;
+			Projectile.timeLeft = 500;
             Projectile.scale = 0.85f;
             Projectile.aiStyle = -1;
 		}
@@ -37,6 +36,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void AI()
 		{
+            Player player = Main.player[Projectile.owner];
+
+            Projectile.timeLeft = 500;
+
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 4)
             {
@@ -56,9 +59,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            int index1 = (int)Projectile.ai[1];
-
-            Player player = Main.player[Projectile.owner];
             if (!player.active || player.dead || !player.GetModPlayer<SpookyPlayer>().PumpkinCore)
 			{
 				Projectile.alpha += 10;
@@ -68,7 +68,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Projectile.Kill();
                 }
 			}
-            
             
             float goToX = player.Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
             float goToY = player.Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
@@ -128,7 +127,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            //prevent Projectiles clumping together
+            //prevent projectiles clumping together
             for (int num = 0; num < Main.projectile.Length; num++)
             {
                 Projectile other = Main.projectile[num];

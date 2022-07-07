@@ -11,24 +11,22 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Spooky Horseman's Chestmail");
-			Tooltip.SetDefault("3% increased damage"
-			+ "\nEnemies are more likely to target you");
+			Tooltip.SetDefault("3% increased damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 5;
-			Item.width = 18;
-			Item.height = 18;
+			Item.defense = 3;
+			Item.width = 30;
+			Item.height = 24;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
-			Item.rare = 1;
 		}
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage<GenericDamageClass>() += 0.03f;
-			player.aggro += 120;
+			player.GetDamage(DamageClass.Generic) += 0.03f;
 		}
 	}
 }

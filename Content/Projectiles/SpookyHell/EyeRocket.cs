@@ -104,14 +104,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             for (int numGores = 0; numGores < 5; numGores++)
             {
-                int Explosion = Gore.NewGore(Projectile.GetSource_Death(), new Vector2(Projectile.Center.X, Projectile.Center.Y), default, Main.rand.Next(61, 64), 1f);
+                int Explosion = Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, default, Main.rand.Next(61, 64), 1f);
                 Main.gore[Explosion].velocity *= 0.4f;
             }
 
             for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-                Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
 
                 Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                 Main.dust[DustGore].velocity *= 3f;

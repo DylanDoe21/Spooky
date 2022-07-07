@@ -33,8 +33,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1420;
-            NPC.damage = 40;
+            NPC.lifeMax = Main.masterMode ? 2400 / 3 : Main.expertMode ? 1850 / 2 : 1420;
+            NPC.damage = 30;
             NPC.defense = 10;
             NPC.width = 138;
             NPC.height = 128;
@@ -48,13 +48,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PumpkinBoss");
-        }
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            NPC.lifeMax = 1850;
-            NPC.damage = 55;
-            NPC.defense = 10;
         }
 
         /*
@@ -85,7 +78,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
 					Color color = NPC.GetAlpha(Color.Brown) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+					spriteBatch.Draw(tex, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 				}
 			}
             
@@ -155,7 +148,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 18;
+            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 18;
 
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.04f;
@@ -685,13 +678,12 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 ShootSpeed.X *= 6f;
                                 ShootSpeed.Y *= 6f;
                                 
-                                float SpreadX = Main.rand.Next(-200, 200) * 0.01f;
-                                float SpreadY = Main.rand.Next(-200, 200) * 0.01f;
+                                float Spread = Main.rand.Next(-2, 2);
                                 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + SpreadX, 
-                                    ShootSpeed.Y + SpreadY, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                                    ShootSpeed.Y + Spread, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
                                 }
                             }
                         }

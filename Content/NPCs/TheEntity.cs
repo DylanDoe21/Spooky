@@ -13,6 +13,8 @@ namespace Spooky.Content.NPCs
 {
     public class TheEntity : ModNPC
     {
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Scream", SoundType.Sound);
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("");

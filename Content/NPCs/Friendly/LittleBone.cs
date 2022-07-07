@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Friendly
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys")
+				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.")
 			});
 		}
 

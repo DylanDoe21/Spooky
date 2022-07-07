@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.DefaultToWhip();
 
 			// use these to change from the vanilla defaults
-			Projectile.WhipSettings.Segments = 15;
+			Projectile.WhipSettings.Segments = 25;
 			Projectile.WhipSettings.RangeMultiplier = 1f;
 		}
 

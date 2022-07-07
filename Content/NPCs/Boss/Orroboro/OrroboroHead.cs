@@ -14,6 +14,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     public class OrroboroHead : ModNPC
     {
         //bools for animation
+        public bool Transition = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
         private bool spawned;
@@ -107,7 +108,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.expertMode ? 28 : 40;
+            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -172,9 +173,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //splitting transition
             if (NPC.life <= NPC.lifeMax / 2)
 			{
-                //set ai to -1 to not run during transition
-                NPC.ai[0] = -1;
-
+                Transition = true;
                 NPC.immortal = true;
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
@@ -212,498 +211,472 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            //attacks
-            switch ((int)NPC.ai[0])
+            if (!Transition && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && NPC.localAI[3] < 120)
             {
-                //basic movement
-                case 0:
+                //attacks
+                switch ((int)NPC.ai[0])
                 {
-                    NPC.localAI[0]++;
-
-                    Movement(player, 18f, 0.38f, false);
-                        
-                    if (NPC.localAI[0] > 500)
+                    //basic movement
+                    case 0:
                     {
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                    }
+                        NPC.localAI[0]++;
 
-                    break;
-                }
-
-                //chase the player directly
-                case 1:
-                {
-                    NPC.localAI[0]++;
-
-                    Chomp = true;
-
-                    //use chase movement
-                    Movement(player, 8f, 0.20f, true);
-
-                    if (NPC.localAI[0] > 600)
-                    {
-                        Chomp = false;
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                    }
-
-                    break;
-                }
-
-                //go below player, dash up, then curve back down
-                case 2:
-                {
-                    NPC.localAI[0]++;
-                    if (NPC.localAI[0] < 80)
-                    {
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 0;
-                        GoTo.Y += 750;
-
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
-
-                    if (NPC.localAI[0] == 90)
-                    {
-                        NPC.velocity *= 0;
-                    }
-
-                    if (NPC.localAI[0] == 100)
-                    {
-                        NPC.position.X = player.Center.X - 20;
-                        NPC.position.Y = player.Center.Y + 750;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Movement(player, 22f, 0.38f, false);
+                            
+                        if (NPC.localAI[0] > 500)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                        }
-                    }
-
-                    if (NPC.localAI[0] == 120)
-                    {
-                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
-
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 0;
-                        ChargeDirection.Y *= 35;  
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
-                    }
-
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 200)
-                    {
-                        double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
-                        while (angle > Math.PI)
-                        {
-                            angle -= 2.0 * Math.PI;
-                        }
-                        while (angle < -Math.PI)
-                        {
-                            angle += 2.0 * Math.PI;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
                         }
 
-                        if (Math.Abs(angle) > Math.PI / 2) //passed player, turn around
-                        {
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 22;
-                        }
-
-                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(3.2f) * NPC.localAI[1]);
-                    }   
-
-                    if (NPC.localAI[0] > 230)
-                    {
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0;
-                        NPC.ai[0]++;
+                        break;
                     }
 
-                    break;
-                }
-
-                //fly around and shoot toxic spit around when near player
-                case 3:
-                {
-                    NPC.localAI[0]++;
-
-                    Movement(player, 16f, 0.36f, false);
-
-                    //Shoot toxic spit when nearby the player
-                    if (NPC.Distance(player.Center) <= 450f) 
+                    //chase the player directly
+                    case 1:
                     {
-                        OpenMouth = true;
-                        
-                        if (Main.rand.Next(7) == 0)
+                        NPC.localAI[0]++;
+
+                        Chomp = true;
+
+                        //use chase movement
+                        Movement(player, 10f, 0.18f, true);
+
+                        if (NPC.localAI[0] > 600)
                         {
-                            Vector2 position = new(NPC.Center.X + (NPC.width / 2), NPC.Center.Y + (NPC.height / 2));  
+                            Chomp = false;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                        }
+
+                        break;
+                    }
+
+                    //go below player, dash up, then curve back down
+                    case 2:
+                    {
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[0] < 60)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += 0;
+                            GoTo.Y += 750;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            NPC.velocity *= 0;
+
+                            NPC.position.X = player.Center.X - 20;
+                            NPC.position.Y = player.Center.Y + 750;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, NPC.velocity.X * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, 
-                                NPC.velocity.Y * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, 0);
-                            }
-
-                            if (Main.rand.Next(2) == 0)
-                            {
-                                SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
+                                ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                             }
                         }
-                    }
-                    else
-                    {
-                        OpenMouth = false;
-                    }
 
-                    if (NPC.localAI[0] >= 450)
-                    {
-                        OpenMouth = false;
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                    }
-
-                    break;
-                }
-
-                //go to the side of player, dash and circle the player
-                case 4:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[0] <= 100)
-                    {
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += (NPC.Center.X < player.Center.X) ? -1300 : 1300;
-                        GoTo.Y -= 400;
-
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
-
-                    if (NPC.localAI[0] == 100)
-                    {
-                        NPC.velocity *= 0.02f;
-
-                        NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1300 : player.Center.X + 1300;
-                        NPC.position.Y = player.Center.Y - 400;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (NPC.localAI[0] == 75)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y - 400, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                        }
-                    }
+                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
-                    if (NPC.localAI[0] == 120)
-                    {
-                        SoundEngine.PlaySound(GrowlSound, NPC.position);
-
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 45;
-                        ChargeDirection.Y *= 0;  
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
-                    }
-
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 260)
-                    {
-                        double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
-                        while (angle > Math.PI)
-                        {
-                            angle -= 2.0 * Math.PI;
-                        }
-                        while (angle < -Math.PI)
-                        {
-                            angle += 2.0 * Math.PI;
+                            NPC.velocity.X *= 0;
+                            NPC.velocity.Y = -42;
                         }
 
-                        if (Math.Abs(angle) > Math.PI / 2) //passed player, turn around
+                        if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 135)
                         {
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 35;
-                        }
-
-                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(5f) * NPC.localAI[1]);
-
-                        if (NPC.localAI[0] % 20 == 5)
-                        {
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed.X *= 3f;
-                            ShootSpeed.Y *= 3f;
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
+                            while (angle > Math.PI)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
+                                angle -= 2.0 * Math.PI;
                             }
-                        }
-                    }   
-
-                    if (NPC.localAI[0] > 260)
-                    {
-                        NPC.velocity *= 0.5f;
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0;
-                        NPC.ai[0]++;
-                    }
-
-                    break;
-                }
-
-                //go below player, charge up, and tooth balls upward
-                case 5:
-                {
-                    NPC.localAI[0]++;
-                        
-                    if (NPC.localAI[0] < 80)
-                    {
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 0;
-                        GoTo.Y += 750;
-
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
-
-                    if (NPC.localAI[0] == 80)
-                    {
-                        NPC.velocity *= 0.02f;
-
-                        NPC.position.X = player.Center.X - 20;
-                        NPC.position.Y = player.Center.Y + 750;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                        }
-                    }
-
-                    if (NPC.localAI[0] == 100)
-                    {
-                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
-
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 0;
-                        ChargeDirection.Y *= 25;  
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
-                    }
-
-                    if (NPC.localAI[0] > 110)
-                    {
-                        NPC.velocity *= 0.95f;
-                        OpenMouth = true;
-                    }
-
-                    if (NPC.localAI[0] > 120 && NPC.localAI[0] < 180)
-                    {
-                        NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
-                        NPC.Center += Main.rand.NextVector2Square(-3, 3);
-                    }
-
-                    if (NPC.localAI[0] == 180 || NPC.localAI[0] == 200 || NPC.localAI[0] == 220)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-
-                        int NumProjectiles = Main.rand.Next(5, 8);
-                        for (int i = 0; i < NumProjectiles; ++i)
-                        {
-                            float Spread = (float)Main.rand.Next(-1000, 1000) * 0.01f;
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            while (angle < -Math.PI)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
-                                Main.rand.Next(-10, -5), ModContent.ProjectileType<Toothball>(), Damage, 1, Main.myPlayer, 0, 0);
+                                angle += 2.0 * Math.PI;
                             }
-                        }
-                    }
 
-                    if (NPC.localAI[0] > 320)
-                    {
-                        OpenMouth = false;
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                    }
-
-                    break;
-                }
-
-                //summon thorn pillars 3 times, then charge up at the player
-                case 6:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[1] < 3)
-                    {
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 0;
-                        GoTo.Y += 700;
-
-                        //go from side to side
-                        if (NPC.localAI[0] < 120)
-                        {
-                            GoTo.X += 1000;
-                        }
-                        if (NPC.localAI[0] > 120)
-                        {
-                            GoTo.X += -1000;
-                        }
-                        
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-
-                        if (NPC.localAI[0] % 20 == 5)
-                        {
-                            for (int j = 0; j <= 0; j++) //0 was 1, 1 was 10
+                            if (Math.Abs(angle) > Math.PI / 2) //passed player, turn around
                             {
-                                for (int i = 0; i <= 0; i += 1) 
+                                NPC.localAI[1] = Math.Sign(angle);
+                                NPC.velocity = Vector2.Normalize(NPC.velocity) * 30;
+                            }
+
+                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * NPC.localAI[1]);
+                        }   
+
+                        if (NPC.localAI[0] > 135)
+                        {
+                            NPC.velocity *= 0.5f;
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.ai[0]++;
+                        }
+
+                        break;
+                    }
+
+                    //fly around and shoot toxic spit around when near player
+                    case 3:
+                    {
+                        NPC.localAI[0]++;
+
+                        Movement(player, 22f, 0.35f, false);
+
+                        //Shoot toxic spit when nearby the player
+                        if (NPC.Distance(player.Center) <= 500f) 
+                        {
+                            OpenMouth = true;
+                            
+                            if (Main.rand.Next(7) == 0)
+                            {
+                                Vector2 position = new(NPC.Center.X + (NPC.width / 2), NPC.Center.Y + (NPC.height / 2));  
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                                    center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
-                                    int numtries = 0;
-                                    int x = (int)(center.X / 16);
-                                    int y = (int)(center.Y / 16);
-                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                                    {
-                                        y++;
-                                        center.Y = y * 16;
-                                    }
-                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                                    {
-                                        numtries++;
-                                        y--;
-                                        center.Y = y * 16;
-                                    }
-
-                                    if (numtries >= 10)
-                                    {
-                                        break;
-                                    }
-
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
-                                        ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
-                                    }
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, NPC.velocity.X * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, 
+                                    NPC.velocity.Y * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, 0);
                                 }
 
-                                for (int i = -1; i <= 1; i += 2) 
+                                if (Main.rand.Next(2) == 0)
                                 {
-                                    Vector2 center = new(player.Center.X, player.Center.Y + player.height / 4);
-                                    center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
-                                    int numtries = 0;
-                                    int x = (int)(center.X / 16);
-                                    int y = (int)(center.Y / 16);
-                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                                    {
-                                        y++;
-                                        center.Y = y * 16;
-                                    }
-                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                                    {
-                                        numtries++;
-                                        y--;
-                                        center.Y = y * 16;
-                                    }
+                                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            OpenMouth = false;
+                        }
 
-                                    if (numtries >= 10)
-                                    {
-                                        break;
-                                    }
+                        if (NPC.localAI[0] >= 450)
+                        {
+                            OpenMouth = false;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                        }
 
-                                    if (Main.rand.Next(15) == 0)
+                        break;
+                    }
+
+                    //go to the top corner of the player, dash and circle the player
+                    case 4:
+                    {
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[0] <= 100)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1300 : 1300;
+                            GoTo.Y -= 400;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 35);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] == 100)
+                        {
+                            NPC.velocity *= 0.02f;
+
+                            NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1300 : player.Center.X + 1300;
+                            NPC.position.Y = player.Center.Y - 400;
+                        }
+
+                        if (NPC.localAI[0] == 110)
+                        {
+                            SoundEngine.PlaySound(GrowlSound, NPC.position);
+
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= 45;
+                            ChargeDirection.Y *= 0;  
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
+                        }
+
+                        if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 250)
+                        {
+                            double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
+                            while (angle > Math.PI)
+                            {
+                                angle -= 2.0 * Math.PI;
+                            }
+                            while (angle < -Math.PI)
+                            {
+                                angle += 2.0 * Math.PI;
+                            }
+
+                            if (Math.Abs(angle) > Math.PI / 2) //passed player, turn around
+                            {
+                                NPC.localAI[1] = Math.Sign(angle);
+                                NPC.velocity = Vector2.Normalize(NPC.velocity) * 35;
+                            }
+
+                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(5f) * NPC.localAI[1]);
+
+                            if (NPC.localAI[0] % 20 == 5)
+                            {
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed.X *= 3f;
+                                ShootSpeed.Y *= 3f;
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
+                                }
+                            }
+                        }   
+
+                        if (NPC.localAI[0] > 250)
+                        {
+                            NPC.velocity *= 0.5f;
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.ai[0]++;
+                        }
+
+                        break;
+                    }
+
+                    //go below player, charge up and shoot spreads of spit to the sides
+                    case 5:
+                    {
+                        NPC.localAI[0]++;
+                            
+                        if (NPC.localAI[0] < 80)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += 0;
+                            GoTo.Y += 750;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 35);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] == 80)
+                        {
+                            NPC.velocity *= 0.02f;
+
+                            NPC.position.X = player.Center.X - 20;
+                            NPC.position.Y = player.Center.Y + 750;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
+                                ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
+                            }
+                        }
+
+                        if (NPC.localAI[0] == 100)
+                        {
+                            OpenMouth = true;
+
+                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
+
+                            NPC.velocity.X *= 0;
+                            NPC.velocity.Y = -32;
+                        }
+
+                        if (NPC.localAI[0] == 125 || NPC.localAI[0] == 135)
+                        {
+                            SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+
+                            int MaxProjectiles = Main.rand.Next(5, 8);
+
+                            for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
+                            {
+                                int EyeSpit = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                18f * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                Main.projectile[EyeSpit].ai[0] = 1;
+                                Main.projectile[EyeSpit].timeLeft = 300;
+                            }
+                        }
+
+                        if (NPC.localAI[0] > 135)
+                        {
+                            NPC.velocity *= 0.97f;
+                        }
+
+                        if (NPC.localAI[0] > 300)
+                        {
+                            OpenMouth = false;
+                            NPC.velocity *= 0.5f;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                        }
+
+                        break;
+                    }
+
+                    //summon thorn pillars 3 times, then charge up at the player
+                    case 6:
+                    {
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[1] < 3)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += 0;
+                            GoTo.Y += 700;
+
+                            //go from side to side
+                            if (NPC.localAI[0] < 120)
+                            {
+                                GoTo.X += 1000;
+                            }
+                            if (NPC.localAI[0] > 120)
+                            {
+                                GoTo.X += -1000;
+                            }
+                            
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                            if (NPC.localAI[0] % 20 == 5)
+                            {
+                                for (int j = 0; j <= 0; j++) //0 was 1, 1 was 10
+                                {
+                                    for (int i = 0; i <= 0; i += 1) 
                                     {
+                                        Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
+                                        center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
+                                        int numtries = 0;
+                                        int x = (int)(center.X / 16);
+                                        int y = (int)(center.Y / 16);
+                                        while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                                        Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+                                        {
+                                            y++;
+                                            center.Y = y * 16;
+                                        }
+                                        while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                                        {
+                                            numtries++;
+                                            y--;
+                                            center.Y = y * 16;
+                                        }
+
+                                        if (numtries >= 10)
+                                        {
+                                            break;
+                                        }
+
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
                                             ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                         }
                                     }
+
+                                    for (int i = -1; i <= 1; i += 2) 
+                                    {
+                                        Vector2 center = new(player.Center.X, player.Center.Y + player.height / 4);
+                                        center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
+                                        int numtries = 0;
+                                        int x = (int)(center.X / 16);
+                                        int y = (int)(center.Y / 16);
+                                        while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                                        Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+                                        {
+                                            y++;
+                                            center.Y = y * 16;
+                                        }
+                                        while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                                        {
+                                            numtries++;
+                                            y--;
+                                            center.Y = y * 16;
+                                        }
+
+                                        if (numtries >= 10)
+                                        {
+                                            break;
+                                        }
+
+                                        if (Main.rand.Next(15) == 0)
+                                        {
+                                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
+                                                ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                            }
+                                        }
+                                    }
                                 }
+                            }
+
+                            if (NPC.localAI[0] >= 240)
+                            {
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1]++;
+                            }
+                        }
+                        else
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0; 
+                            NPC.ai[0]++;
+                        }
+
+                        break;
+                    }
+
+                    //charge up after thorns
+                    case 7:
+                    {
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[0] < 60)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += 0;
+                            GoTo.Y += 750;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            NPC.velocity *= 0;
+                            
+                            NPC.position.X = player.Center.X - 20;
+                            NPC.position.Y = player.Center.Y + 750;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
+                                ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                             }
                         }
 
-                        if (NPC.localAI[0] >= 240)
+                        if (NPC.localAI[0] == 75)
                         {
+                            SoundEngine.PlaySound(GrowlSound, NPC.position);
+
+                            NPC.velocity.X *= 0;
+                            NPC.velocity.Y = -35;
+                        }
+
+                        if (NPC.localAI[0] >= 130)
+                        {
+                            NPC.velocity *= 0.5f;
                             NPC.localAI[0] = 0;
-                            NPC.localAI[1]++;
+                            NPC.localAI[1] = 0; 
+                            NPC.ai[0] = 0; 
                         }
+
+                        break;
                     }
-                    else
-                    {
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0; 
-                        NPC.ai[0]++;
-                    }
-
-                    break;
-                }
-
-                //charge up after thorns
-                case 7:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[0] < 90)
-                    {
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 0;
-                        GoTo.Y += 750;
-
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
-
-                    if (NPC.localAI[0] == 90)
-                    {
-                        NPC.velocity *= 0;
-                    }
-
-                    if (NPC.localAI[0] == 100)
-                    {
-                        NPC.position.X = player.Center.X - 20;
-                        NPC.position.Y = player.Center.Y + 750;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                        }
-                    }
-
-                    if (NPC.localAI[0] == 120)
-                    {
-                        SoundEngine.PlaySound(GrowlSound, NPC.position);
-
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 0;
-                        ChargeDirection.Y *= 32;  
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
-                    }
-
-                    if (NPC.localAI[0] == 150)
-                    {
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0; 
-                        NPC.ai[0] = 0; 
-                    }
-
-                    break;
                 }
             }
 
@@ -730,11 +703,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             if (!collision)
             {
                 Rectangle rectangle1 = new((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-                int maxDistance = 450;
+
+                int maxDistance = 350;
 
                 if (!ChaseMovement)
                 {
-                    maxDistance = 450;
+                    maxDistance = 350;
                 }
                 if (ChaseMovement)
                 {

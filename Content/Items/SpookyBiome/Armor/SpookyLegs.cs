@@ -11,23 +11,21 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Spooky Horseman's Pants");
-			Tooltip.SetDefault("5% increased movement speed"
-			+ "\nEnemies are more likely to target you");
+			Tooltip.SetDefault("5% increased movement speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
-			Item.width = 18;
+			Item.defense = 2;
+			Item.width = 22;
 			Item.height = 18;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
-			Item.rare = 1;
 		}
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.aggro += 100;
 			player.moveSpeed += 0.05f;
 		}
 	}

@@ -1,23 +1,23 @@
+priority:
+
+moco rework
+moco drops, treasure bag, expert item
+q-tip shrine
+moco nose tile
+
 general changes:
 
--old wood workbenches, table, chair, door, lamp, lantern  
--finish new spooky hell bgs
--recolor rot gourds armor set  
--make rot gourds armor set bonus make the players head vanish again
--make sure little bones advice works
--make bosses immune to debuffs
--make new icons for the bosses
--masks and trophies for bosses
-
-major stuff:
-
--moco resprite and rework (can be done later)   
+-make pumpkin whip do fly ability
+-make pumpkin armor head have an icon
 -make purple tortumor summon for the living hell chests
 -make each living hell chest have items in them
+-make bosses immune to debuffs
+-make new icons for the bosses
 
 can be done whenever:
 
+things to be added next update:
+
 -make orroboro spike ball projectiles spit balls that linger on the ground instead
--resprite orroboro thorn pillars, make the thorn telegraph match the new purple palette
--add orroboro armor set
 -add eye bat wings
+-masks and trophies for bosses

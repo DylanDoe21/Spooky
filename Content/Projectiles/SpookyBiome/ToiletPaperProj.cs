@@ -39,7 +39,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             if (Main.rand.Next(45) == 0)
             {
                 float Scale = Main.rand.NextFloat(0.5f, 1f);
-                Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), Vector2.Zero, ModContent.GoreType<Content.Gores.ToiletPaperGore>(), Scale);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.GoreType<Content.Gores.ToiletPaperGore>(), Scale);
             }
         }
 		
