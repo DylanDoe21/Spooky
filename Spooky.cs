@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.SpookyBiome;
+using Spooky.Content.Backgrounds.SpookyHell;
+using Spooky.Content.NPCs.Boss.Moco;
 
 namespace Spooky
 {
@@ -23,7 +25,7 @@ namespace Spooky
         { 
             if (!Main.dedServ)
             {
-                Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.DarkOrange).UseOpacity(0f), EffectPriority.High);
+                Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.Transparent).UseOpacity(0f), EffectPriority.VeryHigh);
 				SkyManager.Instance["Spooky:HalloweenSky"] = new HalloweenSky();
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
@@ -65,29 +67,6 @@ namespace Spooky
             loadCache = null;
         }
 
-        public enum SpookyMessageType : byte
-        {
-            SpawnOrroboro,
-        }
-
-        public override void HandlePacket(BinaryReader reader, int whoAmI)
-        {
-            SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
-            switch (messageType)
-            {
-                case SpookyMessageType.SpawnOrroboro:
-                {
-                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>());
-                    break;
-                }
-                default:
-                {
-                    Logger.Warn("SpookyMod: Unknown Message type: " + messageType);
-                    break;
-                }
-            }
-        }
-
         public override void AddRecipeGroups()
         {
             //add recipe group for any mech boss soul for orroboro summon item
@@ -99,5 +78,28 @@ namespace Spooky
             });
             RecipeGroup.RegisterGroup("SpookyMod:AnyMechBossSoul", group);
         }
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
+			switch (messageType)
+			{
+                case SpookyMessageType.SpawnMoco:
+                {
+                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
+					break;
+                }
+				default:
+                {
+					Logger.Warn("SpookyMod: Unknown Message type: " + messageType);
+					break;
+                }
+			}
+		}
+    }
+
+    enum SpookyMessageType : byte
+    {
+        SpawnMoco,
     }
 }

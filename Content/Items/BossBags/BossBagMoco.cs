@@ -6,25 +6,24 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Boss.Moco;
 
 namespace Spooky.Content.Items.BossBags
 {
-	public class OrroboroBag : ModItem
+	public class BossBagMoco : ModItem
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Orro-Boro)");
+			DisplayName.SetDefault("Treasure Bag (Moco)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override void SetDefaults()
         {
-			Item.width = 32;
+			Item.width = 48;
 			Item.height = 32;
 			Item.consumable = true;
 			Item.expert = true;
@@ -39,19 +38,15 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			int[] MainItem1 = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), ModContent.ItemType<EyeRocketLauncher>() };
-			int[] MainItem2 = new int[] { ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+			int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), ModContent.ItemType<BoogerBlaster>() };
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
+            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<CreepyChunk>(), Main.rand.Next(20, 35));
-				
 			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroEmbryo>());
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<MocoNose>());
 		}
 
-		public override int BossBagNPC => ModContent.NPCType<OrroboroHead>();
+		public override int BossBagNPC => ModContent.NPCType<Moco>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{
@@ -120,14 +115,14 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(182, 62, 59, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(104, 221, 39, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(182, 62, 59, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(104, 221, 39, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

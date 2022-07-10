@@ -34,6 +34,17 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 5)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
            	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
@@ -84,30 +95,20 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
                 Projectile.Kill();
             }
-
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 5)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
-                {
-                    Projectile.frame = 0;
-                }
-            }
         }
         
         public override void Kill(int timeLeft)
 		{
-            for (int i = 0; i < 10; i++)
-			{                                                                                  
-				int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-				Main.dust[num].noGravity = true;
-				Main.dust[num].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[num].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				if (Main.dust[num].position != Projectile.Center)
+            for (int numDust = 0; numDust < 25; numDust++)
+			{                                                                                 
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
                 {
-				    Main.dust[num].velocity = Projectile.DirectionTo(Main.dust[num].position) * 2f;
+				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
                 }
 			}
         }

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
@@ -28,13 +29,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             DisplayName.SetDefault("Orro-Boro");
             Main.npcFrameCount[NPC.type] = 5;
+
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 50000 / 3 : Main.expertMode ? 45000 / 2 : 35000;
+            NPC.lifeMax = Main.masterMode ? 52000 / 3 : Main.expertMode ? 45000 / 2 : 32000;
             NPC.damage = 60;
             NPC.defense = 35;
             NPC.width = 62;
@@ -446,7 +457,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //go below player, charge up and shoot spreads of spit to the sides
+                    //go below player, charge up and shoot spreads of spit upward
                     case 5:
                     {
                         NPC.localAI[0]++;
@@ -493,11 +504,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
                             {
-                                int EyeSpit = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                18f * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
-                                ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
-                                Main.projectile[EyeSpit].ai[0] = 1;
-                                Main.projectile[EyeSpit].timeLeft = 300;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    int EyeSpit = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                    18f * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                    ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                    Main.projectile[EyeSpit].ai[0] = 1;
+                                    Main.projectile[EyeSpit].timeLeft = 300;
+                                }
                             }
                         }
 

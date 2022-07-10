@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -45,6 +46,15 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                 PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
         public override void SetDefaults()
@@ -74,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("This giant pumpkin was once a guardian of the spooky forest, but is now nothing more than a rotten husk of it's former self.")
+				new FlavorTextBestiaryInfoElement("This giant pumpkin was once a guardian of the spooky forest. However, after the being controlling it left, it became a rotten husk of it's former self.")
 			});
 		}
 
@@ -700,28 +710,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             }
 		}
 
-        //Loot and stuff
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
-
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<SpookyPumpkinBag>()));
-            
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookyPumpkinRelicItem>()));
-
-            int[] MainItem = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
-            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>(), ModContent.ItemType<PumpkinStaff>(), 
-			ModContent.ItemType<PumpkinTome>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
-
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
-        }
-
-        public override void OnKill()
-        {
-            NPC.SetEventFlagCleared(ref Flags.downedRotGourd, -1);
-        }
-
         public override bool CheckDead()
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinGore1").Type);
@@ -749,6 +737,30 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             }
 
             return true;
+        }
+
+        //Loot and stuff
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagPumpkin>()));
+            
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookyPumpkinRelicItem>()));
+
+            int[] MainItem = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
+            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>(), ModContent.ItemType<PumpkinStaff>(), 
+			ModContent.ItemType<PumpkinTome>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
+
+            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+
+            npcLoot.Add(notExpertRule);
+        }
+
+        public override void OnKill()
+        {
+            NPC.SetEventFlagCleared(ref Flags.downedRotGourd, -1);
         }
 
         public override void BossLoot(ref string name, ref int potionType)

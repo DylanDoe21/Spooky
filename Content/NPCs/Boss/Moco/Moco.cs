@@ -3,14 +3,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.BossBags.Pets;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;
 
@@ -20,6 +23,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
     {
         public bool Sneezing = false;
         public bool EyeAttack = false;
+        public bool SwitchedSides = false;
         public bool AfterImages = false;
 
         public bool Phase2 = false;
@@ -39,13 +43,22 @@ namespace Spooky.Content.NPCs.Boss.Moco
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
         public override void SetDefaults()
         {
             NPC.lifeMax = Main.masterMode ? 12000 / 3 : Main.expertMode ? 8200 / 2 : 4500;
             NPC.damage = 42;
-            NPC.defense = 12;
+            NPC.defense = 25;
             NPC.width = 130;
             NPC.height = 112;
             NPC.knockBackResist = 0f;
@@ -58,7 +71,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.HitSound = SoundID.NPCHit22;
 			NPC.DeathSound = SoundID.NPCDeath60;
             NPC.aiStyle = -1;
-            Music = MusicID.OldOnesArmy;
+            Music = MusicID.GoblinInvasion;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
 
@@ -67,7 +80,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("The legendary flying schnoz, said to present himself when someone or something messes with his beloved shrine. He does not like cotton swabs.")
+				new FlavorTextBestiaryInfoElement("The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly.")
 			});
 		}
 
@@ -101,7 +114,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                 //draw moco but red
                 spriteBatch.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
-				Color.Red, NPC.rotation, drawOrigin1, NPC.scale, SpriteEffects.None, 0.9f);
+				Color.Red, NPC.rotation, drawOrigin1, NPC.scale, SpriteEffects.None, 0.99f);
 
                 //draw angry symbol thingie
                 spriteBatch.Draw(angerTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
@@ -185,6 +198,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 NPC.ai[0] = 3;
 
                 AfterImages = false;
+                Sneezing = false;
                 Transition = true;
                 NPC.immortal = true;
                 NPC.dontTakeDamage = true;
@@ -536,7 +550,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             AfterImages = false;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
-                            NPC.ai[0] = 0;
+                            NPC.ai[0]++;
                         }
                         
                         break;
@@ -547,14 +561,82 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         NPC.localAI[0]++;
 
-                        if (NPC.localAI[0] < 60) 
+                        if (NPC.localAI[0] < 40) 
                         {	
                             Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
-                            GoTo.Y -= 200;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
+                            GoTo.Y -= 20;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] < 40)
+                        {
+                            NPC.rotation = NPC.velocity.X * 0.04f;
+                        }
+                        else
+                        {
+                            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            float RotateX = player.Center.X - vector.X;
+                            float RotateY = player.Center.Y - vector.Y;
+                            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                        }
+
+                        if (NPC.localAI[0] == 40) 
+                        {
+                            NPC.velocity *= 0f;
+                        }
+
+                        //use attack for longer in phase 2
+                        int MaxTime = Phase2 ? 300 : 200;
+
+                        if (NPC.localAI[0] > 60 && NPC.localAI[0] < MaxTime)
+                        {
+                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                        }
+
+                        if (NPC.localAI[0] > 100 && NPC.localAI[0] < MaxTime) 
+                        {
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= 12f;
+                            ShootSpeed.Y *= 12f;
+
+                            float Spread = Main.rand.Next(-1, 1);
+
+                            if (NPC.localAI[0] % 8 == 2)
+                            {
+                                Sneezing = true;
+
+                                SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                                    ShootSpeed.Y + Spread, ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
+                                }
+                            }
+                        }
+
+                        if (NPC.localAI[0] > MaxTime + 10)
+                        {
+                            Sneezing = false;
+                        }
+
+                        if (NPC.localAI[0] >= MaxTime + 60)
+                        {
+                            NPC.localAI[0] = 0;
+                            
+                            if (!Phase2)
+                            {
+                                NPC.ai[0] = 0;
+                            }
+                            else
+                            {
+                                NPC.ai[0]++;
+                            }
                         }
 
                         break;
@@ -563,6 +645,79 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //in phase 2, shoot a spread sideways and fly offscreen, then come back on the other side
                     case 6:
                     {
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[0] < 60) 
+                        {	
+                            NPC.rotation = NPC.velocity.X * 0.04f;
+
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
+                            GoTo.Y += 0;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (NPC.localAI[0] == 60) 
+                        {
+                            NPC.velocity *= 0;
+                        }
+
+                        if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+                        {
+                            NPC.rotation = (NPC.Center.X < player.Center.X) ? 80 : -80;
+
+                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                        }
+
+                        if (NPC.localAI[0] == 90)
+                        {
+                            AfterImages = true;
+
+                            SoundEngine.PlaySound(SneezeSound3, NPC.Center);
+
+                            NPC.velocity.X = (NPC.Center.X < player.Center.X) ? -25 : 25;
+                            NPC.velocity.Y *= 0;
+
+                            int ShootTowards = (NPC.Center.X < player.Center.X) ? 100 : -100;
+
+                            for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                    10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                    ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
+                                }
+                            }
+                        }
+
+                        if (NPC.localAI[0] >= 90)
+                        {
+                            NPC.rotation = (NPC.velocity.X < 0) ? 80 : -80;
+
+                            if (NPC.Distance(player.Center) >= 1400f && !SwitchedSides) 
+                            {
+                                NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X + 2000 : player.Center.X - 2000;
+                                SwitchedSides = true;
+                            }
+                        }
+
+                        if (NPC.localAI[0] >= 160)
+                        {
+                            NPC.velocity *= 0.98f;
+                        }
+
+                        if (NPC.localAI[0] >= 230)
+                        {
+                            SwitchedSides = false;
+                            AfterImages = false;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0] = 0;
+                        }
+
                         break;
                     }
                 }
@@ -574,41 +729,26 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<MocoBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagMoco>()));
 
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
-        }
 
-        /*
-        public override bool CheckDead()
-        {
-            if (NPC.life <= 0)
-			{
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore4").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore5").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore6").Type);
-
-                NPC.damage = 0;
-                NPC.life = -1;
-                NPC.dontTakeDamage = true;
-                NPC.netUpdate = true;
-                
-                int Phase2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 60, ModContent.NPCType<SpookyPumpkinP2>());
-
-                //net update so it doesnt vanish on multiplayer
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: Phase2);
-                }
-
-                NPC.active = false;
-
-                return false;
-            }
+            int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), ModContent.ItemType<BoogerBlaster>() };
             
-            return true;
+            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+
+            npcLoot.Add(notExpertRule);
         }
-        */
+
+        public override void OnKill()
+        {
+            NPC.SetEventFlagCleared(ref Flags.downedMoco, -1);
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.HealingPotion;
+        }
     }
 }

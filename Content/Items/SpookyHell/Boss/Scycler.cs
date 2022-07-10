@@ -23,6 +23,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.DamageType = DamageClass.Melee;
             Item.useTurn = true;    
             Item.noUseGraphic = true; 
+            Item.noMelee = true;
             Item.autoReuse = true;             
             Item.width = 60;
             Item.height = 44;

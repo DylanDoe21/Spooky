@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(88, 49, 129));
-            DustType = DustID.Blood;
+            DustType = DustID.PurpleCrystalShard;
             HitSound = SoundID.NPCHit13;
         }
     }
@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.CopyFrom(TileObjectData.StyleSmallCage);
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(52, 40, 101));
-            DustType = DustID.Blood;
+            DustType = DustID.PurpleCrystalShard;
 			HitSound = SoundID.NPCHit13;
 		}
 	}
@@ -60,7 +60,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(33, 26, 62));
-            DustType = DustID.Blood;
+            DustType = DustID.PurpleCrystalShard;
             HitSound = SoundID.NPCHit13;
         }
     }

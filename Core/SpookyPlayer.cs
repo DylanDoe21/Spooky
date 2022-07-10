@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +11,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Core
 {
@@ -23,16 +23,18 @@ namespace Spooky.Core
         public bool TreatBag = false;
         public bool MagicCandle = false;
         public bool PumpkinCore = false;
+        public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
 
         //minions and pets
         public bool SkullWisp = false;
+        public bool TumorMinion = false;
         public bool SpookyWispPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
 
         //buffs
-        public bool EntityBuff = false;
+        public bool EntityDebuff = false;
 
         public override void ResetEffects()
         {
@@ -42,16 +44,18 @@ namespace Spooky.Core
             TreatBag = false;
             MagicCandle = false;
             PumpkinCore = false;
+            MocoNose = false;
             OrroboroEmbyro = false;
 
             //minions and pets
             SkullWisp = false;
+            TumorMinion = false;
             SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
 
             //buffs 
-            EntityBuff = false;
+            EntityDebuff = false;
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -72,6 +76,25 @@ namespace Spooky.Core
             }
 
             return ShouldRevive;
+        }
+
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            if (MocoNose && Main.rand.Next(2) == 0)
+            {
+                Vector2 Speed = new Vector2(3f, 0f).RotatedByRandom(2 * Math.PI);
+
+                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                {
+                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, speed,
+                        ModContent.ProjectileType<HomingBooger>(), 30 + ((int)damage / 2), 0f, Main.myPlayer, 0, 0);
+                    }
+                }
+            }
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

@@ -15,7 +15,7 @@ namespace Spooky.Core
         
         public override int Music => MusicID.ConsoleMenu;
         
-        public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Content.Backgrounds.SpookyBiome.SpookyForestBG>();
+        public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Content.Backgrounds.SpookyBiome.SpookyForestMenuBG>();
 
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {

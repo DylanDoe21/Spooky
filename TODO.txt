@@ -1,23 +1,14 @@
-priority:
+priority (needs to be done today)
 
-moco rework
-moco drops, treasure bag, expert item
-q-tip shrine
-moco nose tile
+do these after above is done
 
-general changes:
+-cotton swab shrine in the middle of the world
 
--make pumpkin whip do fly ability
--make pumpkin armor head have an icon
--make purple tortumor summon for the living hell chests
--make each living hell chest have items in them
--make bosses immune to debuffs
+-make bosses immune to certain debuffs based on their tier
 -make new icons for the bosses
-
-can be done whenever:
 
 things to be added next update:
 
--make orroboro spike ball projectiles spit balls that linger on the ground instead
 -add eye bat wings
 -masks and trophies for bosses
+-make pumpkin armor head have an icon (idk how this works)

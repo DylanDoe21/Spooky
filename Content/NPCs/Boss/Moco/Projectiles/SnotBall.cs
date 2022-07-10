@@ -127,21 +127,24 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-            ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer, 0f, 0f);
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
+                ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer, 0f, 0f);
+            }
 
-			for (int numDust = 0; numDust < 20; numDust++)
-			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+            for (int numDust = 0; numDust < 20; numDust++)
+            {                                                                                  
+                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
+                Main.dust[DustGore].noGravity = true;
+                Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
                 
-				if (Main.dust[DustGore].position != Projectile.Center)
+                if (Main.dust[DustGore].position != Projectile.Center)
                 {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+                    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
                 }
-			}
+            }
 		}
     }
 }

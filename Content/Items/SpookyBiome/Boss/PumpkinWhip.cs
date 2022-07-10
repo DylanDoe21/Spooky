@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
             DisplayName.SetDefault("Seed Whip");
             Tooltip.SetDefault("Your summons will focus struck enemies");
 			Tooltip.SetDefault("Your summons will focus struck enemies"
-			+ "\nHitting enemies will inflict them with the infested debuff"
-			+ "\nKilling enemies with this debuff or the whip itself will summon damaging flies");
+			+ "\nHitting enemies will inflict them with the fly infestation debuff"
+			+ "\nKilling enemies with this debuff will summon damaging flies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

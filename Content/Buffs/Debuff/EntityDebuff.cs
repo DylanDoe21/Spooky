@@ -20,7 +20,7 @@ namespace Spooky.Content.Buffs.Debuff
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Lighting.GlobalBrightness = 0f;
-			player.GetModPlayer<SpookyPlayer>().EntityBuff = true;
+			player.GetModPlayer<SpookyPlayer>().EntityDebuff = true;
 		}  
     }
 
@@ -29,7 +29,7 @@ namespace Spooky.Content.Buffs.Debuff
     {
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().EntityBuff)
+            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().EntityDebuff)
             {
 				pool.Clear();
             }

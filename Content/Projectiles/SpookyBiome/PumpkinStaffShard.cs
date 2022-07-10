@@ -51,10 +51,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
+
+            if (Projectile.ai[0] == 40)
+            {
+                Projectile.damage *= 2;
+            }
             
             if (Projectile.ai[0] >= 40)
             {
-                Projectile.damage *= 2;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 20;
             }

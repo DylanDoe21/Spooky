@@ -6,22 +6,25 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.Items.BossBags.Pets;
+using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.NPCs.Boss.Pumpkin;
 
 namespace Spooky.Content.Items.BossBags
 {
-	public class MocoBag : ModItem
+	public class BossBagPumpkin : ModItem
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Moco)");
+			DisplayName.SetDefault("Treasure Bag (Rot-Gourd)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override void SetDefaults()
         {
-			Item.width = 48;
+			Item.width = 32;
 			Item.height = 32;
 			Item.consumable = true;
 			Item.expert = true;
@@ -34,11 +37,25 @@ namespace Spooky.Content.Items.BossBags
 			return true;
 		}
 
-		public override int BossBagNPC => ModContent.NPCType<Moco>();
+		public override void OpenBossBag(Player player)
+        {
+			int[] MainItem1 = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
+            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>() };
+			
+			int[] MainItem2 = new int[] { ModContent.ItemType<PumpkinStaff>(), ModContent.ItemType<PumpkinTome>(), 
+			ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
+
+            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
+
+			//expert item
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<PumpkinCore>());
+		}
+
+		public override int BossBagNPC => ModContent.NPCType<SpookyPumpkinP2>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{
-			// Makes sure the dropped bag is always visible
 			return Color.Lerp(lightColor, Color.White, 0.4f);
 		}
 
@@ -103,14 +120,14 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(104, 221, 39, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(255, 140, 0, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(104, 221, 39, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(255, 140, 0, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

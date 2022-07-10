@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-
 using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
+    [AutoloadHead]
     public class PumpkinHead : ModProjectile
     {   
         int shootTimer = 50;

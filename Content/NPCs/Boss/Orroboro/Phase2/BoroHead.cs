@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -40,6 +41,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 PortraitPositionYOverride = 20f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
         public override void SetDefaults()
@@ -582,7 +592,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             GoTo.X += 1550;
                             GoTo.Y -= 750;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
@@ -675,6 +685,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         //set exact position right before so it is even
                         if (NPC.localAI[0] == 119)
                         {
+                            NPC.velocity *= 0;
+
                             NPC.position.X = player.Center.X + 1000;
                             NPC.position.Y = player.Center.Y - 750;
                         }
@@ -745,7 +757,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<OrroboroBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrroboro>()));
 
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
@@ -756,18 +768,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            int itemType = ModContent.ItemType<CreepyChunk>();
-            var parameters = new DropOneByOne.Parameters() 
-            {
-                ChanceNumerator = 1,
-                ChanceDenominator = 1,
-                MinimumStackPerChunkBase = 1,
-                MaximumStackPerChunkBase = 1,
-                MinimumItemDropsCount = 12,
-                MaximumItemDropsCount = 25,
-            };
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 1, 12, 25));
 
-			notExpertRule.OnSuccess(new DropOneByOne(itemType, parameters));
+            npcLoot.Add(notExpertRule);
         }
 
         public override void OnKill()

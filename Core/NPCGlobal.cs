@@ -2,6 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.Xna.Framework;
+using System;
+
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Core
 {
@@ -17,15 +22,25 @@ namespace Spooky.Core
             {
                 npcLoot.Add(ItemDropRule.Common(ItemID.GoodieBag, 1, 2, 5));
             }
+        }
 
-            /*
-            //start ghost event after evil bosses
-            if (((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && npc.boss) ||
-            npc.type == NPCID.BrainofCthulhu && !NPC.downedBoss2)
+        public override void OnKill(NPC npc)
+        {
+            if (npc.HasBuff(ModContent.BuffType<PumpkinWhipDebuff>()))
             {
-                SpookyWorld.ShouldStartGhostEvent = true;
+                Vector2 Speed = new Vector2(3f, 0f).RotatedByRandom(2 * Math.PI);
+
+                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                {
+                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed,
+                        ModContent.ProjectileType<PumpkinWhipFly>(), 15, 0f, Main.myPlayer, 0, 0);
+                    }
+                }
             }
-            */
         }
     }
 }

@@ -65,5 +65,23 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
             }
         }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int numDust = 0; numDust < 20; numDust++)
+            {
+                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.PurpleCrystalShard, 0f, 0f, 100, default(Color), 2f);
+
+                Main.dust[newDust].scale *= Main.rand.NextFloat(1f, 2f);
+                Main.dust[newDust].velocity *= 3f;
+                Main.dust[newDust].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
+                {
+                    Main.dust[newDust].scale = 0.5f;
+                    Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
+        }
     }
 }

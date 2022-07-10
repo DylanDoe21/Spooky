@@ -22,9 +22,8 @@ namespace Spooky.Content.Items.BossSummon
         {
             Item.width = 40;
             Item.height = 26;
-            Item.consumable = true;
             Item.rare = ItemRarityID.Green;
-            Item.maxStack = 20;
+            Item.maxStack = 1;
         }
 		
         public override bool CanUseItem(Player player)

@@ -19,7 +19,7 @@ namespace Spooky.Content.Buffs.Minion
 		{
 			if (player.GetModPlayer<SpookyPlayer>().TreatBag)
 			{
-				player.buffTime[buffIndex] = 1;
+				player.buffTime[buffIndex] = 2;
 			}
 			else
 			{

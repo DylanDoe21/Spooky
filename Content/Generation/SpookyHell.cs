@@ -86,7 +86,7 @@ namespace Spooky.Content.Generation
 
             for (int X = StartPosition; X <= XEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
                 {
                     if (Y > terrainContour[X])
                     {
@@ -476,6 +476,13 @@ namespace Spooky.Content.Generation
                                 WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest4>(), true, 1);
                                 break;
                             }
+                            //nose shrine
+                            case 9:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, (ushort)ModContent.TileType<NoseShrine>());
+                                break;
+                            }
                         }
                     }
                 }
@@ -501,6 +508,7 @@ namespace Spooky.Content.Generation
             //3 = alchemy lantern
             //4 = bone campfire
             //5-8 = chest
+            //9 = nose shrine
 
             int[,] BoneNestShape = new int[,]
             {
@@ -588,6 +596,40 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            };
+
+            int [,] MocoShrine = new int[,]
+            {
+                {0,0,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,0},
+                {0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
+                {0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
+                {0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
+                {0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
+                {0,0,3,3,2,2,2,2,2,2,2,2,2,2,3,3,3,0,0},
+                {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0},
+                {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+                {0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+                {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+                {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0},
+                {0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0},
+                {0,0,0,0,0,3,3,3,3,3,3,3,0,3,3,3,3,0,0},
+            };
+
+            int [,] MocoShrineObjects = new int[,]
+            {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             };
 
             //first alchemy room
@@ -1057,6 +1099,30 @@ namespace Spooky.Content.Generation
                 PlaceStructures(BoneSpikeX5, BoneSpikeY5 - 20, BoneSpike2, BoneSpikeObjects);
                 PlaceStructures(BoneSpikeX6, BoneSpikeY6 - 20, BoneSpike1, BoneSpikeObjects);
 
+                if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
+                {
+                    StartPosition = Main.maxTilesX - 750;
+                }
+                else
+                {
+                    StartPosition = 0;
+                }
+
+                int MocoShrineX = Terraria.Main.dungeonX > Main.maxTilesX / 2 ? XMiddle + 205 : XMiddle - 190;
+                int MocoShrineY = Main.maxTilesY - 150;
+
+                while (!WorldGen.SolidTile(MocoShrineX, MocoShrineY) && MocoShrineY <= Main.maxTilesY)
+                {
+                    MocoShrineY++;
+                }
+                if (Main.tile[MocoShrineX, MocoShrineY].TileType != ModContent.TileType<SpookyMush>() &&
+                Main.tile[MocoShrineX, MocoShrineY].TileType != ModContent.TileType<EyeBlock>())
+				{
+                    continue;
+                }
+
+                PlaceStructures(MocoShrineX, MocoShrineY - 7, MocoShrine, MocoShrineObjects);
+
                 placed = true;
             }
         }
@@ -1087,7 +1153,8 @@ namespace Spooky.Content.Generation
         //post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
-            int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+            int[] Potions1 = new int[] { ItemID.IronskinPotion, ItemID.WrathPotion, ItemID.MagicPowerPotion, ItemID.ThornsPotion };
+            int[] Potions2 = new int[] { ItemID.PotionOfReturn, ItemID.TeleportationPotion, ItemID.StrangeBrew };
 
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) 
             {
@@ -1103,38 +1170,42 @@ namespace Spooky.Content.Generation
                             //the actual main item
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterBloodVial>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterBloodVial>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask1>(), false);
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask1>());
                                 chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<NerveWhip>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<NerveWhip>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask2>(), false);
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask2>());
                                 chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>())
                             {
-                                chest.item[0].SetDefaults(4680, false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<TortumorStaff>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask3>(), false);
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask3>());
                                 chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterHeart>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<MonsterHeart>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask4>(), false);
+                                chest.item[1].SetDefaults(ModContent.ItemType<Flask4>());
                                 chest.item[1].stack = 1;
                             }
 
-                            /*
-                            //potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-							chest.item[3].stack = WorldGen.genRand.Next(2, 3);
-                            */
+                            //first potions
+							chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
+							chest.item[2].stack = WorldGen.genRand.Next(3, 6);
+                            //second potions
+							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
+							chest.item[3].stack = WorldGen.genRand.Next(3, 6);
+                            //coins
+							chest.item[4].SetDefaults(ItemID.GoldCoin);
+							chest.item[4].stack = WorldGen.genRand.Next(1, 5);
 						}
 					}
                 }

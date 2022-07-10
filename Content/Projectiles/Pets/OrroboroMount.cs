@@ -45,39 +45,56 @@ public class OrroboroMount : ModMount
         }
     }
 
-    public override void UpdateEffects(Player player)
-    {
-        player.gravity = 0;
-        player.fallStart = (int)(player.position.Y / 16.0);
-        float acc = 0.3f;
+    public override void UpdateEffects(Player player) //this is like mostly just decompiled vanilla flying mount code because using the default flying mount code did not work for custom animation style iirc
+		{
+            Lighting.AddLight(player.position, 0f, 0.5f, 1f); 
+			player.gravity = 0;
+			player.fallStart = (int)(player.position.Y / 16.0);
+            float num1 = 0.5f;
+            float acc = 0.4f;
 
-        float yvelcap = -1f / 10000f;
+            float yvelcap = -1f / 10000f;
 
-        if (player.controlUp || player.controlJump)
-        {
-            yvelcap = -5f;
-            player.velocity.Y -= acc;
-        }
-        else if (player.controlDown)
-        {
-            player.velocity.Y += acc;
-            if (TileID.Sets.Platforms[Framing.GetTileSafely((int)(player.Center.X / 16), (int)((player.MountedCenter.Y + (player.height / 2)) / 16) + 1).TileType])
+			if (player.controlUp || player.controlJump)
             {
-                player.position.Y += 1;
+				yvelcap = -5f;
+				player.velocity.Y -= acc * num1;
+            }
+            else if (player.controlDown)
+            {
+				player.velocity.Y += acc * num1;
+
+				if (TileID.Sets.Platforms[Framing.GetTileSafely((int)(player.Center.X / 16), (int)((player.MountedCenter.Y + (player.height / 2)) / 16) + 1).TileType])
+                {
+					player.position.Y += 1;
+                }
+
+				yvelcap = 5f;
             }
 
-            yvelcap = 5f;
+            if (player.velocity.Y < yvelcap)
+            {
+                if (yvelcap - player.velocity.Y < acc)
+                {
+					player.velocity.Y = yvelcap;
+                }
+                else
+                {
+					player.velocity.Y += acc * num1;
+                }
+            }
+            else if (player.velocity.Y > yvelcap)
+            {
+                if (player.velocity.Y - yvelcap < acc)
+                {
+					player.velocity.Y = yvelcap;
+                }
+                else
+                {
+					player.velocity.Y -= acc * num1;
+                }
+			}
         }
-
-        if (player.velocity.Y <= yvelcap)
-        {
-            player.velocity.Y += acc;
-        }
-        else if (player.velocity.Y >= yvelcap)
-        {
-            player.velocity.Y -= acc;
-        }
-    }
 
     public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
     {

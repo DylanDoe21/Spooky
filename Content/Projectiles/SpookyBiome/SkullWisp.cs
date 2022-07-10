@@ -104,11 +104,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (Projectile.penetrate == 0)
-			{
-				Projectile.Kill();
-			}
-
 			return false;
 		}
 	}

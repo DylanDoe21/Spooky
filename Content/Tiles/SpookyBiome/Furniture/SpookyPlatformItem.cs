@@ -31,7 +31,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
         {
             CreateRecipe(2)
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

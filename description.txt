@@ -11,11 +11,13 @@ Spooky mod is a work-in-progress mod that adds in a bunch of halloween themed co
 [c/ea0235:IMPORTANT]: both biomes are created upon making a new world, so you'll need a new world to fully experience the mod and all of it's content!
 Also, this mod adds quite a bit of world generation and will add more in the future, so avoid playing this with other larger mods that add in large biomes or other worldgen
 
-2 new bosses:
+3 new bosses:
 
 [c/d07709:Rot-Gourd], a giant, rotten pumpkin and former guardian who can be fought in the spooky forest
 
-[c/1db50d:Orro-Boro], Two parasitic worms who feed off each other and work together to fight off any threat
+[c/1db50d:Moco], A funny flying nose who does not like cotton swabs
+
+[c/8c63c9:Orro-Boro], Two parasitic worms who feed off each other and work together to fight off any threat
 
 (there will likely be more bosses in the future as well)
 
@@ -32,11 +34,13 @@ Thanks to all of the contributers to the mod as well!
 
 [c/946ca0:Renk] - code, help with porting
 [c/4be8d6:Seasalt] - sprites
+[c/545454:Triangle] - sprites
 [c/23d022:Hugekraken] - sprites
-[c/ac4949:HondaCivic] - sprites
+[c/ac4949:HondaCivicMoment] - sprites
 [c/fb8904:Taco] - concpets, sprites
 [c/fbeb04:BananaLizard] - making the mod's banger music
 
-And of course, thanks to everyone who has supported the mod!
+And of course, thanks to everyone who has supported the mod, whether it be from testing, ideas, feedback, or just generally being cool!
+
 
 

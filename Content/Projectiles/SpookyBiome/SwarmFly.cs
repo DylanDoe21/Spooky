@@ -68,6 +68,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Projectile.Kill();
                 }
 			}
+            else
+            {
+                Projectile.alpha -= 1;
+
+                if (Projectile.alpha <= 0)
+                {
+                    Projectile.alpha = 0;
+                }
+            }
             
             float goToX = player.Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
             float goToY = player.Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);

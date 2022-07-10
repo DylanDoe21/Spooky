@@ -18,7 +18,7 @@ namespace Spooky.Content.Generation
     public class SpookyForest : ModSystem
     {
         static int PositionX = Main.maxTilesX / 2;
-        static int PositionY = (int)Main.worldSurface - 150; //start here to not touch floating islands
+        static int PositionY = (int)Main.worldSurface - 175; //start here to not touch floating islands
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -43,16 +43,19 @@ namespace Spooky.Content.Generation
             {
                 Size = 250;
                 BiomeHeight = 165;
+                PositionY = (int)Main.worldSurface - 150;
             }
             else if (Main.maxTilesX == 6400) //medium worlds
             {
                 Size = 285;
                 BiomeHeight = 200;
+                PositionY = (int)Main.worldSurface - 175;
             }
             else if (Main.maxTilesX == 8400) //large worlds
             {
                 Size = 350;
                 BiomeHeight = 275;
+                PositionY = (int)Main.worldSurface - 200;
             }
 
             //place the actual biome
@@ -447,7 +450,7 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,1,1,2,0,1,1,0,0,0,1,2,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,1,2,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,1,1,1,2,0,1,0,1,0,1,1,2,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,1,0,1,2,1,0,0,2,0,1,0,2,1,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,1,2,1,1,0,2,0,0,0,2,0,0,0,0,0,0,0,0},
@@ -584,7 +587,7 @@ namespace Spooky.Content.Generation
             {
                 //first house
                 int House1X = PositionX - WorldGen.genRand.Next(77, 82);
-                int House1Y = (int)Main.worldSurface - 150; //start here to not touch floating islands
+                int House1Y = PositionY; //start here to not touch floating islands
 
                 while (!WorldGen.SolidTile(House1X, House1Y) && House1Y <= Main.worldSurface)
 				{
@@ -602,7 +605,7 @@ namespace Spooky.Content.Generation
 
                 //second house
                 int House2X = PositionX + WorldGen.genRand.Next(85, 100);
-                int House2Y = (int)Main.worldSurface - 150; //start here to not touch floating islands
+                int House2Y = PositionY; //start here to not touch floating islands
 
                 while (!WorldGen.SolidTile(House2X, House2Y) && House2Y <= Main.worldSurface)
 				{
@@ -620,7 +623,7 @@ namespace Spooky.Content.Generation
 
                 //third house
                 int House3X = PositionX + 25;
-                int House3Y = (int)Main.worldSurface - 150; //start here to not touch floating islands
+                int House3Y = PositionY; //start here to not touch floating islands
 
                 while (!WorldGen.SolidTile(House3X, House3Y) && House3Y <= Main.worldSurface)
 				{
@@ -1015,47 +1018,47 @@ namespace Spooky.Content.Generation
                             //the actual main item
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<CandyBag>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<CandyBag>());
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest2>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<LeafBlower>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<LeafBlower>());
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest3>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<ToiletPaper>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<ToiletPaper>());
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest4>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<CreepyCandle>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<CreepyCandle>());
                                 chest.item[0].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest5>())
                             {
-                                chest.item[0].SetDefaults(ModContent.ItemType<NecromancyTome>(), false);
+                                chest.item[0].SetDefaults(ModContent.ItemType<NecromancyTome>());
                                 chest.item[0].stack = 1;
                             }
 
                             //iron or lead bars
-							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars), false);
+							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 							chest.item[1].stack = WorldGen.genRand.Next(3, 8);
                             //light sources
-                            chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources), false);
+                            chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
 							chest.item[2].stack = WorldGen.genRand.Next(2, 5);
                             //potions
 							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
 							chest.item[3].stack = WorldGen.genRand.Next(2, 3);
                             //goodie bags
-							chest.item[4].SetDefaults(ItemID.GoodieBag, false);
+							chest.item[4].SetDefaults(ItemID.GoodieBag);
 							chest.item[4].stack = WorldGen.genRand.Next(1, 2);
                             //pumpkin seeds or cobwebs
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc), false);
+							chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
 							chest.item[5].stack = WorldGen.genRand.Next(2, 8);
                             //coins
-                            chest.item[6].SetDefaults(ItemID.SilverCoin, false);
+                            chest.item[6].SetDefaults(ItemID.SilverCoin);
 							chest.item[6].stack = WorldGen.genRand.Next(2, 25);
 						}
 					}

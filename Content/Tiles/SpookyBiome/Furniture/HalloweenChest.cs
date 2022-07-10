@@ -254,17 +254,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 	public class HalloweenChest2 : HalloweenChest
 	{
+		public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Furniture/HalloweenChest";
 	}
 
 	public class HalloweenChest3 : HalloweenChest
 	{
+		public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Furniture/HalloweenChest";
 	}
 
 	public class HalloweenChest4 : HalloweenChest
 	{
+		public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Furniture/HalloweenChest";
 	}
 
 	public class HalloweenChest5 : HalloweenChest
 	{
+		public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Furniture/HalloweenChest";
 	}
 }

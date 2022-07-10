@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class PumpkinWhipProj : ModProjectile
@@ -64,7 +66,12 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 		}
 
-		public override bool PreDraw(ref Color lightColor) 
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+			target.AddBuff(ModContent.BuffType<PumpkinWhipDebuff>(), 180);
+        }
+
+        public override bool PreDraw(ref Color lightColor) 
         {
 			List<Vector2> list = new();
 			Projectile.FillWhipControlPoints(Projectile, list);

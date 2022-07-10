@@ -34,7 +34,7 @@ namespace Spooky.Core
 			}
 		}
 
-		//this is basically a heavily modified version of vanillas tile runner specifically for the spooky forest biome
+		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
 		public static void TileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
 		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false)
 		{
@@ -78,10 +78,26 @@ namespace Spooky.Core
 					{
 						if ((double)(Math.Abs((float)k - pos.X) + Math.Abs((float)l - pos.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
-							//do not generate or replace anything above the surface (basically to stop it from genning on floating islands)
-							if (l > (int)Main.worldSurface - 175)
+							//do not generate or replace anything above the surface (basically to stop it from replacing blocks on floating islands)
+							int limit = (int)Main.worldSurface - 175;
+
+							//change biome size based on world size
+							if (Main.maxTilesX == 4200) //small worlds
 							{
-								//I think this checks if the tile is air????
+								limit = (int)Main.worldSurface - 150;
+							}
+							else if (Main.maxTilesX == 6400) //medium worlds
+							{
+								limit = (int)Main.worldSurface - 175;
+							}
+							else if (Main.maxTilesX == 8400) //large worlds
+							{
+								limit = (int)Main.worldSurface - 200;
+							}
+
+							if (l > limit)
+							{
+								//I think this checks if the tile is air?
 								if (tileType < 0)
 								{
 									Main.tile[k, l].HasTile.Equals(false);
@@ -93,16 +109,13 @@ namespace Spooky.Core
 								63, 64, 65, 66, 67, 68, 192, 10, 11, 12, 14, 15, 16, 17, 18, 19, 26, 28, 31,
 								32, 33, 34, 42, 79, 86, 87, 88, 89, 90, 91, 92, 93, 100, 101, 104, 105, 374 };
 
-								//dont replace dungeon bricks
-								int[] NoReplace = { 41, 43, 44 };
-
 								if (Kill.Contains(Main.tile[k, l].TileType))
 								{
 									WorldGen.KillTile(k, l);
 								}
 
-								//replace tiles if it is not in either of these lists
-								if (!NoReplace.Contains(Main.tile[k, l].TileType) && !Kill.Contains(Main.tile[k, l].TileType))
+								//replace tiles if it is not in the kill list
+								if (!Kill.Contains(Main.tile[k, l].TileType))
 								{
 									Main.tile[k, l].TileType = (ushort)tileType;
 								}
@@ -112,19 +125,16 @@ namespace Spooky.Core
 									Main.tile[k, l].TileType = (ushort)tileType;
 								}
 
-								//do not replace dungeon walls
-								int[] NoWallReplace = { 7, 8, 9, 94, 96, 98, 95, 97, 99 };
-
-								//replace walls if not a dungeon wall
-								if (!NoWallReplace.Contains(Main.tile[k, l].WallType) && Main.tile[k, l].WallType > 0)
+								//replace all wallls
+								if (Main.tile[k, l].WallType > 0)
 								{
 									Main.tile[k, l].WallType = (ushort)wallType;
 								}
 
 								//place walls below each block
-								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && !NoWallReplace.Contains(Main.tile[k, l].WallType))
+								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile)
 								{
-									Main.tile[k, l + 1].WallType = (ushort)wallType;
+									Main.tile[k, l + 2].WallType = (ushort)wallType;
 								}
 
 								//place walls
@@ -156,6 +166,7 @@ namespace Spooky.Core
 					}
 				}
 
+				//this looks wack but im too afraid to mess with it
 				pos += randVect;
 				if (num > 50.0)
 				{

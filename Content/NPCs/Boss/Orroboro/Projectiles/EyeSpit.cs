@@ -85,8 +85,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] >= 35)
                 {   
-                    Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.30f;
+                    Projectile.velocity.X = Projectile.velocity.X * 0.98f;
+                    Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
                 }
             }
 		}
@@ -95,7 +95,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0f, -2f, 0, default, 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

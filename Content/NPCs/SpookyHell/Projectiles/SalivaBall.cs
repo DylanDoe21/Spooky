@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0f, -2f, 0, default, 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

@@ -55,7 +55,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 //spawn underground
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookySkeletonWarlock>()))
                 {
-                    return 10f;
+                    return 12f;
                 }
             }
 
@@ -150,7 +150,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockHood>(), 5));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 5));
         }
 
         public override bool CheckDead() 

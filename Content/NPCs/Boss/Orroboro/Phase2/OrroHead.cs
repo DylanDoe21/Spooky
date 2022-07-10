@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -43,6 +44,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 PortraitPositionYOverride = 20f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
         public override void SetDefaults()
@@ -487,8 +497,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         break;
                     }
 
-                    //spit acid bolts everywhere and chase player while boro summons tentacle pillars
-                    //TODO: shoot spreads of projectiles at the player instead
+                    //spit acid bolt spreads and chase player while boro summons tentacle pillars
                     case 4:
                     {
                         NPC.localAI[0]++;
@@ -496,28 +505,28 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         if (NPC.localAI[1] < 3)
                         {
                             //use chase movement
-                            ChaseMovement(player, 7f, 0.18f);
+                            ChaseMovement(player, 8.5f, 0.18f);
 
                             //Shoot toxic spit when nearby the player
-                            if (NPC.localAI[0] > 140 && NPC.localAI[0] < 200) 
+                            if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 200) 
                             {
                                 NPC.velocity *= 0.95f;
 
-                                OpenMouth = true;
+                                OpenMouth = true; 
 
-                                if (Main.rand.Next(2) == 0)
+                                if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180) 
                                 {
-                                    if (Main.rand.Next(2) == 0)
-                                    {
-                                        SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-                                    }
+                                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    int MaxProjectiles = Main.rand.Next(2, 4);
+
+                                    for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, NPC.velocity.X * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, 
-                                        NPC.velocity.Y * 0.2f + Main.rand.NextFloat(-5f, 5f) * 1, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, 0);
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                        4.2f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
                                     }
-                                }  
+                                }
                             }
                             else
                             {
@@ -553,7 +562,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             GoTo.X -= 1600;
                             GoTo.Y -= 750;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
@@ -646,6 +655,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         //set exact position right before so it is even
                         if (NPC.localAI[0] == 119)
                         {
+                            NPC.velocity *= 0;
+
                             NPC.position.X = player.Center.X - 1000;
                             NPC.position.Y = player.Center.Y + 750;
                         }
@@ -957,7 +968,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<OrroboroBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrroboro>()));
 
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
@@ -968,18 +979,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            int itemType = ModContent.ItemType<CreepyChunk>();
-            var parameters = new DropOneByOne.Parameters() 
-            {
-                ChanceNumerator = 1,
-                ChanceDenominator = 1,
-                MinimumStackPerChunkBase = 1,
-                MaximumStackPerChunkBase = 1,
-                MinimumItemDropsCount = 12,
-                MaximumItemDropsCount = 25,
-            };
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 1, 12, 25));
 
-			notExpertRule.OnSuccess(new DropOneByOne(itemType, parameters));
+            npcLoot.Add(notExpertRule);
         }
 
         public override void OnKill()

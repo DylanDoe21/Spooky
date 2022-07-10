@@ -16,7 +16,7 @@ namespace Spooky.Content.Generation
             furnaceRecipe.AddIngredient(ItemID.Torch, 3);
             furnaceRecipe.Register();
 
-            Recipe torchRecipe = Recipe.Create(ItemID.Torch);
+            Recipe torchRecipe = Recipe.Create(ItemID.Torch, 3);
             torchRecipe.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1);
             torchRecipe.AddIngredient(ItemID.Gel, 1);
             torchRecipe.Register();
