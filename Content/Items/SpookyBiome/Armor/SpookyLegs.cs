@@ -3,6 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Tiles.SpookyBiome;
+
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
@@ -28,5 +31,14 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		{
 			player.moveSpeed += 0.05f;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 12)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 25)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

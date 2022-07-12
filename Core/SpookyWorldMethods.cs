@@ -82,17 +82,17 @@ namespace Spooky.Core
 							int limit = (int)Main.worldSurface - 175;
 
 							//change biome size based on world size
-							if (Main.maxTilesX == 4200) //small worlds
+							if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200) //small worlds
 							{
-								limit = (int)Main.worldSurface - 150;
+								limit = (int)Main.worldSurface - 165;
 							}
-							else if (Main.maxTilesX == 6400) //medium worlds
-							{
-								limit = (int)Main.worldSurface - 175;
-							}
-							else if (Main.maxTilesX == 8400) //large worlds
+							if (Main.maxTilesX == 6400 && Main.maxTilesY == 1800) //medium worlds
 							{
 								limit = (int)Main.worldSurface - 200;
+							}
+							if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400) //large worlds
+							{
+								limit = (int)Main.worldSurface - 275;
 							}
 
 							if (l > limit)

@@ -3,6 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Tiles.SpookyHell;
+
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
@@ -31,5 +34,14 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetCritChance(DamageClass.Generic) += 8;
 			player.aggro += 100;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<OrroboroChunk>(), 18)
+			.AddIngredient(ModContent.ItemType<EyeBlockItem>(), 65)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

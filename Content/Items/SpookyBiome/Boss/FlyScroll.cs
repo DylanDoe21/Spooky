@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Boss
 {
@@ -43,5 +44,14 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 10;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

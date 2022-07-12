@@ -1,0 +1,32 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+
+using Spooky.Content.Items.BossSummon;
+
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
+{
+    public class CottonSwabRock : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.tileFrameImportant[Type] = true;
+            Main.tileSolid[Type] = false;
+            Main.tileLighted[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+            TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.addTile(Type);
+            AddMapEntry(new Color(139, 180, 140));
+            DustType = DustID.Stone;
+            HitSound = SoundID.Tink;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<CottonSwab>());
+		}
+    }
+}

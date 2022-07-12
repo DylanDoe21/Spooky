@@ -301,15 +301,6 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY; Y++)
                 {
-                    //slope tiles
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<Carapace>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() ||
-                    Main.tile[X, Y].TileType == TileID.IridescentBrick)
-                    {
-                        Tile.SmoothSlope(X, Y);
-                    }
-
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)
                     {
@@ -325,6 +316,15 @@ namespace Spooky.Content.Generation
                         {
                             WorldGen.KillTile(X, Y);
                         }
+                    }
+
+                    //slope tiles
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<Carapace>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() ||
+                    Main.tile[X, Y].TileType == TileID.IridescentBrick)
+                    {
+                        Tile.SmoothSlope(X, Y);
                     }
                 }
             }
@@ -1127,6 +1127,133 @@ namespace Spooky.Content.Generation
             }
         }
 
+        private void PlaceMocoShrine(int X, int Y, int[,] BlocksArray, int[,] ObjectArray)
+        {
+            for (int PlaceX = 0; PlaceX < BlocksArray.GetLength(1); PlaceX++)
+            {
+                for (int PlaceY = 0; PlaceY < BlocksArray.GetLength(0); PlaceY++)
+                {
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
+                    {
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
+                        switch (BlocksArray[PlaceY, PlaceX])
+                        {
+                            //dont touch
+                            case 0:
+                            {
+                                break;
+                            }
+                            //clear tile
+                            case 1:
+                            {
+                                tile.ClearTile();
+                                break;
+                            }
+                            //stone
+                            case 2:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceTile(StructureX, StructureY, TileID.Stone);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int PlaceX = 0; PlaceX < ObjectArray.GetLength(1); PlaceX++)
+            {
+                for (int PlaceY = 0; PlaceY < ObjectArray.GetLength(0); PlaceY++)
+                {
+                    int StructureX = X + PlaceX;
+                    int StructureY = Y + PlaceY;
+
+                    if (WorldGen.InWorld(StructureX, StructureY, 30))
+                    {
+                        Tile tile = Framing.GetTileSafely(StructureX, StructureY);
+                        switch (ObjectArray[PlaceY, PlaceX])
+                        {
+                            //dont touch
+                            case 0:
+                            {
+                                break;
+                            }
+                            //tiki torch
+                            case 1:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, TileID.Lamps, true, 0);
+                                break;
+                            }
+                            //cotton swab thing
+                            case 2:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<CottonSwabRock>());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void GenerateMocoShrine(GenerationProgress progress, GameConfiguration configuration)
+        {
+            //tiles
+            //0 = dont touch
+            //1 = clear only tiles
+            //2 = stone block
+
+            //objects
+            //0 = dont touch
+            //1 = tiki torch
+            //2 = cotton swab rock
+
+            int [,] MocoShrine = new int[,]
+            {
+                {0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,2,2,2,2,2,2,2,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,1,1,1,1,0,0},
+                {0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
+                {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+                {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+                {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+                {0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0},
+            };
+
+            int [,] MocoShrineObjects = new int[,]
+            {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            };
+
+            PlaceMocoShrine((int)Main.maxTilesX / 2, (int)Main.maxTilesY / 2, MocoShrine, MocoShrineObjects);
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
             int SpookyHellClearIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Larva"));
@@ -1148,6 +1275,7 @@ namespace Spooky.Content.Generation
             tasks.Insert(SpookyHellIndex + 3, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
             tasks.Insert(SpookyHellIndex + 4, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
             tasks.Insert(SpookyHellIndex + 5, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
+            tasks.Insert(SpookyHellIndex + 6, new PassLegacy("MocoShrine", GenerateMocoShrine));
 		}
 
         //post worldgen to place items in the spooky biome chests

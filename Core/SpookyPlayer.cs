@@ -143,7 +143,7 @@ namespace Spooky.Core
                     {
                         Vector2 vector2_2 = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector2_2.X, vector2_2.Y,
-                        ModContent.ProjectileType<SwarmFly>(), 30, 0.0f, Main.myPlayer, 0f, 0f);
+                        ModContent.ProjectileType<SwarmFly>(), 15, 0f, Main.myPlayer, 0f, 0f);
                     }
                 }
             }

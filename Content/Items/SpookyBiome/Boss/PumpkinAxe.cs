@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Boss
 {
@@ -49,15 +50,13 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			}
         }
 
-        /*
-		public override void AddRecipes()
+        public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<MagicPumpkin>(), 10)
-            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 5)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+            .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
     }
 }

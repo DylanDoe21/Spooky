@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 0, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 2));
         }
 
         public override bool CheckDead()

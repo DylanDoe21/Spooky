@@ -6,6 +6,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Boss
 {
@@ -39,13 +40,6 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			Item.shootSpeed = 12f;
 		}
 
-		/*
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-5, 0);
-		}
-		*/
-
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -77,5 +71,14 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			
 			return true;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

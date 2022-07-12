@@ -21,7 +21,7 @@ Also, this mod adds quite a bit of world generation and will add more in the fut
 
 (there will likely be more bosses in the future as well)
 
-This mod also has boss checklist support if you do not know much about the bosses or progression
+Boss Checklist support will be added later
 
 [i:1725]Other misc features[i:1725]
 
@@ -40,7 +40,7 @@ Thanks to all of the contributers to the mod as well!
 [c/fb8904:Taco] - concpets, sprites
 [c/fbeb04:BananaLizard] - making the mod's banger music
 
-And of course, thanks to everyone who has supported the mod, whether it be from testing, ideas, feedback, or just generally being cool!
+And of course, thanks to everyone who has supported the mod, whether it be from testing, ideas, feedback, ect
 
 
 

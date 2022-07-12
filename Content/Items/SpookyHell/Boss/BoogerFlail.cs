@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snot Ball");
-            Tooltip.SetDefault("Hitting enemies with the flail will create more boogers");
+            Tooltip.SetDefault("Hitting enemies with the flail may create more boogers");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

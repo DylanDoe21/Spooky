@@ -19,6 +19,7 @@ using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Boss.Moco
 {
+    [AutoloadBossHead]
     public class Moco : ModNPC
     {
         public bool Sneezing = false;
@@ -723,6 +724,19 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
             }
 		}
+
+        public override bool CheckDead()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore1").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore2").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore3").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore4").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore5").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore6").Type);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore7").Type);
+
+            return true;
+        }
 
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

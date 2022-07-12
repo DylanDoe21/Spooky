@@ -19,7 +19,7 @@ using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Boss.Pumpkin
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class SpookyPumpkinP2 : ModNPC
     {
         public bool Transition = true;
@@ -754,6 +754,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 			ModContent.ItemType<PumpkinTome>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
 
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 25));
 
             npcLoot.Add(notExpertRule);
         }

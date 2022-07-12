@@ -11,7 +11,7 @@ using Spooky.Content.NPCs.Boss.Pumpkin.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Pumpkin
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class SpookyPumpkin : ModNPC
     {
         public bool Phase2 = false;

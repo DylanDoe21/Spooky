@@ -17,8 +17,9 @@ namespace Spooky.Content.Generation
 {
     public class SpookyForest : ModSystem
     {
+        //default positions, edit based on worldsize below
         static int PositionX = Main.maxTilesX / 2;
-        static int PositionY = (int)Main.worldSurface - 175; //start here to not touch floating islands
+        static int PositionY = (int)Main.worldSurface - 175;
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -35,41 +36,41 @@ namespace Spooky.Content.Generation
             }
 
             //set to default values in case of non vanilla world sizes
-            int Size = 285;
-            int BiomeHeight = 165;
+            int Size = 300;
+            int BiomeHeight = 200;
             
             //change biome size based on world size
-            if (Main.maxTilesX == 4200) //small worlds
+            if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200) //small worlds
             {
-                Size = 250;
-                BiomeHeight = 165;
-                PositionY = (int)Main.worldSurface - 150;
-            }
-            else if (Main.maxTilesX == 6400) //medium worlds
-            {
-                Size = 285;
+                Size = 300;
                 BiomeHeight = 200;
-                PositionY = (int)Main.worldSurface - 175;
+                PositionY = (int)Main.worldSurface - 165;
+                PositionX = 2100;
             }
-            else if (Main.maxTilesX == 8400) //large worlds
+            if (Main.maxTilesX == 6400 && Main.maxTilesY == 1800) //medium worlds
             {
-                Size = 350;
-                BiomeHeight = 275;
+                Size = 375;
+                BiomeHeight = 300;
                 PositionY = (int)Main.worldSurface - 200;
+                PositionX = 3200;
+            }
+            if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400) //large worlds
+            {
+                Size = 420;
+                BiomeHeight = 400;
+                PositionY = (int)Main.worldSurface - 275;
+                PositionX = 4200;
             }
 
             //place the actual biome
-            for (int Y = 0; Y < BiomeHeight; Y++)
+            for (int Y = 0; Y < BiomeHeight; Y += 50)
             {
-                if (WorldGen.genRand.Next(2) == 0)
-                {
-                    SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + 10, (double)Size + Y / 2, 1, ModContent.TileType<SpookyGrass>(), 
-                    WallID.DirtUnsafe3, ModContent.WallType<SpookyStoneWall>(), true, 0f, 0f, true, true, true);
-                }
+                SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + 10, (double)Size + Y / 2, 1, ModContent.TileType<SpookyGrass>(), 
+                WallID.DirtUnsafe3, ModContent.WallType<SpookyStoneWall>(), true, 0f, 0f, true, true, true);
             }
 
             //dig crater to lead to the underground
-            for (int CraterDepth = (int)Main.worldSurface - 150; CraterDepth < (int)Main.worldSurface + 55; CraterDepth++)
+            for (int CraterDepth = PositionY; CraterDepth < (int)Main.worldSurface + 55; CraterDepth++)
             {
                 if (WorldGen.genRand.Next(2) == 0)
                 {
@@ -583,7 +584,8 @@ namespace Spooky.Content.Generation
             };
 
             bool placed = false;
-            while (!placed)
+            int attempts = 0;
+            while (!placed && attempts++ < 100000)
             {
                 //first house
                 int House1X = PositionX - WorldGen.genRand.Next(77, 82);

@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Core of the Pumpkin");
+            DisplayName.SetDefault("Rotten Heart");
             Tooltip.SetDefault("Summons a swarm of damaging flies around you"
             + "\nFlies that hit enemies will damage them and then disappear"
             + "\nOnce all flies have disappeared, the fly swarm will respawn");

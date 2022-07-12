@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome.Boss
 {
@@ -36,6 +37,15 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<PumpkinShurikenProj>();  
             Item.shootSpeed = 5f;     
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
     }
 }

@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyBiome.Boss;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
@@ -50,5 +52,14 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		{
 			player.GetCritChance(DamageClass.Generic) += 2;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

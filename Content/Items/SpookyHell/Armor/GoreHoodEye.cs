@@ -6,6 +6,8 @@ using Terraria.GameContent.Creative;
 using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
@@ -68,5 +70,14 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.maxMinions += 2;
 			player.aggro += 75;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<OrroboroChunk>(), 12)
+			.AddIngredient(ModContent.ItemType<EyeBlockItem>(), 45)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

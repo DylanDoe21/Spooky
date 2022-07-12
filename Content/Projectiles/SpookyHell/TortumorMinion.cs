@@ -51,16 +51,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
             }
             
-           	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            if (Projectile.velocity.X != 0 && Projectile.velocity.Y != 0)
             {
-                var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Purple) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+                for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+                {
+                    var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                    Color color = Projectile.GetAlpha(Color.Purple) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                    Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                    Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
+                }
             }
 			
             return true;
@@ -108,13 +111,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 shootTimer++;
 
-                if (shootTimer == 50 || shootTimer == 60)
+                if (shootTimer == 40 || shootTimer == 50)
                 {
                     SoundEngine.PlaySound(SoundID.Item87, target.Center);
 
                     int[] Projectiles = new int[] { ModContent.ProjectileType<TortumorMinionOrb1>(), ModContent.ProjectileType<TortumorMinionOrb2>() };
 
-                    float Speed = 8f;
+                    float Speed = 10f;
                     Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
                     float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
                     Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
@@ -123,7 +126,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     perturbedSpeed.X, perturbedSpeed.Y, Main.rand.Next(Projectiles), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
                 }
 
-                if (shootTimer >= 70)
+                if (shootTimer >= 60)
                 {
                     shootTimer = 0;
                 }

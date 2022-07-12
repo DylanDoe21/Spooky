@@ -86,7 +86,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 ModContent.GoreType<Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Gores.LeafOrangeTreeFX>(), 
                 ModContent.GoreType<Gores.LeafRedTreeFX>(), ModContent.GoreType<Gores.LeafRedTreeFX>() };
 
-                int LeafGore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), Vector2.Zero, Leaves[numDust], 1f);
+                int LeafGore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), 
+                Projectile.Center.Y + Main.rand.Next(-20, 20)), Vector2.Zero, Leaves[numDust], 1f);
                 Main.gore[LeafGore].rotation = 0f;
                 Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
                 Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.5f);

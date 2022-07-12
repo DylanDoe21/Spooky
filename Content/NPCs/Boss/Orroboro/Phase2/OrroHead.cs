@@ -979,7 +979,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 1, 12, 25));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
 
             npcLoot.Add(notExpertRule);
         }

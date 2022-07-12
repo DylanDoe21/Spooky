@@ -35,15 +35,6 @@ namespace Spooky.Content.NPCs.Friendly
 			.SetNPCAffection(NPCID.TravellingMerchant, AffectionLevel.Hate);
 		}
 
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.")
-			});
-		}
-
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
@@ -60,6 +51,15 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.knockBackResist = 0f;
 			NPC.rarity = 1;
             NPC.aiStyle = -1;
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
+				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.")
+			});
 		}
 
         public override void FindFrame(int frameHeight)
@@ -95,7 +95,7 @@ namespace Spooky.Content.NPCs.Friendly
 				//spooky biome
 				if (!NPC.downedBoss1)
 				{
-					Main.npcChatText = "Ahhh, it seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath this forest, you can find special loot! I am not too sure who left it there, though.";
+					Main.npcChatText = "It seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath this forest, you can find special loot! I am not too sure who left it there, though.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//rot gourd
@@ -105,9 +105,15 @@ namespace Spooky.Content.NPCs.Friendly
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//spooky hell
-				else if (NPC.downedBoss2)
+				else if (NPC.downedBoss2 && !Main.hardMode)
 				{
 					Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
+				//orroboro
+				else if (NPC.downedMechBossAny && Main.hardMode)
+				{
+					Main.npcChatText = "Now that you have defeated one of those giant robots, you can probably make a special flask to see what's inside that giant egg in the living hell.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				else

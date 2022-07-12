@@ -2,13 +2,27 @@ priority (needs to be done today)
 
 do these after above is done
 
--cotton swab shrine in the middle of the world
-
--make bosses immune to certain debuffs based on their tier
--make new icons for the bosses
+-moco gores
+-orroboro material for the armor
 
 things to be added next update:
 
 -add eye bat wings
 -masks and trophies for bosses
 -make pumpkin armor head have an icon (idk how this works)
+
+little bone items:
+
+-slender page: press hotkey to get pages from enemies, picking up more pages gets 
+-sonic ring: you and enemies drop money on hit
+-red's legs: summons a mount of red from godzilla creepy pasta
+-red mist: shoots red notes in a shotgun pattern that turn into red mist upon hitting an enemy or tile
+-his throne: at night, it shoots a radio wave that inflicts a ton of debuffs. at day, it orbits you and protects from projectiles
+-hypnos pendant: on hit, you summon a psychic pendant that floats and has an increasing radius. enemies take damage while in the radius and only 1 pendant can be active at once
+-scp peanut: while standing still you gain stealth, allowing you to do massive damage
+-vhs tape: summons a mini gabriel that creates alternates every once in a while
+-portable herobrine altar: summons lightning bolts down (spooky)
+siren head siren: shoots gores, but every 5th use shoots a siren blast
+-smile dog: smile dog pet
+
+
