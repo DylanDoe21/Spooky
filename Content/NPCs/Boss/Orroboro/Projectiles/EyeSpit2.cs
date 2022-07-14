@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
+namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
-    public class SnotBall : ModProjectile
+    public class EyeSpit2 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snot Ball");
+            DisplayName.SetDefault("Saliva Ball");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -19,15 +19,19 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 		
         public override void SetDefaults()
         {
-            Projectile.width = 26;                  			 
+            Projectile.width = 26;
             Projectile.height = 26;          
 			Projectile.friendly = false;
             Projectile.hostile = true;                 			  		
             Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;             					
-            Projectile.timeLeft = 400;
-            Projectile.alpha = 255;
+            Projectile.ignoreWater = false;                					
+            Projectile.timeLeft = 300;
 		}
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.LightGray;
+        }
         
         public override bool PreDraw(ref Color lightColor)
         {
@@ -36,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 7)
                 {
                     Projectile.frame = 0;
                 }
@@ -57,37 +61,34 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             return true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(BuffID.OgreSpit, 60, true);
-        }
-
         public override void AI()
         {
 			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
-            if (Projectile.alpha > 0)
-            {
-                Projectile.alpha -= 8;
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 35)
+            {   
+                Projectile.velocity.X = Projectile.velocity.X * 0.98f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
             }
 		}
 
 		public override void Kill(int timeLeft)
 		{
-            for (int numDust = 0; numDust < 20; numDust++)
-            {                                                                                  
-                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
-                Main.dust[DustGore].noGravity = true;
-                Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+			for (int numDust = 0; numDust < 20; numDust++)
+			{                                                                                  
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0f, -2f, 0, default, 1.5f);
+				Main.dust[DustGore].noGravity = true;
+				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
                 
-                if (Main.dust[DustGore].position != Projectile.Center)
+				if (Main.dust[DustGore].position != Projectile.Center)
                 {
-                    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
                 }
-            }
+			}
 		}
     }
 }

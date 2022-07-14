@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -55,6 +56,20 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
+        }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = Main.masterMode ? 12000 / 3 : Main.expertMode ? 8200 / 2 : 4500;
@@ -72,7 +87,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.HitSound = SoundID.NPCHit22;
 			NPC.DeathSound = SoundID.NPCDeath60;
             NPC.aiStyle = -1;
-            Music = MusicID.GoblinInvasion;
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Moco");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
 
@@ -246,6 +261,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     NPC.localAI[0] = 0;
                     NPC.localAI[1] = 0;
                     NPC.ai[0] = 0;
+                    NPC.netUpdate = true;
                 }
             }
 
@@ -288,6 +304,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -341,6 +358,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 AfterImages = false;
                                 NPC.localAI[0] = 20;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -349,6 +367,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -391,16 +410,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             ShootSpeed.X *= 15f;
                             ShootSpeed.Y *= 15f;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                int GiantSnot = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                                ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
+                            int GiantSnot = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                            ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
 
-                                if (Phase2)
-                                {
-                                    Main.projectile[GiantSnot].ai[0] = 1;
-                                    Main.projectile[GiantSnot].timeLeft = 35;
-                                }
+                            if (Phase2)
+                            {
+                                Main.projectile[GiantSnot].ai[0] = 1;
+                                Main.projectile[GiantSnot].timeLeft = 35;
                             }
                         }
 
@@ -413,6 +429,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -465,9 +482,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    int SnotBall = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
-                                    Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
-                                    Main.projectile[SnotBall].ai[0] = 1; //set ai to 1 so it does falling and linger behavior
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
+                                    Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall2>(), Damage, 1, NPC.target, 0, 0);
                                 }
                             }
                         }
@@ -482,6 +498,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
                         
                         break;
@@ -544,6 +561,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 NPC.velocity *= 0.98f;
                                 NPC.localAI[0] = 45;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -552,6 +570,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
                         
                         break;
@@ -638,6 +657,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             {
                                 NPC.ai[0]++;
                             }
+
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -688,8 +709,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                    10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
                                     ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
                                 }
                             }
@@ -717,6 +737,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             AfterImages = false;
                             NPC.localAI[0] = 0;
                             NPC.ai[0] = 0;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -727,13 +748,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override bool CheckDead()
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore3").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore4").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore5").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore6").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore7").Type);
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
+                }
+            }
 
             return true;
         }

@@ -1,0 +1,4 @@
+conditions:
+if the biome has genned
+within the catacomb area
+near enoug brick tiles

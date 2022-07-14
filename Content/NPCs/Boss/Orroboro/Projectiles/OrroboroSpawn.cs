@@ -72,19 +72,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 int Orroboro = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroboroHead>());
                 Main.NewText("Orro-Boro has awoken!", 171, 64, 255);
 
-                //net update so the worm wont vanish on multiplayer
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                //net update so it doesnt vanish on multiplayer
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Orroboro);
+                    NetMessage.SendData(MessageID.SyncNPC, number: Orroboro);
                 }
 
                 Vector2 Position = new((int)Projectile.Center.X, (int)Projectile.Center.Y + 65);
 
-                Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard1").Type, 1.2f);
-                Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard2").Type, 1.2f);
-                Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard3").Type, 1.2f);
-                Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard4").Type, 1.2f);
-                Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard5").Type, 1.2f);
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard1").Type, 1.2f);
+                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard2").Type, 1.2f);
+                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard3").Type, 1.2f);
+                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard4").Type, 1.2f);
+                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard5").Type, 1.2f);
+                }
 
                 for (int numDust = 0; numDust < 75; numDust++)
                 {

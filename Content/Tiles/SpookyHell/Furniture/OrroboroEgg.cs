@@ -88,7 +88,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void MouseOver(int i, int j)
 		{
-			Player player = Main.player[Main.myPlayer];
+			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<Concoction>())) 
 			{
 				player.cursorItemIconEnabled  = true;
@@ -116,25 +116,32 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 
 			//check if player has the concoction
-			Player player = Main.player[Main.myPlayer];
+			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<Concoction>())) 
 			{
-				int x = i;
-				int y = j;
-				while (Main.tile[x, y].TileType == Type) x--;
-				x++;
-				while (Main.tile[x, y].TileType == Type) y--;
-				y++;
-
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				//we need to use a special packet because tiles can't net update
+				//for now, just use SpawnOnPlayer until an actual spawn intro fix is made
+				if (Main.netMode == NetmodeID.MultiplayerClient) 
 				{
-					//todo: edit to make sure its in the middle of the egg
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.SpawnOrroboro);
+					packet.Send();
+				}
+				else
+				{
+					int x = i;
+					int y = j;
+					while (Main.tile[x, y].TileType == Type) x--;
+					x++;
+					while (Main.tile[x, y].TileType == Type) y--;
+					y++;
+
 					Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 155f, 0, -1, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			else
             {
-				Main.NewText("You need a special substance to open the egg", 171, 64, 255);
+				Main.NewText("You need a special substance to destroy the egg", 171, 64, 255);
 			}
 
 			return true;

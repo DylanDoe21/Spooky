@@ -183,7 +183,11 @@ namespace Spooky.Content.NPCs.SpookyHell
             //kill npc if parent is not active
             if (!Main.npc[(int)NPC.ai[3]].active)
             {
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleEyeGore").Type);
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleEyeGore").Type);
+                }
+                
                 NPC.active = false;
             }
         }

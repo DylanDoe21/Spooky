@@ -67,27 +67,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
-            if (Projectile.ai[0] == 0)
-            {
-                Projectile.ai[1]++;
-                if (Projectile.ai[1] <= 30)
-                {   
-                    Projectile.velocity *= 0.97f;
-                }
-                if (Projectile.ai[1] >= 30 && Projectile.ai[1] <= 75)
-                {
-                    Projectile.velocity *= 1.05f;
-                }
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] <= 30)
+            {   
+                Projectile.velocity *= 0.97f;
             }
-
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[1] <= 75)
             {
-                Projectile.ai[1]++;
-                if (Projectile.ai[1] >= 35)
-                {   
-                    Projectile.velocity.X = Projectile.velocity.X * 0.98f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
-                }
+                Projectile.velocity *= 1.05f;
             }
 		}
 

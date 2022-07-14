@@ -27,8 +27,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-            Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore1").Type);
-            Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore2").Type);
+            if (Main.netMode != NetmodeID.MultiplayerClient) 
+			{
+                Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore1").Type);
+                Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore2").Type);
+            }
 
             if (Main.rand.NextBool(5))
             {

@@ -299,7 +299,7 @@ namespace Spooky.Content.Generation
 
             for (int X = XStart + 5; X < XEdge - 5; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY; Y++)
                 {
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)

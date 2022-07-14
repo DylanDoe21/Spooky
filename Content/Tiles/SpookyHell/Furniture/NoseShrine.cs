@@ -62,7 +62,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void MouseOver(int i, int j)
 		{
-			Player player = Main.player[Main.myPlayer];
+			Player player = Main.LocalPlayer;
 			player.cursorItemIconEnabled  = true;
 			player.cursorItemIconID = ModContent.ItemType<CottonSwab>();
 		}
@@ -76,7 +76,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 
 			//check if player has a cotton swab
-			Player player = Main.player[Main.myPlayer];
+			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<CottonSwab>())) 
 			{
 				SoundEngine.PlaySound(SneezeSound, player.Center);

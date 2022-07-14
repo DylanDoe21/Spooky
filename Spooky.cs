@@ -14,6 +14,7 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.SpookyBiome;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky
 {
@@ -89,9 +90,15 @@ namespace Spooky
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
 					break;
                 }
+                case SpookyMessageType.SpawnOrroboro:
+                {
+                    //for now, just use SpawnOnPlayer until an actual spawn intro fix is made
+                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<OrroboroHead>());
+					break;
+                }
 				default:
                 {
-					Logger.Warn("SpookyMod: Unknown Message type: " + messageType);
+					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
 					break;
                 }
 			}
@@ -101,5 +108,6 @@ namespace Spooky
     enum SpookyMessageType : byte
     {
         SpawnMoco,
+        SpawnOrroboro,
     }
 }

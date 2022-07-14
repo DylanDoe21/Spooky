@@ -7,6 +7,7 @@ using System;
 
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 
 namespace Spooky.Core
 {

@@ -397,7 +397,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public void GenRuinedHouse(GenerationProgress progress, GameConfiguration configuration)
+        public void GenerateRuinedHouse(GenerationProgress progress, GameConfiguration configuration)
         {
             //tiles
             //0 = dont touch
@@ -686,7 +686,7 @@ namespace Spooky.Content.Generation
                             case 3:
                             {
                                 tile.ClearTile();
-					            WorldGen.PlaceTile(StructureX, StructureY, TileID.Platforms, mute: true);
+					            WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyPlatform>());
                                 break;
                             }
                             //wood beams
@@ -979,7 +979,7 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(SpookyIndex + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
-            tasks.Insert(SpookyIndex + 2, new PassLegacy("SpookyHouse", GenRuinedHouse));
+            tasks.Insert(SpookyIndex + 2, new PassLegacy("SpookyHouse", GenerateRuinedHouse));
             tasks.Insert(SpookyIndex + 3, new PassLegacy("SpookyChest", GenerateChestHouses));
 
             //grow extra trees and ambience after

@@ -7,7 +7,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
-    public class SnotBall : ModProjectile
+    public class SnotBall2 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -72,10 +72,61 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             {
                 Projectile.alpha -= 8;
             }
+
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] > 75)
+            {
+                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.18f;
+
+                int minTilePosX = (int)(Projectile.position.X / 16.0) - 1;
+                int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16.0) + 2;
+                int minTilePosY = (int)(Projectile.position.Y / 16.0) - 1;
+                int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16.0) + 2;
+                if (minTilePosX < 0)
+                {
+                    minTilePosX = 0;
+                }
+                if (maxTilePosX > Main.maxTilesX)
+                {
+                    maxTilePosX = Main.maxTilesX;
+                }
+                if (minTilePosY < 0)
+                {
+                    minTilePosY = 0;
+                }
+                if (maxTilePosY > Main.maxTilesY)
+                {
+                    maxTilePosY = Main.maxTilesY;
+                }
+
+                for (int i = minTilePosX; i < maxTilePosX; ++i)
+                {
+                    for (int j = minTilePosY; j < maxTilePosY; ++j)
+                    {
+                        if (Main.tile[i, j] != null && (Main.tile[i, j].HasTile && (Main.tileSolid[(int)Main.tile[i, j].TileType])))
+                        {
+                            Vector2 vector2;
+                            vector2.X = (float)(i * 16);
+                            vector2.Y = (float)(j * 16);
+
+                            if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
+                            (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
+                            {
+                                Projectile.Kill();
+                            }
+                        }
+                    }
+                }
+            }
 		}
 
 		public override void Kill(int timeLeft)
 		{
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
+            ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer, 0f, 0f);
+
             for (int numDust = 0; numDust < 20; numDust++)
             {                                                                                  
                 int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);

@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 using Spooky.Content.NPCs.Boss.Pumpkin.Projectiles;
 
@@ -40,6 +41,20 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -222,9 +237,13 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                 if (NPC.ai[3] >= 121)
                 {
-                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore1").Type);
-                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore2").Type);
-                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore3").Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        for (int numGores = 1; numGores <= 3; numGores++)
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore" + numGores).Type);
+                        }
+                    }
 
                     Phase2 = true;
                     Transition = false;
@@ -354,6 +373,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[2] = 0;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -362,6 +382,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             NPC.localAI[1] = 0;
                             NPC.localAI[2] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -499,6 +520,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             NPC.localAI[0] = 0;
                             NPC.localAI[2] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -529,6 +551,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
                         
                         break;
@@ -598,6 +621,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 NPC.localAI[1] = 0;
                                 NPC.ai[0]++;
                             }
+
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -648,6 +673,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -691,11 +717,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 
                                 float Spread = Main.rand.Next(-2, 2);
                                 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
-                                    ShootSpeed.Y + Spread, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                                ShootSpeed.Y + Spread, ModContent.ProjectileType<RootThorn2>(), Damage, 1, NPC.target, 0, 0);
                             }
                         }
 
@@ -713,6 +736,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0; //reset for the jumping attack loop
                             NPC.ai[0] = 0; //reset attack pattern
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -725,9 +749,13 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
         {
             if (NPC.life <= 0)
 			{
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore4").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore5").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore6").Type);
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    for (int numGores = 4; numGores <= 6; numGores++)
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PumpkinShardGore" + numGores).Type);
+                    }
+                }
 
                 NPC.damage = 0;
                 NPC.life = -1;

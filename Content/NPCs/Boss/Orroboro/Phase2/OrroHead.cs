@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -53,6 +54,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -133,6 +148,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     NPC.life = 1;
                     NPC.immortal = true;
                     NPC.dontTakeDamage = true;
+                    NPC.netUpdate = true;
 
                     return false;
                 }
@@ -141,11 +157,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 {
                     Main.NewText("Boro has been defeated!", 171, 64, 255);
 
-                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
 
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                    }
 
                     NPC.life = 0;
                     Main.npc[NPCGlobal.Boro].life = 0;
@@ -156,8 +175,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             }
             else
             {
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                }
 
                 return true;
             }
@@ -221,7 +243,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             }
             else
             {
-                NPC.localAI[3] = 0;
+                NPC.localAI[3] = 2;
             }
 
             //Make the worm itself
@@ -270,6 +292,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -280,12 +303,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                                 Main.npc[NPCGlobal.Boro].localAI[0] = 0;
                                 Main.npc[NPCGlobal.Boro].localAI[1] = 0;
                                 Main.npc[NPCGlobal.Boro].ai[0] = 1;
+                                Main.npc[NPCGlobal.Boro].netUpdate = true;
                             }
 
                             Chomp = false;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
                         
                         break;
@@ -315,11 +340,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                                 NPC.position.X = player.Center.X - 20;
                                 NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250, 
-                                    0, 0, ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250, 
+                                0, 0, ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                             }
 
                             if (NPC.localAI[0] == 75)
@@ -344,6 +366,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -353,6 +376,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1] = 0;
                                 NPC.ai[0]++;
+                                NPC.netUpdate = true;
                             }
                         }
 
@@ -384,11 +408,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.position.X = player.Center.X - 1250;
                             NPC.position.Y = player.Center.Y + 0;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
-                                ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
+                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
                         }
 
                         if (NPC.localAI[0] == 90)
@@ -441,6 +462,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -484,6 +506,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                                 NPC.velocity *= 0.25f;
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -492,6 +515,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0; 
                             NPC.ai[0]++; 
+                            NPC.netUpdate = true;
                         }
                         
                         break;
@@ -522,9 +546,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                                     for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                        4.2f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                            4.2f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                        }
                                     }
                                 }
                             }
@@ -537,6 +564,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -545,6 +573,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0; 
                             NPC.ai[0]++; 
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -576,11 +605,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                             for (int i = 230; i <= 1000; i += 175)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - i, player.Center.Y - 175, 0, 0,
-                                    ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - i, player.Center.Y - 175, 0, 0,
+                                ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
                             }
                         }
 
@@ -611,11 +637,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                         if (NPC.localAI[0] == 300)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 450, 0, 0, 
-                                ModContent.ProjectileType<TelegraphRed>(), 0, 0f, Main.myPlayer, 0, 0);
-                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 450, 0, 0, 
+                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, Main.myPlayer, 0, 0);
                         }
 
                         if (NPC.localAI[0] == 350)
@@ -632,6 +655,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
+                            NPC.netUpdate = true;
                         }
 
                         break;
@@ -713,6 +737,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                             NPC.localAI[1] = 0;
                             NPC.localAI[2] = 0;
                             NPC.ai[0] = 0;
+                            NPC.netUpdate = true;
                         }
 
                         break;
