@@ -87,6 +87,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.netAlways = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath5;
+            NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
@@ -141,7 +142,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             if (NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
                 //if boro hasnt "died"
-                if (Main.npc[NPCGlobal.Boro].ai[3] <= 0)
+                if (Main.npc[NPCGlobal.Boro].ai[3] <= 0 && NPC.ai[3] <= 0)
                 {
                     NPC.ai[3] = 1;
 
@@ -166,9 +167,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
                     }
 
-                    NPC.life = 0;
-                    Main.npc[NPCGlobal.Boro].life = 0;
-                    NPC.active = false;
+                    Main.npc[NPCGlobal.Boro].checkDead();
 
                     return true;
                 }
@@ -211,11 +210,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             return true;
         }
 
-        public override bool PreAI()
+        public override void AI()
         {
             NPCGlobal.Orro = NPC.whoAmI;
-
-            if (NPC.CountNPCS(ModContent.NPCType<OrroHead>()) > 1)
+            
+            if (NPC.CountNPCS(ModContent.NPCType<OrroHead>()) > 1 || (NPC.ai[3] > 0 && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>())))
             {
                 NPC.active = false;
             }
@@ -243,7 +242,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             }
             else
             {
-                NPC.localAI[3] = 2;
+                NPC.localAI[3] = 0;
             }
 
             //Make the worm itself
@@ -744,8 +743,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     }
                 }
             }
-
-            return false;
         }
 
         private void ChaseMovement(Player player, float maxSpeed, float accel)

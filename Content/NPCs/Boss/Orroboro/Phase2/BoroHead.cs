@@ -84,6 +84,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.netAlways = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath5;
+            NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
@@ -122,7 +123,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
             {
                 //if orro hasnt "died"
-                if (Main.npc[NPCGlobal.Orro].ai[3] <= 0)
+                if (Main.npc[NPCGlobal.Orro].ai[3] <= 0 && NPC.ai[3] <= 0)
                 {
                     NPC.ai[3] = 1;
 
@@ -147,9 +148,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
                     }
 
-                    NPC.life = 0;
-                    Main.npc[NPCGlobal.Orro].life = 0;
-                    NPC.active = false;
+                    Main.npc[NPCGlobal.Orro].checkDead();
 
                     return true;
                 }
@@ -192,11 +191,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             return true;
         }
 
-        public override bool PreAI()
+        public override void AI()
         {
             NPCGlobal.Boro = NPC.whoAmI;
             
-            if (NPC.CountNPCS(ModContent.NPCType<BoroHead>()) > 1)
+            if (NPC.CountNPCS(ModContent.NPCType<BoroHead>()) > 1 || (NPC.ai[3] > 0 && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>())))
             {
                 NPC.active = false;
             }
@@ -763,8 +762,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     }
                 }
             }
-
-            return false;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

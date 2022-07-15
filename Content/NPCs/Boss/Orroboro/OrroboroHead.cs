@@ -129,7 +129,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
         
-        public override bool PreAI()
+        public override void AI()
         {
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
@@ -230,7 +230,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     //net update so the worms dont vanish on multiplayer
                     if (Main.netMode == NetmodeID.Server)
                     {
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Orro);
+                        NetMessage.SendData(MessageID.SyncNPC, number: Orro);
                     }
 
                     NPC.netUpdate = true;
@@ -706,8 +706,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                 }
             }
-
-            return false;
         }
 
         private void Movement(Player player, float maxSpeed, float accel, bool ChaseMovement = false)

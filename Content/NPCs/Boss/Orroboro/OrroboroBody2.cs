@@ -95,7 +95,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     //net update so the worms dont vanish on multiplayer
                     if (Main.netMode == NetmodeID.Server)
                     {
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Boro);
+                        NetMessage.SendData(MessageID.SyncNPC, number: Boro);
                     }
                 }
             }

@@ -72,7 +72,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             {   
                 Projectile.velocity *= 0.97f;
             }
-            if (Projectile.ai[0] >= 30 && Projectile.ai[1] <= 75)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 75)
             {
                 Projectile.velocity *= 1.05f;
             }
