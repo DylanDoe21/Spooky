@@ -28,7 +28,6 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

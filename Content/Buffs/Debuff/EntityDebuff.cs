@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("");
-			Description.SetDefault("");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -20,7 +18,6 @@ namespace Spooky.Content.Buffs.Debuff
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Lighting.GlobalBrightness = 0f;
-			player.GetModPlayer<SpookyPlayer>().EntityDebuff = true;
 		}  
     }
 
@@ -29,7 +26,7 @@ namespace Spooky.Content.Buffs.Debuff
     {
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().EntityDebuff)
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
             {
 				pool.Clear();
             }

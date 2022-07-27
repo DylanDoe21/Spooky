@@ -38,6 +38,35 @@ namespace Spooky.Content.Biomes
         public override string BackgroundPath => base.BackgroundPath;
         public override Color? BackgroundColor => Color.Orange;
 
+        public override void OnInBiome(Player player)
+        {
+            //spawn falling leaves while in the spooky forest
+            int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(),
+            ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Content.Gores.LeafRedTreeFX>() };
+
+            if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
+            {
+                float Scale = Main.rand.NextFloat(1f, 1.5f);
+                int SpawnX = (int)Main.screenPosition.X - 100;
+                int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
+                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                Main.gore[LeafGore].rotation = 0f;
+                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(0.5f, 3.5f);
+                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+            }
+
+            if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
+            {
+                float Scale = Main.rand.NextFloat(1f, 1.5f);
+                int SpawnX = (int)Main.screenPosition.X + Main.screenWidth + 100;
+                int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
+                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                Main.gore[LeafGore].rotation = 0f;
+                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
+                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+            }
+        }
+
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {

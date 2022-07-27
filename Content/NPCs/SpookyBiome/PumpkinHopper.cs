@@ -68,7 +68,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				NPC.velocity.X *= 1.045f;
 			}
-			if (NPC.velocity.Y == 0 || NPC.collideY)
+			if (NPC.velocity.Y == 0)
 			{
 				if (NPC.ai[0] >= 120)
 				{

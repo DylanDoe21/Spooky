@@ -33,6 +33,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit9;
+            NPC.aiStyle = -1;
         }
 
         //rotate the bosses map icon to the NPCs direction
@@ -58,7 +59,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //if orro is in its death state
-            if (Main.npc[NPCGlobal.Orro].ai[3] > 0)
+            if (Main.npc[(int)NPC.ai[1]].ai[3] > 0)
             {
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
 
@@ -79,8 +80,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             return true;
         }
 
-        public override bool PreAI()
+        public override void AI()
         {
+            if (Main.npc[(int)NPC.ai[1]].ai[3] > 0)
+            {
+                NPC.ai[3] = 1;
+            }
+
             if (!Main.npc[(int)NPC.ai[1]].active)
             {
                 if (Main.netMode != NetmodeID.Server) 
@@ -107,8 +113,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 NPC.position.X = NPC.position.X + posX;
                 NPC.position.Y = NPC.position.Y + posY;
             }
-
-            return false;
         }
 
         public override bool CheckActive()

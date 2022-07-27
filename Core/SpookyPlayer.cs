@@ -22,6 +22,7 @@ namespace Spooky.Core
         public bool GoreArmorSet = false;
         public bool TreatBag = false;
         public bool MagicCandle = false;
+        public bool SirenHead = false;
         public bool PumpkinCore = false;
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
@@ -34,7 +35,6 @@ namespace Spooky.Core
         public bool MocoPet = false;
 
         //buffs
-        public bool EntityDebuff = false;
 
         public override void ResetEffects()
         {
@@ -43,6 +43,7 @@ namespace Spooky.Core
             GoreArmorSet = false;
             TreatBag = false;
             MagicCandle = false;
+            SirenHead = false;
             PumpkinCore = false;
             MocoNose = false;
             OrroboroEmbyro = false;
@@ -53,9 +54,6 @@ namespace Spooky.Core
             SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
-
-            //buffs 
-            EntityDebuff = false;
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -77,8 +75,7 @@ namespace Spooky.Core
 
             return ShouldRevive;
         }
-
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (MocoNose && Main.rand.Next(2) == 0)
             {
@@ -97,7 +94,7 @@ namespace Spooky.Core
             }
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
@@ -146,32 +143,6 @@ namespace Spooky.Core
                         ModContent.ProjectileType<SwarmFly>(), 15, 0f, Main.myPlayer, 0f, 0f);
                     }
                 }
-            }
-
-            //spawn falling leaves while in the spooky forest
-            int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(),
-            ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Content.Gores.LeafRedTreeFX>() };
-
-            if (Main.rand.Next(40) == 0 && Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && Player.ZoneOverworldHeight)
-            {
-                float Scale = Main.rand.NextFloat(1f, 1.5f);
-                int SpawnX = (int)Main.screenPosition.X - 100;
-                int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
-                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
-                Main.gore[LeafGore].rotation = 0f;
-                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(0.5f, 3.5f);
-                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
-            }
-
-            if (Main.rand.Next(40) == 0 && Main.LocalPlayer.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()) && Player.ZoneOverworldHeight)
-            {
-                float Scale = Main.rand.NextFloat(1f, 1.5f);
-                int SpawnX = (int)Main.screenPosition.X + Main.screenWidth + 100;
-                int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
-                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
-                Main.gore[LeafGore].rotation = 0f;
-                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
-                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
             }
 
             if (SpookyWorld.GhostEvent && Player.ZoneOverworldHeight)

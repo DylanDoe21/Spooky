@@ -29,6 +29,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         public bool OpenMouth = false;
         private bool spawned;
 
+        public bool DeathState = false;
+
         public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/OrroboroCrunch", SoundType.Sound);
         public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/OrroboroGrowl1", SoundType.Sound);
 
@@ -61,6 +63,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -68,6 +71,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -139,50 +143,27 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
         public override bool CheckDead()
         {
-            if (NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            //if boro hasnt died, put this npc in its death state
+            if (Main.npc[(int)NPC.ai[1]].ai[3] <= 0)
             {
-                //if boro hasnt "died"
-                if (Main.npc[NPCGlobal.Boro].ai[3] <= 0 && NPC.ai[3] <= 0)
-                {
-                    NPC.ai[3] = 1;
+                NPC.ai[3] = 1;
 
-                    NPC.life = 1;
-                    NPC.immortal = true;
-                    NPC.dontTakeDamage = true;
-                    NPC.netUpdate = true;
+                NPC.dontTakeDamage = true;
+                NPC.life = 1;
 
-                    return false;
-                }
-                //if orro has "died"
-                else if (Main.npc[NPCGlobal.Boro].ai[3] > 0)
-                {
-                    Main.NewText("Boro has been defeated!", 171, 64, 255);
-
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore1").Type);
-                        Gore.NewGore(NPC.GetSource_Death(), Main.npc[NPCGlobal.Boro].Center, Main.npc[NPCGlobal.Boro].velocity / 5, ModContent.Find<ModGore>("Spooky/BoroHeadGore2").Type);
-
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
-                    }
-
-                    Main.npc[NPCGlobal.Boro].checkDead();
-
-                    return true;
-                }
+                return false;
             }
-            else
+            if (Main.npc[(int)NPC.ai[1]].ai[3] == 1)
             {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
-                }
+                NPC.ai[3] = 2;
+                Main.npc[(int)NPC.ai[1]].ai[3] = 3;
 
-                return true;
+                NPC.dontTakeDamage = true;
+                NPC.life = 1;
+
+                return false;
             }
-            
+
             return true;
         }
 
@@ -211,10 +192,42 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         }
 
         public override void AI()
-        {
-            NPCGlobal.Orro = NPC.whoAmI;
-            
-            if (NPC.CountNPCS(ModContent.NPCType<OrroHead>()) > 1 || (NPC.ai[3] > 0 && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>())))
+        {   
+            //death animation
+            if (NPC.ai[3] >= 2)
+            {
+				NPC.velocity *= 0.95f;
+
+                NPC.ai[0] = -1;
+
+                NPC.ai[2]++;
+                if (NPC.ai[2] < 240)
+                {
+                    NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                    NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                }
+                
+				if (NPC.ai[2] >= 240)
+				{
+					NPC.life = 0;
+					Main.NewText("Orro has been defeated!", 171, 64, 255);
+
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore1").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 5, ModContent.Find<ModGore>("Spooky/OrroHeadGore2").Type);
+                    }
+
+                    if (NPC.ai[3] == 2)
+                    {
+					    NPC.checkDead();
+                    }
+				}
+
+				return;
+			}
+
+            if (NPC.CountNPCS(ModContent.NPCType<OrroHead>()) > 1) //|| (NPC.ai[3] > 0 && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>())))
             {
                 NPC.active = false;
             }
@@ -267,6 +280,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     Main.npc[latestNPC].ai[2] = NPC.whoAmI;
                     Main.npc[latestNPC].netUpdate = true;
 
+                    if (Main.netMode != 1)
+                    {
+                        NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroHead>(), ai1: NPC.whoAmI);
+                    }
+
                     NPC.netUpdate = true;
                     spawned = true;
                 }
@@ -296,13 +314,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                         }
                         else
                         {
-                            //sync boros ai here because their ai had a weird issue where it was slightly off
-                            if (NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+                            //sync boros ai to prevent being slightly off sync
+                            for (int i = 0; i < Main.maxNPCs; i++)
                             {
-                                Main.npc[NPCGlobal.Boro].localAI[0] = 0;
-                                Main.npc[NPCGlobal.Boro].localAI[1] = 0;
-                                Main.npc[NPCGlobal.Boro].ai[0] = 1;
-                                Main.npc[NPCGlobal.Boro].netUpdate = true;
+                                //if any boro exists and it is active
+                                if (Main.npc[i].type == ModContent.NPCType<BoroHead>() && Main.npc[i].active)
+                                {
+                                    Main.npc[i].localAI[0] = 0;
+                                    Main.npc[i].localAI[1] = 0;
+                                    Main.npc[i].ai[0] = 1;
+                                    Main.npc[i].netUpdate = true;
+                                }
                             }
 
                             Chomp = false;

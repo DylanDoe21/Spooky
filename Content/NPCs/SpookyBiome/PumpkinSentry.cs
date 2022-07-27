@@ -115,11 +115,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     ShootSpeed.X *= 6.5f;
                     ShootSpeed.Y *= 0f;
                     
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
-                        ShootSpeed.Y, ModContent.ProjectileType<PumpkinSpit>(), Damage, 1, NPC.target, 0, 0);
-                    }
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
+                    ShootSpeed.Y, ModContent.ProjectileType<PumpkinSpit>(), Damage, 1, NPC.target, 0, 0);
                 }
             }
             

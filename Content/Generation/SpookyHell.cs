@@ -424,7 +424,7 @@ namespace Spooky.Content.Generation
                             case 1:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<OrroboroEgg>());
+                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<OrroboroEgg>(), true);
                                 break;
                             }
                             //necromancy banner
@@ -480,7 +480,7 @@ namespace Spooky.Content.Generation
                             case 9:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceObject(StructureX, StructureY, (ushort)ModContent.TileType<NoseShrine>());
+                                WorldGen.PlaceObject(StructureX, StructureY, (ushort)ModContent.TileType<NoseShrine>(), true);
                                 break;
                             }
                         }

@@ -49,6 +49,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -56,6 +57,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()

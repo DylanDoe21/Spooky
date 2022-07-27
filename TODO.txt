@@ -1,10 +1,3 @@
-priority (needs to be done today)
-
-do these after above is done
-
--moco gores
--orroboro material for the armor
-
 things to be added next update:
 
 -add eye bat wings
@@ -13,7 +6,7 @@ things to be added next update:
 
 little bone items:
 
--slender page: press hotkey to get pages from enemies, picking up more pages gets 
+-slender page: press hotkey to release tentacles and get pages from enemies, picking up more pages makes ability enchanced
 -sonic ring: you and enemies drop money on hit
 -red's legs: summons a mount of red from godzilla creepy pasta
 -red mist: shoots red notes in a shotgun pattern that turn into red mist upon hitting an enemy or tile
@@ -22,7 +15,19 @@ little bone items:
 -scp peanut: while standing still you gain stealth, allowing you to do massive damage
 -vhs tape: summons a mini gabriel that creates alternates every once in a while
 -portable herobrine altar: summons lightning bolts down (spooky)
-siren head siren: shoots gores, but every 5th use shoots a siren blast
+-siren head: shoots gores, but every 5th use shoots a siren blast
 -smile dog: smile dog pet
 
+
+-sonic ring: -early game
+-red mist: -post eye of cthulhu
+-scp peanut: -post evil bosses
+-vhs tape: -post skeletron
+-slender page: -beginning of hardmode
+-red's legs: -post one mechanical boss
+-hypnos pendant: -post two mechanical bosses
+-his throne: -post all three mechanical bosses
+-siren head: -post plantera
+-portable herobrine altar: -post golem
+-smile dog: -can be given rarely along side any item
 

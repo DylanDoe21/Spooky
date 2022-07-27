@@ -34,6 +34,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.StyleSmallCage);
+            TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(52, 40, 101));
             DustType = DustID.PurpleCrystalShard;

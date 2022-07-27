@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/Pumpkin/SpookyPumpkinBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/Boss/Pumpkin/SpookyPumpkinBC",
                 Position = new Vector2(20f, 24f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 0f

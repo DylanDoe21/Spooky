@@ -34,6 +34,39 @@ namespace Spooky.Core
 			}
 		}
 
+		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, bool killTile = true, bool placeWalls = false)
+		{
+			for (int X = i - (XSize / 2); X <= i + (XSize / 2); X++)
+			{
+				for (int Y = j - (YSize / 2); Y <= j + (YSize / 2); Y++)
+				{
+					Tile tile = Framing.GetTileSafely(X, Y);
+
+					if (!killTile)
+					{
+						tile.ClearEverything();
+						WorldGen.PlaceTile(X, Y, tileType);
+					}
+					else
+					{
+						tile.ClearEverything();
+					}
+				}
+			}
+
+			if (placeWalls)
+			{
+				for (int X = i - (XSize / 2) + 1; X <= i + (XSize / 2) - 1; X++)
+				{
+					for (int Y = j - (YSize / 2) + 1; Y <= j + (YSize / 2) - 1; Y++)
+					{
+						WorldGen.KillWall(X, Y);
+						WorldGen.PlaceWall(X, Y, wallType);
+					}
+				}
+			}
+		}
+
 		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
 		public static void TileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
 		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false)

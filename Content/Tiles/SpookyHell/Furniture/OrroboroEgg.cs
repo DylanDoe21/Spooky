@@ -20,11 +20,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
+			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			Main.tileMergeDirt[Type] = true;
-			TileObjectData.newTile.UsesCustomCanPlace = true;
+			TileID.Sets.BasicChest[Type] = true;
 			TileObjectData.newTile.Width = 8;
 			TileObjectData.newTile.Height = 8;	
 			TileObjectData.newTile.Origin = new Point16(4, 7);
@@ -89,15 +88,26 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.HasItem(ModContent.ItemType<Concoction>())) 
+			player.cursorItemIconEnabled  = true;
+			player.cursorItemIconID = ModContent.ItemType<Concoction>();
+			player.cursorItemIconText = "";
+		}
+
+		public override void MouseOverFar(int i, int j)
+		{
+			MouseOver(i, j);
+			Player player = Main.LocalPlayer;
+			if (player.cursorItemIconText == "")
 			{
-				player.cursorItemIconEnabled  = true;
-				player.cursorItemIconID = ModContent.ItemType<Concoction>();
+				player.cursorItemIconEnabled = false;
+				player.cursorItemIconID = 0;
 			}
-			else
-			{
-				player.cursorItemIconEnabled  = false;
-			}
+		}
+
+		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
+			noBreak = true;
+			return true;
 		}
 
 		public override bool RightClick(int i, int j)

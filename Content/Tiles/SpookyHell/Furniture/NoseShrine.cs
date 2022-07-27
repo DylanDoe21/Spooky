@@ -18,15 +18,15 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
+			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			Main.tileMergeDirt[Type] = true;
-			TileObjectData.newTile.UsesCustomCanPlace = true;
+			TileID.Sets.BasicChest[Type] = true;
 			TileObjectData.newTile.Width = 6;
 			TileObjectData.newTile.Height = 4;
 			TileObjectData.newTile.Origin = new Point16(3, 3);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
+			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
@@ -65,6 +65,24 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Player player = Main.LocalPlayer;
 			player.cursorItemIconEnabled  = true;
 			player.cursorItemIconID = ModContent.ItemType<CottonSwab>();
+			player.cursorItemIconText = "";
+		}
+
+		public override void MouseOverFar(int i, int j)
+		{
+			MouseOver(i, j);
+			Player player = Main.LocalPlayer;
+			if (player.cursorItemIconText == "")
+			{
+				player.cursorItemIconEnabled = false;
+				player.cursorItemIconID = 0;
+			}
+		}
+
+		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
+			noBreak = true;
+			return true;
 		}
 		
 		public override bool RightClick(int i, int j)

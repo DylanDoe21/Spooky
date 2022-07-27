@@ -1,34 +1,22 @@
 Spooky mod is a work-in-progress mod that adds in a bunch of halloween themed content, such as new biomes, weapons, armors, bosses, ect.
 
-[i:1725]The mod currently offers[i:1725]
+Currently the mod has:
 
-2 brand new biomes:
+-Two new biomes: the Spooky Forest and the Living Hell
 
-[c/d07709:The Spooky Forest]- A new spooky themed forest biome, with it's own content, new enemies, and loot. It also generates directly on your spawn point, so this biome is where your spooky adventure will begin!
+-Two massive new structures: the Graveyard Crypts and the Catacombs
 
-[c/8c63c9:The Living Hell]- A creepy biome themed around body horror. Filled with things like eye stalk trees, fingers and even gross teeth! Also has it's own unique enemies, brand new structures, and some loot!
+-Three brand new bosses: Rot Gourd, Moco, and Orro-boro
 
-[c/ea0235:IMPORTANT]: both biomes are created upon making a new world, so you'll need a new world to fully experience the mod and all of it's content!
-Also, this mod adds quite a bit of world generation and will add more in the future, so avoid playing this with other larger mods that add in large biomes or other worldgen
+-Tons of other content such as weapons, armor sets, and other various items
 
-3 new bosses:
+-Brand new soundtracks for all of the bosses, biomes, and other stuff the mod adds
 
-[c/d07709:Rot-Gourd], a giant, rotten pumpkin and former guardian who can be fought in the spooky forest
+-And much more to come in the future!
 
-[c/1db50d:Moco], A funny flying nose who does not like cotton swabs
-
-[c/8c63c9:Orro-Boro], Two parasitic worms who feed off each other and work together to fight off any threat
-
-(there will likely be more bosses in the future as well)
-
-Boss Checklist support will be added later
-
-[i:1725]Other misc features[i:1725]
-
--All bosses will now drop a bunch of goodie bags (Works for vanilla and modded bosses)
-
--With this mod enabled, the halloween seasonal event will always be active in your world
-
+IMPORTANT, PLEASE READ THIS:
+-While you can technically play this with other mods, this mod is VERY worldgen heavy, adding 2 new biomes and a massive structure, as well as a lot more planned worldgen in the future like structures and mini-biomes. Playing with other large content mods will highly likely cause issues or conflicts with biomes and other world generation!
+-Also, again due to the amount of worldgen this mod adds, try not to play on a small world size as some of the generation in this mod may destroy other important vanilla world generation on small worlds
 
 Thanks to all of the contributers to the mod as well!
 
@@ -37,10 +25,16 @@ Thanks to all of the contributers to the mod as well!
 [c/545454:Triangle] - sprites
 [c/23d022:Hugekraken] - sprites
 [c/ac4949:HondaCivicMoment] - sprites
-[c/fb8904:Taco] - concpets, sprites
+[c/fb8904:Taco] - concepts, sprites
 [c/fbeb04:BananaLizard] - making the mod's banger music
 
 And of course, thanks to everyone who has supported the mod, whether it be from testing, ideas, feedback, ect
+
+Other stuff:
+
+If you want more detailed information on the mod, you can visit the terraria forums page here: [url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Forum Page [/url][/h1]
+
+You can also listen to the mods soundtrack here: [url=https://www.youtube.com/watch?v=Qbl2oc3A0jA&list=PLTkIRNhpw-3ELxu-tYd05X_DAXIYp3qg2] Youtube Playlist [/url][/h1]
 
 
 
