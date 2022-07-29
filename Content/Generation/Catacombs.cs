@@ -87,11 +87,14 @@ namespace Spooky.Content.Generation
 
             for (int ClearX = XStart; ClearX <= XEdge; ClearX++)
             {
-                for (int ClearY = (int)Main.worldSurface - ClearHeight; ClearY <= PositionY - 30; ClearY++)
+                for (int ClearY = (int)Main.worldSurface - ClearHeight; ClearY <= PositionY; ClearY++)
                 {
-                    Tile tile = Framing.GetTileSafely(ClearX, ClearY);
-                    tile.ClearEverything();
-                    tile.LiquidType = 0;
+                    if (PositionY >= (int)Main.worldSurface - 60)
+                    {
+                        Tile tile = Framing.GetTileSafely(ClearX, ClearY);
+                        tile.ClearEverything();
+                        tile.LiquidType = 0;
+                    }
                 }
             }
 
@@ -1976,7 +1979,7 @@ namespace Spooky.Content.Generation
             int XEdge = XStart + BiomeWidth;
 
             //place initial square
-            SpookyWorldMethods.Square(XMiddle, (int)Main.worldSurface + 110, 365, 250, 
+            SpookyWorldMethods.Square(XMiddle + 2, (int)Main.worldSurface + 110, 365, 250, 
             ModContent.TileType<CatacombBrick>(), ModContent.WallType<CatacombBrickWall>(), false, true);
 
             //place mossy bricks in the main square

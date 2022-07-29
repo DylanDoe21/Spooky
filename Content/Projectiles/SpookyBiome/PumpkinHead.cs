@@ -162,7 +162,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			for (int numDust = 0; numDust < 20; numDust++)
             {
                 int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 288, 0f, 0f, 100, default, 2f);
-
                 Main.dust[DustGore].velocity *= 1.5f;
                 Main.dust[DustGore].noGravity = true;
 

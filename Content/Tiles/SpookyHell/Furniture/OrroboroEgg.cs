@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileID.Sets.BasicChest[Type] = true;
+			TileID.Sets.IsATreeTrunk[Type] = true;
 			TileObjectData.newTile.Width = 8;
 			TileObjectData.newTile.Height = 8;	
 			TileObjectData.newTile.Origin = new Point16(4, 7);

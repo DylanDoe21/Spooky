@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.Creepypasta
         {
             DisplayName.SetDefault("His Throne");
             Tooltip.SetDefault("Summons a strange moon that has different abilities at day and night"
-            + "\nDuring the day, the moon will orbit you, damagaing enemies and sometimes reflecting projectiles"
+            + "\nDuring the day, the moon will orbit you, damaging hit enemies and blocking projectiles"
             + "\nAt night, the moon will shoot radio waves, dealing low damage but inflicting tons of debuffs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -6,6 +6,7 @@ using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System;
 
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Moco;
@@ -21,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileID.Sets.BasicChest[Type] = true;
+			TileID.Sets.IsATreeTrunk[Type] = true;
 			TileObjectData.newTile.Width = 6;
 			TileObjectData.newTile.Height = 4;
 			TileObjectData.newTile.Origin = new Point16(3, 3);
