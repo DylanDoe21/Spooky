@@ -51,14 +51,14 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
                 {   
                     //Draw the sky box texture
                     spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), 
-                    new Color(255, 140, 0) * alpha * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * this.Intensity));
+                    new Color(255, 199, 75) * alpha * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * this.Intensity));
                 }
                 
                 if (!Main.dayTime)
                 {   
                     //Draw the sky box texture
                     spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), 
-                    new Color(255, 140, 0) * alpha * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * this.Intensity));
+                    new Color(255, 199, 75) * alpha * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * this.Intensity));
                 }
             }
 

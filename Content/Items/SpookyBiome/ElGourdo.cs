@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             DisplayName.SetDefault("El Gourdo");
             Tooltip.SetDefault("Throws a slow moving gourd bomb that will stop midair after a bit"
-            + "\nAfter a few seconds, the bomb will create a massive explosion, unleashing lingering greek fire"
+            + "\nAfter a few seconds, the bomb will explode, unleashing lingering greek fire"
             + "\nThe bomb will automatically detonate when it hits an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

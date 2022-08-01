@@ -12,6 +12,7 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Generation
 {
@@ -1145,6 +1146,7 @@ namespace Spooky.Content.Generation
             //7 = skull sticks
             //8 = candle altar
 
+            //layer one stuff
             int[,] EntranceRoom = new int[,]
             {
                 {1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
@@ -1939,6 +1941,40 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0},
             };
 
+            //layer two stuff
+            int[,] GiantRoom1 = new int[,]
+            {
+            };
+
+            int[,] GiantRoomObjects1 = new int[,]
+            {
+            };
+
+            int[,] GiantRoom2 = new int[,]
+            {
+            };
+
+            int[,] GiantRoomObjects2 = new int[,]
+            {
+            };
+
+            int[,] AmbushRoom = new int[,]
+            {
+            };
+
+            int[,] AmbushRoomObjects = new int[,]
+            {
+            };
+
+            int[,] GiantEntranceRoom = new int[,]
+            {
+            };
+
+            int[,] GiantEntranceRoomObjects = new int[,]
+            {
+            };
+
+            //catacomb entrance stuff
             int[,] CatacombEntrance = new int[,]
             {
                 {0,2,2,6,6,6,6,9,6,6,6,6,3,3,0},
@@ -2164,6 +2200,7 @@ namespace Spooky.Content.Generation
             //catacomb entrance
             int EntranceX = XMiddle - 5;
             bool PlacedBarrier = false;
+            bool placedChest = false;
 
             //place the catacombs tunnel down
             for (int EntranceNewY = (int)Main.worldSurface - 15; EntranceNewY <= (int)Main.worldSurface + 116; EntranceNewY += 6)
@@ -2222,6 +2259,18 @@ namespace Spooky.Content.Generation
                         {    
                             //dunno why catacombs internal id is Painting4X3 but whatever
                             WorldGen.PlaceObject(X, Y, TileID.Painting4X3, true, Main.rand.Next(0, 8));
+                        }
+                    }  
+                    
+                    //place biome chests
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrick>() ||
+                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() || 
+                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombTiles>())
+                    {
+                        if (WorldGen.genRand.Next(250) == 0 && !placedChest)
+                        {
+                            WorldGen.PlaceChest(X, Y, (ushort)ModContent.TileType<SpookyBiomeChest>(), true, 1);
+                            placedChest = true;
                         }
                     }
                 }
