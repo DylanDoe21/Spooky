@@ -26,8 +26,7 @@ namespace Spooky
         { 
             if (!Main.dedServ)
             {
-                Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.Transparent).UseOpacity(0f), EffectPriority.VeryHigh);
-				SkyManager.Instance["Spooky:HalloweenSky"] = new HalloweenSky();
+                Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
             }

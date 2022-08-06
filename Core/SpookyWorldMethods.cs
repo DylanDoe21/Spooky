@@ -34,7 +34,7 @@ namespace Spooky.Core
 			}
 		}
 
-		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, bool killTile = true, bool placeWalls = false)
+		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, int wallType2, bool killTile = true, bool placeWalls = false)
 		{
 			for (int X = i - (XSize / 2); X <= i + (XSize / 2); X++)
 			{
@@ -60,8 +60,16 @@ namespace Spooky.Core
 				{
 					for (int Y = j - (YSize / 2) + 1; Y <= j + (YSize / 2) - 1; Y++)
 					{
-						WorldGen.KillWall(X, Y);
-						WorldGen.PlaceWall(X, Y, wallType);
+						if (Y >= (int)Main.worldSurface + 135)
+						{
+							WorldGen.KillWall(X, Y);
+							WorldGen.PlaceWall(X, Y, wallType2);
+						}
+						else
+						{
+							WorldGen.KillWall(X, Y);
+							WorldGen.PlaceWall(X, Y, wallType);
+						}
 					}
 				}
 			}
@@ -159,13 +167,13 @@ namespace Spooky.Core
 								}
 
 								//replace all wallls
-								if (Main.tile[k, l].WallType > 0)
+								if (Main.tile[k, l].WallType > 0 && placeWalls)
 								{
 									Main.tile[k, l].WallType = (ushort)wallType;
 								}
 
 								//place walls below each block
-								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile)
+								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
 								{
 									Main.tile[k, l + 2].WallType = (ushort)wallType;
 								}

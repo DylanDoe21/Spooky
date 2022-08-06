@@ -1,3 +1,4 @@
+/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,9 +12,9 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyBiome.Misc;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Furniture
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
-	public class SpookyBiomeChest : ModTile
+	public class SpookyHellChest : ModTile
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -41,10 +42,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			ContainerName.SetDefault("Spooky Chest");
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Spooky Chest");
-			AddMapEntry(Color.Orange, name, MapChestName);
+			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
 			name.SetDefault("Locked Spooky Chest");
-			AddMapEntry(Color.Orange, name, MapChestName);
+			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
 			DustType = DustID.PurpleCrystalShard;
 			HitSound = SoundID.Dig;
 		}
@@ -251,3 +252,4 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		}
 	}
 }
+*/

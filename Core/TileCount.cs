@@ -3,6 +3,7 @@ using System;
 
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;
+using Spooky.Content.Tiles.Catacomb;
 
 namespace Spooky.Core
 {

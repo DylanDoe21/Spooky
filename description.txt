@@ -15,8 +15,8 @@ Currently the mod has:
 -And much more to come in the future!
 
 IMPORTANT, PLEASE READ THIS:
--While you can technically play this with other mods, this mod is VERY worldgen heavy, adding 2 new biomes and a massive structure, as well as a lot more planned worldgen in the future like structures and mini-biomes. Playing with other large content mods will highly likely cause issues or conflicts with biomes and other world generation!
--Also, again due to the amount of worldgen this mod adds, try not to play on a small world size as some of the generation in this mod may destroy other important vanilla world generation on small worlds
+-While you can technically play this with other mods, this mod is VERY worldgen heavy, adding 2 new biomes and a massive structure, as well as a lot more planned worldgen in the future like new structures and mini-biomes. Playing with other large content mods will highly likely cause issues or conflicts with biomes and other world generation!
+-also, playing on small worlds may not be a good idea due to the new biomes and structure this mod adds as they can possibly destroy other vanilla biomes or structures
 
 Thanks to all of the contributers to the mod as well!
 

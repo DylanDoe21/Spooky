@@ -14,6 +14,7 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
         {
             DisplayName.SetDefault("Spooky Forest Key");
             Tooltip.SetDefault("Unlocks a Spooky Pumpkin chest in the catacombs");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

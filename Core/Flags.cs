@@ -11,7 +11,7 @@ namespace Spooky.Core
         public static bool downedMoco = false;
         public static bool downedOrroboro = false;
 
-        public static bool SpookyBackgroundAlt = false;
+        public static bool SpookyBackgroundAlt = false; 
 
         public override void SaveWorldData(TagCompound tag)
         {
