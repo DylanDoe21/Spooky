@@ -14,8 +14,6 @@ namespace Spooky.Core
         public static bool DaySwitched;
         private static bool LastTime;
 
-        public static bool NoGoods = false;
-
         public override void PostUpdateWorld()
         {
             Main.halloween = true;
@@ -31,11 +29,9 @@ namespace Spooky.Core
 
             LastTime = Main.dayTime;
 
+            /*
             if (DaySwitched)
             {
-                NoGoods = false;
-
-                /*
                 if (!Main.dayTime && NPC.downedBoss2)
                 {
                     if (Main.rand.Next(12) == 0 || ShouldStartGhostEvent)
@@ -63,8 +59,8 @@ namespace Spooky.Core
                     GhostEvent = false;
                     ShouldStartGhostEvent = false;
                 }
-                */
             }
+            */
         }
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

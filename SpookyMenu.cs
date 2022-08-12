@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Core
 {
-    internal class SpookyForestMenu : ModMenu
+    internal class SpookyMenu : ModMenu
     {
-        public override string DisplayName => "Spooky Forest";
+        public override string DisplayName => "Spooky Mod";
 
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Spooky/SpookyMenuLogo");
         
@@ -22,30 +22,6 @@ namespace Spooky.Core
             logoDrawCenter -= new Vector2(0, 0);
             logoScale = 0.8f;
             return true;
-        }
-    }
-
-    internal class SpookyHellMenu : ModMenu
-    {
-        public override string DisplayName => "Living Hell";
-
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Spooky/SpookyMenuLogo");
-        
-        public override int Music => MusicID.ConsoleMenu;
-        
-        public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Content.Backgrounds.SpookyHell.SpookyHellMenuBG>();
-
-        public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
-        {
-            logoDrawCenter -= new Vector2(0, 0);
-            logoScale = 0.8f;
-            return true;
-        }
-
-        public override void Update(bool isOnTitleScreen)
-        {
-            Main.dayTime = true;
-            Main.time = 40000;
         }
     }
 }

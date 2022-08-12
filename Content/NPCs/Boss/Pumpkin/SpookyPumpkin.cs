@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Pumpkin.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Pumpkin
@@ -322,6 +323,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
                                 NPC.velocity.X *= 0;
 
+                                SpookyPlayer.ScreenShakeAmount = 5;
+
                                 //push player in the air if they are on the ground
                                 if (player.velocity.Y == 0)
                                 {
@@ -446,6 +449,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                             NPC.noGravity = false;
 
                             NPC.velocity.X *= 0;
+
+                            SpookyPlayer.ScreenShakeAmount = 10;
                             
                             //push player in the air if they are on the ground
                             if (player.velocity.Y == 0)

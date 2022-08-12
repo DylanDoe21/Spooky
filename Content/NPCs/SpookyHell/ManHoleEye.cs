@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 float bezierIncrement = 10;
 
                 Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ManHoleEyeChain").Value;
-                Vector2 textureCenter = new(8, 8);
+                Vector2 textureCenter = new Vector2(8, 8);
 
                 float rotation;
 

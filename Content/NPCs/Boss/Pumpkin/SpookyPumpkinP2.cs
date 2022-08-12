@@ -620,6 +620,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
                                 NPC.noGravity = false;
 
                                 NPC.velocity.X *= 0;
+
+                                SpookyPlayer.ScreenShakeAmount = 8;
                                 
                                 if (player.velocity.Y == 0)
                                 {

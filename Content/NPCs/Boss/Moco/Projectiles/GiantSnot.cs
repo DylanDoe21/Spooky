@@ -64,7 +64,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void AI()
         {
-			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             

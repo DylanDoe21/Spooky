@@ -58,13 +58,15 @@ namespace Spooky.Core
 			{
 				for (int X = i - (XSize / 2) + 1; X <= i + (XSize / 2) - 1; X++)
 				{
-					for (int Y = j - (YSize / 2) + 1; Y <= j + (YSize / 2) - 1; Y++)
+					for (int Y = j - (YSize / 2) - 1; Y <= j + (YSize / 2) - 1; Y++)
 					{
-						if (Y >= (int)Main.worldSurface + 135)
+						//place walls in the second catacomb area
+						if (Y >= (int)Main.worldSurface + 141)
 						{
 							WorldGen.KillWall(X, Y);
 							WorldGen.PlaceWall(X, Y, wallType2);
 						}
+						//otherwise place normal walls
 						else
 						{
 							WorldGen.KillWall(X, Y);

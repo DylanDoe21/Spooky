@@ -22,6 +22,7 @@ namespace Spooky.Core
 
         private void BossChecklistSetup() 
         {
+			//do not load any of this without boss checklist enabled
 			if (!ModLoader.TryGetMod("BossChecklist", out Mod bossChecklistMod)) 
             {
 				return;
@@ -175,6 +176,29 @@ namespace Spooky.Core
 			//register orroboro
 			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 9.5f, OrroboroDowned, true, OrroboroDrops, 
 			OrroboroSummonItem, OrroboroSpawnInfo, OrroboroDespawnInfo, OrroboroPortrait);
+
+			//Big Bone
+			string BigBoneName = "Big Bone";
+			int BigBone = ModContent.NPCType<Content.NPCs.Boss.BigBone.BigBone>();
+			Func<bool> BigBoneDowned = () => Flags.downedBigBone;
+			int BigBoneSummonItem = ModContent.ItemType<Concoction>();
+			string BigBoneSpawnInfo = $"Use the [i:{BigBoneSummonItem}] at the giant flower pot in the catacombs arena";
+			string BigBoneDespawnInfo = "Big Bone has protected the catacombs";
+
+			List<int> BigBoneDrops = new List<int>()
+			{
+			};
+
+			var BigBonePortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+            {
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneBC").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			//register big bone
+			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 12.5f, BigBoneDowned, true, BigBoneDrops, 
+			BigBoneSummonItem, BigBoneSpawnInfo, BigBoneDespawnInfo, BigBonePortrait);
         }
     }       
 }

@@ -69,11 +69,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
 		public override int TreeLeaf()
 		{
-			return ModContent.GoreType<LeafOrangeTreeFX>();
+			int[] Leaves = new int[] { ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
+			return Main.rand.Next(Leaves);
         }
 
 		public override bool Shake(int x, int y, ref bool createLeaves)
 		{
+			createLeaves = true;
 			return false;
 		}
 	}

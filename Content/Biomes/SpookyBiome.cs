@@ -4,6 +4,7 @@ using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Gores;
 
 namespace Spooky.Content.Biomes
 {
@@ -41,8 +42,7 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             //spawn falling leaves while in the spooky forest
-            int[] Leaves = new int[] { ModContent.GoreType<Content.Gores.LeafGreenTreeFX>(),
-            ModContent.GoreType<Content.Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Content.Gores.LeafRedTreeFX>() };
+            int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
 
             if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
             {

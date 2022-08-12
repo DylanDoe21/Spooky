@@ -33,22 +33,6 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-           	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Brown) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
-            }
-			
-            return true;
-        }
-
-		public override void AI()
-		{	
 			Projectile.frameCounter++;
             if (Projectile.frameCounter >= 4)
             {
@@ -60,6 +44,23 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
                 }
             }
 
+           	Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+				var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Brown) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
+            }
+			
+            return true;
+        }
+
+		public override void AI()
+		{
 			Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
             Projectile.rotation = Projectile.velocity.ToRotation();
 

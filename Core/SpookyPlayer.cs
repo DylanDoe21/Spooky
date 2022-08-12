@@ -10,7 +10,6 @@ using System;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.Creepypasta;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -18,6 +17,9 @@ namespace Spooky.Core
 {
     public class SpookyPlayer : ModPlayer
     {
+        public static int ShakeTimer = 0;
+        public static float ScreenShakeAmount = 0;
+
         //armors and accessories
         public bool SpookySet = false;
         public bool GoreArmorSet = false;
@@ -55,6 +57,28 @@ namespace Spooky.Core
             SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
+        }
+
+        public override void ModifyScreenPosition()
+        {
+            if (!Main.gameMenu)
+            {
+                ShakeTimer++;
+                if (ScreenShakeAmount >= 0 && ShakeTimer >= 5)
+                {
+                    ScreenShakeAmount -= 0.1f;
+                }
+                if (ScreenShakeAmount < 0)
+                {
+                    ScreenShakeAmount = 0;
+                }
+                Main.screenPosition += new Vector2(ScreenShakeAmount * Main.rand.NextFloat(), ScreenShakeAmount * Main.rand.NextFloat());
+            }
+            else
+            {
+                ScreenShakeAmount = 0;
+                ShakeTimer = 0;
+            }
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

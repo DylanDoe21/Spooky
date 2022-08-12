@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Gores;
+
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class LeafTornado : ModProjectile
@@ -82,9 +84,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             for (int numDust = 0; numDust < 5; numDust++)
             {
-                int[] Leaves = new int[] { ModContent.GoreType<Gores.LeafGreenTreeFX>(),
-                ModContent.GoreType<Gores.LeafOrangeTreeFX>(), ModContent.GoreType<Gores.LeafOrangeTreeFX>(), 
-                ModContent.GoreType<Gores.LeafRedTreeFX>(), ModContent.GoreType<Gores.LeafRedTreeFX>() };
+                int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), 
+                ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>(), ModContent.GoreType<LeafRed>() };
 
                 int LeafGore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), 
                 Projectile.Center.Y + Main.rand.Next(-20, 20)), Vector2.Zero, Leaves[numDust], 1f);

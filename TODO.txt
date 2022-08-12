@@ -1,23 +1,48 @@
-things to be added next update:
+the "Creepy Catacombs" update: 
 
--add eye bat wings
--masks and trophies for bosses
--make pumpkin armor head have an icon (idk how this works)
+-new catacombs and graveyard biomes (done)
 
-little bone items:
+-new big bone boss fight (in progress)
 
--slender page: press hotkey to release tentacles and get pages from enemies, picking up more pages makes ability enchanced
--sonic ring: you and enemies drop money on hit
--red's legs: summons a mount of red from godzilla creepy pasta
--red mist: shoots red notes in a shotgun pattern that turn into red mist upon hitting an enemy or tile
--his throne: at night, it shoots a radio wave that inflicts a ton of debuffs. at day, it orbits you and protects from projectiles
--hypnos pendant: on hit, you summon a psychic pendant that floats and has an increasing radius. enemies take damage while in the radius and only 1 pendant can be active at once
--scp peanut: while standing still you gain stealth, allowing you to do massive damage
--vhs tape: summons a mini gabriel that creates alternates every once in a while
--portable herobrine altar: summons lightning bolts down (spooky)
--siren head: shoots gores, but every 5th use shoots a siren blast
--smile dog: smile dog pet
+-spooky spirit mini boss thing
 
+-new catacombs enemies for both layers
+
+-brand new items in the catacombs as well as big bone drops
+
+
+The "Spookier Spooky Mod" update:
+
+overall improves a lot of the prior content in the mod, making it less generic, without needlessly completely reworking it
+also adding new stuff to expand on the existing stuff the mod adds
+
+new little bone mechanic: 
+-you can now pick him up and carry him with you (by pressing an extra button that turns him into an item)
+-little bone can be placed down and give you advice about where you are (and can help spawn certain bosses possibly?) (no promises)
+-MAYBE little bone will be visible on your back and have a dialogue box in the bottom corner while in your inventory? (again, no promises)
+
+new quest npc: 
+-little eye, an eye biome version of little bone (is basically an eye in a flower pot)
+-main gimmick is he gives you small quests and gives you the keys to unlock the eye biome chests as a reward for said quests
+
+new rot gourd mini-expansion:
+-new rot gourd sprite and design: an actual gourd, is very gray and fully/mostly rotted, and has a red evil looking face
+-new rot gourd attack improvements (if needed, not definite)
+-new pumpkin patch area in the spooky forest
+-pumpkin patch will have giant dead trees, custom giant jack o' lantern and gourd tiles, and a new special way to summon rot gourd
+
+new eye valley improvements:
+-new palette for the biome and all its stuff
+-perhaps new and more unique items from the chests (not definite)
+-new structures to make the biome look better and more fun to explore (abandoned living houses)
+-orroboro rework? (no longer conventional worms) (this needs to be thought out more tbh) (also not 100% definite)
+
+
+the "Ghost Circus" update:
+
+-ghost circus mini-boss rush event, with a prehardmode and hardmode version, unique loot, ect
+
+new little bone creepy pasta items:
 
 -sonic ring: -early game
 -red mist: -post eye of cthulhu
