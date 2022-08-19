@@ -27,7 +27,7 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
-            //player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
         }
 
         public override bool IsBiomeActive(Player player)

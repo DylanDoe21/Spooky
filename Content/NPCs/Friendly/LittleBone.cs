@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
-using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -26,13 +25,14 @@ namespace Spooky.Content.NPCs.Friendly
             Main.npcFrameCount[NPC.type] = 8;
 
 			NPC.Happiness
-			.SetBiomeAffection<Content.Biomes.SpookyBiome>(AffectionLevel.Love) 
+			.SetBiomeAffection<Biomes.SpookyBiome>(AffectionLevel.Love)
 			.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
 			.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
+			.SetBiomeAffection<SpookyHellBiome>(AffectionLevel.Hate)
 			.SetNPCAffection(NPCID.Dryad, AffectionLevel.Love)
 			.SetNPCAffection(NPCID.PartyGirl, AffectionLevel.Like)
 			.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) 
-			.SetNPCAffection(NPCID.TravellingMerchant, AffectionLevel.Hate);
+			.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 		}
 
 		public override void SetDefaults()

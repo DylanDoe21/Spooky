@@ -23,12 +23,13 @@ namespace Spooky
         private List<IAutoload> loadCache;
 
         public override void Load()
-        { 
+        {
             if (!Main.dedServ)
             {
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
+
             }
 
             //hell background loading

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
@@ -20,11 +21,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
     //[AutoloadBossHead]
     public class BigBone : ModNPC
     {
-        //save point for big bones thorn vine attack
-        Vector2[] SavePoint = new Vector2[5];
-
         int[] AttackPattern = new int[] { 0, 1, 2, 3, 4, 5 };
         int[] SpecialAttack = new int[] { 6, 7 };
+
+        public bool Phase2 = false;
+        public bool Transition = false;
+        public bool shieldSpawned = false;
+
+        Vector2[] SavePoint = new Vector2[5];
+        Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBoneGrowl1", SoundType.Sound);
         public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBoneGrowl2", SoundType.Sound);
@@ -75,9 +80,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 78000 / 3 : Main.expertMode ? 65000 / 2 : 50000;
-            NPC.damage = 65;
-            NPC.defense = 40;
+            NPC.lifeMax = Main.masterMode ? 80000 / 3 : Main.expertMode ? 72000 / 2 : 55000;
+            NPC.damage = 100;
+            NPC.defense = 55;
             NPC.width = 134;
             NPC.height = 170;
             NPC.knockBackResist = 0f;
@@ -137,6 +142,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            if (NPC.life < (NPC.lifeMax / 2) && !Phase2)
+            {
+                var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
+
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+
+                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Orange);
+
+                for (int numEffect = 0; numEffect < 4; numEffect++)
+                {
+                    Color newColor = color;
+                    newColor = NPC.GetAlpha(newColor);
+                    newColor *= 1f - fade;
+                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6.28318548f + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * numEffect;
+                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.05f + fade / 2, effects, 0);
+                }
+            }
+
             return true;
         }
 
@@ -144,13 +169,33 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1").Value;
 
+            if (NPC.ai[0] == 0 || NPC.ai[0] == 7)
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1").Value;
+            }
+
+            if (NPC.ai[0] == 2 || NPC.ai[0] == 3 || NPC.ai[0] == 6)
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow2").Value;
+            }
+
+            if (NPC.ai[0] == 4 || NPC.ai[0] == 5 || NPC.ai[0] == 8)
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3").Value;
+            }
+
+            if (NPC.ai[0] == 1)
+            {
+                tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow4").Value;
+            }
+
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
             Color color = Color.Lerp(Color.Transparent, Color.White, fade);
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 
         public override void AI()
@@ -158,7 +203,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 125 / 3 : Main.expertMode ? 85 / 2 : 55;
+            int Damage = Main.masterMode ? 85 / 3 : Main.expertMode ? 70 / 2 : 55;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -166,6 +211,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             float RotateX = player.Center.X - vector.X;
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            //despawn if all players are dead or not in the biome
+            if (player.dead)
+            {
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] >= 180)
+                {
+                    NPC.active = false;
+                }
+            }
 
             if (NPC.life > NPC.lifeMax)
             {
@@ -178,10 +233,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //remove special attacks from the attack array
                 foreach (var i in AttackPattern)
                 {
-                    if (i == 6)
-                    {
-                        AttackPattern = AttackPattern.Where((source, index) => index != i).ToArray();
-                    }
+                    AttackPattern = AttackPattern.Where(i => i != 6).ToArray();
+                    AttackPattern = AttackPattern.Where(i => i != 7).ToArray();
                 }
                     
                 //shuffle the attack pattern array
@@ -200,10 +253,62 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.ai[2] = 1;
             }
 
-            NPC.ai[0] = AttackPattern[(int)NPC.ai[1]];
+            if (NPC.life < (NPC.lifeMax / 2) && !Phase2)
+            {
+                Transition = true;
+            }
+
+            if (Transition)
+            {
+                NPC.ai[0] = -1;
+            }
+            else
+            {
+                NPC.ai[0] = AttackPattern[(int)NPC.ai[1]];
+            }
 
             switch ((int)NPC.ai[0])
             {
+                //phase 2 transition
+                case -1:
+                {
+                    GoAboveFlowerPot(350);
+
+                    NPC.immortal = true;
+                    NPC.dontTakeDamage = true;
+
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.ai[1] = 0;
+
+                    if (!shieldSpawned)
+                    {
+                        for (int numOrbiter = 0; numOrbiter < 12; numOrbiter++)
+                        {
+                            int distance = 360 / 12;
+
+                            int orbiter = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, 
+                            ModContent.NPCType<FlameSkull>(), NPC.whoAmI, numOrbiter * distance, NPC.whoAmI);
+                        }
+
+                        shieldSpawned = true;
+                    }
+
+                    if (NPC.CountNPCS(ModContent.NPCType<FlameSkull>()) <= 0 && shieldSpawned)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.ai[2] = 0;
+
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
+                        Phase2 = true;
+                        Transition = false;
+                    }
+
+                    break;
+                }
                 //shoot flowers that bounce around off walls
                 case 0:
                 {
@@ -211,7 +316,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(300);
 
-                    if (NPC.localAI[0] == 140 || NPC.localAI[0] == 170 || NPC.localAI[0] == 200)
+                    if (NPC.localAI[0] == 75 || NPC.localAI[0] == 105 || NPC.localAI[0] == 135)
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
@@ -239,7 +344,50 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 320)
+                    if (NPC.localAI[0] >= 180)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[1]++;
+
+                        if (NPC.ai[1] >= AttackPattern.Length)
+                        {
+                            NPC.ai[1] = 0;
+                            NPC.ai[2] = 0;
+                        }
+                    }
+
+                    break;
+                }
+                //create skull wisps around itself that launch themselves at the player
+                case 1:
+                {
+                    NPC.localAI[0]++;
+
+                    GoAboveFlowerPot(500);
+
+                    if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 195)
+                    {
+                        int WispChance = Phase2 ? 2 : 6;
+
+                        if (Main.rand.Next(WispChance) == 0)
+                        {
+                            SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                                    
+                            ShootSpeed.X *= Main.rand.Next(-12, 12);
+                            ShootSpeed.Y *= Main.rand.Next(-12, 12);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BoneWisp>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 270)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -254,20 +402,36 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
                 //make a group of telegraphs around the player, then shoot vine tendrils at all of the telegraphs
-                case 1:
+                case 2:
                 {
                     NPC.localAI[0]++;
 
                     GoAboveFlowerPot(100);
 
-                    if (NPC.localAI[1] < 5)
+                    if (NPC.localAI[1] < 4)
                     {
-                        if (NPC.localAI[0] == 60)
+                        if (NPC.localAI[0] == 75)
                         {
                             for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
+                            {
+                                float distance = Phase2 ? Main.rand.NextFloat(8f, 12f) : Main.rand.NextFloat(5f, 8f);
+
+                                Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
+                            
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), Position.X, Position.Y, 0, 0,
+                                    ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer, 0, 0);
+                                }
+
+                                SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
+                            }
+
+                            /*
+                            for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                             {   
-                                int PosX = (int)player.Center.X + Main.rand.Next(-120, 120);
-                                int PosY = (int)player.Center.Y + Main.rand.Next(-120, 120);
+                                int PosX = Phase2 ? (int)player.Center.X + Main.rand.Next(-400, 400) : (int)player.Center.X + Main.rand.Next(-120, 120);
+                                int PosY = Phase2 ? (int)player.Center.X + Main.rand.Next(-150, 150) : (int)player.Center.Y + Main.rand.Next(-120, 120);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -275,9 +439,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                     ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer, 0, 0);
                                 }
 
-                                //save each point after making telegraphs
                                 SavePoint[numProjectiles] = new Vector2(PosX, PosY);
                             }
+                            */
 
                             for (int i = 0; i < SavePoint.Length; i++)
                             {
@@ -294,7 +458,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             }
                         }
 
-                        if (NPC.localAI[0] == 100)
+                        if (NPC.localAI[0] == 115)
                         {
                             SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 
@@ -308,23 +472,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.velocity.Y = Recoil.Y;
                         }
 
-                        if (NPC.localAI[0] >= 120)
+                        if (NPC.localAI[0] >= 135)
                         {
-                            if (NPC.localAI[1] == 4)
+                            if (NPC.localAI[1] == 3)
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
                             }
                             else
                             {
-                                NPC.localAI[0] = 58;
+                                NPC.localAI[0] = 74;
                                 NPC.localAI[1]++;
                             }
                         }
                     }
                     else
                     {
-                        if (NPC.localAI[0] >= 85)
+                        if (NPC.localAI[0] >= 65)
                         {
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
@@ -341,7 +505,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
                 //shoot a continuous stream of leaves that move in a sinewave like pattern
-                case 2:
+                case 3:
                 {
                     NPC.localAI[0]++;
 
@@ -365,15 +529,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
                                     
-                            ShootSpeed.X *= 15;
-                            ShootSpeed.Y *= 15;
+                            ShootSpeed.X *= Phase2 ? 18 : 15;
+                            ShootSpeed.Y *= Phase2 ? 18 : 15;
 
                             SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                ShootSpeed.X, ShootSpeed.Y,ModContent.ProjectileType<RazorLeaf>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorLeaf>(), Damage, 0f, Main.myPlayer, 0, 0);
                             }
                         }
                     }
@@ -392,19 +556,28 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     break;
                 }
-                //shoot greek fire around twice
-                case 3:
+                //shoot greek fire around
+                case 4:
                 {
                     NPC.localAI[0]++;
 
-                    GoAboveFlowerPot(500);
-
-                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 180)
+                    if (NPC.localAI[0] <= 120)
                     {
-                        //recoil
-                        NPC.velocity.X = 0;
-                        NPC.velocity.Y *= 5;
+                        GoAboveFlowerPot(300);
+                    }
 
+                    if (NPC.localAI[0] > 120 && NPC.localAI[0] <= 150)
+                    {
+                        GoAboveFlowerPot(400);
+                    }
+
+                    if (NPC.localAI[0] > 150)
+                    {
+                        GoAboveFlowerPot(500);
+                    }
+
+                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 150 || NPC.localAI[0] == 180)
+                    {
                         int NumProjectiles = Main.rand.Next(10, 15);
                         for (int i = 0; i < NumProjectiles; ++i)
                         {
@@ -412,13 +585,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, Main.rand.Next(-5, -2), 
-                                ProjectileID.GreekFire1, Damage, 1, Main.myPlayer, 0, 0);
+                                int GreekFire = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
+                                Main.rand.Next(-5, -2), ProjectileID.GreekFire1, Damage, 1, Main.myPlayer, 0, 0);
+                                Main.projectile[GreekFire].timeLeft = 1200;
                             }
                         }
                     }
 
-                    if (NPC.localAI[0] >= 300)
+                    if (NPC.localAI[0] >= 210)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -433,13 +607,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
                 //shoot multiple homing, slow fire ball that massively explodes into a spread of smoke and smaller fireballs
-                case 4:
+                case 5:
                 {
                     NPC.localAI[0]++;
 
                     GoAboveFlowerPot(400);
 
-                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 150 || NPC.localAI[0] == 180)
+                    if ((!Phase2 && (NPC.localAI[0] == 75 || NPC.localAI[0] == 105 || NPC.localAI[0] == 135)) ||
+                    (Phase2 && (NPC.localAI[0] == 55 || NPC.localAI[0] == 80 || NPC.localAI[0] == 105 || NPC.localAI[0] == 130 || NPC.localAI[0] == 155)))
                     {
                         SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 
@@ -473,48 +648,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 480)
-                    {
-                        NPC.localAI[0] = 0;
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] >= AttackPattern.Length)
-                        {
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
-                    }
-
-                    break;
-                }
-                //create skull wisps around itself that launch themselves at the player
-                case 5:
-                {
-                    NPC.localAI[0]++;
-
-                    GoAboveFlowerPot(500);
-
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240)
-                    {
-                        if (Main.rand.Next(10) == 0)
-                        {
-                            SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
-
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= Main.rand.Next(-12, 12);
-                            ShootSpeed.Y *= Main.rand.Next(-12, 12);
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BoneWisp>(), Damage, 1, Main.myPlayer, 0, 0);
-                            }
-                        }
-                    }
-
-                    if (NPC.localAI[0] >= 420)
+                    if (NPC.localAI[0] >= 315)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -529,7 +663,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //Special attacks
+                //special attacks
 
                 //shoot seeds that turn into flowers that heal big bone
                 case 6:
@@ -538,11 +672,27 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(300);
 
+                    if (NPC.localAI[0] <= 120)
+                    {
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(0.75f, 1.2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.RedTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1.4f);
+                            Main.dust[dustEffect].scale = 2.5f;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
+                    }
+
                     if (NPC.localAI[0] == 120 || NPC.localAI[0] == 130 || NPC.localAI[0] == 140)
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                        Vector2 Speed = new Vector2(Main.rand.NextFloat(5f, 10f), 0f).RotatedByRandom(2 * Math.PI);
+                        Vector2 Speed = new Vector2(Main.rand.NextFloat(5f, 8.5f), 0f).RotatedByRandom(2 * Math.PI);
 
                         for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
                         {
@@ -551,7 +701,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, 
-                                ModContent.ProjectileType<LingeringFlowerSeed>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                ModContent.ProjectileType<HealingFlowerSeed>(), 0, 0f, Main.myPlayer, 0, 0);
                             }
                         }
                     }
@@ -559,44 +709,60 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     if (NPC.localAI[0] >= 300)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] >= AttackPattern.Length)
-                        {
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
+                        NPC.localAI[1] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.ai[2] = 0;
                     }
 
                     break;
                 }
-                //charge attack, stop for a second, flash some kind of visual aura, then charge and crash into the wall and then get stunned for a few seconds
+                //stay still, then charge and crash into the wall
                 case 7:
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] <= 180)
+                    if (NPC.localAI[0] <= 120)
                     {
                         GoAboveFlowerPot(300);
-                        
-                        Vector2 Speed = new Vector2(-8f, 0f).RotatedByRandom(2 * Math.PI);
 
-                        for (int num = 0; num < 10; num++)
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
-                            Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (num + Main.rand.NextDouble() - 0.5));
-                            
-                            int DustGore = Dust.NewDust(NPC.Center, NPC.width / 3, NPC.height / 3, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-                            Main.dust[DustGore].noGravity = true;
-                            Main.dust[DustGore].velocity = speed;
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(0.75f, 1.2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.YellowTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1.4f);
+                            Main.dust[dustEffect].scale = 2.5f;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
                         }
                     }
 
-                    if (NPC.localAI[0] == 180)
+                    if (NPC.localAI[0] == 120)
                     {
-                        SoundEngine.PlaySound(GrowlSound1, NPC.Center);
+                        Vector2 Recoil = player.Center - NPC.Center;
+                        Recoil.Normalize();
+                                
+                        Recoil.X *= -5;
+                        Recoil.Y *= -5;  
+                        NPC.velocity.X = Recoil.X;
+                        NPC.velocity.Y = Recoil.Y;
+
+                        SavePlayerPosition = player.Center;
+                    }
+
+                    if (NPC.localAI[0] == 130)
+                    {
+                        NPC.velocity *= 0.5f;
+                    }
+
+                    if (NPC.localAI[0] == 140)
+                    {
+                        SoundEngine.PlaySound(GrowlSound2, NPC.Center);
 
                         //charge
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
                                 
                         ChargeDirection.X *= 45;
@@ -605,28 +771,41 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    if (NPC.localAI[0] > 180 && NPC.localAI[1] == 0)
+                    if (NPC.localAI[0] > 140 && NPC.localAI[1] == 0)
                     {
-                        if (NPC.velocity.Y <= 0.1f && NPC.velocity.X <= 0.1f)
+                        if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
                         {
                             NPC.velocity *= 0;
+                        }
 
-                            SpookyPlayer.ScreenShakeAmount = 5;
+                        if (NPC.velocity.Y <= 0.1f && NPC.velocity.Y >= -0.1f)
+                        {
+                            NPC.velocity *= 0;
+                        }
+
+                        if (NPC.velocity == Vector2.Zero)
+                        {
+                            SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
+                            
+                            SpookyPlayer.ScreenShakeAmount = 25;
+
+                            NPC.velocity *= 0;
 
                             NPC.localAI[1] = 1;
                         }
                     }
 
-                    if (NPC.localAI[0] >= 300)
+                    if (NPC.localAI[0] >= 200)
+                    {
+                        GoAboveFlowerPot(300);
+                    }
+
+                    if (NPC.localAI[0] >= 240)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] >= AttackPattern.Length)
-                        {
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
+                        NPC.localAI[1] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.ai[2] = 0;
                     }
 
                     break;
@@ -640,6 +819,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //also use an intense orange screenshader that gets more intense as the attack goes on
                 case 8:
                 {
+                    NPC.localAI[0]++;
+
+                    GoAboveFlowerPot(300);
+
                     break;
                 }
             }
@@ -725,14 +908,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             return true;
         }
 
-        /*
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            //LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagMoco>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBigBone>()));
 
+            /*
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
 
@@ -741,8 +924,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
             npcLoot.Add(notExpertRule);
+            */
         }
-        */
 
         public override void OnKill()
         {

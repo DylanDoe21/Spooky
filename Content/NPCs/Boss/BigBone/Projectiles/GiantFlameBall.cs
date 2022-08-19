@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.velocity *= 0.95f;
 			}
 			
-			if (Projectile.ai[1] > 80 && Projectile.ai[1] < 180)
+			if (Projectile.ai[1] > 20 && Projectile.ai[1] < 120)
 			{
 				if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient) 
                 {
@@ -124,12 +124,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					}
                 }
                 
-                if (Projectile.ai[1] < 180)
+                if (Projectile.ai[1] < 120)
                 {
                     Projectile.velocity *= 1.068f;
                 }
 
-                if (Projectile.ai[1] >= 240)
+                if (Projectile.ai[1] >= 180)
                 {
                     Projectile.velocity *= 0.5f;	
 
@@ -148,12 +148,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                         Projectile.ai[2] = 0;
                         Projectile.scale = 1f;
                     }
-                }
-
-                if (Projectile.ai[1] >= 300)
-                {
-                    Projectile.Kill();
-                }			
+                }		
 			}
         }
 
@@ -172,6 +167,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
 
+            /*
             for (int numProjectiles = 0; numProjectiles < 6; numProjectiles++)
             {
                 Vector2 Position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
@@ -185,6 +181,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                     Main.projectile[InfernoBolt].timeLeft = 250;
                 }
             }
+            */
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

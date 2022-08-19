@@ -4,6 +4,9 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Personalities;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+using Spooky.Content.Biomes;
+
 namespace Spooky.Content.NPCs.Friendly
 {
 	public class LittleBoneSleeping : ModNPC
@@ -16,13 +19,14 @@ namespace Spooky.Content.NPCs.Friendly
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
 			NPC.Happiness
-			.SetBiomeAffection<Content.Biomes.SpookyBiome>(AffectionLevel.Love) 
+			.SetBiomeAffection<Biomes.SpookyBiome>(AffectionLevel.Love)
 			.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
 			.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
+			.SetBiomeAffection<SpookyHellBiome>(AffectionLevel.Hate)
 			.SetNPCAffection(NPCID.Dryad, AffectionLevel.Love)
 			.SetNPCAffection(NPCID.PartyGirl, AffectionLevel.Like)
 			.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) 
-			.SetNPCAffection(NPCID.TravellingMerchant, AffectionLevel.Hate);
+			.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 		}
 
 		public override void SetDefaults()

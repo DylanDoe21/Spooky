@@ -10,10 +10,12 @@ the "Creepy Catacombs" update:
 
 -brand new items in the catacombs as well as big bone drops
 
+-new spooky mod menu background
+
 
 The "Spookier Spooky Mod" update:
 
-overall improves a lot of the prior content in the mod, making it less generic, without needlessly completely reworking it
+overall improves a lot of the prior content in the mod, making it less generic, without (needlessly) completely reworking it
 also adding new stuff to expand on the existing stuff the mod adds
 
 new little bone mechanic: 

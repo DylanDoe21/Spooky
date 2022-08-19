@@ -21,10 +21,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-			Projectile.height = 20;
+            Projectile.width = 34;
+			Projectile.height = 36;
 			Projectile.friendly = false;
-            Projectile.hostile = false;
+            Projectile.hostile = true;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 360;
             Projectile.alpha = 25;
@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] >= 120)
+            if (Projectile.ai[0] >= 75)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
 
@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] < 120)
+            if (Projectile.ai[0] < 75)
             {
                 for (int k = 0; k < Main.maxNPCs; k++)
                 {
@@ -115,15 +115,32 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] == 120)
+            if (Projectile.ai[0] == 75)
             {
-                Player player = Main.player[Main.myPlayer];
-
-                double angle = Math.Atan2(player.Center.Y - Projectile.Center.Y, player.Center.X - Projectile.Center.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 12;
-
                 Projectile.tileCollide = true;
+                
+                Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+                Projectile.velocity = newVelocity;
             }
         }
+
+        public override void Kill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.NPCDeath39, Projectile.Center);
+        
+        	for (int i = 0; i < 25; i++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default(Color), 1.5f);
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+				}
+			}
+		}
     }
 }

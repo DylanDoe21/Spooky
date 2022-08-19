@@ -16,7 +16,7 @@
 			LittleBone: 
             {
                 #crowded dialogue
-                LoveSpace: I love the free room, makes it much more peaceful here!
+                LoveSpace: ""
                 DislikeCrowded: There is a lot of people here, I wish it wasn't so loud.
                 HateCrowded: I don't like the amount of people. It's scaring me, someone almost tripped on me!
 
@@ -24,14 +24,14 @@
                 LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
 				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
 				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
-				HateNPC: "{NPCName} has tried to steal me to sell me overseas! I do not like when he comes around."
+				HateNPC: "{NPCName} is very grumpy all the time, I don't really like being around him"
 
                 #biome dialogue, leave all of it blank as he wont go to other biomes unless spawned in with cheat mods
                 Content: I feel great as always!
                 LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy, guess I am glad I can't really leave here.
-                LikeBiome: ""
-                DislikeBiome: ""
-                HateBiome: ""
+                LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
+                DislikeBiome: "Brr, the tundra is way too cold! It makes me shiver and wilt."
+                HateBiome: "Th...This biome... I don't want to be here. I don't like it. Please pick me up..."
 
                 #home dialogue, leave this blank because he doesnt actually move into a home
 				NoHome: ""
@@ -50,14 +50,14 @@
                 LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
 				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
 				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
-				HateNPC: "{NPCName} has tried to steal me to sell me overseas! I do not like when he comes around."
+				HateNPC: "{NPCName} is very grumpy all the time, I don't really like being around him"
 
                 #biome dialogue, leave all of it blank as he wont go to other biomes unless spawned in with cheat mods
                 Content: I feel great as always!
                 LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy, guess I am glad I can't really leave here.
-                LikeBiome: ""
-                DislikeBiome: ""
-                HateBiome: ""
+                LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
+                DislikeBiome: "Brr, the tundra is way too cold! It makes me shiver and wilt."
+                HateBiome: "Th...This biome... I don't want to be here. I don't like it. Please pick me up..."
 
                 #home dialogue, leave this blank because he doesnt actually move into a home
 				NoHome: ""

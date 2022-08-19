@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
@@ -26,6 +27,7 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
+            //make hardmode enemies drop the spooky forest biome key, 1/2500 chance like vanilla
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
         }
 
@@ -45,6 +47,14 @@ namespace Spooky.Core
                         ModContent.ProjectileType<PumpkinWhipFly>(), 15, 0f, Main.myPlayer, 0, 0);
                     }
                 }
+            }
+        }
+
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
+            {
+				pool.Clear();
             }
         }
     }

@@ -7,7 +7,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-	public class HomingSeed : ModProjectile
+	public class HealingFlowerSeed : ModProjectile
 	{
 		int target;
 
@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.hostile = true;                                 			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;            					
-            Projectile.timeLeft = 200;
+            Projectile.timeLeft = 60;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -35,10 +35,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Green) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color color = Color.Lerp(Color.Red, Color.Chocolate, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;
@@ -46,73 +47,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center, 0f, 0.4f, 0f);
+			Lighting.AddLight(Projectile.Center, 0.3f, 0f, 0f);
 
             Projectile.rotation += 0.25f * Projectile.direction; 
 
-            Projectile.ai[1]++;
-
-			if (Projectile.ai[1] < 80)
+			Projectile.ai[0]++;
+			if (Projectile.ai[0] > 20 && Main.rand.Next(45) == 0)
 			{
-				Projectile.velocity *= 0.95f;
-			}
-			
-			if (Projectile.ai[1] > 80 && Projectile.ai[1] < 120)
-			{
-				if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient) 
-                {
-					target = -1;
-					float distance = 2000f;
-					for (int k = 0; k < 255; k++) 
-                    {
-						if (Main.player[k].active && !Main.player[k].dead)
-                        {
-							Vector2 center = Main.player[k].Center;
-							float currentDistance = Vector2.Distance(center, Projectile.Center);
-							if (currentDistance < distance || target == -1) 
-                            {
-								distance = currentDistance;
-								target = k;
-							}
-						}
-					}
-					if (target != -1) 
-                    {
-						Projectile.ai[0] = 1;
-						Projectile.netUpdate = true;
-					}
-				}
-				else if (target >= 0 && target < Main.maxPlayers) 
-                {
-					Player targetPlayer = Main.player[target];
-					if (!targetPlayer.active || targetPlayer.dead) 
-                    {
-						target = -1;
-						Projectile.ai[0] = 0;
-						Projectile.netUpdate = true;
-					}
-					else 
-                    {
-						float currentRot = Projectile.velocity.ToRotation();
-						Vector2 direction = targetPlayer.Center - Projectile.Center;
-						float targetAngle = direction.ToRotation();
-						if (direction == Vector2.Zero)
-                        {
-							targetAngle = currentRot;
-                        }
-
-						float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-						Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-					}
-                }
-
-				Projectile.velocity *= 1.12f;			
+				Projectile.Kill();
 			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			for (int numDust = 0; numDust < 8; numDust++)
+			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
 				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[DustGore].noGravity = true;
@@ -123,6 +71,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 {
 				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
                 }
+			}
+
+			if (NPC.CountNPCS(ModContent.NPCType<HealingFlower>()) <= 12)
+			{		
+				int Flower = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<HealingFlower>());
+
+				//net update so it doesnt vanish on multiplayer
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: Flower);
+				}
 			}
 		}
 	}

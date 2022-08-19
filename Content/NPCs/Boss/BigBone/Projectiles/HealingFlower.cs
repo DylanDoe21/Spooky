@@ -9,19 +9,22 @@ using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-	public class LingeringFlower : ModNPC
+	public class HealingFlower : ModNPC
 	{
 		int HealingAmount = 0;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Healing Flower");
+
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 650;
-            NPC.damage = 100;
+			NPC.lifeMax = 1000;
+            NPC.damage = 0;
             NPC.defense = 20;
             NPC.width = 30;
             NPC.height = 30;
@@ -47,7 +50,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					float bezierProgress = 0;
 					float bezierIncrement = 8;
 
-					Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/LingeringFlowerChain").Value;
+					Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/HealingFlowerChain").Value;
 					Vector2 textureCenter = new Vector2(8, 8);
 
 					float rotation;
@@ -94,17 +97,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 
 			NPC.ai[1]++;
-			if (NPC.ai[1] >= 600)
+			if (NPC.ai[1] >= 360)
 			{
-				HealingAmount = 10;
+				HealingAmount = Main.masterMode ? 70 : Main.expertMode ? 50 : 20;
 			}
-			if (NPC.ai[1] >= 1200)
+			if (NPC.ai[1] >= 720)
 			{
-				HealingAmount = 20;
+				HealingAmount = Main.masterMode ? 90 : Main.expertMode ? 70 : 40;
 			}
-			if (NPC.ai[1] >= 1800)
+			if (NPC.ai[1] >= 1080)
 			{
-				HealingAmount = 35;
+				HealingAmount = Main.masterMode ? 115 : Main.expertMode ? 95 : 65;
 			}
 		}
 	}

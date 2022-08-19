@@ -18,18 +18,6 @@ namespace Spooky.Content.Buffs.Debuff
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Lighting.GlobalBrightness = 0f;
-		}  
-    }
-
-	//disable spawns with this debuff
-	public class EntityDebuffSpawnRate : GlobalNPC
-    {
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-        {
-            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
-            {
-				pool.Clear();
-            }
-        }
+		}
     }
 }

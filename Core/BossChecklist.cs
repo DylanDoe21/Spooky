@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyBiome.Boss;
@@ -91,8 +92,9 @@ namespace Spooky.Core
 
 			List<int> PumpkinDrops = new List<int>()
 			{
-				ModContent.ItemType<MocoRelicItem>(),
-				ModContent.ItemType<MocoTissue>(),
+				ModContent.ItemType<SpookyPumpkinRelicItem>(),
+				ModContent.ItemType<RottenGourd>(),
+				ModContent.ItemType<BossBagPumpkin>(),
 				ModContent.ItemType<PumpkinBossBox>(),
 				ModContent.ItemType<RottenChunk>(),
 				ModContent.ItemType<PumpkinAxe>(),
@@ -128,6 +130,7 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<MocoRelicItem>(),
 				ModContent.ItemType<MocoTissue>(),
+				ModContent.ItemType<BossBagMoco>(),
 				ModContent.ItemType<MocoBox>(),
 				ModContent.ItemType<BoogerBlaster>(),
 				ModContent.ItemType<BoogerFlail>()
@@ -156,6 +159,7 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroRelicItem>(),
 				ModContent.ItemType<OrroboroEye>(),
+				ModContent.ItemType<BossBagOrroboro>(),
 				ModContent.ItemType<SpookyHellBossBox>(),
 				ModContent.ItemType<OrroboroChunk>(),
 				ModContent.ItemType<Scycler>(),
@@ -187,6 +191,7 @@ namespace Spooky.Core
 
 			List<int> BigBoneDrops = new List<int>()
 			{
+				ModContent.ItemType<BossBagBigBone>(),
 			};
 
 			var BigBonePortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
