@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -142,7 +143,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
-            if (NPC.life < (NPC.lifeMax / 2) && !Phase2)
+            /*
+            if (NPC.ai[0] == -1)
             {
                 var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -161,6 +163,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.05f + fade / 2, effects, 0);
                 }
             }
+            */
 
             return true;
         }
@@ -196,6 +199,24 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Color color = Color.Lerp(Color.Transparent, Color.White, fade);
 
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+
+            if (NPC.ai[0] == -1)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+
+                var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
+                float intensity = fade;
+                DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/Content/Effects/SkullEffect").Value, center - new Vector2(0, -55), 
+                new Rectangle(0, 0, 500, 400), Color.Orange, 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
+                GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
+                GameShaders.Misc["ForceField"].Apply(drawData);
+                drawData.Draw(Main.spriteBatch);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin();
+                return;
+            }
+            //Filters.Scene["Nebula"].GetShader().UseIntensity(0f).UseProgress(0f); // why is this here
         }
 
         public override void AI()
@@ -203,7 +224,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 85 / 3 : Main.expertMode ? 70 / 2 : 55;
+            int Damage = Main.masterMode ? 85 / 3 : Main.expertMode ? 50 / 2 : 50;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -241,7 +262,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 AttackPattern = AttackPattern.OrderBy(x => Main.rand.Next()).ToArray();
 
                 //add one of the special attacks to the end of the array
-                AttackPattern = AttackPattern.Append(Main.rand.Next(SpecialAttack)).ToArray();
+                if (NPC.CountNPCS(ModContent.NPCType<HealingFlower>()) <= 0)
+			    {
+                    AttackPattern = AttackPattern.Append(Main.rand.Next(SpecialAttack)).ToArray();
+                    Main.NewText("flowers dont exist", 125, 125, 125);
+                }
+                else
+                {
+                    AttackPattern = AttackPattern.Append(7).ToArray();
+                    Main.NewText("Flowers do exist", 125, 125, 125);
+                }
 
                 //debug text
                 foreach (var i in AttackPattern)

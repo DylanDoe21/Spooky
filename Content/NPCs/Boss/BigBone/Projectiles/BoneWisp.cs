@@ -21,13 +21,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 34;
-			Projectile.height = 36;
+            Projectile.width = 26;
+			Projectile.height = 22;
 			Projectile.friendly = false;
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 360;
-            Projectile.alpha = 25;
+            Projectile.alpha = 255;
             Projectile.aiStyle = -1;
         }
 
@@ -52,6 +52,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
+
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 8;
+            }
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
