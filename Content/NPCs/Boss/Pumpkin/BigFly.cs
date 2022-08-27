@@ -136,9 +136,12 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
 
         public override bool CheckDead() 
 		{
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore1").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore2").Type);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore3").Type);
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore1").Type);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore2").Type);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlyGore3").Type);
+            }
 
             return true;
 		}

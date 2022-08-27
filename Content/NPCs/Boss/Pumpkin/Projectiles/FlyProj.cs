@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fly Seed");
+			DisplayName.SetDefault("Fly");
 			Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 2;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -135,7 +135,7 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin.Projectiles
 					}
                 }
 
-				Projectile.velocity *= 1.045f;			
+				Projectile.velocity *= 1.055f;			
 			}
 		}
     }

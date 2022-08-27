@@ -19,8 +19,8 @@ namespace Spooky.Content.Items.BossBags.Accessory
 
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 36;
+            Item.width = 34;
+            Item.height = 26;
             Item.expert = true;
             Item.accessory = true;
             Item.rare = ItemRarityID.Lime;

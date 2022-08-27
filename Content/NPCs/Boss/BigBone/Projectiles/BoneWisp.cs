@@ -5,11 +5,18 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class BoneWisp : ModProjectile
     {
+        private List<Vector2> cache;
+        private Trail trail;
+
         int Offset = Main.rand.Next(-100, 100);
 
         public override void SetStaticDefaults()
@@ -21,8 +28,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 26;
-			Projectile.height = 22;
+            Projectile.width = 34;
+			Projectile.height = 36;
 			Projectile.friendly = false;
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
@@ -33,32 +40,76 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Main.spriteBatch.End();
+            Effect effect = ShaderLoader.GlowyTrail;
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                float scale = (Projectile.scale * 1.3f) * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Color.Lerp(Color.Green, Color.Yellow, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, effects, 0);
-            }
+            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
+            Matrix view = Main.GameViewMatrix.ZoomMatrix;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+
+            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
+            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+
+            trail?.Render(effect);
+
+            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
 
             return true;
         }
 
+        const int TrailLength = 22;
+
+        private void ManageCaches()
+        {
+            if (cache == null)
+            {
+                cache = new List<Vector2>();
+                for (int i = 0; i < TrailLength; i++)
+                {
+                    cache.Add(Projectile.Center);
+                }
+            }
+
+            cache.Add(Projectile.Center);
+
+            while (cache.Count > TrailLength)
+            {
+                cache.RemoveAt(0);
+            }
+        }
+
+        private void ManageTrail()
+        {
+            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
+            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 15 * factor, factor =>
+            {
+                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
+                return Color.Lerp(Color.Gold, Color.LimeGreen, factor.X) * factor.X;
+            });
+
+            trail.Positions = cache.ToArray();
+            trail.NextPosition = Projectile.Center + Projectile.velocity;
+        }
+
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+
+            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
 
             if (Projectile.alpha > 0)
             {
                 Projectile.alpha -= 8;
             }
-
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             Projectile.ai[0]++;
 

@@ -1,27 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Graydee\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj": {}
+    "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Graydee\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj": {
+    "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Graydee\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
+        "projectUniqueName": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
         "projectName": "Spooky",
-        "projectPath": "C:\\Users\\Graydee\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
-        "packagesPath": "C:\\Users\\Graydee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Graydee\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\obj\\",
+        "projectPath": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
+        "packagesPath": "C:\\Users\\Dylan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Graydee\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Dylan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"

@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             if (firstButton)
             {
                 Player player = Main.LocalPlayer;
-                if (!player.HasItem(ModContent.ItemType<Concoction>()))
+                if (!player.HasItem(ModContent.ItemType<Fertalizer>()))
                 {
                     Main.npcChatText = "You do not seem to have the special fertalizer";
                 }   

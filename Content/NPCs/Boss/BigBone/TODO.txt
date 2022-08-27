@@ -1,0 +1,7 @@
+-finish phase 2 transition
+-make big bone have entirely new phase 2 attacks
+
+ideas:
+
+-make the big transition flowers shoot spores
+-make big bone shoot homing fireballs and greek fire during the phase transition

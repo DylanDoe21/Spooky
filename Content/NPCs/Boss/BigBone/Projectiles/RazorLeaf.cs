@@ -4,11 +4,19 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class RazorLeaf : ModProjectile
     {
+        private List<Vector2> cache;
+        private Trail trail;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Razor Leaf");
@@ -28,27 +36,70 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Main.spriteBatch.End();
+            Effect effect = ShaderLoader.GlowyTrail;
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Color.Lerp(Color.Red, Color.Chocolate, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
-            }
+            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
+            Matrix view = Main.GameViewMatrix.ZoomMatrix;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+
+            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/EnergyTrail").Value); //trails texture image
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
+            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+
+            trail?.Render(effect);
+
+            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
 
             return true;
         }
 
+        const int TrailLength = 10;
+
+        private void ManageCaches()
+        {
+            if (cache == null)
+            {
+                cache = new List<Vector2>();
+                for (int i = 0; i < TrailLength; i++)
+                {
+                    cache.Add(Projectile.Center);
+                }
+            }
+
+            cache.Add(Projectile.Center);
+
+            while (cache.Count > TrailLength)
+            {
+                cache.RemoveAt(0);
+            }
+        }
+
+		private void ManageTrail()
+        {
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            {
+                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
+                return Color.Lerp(Color.SaddleBrown, Color.Red, factor.X) * factor.X;
+            });
+
+            trail.Positions = cache.ToArray();
+            trail.NextPosition = Projectile.Center + Projectile.velocity;
+        }
+
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.4f, 0f, 0f);
-
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
+            
+            Lighting.AddLight(Projectile.Center, 0.85f, 0f, 0f);
+
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
 
             float WaveIntensity = 7.5f;
             float Wave = 10f;

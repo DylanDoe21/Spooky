@@ -985,6 +985,12 @@
             Don't forget to use the <see cref="F:Terraria.ID.ItemID.Sets.CatchingTool"/> set in conjunction with this one. 
             </summary>
         </member>
+        <member name="F:Terraria.ID.ItemID.Sets.Spears">
+            <summary>
+            Set for easily defining weapons as spears.<br/>
+            Only used for vanilla spears to make sure they still scale with attack speed (though it's encouraged to set this for your spears as well, for cross-mod support).<br/>
+            </summary>
+        </member>
         <member name="T:Terraria.ID.ItemRarityID">
             <summary>Enumerates the values used with Item.rare</summary>
         </member>
@@ -2676,6 +2682,18 @@
             Used by: <see cref="F:Terraria.ID.ProjectileID.PrincessWeapon"/>
             </summary>
         </member>
+        <member name="F:Terraria.ID.ProjectileID.Sets.TrailingMode">
+            <summary>
+            Determines what data will be remembered for projectile trails. Each projectile type defaults to -1, meaning no information is saved. Use values of 0 or 2 most of the time.<br/>0: only position data is remembered.<br/>1: should not be used.<br/>2: position, rotation, and spriteDirection data is remembered<br/>3: same as 2, but attempts to smooth out old data by interpolating values<br/>4: same as 2, but adjusts old data to follow the player owner.
+            <br/>Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength"/>, <see cref="F:Terraria.Projectile.oldPos"/>, <see cref="F:Terraria.Projectile.oldRot"/>, <see cref="F:Terraria.Projectile.oldSpriteDirection"/> to be used properly. 
+            <br/>Refer to ExampleBullet in ExampleMod for sample usage.
+            </summary>
+        </member>
+        <member name="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength">
+            <summary>
+            The length of the the trail to store. Each projectile type defaults to 10. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly. 
+            </summary>
+        </member>
         <member name="F:Terraria.ID.TileID.Sets.CanBeSloped">
             <summary> Allows non-solid tiles to be sloped (solid tiles can always be sloped, regardless of this set). </summary>
         </member>
@@ -3694,23 +3712,6 @@
         <member name="M:Terraria.ModLoader.Core.LoaderUtils.ResetStaticMembers(System.Type,System.Boolean)">
             <summary> Calls static constructors on the provided type and, optionally, its nested types. </summary>
         </member>
-        <member name="T:Terraria.ModLoader.Core.LogArchiver">
-            <summary>
-            Log archiving is performed after log initialization in a separate class to avoid loading Ionic.Zip before logging initialises and it can be patched
-            Some CLRs will load all required assemblies when the class is entered, not necessarily just the method, so you've got to watch out
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.Core.LogArchiver.ArchiveLogs">
-            <summary>
-            Attempt archiving logs.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.Core.LoggingHooks.HookWebRequests">
-            <summary>
-            Attempt to hook the .NET internal methods to log when requests are sent to web addresses.
-            Use the right internal methods to capture redirects
-            </summary>
-        </member>
         <member name="M:Terraria.ModLoader.Core.ModCompile.RoslynCompile(System.String,System.Collections.Generic.List{System.String},System.String[],System.String[],System.Boolean,System.Byte[]@,System.Byte[]@)">
             <summary>
             Compile a dll for the mod based on required includes.
@@ -3747,16 +3748,6 @@
             </summary>
             <param name="fileName">The internal filepath, will be slash sanitised automatically</param>
             <param name="data">The file content to add. WARNING, data is kept as a shallow copy, so modifications to the passed byte array will affect file content</param>
-        </member>
-        <member name="M:Terraria.ModLoader.Core.XnaTitleContainerRelativePathFix.Init">
-            <summary>
-            TitleContainer.OpenStream throws an error if it's fed a path that starts with '..\', treating paths like that as absolute, for some reason.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.Core.ZipExtractFix.Init">
-            <summary>
-            When Ionic.Zip extracts an entry it uses \\ for all separators when it should use Path.DirectorySeparatorChar for platform compatibility
-            </summary>
         </member>
         <member name="P:Terraria.ModLoader.DamageClass.Default">
             <summary>
@@ -4004,11 +3995,33 @@
             Also setup some FNA logging
             </summary>
         </member>
+        <member name="T:Terraria.ModLoader.Engine.LogArchiver">
+            <summary>
+            Log archiving is performed after log initialization in a separate class to avoid loading Ionic.Zip before logging initialises and it can be patched
+            Some CLRs will load all required assemblies when the class is entered, not necessarily just the method, so you've got to watch out
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.Engine.LogArchiver.ArchiveLogs">
+            <summary>
+            Attempt archiving logs.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.Engine.LoggingHooks.HookWebRequests">
+            <summary>
+            Attempt to hook the .NET internal methods to log when requests are sent to web addresses.
+            Use the right internal methods to capture redirects
+            </summary>
+        </member>
         <member name="M:Terraria.ModLoader.Engine.TMLContentManager.GetPath(System.String)">
             <summary> Returns a path to the provided relative asset path, prioritizing overrides in the alternate content manager. Throws exceptions on failure. </summary>
         </member>
         <member name="M:Terraria.ModLoader.Engine.TMLContentManager.TryGetPath(System.String,System.String@)">
             <summary> Safely attempts to get a path to the provided relative asset path, prioritizing overrides in the alternate content manager. </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.Engine.ZipExtractFix.Init">
+            <summary>
+            When Ionic.Zip extracts an entry it uses \\ for all separators when it should use Path.DirectorySeparatorChar for platform compatibility
+            </summary>
         </member>
         <member name="T:Terraria.ModLoader.EquipLoader">
             <summary>
@@ -7382,7 +7395,7 @@
         <!-- Badly formed XML comment ignored for member "P:Terraria.ModLoader.ModBiome.BackgroundPath" -->
         <member name="P:Terraria.ModLoader.ModBiome.BackgroundColor">
             <summary>
-            The color of the bestary background.
+            The color of the bestiary background.
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModBiome.IsSceneEffectActive(Terraria.Player)">
@@ -8112,6 +8125,30 @@
             </summary>
             <returns>The ID of the prefix to give the item, -1 to use default vanilla behavior</returns>
         </member>
+        <member name="M:Terraria.ModLoader.ModItem.MeleePrefix">
+            <summary>
+            Allows you to change whether or not a weapon receives melee prefixes. Return true if the item should receive melee prefixes and false if it should not.
+            Takes priority over WeaponPrefix, RangedPrefix, and MagicPrefix
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModItem.WeaponPrefix">
+            <summary>
+            Allows you to change whether or not a weapon only receives generic prefixes. Return true if the item should only receive generic prefixes and false if it should not.
+            Takes priority over RangedPrefix and MagicPrefix
+            Ignored if MeleePrefix returns true
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModItem.RangedPrefix">
+            <summary>
+            Allows you to change whether or not a weapon receives ranged prefixes. Return true if the item should receive ranged prefixes and false if it should not.
+            Takes priority over MagicPrefix
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModItem.MagicPrefix">
+            <summary>
+            Allows you to change whether or not a weapon receives magic prefixes. Return true if the item should receive magic prefixes and false if it should not.
+            </summary>
+        </member>
         <member name="M:Terraria.ModLoader.ModItem.PrefixChance(System.Int32,Terraria.Utilities.UnifiedRandom)">
              <summary>
              To prevent putting the item in the tinkerer slot, return false when pre is -3.
@@ -8633,6 +8670,13 @@
             Allows you to make things happen when this item is right-clicked in the inventory.
             </summary>
             <param name="player">The player.</param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModItem.ModifyItemLoot(Terraria.ModLoader.ItemLoot)">
+            <summary>
+            Allows you to add and modify the loot items that spawn from bag items when opened.
+            The <see href="https://github.com/tModLoader/tModLoader/wiki/Basic-NPC-Drops-and-Loot-1.4">Basic NPC Drops and Loot 1.4 Guide</see> explains how to use the <see cref="M:Terraria.ModLoader.ModNPC.ModifyNPCLoot(Terraria.ModLoader.NPCLoot)"/> hook to modify NPC loot as well as this hook. A common usage is to use this hook and <see cref="M:Terraria.ModLoader.ModNPC.ModifyNPCLoot(Terraria.ModLoader.NPCLoot)"/> to edit non-expert exlclusive drops for bosses.
+            </summary>
+            <param name="itemLoot"></param>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.CanStack(Terraria.Item)">
             <summary>
@@ -10606,7 +10650,8 @@
         </member>
         <member name="M:Terraria.ModLoader.ModPlayer.DrawEffects(Terraria.DataStructures.PlayerDrawSet,System.Single@,System.Single@,System.Single@,System.Single@,System.Boolean@)">
             <summary>
-            Allows you to create special effects when this player is drawn, such as creating dust, modifying the color the player is drawn in, etc. The fullBright parameter makes it so that the drawn player ignores the modified color and lighting. Note that the fullBright parameter only works if r, g, b, and/or a is not equal to 1. Make sure to add the indexes of any dusts you create to drawInfo.DustCache, and the indexes of any gore you create to drawInfo.GoreCache.
+            Allows you to create special effects when this player is drawn, such as creating dust, modifying the color the player is drawn in, etc. The fullBright parameter makes it so that the drawn player ignores the modified color and lighting. Note that the fullBright parameter only works if r, g, b, and/or a is not equal to 1. Make sure to add the indexes of any dusts you create to drawInfo.DustCache, and the indexes of any gore you create to drawInfo.GoreCache. <br/>
+            This will be called multiple times a frame if a player afterimage is being drawn. Check <code>if(drawinfo.shadow == 0f)</code> to do some logic only when drawing the original player image. For example, spawning dust only for the original player image is commonly the desired behavior.
             </summary>
             <param name="drawInfo"></param>
             <param name="r"></param>
@@ -11171,6 +11216,8 @@
             8) Regardless of all the past checks, if the designated NEARBY PYLON is a modded one, <seealso cref="M:Terraria.ModLoader.ModPylon.ValidTeleportCheck_NearbyPostCheck(Terraria.GameContent.TeleportPylonInfo,System.Boolean@,System.Boolean@,System.String@)"/> is called on it.
             <br></br>
             9) Any <seealso cref="T:Terraria.ModLoader.GlobalPylon"/> instances run <seealso cref="M:Terraria.ModLoader.GlobalPylon.PostValidTeleportCheck(Terraria.GameContent.TeleportPylonInfo,Terraria.GameContent.TeleportPylonInfo,System.Boolean@,System.Boolean@,System.String@)"/>.
+            <br></br>
+            10) Finally, if all previous checks pass AND the DESTINATION pylon is a modded one, <seealso cref="M:Terraria.ModLoader.ModPylon.ModifyTeleportationPosition(Terraria.GameContent.TeleportPylonInfo,Microsoft.Xna.Framework.Vector2@)"/> is called on it, right before the player is teleported.
             </remarks>
         </member>
         <member name="P:Terraria.ModLoader.ModPylon.PylonType">
@@ -11220,7 +11267,7 @@
             Step 1 of the ValidTeleportCheck process. This is the first vanilla check that is called when
             checking both the destination pylon and any possible nearby pylons. This check should be where you check
             how many NPCs are nearby, returning false if the Pylon does not satisfy the conditions.
-            By default, returns true if there are 2 or more (not-unhappy) NPCs nearby.
+            By default, returns true if there are 2 or more NPCs nearby.
             </summary>
             <remarks>
             Note that it's important you put the right checks in the right ValidTeleportCheck step,
@@ -11298,6 +11345,17 @@
             <param name="anyNearbyValidPylon"> Whether or not after all of the checks, there is a Pylon nearby to the player that is valid. </param>
             <param name="errorKey"> The localization key for the message sent to the player if destinationPylonValid is false. </param>
         </member>
+        <member name="M:Terraria.ModLoader.ModPylon.ModifyTeleportationPosition(Terraria.GameContent.TeleportPylonInfo,Microsoft.Xna.Framework.Vector2@)">
+            <summary>
+            Called right BEFORE the teleportation of the player occurs, when all checks succeed during the ValidTeleportCheck process. Allows the modification
+            of where the player ends up when the teleportation takes place. Remember that the teleport location is in WORLD coordinates, not tile coordinates.
+            </summary>
+            <remarks>
+            You shouldn't need to use this method if your pylon is the same size as a normal vanilla pylons (3x4 tiles).
+            </remarks>
+            <param name="destinationPylonInfo"> The information of the pylon the player intends to teleport to. </param>
+            <param name="teleportationPosition"> The position (IN WORLD COORDINATES) of where the player ends up when the teleportation occurs. </param>
+        </member>
         <member name="M:Terraria.ModLoader.ModPylon.DrawMapIcon(Terraria.Map.MapOverlayDrawContext@,System.String@,Terraria.GameContent.TeleportPylonInfo,System.Boolean,Microsoft.Xna.Framework.Color,System.Single,System.Single)">
             <summary>
             Called when the map is visible, in order to draw the passed in Pylon on the map.
@@ -11311,19 +11369,24 @@
             <param name="deselectedScale"> The scale of the icon if it is NOT currently being hovered over. In vanilla, this is 1f, or 100%. </param>
             <param name="selectedScale"> The scale of the icon if it IS currently being over. In vanilla, this is 2f, or 200%. </param>
         </member>
-        <member name="M:Terraria.ModLoader.ModPylon.DefaultDrawPylonCrystal(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32,ReLogic.Content.Asset{Microsoft.Xna.Framework.Graphics.Texture2D},Microsoft.Xna.Framework.Color,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Terraria.ModLoader.ModPylon.DefaultDrawPylonCrystal(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32,ReLogic.Content.Asset{Microsoft.Xna.Framework.Graphics.Texture2D},ReLogic.Content.Asset{Microsoft.Xna.Framework.Graphics.Texture2D},Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,System.Int32,System.Int32)">
             <summary>
             Draws the passed in pylon crystal texture the exact way that vanilla draws it. This MUST be called in SpecialDraw in order
             to function properly.
             </summary>
             <param name="spriteBatch"> The sprite batch that will draw the crystal. </param>
             <param name="i"> The X tile coordinate to start drawing from. </param>
-            <param name="j"> The Y tile coordinate to star drawing from. </param>
+            <param name="j"> The Y tile coordinate to start drawing from. </param>
             <param name="crystalTexture"> The texture of the crystal that will actually be drawn. </param>
-            <param name="crystalDrawColor"> The color to draw the crystal as. </param>
-            <param name="frameHeight"> The height of a singular frame of the crystal. 64 for a normal pylon crystal in vanilla.</param>
-            <param name="crystalHorizontalFrameCount">The total frames wide the crystal texture has. </param>
-            <param name="crystalVerticalFrameCount"> The total frames high the crystal texture has. </param>
+            <param name="crystalHighlightTexture"> The texture of the smart cursor highlight for the corresponding crystal texture. </param>
+            <param name="crystalOffset">
+            The offset of the actual position of the crystal. Assuming that a pylon tile itself and the crystals are equivalent to
+            vanilla's sizes, this value should be Vector2(0, -12).
+            </param>
+            <param name="pylonShadowColor"> The color of the "shadow" that is drawn on top of the crystal texture. </param>
+            <param name="dustColor"> The color of the dust that emanates from the crystal. </param>
+            <param name="dustChanceDenominator"> Every draw call, this is this the denominator value of a Main.rand.NextBool() (1/denominator chance) check for whether or not a dust particle will spawn. 4 is the value vanilla uses. </param>
+            <param name="crystalVerticalFrameCount"> How many vertical frames the crystal texture has. </param>
         </member>
         <member name="M:Terraria.ModLoader.ModPylon.DefaultDrawMapIcon(Terraria.Map.MapOverlayDrawContext@,ReLogic.Content.Asset{Microsoft.Xna.Framework.Graphics.Texture2D},Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Single,System.Single)">
             <summary>
@@ -12725,7 +12788,7 @@
             <summary> Returns the layer's default position in regards to other layers. Make use of e.g <see cref="T:Terraria.ModLoader.PlayerDrawLayer.BeforeParent"/>/<see cref="T:Terraria.ModLoader.PlayerDrawLayer.AfterParent"/>, and provide a layer (usually a vanilla one from <see cref="T:Terraria.DataStructures.PlayerDrawLayers"/>). </summary>
         </member>
         <member name="M:Terraria.ModLoader.PlayerDrawLayer.Draw(Terraria.DataStructures.PlayerDrawSet@)">
-            <summary> Draws this layer. </summary>
+            <summary> Draws this layer. This will be called multiple times a frame if a player afterimage is being drawn. If this layer shouldn't draw with each afterimage, check <code>if(drawinfo.shadow == 0f)</code> to only draw for the original player image.</summary>
         </member>
         <member name="M:Terraria.ModLoader.PlayerDrawLayerLoader.GetDrawLayers(Terraria.DataStructures.PlayerDrawSet)">
             <summary>
@@ -13802,6 +13865,21 @@
             <param name="cooldownCounterId">See <see cref="T:Terraria.ID.ImmunityCooldownID"/> for valid ids.</param>
             <param name="immuneTime">Extra immunity time to add</param>
         </member>
+        <member name="F:Terraria.Projectile.oldPos">
+            <summary>
+            Holds the value of <see cref="F:Terraria.Entity.position"/> from previous updates from newest to oldest. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength"/> and <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly.
+            </summary>
+        </member>
+        <member name="F:Terraria.Projectile.oldRot">
+            <summary>
+            Holds the value of <see cref="F:Terraria.Projectile.rotation"/> from previous updates from newest to oldest. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength"/> and <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly.
+            </summary>
+        </member>
+        <member name="F:Terraria.Projectile.oldSpriteDirection">
+            <summary>
+            Holds the value of <see cref="F:Terraria.Projectile.spriteDirection"/> from previous updates from newest to oldest. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength"/> and <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly.
+            </summary>
+        </member>
         <member name="M:Terraria.Projectile.NewProjectile(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single,System.Int32,System.Single,System.Single)">
             <summary>
             <inheritdoc cref="M:Terraria.Projectile.NewProjectile(Terraria.DataStructures.IEntitySource,System.Single,System.Single,System.Single,System.Single,System.Int32,System.Int32,System.Single,System.Int32,System.Single,System.Single)"/>
@@ -14045,19 +14123,24 @@
             </summary>
             <exception cref="T:Terraria.ModLoader.Exceptions.RecipeException">A recipe without any result has been added.</exception>
         </member>
-        <member name="M:Terraria.Social.Steam.WorkshopHelper.ModManager.Download(System.Collections.Generic.List{Terraria.ModLoader.UI.ModBrowser.ModDownloadItem})">
+        <member name="M:Terraria.Social.Steam.SteamedWraps.Download(Steamworks.PublishedFileId_t,Terraria.ModLoader.UI.DownloadManager.UIWorkshopDownload,System.Boolean)">
             <summary>
-            Downloads all UIModDownloadItems provided.
+            Updates and/or Downloads the Item specified by publishId
             </summary>
         </member>
-        <member name="M:Terraria.Social.Steam.WorkshopHelper.ModManager.InnerDownload(Terraria.ModLoader.UI.DownloadManager.UIWorkshopDownload,System.Boolean)">
+        <member name="M:Terraria.Social.Steam.WorkshopHelper.SetupDownload(System.Collections.Generic.List{Terraria.ModLoader.UI.ModBrowser.ModDownloadItem},System.Int32)">
             <summary>
-            Updates and/or Downloads the Item specified when generating the ModManager Instance.
+            Downloads all UIModDownloadItems provided.
             </summary>
         </member>
         <member name="M:Terraria.Social.Steam.WorkshopHelper.QueryHelper.AQueryInstance.ReleaseWorkshopQuery">
             <summary>
             Ought be called to release the existing query when we are done with it. Frees memory associated with the handle.
+            </summary>
+        </member>
+        <member name="M:Terraria.Social.Steam.WorkshopHelper.QueryHelper.AQueryInstance.FastQueryItem(System.UInt64,System.Boolean)">
+            <summary>
+            For direct information gathering of a particular mod/workshop item
             </summary>
         </member>
         <member name="M:Terraria.TileWallWireStateData.SetAllBitsClearFrame(System.Int32)">
@@ -14076,6 +14159,72 @@
             <summary>
             Returns true to disallow putting an item in to a given slot, typically invoked by mouse placement
             </summary>
+        </member>
+        <member name="M:Terraria.Utilities.UnifiedRandom.Next(System.Int32,System.Int32)">
+            <summary>
+            Generates a random value between <paramref name="minValue"/> (inclusive) and <paramref name="maxValue"/> (exclusive). <br/>For example <c>Next(4, 8)</c> can return 4, 5, 6, or 7. It will not return 8.
+            </summary>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Terraria.Utilities.UnifiedRandom.Next(System.Int32)">
+            <summary>
+            Generates a random value between 0 (inclusive) and <paramref name="maxValue"/> (exclusive). <br/>For example <c>Next(4)</c> can return one of 4 values: 0, 1, 2, or 3. It will not return 4.
+            </summary>
+            <param name="maxValue"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Terraria.Utils.NextFloat(Terraria.Utilities.UnifiedRandom)">
+            <summary>
+            Generates a random value between 0f (inclusive) and 1f (exclusive). <br/>It will not return 1f.
+            </summary>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Utils.Next``1(Terraria.Utilities.UnifiedRandom,``0[])">
+            <summary>
+            Returns a random element from the provided array.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="r"></param>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Utils.Next``1(Terraria.Utilities.UnifiedRandom,System.Collections.Generic.IList{``0})">
+            <summary>
+            Returns a random element from the provided list.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="r"></param>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Utils.NextFloat(Terraria.Utilities.UnifiedRandom,System.Single)">
+            <summary>
+            Generates a random value between 0f (inclusive) and <paramref name="maxValue"/> (exclusive). <br/>It will not return <paramref name="maxValue"/>.
+            </summary>
+            <param name="r"></param>
+            <param name="maxValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Utils.NextFloat(Terraria.Utilities.UnifiedRandom,System.Single,System.Single)">
+            <summary>
+            Generates a random value between <paramref name="minValue"/> (inclusive) and <paramref name="maxValue"/> (exclusive). <br/>It will not return <paramref name="maxValue"/>.
+            </summary>
+            <param name="r"></param>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Utils.NextBool(Terraria.Utilities.UnifiedRandom)">
+            <summary>
+            Returns true or false randomly with equal chance.
+            </summary>
+            <param name="r"></param>
+            <returns></returns>
         </member>
         <member name="M:Terraria.Utils.NextBool(Terraria.Utilities.UnifiedRandom,System.Int32)">
             <summary> Returns true 1 out of X times. </summary>

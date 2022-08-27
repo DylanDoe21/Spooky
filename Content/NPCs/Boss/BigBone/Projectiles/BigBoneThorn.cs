@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
             Projectile.penetrate = -1;
-			Projectile.timeLeft = 240;
+			Projectile.timeLeft = 600;
 		}
 
 		public override bool? CanDamage()
@@ -92,6 +92,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			else
 			{
 				Projectile.ai[1] -= 50;
+
+				if (Projectile.ai[1] <= 0)
+				{
+					Projectile.Kill();
+				}
 			}
 		}
 	}

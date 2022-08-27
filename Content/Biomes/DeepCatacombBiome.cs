@@ -21,7 +21,7 @@ namespace Spooky.Content.Biomes
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
         //bestiary stuff
-        public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiomeIcon";
+        public override string BestiaryIcon => "Spooky/Content/Biomes/DeepCatacombBiomeIcon";
         public override string BackgroundPath => base.BackgroundPath;
         public override Color? BackgroundColor => Color.Orange;
 

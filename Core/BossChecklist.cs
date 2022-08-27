@@ -185,7 +185,7 @@ namespace Spooky.Core
 			string BigBoneName = "Big Bone";
 			int BigBone = ModContent.NPCType<Content.NPCs.Boss.BigBone.BigBone>();
 			Func<bool> BigBoneDowned = () => Flags.downedBigBone;
-			int BigBoneSummonItem = ModContent.ItemType<Concoction>();
+			int BigBoneSummonItem = ModContent.ItemType<Fertalizer>();
 			string BigBoneSpawnInfo = $"Use the [i:{BigBoneSummonItem}] at the giant flower pot in the catacombs arena";
 			string BigBoneDespawnInfo = "Big Bone has protected the catacombs";
 
@@ -202,7 +202,7 @@ namespace Spooky.Core
 			};
 
 			//register big bone
-			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 12.5f, BigBoneDowned, true, BigBoneDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 13.5f, BigBoneDowned, true, BigBoneDrops, 
 			BigBoneSummonItem, BigBoneSpawnInfo, BigBoneDespawnInfo, BigBonePortrait);
         }
     }       

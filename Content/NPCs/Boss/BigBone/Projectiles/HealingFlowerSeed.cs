@@ -9,8 +9,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class HealingFlowerSeed : ModProjectile
 	{
-		int target;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Flower Seed");

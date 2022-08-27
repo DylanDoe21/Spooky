@@ -4,34 +4,37 @@ the "Creepy Catacombs" update:
 
 -new big bone boss fight (in progress)
 
--spooky spirit mini boss thing
-
 -new catacombs enemies for both layers
 
 -brand new items in the catacombs as well as big bone drops
 
+-make hopping gourd ai not horrid (and fix multiplayer)
+
+The "Spookier Spooky Mod" update (part 1):
+
 -new spooky mod menu background
-
-
-The "Spookier Spooky Mod" update:
-
-overall improves a lot of the prior content in the mod, making it less generic, without (needlessly) completely reworking it
-also adding new stuff to expand on the existing stuff the mod adds
 
 new little bone mechanic: 
 -you can now pick him up and carry him with you (by pressing an extra button that turns him into an item)
 -little bone can be placed down and give you advice about where you are (and can help spawn certain bosses possibly?) (no promises)
 -MAYBE little bone will be visible on your back and have a dialogue box in the bottom corner while in your inventory? (again, no promises)
 
+new rot-gourd mini-expansion:
+-new rot-gourd sprite and design: an actual gourd, is very gray and fully/mostly rotted, and has a red evil looking face
+-new rot-gourd attack improvements (if needed, not definite)
+-new pumpkin patch area in the spooky forest
+-pumpkin patch will have giant dead trees, custom giant jack o' lantern and gourd tiles, and a new special way to summon rot gourd
+-perhaps new drops for rot-gourd? (only if needed)
+
+rot-gourd ideas:
+-rework phase 2 so rot-gourd looks beaten up, and is carried around by flies
+-flies will attempt to carry rot-gourd so he can shoot at you, they can also drop rot-gourd above you, and charge at you directly
+
+The "Spookier Spooky Mod" update (part 2):
+
 new quest npc: 
 -little eye, an eye biome version of little bone (is basically an eye in a flower pot)
 -main gimmick is he gives you small quests and gives you the keys to unlock the eye biome chests as a reward for said quests
-
-new rot gourd mini-expansion:
--new rot gourd sprite and design: an actual gourd, is very gray and fully/mostly rotted, and has a red evil looking face
--new rot gourd attack improvements (if needed, not definite)
--new pumpkin patch area in the spooky forest
--pumpkin patch will have giant dead trees, custom giant jack o' lantern and gourd tiles, and a new special way to summon rot gourd
 
 new eye valley improvements:
 -new palette for the biome and all its stuff
