@@ -815,11 +815,11 @@ namespace Spooky.Content.Generation
 				}
 
                 //place ruins
-                PlaceStructures(MediumRuin1X - 20, MediumRuin1Y - 20, MediumRuin1, MediumRuinObjects1);
+                PlaceStructures(MediumRuin1X - 20, MediumRuin1Y - 25, MediumRuin1, MediumRuinObjects1);
                 PlaceStructures(SmallRuin1X - 10, SmallRuin1Y - 18, SmallRuin1, SmallRuinObjects1);
                 PlaceStructures(GiantRuinX - 5, GiantRuinY - 30, GiantRuin, GiantRuinObjects);
                 PlaceStructures(SmallRuin2X - 10, SmallRuin2Y - 18, SmallRuin1, SmallRuinObjects1);
-                PlaceStructures(MediumRuin2X - 10, MediumRuin2Y - 25, MediumRuin2, MediumRuinObjects2);
+                PlaceStructures(MediumRuin2X - 10, MediumRuin2Y - 30, MediumRuin2, MediumRuinObjects2);
 
                 EntranceY = GiantRuinY - 30;
 

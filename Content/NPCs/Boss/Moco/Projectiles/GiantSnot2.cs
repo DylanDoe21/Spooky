@@ -7,7 +7,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
-    public class GiantSnot : ModProjectile
+    public class GiantSnot2 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.hostile = true;                 			  		
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;             					
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 35;
             Projectile.alpha = 255;
 		}
 
@@ -87,6 +87,19 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
                 }
 			}
+
+            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
+
+            for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+            {
+                Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, 
+                    ModContent.ProjectileType<SnotBall>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                }
+            }
 		}
     }
 }

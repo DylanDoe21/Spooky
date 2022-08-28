@@ -96,7 +96,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
-            Music = MusicID.Dungeon;
+            Music = MusicID.PirateInvasion;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.DeepCatacombBiome>().Type };
         }
 
@@ -659,7 +659,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
                 //shoot greek fire around
-                //TODO: in phase 2 make him shoot it directly at the player in large globs
                 case 4:
                 {
                     NPC.localAI[0]++;
@@ -681,7 +680,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] == 120 || NPC.localAI[0] == 150 || NPC.localAI[0] == 180)
                     {
-                        int NumProjectiles = Main.rand.Next(10, 15);
+                        int NumProjectiles = Phase2 ? Main.rand.Next(15, 25) : Main.rand.Next(10, 15);
                         for (int i = 0; i < NumProjectiles; ++i)
                         {
                             float Spread = (float)Main.rand.Next(-1500, 1500) * 0.01f;

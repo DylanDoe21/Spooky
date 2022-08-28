@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
@@ -10,6 +10,7 @@ using System;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
+using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -20,15 +21,17 @@ namespace Spooky.Core
         public static int ShakeTimer = 0;
         public static float ScreenShakeAmount = 0;
 
+        public int BoneWispTimer = 0;
+
         //armors and accessories
         public bool SpookySet = false;
         public bool GoreArmorSet = false;
         public bool TreatBag = false;
         public bool MagicCandle = false;
-        public bool SirenHead = false;
         public bool PumpkinCore = false;
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
+        public bool BoneMask = false;
 
         //minions and pets
         public bool SkullWisp = false;
@@ -46,10 +49,10 @@ namespace Spooky.Core
             GoreArmorSet = false;
             TreatBag = false;
             MagicCandle = false;
-            SirenHead = false;
             PumpkinCore = false;
             MocoNose = false;
             OrroboroEmbyro = false;
+            BoneMask = false;
 
             //minions and pets
             SkullWisp = false;
@@ -167,6 +170,22 @@ namespace Spooky.Core
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector2_2.X, vector2_2.Y,
                         ModContent.ProjectileType<SwarmFly>(), 15, 0f, Main.myPlayer, 0f, 0f);
                     }
+                }
+            }
+
+            if (BoneMask)
+            {
+                BoneWispTimer++;
+
+                Main.NewText("" + BoneWispTimer, 125, 125, 125);
+
+                if (BoneWispTimer == 30 / (10 * Player.maxRunSpeed))
+                {
+                    Vector2 vector2_2 = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(-5f, 5f);
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector2_2.X, vector2_2.Y,
+                    ModContent.ProjectileType<BoneMaskWisp>(), 65, 0f, Main.myPlayer, 0f, 0f);
+
+                    BoneWispTimer = 0;
                 }
             }
 

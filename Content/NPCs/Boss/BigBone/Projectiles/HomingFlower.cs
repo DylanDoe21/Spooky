@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         private Trail trail;
 
         int target;
-        bool canDie = false;
+        int bounces = 0;
 
         public override void SetStaticDefaults()
         {
@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.height = 30;
             Projectile.hostile = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 240;
             Projectile.aiStyle = -1;
         }
 
@@ -102,8 +102,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             if (Projectile.ai[0] >= 30)
             {
-                canDie = true;
-
                 Projectile.ai[1]++;
 
                 if (Projectile.ai[1] < 80)
@@ -178,7 +176,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.velocity.X = -Projectile.velocity.X * 1.05f;
             Projectile.velocity.Y = -Projectile.velocity.Y * 1.05f;
 
-            if (canDie)
+            bounces++;
+
+            if (bounces > 1)
             {
                 Projectile.Kill();
             }

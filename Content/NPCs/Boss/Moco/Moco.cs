@@ -410,13 +410,22 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             ShootSpeed.X *= 15f;
                             ShootSpeed.Y *= 15f;
 
-                            int GiantSnot = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
+                            if (!Phase2)
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                                    ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
+                                }
+                            }
 
                             if (Phase2)
                             {
-                                Main.projectile[GiantSnot].ai[0] = 1;
-                                Main.projectile[GiantSnot].timeLeft = 35;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                                    ShootSpeed.Y, ModContent.ProjectileType<GiantSnot2>(), Damage, 1, NPC.target, 0, 0);
+                                }
                             }
                         }
 
