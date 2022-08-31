@@ -25,9 +25,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.width = 26;
 			Projectile.height = 22;
 			Projectile.friendly = true;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.timeLeft = 240;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 3;
             Projectile.aiStyle = -1;
 		}
 
@@ -97,11 +97,17 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation += MathHelper.Pi;
             }
 
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
+
             int foundTarget = HomeOnTarget();
             if (foundTarget != -1)
             {
                 NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 8;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 12;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
 		}
@@ -109,7 +115,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         private int HomeOnTarget()
         {
             const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 300;
+            const float homingMaximumRangeInPixels = 600;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

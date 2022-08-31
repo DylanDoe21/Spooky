@@ -7,6 +7,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {
+    [AutoloadEquip(EquipType.Head)]
     public class BoneMask : ModItem
     {
         public override void Load()
@@ -37,7 +38,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
         {
             DisplayName.SetDefault("Disciple's Mask");
             Tooltip.SetDefault("Fire off homing skull wisps while you are flying or running"
-            + "\nThe rate the wisps are fired scales with your current speed");
+            + "\nThe rate wisps are fired and their damage scales with your current speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

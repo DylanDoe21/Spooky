@@ -19,7 +19,7 @@ using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class BigBone : ModNPC
     {
         int[] AttackPattern = new int[] { 0, 1, 2, 3, 4, 5 };
@@ -81,9 +81,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 80000 / 3 : Main.expertMode ? 72000 / 2 : 55000;
+            NPC.lifeMax = Main.masterMode ? 120000 / 3 : Main.expertMode ? 90000 / 2 : 65000;
             NPC.damage = Main.masterMode ? 200 / 3 : Main.expertMode ? 155 / 2 : 100;
-            NPC.defense = 55;
+            NPC.defense = 65;
             NPC.width = 134;
             NPC.height = 170;
             NPC.knockBackResist = 0f;
@@ -412,7 +412,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 180)
+                    if (NPC.localAI[0] >= 165)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -457,7 +457,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 270)
+                    if (NPC.localAI[0] >= 240)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -529,7 +529,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 NPC.velocity.Y = Recoil.Y;
                             }
 
-                            if (NPC.localAI[0] >= 135)
+                            if (NPC.localAI[0] >= 125)
                             {
                                 if (NPC.localAI[1] == 3)
                                 {
@@ -545,7 +545,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                         else
                         {
-                            if (NPC.localAI[0] >= 65)
+                            if (NPC.localAI[0] >= 75)
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1] = 0;
@@ -589,7 +589,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             }
                         }
 
-                        if (NPC.localAI[0] >= 360)
+                        if (NPC.localAI[0] >= 280)
                         {
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
@@ -644,7 +644,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 240)
+                    if (NPC.localAI[0] >= 200)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -663,22 +663,22 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] <= 120)
+                    if (NPC.localAI[0] <= 60)
                     {
                         GoAboveFlowerPot(300);
                     }
 
-                    if (NPC.localAI[0] > 120 && NPC.localAI[0] <= 150)
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 90)
                     {
                         GoAboveFlowerPot(400);
                     }
 
-                    if (NPC.localAI[0] > 150)
+                    if (NPC.localAI[0] > 90)
                     {
                         GoAboveFlowerPot(500);
                     }
 
-                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 150 || NPC.localAI[0] == 180)
+                    if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
                     {
                         int NumProjectiles = Phase2 ? Main.rand.Next(15, 25) : Main.rand.Next(10, 15);
                         for (int i = 0; i < NumProjectiles; ++i)
@@ -694,7 +694,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 210)
+                    if (NPC.localAI[0] >= 160)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -751,7 +751,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 315)
+                    if (NPC.localAI[0] >= 175)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[1]++;
@@ -775,7 +775,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(300);
 
-                    if (NPC.localAI[0] <= 120)
+                    if (NPC.localAI[0] <= 80)
                     {
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
@@ -791,7 +791,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 130 || NPC.localAI[0] == 140)
+                    if (NPC.localAI[0] == 80 || NPC.localAI[0] == 90 || NPC.localAI[0] == 100)
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
@@ -810,7 +810,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 300)
+                    if (NPC.localAI[0] >= 145)
                     {
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
@@ -825,7 +825,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] <= 120)
+                    if (NPC.localAI[0] <= 85)
                     {
                         GoAboveFlowerPot(300);
 
@@ -843,7 +843,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] == 120)
+                    if (NPC.localAI[0] == 85)
                     {
                         Vector2 Recoil = player.Center - NPC.Center;
                         Recoil.Normalize();
@@ -856,12 +856,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SavePlayerPosition = player.Center;
                     }
 
-                    if (NPC.localAI[0] == 130)
+                    if (NPC.localAI[0] == 95)
                     {
                         NPC.velocity *= 0.5f;
                     }
 
-                    if (NPC.localAI[0] == 140)
+                    if (NPC.localAI[0] == 105)
                     {
                         SoundEngine.PlaySound(GrowlSound2, NPC.Center);
 
@@ -875,7 +875,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    if (NPC.localAI[0] > 140 && NPC.localAI[1] == 0)
+                    if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
                     {
                         if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
                         {
@@ -899,12 +899,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 200)
+                    if (NPC.localAI[0] >= 160)
                     {
                         GoAboveFlowerPot(300);
                     }
 
-                    if (NPC.localAI[0] >= 320)
+                    if (NPC.localAI[0] >= 220)
                     {
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;

@@ -15,8 +15,7 @@ namespace Spooky.Content.Biomes
             DisplayName.SetDefault("Creepy Catacombs");
         }
 
-        public override int Music => MusicID.Dungeon;
-        //public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SchemingWeasel");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs");
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
@@ -27,7 +26,7 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
-            player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            //player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
         }
 
         public override bool IsBiomeActive(Player player)

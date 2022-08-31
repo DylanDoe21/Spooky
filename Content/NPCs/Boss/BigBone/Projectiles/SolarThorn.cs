@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		//The AI of the projectile
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center, 0.8f, 0.4f, 0f);
+			Lighting.AddLight(Projectile.Center, 0.6f, 0.2f, 0f);
 
 			if (Projectile.localAI[0] == 0)
 			{
@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.ai[0] = 0;
 			}
 
-			if (Projectile.ai[0] < 60)
+			if (Projectile.ai[0] < 30)
 			{
 				Projectile.localAI[1]++;
 
@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 				if (Projectile.localAI[1] > 175)
 				{
-					Projectile.ai[1] += Main.rand.NextFloat(45f, 70f);
+					Projectile.ai[1] += 70;
 				}
 
 				if (Projectile.ai[1] > 1000)
@@ -113,7 +113,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 			else
 			{
-				Projectile.ai[1] -= 50;
+				Projectile.ai[1] -= 75;
+
+				if (Projectile.ai[1] <= 0)
+				{
+					Projectile.Kill();
+				}
 			}
 		}
 	}

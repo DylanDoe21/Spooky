@@ -12,9 +12,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Staff of the Swarm");
-			Tooltip.SetDefault("Casts leeches that will swarm nearby enemies"
-			+ "\nEach leech costs 10 life to summon, leeches cannot be summoned when you are below 25% life"
-			+ "\nLeeches will deal more damage the lower your health is, and they do not take up minion slots"
+			Tooltip.SetDefault("Casts leeches that will swarm nearby enemies at the cost of 10 life"
+			+ "\nLeeches cannot be summoned when below half health, and they do not take up minion slots"
 			+ "\nIf you are below half health, leeches will sometimes heal you on enemy hits");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

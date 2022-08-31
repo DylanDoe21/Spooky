@@ -202,7 +202,7 @@ namespace Spooky.Core
 			};
 
 			//register big bone
-			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 13.5f, BigBoneDowned, true, BigBoneDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 14.5f, BigBoneDowned, true, BigBoneDrops, 
 			BigBoneSummonItem, BigBoneSpawnInfo, BigBoneDespawnInfo, BigBonePortrait);
         }
     }       

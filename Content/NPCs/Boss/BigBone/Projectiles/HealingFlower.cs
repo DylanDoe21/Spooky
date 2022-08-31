@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
 			NPC.lifeMax = 600;
             NPC.damage = 0;
-            NPC.defense = 20;
+            NPC.defense = 45;
             NPC.width = 30;
             NPC.height = 30;
             NPC.knockBackResist = 0f;

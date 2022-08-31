@@ -45,11 +45,13 @@ namespace Spooky.Core
 					if (!killTile)
 					{
 						tile.ClearEverything();
+						WorldGen.KillTile(X, Y);
 						WorldGen.PlaceTile(X, Y, tileType);
 					}
 					else
 					{
 						tile.ClearEverything();
+						WorldGen.KillTile(X, Y);
 					}
 				}
 			}

@@ -78,20 +78,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.ai[0] = 0;
 			}
 
-			if (Projectile.ai[0] < 45)
+			if (Projectile.ai[0] < 30)
 			{
 				Projectile.ai[1] += 25;
 
-				if (Projectile.ai[1] > 1200)
+				if (Projectile.ai[1] > 1000)
 				{
-					Projectile.ai[1] = 1200;
+					Projectile.ai[1] = 1000;
 
 					Projectile.ai[0]++;
 				}
 			}
 			else
 			{
-				Projectile.ai[1] -= 50;
+				Projectile.ai[1] -= 75;
 
 				if (Projectile.ai[1] <= 0)
 				{

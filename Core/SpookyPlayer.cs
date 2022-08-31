@@ -175,16 +175,66 @@ namespace Spooky.Core
 
             if (BoneMask)
             {
-                BoneWispTimer++;
+                //all of this is copied from vanilla stopwatch, cannot be bothered to change any of it right now
+                Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
-                Main.NewText("" + BoneWispTimer, 125, 125, 125);
-
-                if (BoneWispTimer == 30 / (10 * Player.maxRunSpeed))
+                if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
                 {
-                    Vector2 vector2_2 = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(-5f, 5f);
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector2_2.X, vector2_2.Y,
-                    ModContent.ProjectileType<BoneMaskWisp>(), 65, 0f, Main.myPlayer, 0f, 0f);
+                    vector += Player.velocity;
+                }
 
+                Player.speedSlice[0] = vector.Length();
+
+                int num15 = (int)(1f + vector.Length() * 6f);
+                if (num15 > Player.speedSlice.Length)
+                {
+                    num15 = Player.speedSlice.Length;
+                }
+
+                float num16 = 0f;
+                for (int num17 = num15 - 1; num17 > 0; num17--)
+                {
+                    Player.speedSlice[num17] = Player.speedSlice[num17 - 1];
+                }
+
+                Player.speedSlice[0] = vector.Length();
+                for (int m = 0; m < Player.speedSlice.Length; m++)
+                {
+                    if (m < num15)
+                    {
+                        num16 += Player.speedSlice[m];
+                    }
+                    else
+                    {
+                        Player.speedSlice[m] = num16 / (float)num15;
+                    }
+                }
+
+                num16 /= num15;
+                int num18 = 42240;
+                int num19 = 216000;
+                float num20 = num16 * (float)num19 / (float)num18;
+
+                //do not shoot skulls under 20mph (aka while not moving fast)
+                if (num20 >= 20)
+                {
+                    BoneWispTimer++;
+
+                    if (BoneWispTimer >= 180 / ((num20 / 3) / 5))
+                    {
+                        Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                        Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+
+                        int damage = 70 + ((int)num20 / 3);
+
+                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
+                        ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer, 0f, 0f);
+
+                        BoneWispTimer = 0;
+                    }
+                }
+                else
+                {
                     BoneWispTimer = 0;
                 }
             }
