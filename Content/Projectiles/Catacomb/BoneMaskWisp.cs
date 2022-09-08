@@ -22,8 +22,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 26;
-			Projectile.height = 22;
+			Projectile.width = 24;
+			Projectile.height = 26;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 240;

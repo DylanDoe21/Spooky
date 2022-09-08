@@ -12,9 +12,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(151, 65, 10));
+            AddMapEntry(new Color(121, 57, 21));
             DustType = ModContent.DustType<HalloweenGrassDust>();
-            HitSound = SoundID.Grass;
         }
     }
 }

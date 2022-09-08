@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		//The AI of the projectile
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center, 0.6f, 0.2f, 0f);
+			Lighting.AddLight(Projectile.Center, 0.5f, 0.2f, 0f);
 
 			if (Projectile.localAI[0] == 0)
 			{

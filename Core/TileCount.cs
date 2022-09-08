@@ -14,7 +14,7 @@ namespace Spooky.Core
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{
-			spookyTiles = tileCounts[ModContent.TileType<SpookyGrass>()] + tileCounts[ModContent.TileType<SpookyStone>()];
+			spookyTiles = tileCounts[ModContent.TileType<SpookyDirt>()] + tileCounts[ModContent.TileType<SpookyDirt2>()] + tileCounts[ModContent.TileType<SpookyGrass>()] + tileCounts[ModContent.TileType<SpookyGrassGreen>()] + tileCounts[ModContent.TileType<SpookyStone>()];
 			spookyHellTiles = tileCounts[ModContent.TileType<SpookyMush>()] + tileCounts[ModContent.TileType<EyeBlock>()];
 		}
 	}

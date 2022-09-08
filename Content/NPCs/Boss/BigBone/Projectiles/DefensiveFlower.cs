@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 700;
+			NPC.lifeMax = 1200;
             NPC.damage = 0;
             NPC.defense = 55;
             NPC.width = 30;
@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale + fade / 5, SpriteEffects.None, 0);
 
 			//draw flower on top so it doesnt look weird
-			Texture2D flowerTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/DefensiveFlower").Value;
+			Texture2D flowerTex = ModContent.Request<Texture2D>(Texture).Value;
 
             Main.EntitySpriteDraw(flowerTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.3f + fade / 5, SpriteEffects.None, 0);
 

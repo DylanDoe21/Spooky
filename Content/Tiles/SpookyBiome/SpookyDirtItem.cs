@@ -3,13 +3,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
+
 namespace Spooky.Content.Tiles.SpookyBiome
 {
-    public class SpookyGrassGreenItem : ModItem
+    public class SpookyDirtItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Moss");
+            DisplayName.SetDefault("Spooky Dirt");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 
@@ -24,7 +26,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 999;
-			Item.createTile = ModContent.TileType<SpookyGrassGreen>();
+			Item.createTile = ModContent.TileType<SpookyDirt>();
         }
     }
 }

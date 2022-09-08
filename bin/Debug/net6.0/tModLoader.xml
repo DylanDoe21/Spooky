@@ -3125,6 +3125,16 @@
             - FairyQueenRangedItem<br/>
             </summary>
         </member>
+        <member name="P:Terraria.Item.InterruptChannelOnHurt">
+            <summary>
+            When enabled and the player is hurt, <see cref="F:Terraria.Player.channel"/> will be set to false
+            </summary>
+        </member>
+        <member name="P:Terraria.Item.StopAnimationOnHurt">
+            <summary>
+            When enabled and the player is hurt, <see cref="F:Terraria.Player.channel"/> will be set to false, and the item animation will stop immediately
+            </summary>
+        </member>
         <member name="P:Terraria.Item.IsCandidateForReforge">
             <summary>
             Used to make stackable items reforgeable

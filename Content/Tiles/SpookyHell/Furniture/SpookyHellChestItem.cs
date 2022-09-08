@@ -1,4 +1,3 @@
-/*
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
@@ -9,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Chest");
+			DisplayName.SetDefault("Eye Chest");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -28,4 +27,3 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		}
 	}
 }
-*/

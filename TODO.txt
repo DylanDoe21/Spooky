@@ -19,6 +19,10 @@ new little bone mechanic:
 -little bone can be placed down and give you advice about where you are (and can help spawn certain bosses possibly?) (no promises)
 -MAYBE little bone will be visible on your back and have a dialogue box in the bottom corner while in your inventory? (again, no promises)
 
+-new sprites for the spooky forest ambient tiles
+
+-candy conundrum, new "event" with trick or treat themed enemies with new weapon drops and other items
+
 new rot-gourd mini-expansion:
 -new rot-gourd sprite and design: an actual gourd, is very gray and fully/mostly rotted, and has a red evil looking face
 -new rot-gourd attack improvements (if needed, not definite)

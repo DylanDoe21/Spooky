@@ -36,6 +36,7 @@ namespace Spooky.Core
         //minions and pets
         public bool SkullWisp = false;
         public bool TumorMinion = false;
+        public bool Brainy = false;
         public bool SpookyWispPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
@@ -57,6 +58,7 @@ namespace Spooky.Core
             //minions and pets
             SkullWisp = false;
             TumorMinion = false;
+            Brainy = false;
             SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
@@ -103,6 +105,7 @@ namespace Spooky.Core
 
             return ShouldRevive;
         }
+        
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (MocoNose && Main.rand.Next(2) == 0)

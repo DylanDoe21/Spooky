@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,13 +38,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Spooky Chest");
+			ContainerName.SetDefault("Eye Chest");
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Spooky Chest");
-			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
+			name.SetDefault("Eye Chest");
+			AddMapEntry(new Color(140, 200, 62), name, MapChestName);
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Spooky Chest");
-			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
+			name.SetDefault("Locked Eye Chest");
+			AddMapEntry(new Color(140, 200, 62), name, MapChestName);
 			DustType = DustID.PurpleCrystalShard;
 			HitSound = SoundID.Dig;
 		}
@@ -100,7 +99,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<SpookyBiomeChestItem>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<SpookyHellChestItem>());
 			Chest.DestroyChest(i, j);
 		}
 
@@ -222,10 +221,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Spooky Chest";
-				if (player.cursorItemIconText == "Spooky Chest") 
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Eye Chest";
+				if (player.cursorItemIconText == "Eye Chest") 
 				{
-					player.cursorItemIconID = ModContent.ItemType<SpookyBiomeChestItem>();
+					player.cursorItemIconID = ModContent.ItemType<SpookyHellChestItem>();
 
 					if (Main.tile[left, top].TileFrameX / 36 == 1) 
 					{
@@ -252,4 +251,3 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		}
 	}
 }
-*/

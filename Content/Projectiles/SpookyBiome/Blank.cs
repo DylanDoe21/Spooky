@@ -20,5 +20,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.timeLeft = 1;
             Projectile.alpha = 255;
         }
+
+        public override void AI()
+        {
+            Projectile.damage = 0;
+        }
     }
 }

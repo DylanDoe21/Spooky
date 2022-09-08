@@ -24,7 +24,7 @@ namespace Spooky.Content.Generation
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
             //choose x-coordinate start position of the biome based on the same side of the dungeon
-            if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
+            if (WorldGen.dungeonSide == 1)
 			{
                 StartPosition = Main.maxTilesX - 750;
 			}

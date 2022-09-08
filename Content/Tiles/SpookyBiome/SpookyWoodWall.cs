@@ -11,7 +11,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            Main.wallBlend[Type] = ModContent.WallType<SpookyStoneWall>();
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(56, 36, 22));
             DustType = DustID.WoodFurniture;

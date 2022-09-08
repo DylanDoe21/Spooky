@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
-                new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 34), lightColor, 
+                new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 34), Color.Red, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 

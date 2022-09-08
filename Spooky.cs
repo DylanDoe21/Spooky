@@ -30,6 +30,8 @@ namespace Spooky
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
 
+                //Filters.Scene["Spooky:CatacombTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(36f, 69f, 39f).UseOpacity(0.005f), EffectPriority.VeryHigh);
+                //Filters.Scene["Spooky:DeepCatacombTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(191f, 82f, 20f).UseOpacity(0.004f), EffectPriority.VeryHigh);
             }
 
             //hell background loading

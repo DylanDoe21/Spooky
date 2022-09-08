@@ -12,14 +12,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
+            //grass properties
+            TileID.Sets.Conversion.Grass[Type] = true;
+			TileID.Sets.NeedsGrassFraming[Type] = true;
+            TileID.Sets.JungleSpecial[Type] = true;
+			TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.Dirt;
+
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(47, 88, 49));
+            AddMapEntry(new Color(78, 120, 48));
+            ItemDrop = ModContent.ItemType<SpookyDirtItem>();
 			DustType = DustID.Grass;
-			ItemDrop = ModContent.ItemType<SpookyGrassGreenItem>();
 		}
 
 		public override void RandomUpdate(int i, int j)

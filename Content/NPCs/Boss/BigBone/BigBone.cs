@@ -14,6 +14,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
@@ -358,6 +359,63 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
 
                         flowersSpawned = true;
+                    }
+
+                    if (NPC.localAI[2] >= 180 && NPC.localAI[2] < 200)
+                    {
+                        SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                                
+                        ShootSpeed.X *= Main.rand.Next(-10, 10);
+                        ShootSpeed.Y *= Main.rand.Next(-10, 10);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<FlowerSpore>(), Damage, 1, Main.myPlayer, 0, 0);
+                        }
+                    }
+
+                    if (NPC.localAI[2] >= 560)
+                    {
+                        //if theres only 2 flowers left, shoot a homing fire ball at the end of the attack
+                        if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 2)
+			            {
+                            SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+
+                            //recoil
+                            Vector2 Recoil = player.Center - NPC.Center;
+                            Recoil.Normalize();
+                                    
+                            Recoil.X *= -20;
+                            Recoil.Y *= -20;
+                            NPC.velocity.X = Recoil.X;
+                            NPC.velocity.Y = Recoil.Y;
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                                    
+                            ShootSpeed.X *= 5;
+                            ShootSpeed.Y *= 5;
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                            {
+                                position += muzzleOffset;
+                            }
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
+                        }
+
+                        NPC.localAI[2] = 0;
                     }
 
                     if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 0 && flowersSpawned)
@@ -708,46 +766,86 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     break;
                 }
-                //shoot multiple homing, slow fire ball that massively explodes into a spread of smoke and smaller fireballs
-                //TODO: in phase 2 make a massive and slow fireball that chases the player and makes a massive explosion of other projectiles
+                //homing fire ball attack
                 case 5:
                 {
                     NPC.localAI[0]++;
 
                     GoAboveFlowerPot(400);
 
-                    if ((!Phase2 && (NPC.localAI[0] == 75 || NPC.localAI[0] == 105 || NPC.localAI[0] == 135)) ||
-                    (Phase2 && (NPC.localAI[0] == 55 || NPC.localAI[0] == 80 || NPC.localAI[0] == 105 || NPC.localAI[0] == 130 || NPC.localAI[0] == 155)))
+                    //in phase 1, shoot 3 fast fire balls
+                    if (!Phase2)
                     {
-                        SoundEngine.PlaySound(MagicCastSound, NPC.Center);
-
-                        //recoil
-                        Vector2 Recoil = player.Center - NPC.Center;
-                        Recoil.Normalize();
-                                
-                        Recoil.X *= -15;
-                        Recoil.Y *= -15;
-                        NPC.velocity.X = Recoil.X;
-                        NPC.velocity.Y = Recoil.Y;
-
-                        Vector2 ShootSpeed = player.Center - NPC.Center;
-                        ShootSpeed.Normalize();
-                                
-                        ShootSpeed.X *= 2;
-                        ShootSpeed.Y *= 2;
-
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
-                        Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-                        if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        if (NPC.localAI[0] == 75 || NPC.localAI[0] == 105 || NPC.localAI[0] == 135)
                         {
-                            position += muzzleOffset;
+                            SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+
+                            //recoil
+                            Vector2 Recoil = player.Center - NPC.Center;
+                            Recoil.Normalize();
+                                    
+                            Recoil.X *= -15;
+                            Recoil.Y *= -15;
+                            NPC.velocity.X = Recoil.X;
+                            NPC.velocity.Y = Recoil.Y;
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                                    
+                            ShootSpeed.X *= 2;
+                            ShootSpeed.Y *= 2;
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                            {
+                                position += muzzleOffset;
+                            }
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<GiantFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
                         }
+                    }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                    //in phase 2, shoot one fireball that chases for longer and explodes into other fire bolts
+                    if (Phase2)
+                    {
+                        if (NPC.localAI[0] == 75)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<GiantFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+
+                            //recoil
+                            Vector2 Recoil = player.Center - NPC.Center;
+                            Recoil.Normalize();
+                                    
+                            Recoil.X *= -20;
+                            Recoil.Y *= -20;
+                            NPC.velocity.X = Recoil.X;
+                            NPC.velocity.Y = Recoil.Y;
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                                    
+                            ShootSpeed.X *= 5;
+                            ShootSpeed.Y *= 5;
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                            {
+                                position += muzzleOffset;
+                            }
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
                         }
                     }
 

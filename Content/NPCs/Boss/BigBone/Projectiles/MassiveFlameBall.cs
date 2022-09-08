@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 20 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 30 * factor, factor =>
             {
                 //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Yellow, Color.OrangeRed, factor.X);
@@ -129,13 +129,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             Projectile.ai[1]++;
-
-			if (Projectile.ai[1] < 80)
-			{
-				Projectile.velocity *= 0.95f;
-			}
 			
-			if (Projectile.ai[1] > 20 && Projectile.ai[1] < 120)
+			if (Projectile.ai[1] > 20 && Projectile.ai[1] < 180)
 			{
 				if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient) 
                 {
@@ -182,36 +177,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 						float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
 						Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
 					}
-                }
-                
-                if (Projectile.ai[1] < 120)
-                {
-                    Projectile.velocity *= 1.068f;
-                }
-
-                /*
-                if (Projectile.ai[1] >= 180)
-                {
-                    Projectile.velocity *= 0.5f;	
-
-                    Projectile.ai[2]++;
-                    if (Projectile.ai[2] < 2)
-                    {
-                        Projectile.scale -= 3;
-                    }
-                    if (Projectile.ai[2] >= 2)
-                    {
-                        Projectile.scale += 3;
-                    }
-
-                    if (Projectile.ai[2] > 4)
-                    {
-                        Projectile.ai[2] = 0;
-                        Projectile.scale = 1f;
-                    }
-                }	
-                */	
+                }		
 			}
+
+            if (Projectile.ai[1] >= 165 && Projectile.ai[1] <= 180)
+            {
+                Projectile.velocity *= 0.97f;
+            }   
+
+            if (Projectile.ai[1] == 180)
+            {
+                Player targetPlayer = Main.player[target];
+
+                Vector2 Speed = targetPlayer.Center - Projectile.Center;
+                Speed.Normalize();
+                        
+                Speed.X *= 20;
+                Speed.Y *= 20;
+                Projectile.velocity.X = Speed.X;
+                Projectile.velocity.Y = Speed.Y;
+            }
         }
 
         public override void Kill(int timeLeft)
@@ -227,9 +212,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Main.dust[dustGore].noGravity = true;
 			}
 
-            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
+            Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
 
-            /*
             for (int numProjectiles = 0; numProjectiles < 6; numProjectiles++)
             {
                 Vector2 Position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
@@ -238,12 +222,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int InfernoBolt = Projectile.NewProjectile(Projectile.GetSource_Death(), Position, speed, 
-                    ProjectileID.InfernoHostileBolt, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-                    Main.projectile[InfernoBolt].tileCollide = true;
-                    Main.projectile[InfernoBolt].timeLeft = 250;
+                    ModContent.ProjectileType<BigFlowerBeam>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
                 }
             }
-            */
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

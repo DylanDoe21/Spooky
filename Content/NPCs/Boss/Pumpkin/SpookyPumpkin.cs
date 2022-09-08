@@ -180,8 +180,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.04f;
 
-            //fade away and despawn when all players die or if you leave the biome
-            if (Main.player[NPC.target].dead || !player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyBiome>()))
+            //fade away and despawn when all players die
+            if (Main.player[NPC.target].dead)
             {   
                 NPC.alpha += 2;
 

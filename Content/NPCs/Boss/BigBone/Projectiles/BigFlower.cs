@@ -100,20 +100,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-			NPC.ai[0]++;
-
-			if (NPC.ai[0] == 1)
+			/*
+			//sync all flower ai
+			for (int k = 0; k < Main.maxNPCs; k++)
 			{
-				for (int k = 0; k < Main.maxNPCs; k++)
+				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
 				{
-					if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
-					{
-						Main.npc[k].ai[0] = 1;
-					}
+					Main.npc[k].ai[0] = NPC.ai[0];
+				}
+			}
+			*/
+
+			for (int k = 0; k < Main.maxNPCs; k++)
+			{
+				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigBone>()) 
+				{
+					NPC.ai[0] = Main.npc[k].localAI[2];
 				}
 			}
 
-			if (NPC.ai[0] > 300 && NPC.ai[0] <= 340)
+			if (NPC.ai[0] >= 350 && NPC.ai[0] <= 370)
 			{
 				int MaxDusts = Main.rand.Next(10, 20);
 				for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
@@ -128,7 +134,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 
-			if (NPC.ai[0] == 350)
+			if (NPC.ai[0] == 370)
 			{
 				Vector2 ShootSpeed = player.Center - NPC.Center;
 				ShootSpeed.Normalize();
@@ -149,11 +155,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
 					ShootSpeed.Y, ModContent.ProjectileType<BigFlowerBeam>(), NPC.damage / 5, 1, Main.myPlayer, 0, 0);
 				}
-			}
-
-			if (NPC.ai[0] > 420)
-			{
-				NPC.ai[0] = 0;
 			}
 		}
 
