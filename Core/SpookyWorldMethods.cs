@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -78,6 +79,28 @@ namespace Spooky.Core
 				}
 			}
 		}
+
+		public static void PlaceVines(int VineX, int VineY, int numVines, ushort vineType, bool finished = false)
+		{
+            for (int Y = VineY; Y <= VineY + numVines && !finished; Y++)
+            {
+                Tile tileBelow = Framing.GetTileSafely(VineX, Y + 1);
+
+                if (!tileBelow.HasTile || tileBelow.TileType == TileID.Cobweb)
+                {
+                    WorldGen.PlaceTile(VineX, Y, vineType);
+                }
+                else
+                {
+                    finished = true;
+				}
+                
+                if (numVines <= 1)
+                {
+                    finished = true;
+                }
+            }
+        }
 
 		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
 		public static void TileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 

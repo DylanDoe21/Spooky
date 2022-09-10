@@ -34,11 +34,11 @@ namespace Spooky.Content.Generation
             //place biome based on opposite dungeon side
             if (WorldGen.dungeonSide == -1)
 			{
-                WorldGen.jungleOriginX = Main.maxTilesX - 1280;
-			}
+                WorldGen.jungleOriginX = Main.maxTilesX - 1100;
+            }
 			else
 			{
-                WorldGen.jungleOriginX = 1280;
+                WorldGen.jungleOriginX = 1100;
             }
         }
 
@@ -2834,7 +2834,7 @@ namespace Spooky.Content.Generation
 
                     if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombVines>())
                     {
-                        PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<CatacombVines>());
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<CatacombVines>());
                     }
 
                     if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>())
@@ -2871,28 +2871,6 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y, TileID.Painting4X3, true, Main.rand.Next(0, 8));
                         }
                     }
-                }
-            }
-        }
-
-        private void PlaceVines(int tileX, int tileY, int numVines, ushort vineType, bool placedFully = false)
-		{
-            for (int Y = tileY; Y <= tileY + numVines && !placedFully; Y++)
-            {
-                Tile tileBelow = Framing.GetTileSafely(tileX, Y + 1);
-
-                if (!tileBelow.HasTile || tileBelow.TileType == TileID.Cobweb)
-                {
-                    WorldGen.PlaceTile(tileX, Y, vineType);
-                }
-                else
-                {
-                    placedFully = true;
-                }
-                
-                if (numVines <= 1)
-                {
-                    placedFully = true;
                 }
             }
         }

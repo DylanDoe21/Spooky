@@ -365,16 +365,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                        Vector2 ShootSpeed = player.Center - NPC.Center;
-                        ShootSpeed.Normalize();
-                                
-                        ShootSpeed.X *= Main.rand.Next(-10, 10);
-                        ShootSpeed.Y *= Main.rand.Next(-10, 10);
-
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<FlowerSpore>(), Damage, 1, Main.myPlayer, 0, 0);
+                            Main.rand.Next(-8, 8), Main.rand.Next(-8, 8), ModContent.ProjectileType<FlowerSpore>(), Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
 

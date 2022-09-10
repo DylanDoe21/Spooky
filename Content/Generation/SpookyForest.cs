@@ -224,6 +224,33 @@ namespace Spooky.Content.Generation
                             }
                         }
 
+                        //vines
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() && !Main.tile[X, Y + 1].HasTile)
+                        {
+                            if (WorldGen.genRand.Next(2) == 0)
+                            {
+                                WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVines>());
+                            }
+                        }
+
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() && !Main.tile[X, Y + 1].HasTile)
+                        {
+                            if (WorldGen.genRand.Next(2) == 0)
+                            {
+                                WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVinesGreen>());
+                            }
+                        }
+
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVines>())
+                        {
+                            SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVines>());
+                        }
+
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVinesGreen>())
+                        {
+                            SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
+                        }
+
                         //place surface objects
                         if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() ||
                         Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
@@ -281,7 +308,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //place stuff underground
-                for (int X = PositionX - 180; X < PositionX + 180; X++)
+                for (int X = PositionX - 300; X < PositionX + 300; X++)
                 {
                     for (int Y = (int)Main.worldSurface; Y < (int)Main.worldSurface + 250; Y++)
                     { 

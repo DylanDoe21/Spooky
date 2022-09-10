@@ -108,7 +108,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 30 * factor, factor =>
             {
                 //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
-                return Color.Lerp(Color.Yellow, Color.OrangeRed, factor.X);
+                return Color.Lerp(Color.OrangeRed, Color.OrangeRed, factor.X);
             });
 
             trail.Positions = cache.ToArray();

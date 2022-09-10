@@ -48,7 +48,7 @@ namespace Spooky.Content.Biomes
 
             if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
             {
-                float Scale = Main.rand.NextFloat(0.4f, 0.6f);
+                float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X - 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
                 int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
@@ -59,7 +59,7 @@ namespace Spooky.Content.Biomes
 
             if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
             {
-                float Scale = Main.rand.NextFloat(0.4f, 0.6f);
+                float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X + Main.screenWidth + 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
                 int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);

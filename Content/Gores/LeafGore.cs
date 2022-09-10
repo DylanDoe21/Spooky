@@ -12,7 +12,9 @@ namespace Spooky.Content.Gores
 		{
 			ChildSafety.SafeGore[gore.type] = true;
 			gore.velocity = new Vector2(Main.rand.NextFloat() - 0.5f, Main.rand.NextFloat() * MathHelper.TwoPi);
-			gore.scale = Main.rand.NextFloat(0.4f, 0.6f);
+			gore.numFrames = 8;
+			gore.frame = (byte)Main.rand.Next(8);
+			gore.frameCounter = (byte)Main.rand.Next(8);
 			UpdateType = 910;
 		}
 	}

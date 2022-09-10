@@ -10,38 +10,37 @@ using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb
 {
-	public class BigBoneHammer : SwingWeaponBase
+	public class BigBoneScepter : ModItem
 	{
-		public override int Length => 60;
-		public override int TopSize => 22;
-		public override float SwingDownSpeed => 28f;
-		public override bool CollideWithTiles => true;
-
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Smasher");
-			Tooltip.SetDefault("Left click to swing the hammer and create shockwave explosions on enemy hits"
-			+ "\nHold down right click to swing the hammer around you and charge it up" 
-			+ "\nOnce fully charged, releasing right click will throw the hammer");
+			DisplayName.SetDefault("Skull Totem Scepter");
+			Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge enemies"
+			+ "\nRight click to summon a stationary skull idol that buffs your minion stats while inside of it's aura");
+			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 200; 
-			Item.DamageType = DamageClass.Melee;
+			Item.damage = 120; 
+			Item.mana = 50;
+			Item.DamageType = DamageClass.Summon;
 			Item.width = 82;           
 			Item.height = 76;         
-			Item.useTime = 70;
-			Item.useAnimation = 70;
-			Item.useStyle = SwingUseStyle;
-			Item.knockBack = 10;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.useStyle = ItemUseStyleID.HoldUp;         
+			Item.knockBack = 5;
 			Item.rare = ItemRarityID.Yellow;  
 			Item.value = Item.buyPrice(gold: 10);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
-			Item.shootSpeed = 10f;
+			//Item.buffType = ModContent.BuffType<SkullWispBuff>();
+			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shootSpeed = 0f;
 		}
 
+		/*
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
@@ -63,9 +62,6 @@ namespace Spooky.Content.Items.Catacomb
 				Item.noUseGraphic = true;
 				Item.autoReuse = false;
 				Item.channel = true;
-				Item.useTime = 70;
-				Item.useAnimation = 70;
-				Item.useStyle = ItemUseStyleID.Shoot;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
 				Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
 				Item.shootSpeed = 10f;
@@ -76,14 +72,13 @@ namespace Spooky.Content.Items.Catacomb
 				Item.noUseGraphic = false;
 				Item.autoReuse = true;
 				Item.channel = false;
-				Item.useTime = 70;
-				Item.useAnimation = 70;
-				Item.useStyle = SwingUseStyle;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
-				Item.shoot = 0;
+				Item.shoot = ModContent.ProjectileType<Blank>();
+				Item.shootSpeed = 0f;
 			}
 
 			return true;
 		}
+		*/
 	}
 }

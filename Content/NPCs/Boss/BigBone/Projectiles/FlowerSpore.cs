@@ -139,5 +139,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Projectile.rotation += 0f * (float)Projectile.direction;	
             }
         }
+
+        public override void Kill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
+        
+        	for (int i = 0; i < 25; i++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default(Color), 1.5f);
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+				}
+			}
+		}
     }
 }
