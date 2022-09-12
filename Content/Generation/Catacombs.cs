@@ -2883,7 +2883,7 @@ namespace Spooky.Content.Generation
                 return;
             }
 
-            tasks.Insert(JungleCoordIndex + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
+            tasks.Insert(JungleCoordIndex + 0, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
 
             int GraveyardIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Dirt Rock Wall Runner"));
 			if (GraveyardIndex == -1)

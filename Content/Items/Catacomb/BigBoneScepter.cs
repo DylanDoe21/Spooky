@@ -1,13 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using System;
 
-using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.Catacomb;
- 
+using Spooky.Content.Projectiles.SpookyBiome;
+
 namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneScepter : ModItem
@@ -35,12 +36,15 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.Yellow;  
 			Item.value = Item.buyPrice(gold: 10);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
-			//Item.buffType = ModContent.BuffType<SkullWispBuff>();
-			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 0f;
+			Item.buffType = ModContent.BuffType<SoulSkullBuff>();
+			Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
 		}
 
-		/*
+		public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-20, 20);
+		}
+
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
@@ -48,37 +52,42 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool CanUseItem(Player player)
 		{
-			for (int i = 0; i < 1000; i++)
-			{
-				if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj>())
-				{
-					return false;
-				}
-			}
-
 			if (player.altFunctionUse == 2)
 			{
-				Item.noMelee = true;
-				Item.noUseGraphic = true;
 				Item.autoReuse = false;
-				Item.channel = true;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
-				Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
-				Item.shootSpeed = 10f;
+				Item.buffType = ModContent.BuffType<SoulSkullBuff>();
+				Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
+				Item.shootSpeed = 0f;
 			}
 			else
 			{
-				Item.noMelee = false;
-				Item.noUseGraphic = false;
 				Item.autoReuse = true;
-				Item.channel = false;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
-				Item.shoot = ModContent.ProjectileType<Blank>();
+				Item.buffType = ModContent.BuffType<SoulSkullBuff>();
+				Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
 				Item.shootSpeed = 0f;
 			}
 
 			return true;
 		}
-		*/
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
+		{
+			position = Main.MouseWorld;
+		}
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			if (player.altFunctionUse != 2)
+			{
+				player.AddBuff(Item.buffType, 2);
+
+				var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+				projectile.originalDamage = Item.damage;
+			}
+
+			return false;
+		}
 	}
 }

@@ -218,6 +218,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
+            //flame dusts
             for (int numDust = 0; numDust < 50; numDust++)
 			{                                                                                  
 				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
@@ -227,30 +228,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Main.dust[dustGore].noGravity = true;
 			}
 
-            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
-
-            /*
-            for (int numProjectiles = 0; numProjectiles < 6; numProjectiles++)
-            {
-                Vector2 Position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
-                Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    int InfernoBolt = Projectile.NewProjectile(Projectile.GetSource_Death(), Position, speed, 
-                    ProjectileID.InfernoHostileBolt, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-                    Main.projectile[InfernoBolt].tileCollide = true;
-                    Main.projectile[InfernoBolt].timeLeft = 250;
-                }
-            }
-            */
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-                ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-            }
-
+            //explosion smoke
             for (int numExplosion = 0; numExplosion < 15; numExplosion++)
             {
                 int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
@@ -264,6 +242,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
+            }
+
+            //inferno blast
+            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
+                ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
             }
         }
     }

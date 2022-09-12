@@ -12,36 +12,49 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class Brainy : ModProjectile
     {
+        float ScaleAmount = 0.05f;
+        int ScaleTimerLimit = 10;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treat Bag");
+            DisplayName.SetDefault("Brainy");
             Main.projFrames[Projectile.type] = 7;
             Main.projPet[Projectile.type] = true;
         }
         
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 28;
+            Projectile.width = 60;
+            Projectile.height = 46;
+            Projectile.minion = true;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
+            Projectile.minionSlots = 1;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 6)
+            if (Projectile.localAI[0] <= 120)
             {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= 6)
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 6)
                 {
-                    Projectile.frame = 0;
+                    Projectile.frameCounter = 0;
+                    Projectile.frame++;
+                    if (Projectile.frame >= 6)
+                    {
+                        Projectile.frame = 0;
+                    }
                 }
+            }
+            else
+            {
+                Projectile.frame = 6;
             }
 
             Player player = Main.player[Projectile.owner];
@@ -56,18 +69,73 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.timeLeft = 2;
 			}
 
+            //actual minion exploding ai
             Projectile.localAI[0]++;
 
-            if (Projectile.localAI[0] > 3600 && Projectile.localAI[0] < 3650)
+            if (Projectile.localAI[0] >= 120 && Projectile.localAI[0] < 240)
             {
+                if (Projectile.localAI[0] == 120 || Projectile.localAI[0] == 150 || Projectile.localAI[0] == 180)
+                {
+                    ScaleAmount += 0.05f;
+                    ScaleTimerLimit -= 3;
+                }
 
+                Projectile.localAI[1]++;
+                if (Projectile.localAI[1] < ScaleTimerLimit)
+                {
+                    Projectile.scale -= ScaleAmount;
+                }
+                if (Projectile.localAI[1] >= ScaleTimerLimit)
+                {
+                    Projectile.scale += ScaleAmount;
+                }
+
+                if (Projectile.localAI[1] > ScaleTimerLimit * 2)
+                {
+                    Projectile.localAI[1] = 0;
+                    Projectile.scale = 1f;
+                }
+            }
+            else
+            {   
+                Projectile.localAI[1] = 0;
+                Projectile.scale = 1f;
             }
 
-            if (Projectile.localAI[0] == 3650)
+            if (Projectile.localAI[0] >= 240)
             {
+                for (int k = 0; k < Main.projectile.Length; k++)
+                {
+                    if (Main.projectile[k].active && Main.projectile[k].minion) 
+                    {
+                        SoundEngine.PlaySound(SoundID.Item96, Main.projectile[k].Center);
+
+                        for (int numDust = 0; numDust < 20; numDust++)
+                        {
+                            int newDust = Dust.NewDust(Main.projectile[k].Center, Main.projectile[k].width, Main.projectile[k].height, 
+                            DustID.PurpleCrystalShard, 0f, 0f, 100, default(Color), 2f);
+
+                            Main.dust[newDust].scale *= 0.5f;
+                            Main.dust[newDust].noGravity = true;
+
+                            if (Main.rand.Next(2) == 0)
+                            {
+                                Main.dust[newDust].scale = 0.5f;
+                                Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                            }
+                        }
+
+                        Main.projectile[k].Kill();
+                    }
+                }
+
+                ScaleAmount = 0.05f;
+                ScaleTimerLimit = 10;
+
                 Projectile.localAI[0] = 0;
             }
         
+            //movement stuff
             if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {
                 Projectile.ai[0] = 1f;

@@ -8,7 +8,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 {
     public class BigFlowerPot : ModNPC  
     {
-        public bool headSpawned = false;
+        public bool BigBoneSpawned = false;
 
         public override void SetStaticDefaults()
         {
@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
         {
-            if (firstButton)
+            if (firstButton && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
             {
                 Player player = Main.LocalPlayer;
                 if (!player.HasItem(ModContent.ItemType<Fertalizer>()))
@@ -71,9 +71,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             (int)NPC.position.Y + (NPC.height / 2), ModContent.NPCType<BigBone>(), NPC.whoAmI);
             Main.npc[BigBone].ai[3] = NPC.whoAmI;
             Main.npc[BigBone].netUpdate = true;
-            headSpawned = true;
+            BigBoneSpawned = true;
 
-            if (Main.netMode == 2)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, BigBone);
             }
@@ -84,13 +84,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         /*
         public override void AI()
         {
-            if (!headSpawned && NPC.active)
+            if (!BigBoneSpawned && NPC.active)
             {
                 int BigBone = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + (NPC.width / 2),
                 (int)NPC.position.Y + (NPC.height / 2), ModContent.NPCType<BigBone>(), NPC.whoAmI);
                 Main.npc[BigBone].ai[3] = NPC.whoAmI;
                 Main.npc[BigBone].netUpdate = true;
-                headSpawned = true;
+                BigBoneSpawned = true;
 
                 if (Main.netMode == 2)
                 {

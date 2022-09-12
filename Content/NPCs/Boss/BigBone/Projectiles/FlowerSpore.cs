@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pumpkin Seed");
+            DisplayName.SetDefault("Flower Spore");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -130,7 +130,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Projectile.tileCollide = true;
 
                 double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 8; //10 is the "charge" speed
+                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12; //12 is the "charge" speed
             }
 
             if (Projectile.localAI[0] > 75 || Projectile.localAI[0] < 30)

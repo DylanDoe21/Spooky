@@ -221,6 +221,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     if (NPC.ai[3] == 2)
                     {
 					    NPC.checkDead();
+                        NPC.netUpdate = true;
                     }
 				}
 

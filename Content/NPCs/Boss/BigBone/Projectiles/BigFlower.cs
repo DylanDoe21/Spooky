@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,6 +12,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class BigFlower : ModNPC
 	{
+		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBoneMagic2", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Flower");
@@ -119,6 +122,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 
+			if (NPC.ai[0] == 350)
+			{
+				SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+			}
+
 			if (NPC.ai[0] >= 350 && NPC.ai[0] <= 370)
 			{
 				int MaxDusts = Main.rand.Next(10, 20);
@@ -136,6 +144,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			if (NPC.ai[0] == 370)
 			{
+				SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
+
 				Vector2 ShootSpeed = player.Center - NPC.Center;
 				ShootSpeed.Normalize();
 						

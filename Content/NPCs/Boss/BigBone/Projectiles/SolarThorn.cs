@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 { 
     public class SolarThorn : ModProjectile
     {
-		float increase = 0f;
+		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBoneMagic2", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
@@ -97,6 +97,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				if (Projectile.localAI[1] > 100 && Projectile.localAI[1] <= 130)
 				{
 					Projectile.ai[1] -= 7;
+				}
+
+				if (Projectile.localAI[1] == 175)
+				{
+					SoundEngine.PlaySound(MagicCastSound, Projectile.Center);
 				}
 
 				if (Projectile.localAI[1] > 175)

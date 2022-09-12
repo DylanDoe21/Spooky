@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items
+namespace Spooky.Core
 {
 	public abstract class SwingWeaponBase : ModItem
 	{
@@ -102,7 +102,7 @@ namespace Spooky.Content.Items
                         if (goodYPosition && colVelocity != velocity)
                         {
                             Collision.HitTiles(testPos - new Vector2(1, 1), colVelocity, hitbox.Width + 1, hitbox.Height + 1);
-                            TileSound(testPos - new Vector2(1, 1), colVelocity, hitbox.Width + 1, hitbox.Height + 1);
+                            //TileSound(testPos - new Vector2(1, 1), colVelocity, hitbox.Width + 1, hitbox.Height + 1);
                             hasHitTile = true;
                             mostRecentRotation = Utils.AngleLerp(oldRot, player.itemRotation, (i + colVelocity.Y / velocity.Y) / steps);
 
@@ -180,11 +180,15 @@ namespace Spooky.Content.Items
 
             float animationProgress = 1 - (player.itemAnimation - 1) / (float)player.itemAnimationMax;
 
-            if (animationProgress < SwingWindup(player)) return false;
+            if (animationProgress < SwingWindup(player)) 
+            {
+                return false;
+            }
 
             return null;
         }
 
+        /*
         public static void TileSound(Vector2 Position, Vector2 Velocity, int Width, int Height)
         {
             Vector2 vector = Position + Velocity;
@@ -230,13 +234,6 @@ namespace Spooky.Content.Items
                     }
                 }
             }
-        }
-
-        /*
-        //keep this to play custom sounds when swinging the weapon
-        public static void Hit(Player player, NPC target, int DefenseLoss, int DebuffTime)
-        {
-            SoundEngine.PlaySound(Whatever, player.Center);
         }
         */
 

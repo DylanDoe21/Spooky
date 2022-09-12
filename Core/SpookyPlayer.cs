@@ -36,6 +36,7 @@ namespace Spooky.Core
         //minions and pets
         public bool SkullWisp = false;
         public bool TumorMinion = false;
+        public bool SoulSkull = false;
         public bool Brainy = false;
         public bool SpookyWispPet = false;
         public bool RotGourdPet = false;
@@ -58,6 +59,7 @@ namespace Spooky.Core
             //minions and pets
             SkullWisp = false;
             TumorMinion = false;
+            SoulSkull = false;
             Brainy = false;
             SpookyWispPet = false;
             RotGourdPet = false;
@@ -225,6 +227,8 @@ namespace Spooky.Core
 
                     if (BoneWispTimer >= 180 / ((num20 / 3) / 5))
                     {
+                        SoundEngine.PlaySound(SoundID.NPCDeath6, Player.Center);
+
                         Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
                         Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 

@@ -29,22 +29,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.aiStyle = -1;
 		}
 
-		/*
-		public override bool PreDraw(ref Color lightColor)
-        {
-			//draw flower on top so it doesnt look weird
-			Texture2D flowerTex = ModContent.Request<Texture2D>(Texture).Value;
-
-			float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
-            Color color = Color.Lerp(Color.Red, Color.Transparent, fade);
-
-            Main.EntitySpriteDraw(flowerTex, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY + 4), null, drawColor, Projectile.rotation, Projectile.frame.Size() / 2f, Projectile.scale * 1.3f + fade / 5, SpriteEffects.None, 0);
-
-            return true;
-        }
-		*/
-
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
 			target.AddBuff(BuffID.Bleeding, 180);
