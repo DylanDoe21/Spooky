@@ -16,33 +16,33 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Skull Totem Scepter");
-			Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge enemies"
-			+ "\nRight click to summon a stationary skull idol that buffs your minion stats while inside of it's aura");
-			Item.staff[Item.type] = true;
+			Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge at enemies"
+			+ "\nRight click to summon a stationary skull idol at your cursor position that lasts for one minute"
+			+ "\nAny player within the idol's radius will receive various summoner stat increases");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 120; 
+			Item.damage = 90; 
 			Item.mana = 50;
 			Item.DamageType = DamageClass.Summon;
-			Item.width = 82;           
-			Item.height = 76;         
+			Item.width = 34;           
+			Item.height = 78;         
 			Item.useTime = 45;
 			Item.useAnimation = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;         
+			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 5;
 			Item.rare = ItemRarityID.Yellow;  
 			Item.value = Item.buyPrice(gold: 10);
-			Item.UseSound = SoundID.DD2_MonkStaffSwing;
+			Item.UseSound = SoundID.NPCHit36;
 			Item.buffType = ModContent.BuffType<SoulSkullBuff>();
 			Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-20, 20);
+			return new Vector2(-10, -15);
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -55,15 +55,15 @@ namespace Spooky.Content.Items.Catacomb
 			if (player.altFunctionUse == 2)
 			{
 				Item.autoReuse = false;
-				Item.UseSound = SoundID.DD2_MonkStaffSwing;
+				Item.UseSound = SoundID.Item130;
 				Item.buffType = ModContent.BuffType<SoulSkullBuff>();
-				Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
+				Item.shoot = ModContent.ProjectileType<SkullTotem>();
 				Item.shootSpeed = 0f;
 			}
 			else
 			{
 				Item.autoReuse = true;
-				Item.UseSound = SoundID.DD2_MonkStaffSwing;
+				Item.UseSound = SoundID.NPCHit36;
 				Item.buffType = ModContent.BuffType<SoulSkullBuff>();
 				Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();
 				Item.shootSpeed = 0f;
@@ -79,7 +79,19 @@ namespace Spooky.Content.Items.Catacomb
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (player.altFunctionUse != 2)
+			if (player.altFunctionUse == 2)
+			{
+				for (int k = 0; k < Main.projectile.Length; k++)
+				{
+					if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<SkullTotem>()) 
+					{
+						Main.projectile[k].Kill();
+					}
+				}
+
+				var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, 0, knockback, Main.myPlayer);
+			}
+			else
 			{
 				player.AddBuff(Item.buffType, 2);
 

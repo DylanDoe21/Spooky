@@ -27,8 +27,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.DamageType = DamageClass.Ranged;  
 			Item.noMelee = true;
 			Item.autoReuse = true;       
-			Item.width = 30;           
-			Item.height = 72;         
+			Item.width = 30;         
+			Item.height = 72;        
 			Item.useTime = 10;
 			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Shoot;         

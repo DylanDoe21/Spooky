@@ -19,9 +19,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Bolt");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+			DisplayName.SetDefault("Soul Bolt");
 		}
 
 		public override void SetDefaults()
@@ -30,8 +28,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.height = 10;  
             Projectile.friendly = true;       
 			Projectile.hostile = false;                                 			  		
-            Projectile.tileCollide = true;
-			Projectile.ignoreWater = false;
+            Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
             Projectile.penetrate = 1;
             Projectile.alpha = 255;
 		}
@@ -97,13 +95,43 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-			Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+			Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0f);
 
 			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
             {
                 ManageCaches();
                 ManageTrail();
             }
+
+            int foundTarget = HomeOnTarget();
+            if (foundTarget != -1)
+            {
+                NPC target = Main.npc[foundTarget];
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+            }
 		}
+
+        private int HomeOnTarget()
+        {
+            const bool homingCanAimAtWetEnemies = true;
+            const float homingMaximumRangeInPixels = 400;
+
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile) && (!target.wet || homingCanAimAtWetEnemies))
+                {
+                    float distance = Projectile.Distance(target.Center);
+                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
+                    {
+                        selectedTarget = i;
+                    }
+                }
+            }
+
+            return selectedTarget;
+        }
 	}
 }

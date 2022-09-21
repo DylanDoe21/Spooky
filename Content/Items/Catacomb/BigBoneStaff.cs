@@ -13,23 +13,22 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flame Orb Scepter");
-			Tooltip.SetDefault("Left click to cast bouncing fire blasts and charge up the staff"
-			+ "\nOnce fully charged, right click to unleash a massive fire bolt that splits into more blasts");
+			DisplayName.SetDefault("Flame Orb Staff");
+			Tooltip.SetDefault("Left click to cast a large spread of fire balls that bounce off of tiles"
+			+ "\nRight click to unleash a extremely fast fire bolt that targets the nearest enemy");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 120;  
+			Item.damage = 100;  
 			Item.mana = 30;         
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;  
-			Item.noMelee = true;
-			Item.autoReuse = false;     
+			Item.noMelee = true;  
 			Item.width = 66;           
-			Item.height = 58;         
+			Item.height = 56;         
 			Item.useTime = 35;         
 			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -50,15 +49,15 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			if (player.altFunctionUse == 2)
 			{
-				Item.noMelee = true;
-				Item.autoReuse = true;
-				Item.shoot = 0;
+				Item.mana = 120;
+				Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;
+				Item.shoot = ModContent.ProjectileType<FireBeam>();
 				Item.shootSpeed = 15f;
 			}
 			else
 			{
-				Item.noMelee = true;
-				Item.autoReuse = true;
+				Item.mana = 30;
+				Item.UseSound = SoundID.Item88;
 				Item.shoot = ModContent.ProjectileType<StaffFireBolt>();
 				Item.shootSpeed = 15f;
 			}

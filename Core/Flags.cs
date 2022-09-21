@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Spooky.Core
 {
-    public sealed partial class Flags : ModSystem
+    public class Flags : ModSystem
     {
         public static bool downedRotGourd = false;
         public static bool downedMoco = false;

@@ -230,9 +230,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //flame bolts
-            Vector2 Speed = new Vector2(15f, 0f).RotatedByRandom(2 * Math.PI);
+            Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
 
-            for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
+            for (int numProjectiles = 0; numProjectiles < 6; numProjectiles++)
             {
                 Vector2 Position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
                 Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));

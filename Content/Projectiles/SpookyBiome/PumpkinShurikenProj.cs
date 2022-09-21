@@ -63,7 +63,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             if (Main.rand.Next(4) == 0)
             {
-                for (int i = 0; i < Main.rand.Next(2, 3); i++)
+                for (int numProjectiles = 0; numProjectiles < Main.rand.Next(2, 3); numProjectiles++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 2), Main.rand.Next(-2, -1), 
                     ModContent.ProjectileType<PumpkinShurikenShrapnel>(), Projectile.damage / 2, 0f, Main.myPlayer, 0f, 0f);

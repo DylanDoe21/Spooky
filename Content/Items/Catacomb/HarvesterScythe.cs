@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles;
+using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb
 {
@@ -65,10 +65,14 @@ namespace Spooky.Content.Items.Catacomb
 			{
 				hasHitSomething = true;
 
-				int HitProj = Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<SwingWeaponHit>(), Item.damage, 0f, Main.myPlayer, 0, 0);
-				Main.projectile[HitProj].width = 60;
-				Main.projectile[HitProj].height = 60;
+				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
+                ModContent.ProjectileType<ScytheHitProj>(), Item.damage, 0f, Main.myPlayer, 0, 0);
+			}
+
+			if (target.life <= 0)
+            {
+				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
+				ModContent.ProjectileType<SoulBolt>(), Item.damage / 2, 0f, Main.myPlayer, 0, 0);
 			}
 		}
 	}

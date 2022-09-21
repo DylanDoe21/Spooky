@@ -15,9 +15,9 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Brainy in a Jar");
-			Tooltip.SetDefault("Summons brainy to float above you"
-			+ "\nEvery minute, he will convulsate, causing all of your other minions to explode"
-			+ "\nEach explosion will deal massive damage and scale further based on their damage");
+			Tooltip.SetDefault("Summons brainy the brain to hover around you"
+			+ "\nEvery minute, he will convulsate, causing all of your existing minions to explode"
+			+ "\nEach explosions damage will scale further based on each individual minion's damage");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

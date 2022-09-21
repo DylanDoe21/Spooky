@@ -17,6 +17,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		private List<Vector2> cache;
         private Trail trail;
 
+        int bounces = 0;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Blast");
@@ -79,24 +81,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		private void ManageTrail()
         {
+            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
+            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
             {
                 //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
-                return Color.Lerp(Color.Red, Color.Yellow, factor.X);
+                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X);
             });
 
             trail.Positions = cache.ToArray();
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
-
-            Projectile.Kill();
-
-			return false;
-		}
 
 		public override void AI()
 		{

@@ -13,6 +13,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     public class SoulSkullMinion : ModProjectile
     {   
         int shootTimer = 0;
+        int charge = 0;
 
         public override void SetStaticDefaults()
         {
@@ -61,6 +62,8 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
+            Lighting.AddLight(Projectile.Center, 0f, 0.25f, 0f);
+
 			if (player.dead)
 			{
 				player.GetModPlayer<SpookyPlayer>().SoulSkull = false;
@@ -98,22 +101,40 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (target.active && !target.friendly && target.damage > 0 && !target.dontTakeDamage)
             {
                 shootTimer++;
-                if (shootTimer == 40)
+                if (shootTimer == 60)
                 {
-                    SoundEngine.PlaySound(SoundID.Item87, target.Center);
+                    if (charge < 5)
+                    {
+                        SoundEngine.PlaySound(SoundID.Zombie53, Projectile.Center);
 
-                    float Speed = 10f;
-                    Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-                    float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
-                    Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
-                    
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                    perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                        float Speed = 25f;
+                        Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+                        float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+                        Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
+                        
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                        perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                    }
+                    else
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+
+                        Vector2 ChargeDirection = target.Center - Projectile.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection.X *= 20;
+                        ChargeDirection.Y *= 20;  
+                        Projectile.velocity.X = ChargeDirection.X;
+                        Projectile.velocity.Y = ChargeDirection.Y;
+
+                        charge = 0;
+                    }
                 }
 
-                if (shootTimer >= 40)
+                if (shootTimer >= 60)
                 {
                     shootTimer = 0;
+                    charge++;
                 }
             }
 

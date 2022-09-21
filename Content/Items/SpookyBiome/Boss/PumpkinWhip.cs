@@ -13,7 +13,6 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Seed Whip");
-            Tooltip.SetDefault("Your summons will focus struck enemies");
 			Tooltip.SetDefault("Your summons will focus struck enemies"
 			+ "\nHitting enemies will inflict them with the fly infestation debuff"
 			+ "\nKilling enemies with this debuff will summon damaging flies");

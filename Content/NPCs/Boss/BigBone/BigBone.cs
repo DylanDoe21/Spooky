@@ -17,6 +17,7 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
@@ -108,7 +109,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = DeathSound2;
             NPC.aiStyle = -1;
-            Music = MusicID.PirateInvasion;
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.DeepCatacombBiome>().Type };
         }
 
@@ -337,6 +338,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            if (Main.npc[(int)NPC.ai[3]].type != ModContent.NPCType<BigFlowerPot>())
+            {
+                NPC.active = false;
+            }
+
             if (NPC.life > NPC.lifeMax)
             {
                 NPC.life = NPC.lifeMax;
@@ -438,27 +444,24 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-Shake, Shake);
 
-                        //if (NPC.localAI[0] % 20 == 2)
-                        //{
-                            int MaxDusts = Main.rand.Next(10, 15);
-                            float distance = (NPC.localAI[0] / 70);
+                        int MaxDusts = Main.rand.Next(10, 15);
+                        float distance = (NPC.localAI[0] / 75);
 
-                            for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * distance).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+
+                            if (Main.rand.Next(2) == 0)
                             {
-                                Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * distance).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
-                                Vector2 velocity = dustPos - NPC.Center;
-
-                                if (Main.rand.Next(2) == 0)
-                                {
-                                    int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.OrangeTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                                    Main.dust[dustEffect].scale = 1f + (NPC.localAI[0] / 100);
-                                    Main.dust[dustEffect].noGravity = true;
-                                    Main.dust[dustEffect].noLight = false;
-                                    Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-18f + -NPC.localAI[0] / 10);
-                                    Main.dust[dustEffect].fadeIn = 1.2f;
-                                }
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.OrangeTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                                Main.dust[dustEffect].scale = 1f + (NPC.localAI[0] / 100);
+                                Main.dust[dustEffect].noGravity = true;
+                                Main.dust[dustEffect].noLight = false;
+                                Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-18f + -NPC.localAI[0] / 10);
+                                Main.dust[dustEffect].fadeIn = 1.2f;
                             }
-                        //}
+                        }
                     }
 
                     if (NPC.localAI[0] == 60 || NPC.localAI[0] == 120 || NPC.localAI[0] == 180 || NPC.localAI[0] == 240)
@@ -494,21 +497,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 GoreSpread += 400;
                                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(0 + GoreSpread * 0.01f, Main.rand.Next(-5, -2)), 
                                 ModContent.Find<ModGore>("Spooky/BigBoneGore" + numGores).Type);
-                            }
-                        }
-
-                        //fire flame bolts everywhere
-                        Vector2 Speed = new Vector2(Main.rand.NextFloat(15f, 20f), 0f).RotatedByRandom(2 * Math.PI);
-
-                        for (int numProjectiles = 0; numProjectiles < 18; numProjectiles++)
-                        {
-                            Vector2 Position = new Vector2(NPC.Center.X, NPC.Center.Y);
-                            Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_Death(), Position, speed, 
-                                ModContent.ProjectileType<MassiveFlameBallBolt>(), Damage, 0f, Main.myPlayer, 0, 0);
                             }
                         }
 
@@ -1306,9 +1294,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             if (Phase2)
                             {
-                                Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                                Vector2 Speed = new Vector2(10f, 0f).RotatedByRandom(2 * Math.PI);
 
-                                for (int numProjectiles = 0; numProjectiles < 18; numProjectiles++)
+                                for (int numProjectiles = 0; numProjectiles < 8; numProjectiles++)
                                 {
                                     Vector2 Position = new Vector2(NPC.Center.X, NPC.Center.Y);
                                     Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
@@ -1419,20 +1407,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            //LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBigBone>()));
-
-            /*
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
-
-            int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), ModContent.ItemType<BoogerBlaster>() };
             
+            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
+            //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookyPumpkinRelicItem>()));
+
+            //normal drops
+            int[] MainItem = new int[] { ModContent.ItemType<BigBoneHammer>(), ModContent.ItemType<BigBoneBow>(), 
+            ModContent.ItemType<BigBoneStaff>(), ModContent.ItemType<BigBoneScepter>() };
+
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
             npcLoot.Add(notExpertRule);
-            */
         }
 
         public override void OnKill()

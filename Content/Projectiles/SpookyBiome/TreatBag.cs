@@ -50,11 +50,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
                 player.GetModPlayer<SpookyPlayer>().TreatBag = false;
             }
+
             if (player.GetModPlayer<SpookyPlayer>().TreatBag)
             {
                 Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<TreatBagBuff>(), 1, false);
+                player.AddBuff(ModContent.BuffType<TreatBagBuff>(), 2, false);
             }
+
             if (!player.GetModPlayer<SpookyPlayer>().TreatBag)
             {
                 Projectile.Kill();

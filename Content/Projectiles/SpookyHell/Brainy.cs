@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
@@ -14,6 +15,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         float ScaleAmount = 0.05f;
         int ScaleTimerLimit = 10;
+
+        public static readonly SoundStyle BrainySound1 = new("Spooky/Content/Sounds/Brainy1", SoundType.Sound);
+        public static readonly SoundStyle BrainySound2 = new("Spooky/Content/Sounds/Brainy2", SoundType.Sound);
+        public static readonly SoundStyle BrainyConvulseSound = new("Spooky/Content/Sounds/BrainyConvulse", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -33,13 +38,35 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
-            Projectile.minionSlots = 1;
+            Projectile.minionSlots = 0;
             Projectile.aiStyle = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+
+            Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.DeepPink);
+
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+            for (int numEffect = 0; numEffect < 3; numEffect++)
+            {
+                var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                Color newColor = color;
+                newColor = Projectile.GetAlpha(newColor);
+                newColor *= 1f;
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 3 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.1f, effects, 0);
+            }
+
+            return true;
         }
 
         public override void AI()
         {
-            if (Projectile.localAI[0] <= 120)
+            if (Projectile.localAI[0] <= 3510)
             {
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
@@ -57,6 +84,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.frame = 6;
             }
 
+            Projectile.spriteDirection = -Projectile.direction;
+
             Player player = Main.player[Projectile.owner];
 
 			if (player.dead)
@@ -72,9 +101,29 @@ namespace Spooky.Content.Projectiles.SpookyHell
             //actual minion exploding ai
             Projectile.localAI[0]++;
 
-            if (Projectile.localAI[0] >= 120 && Projectile.localAI[0] < 240)
+            if (Projectile.localAI[0] < 3510)
             {
-                if (Projectile.localAI[0] == 120 || Projectile.localAI[0] == 150 || Projectile.localAI[0] == 180)
+                if (Main.rand.Next(100) == 0)
+                {
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        SoundEngine.PlaySound(BrainySound1, Projectile.Center);
+                    }
+                    else
+                    {
+                        SoundEngine.PlaySound(BrainySound2, Projectile.Center);
+                    }
+                }
+            }
+
+            if (Projectile.localAI[0] == 3510)
+            {
+                SoundEngine.PlaySound(BrainyConvulseSound, Projectile.Center);
+            }
+
+            if (Projectile.localAI[0] >= 3510 && Projectile.localAI[0] < 3600)
+            {
+                if (Projectile.localAI[0] == 3510 || Projectile.localAI[0] == 3540 || Projectile.localAI[0] == 3570)
                 {
                     ScaleAmount += 0.05f;
                     ScaleTimerLimit -= 3;
@@ -102,28 +151,16 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.scale = 1f;
             }
 
-            if (Projectile.localAI[0] >= 240)
+            if (Projectile.localAI[0] >= 3600)
             {
                 for (int k = 0; k < Main.projectile.Length; k++)
                 {
-                    if (Main.projectile[k].active && Main.projectile[k].minion) 
+                    if (Main.projectile[k].active && Main.projectile[k].minion && Main.projectile[k].type != ModContent.ProjectileType<Brainy>()) 
                     {
                         SoundEngine.PlaySound(SoundID.Item96, Main.projectile[k].Center);
 
-                        for (int numDust = 0; numDust < 20; numDust++)
-                        {
-                            int newDust = Dust.NewDust(Main.projectile[k].Center, Main.projectile[k].width, Main.projectile[k].height, 
-                            DustID.PurpleCrystalShard, 0f, 0f, 100, default(Color), 2f);
-
-                            Main.dust[newDust].scale *= 0.5f;
-                            Main.dust[newDust].noGravity = true;
-
-                            if (Main.rand.Next(2) == 0)
-                            {
-                                Main.dust[newDust].scale = 0.5f;
-                                Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-                            }
-                        }
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.projectile[k].Center.X, Main.projectile[k].Center.Y, 
+                        0, 0, ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + (Main.projectile[k].damage / 2), 0f, Main.myPlayer, 0, 0);
 
                         Main.projectile[k].Kill();
                     }
@@ -184,7 +221,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
             else
             {
-                Projectile.direction = Main.player[Projectile.owner].direction;
                 Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
             }
 

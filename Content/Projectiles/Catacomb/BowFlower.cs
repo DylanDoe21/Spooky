@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -95,7 +96,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             float Multiplier = 1.65f;
 
-			if (target.HasBuff(BuffID.Bleeding))
+			if (target.HasBuff(ModContent.BuffType<ThornMark>()))
 			{
 				damage = damage * (int)Multiplier;
 			}

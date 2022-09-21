@@ -23,7 +23,8 @@ namespace Spooky.Content.Items.SpookyBiome
 		{
 			Item.damage = 10;    
 			Item.DamageType = DamageClass.Ranged;  
-			Item.autoReuse = true;       
+			Item.noMelee = true;
+			Item.autoReuse = true; 
 			Item.width = 60;           
 			Item.height = 26;         
 			Item.useTime = 25;         

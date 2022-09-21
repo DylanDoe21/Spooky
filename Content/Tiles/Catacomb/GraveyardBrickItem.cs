@@ -5,11 +5,11 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
-	public class GraveyardBrickItem : ModItem
-	{
+    public class GraveyardBrickItem : ModItem
+    {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Worn Stone Bricks");
+            DisplayName.SetDefault("Grave Soil");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

@@ -23,11 +23,16 @@ namespace Spooky.Core
 
         public int BoneWispTimer = 0;
 
-        //armors and accessories
+        //armors
         public bool SpookySet = false;
         public bool GoreArmorSet = false;
+
+        //accessories
         public bool TreatBag = false;
         public bool MagicCandle = false;
+        public bool CrossCharm = false;
+
+        //expert accessories
         public bool PumpkinCore = false;
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
@@ -46,11 +51,16 @@ namespace Spooky.Core
 
         public override void ResetEffects()
         {
-            //armors and accessories
+            //armors
             SpookySet = false;
             GoreArmorSet = false;
+
+            //accessories
             TreatBag = false;
             MagicCandle = false;
+            CrossCharm = false;
+
+            //expert accessories
             PumpkinCore = false;
             MocoNose = false;
             OrroboroEmbyro = false;
@@ -139,6 +149,26 @@ namespace Spooky.Core
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
                     int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, 90, 0f, 0f, 100, default, 2f);
+                    Main.dust[dustEffect].velocity *= 3f;
+                    Main.dust[dustEffect].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[dustEffect].scale = 0.5f;
+                        Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
+
+            if (CrossCharm && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
+            {
+                float divide = 1.5f;
+                damage /= (int)divide;
+                Player.AddBuff(ModContent.BuffType<CrossCooldown>(), 600);
+
+                for (int numDust = 0; numDust < 20; numDust++)
+                {
+                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
@@ -269,6 +299,25 @@ namespace Spooky.Core
                     }
                 }
             }
+        }
+    }
+
+    public class CrossCharm : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharm && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<CrossCooldown>());
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/Catacomb/CrossCharmDraw").Value;
+
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+
+            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.Center.X, drawInfo.drawPlayer.Center.Y - 45)  - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 

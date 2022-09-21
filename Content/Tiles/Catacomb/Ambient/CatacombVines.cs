@@ -46,7 +46,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 				type = tileAbove.TileType;
 			}
 
-			if (type == ModContent.TileType<CatacombBrickMoss>() || type == Type) 
+			if (type == ModContent.TileType<CatacombBrickMoss>() || type == Type)
             {
 				return true;
 			}
@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombBrickMoss>()) 
+					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombBrickMoss>())
                     {
 						Test--;
 						continue;

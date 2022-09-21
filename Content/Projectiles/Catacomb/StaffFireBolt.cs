@@ -29,6 +29,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.CloneDefaults(ProjectileID.Fireball);
 			Projectile.width = 10;                   			 
             Projectile.height = 10;  
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;       
 			Projectile.hostile = false;                                 			  		
             Projectile.tileCollide = true;
@@ -100,7 +101,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
 
-			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+			if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();

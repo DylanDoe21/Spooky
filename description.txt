@@ -18,23 +18,24 @@ IMPORTANT, PLEASE READ THIS:
 -While you can technically play this with other mods, this mod is VERY worldgen heavy, adding 2 new biomes and a massive structure, as well as a lot more planned worldgen in the future like new structures and mini-biomes. Playing with other large content mods will highly likely cause issues or conflicts with biomes and other world generation!
 -also, playing on small worlds may not be a good idea due to the new biomes and structure this mod adds as they can possibly destroy other vanilla biomes or structures
 
-Thanks to all of the contributers to the mod as well!
+[h1]Special Thanks[/h1]
 
-[c/946ca0:Renk] - code, help with porting
-[c/4be8d6:Seasalt] - sprites
-[c/545454:Triangle] - sprites
-[c/23d022:Hugekraken] - sprites
-[c/ac4949:HondaCivicMoment] - sprites
-[c/fb8904:Taco] - concepts, sprites
-[c/fbeb04:BananaLizard] - making the mod's banger music
+HUGE thanks to all the people who have helped out on the mod, it is really appreciated!
 
-And of course, thanks to everyone who has supported the mod, whether it be from testing, ideas, feedback, ect
+Thanks to Renk and Graydee for helping with coding
+Thanks to Seasalt, Triangle, Hugekraken, Taco, HondaCivicMoment, Waasephi, and Heart Plus up! for making awesome sprites
+Thanks to Bananalizard for composing the mod's amazing OST
 
-Other stuff:
+And of course, thanks to everyone else who has supported the mod!
 
-If you want more detailed information on the mod, you can visit the terraria forums page here: [url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Forum Page [/url][/h1]
+[h1]Other Stuff[/h1]
 
-You can also listen to the mods soundtrack here: [url=https://www.youtube.com/watch?v=Qbl2oc3A0jA&list=PLTkIRNhpw-3ELxu-tYd05X_DAXIYp3qg2] Youtube Playlist [/url][/h1]
+If you want more detailed information on the mod, or a better place to leave feedback, you can visit the mod's terraria forums page here: [url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Forum Page [/url][/h1]
+
+You can also listen to and support bananalizard's soundtrack here:
+[url=https://www.youtube.com/watch?v=Qbl2oc3A0jA&list=PLTkIRNhpw-3ELxu-tYd05X_DAXIYp3qg2] Youtube Playlist [/url][/h1]
+[url=https://bananalizard.bandcamp.com/album/spooky-mod] Bandcamp [/url][/h1]
+
 
 
 

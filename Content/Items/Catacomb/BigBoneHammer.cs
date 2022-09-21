@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneHammer : SwingWeaponBase
 	{
-		public override int Length => 40;
+		public override int Length => 55;
 		public override int TopSize => 25;
 		public override float SwingDownSpeed => 12f;
 		public override bool CollideWithTiles => true;
@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Skull Smasher");
-			Tooltip.SetDefault("Left click to swing the hammer and create shockwave explosions on enemy hits"
+			Tooltip.SetDefault("Left click to swing the hammer and create explosions on enemy hits"
 			+ "\nHold down right click to swing the hammer around you and charge it up" 
 			+ "\nOnce fully charged, releasing right click will throw the hammer");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -30,14 +30,14 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetDefaults()
 		{
-			Item.damage = 200; 
+			Item.damage = 250; 
 			Item.DamageType = DamageClass.Melee;
 			Item.noMelee = false;
 			Item.noUseGraphic = false;
 			Item.width = 82;           
 			Item.height = 76;
-			Item.useTime = 120;
-			Item.useAnimation = 120;
+			Item.useTime = 75;
+			Item.useAnimation = 75;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 12;
 			Item.rare = ItemRarityID.Yellow;  
@@ -54,19 +54,27 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			for (int i = 0; i < 1000; i++)
 			{
-				if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj>())
+				if (Main.projectile[i].active && (Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj>() ||
+				Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj2>()))
 				{
 					return false;
 				}
 			}
 
+			return true;
+		}
+
+		public override void UseAnimation(Player player)
+		{
+			hasHitSomething = false;
+
 			if (player.altFunctionUse == 2)
 			{
 				Item.noMelee = true;
 				Item.noUseGraphic = true;
-				Item.autoReuse = false;
-				Item.useTime = 70;
-				Item.useAnimation = 70;
+				Item.autoReuse = true;
+				Item.useTime = 75;
+				Item.useAnimation = 75;
 				Item.useStyle = ItemUseStyleID.Shoot;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
 				Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
@@ -77,20 +85,13 @@ namespace Spooky.Content.Items.Catacomb
 				Item.noMelee = false;
 				Item.noUseGraphic = false;
 				Item.autoReuse = true;
-				Item.useTime = 100;
-				Item.useAnimation = 100;
+				Item.useTime = 75;
+				Item.useAnimation = 75;
 				Item.useStyle = SwingUseStyle;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
 				Item.shoot = 0;
 				Item.shootSpeed = 0f;
 			}
-
-			return true;
-		}
-
-		public override void UseAnimation(Player player)
-		{
-			hasHitSomething = false;
 
 			base.UseAnimation(player);
 		}
@@ -107,7 +108,7 @@ namespace Spooky.Content.Items.Catacomb
 
 				SoundEngine.PlaySound(SoundID.Item62, player.itemLocation);
 
-				for (int i = 0; i < 20; i++)
+				for (int numDusts = 0; numDusts < 20; numDusts++)
 				{
 					Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.YellowTorch, 
 					Main.rand.Next(-20, 20), Main.rand.Next(-10, 10), 0, Color.Transparent, 2.5f)].noGravity = true;
@@ -124,9 +125,11 @@ namespace Spooky.Content.Items.Catacomb
 			{
 				hasHitSomething = true;
 
-				Rectangle hitbox = GetHitbox(player);
+				SoundEngine.PlaySound(SoundID.Item62, target.Center);
 
 				SpookyPlayer.ScreenShakeAmount = 8;
+
+				Rectangle hitbox = GetHitbox(player);
 
 				SoundEngine.PlaySound(SoundID.Item62, player.itemLocation);
 
@@ -138,6 +141,9 @@ namespace Spooky.Content.Items.Catacomb
 					Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.YellowTorch, 
 					Main.rand.Next(-20, 20), Main.rand.Next(-10, 10), 0, Color.Transparent, 2.5f)].noGravity = true;
 				}
+
+				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
+                ModContent.ProjectileType<BigBoneHammerHit>(), Item.damage * 5, 0f, Main.myPlayer, 0, 0);
 			}
 
 			base.OnHitNPC(player, target, damage, knockBack, crit);

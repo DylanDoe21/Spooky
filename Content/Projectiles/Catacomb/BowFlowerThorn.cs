@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class BowFlowerThorn : ModProjectile
@@ -69,7 +71,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-			target.AddBuff(BuffID.Bleeding, 180);
+			target.AddBuff(ModContent.BuffType<ThornMark>(), 180);
         }
 
 		//The AI of the projectile

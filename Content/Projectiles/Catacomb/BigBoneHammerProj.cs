@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -28,8 +27,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 76;
-            Projectile.height = 76;
+            Projectile.width = 82;
+            Projectile.height = 82;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.netImportant = true;
@@ -68,23 +67,32 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
 
-            return true;
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            int frameHeight = tex.Height / Main.projFrames[Projectile.type];
+            Rectangle frame = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+
+            Main.spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value, Projectile.Center - new Vector2(0, 0) - Main.screenPosition, frame, 
+            lightColor, Projectile.rotation, new Vector2(0, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
+
+            return false;
         }
 
         const int TrailLength = 12;
 
         private void ManageCaches()
         {
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * Projectile.width;
+
             if (cache == null)
             {
                 cache = new List<Vector2>();
                 for (int i = 0; i < TrailLength; i++)
                 {
-                    cache.Add(Projectile.Center);
+                    cache.Add(Projectile.Center + offset);
                 }
             }
 
-            cache.Add(Projectile.Center);
+            cache.Add(Projectile.Center + offset);
 
             while (cache.Count > TrailLength)
             {
@@ -97,7 +105,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
                 //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
-                return Color.Lerp(Color.Yellow, Color.Orange, factor.X) * factor.X;
+                return Color.Lerp(Color.Black, Color.Yellow, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -125,72 +133,59 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation -= owner.direction == 1 ? MathHelper.PiOver2 : 0f;
             }
 
-            if (Projectile.ai[0] == 0)
+            if (Main.mouseRight)
             {
-                if (Main.mouseRight)
+                if (owner.direction == 1)
                 {
-                    Projectile.timeLeft = 10000;
-
-                    Projectile.localAI[0]++;
-
-                    if (Projectile.localAI[0] < 180)
-                    {
-                        Speed += 0.002f;
-                        TrailSize += 0.12f;
-                    }
-
-                    if (Projectile.localAI[0] == 180)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item79, Projectile.Center);
-                    }
-
-                    SetProjectilePosition(owner);
-
-                    SetOwnerAnimation(owner);
+                    owner.itemRotation = Projectile.rotation + 3.14f;
+                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 3.14f);
+                }
+                else
+                {
+                    owner.itemRotation = Projectile.rotation + 2.14f;
+                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
                 }
 
-                if (Projectile.localAI[0] >= 180 && Main.mouseRightRelease)
+                Projectile.timeLeft = 10000;
+
+                Projectile.localAI[0]++;
+
+                if (Projectile.localAI[0] < 120)
                 {
-                    SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
-
-                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                    ShootSpeed.Normalize();
-
-                    ShootSpeed.X *= 55;
-                    ShootSpeed.Y *= 55;
-
-                    Projectile.velocity.X = ShootSpeed.X;
-                    Projectile.velocity.Y = ShootSpeed.Y;
-
-                    Projectile.ai[0] = 1;
+                    Speed += 0.003f;
+                    TrailSize += 0.12f;
                 }
 
-                if (Projectile.localAI[0] > 2 && Projectile.localAI[0] < 180 && Main.mouseRightRelease)
+                if (Projectile.localAI[0] == 120)
                 {
-                    Projectile.Kill();
+                    SoundEngine.PlaySound(SoundID.Item35, Projectile.Center);
                 }
+
+                SetProjectilePosition(owner);
+
+                SetOwnerAnimation(owner);
             }
 
-            if (Projectile.ai[0] == 1)
+            if (Projectile.localAI[0] >= 120 && Main.mouseRightRelease)
             {
-                Projectile.rotation += 0.5f * (float)Projectile.direction;
+                SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                Projectile.localAI[1]++;
+                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                ShootSpeed.Normalize();
 
-                if (Projectile.localAI[1] >= 30)
-                {
-                    Vector2 ReturnSpeed = owner.Center - Projectile.Center;
-                    ReturnSpeed.Normalize();
+                ShootSpeed.X *= 55;
+                ShootSpeed.Y *= 55;
+                        
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
 
-                    ReturnSpeed *= 55;
+                Projectile.Kill();
+            }
 
-                    Projectile.velocity = ReturnSpeed;
-
-                    if (Projectile.Hitbox.Intersects(owner.Hitbox))
-                    {
-                        Projectile.Kill();
-                    }
-                }
+            //kill projectile if you release before its charged
+            if (Projectile.localAI[0] > 2 && Projectile.localAI[0] < 120 && Main.mouseRightRelease)
+            {
+                Projectile.Kill();
             }
         }
 
@@ -204,7 +199,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.velocity *= 0f;
 
-            Projectile.Center = rotatedPoint + (Projectile.rotation + -MathHelper.PiOver4).ToRotationVector2() * Projectile.width;
+            Projectile.Center = owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, owner.itemRotation + 3.14f);
         }
 
         private void SetOwnerAnimation(Player owner)

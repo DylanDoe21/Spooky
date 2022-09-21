@@ -6,9 +6,9 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -40,11 +40,17 @@ namespace Spooky.Content.Items.BossBags
         {
 			player.TryGettingDevArmor(player.GetSource_OpenItem(Type));
 
+			//normal drops
+            int[] MainItem = new int[] { ModContent.ItemType<BigBoneHammer>(), ModContent.ItemType<BigBoneBow>(), 
+            ModContent.ItemType<BigBoneStaff>(), ModContent.ItemType<BigBoneScepter>() };
+
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<BoneMask>());
 		}
 
-		public override int BossBagNPC => ModContent.NPCType<Moco>();
+		public override int BossBagNPC => ModContent.NPCType<BigBone>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

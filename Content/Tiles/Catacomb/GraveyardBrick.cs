@@ -14,10 +14,22 @@ namespace Spooky.Content.Tiles.Catacomb
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			AddMapEntry(new Color(90, 99, 105));
+			AddMapEntry(new Color(108, 66, 48));
 			ItemDrop = ModContent.ItemType<GraveyardBrickItem>();
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}
-	}
+
+		/*
+        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+        {
+			return false;
+        }
+
+        public override bool CanExplode(int i, int j)
+        {
+			return false;
+        }
+		*/
+    }
 }

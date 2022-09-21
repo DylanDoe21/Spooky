@@ -31,6 +31,7 @@ namespace Spooky.Content.Items.SpookyBiome
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
             player.GetModPlayer<SpookyPlayer>().TreatBag = true;
+            
             bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<TreatBag>()] <= 0;
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{

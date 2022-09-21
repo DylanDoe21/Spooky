@@ -388,8 +388,7 @@ namespace Spooky.Core
                 // Rotates by pi/2 - (factor * pi) so that when the factor is 0 we get B and when it is 1 we get E.
                 float angle = MathHelper.PiOver2 - (rotationFactor * MathHelper.Pi);
 
-
-				        Vector2 circlePoint = trailTipPosition + (trailTipNormal.RotatedBy(angle) * (trailWidthFunction?.Invoke(1) ?? 1));
+				Vector2 circlePoint = trailTipPosition + (trailTipNormal.RotatedBy(angle) * (trailWidthFunction?.Invoke(1) ?? 1));
 
                 // Handily, the rotation factor can also be used as a texture coordinate because it is a measure of how far around the tip a point is.
                 Vector2 circleTexCoord = new Vector2(rotationFactor, 1);
