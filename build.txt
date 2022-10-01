@@ -1,6 +1,6 @@
 displayName = [c/FFA01C:Spooky Mod]
 author = DylanDoe21 and Contributers
-version = 0.4
+version = 0.4.1
 
 homepage = https://forums.terraria.org/index.php?threads/spooky-mod.111311/
 

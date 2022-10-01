@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Tiles.Catacomb;
 
@@ -28,7 +29,10 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
-            //player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            if (!Flags.downedBigBone)
+            {
+                player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            }
         }
 
         public override bool IsBiomeActive(Player player)

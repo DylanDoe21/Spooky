@@ -56,17 +56,17 @@ namespace Spooky.Content.NPCs.Ghasts
 
         public override string GetChat()
 		{
-            return "It's a strange chest. Will you open it?";
+            return "It's a strange chest. Maybe it will do something in the future?";
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "Yes";
+			button = "";
 		}
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
         {
-            if (firstButton) //&& !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+            if (firstButton)
             {
                 ActivateGhostEvent = true;
             }

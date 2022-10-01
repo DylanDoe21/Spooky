@@ -17,7 +17,8 @@ namespace Spooky.Content.Items.Catacomb.Boss
 			DisplayName.SetDefault("Flower Shot");
 			Tooltip.SetDefault("Left click to rapidly fire piercing roses that can slightly home on enemies"
 			+ "\nRight click to shoot a stationary thorn flower that inflicts thorn mark on enemies"
-			+ "\nEnemies with the thorn mark debuff will take more damage from this weapon");
+			+ "\nEnemies with the thorn mark debuff will take more damage from this weapon"
+			+ "\n10% chance to not consume arrows on use");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -41,7 +42,7 @@ namespace Spooky.Content.Items.Catacomb.Boss
 			Item.useAmmo = AmmoID.Arrow;
 		}
 
-		public override Vector2? HoldoutOffset()
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-5, 0);
 		}
@@ -75,6 +76,11 @@ namespace Spooky.Content.Items.Catacomb.Boss
 			}
 
 			return true;
+		}
+
+		public override bool CanConsumeAmmo(Item ammo, Player player)
+		{
+			return Main.rand.Next(10) != 0;
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 

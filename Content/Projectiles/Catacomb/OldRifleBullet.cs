@@ -31,6 +31,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.penetrate = 1;
             Projectile.extraUpdates = 5;
             Projectile.timeLeft = 180;
+            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -79,7 +80,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
             //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 3 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
             {
                 //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Red, Color.Brown, factor.X) * factor.X;

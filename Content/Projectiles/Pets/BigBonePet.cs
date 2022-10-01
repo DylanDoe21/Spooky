@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.Pets
         {
             Player player = Main.player[Projectile.owner];
 
-            //only draw if the parent is active
+            //only draw if the owner exists
             if (!player.dead)
 			{
                 Vector2 rootPosition = player.Center;
@@ -100,10 +100,11 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.ai[0] = 1f;
             }
 
-            float speed = 8f;
+            float speed = 10f;
+
             if (Projectile.ai[0] == 1f)
             {
-                speed = 15f;
+                speed = 35f;
             }
 
             Vector2 center = Projectile.Center;
@@ -121,9 +122,9 @@ namespace Spooky.Content.Projectiles.Pets
             direction.X += ((10 + num * 40) * player.direction);
             direction.Y -= 70f;
             float distanceTo = direction.Length();
-            if (distanceTo > 200f && speed < 9f)
+            if (distanceTo > 200f && speed < 30f)
             {
-                speed = 9f;
+                speed = 30f;
             }
             if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
             {

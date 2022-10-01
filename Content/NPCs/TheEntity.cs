@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs
                     if (NPC.localAI[1] < 5)
                     {
                         //teleport after a certain time or if the player goes too far
-                        if (NPC.localAI[0] >= 450 || NPC.Distance(player.Center) >= 3000f)
+                        if (NPC.localAI[0] >= 450 || NPC.Distance(player.Center) >= 1500f)
                         {
                             Teleport(player, 0);
                             NPC.localAI[0] = 0;
@@ -117,6 +117,7 @@ namespace Spooky.Content.NPCs
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.ai[0]++;
+                        NPC.netUpdate = true;
                     }
 
                     break;
@@ -131,7 +132,7 @@ namespace Spooky.Content.NPCs
                     //lol
                     NPC.damage = 9999999;
 
-                    if (NPC.localAI[0] > 300f)
+                    if (NPC.localAI[0] > 250f)
                     {
                         NPC.localAI[0] += 35f;
                     }
@@ -148,35 +149,44 @@ namespace Spooky.Content.NPCs
                         dust.scale = 0.5f;
                     }
 
-                    if (player.Distance(NPC.Center) <= NPC.localAI[0] || NPC.Distance(player.Center) >= 3500f)
+                    if (player.Distance(NPC.Center) <= NPC.localAI[0])
                     {
-                        NPC.noGravity = true;
-                        NPC.noTileCollide = true;
-
-                        Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
-                        ChargeDirection.Normalize();
-
-                        ChargeDirection.X *= 100;
-                        ChargeDirection.Y *= 100;
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
-                    }
-                    else
-                    {
-                        NPC.noGravity = false;
-                        NPC.noTileCollide = false;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
                     }
 
                     break;
                 }
+
+                case 2:
+                {
+                    NPC.noGravity = true;
+                    NPC.noTileCollide = true;
+
+                    Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                    ChargeDirection.Normalize();
+
+                    ChargeDirection.X *= 100;
+                    ChargeDirection.Y *= 100;
+                    NPC.velocity.X = ChargeDirection.X;
+                    NPC.velocity.Y = ChargeDirection.Y;
+
+                    if (NPC.ai[1] == 1)
+                    {
+                        NPC.active = false;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }   
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (NPC.ai[0] >= 1)
+            if (NPC.ai[0] == 2)
             {
-                NPC.active = false;
+                NPC.ai[1] = 1;
                 NPC.netUpdate = true;
             }
         }

@@ -36,7 +36,7 @@ new little bone mechanic:
 
 Eye Valley Update:
 
-new quest npc: 
+new quest npc:
 -little eye, an eye biome version of little bone (is basically an eye in a flower pot)
 -main gimmick is he gives you small quests and gives you the keys to unlock the eye biome chests as a reward for said quests
 

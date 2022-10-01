@@ -6,6 +6,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Projectiles.SpookyBiome;
  
 namespace Spooky.Content.Items.Catacomb
 {
@@ -15,7 +16,7 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			DisplayName.SetDefault("Cat O' Nine Tails");
 			Tooltip.SetDefault("Your summons will focus struck enemies"
-			+ "\nA very short range whip that thrusts out multiple whips at once"
+			+ "\nSwings out multiple short range whips at once"
 			+ "\n'There is no safeword'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -36,17 +37,17 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item152;
-			Item.shoot = ModContent.ProjectileType<NineTailsProj>();
+			Item.shoot = ModContent.ProjectileType<Blank>();
 			Item.shootSpeed = 3;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+			for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
 			{
 				Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 				int i = Main.myPlayer;
-				float num72 = Item.shootSpeed + Main.rand.Next(-1, 1);
+				float num72 = Item.shootSpeed - Main.rand.Next(1, 3);
 				int num73 = damage;
 				float num74 = knockback;
 				float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
@@ -72,7 +73,7 @@ namespace Spooky.Content.Items.Catacomb
 				Vector2 vector15 = new Vector2(num78, num79).SafeNormalize(Vector2.UnitY) * num72;
 				vector14 = vector14.SafeNormalize(vector15) * num72;
 				vector14 = Vector2.Lerp(vector14, vector15, Main.rand.NextFloat(-0.25f, 0.25f));
-				Projectile.NewProjectile(source, player.Center, vector14, type, num73, num74, i, 0f, 0f);
+				Projectile.NewProjectile(source, player.Center, vector14, ModContent.ProjectileType<NineTailsProj>(), num73, num74, i, 0f, 0f);
 			}
 			
 			return true;

@@ -91,7 +91,6 @@ namespace Spooky.Content.Generation
                     if (Y > terrainContour[X])
                     {
                         WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
-                        Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyMush>();
                         Main.tile[X, Y + 5].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
                     }
                 }

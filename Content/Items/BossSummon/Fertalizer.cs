@@ -36,7 +36,12 @@ namespace Spooky.Content.Items.BossSummon
 			{
 				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlowerPot>()) 
 				{
-                    if (Main.npc[k].Distance(player.Center) > 320f) 
+                    if (Main.npc[k].Distance(player.Center) > 320f)
+                    {
+                        return false;
+                    }
+
+                    if (Main.npc[k].ai[0] > 0) 
                     {
                         return false;
                     }

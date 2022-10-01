@@ -89,7 +89,7 @@ namespace Spooky.Core
 			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkinP2>();
 			Func<bool> PumpkinDowned = () => Flags.downedRotGourd;
 			int PumpkinSummonItem = ModContent.ItemType<RottenSeed>();
-			string PumpkinSpawnInfo = $"Use the [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
+			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
 			string PumpkinDespawnInfo = "Rot Gourd has stomped all players";
 
 			List<int> PumpkinDrops = new List<int>()
@@ -182,7 +182,7 @@ namespace Spooky.Core
 			int BigBone = ModContent.NPCType<Content.NPCs.Boss.BigBone.BigBone>();
 			Func<bool> BigBoneDowned = () => Flags.downedBigBone;
 			int BigBoneSummonItem = ModContent.ItemType<Fertalizer>();
-			string BigBoneSpawnInfo = $"Use the [i:{BigBoneSummonItem}] at the giant flower pot in the catacombs arena";
+			string BigBoneSpawnInfo = $"Use [i:{BigBoneSummonItem}] while standing at the giant flower pot in the catacombs arena";
 			string BigBoneDespawnInfo = "Big Bone has overgrown all players";
 
 			List<int> BigBoneDrops = new List<int>()

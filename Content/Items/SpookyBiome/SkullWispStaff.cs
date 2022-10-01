@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetDefaults()
 		{
-			Item.damage = 10;
+			Item.damage = 7;
 			Item.mana = 12;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
