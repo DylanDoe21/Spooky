@@ -100,8 +100,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A fast and calculated creature that will work together with Boro to defend its territory. They constantly grow as they devour each other's flesh. A very peculiar relationship.")
+				new FlavorTextBestiaryInfoElement("A fast and calculated creature that will work together with Boro to defend it's territory. They constantly grow as they devour each other's flesh. A very peculiar relationship."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -210,7 +210,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 				if (NPC.ai[2] >= 240)
 				{
 					NPC.life = 0;
-					Main.NewText("Orro has been defeated!", 171, 64, 255);
 
                     if (Main.netMode != NetmodeID.Server)
                     {
@@ -262,7 +261,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                //use ai 1 to track if the segments are spawned or not
                 if (!spawned)
                 {
                     NPC.realLife = NPC.whoAmI;

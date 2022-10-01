@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 using Spooky.Content.Tiles.Catacomb.Ambient;
 
 namespace Spooky.Content.Tiles.Catacomb
@@ -22,17 +24,15 @@ namespace Spooky.Content.Tiles.Catacomb
 			HitSound = SoundID.Tink;
 		}
 
-		/*
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
         {
-			return false;
+			return Flags.downedBigBone;
         }
 
         public override bool CanExplode(int i, int j)
         {
-			return false;
+			return Flags.downedBigBone;
         }
-		*/
 
 		public override void RandomUpdate(int i, int j)
         {

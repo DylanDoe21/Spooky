@@ -35,8 +35,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("These weird zombies seem to be controlled by pumpkin roots that are constantly growing inside of them.")
+				new FlavorTextBestiaryInfoElement("These weird zombies seem to be controlled by pumpkin roots that are constantly growing inside of them."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

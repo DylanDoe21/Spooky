@@ -39,8 +39,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.")
+				new FlavorTextBestiaryInfoElement("A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

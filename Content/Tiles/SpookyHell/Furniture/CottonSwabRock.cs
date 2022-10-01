@@ -28,5 +28,20 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<CottonSwab>());
 		}
+
+        public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled  = true;
+			player.cursorItemIconID = ModContent.ItemType<CottonSwab>();
+			player.cursorItemIconText = "";
+		}
+
+        public override bool RightClick(int i, int j)
+		{
+            WorldGen.KillTile(i, j);
+
+            return true;
+        }
     }
 }

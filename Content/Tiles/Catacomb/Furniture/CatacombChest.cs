@@ -248,4 +248,34 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			}
 		}
 	}
+
+	public class CatacombChest2 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
+
+	public class CatacombChest3 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
+
+	public class CatacombChest4 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
+
+	public class CatacombChest5 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
+
+	public class CatacombChest6 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
+
+	public class CatacombChest7 : CatacombChest
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/CatacombChest";
+	}
 }

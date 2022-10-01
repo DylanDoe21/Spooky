@@ -36,8 +36,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("Cute and not very friendly, these bats dwell in the spooky forest, swarming any intruder.")
+				new FlavorTextBestiaryInfoElement("Cute and not very friendly, these bats dwell in the spooky forest, swarming any intruder."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

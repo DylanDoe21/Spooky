@@ -34,8 +34,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A small and squishy pumpkin that can be seen hopping around in the spooky forest. No one knows if it is a pumpkin or a slime. Or maybe both?")
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+				new FlavorTextBestiaryInfoElement("A small and squishy pumpkin that can be seen hopping around in the spooky forest. No one knows if it is a pumpkin or a slime. Or maybe both?"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

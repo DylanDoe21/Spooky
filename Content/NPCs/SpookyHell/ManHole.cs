@@ -41,8 +41,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("These horrid mouths form on the ground in the living hell, and can be very dangerous to unsuspecting explorers. They can also spit toxic saliva to digest prey from afar.")
+				new FlavorTextBestiaryInfoElement("These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit toxic saliva to digest prey from afar."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

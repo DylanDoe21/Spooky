@@ -45,6 +45,23 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 
 			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 		}
+
+		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
+			Tile tileAbove = Framing.GetTileSafely(i, j - 1);
+			int type = -1;
+			if (tileAbove.HasTile && !tileAbove.BottomSlope) 
+            {
+				type = tileAbove.TileType;
+			}
+
+			if (tileAbove.TileType == ModContent.TileType<CatacombBarrier>() || tileAbove.TileType == ModContent.TileType<CatacombBarrier2>() || tileAbove.TileType == ModContent.TileType<CatacombBarrier3>())
+            {
+				WorldGen.KillTile(i, j);
+			}
+
+			return true;
+		}
 	}
 
 	public class CatacombRoot2 : CatacombRoot1

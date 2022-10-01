@@ -21,8 +21,10 @@ namespace Spooky.Content.Biomes
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiomeIcon";
-        public override string BackgroundPath => base.BackgroundPath;
-        public override Color? BackgroundColor => Color.Orange;
+        public override string MapBackground => BackgroundPath;
+		public override string BackgroundPath => base.BackgroundPath;
+		public override Color? BackgroundColor => base.BackgroundColor;
+
 
         public override void OnInBiome(Player player)
         {
@@ -34,7 +36,8 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>();
+            bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() || 
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>();
 
             return BiomeCondition;
         }

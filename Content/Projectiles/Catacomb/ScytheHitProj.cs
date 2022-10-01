@@ -23,10 +23,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (target.life <= 0)
+            Player player = Main.player[Projectile.owner];
+
+            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<SoulBolt>(), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<SoulBolt>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
             }
         }
     }

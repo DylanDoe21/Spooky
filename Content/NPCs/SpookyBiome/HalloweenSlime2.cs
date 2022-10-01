@@ -32,10 +32,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("They may look cute at first, but even after they attack you they still look cute.")
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+				new FlavorTextBestiaryInfoElement("They may look cute at first, but even after they attack you they still look cute."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

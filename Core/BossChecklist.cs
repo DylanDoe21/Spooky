@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Catacomb.Boss;
 using Spooky.Content.Items.SpookyBiome.Boss;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Tiles.MusicBox;
@@ -84,7 +86,7 @@ namespace Spooky.Core
 
 			//Rot Gourd
 			string PumpkinName = "Rot Gourd";
-			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkin>();
+			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkinP2>();
 			Func<bool> PumpkinDowned = () => Flags.downedRotGourd;
 			int PumpkinSummonItem = ModContent.ItemType<RottenSeed>();
 			string PumpkinSpawnInfo = $"Use the [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
@@ -92,10 +94,6 @@ namespace Spooky.Core
 
 			List<int> PumpkinDrops = new List<int>()
 			{
-				ModContent.ItemType<SpookyPumpkinRelicItem>(),
-				ModContent.ItemType<RottenGourd>(),
-				ModContent.ItemType<BossBagPumpkin>(),
-				ModContent.ItemType<PumpkinBossBox>(),
 				ModContent.ItemType<RottenChunk>(),
 				ModContent.ItemType<PumpkinAxe>(),
 				ModContent.ItemType<PumpkinSpear>(),
@@ -104,7 +102,8 @@ namespace Spooky.Core
 				ModContent.ItemType<PumpkinStaff>(),
 				ModContent.ItemType<PumpkinTome>(),
 				ModContent.ItemType<FlyScroll>(),
-				ModContent.ItemType<PumpkinWhip>()
+				ModContent.ItemType<PumpkinWhip>(),
+				ModContent.ItemType<PumpkinBossBox>()
 			};
 
 			var PumpkinPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
@@ -123,17 +122,14 @@ namespace Spooky.Core
 			int Moco = ModContent.NPCType<Content.NPCs.Boss.Moco.Moco>();
 			Func<bool> MocoDowned = () => Flags.downedMoco;
 			int MocoSummonItem = ModContent.ItemType<CottonSwab>();
-			string MocoSpawnInfo = $"Use the [i:{MocoSummonItem}] at the nose shrine in the living hell";
+			string MocoSpawnInfo = $"Use the [i:{MocoSummonItem}] at the nose shrine in the valley of eyes";
 			string MocoDespawnInfo = "Moco has sneezed on all players";
 
 			List<int> MocoDrops = new List<int>()
 			{
-				ModContent.ItemType<MocoRelicItem>(),
-				ModContent.ItemType<MocoTissue>(),
-				ModContent.ItemType<BossBagMoco>(),
-				ModContent.ItemType<MocoBox>(),
 				ModContent.ItemType<BoogerBlaster>(),
-				ModContent.ItemType<BoogerFlail>()
+				ModContent.ItemType<BoogerFlail>(),
+				ModContent.ItemType<MocoBox>()
 			};
 
 			var MocoPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
@@ -152,22 +148,22 @@ namespace Spooky.Core
 			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>();
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
-			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the living hell";
+			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes";
 			string OrroboroDespawnInfo = "Orro-Boro has eaten all players";
 
 			List<int> OrroboroDrops = new List<int>()
 			{
-				ModContent.ItemType<OrroboroRelicItem>(),
 				ModContent.ItemType<OrroboroEye>(),
+				ModContent.ItemType<OrroboroRelicItem>(),
 				ModContent.ItemType<BossBagOrroboro>(),
-				ModContent.ItemType<SpookyHellBossBox>(),
 				ModContent.ItemType<OrroboroChunk>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),
 				ModContent.ItemType<EyeRocketLauncher>(),
 				ModContent.ItemType<MouthFlamethrower>(),
 				ModContent.ItemType<LeechStaff>(),
-				ModContent.ItemType<LeechWhip>()
+				ModContent.ItemType<LeechWhip>(),
+				ModContent.ItemType<SpookyHellBossBox>()
 			};
 
 			var OrroboroPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
@@ -187,11 +183,15 @@ namespace Spooky.Core
 			Func<bool> BigBoneDowned = () => Flags.downedBigBone;
 			int BigBoneSummonItem = ModContent.ItemType<Fertalizer>();
 			string BigBoneSpawnInfo = $"Use the [i:{BigBoneSummonItem}] at the giant flower pot in the catacombs arena";
-			string BigBoneDespawnInfo = "Big Bone has protected the catacombs";
+			string BigBoneDespawnInfo = "Big Bone has overgrown all players";
 
 			List<int> BigBoneDrops = new List<int>()
 			{
-				ModContent.ItemType<BossBagBigBone>(),
+				ModContent.ItemType<BigBoneHammer>(),
+				ModContent.ItemType<BigBoneBow>(),
+				ModContent.ItemType<BigBoneStaff>(),
+				ModContent.ItemType<BigBoneScepter>(),
+				ModContent.ItemType<BigBoneBox>()
 			};
 
 			var BigBonePortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 

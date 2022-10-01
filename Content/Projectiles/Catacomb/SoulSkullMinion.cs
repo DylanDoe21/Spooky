@@ -79,7 +79,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			foreach (NPC npc in Main.npc) 
             {
 				//if npc is a valid target (active, not friendly, and not a critter)
-				if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage)
+				if (npc.active && !npc.friendly && !npc.dontTakeDamage)
                 {
 					//if npc is within 50 blocks
 					float dist = Projectile.Distance(npc.Center);
@@ -98,7 +98,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			NPC target = (Main.npc[(int)Projectile.ai[1]] ?? new NPC());
 
-            if (target.active && !target.friendly && target.damage > 0 && !target.dontTakeDamage)
+            if (target.active && !target.friendly && !target.dontTakeDamage)
             {
                 shootTimer++;
                 if (shootTimer == 60)

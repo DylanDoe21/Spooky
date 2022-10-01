@@ -28,7 +28,7 @@ namespace Spooky.Core
             ProjectileID.Headstone, ProjectileID.Gravestone, ProjectileID.Obelisk, ProjectileID.RichGravestone1, ProjectileID.RichGravestone2,
             ProjectileID.RichGravestone3, ProjectileID.RichGravestone4, ProjectileID.RichGravestone5 };
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome>()) || Main.LocalPlayer.InModBiome(ModContent.GetInstance<DeepCatacombBiome>()))
+			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome>()))
             {
                 if (Gravestones.Contains(projectile.type))
                 {

@@ -28,7 +28,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.aiStyle = -1;
 		}
 
-        //make this projectile not able to cut tiles
         public override bool? CanCutTiles()
         {
             return false;

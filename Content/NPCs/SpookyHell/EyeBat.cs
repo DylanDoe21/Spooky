@@ -42,8 +42,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions.")
+				new FlavorTextBestiaryInfoElement("These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

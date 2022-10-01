@@ -6,8 +6,8 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Catacomb.Boss;
 using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.Items.BossBags

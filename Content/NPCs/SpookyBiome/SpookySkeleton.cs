@@ -33,10 +33,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("These spooky skeletons dwell underneath the spooky forest. They may look weak, but are not to be underestimated.")
+				new FlavorTextBestiaryInfoElement("These spooky skeletons dwell underneath the spooky forest. They may look weak, but are not to be underestimated."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

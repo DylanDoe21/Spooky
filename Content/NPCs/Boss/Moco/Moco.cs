@@ -34,6 +34,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
+        Vector2 SaveNPCPosition;
+
         public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/MocoSneeze1", SoundType.Sound);
         public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/MocoSneeze2", SoundType.Sound);
         public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/MocoSneeze3", SoundType.Sound);
@@ -95,8 +97,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly.")
+				new FlavorTextBestiaryInfoElement("The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -121,7 +123,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (Transition && NPC.ai[1] > 120 && NPC.ai[1] < 250)
+            if (NPC.ai[0] == -1 && (NPC.localAI[0] > 120 && NPC.localAI[0] < 240))
             {
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
                 Texture2D angerTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoAngry").Value;
@@ -140,7 +142,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void FindFrame(int frameHeight)
         {
-            if (NPC.ai[0] <= 2)
+            if (NPC.ai[0] <= 2 && NPC.ai[0] >= 0)
             {
                 //normal animation
                 NPC.frameCounter += 1;
@@ -162,7 +164,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 
             //front facing anim
-            if (NPC.ai[0] >= 3)
+            if (NPC.ai[0] >= 3 || NPC.ai[0] == -1)
             {
                 //normal animation
                 NPC.frameCounter += 1;
@@ -207,68 +209,81 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
             }
 
-            if (NPC.life < (NPC.lifeMax / 2) && !Phase2)
+            //set to transition
+            if (NPC.life < (NPC.lifeMax / 2) && !Phase2 && NPC.ai[0] != -1)
             {
-                NPC.velocity *= 0;
-                NPC.rotation = 0;
-                NPC.ai[0] = 3;
-
-                AfterImages = false;
-                Sneezing = false;
-                Transition = true;
-                NPC.immortal = true;
-                NPC.dontTakeDamage = true;
-                NPC.noGravity = true;
-
-                NPC.ai[1]++;
-
-                if (NPC.ai[1] == 120)
-                {
-                    SoundEngine.PlaySound(AngrySound, NPC.Center);
-                }
-
-                if (NPC.ai[1] > 120 && NPC.ai[1] < 240)
-                {
-                    Sneezing = true;
-
-                    NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
-                    NPC.Center += Main.rand.NextVector2Square(-2, 2);
-
-                    int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
-                    Main.gore[Steam1].velocity.X *= 2f;
-                    Main.gore[Steam1].velocity.Y *= -2f;
-                    Main.gore[Steam1].alpha = 125;
-
-                    int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
-                    Main.gore[Steam2].velocity.X *= -2f;
-                    Main.gore[Steam2].velocity.Y *= -2f;
-                    Main.gore[Steam2].alpha = 125;
-                }
-
-                if (NPC.ai[1] == 250)
-                {
-                    Sneezing = false;
-                }
-
-                if (NPC.ai[1] >= 280)
-                {
-                    Phase2 = true;
-                    Transition = false;
-
-                    NPC.immortal = false;
-                    NPC.dontTakeDamage = false;
-
-                    NPC.localAI[0] = 0;
-                    NPC.localAI[1] = 0;
-                    NPC.ai[0] = 0;
-                    NPC.netUpdate = true;
-                }
+                NPC.ai[0] = -1;
+                NPC.localAI[0] = 0;
             }
 
-            if (!Transition && !player.dead)
+            if (!player.dead)
             {
                 switch ((int)NPC.ai[0])
                 {
+                    case -1:
+                    {
+                        NPC.velocity *= 0;
+                        NPC.rotation = 0;
+
+                        AfterImages = false;
+                        Sneezing = false;
+                        Transition = true;
+                        NPC.immortal = true;
+                        NPC.dontTakeDamage = true;
+                        NPC.noGravity = true;
+
+                        NPC.localAI[0]++;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SaveNPCPosition = NPC.Center;
+                        }
+
+                        if (NPC.localAI[0] == 120)
+                        {
+                            SoundEngine.PlaySound(AngrySound, NPC.Center);
+                        }
+
+                        if (NPC.localAI[0] > 120 && NPC.localAI[0] < 240)
+                        {
+                            Sneezing = true;
+
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                            NPC.Center += Main.rand.NextVector2Square(-8, 8);
+
+                            int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                            Main.gore[Steam1].velocity.X *= 2f;
+                            Main.gore[Steam1].velocity.Y *= -2f;
+                            Main.gore[Steam1].alpha = 125;
+
+                            int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                            Main.gore[Steam2].velocity.X *= -2f;
+                            Main.gore[Steam2].velocity.Y *= -2f;
+                            Main.gore[Steam2].alpha = 125;
+                        }
+
+                        if (NPC.localAI[0] == 250)
+                        {
+                            Sneezing = false;
+                        }
+
+                        if (NPC.localAI[0] >= 280)
+                        {
+                            Phase2 = true;
+                            Transition = false;
+
+                            NPC.immortal = false;
+                            NPC.dontTakeDamage = false;
+
+                            NPC.ai[0] = 0;
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+
+                            NPC.netUpdate = true;
+                        }
+
+                        break;
+                    }
                     //fly at player, get faster in phase 2
                     case 0:
                     {
@@ -385,9 +400,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         float RotateY = player.Center.Y - vector.Y;
                         NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SaveNPCPosition = NPC.Center;
+                        }
+
                         if (NPC.localAI[0] > 60 && NPC.localAI[0] < 100) 
                         {
-                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-5, 5);
                         }
 
@@ -463,12 +483,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         if (NPC.localAI[0] == 65)
                         {
+                            SaveNPCPosition = NPC.Center;
+
                             NPC.velocity *= 0f;
                         }
 
                         if (NPC.localAI[0] > 65 && NPC.localAI[0] < 100) 
                         {
-                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-5, 5);
                         }
 
@@ -620,9 +642,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         //use attack for longer in phase 2
                         int MaxTime = Phase2 ? 300 : 200;
 
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SaveNPCPosition = NPC.Center;
+                        }
+
                         if (NPC.localAI[0] > 60 && NPC.localAI[0] < MaxTime)
                         {
-                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-5, 5);
                         }
 
@@ -692,6 +719,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         if (NPC.localAI[0] == 60) 
                         {
+                            SaveNPCPosition = NPC.Center;
+
                             NPC.velocity *= 0;
                         }
 
@@ -699,7 +728,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             NPC.rotation = (NPC.Center.X < player.Center.X) ? 80 : -80;
 
-                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-5, 5);
                         }
 
@@ -726,6 +755,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         if (NPC.localAI[0] >= 90)
                         {
+                            Sneezing = true;
+
                             NPC.rotation = (NPC.velocity.X < 0) ? 80 : -80;
 
                             if (NPC.Distance(player.Center) >= 1400f && !SwitchedSides) 
@@ -744,6 +775,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             SwitchedSides = false;
                             AfterImages = false;
+                            Sneezing = false;
                             NPC.localAI[0] = 0;
                             NPC.ai[0] = 0;
                             NPC.netUpdate = true;

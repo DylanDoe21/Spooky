@@ -13,7 +13,7 @@ namespace Spooky.Core
 
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Spooky/SpookyMenuLogo");
         
-        public override int Music => MusicID.ConsoleMenu;
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyMenu");
         
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Content.Backgrounds.SpookyBiome.SpookyForestMenuBG>();
 

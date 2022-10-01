@@ -177,6 +177,7 @@ namespace Spooky.Content.NPCs
             if (NPC.ai[0] >= 1)
             {
                 NPC.active = false;
+                NPC.netUpdate = true;
             }
         }
 

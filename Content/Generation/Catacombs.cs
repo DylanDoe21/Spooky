@@ -8,12 +8,15 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.NPCs.Ghasts;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
+using Spooky.Content.Tiles.Graveyard;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -31,14 +34,16 @@ namespace Spooky.Content.Generation
         //essentially just make the jungles position not near the graveyard/catacombs
         private void ModifyJungleCoordinate(GenerationProgress progress, GameConfiguration configuration)
         {
+            int WorldCenterOffset = (Main.maxTilesX / 2) / 2;
+
             //place biome based on opposite dungeon side
             if (WorldGen.dungeonSide == -1)
 			{
-                WorldGen.jungleOriginX = Main.maxTilesX - 1200;
+                WorldGen.jungleOriginX = (Main.maxTilesX / 2) + WorldCenterOffset;
             }
 			else
 			{
-                WorldGen.jungleOriginX = 1200;
+                WorldGen.jungleOriginX = (Main.maxTilesX / 2) - WorldCenterOffset;
             }
         }
 
@@ -146,6 +151,7 @@ namespace Spooky.Content.Generation
             }
         }
 
+        /*
         private void PlaceGravestones(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = PositionX;
@@ -178,6 +184,7 @@ namespace Spooky.Content.Generation
                 }
             }
         }
+        */
 
         private void PlaceStructures(int X, int Y, int[,] BlocksArray, int[,] ObjectArray)
         {
@@ -267,7 +274,7 @@ namespace Spooky.Content.Generation
                             case 10:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(StructureX, StructureY, 426);
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<CatacombBarrier>());
                                 break;
                             }
                         }
@@ -349,7 +356,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public void GenerateStructures(GenerationProgress progress, GameConfiguration configuration)
+        public void GenerateGraveyardStructures(GenerationProgress progress, GameConfiguration configuration)
         {
             //tiles
             //0 = dont touch
@@ -838,7 +845,8 @@ namespace Spooky.Content.Generation
             }
         }
 
-        private void PlaceCatacombRoom(int X, int Y, int[,] BlocksArray, int[,] ObjectArray, int PillarType)
+        //catacomb stuff
+        private void PlaceCatacombRoom(int X, int Y, int[,] BlocksArray, int[,] ObjectArray, int PillarType, int ChestType)
         {
             for (int PlaceX = 0; PlaceX < BlocksArray.GetLength(1); PlaceX++)
             {
@@ -862,7 +870,7 @@ namespace Spooky.Content.Generation
                             //catacomb brick
                             case 1:
                             {
-                                if (tile.TileType != ModContent.TileType<CatacombBrickMoss>() && tile.HasTile)
+                                if (tile.TileType != ModContent.TileType<CatacombBrickMoss>() && tile.TileType != TileID.Cobweb && tile.HasTile)
                                 {
                                     tile.ClearTile();
                                     WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<CatacombBrick>());
@@ -912,14 +920,21 @@ namespace Spooky.Content.Generation
                             case 7:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(StructureX, StructureY, 426);
+                                if (StructureY >= (int)Main.worldSurface + 200)
+                                {
+                                    WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<CatacombBarrier3>());
+                                }
+                                else
+                                {
+                                    WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<CatacombBarrier2>());
+                                }
                                 break;
                             }
-                            //second barrier
+                            //wood spikes
                             case 8:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(StructureX, StructureY, 426);
+                                WorldGen.PlaceTile(StructureX, StructureY, TileID.WoodenSpikes);
                                 break;
                             }
                             //big bone flower pot
@@ -927,6 +942,13 @@ namespace Spooky.Content.Generation
                             {
                                 tile.ClearTile();
                                 NPC.NewNPC(null, StructureX * 16, (StructureY * 16) + 12, ModContent.NPCType<BigFlowerPot>(), 0, 0f, 0f, 0f, 0f, 255);
+                                break;
+                            }
+                            //ghast chest
+                            case 10:
+                            {
+                                tile.ClearTile();
+                                NPC.NewNPC(null, (StructureX * 16) - 8, (StructureY * 16) + 12, ModContent.NPCType<GhastChest>(), 0, 0f, 0f, 0f, 0f, 255);
                                 break;
                             }
                         }
@@ -1021,7 +1043,22 @@ namespace Spooky.Content.Generation
                             case 9:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<CatacombChest>());
+
+                                ushort[] Chests = new ushort[] { (ushort)ModContent.TileType<CatacombChest>(), 
+                                (ushort)ModContent.TileType<CatacombChest2>(), (ushort)ModContent.TileType<CatacombChest3>(), 
+                                (ushort)ModContent.TileType<CatacombChest4>(), (ushort)ModContent.TileType<CatacombChest5>(), 
+                                (ushort)ModContent.TileType<CatacombChest6>(), (ushort)ModContent.TileType<CatacombChest7>() };
+
+                                WorldGen.PlaceChest(StructureX, StructureY, Chests[ChestType]);
+                                
+                                break;
+                            }
+                            //cotton swab shrine
+                            case 10:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<CottonSwabRock>());
+                                
                                 break;
                             }
                         }
@@ -1042,6 +1079,10 @@ namespace Spooky.Content.Generation
             //4 = dirt
             //5 = cobwebs
             //6 = lava
+            //7 = barrier   
+            //8 = wooden spike
+            //9 = big bone flower pot
+            //10 = ghast chest
 
             //objects
             //0 = dont touch
@@ -1498,19 +1539,19 @@ namespace Spooky.Content.Generation
                 {1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1},
                 {1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1},
                 {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                {1,1,0,0,0,0,0,0,0,0,2,2,0,0,0,0,1,1,1,0,0,0,0,2,2,0,0,0,0,0,0,0,0,1,1},
-                {1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1},
-                {1,1,3,3,3,2,2,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,2,2,3,3,3,1,1},
-                {1,1,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,1,1},
-                {1,1,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,1,1},
-                {1,1,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,1,1},
-                {1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1},
-                {1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1},
-                {1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1},
-                {1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1},
-                {1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,1,1,1,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
+                {1,3,3,3,3,2,2,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,2,2,3,3,3,3,1},
+                {1,0,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,0,1},
+                {1,0,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,0,1},
+                {1,0,0,0,0,1,1,6,6,6,1,1,6,6,6,6,1,1,1,6,6,6,6,1,1,6,6,6,1,1,0,0,0,0,1},
+                {1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1},
+                {1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1},
+                {1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1},
+                {1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1},
+                {1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1},
                 {0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
                 {0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
                 {0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
@@ -1777,7 +1818,7 @@ namespace Spooky.Content.Generation
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,0,5,0,5,0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,0,0,5,0,5,0,5,0,5,5,0,5,0,5,0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,5,5,0,0,5,0,5,5,5,0,0,5,0,5,0,5,0,0,5,5,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,5,0,0,5,5,5,5,0,0,0,5,5,5,0,5,0,0,0,5,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -1903,7 +1944,7 @@ namespace Spooky.Content.Generation
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,0,0,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,5,0,5,0,0,0,0,0,5,5,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,5,0,0,0,5,0,0,0,0,0,5,0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,5,5,0,0,5,5,5,0,0,0,5,5,5,0,5,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -1967,7 +2008,7 @@ namespace Spooky.Content.Generation
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,0,0,5,5,5,5,5,5,5,5,5,0,0,0,5,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,0,0,0,0,5,5,0,0,5,5,0,0,0,5,5,5,0,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,0,5,5,5,5,5,5,0,0,5,5,5,5,5,5,5,5,5,0,5,0,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,0,0,0,5,5,5,0,0,5,0,5,5,5,5,0,0,0,0,5,5,5,0,0,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -2050,7 +2091,7 @@ namespace Spooky.Content.Generation
                 {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -2301,6 +2342,76 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             };
 
+            int[,] MocoShrineRoom = new int[,]
+            {
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1},
+                {1,1,1,1,5,0,0,5,1,1,1,1,1,1,1,1,1,1,1,5,0,0,5,1,1,1,1},
+                {1,1,1,1,5,5,0,5,5,1,1,1,1,1,1,1,1,1,0,5,5,5,5,1,1,1,1},
+                {1,1,1,1,1,5,0,0,5,0,1,1,1,1,1,1,1,0,0,0,5,5,1,1,1,1,1},
+                {1,1,1,1,1,5,0,0,5,5,0,5,5,0,0,5,5,0,0,5,5,5,1,1,1,1,1},
+                {1,1,5,0,0,5,5,0,5,5,5,5,0,0,0,0,5,0,0,5,0,5,0,0,5,1,1},
+                {1,1,5,5,5,5,5,5,5,0,5,5,0,0,0,0,5,5,5,5,0,5,5,5,5,1,1},
+                {1,1,0,5,0,0,5,5,0,0,0,0,0,0,0,0,0,5,5,0,0,5,0,5,0,1,1},
+                {1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1},
+                {1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1},
+                {1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1},
+                {1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1},
+                {1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1},
+                {1,1,0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,0,0,1,1},
+                {1,5,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,5,1},
+                {1,5,0,5,5,0,5,0,5,0,5,5,5,0,0,5,5,5,5,0,5,0,0,0,0,5,1},
+                {1,5,0,5,0,0,0,0,5,5,5,0,5,5,5,5,5,0,0,5,5,0,0,5,0,5,1},
+                {1,5,5,5,5,0,0,0,0,0,0,0,0,0,5,0,0,0,0,5,0,0,5,5,5,5,1},
+                {1,5,5,0,5,0,5,5,0,5,0,0,0,0,0,0,0,0,5,0,5,0,5,5,5,5,1},
+                {1,0,5,0,5,5,5,5,5,5,5,0,0,0,0,0,5,5,5,5,5,5,5,0,5,5,1},
+                {1,8,5,8,5,8,5,8,5,8,5,8,0,0,0,8,5,8,5,8,5,8,5,8,5,8,1},
+                {1,8,8,8,8,8,8,8,8,8,8,8,0,0,0,8,8,8,8,8,8,8,8,8,8,8,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1},
+            };
+
+            int[,] MocoShrineRoomObjects = new int[,]
+            {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            };
+
             int[,] BigRoomHallway = new int[,]
             {
                 {1,1,1,1},
@@ -2329,10 +2440,11 @@ namespace Spooky.Content.Generation
             {
                 {0,2,2,6,6,6,6,9,6,6,6,6,2,2,0},
                 {0,2,2,2,6,6,6,9,6,6,6,6,2,2,0},
-                {0,2,2,2,6,6,6,9,6,6,6,6,2,2,0},
-                {0,2,2,6,6,6,6,9,6,6,6,2,2,2,0},
-                {0,2,2,6,6,6,6,9,6,6,6,2,2,2,0},
+                {0,2,2,2,10,6,6,9,6,6,10,10,2,2,0},
+                {0,2,2,10,10,10,6,9,6,10,10,2,2,2,0},
+                {0,2,2,6,10,10,6,10,10,10,10,2,2,2,0},
                 {0,2,2,10,10,10,10,10,10,10,10,10,2,2,0},
+                {0,2,2,0,10,0,10,10,0,10,0,10,2,2,0},
             };
 
             int[,] CatacombEntrance2 = new int[,]
@@ -2348,10 +2460,21 @@ namespace Spooky.Content.Generation
             {
                 {1,1,1,1,0,0,0,0,0,0,0,0,1,1,1},
                 {1,1,1,1,0,0,0,0,0,0,0,0,1,1,1},
-                {1,1,1,0,0,0,0,0,0,3,3,3,1,1,1},
-                {1,1,1,0,0,0,0,0,0,0,0,0,1,1,1},
-                {1,1,1,3,3,3,0,0,0,0,0,1,1,1,1},
-                {1,1,1,7,7,7,7,7,7,7,7,7,1,1,1},
+                {1,1,1,0,0,0,7,0,0,0,7,7,1,1,1},
+                {1,1,1,7,7,7,7,7,7,7,7,0,1,1,1},
+                {1,1,1,0,7,7,7,0,7,7,0,7,1,1,1},
+                {1,1,1,7,7,0,7,7,0,7,7,7,1,1,1},
+            };
+
+            int[,] CatacombEntranceBarrier3 = new int[,]
+            {
+                {1,1,1,1,3,3,3,3,3,3,3,3,1,1,1},
+                {1,1,1,1,0,0,0,0,0,0,0,0,1,1,1},
+                {1,1,1,1,0,0,0,0,0,0,0,0,1,1,1},
+                {1,1,1,0,0,7,0,0,7,0,7,0,1,1,1},
+                {1,1,1,7,7,7,7,0,7,7,7,7,0,1,1},
+                {1,1,1,0,7,7,7,7,7,7,0,7,7,1,1},
+                {1,1,1,7,7,0,7,7,7,0,7,7,1,1,1},
             };
 
             int[,] BlankObjects = new int[,]
@@ -2365,7 +2488,7 @@ namespace Spooky.Content.Generation
 
             //place initial square
             SpookyWorldMethods.Square(XMiddle + 2, (int)Main.worldSurface + 135, 365, 300, ModContent.TileType<CatacombBrick>(), 
-            ModContent.WallType<CatacombBrickWall>(), ModContent.WallType<CatacombBrickWall2>(), false, true);
+            ModContent.WallType<CatacombBrickWall>(), ModContent.WallType<CatacombBrickWall2>(), true);
 
             //place mossy bricks in the main square
             for (int X = XMiddle - 165; X <= XMiddle + 165; X++)
@@ -2374,7 +2497,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.Next(250) == 0)
                     {
-                        SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(12, 20), 1, ModContent.TileType<CatacombBrickMoss>(), 0, 0, true, 0f, 0f, false, false, false);
+                        SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 22), 1, ModContent.TileType<CatacombBrickMoss>(), 0, 0, true, 0f, 0f, false, false, false);
                     }
                 }
             }
@@ -2387,22 +2510,36 @@ namespace Spooky.Content.Generation
                     //place entrance room in the middle of the structure
                     if (X == XMiddle && (Y == (int)Main.worldSurface + 10 || Y == (int)Main.worldSurface + 100))
                     {
-                        PlaceCatacombRoom(X - 15, Y + 12, EntranceRoom, EntranceRoomObjects, 0);
+                        PlaceCatacombRoom(X - 15, Y + 12, EntranceRoom, EntranceRoomObjects, 0, 0);
+
+                        if (Y == (int)Main.worldSurface + 100)
+                        {
+                            PlaceCatacombRoom(X - 11, Y - 18, MocoShrineRoom, MocoShrineRoomObjects, 0, 0); 
+                        }
                     }
 
-                    //place the four loot rooms in each corner
-                    else if ((X == XMiddle - 100 && Y == (int)Main.worldSurface + 55) || 
-                    (X == XMiddle + 100 && Y == (int)Main.worldSurface + 55) ||
-                    (X == XMiddle - 150 && Y == (int)Main.worldSurface + 100) || 
-                    (X == XMiddle + 150 && Y == (int)Main.worldSurface + 100))
+                    //chest rooms
+                    else if (X == XMiddle - 100 && Y == (int)Main.worldSurface + 55)
                     {
-                        PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0);
+                        PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0, 0);
+                    }
+                    else if (X == XMiddle + 100 && Y == (int)Main.worldSurface + 55)
+                    {
+                        PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0, 1);
+                    }
+                    else if (X == XMiddle - 150 && Y == (int)Main.worldSurface + 100)
+                    {
+                        PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0, 2);
+                    }
+                    else if (X == XMiddle + 150 && Y == (int)Main.worldSurface + 100)
+                    {
+                        PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0, 3);
                     }
 
                     //place lava parkour rooms next to the loot rooms
                     else if ((X == XMiddle - 100 || X == XMiddle + 100) && Y == (int)Main.worldSurface + 100)
                     {
-                        PlaceCatacombRoom(X - 15, Y - 10, LavaRoom, LavaRoomObjects, 0);
+                        PlaceCatacombRoom(X - 15, Y - 10, LavaRoom, LavaRoomObjects, 0, 0);
                     }
 
                     //otherwise, place a regular room
@@ -2414,22 +2551,22 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X - 15, Y - 10, Room1, RoomObjects1, 0);
+                                PlaceCatacombRoom(X - 15, Y - 10, Room1, RoomObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X - 15, Y - 10, Room2, RoomObjects2, 1);
+                                PlaceCatacombRoom(X - 15, Y - 10, Room2, RoomObjects2, 1, 0);
                                 break;
                             }
                             case 2:
                             {
-                                PlaceCatacombRoom(X - 15, Y - 10, Room3, RoomObjects3, 3);
+                                PlaceCatacombRoom(X - 15, Y - 10, Room3, RoomObjects3, 3, 0);
                                 break;
                             }
                             case 3:
                             {
-                                PlaceCatacombRoom(X - 15, Y - 10, Room4, RoomObjects4, 2);
+                                PlaceCatacombRoom(X - 15, Y - 10, Room4, RoomObjects4, 2, 0);
                                 break;
                             }
                         }
@@ -2449,12 +2586,12 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0, 0);
                                 break;
                             }
                         }
@@ -2467,22 +2604,22 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0, 0);
                                 break;
                             }
                             case 2:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0, 0);
                                 break;
                             }
                             case 3:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0, 0);
                                 break;
                             }
                         }
@@ -2495,22 +2632,22 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0, 0);
                                 break;
                             }
                             case 2:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0, 0);
                                 break;
                             }
                             case 3:
                             {
-                                PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0);
+                                PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0, 0);
                                 break;
                             }
                         }
@@ -2523,12 +2660,12 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0, 0);
                                 break;
                             }
                         }
@@ -2541,12 +2678,12 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0);
+                                PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0, 0);
                                 break;
                             }
                         }
@@ -2564,22 +2701,22 @@ namespace Spooky.Content.Generation
                                 {
                                     case 0:
                                     {
-                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0);
+                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0, 0);
                                         break;
                                     }
                                     case 1:
                                     {
-                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0);
+                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0, 0);
                                         break;
                                     }
                                     case 2:
                                     {
-                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0);
+                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0, 0);
                                         break;
                                     }
                                     case 3:
                                     {
-                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0);
+                                        PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0, 0);
                                         break;
                                     }
                                 }
@@ -2594,12 +2731,12 @@ namespace Spooky.Content.Generation
                                 {
                                     case 0:
                                     {
-                                        PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0);
+                                        PlaceCatacombRoom(X - 4, Y + 23, Tunnel1, TunnelObjects1, 0, 0);
                                         break;
                                     }
                                     case 1:
                                     {
-                                        PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0);
+                                        PlaceCatacombRoom(X - 4, Y + 23, Tunnel2, TunnelObjects2, 0, 0);
                                         break;
                                     }
                                 }
@@ -2615,22 +2752,22 @@ namespace Spooky.Content.Generation
                             {
                                 case 0:
                                 {
-                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0);
+                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway1, HallwayObjects1, 0, 0);
                                     break;
                                 }
                                 case 1:
                                 {
-                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0);
+                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway2, HallwayObjects2, 0, 0);
                                     break;
                                 }
                                 case 2:
                                 {
-                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0);
+                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway3, HallwayObjects3, 0, 0);
                                     break;
                                 }
                                 case 3:
                                 {
-                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0);
+                                    PlaceCatacombRoom(X + 20, Y + 11, Hallway4, BlankObjects, 0, 0);
                                     break;
                                 }
                             }
@@ -2647,24 +2784,31 @@ namespace Spooky.Content.Generation
                     //on the bottom left, place an ambush room
                     if (X == XMiddle - 150 && Y == (int)Main.worldSurface + 220)
                     {
-                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3);
+                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3, 0);
                     }
                     //on the bottom right, place another ambush room
                     else if (X == XMiddle + 110 && Y == (int)Main.worldSurface + 220)
                     {
-                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3);
+                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3, 0);
                     }
                     //in the middle place the entrance room
                     else if (X == XMiddle - 20 && (Y == (int)Main.worldSurface + 140))
                     {
-                        PlaceCatacombRoom(X - 8, Y, GiantEntranceRoom, GiantEntranceRoomObjects, 0);
+                        PlaceCatacombRoom(X - 8, Y, GiantEntranceRoom, GiantEntranceRoomObjects, 0, 0);
                     }
+
                     //place chest rooms in the left, right, and bottom
-                    else if ((X == XMiddle - 85 && Y == (int)Main.worldSurface + 180) ||
-                    (X == XMiddle + 45 && Y == (int)Main.worldSurface + 180) ||
-                    (X == XMiddle - 20 && Y == (int)Main.worldSurface + 220))
+                    else if (X == XMiddle - 85 && Y == (int)Main.worldSurface + 180)
                     {
-                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0);
+                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 4);
+                    }
+                    else if (X == XMiddle + 45 && Y == (int)Main.worldSurface + 180) 
+                    {
+                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 5);
+                    }
+                    else if (X == XMiddle - 20 && Y == (int)Main.worldSurface + 220)
+                    {
+                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 6);
                     }
                     //otherwise, place a regular room
                     else
@@ -2675,17 +2819,17 @@ namespace Spooky.Content.Generation
                         {
                             case 0:
                             {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom1, GiantRoomObjects1, 0);
+                                PlaceCatacombRoom(X - 8, Y, GiantRoom1, GiantRoomObjects1, 0, 0);
                                 break;
                             }
                             case 1:
                             {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom2, GiantRoomObjects2, 1);
+                                PlaceCatacombRoom(X - 8, Y, GiantRoom2, GiantRoomObjects2, 1, 0);
                                 break;
                             }
                             case 2:
                             {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom3, GiantRoomObjects3, 2);
+                                PlaceCatacombRoom(X - 8, Y, GiantRoom3, GiantRoomObjects3, 2, 0);
                                 break;
                             }
                         }
@@ -2701,22 +2845,24 @@ namespace Spooky.Content.Generation
                     //always place a hall on the very center room
                     if (X == XMiddle - 20)
                     {
-                        if (WorldGen.genRand.Next(3) <= 1)
+                        switch (WorldGen.genRand.Next(2))
                         {
-                            switch (WorldGen.genRand.Next(2))
+                            case 0:
                             {
-                                case 0:
-                                {
-                                    PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0);
-                                    break;
-                                }
-                                case 1:
-                                {
-                                    PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0);
-                                    break;
-                                }
+                                PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
+                                break;
+                            }
+                            case 1:
+                            {
+                                PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
+                                break;
                             }
                         }
+                    }
+
+                    if (X == XMiddle - 20 && Y == (int)Main.worldSurface + 220)
+                    {
+                        PlaceCatacombRoom(X + 14, Y + 25, CatacombEntranceBarrier3, BlankObjects, 0, 0);
                     }
 
                     //for the top two rows, chance to place a sideways hallway or a tunnel, otherwise place a hallway normally
@@ -2732,12 +2878,12 @@ namespace Spooky.Content.Generation
                                 {
                                     case 0:
                                     {
-                                        PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0);
+                                        PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
                                         break;
                                     }
                                     case 1:
                                     {
-                                        PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0);
+                                        PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
                                         break;
                                     }
                                 }
@@ -2752,12 +2898,12 @@ namespace Spooky.Content.Generation
                                 {
                                     case 0:
                                     {
-                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0);
+                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0, 0);
                                         break;
                                     }
                                     case 1:
                                     {
-                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0);
+                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0, 0);
                                         break;
                                     }
                                 }
@@ -2771,12 +2917,12 @@ namespace Spooky.Content.Generation
                             {
                                 case 0:
                                 {
-                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0);
+                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0, 0);
                                     break;
                                 }
                                 case 1:
                                 {
-                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0);
+                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0, 0);
                                     break;
                                 }
                             }
@@ -2791,12 +2937,12 @@ namespace Spooky.Content.Generation
                             {
                                 case 0:
                                 {
-                                    PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0);
+                                    PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
                                     break;
                                 }
                                 case 1:
                                 {
-                                    PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0);
+                                    PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
                                     break;
                                 }
                             }
@@ -2806,35 +2952,33 @@ namespace Spooky.Content.Generation
             }
 
             //place an extra box at the bottom so big bone arena has room to generate
-            SpookyWorldMethods.Square(XMiddle + 2, (int)Main.worldSurface + 297, 159, 50, ModContent.TileType<CatacombBrick>(), 
-            ModContent.WallType<CatacombBrickWall>(), ModContent.WallType<CatacombBrickWall2>(), false, true);
+            SpookyWorldMethods.Square(XMiddle + 2, (int)Main.worldSurface + 296, 159, 50, ModContent.TileType<CatacombBrick>(), 
+            ModContent.WallType<CatacombBrickWall>(), ModContent.WallType<CatacombBrickWall2>(), true);
 
             //big bone arena
-            PlaceCatacombRoom(XMiddle - 76, (int)Main.worldSurface + 250, BigBoneArena, BigBoneArenaObjects, 0);
+            PlaceCatacombRoom(XMiddle - 76, (int)Main.worldSurface + 250, BigBoneArena, BigBoneArenaObjects, 0, 0);
 
             //catacomb entrance
             int EntranceX = XMiddle - 5;
             bool PlacedBarrier = false;
-            bool placedChest = false;
-            bool placedChest2 = false;
 
             //place the catacombs tunnel down to the first two rooms
             for (int EntranceNewY = (int)Main.worldSurface - 15; EntranceNewY <= (int)Main.worldSurface + 25; EntranceNewY += 6)
             {
-                PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0);
+                PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0, 0);
             }
 
-            //place tunnel between layer one and two
+            //place tunnel between layer one and two, and an entrance to big bone's room
             for (int EntranceNewY = (int)Main.worldSurface + 123; EntranceNewY <= (int)Main.worldSurface + 157; EntranceNewY += 6)
             {
                 //place barrier entrance
                 if (EntranceNewY == (int)Main.worldSurface + 135)
                 {
-                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntranceBarrier2, BlankObjects, 0);
+                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntranceBarrier2, BlankObjects, 0, 0);
                 }
                 else //place normal entrance
                 {
-                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0);
+                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0, 0);
                 }
             }
 
@@ -2852,6 +2996,18 @@ namespace Spooky.Content.Generation
                     PlaceStructures(EntranceX, EntranceNewY, CatacombEntrance, BlankObjects);
                 }
             }
+
+            PlaceCatacombRoom(EntranceX, (int)Main.worldSurface + 245, CatacombEntranceBarrier3, BlankObjects, 0, 0);
+        }
+
+        private void PlaceCatacombAmbience(GenerationProgress progress, GameConfiguration configuration)
+        {
+            int XStart = PositionX;
+            int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
+
+            bool placedChest = false;
+            bool placedChest2 = false;
 
             //place spooky biome chest
             for (int X = XMiddle - 165; X <= XMiddle; X++)
@@ -2965,13 +3121,9 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Moss));
                         }
-                    }
 
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrick>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>())
-                    {
                         //ceiling roots
-                        if (WorldGen.genRand.Next(10) == 0)
+                        if (WorldGen.genRand.Next(5) == 0)
                         {    
                             ushort[] Roots = new ushort[] { (ushort)ModContent.TileType<CatacombRoot1>(), 
                             (ushort)ModContent.TileType<CatacombRoot2>(), (ushort)ModContent.TileType<CatacombRoot3>() };
@@ -2980,13 +3132,20 @@ namespace Spooky.Content.Generation
                         }
                     }
 
-                    if (!Main.tile[X, Y].HasTile && Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall>())
+                    if (!Main.tile[X, Y].HasTile && (Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall>() ||
+                    Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall2>()))
                     {
                         //catacombs
-                        if (WorldGen.genRand.Next(45) == 0)
+                        if (WorldGen.genRand.Next(150) == 0)
                         {    
                             //dunno why catacombs internal id is Painting4X3 but whatever
                             WorldGen.PlaceObject(X, Y, TileID.Painting4X3, true, Main.rand.Next(0, 8));
+                        }
+
+                        //wall skeletons
+                        if (WorldGen.genRand.Next(150) == 0)
+                        {    
+                            WorldGen.PlaceObject(X, Y, TileID.Painting3X3, true, Main.rand.Next(17, 18));
                         }
                     }
                 }
@@ -3009,11 +3168,8 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GraveyardIndex + 1, new PassLegacy("PlaceArea", PlaceGraveyardArea));
-            tasks.Insert(GraveyardIndex + 2, new PassLegacy("Structures", GenerateStructures));
-            tasks.Insert(GraveyardIndex + 3, new PassLegacy("Gravestones", PlaceGravestones));
-            tasks.Insert(GraveyardIndex + 4, new PassLegacy("Gravestones", PlaceGravestones));
-            tasks.Insert(GraveyardIndex + 5, new PassLegacy("Gravestones", PlaceGravestones));
+            tasks.Insert(GraveyardIndex + 1, new PassLegacy("GraveyardStructure", PlaceGraveyardArea));
+            tasks.Insert(GraveyardIndex + 2, new PassLegacy("GraveyardStructure", GenerateGraveyardStructures));
 
             int CatacombIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
 			if (CatacombIndex == -1)
@@ -3022,6 +3178,7 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(CatacombIndex + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
+            tasks.Insert(CatacombIndex + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
         }
 
         //place items in chests
@@ -3068,6 +3225,62 @@ namespace Spooky.Content.Generation
                     //gold coins
                     chest.item[5].SetDefaults(ItemID.GoldCoin);
                     chest.item[5].stack = WorldGen.genRand.Next(5, 10);
+                }
+
+                if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest2>() || 
+                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest3>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest4>() || 
+                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest5>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest6>() || 
+                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest7>()))
+                {
+                    //main items
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<HarvesterScythe>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest2>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<NineTails>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest3>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<ThornStaff>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest4>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<GraveCrossbow>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest5>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<OldRifle>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest6>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<GlowBulb>());
+                        chest.item[0].stack = 1;
+                    }
+                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest7>())
+                    {   
+                        chest.item[0].SetDefaults(ModContent.ItemType<CrossCharm>());
+                        chest.item[0].stack = 1;
+                    }
+
+                    //candles
+                    chest.item[1].SetDefaults(ModContent.ItemType<CandleItem>());
+                    chest.item[1].stack = WorldGen.genRand.Next(5, 12);
+                    //healing potions
+                    chest.item[2].SetDefaults(ItemID.HealingPotion);
+                    chest.item[2].stack = WorldGen.genRand.Next(2, 5);
+                    //mana potions
+                    chest.item[3].SetDefaults(ItemID.ManaPotion);
+                    chest.item[3].stack = WorldGen.genRand.Next(2, 5);
+                    //gold coins
+                    chest.item[4].SetDefaults(ItemID.GoldCoin);
+                    chest.item[4].stack = WorldGen.genRand.Next(1, 2);
                 }
 
                 //old chest items

@@ -10,7 +10,7 @@ namespace Spooky.Content.Biomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Living Hell");
+            DisplayName.SetDefault("Valley of Eyes");
         }
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
@@ -29,9 +29,10 @@ namespace Spooky.Content.Biomes
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyHellBiomeIcon";
-        public override string BackgroundPath => base.BackgroundPath;
-        public override Color? BackgroundColor => Color.Orange;
-
+        public override string MapBackground => BackgroundPath;
+		public override string BackgroundPath => base.BackgroundPath;
+		public override Color? BackgroundColor => base.BackgroundColor;
+        
         public override bool IsBiomeActive(Player player)
         {
             bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyHellTiles >= 200 && player.ZoneUnderworldHeight;

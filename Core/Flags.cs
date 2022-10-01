@@ -12,7 +12,11 @@ namespace Spooky.Core
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
 
-        public static bool SpookyBackgroundAlt = false; 
+        public static bool SpookyBackgroundAlt = false;
+
+        public static bool CatacombKey1 = false; 
+        public static bool CatacombKey2 = false;
+        public static bool CatacombKey3 = false;
 
         public override void SaveWorldData(TagCompound tag)
         {
@@ -22,6 +26,10 @@ namespace Spooky.Core
             if (downedBigBone) tag["downedBigBone"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
+            
+            if (CatacombKey1) tag["CatacombKey1"] = true;
+            if (CatacombKey2) tag["CatacombKey2"] = true;
+            if (CatacombKey3) tag["CatacombKey3"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -32,6 +40,10 @@ namespace Spooky.Core
             downedBigBone = tag.ContainsKey("downedBigBone");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
+
+            CatacombKey1 = tag.ContainsKey("CatacombKey1");
+            CatacombKey2 = tag.ContainsKey("CatacombKey2");
+            CatacombKey3 = tag.ContainsKey("CatacombKey3");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -45,6 +57,9 @@ namespace Spooky.Core
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
+            miscFlags[1] = CatacombKey1;
+            miscFlags[2] = CatacombKey2;
+            miscFlags[3] = CatacombKey3;
             writer.Write(miscFlags);
         }
 
@@ -58,6 +73,9 @@ namespace Spooky.Core
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
+            CatacombKey1 = miscFlags[1];
+            CatacombKey2 = miscFlags[2];
+            CatacombKey3 = miscFlags[3];
         }
     }
 }

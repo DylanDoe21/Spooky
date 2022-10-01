@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 1000;
+			NPC.lifeMax = 1500;
             NPC.damage = 0;
             NPC.defense = 45;
             NPC.width = 30;

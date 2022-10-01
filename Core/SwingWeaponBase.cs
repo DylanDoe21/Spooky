@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb.Boss;
 
 namespace Spooky.Core
 {
@@ -51,6 +52,12 @@ namespace Spooky.Core
                 return;
             }
 
+            if (player.altFunctionUse != 2 && Item.type == ModContent.ItemType<BigBoneHammer>())
+            {
+                Item.noMelee = false;
+				Item.noUseGraphic = false;
+            }
+
             float animationProgress = 1 - (player.itemAnimation - 1) / (float)player.itemAnimationMax;
             float swingWindup = SwingWindup(player);
 
@@ -77,9 +84,6 @@ namespace Spooky.Core
                     float motionProgress = (animationProgress - swingWindup) / (1 - swingWindup);
                     player.itemRotation = (float)Math.IEEERemainder(-MathHelper.PiOver4 - WindupAmount + MainSwingAmount * motionProgress, MathHelper.TwoPi);
                 }
-
-                float fullRot = player.fullRotation;
-                player.fullRotation = 0;
 
                 player.itemRotation *= player.direction * player.gravDir;
 

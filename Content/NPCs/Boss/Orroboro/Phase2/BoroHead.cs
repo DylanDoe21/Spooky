@@ -97,8 +97,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A blind and aggressive creature that will work together with Orro to defend its territory. It is said that the living hell is made from the chunks of flesh left forgotten by this strange duo.")
+				new FlavorTextBestiaryInfoElement("A blind and aggressive creature that will work together with Orro to defend it's territory. It is said that the living hell is made from the chunks of flesh left forgotten by this strange duo."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -193,7 +193,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 				if (NPC.ai[2] >= 240)
 				{
 					NPC.life = 0;
-					Main.NewText("Boro has been defeated!", 171, 64, 255);
 
                     if (Main.netMode != NetmodeID.Server)
                     {

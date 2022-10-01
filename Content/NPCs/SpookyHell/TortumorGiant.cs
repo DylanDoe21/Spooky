@@ -45,8 +45,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("If regular tortumors weren't gross enough, these mutated blobs of flesh can fly around, making smaller clones of themselves to attack it's prey.")
+				new FlavorTextBestiaryInfoElement("If regular tortumors weren't gross enough, these mutated blobs of flesh can fly around, making smaller clones of themselves to attack it's prey."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

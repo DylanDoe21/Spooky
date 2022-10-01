@@ -25,6 +25,23 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.alpha = 255;
 		}
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.ai[0] == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public override void AI()
         {
             //fix Projectile direction
@@ -154,6 +171,20 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] >= 10)
             {
                 Projectile.ai[0] = 1;
+            }
+
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
+            {
+                Projectile.localAI[0]++;
+
+                if (Projectile.localAI[0] >= 600)
+                {
+                    Projectile.Kill();
+                }
+            }
+            else
+            {
+                Projectile.localAI[0] = 0;
             }
         }
 

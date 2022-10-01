@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
         {
             DisplayName.SetDefault("Thorn Covered Bulb");
             Tooltip.SetDefault("Throws a glowing thorn ball that bounces off of surfaces"
-            + "\nThe thorn ball will explode into smaller thorns upon exploding");
+            + "\nThe thorn ball will explode into smaller thorns when it hits an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.Catacomb
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.buyPrice(gold: 5);
+            Item.value = Item.buyPrice(gold: 12);
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<GlowBulbProj>();  
             Item.shootSpeed = 10f;

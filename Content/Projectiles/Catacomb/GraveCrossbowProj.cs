@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -8,9 +9,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class GraveCrossbowProj : ModProjectile
 	{
-		float counter = 0;
-        float shootSpeed = 5;
-		Vector2 holdOffset = new Vector2(-3, -10);
+		Vector2 holdOffset = new Vector2(-3, -2);
 
 		public override void SetStaticDefaults()
 		{
@@ -21,7 +20,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		public override void SetDefaults()
 		{
             Projectile.width = 32;
-            Projectile.height = 68;
+            Projectile.height = 45;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -35,13 +34,18 @@ namespace Spooky.Content.Projectiles.Catacomb
 			return false;
         }
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
 		public override bool PreAI()
 		{
             Player player = Main.player[Projectile.owner];
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -51,7 +55,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
-            if (direction.X >= 0)
+            if (Projectile.direction >= 0)
             {
                 Projectile.rotation = direction.ToRotation() - 1.57f * (float)Projectile.direction;
             }
@@ -64,52 +68,56 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.timeLeft = 2;
 
+                player.itemRotation = Projectile.rotation;
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
 				Projectile.position = player.position + holdOffset;
 				player.velocity.X *= 0.95f;
 
-                counter += 0.25f;
+                Projectile.localAI[0] += 0.25f;
 
-                if (counter == 5 || counter == 10 || counter == 15)
+                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
                 {
                     Projectile.frame++;
-                    shootSpeed += 10f;
                 }
-
                 if (Projectile.frame >= 3)
                 {   
                     Projectile.frame = 2;
                 }
 
-				if (direction.X >= 0) 
+                if (direction.X > 0) 
                 {
-					holdOffset.X = 2;
 					player.direction = 1;
 				}
 				else 
                 {
-					holdOffset.X = -15;
-					player.direction = 0;
+					player.direction = -1;
 				}
 			}
 			else 
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-					Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
-					ProjDirection.Normalize();
-					ProjDirection.X *= shootSpeed;
-					ProjDirection.Y *= shootSpeed;	
+                    if (Projectile.frame >= 2)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ProjDirection.X, ProjDirection.Y, 
-                    ProjectileID.WoodenArrowFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed.X *= 25;
+                        ShootSpeed.Y *= 25;	
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
 				}
 
 				Projectile.active = false;
 			}
 
 			player.heldProj = Projectile.whoAmI;
-			player.itemTime = 15;
-			player.itemAnimation = 15;
+			player.itemTime = 1;
+			player.itemAnimation = 1;
 
 			return true;
 		}

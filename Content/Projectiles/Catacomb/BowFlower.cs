@@ -94,7 +94,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            float Multiplier = 1.65f;
+            float Multiplier = 1.75f;
 
 			if (target.HasBuff(ModContent.BuffType<ThornMark>()))
 			{

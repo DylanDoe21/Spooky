@@ -31,7 +31,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 500;
             Projectile.penetrate = 1;
-            Projectile.extraUpdates = 30;
+            Projectile.extraUpdates = 15;
             Projectile.alpha = 255;
 		}
 
@@ -132,6 +132,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 
 			Projectile.localAI[0] += 1f;
+
+			if (Projectile.localAI[0] == 1f)
+            {
+                Projectile.damage *= 5;
+            }
+
 			if (Projectile.localAI[0] > 9f)
 			{
 				for (int num447 = 0; num447 < 2; num447++)
@@ -144,6 +150,20 @@ namespace Spooky.Content.Projectiles.Catacomb
 					Main.dust[num448].velocity *= 0.2f;
 				}
 				return;
+			}
+		}
+
+		public override void Kill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
+
+            for (int numDust = 0; numDust < 15; numDust++)
+			{                                                                                  
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 8f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 8f);
+                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
+                Main.dust[dustGore].noGravity = true;
 			}
 		}
 	}

@@ -30,7 +30,7 @@ namespace Spooky.Core
         //accessories
         public bool TreatBag = false;
         public bool MagicCandle = false;
-        public bool CrossCharm = false;
+        public bool CrossCharmShield = false;
 
         //expert accessories
         public bool PumpkinCore = false;
@@ -46,6 +46,7 @@ namespace Spooky.Core
         public bool SpookyWispPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
+        public bool BigBonePet = false;
 
         //buffs
 
@@ -58,7 +59,7 @@ namespace Spooky.Core
             //accessories
             TreatBag = false;
             MagicCandle = false;
-            CrossCharm = false;
+            CrossCharmShield = false;
 
             //expert accessories
             PumpkinCore = false;
@@ -74,6 +75,7 @@ namespace Spooky.Core
             SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
+            BigBonePet = false;
         }
 
         public override void ModifyScreenPosition()
@@ -160,10 +162,8 @@ namespace Spooky.Core
                 }
             }
 
-            if (CrossCharm && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
+            if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
-                float divide = 1.5f;
-                damage /= (int)divide;
                 Player.AddBuff(ModContent.BuffType<CrossCooldown>(), 600);
 
                 for (int numDust = 0; numDust < 20; numDust++)
@@ -206,6 +206,11 @@ namespace Spooky.Core
                         ModContent.ProjectileType<SwarmFly>(), 15, 0f, Main.myPlayer, 0f, 0f);
                     }
                 }
+            }
+
+            if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
+            {
+                Player.endurance += 0.05f;
             }
 
             if (BoneMask)
@@ -302,13 +307,13 @@ namespace Spooky.Core
         }
     }
 
-    public class CrossCharm : PlayerDrawLayer
+    public class CrossCharmShield : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharm && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<CrossCooldown>());
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<CrossCooldown>());
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)

@@ -1,22 +1,22 @@
-Spooky mod is a work-in-progress mod that adds in a bunch of halloween themed content, such as new biomes, weapons, armors, bosses, ect.
+Spooky mod is a work-in-progress mod that adds in new content with the general theme of halloween.
 
 Currently the mod has:
 
--Two new biomes: the Spooky Forest and the Living Hell
+-Two new biomes: the Spooky Forest and the Valley of Eyes
 
--Two massive new structures: the Graveyard Crypts and the Catacombs
+-A massive new structure: the Creepy Catacombs
 
--Four brand new bosses: Rot Gourd, Moco, Orro-boro, and Big Bone
+-Four brand new bosses, all with boss checklist support
 
--Tons of other content such as weapons, armor sets, and other various items
+-Tons of other content such as weapons, armor sets, and other stuff of course
 
 -Brand new soundtracks for all of the bosses and biomes
 
 -And much more to come in the future!
 
 IMPORTANT, PLEASE READ THIS:
--While you can technically play this with other mods, this mod is VERY worldgen heavy, adding 2 new biomes and a massive structure, as well as a lot more planned worldgen in the future like new structures and mini-biomes. Playing with other large content mods will highly likely cause issues or conflicts with biomes and other world generation!
--also, playing on small worlds may not be a good idea due to the new biomes and structure this mod adds as they can possibly destroy other vanilla biomes or structures
+-While you can play this with other mods, this mod is VERY worldgen heavy, adding lots of big biomes and a massive structure, as well as a lot more possible planned stuff in the future. Playing with other content mods that add tons of worldgen may likely cause issues with this mod!
+-Also, playing on small worlds may not be a good idea due to the new biomes and structure this mod adds as they can possibly destroy other vanilla biomes or structures
 
 [h1]Special Thanks[/h1]
 
@@ -30,7 +30,9 @@ And of course, thanks to everyone else who has supported the mod!
 
 [h1]Other Stuff[/h1]
 
-If you want more detailed information on the mod, or a better place to leave feedback, you can visit the mod's terraria forums page here: [url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Forum Page [/url][/h1]
+If you want more detailed information on the mod, or a better place to leave feedback, you can visit the mod's terraria forums page here: 
+(I will try my best to update the forum with each new update the mod receives)
+[url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Forum Page [/url][/h1]
 
 You can also listen to and support bananalizard's soundtrack here:
 [url=https://www.youtube.com/watch?v=Qbl2oc3A0jA&list=PLTkIRNhpw-3ELxu-tYd05X_DAXIYp3qg2] Youtube Playlist [/url][/h1]

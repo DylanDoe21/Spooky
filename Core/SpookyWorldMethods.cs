@@ -20,13 +20,17 @@ namespace Spooky.Core
 				{
 					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= radius)
                     {
+						Tile tile = Framing.GetTileSafely(x, y);
+
 						if (killTile)
 						{
 							WorldGen.KillTile(x, y);
+							tile.Slope = 0;
 						}
 						if (!killTile)
 						{
 							WorldGen.PlaceTile(x, y, tileType);
+							tile.Slope = 0;
 						}
                     }
 				}
@@ -35,7 +39,7 @@ namespace Spooky.Core
 			}
 		}
 
-		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, int wallType2, bool killTile = true, bool placeWalls = false)
+		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, int wallType2, bool placeWalls = false)
 		{
 			for (int X = i - (XSize / 2); X <= i + (XSize / 2); X++)
 			{
@@ -43,17 +47,11 @@ namespace Spooky.Core
 				{
 					Tile tile = Framing.GetTileSafely(X, Y);
 
-					if (!killTile)
-					{
-						tile.ClearEverything();
-						WorldGen.KillTile(X, Y);
-						WorldGen.PlaceTile(X, Y, tileType);
-					}
-					else
-					{
-						tile.ClearEverything();
-						WorldGen.KillTile(X, Y);
-					}
+					tile.HasTile = false;
+					tile.LiquidAmount = 0;
+					tile.Slope = 0;
+					WorldGen.KillTile(X, Y);
+					WorldGen.PlaceTile(X, Y, tileType);
 				}
 			}
 
@@ -61,7 +59,7 @@ namespace Spooky.Core
 			{
 				for (int X = i - (XSize / 2) + 1; X <= i + (XSize / 2) - 1; X++)
 				{
-					for (int Y = j - (YSize / 2) - 1; Y <= j + (YSize / 2) - 1; Y++)
+					for (int Y = j - (YSize / 2) + 1; Y <= j + (YSize / 2) - 1; Y++)
 					{
 						//place walls in the second catacomb area
 						if (Y >= (int)Main.worldSurface + 141)

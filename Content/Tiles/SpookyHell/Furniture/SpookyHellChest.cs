@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -160,7 +160,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				if (isLocked) 
 				{
-					int key = ModContent.ItemType<SpookyBiomeKey>();
+					int key = ModContent.ItemType<SpookyHellKey>();
 					if (player.ConsumeItem(key) && Chest.Unlock(left, top)) 
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient) 
@@ -228,7 +228,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 					if (Main.tile[left, top].TileFrameX / 36 == 1) 
 					{
-						player.cursorItemIconID = ModContent.ItemType<SpookyBiomeKey>();
+						player.cursorItemIconID = ModContent.ItemType<SpookyHellKey>();
 					}
 
 					player.cursorItemIconText = "";

@@ -62,44 +62,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Bounces++;
-			if (Bounces >= 2)
-			{
-				Projectile.Kill();
-			}
-			else
-			{
-				Projectile.ai[0] = 30;
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
-				Projectile.velocity.X = -Projectile.velocity.X * 0.98f;
-				Projectile.velocity.Y = -Projectile.velocity.Y * 0.98f;
-			}
-        }
-
-        public override void Kill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot, Projectile.Center);
-
-            for (int numDust = 0; numDust < 10; numDust++)
-			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
-                {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
-                }
-			}
-
-            for (int numDust = 0; numDust < 10; numDust++)
+            for (int numDust = 0; numDust < 15; numDust++)
 			{                                                                                  
 				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
                 
 				if (Main.dust[DustGore].position != Projectile.Center)
                 {
@@ -119,6 +90,22 @@ namespace Spooky.Content.Projectiles.Catacomb
                     ModContent.ProjectileType<GlowBulbThorn>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
                 }
             }
+        }
+
+        public override void Kill(int timeLeft)
+		{
+            for (int numDust = 0; numDust < 10; numDust++)
+			{                                                                                  
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default(Color), 1.5f);
+				Main.dust[DustGore].noGravity = true;
+				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                
+				if (Main.dust[DustGore].position != Projectile.Center)
+                {
+				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+                }
+			}
         }
     }
 }

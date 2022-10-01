@@ -8,7 +8,9 @@ using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 
@@ -18,17 +20,27 @@ namespace Spooky.Core
     {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         { 
-            //all bosses drop goodie bags
-            if (npc.boss)
+            if (!NPC.downedBoss1 && npc.type == NPCID.EyeofCthulhu)
             {
-                npcLoot.Add(ItemDropRule.Common(ItemID.GoodieBag, 1, 2, 5));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey1>(), 1));
+            }
+
+            if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey2>(), 1));
+            }
+
+            if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey3>(), 1));
             }
         }
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-            //make hardmode enemies drop the spooky forest biome key, 1/2500 chance like vanilla
+            //make hardmode enemies drop the biome keys, 1/2500 chance like vanilla
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
+            globalLoot.Add(ItemDropRule.ByCondition(new SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
         }
 
         public override void OnKill(NPC npc)
@@ -84,6 +96,34 @@ namespace Spooky.Core
 		public string GetConditionDescription() 
         {
 			return "Drops in 'Spooky Forest' in hardmode";
+		}
+	}
+
+    public class SpookyHellKeyCondition : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) 
+        {
+			if (!info.IsInSimulation) 
+            {
+				NPC npc = info.npc;
+
+				if (Main.hardMode && !npc.friendly && !npc.boss && info.player.InModBiome<SpookyHellBiome>())
+                {
+					return true;
+				}
+			}
+            
+			return false;
+		}
+
+		public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+		public string GetConditionDescription() 
+        {
+			return "Drops in 'Valley of Eyes' in hardmode";
 		}
 	}
 }

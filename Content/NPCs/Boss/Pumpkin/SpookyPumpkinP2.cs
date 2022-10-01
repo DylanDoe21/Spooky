@@ -98,8 +98,8 @@ namespace Spooky.Content.NPCs.Boss.Pumpkin
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("This giant pumpkin was once a guardian of the spooky forest. However, after the being controlling it left, it became a rotten husk of it's former self.")
+				new FlavorTextBestiaryInfoElement("This giant pumpkin was once a guardian of the spooky forest. However, after the being controlling it left, it became a rotten husk of it's former self."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

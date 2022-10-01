@@ -40,8 +40,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("The skeletal warlocks of the underground spooky forest possess great magic, allowing them to conjure magic attacks at foes.")
+				new FlavorTextBestiaryInfoElement("The skeletal warlocks of the underground spooky forest possess great magic, allowing them to conjure magic attacks at foes."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

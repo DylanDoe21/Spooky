@@ -8,7 +8,9 @@ namespace Spooky.Content.Buffs
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Skull Idol's Power");
-			Description.SetDefault("Grants various summoner stat increases");
+			Description.SetDefault("12% increased summon damage"
+			+ "\n5% increased whip range"
+			+ "\n+2 maximum minions");
 			Main.buffNoSave[Type] = true;
 		}
 

@@ -137,8 +137,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 if (owner.direction == 1)
                 {
-                    owner.itemRotation = Projectile.rotation + 3.14f;
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 3.14f);
+                    owner.itemRotation = Projectile.rotation + 2.14f;
+                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
                 }
                 else
                 {

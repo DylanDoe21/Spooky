@@ -25,19 +25,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.maxStack = 999;
 		}
 
-        public override bool CanUseItem(Player player)
-        {
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>())
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
         public override bool? UseItem(Player player)
 		{
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);

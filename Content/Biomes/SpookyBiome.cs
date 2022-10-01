@@ -18,7 +18,7 @@ namespace Spooky.Content.Biomes
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBGAlt") : ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBG");
 
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBG1") : ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBG2");
-        
+
         public override int Music => Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
@@ -38,8 +38,9 @@ namespace Spooky.Content.Biomes
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeIcon";
-        public override string BackgroundPath => base.BackgroundPath;
-        public override Color? BackgroundColor => Color.Orange;
+        public override string MapBackground => BackgroundPath;
+		public override string BackgroundPath => base.BackgroundPath;
+		public override Color? BackgroundColor => base.BackgroundColor;
 
         public override void OnInBiome(Player player)
         {

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,9 +25,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 4500;
-            NPC.damage = 75;
-            NPC.defense = 45;
+			NPC.lifeMax = 5200;
+            NPC.damage = 0;
+            NPC.defense = 25;
             NPC.width = 48;
             NPC.height = 54;
             NPC.knockBackResist = 0f;
@@ -102,17 +103,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             float RotateX = player.Center.X - vector.X;
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-
-			/*
-			//sync all flower ai
-			for (int k = 0; k < Main.maxNPCs; k++)
-			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
-				{
-					Main.npc[k].ai[0] = NPC.ai[0];
-				}
-			}
-			*/
 
 			for (int k = 0; k < Main.maxNPCs; k++)
 			{
@@ -202,9 +192,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             return true;
 		}
 
-		public override bool CheckActive()
+		//Loot and stuff
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            return false;
+            npcLoot.Add(ItemDropRule.Common(ItemID.Heart, 1));
         }
 	}
 }

@@ -32,6 +32,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.hostile = true;                                 			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
+            Projectile.timeLeft = 1200;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
