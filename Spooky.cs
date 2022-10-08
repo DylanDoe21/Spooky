@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
-using Spooky.Content.Backgrounds.SpookyBiome;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
@@ -29,9 +27,6 @@ namespace Spooky
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
-
-                //Filters.Scene["Spooky:CatacombTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(36f, 69f, 39f).UseOpacity(0.005f), EffectPriority.VeryHigh);
-                //Filters.Scene["Spooky:DeepCatacombTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(191f, 82f, 20f).UseOpacity(0.004f), EffectPriority.VeryHigh);
             }
 
             //hell background loading

@@ -24,7 +24,10 @@ namespace Spooky.Core
 
         public override void PostUpdateWorld()
         {
-            Main.halloween = true;
+            if (ModContent.GetInstance<SpookyConfig>().HalloweenEnabled)
+            {
+                Main.halloween = true;
+            }
 
             if (Main.dayTime != LastTime)
             {

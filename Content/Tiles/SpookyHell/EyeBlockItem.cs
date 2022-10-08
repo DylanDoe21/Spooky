@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Living Flesh");
+            DisplayName.SetDefault("Eye Block");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

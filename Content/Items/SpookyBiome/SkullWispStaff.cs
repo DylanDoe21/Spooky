@@ -14,8 +14,9 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Cane");
-			Tooltip.SetDefault("Summons skull wisps to fight with you");
+			DisplayName.SetDefault("Zomboid Warlock's Skull");
+			Tooltip.SetDefault("Summons skull wisps to fight with you"
+			+ "\n'Did you really need to take it's arm off with the skull?'");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -27,8 +28,8 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
 			Item.autoReuse = true;       
-			Item.width = 38;           
-			Item.height = 44;         
+			Item.width = 14;           
+			Item.height = 32;         
 			Item.useTime = 38;         
 			Item.useAnimation = 38;         
 			Item.useStyle = ItemUseStyleID.Shoot;          

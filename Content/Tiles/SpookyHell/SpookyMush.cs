@@ -11,36 +11,32 @@ namespace Spooky.Content.Tiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-            Main.tileMerge[Type][ModContent.TileType<EyeBlock>()] = true;
-			Main.tileMerge[Type][ModContent.TileType<Carapace>()] = true;
-            Main.tileMerge[Type][TileID.Ash] = true;
+            Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(89, 40, 129));
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            AddMapEntry(new Color(52, 40, 101));
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
 			DustType = DustID.Ash;
             HitSound = SoundID.Dig;
 		}
 
-		public override void RandomUpdate(int i, int j)
-        {
-            Tile Tile = Framing.GetTileSafely(i, j);
-			Tile Below = Framing.GetTileSafely(i, j + 1);
-            Tile Above = Framing.GetTileSafely(i, j - 1);
+        public override void RandomUpdate(int i, int j)
+		{
+			Tile up = Main.tile[i, j - 1];
+			Tile down = Main.tile[i, j + 1];
+			Tile left = Main.tile[i - 1, j];
+			Tile right = Main.tile[i + 1, j];
 
-			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
-            {
-                if (Main.rand.Next(8) == 0) 
+            if ((up.TileType == ModContent.TileType<SpookyMushGrass>() || down.TileType == ModContent.TileType<SpookyMushGrass>() || 
+            left.TileType == ModContent.TileType<SpookyMushGrass>() || right.TileType == ModContent.TileType<SpookyMushGrass>()))
+			{
+                if (WorldGen.genRand.Next(1) == 0)
                 {
-                    Below.TileType = (ushort)ModContent.TileType<FollicleVine>();
-                    Below.HasTile = true;
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
-                    }
+				    WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyMushGrass>(), false);
                 }
-            }
-		}
+			}
+        }
 	}
 }

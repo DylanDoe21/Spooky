@@ -18,6 +18,34 @@ namespace Spooky.Core
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
 
+        public override void OnWorldLoad() 
+        {
+			downedRotGourd = false;
+            downedMoco = false;
+            downedOrroboro = false;
+            downedBigBone = false;
+
+            SpookyBackgroundAlt = false;
+
+            CatacombKey1 = false; 
+            CatacombKey2 = false;
+            CatacombKey3 = false;
+		}
+
+		public override void OnWorldUnload() 
+        {
+			downedRotGourd = false;
+            downedMoco = false;
+            downedOrroboro = false;
+            downedBigBone = false;
+
+            SpookyBackgroundAlt = false;
+
+            CatacombKey1 = false; 
+            CatacombKey2 = false;
+            CatacombKey3 = false;
+		}
+
         public override void SaveWorldData(TagCompound tag)
         {
             if (downedRotGourd) tag["downedRotGourd"] = true;

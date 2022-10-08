@@ -1,9 +1,9 @@
 using Terraria;
+using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
-using Terraria.IO;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +18,9 @@ using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Graveyard;
 using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyHell.Chests;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Generation

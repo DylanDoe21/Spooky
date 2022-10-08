@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.MusicBox
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (Living Hell)");
+            DisplayName.SetDefault("Music Box (Valley of Eyes)");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell"), 
             ModContent.ItemType<SpookyHellBox>(), ModContent.TileType<SpookyHellBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

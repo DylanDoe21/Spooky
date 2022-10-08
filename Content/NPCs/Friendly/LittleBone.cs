@@ -9,14 +9,14 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Friendly
 {
     [AutoloadHead]
 	public class LittleBone : ModNPC
 	{
-		public static bool HasGivenEye;
-		public static int NumGoodsGiven = 0;
+		private static int ButtonMode = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -86,6 +86,7 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Advice";
+			button2 = "Carry";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -122,6 +123,11 @@ namespace Spooky.Content.NPCs.Friendly
 					SoundEngine.PlaySound(SoundID.Item16, NPC.Center);
 				}
             }
+			else
+			{
+				NPC.active = false;
+				Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBoneItem>(), 1);
+			}
 		}
 
         public override string GetChat()

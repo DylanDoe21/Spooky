@@ -1,5 +1,11 @@
 
--big bone spawn animation
+fixes:
+
+-make big bone have more delay between specific attacks
+
+-make big bone orange tendril attacks have a longer delay before being shot
+
+-make big bone fireballs have not horrid hitboxes
 
 Halloween/October Update:
 
@@ -8,6 +14,8 @@ Halloween/October Update:
 -new sprites for the spooky forest ambient tiles
 
 -new enemies for the spooky forest
+
+-new moco weapons and improve the old ones
 
 new rot-gourd mini-expansion:
 -new rot-gourd sprite and design, new palette for rot-gourd and the spooky night time pumpkin enemies

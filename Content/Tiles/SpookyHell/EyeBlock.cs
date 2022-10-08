@@ -11,15 +11,15 @@ namespace Spooky.Content.Tiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileMerge[Type][ModContent.TileType<SpookyMush>()] = true;
-			Main.tileMerge[Type][ModContent.TileType<Carapace>()] = true;
-            Main.tileMerge[Type][TileID.Ash] = true;
+			Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(138, 31, 40));
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            AddMapEntry(new Color(98, 75, 171));
             ItemDrop = ModContent.ItemType<EyeBlockItem>();
-			DustType = DustID.Blood;
-            HitSound = SoundID.NPCHit20;
+			DustType = -1;
+            HitSound = SoundID.Dig;
 		}
 
 		public override void RandomUpdate(int i, int j)
@@ -32,7 +32,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             {
                 if (Main.rand.Next(15) == 0) 
                 {
-                    Below.TileType = (ushort)ModContent.TileType<EyeVine>();
+                    Below.TileType = (ushort)ModContent.TileType<FollicleVine>();
                     Below.HasTile = true;
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 

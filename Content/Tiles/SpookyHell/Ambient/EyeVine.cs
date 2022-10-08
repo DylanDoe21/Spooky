@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
 
@@ -16,7 +17,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			AddMapEntry(new Color(182, 62, 59));
+			AddMapEntry(new Color(114, 13, 39));
 			DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
 		}
@@ -39,7 +40,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 				type = tileAbove.TileType;
 			}
 
-			if (type == ModContent.TileType<EyeBlock>() || type == Type) 
+			if (type == ModContent.TileType<SpookyMushGrass>() || type == Type) 
             {
 				return true;
 			}
@@ -62,7 +63,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<EyeBlock>()) 
+					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<SpookyMushGrass>()) 
                     {
 						Test--;
 						continue;
@@ -82,6 +83,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 					}
 				}
 			}
+		}
+
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Ambient/EyeVineGlow").Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 		}
 	}
 }

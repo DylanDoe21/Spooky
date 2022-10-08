@@ -528,11 +528,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
 
                         //kill big bone
-                        NPC.immortal = false;
                         ActuallyDead = true;
-                        NPC.life = 0;
-                        NPC.checkDead();
-                        NPC.netUpdate = true;
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
+                        player.ApplyDamageToNPC(NPC, 99999, 0, 0, false);
+
+                        if (Main.netMode == NetmodeID.Server && NPC.whoAmI < Main.maxNPCs)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
+                        }
                     }
 
                     break;

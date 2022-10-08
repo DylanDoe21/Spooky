@@ -1,9 +1,12 @@
 using Terraria;
+using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
-using Terraria.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -12,42 +15,31 @@ using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
+using Spooky.Content.Tiles.SpookyHell.Chests;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Generation
 {
     public class SpookyHell : ModSystem
     {
-        static int StartPosition = 0;
+        static int StartPosition = (Main.maxTilesX / 2) + 650;
+        static int BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 7);
 
         //clear area for the biome to generate in
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            //choose x-coordinate start position of the biome based on the same side of the dungeon
-            if (WorldGen.dungeonSide == 1)
-			{
-                StartPosition = Main.maxTilesX - 750;
-			}
-			else
-			{
-                StartPosition = 0;
-			}
-
-            int XStart = StartPosition;
-            int XEdge = XStart + 750;
+            StartPosition = (Main.maxTilesX / 2) + 650;
+            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 7);
 
             //clear all blocks and lava in the area
-            for (int X = XStart; X <= XEdge; X++)
+            for (int X = StartPosition; X <= BiomeEdge; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY; Y++)
                 {
                     Tile newTile = Main.tile[X, Y];
-                    
-                    if (Main.tile[X, Y].HasTile || Main.tile[X, Y].LiquidType == LiquidID.Lava) 
-                    {
-                        newTile.ClearEverything();
-                        WorldGen.KillWall(X, Y);
-                    }
+
+                    newTile.ClearEverything();
+                    WorldGen.KillWall(X, Y);
                 }
             }
         }
@@ -56,11 +48,8 @@ namespace Spooky.Content.Generation
         {
             progress.Message = "Generating the living hell";
 
-            int XStart = StartPosition;
-            int XEdge = XStart + 750;
-
             //generate the surface
-            int width = XEdge;
+            int width = BiomeEdge;
             int height = Main.maxTilesY - 150;
 
             int[] terrainContour = new int[width * height];
@@ -71,9 +60,9 @@ namespace Spooky.Content.Generation
 
             float peakheight = 10;
             float flatness = 50;
-            int offset = Main.maxTilesY - 140;
+            int offset = Main.maxTilesY - 130;
 
-            for (int X = StartPosition; X <= XEdge; X++)
+            for (int X = StartPosition; X <= BiomeEdge; X++)
             {
                 double BiomeHeight = peakheight / rand1 * Math.Sin((float)X / flatness * rand1 + rand1);
                 BiomeHeight += peakheight / rand2 * Math.Sin((float)X / flatness * rand2 + rand2);
@@ -84,7 +73,7 @@ namespace Spooky.Content.Generation
                 terrainContour[X] = (int)BiomeHeight;
             }
 
-            for (int X = StartPosition; X <= XEdge; X++)
+            for (int X = StartPosition; X <= BiomeEdge; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
                 {
@@ -97,37 +86,31 @@ namespace Spooky.Content.Generation
             }
 
             //place clumps of blocks along the edge of the biome so it doesnt look weird
-            if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
-			{
-                for (int X = XStart - 50; X <= XStart; X++)
+            for (int X = StartPosition - 50; X <= StartPosition; X++)
+            {
+                for (int Y = Main.maxTilesY - 135; Y < Main.maxTilesY - 2; Y++)
                 {
-                    for (int Y = Main.maxTilesY - 135; Y <= Main.maxTilesY; Y++)
+                    if (WorldGen.genRand.Next(30) == 0)
                     {
-                        if (WorldGen.genRand.Next(30) == 0)
-                        {
-                            SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
-                        }
+                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
                     }
                 }
-			}
-			else
-			{
-                for (int X = XEdge; X <= XEdge + 50; X++)
+            }
+			for (int X = BiomeEdge; X <= BiomeEdge + 50; X++)
+            {
+                for (int Y = Main.maxTilesY - 135; Y < Main.maxTilesY - 2; Y++)
                 {
-                    for (int Y = Main.maxTilesY - 135; Y <= Main.maxTilesY; Y++)
+                    if (WorldGen.genRand.Next(30) == 0)
                     {
-                        if (WorldGen.genRand.Next(30) == 0)
-                        {
-                            SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
-                        }
+                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
                     }
                 }
-			}
+            }
 
             //place ceiling across the top of the biome
-            for (int X = XStart; X <= XEdge; X++)
+            for (int X = StartPosition; X <= BiomeEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 185; Y++)
+                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 192; Y++)
                 {
                     if (WorldGen.genRand.Next(50) == 0)
                     {
@@ -137,13 +120,15 @@ namespace Spooky.Content.Generation
             }
 
             //generate caves
-            for (int X = XStart + 50; X <= XEdge - 50; X++)
+            for (int X = StartPosition + 50; X <= BiomeEdge - 50; X++)
             {
                 for (int Y = Main.maxTilesY - 120; Y <= Main.maxTilesY - 40; Y++)
                 {
-                    if (WorldGen.genRand.Next(300) == 0)
+                    if (WorldGen.genRand.Next(800) == 0)
                     {
-                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 10), 0, true);
+                        TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
+                        new Point16(-35, 35), 15f, Main.rand.Next(100, 200), 0, false, true);
+                        runner.Start();
                     }
                 }
             }
@@ -152,7 +137,7 @@ namespace Spooky.Content.Generation
             for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 2);
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
                 {
@@ -165,21 +150,42 @@ namespace Spooky.Content.Generation
             }
         }
 
+        private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
+        {
+            //spread grass on all mush tiles
+            for (int X = StartPosition; X <= BiomeEdge; X++)
+            {
+                for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 2; Y++)
+                {
+                    Tile up = Main.tile[X, Y - 1];
+                    Tile down = Main.tile[X, Y + 1];
+                    Tile left = Main.tile[X - 1, Y];
+                    Tile right = Main.tile[X + 1, Y];
+
+                    if (Main.tile[X, Y].HasTile)
+                    {
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>() &&
+                        ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
+                        {
+                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyMushGrass>();
+                        }
+                    }
+                }
+            }
+        }
+
         public static void SpookyHellTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Growing eye stalks";
 
-            int XStart = StartPosition;
-            int XEdge = XStart + 750;
-
-            for (int X = XStart + 20; X < XEdge - 20; X++)
+            for (int X = StartPosition; X < BiomeEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 220; Y <= Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 175; Y < Main.maxTilesY - 2; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
                     {
-                        if (WorldGen.genRand.Next(5) == 0)
+                        if (WorldGen.genRand.Next(3) == 0)
                         {
                             WorldGen.GrowTree(X, Y - 1);
                         }
@@ -190,25 +196,78 @@ namespace Spooky.Content.Generation
 
         private void SpookyHellAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
-            int XStart = StartPosition;
-            int XEdge = XStart + 750;
-
-            if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
-			{
-                XStart = StartPosition - 50;
-                XEdge = XStart + 750;
-			}
-			else
-			{
-                XStart = StartPosition;
-                XEdge = XStart + 800;
-			}
-
-            for (int X = XStart + 20; X < XEdge - 20; X++)
+            for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 250; Y <= Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 2; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
+                    //follicle vines
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<EyeBlock>() && !Main.tile[X, Y + 1].HasTile)
+                    {
+                        if (WorldGen.genRand.Next(8) == 0)
+                        {
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<FollicleVine>());
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<FollicleVine>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<FollicleVine>());
+                    }
+
+                    //eye vines
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() && !Main.tile[X, Y + 1].HasTile)
+                    {
+                        if (WorldGen.genRand.Next(8) == 0)
+                        {
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<EyeVine>());
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<EyeVine>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<EyeVine>());
+                    }
+
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
+                    {
+                        //eye bushes
+                        if (WorldGen.genRand.Next(2) == 0)
+                        {
+                            ushort[] EyeBushes = new ushort[] { (ushort)ModContent.TileType<EyeBush1>(), (ushort)ModContent.TileType<EyeBush2>(), 
+                            (ushort)ModContent.TileType<EyeBush3>(), (ushort)ModContent.TileType<EyeBush4>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeBushes));    
+                        }
+
+                        //exposed nerves
+                        if (WorldGen.genRand.Next(3) == 0)
+                        {
+                            ushort[] Nerves = new ushort[] { (ushort)ModContent.TileType<ExposedNerve1>(), (ushort)ModContent.TileType<ExposedNerve2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Nerves));    
+                        }
+
+                        //fingers
+                        if (WorldGen.genRand.Next(5) == 0)
+                        {
+                            ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<Finger1>(), (ushort)ModContent.TileType<Finger2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Fingers));    
+                        }
+
+                        //hanging fingers
+                        if (WorldGen.genRand.Next(5) == 0)
+                        {
+                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
+
+                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
+                            WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 4, WorldGen.genRand.Next(HangingFinger));
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
                         //weeds
                         if (WorldGen.genRand.Next(2) == 0)
@@ -251,54 +310,15 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y + 4, ModContent.TileType<HangingTongue>());    
                         }
                     }
-
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
-                    {
-                        //eye bushes
-                        if (WorldGen.genRand.Next(2) == 0)
-                        {
-                            ushort[] EyeBushes = new ushort[] { (ushort)ModContent.TileType<EyeBush1>(), (ushort)ModContent.TileType<EyeBush2>(), 
-                            (ushort)ModContent.TileType<EyeBush3>(), (ushort)ModContent.TileType<EyeBush4>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeBushes));    
-                        }
-
-                        //exposed nerves
-                        if (WorldGen.genRand.Next(3) == 0)
-                        {
-                            ushort[] Nerves = new ushort[] { (ushort)ModContent.TileType<ExposedNerve1>(), (ushort)ModContent.TileType<ExposedNerve2>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Nerves));    
-                        }
-
-                        //fingers
-                        if (WorldGen.genRand.Next(5) == 0)
-                        {
-                            ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<Finger1>(), (ushort)ModContent.TileType<Finger2>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Fingers));    
-                        }
-
-                        //hanging fingers
-                        if (WorldGen.genRand.Next(5) == 0)
-                        {
-                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
-
-                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));    
-                        }
-                    }
                 }
             }
         }
 
         private void SpookyHellPolish(GenerationProgress progress, GameConfiguration configuration)
         {
-            int XStart = StartPosition;
-            int XEdge = XStart + 750;
-
-            for (int X = XStart + 5; X < XEdge - 5; X++)
+            for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY - 2; Y++)
                 {
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)
@@ -311,14 +331,12 @@ namespace Spooky.Content.Generation
                     if (!Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile &&
                     !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
                     {
-                        if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
-                        {
-                            WorldGen.KillTile(X, Y);
-                        }
+                        WorldGen.KillTile(X, Y);
                     }
 
                     //slope tiles
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<Carapace>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() ||
                     Main.tile[X, Y].TileType == TileID.IridescentBrick)
@@ -861,107 +879,7 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             };
 
-            int[,] BoneSpike1 = new int[,]
-            {
-                {0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
-                {0,0,2,0,0,0,0,2,2,2,0,0,0,0,0,0},
-                {0,2,2,2,2,0,2,2,2,2,2,0,0,0,0,0},
-                {0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
-                {0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
-                {2,2,2,2,2,2,4,2,2,2,2,2,0,0,0,0},
-                {2,2,2,2,2,2,4,4,2,2,2,2,0,0,0,0},
-                {2,2,2,2,2,2,4,4,2,2,2,2,2,0,0,0},
-                {0,2,2,2,2,2,4,4,4,2,2,2,2,0,0,0},
-                {0,2,2,2,2,2,2,4,4,2,2,2,2,0,0,0},
-                {0,0,2,2,2,2,2,4,4,2,2,2,2,2,2,0},
-                {0,0,2,2,2,2,2,4,4,2,2,2,2,2,2,0},
-                {0,0,2,2,2,2,2,4,4,4,2,2,2,2,2,2},
-                {0,0,2,2,2,2,2,4,4,4,2,2,2,2,2,2},
-                {0,2,2,2,2,2,2,4,4,4,2,2,2,2,2,0},
-                {0,2,2,2,2,2,2,4,4,4,2,2,2,2,0,0},
-                {0,0,2,2,2,2,2,4,4,4,4,2,2,2,2,0},
-                {0,0,2,2,2,2,2,4,4,4,4,2,2,2,2,0},
-                {0,0,0,2,2,2,2,4,4,4,4,6,6,2,0,0},
-                {0,0,0,2,2,6,6,4,4,4,4,6,6,6,6,0},
-                {0,0,0,6,6,6,6,4,4,4,4,6,6,6,6,0},
-                {0,0,0,6,6,6,6,4,4,6,6,6,6,6,0,0},
-                {0,0,0,0,6,6,6,6,6,6,6,6,6,6,0,0},
-                {0,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0},
-                {0,0,0,0,6,6,6,6,6,6,0,0,0,0,0,0},
-                {0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0},
-            };
-
-            int[,] BoneSpike2 = new int[,]
-            {
-                {0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0},
-                {0,0,0,0,0,2,2,2,2,2,2,2,0,0,0,0},
-                {0,0,0,2,2,2,2,2,2,2,2,2,0,0,2,2},
-                {0,0,2,2,2,2,2,2,4,2,2,2,2,2,2,2},
-                {0,0,2,2,2,2,4,4,4,2,2,2,2,2,2,2},
-                {0,0,2,2,2,2,4,4,2,2,2,2,2,2,2,2},
-                {0,0,0,2,2,2,4,4,4,4,4,2,2,2,2,2},
-                {0,2,0,2,2,2,2,4,4,4,4,4,2,2,2,2},
-                {0,2,2,2,2,2,2,2,2,4,4,4,2,2,2,2},
-                {2,2,2,2,2,2,2,4,4,4,4,2,2,2,2,0},
-                {2,2,2,2,2,2,4,4,4,4,2,2,2,2,2,0},
-                {2,2,2,2,2,4,4,4,4,2,2,2,2,2,2,0},
-                {2,2,2,2,4,4,4,4,4,2,2,2,2,2,2,2},
-                {2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2},
-                {2,2,2,2,4,4,4,4,2,2,2,2,2,2,2,0},
-                {0,2,2,2,2,4,4,4,2,2,2,2,2,0,0,0},
-                {0,2,2,2,2,4,4,4,4,2,2,2,2,0,0,0},
-                {0,2,2,2,2,2,4,4,4,4,2,2,2,2,0,0},
-                {0,0,2,2,2,2,4,4,4,4,2,2,2,2,2,0},
-                {0,0,2,2,2,2,2,4,4,4,4,6,2,2,2,0},
-                {0,0,0,2,2,6,6,4,4,4,4,6,6,6,2,0},
-                {0,0,0,2,6,6,6,4,4,6,4,6,6,6,0,0},
-                {0,0,0,6,6,6,6,6,6,6,6,6,6,6,0,0},
-                {0,0,0,6,6,6,6,6,6,6,6,6,6,6,0,0},
-                {0,0,0,0,0,6,6,6,6,6,6,6,6,6,0,0},
-                {0,0,0,0,6,6,6,6,6,6,6,6,6,0,0,0},
-                {0,0,0,0,6,6,6,0,0,6,6,0,0,0,0,0},
-            };
-
-            int[,] BoneSpike3 = new int[,]
-            {
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0},
-                {0,0,0,0,0,0,2,2,2,0,0,2,2,2,2,2,2,2,2,2,0,0,0,0,0},
-                {0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,4,2,2,2,2,2,0,0,0,0},
-                {0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,4,4,4,2,2,2,2,0,2,2},
-                {2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,4,4,2,2,2,2,2,2,2},
-                {2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,4,2,2,2,2,2,2,2},
-                {0,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,4,2,2,2,2,2,2,2,0},
-                {2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,0},
-                {2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,2,2,2,2,2,2,0,0},
-                {2,2,2,2,4,2,2,2,2,2,2,2,2,2,4,4,4,4,2,2,2,2,2,0,0},
-                {0,2,2,2,4,4,4,4,2,2,2,2,2,2,2,4,4,4,4,2,2,2,2,2,0},
-                {0,2,2,2,2,4,4,4,4,4,2,2,2,2,2,4,4,4,4,4,2,2,2,2,0},
-                {0,0,2,2,2,2,4,4,4,4,2,2,2,2,2,2,2,4,4,4,2,2,2,2,0},
-                {0,0,2,2,2,2,2,4,4,4,2,2,2,2,2,2,4,4,4,4,2,2,2,2,0},
-                {0,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,4,4,4,2,2,2,2,0,0},
-                {0,2,2,2,2,2,4,4,4,4,2,2,2,2,2,4,4,4,4,2,2,2,2,0,0},
-                {2,2,2,2,2,2,4,4,4,2,2,2,2,2,4,4,4,4,2,2,2,2,2,2,0},
-                {2,2,2,2,2,4,4,4,4,2,2,2,2,2,4,4,4,4,2,2,2,2,2,2,0},
-                {0,2,2,2,2,4,4,4,4,2,2,2,6,4,4,4,4,2,2,2,2,2,0,0,0},
-                {2,2,2,2,6,4,4,4,4,4,6,6,6,4,4,4,4,6,6,2,2,2,2,0,0},
-                {2,2,6,6,6,4,4,6,4,4,6,6,6,4,6,4,4,6,6,6,2,2,2,0,0},
-                {0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0},
-                {0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0},
-                {0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0},
-                {0,0,0,6,6,6,6,6,6,0,0,6,6,6,6,6,6,6,6,6,0,0,0,0,0},
-                {0,0,0,6,6,6,6,0,0,0,0,0,0,6,6,0,0,6,6,6,0,0,0,0,0},
-            };
-
-            //blank array since bone spikes have no objects
-            int[,] BoneSpikeObjects = new int[,]
-            {
-                {},
-            };
-
-            int XStart = StartPosition;
-            int XMiddle = XStart + 375;
-            int XEdge = XStart + 750;
+            int XMiddle = (StartPosition + BiomeEdge) / 2;
 
             bool placed = false;
             while (!placed)
@@ -981,18 +899,6 @@ namespace Spooky.Content.Generation
 
                 PlaceStructures(NestX - 20, NestY - 15, BoneNestShape, BoneNestObjects);
 
-                //dig crater that leads to each alchemy room
-                for (int CraterDepth = Main.maxTilesY - 160; CraterDepth <= Main.maxTilesY - 100; CraterDepth++)
-                {
-                    if (WorldGen.genRand.Next(2) == 0)
-                    {
-                        SpookyWorldMethods.Circle(XMiddle - 200, CraterDepth, WorldGen.genRand.Next(3, 4), 0, true);
-                        SpookyWorldMethods.Circle(XMiddle - 100, CraterDepth, WorldGen.genRand.Next(3, 4), 0, true);
-                        SpookyWorldMethods.Circle(XMiddle + 100, CraterDepth, WorldGen.genRand.Next(3, 4), 0, true);
-                        SpookyWorldMethods.Circle(XMiddle + 200, CraterDepth, WorldGen.genRand.Next(3, 4), 0, true);
-                    }
-                }
-
                 //dig giant hole around each alchemy room
                 SpookyWorldMethods.Circle(XMiddle - 200, Main.maxTilesY - 100, 15, 0, true);
                 SpookyWorldMethods.Circle(XMiddle - 100, Main.maxTilesY - 100, 15, 0, true);
@@ -1005,110 +911,8 @@ namespace Spooky.Content.Generation
                 PlaceStructures(XMiddle + 85, Main.maxTilesY - 100, AlchemyCamp3, AlchemyCampObjects3);
                 PlaceStructures(XMiddle + 185, Main.maxTilesY - 100, AlchemyCamp4, AlchemyCampObjects4);
 
-                //place bone spikes, theres probably a better way to do this but i need each one to be placed perfectly on the ground
-                //first spike
-                int BoneSpikeX1 = XMiddle - 300;
-                int BoneSpikeY1 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX1, BoneSpikeY1) && BoneSpikeY1 <= Main.maxTilesY)
-                {
-                    BoneSpikeY1++;
-                }
-                if (Main.tile[BoneSpikeX1, BoneSpikeY1].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX1, BoneSpikeY1].TileType != ModContent.TileType<EyeBlock>())
-				{
-                    continue;
-                }
-
-                //second spike
-                int BoneSpikeX2 = XMiddle - 250;
-                int BoneSpikeY2 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX2, BoneSpikeY2) && BoneSpikeY2 <= Main.maxTilesY)
-                {
-                    BoneSpikeY2++;
-                }
-                if (Main.tile[BoneSpikeX2, BoneSpikeY2].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX2, BoneSpikeY2].TileType != ModContent.TileType<EyeBlock>())
-				{
-                    continue;
-                }
-
-                //third spike
-                int BoneSpikeX3 = XMiddle - 125;
-                int BoneSpikeY3 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX3, BoneSpikeY3) && BoneSpikeY3 <= Main.maxTilesY)
-                {
-                    BoneSpikeY3++;
-                }
-                if (Main.tile[BoneSpikeX3, BoneSpikeY3].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX3, BoneSpikeY3].TileType != ModContent.TileType<EyeBlock>())
-				{
-                    continue;
-                }
-
-                //fourth spike
-                int BoneSpikeX4 = XMiddle + 125;
-                int BoneSpikeY4 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX4, BoneSpikeY4) && BoneSpikeY4 <= Main.maxTilesY)
-                {
-                    BoneSpikeY4++;
-                }
-                if (Main.tile[BoneSpikeX4, BoneSpikeY4].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX4, BoneSpikeY4].TileType != ModContent.TileType<EyeBlock>())
-				{
-                    continue;
-                }
-
-                //fifth bone spike
-                int BoneSpikeX5 = XMiddle + 250;
-                int BoneSpikeY5 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX5, BoneSpikeY5) && BoneSpikeY5 <= Main.maxTilesY)
-                {
-                    BoneSpikeY5++;
-                }
-                if (Main.tile[BoneSpikeX5, BoneSpikeY5].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX5, BoneSpikeY5].TileType != ModContent.TileType<EyeBlock>())
-				{
-                    continue;
-                }
-
-                //sixth spike
-                int BoneSpikeX6 = XMiddle + 300;
-                int BoneSpikeY6 = Main.maxTilesY - 150;
-
-                while (!WorldGen.SolidTile(BoneSpikeX6, BoneSpikeY6) && BoneSpikeY6 <= Main.maxTilesY)
-                {
-                    BoneSpikeY6++;
-                }
-                if (Main.tile[BoneSpikeX6, BoneSpikeY6].TileType != ModContent.TileType<SpookyMush>() &&
-                Main.tile[BoneSpikeX6, BoneSpikeY6].TileType != ModContent.TileType<EyeBlock>())
-				{
-					continue;
-				}
-
-                //place the bone spokes
-                PlaceStructures(BoneSpikeX1, BoneSpikeY1 - 20, BoneSpike1, BoneSpikeObjects);
-                PlaceStructures(BoneSpikeX2, BoneSpikeY2 - 20, BoneSpike2, BoneSpikeObjects);
-                PlaceStructures(BoneSpikeX3, BoneSpikeY3 - 20, BoneSpike3, BoneSpikeObjects);
-                PlaceStructures(BoneSpikeX4, BoneSpikeY4 - 20, BoneSpike3, BoneSpikeObjects);
-                PlaceStructures(BoneSpikeX5, BoneSpikeY5 - 20, BoneSpike2, BoneSpikeObjects);
-                PlaceStructures(BoneSpikeX6, BoneSpikeY6 - 20, BoneSpike1, BoneSpikeObjects);
-
-                if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
-                {
-                    StartPosition = Main.maxTilesX - 750;
-                }
-                else
-                {
-                    StartPosition = 0;
-                }
-
-                int MocoShrineX = Terraria.Main.dungeonX > Main.maxTilesX / 2 ? XMiddle + 205 : XMiddle - 190;
-                int MocoShrineY = Main.maxTilesY - 150;
+                int MocoShrineX = BiomeEdge - 150;
+                int MocoShrineY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(MocoShrineX, MocoShrineY) && MocoShrineY <= Main.maxTilesY)
                 {
@@ -1144,9 +948,10 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(SpookyHellIndex + 1, new PassLegacy("SpookyHell", GenerateSpookyHell));
             tasks.Insert(SpookyHellIndex + 2, new PassLegacy("SpookyHellStructures", GenerateStructures));
-            tasks.Insert(SpookyHellIndex + 3, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
-            tasks.Insert(SpookyHellIndex + 4, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
-            tasks.Insert(SpookyHellIndex + 5, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
+            tasks.Insert(SpookyHellIndex + 3, new PassLegacy("SpookyHellGrass", SpreadSpookyHellGrass));
+            tasks.Insert(SpookyHellIndex + 4, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
+            tasks.Insert(SpookyHellIndex + 5, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
+            tasks.Insert(SpookyHellIndex + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
 		}
 
         //post worldgen to place items in the spooky biome chests

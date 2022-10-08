@@ -1,9 +1,9 @@
 using Terraria;
+using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
-using Terraria.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -11,6 +11,7 @@ using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
+using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.NPCs.Friendly;
 
@@ -20,7 +21,7 @@ namespace Spooky.Content.Generation
     {
         //default positions, edit based on worldsize below
         static int PositionX = Main.maxTilesX / 2;
-        static int PositionY = (int)Main.worldSurface - 175;
+        static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
         static bool PlacedGrass = false;
 
@@ -38,32 +39,12 @@ namespace Spooky.Content.Generation
                 Flags.SpookyBackgroundAlt = true;
             }
 
+            PositionX = Main.maxTilesX / 2;
+            PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+
             //set to default values in case of non vanilla world sizes
-            int Size = 300;
-            int BiomeHeight = 200;
-            
-            //change biome size based on world size
-            if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200) //small worlds
-            {
-                Size = 300;
-                BiomeHeight = 200;
-                PositionY = (int)Main.worldSurface - 165;
-                PositionX = 2100;
-            }
-            if (Main.maxTilesX == 6400 && Main.maxTilesY == 1800) //medium worlds
-            {
-                Size = 375;
-                BiomeHeight = 300;
-                PositionY = (int)Main.worldSurface - 200;
-                PositionX = 3200;
-            }
-            if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400) //large worlds
-            {
-                Size = 420;
-                BiomeHeight = 400;
-                PositionY = (int)Main.worldSurface - 275;
-                PositionX = 4200;
-            }
+            int Size = Main.maxTilesX / 12;
+            int BiomeHeight = Main.maxTilesY / 6;
 
             //place the actual biome
             for (int Y = 0; Y < BiomeHeight; Y += 50)
@@ -155,7 +136,7 @@ namespace Spooky.Content.Generation
         private void SpreadSpookyGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all spooky dirt tiles
-            for (int X = PositionX - 300; X <= PositionX + 300; X++)
+            for (int X = PositionX - 500; X <= PositionX + 500; X++)
 			{
                 for (int Y = PositionY - 100; Y <= Main.maxTilesY - 100; Y++)
 				{ 
@@ -179,7 +160,7 @@ namespace Spooky.Content.Generation
                         }
                     }
 
-                    if (X == PositionX + 250 && Y == Main.maxTilesY - 100)
+                    if (X == PositionX + 500 && Y == Main.maxTilesY - 100)
                     {
                         PlacedGrass = true;
                     }

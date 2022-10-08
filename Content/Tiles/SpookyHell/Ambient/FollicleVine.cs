@@ -39,7 +39,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 				type = tileAbove.TileType;
 			}
 
-			if (type == ModContent.TileType<SpookyMush>() || type == Type) 
+			if (type == ModContent.TileType<EyeBlock>() || type == Type) 
             {
 				return true;
 			}
@@ -62,7 +62,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<SpookyMush>()) 
+					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<EyeBlock>()) 
                     {
 						Test--;
 						continue;

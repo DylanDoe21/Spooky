@@ -176,6 +176,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         {
             NPC Orro = Main.npc[(int)NPC.ai[1]];
 
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
+
+            NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
+
             //death animation
             if (NPC.ai[3] >= 2)
             {
@@ -202,6 +209,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
                     if (NPC.ai[3] == 2)
                     {
+                        Main.NewText("Orro has been defeated!", 171, 64, 255);
+
 					    NPC.checkDead();
                         NPC.netUpdate = true;
                     }
@@ -214,13 +223,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             {
                 NPC.active = false;
             }
-
-            Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
-
-            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
-
-            NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
             //despawn if all players are dead or not in the biome
             if (Main.player[NPC.target].dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))

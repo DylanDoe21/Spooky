@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpookyHell.Ambient
 {
@@ -36,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.CopyFrom(TileObjectData.StyleSmallCage);
             TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(52, 40, 101));
+			AddMapEntry(new Color(88, 49, 129));
             DustType = DustID.PurpleCrystalShard;
 			HitSound = SoundID.NPCHit13;
 		}
@@ -48,6 +49,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 
     public class LivingWeed6 : LivingWeed3
     {
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Ambient/LivingWeed6Glow").Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
+		}
     }
 
     public class LivingWeed5 : ModTile
@@ -60,7 +69,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(33, 26, 62));
+            AddMapEntry(new Color(88, 49, 129));
             DustType = DustID.PurpleCrystalShard;
             HitSound = SoundID.NPCHit13;
         }

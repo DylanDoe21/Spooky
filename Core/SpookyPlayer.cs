@@ -10,6 +10,7 @@ using System;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
@@ -43,7 +44,6 @@ namespace Spooky.Core
         public bool TumorMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
-        public bool SpookyWispPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
         public bool BigBonePet = false;
@@ -72,7 +72,6 @@ namespace Spooky.Core
             TumorMinion = false;
             SoulSkull = false;
             Brainy = false;
-            SpookyWispPet = false;
             RotGourdPet = false;
             MocoPet = false;
             BigBonePet = false;
@@ -281,6 +280,11 @@ namespace Spooky.Core
                 }
             }
 
+            if (Player.HasItem(ModContent.ItemType<LittleBoneItem>()))
+            {
+                Lighting.AddLight(Player.Center, 0.5f, 0.2f, 0f);
+            }
+
             if (SpookyWorld.GhostEvent && Player.ZoneOverworldHeight)
             {
                 SpawnTileFog();
@@ -306,6 +310,37 @@ namespace Spooky.Core
             }
         }
     }
+
+    /*
+    public class LittleBoneCarry : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Wings);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.HasItem(ModContent.ItemType<LittleBoneItem>());
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/LittleBoneDraw").Value;
+            var effects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            int offset;
+
+            if (drawInfo.drawPlayer.direction >= 0)
+            {
+                offset = -18;
+            }
+            else
+            {
+                offset = 18;
+            }
+
+            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.Center.X + offset, drawInfo.drawPlayer.Center.Y - 10) - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 1f, effects, 0);
+        }
+    }
+    */
 
     public class CrossCharmShield : PlayerDrawLayer
     {
