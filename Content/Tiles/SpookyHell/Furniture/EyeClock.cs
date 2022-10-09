@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -27,6 +28,16 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.GrandfatherClocks };
 		}
+
+		public override void NumDust(int i, int j, bool fail, ref int num) 
+        {
+            num = fail ? 1 : 3;
+        }
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<EyeClockItem>());
+        }
 
 		public override bool RightClick(int x, int y)
 		{
@@ -84,14 +95,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			return true;
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num) 
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            num = fail ? 1 : 3;
-        }
+            Tile tile = Framing.GetTileSafely(i, j);
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/EyeClockGlow").Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<EyeClockItem>());
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
         }
 	}
 }

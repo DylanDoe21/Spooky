@@ -17,6 +17,7 @@ using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Chests;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Tiles.SpookyHell.Tree;
 
 namespace Spooky.Content.Generation
 {
@@ -46,7 +47,7 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating the living hell";
+            progress.Message = "Generating the eye valley";
 
             //generate the surface
             int width = BiomeEdge;
@@ -180,14 +181,36 @@ namespace Spooky.Content.Generation
 
             for (int X = StartPosition; X < BiomeEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 175; Y < Main.maxTilesY - 2; Y++)
+                for (int Y = Main.maxTilesY - 175; Y < Main.maxTilesY - 120; Y++)
                 {
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
                     {
-                        if (WorldGen.genRand.Next(3) == 0)
+                        bool doPlace = true;
+
+                        if (!WorldGen.TileEmpty(X, Y - 2))
                         {
-                            WorldGen.GrowTree(X, Y - 1);
+                            doPlace = false;
+                        }
+
+                        if (doPlace && WorldGen.genRand.Next(10) == 0)
+                        {
+                            EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
+                    {
+                        bool doPlace = true;
+
+                        if (!WorldGen.TileEmpty(X, Y - 2))
+                        {
+                            doPlace = false;
+                        }
+
+                        if (doPlace && WorldGen.genRand.Next(20) == 0)
+                        {
+                            EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
                         }
                     }
                 }

@@ -38,7 +38,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Sapling");
 			AddMapEntry(new Color(200, 200, 200), name);
-            DustType = -1;
+            DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
 		}
 
@@ -49,13 +49,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
 		public override void RandomUpdate(int i, int j)
 		{
-			if (WorldGen.genRand.Next(12) == 0)
+			if (WorldGen.genRand.Next(1) == 0)
 			{
-				bool isPlayerNear = WorldGen.PlayerLOS(i, j);
-				bool success = WorldGen.GrowTree(i, j);
-				if (success && isPlayerNear)
+				if (!WorldGen.TileEmpty(i, j - 1))
 				{
-					WorldGen.TreeGrowFXCheck(i, j);
+					EyeTree.Spawn(i, j - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
 				}
 			}
 		}

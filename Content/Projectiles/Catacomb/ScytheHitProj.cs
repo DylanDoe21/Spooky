@@ -25,7 +25,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
-            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
+            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 5)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
                 ModContent.ProjectileType<SoulBolt>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);

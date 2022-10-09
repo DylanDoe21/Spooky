@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 12000 / 3 : Main.expertMode ? 8200 / 2 : 4500;
+            NPC.lifeMax = 4500;
             NPC.damage = 42;
             NPC.defense = 25;
             NPC.width = 130;
@@ -91,6 +91,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Moco");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+            NPC.damage = (int)(NPC.damage * 0.6f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

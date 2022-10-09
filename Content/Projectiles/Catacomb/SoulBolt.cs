@@ -168,12 +168,12 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
 
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] >= 10)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] >= 5)
             {
                 Projectile.ai[0] = 1;
             }
 
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 5)
             {
                 Projectile.localAI[0]++;
 

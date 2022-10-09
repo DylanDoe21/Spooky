@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			DisplayName.SetDefault("Harvester's Scythe");
 			Tooltip.SetDefault("Killing enemies with the scythe will release souls around you"
-			+ "\nAfter you have 10 souls, they will launch themselves everywhere and home in on enemies");
+			+ "\nAfter you have 5 souls, they will launch themselves everywhere and home in on enemies");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -68,7 +68,7 @@ namespace Spooky.Content.Items.Catacomb
                 ModContent.ProjectileType<ScytheHitProj>(), Item.damage, 0f, Main.myPlayer, 0, 0);
 			}
 
-            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
+            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 5)
             {
 				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
 				ModContent.ProjectileType<SoulBolt>(), Item.damage, 0f, Main.myPlayer, 0, 0);

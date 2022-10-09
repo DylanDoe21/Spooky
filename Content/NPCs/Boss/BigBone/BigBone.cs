@@ -96,8 +96,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 120000 / 3 : Main.expertMode ? 90000 / 2 : 65000;
-            NPC.damage = Main.masterMode ? 200 / 3 : Main.expertMode ? 155 / 2 : 100;
+            NPC.lifeMax = 65000;
+            NPC.damage = 100;
             NPC.defense = 65;
             NPC.width = 134;
             NPC.height = 170;
@@ -113,6 +113,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+            NPC.damage = (int)(NPC.damage * 0.6f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

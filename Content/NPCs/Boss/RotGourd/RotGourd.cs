@@ -57,11 +57,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 3000; //Main.masterMode ? 5300 / 3 : Main.expertMode ? 4200 / 2 : 3000;
-            NPC.damage = 30; //Main.masterMode ? 65 / 3 : Main.expertMode ? 45 / 2 : 30;
+            NPC.lifeMax = 3000;
+            NPC.damage = 30;
             NPC.defense = 10;
             NPC.width = 78;
-            NPC.height = 136;
+            NPC.height = 134;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noGravity = false;
@@ -158,10 +158,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 18;
+            int Damage = Main.masterMode ? 55 / 3 : Main.expertMode ? 40 / 2 : 25;
 
 			NPC.spriteDirection = NPC.direction;
-			NPC.rotation = NPC.velocity.X * 0.01f;
+			NPC.rotation = NPC.velocity.X * 0.02f;
 
 			//spawn swarm of flies when spawned
             if (NPC.ai[2] <= 0)
@@ -287,6 +287,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					break;
 				}
 
+				//jump up really high, then slam back down above the player
 				case 1:
 				{
 					NPC.localAI[0]++;
@@ -377,6 +378,35 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					{
 						NPC.localAI[0] = 0;
 						NPC.localAI[1] = 0;
+						NPC.ai[0]++;
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//make jerry spit mold spores at the player
+				case 2:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 120)
+					{
+						Vector2 ShootSpeed = player.Center - NPC.Center;
+						ShootSpeed.Normalize();
+						ShootSpeed.X *= 7f;
+						ShootSpeed.Y *= 7f;
+
+						if (Main.rand.Next(4) == 0)
+						{
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X, 
+                            ShootSpeed.Y, ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
+						}
+					}
+
+					if (NPC.localAI[0] >= 240)
+					{
+						NPC.localAI[0] = 0;
 						NPC.ai[0] = 0;
 						NPC.netUpdate = true;
 					}

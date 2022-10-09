@@ -32,11 +32,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyPlatformItem>(), 2)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();

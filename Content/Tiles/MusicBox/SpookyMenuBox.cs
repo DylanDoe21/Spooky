@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Spooky Mod Menu)");
-            Tooltip.SetDefault("'They really killing in the studio'");
+            Tooltip.SetDefault("'They really killing it in the studio'");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyMenu"), 
             ModContent.ItemType<SpookyMenuBox>(), ModContent.TileType<SpookyMenuBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
