@@ -17,7 +17,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.JungleSpecial[Type] = true;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.Dirt;
-
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;

@@ -147,7 +147,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             {
                 NPC.frame.Y = frameHeight * 1;
             }
-			if (NPC.velocity.Y <= 0)
+			if (NPC.velocity.Y <= 0 || (NPC.ai[0] == 2 && NPC.localAI[0] >= 60))
 			{
 				NPC.frame.Y = frameHeight * 0;
 			}
@@ -394,13 +394,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					{
 						Vector2 ShootSpeed = player.Center - NPC.Center;
 						ShootSpeed.Normalize();
-						ShootSpeed.X *= 7f;
-						ShootSpeed.Y *= 7f;
+						ShootSpeed.X *= Main.rand.NextFloat(2f, 4f);
+						ShootSpeed.Y *= Main.rand.NextFloat(2f, 4f);
 
 						if (Main.rand.Next(4) == 0)
 						{
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X + Main.rand.Next(-3, 3), 
+                            ShootSpeed.Y + Main.rand.Next(-3, 3), ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
 						}
 					}
 

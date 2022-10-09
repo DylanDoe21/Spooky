@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
             {
                 float goToX = (player.Center.X + Main.rand.Next(-15, 15)) - Projectile.Center.X;
                 float goToY = (player.Center.Y + Main.rand.Next(-15, 15)) - Projectile.Center.Y;
-                float speed = 0.085f;
+                float speed = 0.05f;
 
                 if (Projectile.velocity.X < goToX)
                 {
