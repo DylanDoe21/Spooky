@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-            Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Lime);
+            Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
 
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 

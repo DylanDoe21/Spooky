@@ -1,11 +1,30 @@
+Halloween/October Update:
+
+-finish rot gourds new fight, drops, master stuff, ect
+
+-finish new spooky forest giant dead tree that leads underground
+
+-make new spooky underground rooms, make them deeper underground and more spread out based on world size
+
+-new spooky gourd/pumpkin patch next to little bone's with giant rotted gourd that gives you the seed summon item
+
+-new little bone starter house, remove the other two houses
+
+-make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
+(with fancy visuals of course)
+
+-new taco enemies and critters for the spooky forest
+
+-some new weapons for the enemies (also stuff that taco made)
 
 fixes:
 
--make big bone have more delay between specific attacks
+-make big bone have a longer delay after he charges to prevent certain attacks from being weird
 
--make big bone orange tendril attacks have a longer delay before being shot
+Possible but not guaranteed:
 
--make big bone fireballs have not horrid hitboxes
+-new spooky forest backgrounds
+
 
 Halloween/October Update:
 

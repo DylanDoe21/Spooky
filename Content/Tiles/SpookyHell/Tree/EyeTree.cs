@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 
+using Spooky.Content.NPCs.SpookyHell;
+
 namespace Spooky.Content.Tiles.SpookyHell.Tree
 {
     internal class EyeTree : ModTile
@@ -239,23 +241,25 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
                 int rand = random;
 
-                /*
 				//tree shake stuff, will probably be useful for later
 
+                /*
 				//spawn an item out of the tree
                 if (rand == 1)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
                 }
+                */
 				//spawn an npc out of the tree, in this case eye bats
-                else if (rand == 2)
+                if (rand == 2)
                 {
                     for (int numNPCs = 0; numNPCs < Main.rand.Next(1, 2); numNPCs++)
 					{
                         NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<EyeBat>());
 					}
                 }
+                /*
 				//spawn gores out of the tree
                 for (int numGores = 0; numGores < 20; numGores++)
 				{
@@ -463,7 +467,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(246, 230);
+                Vector2 treeOffset = new Vector2(248, 230);
 
                 //draw tree tops
                 CustomTreeUtil.DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(222 * frame, 0, 220, 108), 
@@ -540,7 +544,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(246, 230);
+                Vector2 treeOffset = new Vector2(248, 230);
 
                 //draw tree tops
                 CustomTreeUtil.DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(222 * frame, 0, 220, 108), 

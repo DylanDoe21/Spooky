@@ -19,8 +19,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-            Item.width = 16;
-			Item.height = 16;
+            Item.width = 18;
+			Item.height = 26;
 			Item.useTime = 7;
 			Item.useAnimation = 15;
 			Item.useStyle = 1;

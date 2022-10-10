@@ -5,6 +5,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyHell;
@@ -25,7 +26,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.damage = 35;
             NPC.defense = 0;
             NPC.width = 88;
-            NPC.height = 84;
+            NPC.height = 80;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
@@ -46,6 +47,16 @@ namespace Spooky.Content.NPCs.SpookyHell
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/EyeBatGlow").Value;
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {

@@ -60,6 +60,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) 
 		{
+			if (!NPC.downedPlantBoss)
+			{
+				return false;
+			}
+
 			return true;
 		}
 
@@ -161,11 +166,15 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 				if (isLocked) 
 				{
 					int key = ModContent.ItemType<SpookyBiomeKey>();
-					if (player.ConsumeItem(key) && Chest.Unlock(left, top)) 
+
+					if (NPC.downedPlantBoss)
 					{
-						if (Main.netMode == NetmodeID.MultiplayerClient) 
+						if (player.ConsumeItem(key) && Chest.Unlock(left, top))
 						{
-							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
+							if (Main.netMode == NetmodeID.MultiplayerClient) 
+							{
+								NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
+							}
 						}
 					}
 				}

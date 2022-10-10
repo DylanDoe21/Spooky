@@ -55,21 +55,9 @@ namespace Spooky.Content.Generation
                 SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + 10, (double)Size + Y / 2, 1, ModContent.TileType<SpookyDirt>(), 
                 ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true);
             }
-
-            /*
-            //dig crater to lead to the underground
-            for (int CraterDepth = PositionY; CraterDepth < (int)Main.worldSurface + 55; CraterDepth++)
-            {
-                if (WorldGen.genRand.Next(2) == 0)
-                {
-                    //use CraterDepth here since it needs to place continuously
-                    SpookyWorldMethods.Circle(PositionX - Main.rand.Next(30, 45), CraterDepth, WorldGen.genRand.Next(3, 6), 0, true);
-                }
-            }
-            */
             
             //place clumps of stone in the underground
-            for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); k++)
+            for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 12E-05); k++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface + 10, Main.maxTilesY);
@@ -78,7 +66,7 @@ namespace Spooky.Content.Generation
                 {
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>())
                     {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(45, 55), WorldGen.genRand.Next(45, 55), 
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(35, 45), WorldGen.genRand.Next(35, 45), 
                         ModContent.TileType<SpookyStone>(), true, 0f, 0f, true, true);
                     }
                 }
@@ -116,7 +104,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 10), WorldGen.genRand.Next(3, 10), TileID.Copper, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 10), WorldGen.genRand.Next(6, 10), TileID.Copper, false, 0f, 0f, false, true);
                 }
             }
 
@@ -127,7 +115,18 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(2, 8), TileID.Iron, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(5, 8), TileID.Iron, false, 0f, 0f, false, true);
+                }
+            }
+
+            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 6E-05); l++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                {
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(3, 6), TileID.Silver, false, 0f, 0f, false, true);
                 }
             }
 
@@ -256,17 +255,6 @@ namespace Spooky.Content.Generation
                                 WorldGen.PlaceObject(X, Y - 1, 35, true, WorldGen.genRand.Next(0, 8));                        
                             }
 
-                            //large weeds
-                            if (WorldGen.genRand.Next(5) == 0)
-                            {
-                                ushort[] Weeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), 
-                                (ushort)ModContent.TileType<SpookyWeedBig2>(), (ushort)ModContent.TileType<SpookyWeedBig3>(),
-                                (ushort)ModContent.TileType<SpookyWeedTall1>(), (ushort)ModContent.TileType<SpookyWeedTall2>(), 
-                                (ushort)ModContent.TileType<SpookyWeedTall3>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Weeds));    
-                            }
-
                             //pumpkins
                             if (WorldGen.genRand.Next(7) == 0)
                             {
@@ -277,17 +265,27 @@ namespace Spooky.Content.Generation
                             }
                         }
 
-                        //place stuff on rock
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
-                        Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                        //place orange grass only on orange grass
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
                         {
-                            //mossy rock piles
-                            if (WorldGen.genRand.Next(8) == 0)
-                            {    
-                                ushort[] Rocks = new ushort[] { (ushort)ModContent.TileType<SpookyRock1>(), 
-                                (ushort)ModContent.TileType<SpookyRock2>(), (ushort)ModContent.TileType<SpookyRock3>() };
+                            if (Main.rand.Next(3) == 0) 
+                            {
+                                ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallOrange1>(), 
+                                (ushort)ModContent.TileType<SpookyWeedsTallOrange2>(),(ushort)ModContent.TileType<SpookyWeedsTallOrange3>() };
 
-                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Rocks));           
+                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(TallWeed));
+                            }
+                        }
+
+                        //place green grass only on green grass
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
+                        {
+                            if (Main.rand.Next(3) == 0) 
+                            {
+                                ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallGreen1>(), 
+                                (ushort)ModContent.TileType<SpookyWeedsTallGreen2>(),(ushort)ModContent.TileType<SpookyWeedsTallGreen3>() };
+
+                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(TallWeed));
                             }
                         }
                     }
@@ -300,20 +298,24 @@ namespace Spooky.Content.Generation
                     { 
                         if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
                         Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
-                        {
+                        {   
+                            if (Main.rand.Next(8) == 0) 
+                            {
+                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<SpookyMushroomTall1>(), (ushort)ModContent.TileType<SpookyMushroomTall2>() };
+
+                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(Mushrooms));
+                            }
+
                             //candles
-                            if (WorldGen.genRand.Next(25) == 0)
+                            if (WorldGen.genRand.Next(22) == 0)
                             {
                                 WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<Candle>());
                             }
-                            
-                            //mossy rock piles
-                            if (WorldGen.genRand.Next(10) == 0)
-                            {    
-                                ushort[] Rocks = new ushort[] { (ushort)ModContent.TileType<SpookyRock1>(), 
-                                (ushort)ModContent.TileType<SpookyRock2>(), (ushort)ModContent.TileType<SpookyRock3>() };
 
-                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Rocks));           
+                            //candles
+                            if (WorldGen.genRand.Next(22) == 0)
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<Candle>());
                             }
 
                             //hanging glow vines

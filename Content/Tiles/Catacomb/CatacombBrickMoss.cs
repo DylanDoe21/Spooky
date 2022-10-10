@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override bool CanExplode(int i, int j)
         {
-			return Flags.downedBigBone;
+			return false;
         }
 
 		public override void RandomUpdate(int i, int j)
