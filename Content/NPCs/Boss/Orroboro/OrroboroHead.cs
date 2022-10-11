@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 
@@ -30,6 +31,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             DisplayName.SetDefault("Orro-Boro");
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 18;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -65,8 +68,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 52000 / 3 : Main.expertMode ? 45000 / 2 : 32000;
             NPC.damage = 60;
             NPC.defense = 35;
-            NPC.width = 62;
-            NPC.height = 62;
+            NPC.width = 98;
+            NPC.height = 86;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
@@ -79,6 +82,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.HitSound = SoundID.NPCHit9;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
+        }
+        
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroHeadGlow").Value;
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

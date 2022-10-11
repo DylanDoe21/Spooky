@@ -30,8 +30,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetDefaults()
         {
             NPC.lifeMax = 150;
-            NPC.damage = 45;
-            NPC.defense = 20;
+            NPC.damage = 50;
+            NPC.defense = 10;
             NPC.width = 70;
             NPC.height = 40;
             NPC.npcSlots = 1f;

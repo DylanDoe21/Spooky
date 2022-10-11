@@ -40,6 +40,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.netAlways = true;
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit9;
+            NPC.aiStyle = -1;
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

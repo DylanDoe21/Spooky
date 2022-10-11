@@ -161,11 +161,15 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     if (currentBG.PreDraw(BGTexture, ref drawPosition, ref frame, ref clr, Scale, Layers))
                     {
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-                        Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                    }
+
+                    if (currentBG.PreDraw(BGTextureGlow, ref drawPosition, ref frame, ref clr, Scale, Layers))
+                    {
+                        Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, Color.White * transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                     }
 
                     currentBG.PostDraw(BGTextureGlow, drawPosition, frame, clr, Scale, Layers);
-                    currentBG.PostDraw(BGTextureGlow, drawPosition, frame, Color.White, Scale, Layers);
+                    currentBG.PostDraw(BGTextureGlow, drawPosition, frame, Color.White * transparency, Scale, Layers);
                 }
             }
         }

@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 750;
+            NPC.lifeMax = 800;
             NPC.damage = 65;
             NPC.defense = 20;
             NPC.width = 90;
@@ -65,13 +65,14 @@ namespace Spooky.Content.NPCs.SpookyHell
 
 			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
             {
-                if (!Main.hardMode)
+                //spawn more often in hardmode
+                if (Main.hardMode)
                 {
-                    return 2f;
+                    return 5f;
                 }
                 else
                 {
-                    return 5f;
+                    return 2f;
                 }
             }
             return 0f;

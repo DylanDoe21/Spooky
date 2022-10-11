@@ -144,6 +144,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 spriteBatch.Draw(angerTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
 				Color.Red, NPC.rotation, drawOrigin2, NPC.scale, SpriteEffects.None, 0);
             }
+
+            Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow").Value;
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(glowTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 
         public override void FindFrame(int frameHeight)

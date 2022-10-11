@@ -62,6 +62,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void AI()
         {
+            NPC.homeTileX = (int)NPC.Center.X;
+			NPC.homeTileY = (int)NPC.Center.Y;
+
             if (NPC.ai[1] == 1)
             {
                 NPC.ai[0]++;

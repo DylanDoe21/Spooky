@@ -14,6 +14,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orro");
+
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
@@ -61,7 +62,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                     Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
                 }
             }
-
+            
             return true;
         }
 

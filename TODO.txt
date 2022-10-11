@@ -4,11 +4,7 @@ Halloween/October Update:
 
 -finish new spooky forest giant dead tree that leads underground
 
--make new spooky underground rooms, make them deeper underground and more spread out based on world size
-
--new spooky gourd/pumpkin patch next to little bone's with giant rotted gourd that gives you the seed summon item
-
--new little bone starter house, remove the other two houses
+-new spooky gourd/pumpkin patch on the left side of the biome with a giant rotted gourd that gives you the summon item
 
 -make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
 (with fancy visuals of course)
@@ -17,48 +13,21 @@ Halloween/October Update:
 
 -some new weapons for the enemies (also stuff that taco made)
 
+-make recipes for the new furniture
+
+
 fixes:
 
--make big bone have a longer delay after he charges to prevent certain attacks from being weird
+-make big bone have a longer delay after his charges to prevent certain attacks from being weird
+
 
 Possible but not guaranteed:
 
--new spooky forest backgrounds
-
-
-Halloween/October Update:
+-new weapon upgrades for the spooky forest chest weapons
 
 -new spooky forest backgrounds
-
--new sprites for the spooky forest ambient tiles
-
--new enemies for the spooky forest
-
--new moco weapons and improve the old ones
-
-new rot-gourd mini-expansion:
--new rot-gourd sprite and design, new palette for rot-gourd and the spooky night time pumpkin enemies
--new rot-gourd attack improvements (if needed, not definite)
--new pumpkin patch areas in the spooky forest with funny little jack o lantern and gourd tiles
--new drops for rot-gourd
-
--new rot-gourd armor idea: the head will try to smash enemies instead of shooting boring seeds
-
-rot-gourd ideas:
--rework phase 2 so rot-gourd looks beaten up, and is carried around by flies
--flies will attempt to carry rot-gourd so he can shoot at you, they can also drop rot-gourd above you, and charge at you directly
-
-Stuff that might or might not happen:
 
 -new spooky mod menu background
-
--new spooky forest underground generation (basically make the entire underground made out of stone and then replace all caves with blocks
-then make unique cave generation and not just replacing blocks) (MAYBE???)
-
-new little bone mechanic: 
--you can now pick him up and carry him with you (by pressing an extra button that turns him into an item)
--little bone can be placed down and give you advice about where you are (and can help spawn certain bosses possibly?) (no promises)
--MAYBE little bone will be visible on your back and have a dialogue box in the bottom corner while in your inventory? (again, no promises)
 
 
 Eye Valley Update:

@@ -15,6 +15,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
+			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);

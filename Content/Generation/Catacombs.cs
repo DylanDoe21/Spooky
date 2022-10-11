@@ -11,7 +11,6 @@ using Spooky.Core;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.NPCs.Ghasts;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
@@ -28,7 +27,7 @@ namespace Spooky.Content.Generation
     public class Catacombs : ModSystem
     {
         static int PositionX = 0;
-        static int PositionY = (int)Main.worldSurface - 150;
+        static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
         static int EntranceY = 0;
         static int BiomeWidth = 350;
 
@@ -36,7 +35,7 @@ namespace Spooky.Content.Generation
         //essentially just make the jungles position not near the graveyard/catacombs
         private void ModifyJungleCoordinate(GenerationProgress progress, GameConfiguration configuration)
         {
-            int WorldCenterOffset = (Main.maxTilesX / 2) / 2;
+            int WorldCenterOffset = Main.maxTilesX / 4;
 
             //place biome based on opposite dungeon side
             if (WorldGen.dungeonSide == -1)
@@ -54,27 +53,26 @@ namespace Spooky.Content.Generation
         {
             progress.Message = "Generating graveyard";
 
+            PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+
             int ClearHeight = 170;
             int XAmount = 0;
 
             //change height for y check based on world size
             if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200) //small worlds
             {
-                PositionY = (int)Main.worldSurface - 150;
                 ClearHeight = 135;
                 BiomeWidth = 400;
                 XAmount = 0;
             }
             if (Main.maxTilesX == 6400 && Main.maxTilesY == 1800) //medium worlds
             {
-                PositionY = (int)Main.worldSurface - 200;
                 ClearHeight = 250;
                 BiomeWidth = 450;
                 XAmount = 100;
             }
             if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400) //large worlds
             {
-                PositionY = (int)Main.worldSurface - 275;
                 ClearHeight = 300;
                 BiomeWidth = 525;
                 XAmount = 150;
@@ -949,8 +947,6 @@ namespace Spooky.Content.Generation
                             //ghast chest
                             case 10:
                             {
-                                tile.ClearTile();
-                                NPC.NewNPC(null, (StructureX * 16) - 8, (StructureY * 16) + 12, ModContent.NPCType<GhastChest>(), 0, 0f, 0f, 0f, 0f, 255);
                                 break;
                             }
                         }
@@ -3162,7 +3158,7 @@ namespace Spooky.Content.Generation
                 return;
             }
 
-            tasks.Insert(JungleCoordIndex + 0, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
+            tasks.Insert(JungleCoordIndex + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
 
             int GraveyardIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Dirt Rock Wall Runner"));
 			if (GraveyardIndex == -1)
@@ -3173,7 +3169,7 @@ namespace Spooky.Content.Generation
             tasks.Insert(GraveyardIndex + 1, new PassLegacy("GraveyardStructure", PlaceGraveyardArea));
             tasks.Insert(GraveyardIndex + 2, new PassLegacy("GraveyardStructure", GenerateGraveyardStructures));
 
-            int CatacombIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+            int CatacombIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
 			if (CatacombIndex == -1)
 			{
 				return;

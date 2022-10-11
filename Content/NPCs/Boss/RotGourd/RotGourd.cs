@@ -453,7 +453,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								player.velocity.Y -= 12f;
 							}
 
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, ProjectileID.DD2OgreSmash, Damage, 1, NPC.target, 0, 0);
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 20, NPC.Center.Y, 0, 0, ProjectileID.DD2OgreSmash, Damage, 1, NPC.target, 0, 0);
 
 							//make cool dust effect when slamming the ground
 							for (int i = 0; i < 65; i++)
@@ -495,14 +495,14 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 							{
-								if ((NPC.localAI[0] >= 60 && NPC.localAI[0] < 180 && Main.rand.Next(50) == 0) || NPC.localAI[0] == 180)
+								if ((NPC.localAI[0] >= 60 && NPC.localAI[0] < 140 && Main.rand.Next(25) == 0) || NPC.localAI[0] == 140)
 								{
 									Main.projectile[k].ai[0] = 1;
 								}
 							}
 						}
 
-						if (NPC.localAI[0] >= 300)
+						if (NPC.localAI[0] >= 210)
 						{
 							for (int k = 0; k < Main.maxProjectiles; k++)
 							{

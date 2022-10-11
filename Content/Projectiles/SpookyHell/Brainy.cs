@@ -103,7 +103,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.localAI[0] < 3510)
             {
-                if (Main.rand.Next(100) == 0)
+                if (Main.rand.Next(750) == 0)
                 {
                     if (Main.rand.Next(2) == 0)
                     {

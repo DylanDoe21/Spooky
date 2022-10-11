@@ -87,16 +87,6 @@ namespace Spooky.Core
             
 			return false;
 		}
-
-		public bool CanShowItemDropInUI() 
-        {
-			return true;
-		}
-
-		public string GetConditionDescription() 
-        {
-			return "Drops in 'Spooky Forest' in hardmode";
-		}
 	}
 
     public class SpookyHellKeyCondition : IItemDropRuleCondition
@@ -114,16 +104,6 @@ namespace Spooky.Core
 			}
             
 			return false;
-		}
-
-		public bool CanShowItemDropInUI() 
-        {
-			return true;
-		}
-
-		public string GetConditionDescription() 
-        {
-			return "Drops in 'Valley of Eyes' in hardmode";
 		}
 	}
 }

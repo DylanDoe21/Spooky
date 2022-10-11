@@ -14,6 +14,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Boro");
+
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }

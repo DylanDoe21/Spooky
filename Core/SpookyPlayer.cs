@@ -9,11 +9,13 @@ using System;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Core
 {
@@ -291,13 +293,32 @@ namespace Spooky.Core
             }
         }
 
+        public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+        {
+            bool inWater = !attempt.inLava && !attempt.inHoney;
+            bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
+
+            if (inWater && inSpookyBiome && attempt.crate)
+            {
+                if (!attempt.veryrare && !attempt.legendary && !attempt.rare && Main.rand.Next(4) == 0)
+                {
+                    sonar.Text = "Spooky Crate";
+                    sonar.Color = Color.LimeGreen;
+                    sonar.Velocity = Vector2.Zero;
+                    sonar.DurationInFrames = 300;
+
+                    itemDrop = ModContent.ItemType<SpookyCrate>();
+                }
+            }
+        }
+
         private void SpawnTileFog()
         {
             for (int i = (int)Math.Floor(Player.position.X / 16) - 120; i < (int)Math.Floor(Player.position.X / 16) + 120; i++)
             {
                 for (int j = (int)Math.Floor(Player.position.Y / 16) - 30; j < (int)Math.Floor(Player.position.Y / 16) + 30; j++)
                 {
-                    if (!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && Main.tile[i, j].HasTile)
+                    if (!Main.tile[i, j].HasTile && !Main.tile[i, j - 1].HasTile && Main.tile[i, j - 2].HasTile)
                     {
                         if (Main.rand.Next(120) == 0)
                         {
@@ -310,37 +331,6 @@ namespace Spooky.Core
             }
         }
     }
-
-    /*
-    public class LittleBoneCarry : PlayerDrawLayer
-    {
-        public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Wings);
-
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-        {
-            return drawInfo.drawPlayer.HasItem(ModContent.ItemType<LittleBoneItem>());
-        }
-
-        protected override void Draw(ref PlayerDrawSet drawInfo)
-        {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/LittleBoneDraw").Value;
-            var effects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            int offset;
-
-            if (drawInfo.drawPlayer.direction >= 0)
-            {
-                offset = -18;
-            }
-            else
-            {
-                offset = 18;
-            }
-
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.Center.X + offset, drawInfo.drawPlayer.Center.Y - 10) - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 1f, effects, 0);
-        }
-    }
-    */
 
     public class CrossCharmShield : PlayerDrawLayer
     {

@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(93, 62, 39));
+            AddMapEntry(new Color(106, 84, 53));
 			DustType = DustID.WoodFurniture;
 			ItemDrop = ModContent.ItemType<SpookyWoodItem>();
 		}

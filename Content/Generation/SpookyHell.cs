@@ -963,7 +963,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(SpookyHellClearIndex + 1, new PassLegacy("ClearArea", ClearArea));
 
-            int SpookyHellIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+            int SpookyHellIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
 			if (SpookyHellIndex == -1)
 			{
 				return;

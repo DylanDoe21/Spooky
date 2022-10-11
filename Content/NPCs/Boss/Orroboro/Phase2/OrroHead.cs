@@ -79,8 +79,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
             NPC.lifeMax = Main.masterMode ? 18000 / 3 : Main.expertMode ? 14500 / 2 : 10000;
             NPC.damage = 55;
             NPC.defense = 30;
-            NPC.width = 62;
-            NPC.height = 62;
+            NPC.width = 98;
+            NPC.height = 86;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.boss = true;
@@ -104,6 +104,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroHeadGlow").Value;
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+        }
 
         //rotate the bosses map icon to the NPCs direction
         public override void BossHeadRotation(ref float rotation)
