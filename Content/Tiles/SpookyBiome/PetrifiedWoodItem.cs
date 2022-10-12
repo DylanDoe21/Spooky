@@ -7,11 +7,11 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
-    public class SpookyWoodItem : ModItem
+    public class PetrifiedWoodItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Old Wood");
+            DisplayName.SetDefault("Petrified Wood");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 
@@ -26,19 +26,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 999;
-			Item.createTile = ModContent.TileType<SpookyWood>();
+			Item.createTile = ModContent.TileType<PetrifiedWood>();
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1)
+            .AddTile(TileID.Furnaces)
             .Register();
 
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<PetrifiedWoodItem>(), 1)
-            .AddCondition(Recipe.Condition.NearWater) 
+            .AddIngredient(ModContent.ItemType<PetrifiedWoodWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

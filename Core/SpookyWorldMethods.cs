@@ -150,21 +150,7 @@ namespace Spooky.Core
 						if ((double)(Math.Abs((float)k - pos.X) + Math.Abs((float)l - pos.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							//do not generate or replace anything above the surface (basically to stop it from replacing blocks on floating islands)
-							int limit = (int)Main.worldSurface - 175;
-
-							//change biome size based on world size
-							if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200) //small worlds
-							{
-								limit = (int)Main.worldSurface - 165;
-							}
-							if (Main.maxTilesX == 6400 && Main.maxTilesY == 1800) //medium worlds
-							{
-								limit = (int)Main.worldSurface - 200;
-							}
-							if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400) //large worlds
-							{
-								limit = (int)Main.worldSurface - 275;
-							}
+							int limit = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
 							if (l > limit)
 							{

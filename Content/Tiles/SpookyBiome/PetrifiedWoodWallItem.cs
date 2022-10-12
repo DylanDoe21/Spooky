@@ -3,15 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-using Spooky.Content.Tiles.SpookyBiome.Furniture;
-
 namespace Spooky.Content.Tiles.SpookyBiome
 {
-    public class SpookyWoodItem : ModItem
+    public class PetrifiedWoodWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Old Wood");
+            DisplayName.SetDefault("Petrified Wood Wall");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 
@@ -26,19 +24,14 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 999;
-			Item.createTile = ModContent.TileType<SpookyWood>();
+			Item.createWall = ModContent.WallType<PetrifiedWoodWall>();
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
+            CreateRecipe(4)
             .AddIngredient(ModContent.ItemType<PetrifiedWoodItem>(), 1)
-            .AddCondition(Recipe.Condition.NearWater) 
+            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

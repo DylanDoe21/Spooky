@@ -947,6 +947,7 @@ namespace Spooky.Content.Generation
                             //ghast chest
                             case 10:
                             {
+                                tile.ClearTile();
                                 break;
                             }
                         }

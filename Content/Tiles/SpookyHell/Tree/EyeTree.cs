@@ -441,7 +441,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranches").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(166, 144);
+                Vector2 treeOffset = new Vector2(38, 16); //new Vector2(166, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(0, 52 * frame, 56, 50), new Color(col.R, col.G, col.B, 255), 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -454,7 +454,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranches").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(132, 144);
+                Vector2 treeOffset = new Vector2(4, 16); //new Vector2(132, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(58, 52 * frame, 56, 50), new Color(col.R, col.G, col.B, 255), 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -467,7 +467,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(248, 230);
+                Vector2 treeOffset = new Vector2(118, 104); //new Vector2(248, 230);
 
                 //draw tree tops
                 CustomTreeUtil.DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(222 * frame, 0, 220, 108), 
@@ -476,7 +476,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
 
-            Vector2 treeNormalOffset = new Vector2(130, 126);
+            Vector2 treeNormalOffset = new Vector2(0, 0); //new Vector2(130, 126);
 
             //draw the actual tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
@@ -522,7 +522,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranchesGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(166, 144);
+                Vector2 treeOffset = new Vector2(38, 16); //new Vector2(166, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(0, 52 * frame, 56, 50), Color.White, 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -533,7 +533,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranchesGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(132, 144);
+                Vector2 treeOffset = new Vector2(4, 16); //new Vector2(132, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(58, 52 * frame, 56, 50), Color.White, 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -544,7 +544,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(248, 230);
+                Vector2 treeOffset = new Vector2(118, 104); //new Vector2(248, 230);
 
                 //draw tree tops
                 CustomTreeUtil.DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(222 * frame, 0, 220, 108), 
@@ -553,7 +553,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;
 
-            Vector2 treeNormalOffset = new Vector2(130, 126);
+            Vector2 treeNormalOffset = new Vector2(0, 0); //new Vector2(130, 126);
 
             //draw the actual tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 

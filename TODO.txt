@@ -18,6 +18,8 @@ Halloween/October Update:
 
 fixes:
 
+-make enemy gores created in hit effect instead of checkdead
+
 -make big bone have a longer delay after his charges to prevent certain attacks from being weird
 
 

@@ -18,29 +18,16 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        { 
-            if (!NPC.downedBoss1 && npc.type == NPCID.EyeofCthulhu)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey1>(), 1));
-            }
-
-            if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey2>(), 1));
-            }
-
-            if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombKey3>(), 1));
-            }
-        }
-
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
             //make hardmode enemies drop the biome keys, 1/2500 chance like vanilla
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
+
+            //catacomb keys
+            globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey1Condition(), ModContent.ItemType<CatacombKey1>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey2Condition(), ModContent.ItemType<CatacombKey2>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey3Condition(), ModContent.ItemType<CatacombKey3>(), 1));
         }
 
         public override void OnKill(NPC npc)
@@ -71,6 +58,90 @@ namespace Spooky.Core
         }
     }
 
+    public class CatacombKey1Condition : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) 
+        {
+			if (!info.IsInSimulation) 
+            {
+				NPC npc = info.npc;
+
+				if (!NPC.downedBoss1 && npc.type == NPCID.EyeofCthulhu)
+                {
+					return true;
+				}
+			}
+            
+			return false;
+		}
+
+        public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+        public string GetConditionDescription() 
+        {
+			return "Drops from Eye of Cthulhu";
+		}
+	}
+
+    public class CatacombKey2Condition : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) 
+        {
+			if (!info.IsInSimulation) 
+            {
+				NPC npc = info.npc;
+
+				if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
+                {
+					return true;
+				}
+			}
+            
+			return false;
+		}
+
+        public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+        public string GetConditionDescription() 
+        {
+			return "Drops from Wall of Flesh";
+		}
+	}
+
+    public class CatacombKey3Condition : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) 
+        {
+			if (!info.IsInSimulation) 
+            {
+				NPC npc = info.npc;
+
+				if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
+                {
+					return true;
+				}
+			}
+            
+			return false;
+		}
+
+        public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+        public string GetConditionDescription() 
+        {
+			return "Drops from Golem";
+		}
+	}
+
     public class SpookyKeyCondition : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) 
@@ -86,6 +157,16 @@ namespace Spooky.Core
 			}
             
 			return false;
+		}
+
+        public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+        public string GetConditionDescription() 
+        {
+			return "Drops in 'Spooky Forest' in hardmode";
 		}
 	}
 
@@ -104,6 +185,16 @@ namespace Spooky.Core
 			}
             
 			return false;
+		}
+
+        public bool CanShowItemDropInUI() 
+        {
+			return true;
+		}
+
+        public string GetConditionDescription() 
+        {
+			return "Drops in 'Valley of Eyes' in hardmode";
 		}
 	}
 }

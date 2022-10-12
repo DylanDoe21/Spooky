@@ -57,7 +57,7 @@ namespace Spooky.Content.Generation
             }
             
             //place clumps of stone in the underground
-            for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 12E-05); k++)
+            for (int stone = 0; stone < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 12E-05); stone++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface + 10, Main.maxTilesY);
@@ -72,8 +72,8 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of green moss in the entire biome
-            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); l++)
+            //place clumps of green grass
+            for (int moss = 0; moss < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); moss++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next(0, Main.maxTilesY);
@@ -97,7 +97,7 @@ namespace Spooky.Content.Generation
             }
 
             //place clumps of vanilla ores
-            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 10E-05); l++)
+            for (int copper = 0; copper < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 10E-05); copper++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
@@ -108,7 +108,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); l++)
+            for (int iron = 0; iron < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); iron++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
@@ -119,7 +119,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 6E-05); l++)
+            for (int silver = 0; silver < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 6E-05); silver++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
@@ -131,7 +131,7 @@ namespace Spooky.Content.Generation
             }
 
             //place custom caves
-            for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); l++)
+            for (int caves = 0; caves < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); caves++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
@@ -185,7 +185,7 @@ namespace Spooky.Content.Generation
             //grow trees
             for (int X = PositionX - 300; X <= PositionX + 300; X++)
 			{
-                for (int Y = (int)Main.worldSurface - 150; Y < (int)Main.worldSurface - 50; Y++)
+                for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
 				{  
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyDirt>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyDirt2>())
@@ -326,7 +326,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        private void PlaceStarterHouse(int X, int Y, int[,] BlocksArray, int[,] ObjectArray)
+        private void PlaceStructures(int X, int Y, int[,] BlocksArray, int[,] ObjectArray)
         {
             for (int PlaceX = 0; PlaceX < BlocksArray.GetLength(1); PlaceX++)
             {
@@ -386,6 +386,28 @@ namespace Spooky.Content.Generation
                                 WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyDirt>());
                                 break;
                             }
+                            //petrified wood
+                            case 7:
+                            {
+                                tile.ClearEverything();
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<PetrifiedWood>());
+                                break;
+                            }
+                            //petrified wood wall
+                            case 8:
+                            {
+                                tile.ClearEverything();
+                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<PetrifiedWoodWall>());
+                                break;
+                            }
+                            //petrified wood and wall (for the tunnels)
+                            case 9:
+                            {
+                                tile.ClearEverything();
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<PetrifiedWood>());
+                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<PetrifiedWoodWall>());
+                                break;
+                            }
                         }
                     }
                 }
@@ -429,6 +451,13 @@ namespace Spooky.Content.Generation
                                 NPC.NewNPC(null, StructureX * 16, StructureY * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
                                 break;
                             }
+                            //candles
+                            case 4:
+                            {
+                                tile.ClearTile();
+                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<Candle>());
+                                break;
+                            }
                         }
                     }
                 }
@@ -445,12 +474,16 @@ namespace Spooky.Content.Generation
             //4 = dynasty shingles
             //5 = old wood wall
             //6 = spooky dirt
+            //7 = petrified wood
+            //8 = petrified wood wall
+            //9 = petrified wood and wall
 
             //objects
             //0 = dont touch
             //1 = wooden beams
             //2 = pumpkin chandelier
             //3 = little bone
+            //4 = candles
 
             int [,] StarterHouse = new int [,]
             {
@@ -463,14 +496,14 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,5,1,1,1,5,1,1,1,5,1,1,5,1,5,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,5,5,5,1,1,5,1,1,5,5,1,1,5,1,5,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,2,5,1,5,5,1,5,1,1,5,1,1,1,5,5,5,2,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,2,2,2,2,1,5,5,5,5,5,5,1,1,1,5,2,2,2,2,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,2,2,2,2,2,2,3,3,3,3,3,2,2,2,2,2,2,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,2,2,2,5,1,1,5,5,5,1,1,5,2,2,2,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,2,2,5,5,1,1,5,5,5,1,1,5,5,2,2,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,2,5,1,1,5,5,5,5,1,5,5,5,2,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,5,5,5,5,1,5,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,5,5,5,1,1,5,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,1,5,5,1,1,5,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,1,1,2,2,2,2,1,5,5,5,5,5,5,1,1,1,5,2,2,2,2,1,1,0,0,0,0},
+                {0,0,0,0,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,0,0,0},
+                {0,0,0,1,1,1,1,1,1,2,2,2,5,1,1,5,5,5,1,1,5,2,2,2,1,1,1,1,1,1,0,0},
+                {0,0,0,1,1,1,1,1,1,2,2,5,5,1,1,5,5,5,1,1,5,5,2,2,1,1,1,1,1,1,0,0},
+                {0,0,0,1,1,1,1,1,1,1,2,5,1,1,5,5,5,5,1,5,5,5,2,1,1,1,1,1,1,1,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,5,1,1,5,1,5,5,5,5,1,5,1,1,1,1,1,1,1,1,0,0},
+                {0,0,0,0,1,1,1,1,1,1,1,5,1,1,5,1,5,5,5,1,1,5,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,0,0,1,1,1,1,1,1,5,1,1,5,1,1,5,5,1,1,5,1,1,1,1,1,1,0,0,0,0},
                 {0,0,0,6,6,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,0,0,0,0},
                 {6,6,6,6,6,6,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,6,6,6,6,6},
                 {6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
@@ -524,9 +557,201 @@ namespace Spooky.Content.Generation
                 Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrass>() ||
                 Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrassGreen>())
 				{
-					PlaceStarterHouse(HouseX, HouseY - 18, StarterHouse, StarterHouseObjects);
+					PlaceStructures(HouseX, HouseY - 18, StarterHouse, StarterHouseObjects);
                     placed = true;
 				}
+            }
+        }
+
+        public void GenerateGiantTree(GenerationProgress progress, GameConfiguration configuration)
+        {
+            //tiles
+            //0 = dont touch
+            //1 = clear everything
+            //2 = old wood
+            //3 = wood platform
+            //4 = dynasty shingles
+            //5 = old wood wall
+            //6 = spooky dirt
+            //7 = petrified wood
+            //8 = petrified wood wall
+            //9 = petrified wood and wall
+
+            //objects
+            //0 = dont touch
+            //1 = wooden beams
+            //2 = pumpkin chandelier
+            //3 = little bone
+            //4 = candles
+
+            int [,] GiantTree = new int [,]
+            {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,7,7,7,0,0,7,7,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,1,7,7,0,0,0,0,0,0,0,0,0,7,7,0,7,7,7,0,0,0,0,0,7,7,1,1,1,0,1,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,1,1,1,7,7,7,7,0,0,0,0,0,0,7,7,7,7,7,7,0,0,0,0,0,7,7,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,1,1,1,1,1,1,1,7,7,7,7,7,7,0,0,7,7,7,7,7,7,0,0,0,7,7,7,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,7,0,7,7,7,7,7,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,7,7,1,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,1,1,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,1,1,1,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,8,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,8,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,8,8,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,7,7,8,8,8,1,1,1,1,7,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,1,7,7,7,1,1,1,7,1,1,1,1,1,1,1,1,8,8,8,8,1,1,1,7,7,7,1,1,7,7,7,1,1,1,1,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,7,7,7,7,7,1,7,7,7,1,1,1,1,1,1,1,8,8,8,8,1,1,7,7,7,7,1,7,7,7,7,1,1,1,1,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,7,7,1,7,7,7,7,7,7,7,1,1,1,1,1,1,8,8,8,8,1,1,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,1,1,1,1,0},
+                {1,1,1,1,1,1,7,7,1,1,1,7,7,7,7,7,7,1,1,1,1,1,8,8,8,8,8,7,7,7,7,7,7,7,7,7,1,7,7,1,1,1,1,1,1,1,1,0,0},
+                {1,1,1,1,6,6,7,7,1,1,1,7,7,7,1,7,7,1,1,1,1,1,8,8,8,8,8,7,7,7,7,1,7,7,7,1,1,7,7,1,1,1,1,1,1,1,1,0,0},
+                {0,1,1,6,6,7,7,6,6,1,1,1,7,7,1,7,7,7,1,1,1,1,8,8,8,8,8,7,7,7,7,1,7,7,6,6,1,7,7,1,1,1,1,1,1,1,1,0,0},
+                {0,6,6,6,7,7,6,6,6,6,6,6,7,7,1,7,7,7,1,7,7,7,8,8,8,8,8,7,7,7,7,6,7,7,7,6,6,6,7,7,6,1,1,1,1,1,1,0,0},
+                {0,6,6,6,6,6,6,6,6,6,6,7,7,7,6,7,7,7,7,7,7,7,8,8,8,8,8,7,7,7,7,6,7,7,7,6,6,6,7,7,6,6,6,1,1,1,1,0,0},
+                {0,6,6,6,6,6,6,6,6,6,6,7,7,7,6,7,7,7,7,7,7,7,8,8,8,8,8,7,7,7,7,6,6,7,7,6,6,6,6,7,7,6,6,6,1,1,0,0,0},
+                {6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,7,7,7,7,7,7,7,8,8,8,8,7,7,7,7,7,7,6,7,7,7,6,6,6,6,6,6,6,6,6,6,0,0,0},
+                {6,6,6,6,6,6,6,6,6,7,7,7,7,6,6,6,7,7,7,7,7,7,8,8,8,8,7,7,7,7,7,7,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,6,0},
+                {6,6,6,6,6,6,6,6,6,7,7,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,7,7,7,6,7,7,6,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,0},
+                {0,0,6,6,6,6,6,6,6,7,7,6,6,6,6,6,7,7,6,7,7,8,8,8,8,8,7,7,7,6,7,7,6,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,0},
+                {0,0,0,6,6,6,6,6,6,6,7,7,6,6,6,6,7,6,6,7,7,8,8,8,8,8,8,7,7,6,7,7,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,6,0},
+                {0,0,6,6,6,6,6,6,6,6,6,7,6,6,6,6,7,6,6,7,8,8,8,8,8,8,8,7,7,6,6,7,6,6,7,6,6,6,6,6,6,6,6,6,6,6,6,0,0},
+                {0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,8,8,8,8,8,8,8,7,6,6,7,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0},
+                {6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8,6,8,8,8,6,8,8,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0},
+                {6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8,6,6,6,8,6,6,8,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+                {0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8,6,6,6,8,6,6,8,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+                {0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+                {0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
+                {0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0},
+                {0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0},
+            };
+
+            int [,] GiantTreeObjects = new int [,]
+            {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            };
+
+            int [,] TreeTunnel = new int [,]
+            {
+                {0,9,9,8,8,8,8,8,9,9},
+                {9,9,9,8,8,8,8,9,9,0},
+                {9,9,8,8,8,8,8,9,9,0},
+                {9,9,8,8,8,8,8,8,9,9},
+                {9,9,8,8,8,8,8,8,8,8},
+                {9,9,8,8,8,8,8,8,8,8},
+                {9,9,8,8,8,8,8,8,8,0},
+                {9,9,8,8,8,8,8,9,9,0},
+                {9,9,8,8,8,8,8,9,9,0},
+                {9,9,9,8,8,8,8,9,9,0},
+                {0,9,9,8,8,8,8,8,9,9},
+            };
+
+            int [,] TreeTunnel2 = new int [,]
+            {
+                {0,9,9,8,8,8,8,8,9,9},
+                {9,9,9,8,8,8,8,9,9,0},
+                {9,9,8,8,8,8,8,9,9,0},
+                {9,9,8,8,8,8,8,8,9,9},
+                {9,9,8,8,8,8,8,8,9,9},
+                {9,9,8,8,8,8,8,8,9,9},
+                {8,8,8,8,8,8,8,8,9,0},
+                {8,8,8,8,8,8,8,9,9,0},
+                {8,8,8,8,8,8,8,9,9,0},
+                {9,9,9,8,8,8,8,9,9,0},
+                {0,9,9,8,8,8,8,8,9,9},
+            };
+
+            int [,] TreeTunnelObjects = new int [,]
+            {
+                {0},
+            };
+
+            bool placed = false;
+            int attempts = 0;
+
+            int TreeX = PositionX - 90;
+            int TreeY = PositionY;
+
+            while (!placed && attempts++ < 100000)
+            {
+                while (!WorldGen.SolidTile(TreeX, TreeY) && TreeY <= Main.worldSurface)
+				{
+					TreeY++;
+				}
+
+                if (Main.tile[TreeX, TreeY].TileType != ModContent.TileType<SpookyDirt>() ||
+                Main.tile[TreeX, TreeY].TileType != ModContent.TileType<SpookyDirt2>() ||
+                Main.tile[TreeX, TreeY].TileType != ModContent.TileType<SpookyGrass>() ||
+                Main.tile[TreeX, TreeY].TileType != ModContent.TileType<SpookyGrassGreen>())
+				{
+					PlaceStructures(TreeX, TreeY - 30, GiantTree, GiantTreeObjects);
+                    placed = true;
+				}
+            }
+
+            for (int Y = TreeY; Y <= (int)Main.worldSurface + 35; Y += 10)
+            {
+                if (WorldGen.genRand.Next(2) == 0)
+                {
+                    PlaceStructures((TreeX + 20) + WorldGen.genRand.Next(-1, 1), Y, TreeTunnel, TreeTunnelObjects);
+                }
+                else
+                {
+                    PlaceStructures((TreeX + 20) + WorldGen.genRand.Next(-1, 1), Y, TreeTunnel2, TreeTunnelObjects);
+                }
             }
         }
 
@@ -957,53 +1182,31 @@ namespace Spooky.Content.Generation
             };
 
             //how much distance should be inbetween each loot room
-            int ChestDistance = (Main.maxTilesX / 100);
+            int ChestDistance = (Main.maxTilesX / 82);
 
             //depth of each loot room
-            int InitialDepth = (int)Main.worldSurface + (Main.maxTilesY / 25);
+            int InitialDepth = (int)Main.worldSurface + (Main.maxTilesY / 30);
             int ChestDepth = (Main.maxTilesY / 15) / 2;
 
             //actual loot room positions
             int ChestX = PositionX;
-            int ChestY = InitialDepth + WorldGen.genRand.Next(ChestDepth, ChestDepth + 55);
+            int ChestY = InitialDepth + (ChestDepth + 35);
 
             //reset ChestY each time so each room is at a different position
+            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
             PlaceLootStructures(ChestX - (ChestDistance * 2), ChestY, LootRoom4, LootRoomObjects4);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 55);
+            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
             PlaceLootStructures(ChestX - ChestDistance, ChestY, LootRoom2, LootRoomObjects2);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 55);
+            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
             PlaceLootStructures(ChestX, ChestY, LootRoom1, LootRoomObjects1);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 55);
+            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
             PlaceLootStructures(ChestX + ChestDistance, ChestY, LootRoom3, LootRoomObjects3);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 55);
+            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
             PlaceLootStructures(ChestX + (ChestDistance * 2), ChestY, LootRoom5, LootRoomObjects5);
-
-            /*
-            //oh my lord fix this
-            //make each chest generate based on the center instead of making 5 variables for each one, also make their depth vary with worldsize
-            int ChestX = PositionX;
-            int Chest1Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
-            int Chest2Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
-            int Chest3Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
-            int Chest4Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
-            int Chest5Y = WorldGen.genRand.Next((int)Main.worldSurface + 35, (int)Main.worldSurface + 75);
-
-            SpookyWorldMethods.Circle(ChestX - 95, Chest1Y, 12, 0, true);
-            SpookyWorldMethods.Circle(ChestX - 45, Chest2Y, 12, 0, true);
-            SpookyWorldMethods.Circle(ChestX, Chest3Y, 12, 0, true);
-            SpookyWorldMethods.Circle(ChestX + 45, Chest4Y, 12, 0, true);
-            SpookyWorldMethods.Circle(ChestX + 95, Chest5Y, 12, 0, true);
-            
-            PlaceLootStructures(ChestX - 100, Chest1Y, ChestHouseShape1, ChestHouseObjects1);
-            PlaceLootStructures(ChestX - 50, Chest2Y, ChestHouseShape2, ChestHouseObjects2);
-            PlaceLootStructures(ChestX - 8, Chest3Y, ChestHouseShape2, ChestHouseObjects2Alt);
-            PlaceLootStructures(ChestX + 40, Chest4Y, ChestHouseShape3, ChestHouseObjects3);
-            PlaceLootStructures(ChestX + 90, Chest5Y, ChestHouseShape3, ChestHouseObjects3Alt);
-            */
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -1017,6 +1220,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(SpookyForestIndex + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
             tasks.Insert(SpookyForestIndex + 2, new PassLegacy("SpookyLoot", GenerateLootStructures));
+            tasks.Insert(SpookyForestIndex + 4, new PassLegacy("GiantTree", GenerateGiantTree));
 
             //place objects and grow trees
             int SpookyAmbientIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Grass Wall"));

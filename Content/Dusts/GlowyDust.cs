@@ -35,16 +35,22 @@ namespace Spooky.Content.Dusts
 			dust.position += dust.velocity;
 
 			if (!dust.noGravity)
+			{
 				dust.velocity.Y += 0.1f;
+			}
 
 			dust.velocity *= 0.99f;
 			dust.color *= 0.95f;
 
 			if (!dust.noLight)
+			{
 				Lighting.AddLight(dust.position, dust.color.ToVector3());
+			}
 
 			if (dust.scale < 0.05f)
+			{
 				dust.active = false;
+			}
 
 			return false;
 		}
