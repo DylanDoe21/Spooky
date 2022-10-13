@@ -282,11 +282,6 @@ namespace Spooky.Core
                 }
             }
 
-            if (Player.HasItem(ModContent.ItemType<LittleBoneItem>()))
-            {
-                Lighting.AddLight(Player.Center, 0.5f, 0.2f, 0f);
-            }
-
             if (SpookyWorld.GhostEvent && Player.ZoneOverworldHeight)
             {
                 SpawnTileFog();

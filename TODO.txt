@@ -2,8 +2,6 @@ Halloween/October Update:
 
 -finish rot gourds new fight, drops, master stuff, ect
 
--finish new spooky forest giant dead tree that leads underground
-
 -new spooky gourd/pumpkin patch on the left side of the biome with a giant rotted gourd that gives you the summon item
 
 -make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
@@ -14,6 +12,8 @@ Halloween/October Update:
 -some new weapons for the enemies (also stuff that taco made)
 
 -make recipes for the new furniture
+
+-make big bones new particles come from the lingering fire
 
 
 fixes:

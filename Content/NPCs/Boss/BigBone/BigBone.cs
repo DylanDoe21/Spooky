@@ -452,7 +452,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.Center += Main.rand.NextVector2Square(-Shake, Shake);
 
                         int MaxDusts = Main.rand.Next(10, 15);
-                        float distance = (NPC.localAI[0] / 75);
+                        float distance = 1.5f + (NPC.localAI[0] / 85);
 
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
@@ -461,8 +461,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             if (Main.rand.Next(2) == 0)
                             {
-                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.OrangeTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                                Main.dust[dustEffect].scale = 1f + (NPC.localAI[0] / 100);
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                                Main.dust[dustEffect].color = Color.Orange;
+                                Main.dust[dustEffect].scale = 0.05f + (NPC.localAI[0] / 450);
                                 Main.dust[dustEffect].noGravity = true;
                                 Main.dust[dustEffect].noLight = false;
                                 Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-18f + -NPC.localAI[0] / 10);
@@ -566,10 +567,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         int maxFlowers = 5;
                         for (int numFlowers = 0; numFlowers < maxFlowers; numFlowers++)
                         {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
+                            Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
                             int distance = 360 / 12;
 
-                            NPC.NewNPC(NPC.GetSource_FromThis(), (int)dustPos.X, (int)dustPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
+                            NPC.NewNPC(NPC.GetSource_FromThis(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
                         }
 
                         flowersSpawned = true;
@@ -1153,12 +1154,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
-                            int DustType = Phase2 ? DustID.OrangeTorch : DustID.RedTorch;
-
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(0.75f, 1.2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustType, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                            Main.dust[dustEffect].scale = 2.5f;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            Main.dust[dustEffect].color = Phase2 ? Color.OrangeRed : Color.Red;
+                            Main.dust[dustEffect].scale = 0.1f;
                             Main.dust[dustEffect].noGravity = true;
                             Main.dust[dustEffect].noLight = false;
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
@@ -1212,10 +1212,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(0.75f, 1.2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.YellowTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                            Main.dust[dustEffect].scale = 2.5f;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            Main.dust[dustEffect].color = Color.Orange;
+                            Main.dust[dustEffect].scale = 0.1f;
                             Main.dust[dustEffect].noGravity = true;
                             Main.dust[dustEffect].noLight = false;
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);

@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
-using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -57,8 +56,8 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), //Plain black background
-				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.")
+				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -86,7 +85,7 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Advice";
-			button2 = "Carry";
+			button2 = "Transport";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -96,7 +95,7 @@ namespace Spooky.Content.NPCs.Friendly
 				//spooky biome
 				if (!NPC.downedBoss1)
 				{
-					Main.npcChatText = "It seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath this forest, you can find special loot! I am not too sure who left it there, though.";
+					Main.npcChatText = "It seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath the spooky forest, you can find special loot! I am not too sure who left it there, though.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//rot gourd
@@ -125,8 +124,17 @@ namespace Spooky.Content.NPCs.Friendly
             }
 			else
 			{
-				NPC.active = false;
-				Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBoneItem>(), 1);
+				if (!Main.LocalPlayer.HasItem(ModContent.ItemType<LittleBonePot>()))
+				{
+					Main.npcChatText = "Oh, here! Take my magical transportation pot! When you use this, it will allow you to bring me anywhere on your adventures. I was hoping I could tag along and help you when you need.";
+					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBonePot>(), 1);
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
+				else
+				{
+					Main.npcChatText = "Oh, I already gave you my magical pot silly!";
+					SoundEngine.PlaySound(SoundID.Item16, NPC.Center);
+				}
 			}
 		}
 
@@ -145,8 +153,9 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void AI()
 		{
-			NPC.homeTileX = (int)NPC.Center.X;
-			NPC.homeTileY = (int)NPC.Center.Y;
+			NPC.homeless = false;
+			NPC.homeTileX = -1;
+			NPC.homeTileY = -1;
 		}
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

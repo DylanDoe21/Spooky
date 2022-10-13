@@ -73,14 +73,10 @@ namespace Spooky.Content.NPCs.Friendly
                 if (!player.active) continue;
                 if (player.talkNPC == NPC.whoAmI)
                 {
-                    Rescue();
+                    NPC.Transform(ModContent.NPCType<LittleBone>());
                     return;
                 }
             }
-        }
-        public void Rescue()
-        {
-            NPC.Transform(ModContent.NPCType<LittleBone>());
         }
     }
 }

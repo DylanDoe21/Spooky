@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.SpookyHell;
 
 namespace Spooky.Content.Tiles.SpookyHell.Tree
@@ -67,7 +68,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             bool[] extraPlaces = new bool[5];
-            for (int k = -2; k < 3; ++k) //Checks base
+            for (int k = -2; k <= 2; ++k) //check base
             {
                 extraPlaces[k + 2] = false;
 
@@ -87,7 +88,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             extraPlaces = new bool[5] { false, false, true, false, false };
 
-            for (int k = -2; k < 3; ++k) //Places base
+            for (int k = -2; k <= 2; ++k) //place base
             {
                 if (extraPlaces[k + 2])
                 {
@@ -101,29 +102,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Framing.GetTileSafely(i + k, j).TileFrameX = (short)((k + 2) * 18);
                 Framing.GetTileSafely(i + k, j).TileFrameY = (short)(r.Next(3) * 18);
 
-                if (!extraPlaces[0] && k == -1)
-                {
-                    Framing.GetTileSafely(i + k, j).TileFrameX = 216;
-                }
-
-                if (!extraPlaces[3] && k == 1)
-                {
-                    Framing.GetTileSafely(i + k, j).TileFrameX = 234;
-                }
-
                 if (!extraPlaces[1] && !extraPlaces[3] && k == 0) 
                 {
                     Framing.GetTileSafely(i + k, j).TileFrameX = 90;
-                }
-
-                if (extraPlaces[1] && !extraPlaces[3] && k == 0) 
-                {
-                    Framing.GetTileSafely(i + k, j).TileFrameX = 252;
-                }
-
-                if (!extraPlaces[1] && extraPlaces[3] && k == 0) 
-                {
-                    Framing.GetTileSafely(i + k, j).TileFrameX = 270;
                 }
             }
 
@@ -285,13 +266,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 return;
             }
 
-            //tree break code, this is really confusing so i just copied it
             int[] rootFrames = new int[] { 0, 18, 54, 72, 216, 234, 108, 126 };
             if (CustomTreeUtil.ActiveType(i, j - 1, Type) && !rootFrames.Contains(tile.TileFrameX))
             {
                 WorldGen.KillTile(i, j - 1, fail, false, false);
             }
 
+            /*
             if (tile.TileFrameX == 0 && CustomTreeUtil.ActiveType(i + 1, j, Type)) //Leftmost root
             {
                 Framing.GetTileSafely(i + 1, j).TileFrameX = 216;
@@ -333,7 +314,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                     Framing.GetTileSafely(i - 1, j).TileFrameX = 90;
                 }
             }
-            else if (tile.TileFrameX == 36)
+            */
+            if (tile.TileFrameX == 36)
             {
                 WorldGen.KillTile(i - 1, j, false, false, false);
                 WorldGen.KillTile(i + 1, j, false, false, false);
@@ -441,7 +423,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranches").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(38, 16); //new Vector2(166, 144);
+                Vector2 treeOffset = new Vector2(38, 18); //new Vector2(166, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(0, 52 * frame, 56, 50), new Color(col.R, col.G, col.B, 255), 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -454,7 +436,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeBranches").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(4, 16); //new Vector2(132, 144);
+                Vector2 treeOffset = new Vector2(4, 18); //new Vector2(132, 144);
 
                 //draw the branches
                 spriteBatch.Draw(branchTex, pos, new Rectangle(58, 52 * frame, 56, 50), new Color(col.R, col.G, col.B, 255), 0f, treeOffset, 1f, SpriteEffects.None, 0f);
@@ -559,57 +541,5 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
         }
-    }
-
-	public class CustomTreeUtil
-    {
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static void Set(ModTile tile, int minPick, int dustType, SoundStyle soundType, Color mapColor, int drop, string mapName = "")
-        {
-            tile.MinPick = minPick;
-            tile.DustType = dustType;
-            tile.HitSound = soundType;
-            tile.ItemDrop = drop;
-
-            ModTranslation name = tile.CreateMapEntryName();
-            name.SetDefault(mapName);
-            tile.AddMapEntry(mapColor, name);
-        }
-
-        public static void SetProperties(ModTile tile, bool solid, bool mergeDirt, bool lighted, bool blockLight)
-        {
-            Main.tileMergeDirt[tile.Type] = mergeDirt;
-            Main.tileSolid[tile.Type] = solid;
-            Main.tileLighted[tile.Type] = lighted;
-            Main.tileBlockLight[tile.Type] = blockLight;
-        }
-
-        public static void SetAll(ModTile tile, int minPick, int dust, SoundStyle sound, Color mapColour, int drop = 0, 
-        string mapName = "", bool solid = true, bool mergeDirt = true, bool lighted = true, bool blockLight = true)
-        {
-            Set(tile, minPick, dust, sound, mapColour, drop, mapName);
-            SetProperties(tile, solid, mergeDirt, lighted, blockLight);
-        }
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0));
-        }
-
-        internal static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
-        {
-            Tile tile = Main.tile[i, j];
-            Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? Vector2.Zero);
-            Color color = Lighting.GetColor(i, j);
-
-            Main.spriteBatch.Draw(tex, drawPos, source, Glow ? Color.White : color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
-        }
-
-        public static bool SolidTile(int i, int j) => Framing.GetTileSafely(i, j).HasTile && Main.tileSolid[Framing.GetTileSafely(i, j).TileType];
-        public static bool SolidTopTile(int i, int j) => Framing.GetTileSafely(i, j).HasTile && (Main.tileSolidTop[Framing.GetTileSafely(i, j).TileType] || Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
-        public static bool ActiveType(int i, int j, int t) => Framing.GetTileSafely(i, j).HasTile && Framing.GetTileSafely(i, j).TileType == t;
-        public static bool SolidType(int i, int j, int t) => ActiveType(i, j, t) && Framing.GetTileSafely(i, j).HasTile;
-        public static bool ActiveTypeNoTopSlope(int i, int j, int t) => Framing.GetTileSafely(i, j).HasTile && Framing.GetTileSafely(i, j).TileType == t && !Framing.GetTileSafely(i, j).TopSlope;
     }
 }

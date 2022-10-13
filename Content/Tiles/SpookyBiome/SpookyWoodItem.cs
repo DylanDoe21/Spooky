@@ -35,11 +35,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
             .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<PetrifiedWoodItem>(), 1)
-            .AddCondition(Recipe.Condition.NearWater) 
-            .Register();
         }
     }
 }

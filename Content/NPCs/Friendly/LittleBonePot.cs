@@ -2,28 +2,25 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.NPCs.Friendly;
-
-namespace Spooky.Content.Items.BossSummon
+namespace Spooky.Content.NPCs.Friendly
 {
-    public class LittleBoneItem : ModItem
+    public class LittleBonePot : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Little Bone");
-            Tooltip.SetDefault("Hey it's me, I'm in your inventory!"
-            + "\nJust release me whenever you need help or if you want to talk!");
+            DisplayName.SetDefault("Little Bone's Flower Pot");
+            Tooltip.SetDefault("A magical flower pot that belongs to little bone"
+            + "\nUse to magically summon little bone to your location");
         }
 
         public override void SetDefaults()
         {
-            Item.consumable = true; 
+            Item.consumable = false; 
             Item.noUseGraphic = true;
-            Item.favorited = true;
-            Item.width = 26;
-			Item.height = 32;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+            Item.width = 30;
+			Item.height = 24;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Quest;
         }

@@ -193,7 +193,14 @@ namespace Spooky.Content.Generation
                             doPlace = false;
                         }
 
-                        if (doPlace && WorldGen.genRand.Next(10) == 0)
+                        //this looks fucking awful but i dont really care, might fix it later
+                        if (Main.tile[X + 3, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 3, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X + 2, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 2, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X + 1, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 1, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 3].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 3].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 2].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 2].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 1].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 1].TileType != ModContent.TileType<EyeTree>() &&
+                        doPlace && WorldGen.genRand.Next(20) == 0)
                         {
                             EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
                         }
@@ -208,7 +215,14 @@ namespace Spooky.Content.Generation
                             doPlace = false;
                         }
 
-                        if (doPlace && WorldGen.genRand.Next(20) == 0)
+                        //this looks fucking awful but i dont really care, might fix it later
+                        if (Main.tile[X + 3, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 3, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X + 2, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 2, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X + 1, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 1, Y].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 3].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 3].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 2].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 2].TileType != ModContent.TileType<EyeTree>() &&
+                        Main.tile[X, Y + 1].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 1].TileType != ModContent.TileType<EyeTree>() &&
+                        doPlace && WorldGen.genRand.Next(20) == 0)
                         {
                             EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
                         }
