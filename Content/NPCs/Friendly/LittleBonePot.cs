@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
             DisplayName.SetDefault("Little Bone's Flower Pot");
             Tooltip.SetDefault("A magical flower pot that belongs to little bone"
-            + "\nUse to magically summon little bone to your location");
+            + "\nUse to summon little bone to your location");
         }
 
         public override void SetDefaults()

@@ -43,27 +43,20 @@ namespace Spooky.Content.Tiles.Pylon
         {
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
-
+			TileID.Sets.InteractibleByNPCs[Type] = true;
+			TileID.Sets.PreventsSandfall[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.StyleHorizontal = true;
-			// These definitions allow for vanilla's pylon TileEntities to be placed.
-			// tModLoader has a built in Tile Entity specifically for modded pylons, which we must extend (see SimplePylonTileEntity)
 			TEModdedPylon moddedPylon = ModContent.GetInstance<PylonTileEntity>();
 			TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(moddedPylon.PlacementPreviewHook_CheckIfCanPlace, 1, 0, true);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(moddedPylon.Hook_AfterPlacement, -1, 0, false);
-
 			TileObjectData.addTile(Type);
-
-			TileID.Sets.InteractibleByNPCs[Type] = true;
-			TileID.Sets.PreventsSandfall[Type] = true;
-
-			// Adds functionality for proximity of pylons; if this is true, then being near this tile will count as being near a pylon for the teleportation process.
 			AddToArray(ref TileID.Sets.CountsAsPylon);
-
 			ModTranslation pylonName = CreateMapEntryName(); //Name is in the localization file
-			AddMapEntry(Color.White, pylonName);
+			AddMapEntry(Color.Red, pylonName);
+			DustType = -1;
 		}
 
 		public override int? IsPylonForSale(int npcType, Player player, bool isNPCHappyEnough) 

@@ -5,6 +5,8 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
 	public class SpookyVinesGreen : ModTile
@@ -17,8 +19,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			AddMapEntry(new Color(12, 49, 10));
-			DustType = DustID.Grass;
+			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
+			ItemDrop = -1;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

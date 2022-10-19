@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,6 +12,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 {
 	public class RotFly : ModProjectile
 	{
+        int target;
+
+        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fly");
@@ -24,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 			Projectile.friendly = false;
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
-			Projectile.timeLeft = 500;
+			Projectile.timeLeft = 300;
             Projectile.penetrate = -1;
             Projectile.scale = 0.9f;
             Projectile.aiStyle = -1;
@@ -32,11 +37,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1 || Projectile.ai[0] == 3)
             {
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.DarkOliveGreen);
+                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Brown);
 
                 Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
@@ -48,7 +53,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                     newColor *= 1f;
                     Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 4 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
                     Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.1f, effects, 0);
+                    Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, effects, 0);
                 }
             }
 
@@ -57,7 +62,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
         public override bool CanHitPlayer(Player target)
         {
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1 || Projectile.ai[0] == 3)
             {
                 return true;
             }
@@ -90,38 +95,67 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
             int index1 = (int)Projectile.ai[1];
             
-            if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<RotGourd>()) )
+            if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<RotGourd>()))
             {
-                Projectile.timeLeft = 500;
+                Projectile.timeLeft = 300;
+            }
+            else
+            {
+                Projectile.ai[0] = -1;
+            }
 
-                switch ((int)Projectile.ai[0])
-				{
-					//home in on rot gourd constantly
-					case 0:
-					{
+            switch ((int)Projectile.ai[0])
+            {
+                //used to store if the fly should fade away
+                case -1:
+                {
+                    Projectile.alpha += 5;
+
+                    if (Projectile.alpha >= 255)
+                    {
+                        Projectile.Kill();
+                    }
+
+                    break;
+                }
+
+                //home in on rot gourd if it exists
+                case 0:
+                {
+                    if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<RotGourd>()))
+                    {
                         float goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
                         float goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
 
-                        //if rot gourd is flying in his desperation phase, make them go to the 
-                        if (Main.npc[index1].ai[0] == 5)
+                        //if rot gourd is flying in his desperation phase, make them go to the bottom of him
+                        if (Main.npc[index1].ai[0] == 6)
                         {
-                            goToY = (Main.npc[index1].Center.Y - 100) - Projectile.Center.Y + Main.rand.Next(-20, 20);
+                            goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-100, 100);
+                            goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(35, 100);
                         }
 
-                        float speed = 0.08f;
+                        //if the flies are above the player during cripple phase, then fly above them
+                        if (Main.npc[index1].ai[0] == 7 && Projectile.localAI[1] == 1)
+                        {
+                            goToX = Main.LocalPlayer.Center.X - Projectile.Center.X + Main.rand.Next(-350, 350);
+                            goToY = Main.LocalPlayer.Center.Y - Projectile.Center.Y + Main.rand.Next(-500, -400);
+                        }
+
+                        float speedLimit = Main.npc[index1].ai[0] == 6 ? 8f : 5f;
+                        float speed = Main.npc[index1].ai[0] == 6 ? 0.1f : 0.08f;
 
                         if (Vector2.Distance(Projectile.Center, Main.npc[index1].Center) >= 135)
                         {
-                            speed = 5f;
+                            speed = speedLimit;
                         }
                         else
                         {
                             speed = 2f;
                         }
 
-                        if (speed >= 5f)
+                        if (speed >= speedLimit)
                         {
-                            speed = 5f;
+                            speed = speedLimit;
                         }
                         
                         if (Projectile.velocity.X > speed)
@@ -167,35 +201,65 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                                 return;
                             }
                         }
-
-                        break;
                     }
 
-                    //charge at the player
-					case 1:
-					{
-                        Projectile.localAI[0]++;
-
-                        if (Projectile.localAI[0] == 2)
-                        {
-                            double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, 
-                            Main.player[Main.myPlayer].position.X - Projectile.position.X);
-
-                            Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * Main.rand.Next(8, 10);
-                        }
-
-                        break;
-                    }
+                    break;
                 }
-            }
-            //fade away and die if rot gourd doesnt exist
-            else
-            {
-                Projectile.alpha += 2;
 
-                if (Projectile.alpha >= 255)
+                //charge at the player
+                case 1:
                 {
-                    Projectile.Kill();
+                    Projectile.localAI[0]++;
+
+                    if (Projectile.localAI[0] == 2)
+                    {
+                        SoundEngine.PlaySound(FlySound, Projectile.Center);
+
+                        double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, 
+                        Main.player[Main.myPlayer].position.X - Projectile.position.X);
+
+                        Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * Main.rand.Next(8, 12);
+                    }
+
+                    if (Projectile.localAI[0] == 120)
+                    {
+                        Projectile.ai[0] = 0;
+                        Projectile.localAI[1] = 0;
+                    }
+
+                    break;
+                }
+
+                //for when his flies drop him in his desperation phase
+                case 2:
+                {
+                    Projectile.velocity *= 0.95f;
+
+                    break;
+                }
+
+                //go above the player in a massive swarm, then charge
+                case 3:
+                {
+                    Projectile.localAI[0]++;
+
+                    if (Projectile.localAI[0] == 2)
+                    {
+                        SoundEngine.PlaySound(FlySound, Projectile.Center);
+
+                        double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, 
+                        Main.player[Main.myPlayer].position.X - Projectile.position.X);
+
+                        Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * Main.rand.Next(12, 15);
+                    }
+
+                    if (Projectile.localAI[0] >= 60)
+                    {
+                        Projectile.ai[0] = 0;
+                        Projectile.localAI[1] = 0;
+                    }
+
+                    break;
                 }
             }
 

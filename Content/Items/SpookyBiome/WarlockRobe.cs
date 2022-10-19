@@ -8,7 +8,6 @@ using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
-	[AutoloadEquip(EquipType.Back, EquipType.Front)]
 	public class WarlockRobe : ModItem
 	{
 		public override void SetStaticDefaults() 

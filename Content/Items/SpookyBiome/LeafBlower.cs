@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyBiome
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pump-Action Leaf Blower");
-			Tooltip.SetDefault("Creates piercing leaf tornados"
+			Tooltip.SetDefault("Rapidly fires different colored autumn leaves"
 			+ "\n'It's like a leaf blower, but it creates more leaves!'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -27,15 +27,15 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.autoReuse = true; 
 			Item.width = 60;           
 			Item.height = 26;         
-			Item.useTime = 25;         
-			Item.useAnimation = 25; 
+			Item.useTime = 12;         
+			Item.useAnimation = 12; 
 			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item34;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 2.5f;
+			Item.shootSpeed = 12f;
 		}
 
 		public override Vector2? HoldoutOffset()
@@ -51,7 +51,10 @@ namespace Spooky.Content.Items.SpookyBiome
                 position += muzzleOffset;
             }
 
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<LeafTornado>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(8));
+
+			int[] Types = new int[] { ModContent.ProjectileType<LeafProjGreen>(), ModContent.ProjectileType<LeafProjRed>(), ModContent.ProjectileType<LeafProjOrange>() };
+			Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X, newVelocity.Y, Main.rand.Next(Types), damage, knockback, player.whoAmI, 0f, 0f);
 			
 			return true;
 		}

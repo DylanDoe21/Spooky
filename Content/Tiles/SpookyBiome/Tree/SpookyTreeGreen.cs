@@ -1,12 +1,12 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Microsoft.Xna.Framework;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Gores;
-using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Tree
 {
@@ -76,6 +76,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
         public override bool Shake(int x, int y, ref bool createLeaves)
 		{
 			createLeaves = true;
+
+			if (Main.rand.Next(15) == 0)
+			{
+				Item.NewItem(WorldGen.GetItemSource_FromTreeShake(x, y), new Vector2(x, y) * 16, ModContent.ItemType<CaramelApple>());
+			}
+
 			return false;
 		}
     }

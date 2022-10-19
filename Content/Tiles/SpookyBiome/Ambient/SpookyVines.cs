@@ -16,10 +16,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			//TileObjectData.newTile.DrawYOffset = -2;
 			AddMapEntry(new Color(138, 61, 8));
-			DustType = ModContent.DustType<HalloweenGrassDust>();
+			DustType = ModContent.DustType<SpookyGrassDust>();
 			HitSound = SoundID.Grass;
+			ItemDrop = -1;
 		}
 		
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

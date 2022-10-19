@@ -98,6 +98,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			Projectile.rotation += 0.15f * (float)Projectile.direction;
 
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
+
             Projectile.ai[0]++;
 
             if (Projectile.ai[0] >= 30)
@@ -160,12 +166,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
                     Projectile.velocity *= 1.055f;
                 }
-            }
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
             }
         }
 

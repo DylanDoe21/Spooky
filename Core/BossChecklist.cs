@@ -86,7 +86,7 @@ namespace Spooky.Core
 
 			//Rot Gourd
 			string PumpkinName = "Rot Gourd";
-			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.Pumpkin.SpookyPumpkinP2>();
+			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.RotGourd.RotGourd>();
 			Func<bool> PumpkinDowned = () => Flags.downedRotGourd;
 			int PumpkinSummonItem = ModContent.ItemType<RottenSeed>();
 			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
@@ -108,7 +108,7 @@ namespace Spooky.Core
 
 			var PumpkinPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Pumpkin/SpookyPumpkinBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};

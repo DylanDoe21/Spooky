@@ -38,12 +38,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Monster Chest");
+			ContainerName.SetDefault("Old Wood Chest");
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Monster Chest");
+			name.SetDefault("Old Wood Chest");
 			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Monster Chest");
+			name.SetDefault("Locked Old Wood Chest");
 			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
 			DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
@@ -221,8 +221,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Monster Chest";
-				if (player.cursorItemIconText == "Monster Chest") 
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Old Wood Chest";
+				if (player.cursorItemIconText == "Old Wood Chest") 
 				{
 					player.cursorItemIconID = ModContent.ItemType<HalloweenChestItem>();
 

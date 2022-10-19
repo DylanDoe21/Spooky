@@ -154,7 +154,7 @@ namespace Spooky.Content.Generation
         private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all mush tiles
-            for (int X = StartPosition; X <= BiomeEdge; X++)
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 2; Y++)
                 {
@@ -179,7 +179,7 @@ namespace Spooky.Content.Generation
         {
             progress.Message = "Growing eye stalks";
 
-            for (int X = StartPosition; X < BiomeEdge; X++)
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 175; Y < Main.maxTilesY - 120; Y++)
                 {
@@ -200,7 +200,7 @@ namespace Spooky.Content.Generation
                         Main.tile[X, Y + 3].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 3].TileType != ModContent.TileType<EyeTree>() &&
                         Main.tile[X, Y + 2].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 2].TileType != ModContent.TileType<EyeTree>() &&
                         Main.tile[X, Y + 1].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 1].TileType != ModContent.TileType<EyeTree>() &&
-                        doPlace && WorldGen.genRand.Next(20) == 0)
+                        doPlace && WorldGen.genRand.Next(10) == 0)
                         {
                             EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
                         }

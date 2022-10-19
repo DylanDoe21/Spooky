@@ -35,7 +35,7 @@ namespace Spooky.Content.Biomes
         
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyHellTiles >= 200 && player.ZoneUnderworldHeight;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyHellTiles >= 500 && player.ZoneUnderworldHeight;
 
             return BiomeCondition;
         }

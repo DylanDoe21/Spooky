@@ -5,6 +5,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 
 using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.Vinyl;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
@@ -44,7 +45,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 		public override void ModifyItemLoot(ItemLoot itemLoot) 
 		{
-			// Drop a special weapon/accessory etc. specific to this crate's theme (i.e. Sky Crate dropping Fledgling Wings or Starfury)
 			int[] spookyChestDrops = new int[] 
 			{
 				ModContent.ItemType<ToiletPaper>(),
@@ -55,10 +55,18 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));
 
-			//Drop coins
+			//rarely drop one of the vinyl discs
+			int[] vinylDiscs = new int[] 
+			{
+				ModContent.ItemType<VinylAlley>(),
+				ModContent.ItemType<VinylLazy>(),
+				ModContent.ItemType<VinylMysterious>(),
+				ModContent.ItemType<VinylSleepy>()
+			};
+			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(45, vinylDiscs));
+
 			itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 5, 13));
 
-			// Drop pre-hm ores, with the addition of one from ExampleMod
 			IItemDropRule[] oreTypes = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.CopperOre, 1, 30, 50),
@@ -83,7 +91,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(4, oreBars));
 
-			// Drop an "exploration utility" potion, with the addition of one from ExampleMod
 			IItemDropRule[] explorationPotions = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.ObsidianSkinPotion, 1, 2, 5),
@@ -95,7 +102,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(4, explorationPotions));
 
-			// Drop (pre-hm) resource potion
 			IItemDropRule[] resourcePotions = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.HealingPotion, 1, 5, 18),
@@ -104,7 +110,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 			itemLoot.Add(new OneFromRulesRule(2, resourcePotions));
 
-			// Drop (high-end) bait
 			IItemDropRule[] highendBait = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.JourneymanBait, 1, 2, 7),

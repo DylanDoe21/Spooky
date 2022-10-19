@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,11 +19,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = true;
+			TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(175, 102, 36));
-            DustType = ModContent.DustType<HalloweenGrassDust>();
+            DustType = ModContent.DustType<SpookyGrassDust>();
 			HitSound = SoundID.Grass;
 		}
 
@@ -31,6 +33,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             if (i % 2 == 1)
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+        }
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        {
+            if (Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<SpookySeedsOrange>());
             }
         }
 	}
@@ -51,11 +61,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = true;
+			TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(62, 95, 38));
-			DustType = DustID.Grass;
+			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
 		}
 
@@ -64,6 +75,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             if (i % 2 == 1)
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+        }
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        {
+            if (Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<SpookySeedsGreen>());
             }
         }
 	}

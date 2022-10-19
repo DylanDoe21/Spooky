@@ -23,9 +23,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 1500;
+			NPC.lifeMax = 1300;
             NPC.damage = 0;
-            NPC.defense = 45;
+            NPC.defense = 35;
             NPC.width = 30;
             NPC.height = 30;
             NPC.knockBackResist = 0f;
@@ -115,15 +115,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			NPC.ai[1]++;
 			if (NPC.ai[1] >= 360)
 			{
-				HealingAmount = Main.masterMode ? 70 : Main.expertMode ? 50 : 20;
+				HealingAmount = Main.masterMode ? 35 : Main.expertMode ? 25 : 10;
 			}
 			if (NPC.ai[1] >= 720)
 			{
-				HealingAmount = Main.masterMode ? 90 : Main.expertMode ? 70 : 40;
+				HealingAmount = Main.masterMode ? 45 : Main.expertMode ? 35 : 20;
 			}
 			if (NPC.ai[1] >= 1080)
 			{
-				HealingAmount = Main.masterMode ? 115 : Main.expertMode ? 95 : 65;
+				HealingAmount = Main.masterMode ? 58 : Main.expertMode ? 48 : 32;
 			}
 		}
 	}

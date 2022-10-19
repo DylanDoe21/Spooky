@@ -83,7 +83,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
-            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -91,7 +90,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
-            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -570,7 +568,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
                             int distance = 360 / 12;
 
-                            NPC.NewNPC(NPC.GetSource_FromThis(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
                         }
 
                         flowersSpawned = true;
@@ -580,7 +578,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
                         Main.rand.Next(-2, 2), Main.rand.Next(-2, 2), ModContent.ProjectileType<FlowerSpore>(), Damage, 1, Main.myPlayer, 0, 0);
                     }
 
@@ -614,7 +612,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
                             ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
                         }
 
@@ -667,8 +665,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             int ProjType = Phase2 ? ModContent.ProjectileType<HomingFlower>() : ModContent.ProjectileType<BouncingFlower>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                            10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
+                            10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), 
                             ProjType, Damage, 0f, Main.myPlayer);
                         }
                     }
@@ -723,7 +721,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<FlamingWisp>() : ModContent.ProjectileType<BoneWisp>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
                             ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
@@ -776,7 +774,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                     Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
                                 
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), Position.X, Position.Y, 0, 0,
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), Position.X, Position.Y, 0, 0,
                                     ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer, 0, 0);
 
                                     SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
@@ -937,7 +935,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
                             ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorLeaf>(), Damage, 0f, Main.myPlayer, 0, 0);
                         }
                     }
@@ -999,7 +997,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             float Spread = (float)Main.rand.Next(-1200, 1200) * 0.01f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
                             Main.rand.Next(-5, -2), ModContent.ProjectileType<LingerFlame>(), Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
@@ -1057,8 +1055,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
                                     
-                            ShootSpeed.X *= 2;
-                            ShootSpeed.Y *= 2;
+                            ShootSpeed.X *= 1.5f;
+                            ShootSpeed.Y *= 1.5f;
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -1068,7 +1066,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
                             ShootSpeed.Y, ModContent.ProjectileType<GiantFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
@@ -1092,8 +1090,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
                                     
-                            ShootSpeed.X *= 5;
-                            ShootSpeed.Y *= 5;
+                            ShootSpeed.X *= 4.5f;
+                            ShootSpeed.Y *= 4.5f;
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -1103,7 +1101,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
                             ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
@@ -1178,7 +1176,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<DefensiveFlowerSeed>() : ModContent.ProjectileType<HealingFlowerSeed>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ProjType, 0, 0f, Main.myPlayer, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, speed, ProjType, 0, 0f, Main.myPlayer, 0, 0);
                         }
                     }
 

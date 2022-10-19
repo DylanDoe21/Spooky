@@ -46,11 +46,10 @@ namespace Spooky.Core
         public bool TumorMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
+        public bool GhostPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
         public bool BigBonePet = false;
-
-        //buffs
 
         public override void ResetEffects()
         {
@@ -74,6 +73,7 @@ namespace Spooky.Core
             TumorMinion = false;
             SoulSkull = false;
             Brainy = false;
+            GhostPet = false;
             RotGourdPet = false;
             MocoPet = false;
             BigBonePet = false;

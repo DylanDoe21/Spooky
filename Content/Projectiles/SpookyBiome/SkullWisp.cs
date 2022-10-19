@@ -65,6 +65,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
 			Player player = Main.player[Projectile.owner];
 
+			Lighting.AddLight(Projectile.Center, 0.1f, 0.05f, 0f);
+
 			if (player.dead)
 			{
 				player.GetModPlayer<SpookyPlayer>().SkullWisp = false;

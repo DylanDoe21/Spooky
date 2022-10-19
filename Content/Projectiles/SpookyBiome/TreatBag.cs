@@ -73,6 +73,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 
                 float speed = 8f;
+
                 if (Projectile.ai[0] == 1f)
                 {
                     speed = 15f;
@@ -91,9 +92,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     }
                 }
                 
+                direction.X += (20 + num * 40) * player.direction;
                 direction.Y -= 70f;
                 float distanceTo = direction.Length();
-                if (distanceTo > 200f && speed < 9f)
+                if (distanceTo > 10f && speed < 9f)
                 {
                     speed = 9f;
                 }

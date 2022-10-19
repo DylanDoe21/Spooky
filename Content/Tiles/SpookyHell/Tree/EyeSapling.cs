@@ -55,6 +55,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 					EyeTree.Spawn(i, j + 1, -1, null, 12, 35, false, -1, true);
 				}
             }
+			else
+			{
+				EyeTree.Spawn(i, j, -1, null, 12, 35, false, -1, true);
+			}
 		}
 
 		public override void SetSpriteEffects(int i, int j, ref SpriteEffects effects)

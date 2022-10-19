@@ -4,6 +4,8 @@ Halloween/October Update:
 
 -new spooky gourd/pumpkin patch on the left side of the biome with a giant rotted gourd that gives you the summon item
 
+-make enemy gores
+
 -make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
 (with fancy visuals of course)
 

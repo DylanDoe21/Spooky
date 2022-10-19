@@ -1,17 +1,9 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 
-using Spooky.Content.Backgrounds;
 using Spooky.Content.Biomes;
-using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Core
 {

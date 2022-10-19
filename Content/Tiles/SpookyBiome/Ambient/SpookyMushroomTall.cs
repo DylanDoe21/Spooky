@@ -22,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(105, 72, 105));
-            DustType = -1;
+            DustType =  DustID.Slush;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

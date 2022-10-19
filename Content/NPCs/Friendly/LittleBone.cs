@@ -142,13 +142,36 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			List<string> Dialogue = new List<string>
 			{	
+				/*
+				//spooky forest exlusive dialogue
 				"I wish I could go outside to play in the leaves, but I also can't get out of this pot! Oh well...",
 				"I am not sure how these weird houses got here, but maybe you can fix them up? I would do it myself, but...",
                 "Sometimes I like to talk to the other skull plants if they pop up nearby this house, but they don't seem to respond to me.",
+				*/
 				"Why am I always dancing you ask? I like to vibe with the season. You should try it sometime!",
 			};
 
-            return Main.rand.Next(Dialogue);
+			if (Main.LocalPlayer.ZoneGlowshroom)
+            {
+				Dialogue.Add("This place looks really trippy. Why are you looking at me like that?");
+            }
+
+			if (Main.LocalPlayer.ZoneJungle)
+			{
+				Dialogue.Add("This is the most dense forest I have ever seen! very groovy too!");
+			}
+
+			if (Main.LocalPlayer.ZoneDungeon)
+            {
+				Dialogue.Add("This dungeon reminds me of that other giant dungeon where all my relatives were locked away in. I dunno why they got locked there though.");
+			}
+
+			if (Main.LocalPlayer.ZoneUnderworldHeight)
+			{
+				Dialogue.Add("Oh my goodness It's way too hot down here! How does anything even come down here?!");
+			}
+
+			return Main.rand.Next(Dialogue);
 		}
 
 		public override void AI()

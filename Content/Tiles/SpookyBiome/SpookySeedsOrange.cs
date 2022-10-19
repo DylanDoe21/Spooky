@@ -19,22 +19,23 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 7;
+			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 999;
 		}
 
         public override bool? UseItem(Player player)
 		{
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>())
+			if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY))
 			{
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<SpookyGrass>();
-				player.inventory[player.selectedItem].stack--;
+
+				return true;
 			}
 
-			return true;
+			return false;
 		}
     }
 }

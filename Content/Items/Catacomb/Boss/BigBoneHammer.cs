@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Catacomb.Boss
 	{
 		public override int Length => 55;
 		public override int TopSize => 25;
-		public override float SwingDownSpeed => 12f;
+		public override float SwingDownSpeed => Main.LocalPlayer.altFunctionUse == 2 ? 1f : 12f;
 		public override bool CollideWithTiles => true;
 		static bool hasHitSomething = false;
 
@@ -73,8 +73,8 @@ namespace Spooky.Content.Items.Catacomb.Boss
 				Item.noMelee = true;
 				Item.noUseGraphic = true;
 				Item.autoReuse = true;
-				Item.useTime = 75;
-				Item.useAnimation = 75;
+				Item.useTime = 2;
+				Item.useAnimation = 2;
 				Item.useStyle = SwingUseStyle;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
 				Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();

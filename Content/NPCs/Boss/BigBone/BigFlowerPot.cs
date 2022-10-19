@@ -11,15 +11,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 {
     public class BigFlowerPot : ModNPC  
     {
-        public static bool ShouldSpawnBigBone = false;
-
         Vector2 SaveNPCPosition;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Giant Flower Pot");
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
-
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
@@ -42,26 +39,32 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.aiStyle = -1;
         }
 
+        public override bool NeedSaving()
+        {
+            return true;
+        }
         public override string GetChat()
-		{
-			List<string> Dialogue = new List<string>
-			{	
-				"It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?",
+        {
+            List<string> Dialogue = new List<string>
+            {
+                "It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?",
                 "Maybe if you have a special fertalizer, you can regrow whatever is in this flower pot.",
-				"A giangantic flower pot, seems like whatever was inside isn't very alive anymore.",
+                "A giangantic flower pot, seems like whatever was inside isn't very alive anymore.",
                 "Why are you talking to a giant flower pot? Weirdo.",
-			};
+            };
 
             return Main.rand.Next(Dialogue);
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = "";
-		}
+        {
+            button = "";
+        }
 
         public override void AI()
         {
+            NPC.life = 1;
+
             NPC.homeTileX = (int)NPC.Center.X;
 			NPC.homeTileY = (int)NPC.Center.Y;
 

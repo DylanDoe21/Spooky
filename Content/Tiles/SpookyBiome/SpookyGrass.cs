@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(226, 116, 17));
 			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
-            DustType = ModContent.DustType<HalloweenGrassDust>();
+            DustType = ModContent.DustType<SpookyGrassDust>();
 		}
 
 		public override void RandomUpdate(int i, int j)
@@ -69,6 +69,13 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     (ushort)ModContent.TileType<SpookyWeedsTallOrange2>(),(ushort)ModContent.TileType<SpookyWeedsTallOrange3>() };
 
                     WorldGen.PlaceObject(i, j - 1, Main.rand.Next(TallWeed), true);
+                }
+
+                if (Main.rand.Next(15) == 0) 
+                {
+                    ushort[] BigWeeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), (ushort)ModContent.TileType<SpookyWeedBig2>() };
+
+                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(BigWeeds), true);
                 }
                 
                 if (Main.rand.Next(35) == 0) 
