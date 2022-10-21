@@ -30,25 +30,6 @@ namespace Spooky.Core
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey3Condition(), ModContent.ItemType<CatacombKey3>(), 1));
         }
 
-        public override void OnKill(NPC npc)
-        {
-            if (npc.HasBuff(ModContent.BuffType<PumpkinWhipDebuff>()))
-            {
-                Vector2 Speed = new Vector2(3f, 0f).RotatedByRandom(2 * Math.PI);
-
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed,
-                        ModContent.ProjectileType<PumpkinWhipFly>(), 15, 0f, Main.myPlayer, 0, 0);
-                    }
-                }
-            }
-        }
-
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))

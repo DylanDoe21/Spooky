@@ -2,9 +2,11 @@ Halloween/October Update:
 
 -finish rot gourds new fight, drops, master stuff, ect
 
--new spooky gourd/pumpkin patch on the left side of the biome with a giant rotted gourd that gives you the summon item
-
 -make enemy gores
+
+-make rot gourd spawn somewhere above you when summoned
+
+-finish taco funny food items and make them obtainable
 
 -make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
 (with fancy visuals of course)
@@ -15,23 +17,12 @@ Halloween/October Update:
 
 -make recipes for the new furniture
 
--make big bones new particles come from the lingering fire
-
 
 fixes:
 
 -make enemy gores created in hit effect instead of checkdead
 
 -make big bone have a longer delay after his charges to prevent certain attacks from being weird
-
-
-Possible but not guaranteed:
-
--new weapon upgrades for the spooky forest chest weapons
-
--new spooky forest backgrounds
-
--new spooky mod menu background
 
 
 Eye Valley Update:
@@ -43,7 +34,7 @@ new quest npc:
 new eye valley improvements:
 -new palette for the biome and all its stuff
 -perhaps new and more unique items from the chests
--new structures to make the biome look better and more fun to explore (abandoned living houses)
+-new structures to make the biome look better and more fun to explore (alchemy towers)
 
 
 Whatever other stuff for later:

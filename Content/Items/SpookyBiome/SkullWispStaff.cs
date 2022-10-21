@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyBiome
 		{
 			DisplayName.SetDefault("Zomboid Warlock's Skull");
 			Tooltip.SetDefault("Summons skull wisps to fight with you"
-			+ "\n'Did you really need to take it's arm off with the skull?'");
+			+ "\n'Did you really need to take it's arm off too?'");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

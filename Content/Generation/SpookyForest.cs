@@ -1414,7 +1414,7 @@ namespace Spooky.Content.Generation
 							chest.item[1].stack = WorldGen.genRand.Next(3, 8);
                             //light sources
                             chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
-							chest.item[2].stack = WorldGen.genRand.Next(2, 5);
+							chest.item[2].stack = WorldGen.genRand.Next(10, 35);
                             //potions
 							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
 							chest.item[3].stack = WorldGen.genRand.Next(2, 3);

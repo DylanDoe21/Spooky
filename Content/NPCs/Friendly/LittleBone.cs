@@ -50,6 +50,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.knockBackResist = 0f;
 			NPC.rarity = 1;
             NPC.aiStyle = -1;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -113,7 +114,7 @@ namespace Spooky.Content.NPCs.Friendly
 				//orroboro
 				else if (NPC.downedMechBossAny && Main.hardMode)
 				{
-					Main.npcChatText = "Now that you have defeated one of those giant robots, you can probably make a special flask to see what's inside that giant egg in the living hell.";
+					Main.npcChatText = "Now that you have defeated one of those giant robots, you can probably make a special flask to see what's inside that giant egg in the eye valley.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				else

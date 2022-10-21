@@ -12,6 +12,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttyPumpkinling : ModNPC
 	{
+		float addedStretch = 0f;
+		float landingRecoil = 0f;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Putty Pumpkinling");
@@ -25,8 +28,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 30;
-            NPC.damage = 15;
+            NPC.lifeMax = 75;
+            NPC.damage = 40;
             NPC.defense = 5;
             NPC.width = 18;
             NPC.height = 14;
@@ -54,8 +57,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			float stretch = NPC.velocity.Y * 0.1f;
 
-			stretch = Math.Abs(stretch);
-
+			stretch = Math.Abs(stretch) - addedStretch;
+			
 			//limit how much he can stretch
 			if (stretch > 0.2f)
 			{
@@ -72,11 +75,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			
 			if (NPC.velocity.Y <= 0)
 			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
+				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
 			}
 			if (NPC.velocity.Y > 0)
 			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
 			}
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -93,6 +96,18 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.TargetClosest(true);
 
 			NPC.spriteDirection = NPC.direction;
+
+			if (landingRecoil > 0)
+			{
+				landingRecoil *= 0.965f;
+				landingRecoil -= 0.02f;
+			}
+			else
+			{
+				landingRecoil = 0;
+			}
+
+			addedStretch = -landingRecoil;
 
 			NPC.ai[0]++;
 
@@ -113,7 +128,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//actual jumping
 			if (NPC.ai[0] >= 30 && NPC.ai[0] <= 35)
 			{
-				float speed = MathHelper.Clamp(velocity.Length() / 36, 3, 5);
+				float speed = MathHelper.Clamp(velocity.Length() / 36, 4, 6);
 				velocity.Normalize();
 				velocity.Y -= 0.2f;
 				velocity.X *= 1.2f;
@@ -123,6 +138,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//fall on the ground
 			if (NPC.ai[0] >= 50 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
+				landingRecoil = 0.5f;
+
 				NPC.velocity.X *= 0;
 				
 				//"complete" the slam attack
@@ -130,9 +147,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 
 			//only loop attack if the jump has been completed
-			if (NPC.ai[0] >= 50 && NPC.ai[1] == 1)
+			if (NPC.ai[1] == 1)
 			{
-				NPC.ai[0] = Main.rand.Next(0, 25);
+				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 				NPC.netUpdate = true;
 			}

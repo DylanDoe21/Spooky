@@ -36,8 +36,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Cute and not very friendly, these bats dwell in the spooky forest, swarming any intruder."),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new FlavorTextBestiaryInfoElement("Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial."),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -51,7 +52,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 if ((player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !Main.dayTime) ||
                 player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
                 {
-                    return 12f;
+                    return 5f;
                 }
             }
 
@@ -76,7 +77,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FluffBatSmallOrange" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallOrangeBatGore" + numGores).Type);
                 }
             }
         }
@@ -98,7 +99,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FluffBatSmallPurple" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallPurpleBatGore" + numGores).Type);
                 }
             }
         }

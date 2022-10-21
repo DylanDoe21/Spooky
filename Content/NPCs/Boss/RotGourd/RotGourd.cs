@@ -817,6 +817,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 							{
+								if (NPC.localAI[0] == 2)
+								{
+									Main.projectile[k].localAI[1] = 1;
+								}
+
 								if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 145 && Main.rand.Next(35) == 0 || NPC.localAI[0] == 145)
 								{
 									Main.projectile[k].ai[0] = 3;

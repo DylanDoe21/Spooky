@@ -46,6 +46,7 @@ namespace Spooky.Core
         public bool TumorMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
+        public bool FuzzBatPet = false;
         public bool GhostPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
@@ -73,6 +74,7 @@ namespace Spooky.Core
             TumorMinion = false;
             SoulSkull = false;
             Brainy = false;
+            FuzzBatPet = false;
             GhostPet = false;
             RotGourdPet = false;
             MocoPet = false;

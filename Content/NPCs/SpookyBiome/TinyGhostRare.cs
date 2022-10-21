@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rare Ghost");
+			DisplayName.SetDefault("Spookier Ghost");
 			Main.npcFrameCount[NPC.type] = 2;
 			Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("It's a tiny ghost, but these ones are orange! These elusive ghosts may be on your side if you can catch one!"),
+				new FlavorTextBestiaryInfoElement("It's a tiny ghost, but these ones are orange. These elusive ghosts may be on your side if you can catch one!"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -84,23 +84,24 @@ namespace Spooky.Content.NPCs.SpookyBiome
             Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0f);
         }
 
-        public override bool CheckDead() 
-		{
-			for (int numDusts = 0; numDusts < 20; numDusts++)
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+			if (NPC.life <= 0) 
             {
-                int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemAmber, 0f, 0f, 100, default, 2f);
-                Main.dust[GhostDust].scale = 0.5f;
-                Main.dust[GhostDust].velocity *= 1.2f;
-                Main.dust[GhostDust].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
+                    int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemAmber, 0f, 0f, 100, default, 2f);
                     Main.dust[GhostDust].scale = 0.5f;
-                    Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    Main.dust[GhostDust].velocity *= 1.2f;
+                    Main.dust[GhostDust].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[GhostDust].scale = 0.5f;
+                        Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
-
-			return true;
 		}
 	}
 }

@@ -73,8 +73,8 @@ namespace Spooky.Content.Items.Catacomb.Boss
 				Item.noMelee = true;
 				Item.noUseGraphic = true;
 				Item.autoReuse = true;
-				Item.useTime = 2;
-				Item.useAnimation = 2;
+				Item.useTime = 45;
+				Item.useAnimation = 45;
 				Item.useStyle = SwingUseStyle;
 				Item.UseSound = SoundID.DD2_MonkStaffSwing;
 				Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();

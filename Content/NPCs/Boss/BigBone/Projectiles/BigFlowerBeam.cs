@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(ProjectileID.Fireball);
-			Projectile.width = 10;                   			 
-            Projectile.height = 10;         
+			Projectile.width = 20;                   			 
+            Projectile.height = 20;         
 			Projectile.hostile = true;                                 			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;

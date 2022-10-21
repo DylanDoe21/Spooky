@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Warlock's Robe");
+			DisplayName.SetDefault("Warlock's Cloak");
 			Tooltip.SetDefault("5% increased summon damage and movement speed"
 			+ "\nIncreases your max minions by 1");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -33,14 +33,5 @@ namespace Spooky.Content.Items.SpookyBiome
 			player.moveSpeed += 0.05f;
 			player.maxMinions += 1;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 15)
-			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 30)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
 	}
 }

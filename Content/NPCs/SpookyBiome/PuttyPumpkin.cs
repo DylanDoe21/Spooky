@@ -12,6 +12,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttyPumpkin : ModNPC
 	{
+		float addedStretch = 0f;
+		float landingRecoil = 0f;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pumpkin Putty");
@@ -27,10 +30,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
             NPC.lifeMax = 250;
             NPC.damage = 55;
-            NPC.defense = 18;
+            NPC.defense = 10;
             NPC.width = 44;
             NPC.height = 34;
-            NPC.knockBackResist = 0.1f;
+            NPC.knockBackResist = 0f;
+			NPC.value = Item.buyPrice(0, 0, 5, 0);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit1;
@@ -43,7 +47,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Bigger blobs of putty that take on the appearance of a pumpkin. Their ability to split into smaller versions of themselves can be dangerous."),
+				new FlavorTextBestiaryInfoElement("Bigger blobs of putty that take on the appearance of a pumpkin. Their ability to split into smaller versions of themselves can be really dangerous."),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -55,7 +59,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && !Main.dayTime && Main.hardMode)
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && Main.hardMode)
                 {
                     return 7f;
                 }
@@ -70,8 +74,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			float stretch = NPC.velocity.Y * 0.1f;
 
-			stretch = Math.Abs(stretch);
-
+			stretch = Math.Abs(stretch) - addedStretch;
+			
 			//limit how much he can stretch
 			if (stretch > 0.2f)
 			{
@@ -88,11 +92,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			
 			if (NPC.velocity.Y <= 0)
 			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
+				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
 			}
 			if (NPC.velocity.Y > 0)
 			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
 			}
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -110,14 +114,21 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			NPC.spriteDirection = NPC.direction;
 
+			if (landingRecoil > 0)
+			{
+				landingRecoil *= 0.965f;
+				landingRecoil -= 0.02f;
+			}
+			else
+			{
+				landingRecoil = 0;
+			}
+
+			addedStretch = -landingRecoil;
+
 			NPC.ai[0]++;
 
-			Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 150 : -150), player.Center.Y - 400);
-
-			if (NPC.position.X <= player.Center.X + 200 && NPC.position.X >= player.Center.X - 200)
-			{
-				JumpTo = new(player.Center.X, player.Center.Y - 400);
-			}
+			Vector2 JumpTo = new(player.Center.X, player.Center.Y - 400);
 			
 			Vector2 velocity = JumpTo - NPC.Center;
 
@@ -129,7 +140,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//actual jumping
 			if (NPC.ai[0] >= 60 && NPC.ai[0] <= 65)
 			{
-				float speed = MathHelper.Clamp(velocity.Length() / 36, 3, 5);
+				float speed = MathHelper.Clamp(velocity.Length() / 36, 5, 7);
 				velocity.Normalize();
 				velocity.Y -= 0.35f;
 				velocity.X *= 1.22f;
@@ -139,6 +150,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//fall on the ground
 			if (NPC.ai[0] >= 90 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
+				landingRecoil = 0.5f;
+
 				NPC.velocity.X *= 0;
 				
 				//"complete" the slam attack
@@ -146,7 +159,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 
 			//only loop attack if the jump has been completed
-			if (NPC.ai[0] >= 90 && NPC.ai[1] == 1)
+			if (NPC.ai[1] == 1)
 			{
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;

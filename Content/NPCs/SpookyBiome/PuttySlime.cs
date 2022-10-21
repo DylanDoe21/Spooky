@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +13,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttySlime1 : ModNPC
 	{
+		float addedStretch = 0f;
+		float landingRecoil = 0f;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Putty Slime");
@@ -30,7 +34,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 5;
             NPC.width = 34;
             NPC.height = 24;
-			NPC.knockBackResist = 0.1f;
+			NPC.knockBackResist = 0.45f;
+			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit1;
@@ -70,7 +75,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			float stretch = NPC.velocity.Y * 0.1f;
 
-			stretch = Math.Abs(stretch);
+			stretch = Math.Abs(stretch) - addedStretch;
 			
 			//limit how much he can stretch
 			if (stretch > 0.2f)
@@ -88,11 +93,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			
 			if (NPC.velocity.Y <= 0)
 			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
+				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
 			}
 			if (NPC.velocity.Y > 0)
 			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
 			}
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -109,6 +114,18 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.TargetClosest(true);
 
 			NPC.spriteDirection = NPC.direction;
+
+			if (landingRecoil > 0)
+			{
+				landingRecoil *= 0.965f;
+				landingRecoil -= 0.02f;
+			}
+			else
+			{
+				landingRecoil = 0;
+			}
+
+			addedStretch = -landingRecoil;
 
 			NPC.ai[0]++;
 
@@ -132,21 +149,23 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				float speed = MathHelper.Clamp(velocity.Length() / 36, 3, 5);
 				velocity.Normalize();
 				velocity.Y -= 0.2f;
-				velocity.X *= 1.2f;
+				velocity.X *= Main.rand.NextFloat(1.2f, 1.32f);
 				NPC.velocity = velocity * speed * 1.1f;
 			}
 
 			//fall on the ground
 			if (NPC.ai[0] >= 90 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
+				landingRecoil = 0.5f;
+
 				NPC.velocity.X *= 0;
 				
-				//"complete" the slam attack
+				//complete the slam attack
 				NPC.ai[1] = 1; 
 			}
 
 			//only loop attack if the jump has been completed
-			if (NPC.ai[0] >= 90 && NPC.ai[1] == 1)
+			if (NPC.ai[1] == 1)
 			{
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
@@ -154,22 +173,29 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 		}
 
-		public override bool CheckDead() 
-		{
-            for (int numDusts = 0; numDusts < 20; numDusts++)
-            {
-                int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
-                Main.dust[GhostDust].velocity *= 3f;
-                Main.dust[GhostDust].noGravity = true;
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 2));
+        }
 
-                if (Main.rand.Next(2) == 0)
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    Main.dust[GhostDust].scale = 0.5f;
-                    Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.LimeGreen;
+					Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
-
-            return true;
 		}
     }
 
@@ -185,6 +211,26 @@ namespace Spooky.Content.NPCs.SpookyBiome
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
+
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 20; numDusts++)
+                {
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.MediumPurple;
+					Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
+		}
 	}
 
 	public class PuttySlime3 : PuttySlime1
@@ -198,6 +244,26 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime3"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+		}
+
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 20; numDusts++)
+                {
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.Chocolate;
+					Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
 		}
 	}
 }
