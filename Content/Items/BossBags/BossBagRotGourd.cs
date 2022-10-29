@@ -39,18 +39,12 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			/*
-			int[] MainItem1 = new int[] { ModContent.ItemType<PumpkinAxe>(), ModContent.ItemType<PumpkinSpear>(), 
-            ModContent.ItemType<PumpkinSlingshot>(), ModContent.ItemType<PumpkinShuriken>() };
-		
-			int[] MainItem2 = new int[] { ModContent.ItemType<PumpkinStaff>(), ModContent.ItemType<PumpkinTome>(), 
-			ModContent.ItemType<FlyScroll>(), ModContent.ItemType<PumpkinWhip>() };
+			int[] MainItem = new int[] { ModContent.ItemType<GourdStabber>(), ModContent.ItemType<ThrowingGourd>(), 
+            ModContent.ItemType<GourdSeedStaff>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<MoldWhip>() };
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
-			*/
+            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
 
-			//player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
 
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<PumpkinCore>());

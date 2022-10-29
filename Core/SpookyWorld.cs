@@ -68,7 +68,6 @@ namespace Spooky.Core
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
-            //use purple sky if shadow biome is mushroom version
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
             {
                 float Intensity = ModContent.GetInstance<TileCount>().spookyTiles / 200f;

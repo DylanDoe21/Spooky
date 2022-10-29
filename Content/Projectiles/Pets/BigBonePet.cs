@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +15,7 @@ namespace Spooky.Content.Projectiles.Pets
 		{
 			DisplayName.SetDefault("Baby Bone");
 			Main.projFrames[Projectile.type] = 4;
-			Main.projPet[Projectile.type] = true;
+			ProjectileID.Sets.LightPet[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()
@@ -27,6 +28,11 @@ namespace Spooky.Content.Projectiles.Pets
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
 		}
+
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
 
         public override bool PreDraw(ref Color lightColor)
         {

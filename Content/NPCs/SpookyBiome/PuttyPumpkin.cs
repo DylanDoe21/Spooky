@@ -40,7 +40,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
+			SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type,
+			ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -48,7 +49,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Bigger blobs of putty that take on the appearance of a pumpkin. Their ability to split into smaller versions of themselves can be really dangerous."),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -59,7 +61,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && Main.hardMode)
+                if ((player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) || 
+				player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>())) && Main.hardMode)
                 {
                     return 7f;
                 }
@@ -148,7 +151,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 
 			//fall on the ground
-			if (NPC.ai[0] >= 90 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
+			if (NPC.ai[0] >= 120 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
 				landingRecoil = 0.5f;
 
@@ -165,6 +168,26 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				NPC.ai[1] = 0;
 				NPC.netUpdate = true;
 			}
+		}
+
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 25; numDusts++)
+                {
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.MediumPurple;
+					Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
 		}
     }
 }

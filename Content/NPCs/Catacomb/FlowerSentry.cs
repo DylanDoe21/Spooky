@@ -2,9 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb
 {
@@ -86,7 +88,6 @@ namespace Spooky.Content.NPCs.Catacomb
             float maxDist = 600;
             int maxHealing = 5;
             int numHealing = 0;
-            bool runCode = true;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -116,10 +117,14 @@ namespace Spooky.Content.NPCs.Catacomb
                     if (other.whoAmI != NPC.whoAmI && other.type == NPC.type && Vector2.Distance(NPC.Center, other.Center) < maxDist * 1.75 && NPC.ai[1] < other.ai[1])
                     {
                         NPC.active = false;
-                        runCode = false;
                     }
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 50));
         }
 
         public override bool CheckDead() 

@@ -81,23 +81,24 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.spriteDirection = NPC.direction;
         }
 
-        public override bool CheckDead() 
-		{
-			for (int numDusts = 0; numDusts < 10; numDusts++)
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+			if (NPC.life <= 0) 
             {
-                int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Asphalt, 0f, 0f, 100, default, 2f);
-                Main.dust[DustGore].scale = 0.5f;
-                Main.dust[DustGore].velocity *= 1.2f;
-                Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                for (int numDusts = 0; numDusts < 10; numDusts++)
                 {
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Asphalt, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+                    Main.dust[DustGore].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
-
-			return true;
 		}
 	}
 }

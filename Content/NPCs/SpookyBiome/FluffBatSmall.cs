@@ -1,8 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -21,7 +24,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.width = 38;
 			NPC.height = 26;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.8f;
+			NPC.knockBackResist = 0.95f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath4;
@@ -64,7 +67,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.spriteDirection = NPC.direction;
         }
 
-        /*
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VampireGummy>(), 50));
+        }
+
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -81,12 +88,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
             }
         }
-        */
     }
 
     public class FluffBatSmall2 : FluffBatSmall1  
     {
-        /*
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -99,10 +104,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallPurpleBatGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallRedBatGore" + numGores).Type);
                 }
             }
         }
-        */
     }
 }

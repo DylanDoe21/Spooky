@@ -5,8 +5,10 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Armor;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
@@ -19,6 +21,16 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             DisplayName.SetDefault("Zomboid Warlock");
             Main.npcFrameCount[NPC.type] = 9;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -151,10 +163,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockHood>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 12));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockRobe>(), 18));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
         }
 
 
-        /*
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -165,12 +177,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidWarlockGore" + numGores).Type);
                 }
             }
         }
-        */
     }
 }

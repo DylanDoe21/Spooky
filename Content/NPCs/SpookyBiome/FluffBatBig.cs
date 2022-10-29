@@ -1,10 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -67,9 +68,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBatWing>(), 20));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VampireGummy>(), 50));
         }
 
-        /*
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -86,12 +87,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
             }
         }
-        */
     }
 
     public class FluffBatBig2 : FluffBatBig1  
     {
-        /*
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -108,6 +107,5 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
             }
         }
-        */
     }
 }

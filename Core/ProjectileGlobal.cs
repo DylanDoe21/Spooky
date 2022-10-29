@@ -39,5 +39,24 @@ namespace Spooky.Core
 
 			return base.PreAI(projectile);
 		}
+
+        public override bool PreKill(Projectile projectile, int timeLeft)
+        {
+            if (projectile.type == ProjectileID.WorldGlobe)
+            {
+                if (!Flags.SpookyBackgroundAlt)
+                {
+                    Flags.SpookyBackgroundAlt = true;
+                }
+                else
+                { 
+                    Flags.SpookyBackgroundAlt = false;
+                }
+            }
+
+            NetMessage.SendData(MessageID.WorldData);
+
+            return true;
+        }
     }
 }

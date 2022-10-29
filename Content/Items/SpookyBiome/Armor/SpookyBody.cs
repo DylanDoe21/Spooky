@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Horseman's Chestmail");
+			DisplayName.SetDefault("Rotten Horseman's Chestmail");
 			Tooltip.SetDefault("3% increased damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -37,10 +36,9 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<RottenChunk>(), 15)
-			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 30)
+			.AddIngredient(ItemID.Silk, 25)
             .AddTile(TileID.Anvils)
             .Register();
         }
 	}
 }
-*/

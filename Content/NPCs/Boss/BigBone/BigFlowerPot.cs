@@ -65,8 +65,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             NPC.life = 1;
 
-            NPC.homeTileX = (int)NPC.Center.X;
-			NPC.homeTileY = (int)NPC.Center.Y;
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.homeless = false;
+                NPC.homeTileX = -1;
+                NPC.homeTileY = -1;
+                NPC.netUpdate = true;
+            }
 
             if (NPC.ai[1] == 1)
             {

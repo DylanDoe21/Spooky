@@ -87,11 +87,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
         }
 	}
 
-	public class SpookyWeedsTallGreen2 : ModTile
+	public class SpookyWeedsTallGreen2 : SpookyWeedsTallGreen1
 	{
 	}
 
-	public class SpookyWeedsTallGreen3 : ModTile
+	public class SpookyWeedsTallGreen3 : SpookyWeedsTallGreen1
 	{
 	}
 }

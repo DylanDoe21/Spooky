@@ -11,10 +11,10 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 	{
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moldy Whip");
+            DisplayName.SetDefault("Mold Spore Whip");
 			Tooltip.SetDefault("Your summons will focus struck enemies"
-			+ "\nHitting enemies will inflict them with mold debuff"
-			+ "\nEnemies with mold debuff take more damage from any of your fly minions");
+			+ "\nHitting enemies will inflict them with the moldy debuff"
+			+ "\nKilling enemies with this debuff will summon damaging flies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -36,5 +36,13 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			Item.shoot = ModContent.ProjectileType<MoldWhipProj>();
 			Item.shootSpeed = 3;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 15)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

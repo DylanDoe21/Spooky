@@ -22,21 +22,21 @@ namespace Spooky.Content.Items.SpookyBiome
 		public override void SetDefaults()
         {
             Item.damage = 12; 
-			Item.mana = 10;                        
+			Item.mana = 5;                        
             Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;  
 			Item.autoReuse = true;                  
             Item.width = 32;
             Item.height = 32;
-            Item.useTime = 35;
-            Item.useAnimation = 35;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;         
 			Item.value = Item.buyPrice(gold: 1); 
             Item.UseSound = SoundID.NPCHit1;
             Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 5f;
+			Item.shootSpeed = 6.5f;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

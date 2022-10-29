@@ -54,8 +54,9 @@ namespace Spooky.Content.Tiles.Pylon
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(moddedPylon.Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.CountsAsPylon);
-			ModTranslation pylonName = CreateMapEntryName(); //Name is in the localization file
-			AddMapEntry(Color.Orange, pylonName);
+			ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Spooky Forest Pylon");
+            AddMapEntry(Color.OrangeRed, name);
 			DustType = -1;
 		}
 
@@ -90,7 +91,7 @@ namespace Spooky.Content.Tiles.Pylon
 			// based off of tile count, when this hook is called, you can simply check the tile threshold, like we do here. In the context of ExampleMod,
 			// something is considered within the Example Surface/Underground biome if there are 40 or more example blocks at that location.
 
-			return ModContent.GetInstance<TileCount>().spookyTiles >= 200;
+			return ModContent.GetInstance<TileCount>().spookyTiles >= 500;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 

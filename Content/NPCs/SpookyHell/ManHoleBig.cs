@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -110,6 +111,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 3, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 50));
         }
 
         public override bool CheckDead() 

@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +15,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Horseman's Pumpkin");
+			DisplayName.SetDefault("Rotten Pumpkin Head");
 			Tooltip.SetDefault("2% increased critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -58,10 +57,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
-			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
             .AddTile(TileID.Anvils)
             .Register();
         }
 	}
 }
-*/

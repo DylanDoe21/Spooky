@@ -10,7 +10,6 @@ using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
-    [AutoloadHead]
     public class PumpkinHead : ModProjectile
     {   
         int shootTimer = 50;
@@ -27,7 +26,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override void SetDefaults()
         {
             Projectile.width = 24;
-            Projectile.height = 26;
+            Projectile.height = 28;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;

@@ -77,14 +77,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
                     WorldGen.PlaceObject(i, j - 1, Main.rand.Next(BigWeeds), true);
                 }
-                
-                if (Main.rand.Next(35) == 0) 
-                {
-                    ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
-                    (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
-
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(Pumpkins), true);
-                }
             }
         }
 	}

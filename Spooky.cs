@@ -2,7 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using System.Linq;
@@ -20,13 +22,28 @@ namespace Spooky
 	{
         private List<IAutoload> loadCache;
 
+        public static Effect vignetteEffect;
+        public static Vignette vignetteShader;
+
         public override void Load()
         {
             if (!Main.dedServ)
             {
+                //EffectCache.Setup(this);
+
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
+
+                //keep this for later
+                //Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(Color.BlueViolet), EffectPriority.VeryHigh);
+            }
+
+            if (Main.netMode != NetmodeID.Server)
+			{
+				vignetteEffect = ModContent.Request<Effect>("Spooky/Effects/Vignette", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				vignetteShader = new Vignette(vignetteEffect, "MainPS");
+				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
             }
 
             //hell background loading

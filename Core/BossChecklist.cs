@@ -92,25 +92,14 @@ namespace Spooky.Core
 			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
 			string PumpkinDespawnInfo = "Rot Gourd has stomped all players";
 
-			/*
-			List<int> PumpkinDrops = new List<int>()
-			{
-				ModContent.ItemType<RottenChunk>(),
-				ModContent.ItemType<PumpkinAxe>(),
-				ModContent.ItemType<PumpkinSpear>(),
-				ModContent.ItemType<PumpkinShuriken>(),
-				ModContent.ItemType<PumpkinSlingshot>(),
-				ModContent.ItemType<PumpkinStaff>(),
-				ModContent.ItemType<PumpkinTome>(),
-				ModContent.ItemType<FlyScroll>(),
-				ModContent.ItemType<PumpkinWhip>(),
-				ModContent.ItemType<PumpkinBossBox>()
-			};
-			*/
-
 			List<int> PumpkinDrops = new List<int>()
 			{
 				ModContent.ItemType<GourdStabber>(),
+				ModContent.ItemType<ThrowingGourd>(),
+				ModContent.ItemType<GourdSeedStaff>(),
+				ModContent.ItemType<FlyScroll>(),
+				ModContent.ItemType<MoldWhip>(),
+				ModContent.ItemType<RottenChunk>(),
 				ModContent.ItemType<PumpkinBossBox>()
 			};
 

@@ -12,16 +12,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pumpkin Spirit");
-            Main.projFrames[Projectile.type] = 4;
+            DisplayName.SetDefault("Fly");
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
         
         public override void SetDefaults()
         {
-            Projectile.width = 26;
-            Projectile.height = 20;
+            Projectile.width = 28;
+            Projectile.height = 26;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
@@ -39,7 +39,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 3)
                 {
                     Projectile.frame = 0;
                 }
@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
             for (int numDust = 0; numDust < 25; numDust++)
 			{                                                                                 
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Asphalt, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].noGravity = true;
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

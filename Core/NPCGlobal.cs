@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
@@ -11,8 +9,6 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.Projectiles.SpookyBiome;
-using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 
 namespace Spooky.Core
 {
@@ -47,7 +43,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!NPC.downedBoss1 && npc.type == NPCID.EyeofCthulhu)
+				if (!Flags.CatacombKey1 && npc.type == NPCID.EyeofCthulhu)
                 {
 					return true;
 				}
@@ -75,7 +71,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
+				if (!Flags.CatacombKey2 && npc.type == NPCID.WallofFlesh)
                 {
 					return true;
 				}
@@ -103,7 +99,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
+				if (!Flags.CatacombKey3 && npc.type == NPCID.Golem)
                 {
 					return true;
 				}

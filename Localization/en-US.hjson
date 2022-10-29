@@ -16,9 +16,9 @@
 			LittleBone: 
             {
                 #crowded dialogue
-                LoveSpace: The free room is really nice, makes it much more peaceful here!
-                DislikeCrowded: There is a lot of people here, I wish it wasn't so loud.
-                HateCrowded: I don't like the amount of people. Someone almost tripped on me!
+                LoveSpace: There doesn't seem to be many townsfolk around here.
+                DislikeCrowded: Theres quite a few people around here, I wonder what they are up to.
+                HateCrowded: Wow, there is a ton of townspeople around.
 
                 #npc dialogue
                 LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
@@ -31,7 +31,7 @@
                 LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy.
                 LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
                 DislikeBiome: "Brrrrr, the tundra is way too cold! It makes me shiver and wilt."
-                HateBiome: "This biomes gives me the creeps! I don't really like it here."
+                HateBiome: "This biomes gives me the creeps! I really don't like it here."
 
                 #home dialogue
 				NoHome: "I don't really need a home. I like being taken on adventures to most places!"
@@ -42,9 +42,9 @@
             LittleBoneSleeping: 
             {
                 #crowded dialogue
-                LoveSpace: The free room is really nice, makes it much more peaceful here!
-                DislikeCrowded: There is a lot of people here, I wish it wasn't so loud.
-                HateCrowded: I don't like the amount of people. Someone almost tripped on me!
+                LoveSpace: There doesn't seem to be many townsfolk around here.
+                DislikeCrowded: Theres quite a few people around here, I wonder what they are up to.
+                HateCrowded: Wow, there is a ton of townspeople around.
 
                 #npc dialogue
                 LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
@@ -57,7 +57,7 @@
                 LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy.
                 LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
                 DislikeBiome: "Brrrrr, the tundra is way too cold! It makes me shiver and wilt."
-                HateBiome: "This biomes gives me the creeps! I don't really like it here."
+                HateBiome: "This biomes gives me the creeps! I really don't like it here."
 
                 #home dialogue
 				NoHome: "I don't really need a home. I like being taken on adventures to most places!"

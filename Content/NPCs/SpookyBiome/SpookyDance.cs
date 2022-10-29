@@ -70,22 +70,23 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 30) * 30;
         }
 
-        public override bool CheckDead() 
-		{
-            for (int numDusts = 0; numDusts < 20; numDusts++)
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
             {
-                int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
-                Main.dust[GhostDust].velocity *= 3f;
-                Main.dust[GhostDust].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    Main.dust[GhostDust].scale = 0.5f;
-                    Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
+                    Main.dust[GhostDust].velocity *= 3f;
+                    Main.dust[GhostDust].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[GhostDust].scale = 0.5f;
+                        Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
-
-            return true;
 		}
     }
 }

@@ -15,12 +15,9 @@ namespace Spooky.Content.NPCs.Friendly
     [AutoloadHead]
 	public class LittleBone : ModNPC
 	{
-		private static int ButtonMode = 0;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Skull Plant");
-			NPCID.Sets.TownCritter[NPC.type] = true;
             Main.npcFrameCount[NPC.type] = 8;
 
 			NPC.Happiness
@@ -41,8 +38,8 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.defense = 25;
             NPC.width = 20;
 			NPC.height = 50;
-			NPC.friendly = true;
 			NPC.townNPC = true;
+			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.HitSound = SoundID.NPCHit1;
@@ -127,13 +124,13 @@ namespace Spooky.Content.NPCs.Friendly
 			{
 				if (!Main.LocalPlayer.HasItem(ModContent.ItemType<LittleBonePot>()))
 				{
-					Main.npcChatText = "Oh, here! Take my magical transportation pot! When you use this, it will allow you to bring me anywhere on your adventures. I was hoping I could tag along and help you when you need.";
+					Main.npcChatText = "Oh here, Take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.";
 					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBonePot>(), 1);
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				else
 				{
-					Main.npcChatText = "Oh, I already gave you my magical pot silly!";
+					Main.npcChatText = "Oh, it looks like I already gave you my magical pot.";
 					SoundEngine.PlaySound(SoundID.Item16, NPC.Center);
 				}
 			}
@@ -142,14 +139,9 @@ namespace Spooky.Content.NPCs.Friendly
         public override string GetChat()
 		{
 			List<string> Dialogue = new List<string>
-			{	
-				/*
-				//spooky forest exlusive dialogue
-				"I wish I could go outside to play in the leaves, but I also can't get out of this pot! Oh well...",
-				"I am not sure how these weird houses got here, but maybe you can fix them up? I would do it myself, but...",
-                "Sometimes I like to talk to the other skull plants if they pop up nearby this house, but they don't seem to respond to me.",
-				*/
-				"Why am I always dancing you ask? I like to vibe with the season. You should try it sometime!",
+			{
+                "Sometimes in the spooky forest I like to talk to the other skull plants if they pop up nearby this house, but they don't seem to respond to me.",
+				"Why am I dancing, you ask? Because it's fun! You should try it sometime.",
 			};
 
 			if (Main.LocalPlayer.ZoneGlowshroom)
@@ -159,17 +151,12 @@ namespace Spooky.Content.NPCs.Friendly
 
 			if (Main.LocalPlayer.ZoneJungle)
 			{
-				Dialogue.Add("This is the most dense forest I have ever seen! very groovy too!");
+				Dialogue.Add("This is the most dense forest I have ever seen!");
 			}
 
 			if (Main.LocalPlayer.ZoneDungeon)
             {
-				Dialogue.Add("This dungeon reminds me of that other giant dungeon where all my relatives were locked away in. I dunno why they got locked there though.");
-			}
-
-			if (Main.LocalPlayer.ZoneUnderworldHeight)
-			{
-				Dialogue.Add("Oh my goodness It's way too hot down here! How does anything even come down here?!");
+				Dialogue.Add("This dungeon reminds me of those catacombs where all my relatives are locked away in. I don't really remember why they got put there though.");
 			}
 
 			return Main.rand.Next(Dialogue);
@@ -177,12 +164,16 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void AI()
 		{
-			NPC.homeless = false;
-			NPC.homeTileX = -1;
-			NPC.homeTileY = -1;
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				NPC.homeless = false;
+				NPC.homeTileX = -1;
+				NPC.homeTileY = -1;
+				NPC.netUpdate = true;
+			}
 		}
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			return false;
 		}

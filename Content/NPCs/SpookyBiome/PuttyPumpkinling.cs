@@ -111,13 +111,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			NPC.ai[0]++;
 
-			Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 150 : -150), player.Center.Y - 400);
-
-			if (NPC.position.X <= player.Center.X + 200 && NPC.position.X >= player.Center.X - 200)
-			{
-				JumpTo = new(player.Center.X, player.Center.Y - 400);
-			}
-
+			Vector2 JumpTo = new(player.Center.X, player.Center.Y - 320);
+			
 			Vector2 velocity = JumpTo - NPC.Center;
 
 			if (NPC.ai[0] < 30 && NPC.velocity.Y <= 0.1f)
@@ -136,13 +131,13 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 
 			//fall on the ground
-			if (NPC.ai[0] >= 50 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
+			if (NPC.ai[0] >= 40 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
 				landingRecoil = 0.5f;
 
 				NPC.velocity.X *= 0;
 				
-				//"complete" the slam attack
+				//complete the jump attack
 				NPC.ai[1] = 1; 
 			}
 
@@ -153,6 +148,26 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				NPC.ai[1] = 0;
 				NPC.netUpdate = true;
 			}
+		}
+
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 10; numDusts++)
+                {
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.MediumPurple;
+					Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
 		}
     }
 }

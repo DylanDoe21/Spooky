@@ -30,6 +30,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.UsesCustomCanPlace = false;
 			TileObjectData.newTile.LavaDeath = true;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
+			TileObjectData.newTile.DrawYOffset = 0;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(114, 13, 39));
             ItemDrop = ModContent.ItemType<EyePlatformItem>();

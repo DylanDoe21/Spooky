@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.BossBags.Pets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rotten Gourd");
-			Tooltip.SetDefault("Summons a rotten gourd to follow you"
+			Tooltip.SetDefault("Summons a squishy little gourd to follow you"
 			+ "\n'It smells really bad'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.BossBags.Pets
 		{
 			Item.CloneDefaults(ItemID.Fish);
 			Item.width = 30;
-			Item.height = 30;
+			Item.height = 42;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
 			Item.shoot = ModContent.ProjectileType<RotGourdPet>();

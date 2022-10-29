@@ -1,28 +1,16 @@
 Halloween/October Update:
 
--finish rot gourds new fight, drops, master stuff, ect
+-finish rot gourd gores
 
--make enemy gores
+-make the catacomb keys have an actual interesting animation and chat message when used instead of what it is now
 
--make rot gourd spawn somewhere above you when summoned
-
--finish taco funny food items and make them obtainable
-
--make little bones carry mechanic slightly different, instead he will give you a pot that you can use to just teleport him to you
-(with fancy visuals of course)
-
--new taco enemies and critters for the spooky forest
-
--some new weapons for the enemies (also stuff that taco made)
+-make little bone have better dialogue plus add advice dialogue for big bone and each tier of the catacomb
 
 -make recipes for the new furniture
 
+-make rot gourd spawn somewhere above you when summoned maybe?
 
-fixes:
-
--make enemy gores created in hit effect instead of checkdead
-
--make big bone have a longer delay after his charges to prevent certain attacks from being weird
+-maybe rework rot gourds expert item?
 
 
 Eye Valley Update:

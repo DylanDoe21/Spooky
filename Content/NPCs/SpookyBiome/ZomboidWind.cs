@@ -1,8 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -82,19 +85,26 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.spriteDirection = NPC.direction;
         }
 
-        /*
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
-            {
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore1").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore3").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore4").Type);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RootZombieGore5").Type);
-            }
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
+        }
 
-            return true;
-		}
-        */
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidWindGore" + numGores).Type);
+                }
+            }
+        }
     }
 }

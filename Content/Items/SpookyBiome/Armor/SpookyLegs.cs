@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Horseman's Pants");
+			DisplayName.SetDefault("Rotten Horseman's Pants");
 			Tooltip.SetDefault("5% increased movement speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -37,10 +36,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<RottenChunk>(), 12)
-			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 25)
             .AddTile(TileID.Anvils)
             .Register();
         }
 	}
 }
-*/

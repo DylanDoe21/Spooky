@@ -141,6 +141,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                             goToY = Main.LocalPlayer.Center.Y - Projectile.Center.Y + Main.rand.Next(-500, -400);
                         }
 
+                        if (Main.npc[index1].ai[0] == 7 && Projectile.localAI[1] == 2)
+                        {
+                            goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
+                            goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
+                        }
+
                         float speedLimit = Main.npc[index1].ai[0] == 6 ? 8f : 5f;
                         float speed = Main.npc[index1].ai[0] == 6 ? 0.1f : 0.08f;
 
@@ -224,7 +230,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                     if (Projectile.localAI[0] == 120)
                     {
                         Projectile.ai[0] = 0;
-                        Projectile.localAI[1] = 0;
                     }
 
                     break;
@@ -256,7 +261,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                     if (Projectile.localAI[0] >= 60)
                     {
                         Projectile.ai[0] = 0;
-                        Projectile.localAI[1] = 0;
+                        Projectile.localAI[1] = 2;
                     }
 
                     break;

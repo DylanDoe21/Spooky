@@ -1,5 +1,0 @@
-Make orroboro seperate from the start
-
-make orroboro have a verlet chain (like graydees snooble)
-
-also make them able to both fly AND slither on tiles where their head is above blocks and their body drags along the ground

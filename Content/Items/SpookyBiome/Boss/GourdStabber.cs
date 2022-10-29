@@ -6,6 +6,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Boss
 {
@@ -38,7 +39,7 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item1;		
 			Item.shoot = ModContent.ProjectileType<GourdStabberProj>();
-			Item.shootSpeed = 7.5f;
+			Item.shootSpeed = 7f;
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -88,15 +89,13 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 			return true;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
-			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 10)
             .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
 	}
 }

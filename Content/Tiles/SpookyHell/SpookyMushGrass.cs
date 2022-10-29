@@ -37,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 
             if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope)
             {
-                if (Main.rand.Next(8) == 0)
+                if (Main.rand.Next(15) == 0)
                 {
                     Below.TileType = (ushort)ModContent.TileType<EyeVine>();
                     Below.HasTile = true;

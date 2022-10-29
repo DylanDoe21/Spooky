@@ -11,15 +11,15 @@ namespace Spooky.Content.Projectiles.Pets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rotten Gourd");
-			Main.projFrames[Projectile.type] = 12;
+			Main.projFrames[Projectile.type] = 10;
 			Main.projPet[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			Projectile.CloneDefaults(ProjectileID.Sapling);
-			AIType = ProjectileID.Sapling;
-			Projectile.width = 40;
+			Projectile.CloneDefaults(ProjectileID.PetLizard);
+			AIType = ProjectileID.PetLizard;
+			Projectile.width = 34;
 			Projectile.height = 40;
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;

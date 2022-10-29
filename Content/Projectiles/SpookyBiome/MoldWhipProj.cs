@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
@@ -64,6 +65,25 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+
+			if (target.life <= 0)
+            {
+				if (target.HasBuff(ModContent.BuffType<MoldWhipDebuff>()))
+				{
+					Vector2 Speed = new Vector2(3f, 0f).RotatedByRandom(2 * Math.PI);
+
+					for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+					{
+						Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
+
+						if (Main.netMode != NetmodeID.MultiplayerClient)
+						{
+							Projectile.NewProjectile(target.GetSource_FromThis(), target.Center, speed,
+							ModContent.ProjectileType<MoldWhipFly>(), 15, 0f, Main.myPlayer, 0, 0);
+						}
+					}
+				}
+			}
 		}
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

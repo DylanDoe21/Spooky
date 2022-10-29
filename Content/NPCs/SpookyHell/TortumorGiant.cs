@@ -2,11 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -216,6 +218,11 @@ namespace Spooky.Content.NPCs.SpookyHell
                     NPC.ai[1] = 0;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 15));
         }
 
         public override bool CheckDead() 

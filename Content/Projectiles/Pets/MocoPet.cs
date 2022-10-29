@@ -27,6 +27,11 @@ namespace Spooky.Content.Projectiles.Pets
             Projectile.penetrate = -1;
 		}
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];

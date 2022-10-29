@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 2)
             {
                 Projectile.damage *= 2;
             }

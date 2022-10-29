@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileID.Sets.CommonSapling[Type] = true;
 			TileObjectData.newTile.Width = 1;
 			TileObjectData.newTile.Height = 2;
-			TileObjectData.newTile.Origin = new Point16(0, 0);
+			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };

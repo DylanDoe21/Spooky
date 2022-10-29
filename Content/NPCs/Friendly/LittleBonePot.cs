@@ -23,16 +23,7 @@ namespace Spooky.Content.NPCs.Friendly
 			Item.useAnimation = 35;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Quest;
-        }
-
-        public override bool IsQuestFish()
-        {
-            return true;
-        }
-
-        public override void GrabRange(Player player, ref int grabRange)
-        {
-            grabRange = 1000000;
+            Item.UseSound = SoundID.Item83;
         }
 
         public override bool? UseItem(Player player)
@@ -40,14 +31,15 @@ namespace Spooky.Content.NPCs.Friendly
             //delete any existing little bones just in case
             for (int k = 0; k < Main.maxNPCs; k++)
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<LittleBone>()) 
+				if (Main.npc[k].active && (Main.npc[k].type == ModContent.NPCType<LittleBone>() ||
+                Main.npc[k].type == ModContent.NPCType<LittleBonePotTransform>())) 
 				{
                     Main.npc[k].active = false;
                 }
             }
 
             //spawn little bone
-            NPC.NewNPC(player.GetSource_FromThis(), (int)player.Center.X, (int)player.Center.Y - 25, ModContent.NPCType<LittleBone>());
+            NPC.NewNPC(player.GetSource_FromThis(), (int)player.Center.X, (int)player.Center.Y - 25, ModContent.NPCType<LittleBonePotTransform>());
 
             return true;
         }

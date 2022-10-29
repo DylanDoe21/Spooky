@@ -5,7 +5,9 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.SpookyBiome.Boss;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
@@ -20,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.addTile(Type);
             TileObjectData.newTile.DrawYOffset = 2;
-            AddMapEntry(new Color(161, 94, 27));
+            AddMapEntry(new Color(214, 106, 49));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -33,7 +35,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
                 Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore2").Type);
             }
 
-            if (Main.rand.NextBool(5))
+            if (Main.rand.Next(3) == 0 && Flags.downedRotGourd)
+            {
+			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenChunk>());
+            }
+
+            if (Main.rand.Next(7) == 0)
             {
 			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenSeed>());
             }

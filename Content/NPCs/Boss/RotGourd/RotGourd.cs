@@ -13,10 +13,14 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.BossBags.Pets;
+using Spooky.Content.Items.SpookyBiome.Boss;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
+using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Boss.RotGourd
 {
+	[AutoloadBossHead]
 	public class RotGourd : ModNPC
 	{
 		public bool FirstFlySpawned = false;
@@ -332,7 +336,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									}
 								}
 								
-								//"complete" the slam attack
+								//complete the slam attack
 								NPC.localAI[2] = 1; 
 							}
 
@@ -442,7 +446,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						//set tile collide to true after jumping
 						if (NPC.localAI[0] >= 75)
 						{
-							if (NPC.position.Y >= player.Center.Y - 250)
+							if (NPC.position.Y >= player.Center.Y - 150)
 							{
 								NPC.noTileCollide = false;
 							}
@@ -463,8 +467,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								player.velocity.Y -= 12f;
 							}
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 50, NPC.Center.Y, 0, 0,
-							ProjectileID.DD2OgreSmash, Damage, 2, NPC.target, 0, 0);
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
+							ModContent.ProjectileType<RotStomp>(), Damage, 2, NPC.target, 0, 0);
 
 							//make cool dust effect when slamming the ground
 							for (int i = 0; i < 65; i++)
@@ -481,7 +485,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								}
 							}
 							
-							//"complete" the slam attack
+							//complete the slam attack
 							NPC.localAI[1] = 1; 
 						}
 
@@ -625,8 +629,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 20, NPC.Center.Y, 0, 0, 
-								ProjectileID.DD2OgreSmash, Damage, 1, NPC.target, 0, 0);
+								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+								ModContent.ProjectileType<RotStomp>(), Damage, 1, NPC.target, 0, 0);
 
 								int NumProjectiles = Main.rand.Next(10, 15);
 								for (int i = 0; i < NumProjectiles; ++i)
@@ -655,7 +659,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									}
 								}
 								
-								//"complete" the slam attack
+								//complete the slam attack
 								NPC.localAI[2] = 1; 
 							}
 
@@ -748,8 +752,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									player.velocity.Y -= 8f;
 								}
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 50, NPC.Center.Y, 0, 0,
-								ProjectileID.DD2OgreSmash, Damage, 2, NPC.target, 0, 0);
+								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
+								ModContent.ProjectileType<RotStomp>(), Damage, 2, NPC.target, 0, 0);
 
 								//make cool dust effect when slamming the ground
 								for (int i = 0; i < 45; i++)
@@ -766,7 +770,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									}
 								}
 								
-								//"complete" the slam attack
+								//complete the slam attack
 								NPC.localAI[2] = 1;
 							}
 
@@ -833,7 +837,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 420 : -420), player.Center.Y - 400);
 
-							if (NPC.position.X <= player.Center.X + 300 && NPC.position.X >= player.Center.X - 300)
+							if (NPC.position.X <= player.Center.X + 420 && NPC.position.X >= player.Center.X - 420)
 							{
 								JumpTo = new(player.Center.X, player.Center.Y - 400);
 							}
@@ -893,9 +897,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									player.velocity.Y -= 8f;
 								}
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 20, NPC.Center.Y, 0, 0, 
-								ProjectileID.DD2OgreSmash, Damage, 1, NPC.target, 0, 0);
-
 								int NumProjectiles = Main.rand.Next(10, 15);
 								for (int i = 0; i < NumProjectiles; ++i)
 								{
@@ -923,7 +924,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									}
 								}
 								
-								//"complete" the slam attack
+								//complete the slam attack
 								NPC.localAI[2] = 1; 
 							}
 
@@ -946,6 +947,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 									{
 										Main.projectile[k].localAI[0] = 0;
+										Main.projectile[k].localAI[1] = 0;
 										Main.projectile[k].ai[0] = 0;
 									}
 								}
@@ -963,11 +965,20 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			}
 		}
 
-		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		//Loot and stuff
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
-            
+
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagRotGourd>()));
+            
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<RotGourdRelicItem>()));
+
+            int[] MainItem = new int[] { ModContent.ItemType<GourdStabber>(), ModContent.ItemType<ThrowingGourd>(), 
+            ModContent.ItemType<GourdSeedStaff>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<MoldWhip>() };
+
+            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
             npcLoot.Add(notExpertRule);
         }

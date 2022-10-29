@@ -2,14 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+using Terraria.GameContent.ItemDropRules;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Core;
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb
 {
@@ -129,6 +126,11 @@ namespace Spooky.Content.NPCs.Catacomb
                 AIType = NPCID.Wolf;
                 NPC.localAI[0] = 0;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 50));
         }
 
         public override bool CheckDead() 

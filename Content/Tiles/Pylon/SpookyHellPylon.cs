@@ -54,8 +54,9 @@ namespace Spooky.Content.Tiles.Pylon
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(moddedPylon.Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.CountsAsPylon);
-			ModTranslation pylonName = CreateMapEntryName(); //Name is in the localization file
-			AddMapEntry(Color.Red, pylonName);
+			ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Eye Valley Pylon");
+            AddMapEntry(Color.Red, name);
 			DustType = -1;
 		}
 
@@ -85,7 +86,7 @@ namespace Spooky.Content.Tiles.Pylon
 		public override bool ValidTeleportCheck_BiomeRequirements(TeleportPylonInfo pylonInfo, SceneMetrics sceneData) 
         {
 			//conditions for the pylon
-			return ModContent.GetInstance<TileCount>().spookyHellTiles >= 200;
+			return ModContent.GetInstance<TileCount>().spookyHellTiles >= 500;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 
