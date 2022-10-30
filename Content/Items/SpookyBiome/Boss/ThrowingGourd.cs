@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpookyBiome.Boss
 
         public override void SetDefaults()
         {
-            Item.damage = 22;    
+            Item.damage = 15;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.useTurn = true;    

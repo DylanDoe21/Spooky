@@ -14,11 +14,11 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("DylanDoe's Pumpkin Head");
-			Tooltip.SetDefault("It's a pumpkin but square\n'Great for impersonating spooky mod devs!'");
+			DisplayName.SetDefault("DylanDoe's Mask");
+			Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-			DylanDoeHeadGlowmask.AddGlowMask(Item.type, "Spooky/Content/Items/Costume/DylanDoeHead_Head_Glow");
+			DylanHeadGlowmask.AddGlowMask(Item.type, "Spooky/Content/Items/Costume/DylanDoeHead_Head_Glow");
 		}
 
 		public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.Costume
 		}
 	}
 
-	public class DylanDoeHeadGlowmask : ModPlayer
+	public class DylanHeadGlowmask : ModPlayer
 	{
 		internal static readonly Dictionary<int, Texture2D> ItemGlowMask = new Dictionary<int, Texture2D>();
 
@@ -43,7 +43,7 @@ namespace Spooky.Content.Items.Costume
 		public static void AddGlowMask(int itemType, string texturePath) => ItemGlowMask[itemType] = ModContent.Request<Texture2D>(texturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 	}
 
-	public abstract class GlowmaskVanityLayer : PlayerDrawLayer
+	public abstract class DylanGlowmaskVanityLayer : PlayerDrawLayer
 	{
 		protected abstract int ID { get; }
 		protected abstract EquipType Type { get; }
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.Costume
 			if (!drawInfo.drawPlayer.armor[ID].IsAir)
 			{
 				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count && !Main.dayTime &&
-				DylanDoeHeadGlowmask.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))//Vanity Legs
+				DylanHeadGlowmask.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))//Vanity Legs
 				{
 					for (int i = 0; i < 2; i++)
 					{
@@ -80,7 +80,7 @@ namespace Spooky.Content.Items.Costume
 		}
 	}
 
-	public class VanityHeadLayer : GlowmaskVanityLayer
+	public class DylanVanityHeadLayer : DylanGlowmaskVanityLayer
 	{
 		protected override int ID => 10;
 		protected override EquipType Type => EquipType.Head;

@@ -360,7 +360,7 @@ namespace Spooky.Content.Generation
                             case 3:
                             {
                                 tile.ClearEverything();
-					            WorldGen.PlaceTile(StructureX, StructureY, TileID.Platforms);
+					            WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<OldWoodPlatform>());
                                 break;
                             }
                             //dynasty shingles

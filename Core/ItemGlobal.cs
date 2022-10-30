@@ -1,8 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Costume;
 
 namespace Spooky.Core
 {
@@ -20,5 +22,16 @@ namespace Spooky.Core
 
             return true;
         }
-    }
+
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+		{
+			if (item.type == ItemID.GoodieBag)
+			{
+				int[] Masks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(),
+                ModContent.ItemType<KrakenHead>(), ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>() };
+
+                itemLoot.Add(ItemDropRule.OneFromOptions(30, Masks));
+			}
+		}
+	}
 }

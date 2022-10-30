@@ -14,6 +14,15 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
+		public override void SetupShop(int type, Chest shop, ref int nextSlot)
+		{
+			if (type == NPCID.Steampunker)
+			{
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookySolution>());
+				nextSlot++;
+			}
+		}
+
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
             //make hardmode enemies drop the biome keys, 1/2500 chance like vanilla

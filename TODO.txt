@@ -1,17 +1,3 @@
-Halloween/October Update:
-
--finish rot gourd gores
-
--make the catacomb keys have an actual interesting animation and chat message when used instead of what it is now
-
--make little bone have better dialogue plus add advice dialogue for big bone and each tier of the catacomb
-
--make recipes for the new furniture
-
--make rot gourd spawn somewhere above you when summoned maybe?
-
--maybe rework rot gourds expert item?
-
 
 Eye Valley Update:
 

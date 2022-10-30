@@ -96,10 +96,10 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = "It seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath the spooky forest, you can find special loot! I am not too sure who left it there, though.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//rot gourd
-				else if (NPC.downedBoss1 && !Flags.downedRotGourd)
+				//catacombs anr rotgourd
+				else if (NPC.downedBoss1 && !NPC.downedBoss2 && !Flags.downedRotGourd)
 				{
-					Main.npcChatText = "You are progressing pretty fast! I remember hearing of a giant, hostile pumpkin who used to guard this biome. Maybe you can try breaking the pumpkins in this spooky forest?";
+					Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! I also remember hearing of a giant, hostile living gourd. Maybe you can try breaking the pumpkins in the spooky forest?";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//spooky hell
@@ -108,10 +108,22 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
+				//catacombs part 2
+				else if (Main.hardMode && !NPC.downedMechBossAny)
+				{
+					Main.npcChatText = "Now that you have access deeper into the catacombs, you should return there. maybe the deeper parts will have some better treasure?";
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
 				//orroboro
-				else if (NPC.downedMechBossAny && Main.hardMode)
+				else if (NPC.downedMechBossAny && Main.hardMode && !Flags.downedOrroboro)
 				{
 					Main.npcChatText = "Now that you have defeated one of those giant robots, you can probably make a special flask to see what's inside that giant egg in the eye valley.";
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
+				//big bone
+				else if (NPC.downedGolemBoss)
+				{
+					Main.npcChatText = "Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				else

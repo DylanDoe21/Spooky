@@ -965,6 +965,37 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			}
 		}
 
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RotGourdGore" + numGores).Type);
+                }
+
+				for (int numDusts = 0; numDusts < 45; numDusts++)
+				{
+					int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default, 2f);
+					Main.dust[DustGore].color = Color.MediumPurple;
+					Main.dust[DustGore].scale = 0.8f;
+					Main.dust[DustGore].velocity *= 1.2f;
+
+					if (Main.rand.Next(2) == 0)
+					{
+						Main.dust[DustGore].scale = 0.5f;
+						Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+					}
+				}
+            }
+        }
+
 		//Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {

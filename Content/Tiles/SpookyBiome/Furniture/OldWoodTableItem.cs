@@ -25,5 +25,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.maxStack = 99;
 			Item.createTile = ModContent.TileType<OldWoodTable>();
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 8)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
 	}
 }

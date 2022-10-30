@@ -25,5 +25,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Item.maxStack = 99;
 			Item.createTile = ModContent.TileType<EyeBathtub>();
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 14)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
 	}
 }

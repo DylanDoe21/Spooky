@@ -25,5 +25,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			Item.maxStack = 99;
 			Item.createTile = ModContent.TileType<EyeChest>();
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 8)
+			.AddRecipeGroup(RecipeGroupID.IronBar, 2)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
 	}
 }

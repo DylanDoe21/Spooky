@@ -28,7 +28,9 @@ namespace Spooky.Content.Tiles.SpookyBiome
         public override bool? UseItem(Player player)
 		{
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY))
+
+			if ((tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() || tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt2>()) &&
+			player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY))
 			{
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
 
