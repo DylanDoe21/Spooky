@@ -180,7 +180,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			Player player = Main.player[NPC.target];
 			NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 20;
+            int Damage = Main.masterMode ? 35 / 3 : Main.expertMode ? 25 / 2 : 20;
 
 			NPC.spriteDirection = NPC.direction;
 			NPC.rotation = NPC.velocity.X * 0.02f;
@@ -640,7 +640,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
 										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, 0 + Spread, Main.rand.Next(-18, -13), 
-										ModContent.ProjectileType<DirtDebris>(), Damage, 1, Main.myPlayer, 0, 0);
+										ModContent.ProjectileType<DirtDebris>(), Damage, 1, NPC.target, 0, 0);
 									}
 								}
 
@@ -905,7 +905,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
 										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, 0 + Spread, Main.rand.Next(-18, -13), 
-										ModContent.ProjectileType<DirtDebris>(), Damage, 1, Main.myPlayer, 0, 0);
+										ModContent.ProjectileType<DirtDebris>(), Damage, 1, NPC.target, 0, 0);
 									}
 								}
 

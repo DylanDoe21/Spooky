@@ -29,14 +29,10 @@ namespace Spooky
         {
             if (!Main.dedServ)
             {
-                //EffectCache.Setup(this);
-
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(Color.BlueViolet).UseOpacity(0.3f), EffectPriority.VeryHigh);
-
-                //keep this for later
-                //Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(Color.BlueViolet), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0.002f), EffectPriority.VeryHigh);
+                //Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(2f, 0.8f, 0.6f), EffectPriority.VeryHigh);
             }
 
             if (Main.netMode != NetmodeID.Server)

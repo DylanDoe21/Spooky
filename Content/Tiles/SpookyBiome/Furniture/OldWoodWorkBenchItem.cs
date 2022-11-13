@@ -30,7 +30,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 10)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
 	}

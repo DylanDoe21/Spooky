@@ -15,7 +15,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
 
         public override bool IsActive()
         {
-            return Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>());
+            return ModContent.GetInstance<TileCount>().spookyHellTiles >= 500;
         }
 
         public override Color DrawColor => Color.Gray;

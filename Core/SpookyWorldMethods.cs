@@ -182,7 +182,7 @@ namespace Spooky.Core
 									Main.tile[k, l].TileType = (ushort)tileType;
 								}
 
-								//replace all wallls
+								//replace all walls
 								if (Main.tile[k, l].WallType > 0 && placeWalls)
 								{
 									Main.tile[k, l].WallType = (ushort)wallType;

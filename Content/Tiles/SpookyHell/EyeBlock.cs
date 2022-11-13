@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(98, 75, 171));
+            AddMapEntry(new Color(54, 44, 49));
             ItemDrop = ModContent.ItemType<EyeBlockItem>();
 			DustType = -1;
             HitSound = SoundID.Dig;
@@ -32,7 +32,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             {
                 if (Main.rand.Next(15) == 0) 
                 {
-                    Below.TileType = (ushort)ModContent.TileType<FollicleVine>();
+                    Below.TileType = (ushort)ModContent.TileType<EyeVine>();
                     Below.HasTile = true;
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
