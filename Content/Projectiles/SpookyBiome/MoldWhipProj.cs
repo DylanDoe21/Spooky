@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			// use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 25;
-			Projectile.WhipSettings.RangeMultiplier = 1f;
+			Projectile.WhipSettings.RangeMultiplier = 0.9f;
 		}
 
 		// This example uses PreAI to implement a charging mechanic.

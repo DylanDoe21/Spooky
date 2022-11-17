@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs.Debuff
@@ -8,7 +9,7 @@ namespace Spooky.Content.Buffs.Debuff
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Moldy");
-			Main.debuff[Type] = true;
+			BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
 		} 
     }
 }

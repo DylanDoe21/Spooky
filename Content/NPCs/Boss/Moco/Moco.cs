@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             NPC.lifeMax = 4500;
             NPC.damage = 42;
-            NPC.defense = 25;
+            NPC.defense = 15;
             NPC.width = 130;
             NPC.height = 112;
             NPC.knockBackResist = 0f;

@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
                 if (NPC.localAI[0] >= 75)
                 {
-                    Vector2 JumpTo = new(player.Center.X, player.Center.Y - 100);
+                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 60);
                     Vector2 velocity = JumpTo - NPC.Center;
                     velocity.Normalize();
 

@@ -17,8 +17,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		private List<Vector2> cache;
         private Trail trail;
 
-        int bounces = 0;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Blast");
@@ -29,9 +27,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(258);
-			Projectile.width = 10;                   			 
-            Projectile.height = 10;         
-			Projectile.hostile = true;                              			  		
+			Projectile.width = 20;                   			 
+            Projectile.height = 20;         
+			Projectile.hostile = true;
+            Projectile.friendly = false;                              			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
             Projectile.alpha = 255;

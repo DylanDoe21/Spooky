@@ -20,7 +20,7 @@ namespace Spooky.Content.Biomes
 
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBG1") : ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBG2");
 
-        public override int Music => !Main.IsItStorming ? Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight") : MusicID.Monsoon;
+        public override int Music => !Main.raining ? Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
         

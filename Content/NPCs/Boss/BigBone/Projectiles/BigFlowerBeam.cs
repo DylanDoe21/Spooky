@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,9 +27,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(258);
-			Projectile.width = 25;                   			 
-            Projectile.height = 25;         
-			Projectile.hostile = true;                                 			  		
+			Projectile.width = 20;                   			 
+            Projectile.height = 20;         
+			Projectile.hostile = true;
+            Projectile.friendly = false;                              			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
             Projectile.alpha = 255;
@@ -78,9 +80,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		private void ManageTrail()
         {
+            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
+            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
             {
-                return Color.DarkOrange;
+                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
+                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X);
             });
 
             trail.Positions = cache.ToArray();

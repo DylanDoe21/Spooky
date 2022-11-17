@@ -165,19 +165,30 @@ namespace Spooky.Content.Generation
                     Tile left = Main.tile[X - 1, Y];
                     Tile right = Main.tile[X + 1, Y];
 
-                    if (Main.tile[X, Y].HasTile)
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() &&
+                    ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
                     {
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() &&
-                        ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
-                        {
-                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrass>();
-                        }
+                        Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrass>();
+                    }
 
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() &&
-                        ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
-                        {
-                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
-                        }
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() &&
+                    ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
+                    {
+                        Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
+                    }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() &&
+                    (up.TileType == ModContent.TileType<SpookyGrass>() || down.TileType == ModContent.TileType<SpookyGrass>() || 
+                    left.TileType == ModContent.TileType<SpookyGrass>() || right.TileType == ModContent.TileType<SpookyGrass>()))
+                    {
+                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyDirt>(), ModContent.TileType<SpookyGrass>(), false);
+                    }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() &&
+                    (up.TileType == ModContent.TileType<SpookyGrassGreen>() || down.TileType == ModContent.TileType<SpookyGrassGreen>() || 
+                    left.TileType == ModContent.TileType<SpookyGrassGreen>() || right.TileType == ModContent.TileType<SpookyGrassGreen>()))
+                    {
+                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyDirt2>(), ModContent.TileType<SpookyGrassGreen>(), false);
                     }
 
                     if (X == PositionX + 500 && Y == Main.maxTilesY - 100)
@@ -555,7 +566,7 @@ namespace Spooky.Content.Generation
                 Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrass>() ||
                 Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrassGreen>())
 				{
-					PlaceStructures(HouseX, HouseY - 18, StarterHouse, StarterHouseObjects);
+					PlaceStructures(HouseX - 8, HouseY - 18, StarterHouse, StarterHouseObjects);
                     placed = true;
 				}
             }
@@ -1018,30 +1029,30 @@ namespace Spooky.Content.Generation
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
             //generate biome
-			int SpookyForestIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pyramids"));
-			if (SpookyForestIndex == -1)
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Pyramids"));
+			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(SpookyForestIndex + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
-            tasks.Insert(SpookyForestIndex + 2, new PassLegacy("SpookyLoot", GenerateLootStructures));
-            tasks.Insert(SpookyForestIndex + 3, new PassLegacy("SpookyHouse", GenerateStarterHouse));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyLoot", GenerateLootStructures));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("SpookyHouse", GenerateStarterHouse));
 
             //place objects and grow trees
-            int SpookyAmbientIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Grass Wall"));
-			if (SpookyAmbientIndex == -1)
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Grass Wall"));
+			if (GenIndex2 == -1)
 			{
                 return;
             }
 
-            tasks.Insert(SpookyAmbientIndex + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(SpookyAmbientIndex + 2, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(SpookyAmbientIndex + 3, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(SpookyAmbientIndex + 4, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(SpookyAmbientIndex + 5, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(SpookyAmbientIndex + 6, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(SpookyAmbientIndex + 7, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex2 + 7, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests

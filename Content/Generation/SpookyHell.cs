@@ -171,6 +171,13 @@ namespace Spooky.Content.Generation
                             Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyMushGrass>();
                         }
                     }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>() &&
+                    (up.TileType == ModContent.TileType<SpookyMushGrass>() || down.TileType == ModContent.TileType<SpookyMushGrass>() || 
+                    left.TileType == ModContent.TileType<SpookyMushGrass>() || right.TileType == ModContent.TileType<SpookyMushGrass>()))
+                    {
+                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyMush>(), ModContent.TileType<SpookyMushGrass>(), false);
+                    }
                 }
             }
         }
@@ -741,26 +748,26 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
-            int SpookyHellClearIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Larva"));
-			if (SpookyHellClearIndex == -1)
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
+			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(SpookyHellClearIndex + 1, new PassLegacy("ClearArea", ClearArea));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("ClearArea", ClearArea));
 
-            int SpookyHellIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
-			if (SpookyHellIndex == -1)
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
+			if (GenIndex2 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(SpookyHellIndex + 1, new PassLegacy("SpookyHell", GenerateSpookyHell));
-            tasks.Insert(SpookyHellIndex + 2, new PassLegacy("SpookyHellStructures", GenerateStructures));
-            tasks.Insert(SpookyHellIndex + 3, new PassLegacy("SpookyHellGrass", SpreadSpookyHellGrass));
-            tasks.Insert(SpookyHellIndex + 4, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
-            tasks.Insert(SpookyHellIndex + 5, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
-            tasks.Insert(SpookyHellIndex + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyHell", GenerateSpookyHell));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyHellStructures", GenerateStructures));
+            tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyHellGrass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
+            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
+            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
 		}
 
         //post worldgen to place items in the spooky biome chests

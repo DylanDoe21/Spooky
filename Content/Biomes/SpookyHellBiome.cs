@@ -25,13 +25,6 @@ namespace Spooky.Content.Biomes
                 //VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
                 //vignettePlayer.SetVignette(1, 1200, 1.2f, Color.Black, player.Center);
             }
-
-            player.ManageSpecialBiomeVisuals("Spooky:SpookyHellTint", player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()), player.Center);
-        }
-        
-        public override void OnLeave(Player player)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:SpookyHellTint", false, player.Center);
         }
 
         //bestiary stuff

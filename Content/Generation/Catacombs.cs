@@ -2836,31 +2836,31 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            int JungleCoordIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Grass"));
-            if (JungleCoordIndex == -1)
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Grass"));
+            if (GenIndex1 == -1)
             {
                 return;
             }
 
-            tasks.Insert(JungleCoordIndex + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
 
-            int GraveyardIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Dirt Rock Wall Runner"));
-			if (GraveyardIndex == -1)
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Dirt Rock Wall Runner"));
+			if (GenIndex2 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(GraveyardIndex + 1, new PassLegacy("GraveyardStructure", PlaceGraveyardArea));
-            tasks.Insert(GraveyardIndex + 2, new PassLegacy("GraveyardStructure", GenerateGraveyardStructures));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("GraveyardStructure", PlaceGraveyardArea));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("GraveyardStructure", GenerateGraveyardStructures));
 
-            int CatacombIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
-			if (CatacombIndex == -1)
+            int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+			if (GenIndex3 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(CatacombIndex + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
-            tasks.Insert(CatacombIndex + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
+            tasks.Insert(GenIndex3 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
+            tasks.Insert(GenIndex3 + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
         }
 
         //place items in chests
