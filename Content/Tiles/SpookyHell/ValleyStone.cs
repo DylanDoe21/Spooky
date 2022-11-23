@@ -15,9 +15,9 @@ namespace Spooky.Content.Tiles.SpookyHell
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(77, 10, 6));
+            AddMapEntry(new Color(161, 140, 140));
             ItemDrop = ModContent.ItemType<ValleyStoneItem>();
-			DustType = -1;
+			DustType = DustID.Bone;
             HitSound = SoundID.Dig;
 		}
 	}

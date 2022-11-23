@@ -7,7 +7,8 @@ using Spooky.Content.Projectiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome
 {
-    public class ElGourdo : ModItem
+    [LegacyName("ElGourdo")]
+    public class GourdBomb : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -35,7 +36,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(gold: 20);   
             Item.UseSound = SoundID.Item1; 
-            Item.shoot = ModContent.ProjectileType<ElGourdoProj>();  
+            Item.shoot = ModContent.ProjectileType<GourdBombProj>();  
             Item.shootSpeed = 5f;     
         }
     }

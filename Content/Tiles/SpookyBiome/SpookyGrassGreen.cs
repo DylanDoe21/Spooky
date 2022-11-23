@@ -27,15 +27,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 		}
 
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-            if (!fail)
-            {
-                fail = true;
-                Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyDirt>();
-            }
-        }
-
         public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);

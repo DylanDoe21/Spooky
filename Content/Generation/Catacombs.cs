@@ -2880,7 +2880,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyBiomeChest>())
                     {
                         //el gourdo
-                        chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
+                        chest.item[0].SetDefaults(ModContent.ItemType<GourdBomb>());
                         chest.item[0].stack = 1;
                     }
 

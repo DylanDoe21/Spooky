@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.SpookyHell
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(19, 14, 37));
-            DustType = -1;
+            DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
         }
     }

@@ -9,7 +9,7 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
-    public class ElGourdoProj : ModProjectile
+    public class GourdBombProj : ModProjectile
     {
         float RotateSpeed = 0.2f;
         float ScaleAmount = 0.05f;
@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("El Gourdo");
+            DisplayName.SetDefault("Gourd Bomb");
             Main.projFrames[Projectile.type] = 5;
         }
 

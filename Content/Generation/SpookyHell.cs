@@ -35,7 +35,7 @@ namespace Spooky.Content.Generation
             //clear all blocks and lava in the area
             for (int X = StartPosition; X <= BiomeEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY; Y++)
+                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 2; Y++)
                 {
                     Tile newTile = Main.tile[X, Y];
 
@@ -340,6 +340,7 @@ namespace Spooky.Content.Generation
                         {
                             ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
 
+                            //cannot be bothered to check which one actually works
                             WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
                             WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
                             WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
@@ -770,6 +771,7 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
 		}
 
+        /*
         //post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
@@ -831,5 +833,6 @@ namespace Spooky.Content.Generation
                 }
             }
         }
+        */
     }
 }

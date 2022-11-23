@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.Tiles.SpookyHell.Chests
@@ -45,7 +46,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
 			name.SetDefault("Locked Eye Chest");
 			AddMapEntry(new Color(146, 135, 238), name, MapChestName);
-			DustType = DustID.PurpleCrystalShard;
+			DustType = ModContent.DustType<SpookyHellPurpleDust>();
 			HitSound = SoundID.Dig;
 		}
 

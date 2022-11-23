@@ -41,7 +41,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		{
             WorldGen.KillTile(i, j);
 
-            return true;
+            return false;
         }
     }
 }

@@ -6,6 +6,8 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Tiles.SpookyHell.Ambient
 {
 	public class Finger1 : ModTile
@@ -20,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(4, 60, 36));
-			DustType = DustID.Blood;
+			DustType = ModContent.DustType<SpookyHellGrassDust>();
 			HitSound = SoundID.NPCHit13;
 		}
     }

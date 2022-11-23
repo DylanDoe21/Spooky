@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Moco;
 
@@ -35,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.addTile(Type);
             AnimationFrameHeight = 72;
             AddMapEntry(new Color(140, 99, 201));
-			DustType = DustID.PurpleCrystalShard;
+			DustType = ModContent.DustType<SpookyHellPurpleDust>();
 			HitSound = SoundID.Dig;
 		}
 

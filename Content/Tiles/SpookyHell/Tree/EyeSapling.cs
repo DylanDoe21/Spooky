@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<SpookyMushGrass>() };
+			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<SpookyMushGrass>(), ModContent.TileType<EyeBlock>() };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
@@ -35,8 +35,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileObjectData.newTile.StyleMultiplier = 3;
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Sapling");
-			AddMapEntry(new Color(200, 200, 200), name);
+            name.SetDefault("Stalk Sapling");
+            AddMapEntry(new Color(86, 2, 28), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Saplings };
 		}
@@ -61,12 +61,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			}
 		}
 
-		public override void SetSpriteEffects(int i, int j, ref SpriteEffects effects)
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			if (i % 2 == 1)
-			{
-				effects = SpriteEffects.FlipHorizontally;
-			}
+			Tile tile = Framing.GetTileSafely(i, j);
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeSaplingGlow").Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 		}
 	}
 }

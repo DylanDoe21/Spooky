@@ -161,14 +161,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
                 //drop living flesh blocks
-                int totalFlesh = Main.rand.Next(6, 11);
+                int totalFlesh = Main.rand.Next(5, 10);
                 for (int numFlesh = 0; numFlesh < totalFlesh; numFlesh++)
                 {
                     Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-46, 46), 
                     Main.rand.Next(-40, 40) - 66), ModContent.ItemType<LivingFleshItem>(), Main.rand.Next(1, 5));
                 }
 
-                //drop this trees acorns
+                //drop this trees seeds
                 int totalSeeds = Main.rand.Next(1, 3);
                 for (int numSeed = 0; numSeed < totalSeeds; numSeed++)
                 {
@@ -273,7 +273,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
 
                 Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
-                new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(3)).Type);
+                new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
             }
         }
 

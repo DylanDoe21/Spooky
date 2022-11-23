@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpookyHell
 {
@@ -21,19 +21,21 @@ namespace Spooky.Content.Tiles.SpookyHell
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(7, 112, 53));
+            AddMapEntry(new Color(86, 114, 39));
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
-            DustType = DustID.Grass;
+            DustType = ModContent.DustType<SpookyHellGrassDust>();
             HitSound = SoundID.Dig;
         }
 
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        public override bool HasWalkDust()
         {
-            if (!fail)
-            {
-                fail = true;
-                Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyMush>();
-            }
+            return true;
+        }
+
+        public override void WalkDust(ref int dustType, ref bool makeDust, ref Color color)
+        {
+            dustType = DustID.Grass;
+            makeDust = true;
         }
 
         public override void RandomUpdate(int i, int j)

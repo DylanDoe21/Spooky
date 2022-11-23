@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -223,6 +224,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 50));
+
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 65));
         }
 
         public override bool CheckDead() 

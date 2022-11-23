@@ -7,6 +7,8 @@ using Terraria.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Tiles.SpookyHell.Ambient
 {
 	public class EyePile1 : ModTile
@@ -27,7 +29,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(60, 10, 79));
-            DustType = DustID.Blood;
+            DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.NPCHit13;
 		}
 

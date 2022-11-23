@@ -130,17 +130,21 @@ namespace Spooky.Content.NPCs.SpookyHell
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 50));
         }
 
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EyeBatGore" + numGores).Type);
                 }
             }
-
-            return true;
-		}
+        }
     }
 }

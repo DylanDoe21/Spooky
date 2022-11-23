@@ -9,8 +9,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Seed");
-            Tooltip.SetDefault("Plants eye saplings on valley mush grass");
+            DisplayName.SetDefault("Eye Stalk Seed");
+            Tooltip.SetDefault("Plants eye stalk saplings");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

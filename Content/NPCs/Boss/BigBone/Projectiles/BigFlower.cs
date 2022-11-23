@@ -99,6 +99,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
+			int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
+
 			Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
             float RotateX = player.Center.X - vector.X;
             float RotateY = player.Center.Y - vector.Y;
@@ -153,7 +155,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
-					ShootSpeed.Y, ModContent.ProjectileType<BigFlowerBeam>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
+					ShootSpeed.Y, ModContent.ProjectileType<BigFlowerBeam>(), Damage, 1, Main.myPlayer, 0, 0);
 				}
 			}
 		}

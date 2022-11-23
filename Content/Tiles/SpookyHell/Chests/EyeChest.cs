@@ -45,7 +45,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
 			name.SetDefault("Locked Eye Chest");
 			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
-			DustType = DustID.PurpleCrystalShard;
+			DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
 		}
 

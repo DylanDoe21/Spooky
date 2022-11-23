@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Tiles.SpookyHell
 {
 	public class SpookyMush : ModTile
@@ -16,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(70, 16, 123));
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
-			DustType = DustID.Ash;
+			DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
 		}
 

@@ -14,6 +14,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(121, 57, 21));
             DustType = ModContent.DustType<SpookyGrassDust>();
+            HitSound = SoundID.Grass;
         }
     }
 }
