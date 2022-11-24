@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             Item.width = 34;
             Item.height = 44;
-            Item.rare = ItemRarityID.Quest;
+            Item.rare = ItemRarityID.LightRed;
         }
     }
 }

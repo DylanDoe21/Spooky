@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome

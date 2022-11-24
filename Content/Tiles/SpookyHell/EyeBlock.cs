@@ -22,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             AddMapEntry(new Color(139, 18, 37));
             ItemDrop = ModContent.ItemType<EyeBlockItem>();
 			DustType = DustID.Blood;
-            HitSound = SoundID.Dig;
+            HitSound = SoundID.NPCHit20;
 		}
 
         public override bool HasWalkDust()

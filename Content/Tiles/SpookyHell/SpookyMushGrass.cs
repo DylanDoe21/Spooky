@@ -27,17 +27,6 @@ namespace Spooky.Content.Tiles.SpookyHell
             HitSound = SoundID.Dig;
         }
 
-        public override bool HasWalkDust()
-        {
-            return true;
-        }
-
-        public override void WalkDust(ref int dustType, ref bool makeDust, ref Color color)
-        {
-            dustType = DustID.Grass;
-            makeDust = true;
-        }
-
         public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);

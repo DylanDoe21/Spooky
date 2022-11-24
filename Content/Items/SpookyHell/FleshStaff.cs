@@ -10,7 +10,9 @@ namespace Spooky.Content.Items.SpookyHell
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Retina Staff");
-            Tooltip.SetDefault("Hold down left click to summon eyes that follow your cursor\nRelease left click to fling the eyes everywhere");
+            Tooltip.SetDefault("Summon eyes that follow your cursor while holding down left click"
+            + "\nRelease left click to fling the eyes everywhere"
+            + "\nOnly up to 8 eyes can be active at once");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

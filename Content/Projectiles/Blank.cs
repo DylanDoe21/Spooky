@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Projectiles.SpookyBiome
+namespace Spooky.Content.Projectiles
 {
     public class Blank : ModProjectile
     {

@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.SpookyHell
         {
             DisplayName.SetDefault("Sentient Eye Lasher");
             Tooltip.SetDefault("Lashes out two whips at once"
-            + "\nHitting enemies will cause them to take 10% more damage from summons"
-            + "\nCritical hits will permanently lower enemy defense, caps after 10 defense is lost");
+            + "\nEnemies hit with the whip will temporarily take 10% more damage from summons"
+            + "\nCritical hits will permanently lower enemy defense, up to 10 defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

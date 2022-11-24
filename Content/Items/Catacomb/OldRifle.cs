@@ -6,7 +6,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb

@@ -225,7 +225,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 35));
 
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 25));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 5));
         }
 
         public override bool CheckDead() 

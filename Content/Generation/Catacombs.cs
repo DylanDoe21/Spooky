@@ -2682,15 +2682,15 @@ namespace Spooky.Content.Generation
             PlaceCatacombRoom(EntranceX, (int)Main.worldSurface + 245, CatacombEntranceBarrier3, BlankObjects, 0, 0);
         }
 
+        bool placedChest = false;
+        bool placedChest2 = false;
+
         private void PlaceCatacombAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = PositionX;
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
-
-            bool placedChest = false;
-            bool placedChest2 = false;
-
+            
             //place spooky biome chest
             for (int X = XMiddle - 165; X <= XMiddle; X++)
             {

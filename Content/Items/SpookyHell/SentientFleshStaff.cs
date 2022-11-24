@@ -10,7 +10,9 @@ namespace Spooky.Content.Items.SpookyHell
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sentient Retina Staff");
-            Tooltip.SetDefault("Hold down left click to summon eyes that follow your cursor\nReleasing left click will explode them, dealing massive damage and slowing enemies");
+            Tooltip.SetDefault("Hold down left click to summon eyes that follow your cursor"
+            + "\nReleasing left click will explode them, dealing massive damage and slowing enemies"
+            + "\nOnly up to 15 eyes can be active at once");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

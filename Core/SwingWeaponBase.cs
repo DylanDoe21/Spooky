@@ -85,6 +85,7 @@ namespace Spooky.Core
                     player.itemRotation = (float)Math.IEEERemainder(-MathHelper.PiOver4 - WindupAmount + MainSwingAmount * motionProgress, MathHelper.TwoPi);
                 }
 
+                //this affects which way the item is swung, up or down
                 player.itemRotation *= player.direction * player.gravDir;
 
                 bool goodRotation = player.itemRotation * player.direction * player.gravDir <= -MathHelper.PiOver4;

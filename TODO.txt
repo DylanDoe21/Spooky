@@ -1,6 +1,11 @@
 
 Eye Valley Update:
 
+-finish living and sentient weapons
+
+-new ret gourd change: he burps out a key upon death, and then dies. this key lets you open the underground chests
+
+
 new quest npc:
 -little eye, an eye biome version of little bone (is basically an eye in a flower pot)
 -main gimmick is he gives you small quests and gives you the keys to unlock the eye biome chests as a reward for said quests
@@ -10,10 +15,4 @@ new eye valley improvements:
 -perhaps new and more unique items from the chests
 -new structures to make the biome look better and more fun to explore (alchemy towers)
 
-
-Whatever other stuff for later:
-
--ghost circus mini-boss-rush event, with a prehardmode and hardmode version. will have unique loot, ect
-
--new bat cave mini biome with all the funny bat enemies
 
