@@ -25,10 +25,9 @@ namespace Spooky.Content.Items.Food
 			// and the third frame is the placed texture
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
 
-			ItemID.Sets.FoodParticleColors[Item.type] = new Color[2] 
+			ItemID.Sets.FoodParticleColors[Item.type] = new Color[1] 
             {
-				new Color(139, 180, 140),
-				new Color(86, 110, 112)
+				new Color(206, 206, 206)
 			};
 		}
 

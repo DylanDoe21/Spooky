@@ -8,61 +8,6 @@
 			SpookyBiomeUg: Spooky Underground
 			SpookyHellBiome: Valley of Eyes
             CatacombBiome: Creepy Catacombs
-            CatacombBiome2: Deep Catacombs
-		}
-
-        TownNPCMood: 
-        {
-			LittleBone: 
-            {
-                #crowded dialogue
-                LoveSpace: There doesn't seem to be many townsfolk around here.
-                DislikeCrowded: Theres quite a few people around here, I wonder what they are up to.
-                HateCrowded: Wow, there is a ton of townspeople around.
-
-                #npc dialogue
-                LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
-				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
-				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
-				HateNPC: "{NPCName} is very grumpy all the time, I don't really like being around him"
-
-                #biome dialogue
-                Content: I feel great!
-                LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy.
-                LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
-                DislikeBiome: "Brrrrr, the tundra is way too cold! It makes me shiver and wilt."
-                HateBiome: "This biomes gives me the creeps! I really don't like it here."
-
-                #home dialogue
-				NoHome: "I don't really need a home. I like being taken on adventures to most places!"
-				FarFromHome: "I don't really need a home. I like being taken on adventures to most places!"
-			}
-
-            #copy dialogue for sleeping little bone because weird issue when you first talk to him
-            LittleBoneSleeping: 
-            {
-                #crowded dialogue
-                LoveSpace: There doesn't seem to be many townsfolk around here.
-                DislikeCrowded: Theres quite a few people around here, I wonder what they are up to.
-                HateCrowded: Wow, there is a ton of townspeople around.
-
-                #npc dialogue
-                LoveNPC: "I love {NPCName}! Even though I may not be a usual plant, she always treats me like anyone else."
-				LikeNPC: "I like {NPCName}, she is always really funny, even if her parties are a little crazy sometimes."
-				DislikeNPC: "I dont know how to feel about {NPCName}. He keeps trying to sell me to others!"
-				HateNPC: "{NPCName} is very grumpy all the time, I don't really like being around him"
-
-                #biome dialogue
-                Content: I feel great!
-                LoveBiome: I love it here in the spooky forest! The fall season always fills me with joy.
-                LikeBiome: "The forest is a really comfy place, all the plants and trees make me feel nice!"
-                DislikeBiome: "Brrrrr, the tundra is way too cold! It makes me shiver and wilt."
-                HateBiome: "This biomes gives me the creeps! I really don't like it here."
-
-                #home dialogue
-				NoHome: "I don't really need a home. I like being taken on adventures to most places!"
-				FarFromHome: "I don't really need a home. I like being taken on adventures to most places!"
-			}
 		}
     }
 }   

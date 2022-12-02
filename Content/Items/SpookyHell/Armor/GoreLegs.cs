@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gore Monger Robes");
+			DisplayName.SetDefault("Gore Monger's Robe");
 			Tooltip.SetDefault("10% increased movement speed"
 			+ "\n5% increased critical strike chance"
 			+ "\nEnemies are more likely to target you");

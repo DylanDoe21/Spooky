@@ -9,7 +9,7 @@ using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Boss;
-using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Relic;
@@ -94,11 +94,7 @@ namespace Spooky.Core
 
 			List<int> PumpkinDrops = new List<int>()
 			{
-				ModContent.ItemType<GourdStabber>(),
-				ModContent.ItemType<ThrowingGourd>(),
-				ModContent.ItemType<GourdSeedStaff>(),
-				ModContent.ItemType<FlyScroll>(),
-				ModContent.ItemType<MoldWhip>(),
+				ModContent.ItemType<SpookyChestKey>(),
 				ModContent.ItemType<RottenChunk>(),
 				ModContent.ItemType<PumpkinBossBox>()
 			};

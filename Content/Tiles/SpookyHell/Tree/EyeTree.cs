@@ -203,28 +203,23 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 WorldGen.treeShakeY[WorldGen.numTreeShakes] = y;
                 WorldGen.numTreeShakes++;
 
-                WeightedRandom<int> random = new WeightedRandom<int>(Main.rand);
-
-                random.Add(0, 1);
-                random.Add(1, 0.7f);
-                random.Add(2, 0.85f);
-
-                int rand = random;
-
                 //spawn an item out of the tree
-                if (rand == 5)
+                if (Main.rand.Next(10) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
                 }
 
-				//spawn eye bats out of the tree sometimes
-                if (rand == 15)
+				//spawn tortumors out of the tree sometimes
+                if (Main.rand.Next(12) == 0)
                 {
-                    for (int numNPCs = 0; numNPCs < Main.rand.Next(1, 2); numNPCs++)
-					{
-                        NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<EyeBat>());
-					}
+                    NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
+                }
+
+                //rarely spawn giant tortumors
+                if (Main.rand.Next(50) == 0)
+                {
+                    NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
                 }
             }
         }

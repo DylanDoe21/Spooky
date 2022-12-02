@@ -28,7 +28,8 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetDefaults()
 		{
-			Item.damage = 28;
+			Item.damage = 18;
+			Item.crit = 20;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
 			Item.width = 64;           
@@ -37,7 +38,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useAnimation = 50;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 		}

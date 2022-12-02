@@ -169,7 +169,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         private int HomeOnTarget()
         {
             const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 200;
+            const float homingMaximumRangeInPixels = 300;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {

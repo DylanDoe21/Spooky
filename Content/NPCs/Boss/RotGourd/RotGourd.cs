@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.BossBags.Pets;
-using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
 using Spooky.Content.Tiles.Relic;
 
@@ -1006,10 +1006,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<RotGourdRelicItem>()));
 
-            int[] MainItem = new int[] { ModContent.ItemType<GourdStabber>(), ModContent.ItemType<ThrowingGourd>(), 
-            ModContent.ItemType<GourdSeedStaff>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<MoldWhip>() };
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
 
             npcLoot.Add(notExpertRule);
         }

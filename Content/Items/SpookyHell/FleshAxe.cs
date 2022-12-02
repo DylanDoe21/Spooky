@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpookyHell
 {
     public class FleshAxe : SwingWeaponBase
     {
-        public override int Length => 45;
+        public override int Length => 50;
 		public override int TopSize => 22;
 		public override float SwingDownSpeed => 15f;
 		public override bool CollideWithTiles => true;
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpookyHell
 
                 SpookyPlayer.ScreenShakeAmount = 5;
 
-                SoundEngine.PlaySound(SoundID.Dig, player.Center);
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
             }
         }
 

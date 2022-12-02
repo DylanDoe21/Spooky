@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Dusts;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Chests
 {
@@ -160,8 +160,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			{
 				if (isLocked) 
 				{
-					int key = ModContent.ItemType<HalloweenChestItem>();
-					if (player.ConsumeItem(key) && Chest.Unlock(left, top)) 
+					int key = ModContent.ItemType<SpookyChestKey>();
+					if (player.HasItem(key) && Chest.Unlock(left, top)) 
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient) 
 						{
@@ -228,7 +228,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 					if (Main.tile[left, top].TileFrameX / 36 == 1) 
 					{
-						player.cursorItemIconID = ModContent.ItemType<HalloweenChestItem>();
+						player.cursorItemIconID = ModContent.ItemType<SpookyChestKey>();
 					}
 
 					player.cursorItemIconText = "";

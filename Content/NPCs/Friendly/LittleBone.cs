@@ -18,17 +18,8 @@ namespace Spooky.Content.NPCs.Friendly
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Skull Plant");
+			NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 8;
-
-			NPC.Happiness
-			.SetBiomeAffection<Biomes.SpookyBiome>(AffectionLevel.Love)
-			.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
-			.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
-			.SetBiomeAffection<SpookyHellBiome>(AffectionLevel.Hate)
-			.SetNPCAffection(NPCID.Dryad, AffectionLevel.Love)
-			.SetNPCAffection(NPCID.PartyGirl, AffectionLevel.Like)
-			.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) 
-			.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 		}
 
 		public override void SetDefaults()
@@ -93,22 +84,30 @@ namespace Spooky.Content.NPCs.Friendly
 				//spooky biome
 				if (!NPC.downedBoss1)
 				{
-					Main.npcChatText = "It seems you are still beginning your adventure, but thats ok! As a matter of fact, I have heard that underground beneath the spooky forest, you can find special loot! I am not too sure who left it there, though.";
+					Main.npcChatText = "It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//catacombs anr rotgourd
+				//catacombs
 				else if (NPC.downedBoss1 && !NPC.downedBoss2 && !Flags.downedRotGourd)
 				{
-					Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! I also remember hearing of a giant, hostile living gourd. Maybe you can try breaking the pumpkins in the spooky forest?";
+					Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there!";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//spooky hell
+				//underground spooky forest chests
+				else if (Flags.downedRotGourd && !NPC.downedBoss2)
+				{
+					Main.npcChatText = "Now that you have better gear, why not try finding the valley of eyes? I've heard it's a super creepy eye biome somewhere in the depths of the underworld. You look strong enough to explore it.";
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
+				/*
+				//this is where the ghost circus advice will be
 				else if (NPC.downedBoss2 && !Main.hardMode)
 				{
-					Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
+					Main.npcChatText = "Theres not too much spooky stuff to do right now";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//catacombs part 2
+				*/
+				//catacombs second layer
 				else if (Main.hardMode && !NPC.downedMechBossAny)
 				{
 					Main.npcChatText = "Now that you have access deeper into the catacombs, you should return there. maybe the deeper parts will have some better treasure?";
@@ -126,6 +125,7 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = "Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
+				//no advice dialogue
 				else
 				{
 					Main.npcChatText = "Sorry, I do not have any advice to offer right now, come back later!";

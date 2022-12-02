@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.SpookyBiome;
 
-namespace Spooky.Content.Items.SpookyBiome.Boss
+namespace Spooky.Content.Items.SpookyBiome
 {
     public class RottenChunk : ModItem
     {

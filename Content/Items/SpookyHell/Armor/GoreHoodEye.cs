@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gore Monger Seer Hood");
+			DisplayName.SetDefault("Gore Monger's Seer Hood");
 			Tooltip.SetDefault("15% increased magic and summon damage"
 			+ "\n8% increased magic and summon critical strike chance"
 			+ "\n12% reduced mana usage and Increases your max minions by 2"

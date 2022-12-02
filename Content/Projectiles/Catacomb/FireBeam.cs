@@ -157,11 +157,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
 
-            for (int numDust = 0; numDust < 15; numDust++)
+            for (int numDust = 0; numDust < 25; numDust++)
 			{                                                                                  
 				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 8f);
-                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 8f);
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-12f, 12f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
                 Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
                 Main.dust[dustGore].noGravity = true;
 			}

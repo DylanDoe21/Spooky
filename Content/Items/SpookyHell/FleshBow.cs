@@ -4,11 +4,8 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Items.SpookyHell
 {
@@ -17,13 +14,13 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Seer");
-			Tooltip.SetDefault("Converts arrows into bloody tears\nEvery 10 uses will shoot out a super charged eye");
+			Tooltip.SetDefault("Converts arrows into bloody tears\nEvery tenth shot will fire out a homing eye");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 35;
+			Item.damage = 30;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true;
@@ -40,16 +37,16 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.useAmmo = AmmoID.Arrow;
-			Item.shootSpeed = 22f;
+			Item.shootSpeed = 12f;
 		}
+
+		int numUses = 0;
 
 		public override void HoldItem(Player player)
 		{
 			if (player == Main.LocalPlayer)
 			{
-				int fireTime = 3 * (Item.useAnimation / 4);
-
-				if (!player.channel && player.itemAnimation > fireTime)
+				if (!player.channel || player.itemAnimation > Item.useTime)
 				{
 					player.itemTime = 0;
 					player.itemAnimation = 0;
@@ -74,17 +71,22 @@ namespace Spooky.Content.Items.SpookyHell
 					}
 				}
 
-				if (player.itemAnimation == fireTime)
+				if (player.itemAnimation == 1)
 				{
-					int type = ProjectileID.BloodShot;
+					int type = ModContent.ProjectileType<BloodyTear>();
+
+					if (numUses >= 10)
+                    {
+						type = ModContent.ProjectileType<BowEye>();
+						numUses = 0;
+					}
 
 					Vector2 shootDir = Vector2.UnitX.RotatedBy(player.AngleTo(Main.MouseWorld));
 
-					int newProjectile = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20), 
+					Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20), 
 					shootDir * Item.shootSpeed, type, Item.damage, Item.knockBack, player.whoAmI);
 
-					Main.projectile[newProjectile].friendly = true;
-					Main.projectile[newProjectile].hostile = false;
+					numUses++;
 				}
 			}
 		}

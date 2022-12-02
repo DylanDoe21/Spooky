@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Eye Chest");
+			DisplayName.SetDefault("Monster Chest");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -5,39 +5,41 @@ using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.SpookyHell
 {   
     public class SentientFleshAxe : SwingWeaponBase
     {
-        public override int Length => 65;
-		public override int TopSize => 30;
-		public override float SwingDownSpeed => 15f;
+        public override int Length => 90;
+		public override int TopSize => 35;
+		public override float SwingDownSpeed => 18f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sentient Flesh Mincer");
-            Tooltip.SetDefault("Fires out a short range bloody wave on use\nDeals far more damage to enemies below half health\nCritical hits will bleed enemies");
+            Tooltip.SetDefault("Deals far more damage to enemies below half health\nCritical hits will bleed enemies, dealing rapid damage over time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 120;
+            Item.crit = 35;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
-            Item.width = 74;
-            Item.height = 60;
-            Item.useTime = 40;
-			Item.useAnimation = 40;
+            Item.width = 88;
+            Item.height = 82;
+            Item.useTime = 45;
+			Item.useAnimation = 45;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 12;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 10);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
-            Item.scale = 1.3f;
+            Item.scale = 1.25f;
         }
 
         public override void UseAnimation(Player player)
@@ -53,7 +55,7 @@ namespace Spooky.Content.Items.SpookyHell
 
                 SpookyPlayer.ScreenShakeAmount = 8;
 
-                SoundEngine.PlaySound(SoundID.Dig, player.Center);
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
             }
         }
 
@@ -66,7 +68,7 @@ namespace Spooky.Content.Items.SpookyHell
 
             if (crit)
             {
-                target.AddBuff(BuffID.Bleeding, 180);
+                target.AddBuff(ModContent.BuffType<SentientAxeBleed>(), 180);
             }
         }
     }

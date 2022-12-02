@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
 

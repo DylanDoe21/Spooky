@@ -34,8 +34,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useAnimation = 50;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 1);
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
 			Item.shootSpeed = 3;

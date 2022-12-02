@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(70, 16, 123));
+            AddMapEntry(new Color(100, 12, 150));
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
 			DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;

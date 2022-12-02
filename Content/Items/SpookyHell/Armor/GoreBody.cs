@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gore Monger Chestmail");
+			DisplayName.SetDefault("Gore Monger's Chestmail");
 			Tooltip.SetDefault("8% increased damage and critical strike chance"
 			+ "\nEnemies are more likely to target you");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

@@ -38,13 +38,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Eye Chest");
+			ContainerName.SetDefault("Monster Chest");
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Eye Chest");
-			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
-			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Eye Chest");
-			AddMapEntry(new Color(140, 99, 201), name, MapChestName);
+			name.SetDefault("Monster Chest");
+			AddMapEntry(new Color(255, 55, 41), name, MapChestName);
+			name = CreateMapEntryName(Name + "_Sleeping"); // With multiple map entries, you need unique translation keys.
+			name.SetDefault("Sleeping Eye Chest");
+			AddMapEntry(new Color(255, 55, 41), name, MapChestName);
 			DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
 		}
@@ -60,6 +60,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 
 		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) 
 		{
+			SoundEngine.PlaySound(SoundID.Item2);
+			dustType = -1;
 			return true;
 		}
 
@@ -122,7 +124,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 
 			if (player.sign >= 0) 
 			{
-				SoundEngine.PlaySound(SoundID.MenuClose);
+				SoundEngine.PlaySound(SoundID.ChesterOpen);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
@@ -130,7 +132,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 
 			if (Main.editChest) 
 			{
-				SoundEngine.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.ChesterOpen);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -148,7 +150,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					SoundEngine.PlaySound(SoundID.MenuClose);
+					SoundEngine.PlaySound(SoundID.ChesterOpen);
 				}
 				else 
 				{
@@ -168,6 +170,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
 						}
 					}
+					else
+					{
+						Main.NewText("The chest creature won't budge", 199, 7, 49);
+					}
 				}
 				else 
 				{
@@ -178,7 +184,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 						if (chest == player.chest) 
 						{
 							player.chest = -1;
-							SoundEngine.PlaySound(SoundID.MenuClose);
+							SoundEngine.PlaySound(SoundID.ChesterOpen);
 						}
 						else 
 						{
@@ -187,7 +193,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 							Main.recBigList = false;
 							player.chestX = left;
 							player.chestY = top;
-							SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+							SoundEngine.PlaySound(SoundID.ChesterOpen);
 						}
 
 						Recipe.FindRecipes();

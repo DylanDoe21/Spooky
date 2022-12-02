@@ -20,9 +20,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			LaunchingForward,
 			Retracting,
 			UnusedState,
-			ForcedRetracting,
-			Ricochet,
-			Dropping
+			ForcedRetracting
 		}
 
 		// These properties wrap the usual ai and localAI arrays for cleaner and easier to understand code.
@@ -45,7 +43,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public override void SetDefaults() 
         {
 			Projectile.width = 30;
-			Projectile.height = 38;
+			Projectile.height = 30;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true; 
 			Projectile.netImportant = true; 
@@ -126,28 +124,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return true;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if (Main.rand.Next(7) == 0)
-			{
-				Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
-
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int Booger = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed, 
-                        ModContent.ProjectileType<BlasterBooger>(), Projectile.damage / 3, 0f, Main.myPlayer, 0, 0);
-						Main.projectile[Booger].DamageType = DamageClass.Melee;
-						Main.projectile[Booger].timeLeft = 35;
-						Main.projectile[Booger].penetrate = -1;
-                    }
-                }
-			}
-        }
-
 		// This AI code was adapted from vanilla code: Terraria.Projectile.AI_015_Flails() 
 		public override void AI() 
         {
@@ -192,7 +168,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
 			float launchRange = launchSpeed * launchTimeLimit;
-			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
 
 			switch (CurrentAIState) 
@@ -245,30 +220,24 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
                     shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
                     
-                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
-                    {
-                        CurrentAIState = AIState.Dropping;
-                        StateTimer = 0f;
-                        Projectile.netUpdate = true;
-                        Projectile.velocity *= 0.2f;
-                        // This is where Drippler Crippler spawns its projectile
-                        /*
-                        if (Main.myPlayer == Projectile.owner)
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 928, Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                        */
-                        break;
-                    }
-
-                    if (shouldSwitchToRetracting)
+					if (shouldSwitchToRetracting)
                     {
                         CurrentAIState = AIState.Retracting;
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.3f;
-                        // This is also where Drippler Crippler spawns its projectile, see above code.
+						Projectile.alpha = 255;
+
+						if (Main.myPlayer == Projectile.owner)
+						{
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 
+							ModContent.ProjectileType<BoogerFlailFlung>(), Projectile.damage * 2, Projectile.knockBack, Main.myPlayer);
+						}
                     }
+
                     player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
                     Projectile.localNPCHitCooldown = movingHitCooldown;
+
                     break;
                 }
 				case AIState.Retracting: 
@@ -280,19 +249,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;
                     }
-                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
-                    {
-                        CurrentAIState = AIState.Dropping;
-                        StateTimer = 0f;
-                        Projectile.netUpdate = true;
-                        Projectile.velocity *= 0.2f;
-                    }
-                    else 
-                    {
-                        Projectile.velocity *= 0.98f;
-                        Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
-                        player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-                    }
+
+					Projectile.velocity *= 0.98f;
+					Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
+					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					
                     break;
                 }
 				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.
@@ -370,40 +331,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     break;
                 }
-				case AIState.Ricochet:
-                {
-					if (StateTimer++ >= ricochetTimeLimit) 
-                    {
-						CurrentAIState = AIState.Dropping;
-						StateTimer = 0f;
-						Projectile.netUpdate = true;
-					}
-					else 
-                    {
-						Projectile.localNPCHitCooldown = movingHitCooldown;
-						Projectile.velocity.Y += 0.6f;
-						Projectile.velocity.X *= 0.95f;
-						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					}
-					break;
-                }
-				case AIState.Dropping:
-                {
-					if (!player.controlUseItem || Projectile.Distance(mountedCenter) > maxDroppedRange) 
-                    {
-						CurrentAIState = AIState.ForcedRetracting;
-						StateTimer = 0f;
-						Projectile.netUpdate = true;
-					}
-					else 
-                    {
-						Projectile.velocity.Y += 0.8f;
-						Projectile.velocity.X *= 0.95f;
-						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					}
-
-					break;
-                }
 			}
 
 			// This is where Flower Pow launches projectiles. Decompile Terraria to view that code.
@@ -411,24 +338,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.spriteDirection = Projectile.direction;
 			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
 
-			// This rotation code is unique to this flail, since the sprite isn't rotationally symmetric and has tip.
-			bool freeRotation = CurrentAIState == AIState.Ricochet || CurrentAIState == AIState.Dropping;
-			if (freeRotation) 
-            {
-				if (Projectile.velocity.Length() > 1f)
-                {
-					Projectile.rotation = Projectile.velocity.ToRotation() + Projectile.velocity.X * 0.1f; // skid
-                }
-				else
-                {
-					Projectile.rotation += Projectile.velocity.X * 0.1f; // roll
-                }
-			}
-			else 
-            {
-				Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
-				Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
-			}
+			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+
+			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			// If you have a ball shaped flail, you can use this simplified rotation code instead
 			/*
@@ -457,14 +369,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Vector2 velocity = Projectile.velocity;
 			float bounceFactor = 0.2f;
 
-			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Ricochet)
+			if (CurrentAIState == AIState.LaunchingForward)
             {
 				bounceFactor = 0.4f;
-            }
-
-			if (CurrentAIState == AIState.Dropping)
-            {
-				bounceFactor = 0f;
             }
 
 			if (oldVelocity.X != Projectile.velocity.X) 
@@ -518,7 +425,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 
 			// Force retraction if stuck on tiles while retracting
-			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CurrentAIState != AIState.Ricochet && CurrentAIState != AIState.Dropping && CollisionCounter >= 10f) 
+			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CollisionCounter >= 10f) 
             {
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
@@ -581,11 +488,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			if (CurrentAIState == AIState.Spinning)
             {
 				knockback *= 0.25f;
-            }
-			// Knockback is only 50% as powerful when in drop down mode
-			if (CurrentAIState == AIState.Dropping)
-            {
-				knockback *= 0.5f;
             }
 
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);

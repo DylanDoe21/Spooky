@@ -14,19 +14,9 @@ namespace Spooky.Content.NPCs.Friendly
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sleeping Skull");
-			NPCID.Sets.TownCritter[NPC.type] = true;
+			NPCID.Sets.ActsLikeTownNPC[Type] = true;
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
-
-			NPC.Happiness
-			.SetBiomeAffection<Biomes.SpookyBiome>(AffectionLevel.Love)
-			.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
-			.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
-			.SetBiomeAffection<SpookyHellBiome>(AffectionLevel.Hate)
-			.SetNPCAffection(NPCID.Dryad, AffectionLevel.Love)
-			.SetNPCAffection(NPCID.PartyGirl, AffectionLevel.Like)
-			.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) 
-			.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 		}
 
 		public override void SetDefaults()

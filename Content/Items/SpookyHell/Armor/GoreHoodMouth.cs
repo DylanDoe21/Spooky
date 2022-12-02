@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gore Monger Brutal Hood");
+			DisplayName.SetDefault("Gore Monger's Brutal Hood");
 			Tooltip.SetDefault("15% increased melee and ranged damage"
 			+ "\n8% increased melee and ranged critical strike chance"
 			+ "\n12% increased melee speed and 20% chance to not consume ammo"

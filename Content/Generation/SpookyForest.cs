@@ -395,28 +395,6 @@ namespace Spooky.Content.Generation
                                 WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<SpookyDirt>());
                                 break;
                             }
-                            //living wood
-                            case 7:
-                            {
-                                tile.ClearEverything();
-                                WorldGen.PlaceTile(StructureX, StructureY, TileID.LivingWood);
-                                break;
-                            }
-                            //living wood wall
-                            case 8:
-                            {
-                                tile.ClearEverything();
-                                WorldGen.PlaceWall(StructureX, StructureY, WallID.LivingWood);
-                                break;
-                            }
-                            //living wood and wall (for the tunnels)
-                            case 9:
-                            {
-                                tile.ClearEverything();
-                                WorldGen.PlaceTile(StructureX, StructureY, TileID.LivingWood);
-                                WorldGen.PlaceWall(StructureX, StructureY, WallID.LivingWood);
-                                break;
-                            }
                         }
                     }
                 }
@@ -458,13 +436,6 @@ namespace Spooky.Content.Generation
                             {
                                 tile.ClearTile();
                                 NPC.NewNPC(null, StructureX * 16, StructureY * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
-                                break;
-                            }
-                            //candles
-                            case 4:
-                            {
-                                tile.ClearTile();
-                                WorldGen.PlaceObject(StructureX, StructureY, ModContent.TileType<Candle>());
                                 break;
                             }
                         }
@@ -561,10 +532,10 @@ namespace Spooky.Content.Generation
 					HouseY++;
 				}
 
-                if (Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyDirt>() ||
-                Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyDirt2>() ||
-                Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrass>() ||
-                Main.tile[HouseX, HouseY].TileType != ModContent.TileType<SpookyGrassGreen>())
+                if (Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyDirt>() ||
+                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyDirt2>() ||
+                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyGrass>() ||
+                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyGrassGreen>())
 				{
 					PlaceStructures(HouseX - 8, HouseY - 18, StarterHouse, StarterHouseObjects);
                     placed = true;
@@ -691,35 +662,35 @@ namespace Spooky.Content.Generation
                             case 4:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest>(), false, 1);
                                 break;
                             }
                             //chest
                             case 5:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest2>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest2>(), false, 1);
                                 break;
                             }
                             //chest
                             case 6:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest3>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest3>(), false, 1);
                                 break;
                             }
                             //chest
                             case 7:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest4>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest4>(), false, 1);
                                 break;
                             }
                             //chest
                             case 8:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest5>(), false, 0);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<HalloweenChest5>(), false, 1);
                                 break;
                             }
                         }
@@ -1118,8 +1089,8 @@ namespace Spooky.Content.Generation
 							chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
 							chest.item[5].stack = WorldGen.genRand.Next(2, 8);
                             //coins
-                            chest.item[6].SetDefaults(ItemID.SilverCoin);
-							chest.item[6].stack = WorldGen.genRand.Next(2, 25);
+                            chest.item[6].SetDefaults(ItemID.GoldCoin);
+							chest.item[6].stack = WorldGen.genRand.Next(2, 5);
 						}
 					}
                 }

@@ -18,8 +18,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             DisplayName.SetDefault("Tortumor");
             Main.projFrames[Projectile.type] = 6;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
         
         public override void SetDefaults()
@@ -50,21 +48,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     Projectile.frame = 0;
                 }
             }
-            
-            if (Projectile.velocity.X != 0 && Projectile.velocity.Y != 0)
-            {
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
-
-                for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-                {
-                    var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                    Color color = Projectile.GetAlpha(Color.Purple) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                    Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
-                }
-            }
 			
             return true;
         }
@@ -83,7 +66,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.timeLeft = 2;
 			}
 
-            //TARGET NEAREST NPC WITHIN RANGE
 			float lowestDist = float.MaxValue;
 			foreach (NPC npc in Main.npc) 
             {
@@ -168,7 +150,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleCrystalShard, 0f, -2f, 0, default, 1.5f);
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].noGravity = true;
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

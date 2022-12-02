@@ -7,7 +7,7 @@ using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class BlasterBooger : ModProjectile
+    public class BlasterBoogerSmall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -36,7 +36,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
+                
+                if (Projectile.frame >= 7)
                 {
                     Projectile.frame = 0;
                 }

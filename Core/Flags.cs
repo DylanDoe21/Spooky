@@ -18,6 +18,11 @@ namespace Spooky.Core
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
 
+        public static bool EyeQuest1 = false; 
+        public static bool EyeQuest2 = false;
+        public static bool EyeQuest3 = false;
+        public static bool EyeQuest4 = false;
+
         public override void OnWorldLoad() 
         {
 			downedRotGourd = false;
@@ -30,6 +35,11 @@ namespace Spooky.Core
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
+
+            EyeQuest1 = false; 
+            EyeQuest2 = false;
+            EyeQuest3 = false;
+            EyeQuest4 = false;
 		}
 
 		public override void OnWorldUnload() 
@@ -44,6 +54,11 @@ namespace Spooky.Core
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
+
+            EyeQuest1 = false; 
+            EyeQuest2 = false;
+            EyeQuest3 = false;
+            EyeQuest4 = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
@@ -58,6 +73,11 @@ namespace Spooky.Core
             if (CatacombKey1) tag["CatacombKey1"] = true;
             if (CatacombKey2) tag["CatacombKey2"] = true;
             if (CatacombKey3) tag["CatacombKey3"] = true;
+
+            if (EyeQuest1) tag["EyeQuest1"] = true;
+            if (EyeQuest2) tag["EyeQuest2"] = true;
+            if (EyeQuest3) tag["EyeQuest3"] = true;
+            if (EyeQuest4) tag["EyeQuest4"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -72,6 +92,11 @@ namespace Spooky.Core
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
             CatacombKey2 = tag.ContainsKey("CatacombKey2");
             CatacombKey3 = tag.ContainsKey("CatacombKey3");
+
+            EyeQuest1 = tag.ContainsKey("EyeQuest1");
+            EyeQuest2 = tag.ContainsKey("EyeQuest2");
+            EyeQuest3 = tag.ContainsKey("EyeQuest3");
+            EyeQuest4 = tag.ContainsKey("EyeQuest4");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -88,6 +113,10 @@ namespace Spooky.Core
             miscFlags[1] = CatacombKey1;
             miscFlags[2] = CatacombKey2;
             miscFlags[3] = CatacombKey3;
+            miscFlags[4] = EyeQuest1;
+            miscFlags[5] = EyeQuest2;
+            miscFlags[6] = EyeQuest3;
+            miscFlags[7] = EyeQuest4;
             writer.Write(miscFlags);
         }
 
@@ -104,6 +133,10 @@ namespace Spooky.Core
             CatacombKey1 = miscFlags[1];
             CatacombKey2 = miscFlags[2];
             CatacombKey3 = miscFlags[3];
+            EyeQuest1 = miscFlags[4];
+            EyeQuest2 = miscFlags[5];
+            EyeQuest3 = miscFlags[6];
+            EyeQuest4 = miscFlags[7];
         }
     }
 }

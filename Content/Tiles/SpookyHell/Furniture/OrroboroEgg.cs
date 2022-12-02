@@ -34,7 +34,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AnimationFrameHeight = 144;
-            AddMapEntry(new Color(86, 2, 28));
+            AddMapEntry(new Color(125, 83, 230));
 			DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
 		}

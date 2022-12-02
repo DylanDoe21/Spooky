@@ -16,13 +16,13 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snot Ball");
-            Tooltip.SetDefault("Hitting enemies with the flail may create more boogers");
+            Tooltip.SetDefault("When launched, the booger will detatch from the chain and bounce around");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
         {
-			Item.damage = 55;
+			Item.damage = 40;
             Item.DamageType = DamageClass.Melee;
             Item.channel = true;
             Item.noMelee = true;
@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
             Item.rare = ItemRarityID.Green;
-           	Item.value = Item.buyPrice(gold: 1);
+           	Item.value = Item.buyPrice(gold: 5);
             Item.UseSound = SoundID.Item10;
             Item.shoot = ModContent.ProjectileType<BoogerFlailProj>();
             Item.shootSpeed = 12f;

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.BossBags.Pets;
-using Spooky.Content.Items.SpookyBiome.Boss;
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.RotGourd;
 
@@ -39,10 +39,7 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			int[] MainItem = new int[] { ModContent.ItemType<GourdStabber>(), ModContent.ItemType<ThrowingGourd>(), 
-            ModContent.ItemType<GourdSeedStaff>(), ModContent.ItemType<FlyScroll>(), ModContent.ItemType<MoldWhip>() };
-
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
 
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
 

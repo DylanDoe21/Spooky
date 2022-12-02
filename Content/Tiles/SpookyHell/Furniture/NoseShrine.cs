@@ -24,19 +24,19 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
 			TileID.Sets.IsATreeTrunk[Type] = true;
-			TileObjectData.newTile.Width = 6;
-			TileObjectData.newTile.Height = 4;
-			TileObjectData.newTile.Origin = new Point16(3, 3);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
+			TileObjectData.newTile.Width = 5;
+			TileObjectData.newTile.Height = 8;
+			TileObjectData.newTile.Origin = new Point16(3, 7);
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16, 16, 16 };
 			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-            AnimationFrameHeight = 72;
-            AddMapEntry(new Color(140, 99, 201));
-			DustType = ModContent.DustType<SpookyHellPurpleDust>();
+            AnimationFrameHeight = 144;
+            AddMapEntry(new Color(84, 33, 38));
+			DustType = -1;
 			HitSound = SoundID.Dig;
 		}
 

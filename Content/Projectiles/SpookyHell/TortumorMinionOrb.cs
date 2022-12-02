@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             for (int numDust = 0; numDust < 10; numDust++)
             {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.PurpleCrystalShard, 0f, 0f, 100, default(Color), 2f);
+                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
                 Main.dust[newDust].scale = 0.5f;
                 Main.dust[newDust].velocity *= 1f;
                 Main.dust[newDust].noGravity = true;
