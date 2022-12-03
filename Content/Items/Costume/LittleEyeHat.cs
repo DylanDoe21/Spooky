@@ -10,21 +10,21 @@ using System.Collections.Generic;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class BananalizardHead : ModItem
+	public class LittleEyeHat : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bananalizard's Mask");
-			Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
+			DisplayName.SetDefault("Little Eye's Wizard Hat");
+			Tooltip.SetDefault("It is way too big for your head");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 22;
-			Item.height = 20;
+			Item.width = 36;
+			Item.height = 26;
 			Item.vanity = true;
-			Item.rare = ItemRarityID.Quest;
+			Item.rare = ItemRarityID.Blue;
 		}
 	}
 }

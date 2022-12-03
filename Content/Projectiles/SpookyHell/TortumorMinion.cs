@@ -18,20 +18,24 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             DisplayName.SetDefault("Tortumor");
             Main.projFrames[Projectile.type] = 6;
+			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
+			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
         
         public override void SetDefaults()
         {
-            Projectile.width = 58;
+			Projectile.width = 58;
             Projectile.height = 62;
             Projectile.DamageType = DamageClass.Summon;
 			Projectile.minion = true;
-			Projectile.friendly = true;
-			Projectile.ignoreWater = true;
-			Projectile.tileCollide = false;
-			Projectile.netImportant = true;
-			Projectile.timeLeft = 2;
-			Projectile.penetrate = -1;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.netImportant = true;
+            Projectile.timeLeft = 2;
+            Projectile.penetrate = -1;
 			Projectile.minionSlots = 1;
             Projectile.aiStyle = 62;
         }
@@ -52,6 +56,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -66,52 +75,33 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.timeLeft = 2;
 			}
 
-			float lowestDist = float.MaxValue;
-			foreach (NPC npc in Main.npc) 
+			for (int i = 0; i < 200; i++)
             {
-				//if npc is a valid target (active, not friendly, and not a critter)
-				if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage)
+                NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
                 {
-					//if npc is within 50 blocks
-					float dist = Projectile.Distance(npc.Center);
-					if (dist / 16 < 50) 
-                    {
-						//if npc is closer than closest found npc
-						if (dist < lowestDist) 
-                        {
-							lowestDist = dist;
-							//target this npc
-							Projectile.ai[1] = npc.whoAmI;
-						}
+					shootTimer++;
+
+					if (shootTimer == 40 || shootTimer == 50)
+					{
+						SoundEngine.PlaySound(SoundID.Item87, NPC.Center);
+
+						int[] Projectiles = new int[] { ModContent.ProjectileType<TortumorMinionOrb1>(), ModContent.ProjectileType<TortumorMinionOrb2>() };
+
+						float Speed = 10f;
+						Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+						float rotation = (float)Math.Atan2(vector.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector.X - (NPC.position.X + (NPC.width * 0.5f)));
+						Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
+						
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+						perturbedSpeed.X, perturbedSpeed.Y, Main.rand.Next(Projectiles), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+					}
+
+					if (shootTimer >= 60)
+					{
+						shootTimer = 0;
 					}
 				}
-			}
-
-			NPC target = (Main.npc[(int)Projectile.ai[1]] ?? new NPC());
-
-            if (target.active && !target.friendly && target.damage > 0 && !target.dontTakeDamage)
-            {
-                shootTimer++;
-
-                if (shootTimer == 40 || shootTimer == 50)
-                {
-                    SoundEngine.PlaySound(SoundID.Item87, target.Center);
-
-                    int[] Projectiles = new int[] { ModContent.ProjectileType<TortumorMinionOrb1>(), ModContent.ProjectileType<TortumorMinionOrb2>() };
-
-                    float Speed = 10f;
-                    Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-                    float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
-                    Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
-                    
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                    perturbedSpeed.X, perturbedSpeed.Y, Main.rand.Next(Projectiles), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
-                }
-
-                if (shootTimer >= 60)
-                {
-                    shootTimer = 0;
-                }
             }
 
             //prevent Projectiles clumping together
@@ -139,11 +129,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					}
 				}
 			}
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return false;
 		}
         
         public override void Kill(int timeLeft)

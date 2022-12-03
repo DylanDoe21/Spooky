@@ -57,21 +57,21 @@ namespace Spooky.Content.Projectiles.SpookyHell
         }
 
         public override void Kill(int timeLeft)
-        {
+		{
             SoundEngine.PlaySound(SoundID.NPCDeath19, Projectile.Center);
 
-            for (int numDust = 0; numDust < 10; numDust++)
-            {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-                Main.dust[newDust].scale = 0.5f;
-                Main.dust[newDust].velocity *= 1f;
-                Main.dust[newDust].noGravity = true;
+            for (int numDusts = 0; numDusts < 10; numDusts++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);
+				Main.dust[newDust].noGravity = true;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
 
-                if (Main.rand.Next(2) == 0)
+				if (Main.dust[newDust].position != Projectile.Center)
                 {
-                    Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
                 }
-            }
+			}
         }
 	}
 

@@ -26,15 +26,15 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.noUseGraphic = true;
 			Item.width = 38;
 			Item.height = 44;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<LeechWhipProj>();
-			Item.shootSpeed = 4;
+			Item.shootSpeed = 4f;
 		}
 	}
 }

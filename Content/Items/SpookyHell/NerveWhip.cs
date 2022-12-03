@@ -7,33 +7,34 @@ using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
-    public class FleshWhip : ModItem
-    {
-        public override void SetStaticDefaults()
+	public class NerveWhip : ModItem
+	{
+		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Lasher");
+            DisplayName.SetDefault("Exposed Nerve");
             Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nHitting enemies will sometimes temporarily reduce their defense");
+            + "\nDeals more damage the more enemies it hits"
+			+ "\nDamage scaling caps after ten enemies are hit");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+		public override void SetDefaults() 
         {
-            Item.damage = 35;
+			Item.damage = 38;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
-			Item.width = 32;
-            Item.height = 42;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
+			Item.width = 38;
+			Item.height = 48;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.Green;
-            Item.value = Item.buyPrice(gold: 2);
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
-			Item.shoot = ModContent.ProjectileType<FleshWhipProj>();
-			Item.shootSpeed = 3f;
-        }
-    }
+			Item.shoot = ModContent.ProjectileType<NerveWhipProj>();
+			Item.shootSpeed = 4.5f;
+		}
+	}
 }

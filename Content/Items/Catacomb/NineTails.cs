@@ -32,13 +32,13 @@ namespace Spooky.Content.Items.Catacomb
 			Item.height = 60;
 			Item.useTime = 50;
 			Item.useAnimation = 50;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 3;
+			Item.shootSpeed = 3f;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -12,9 +12,10 @@ namespace Spooky.Content.Items.SpookyHell
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sentient Retina Staff");
-            Tooltip.SetDefault("Hold down left click to summon eyes that follow your cursor"
-            + "\nReleasing left click will explode them, dealing massive damage and slowing enemies"
-            + "\nOnly up to fifteen eyes can be active at once");
+            Tooltip.SetDefault("Summon eyes that follow your cursor while holding down left click"
+            + "\nRelease left click to fling the eyes, dealing double their original damage"
+            + "\nReleasing left click with maximum eyes active will explode them, dealing massive damage"
+            + "\nOnly up to eight eyes can be active at once");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -42,7 +43,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[Item.shoot] < 15;
+			return player.ownedProjectileCounts[Item.shoot] < 8;
 		}
     }
 }

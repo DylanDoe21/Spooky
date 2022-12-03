@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.useStyle = ItemUseStyleID.Shoot;          
 			Item.knockBack = 1;
 			Item.rare = ItemRarityID.Green;  
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 5);
 			Item.UseSound = SoundID.Item70;     
 			Item.buffType = ModContent.BuffType<TortumorMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<TortumorMinion>();

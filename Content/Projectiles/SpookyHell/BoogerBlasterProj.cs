@@ -82,7 +82,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 //charge = 2, shoot a few small boogers
                 //charge = 3, shoot one big booger
                 //charge = 4, shoot one big booger that splits into a spread mid flight
-                if (Projectile.localAI[0] == 2 || Projectile.localAI[0] == 15 || Projectile.localAI[0] == 30)
+                if (Projectile.localAI[0] == 2 || Projectile.localAI[0] == 15 || Projectile.localAI[0] == 28)
                 {
                     SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
 

@@ -1029,7 +1029,7 @@ namespace Spooky.Content.Generation
         //post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
-            int[] Bars = new int[] { ItemID.CopperBar, ItemID.TinBar, ItemID.IronBar, ItemID.LeadBar };
+            int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
             int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
             int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
             int[] Misc = new int[] { ItemID.PumpkinSeed, ItemID.Cobweb };
@@ -1075,7 +1075,7 @@ namespace Spooky.Content.Generation
 
                             //iron or lead bars
 							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-							chest.item[1].stack = WorldGen.genRand.Next(3, 8);
+							chest.item[1].stack = WorldGen.genRand.Next(5, 10);
                             //light sources
                             chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
 							chest.item[2].stack = WorldGen.genRand.Next(10, 35);
@@ -1087,7 +1087,7 @@ namespace Spooky.Content.Generation
 							chest.item[4].stack = WorldGen.genRand.Next(1, 2);
                             //pumpkin seeds or cobwebs
 							chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
-							chest.item[5].stack = WorldGen.genRand.Next(2, 8);
+							chest.item[5].stack = WorldGen.genRand.Next(5, 18);
                             //coins
                             chest.item[6].SetDefaults(ItemID.GoldCoin);
 							chest.item[6].stack = WorldGen.genRand.Next(2, 5);

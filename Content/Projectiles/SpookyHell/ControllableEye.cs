@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-            if (player.channel) 
+            if (player.channel && Projectile.ai[0] == 0) 
             {
                 Projectile.timeLeft = 200;
 

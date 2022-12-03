@@ -104,8 +104,10 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             float Scale = 1.4f;
             for (int Layers = 4; Layers >= 0; Layers--)
             {
+                //get each background texture
                 Texture2D BGTexture = ModContent.Request<Texture2D>(currentBG.TexturePath + Layers).Value;
                 Texture2D BGTextureGlow = ModContent.Request<Texture2D>(currentBG.TexturePath + Layers + "_Glow").Value;
+
                 Vector2 vector2 = new Vector2(BGTexture.Width, BGTexture.Height) * 0.5f;
                 float num2 = flat ? 1f : (Layers * 2 + 3f);
                 Vector2 vector3 = new Vector2(1f / num2);
@@ -161,15 +163,8 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     if (currentBG.PreDraw(BGTexture, ref drawPosition, ref frame, ref clr, Scale, Layers))
                     {
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-                    }
-
-                    if (currentBG.PreDraw(BGTextureGlow, ref drawPosition, ref frame, ref clr, Scale, Layers))
-                    {
                         Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, Color.White * transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                     }
-
-                    currentBG.PostDraw(BGTextureGlow, drawPosition, frame, clr, Scale, Layers);
-                    currentBG.PostDraw(BGTextureGlow, drawPosition, frame, Color.White * transparency, Scale, Layers);
                 }
             }
         }

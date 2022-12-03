@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-            if (player.channel) 
+            if (player.channel && Projectile.ai[0] == 0) 
             {
                 Projectile.timeLeft = 200;
 
@@ -66,7 +66,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 if (Projectile.ai[0] == 1)
                 {
-                    Projectile.damage *= 2;
+                    if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<ControllableEyeBig>()] >= 8)
+                    {
+                        Projectile.Kill();
+                    }
+                    else
+                    {
+                        Projectile.damage *= 2;
+                    }
                 }
 
                 if (Projectile.ai[0] >= 25)
@@ -105,16 +112,24 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void Kill(int timeLeft)
         {
-            for (int numDust = 0; numDust < 10; numDust++)
+            if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<ControllableEyeBig>()] >= 8)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-                Main.dust[DustGore].velocity *= 1.5f;
-                Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, 
+                ModContent.ProjectileType<ControllableEyeBigExplosion>(), Projectile.damage * 3, Projectile.knockBack, Main.myPlayer);
+            }
+            else
+            {
+                for (int numDust = 0; numDust < 10; numDust++)
                 {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[DustGore].velocity *= 1.5f;
+                    Main.dust[DustGore].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
         }

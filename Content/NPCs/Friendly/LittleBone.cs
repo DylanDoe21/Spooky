@@ -96,17 +96,15 @@ namespace Spooky.Content.NPCs.Friendly
 				//underground spooky forest chests
 				else if (Flags.downedRotGourd && !NPC.downedBoss2)
 				{
-					Main.npcChatText = "Now that you have better gear, why not try finding the valley of eyes? I've heard it's a super creepy eye biome somewhere in the depths of the underworld. You look strong enough to explore it.";
+					Main.npcChatText = "Now that you have that key from the giant gourd, you should be able to open those underground chests. I'm sure theres gotta be some goodies in them!";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				/*
-				//this is where the ghost circus advice will be
+				//spooky hell
 				else if (NPC.downedBoss2 && !Main.hardMode)
 				{
-					Main.npcChatText = "Theres not too much spooky stuff to do right now";
+					Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				*/
 				//catacombs second layer
 				else if (Main.hardMode && !NPC.downedMechBossAny)
 				{
