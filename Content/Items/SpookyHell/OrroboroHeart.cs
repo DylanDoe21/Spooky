@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpookyHell
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sentient Heart");
-            Tooltip.SetDefault("Can be used at the alchemical cauldron\nWhen combined with certain weapons, it will bring them sentient powers");
+            Tooltip.SetDefault("When combined with certain weapons, it will bring them new power");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

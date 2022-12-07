@@ -10,11 +10,11 @@ using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
-    public class TreatBag : ModProjectile
+    public class CandyBagProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treat Bag");
+            DisplayName.SetDefault("Candy Bag");
             Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
         }
@@ -48,16 +48,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             
             if (player.dead)
             {
-                player.GetModPlayer<SpookyPlayer>().TreatBag = false;
+                player.GetModPlayer<SpookyPlayer>().CandyBag = false;
             }
 
-            if (player.GetModPlayer<SpookyPlayer>().TreatBag)
+            if (player.GetModPlayer<SpookyPlayer>().CandyBag)
             {
                 Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<TreatBagBuff>(), 2, false);
+                player.AddBuff(ModContent.BuffType<CandyBagBuff>(), 2, false);
             }
 
-            if (!player.GetModPlayer<SpookyPlayer>().TreatBag)
+            if (!player.GetModPlayer<SpookyPlayer>().CandyBag)
             {
                 Projectile.Kill();
             }

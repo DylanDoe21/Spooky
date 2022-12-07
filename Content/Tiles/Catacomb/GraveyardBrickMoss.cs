@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.Graveyard
+namespace Spooky.Content.Tiles.Catacomb
 {
-	public class GraveyardBrick : ModTile
+	public class GraveyardBrickMoss : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -14,8 +14,8 @@ namespace Spooky.Content.Tiles.Graveyard
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			AddMapEntry(new Color(108, 66, 48));
-			ItemDrop = ModContent.ItemType<GraveyardBrickItem>();
+			AddMapEntry(new Color(95, 95, 95));
+			ItemDrop = ModContent.ItemType<GraveyardBrickMossItem>();
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}

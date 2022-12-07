@@ -29,7 +29,7 @@ namespace Spooky
             {
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(100f, 12f, 150f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(100f, 12f, 150f).UseOpacity(0.002f), EffectPriority.VeryHigh);
                 //Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.2f, -0.2f, 0.35f), EffectPriority.VeryHigh);
             }
 

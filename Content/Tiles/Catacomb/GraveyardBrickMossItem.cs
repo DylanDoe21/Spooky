@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.Graveyard
+namespace Spooky.Content.Tiles.Catacomb
 {
     public class GraveyardBrickMossItem : ModItem
     {

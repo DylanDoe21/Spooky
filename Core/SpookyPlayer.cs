@@ -31,7 +31,7 @@ namespace Spooky.Core
         public bool GoreArmorSet = false;
 
         //accessories
-        public bool TreatBag = false;
+        public bool CandyBag = false;
         public bool MagicCandle = false;
         public bool CrossCharmShield = false;
 
@@ -59,7 +59,7 @@ namespace Spooky.Core
             GoreArmorSet = false;
 
             //accessories
-            TreatBag = false;
+            CandyBag = false;
             MagicCandle = false;
             CrossCharmShield = false;
 

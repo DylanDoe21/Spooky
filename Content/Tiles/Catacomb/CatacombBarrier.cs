@@ -36,13 +36,15 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
+			Tile tile = Framing.GetTileSafely(i, j);
+
 			if (Flags.CatacombKey1)
 			{
-				Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = true;
+				tile.Get<TileWallWireStateData>().IsActuated = true;
 			}
 			else
 			{
-				Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = false;
+				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 		}
 
@@ -65,13 +67,15 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
+			Tile tile = Framing.GetTileSafely(i, j);
+
 			if (Flags.CatacombKey2)
 			{
-				Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = true;
+				tile.Get<TileWallWireStateData>().IsActuated = true;
 			}
 			else
 			{
-				Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = false;
+				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 		}
 
@@ -94,20 +98,22 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
+			Tile tile = Framing.GetTileSafely(i, j);
+
 			if (Flags.CatacombKey3)
 			{
 				if (NPC.CountNPCS(ModContent.NPCType<BigBone>()) > 0)
 				{
-					Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = false;
+					tile.Get<TileWallWireStateData>().IsActuated = false;
 				}
 				else
 				{
-					Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = true;
+					tile.Get<TileWallWireStateData>().IsActuated = true;
 				}
 			}
 			else
 			{
-				Main.tile[i, j].Get<TileWallWireStateData>().IsActuated = false;
+				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 		}
 

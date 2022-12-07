@@ -6,7 +6,7 @@ using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Minion
 {
-	public class TreatBagBuff : ModBuff
+	public class CandyBagBuff : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
@@ -17,7 +17,7 @@ namespace Spooky.Content.Buffs.Minion
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.GetModPlayer<SpookyPlayer>().TreatBag)
+			if (player.GetModPlayer<SpookyPlayer>().CandyBag)
 			{
 				player.buffTime[buffIndex] = 2;
 			}

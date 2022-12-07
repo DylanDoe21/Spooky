@@ -172,7 +172,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         
         public override void Kill(int timeLeft)
 		{
-            for (int numDusts = 0; numDusts < 10; numDusts++)
+            for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].noGravity = true;

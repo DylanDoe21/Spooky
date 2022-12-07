@@ -51,6 +51,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 				player.GetDamage(DamageClass.Magic) += 0.15f;
 				player.GetDamage(DamageClass.Summon) += 0.15f;
+				player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.15f;
 			}
 		}
 
@@ -64,6 +65,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.GetDamage(DamageClass.Magic) += 0.15f;
 			player.GetDamage(DamageClass.Summon) += 0.15f;
+			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.15f;
 			player.GetCritChance(DamageClass.Magic) += 8;
 			player.GetCritChance(DamageClass.Summon) += 8;
 			player.manaCost -= 0.12f;

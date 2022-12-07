@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 2000;
+            Projectile.timeLeft = 35;
         }
         
         public override bool PreDraw(ref Color lightColor)
@@ -64,12 +64,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         public override void AI()
         {
 			Projectile.rotation += 0.25f * (float)Projectile.direction;
-
-            Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 20f)
-            {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
-            }
         }
 
 		public override void Kill(int timeLeft)

@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             DisplayName.SetDefault("Bag O' Treats");
             Tooltip.SetDefault("Summons a magical bag of candy to float above you"
-            + "\nThe candy bag will drop pieces of candy every 25 seconds"
+            + "\nThe candy bag will drop pieces of candy every twenty seconds"
             + "\nPicking up candies will provide different summoner benefits");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -30,14 +30,14 @@ namespace Spooky.Content.Items.SpookyBiome
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<SpookyPlayer>().TreatBag = true;
+            player.GetModPlayer<SpookyPlayer>().CandyBag = true;
             
-            bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<TreatBag>()] <= 0;
+            bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<CandyBagProj>()] <= 0;
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{
 				//leave the source as null for right now
 				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, 
-				ModContent.ProjectileType<TreatBag>(), 0, 0f, player.whoAmI, 0f, 0f);
+				ModContent.ProjectileType<CandyBagProj>(), 0, 0f, player.whoAmI, 0f, 0f);
 			}
         }
     }
