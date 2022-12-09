@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.SpookyHell;
+using Spooky.Content.Events;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
@@ -104,18 +105,24 @@ namespace Spooky
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<OrroboroHead>());
 					break;
                 }
-				default:
+                case SpookyMessageType.EggEventData:
+                {
+                    EggEventWorld.HandlePacket(reader);
+                    break;
+                }
+                default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
 					break;
                 }
 			}
-		}
+		} 
     }
 
     enum SpookyMessageType : byte
     {
         SpawnMoco,
         SpawnOrroboro,
+        EggEventData,
     }
 }
