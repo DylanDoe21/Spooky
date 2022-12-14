@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             NPC.HitSound = SoundID.NPCHit7;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
-            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PumpkinBoss");
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/RotGourd");
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -633,7 +633,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								ModContent.ProjectileType<RotStomp>(), Damage, 1, NPC.target, 0, 0);
 
 								int NumProjectiles = Main.rand.Next(10, 15);
-								for (int i = 0; i < NumProjectiles; ++i)
+								for (int i = 0; i < NumProjectiles; i++)
 								{
 									float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
 
@@ -898,7 +898,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								}
 
 								int NumProjectiles = Main.rand.Next(10, 15);
-								for (int i = 0; i < NumProjectiles; ++i)
+								for (int i = 0; i < NumProjectiles; i++)
 								{
 									float Spread = Main.rand.Next(-1500, 1500) * 0.01f;
 

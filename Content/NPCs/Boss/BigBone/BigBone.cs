@@ -44,14 +44,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         Vector2 SavePlayerPosition;
         Vector2 SaveNPCPosition;
 
-        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBoneGrowl1", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBoneGrowl2", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBoneGrowl3", SoundType.Sound);
-        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBoneLaugh", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBoneMagic", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBoneMagic2", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/BigBoneDeath", SoundType.Sound);
-        public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/BigBoneDeath2", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/Catacomb/BigBoneGrowl1", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneGrowl2", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/Catacomb/BigBoneGrowl3", SoundType.Sound);
+        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/Catacomb/BigBoneLaugh", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/Catacomb/BigBoneDeath", SoundType.Sound);
+        public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneDeath2", SoundType.Sound);
         
         public override void SetStaticDefaults()
         {

@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Catacomb
     {
         public bool Biting = false;
 
-        public static readonly SoundStyle ChompSound = new("Spooky/Content/Sounds/Chomp", SoundType.Sound);
+        public static readonly SoundStyle ChompSound = new("Spooky/Content/Sounds/Catacomb/Chomp", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

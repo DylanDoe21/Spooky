@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -124,6 +125,28 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			if (NPC.ai[1] >= 1080)
 			{
 				HealingAmount = Main.masterMode ? 58 : Main.expertMode ? 48 : 32;
+			}
+		}
+
+		public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
+            {
+				for (int numDust = 0; numDust < 50; numDust++)
+				{                                                                                  
+					int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+					Main.dust[dustGore].color = Color.OrangeRed;
+					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
+					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
+					Main.dust[dustGore].scale = 0.25f;
+					Main.dust[dustGore].noGravity = true;
+				}
 			}
 		}
 	}

@@ -22,10 +22,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public bool OpenMouth = false;
         private bool spawned;
 
-        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/OrroboroCrunch", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/OrroboroGrowl1", SoundType.Sound);
-        public static readonly SoundStyle SplitSound = new("Spooky/Content/Sounds/OrroboroSplit", SoundType.Sound);
-        public static readonly SoundStyle SplitRoarSound = new("Spooky/Content/Sounds/OrroboroSplitRoar", SoundType.Sound);
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroCrunch", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroGrowl1", SoundType.Sound);
+        public static readonly SoundStyle SplitSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroSplit", SoundType.Sound);
+        public static readonly SoundStyle SplitRoarSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroSplitRoar", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

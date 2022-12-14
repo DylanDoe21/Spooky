@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
         public bool DeathState = false;
 
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/OrroboroGrowl2", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroGrowl2", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Biomes;
 using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -14,6 +15,15 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
+		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+		{
+			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+            {
+				spawnRate = (int)(spawnRate / 2f);
+				maxSpawns = (int)(maxSpawns * 2f);
+			}
+		}
+
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
 			if (type == NPCID.Steampunker)

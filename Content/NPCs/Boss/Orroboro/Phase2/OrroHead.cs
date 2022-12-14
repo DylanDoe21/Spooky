@@ -31,8 +31,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Phase2
 
         public bool DeathState = false;
 
-        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/OrroboroCrunch", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/OrroboroGrowl1", SoundType.Sound);
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroCrunch", SoundType.Sound);
+        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroGrowl1", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

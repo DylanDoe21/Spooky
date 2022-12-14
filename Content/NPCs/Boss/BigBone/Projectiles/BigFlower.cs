@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class BigFlower : ModNPC
 	{
-		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBoneMagic2", SoundType.Sound);
+		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{

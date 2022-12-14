@@ -59,10 +59,11 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()))
 			{
                 return 20f;
             }
+            
             return 0f;
         }
 

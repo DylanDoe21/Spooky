@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound);
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/TumorScreech1", SoundType.Sound);
 
 		public override void SetStaticDefaults()
         {
@@ -66,10 +66,11 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()))
 			{
                 return 15f;
             }
+            
             return 0f;
         }
 
@@ -228,18 +229,21 @@ namespace Spooky.Content.NPCs.SpookyHell
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 35));
         }
 
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
             {
-                for (int numGores = 1; numGores <= 4; numGores++)
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGore" + numGores).Type);
-                }
-            }
+				return;
+			}
 
-            for (int numDust = 0; numDust < 20; numDust++)
+			if (NPC.life <= 0) 
             {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallRedBatGore" + numGores).Type);
+                }
+
                 int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
                 NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
 
@@ -253,8 +257,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
-
-            return true;
-		}
+        }
     }
 }

@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.Personalities;
+using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemist Eye");
+			DisplayName.SetDefault("Alchemist");
 			NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 5;
 		}
@@ -145,6 +145,7 @@ namespace Spooky.Content.NPCs.Friendly
 				"My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.",
 				"You know, the alchemy we do down here is not just some nerdy science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!",
 				"If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.",
+				//"So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'"
 			};
 
 			return Main.rand.Next(Dialogue);

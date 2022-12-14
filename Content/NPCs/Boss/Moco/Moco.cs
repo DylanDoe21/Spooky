@@ -36,10 +36,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         Vector2 SaveNPCPosition;
 
-        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/MocoSneeze1", SoundType.Sound);
-        public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/MocoSneeze2", SoundType.Sound);
-        public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/MocoSneeze3", SoundType.Sound);
-        public static readonly SoundStyle AngrySound = new("Spooky/Content/Sounds/MocoAngry", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/SpookyHell/MocoSneeze1", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/SpookyHell/MocoSneeze2", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/SpookyHell/MocoSneeze3", SoundType.Sound);
+        public static readonly SoundStyle AngrySound = new("Spooky/Content/Sounds/SpookyHell/MocoAngry", SoundType.Sound);
         
         public override void SetStaticDefaults()
         {

@@ -50,7 +50,7 @@ namespace Spooky.Content.Items.BossBags
 
 		public override Color? GetAlpha(Color lightColor) 
 		{
-			// Makes sure the dropped bag is always visible
+			//Makes sure the dropped bag is always visible
 			return Color.Lerp(lightColor, Color.White, 0.4f);
 		}
 

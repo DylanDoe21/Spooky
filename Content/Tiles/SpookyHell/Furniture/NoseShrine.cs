@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
 	public class NoseShrine : ModTile
 	{
-		public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/MocoSneeze1", SoundType.Sound);
+		public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/SpookyHell/MocoSneeze1", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{

@@ -20,22 +20,22 @@ namespace Spooky.Content.Items.Catacomb
 
         public override void SetDefaults()
         {
-            Item.damage = 45;    
+            Item.damage = 45;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
-            Item.useTurn = true;    
-            Item.noUseGraphic = true; 
-            Item.autoReuse = true;             
+            Item.useTurn = true;
+            Item.noUseGraphic = true;
+            Item.autoReuse = true;
             Item.width = 36;
             Item.height = 38;
-            Item.useTime = 45;       
+            Item.useTime = 45;
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 20);
-            Item.UseSound = SoundID.Item1; 
-            Item.shoot = ModContent.ProjectileType<GlowBulbProj>();  
+            Item.UseSound = SoundID.Item1;
+            Item.shoot = ModContent.ProjectileType<GlowBulbProj>();
             Item.shootSpeed = 10f;
         }
     }
