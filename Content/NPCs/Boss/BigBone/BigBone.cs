@@ -295,6 +295,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 drawData.Draw(Main.spriteBatch);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin();
+
                 return;
             }
         }

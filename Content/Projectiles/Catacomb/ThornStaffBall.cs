@@ -14,7 +14,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snot Ball");
+            DisplayName.SetDefault("Thorn Ball");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -26,8 +26,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 35;
+            Projectile.penetrate = 3;
+            Projectile.timeLeft = 40;
         }
         
         public override bool PreDraw(ref Color lightColor)
@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (Main.rand.Next(3) == 0 && !target.HasBuff(ModContent.BuffType<EnsnaredCooldown>()))
+            if (Main.rand.Next(5) == 0 && !target.HasBuff(ModContent.BuffType<EnsnaredCooldown>()))
             {
                 target.AddBuff(ModContent.BuffType<EnsnaredDebuff>(), 120);
                 target.AddBuff(ModContent.BuffType<EnsnaredCooldown>(), 720);

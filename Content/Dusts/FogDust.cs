@@ -18,17 +18,11 @@ namespace Spooky.Content.Dusts
             dust.alpha = 200;
             dust.fadeIn = 12f;
             dust.scale *= Main.rand.NextFloat(0.75f, 1.5f);
-
-            dust.color.R = 109;
-			dust.color.G = 97;
-			dust.color.B = 179;
         }
 
         public override bool Update(Dust dust)
         {
-            Lighting.AddLight(dust.position, Color.Purple.ToVector3() * 0.5f);
-
-            if (Main.rand.Next(20) == 0 || !SpookyWorld.GhostEvent) 
+            if (Main.rand.Next(20) == 0) 
             {
                 dust.alpha++;
             }

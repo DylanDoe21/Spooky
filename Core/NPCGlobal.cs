@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Biomes;
 using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;

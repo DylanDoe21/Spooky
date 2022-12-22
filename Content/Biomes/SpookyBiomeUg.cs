@@ -21,8 +21,6 @@ namespace Spooky.Content.Biomes
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
-        
-        public override CaptureBiome.TileColorStyle TileColorStyle => CaptureBiome.TileColorStyle.Crimson;
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 

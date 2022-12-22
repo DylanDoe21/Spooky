@@ -60,11 +60,16 @@ namespace Spooky.Content.Tiles.Pylon
 			DustType = -1;
 		}
 
+		public override bool ValidTeleportCheck_NPCCount(TeleportPylonInfo pylonInfo, int defaultNecessaryNPCCount) 
+		{
+			//allows this pylon to be used, regardless of nearby npcs
+			return true;
+		}
+
 		public override int? IsPylonForSale(int npcType, Player player, bool isNPCHappyEnough) 
         {
-			// Let's say that our pylon is for sale no matter what for any NPC under all circumstances, granted that the NPC
-			// is in the Example Surface/Underground Biome.
-			return ModContent.GetInstance<Biomes.SpookyHellBiome>().IsBiomeActive(player) && isNPCHappyEnough ? ModContent.ItemType<SpookyHellPylonItem>() : null;
+			//this pylon is never sold
+			return null;
 		}
 
 		public override void MouseOver(int i, int j) 

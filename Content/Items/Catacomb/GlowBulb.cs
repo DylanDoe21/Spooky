@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Catacomb
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thorn Covered Bulb");
-            Tooltip.SetDefault("Throws a glowing thorn ball that bounces off of surfaces"
+            Tooltip.SetDefault("Throws a glowing thorn ball that can stick to the ground"
             + "\nThe thorn ball will explode into smaller thorns when it hits an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

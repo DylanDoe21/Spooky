@@ -33,8 +33,7 @@ namespace Spooky
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(100f, 12f, 150f).UseOpacity(0.002f), EffectPriority.VeryHigh);
                 
-                Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.3f, -0.3f, 0.45f), EffectPriority.VeryHigh);
-                Filters.Scene["Spooky:EggEventEffect"] = new Filter(new SpookyScreenShader("FilterMoonLordShake").UseIntensity(0.5f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.1f, -0.1f, 0.15f), EffectPriority.VeryHigh);
             }
 
             if (Main.netMode != NetmodeID.Server)

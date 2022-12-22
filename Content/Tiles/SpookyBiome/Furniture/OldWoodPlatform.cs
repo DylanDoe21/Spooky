@@ -34,7 +34,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(93, 62, 39));
             ItemDrop = ModContent.ItemType<OldWoodPlatformItem>();
-			DustType = DustID.Blood;
+			DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.Platforms };
 		}
 

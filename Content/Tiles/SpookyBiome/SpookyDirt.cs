@@ -29,16 +29,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Tile left = Main.tile[i - 1, j];
 			Tile right = Main.tile[i + 1, j];
 
-            if (up.TileType == ModContent.TileType<SpookyGrass>() || down.TileType == ModContent.TileType<SpookyGrass>() || 
-            left.TileType == ModContent.TileType<SpookyGrass>() || right.TileType == ModContent.TileType<SpookyGrass>())
+			if (WorldGen.genRand.Next(5) == 0)
 			{
-				WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyGrass>(), true);
-			}
+				if (up.TileType == ModContent.TileType<SpookyGrass>() || down.TileType == ModContent.TileType<SpookyGrass>() || 
+				left.TileType == ModContent.TileType<SpookyGrass>() || right.TileType == ModContent.TileType<SpookyGrass>())
+				{
+					WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyGrass>(), true);
+				}
 
-            if (up.TileType == ModContent.TileType<SpookyGrassGreen>() || down.TileType == ModContent.TileType<SpookyGrassGreen>() || 
-            left.TileType == ModContent.TileType<SpookyGrassGreen>() || right.TileType == ModContent.TileType<SpookyGrassGreen>())
-			{
-                WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyGrassGreen>(), true);
+				if (up.TileType == ModContent.TileType<SpookyGrassGreen>() || down.TileType == ModContent.TileType<SpookyGrassGreen>() || 
+				left.TileType == ModContent.TileType<SpookyGrassGreen>() || right.TileType == ModContent.TileType<SpookyGrassGreen>())
+				{
+					WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyGrassGreen>(), true);
+				}
 			}
 		}
 	}

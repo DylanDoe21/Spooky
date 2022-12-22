@@ -25,37 +25,29 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 2000;
+            Projectile.timeLeft = 600;
         }
 
         public override void AI()
         {
-			Projectile.rotation += 0.25f * (float)Projectile.direction;
+            if (Projectile.ai[1] == 0)
+            {
+			    Projectile.rotation += 0.25f * (float)Projectile.direction;
+            }
 
-            Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 20f)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 20)
             {
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
         }
 
-        int Bounces = 0;
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Bounces++;
-			if (Bounces >= 2)
-			{
-				Projectile.Kill();
-			}
-			else
-			{
-				Projectile.ai[0] = 30;
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+            Projectile.ai[1] = 1;
 
-				Projectile.velocity.X = -Projectile.velocity.X * 0.98f;
-				Projectile.velocity.Y = -Projectile.velocity.Y * 0.98f;
-			}
+			Projectile.velocity.X *= 0;
+            Projectile.velocity.Y *= 0;
 
 			return false;
 		}

@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.Pylon
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Valley of Eyes Pylon");
-			Tooltip.SetDefault("Teleport to another pylon when 2 villagers are nearby"
+			Tooltip.SetDefault("Teleport to another pylon, regardless of how many villagers are nearby"
 			+ "\nYou can only place one per type and in the matching biome");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

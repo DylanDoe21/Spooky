@@ -140,10 +140,10 @@ namespace Spooky.Content.NPCs.Friendly
 			{
                 "This place is really funky. I love watching those weird flying things crash into the flesh pillars haha!",
 				"Did you know there's a giant egg in some strange pit somewhere around here? That'd make enough scrambled eggs to last for weeks!",
-				"You may call me an alchemist, I call it making dubious concoctions that I give to others for laughs.",
+				"You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.",
 				"You may use my magic cauldron... Under the condition that you say 'The magic word'.",
 				"My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.",
-				"You know, the alchemy we do down here is not just some nerdy science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!",
+				"You know, the alchemy we do down here is not science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!",
 				"If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.",
 				//"So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'"
 			};

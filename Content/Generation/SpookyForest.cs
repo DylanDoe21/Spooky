@@ -42,7 +42,23 @@ namespace Spooky.Content.Generation
                 Flags.SpookyBackgroundAlt = true;
             }
 
-            PositionX = Main.maxTilesX / 2;
+            if (ModContent.GetInstance<SpookyConfig>().SpookyForestSpawn)
+            {
+                PositionX = Main.maxTilesX / 2;
+            }
+            else
+            {
+                //place biome based on opposite dungeon side
+                if (WorldGen.dungeonSide == -1)
+                {
+                    PositionX = (Main.maxTilesX / 2) - (Main.maxTilesX / 10);
+                }
+                else
+                {
+                    PositionX = (Main.maxTilesX / 2) + (Main.maxTilesX / 10);
+                }
+            }
+
             PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
             //set to default values in case of non vanilla world sizes
@@ -53,7 +69,7 @@ namespace Spooky.Content.Generation
             for (int Y = 0; Y < BiomeHeight; Y += 50)
             {
                 SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + 10, (double)Size + Y / 2, 1, ModContent.TileType<SpookyDirt>(), 
-                ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true);
+                ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, true);
             }
 
             //dig crater to lead to the underground
@@ -524,20 +540,20 @@ namespace Spooky.Content.Generation
             while (!placed && attempts++ < 100000)
             {
                 //place starter house
-                int HouseX = PositionX + ((Main.maxTilesX / 12) / 5); //get the biomes size, then divide that more and get the distance from the center
-                int HouseY = PositionY; //start here to not touch floating islands
+                int X = PositionX + ((Main.maxTilesX / 12) / 5); //get the biomes size, then divide that more and get the distance from the center
+                int y = PositionY; //start here to not touch floating islands
 
-                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.worldSurface)
+                while (!WorldGen.SolidTile(X, y) && y <= Main.worldSurface)
 				{
-					HouseY++;
+					y++;
 				}
 
-                if (Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyDirt>() ||
-                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyDirt2>() ||
-                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyGrass>() ||
-                Main.tile[HouseX, HouseY].TileType == ModContent.TileType<SpookyGrassGreen>())
+                if (Main.tile[X, y].TileType == ModContent.TileType<SpookyDirt>() ||
+                Main.tile[X, y].TileType == ModContent.TileType<SpookyDirt2>() ||
+                Main.tile[X, y].TileType == ModContent.TileType<SpookyGrass>() ||
+                Main.tile[X, y].TileType == ModContent.TileType<SpookyGrassGreen>())
 				{
-					PlaceStructures(HouseX - 8, HouseY - 18, StarterHouse, StarterHouseObjects);
+					PlaceStructures(X - 8, y - 18, StarterHouse, StarterHouseObjects);
                     placed = true;
 				}
             }
@@ -977,24 +993,24 @@ namespace Spooky.Content.Generation
             int ChestDepth = (Main.maxTilesY / 15) / 2;
 
             //actual loot room positions
-            int ChestX = PositionX;
-            int ChestY = InitialDepth + (ChestDepth + 35);
+            int x = PositionX;
+            int y = InitialDepth + (ChestDepth + 35);
 
-            //reset ChestY each time so each room is at a different position
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
-            PlaceLootStructures(ChestX - (ChestDistance * 2), ChestY, LootRoom4, LootRoomObjects4);
+            //reset y each time so each room is at a different position
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            PlaceLootStructures(x - (ChestDistance * 2), y, LootRoom4, LootRoomObjects4);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
-            PlaceLootStructures((ChestX - ChestDistance) - 8, ChestY, LootRoom2, LootRoomObjects2);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            PlaceLootStructures((x - ChestDistance) - 8, y, LootRoom2, LootRoomObjects2);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
-            PlaceLootStructures(ChestX, ChestY + 15, LootRoom1, LootRoomObjects1);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            PlaceLootStructures(x, y + 15, LootRoom1, LootRoomObjects1);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
-            PlaceLootStructures(ChestX + ChestDistance, ChestY, LootRoom3, LootRoomObjects3);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            PlaceLootStructures(x + ChestDistance, y, LootRoom3, LootRoomObjects3);
 
-            ChestY = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
-            PlaceLootStructures(ChestX + (ChestDistance * 2), ChestY, LootRoom5, LootRoomObjects5);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            PlaceLootStructures(x + (ChestDistance * 2), y, LootRoom5, LootRoomObjects5);
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)

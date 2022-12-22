@@ -9,6 +9,7 @@ namespace Spooky.Core
     {
         public static bool downedRotGourd = false;
         public static bool downedMoco = false;
+        public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
 
@@ -27,6 +28,7 @@ namespace Spooky.Core
         {
 			downedRotGourd = false;
             downedMoco = false;
+            downedEggEvent = false;
             downedOrroboro = false;
             downedBigBone = false;
 
@@ -46,6 +48,7 @@ namespace Spooky.Core
         {
 			downedRotGourd = false;
             downedMoco = false;
+            downedEggEvent = false;
             downedOrroboro = false;
             downedBigBone = false;
 
@@ -65,6 +68,7 @@ namespace Spooky.Core
         {
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedMoco) tag["downedMoco"] = true;
+            if (downedEggEvent) tag["downedEggEvent"] = true;
             if (downedOrroboro) tag["downedOrroboro"] = true;
             if (downedBigBone) tag["downedBigBone"] = true;
 
@@ -84,6 +88,7 @@ namespace Spooky.Core
         {
 			downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedMoco = tag.ContainsKey("downedMoco");
+            downedEggEvent = tag.ContainsKey("downedEggEvent");
             downedOrroboro = tag.ContainsKey("downedOrroboro");
             downedBigBone = tag.ContainsKey("downedBigBone");
 
@@ -104,8 +109,9 @@ namespace Spooky.Core
             var flags = new BitsByte();
             flags[0] = downedRotGourd;
             flags[1] = downedMoco;
-            flags[2] = downedOrroboro;
-            flags[3] = downedBigBone;
+            flags[2] = downedEggEvent;
+            flags[3] = downedOrroboro;
+            flags[4] = downedBigBone;
             writer.Write(flags);
 
             var miscFlags = new BitsByte();
@@ -125,8 +131,9 @@ namespace Spooky.Core
             BitsByte flags = reader.ReadByte();
             downedRotGourd = flags[0];
             downedMoco = flags[1];
-            downedOrroboro = flags[2];
-            downedBigBone = flags[3];
+            downedEggEvent = flags[2];
+            downedOrroboro = flags[3];
+            downedBigBone = flags[4];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];

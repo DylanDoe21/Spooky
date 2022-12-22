@@ -10,14 +10,15 @@ namespace Spooky.Content.Items.BossSummon
 {
     public class CowBell : ModItem
     {
+        public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
+
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rusty Cowbell");
 			Tooltip.SetDefault("Summons friendly shadow creatures to fight with you");
+            ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
-
-        public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
 
         public override void SetDefaults()
         {

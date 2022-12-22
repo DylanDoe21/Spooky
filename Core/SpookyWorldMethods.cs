@@ -107,7 +107,7 @@ namespace Spooky.Core
 
 		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
 		public static void TileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
-		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false)
+		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false, bool replaceWalls = true, bool limit = true)
 		{
 			double num = strength;
 			float num2 = (float)steps;
@@ -150,9 +150,9 @@ namespace Spooky.Core
 						if ((double)(Math.Abs((float)k - pos.X) + Math.Abs((float)l - pos.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							//do not generate or replace anything above the surface (basically to stop it from replacing blocks on floating islands)
-							int limit = (int)Main.worldSurface - (Main.maxTilesY / 8);
+							int heightLimit = limit ? (int)Main.worldSurface - (Main.maxTilesY / 8) : 0;
 
-							if (l > limit)
+							if (l > heightLimit)
 							{
 								//I think this checks if the tile is air?
 								if (tileType < 0)
@@ -183,7 +183,7 @@ namespace Spooky.Core
 								}
 
 								//replace all walls
-								if (Main.tile[k, l].WallType > 0 && placeWalls)
+								if (Main.tile[k, l].WallType > 0 && replaceWalls)
 								{
 									Main.tile[k, l].WallType = (ushort)wallType;
 								}

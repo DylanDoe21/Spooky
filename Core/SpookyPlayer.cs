@@ -15,6 +15,7 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Core
@@ -284,10 +285,12 @@ namespace Spooky.Core
                 }
             }
 
-            if (SpookyWorld.GhostEvent && Player.ZoneOverworldHeight)
+            /*
+            if (Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && !Main.dayTime)
             {
                 SpawnTileFog();
             }
+            */
         }
 
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
@@ -305,25 +308,6 @@ namespace Spooky.Core
                     sonar.DurationInFrames = 300;
 
                     itemDrop = ModContent.ItemType<SpookyCrate>();
-                }
-            }
-        }
-
-        private void SpawnTileFog()
-        {
-            for (int i = (int)Math.Floor(Player.position.X / 16) - 120; i < (int)Math.Floor(Player.position.X / 16) + 120; i++)
-            {
-                for (int j = (int)Math.Floor(Player.position.Y / 16) - 30; j < (int)Math.Floor(Player.position.Y / 16) + 30; j++)
-                {
-                    if (!Main.tile[i, j].HasTile && !Main.tile[i, j - 1].HasTile && Main.tile[i, j - 2].HasTile)
-                    {
-                        if (Main.rand.Next(120) == 0)
-                        {
-                            int Index = Dust.NewDust(new Vector2((i - 2) * 16, (j - 1) * 16), 5, 5, ModContent.DustType<FogDust>());
-
-                            Main.dust[Index].velocity.Y += 0.09f;
-                        }
-                    }
                 }
             }
         }

@@ -26,4 +26,8 @@ namespace Spooky.Content.Gores
 	public class LeafRed : LeafGreen
 	{
 	}
+
+	public class LeafTeal : LeafGreen
+	{
+	}
 }

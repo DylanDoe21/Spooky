@@ -20,8 +20,6 @@ namespace Spooky.Content.Events
 		public static float EggEventProgress = 0;
 		public static int EggEventTimer = 0;
 
-		public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroAwaken", SoundType.Sound);
-
 		public override void OnWorldLoad()
 		{
 			EggEventActive = false;

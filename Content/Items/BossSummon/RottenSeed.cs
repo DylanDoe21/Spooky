@@ -43,6 +43,7 @@ namespace Spooky.Content.Items.BossSummon
         {
             NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<RotGourd>());
             SoundEngine.PlaySound(SoundID.Roar, player.position);
+            
             return true;
         }
     }

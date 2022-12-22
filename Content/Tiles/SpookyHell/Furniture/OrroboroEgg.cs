@@ -7,7 +7,9 @@ using Terraria.Enums;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
@@ -119,7 +121,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 			for (int k = 0; k < Main.projectile.Length; k++)
 			{
-				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<OrroboroSpawn>()) 
+				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<EggEventShield>()) 
 				{
 					return true;
 				}
@@ -131,13 +133,15 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				//we need to use a special packet because tiles can't net update
 				//for now, just use SpawnOnPlayer until an actual spawn intro fix is made
+				/*
 				if (Main.netMode == NetmodeID.MultiplayerClient) 
 				{
 					ModPacket packet = Mod.GetPacket();
 					packet.Write((byte)SpookyMessageType.SpawnOrroboro);
 					packet.Send();
 				}
-				else
+				*/
+				if (!Flags.downedEggEvent)
 				{
 					int x = i;
 					int y = j;
@@ -146,7 +150,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 					while (Main.tile[x, y].TileType == Type) y--;
 					y++;
 
-					Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 155f, 0, -1, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventShield>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			else

@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetDefaults()
 		{
-			Item.damage = 30;
+			Item.damage = 45;
 			Item.crit = 25;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
@@ -32,9 +32,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.height = 32;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 8;
+			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item17;

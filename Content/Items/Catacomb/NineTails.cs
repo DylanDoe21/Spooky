@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = 18;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
@@ -38,12 +38,12 @@ namespace Spooky.Content.Items.Catacomb
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 3f;
+			Item.shootSpeed = 3.5f;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
+			for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
 			{
 				Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 				int i = Main.myPlayer;

@@ -239,22 +239,23 @@ namespace Spooky.Content.NPCs.SpookyHell
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmallRedBatGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGore" + numGores).Type);
                 }
 
-                int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
-
-                Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
-                Main.dust[DustGore].velocity *= 3f;
-                Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                for (int numDust = 0; numDust < 25; numDust++)
                 {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    int newDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[newDust].velocity.X *= Main.rand.Next(-8, 8);
+                    Main.dust[newDust].velocity.Y *= Main.rand.Next(-8, 8);
+                    Main.dust[newDust].noGravity = true;
+
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[newDust].scale = 0.5f;
+                        Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
                 }
             }
         }

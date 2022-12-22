@@ -51,8 +51,16 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.ai[0] = 0;
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
 
-				Projectile.velocity.X = -Projectile.velocity.X;
-				Projectile.velocity.Y = -Projectile.velocity.Y * 1.05f;
+				if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                }
 			}
 
 			return false;

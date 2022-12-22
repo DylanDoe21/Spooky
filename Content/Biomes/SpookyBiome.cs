@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Gores;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
@@ -23,8 +24,6 @@ namespace Spooky.Content.Biomes
         public override int Music => !Main.raining ? Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
-        
-        public override CaptureBiome.TileColorStyle TileColorStyle => CaptureBiome.TileColorStyle.Crimson;
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
         
