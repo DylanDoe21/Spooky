@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.Water
 	{
 		public override int ChooseWaterfallStyle() => ModContent.Find<ModWaterfallStyle>("Spooky/CemeteryWaterfallStyle").Slot;
 
-		public override int GetSplashDust() => 288;
+		public override int GetSplashDust() => 102;
 
 		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/CemeteryWaterDroplet").Type;
 
