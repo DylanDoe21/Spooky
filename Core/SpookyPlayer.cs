@@ -40,6 +40,7 @@ namespace Spooky.Core
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
+        public bool ShadowflameCandle = false; 
 
         //minions and pets
         public bool SkullWisp = false;
@@ -62,6 +63,7 @@ namespace Spooky.Core
             CandyBag = false;
             MagicCandle = false;
             CrossCharmShield = false;
+            ShadowflameCandle = false; 
 
             //expert accessories
             PumpkinCore = false;
