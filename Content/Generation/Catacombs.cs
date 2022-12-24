@@ -2328,7 +2328,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
 
-            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Water From Sand"));
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
 			if (GenIndex2 == -1)
 			{
 				return;

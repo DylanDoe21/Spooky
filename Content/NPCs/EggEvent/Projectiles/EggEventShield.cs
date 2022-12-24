@@ -83,10 +83,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] % 2 == 0)
+            if (Projectile.ai[0] % 20 == 0)
             {
                 int MaxDusts = Main.rand.Next(10, 15);
-                float distance = 100f;
+                float distance = 50f;
 
                 for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                 {
@@ -96,10 +96,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                     if (Main.rand.Next(2) == 0)
                     {
                         int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.DemonTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                        Main.dust[dustEffect].scale = 1.2f;
+                        Main.dust[dustEffect].scale = 5f;
                         Main.dust[dustEffect].noGravity = true;
                         Main.dust[dustEffect].noLight = false;
-                        Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-75f);
+                        Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-50f);
                         Main.dust[dustEffect].fadeIn = 1.2f;
                     }
                 }

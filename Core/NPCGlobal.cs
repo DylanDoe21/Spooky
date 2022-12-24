@@ -2,9 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
@@ -14,12 +18,45 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
+            {
+				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
+
+				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
+
+				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Red);
+
+				var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+				for (int numEffect = 0; numEffect < 4; numEffect++)
+				{
+					Color newColor = color;
+					newColor = npc.GetAlpha(newColor);
+					newColor *= 1f;
+					Vector2 vector = new Vector2(npc.Center.X, npc.Center.Y) + (numEffect / 4 * 6.28318548f + npc.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, npc.gfxOffY) - npc.velocity * numEffect;
+					Main.EntitySpriteDraw(tex, vector, npc.frame, newColor, npc.rotation, npc.frame.Size() / 2f, npc.scale * 1.25f, effects, 0);
+				}
+			}
+
+			return true;
+        }
+
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
 				spawnRate = (int)(spawnRate / 2f);
 				maxSpawns = (int)(maxSpawns * 2f);
+			}
+		}
+
+		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
+			{
+				pool.Clear();
 			}
 		}
 
@@ -42,14 +79,6 @@ namespace Spooky.Core
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey1Condition(), ModContent.ItemType<CatacombKey1>(), 1));
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey2Condition(), ModContent.ItemType<CatacombKey2>(), 1));
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey3Condition(), ModContent.ItemType<CatacombKey3>(), 1));
-        }
-
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-        {
-            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
-            {
-				pool.Clear();
-            }
         }
     }
 

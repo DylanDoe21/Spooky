@@ -14,10 +14,11 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
-    public class CruxAura : ModProjectile
+    public class CapillaryAura : ModProjectile
     {
         public static List<int> BuffableNPCs = new List<int>() 
         {
+            ModContent.NPCType<Crux>(),
             ModContent.NPCType<Distended>(),
             ModContent.NPCType<DistendedBrute>(),
             ModContent.NPCType<Vesicator>(),
@@ -25,12 +26,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             ModContent.NPCType<Visitant>()
         };
 
-        public static readonly SoundStyle AuraSound = new("Spooky/Content/Sounds/SpookyHell/AuraDebuff", SoundType.Sound);
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crux Aura");
+            DisplayName.SetDefault("Capillary Aura");
         }
 
         public override void SetDefaults()
@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 newColor *= 1f;
                 Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 35 + (Projectile.localAI[1] < 250 ? fade : fade2), SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 35 + (Projectile.localAI[1] < 350 ? fade : fade2), SpriteEffects.None, 0);
             }
 
             return true;
@@ -81,9 +81,9 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.localAI[0] >= 60)
             {
-                if (Projectile.localAI[1] < 250)
+                if (Projectile.localAI[1] < 350)
                 {
-                    Projectile.localAI[1] += 5;
+                    Projectile.localAI[1] += 15;
                 }
 
                 for (int i = 0; i < 20; i++)
@@ -115,6 +115,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
+            //inflict player with debuffs
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + fade2)
             {
                 Main.LocalPlayer.AddBuff(BuffID.WitheredArmor, 300);
@@ -127,10 +128,9 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 NPC buffTarget = Main.npc[i];
                 if (buffTarget.active)
                 {
-                    if (BuffableNPCs.Contains(buffTarget.type) && Vector2.Distance(Projectile.Center, buffTarget.Center) < Projectile.localAI[1] + fade2 && 
-                    buffTarget.type != ModContent.NPCType<Capillary>() && buffTarget.type != ModContent.NPCType<Crux>())
+                    if (BuffableNPCs.Contains(buffTarget.type) && Vector2.Distance(Projectile.Center, buffTarget.Center) < Projectile.localAI[1] + fade2 && buffTarget.type != ModContent.NPCType<Capillary>())
                     {
-                        buffTarget.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 300);
+                        buffTarget.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 600);
                     }
                 }
             }

@@ -20,8 +20,6 @@ namespace Spooky.Content.NPCs.EggEvent
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public bool AfterImages = false;
-
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/SpookyHell/CruxScream", SoundType.Sound);

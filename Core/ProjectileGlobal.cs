@@ -22,7 +22,10 @@ namespace Spooky.Core
 
             if(Main.LocalPlayer.GetModPlayer<SpookyPlayer>().ShadowflameCandle && projectile.DamageType == DamageClass.Magic)
             {
-                target.AddBuff(BuffID.ShadowFlame, 120);
+                if (Main.rand.Next(2) == 0)
+                {
+                    target.AddBuff(BuffID.ShadowFlame, 120);
+                }
             }
         }
 

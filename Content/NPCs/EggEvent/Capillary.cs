@@ -17,16 +17,6 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Capillary : ModNPC  
     {
-        public static List<int> BuffableNPCs = new List<int>() 
-        {
-            ModContent.NPCType<Crux>(),
-            ModContent.NPCType<Distended>(),
-            ModContent.NPCType<DistendedBrute>(),
-            ModContent.NPCType<Vesicator>(),
-            ModContent.NPCType<Vigilante>(),
-            ModContent.NPCType<Visitant>()
-        };
-
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/CapillaryScreech", SoundType.Sound);
@@ -49,9 +39,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.hardMode ? 250 : 120;
-            NPC.damage = Main.hardMode ? 75 : 50;
-            NPC.defense = Main.hardMode ? 40 : 20;
+            NPC.lifeMax = 700;
+            NPC.damage = 50;
+            NPC.defense = 35;
             NPC.width = 50;
             NPC.height = 94;
             NPC.npcSlots = 1f;
@@ -69,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, trapping intruders and supporting their allies."),
+				new FlavorTextBestiaryInfoElement("Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, supporting their allies."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -120,16 +110,10 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 SoundEngine.PlaySound(ScreechSound, NPC.Center);
 
-                for (int i = 0; i < Main.maxNPCs; i++)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC buffTarget = Main.npc[i];
-                    if (buffTarget.active)
-                    {
-                        if (BuffableNPCs.Contains(buffTarget.type) && Vector2.Distance(NPC.Center, buffTarget.Center) < 600 && buffTarget.type != NPC.type)
-                        {
-                            buffTarget.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 300);
-                        }
-                    }
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+                    ModContent.ProjectileType<CapillaryAura>(), 0, 1, NPC.target, 0, 0);
                 }
 
                 NPC.localAI[0] = 0;

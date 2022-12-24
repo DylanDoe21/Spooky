@@ -32,8 +32,6 @@ namespace Spooky.Content.Items.SpookyBiome
             player.GetDamage(DamageClass.Magic) += 0.12f;
             player.GetCritChance(DamageClass.Magic) += 12;
             player.GetModPlayer<SpookyPlayer>().ShadowflameCandle = true;
-
-            
         }
     }
 }

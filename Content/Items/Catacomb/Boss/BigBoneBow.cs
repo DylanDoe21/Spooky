@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.Catacomb.Boss
 			Tooltip.SetDefault("Left click to rapidly fire piercing roses that can slightly home on enemies"
 			+ "\nRight click to shoot a stationary thorn flower that inflicts thorn mark on enemies"
 			+ "\nEnemies with the thorn mark debuff will take more damage from this weapon"
-			+ "\n10% chance to not consume arrows on use");
+			+ "\n10% chance to save ammo");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
