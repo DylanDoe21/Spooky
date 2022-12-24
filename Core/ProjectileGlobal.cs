@@ -19,6 +19,11 @@ namespace Spooky.Core
                     target.AddBuff(BuffID.OnFire, 120);
                 }
             }
+
+            if(Main.LocalPlayer.GetModPlayer<SpookyPlayer>().ShadowflameCandle && projectile.DamageType == DamageClass.Magic)
+            {
+                target.AddBuff(BuffID.ShadowFlame, 120);
+            }
         }
 
         public override bool PreAI(Projectile projectile)
