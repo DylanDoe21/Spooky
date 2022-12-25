@@ -28,7 +28,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.height = 24;
             NPC.npcSlots = 1;
             NPC.noGravity = true;
-			//NPC.catchItem = ModContent.ItemType<TinyGhostItem>();
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = 64;

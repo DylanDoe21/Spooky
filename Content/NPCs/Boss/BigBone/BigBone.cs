@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Long lost brother of little bone who photosynthesized so much he grew to an unnatural size. His floral influence is spread throughout the catacombs."),
+				new FlavorTextBestiaryInfoElement("The long lost brother of little bone who was trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

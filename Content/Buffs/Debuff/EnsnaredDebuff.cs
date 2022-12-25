@@ -14,7 +14,7 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!npc.boss && npc.type != NPCID.EaterofWorldsHead)
+            if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
             {
                 Dust.NewDust(npc.position, npc.width, npc.height, DustID.Grass);
 				npc.velocity *= 0;

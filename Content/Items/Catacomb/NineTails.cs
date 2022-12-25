@@ -30,15 +30,15 @@ namespace Spooky.Content.Items.Catacomb
 			Item.autoReuse = true;
 			Item.width = 40;           
 			Item.height = 60;
-			Item.useTime = 50;
-			Item.useAnimation = 50;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 3.5f;
+			Item.shootSpeed = 5.5f;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -47,7 +47,7 @@ namespace Spooky.Content.Items.Catacomb
 			{
 				Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 				int i = Main.myPlayer;
-				float num72 = Item.shootSpeed - Main.rand.Next(1, 3);
+				float num72 = Item.shootSpeed - Main.rand.Next(2, 4);
 				int num73 = damage;
 				float num74 = knockback;
 				float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;

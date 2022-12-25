@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright."),
+				new FlavorTextBestiaryInfoElement("Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -130,20 +130,24 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FloatyFlowerGore" + numGores).Type);
                 }
             }
-
-            return true;
-		}
+        }
     }
 }

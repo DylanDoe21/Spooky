@@ -105,11 +105,11 @@ namespace Spooky.Content.NPCs.Catacomb
                             other.life += healamount;
                         }
 
-                        for (int k = 0; k < 10; k++)
+                        for (int numDusts = 0; numDusts < 10; numDusts++)
                         {
                             Dust dust = Main.dust[Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
                             dust.noGravity = true;
-                            dust.velocity *= 0.04f;
+                            dust.velocity *= 1.02f;
                             dust.scale *= 1.5f;
                         }
                     }
@@ -124,20 +124,24 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 8; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlowerSentryGore" + numGores).Type);
                 }
             }
-
-            return true;
-		}
+        }
     }
 }

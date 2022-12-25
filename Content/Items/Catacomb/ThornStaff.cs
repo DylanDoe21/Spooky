@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rod of Ensnaring");
-			Tooltip.SetDefault("Casts a lump of thorns that can sometimes ensnare non boss enemies"
-			+ "\nEnsnared enemies will not be able to move, and will be poisoned"
-			+ "\nEnemies cannot be ensnared again for 10 seconds");
+			Tooltip.SetDefault("Casts a lump of thorns that can sometimes ensnare and poison enemies"
+			+ "\nBosses cannot be ensared, but they will be poisoned for longer"
+			+ "\nEnemies cannot be ensnared again for 15 seconds");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override int Length => 40;
 		public override int TopSize => 20;
-		public override float SwingDownSpeed => 15f;
+		public override float SwingDownSpeed => 13.5f;
 		public override bool CollideWithTiles => false;
 		static bool hasHitSomething = false;
 
@@ -22,14 +22,14 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			DisplayName.SetDefault("Harvester's Scythe");
 			Tooltip.SetDefault("Killing enemies with the scythe will release souls around you"
-			+ "\nAfter you have 5 souls, they will launch themselves everywhere and home in on enemies");
+			+ "\nAfter you have five souls, they will fly away and home in on nearby enemies");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.damage = 28;
-			Item.crit = 20;
+			Item.crit = 8;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
 			Item.width = 64;           

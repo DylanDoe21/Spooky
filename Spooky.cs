@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
-using Terraria.GameContent.Shaders;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -31,9 +30,9 @@ namespace Spooky
             {
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(70f, 16f, 123f).UseOpacity(0.002f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(85f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);
                 
-                Filters.Scene["Spooky:EggEventTint"] = new Filter(new BloodMoonScreenShaderData("FilterBloodMoon").UseColor(0.1f, -0.1f, 0.15f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.6f, -0.8f, -0.6f), EffectPriority.Medium);
             }
 
             if (Main.netMode != NetmodeID.Server)

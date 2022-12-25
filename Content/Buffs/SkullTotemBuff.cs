@@ -16,7 +16,7 @@ namespace Spooky.Content.Buffs
 		{
 			player.GetDamage(DamageClass.Summon) += 0.12f;
 			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.12f;
-			player.whipRangeMultiplier = 1.5f;
+			player.whipRangeMultiplier += 0.5f;
 			player.maxMinions += 2;
 		}
 	}

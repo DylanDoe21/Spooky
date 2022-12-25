@@ -15,7 +15,7 @@ namespace Spooky
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
 
-        [Label("Spooky Forest at Spawn")]
+        [Label("Spooky Forest Spawnpoint")]
         [Tooltip("Changes the position where the spooky forest is placed during world generation"
         + "\nKeeping this option on will make it placed at spawn, which is the default option"
         + "\nTurning this off will cause the spooky forest to generate away from spawn"

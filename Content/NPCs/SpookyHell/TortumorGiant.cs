@@ -225,9 +225,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 35));
-
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 5));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 35));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 
         public override void HitEffect(int hitDirection, double damage) 

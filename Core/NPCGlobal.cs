@@ -22,20 +22,18 @@ namespace Spooky.Core
         {
             if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
             {
-				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
-
 				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
 
 				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Red);
 
 				var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-				for (int numEffect = 0; numEffect < 4; numEffect++)
+				for (int numEffect = 0; numEffect < 5; numEffect++)
 				{
 					Color newColor = color;
 					newColor = npc.GetAlpha(newColor);
 					newColor *= 1f;
-					Vector2 vector = new Vector2(npc.Center.X, npc.Center.Y) + (numEffect / 4 * 6.28318548f + npc.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, npc.gfxOffY) - npc.velocity * numEffect;
+					Vector2 vector = new Vector2(npc.Center.X, npc.Center.Y) + (npc.rotation).ToRotationVector2() - Main.screenPosition + new Vector2(0, npc.gfxOffY + 2);
 					Main.EntitySpriteDraw(tex, vector, npc.frame, newColor, npc.rotation, npc.frame.Size() / 2f, npc.scale * 1.25f, effects, 0);
 				}
 			}

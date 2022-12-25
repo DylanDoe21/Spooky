@@ -92,8 +92,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-			Projectile.rotation += 0.25f * (float)Projectile.direction;
-
             if (!Main.dedServ)
             {
                 ManageCaches();

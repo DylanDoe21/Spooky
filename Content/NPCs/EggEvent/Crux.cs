@@ -159,7 +159,6 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
-        /*
         public override void HitEffect(int hitDirection, double damage) 
         {
             //dont run on multiplayer
@@ -170,12 +169,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 5; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EyeBatGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CruxGore" + numGores).Type);
                 }
             }
         }
-        */
     }
 }

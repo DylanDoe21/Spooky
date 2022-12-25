@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These massive blistered bags of flesh fly around, dropping explosive biomatter in their wake. Beware though, as these somehow living creatures are chunks of explosive biomatter themselves."),
+				new FlavorTextBestiaryInfoElement("These massive blistered bags of flesh fly around, dropping explosive biomatter in their wake. Beware though, as these somehow living beings are chunks of explosive biomatter themselves."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

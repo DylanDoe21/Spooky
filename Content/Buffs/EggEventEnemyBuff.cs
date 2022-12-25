@@ -1,6 +1,6 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Buffs
 {
@@ -11,13 +11,25 @@ namespace Spooky.Content.Buffs
 			DisplayName.SetDefault("Capillary buff");
 		}
 
-		public override void Update(NPC npc, ref int buffIndex)
+        private bool init;
+        private int oldDamage;
+        private Color oldColor;
+        public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!npc.friendly)
-			{
-				npc.damage = (int)(npc.damage * 2f);
-				npc.defense = (int)(npc.defense * 1.5f);
-			}
-		}
+            if (!init)
+            {
+                oldDamage = npc.damage;
+                npc.damage = (int)(npc.damage * 2f);
+                oldColor = npc.color;
+                npc.color = Color.Red * 0.50f;
+                init = true;
+            }
+
+            if (npc.buffTime[buffIndex] < 5)
+            {
+                npc.damage = oldDamage;
+                npc.color = oldColor;
+            }
+        }
     }
 }

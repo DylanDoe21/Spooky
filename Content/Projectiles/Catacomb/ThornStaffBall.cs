@@ -55,9 +55,9 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             if (Main.rand.Next(5) == 0 && !target.HasBuff(ModContent.BuffType<EnsnaredCooldown>()))
             {
+                target.AddBuff(BuffID.Poisoned, target.boss ? 300 : 120);
                 target.AddBuff(ModContent.BuffType<EnsnaredDebuff>(), 120);
-                target.AddBuff(ModContent.BuffType<EnsnaredCooldown>(), 720);
-                target.AddBuff(BuffID.Poisoned, 120);
+                target.AddBuff(ModContent.BuffType<EnsnaredCooldown>(), 900);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 3, 1, 2));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 100));
         }
 
         public override void HitEffect(int hitDirection, double damage) 

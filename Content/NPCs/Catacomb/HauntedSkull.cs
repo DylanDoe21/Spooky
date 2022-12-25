@@ -170,17 +170,21 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
-        public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
             {
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HauntedSkullGore").Type);
             }
-
-            return true;
-		}
+        }
     }
 }

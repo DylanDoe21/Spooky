@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= 90)
             {
-                return 12f;
+                return 15f;
             }
 
             return 0f;
@@ -117,6 +117,23 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
 
                 NPC.localAI[0] = 0;
+            }
+        }
+
+        public override void HitEffect(int hitDirection, double damage) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CapillaryGore" + numGores).Type);
+                }
             }
         }
     }
