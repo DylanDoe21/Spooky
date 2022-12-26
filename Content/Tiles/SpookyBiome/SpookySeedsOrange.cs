@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -10,6 +11,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		{
 			DisplayName.SetDefault("Orange Spooky Seeds");
 			Tooltip.SetDefault("Places grass on spooky dirt");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 		}
 
 		public override void SetDefaults()

@@ -71,16 +71,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 Main.NewText("The Egg Incusrion has begun!", 171, 64, 255);
 
-                if (Main.netMode == NetmodeID.MultiplayerClient && Main.LocalPlayer.whoAmI == Main.myPlayer)
-                {
-                    ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)SpookyMessageType.EggEventData);
-                    packet.Send();
-                }
-                else
-                {
-                    EggEventWorld.EggEventActive = true;
-                }
+                EggEventWorld.EggEventActive = true;
             }
 
             if (Projectile.ai[0] % 20 == 0)

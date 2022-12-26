@@ -8,10 +8,10 @@ namespace Spooky
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
         [Label("Halloween Season")]
-        [Tooltip("The spooky mod makes it so the halloween seasonal event is always active"
-        + "\nTurn off to disable the halloween seasonal event being active, enabled by default"
+        [Tooltip("The spooky mod makes terraria's halloween seasonal event always active"
+        + "\nTurn off to disable the halloween seasonal event being active"
         + "\nThe halloween seasonal event will still occur during October 10th-31st regardless"
-        + "\nYou will need to leave and re-enter the world for this to take effect")]
+        + "\nYou will need to leave and re-enter your world for changes to this option to take effect")]
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
 
@@ -22,5 +22,10 @@ namespace Spooky
         + "\nWARNING: Playing on small worlds with this option off may destroy parts of other biomes!")]
         [DefaultValue(true)]
         public bool SpookyForestSpawn { get; set; }
+
+        [Label("Screen Shaking Effect")]
+        [Tooltip("turn off to disable the screen shaking effect certain things in the mod use")]
+        [DefaultValue(true)]
+        public bool ScreenShakeEnabled { get; set; }
     }
 }

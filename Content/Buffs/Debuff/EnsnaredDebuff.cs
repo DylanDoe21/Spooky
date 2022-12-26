@@ -16,7 +16,7 @@ namespace Spooky.Content.Buffs.Debuff
         {
             if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
             {
-                Dust.NewDust(npc.position, npc.width, npc.height, DustID.Grass);
+                Dust.NewDust(npc.position, npc.width, npc.height, DustID.GreenMoss);
 				npc.velocity *= 0;
 			}
 		}

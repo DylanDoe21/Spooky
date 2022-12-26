@@ -30,7 +30,7 @@ namespace Spooky
             {
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(85f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(45f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);
                 
                 Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.6f, -0.8f, -0.6f), EffectPriority.Medium);
             }
@@ -106,24 +106,18 @@ namespace Spooky
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<OrroboroHead>());
 					break;
                 }
-                case SpookyMessageType.EggEventData:
-                {
-                    EggEventWorld.HandlePacket(reader);
-                    break;
-                }
                 default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
 					break;
                 }
 			}
-		} 
+		}
     }
 
     enum SpookyMessageType : byte
     {
         SpawnMoco,
         SpawnOrroboro,
-        EggEventData,
     }
 }

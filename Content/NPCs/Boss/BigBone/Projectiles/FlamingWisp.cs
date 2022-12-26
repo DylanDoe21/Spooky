@@ -94,6 +94,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.OnFire, 300);
+        }
+
         public override void AI()
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;

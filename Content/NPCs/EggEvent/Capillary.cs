@@ -17,6 +17,8 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Capillary : ModNPC  
     {
+        int aura;
+
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/CapillaryScreech", SoundType.Sound);
@@ -112,7 +114,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+                    aura = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
                     ModContent.ProjectileType<CapillaryAura>(), 0, 1, NPC.target, 0, 0);
                 }
 
@@ -130,6 +132,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (NPC.life <= 0) 
             {
+                Main.projectile[aura].Kill();
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CapillaryGore" + numGores).Type);

@@ -1,87 +1,118 @@
-FINALLY!!!! New update changelogs so people can tell what changed!!!!
+FINALLY!!!! New update changelogs so people can actually tell what changed!!!!
 
-Also, if you wish to figure new features out on your own then avoid reading this, as this changelog describes every single new change and addition in detail
+Also, if you wish to figure new features out on your own then avoid reading this, as this changelog describes most of the new major changes and additions in detail
 
 
 
 ~Valley of Eyes Changes~
 
--received a full overhaul, improved generation, new sturctures and lots of new content, which are as follows
-
-Loot:
-
--the items within the eye valleys chests are now entirely new items that werent in the mod before
--the chests themselves are now monster like chests instead of weird purple chests, and are now opened by feeding them monster food.
-
-All the old chest items are now obtained in different ways, as follows:
-
-Exposed Nerve: moved to early hardmode. there is now a rare nerve tile that grows in the biome during hardmode, break it to get the exposed nerve.
-Monster Blood Vial: rarely drops from any pre-hardmode eye valley enemy.
-Gore Staff: rare drop from small tortumors, and a decently common drop from giant tortumors.
-Monster Heart: removed from the mod entirely.
+-received a full overhaul, improved generation, new sturctures and lots of new content, which are as follows:
 
 
-New Friendly NPC: little eye the alchemist
+Loot Changes:
 
-little eye has 2 functions, as follows:
+-the items within the eye valleys chests are now entirely new weapons added in this update
+-the chests themselves are now red monster chests, and are now opened by feeding them monster food
 
--has a total of 4 quests, each of which involve you gathering materials. you will get one monster chest food and other rewards for completing these.
+-All the old chest items have been kept (besides one), and are now obtained in different ways, as follows:
+
+Exposed Nerve: Moved to early hardmode. There is now a rare nerve tile that grows in the biome during hardmode, break it to get the exposed nerve
+Monster Blood Vial: Rarely drops from any pre-hardmode eye valley enemy
+Gore Staff: Rare drop from small tortumors, and a somewhat common drop from giant tortumors
+Monster Heart: Removed from the mod entirely
+
+
+New Friendly NPC: Little Eye the Alchemist
+
+-He has two different functions, as follows:
 
 Function 1:
--completing his final quest will give you the eye valley pylon, which is now the only way to obtain it. you can now also use it regardless of how many town npcs are nearby it.
+-Has a total of four quests, each of which involve you gathering materials for him. you will get one monster chest food and other set rewards for each quest
+-Upon completing his final quest, he will give you the eye valley pylon. This is now the only way to obtain it as well
 
 Function 2:
--upgrades the items obtained from the new monster chests to their "sentient forms". you must have a special monster heart dropped by orroboro, along with the item you wish to upgrade in your inventory.
+-Upgrades the items obtained from the new monster chests to their "sentient forms"
+-You must have a special monster heart dropped by orroboro, along with the item you wish to upgrade in your inventory
 
 
 New Event: The Egg Incursion
 
--A new event that takes place before summoning orroboro.
--it only needs to be completed once. afterward you will be able to summon orroboro anytime without being forced to do it again.
--however, if you die during the event then you will need to restart it again. this means you need to do it all in one go.
--it will begin upon trying to break the egg with the concoction for the first time, and also a spooky noise indicator will play.
--the event does not have an "enemy kill count". it is an endurance event, and as such the progress bar increases on its own over time.
--it only progresses while you are in the eye valley, so you cannot just leave the biome and cheese the entire event.
--it also has a new song composed by the wonderful rockwizard!
+-A new invasion event that takes place before summoning orroboro
+-It only needs to be completed once. afterward you will be able to summon orroboro anytime without being forced to do it again
+-However, if you die during the event then you will need to restart it again. This means you need to do it all in one go
+-It will begin upon trying to break the egg with the concoction for the first time, and also a spooky noise indicator will play
+-The event does not have an "enemy kill count". It is an endurance event, and as such the progress bar increases on its own over time
+-It only progresses while you are in the eye valley, so you cannot just leave the biome and cheese the entire event
+-It also has a new song composed by the wonderful rockwizard!
+
 
 
 ~General Changes~
 
+Moco Item Changes:
 
-Catacomb item buffs:
+the past versions of moco's drops were extremely boring and uninteresting. Not only have they been changed, moco also now has a new summon weapon drop
 
-due to complaints of the catacombs items basically sucking, they have all received buffs and other changes to make them more viable
+Snot Ball:
+-damage has been buffed slightly
+-now detaches from the chain when flung and will bounce around for a bit before dying
+
+Booger Blaster:
+-damage has been buffed slightly
+-rather than spamming spreads, you can now hold it down to charge it up to three times.
+-The first charge shoots a tiny snot, the second shoots a close spread of three tiny snots, and the third shoots a big snot glob that does triple damage
+
+
+Catacomb Item Buffs:
+
+-due to complaints of the catacombs items sucking, they have all received buffs and some other changes to make them more viable, as follows:
 
 Harvester's Scythe:
--damage has been buffed slightly
--use speed has been decently increased
+-Damage has been buffed slightly
+-Swing speed has been decently increased
 
-Old Hunter's Crossbow
--damage has been buffed significantly
+Old Hunter's Crossbow:
+-Damage has been buffed significantly
 
 Rod of Ensnaring:
--damage has been buffed slightly
--mana cost has been super slightly increased
+-Damage has been buffed slightly
+-Mana cost has been slightly increased
+-The projectile can now pierce through a few enemies
+-Projectile no longer falls to the ground, but is now somewhat short lived
+-Now inflicts poison on bosses for longer than regular enemies as a trade off, as bosses cannot be ensnared
 
-Rod of Ensnaring Projectile:
--can now pierce through a few enemies
--no longer falls to the ground, but is now somewhat short lived
--now inflicts poison on bosses for longer than regular enemies as a trade off, as bosses cannot be ensnared
+Cat O' Nine Tails:
+-Damage has been buffed slightly
+-Swing speed has been increased slightly
+-Whip range has been increased significantly
 
-Cat O' Nine Tails
--damage has been buffed slightly
--use speed has been increased slightly
--whip range has been increased significantly
-
-Thorn Covered Bulb
--no longer bounces off of tiles, instead when it hits a tile it will fall down until it hits the floor, where it will linger for a bit before dying
+Thorn Covered Bulb:
+-No longer bounces off of tiles, instead when it hits a tile it will fall down until it hits the floor, where it will linger for a bit before dying
 
 
 
-New Config Option: Spooky Forest Spawnpoint
+~New Config Options~
 
--allows you to determine whether or not the spooky forest generates at your spawn point or off to the side away from spawn
--on by default, turn it off to make the spooky forest generate away from spawn (be warned, this may destroy parts of vanilla's or other mod's biomes on small worlds)
+Spooky Forest Spawnpoint:
+-Allows you to determine whether or not the spooky forest generates at your spawn point, or off to the side away from spawn
+-Turn this option off to make the spooky forest generate away from spawn (Be warned, this may destroy parts of vanilla's or other mod's biomes on small worlds)
+
+
+Screen Shaking Effect:
+-Allows you to disable the mod's screen shaking effect in case you personally do not like it, or for other reasons
+(For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
+
+
+
+~General Changes and Fixes~
+
+-Rot gourd launching players upward a bit when landing now applies to all players who are decently nearby him
+-Items that were not researchable for duplication in journey mode have all been fixed (hopefully)
+-The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
+-The bolts shot by big bone's solar flowers during his transition now properly damage players
+-All of big bone's fiery projectiles will now inflict the "on fire" debuff
+-The intense screen shaking during big bone's death animation will now immediately stop when he dies
+
 
 
 

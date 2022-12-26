@@ -68,7 +68,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			behindNPCsAndTiles.Add(index);
 		}
 
-		//The AI of the projectile
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.OnFire, 300);
+        }	
+
 		public override void AI()
 		{
 			Lighting.AddLight(Projectile.Center, 0.5f, 0.2f, 0f);

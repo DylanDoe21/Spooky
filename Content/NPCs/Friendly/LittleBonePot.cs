@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -11,6 +12,7 @@ namespace Spooky.Content.NPCs.Friendly
             DisplayName.SetDefault("Little Bone's Flower Pot");
             Tooltip.SetDefault("A magical flower pot that belongs to little bone"
             + "\nUse to summon little bone to your location");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

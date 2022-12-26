@@ -1,6 +1,6 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Buffs.Debuff
 {
@@ -12,12 +12,23 @@ namespace Spooky.Content.Buffs.Debuff
 			Main.debuff[Type] = true;
 		}
 
+		private bool initializeStats;
+        private int storedDefense;
+
 		public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!npc.friendly)
-			{
-				npc.defense = (int)(npc.defense * 0.75f);
+            if (!initializeStats)
+            {
+                storedDefense = npc.defense;
+				npc.defense = (int)(npc.defense * 0.5f);
+
+                initializeStats = true;
 			}
+
+			if (npc.buffTime[buffIndex] < 5)
+            {
+                npc.defense = storedDefense;
+            }
 		}
     }
 }

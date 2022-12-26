@@ -27,39 +27,6 @@ namespace Spooky.Content.Events
 			EggEventTimer = 0;
 		}
 
-		public static ModPacket CreateProgressPacket()
-		{
-			ModPacket packet = ModContent.GetInstance<Spooky>().GetPacket();
-			packet.Write((byte)SpookyMessageType.EggEventData);
-			packet.Write(EggEventActive);
-			packet.Write(EggEventProgress);
-			packet.Write(EggEventTimer);
-
-			return packet;
-		}
-
-		public static void SendInfoPacket()
-		{
-			if (Main.netMode == NetmodeID.SinglePlayer)
-			{
-				return;
-			}
-
-			CreateProgressPacket().Send();
-		}
-
-		public static void HandlePacket(BinaryReader reader)
-		{
-			EggEventActive = reader.ReadBoolean();
-			EggEventProgress = reader.ReadInt32();
-			EggEventTimer = reader.ReadInt32();
-
-			if (Main.netMode == NetmodeID.Server)
-			{
-				SendInfoPacket(); // Forward packet to rest of clients
-			}
-		}
-
 		public override void PreUpdateTime()
 		{
 			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))

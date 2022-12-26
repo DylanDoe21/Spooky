@@ -35,16 +35,7 @@ namespace Spooky.Content.Items.BossSummon
 		{
 			SoundEngine.PlaySound(EventBeginSound, player.Center);
 
-			if (Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
-			{
-				ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)SpookyMessageType.EggEventData);
-                packet.Send();
-			}
-			else
-			{
-				EggEventWorld.EggEventActive = true;
-			}
+			EggEventWorld.EggEventActive = true;
 			
 			return true;
 		}

@@ -315,10 +315,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-								//push player in the air if they are on the ground
-								if (player.velocity.Y == 0)
-								{
-									player.velocity.Y -= 8f;
+								//push all nearby players in the air if they are on the ground
+								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
+								{ 
+									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+									{
+										Main.player[numPlayer].velocity.Y -= 8f;
+									}
 								}
 
 								//make cool dust effect when slamming the ground
@@ -461,10 +464,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-							//push player in the air if they are on the ground
-							if (player.velocity.Y == 0)
-							{
-								player.velocity.Y -= 12f;
+							//push all nearby players in the air if they are on the ground
+							for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
+							{ 
+								if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+								{
+									Main.player[numPlayer].velocity.Y -= 12f;
+								}
 							}
 
 							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
@@ -746,10 +752,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-								//push player in the air if they are on the ground
-								if (player.velocity.Y == 0)
-								{
-									player.velocity.Y -= 8f;
+								//push all nearby players in the air if they are on the ground
+								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
+								{ 
+									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+									{
+										Main.player[numPlayer].velocity.Y -= 8f;
+									}
 								}
 
 								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
@@ -891,10 +900,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-								//push player in the air if they are on the ground
-								if (player.velocity.Y == 0)
-								{
-									player.velocity.Y -= 8f;
+								//push all nearby players in the air if they are on the ground
+								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
+								{ 
+									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+									{
+										Main.player[numPlayer].velocity.Y -= 8f;
+									}
 								}
 
 								int NumProjectiles = Main.rand.Next(10, 15);

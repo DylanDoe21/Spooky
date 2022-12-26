@@ -85,7 +85,7 @@ namespace Spooky.Core
 
         public override void ModifyScreenPosition()
         {
-            if (!Main.gameMenu)
+            if (!Main.gameMenu && ModContent.GetInstance<SpookyConfig>().ScreenShakeEnabled)
             {
                 ShakeTimer++;
                 if (ScreenShakeAmount >= 0 && ShakeTimer >= 5)
@@ -265,7 +265,7 @@ namespace Spooky.Core
                 {
                     BoneWispTimer++;
 
-                    if (BoneWispTimer >= 180 / ((num20 / 3) / 5))
+                    if (BoneWispTimer >= 180 / (num20 / 10))
                     {
                         SoundEngine.PlaySound(SoundID.NPCDeath6, Player.Center);
 

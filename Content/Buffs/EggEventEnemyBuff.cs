@@ -11,24 +11,32 @@ namespace Spooky.Content.Buffs
 			DisplayName.SetDefault("Capillary buff");
 		}
 
-        private bool init;
-        private int oldDamage;
-        private Color oldColor;
+        private bool initializeStats;
+        private int storedDamage;
+        private int storedDefense;
+        private Color storedColor;
+
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!init)
+            if (!initializeStats)
             {
-                oldDamage = npc.damage;
+                storedDamage = npc.damage;
                 npc.damage = (int)(npc.damage * 2f);
-                oldColor = npc.color;
+
+                storedDefense = npc.defense;
+                npc.defense = (int)(npc.defense * 1.75f);
+
+                storedColor = npc.color;
                 npc.color = Color.Red * 0.50f;
-                init = true;
+
+                initializeStats = true;
             }
 
             if (npc.buffTime[buffIndex] < 5)
             {
-                npc.damage = oldDamage;
-                npc.color = oldColor;
+                npc.damage = storedDamage;
+                npc.defense = storedDefense;
+                npc.color = storedColor;
             }
         }
     }

@@ -19,8 +19,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-			Projectile.height = 22;
+            Projectile.width = 14;
+			Projectile.height = 14;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;

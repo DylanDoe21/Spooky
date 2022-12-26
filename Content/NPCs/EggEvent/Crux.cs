@@ -20,6 +20,8 @@ namespace Spooky.Content.NPCs.EggEvent
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
+        int aura;
+
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/SpookyHell/CruxScream", SoundType.Sound);
@@ -148,7 +150,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+                    aura = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
                     ModContent.ProjectileType<CruxAura>(), 0, 1, NPC.target, 0, 0);
                 }
             }
@@ -169,6 +171,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (NPC.life <= 0) 
             {
+                Main.projectile[aura].Kill();
+
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CruxGore" + numGores).Type);

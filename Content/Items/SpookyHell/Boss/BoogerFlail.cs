@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snot Ball");
-            Tooltip.SetDefault("When launched, the booger will detatch from the chain and bounce around");
+            Tooltip.SetDefault("When launched, the booger will detach from the chain and bounce around");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

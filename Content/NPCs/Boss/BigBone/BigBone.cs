@@ -496,6 +496,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
 
+                        SpookyPlayer.ScreenShakeAmount = 0;
+
                         //spawn gores
                         if (Main.netMode != NetmodeID.Server) 
                         {
