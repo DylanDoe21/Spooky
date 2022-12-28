@@ -26,7 +26,7 @@ namespace Spooky.Core
 
 				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Red);
 
-				var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				for (int numEffect = 0; numEffect < 5; numEffect++)
 				{

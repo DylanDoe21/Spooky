@@ -316,11 +316,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
 								//push all nearby players in the air if they are on the ground
-								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
-								{ 
-									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+								for (int i = 0; i < Main.maxPlayers; i++)
+								{
+									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 									{
-										Main.player[numPlayer].velocity.Y -= 8f;
+										Main.player[i].velocity.Y -= 8f;
 									}
 								}
 
@@ -465,11 +465,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
 							//push all nearby players in the air if they are on the ground
-							for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
-							{ 
-								if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+							for (int i = 0; i < Main.maxPlayers; i++)
+							{
+								if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 								{
-									Main.player[numPlayer].velocity.Y -= 12f;
+									Main.player[i].velocity.Y -= 12f;
 								}
 							}
 
@@ -753,11 +753,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
 								//push all nearby players in the air if they are on the ground
-								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
-								{ 
-									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+								for (int i = 0; i < Main.maxPlayers; i++)
+								{
+									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 									{
-										Main.player[numPlayer].velocity.Y -= 8f;
+										Main.player[i].velocity.Y -= 8f;
 									}
 								}
 
@@ -901,11 +901,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
 								//push all nearby players in the air if they are on the ground
-								for (int numPlayer = 0; numPlayer < Main.maxPlayers; numPlayer++)
-								{ 
-									if (Main.player[numPlayer].velocity.Y == 0 && NPC.Distance(Main.player[numPlayer].Center) <= 500f)
+								for (int i = 0; i < Main.maxPlayers; i++)
+								{
+									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 									{
-										Main.player[numPlayer].velocity.Y -= 8f;
+										Main.player[i].velocity.Y -= 8f;
 									}
 								}
 

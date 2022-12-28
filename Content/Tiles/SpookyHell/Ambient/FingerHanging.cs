@@ -22,8 +22,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.AnchorBottom = default(AnchorData); 
 			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(4, 60, 36));
-			DustType = ModContent.DustType<SpookyHellGrassDust>();
+            AddMapEntry(new Color(139, 18, 37));
+			DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
 		}
 	}

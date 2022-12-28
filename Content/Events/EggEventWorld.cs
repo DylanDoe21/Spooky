@@ -27,7 +27,7 @@ namespace Spooky.Content.Events
 			EggEventTimer = 0;
 		}
 
-		public override void PreUpdateTime()
+        public override void PostUpdateEverything()
 		{
 			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
@@ -40,18 +40,28 @@ namespace Spooky.Content.Events
 				}
 			}
 
-			if (EggEventProgress >= 300f)
+			if (EggEventActive && Main.LocalPlayer.dead)
 			{
-				Main.NewText("The mysterious egg has become fragile...", 255, 55, 41);
+				Main.NewText("You have failed to defeat the egg guardians", 100, 12, 150);
 
 				EggEventActive = false;
 				EggEventProgress = 0f;
+				EggEventTimer = 0;
+			}
+
+			if (EggEventProgress >= 300f)
+			{
+				Main.NewText("The giant egg has become fragile...", 100, 12, 150);
+
+				EggEventActive = false;
+				EggEventProgress = 0f;
+				EggEventTimer = 0;
 			}
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			if (EggEventActive)
+			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				int EventIndex = layers.FindIndex(layer => layer is not null && layer.Name.Equals("Vanilla: Inventory"));
 				LegacyGameInterfaceLayer NewLayer = new LegacyGameInterfaceLayer("Spooky: Egg Event UI",

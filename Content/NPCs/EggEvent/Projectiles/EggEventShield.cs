@@ -95,6 +95,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                     }
                 }
             }
+
+            if (!EggEventWorld.EggEventActive)
+            {
+                Projectile.Kill();
+            }
         }
     }
 }

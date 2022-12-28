@@ -12,16 +12,15 @@ namespace Spooky.Content.Tiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            TileID.Sets.Conversion.Grass[Type] = true;
             TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.JungleSpecial[Type] = true;
-            TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.Dirt;
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyMush>();
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-            AddMapEntry(new Color(86, 114, 39));
+            AddMapEntry(new Color(199, 7, 49));
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
             DustType = ModContent.DustType<SpookyHellGrassDust>();
             HitSound = SoundID.Dig;

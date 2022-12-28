@@ -52,7 +52,7 @@ namespace Spooky.Content.Items.Costume
 		{
 			if (!drawInfo.drawPlayer.armor[ID].IsAir)
 			{
-				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count && !Main.dayTime &&
+				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count && 
 				KrakenHeadGlowmask.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))//Vanity Legs
 				{
 					DrawHeadGlowMask(Type, textureLegs, drawInfo);

@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
             name.SetDefault("Stalk Sapling");
-            AddMapEntry(new Color(86, 2, 28), name);
+            AddMapEntry(new Color(95, 27, 43), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Saplings };
 		}

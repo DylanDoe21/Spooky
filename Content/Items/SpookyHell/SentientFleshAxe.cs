@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override int Length => 90;
 		public override int TopSize => 35;
-		public override float SwingDownSpeed => 18f;
+		public override float SwingDownSpeed => 15f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
 

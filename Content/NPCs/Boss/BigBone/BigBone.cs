@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.width = 134;
             NPC.height = 170;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 10, 0, 0);
+            NPC.value = Item.buyPrice(0, 30, 0, 0);
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = false;
@@ -335,7 +335,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            //despawn if all players are dead or not in the biome
+            //despawn if all players are dead
             if (player.dead)
             {
                 NPC.ai[2]++;
@@ -587,8 +587,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[2] >= 560)
                     {
-                        //if theres only 2 flowers left, shoot a homing fire ball at the end of the attack
-                        if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 2)
+                        //if theres only 3 flowers left, shoot a homing fire ball at the end of the attack
+                        if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 3)
 			            {
                             SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
 

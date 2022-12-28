@@ -297,6 +297,14 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeStalks)); 
                         }
+
+                        //eye piles
+                        if (WorldGen.genRand.Next(10) == 0)
+                        {
+                            ushort[] EyePiles = new ushort[] { (ushort)ModContent.TileType<EyePile1>(), (ushort)ModContent.TileType<EyePile2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyePiles));   
+                        }
                     }
 
                     //mush grass plants
@@ -318,14 +326,6 @@ namespace Spooky.Content.Generation
                             (ushort)ModContent.TileType<Tentacle3>(), (ushort)ModContent.TileType<Tentacle4>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeFlowers)); 
-                        }
-
-                        //eye piles
-                        if (WorldGen.genRand.Next(15) == 0)
-                        {
-                            ushort[] EyePiles = new ushort[] { (ushort)ModContent.TileType<EyePile1>(), (ushort)ModContent.TileType<EyePile2>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyePiles));   
                         }
 
                         //fingers

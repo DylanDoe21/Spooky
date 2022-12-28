@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetDefaults()
 		{
-			Item.damage = 18;
+			Item.damage = 12;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;

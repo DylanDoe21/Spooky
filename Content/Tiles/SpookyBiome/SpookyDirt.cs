@@ -12,11 +12,11 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
+			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(114, 78, 53));
 			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
             DustType = DustID.Dirt;

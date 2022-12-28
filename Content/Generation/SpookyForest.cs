@@ -252,6 +252,12 @@ namespace Spooky.Content.Generation
                             }
                         }
 
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
+                        {
+                            WorldGen.KillTile(X, Y);
+                            WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyDirt>());
+                        }
+
                         //orange spooky vines
                         if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() && !Main.tile[X, Y + 1].HasTile)
                         {

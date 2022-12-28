@@ -14,11 +14,11 @@ namespace Spooky.Content.Tiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(139, 18, 37));
             ItemDrop = ModContent.ItemType<EyeBlockItem>();
 			DustType = DustID.Blood;

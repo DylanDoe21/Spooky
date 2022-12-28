@@ -24,7 +24,7 @@ namespace Spooky
         public bool SpookyForestSpawn { get; set; }
 
         [Label("Screen Shaking Effect")]
-        [Tooltip("turn off to disable the screen shaking effect certain things in the mod use")]
+        [Tooltip("Turn off to disable the screen shaking effect caused by various things in the mod")]
         [DefaultValue(true)]
         public bool ScreenShakeEnabled { get; set; }
     }

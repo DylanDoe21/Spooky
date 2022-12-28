@@ -65,7 +65,7 @@ Booger Blaster:
 
 Catacomb Item Buffs:
 
--due to complaints of the catacombs items sucking, they have all received buffs and some other changes to make them more viable, as follows:
+-due to the catacombs items sucking, they have all received buffs and some other changes to make them more viable, as follows:
 
 Harvester's Scythe:
 -Damage has been buffed slightly
@@ -97,21 +97,30 @@ Spooky Forest Spawnpoint:
 -Allows you to determine whether or not the spooky forest generates at your spawn point, or off to the side away from spawn
 -Turn this option off to make the spooky forest generate away from spawn (Be warned, this may destroy parts of vanilla's or other mod's biomes on small worlds)
 
-
 Screen Shaking Effect:
--Allows you to disable the mod's screen shaking effect in case you personally do not like it, or for other reasons
+-Allows you to disable the mod's screen shaking effect in case you personally do not like it, or whatever other reason
 (For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
 
 
 
 ~General Changes and Fixes~
 
--Rot gourd launching players upward a bit when landing now applies to all players who are decently nearby him
+-Rot gourd launching players upward when landing now applies to all players who are within a certain radius of him
 -Items that were not researchable for duplication in journey mode have all been fixed (hopefully)
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
--The bolts shot by big bone's solar flowers during his transition now properly damage players
--All of big bone's fiery projectiles will now inflict the "on fire" debuff
+-the eye blocks found in the valley of eyes now produce ambient particles while they are on screen
+-fixed grass blocks in the spooky forest and valley of eyes looking a bit weird when sloped
+-New song, harvest rainfall by bananalizard, that plays in the spooky forest whenever it rains
+-something cool that generates above the catacombs ;)
+
+Big bone changes, since there is a lot of them:
+-All of big bone's fiery projectiles will now inflict the "on fire" debuff (Duration depends on the specific projectile)
+-The bolts shot by big bone's solar flowers during his phase transition now properly damage players
+-Added fancy dust particles for all of big bones utility/buffing flowers on death, since before they just vanished
 -The intense screen shaking during big bone's death animation will now immediately stop when he dies
+-During big bone's phase transition, he will begin shooting orange fire balls after two flowers die (This happened after three flowers died previously)
+-Big bone's solar flowers now drop way more hearts on death
+-Big bone now drops way more coins (buffed from an average of 10 gold, to an average of 30 gold)
 
 
 

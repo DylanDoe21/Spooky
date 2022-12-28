@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			AddMapEntry(new Color(60, 10, 79));
-			DustType = ModContent.DustType<SpookyHellGrassDust>();
+			DustType = ModContent.DustType<SpookyHellPurpleDust>();
 			HitSound = SoundID.NPCHit13;
 		}
 		

@@ -39,6 +39,7 @@ namespace Spooky.Content.Tiles.MusicBox
             .AddIngredient(ModContent.ItemType<SpookyBiomeBox>())
             .AddIngredient(ModContent.ItemType<SpookyBiomeNightBox>())
             .AddIngredient(ModContent.ItemType<SpookyBiomeUGBox>())
+            .AddIngredient(ModContent.ItemType<SpookyBiomeRainBox>())
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

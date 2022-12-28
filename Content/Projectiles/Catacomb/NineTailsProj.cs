@@ -62,6 +62,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+			Projectile.damage = (int)(damage * 0.75f);
 		}
 
         public override bool PreDraw(ref Color lightColor) 

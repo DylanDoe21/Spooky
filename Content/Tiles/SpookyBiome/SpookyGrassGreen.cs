@@ -12,12 +12,11 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-            //grass properties
             TileID.Sets.Conversion.Grass[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.JungleSpecial[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.Dirt;
+			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyDirt>();
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
