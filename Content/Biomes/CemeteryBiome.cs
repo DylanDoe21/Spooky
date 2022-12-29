@@ -35,7 +35,11 @@ namespace Spooky.Content.Biomes
         {
             //graveyard visuals
             player.ZoneGraveyard = true;
-            Main.GraveyardVisualIntensity = 0.42f;
+
+            if (!player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
+            {
+                Main.GraveyardVisualIntensity = 0.42f;
+            }
 
             if (Main.rand.Next(800) == 0)
             {
@@ -47,6 +51,34 @@ namespace Spooky.Content.Biomes
         public override bool IsBiomeActive(Player player)
         {
             bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500;
+            bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
+
+            return BiomeCondition && SurfaceCondition;
+        }
+    }
+
+    public class RaveyardBiome : ModBiome
+    {
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
+        
+        public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/LeanWaterStyle");
+
+        public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+
+        public override void SpecialVisuals(Player player, bool isActive)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
+        }
+        
+        public override void OnLeave(Player player)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", false, player.Center);
+        }
+
+        public override bool IsBiomeActive(Player player)
+        {
+            bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && ModContent.GetInstance<TileCount>().raveyardTiles >= 8;
+
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;

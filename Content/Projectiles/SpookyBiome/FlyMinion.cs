@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void AI()
         {
-            Projectile.spriteDirection = -Projectile.direction;
+            Projectile.spriteDirection = Projectile.direction;
 
             ChargeTimer++;
 

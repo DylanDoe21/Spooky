@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.width = 30;
             Item.height = 34;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 5);
             Item.maxStack = 1;
         }
     }

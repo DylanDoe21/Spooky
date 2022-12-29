@@ -50,7 +50,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
             Item.accessory = true;
             Item.canBePlacedInVanityRegardlessOfConditions = true;
             Item.rare = ItemRarityID.Lime;
-            Item.value = Item.buyPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 50);
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)

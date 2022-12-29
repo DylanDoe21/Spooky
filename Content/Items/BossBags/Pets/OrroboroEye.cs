@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,6 +23,7 @@ namespace Spooky.Content.Items.BossBags.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
+			Item.value = Item.buyPrice(gold: 15);
 			Item.mountType = ModContent.MountType<OrroboroMount>();
 			Item.UseSound = SoundID.Item77;
 		}

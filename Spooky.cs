@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Terraria.GameContent.Skies;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -10,8 +11,8 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
+using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
-using Spooky.Content.Events;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
@@ -28,6 +29,9 @@ namespace Spooky
         {
             if (!Main.dedServ)
             {
+                Filters.Scene["Spooky:Raveyard"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(75f, 0f, 130f).UseOpacity(0.005f), EffectPriority.VeryHigh);
+                SkyManager.Instance["Spooky:Raveyard"] = new RaveyardSky();
+
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(45f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);

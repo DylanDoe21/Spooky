@@ -12,7 +12,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-            TileID.Sets.Conversion.Grass[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.JungleSpecial[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
@@ -66,14 +65,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallGreen1>(), 
                     (ushort)ModContent.TileType<SpookyWeedsTallGreen2>(),(ushort)ModContent.TileType<SpookyWeedsTallGreen3>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(TallWeed), true);
+                    ushort newObject = Main.rand.Next(TallWeed);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
                 if (Main.rand.Next(15) == 0) 
                 {
                     ushort[] BigWeeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig3>(), (ushort)ModContent.TileType<SpookyWeedBig4>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(BigWeeds), true);
+                    ushort newObject = Main.rand.Next(BigWeeds);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
             }
         }

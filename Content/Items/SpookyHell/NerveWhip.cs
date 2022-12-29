@@ -26,12 +26,12 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.noUseGraphic = true;
 			Item.width = 38;
 			Item.height = 48;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<NerveWhipProj>();
 			Item.shootSpeed = 4.5f;

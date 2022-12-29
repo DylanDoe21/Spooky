@@ -220,7 +220,7 @@ namespace Spooky.Core
 
             if (BoneMask)
             {
-                //all of this is copied from vanilla stopwatch, cannot be bothered to change any of it right now
+                //all of these formulas are just copied from vanilla's stopwatch
                 Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
                 if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
@@ -260,7 +260,7 @@ namespace Spooky.Core
                 int num19 = 216000;
                 float num20 = num16 * (float)num19 / (float)num18;
 
-                //do not shoot skulls under 20mph (aka while not moving fast)
+                //do not shoot skulls under 20mph (while not moving fast)
                 if (num20 >= 20)
                 {
                     BoneWispTimer++;

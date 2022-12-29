@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 8;
             Item.rare = ItemRarityID.Green;
-            Item.value = Item.buyPrice(gold: 2);
+            Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.scale = 1.3f;
         }

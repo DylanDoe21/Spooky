@@ -77,7 +77,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				Projectile.timeLeft = 2;
 			}
 
-			//prevent Projectiles clumping together
+			//prevent projectiles clumping together
 			for (int num = 0; num < Main.projectile.Length; num++)
 			{
 				Projectile other = Main.projectile[num];

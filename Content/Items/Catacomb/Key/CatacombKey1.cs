@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb.Key
 {
@@ -24,8 +25,9 @@ namespace Spooky.Content.Items.Catacomb.Key
 			Item.width = 30;
 			Item.height = 26;
             Item.consumable = true;
-            Item.useTime = 45;
-            Item.useAnimation = 45;
+			Item.noUseGraphic = true;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.rare = ItemRarityID.Quest;
             Item.maxStack = 1;
@@ -33,14 +35,10 @@ namespace Spooky.Content.Items.Catacomb.Key
 
 		public override bool? UseItem(Player player)
         {
-            Flags.CatacombKey1 = true;
+			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, -3,
+			ModContent.ProjectileType<CatacombKey1Proj>(), 0, 0, player.whoAmI, 0f, 0f);
 
-			if (Main.netMode == NetmodeID.Server)
-			{
-				NetMessage.SendData(MessageID.WorldData);
-			}
-
-            return true;
+			return true;
         }
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) 

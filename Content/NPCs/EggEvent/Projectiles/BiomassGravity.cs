@@ -121,22 +121,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                     {
                         Projectile.localAI[1] += 5;
                     }
-
-                    for (int i = 0; i < 20; i++)
-                    {
-                        float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
-                        float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
-
-                        Vector2 offset = new();
-                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                        offset.X += (float)(Math.Sin(angle) * Projectile.localAI[1] + (Projectile.localAI[1] < 100 ? fade : fade2));
-                        offset.Y += (float)(Math.Cos(angle) * Projectile.localAI[1] + (Projectile.localAI[1] < 100 ? fade : fade2));
-                        Dust dust = Main.dust[Dust.NewDust(Projectile.Center + offset - new Vector2(4, 4), 0, 0, DustID.GemRuby, 0, 0, 100, Color.White, 1f)];
-                        dust.velocity *= 0;
-                        dust.noGravity = true;
-                        dust.scale = 0.5f;
-                    }
                 }
 
                 if (Projectile.localAI[0] >= 180)

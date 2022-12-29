@@ -11,7 +11,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-            TileID.Sets.Conversion.Stone[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
@@ -49,7 +48,10 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 {
                     ushort[] TallMushroom = new ushort[] { (ushort)ModContent.TileType<SpookyMushroomTall1>(), (ushort)ModContent.TileType<SpookyMushroomTall2>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(TallMushroom), true);
+                    ushort newObject = Main.rand.Next(TallMushroom);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 			}
 		}

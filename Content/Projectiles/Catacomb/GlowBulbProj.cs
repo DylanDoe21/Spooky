@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Minion;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -54,20 +54,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-            for (int numDust = 0; numDust < 15; numDust++)
+            for (int numDust = 0; numDust < 12; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
-                {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
-                }
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-5f, 5f);
+                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 1.25f);
+                Main.dust[dustGore].noGravity = true;
 			}
 
             Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
@@ -76,10 +71,12 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
 
+                float damageDivide = 1.5f;
+
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, 
-                    ModContent.ProjectileType<GlowBulbThorn>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                    ModContent.ProjectileType<GlowBulbThorn>(), Projectile.damage / (int)damageDivide, 0f, Main.myPlayer, 0, 0);
                 }
             }
         }
@@ -88,7 +85,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             for (int numDust = 0; numDust < 10; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

@@ -71,7 +71,10 @@ namespace Spooky.Content.Tiles.Cemetery
                     (ushort)ModContent.TileType<CemeteryWeedsTall3>(), (ushort)ModContent.TileType<CemeteryWeedsTall4>(),
                     (ushort)ModContent.TileType<CemeteryWeedsTall5>(), (ushort)ModContent.TileType<CemeteryWeedsTall6>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(TallWeed), true);
+                    ushort newObject = Main.rand.Next(TallWeed);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
             }
         }

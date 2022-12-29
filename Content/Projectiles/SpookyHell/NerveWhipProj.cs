@@ -29,7 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			// use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 32;
-			Projectile.WhipSettings.RangeMultiplier = 1.12f;
+			Projectile.WhipSettings.RangeMultiplier = 1.05f;
 		}
 
 		// This example uses PreAI to implement a charging mechanic.
@@ -67,9 +67,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			
-			if (numHits < 10)
+			if (numHits < 5)
 			{
-				Projectile.damage = (int)(damage * 1.2f);
+				Projectile.damage = (int)(damage * 1.15f);
 			}
 		}
 

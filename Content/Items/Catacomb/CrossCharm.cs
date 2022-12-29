@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Catacomb
             Item.height = 44;
             Item.accessory = true;
             Item.rare = ItemRarityID.LightRed;  
-            Item.value = Item.buyPrice(gold: 20);
+            Item.value = Item.buyPrice(gold: 15);
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)

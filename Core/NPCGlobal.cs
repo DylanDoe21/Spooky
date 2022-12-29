@@ -14,6 +14,10 @@ using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 
+using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.RotGourd;
+
 namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
@@ -56,6 +60,11 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 			}
+
+			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+			{
+				pool.Clear();
+			}
 		}
 
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -63,6 +72,8 @@ namespace Spooky.Core
 			if (type == NPCID.Steampunker)
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookySolution>());
+				nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookyClearSolution>());
 				nextSlot++;
 			}
 		}

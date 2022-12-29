@@ -1,20 +1,20 @@
 FINALLY!!!! New update changelogs so people can actually tell what changed!!!!
 
-Also, if you wish to figure new features out on your own then avoid reading this, as this changelog describes most of the new major changes and additions in detail
+Also, if you want to figure out new features on your own then avoid reading this, as this changelog describes all of the new changes and additions in detail
 
 
 
 ~Valley of Eyes Changes~
 
--received a full overhaul, improved generation, new sturctures and lots of new content, which are as follows:
+-Received a full overhaul, improved generation, new sturctures and lots of new content, which are as follows:
 
 
 Loot Changes:
 
--the items within the eye valleys chests are now entirely new weapons added in this update
--the chests themselves are now red monster chests, and are now opened by feeding them monster food
+-The items within the eye valleys chests are now entirely new weapons added in this update
+-The chests themselves are now red monster chests, and are now opened by feeding them monster food
 
--All the old chest items have been kept (besides one), and are now obtained in different ways, as follows:
+-All the old chest items have been kept (besides one), and are now obtained in different ways:
 
 Exposed Nerve: Moved to early hardmode. There is now a rare nerve tile that grows in the biome during hardmode, break it to get the exposed nerve
 Monster Blood Vial: Rarely drops from any pre-hardmode eye valley enemy
@@ -24,48 +24,44 @@ Monster Heart: Removed from the mod entirely
 
 New Friendly NPC: Little Eye the Alchemist
 
--He has two different functions, as follows:
+-He has two different functions:
 
 Function 1:
--Has a total of four quests, each of which involve you gathering materials for him. you will get one monster chest food and other set rewards for each quest
--Upon completing his final quest, he will give you the eye valley pylon. This is now the only way to obtain it as well
+-Has a total of four quests, each of which involve you gathering materials for him. You will get one monster chest food and other rewards for each quest
+-Upon completing his final quest, he will give you the eye valley pylon. This is now the only way to obtain it
 
 Function 2:
 -Upgrades the items obtained from the new monster chests to their "sentient forms"
--You must have a special monster heart dropped by orroboro, along with the item you wish to upgrade in your inventory
+-You must have a special sentient heart dropped by orro or boro, along with the item you wish to upgrade in your inventory
 
 
 New Event: The Egg Incursion
 
--A new invasion event that takes place before summoning orroboro
--It only needs to be completed once. afterward you will be able to summon orroboro anytime without being forced to do it again
--However, if you die during the event then you will need to restart it again. This means you need to do it all in one go
--It will begin upon trying to break the egg with the concoction for the first time, and also a spooky noise indicator will play
--The event does not have an "enemy kill count". It is an endurance event, and as such the progress bar increases on its own over time
--It only progresses while you are in the eye valley, so you cannot just leave the biome and cheese the entire event
--It also has a new song composed by the wonderful rockwizard!
+-A new invasion event that takes place before summoning orroboro, during early hardmode
+-It only needs to be completed once. Afterward you will be able to summon orro & boro at any time without being forced to do it again
+-However, if you die during the event then you will need to restart it again
+-It will begin upon trying to break the egg with the concoction for the first time
+-The event does not have an enemy kill count. It is an endurance event, and as such the progress bar increases on its own over time while you are in the valley of eyes
+-It also has a new song composed by Rockwizard5
 
 
 
-~General Changes~
+~General Changes and Fixes~
 
-Moco Item Changes:
 
-the past versions of moco's drops were extremely boring and uninteresting. Not only have they been changed, moco also now has a new summon weapon drop
+Moco Item Reworks:
 
 Snot Ball:
--damage has been buffed slightly
--now detaches from the chain when flung and will bounce around for a bit before dying
+-Damage has been buffed slightly
+-Now detaches from the chain when flung and will bounce around for a bit before dying
 
 Booger Blaster:
--damage has been buffed slightly
--rather than spamming spreads, you can now hold it down to charge it up to three times.
+-Damage has been buffed slightly
+-Rather than spamming spreads, you can now hold it down to charge it up to three times.
 -The first charge shoots a tiny snot, the second shoots a close spread of three tiny snots, and the third shoots a big snot glob that does triple damage
 
 
 Catacomb Item Buffs:
-
--due to the catacombs items sucking, they have all received buffs and some other changes to make them more viable, as follows:
 
 Harvester's Scythe:
 -Damage has been buffed slightly
@@ -79,7 +75,7 @@ Rod of Ensnaring:
 -Mana cost has been slightly increased
 -The projectile can now pierce through a few enemies
 -Projectile no longer falls to the ground, but is now somewhat short lived
--Now inflicts poison on bosses for longer than regular enemies as a trade off, as bosses cannot be ensnared
+-Now inflicts poison on bosses for longer than regular enemies as a trade off for bosses being immune to the ensnared effect
 
 Cat O' Nine Tails:
 -Damage has been buffed slightly
@@ -87,41 +83,51 @@ Cat O' Nine Tails:
 -Whip range has been increased significantly
 
 Thorn Covered Bulb:
--No longer bounces off of tiles, instead when it hits a tile it will fall down until it hits the floor, where it will linger for a bit before dying
+-Renamed to "Bulb Bomb"
+-Damage has been buffed decently
+-Use speed has been slightly increased
+-No longer bounces off of tiles, instead when it hits a tile, it will fall down until it hits the floor, where it will linger for a bit before dying
+-The thorns created by its explosion 
+
+
+Big bone changes, since there is a lot of them:
+
+-All of big bone's fiery projectiles will now inflict the "on fire" debuff (Duration depends on the specific projectile)
+-The bolts shot by big bone's solar flowers during his phase transition now properly damage players
+-Added fancy dust particles for all of big bones utility/buffing flowers on death, since before they just vanished
+-The intense screen shaking during big bone's death animation will now immediately stop when he dies
+-During big bone's phase transition, he will now begin shooting orange fire balls after two flowers die (This happened after three flowers died previously)
+-Big bone's solar flowers now drop way more hearts on death
+-Big bone now drops way more coins (buffed from an average of 10 gold, to an average of 30 gold)
+
+
+Other Miscellaneous Stuff:
+
+-Rot gourd launching players upward when landing now applies to all players who are within a certain radius of him
+-Items that were not researchable for duplication in journey mode have all been fixed (Hopefully, and please report if any remaining items still do not have journey mode research)
+-Added anti spooky solution, as the name suggests it is used by the clentaminator to turn any spooky forest blocks back to regular vanilla ones
+-The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
+-The fleshy eye blocks in the valley of eyes now produce ambient particles while they are on screen
+-Fixed grass blocks in the spooky forest and valley of eyes looking a bit weird when sloped
+-Nerfed the exposed nerve's damage scaling when it hits multiple enemies
+-The catacomb barrier keys now have a cool little animation when you use them instead of just boringly using the item
+-Renamed the El Gourdo to Gourd Bomb since the previous name was just kind of a random meme
+-Fixed a ton of spooky mod item's sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
+-Also added sell prices for items that were supposed to have them, such as the spooky bosses master relics and pets
+-New song, harvest rainfall by bananalizard, that plays in the spooky forest whenever it rains
+-Something cool that generates above the catacombs :)
 
 
 
 ~New Config Options~
 
-Spooky Forest Spawnpoint:
+Spooky Forest at Spawn:
 -Allows you to determine whether or not the spooky forest generates at your spawn point, or off to the side away from spawn
 -Turn this option off to make the spooky forest generate away from spawn (Be warned, this may destroy parts of vanilla's or other mod's biomes on small worlds)
 
 Screen Shaking Effect:
 -Allows you to disable the mod's screen shaking effect in case you personally do not like it, or whatever other reason
 (For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
-
-
-
-~General Changes and Fixes~
-
--Rot gourd launching players upward when landing now applies to all players who are within a certain radius of him
--Items that were not researchable for duplication in journey mode have all been fixed (hopefully)
--The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
--the eye blocks found in the valley of eyes now produce ambient particles while they are on screen
--fixed grass blocks in the spooky forest and valley of eyes looking a bit weird when sloped
--New song, harvest rainfall by bananalizard, that plays in the spooky forest whenever it rains
--something cool that generates above the catacombs ;)
-
-Big bone changes, since there is a lot of them:
--All of big bone's fiery projectiles will now inflict the "on fire" debuff (Duration depends on the specific projectile)
--The bolts shot by big bone's solar flowers during his phase transition now properly damage players
--Added fancy dust particles for all of big bones utility/buffing flowers on death, since before they just vanished
--The intense screen shaking during big bone's death animation will now immediately stop when he dies
--During big bone's phase transition, he will begin shooting orange fire balls after two flowers die (This happened after three flowers died previously)
--Big bone's solar flowers now drop way more hearts on death
--Big bone now drops way more coins (buffed from an average of 10 gold, to an average of 30 gold)
-
 
 
 

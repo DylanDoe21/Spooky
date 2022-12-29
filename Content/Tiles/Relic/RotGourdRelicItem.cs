@@ -15,17 +15,18 @@ namespace Spooky.Content.Tiles.Relic
 
 		public override void SetDefaults() 
         {
+			Item.width = 30;
+			Item.height = 44;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-            Item.width = 30;
-			Item.height = 48;
+			Item.master = true;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 99;
-			Item.master = true;
 			Item.rare = ItemRarityID.Master;
+			Item.value = Item.buyPrice(gold: 5);
 			Item.createTile = ModContent.TileType<RotGourdRelic>();
 		}
 	}

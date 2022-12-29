@@ -25,6 +25,7 @@ namespace Spooky.Content.Items.BossBags.Pets
 			Item.height = 42;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
+			Item.value = Item.buyPrice(gold: 25);
 			Item.shoot = ModContent.ProjectileType<RotGourdPet>();
 			Item.buffType = ModContent.BuffType<RotGourdPetBuff>();
 		}

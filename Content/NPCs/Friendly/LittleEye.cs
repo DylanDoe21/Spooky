@@ -3,11 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
-using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -83,8 +83,34 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			if (firstButton) 
             {
-				Main.npcChatText = "Quest dialogue thing";
-            }
+				/*
+				//Quest stuff is VERY work in progress
+				if (!Flags.EyeQuest1)
+				{
+					Main.npcChatText = $"You want to help me find some special goods for my concoctions? why dont you gather me some of this stuff? Since I know you LOVE my wonderful hat, I'll give you a ripoff version!"
+					+ $"\nItems: [i:{ItemID.Blinkroot}] x10, [i:{ItemID.Deathweed}] x5, [i:{ItemID.LesserHealingPotion}] x12";
+				}
+				if (Flags.EyeQuest1 && !Flags.EyeQuest2)
+				{
+					Main.npcChatText = $"You want to help me find some special goods for my concoctions? why dont you gather me some of this stuff? Since I know you LOVE my wonderful hat, I'll give you a ripoff version!"
+					+ $"\nItems: [i:{ItemID.Blinkroot}] x10, [i:{ItemID.Deathweed}] x5, [i:{ItemID.LesserHealingPotion}] x12";
+				}
+				if (Flags.EyeQuest2 && !Flags.EyeQuest3)
+				{
+					Main.npcChatText = $"You want to help me find some special goods for my concoctions? why dont you gather me some of this stuff? Since I know you LOVE my wonderful hat, I'll give you a ripoff version!"
+					+ $"\nItems: [i:{ItemID.Blinkroot}] x10, [i:{ItemID.Deathweed}] x5, [i:{ItemID.LesserHealingPotion}] x12";
+				}
+				if (Flags.EyeQuest3 && !Flags.EyeQuest4)
+				{
+					Main.npcChatText = $"You want to help me find some special goods for my concoctions? why dont you gather me some of this stuff? Since I know you LOVE my wonderful hat, I'll give you a ripoff version!"
+					+ $"\nItems: [i:{ItemID.Blinkroot}] x10, [i:{ItemID.Deathweed}] x5, [i:{ItemID.LesserHealingPotion}] x12";
+				}
+				if (Flags.EyeQuest4)
+                {
+					Main.npcChatText = "You've already gathered all the stuff I need.";
+				}
+				*/
+			}
 			else
 			{
 				//flesh axe
@@ -138,17 +164,23 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			List<string> Dialogue = new List<string>
 			{
-                "This place is really funky. I love watching those weird flying things crash into the flesh pillars haha!",
+                "This place is really funky. I love watching those weird flying things crash into stuff!",
 				"Did you know there's a giant egg in some strange pit somewhere around here? That'd make enough scrambled eggs to last for weeks!",
 				"You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.",
 				"You may use my magic cauldron... Under the condition that you say 'The magic word'.",
 				"My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.",
 				"You know, the alchemy we do down here is not science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!",
-				"If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.",
-				//"So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'"
+				"If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong."
 			};
 
-			return Main.rand.Next(Dialogue);
+			if (Main.LocalPlayer.HasItem(ModContent.ItemType<Concoction>()))
+            {
+				return "So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'";
+			}
+			else
+            {
+				return Main.rand.Next(Dialogue);
+			}
 		}
 
 		public override void AI()

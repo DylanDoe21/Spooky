@@ -40,7 +40,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
 
-			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Torch, 0f, 0f, 0, default(Color), 1f);
+			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, 0f, 0, default(Color), 1f);
 			Main.dust[newDust].position = position;
             Main.dust[newDust].scale = 0.95f;
 			Main.dust[newDust].fadeIn = 0.5f;

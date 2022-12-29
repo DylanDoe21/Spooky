@@ -12,7 +12,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-            TileID.Sets.Conversion.Grass[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.JungleSpecial[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
@@ -56,6 +55,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     Above.TileFrameY = 0;
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(7) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
+
                     if (Main.netMode == NetmodeID.Server) 
                     {
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
@@ -67,14 +67,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallOrange1>(), 
                     (ushort)ModContent.TileType<SpookyWeedsTallOrange2>(),(ushort)ModContent.TileType<SpookyWeedsTallOrange3>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(TallWeed), true);
+                    ushort newObject = Main.rand.Next(TallWeed);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
                 if (Main.rand.Next(15) == 0) 
                 {
                     ushort[] BigWeeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), (ushort)ModContent.TileType<SpookyWeedBig2>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(BigWeeds), true);
+                    ushort newObject = Main.rand.Next(BigWeeds);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
                 
                 if (Main.rand.Next(35) == 0) 
@@ -82,7 +88,10 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
                     (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
 
-                    WorldGen.PlaceObject(i, j - 1, Main.rand.Next(Pumpkins), true);
+                    ushort newObject = Main.rand.Next(Pumpkins);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;
 			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.useAmmo = AmmoID.Arrow;

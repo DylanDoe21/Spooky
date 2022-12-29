@@ -12,15 +12,15 @@ namespace Spooky.Content.Items.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Thorn Covered Bulb");
-            Tooltip.SetDefault("Throws a glowing thorn ball that can stick to the ground"
-            + "\nThe thorn ball will explode into smaller thorns when it hits an enemy");
+            DisplayName.SetDefault("Bulb Bomb");
+            Tooltip.SetDefault("Throws an explosive bulb that can stick to the ground"
+            + "\nThe bulb will explode into smaller thorns when it hits an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 45;
+            Item.damage = 50;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
@@ -29,12 +29,12 @@ namespace Spooky.Content.Items.Catacomb
             Item.autoReuse = true;
             Item.width = 36;
             Item.height = 38;
-            Item.useTime = 45;
-            Item.useAnimation = 45;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.buyPrice(gold: 20);
+            Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<GlowBulbProj>();
             Item.shootSpeed = 10f;

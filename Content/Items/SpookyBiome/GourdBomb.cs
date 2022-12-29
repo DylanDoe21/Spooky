@@ -34,10 +34,10 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.useStyle = ItemUseStyleID.Swing;      
             Item.knockBack = 6;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.buyPrice(gold: 20);   
+            Item.value = Item.buyPrice(platinum: 1); 
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<GourdBombProj>();  
-            Item.shootSpeed = 5f;     
+            Item.shootSpeed = 5f;
         }
     }
 }
