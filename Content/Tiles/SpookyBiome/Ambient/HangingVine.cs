@@ -43,7 +43,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/HangingVine1Glow").Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 - 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
 		}
 	}
 
@@ -55,7 +55,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/HangingVine2Glow").Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 - 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
 		}
 	}
 
@@ -67,7 +67,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/HangingVine3Glow").Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 - 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.DarkOrange);
 		}
 	}
 }

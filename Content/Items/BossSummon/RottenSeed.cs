@@ -41,8 +41,9 @@ namespace Spooky.Content.Items.BossSummon
 		
         public override bool? UseItem(Player player)
         {
+            SoundEngine.PlaySound(SoundID.Roar, player.Center);
+
             NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<RotGourd>());
-            SoundEngine.PlaySound(SoundID.Roar, player.position);
             
             return true;
         }

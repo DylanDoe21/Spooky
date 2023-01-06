@@ -21,22 +21,5 @@ namespace Spooky.Content.Tiles.SpookyHell
 			DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
 		}
-
-        public override void RandomUpdate(int i, int j)
-		{
-			Tile up = Main.tile[i, j - 1];
-			Tile down = Main.tile[i, j + 1];
-			Tile left = Main.tile[i - 1, j];
-			Tile right = Main.tile[i + 1, j];
-
-            if ((up.TileType == ModContent.TileType<SpookyMushGrass>() || down.TileType == ModContent.TileType<SpookyMushGrass>() || 
-            left.TileType == ModContent.TileType<SpookyMushGrass>() || right.TileType == ModContent.TileType<SpookyMushGrass>()))
-			{
-                if (WorldGen.genRand.Next(1) == 0)
-                {
-				    WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<SpookyMushGrass>(), false);
-                }
-			}
-        }
 	}
 }

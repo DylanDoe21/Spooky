@@ -60,11 +60,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
                 modPlayer.SpookySet = false;
             }
+
             if (modPlayer.SpookySet)
             {
                 Projectile.timeLeft = 2;
                 player.AddBuff(ModContent.BuffType<PumpkinHeadBuff>(), 1, false);
             }
+            
             if (!modPlayer.SpookySet)
             {
                 Projectile.Kill();
@@ -163,12 +165,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 288, 0f, 0f, 100, default, 2f);
                 Main.dust[DustGore].velocity *= 1.5f;
                 Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
-                {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-                }
             }
 		}
     }

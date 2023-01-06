@@ -1,15 +1,13 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.UI;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Biomes;
 
 namespace Spooky.Content.Events
@@ -42,8 +40,6 @@ namespace Spooky.Content.Events
 
 			if (EggEventActive && Main.LocalPlayer.dead)
 			{
-				Main.NewText("You have failed to defeat the egg guardians", 100, 12, 150);
-
 				EggEventActive = false;
 				EggEventProgress = 0f;
 				EggEventTimer = 0;
@@ -51,7 +47,9 @@ namespace Spooky.Content.Events
 
 			if (EggEventProgress >= 300f)
 			{
-				Main.NewText("The giant egg has become fragile...", 100, 12, 150);
+				Main.NewText("The giant egg has become fragile!", 100, 12, 150);
+
+				NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
 
 				EggEventActive = false;
 				EggEventProgress = 0f;

@@ -7,7 +7,6 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {
-    [AutoloadEquip(EquipType.Head)]
     public class BoneMask : ModItem
     {
         public override void Load()
@@ -44,6 +43,8 @@ namespace Spooky.Content.Items.BossBags.Accessory
 
         public override void SetDefaults()
         {
+            Item.damage = 70;
+            Item.DamageType = DamageClass.Generic;
             Item.width = 34;
             Item.height = 26;
             Item.expert = true;

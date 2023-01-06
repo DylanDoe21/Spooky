@@ -94,13 +94,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					frame.Y = 72;
 					frame.Height = 18;
 				}
-				else if (i > 10) 
-                {
+				//loop between the two middle segments
+				else if (i % 2 == 0) 
+				{
 					frame.Y = 56;
 					frame.Height = 16;
 				}
-				else if (i > 5) 
-                {
+				else if (i % 1 == 0) 
+				{
 					frame.Y = 40;
 					frame.Height = 16;
 				}

@@ -22,7 +22,7 @@ namespace Spooky.Content.Biomes
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
        
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
         public override void SpecialVisuals(Player player, bool isActive)
         {

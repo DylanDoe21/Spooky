@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
-using Terraria.GameContent.Skies;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -37,6 +37,8 @@ namespace Spooky
                 Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(45f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);
                 
                 Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.6f, -0.8f, -0.6f), EffectPriority.Medium);
+
+                Filters.Scene["Spooky:EntityEffect"] = new Filter(new SpookyScreenShader("FilterMoonLordShake").UseIntensity(0.5f), EffectPriority.VeryHigh);
             }
 
             if (Main.netMode != NetmodeID.Server)
@@ -105,10 +107,10 @@ namespace Spooky
 					break;
                 }
                 case SpookyMessageType.SpawnOrroboro:
-                {
-                    //for now, just use SpawnOnPlayer until an actual spawn intro fix is made
-                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<OrroboroHead>());
-					break;
+                { 
+                    (int x, int y) = (reader.ReadInt32(), reader.ReadInt32());
+                    NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 2, 1, 0, 0);
+                    break;
                 }
                 default:
                 {

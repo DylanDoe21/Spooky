@@ -15,10 +15,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class EggEventShield : ModProjectile
     {
-        public static int CrackTimer = 0;
-
-        public static readonly SoundStyle EventBeginSound = new("Spooky/Content/Sounds/SpookyHell/EggEventBegin", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Egg Barrier");
@@ -67,7 +63,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.ai[0] == 1)
             {
-                SoundEngine.PlaySound(EventBeginSound, Main.LocalPlayer.Center);
+                SoundEngine.PlaySound(SoundID.Roar, Projectile.Center);
 
                 Main.NewText("The Egg Incusrion has begun!", 171, 64, 255);
 

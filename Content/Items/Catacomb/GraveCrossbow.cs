@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Old Hunter's Crossbow");
-			Tooltip.SetDefault("Charge the crossbow to shoot a high damage piercing arrow");
+			Tooltip.SetDefault("Charge the crossbow to shoot a high velocity piercing arrow");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ModContent.ProjectileType<Blank>();

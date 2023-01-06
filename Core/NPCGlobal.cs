@@ -4,16 +4,15 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Key;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
-
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.RotGourd;
@@ -73,8 +72,44 @@ namespace Spooky.Core
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookySolution>());
 				nextSlot++;
-				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookyClearSolution>());
-				nextSlot++;
+			}
+		}
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
+			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+			{
+				if (Main.rand.Next(25) == 0)
+				{
+					int itemType = ModContent.ItemType<MocoNoseBooger>();
+					int newItem = Item.NewItem(npc.GetSource_OnHit(npc), npc.Hitbox, itemType);
+					Main.item[newItem].noGrabDelay = 0;
+
+					if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+					{
+						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+					}
+				}
+			}
+		}
+
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
+			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+			{
+				if (Main.rand.Next(25) == 0)
+				{
+					int itemType = ModContent.ItemType<MocoNoseBooger>();
+					int newItem = Item.NewItem(npc.GetSource_OnHit(npc), npc.Hitbox, itemType);
+					Main.item[newItem].noGrabDelay = 0;
+
+					if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+					{
+						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+					}
+				}
 			}
 		}
 
@@ -99,7 +134,8 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!Flags.CatacombKey1 && npc.type == NPCID.EyeofCthulhu)
+				if (!Flags.CatacombKey1 && (npc.type == NPCID.BrainofCthulhu || 
+				((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && npc.boss)))
                 {
 					return true;
 				}

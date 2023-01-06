@@ -9,7 +9,7 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Monster Blood Vial");
+            DisplayName.SetDefault("Monster Blood");
             Tooltip.SetDefault("Massively increases life regeneration while not moving"
             + "\nWhile moving, you gain 5% increased critical strike");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

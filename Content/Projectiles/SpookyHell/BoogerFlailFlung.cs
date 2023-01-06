@@ -21,7 +21,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 2000;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 5;
             Projectile.extraUpdates = 1;
             Projectile.aiStyle = 0;
         }
@@ -65,11 +65,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			return false;
 		}
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Projectile.Kill();
-        }
 
         public override void Kill(int timeLeft)
 		{

@@ -1,15 +1,37 @@
-
 Eye Valley Update:
 
--gores for event enemies
+Smaller-ish changes:
 
--finish little eyes quest + funny exclusive items + monster chest food
-
--rework moco expert item (see suggestions chat)
+Friday:
+-finish moco expert item rework
 
 -finish moco summon staff
 
+-finish little eyes quest + exclusive items + monster chest food
 
--cemetery biome enemies or something when seasalt makes them
+-better rot gourd expert item (maybe?)
+
+
+Saturday:
+-add cemetery biome enemies
+
+-make flesh axe and sentient axe have an AoE on hit projectile
+
+-make sentient upgrades have a cool animation (maybe?)
+
+
+
+-finish party skeletons giving players items sometimes (can be done later)
+
+-finish potion mechanic with the alchemy cauldron (can be done later)
+ 
+-implement little eye's new house (can be done later)
+
+
+eventually:
+
+-finish orro boro rework
+
+-new orroboro relics and master mode pets
 
 

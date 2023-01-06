@@ -58,21 +58,6 @@ namespace Spooky.Content.Generation
                 foundSurface = true;
             }
 
-            /*
-            for (int ClearX = XMiddle - 50; ClearX <= XMiddle + (Catacombs.BiomeWidth / 2); ClearX++)
-            {
-                for (int ClearY = (int)Main.worldSurface - ClearHeight; ClearY <= Catacombs.PositionY; ClearY++)
-                {
-                    if (Catacombs.PositionY >= (int)Main.worldSurface - 75)
-                    {
-                        Tile tile = Framing.GetTileSafely(ClearX, ClearY);
-                        tile.ClearEverything();
-                        tile.LiquidType = 0;
-                    }
-                }
-            }
-            */
-
             for (int X = XMiddle - (Catacombs.BiomeWidth / 2); X <= XMiddle + (Catacombs.BiomeWidth / 2); X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
@@ -87,12 +72,12 @@ namespace Spooky.Content.Generation
                     //place small blob where walls exist to prevent unwanted craters or caves
                     if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
                     {
-                        SpookyWorldMethods.Circle(X, Y, 5, ModContent.TileType<CemeteryDirt>(), false);
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
-                for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
+                for (int FillY = (int)Main.worldSurface - 45; FillY <= Main.worldSurface; FillY++)
                 {
                     SpookyWorldMethods.Circle(X, FillY, 10, ModContent.TileType<CemeteryDirt>(), false);
                 }
@@ -975,7 +960,7 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                PlaceStructures(X - 30, Y - 27, Den1, Den1Objects);
+                PlaceStructures(X - 30, Y - 25, Den1, Den1Objects);
 
                 placedDen1 = true;
             }

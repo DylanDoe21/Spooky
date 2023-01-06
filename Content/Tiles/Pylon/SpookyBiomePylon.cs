@@ -14,15 +14,6 @@ using Spooky.Core;
 
 namespace Spooky.Content.Tiles.Pylon
 {
-	/// <summary>
-	/// An example for creating a Pylon, identical to how they function in Vanilla. Shows off <seealso cref="ModPylon"/>, an abstract
-	/// extension of <seealso cref="ModTile"/> that has additional functionality for Pylon specific tiles.
-	/// <br>
-	/// If you are going to make multiple pylons that all act the same (like in Vanilla), it is recommended you make a base class
-	/// with override functionality in order to prevent writing boilerplate. (For example, making a "CrystalTexture" property that you can
-	/// override in order to streamline that process.)
-	/// </br>
-	/// </summary>
 	public class SpookyBiomePylon : ModPylon
 	{
 		public const int CrystalVerticalFrameCount = 8;

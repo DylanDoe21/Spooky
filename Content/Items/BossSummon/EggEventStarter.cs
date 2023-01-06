@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.BossSummon
 
 		public override bool? UseItem(Player player)
 		{
-			SoundEngine.PlaySound(EventBeginSound, player.Center);
+			SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
 			EggEventWorld.EggEventActive = true;
 			

@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome.Tree;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
@@ -51,11 +50,11 @@ namespace Spooky.Content.Generation
                 //place biome based on opposite dungeon side
                 if (WorldGen.dungeonSide == -1)
                 {
-                    PositionX = (Main.maxTilesX / 2) - (Main.maxTilesX / 10);
+                    PositionX = WorldGen.snowOriginLeft - (Main.maxTilesX / 10);
                 }
                 else
                 {
-                    PositionX = (Main.maxTilesX / 2) + (Main.maxTilesX / 10);
+                    PositionX = WorldGen.snowOriginRight + (Main.maxTilesX / 15);
                 }
             }
 
@@ -506,12 +505,12 @@ namespace Spooky.Content.Generation
                 {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,5,5,5,5,1,5,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,5,5,5,1,1,5,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,5,1,1,5,1,1,5,5,1,1,5,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,6,6,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,0,0,0,0},
-                {6,6,6,6,6,6,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,6,6,6,6,6},
-                {6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6},
-                {0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0},
-                {0,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0},
-                {0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0,6,6,6,6,0,6,6,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,0,0,0,0,0,0},
+                {0,0,0,0,0,0,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,0,0,0,0,0},
+                {0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0,0},
             };
 
             int [,] StarterHouseObjects = new int [,]
@@ -1022,7 +1021,7 @@ namespace Spooky.Content.Generation
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
             //generate biome
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Pyramids"));
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
 			if (GenIndex1 == -1)
 			{
 				return;

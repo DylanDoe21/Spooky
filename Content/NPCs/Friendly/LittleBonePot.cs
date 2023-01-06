@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.Friendly
             }
 
             //spawn little bone
-            NPC.NewNPC(player.GetSource_FromThis(), (int)player.Center.X, (int)player.Center.Y - 25, ModContent.NPCType<LittleBonePotTransform>());
+            NPC.NewNPC(player.GetSource_ItemUse(player.HeldItem), (int)player.Center.X, (int)player.Center.Y - 25, ModContent.NPCType<LittleBonePotTransform>());
 
             return true;
         }

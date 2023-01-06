@@ -22,15 +22,15 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetDefaults()
         {
-            Item.damage = 12; 
-			Item.mana = 5;                        
+            Item.damage = 20;
+			Item.mana = 8;                        
             Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;  
 			Item.autoReuse = true;                  
             Item.width = 32;
             Item.height = 32;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;         

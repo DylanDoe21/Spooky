@@ -14,15 +14,15 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Snot Scepter");
-			Tooltip.SetDefault("Summons winged noses that drop lingering boogers on enemies");
+			DisplayName.SetDefault("Sneeze Scepter");
+			Tooltip.SetDefault("Summons flying noses that drop lingering boogers down on enemies");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 35;
+			Item.damage = 25;
 			Item.mana = 20;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.height = 40;         
 			Item.useTime = 35;         
 			Item.useAnimation = 35;         
-			Item.useStyle = ItemUseStyleID.Shoot;          
+			Item.useStyle = ItemUseStyleID.Swing;          
 			Item.knockBack = 1;
 			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 5);
@@ -41,11 +41,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 		}
 
 		/*
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
-		{
-			position = Main.MouseWorld;
-		}
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
             player.AddBuff(Item.buffType, 2);

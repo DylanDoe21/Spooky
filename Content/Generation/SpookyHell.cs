@@ -6,13 +6,11 @@ using Terraria.DataStructures;
 using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Chests;
@@ -30,7 +28,7 @@ namespace Spooky.Content.Generation
         //clear area for the biome to generate in
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            StartPosition = (Main.maxTilesX / 2) + 650;
+            StartPosition = (Main.maxTilesX / 2) + 700;
             BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 7);
 
             //clear all blocks and lava in the area
@@ -546,7 +544,7 @@ namespace Spooky.Content.Generation
                             case 8:
                             {
                                 tile.ClearTile();
-                                NPC.NewNPC(null, StructureX * 16, StructureY * 16, ModContent.NPCType<LittleEye>(), 0, 0f, 0f, 0f, 0f, 255);
+                                NPC.NewNPC(null, StructureX * 16, StructureY * 16, ModContent.NPCType<LittleEyeSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
                                 break;
                             }
                         }
@@ -1134,43 +1132,35 @@ namespace Spooky.Content.Generation
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshAxe>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask1>());
-                                chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshBow>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask2>());
-                                chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshStaff>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask3>());
-                                chest.item[1].stack = 1;
                             }
                             if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshWhip>());
                                 chest.item[0].stack = 1;
-                                chest.item[1].SetDefaults(ModContent.ItemType<Flask4>());
-                                chest.item[1].stack = 1;
                             }
 
                             //bars
-							chest.item[2].SetDefaults(WorldGen.genRand.Next(Bars));
-							chest.item[2].stack = WorldGen.genRand.Next(10, 25);
+							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+							chest.item[1].stack = WorldGen.genRand.Next(10, 25);
                             //first potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
-							chest.item[3].stack = WorldGen.genRand.Next(3, 6);
+							chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
+							chest.item[2].stack = WorldGen.genRand.Next(3, 6);
                             //second potions
-							chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
+							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
 							chest.item[4].stack = WorldGen.genRand.Next(3, 6);
-                            //coins
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(LightSources));
-							chest.item[5].stack = WorldGen.genRand.Next(8, 20);
+                            //light sources
+							chest.item[4].SetDefaults(WorldGen.genRand.Next(LightSources));
+							chest.item[4].stack = WorldGen.genRand.Next(8, 20);
                             //coins
 							chest.item[5].SetDefaults(ItemID.GoldCoin);
 							chest.item[5].stack = WorldGen.genRand.Next(2, 5);

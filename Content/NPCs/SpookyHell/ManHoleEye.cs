@@ -21,14 +21,14 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 5;
+            NPC.lifeMax = 1;
             NPC.damage = 50;
             NPC.width = 28;
             NPC.height = 28;
-            NPC.noGravity = true;
-            NPC.noTileCollide = false;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            NPC.noGravity = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
         }
@@ -104,13 +104,13 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X *= 35;
-                        ChargeDirection.Y *= 25;  
+                        ChargeDirection.X *= 30;
+                        ChargeDirection.Y *= 20;
                         NPC.velocity.X = ChargeDirection.X;
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    if (NPC.ai[0] > 210)
+                    if (NPC.ai[0] > 195)
                     {
                         NPC.ai[1]++;
                         NPC.ai[0] = 100;
@@ -125,7 +125,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
             
             //idle, float above parent
-            if (Main.npc[(int)NPC.ai[3]].active)
+            if (Main.npc[(int)NPC.ai[3]].active && NPC.ai[0] < 180)
             {
                 float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
                 float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
@@ -135,10 +135,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                 if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
                 {
                     speed = 0.8f;
-                }
-                else if (NPC.ai[0] >= 180)
-                {
-                    speed = 0.01f;
                 }
                 else
                 {

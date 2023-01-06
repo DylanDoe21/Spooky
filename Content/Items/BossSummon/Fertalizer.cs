@@ -57,7 +57,7 @@ namespace Spooky.Content.Items.BossSummon
 		
         public override bool? UseItem(Player player)
         {
-            SoundEngine.PlaySound(SoundID.Roar, player.position);
+            SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
             for (int k = 0; k < Main.maxNPCs; k++)
 			{

@@ -823,7 +823,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
 
-            int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), ModContent.ItemType<BoogerBlaster>() };
+            int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), 
+            ModContent.ItemType<BoogerBlaster>(), ModContent.ItemType<BoogerStaff>() };
             
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs;
+using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Core
 {
@@ -46,9 +48,9 @@ namespace Spooky.Core
                 int sunR = backgroundColor.R;
                 int sunG = backgroundColor.G;
                 int sunB = backgroundColor.B;
-                sunR -= (int)(225f * Intensity * (backgroundColor.R / 255f));
-                sunG -= (int)(225f * Intensity * (backgroundColor.G / 255f));
-                sunB -= (int)(225f * Intensity * (backgroundColor.B / 255f));
+                sunR -= (int)(240f * Intensity * (backgroundColor.R / 255f));
+                sunG -= (int)(240f * Intensity * (backgroundColor.G / 255f));
+                sunB -= (int)(240f * Intensity * (backgroundColor.B / 255f));
                 sunR = Utils.Clamp(sunR, 15, 255);
                 sunG = Utils.Clamp(sunG, 15, 255);
                 sunB = Utils.Clamp(sunB, 15, 255);

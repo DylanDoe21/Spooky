@@ -199,7 +199,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 ShootSpeed.Y *= 4.5f;
                 
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                ShootSpeed.Y, ModContent.ProjectileType<Biomass>(), NPC.damage + 40, 1, NPC.target, 0, 0);
+                ShootSpeed.Y, ModContent.ProjectileType<Biomass>(), NPC.damage / 2, 1, NPC.target, 0, 0);
             }
 
             if (NPC.localAI[0] >= 500)

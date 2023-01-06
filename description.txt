@@ -1,22 +1,20 @@
-Spooky mod is a work-in-progress mod that adds in new content with the general theme of halloween.
+Spooky mod is a work-in-progress mod that adds in new content with the general theme of halloween and spookiness.
 
 Currently the mod has:
 
--Two new biomes: the Spooky Forest and the Valley of Eyes
-
--A massive new structure: the Creepy Catacombs
+-Four large biomes/areas to explore: the Spooky Forest, Valley of Eyes, Swampy Cemetery, and the Creepy Catacombs
 
 -Four brand new bosses, all with boss checklist support
 
--Tons of other content such as weapons, armor sets, and other stuff of course
+-Tons of other usual mod content such as weapons, armor sets, and stuff like that
 
 -Brand new soundtracks for all of the bosses and biomes
 
 -And much more to come in the future!
 
-IMPORTANT, PLEASE READ THIS:
--While you can play this with other mods, this mod is VERY worldgen heavy, adding lots of big biomes and a massive structure, as well as a lot more possible planned stuff in the future. Playing with other content mods that add tons of worldgen may likely cause issues with this mod!
--Also, playing on small worlds may not be a good idea due to the new biomes and structure this mod adds as they can possibly destroy other vanilla biomes or structures
+
+Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions!
+
 
 [h1]Special Thanks[/h1]
 
@@ -24,16 +22,20 @@ HUGE thanks to all the people who have helped out on the mod, it is really appre
 
 Thanks to Renk, Graydee, and Lemmy for their help with coding
 Thanks to Seasalt, Triangle, Hugekraken, Taco, HondaCivicMoment, Waasephi, and Heart Plus up! for making awesome sprites
-Thanks to Bananalizard and Rockwizard5 for composing the mod's amazing OST
+Thanks to Bananalizard for composing the mod's amazing OST, as well as some other awesome soundtracks by Rockwizard5 and LuxCapacitor
 
-And of course, thanks to everyone else who has supported the mod!
+And of course, thanks to everyone else who has supported the mod in any way!
 
 [h1]Other Stuff[/h1]
 
-If you want more detailed information on the mod, or a better place to leave feedback, you can visit the mod's terraria forums page but using the in game homepage button, or finding the link in the change notes section.
+If you have questions, feedback, or just want to hangout, we now have a discord server: [h1][url=https://discord.gg/WPNkrsxdPx] Click here to join! [/url][/h1]
+
+Since the spooky mod now has an official discord server, and discord is generally a better place to communicate, our terraria forums page will very likely not be updated much (Unless I really feel like it)
 
 You can also listen to and support bananalizard's soundtrack here:
 [h1][url=https://www.youtube.com/playlist?list=PLTkIRNhpw-3HBf7cKj8oRwepQE6vRYsdR] Youtube Playlist [/url][/h1]
+
+You can also support the soundtrack on bandcamp, which steam sadly won't let me link here 
 
 
 

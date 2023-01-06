@@ -15,6 +15,7 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Chests;
@@ -75,7 +76,7 @@ namespace Spooky.Content.Generation
                             case 2:
                             {
                                 tile.ClearEverything();
-                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<CemeteryBrickWall>());
+                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<SpookyWoodWall>());
                                 break;
                             }
                             //chain
@@ -83,7 +84,7 @@ namespace Spooky.Content.Generation
                             {
                                 tile.ClearEverything();
                                 WorldGen.PlaceTile(StructureX, StructureY, TileID.Chain);
-                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<CemeteryBrickWall>());
+                                WorldGen.PlaceWall(StructureX, StructureY, ModContent.WallType<SpookyWoodWall>());
                                 break;
                             }
                             //barrier
@@ -1331,7 +1332,7 @@ namespace Spooky.Content.Generation
                 {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -2355,7 +2356,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyBiomeChest>())
                     {
                         //el gourdo
-                        chest.item[0].SetDefaults(ModContent.ItemType<GourdBomb>());
+                        chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
                         chest.item[0].stack = 1;
                     }
 
@@ -2374,14 +2375,14 @@ namespace Spooky.Content.Generation
                     chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions));
                     chest.item[2].stack = WorldGen.genRand.Next(5, 8);
                     //healing potions
-                    chest.item[3].SetDefaults(ItemID.HealingPotion);
+                    chest.item[3].SetDefaults(ItemID.GreaterHealingPotion);
                     chest.item[3].stack = WorldGen.genRand.Next(12, 20);
                     //mana potions
-                    chest.item[4].SetDefaults(ItemID.ManaPotion);
+                    chest.item[4].SetDefaults(ItemID.GreaterManaPotion);
                     chest.item[4].stack = WorldGen.genRand.Next(12, 20);
                     //gold coins
                     chest.item[5].SetDefaults(ItemID.GoldCoin);
-                    chest.item[5].stack = WorldGen.genRand.Next(5, 10);
+                    chest.item[5].stack = WorldGen.genRand.Next(10, 15);
                 }
 
                 if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<CatacombChest2>() || 

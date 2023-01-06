@@ -1,27 +1,39 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
-using Microsoft.Xna.Framework.Graphics;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs
 {
     public class TheEntity : ModNPC
     {
-        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Scream", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("");
+            DisplayName.SetDefault("The Entity");
             Main.npcFrameCount[NPC.type] = 2;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 7;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(5f, 65f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 45f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -47,17 +59,23 @@ namespace Spooky.Content.NPCs
             NPC.height = 140;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-            NPC.boss = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
-            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheEntity");
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("[Information Redacted]"),
+                new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
+            });
         }
 
         public override void FindFrame(int frameHeight)
         {
             Player player = Main.player[NPC.target];
 
-            //use wretched second frame during the jumpscare, only if in its distance ai state as well
             if (player.Distance(NPC.Center) <= NPC.localAI[0] && NPC.ai[0] >= 1)
             {
                 NPC.frame.Y = frameHeight * 1;
@@ -74,7 +92,19 @@ namespace Spooky.Content.NPCs
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             spriteBatch.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
-            new Color(255, 255, 255), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+
+            if (NPC.ai[0] == 2)
+            {
+                Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+
+                for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+                {
+                    Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
+                    Color color = NPC.GetAlpha(Color.White) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+                    spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+                }
+            }
         }
 
         public override void AI()
@@ -105,11 +135,16 @@ namespace Spooky.Content.NPCs
                     if (NPC.localAI[1] < 5)
                     {
                         //teleport after a certain time or if the player goes too far
-                        if (NPC.localAI[0] >= 450 || NPC.Distance(player.Center) >= 1500f)
+                        if (NPC.localAI[0] >= 450)
                         {
                             Teleport(player, 0);
                             NPC.localAI[0] = 0;
                             NPC.localAI[1]++;
+                        }
+
+                        if (NPC.Distance(player.Center) >= 2200f)
+                        {
+                            NPC.Center = player.Center;
                         }
                     }
                     else
@@ -132,7 +167,7 @@ namespace Spooky.Content.NPCs
                     //lol
                     NPC.damage = 9999999;
 
-                    if (NPC.localAI[0] > 250f)
+                    if (NPC.localAI[0] > 150f)
                     {
                         NPC.localAI[0] += 35f;
                     }
@@ -163,17 +198,20 @@ namespace Spooky.Content.NPCs
                     NPC.noGravity = true;
                     NPC.noTileCollide = true;
 
-                    Vector2 ChargeDirection = Main.player[NPC.target].Center - NPC.Center;
+                    Vector2 ChargeDirection = player.Center - NPC.Center;
                     ChargeDirection.Normalize();
 
-                    ChargeDirection.X *= 100;
-                    ChargeDirection.Y *= 100;
+                    ChargeDirection.X *= 65;
+                    ChargeDirection.Y *= 65;
                     NPC.velocity.X = ChargeDirection.X;
                     NPC.velocity.Y = ChargeDirection.Y;
 
-                    if (NPC.ai[1] == 1)
+                    if (NPC.Hitbox.Intersects(player.Hitbox))
                     {
-                        NPC.active = false;
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " Was [REDACTED]."), NPC.damage, 0, false);
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
+                        player.ApplyDamageToNPC(NPC, 99999, 0, 0, false);
                         NPC.netUpdate = true;
                     }
 
@@ -182,6 +220,7 @@ namespace Spooky.Content.NPCs
             }
         }
 
+        /*
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (NPC.ai[0] == 2)
@@ -190,8 +229,8 @@ namespace Spooky.Content.NPCs
                 NPC.netUpdate = true;
             }
         }
+        */
 
-        //bruh moment vanilla caster teleporting ai (skull emoji)
         private void Teleport(Player player, int attemptNum)
         {
             int playerTileX = (int)player.position.X / 16;
@@ -206,12 +245,12 @@ namespace Spooky.Content.NPCs
             {
                 if ((targetY < playerTileY - 4 || targetY > playerTileY + 4 ||
                 (targetX < playerTileX - 4 || targetX > playerTileX + 4)) &&
-                (targetY < npcTileY - 1 || targetY > npcTileY + 1 || 
-                (targetX < npcTileX - 1 || targetX > npcTileX + 1)) && 
+                (targetY < npcTileY - 1 || targetY > npcTileY + 1 ||
+                (targetX < npcTileX - 1 || targetX > npcTileX + 1)) &&
                 Main.tile[targetX, targetY].HasUnactuatedTile)
                 {
                     bool flag2 = true;
-                    if (Main.tile[targetX, targetY - 1].LiquidType == LiquidID.Lava) 
+                    if (Main.tile[targetX, targetY - 1].LiquidType == LiquidID.Lava)
                     {
                         flag2 = false;
                     }
@@ -227,7 +266,7 @@ namespace Spooky.Content.NPCs
             }
 
             SoundEngine.PlaySound(SoundID.Item8, NPC.position);
-            
+
             if (NPC.ai[2] != 0 && NPC.ai[3] != 0 && foundNewLoc)
             {
                 NPC.position.X = (float)((double)NPC.ai[2] * 16.0 - (double)(NPC.width / 2) + 8.0);
@@ -242,10 +281,15 @@ namespace Spooky.Content.NPCs
                     dust.velocity *= 0.1f;
                 }
             }
-            else if (attemptNum < 10) 
+            else if (attemptNum < 10)
             {
                 Teleport(player, attemptNum + 1);
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowClump>(), 1));
         }
     }
 }

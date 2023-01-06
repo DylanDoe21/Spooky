@@ -15,14 +15,15 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gore Staff");
-			Tooltip.SetDefault("Summons a tortumor to fight with you");
+			Tooltip.SetDefault("Summons a tortumor to fight with you"
+			+ "\nFriendly tortumors will sometimes shoot at multiple enemies");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 30;
+			Item.damage = 15;
 			Item.mana = 20;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;

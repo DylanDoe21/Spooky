@@ -102,6 +102,16 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			if (Flags.CatacombKey3)
 			{
+				for (int k = 0; k < Main.maxNPCs; k++)
+				{
+					if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlowerPot>()) 
+					{
+						if (Main.npc[k].ai[0] > 0)
+						{
+							tile.Get<TileWallWireStateData>().IsActuated = false;
+						}
+					}
+				}
 				if (NPC.CountNPCS(ModContent.NPCType<BigBone>()) > 0)
 				{
 					tile.Get<TileWallWireStateData>().IsActuated = false;

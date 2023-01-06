@@ -61,6 +61,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			return true;
 		}
 
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
+
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -102,11 +107,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 					}
 				}
 			}
-		}
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return false;
 		}
 	}
 }

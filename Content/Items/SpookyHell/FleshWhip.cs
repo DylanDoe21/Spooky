@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             DisplayName.SetDefault("Eye Lasher");
             Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nHitting enemies will sometimes temporarily reduce their defense");
+            + "\nHitting enemies may lower their defense for a short time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

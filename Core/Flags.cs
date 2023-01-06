@@ -23,6 +23,7 @@ namespace Spooky.Core
         public static bool EyeQuest2 = false;
         public static bool EyeQuest3 = false;
         public static bool EyeQuest4 = false;
+        public static bool EyeQuest5 = false;
 
         public override void OnWorldLoad() 
         {
@@ -42,6 +43,7 @@ namespace Spooky.Core
             EyeQuest2 = false;
             EyeQuest3 = false;
             EyeQuest4 = false;
+            EyeQuest5 = false;
 		}
 
 		public override void OnWorldUnload() 
@@ -62,6 +64,7 @@ namespace Spooky.Core
             EyeQuest2 = false;
             EyeQuest3 = false;
             EyeQuest4 = false;
+            EyeQuest5 = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
@@ -102,6 +105,7 @@ namespace Spooky.Core
             EyeQuest2 = tag.ContainsKey("EyeQuest2");
             EyeQuest3 = tag.ContainsKey("EyeQuest3");
             EyeQuest4 = tag.ContainsKey("EyeQuest4");
+            EyeQuest5 = tag.ContainsKey("EyeQuest5");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -119,11 +123,15 @@ namespace Spooky.Core
             miscFlags[1] = CatacombKey1;
             miscFlags[2] = CatacombKey2;
             miscFlags[3] = CatacombKey3;
-            miscFlags[4] = EyeQuest1;
-            miscFlags[5] = EyeQuest2;
-            miscFlags[6] = EyeQuest3;
-            miscFlags[7] = EyeQuest4;
             writer.Write(miscFlags);
+
+            var questFlags = new BitsByte();
+            questFlags[0] = EyeQuest1;
+            questFlags[1] = EyeQuest2;
+            questFlags[2] = EyeQuest3;
+            questFlags[3] = EyeQuest4;
+            questFlags[4] = EyeQuest5;
+            writer.Write(questFlags);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -144,6 +152,13 @@ namespace Spooky.Core
             EyeQuest2 = miscFlags[5];
             EyeQuest3 = miscFlags[6];
             EyeQuest4 = miscFlags[7];
+
+            BitsByte questFlags = reader.ReadByte();
+            EyeQuest1 = miscFlags[0];
+            EyeQuest2 = miscFlags[1];
+            EyeQuest3 = miscFlags[2];
+            EyeQuest4 = miscFlags[3];
+            EyeQuest4 = miscFlags[4];
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     
         public override void AI()
         {
-            Projectile.rotation += 0.12f * (float)Projectile.direction;
+            Projectile.rotation += 0.25f * (float)Projectile.direction;
             
             if (Projectile.localAI[0] < 450)
             {
@@ -117,7 +117,15 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[0] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " exploded."), Projectile.damage * 2, 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+            }
+
+            for (int numGores = 1; numGores <= 12; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-15, -2)), ModContent.Find<ModGore>("Spooky/VesicatorGore" + numGores).Type);
+                }
             }
 
             for (int numDust = 0; numDust < 55; numDust++)

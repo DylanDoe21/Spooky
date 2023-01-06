@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetDefaults()
 		{
-			Item.damage = 7;
+			Item.damage = 8;
 			Item.mana = 12;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
@@ -36,10 +36,20 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.knockBack = 1;
 			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(gold: 1);
-			Item.UseSound = SoundID.Item70;     
+			Item.UseSound = SoundID.Item103;     
 			Item.buffType = ModContent.BuffType<SkullWispBuff>();
 			Item.shoot = ModContent.ProjectileType<SkullWisp>();
 		}
+
+		public override bool? UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+				player.MinionNPCTargetAim(true);
+			}
+			
+            return base.UseItem(player);
+        }
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
 		{

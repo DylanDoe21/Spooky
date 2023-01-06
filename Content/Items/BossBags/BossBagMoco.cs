@@ -38,7 +38,8 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), ModContent.ItemType<BoogerBlaster>() };
+			int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), 
+			ModContent.ItemType<BoogerBlaster>(), ModContent.ItemType<BoogerStaff>() };
 
             player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
 

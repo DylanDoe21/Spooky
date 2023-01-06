@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			DisplayName.SetDefault("Booger Blaster");
 			Tooltip.SetDefault("Charge up to shoot nasty boogers that slow enemies on hit"
 			+ "\nThe longer you charge it, the stronger and faster the boogers will become"
-			+ "\nDoes not require ammo to use");
+			+ "\nConsumes bullets to use");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -39,6 +39,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 5);
 			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.useAmmo = AmmoID.Bullet;
 			Item.shootSpeed = 0f;
 		}
 		

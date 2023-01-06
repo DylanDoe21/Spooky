@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell
             DisplayName.SetDefault("Exposed Nerve");
             Tooltip.SetDefault("Your summons will focus struck enemies"
             + "\nDeals more damage the more enemies it hits"
-			+ "\nDamage scaling caps after ten enemies are hit");
+			+ "\nDamage scaling caps after five enemies are hit");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

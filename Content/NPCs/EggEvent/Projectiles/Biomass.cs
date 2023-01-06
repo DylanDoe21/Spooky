@@ -142,7 +142,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " exploded."), Projectile.damage * 2, 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Biomatter."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
             for (int numDust = 0; numDust < 45; numDust++)

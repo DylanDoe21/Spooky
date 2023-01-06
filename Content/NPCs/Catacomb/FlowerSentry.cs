@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These giant flowers watch over the catacombs, buffing nearby allies to prevent unwanted guests from exploring."),
+				new FlavorTextBestiaryInfoElement("These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -91,30 +91,30 @@ namespace Spooky.Content.NPCs.Catacomb
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                NPC other = Main.npc[i];
-                if (other.active)
+                NPC npc = Main.npc[i];
+                if (npc.active)
                 {
-                    if (BuffableNPCs.Contains(other.type) && Vector2.Distance(NPC.Center, other.Center) < maxDist && 
-                    other.type != NPC.type && numHealing < maxHealing)
+                    if (BuffableNPCs.Contains(npc.type) && Vector2.Distance(NPC.Center, npc.Center) < maxDist && 
+                    npc.type != NPC.type && numHealing < maxHealing)
                     {
                         numHealing++;
-                        int healamount = (int)(other.lifeMax * 0.05f);
+                        int healamount = (int)(npc.lifeMax * 0.005f);
 
-                        if (other.life <= other.lifeMax - healamount && NPC.ai[1] % 20 == 0) 
+                        if (npc.life <= npc.lifeMax - healamount && NPC.ai[1] % 30 == 0) 
                         {
-                            other.life += healamount;
+                            npc.life += healamount;
                         }
 
                         for (int numDusts = 0; numDusts < 10; numDusts++)
                         {
-                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
+                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + (npc.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
                             dust.noGravity = true;
                             dust.velocity *= 1.02f;
                             dust.scale *= 1.5f;
                         }
                     }
 
-                    if (other.whoAmI != NPC.whoAmI && other.type == NPC.type && Vector2.Distance(NPC.Center, other.Center) < maxDist * 1.75 && NPC.ai[1] < other.ai[1])
+                    if (npc.whoAmI != NPC.whoAmI && npc.type == NPC.type && Vector2.Distance(NPC.Center, npc.Center) < maxDist * 1.75 && NPC.ai[1] < npc.ai[1])
                     {
                         NPC.active = false;
                     }

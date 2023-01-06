@@ -36,6 +36,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<RottenChunk>(), 12)
+			.AddIngredient(ItemID.Silk, 8)
             .AddTile(TileID.Anvils)
             .Register();
         }

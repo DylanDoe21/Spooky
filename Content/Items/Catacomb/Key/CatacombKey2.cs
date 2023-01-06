@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.Catacomb.Key
 
 		public override bool? UseItem(Player player)
         {
-			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, -2,
+			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, -3,
 			ModContent.ProjectileType<CatacombKey2Proj>(), 0, 0, player.whoAmI, 0f, 0f);
 
 			return true;

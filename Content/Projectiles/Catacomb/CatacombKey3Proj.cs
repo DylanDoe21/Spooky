@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -86,7 +88,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 				if (!Flags.CatacombKey3)
 				{
-					NPC.SetEventFlagCleared(ref Flags.CatacombKey3, -1);
+					Flags.CatacombKey3 = true;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
 				}
 
 				Projectile.Kill();
@@ -102,7 +109,14 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Main.dust[DustGore].noGravity = false;
             }
 
-			Main.NewText("The orange barrier has been opened!", Color.Orange);
+			if (Main.netMode != NetmodeID.Server)
+			{
+				Main.NewText("The orange barrier has been opened!", Color.Orange);
+			}
+			else
+			{
+				ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The orange barrier has been opened!"), Color.Orange);
+			}
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{

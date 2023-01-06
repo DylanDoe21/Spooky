@@ -150,7 +150,8 @@ namespace Spooky.Core
 						if ((double)(Math.Abs((float)k - pos.X) + Math.Abs((float)l - pos.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							//do not generate or replace anything above the surface (basically to stop it from replacing blocks on floating islands)
-							int heightLimit = limit ? (int)Main.worldSurface - (Main.maxTilesY / 8) : 0;
+							float divide = 7.5f;
+							int heightLimit = limit ? (int)Main.worldSurface - (Main.maxTilesY / (int)divide) : 0;
 
 							if (l > heightLimit)
 							{

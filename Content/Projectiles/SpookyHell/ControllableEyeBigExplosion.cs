@@ -11,36 +11,37 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye Explosion");
+            Main.projFrames[Projectile.type] = 7;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 240;
-            Projectile.height = 240;
+            Projectile.width = 98;
+            Projectile.height = 98;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 2;
-            Projectile.alpha = 255;
+            Projectile.timeLeft = 100;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[Projectile.owner] = 1;
+            target.immune[Projectile.owner] = 7;
         }
 
         public override void AI()
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
-
-            for (int numDust = 0; numDust < 35; numDust++)
-			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-18f, 18f);
-                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-18f, 18f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
-                Main.dust[dustGore].noGravity = true;
-			}
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 3)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame >= 7)
+                {
+                    Projectile.frame = 0;
+                    Projectile.Kill();
+                }
+            }
         }
     }
 }

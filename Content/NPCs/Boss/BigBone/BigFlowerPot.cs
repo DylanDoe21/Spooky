@@ -43,6 +43,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             return true;
         }
+
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = "";
+        }
+
         public override string GetChat()
         {
             List<string> Dialogue = new List<string>
@@ -54,11 +60,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             };
 
             return Main.rand.Next(Dialogue);
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = "";
         }
 
         public override void AI()

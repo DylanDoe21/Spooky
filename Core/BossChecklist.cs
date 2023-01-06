@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossBags;
-using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Boss;
@@ -39,8 +38,6 @@ namespace Spooky.Core
 			/*
 			Boss Checklist weight for all vanilla bosses, mini bosses, and events
 
-			Bosses:
-
 			KingSlime = 1f;
 			EyeOfCthulhu = 2f;
 			EvilBosses = 3f;
@@ -59,8 +56,6 @@ namespace Spooky.Core
 			DukeFishron = 16f;
 			LunaticCultist = 17f;
 			Moonlord = 18f;
-
-			Events and Mini-Bosses:
 
 			TorchGod = 1.5f;
 			BloodMoon = 2.5f;
@@ -89,8 +84,8 @@ namespace Spooky.Core
 			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.RotGourd.RotGourd>();
 			Func<bool> PumpkinDowned = () => Flags.downedRotGourd;
 			int PumpkinSummonItem = ModContent.ItemType<RottenSeed>();
-			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest. It is sometimes dropped by breaking the pumpkins that grow in the spooky forest";
-			string PumpkinDespawnInfo = "Rot Gourd has stomped all players";
+			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.";
+			string PumpkinDespawnInfo = "Rot Gourd has smashed all players";
 
 			List<int> PumpkinDrops = new List<int>()
 			{
@@ -115,13 +110,14 @@ namespace Spooky.Core
 			int Moco = ModContent.NPCType<Content.NPCs.Boss.Moco.Moco>();
 			Func<bool> MocoDowned = () => Flags.downedMoco;
 			int MocoSummonItem = ModContent.ItemType<CottonSwab>();
-			string MocoSpawnInfo = $"Use the [i:{MocoSummonItem}] at the nose shrine in the valley of eyes";
+			string MocoSpawnInfo = $"Use the [i:{MocoSummonItem}] at the nose shrine in the valley of eyes.";
 			string MocoDespawnInfo = "Moco has sneezed on all players";
 
 			List<int> MocoDrops = new List<int>()
 			{
-				ModContent.ItemType<BoogerBlaster>(),
 				ModContent.ItemType<BoogerFlail>(),
+				ModContent.ItemType<BoogerBlaster>(),
+				ModContent.ItemType<BoogerStaff>(),
 				ModContent.ItemType<MocoBox>()
 			};
 
@@ -136,12 +132,53 @@ namespace Spooky.Core
 			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 3.5f, MocoDowned, true, MocoDrops, 
 			MocoSummonItem, MocoSpawnInfo, MocoDespawnInfo, MocoPortrait);
 
+
+			//Egg Event
+			string EggEventName = "Egg Incursion";
+
+			List<int> Enemies = new List<int>()
+			{
+				ModContent.NPCType<Content.NPCs.EggEvent.Capillary>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.Crux>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.Distended>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.DistendedBrute>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.Vesicator>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.Vigilante>(),
+				ModContent.NPCType<Content.NPCs.EggEvent.Visitant>()
+			};
+
+			Func<bool> EggEventDowned = () => Flags.downedEggEvent;
+			int EggEventSummonItem = ModContent.ItemType<Concoction>();
+			string EggEventSpawnInfo = $"Use the [i:{EggEventSummonItem}] at the egg in the valley of eyes.";
+
+			List<int> EggEventDrops = new List<int>()
+			{
+				ModContent.ItemType<EggEventBox>()
+			};
+
+			var EggEventPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
+			{
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/Events/EggEventBC").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			List<string> Icon = new List<string>()
+			{
+				"Spooky/Content/Events/EggEventIcon"
+			};
+
+			//register egg event
+			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 9.49f, EggEventDowned, true, EggEventDrops,
+			EggEventSummonItem, EggEventSpawnInfo, EggEventPortrait, Icon);
+
+
 			//Orroboro
 			string OrroboroName = "Orro & Boro";
 			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>();
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
-			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes";
+			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes. You must complete the Egg Incursion event beforehand.";
 			string OrroboroDespawnInfo = "Orro-Boro has eaten all players";
 
 			List<int> OrroboroDrops = new List<int>()
@@ -170,12 +207,13 @@ namespace Spooky.Core
 			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 9.5f, OrroboroDowned, true, OrroboroDrops, 
 			OrroboroSummonItem, OrroboroSpawnInfo, OrroboroDespawnInfo, OrroboroPortrait);
 
+
 			//Big Bone
 			string BigBoneName = "Big Bone";
 			int BigBone = ModContent.NPCType<Content.NPCs.Boss.BigBone.BigBone>();
 			Func<bool> BigBoneDowned = () => Flags.downedBigBone;
 			int BigBoneSummonItem = ModContent.ItemType<Fertalizer>();
-			string BigBoneSpawnInfo = $"Use [i:{BigBoneSummonItem}] while standing at the giant flower pot in the catacombs arena";
+			string BigBoneSpawnInfo = $"Use [i:{BigBoneSummonItem}] while standing at the giant flower pot in the catacombs arena.";
 			string BigBoneDespawnInfo = "Big Bone has overgrown all players";
 
 			List<int> BigBoneDrops = new List<int>()

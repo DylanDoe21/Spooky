@@ -216,7 +216,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 45, Main.rand.Next(-2, 2), Main.rand.Next(2, 5), 
-                        ModContent.ProjectileType<BiomassGravity>(), NPC.damage, 1, NPC.target, 0, 0);
+                        ModContent.ProjectileType<BiomassGravity>(), NPC.damage / 2, 1, NPC.target, 0, 0);
                     }
                 }
             }
@@ -229,23 +229,10 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void HitEffect(int hitDirection, double damage) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
-			if (NPC.life <= 0) 
+            if (NPC.life <= 0) 
             {
                 Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 2), -3, 
                 ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 1, NPC.target, 0, 0);
-
-                /*
-                for (int numGores = 1; numGores <= 5; numGores++)
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EyeBatGore" + numGores).Type);
-                }
-                */
             }
         }
     }

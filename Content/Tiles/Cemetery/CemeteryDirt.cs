@@ -20,22 +20,5 @@ namespace Spooky.Content.Tiles.Cemetery
 			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
             DustType = DustID.Dirt;
 		}
-
-		public override void RandomUpdate(int i, int j)
-		{
-			Tile up = Main.tile[i, j - 1];
-			Tile down = Main.tile[i, j + 1];
-			Tile left = Main.tile[i - 1, j];
-			Tile right = Main.tile[i + 1, j];
-
-			if (WorldGen.genRand.Next(5) == 0)
-			{
-				if (up.TileType == ModContent.TileType<CemeteryGrass>() || down.TileType == ModContent.TileType<CemeteryGrass>() || 
-				left.TileType == ModContent.TileType<CemeteryGrass>() || right.TileType == ModContent.TileType<CemeteryGrass>())
-				{
-					WorldGen.SpreadGrass(i, j, Type, ModContent.TileType<CemeteryGrass>(), true);
-				}
-			}
-		}
 	}
 }

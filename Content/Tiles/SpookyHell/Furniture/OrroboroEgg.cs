@@ -11,6 +11,7 @@ using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Boss.OrroboroNew;
 using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 
@@ -131,29 +132,32 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<Concoction>())) 
 			{
-				//we need to use a special packet because tiles can't net update
-				//for now, just use SpawnOnPlayer until an actual spawn intro fix is made
-				/*
-				if (Main.netMode == NetmodeID.MultiplayerClient) 
-				{
-					ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)SpookyMessageType.SpawnOrroboro);
-					packet.Send();
-				}
-				*/
+				int x = i;
+				int y = j;
+				while (Main.tile[x, y].TileType == Type) x--;
+				x++;
+				while (Main.tile[x, y].TileType == Type) y--;
+				y++;
+
 				if (!Flags.downedEggEvent)
 				{
-					int x = i;
-					int y = j;
-					while (Main.tile[x, y].TileType == Type) x--;
-					x++;
-					while (Main.tile[x, y].TileType == Type) y--;
-					y++;
-
 					Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventShield>(), 0, 1, Main.myPlayer, 0, 0);
 				}
+				else
+				{
+					if (Main.netMode == NetmodeID.MultiplayerClient) 
+					{
+						ModPacket packet = Mod.GetPacket();
+						packet.Write((byte)SpookyMessageType.SpawnOrroboro);
+						packet.Send();
+					}
+					else 
+					{
+						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 2, 1, 0, 0);
+					}
+				}
 			}
-			else
+            else
             {
 				Main.NewText("You need a special substance to destroy the egg", 171, 64, 255);
 			}

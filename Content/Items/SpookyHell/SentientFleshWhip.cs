@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell
             DisplayName.SetDefault("Sentient Eye Lasher");
             Tooltip.SetDefault("Your summons will focus struck enemies"
 			+ "\nLashes out two long range whips at once"
-            + "\nHitting enemies will sometimes massively lower their defense for a short time");
+            + "\nHitting enemies may lower their defense  massively for a short time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

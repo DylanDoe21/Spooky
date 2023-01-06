@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 22;
 			Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;

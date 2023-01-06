@@ -95,13 +95,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				return true;
 			}
 
-			//check if player has a cotton swab
 			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<CottonSwab>())) 
 			{
 				SoundEngine.PlaySound(SneezeSound, player.Center);
 
-				//we need to use a special packet because tiles can't net update
 				if (Main.netMode == NetmodeID.MultiplayerClient) 
 				{
 					ModPacket packet = Mod.GetPacket();

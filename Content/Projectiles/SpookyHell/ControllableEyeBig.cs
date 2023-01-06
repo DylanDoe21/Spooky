@@ -114,6 +114,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<ControllableEyeBig>()] >= 8)
             {
+                SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
+
+                for (int numDust = 0; numDust < 15; numDust++)
+                {                                                                                  
+                    int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-18f, 18f);
+                    Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-18f, 18f);
+                    Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
+                    Main.dust[dustGore].noGravity = true;
+                }
+
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, 
                 ModContent.ProjectileType<ControllableEyeBigExplosion>(), Projectile.damage * 3, Projectile.knockBack, Main.myPlayer);
             }

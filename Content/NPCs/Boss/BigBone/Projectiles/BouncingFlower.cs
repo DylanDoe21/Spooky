@@ -15,8 +15,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         private List<Vector2> cache;
         private Trail trail;
 
-        int bounces = 0;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flower");
@@ -91,6 +89,35 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
+        int Bounces = 0;
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			Bounces++;
+			if (Bounces >= 3)
+			{
+				Projectile.Kill();
+			}
+			else
+			{
+				Projectile.ai[0] = 0;
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+
+				if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                }
+			}
+
+			return false;
+		}
+
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
@@ -103,23 +130,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 ManageTrail();
             }
         }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
-
-            Projectile.velocity.X = -Projectile.velocity.X * 1.05f;
-            Projectile.velocity.Y = -Projectile.velocity.Y * 1.05f;
-
-            bounces++;
-
-            if (bounces > 2)
-            {
-                Projectile.Kill();
-            }
-
-			return false;
-		}
 
         public override void Kill(int timeLeft)
 		{

@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyHell
     public class FleshAxe : SwingWeaponBase
     {
         public override int Length => 50;
-		public override int TopSize => 22;
+		public override int TopSize => 25;
 		public override float SwingDownSpeed => 13f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;

@@ -7,6 +7,7 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Minion;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -65,7 +66,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.localAI[0]++;
             
             //movement
-            if (Projectile.localAI[0] < 1440)
+            if (Projectile.localAI[0] < 1200)
             {
                 if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
                 {
@@ -131,18 +132,25 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
 
             //slow down
-            if (Projectile.localAI[0] >= 1440)
+            if (Projectile.localAI[0] >= 1000)
             {
                 Projectile.velocity *= 0.98f;
             }
 
             //drop candy
-            if (Projectile.localAI[0] >= 1500)
+            if (Projectile.localAI[0] >= 1200)
             {
-                int[] Candies = new int[] { ModContent.ItemType<Candy1>(), ModContent.ItemType<Candy2>(), ModContent.ItemType<Candy3>() };
-
-                Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, Projectile.Size, Main.rand.Next(Candies));
                 SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
+
+                int[] Candies = new int[] { ModContent.ItemType<Candy1>(), ModContent.ItemType<Candy2>(), ModContent.ItemType<Candy3>() };
+                int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, Main.rand.Next(Candies));
+                Main.item[newItem].noGrabDelay = 0;
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                }
+                
                 Projectile.localAI[0] = 0;
             }
         }

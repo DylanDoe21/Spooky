@@ -94,7 +94,7 @@ namespace Spooky.Content.NPCs.Catacomb
             {
                 NPC.frameCounter += 1;
 
-                if (NPC.frameCounter > 2)
+                if (NPC.frameCounter > 1)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;

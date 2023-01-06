@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
 			DisplayName.SetDefault("Rod of Ensnaring");
 			Tooltip.SetDefault("Casts a lump of thorns that can sometimes ensnare and poison enemies"
 			+ "\nBosses cannot be ensared, but they will be poisoned for longer"
-			+ "\nEnemies cannot be ensnared again for 15 seconds");
+			+ "\nEnemies cannot be ensnared again for fifteen seconds");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item17;     
 			Item.shoot = ModContent.ProjectileType<ThornStaffBall>();

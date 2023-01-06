@@ -10,11 +10,8 @@ using System;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
-using Spooky.Content.Dusts;
-using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
-using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Core
@@ -25,9 +22,12 @@ namespace Spooky.Core
         public static float ScreenShakeAmount = 0;
 
         public int BoneWispTimer = 0;
+        public int MocoBoogerCharge = 0;
+        public int BoogerFrenzyTime = 0;
 
         //armors
         public bool SpookySet = false;
+        public bool EyeArmorSet = false;
         public bool GoreArmorSet = false;
 
         //accessories
@@ -44,6 +44,7 @@ namespace Spooky.Core
 
         //minions and pets
         public bool SkullWisp = false;
+        public bool EntityMinion = false;
         public bool TumorMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
@@ -57,6 +58,7 @@ namespace Spooky.Core
         {
             //armors
             SpookySet = false;
+            EyeArmorSet = false;
             GoreArmorSet = false;
 
             //accessories
@@ -73,6 +75,7 @@ namespace Spooky.Core
 
             //minions and pets
             SkullWisp = false;
+            EntityMinion = false;
             TumorMinion = false;
             SoulSkull = false;
             Brainy = false;
@@ -124,31 +127,13 @@ namespace Spooky.Core
 
             return ShouldRevive;
         }
-        
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
-        {
-            if (MocoNose && Main.rand.Next(2) == 0)
-            {
-                Vector2 Speed = new Vector2(3f, 0f).RotatedByRandom(2 * Math.PI);
-
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, speed,
-                        ModContent.ProjectileType<HomingBooger>(), 30 + ((int)damage / 2), 0f, Main.myPlayer, 0, 0);
-                    }
-                }
-            }
-        }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
                 damage = 0;
+                quiet = true;
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 2700);
                 SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
                 Player.statLife = Player.statLife;
@@ -198,6 +183,23 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
+            if (MocoBoogerCharge >= 15)
+            {
+                BoogerFrenzyTime++;
+
+                if (BoogerFrenzyTime == 1)
+                {
+                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyBuff>(), 180);
+                }
+
+                if (BoogerFrenzyTime >= 180)
+                {
+                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
+                    MocoBoogerCharge = 0;
+                    BoogerFrenzyTime = 0;
+                }
+            }
+
             if (PumpkinCore)
             {
                 Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
@@ -267,7 +269,7 @@ namespace Spooky.Core
 
                     if (BoneWispTimer >= 180 / (num20 / 10))
                     {
-                        SoundEngine.PlaySound(SoundID.NPCDeath6, Player.Center);
+                        SoundEngine.PlaySound(SoundID.Item8, Player.Center);
 
                         Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
                         Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
@@ -294,7 +296,7 @@ namespace Spooky.Core
 
             if (inWater && inSpookyBiome && attempt.crate)
             {
-                if (!attempt.veryrare && !attempt.legendary && !attempt.rare && Main.rand.Next(4) == 0)
+                if (!attempt.veryrare && !attempt.legendary && !attempt.rare)
                 {
                     sonar.Text = "Spooky Crate";
                     sonar.Color = Color.LimeGreen;

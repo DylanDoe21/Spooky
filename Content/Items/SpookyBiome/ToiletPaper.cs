@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
         public override void SetDefaults()
         {
-            Item.damage = 15;    
+            Item.damage = 22;    
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
             Item.useTurn = true;    
@@ -27,15 +27,15 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.autoReuse = true;             
             Item.width = 28;
             Item.height = 26;
-            Item.useTime = 45;       
-            Item.useAnimation = 45;  
+            Item.useTime = 38;       
+            Item.useAnimation = 38;  
             Item.useStyle = ItemUseStyleID.Swing;      
             Item.knockBack = 6;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);   
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<ToiletPaperProj>();  
-            Item.shootSpeed = 5f;     
+            Item.shootSpeed = 5.5f;     
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mysterious Flask I");
-            Tooltip.SetDefault("A very corrosive substance");
+            Tooltip.SetDefault("A smelly plant based substance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -21,6 +21,18 @@ namespace Spooky.Content.Items.SpookyHell.Misc
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 1); 
             Item.maxStack = 999;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.Daybloom, 5)
+            .AddIngredient(ItemID.Blinkroot, 5)
+            .AddIngredient(ItemID.Moonglow, 5)
+            .AddIngredient(ItemID.PurificationPowder, 10)
+            .AddIngredient(ItemID.SuspiciousLookingEye, 1)
+            .AddIngredient(ItemID.Bottle, 1)
+            .Register();
         }
     }
 }

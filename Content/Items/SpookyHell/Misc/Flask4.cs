@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mysterious Flask IV");
-            Tooltip.SetDefault("A very corrosive substance");
+            Tooltip.SetDefault("A sticky and gooey substance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -21,6 +21,18 @@ namespace Spooky.Content.Items.SpookyHell.Misc
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 1);
             Item.maxStack = 999;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.HoneyBlock, 35)
+            .AddIngredient(ItemID.Pumpkin, 35)
+            .AddIngredient(ItemID.Sluggy, 5)
+            .AddIngredient(ItemID.Cobweb, 15)
+            .AddIngredient(ItemID.Abeemination, 1)
+            .AddIngredient(ItemID.Bottle, 1)
+            .Register();
         }
     }
 }
