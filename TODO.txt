@@ -3,7 +3,6 @@ Eye Valley Update:
 Smaller-ish changes:
 
 Friday:
--finish moco expert item rework
 
 -finish moco summon staff
 
@@ -13,6 +12,7 @@ Friday:
 
 
 Saturday:
+
 -add cemetery biome enemies
 
 -make flesh axe and sentient axe have an AoE on hit projectile
