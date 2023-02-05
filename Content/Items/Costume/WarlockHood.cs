@@ -6,7 +6,7 @@ using Terraria.GameContent.Creative;
 using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyBiome;
 
-namespace Spooky.Content.Items.SpookyBiome.Armor
+namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class WarlockHood : ModItem

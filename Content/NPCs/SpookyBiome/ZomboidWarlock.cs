@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Armor;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;

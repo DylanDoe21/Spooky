@@ -74,72 +74,27 @@ namespace Spooky.Content.Projectiles.Catacomb
 				Projectile.timeLeft = 2;
 			}
 
-            //TARGET NEAREST NPC WITHIN RANGE
-			float lowestDist = float.MaxValue;
-			foreach (NPC npc in Main.npc) 
+            for (int i = 0; i < 200; i++)
             {
-				//if npc is a valid target (active, not friendly, and not a critter)
-				if (npc.active && !npc.friendly && !npc.dontTakeDamage)
+                NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+                if (Target != null && Target.CanBeChasedBy(this, false))
                 {
-					//if npc is within 50 blocks
-					float dist = Projectile.Distance(npc.Center);
-					if (dist / 16 < 50) 
-                    {
-						//if npc is closer than closest found npc
-						if (dist < lowestDist) 
-                        {
-							lowestDist = dist;
-							//target this npc
-							Projectile.ai[1] = npc.whoAmI;
-						}
-					}
-				}
-			}
+                    Shoot(Target);
 
-			NPC target = (Main.npc[(int)Projectile.ai[1]] ?? new NPC());
-
-            if (target.active && !target.friendly && !target.dontTakeDamage)
-            {
-                shootTimer++;
-                if (shootTimer == 60)
-                {
-                    if (charge < 5)
-                    {
-                        SoundEngine.PlaySound(SoundID.Zombie53, Projectile.Center);
-
-                        float Speed = 25f;
-                        Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-                        float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
-                        Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
-                        
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                        perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
-                    }
-                    else
-                    {
-                        SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-
-                        Vector2 ChargeDirection = target.Center - Projectile.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 20;
-                        ChargeDirection.Y *= 20;  
-                        Projectile.velocity.X = ChargeDirection.X;
-                        Projectile.velocity.Y = ChargeDirection.Y;
-
-                        charge = 0;
-                    }
+                    break;
                 }
 
-                if (shootTimer >= 60)
+                NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
                 {
-                    shootTimer = 0;
-                    charge++;
+                    Shoot(NPC);
+
+                    break;
                 }
             }
 
             //prevent Projectiles clumping together
-			for (int num = 0; num < Main.projectile.Length; num++)
+            for (int num = 0; num < Main.projectile.Length; num++)
 			{
 				Projectile other = Main.projectile[num];
 				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
@@ -163,6 +118,46 @@ namespace Spooky.Content.Projectiles.Catacomb
 					}
 				}
 			}
+        }
+
+        public void Shoot(NPC target)
+        {
+            shootTimer++;
+            if (shootTimer == 60)
+            {
+                if (charge < 5)
+                {
+                    SoundEngine.PlaySound(SoundID.Zombie53, Projectile.Center);
+
+                    float Speed = 25f;
+                    Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+                    float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+                    Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
+                    perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                }
+                else
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+
+                    Vector2 ChargeDirection = target.Center - Projectile.Center;
+                    ChargeDirection.Normalize();
+
+                    ChargeDirection.X *= 20;
+                    ChargeDirection.Y *= 20;
+                    Projectile.velocity.X = ChargeDirection.X;
+                    Projectile.velocity.Y = ChargeDirection.Y;
+
+                    charge = 0;
+                }
+            }
+
+            if (shootTimer >= 60)
+            {
+                shootTimer = 0;
+                charge++;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

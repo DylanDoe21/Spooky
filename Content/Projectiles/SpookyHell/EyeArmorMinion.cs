@@ -34,6 +34,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.netImportant = true;
 			Projectile.timeLeft = 2;
 			Projectile.penetrate = -1;
+			Projectile.minionSlots = 0;
 			AIType = ProjectileID.Spazmamini;
 		}
 

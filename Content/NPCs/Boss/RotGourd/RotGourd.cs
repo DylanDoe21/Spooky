@@ -239,7 +239,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, vector.X, vector.Y, 
-                        ModContent.ProjectileType<RotFly>(), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                        ModContent.ProjectileType<RotFly>(), Damage, 0f, NPC.target, 0f, (float)NPC.whoAmI);
 					}
 				}
 

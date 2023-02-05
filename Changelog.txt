@@ -121,13 +121,12 @@ Thorn Covered Bulb:
 -The thorns created by its explosion now deal slightly reduced damage
 
 
-Big bone changes and fixes, since there is a lot of them:
+Big Bone Changes and Fixes:
 
--The barrier that leads into the arena now becomes unactuated as soon as you use the fertalizer, as before it didnt properly close until big bone himself spawned
--All of big bone's fiery projectiles will now inflict the "on fire" debuff (Duration depends on the specific projectile)
+-All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
 -The bolts shot by big bone's solar flowers during his phase transition now properly damage players
--The bouncing flowers he shoots during phase one now have much better bouncing behavior
--Added fancy dust particles for all of big bones utility/buffing flowers on death, since before they just vanished
+-The bouncing flowers he shoots during his first phase now have much better bouncing behavior
+-Added fancy dust particles for his healing and defensive flowers on death, since before they just vanished
 -The intense screen shaking during big bone's death animation will now immediately stop when he dies
 -During big bone's phase transition, he will now begin shooting orange fire balls after two solar flowers die instead of three
 -Big bone's solar flowers now drop way more hearts on death
@@ -140,7 +139,7 @@ Disciple's mask changes:
 -Now plays a way less annoying sound when wisps are fired
 
 
-Cowbell entity changes:
+Cowbell Entity Changes:
 
 -Now has it's own bestiary entry after being encountered (It is only unlocked once you get killed by it)
 -Slightly reduced it's chasing speed so you can actually see it approaching before being instakilled (It is still unavoidable)

@@ -43,9 +43,13 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EyeArmorMinion>()] <= 0;
 			if (NotSpawned)
 			{
-				//leave the source as null for right now
-				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f,
-				ModContent.ProjectileType<EyeArmorMinion>(), 0, 0f, player.whoAmI, 0f, 0f);
+				var realDamage = 20;
+                var scaledDamage = (int)player.GetTotalDamage<SummonDamageClass>().ApplyTo(20);
+
+				int smallEye = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.position.X + (float)(player.width / 2), 
+				player.position.Y + (float)(player.height / 2), 0f, 0f,ModContent.ProjectileType<EyeArmorMinion>(), scaledDamage, 0f, player.whoAmI, 0f, 0f);
+
+				Main.projectile[smallEye].originalDamage = realDamage;
 			}
 		}
 

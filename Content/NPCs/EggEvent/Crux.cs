@@ -64,7 +64,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Crude egg guardians who's heart is outside of their body, allowing them to see their surroundings. They can use psychic auras that inflict a multitude of negative effects on prey."),
+				new FlavorTextBestiaryInfoElement("Crude and misshapen creatures who's heart is outside of their body, allowing them to see their surroundings. They can use auras that can inflict negative effects on prey."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

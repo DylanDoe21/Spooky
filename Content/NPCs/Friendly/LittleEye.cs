@@ -10,8 +10,10 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Tiles.Pylon;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -347,24 +349,34 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void QuestRewards()
 		{
-			if (!Flags.EyeQuest1)
-			{
-				//Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<Whatever>());
-			}
+			int[] Potions1 = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion, ItemID.ArcheryPotion };
+			int[] Potions2 = new int[] { ItemID.BattlePotion, ItemID.CalmingPotion, ItemID.TitanPotion, ItemID.EndurancePotion };
+			int[] Potions3 = new int[] { ItemID.LuckPotion, ItemID.ManaRegenerationPotion, ItemID.SummoningPotion, ItemID.ThornsPotion };
+
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
+
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(2, 5));
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(2, 5));
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions3), Main.rand.Next(2, 5));
+
+			//second quest
 			if (Flags.EyeQuest1 && !Flags.EyeQuest2)
 			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<LittleEyeHat>());
 			}
+			//third quest
 			if (Flags.EyeQuest2 && !Flags.EyeQuest3)
 			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<CottonSwab>());
 			}
+			//fourth quest
 			if (Flags.EyeQuest3 && !Flags.EyeQuest4)
 			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SpookyHellPylonItem>());
 			}
 			if (Flags.EyeQuest4 && !Flags.EyeQuest5)
 			{
-			}
-			if (Flags.EyeQuest5)
-			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<Concoction>());
 			}
 		}
 

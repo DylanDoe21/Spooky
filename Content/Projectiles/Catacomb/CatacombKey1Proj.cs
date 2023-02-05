@@ -40,7 +40,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+			for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
 				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);

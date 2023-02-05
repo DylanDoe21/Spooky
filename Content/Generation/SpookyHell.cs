@@ -29,7 +29,7 @@ namespace Spooky.Content.Generation
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
             StartPosition = (Main.maxTilesX / 2) + 700;
-            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 7);
+            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 8);
 
             //clear all blocks and lava in the area
             for (int X = StartPosition; X <= BiomeEdge; X++)

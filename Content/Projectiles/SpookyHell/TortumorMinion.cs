@@ -18,8 +18,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             DisplayName.SetDefault("Tortumor");
             Main.projFrames[Projectile.type] = 6;
-			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -77,30 +75,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			for (int i = 0; i < 200; i++)
             {
-                NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
+				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+				if (Target != null && Target.CanBeChasedBy(this, false))
+				{
+					Shoot(Target);
+
+					break;
+				}
+
+				NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
                 {
-					shootTimer++;
+					Shoot(NPC);
 
-					if (shootTimer == 40 || shootTimer == 50)
-					{
-						SoundEngine.PlaySound(SoundID.Item87, NPC.Center);
-
-						int[] Projectiles = new int[] { ModContent.ProjectileType<TortumorMinionOrb1>(), ModContent.ProjectileType<TortumorMinionOrb2>() };
-
-						float Speed = 20f;
-						Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-						float rotation = (float)Math.Atan2(vector.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector.X - (NPC.position.X + (NPC.width * 0.5f)));
-						Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
-						
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-						perturbedSpeed.X, perturbedSpeed.Y, Main.rand.Next(Projectiles), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
-					}
-
-					if (shootTimer >= 60)
-					{
-						shootTimer = 0;
-					}
+					break;
 				}
             }
 
@@ -130,8 +118,33 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				}
 			}
 		}
-        
-        public override void Kill(int timeLeft)
+
+		public void Shoot(NPC target)
+		{
+			shootTimer++;
+
+			if (shootTimer == 40 || shootTimer == 50)
+			{
+				SoundEngine.PlaySound(SoundID.Item87, Projectile.Center);
+
+				int[] Projectiles = new int[] { ModContent.ProjectileType<TortumorMinionOrb1>(), ModContent.ProjectileType<TortumorMinionOrb2>() };
+
+				float Speed = 20f;
+				Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
+
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
+				perturbedSpeed.X, perturbedSpeed.Y, Main.rand.Next(Projectiles), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+			}
+
+			if (shootTimer >= 60)
+			{
+				shootTimer = 0;
+			}
+		}
+
+		public override void Kill(int timeLeft)
 		{
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  

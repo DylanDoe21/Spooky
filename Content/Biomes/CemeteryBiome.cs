@@ -19,7 +19,7 @@ namespace Spooky.Content.Biomes
         
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/CemeteryBG");
 
-        public override int Music => MusicID.Graveyard;
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Graveyard");
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/CemeteryWaterStyle");
        

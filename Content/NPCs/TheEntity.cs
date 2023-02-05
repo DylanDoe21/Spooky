@@ -211,7 +211,6 @@ namespace Spooky.Content.NPCs
                         player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " Was [REDACTED]."), NPC.damage, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
-                        player.ApplyDamageToNPC(NPC, 99999, 0, 0, false);
                         NPC.netUpdate = true;
                     }
 

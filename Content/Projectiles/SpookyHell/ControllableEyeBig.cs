@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Projectile.timeLeft = 200;
 
-                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 25;
+                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 32;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
             else

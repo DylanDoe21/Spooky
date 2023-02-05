@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
                 {
                     return 8f;
                 }

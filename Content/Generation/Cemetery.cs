@@ -939,7 +939,7 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                PlaceStructures(X - 22, Y - 20, SmallHouse1, SmallHouse1Objects);
+                PlaceStructures(X - 16, Y - 20, SmallHouse1, SmallHouse1Objects);
 
                 placedHouse1 = true;
             }
@@ -1047,7 +1047,7 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                PlaceStructures(X - 22, Y - 20, SmallHouse2, SmallHouse2Objects);
+                PlaceStructures(X - 16, Y - 20, SmallHouse2, SmallHouse2Objects);
 
                 placedHouse2 = true;
             }

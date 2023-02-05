@@ -15,8 +15,7 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gore Staff");
-			Tooltip.SetDefault("Summons a tortumor to fight with you"
-			+ "\nFriendly tortumors will sometimes shoot at multiple enemies");
+			Tooltip.SetDefault("Summons a tortumor to fight with you");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -32,11 +31,11 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.height = 40;         
 			Item.useTime = 35;         
 			Item.useAnimation = 35;         
-			Item.useStyle = ItemUseStyleID.Shoot;          
+			Item.useStyle = ItemUseStyleID.Swing;          
 			Item.knockBack = 1;
 			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 5);
-			Item.UseSound = SoundID.Item70;     
+			Item.UseSound = SoundID.Item82;     
 			Item.buffType = ModContent.BuffType<TortumorMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<TortumorMinion>();
 		}

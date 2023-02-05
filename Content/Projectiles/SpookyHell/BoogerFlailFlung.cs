@@ -76,11 +76,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
-                {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
-                }
 			}
 		}
     }

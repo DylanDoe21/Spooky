@@ -46,6 +46,7 @@ namespace Spooky.Core
         public bool SkullWisp = false;
         public bool EntityMinion = false;
         public bool TumorMinion = false;
+        public bool NoseMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
         public bool FuzzBatPet = false;
@@ -77,6 +78,7 @@ namespace Spooky.Core
             SkullWisp = false;
             EntityMinion = false;
             TumorMinion = false;
+            NoseMinion = false;
             SoulSkull = false;
             Brainy = false;
             FuzzBatPet = false;
@@ -189,10 +191,10 @@ namespace Spooky.Core
 
                 if (BoogerFrenzyTime == 1)
                 {
-                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyBuff>(), 180);
+                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyBuff>(), 300);
                 }
 
-                if (BoogerFrenzyTime >= 180)
+                if (BoogerFrenzyTime >= 300)
                 {
                     Player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
                     MocoBoogerCharge = 0;

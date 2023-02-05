@@ -35,12 +35,12 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.knockBack = 1;
 			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 5);
-			Item.UseSound = SoundID.Item70;     
-			//Item.buffType = ModContent.BuffType<NoseMinionBuff>();
-			//Item.shoot = ModContent.ProjectileType<NoseMinion>();
+			Item.UseSound = SoundID.Item78;     
+			Item.buffType = ModContent.BuffType<NoseMinionBuff>();
+			Item.shoot = ModContent.ProjectileType<NoseMinion>();
+			Item.shootSpeed = 3f;
 		}
 
-		/*
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
             player.AddBuff(Item.buffType, 2);
@@ -50,6 +50,5 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 
 			return false;
 		}
-		*/
 	}
 }

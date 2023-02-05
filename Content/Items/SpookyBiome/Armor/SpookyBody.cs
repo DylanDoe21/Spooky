@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Horseman's Chestmail");
+			DisplayName.SetDefault("Rotten Pumpkin Chestmail");
 			Tooltip.SetDefault("3% increased damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

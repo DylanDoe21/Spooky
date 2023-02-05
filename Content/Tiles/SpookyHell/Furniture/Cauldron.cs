@@ -63,7 +63,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 		}
 
-
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
 		{
 			noBreak = true;

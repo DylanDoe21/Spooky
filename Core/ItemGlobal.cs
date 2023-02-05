@@ -41,7 +41,6 @@ namespace Spooky.Core
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15 &&
             !Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
             {
-                SoundEngine.PlaySound(SoundID.Item103, player.Center);
                 int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.35f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
                 Main.projectile[newProjectile].DamageType = item.DamageType;
             }
