@@ -11,7 +11,6 @@ using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.Boss.OrroboroNew;
 using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 
@@ -26,7 +25,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileID.Sets.IsATreeTrunk[Type] = true;
+			TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 			TileObjectData.newTile.Width = 8;
 			TileObjectData.newTile.Height = 8;	
 			TileObjectData.newTile.Origin = new Point16(4, 7);

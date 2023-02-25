@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
@@ -38,7 +39,7 @@ namespace Spooky.Core
                 }
             }
 
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15 &&
+            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) &&
             !Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
             {
                 int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.35f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
@@ -52,10 +53,10 @@ namespace Spooky.Core
 		{
 			if (item.type == ItemID.GoodieBag)
 			{
-				int[] Masks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(),
+				int[] DevMasks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(),
                 ModContent.ItemType<KrakenHead>(), ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>() };
 
-                itemLoot.Add(ItemDropRule.OneFromOptions(30, Masks));
+                itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
 			}
 		}
 	}

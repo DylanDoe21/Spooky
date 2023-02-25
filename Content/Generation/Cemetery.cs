@@ -58,21 +58,44 @@ namespace Spooky.Content.Generation
                 foundSurface = true;
             }
 
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2); X <= XMiddle + (Catacombs.BiomeWidth / 2); X++)
+            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 20; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 20; X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    //place dirt blobs
-                    if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
+                    if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
                     {
-                        SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), 1, ModContent.TileType<CemeteryDirt>(), 
-                        WallID.Cave3Unsafe, WallID.Cave3Unsafe, true, 0f, 0f, true, false, false, true, false);
-                    }
+                        if (WorldGen.genRand.Next(2) == 0)
+                        {
+                            //place dirt blobs
+                            if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
+                            {
+                                Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                                //SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), 1, ModContent.TileType<CemeteryDirt>(), 
+                                //WallID.Cave3Unsafe, WallID.Cave3Unsafe, true, 0f, 0f, true, false, false, true, false);
+                            }
 
-                    //place small blob where walls exist to prevent unwanted craters or caves
-                    if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
+                            //place small blob where walls exist to prevent unwanted craters or caves
+                            if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
+                            {
+                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                            }
+                        }
+                    }
+                    else
                     {
-                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                        //place dirt blobs
+                        if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
+                        {
+                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                            //SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), 1, ModContent.TileType<CemeteryDirt>(), 
+                            //WallID.Cave3Unsafe, WallID.Cave3Unsafe, true, 0f, 0f, true, false, false, true, false);
+                        }
+
+                        //place small blob where walls exist to prevent unwanted craters or caves
+                        if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
+                        {
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                        }
                     }
                 }
 

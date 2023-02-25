@@ -50,7 +50,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //exposed nerve
-                if (Main.rand.Next(550) == 0)
+                if (Main.hardMode && Main.rand.Next(550) == 0)
                 {
                     WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ExposedNerveTile>(), true);
                     NetMessage.SendObjectPlacment(-1, i, j - 1, ModContent.TileType<ExposedNerveTile>(), 0, 0, -1, -1);

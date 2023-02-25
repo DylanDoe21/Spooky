@@ -546,19 +546,19 @@ namespace Spooky.Content.Generation
             {
                 //place starter house
                 int X = PositionX + ((Main.maxTilesX / 12) / 5); //get the biomes size, then divide that more and get the distance from the center
-                int y = PositionY; //start here to not touch floating islands
+                int Y = PositionY; //start here to not touch floating islands
 
-                while (!WorldGen.SolidTile(X, y) && y <= Main.worldSurface)
+                while (!WorldGen.SolidTile(X, Y) && Y <= Main.worldSurface)
 				{
-					y++;
+					Y++;
 				}
 
-                if (Main.tile[X, y].TileType == ModContent.TileType<SpookyDirt>() ||
-                Main.tile[X, y].TileType == ModContent.TileType<SpookyDirt2>() ||
-                Main.tile[X, y].TileType == ModContent.TileType<SpookyGrass>() ||
-                Main.tile[X, y].TileType == ModContent.TileType<SpookyGrassGreen>())
+                if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() ||
+                Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() ||
+                Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() ||
+                Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
 				{
-					PlaceStructures(X - 8, y - 18, StarterHouse, StarterHouseObjects);
+					PlaceStructures(X - 8, Y - 18, StarterHouse, StarterHouseObjects);
                     placed = true;
 				}
             }

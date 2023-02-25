@@ -23,6 +23,8 @@ namespace Spooky.Core
     {
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+			//draw red aura around any enemy with the egg event enemy buff
+			//this will never actually be applied on any enemy in game, besides egg event enemies
             if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
             {
 				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
@@ -46,6 +48,7 @@ namespace Spooky.Core
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
+			//increase spawnrates and max spawns during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
 				spawnRate = (int)(spawnRate / 2f);
@@ -55,11 +58,13 @@ namespace Spooky.Core
 
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
+			//disable spawns during the entity encounter
 			if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
 			{
 				pool.Clear();
 			}
 
+			//disable spawns when any spooky mod boss is alive
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
 			{
 				pool.Clear();
@@ -68,6 +73,7 @@ namespace Spooky.Core
 
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
+			//steampunker sells spooky clentaminator solution
 			if (type == NPCID.Steampunker)
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookySolution>());

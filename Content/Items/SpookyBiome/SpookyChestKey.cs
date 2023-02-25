@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpookyBiome
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Old Wood Key");
-            Tooltip.SetDefault("'It's covered in nasty pumpkin guts'\nOpens any locked old wood chest");
+            Tooltip.SetDefault("'It's covered in nasty pumpkin guts'\nOpens locked chests in the underground spooky forest");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

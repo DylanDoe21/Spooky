@@ -591,7 +591,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						break;
 					}
 
-					//jump in place, making shockwaves and sending multiple spreads of dirt debris everywhere
+					//jump in place, sending multiple spreads of dirt debris everywhere
 					case 5:
 					{
 						NPC.localAI[0]++;
@@ -906,18 +906,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 									{
 										Main.player[i].velocity.Y -= 8f;
-									}
-								}
-
-								int NumProjectiles = Main.rand.Next(10, 15);
-								for (int i = 0; i < NumProjectiles; i++)
-								{
-									float Spread = Main.rand.Next(-1500, 1500) * 0.01f;
-
-									if (Main.netMode != NetmodeID.MultiplayerClient)
-									{
-										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, 0 + Spread, Main.rand.Next(-18, -13), 
-										ModContent.ProjectileType<DirtDebris>(), Damage, 1, NPC.target, 0, 0);
 									}
 								}
 

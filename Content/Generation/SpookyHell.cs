@@ -192,53 +192,46 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
                     {
-                        bool doPlace = true;
-
-                        if (!WorldGen.TileEmpty(X, Y - 2))
+                        if (WorldGen.genRand.Next(20) == 0)
                         {
-                            doPlace = false;
-                        }
-
-                        //this looks fucking awful but i dont really care, might fix it later
-                        if (Main.tile[X + 3, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 3, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X + 2, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 2, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X + 1, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 1, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 3].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 3].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 2].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 2].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 1].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 1].TileType != ModContent.TileType<EyeTree>())
-                        {
-                            if (doPlace && WorldGen.genRand.Next(20) == 0)
-                            {
-                                EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
-                            }
+                            PlaceTree(X, Y, ModContent.TileType<EyeTree>());
                         }
                     }
 
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
-                        bool doPlace = true;
-
-                        if (!WorldGen.TileEmpty(X, Y - 2))
+                        if (WorldGen.genRand.Next(10) == 0)
                         {
-                            doPlace = false;
-                        }
-
-                        //this looks fucking awful but i dont really care, might fix it later
-                        if (Main.tile[X + 3, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 3, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X + 2, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 2, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X + 1, Y].TileType != ModContent.TileType<EyeTree>() && Main.tile[X - 1, Y].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 3].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 3].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 2].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 2].TileType != ModContent.TileType<EyeTree>() &&
-                        Main.tile[X, Y + 1].TileType != ModContent.TileType<EyeTree>() && Main.tile[X, Y - 1].TileType != ModContent.TileType<EyeTree>())
-                        {
-                            if (doPlace && WorldGen.genRand.Next(10) == 0)
-                            {
-                                EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
-                            }
+                            PlaceTree(X, Y, ModContent.TileType<EyeTree>());
                         }
                     }
                 }
             }
+        }
+
+        public static bool PlaceTree(int X, int Y, int tileType)
+        {
+            int minDistance = 5;
+            int treeNearby = 0;
+
+            for (int i = X - minDistance; i < X + minDistance; i++)
+            {
+                for (int j = Y - minDistance; j < Y + minDistance; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        treeNearby++;
+                        if (treeNearby > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
+
+            return true;
         }
 
         private void SpookyHellAmbience(GenerationProgress progress, GameConfiguration configuration)

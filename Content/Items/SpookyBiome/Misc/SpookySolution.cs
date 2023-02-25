@@ -67,7 +67,8 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 				Projectile.timeLeft = 133;
 			}
 
-			if (Progress > 7f) {
+			if (Progress > 7f) 
+			{
 				float dustScale = 1f;
 
 				if (Progress == 8f) 
@@ -114,7 +115,6 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
                 {
 					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
                     {
-
                         //replace normal grass with orange grass
                         int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass };
 

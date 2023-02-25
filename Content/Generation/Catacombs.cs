@@ -153,7 +153,7 @@ namespace Spooky.Content.Generation
                             case 4:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceTile(StructureX, StructureY, TileID.Dirt);
+                                WorldGen.PlaceTile(StructureX, StructureY, ModContent.TileType<CemeteryDirt>());
                                 break;
                             }
                             //cobwebs

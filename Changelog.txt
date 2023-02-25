@@ -151,6 +151,7 @@ Cowbell Entity Changes:
 Other miscellaneous changes and fixes:
 
 -Rot gourd launching players upward when landing now applies to all players who are within a certain distance of him (Basically, you wont be knocked in the air if he is far away)
+-Rot gourd no longer creates dirt debris when jumpin in his desperation phase
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
 -Green solution for the clentaminator will now convert spooky forest tiles back into their respective vanilla ones
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
@@ -164,7 +165,6 @@ Other miscellaneous changes and fixes:
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
 -All natural spawns will be disabled during spooky mod boss fights since spooky mod enemies would still spawn during boss fights 
 -Added a TON of new dialogue for little bone, and changed a bit of his advice dialogue to make it better
--Something cool that generates above the catacombs, you'll need a new world to find out :)
 
 
 New music:
