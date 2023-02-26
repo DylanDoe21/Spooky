@@ -28,7 +28,7 @@ Eye Lasher:
 -A whip that can sometimes lower enemy defense on hit for a short time
 
 
--All the old chest items are now obtained in different ways:
+-All the old eye valley chest items are now obtained in different ways:
 
 Exposed Nerve: 
 -There is now a rare purple colored nerve tile that grows in the valley of eyes during hardmode, break it to get the exposed nerve
@@ -36,7 +36,7 @@ Exposed Nerve:
 Monster Blood Vial:
 -Rarely drops from any pre-hardmode eye valley enemy
 
-Gore Staff: 
+Gore Staff:
 -Rare drop from small tortumors, and a somewhat common drop from giant tortumors
 
 Monster Heart: 
@@ -69,8 +69,17 @@ New Event: The Egg Incursion
 
 
 
-~General Changes and Fixes~
+~Swampy Cemetery~
 
+-A brand new biome introduced this update, it serves as the above ground biome that transitions into the catacombs
+-The biome also counts as a vanilla graveyard biome, so you will no longer need to place 500 gravestones to get any of the graveyard's unique content
+-This biome doesn't have much unique loot, but is meant to be more of an ambient area with some cool structures and new enemies
+-It also has it's own pylon, which you can buy from npcs who are happy enough in the biome
+-Of course it has it's own banger soundtrack :)
+
+
+
+~General Changes and Fixes~
 
 Moco Item Changes:
 
@@ -145,16 +154,17 @@ Cowbell Entity Changes:
 -Slightly reduced it's chasing speed so you can actually see it approaching before being instakilled (It is still unavoidable)
 -The entities instakill attack can no longer be bypassed with godmode, and it now has it's own death message
 -It will now actually die upon touching the player, which hopefully should fix multiplayer issues of the entity not vanishing correctly
--The entity now drops a special reward after the encounter
+-The entity now drops a special new reward after you encounter it
 
 
 Other miscellaneous changes and fixes:
 
 -Rot gourd launching players upward when landing now applies to all players who are within a certain distance of him (Basically, you wont be knocked in the air if he is far away)
--Rot gourd no longer creates dirt debris when jumpin in his desperation phase
+-Rot gourd no longer creates dirt debris when jumping in his desperation phase
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
 -Green solution for the clentaminator will now convert spooky forest tiles back into their respective vanilla ones
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
+-The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused many issues with structure placement (and just make the biome look like garbage)
 -The fleshy eye blocks in the valley of eyes now produce ambient particles while they are on screen, and produce blood particles when walked on
 -Fixed grass blocks in the spooky forest and valley of eyes looking a bit weird when sloped
 -Buffed the exposed nerve's damage scaling when it hits multiple enemies, but it now caps at five enemies instead of ten
@@ -167,22 +177,24 @@ Other miscellaneous changes and fixes:
 -Added a TON of new dialogue for little bone, and changed a bit of his advice dialogue to make it better
 
 
-New music:
 
-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion
-"Harvest Rainfall" By Bananalizard, plays when it rains in the spooky forest
+~New Music~
+
+"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
+"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest
+"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
 
 
 
 ~New Config Options~
 
 Spooky Forest at Spawn:
--Allows you to determine whether or not the spooky forest generates at your spawn point, or off to the side away from spawn
+-Allows you to determine whether the spooky forest generates at your spawn point, or off to the side away from spawn
 -Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes on small worlds)
 -This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
 
 Screen Shaking Effect:
--Allows you to disable the mod's screen shaking effects in case you do not want it for whatever reason
+-Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
 (For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
 
 

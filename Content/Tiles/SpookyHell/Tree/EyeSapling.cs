@@ -50,15 +50,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		{
             if (Main.tile[i, j + 1].TileType != ModContent.TileType<EyeBlock>() && Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyMushGrass>())
             {
-				if (WorldGen.genRand.Next(1) == 0)
+				if (WorldGen.genRand.Next(20) == 0)
 				{
-					EyeTree.Spawn(i, j + 1, -1, null, 12, 35, false, -1, true);
+					EyeTree.Spawn(i, j + 1, 12, 35, true);
 				}
             }
-			else
-			{
-				EyeTree.Spawn(i, j, -1, null, 12, 35, false, -1, true);
-			}
 		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

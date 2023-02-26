@@ -44,6 +44,8 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
+            player.ZoneDesert = false;
+
             //spawn falling leaves while in the spooky forest
             int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
 

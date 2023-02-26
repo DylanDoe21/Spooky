@@ -256,19 +256,4 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			}
 		}
 	}
-
-	public class EyeChest2 : EyeChest
-	{
-		public override string Texture => "Spooky/Content/Tiles/SpookyHell/Chests/EyeChest";
-	}
-
-	public class EyeChest3 : EyeChest
-	{
-		public override string Texture => "Spooky/Content/Tiles/SpookyHell/Chests/EyeChest";
-	}
-
-	public class EyeChest4 : EyeChest
-	{
-		public override string Texture => "Spooky/Content/Tiles/SpookyHell/Chests/EyeChest";
-	}
 }

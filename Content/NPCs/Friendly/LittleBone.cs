@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Friendly
     [AutoloadHead]
 	public class LittleBone : ModNPC
 	{
-		int AdviceSwitchPostEvil = 0;
+		int AdviceSwitch = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -93,7 +93,16 @@ namespace Spooky.Content.NPCs.Friendly
 				//rot gourd
 				else if ((NPC.downedBoss1 || Main.LocalPlayer.statDefense >= 10) && !Flags.downedRotGourd)
 				{
-					Main.npcChatText = "Now that you have some decent gear, I have heard stories that an old rotting gourd the size of a house once looked over this biome! Breaking the pumpkins that grow here might allow you to find him.";
+					if (AdviceSwitch == 0)
+					{
+						AdviceSwitch++;
+						Main.npcChatText = "Now that you have some decent gear, I have heard stories that an old rotting gourd the size of a house once looked over this biome! Breaking the pumpkins that grow here might allow you to find him.";
+					}
+					else if (AdviceSwitch == 1)
+					{
+						AdviceSwitch--;
+						Main.npcChatText = "I have heard that past the tropical jungle, is a dark and foggy cemetery. You can probably search for some loot there!";
+					}
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//underground spooky forest chests
@@ -105,14 +114,14 @@ namespace Spooky.Content.NPCs.Friendly
 				//catacombs/valley of eyes
 				else if (NPC.downedBoss2 && !Main.hardMode)
 				{
-					if (AdviceSwitchPostEvil == 0)
+					if (AdviceSwitch == 0)
 					{
-						AdviceSwitchPostEvil++;
+						AdviceSwitch++;
 						Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it towards one of the oceans in this world.";
 					}
-					else if (AdviceSwitchPostEvil == 1)
+					else if (AdviceSwitch == 1)
 					{
-						AdviceSwitchPostEvil--;
+						AdviceSwitch--;
 						Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
 					}
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);

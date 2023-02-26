@@ -10,8 +10,7 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Monster Chest Food");
-            Tooltip.SetDefault("'A chest monster's favorite delicacy"
-            + "\nOpens one monster chest");
+            Tooltip.SetDefault("'A chest monster's favorite delicacy'\nOpens one monster chest");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 

@@ -88,35 +88,37 @@ namespace Spooky.Content.NPCs.Catacomb
             float maxDist = 600;
             int maxHealing = 5;
             int numHealing = 0;
+            bool runCode = true;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                NPC npc = Main.npc[i];
-                if (npc.active)
+                NPC other = Main.npc[i];
+                if (other.active)
                 {
-                    if (BuffableNPCs.Contains(npc.type) && Vector2.Distance(NPC.Center, npc.Center) < maxDist && 
-                    npc.type != NPC.type && numHealing < maxHealing)
+                    if (BuffableNPCs.Contains(other.type) && Vector2.Distance(NPC.Center, other.Center) < maxDist && 
+                    other.type != NPC.type && numHealing < maxHealing)
                     {
                         numHealing++;
-                        int healamount = (int)(npc.lifeMax * 0.005f);
+                        int healamount = (int)(other.lifeMax * 0.05f);
 
-                        if (npc.life <= npc.lifeMax - healamount && NPC.ai[1] % 30 == 0) 
+                        if (other.life <= other.lifeMax - healamount && NPC.ai[1] % 20 == 0) 
                         {
-                            npc.life += healamount;
+                            other.life += healamount;
                         }
 
-                        for (int numDusts = 0; numDusts < 10; numDusts++)
+                        for (int k = 0; k < 10; k++)
                         {
-                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + (npc.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
+                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
                             dust.noGravity = true;
-                            dust.velocity *= 1.02f;
+                            dust.velocity *= 0.04f;
                             dust.scale *= 1.5f;
                         }
                     }
 
-                    if (npc.whoAmI != NPC.whoAmI && npc.type == NPC.type && Vector2.Distance(NPC.Center, npc.Center) < maxDist * 1.75 && NPC.ai[1] < npc.ai[1])
+                    if (other.whoAmI != NPC.whoAmI && other.type == NPC.type && Vector2.Distance(NPC.Center, other.Center) < maxDist * 1.75 && NPC.ai[1] < other.ai[1])
                     {
                         NPC.active = false;
+                        runCode = false;
                     }
                 }
             }

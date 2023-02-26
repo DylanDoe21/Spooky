@@ -19,6 +19,12 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             DisplayName.SetDefault("Bat n' Eye");
             Main.npcFrameCount[NPC.type] = 4;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(20f, -10f)
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SetDefaults()

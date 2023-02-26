@@ -152,7 +152,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 					}
 					else 
 					{
-						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 2, 1, 0, 0);
+						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 0, 0, 0, 0);
 					}
 				}
 			}

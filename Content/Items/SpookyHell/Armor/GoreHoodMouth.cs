@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 8;
+			Item.defense = 7;
 			Item.width = 28;
 			Item.height = 26;
 			Item.rare = ItemRarityID.LightRed;
@@ -41,16 +41,16 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = "Grants you a protective aura that will block one attack"
-			+ "\nWhile the aura is active, you gain 15% increased melee and ranged damage"
-			+ "\nWhen you are hit the aura will vanish, and will regenerate after 45 seconds";
+			+ "\nWhile the aura is active, you gain 8% increased melee and ranged damage"
+			+ "\nWhen you are hit the aura will vanish, and will regenerate after one minute";
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
             {
 				player.AddBuff(ModContent.BuffType<GoreAuraBuff>(), 1);
 
-				player.GetDamage(DamageClass.Melee) += 0.15f;
-				player.GetDamage(DamageClass.Ranged) += 0.15f;
+				player.GetDamage(DamageClass.Melee) += 0.8f;
+				player.GetDamage(DamageClass.Ranged) += 0.8f;
             }
 		}
 
@@ -66,7 +66,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetDamage(DamageClass.Ranged) += 0.15f;
 			player.GetCritChance(DamageClass.Melee) += 8;
 			player.GetCritChance(DamageClass.Ranged) += 8;
-			player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
+			player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
 			player.ammoCost80 = true;
 			player.aggro += 75;
 		}

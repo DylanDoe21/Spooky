@@ -139,9 +139,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
                     }
 
-                    NPC.netUpdate = true;
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
+                    NPC.netUpdate = true;
                 }
             }
         }

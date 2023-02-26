@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.HitSound = HitSound;
 			NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.EggEventBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

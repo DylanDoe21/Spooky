@@ -49,13 +49,11 @@ namespace Spooky.Content.Items.Catacomb.Boss
 		{
 			if (player.altFunctionUse == 2)
 			{
-				Item.mana = 80;
 				Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;
 				Item.shoot = ModContent.ProjectileType<FireBeam>();
 			}
 			else
 			{
-				Item.mana = 30;
 				Item.UseSound = SoundID.Item88;
 				Item.shoot = ModContent.ProjectileType<StaffFireBolt>();
 			}

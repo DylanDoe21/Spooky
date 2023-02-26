@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public float GoreSpread = -1600;
         public bool Phase2 = false;
         public bool Transition = false;
-        public bool flowersSpawned = false;
+        public bool FlowersSpawned = false;
         public bool ActuallyDead = false;
         public bool DeathAnimation = false;
 
@@ -62,9 +62,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/BigBone/BigBoneBestiary",
-                Position = new Vector2(20f, 24f),
-                PortraitPositionXOverride = 0f,
-                PortraitPositionYOverride = 0f
+                Position = new Vector2(48f, -12f),
+                PortraitPositionXOverride = 12f,
+                PortraitPositionYOverride = -12f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
@@ -80,6 +80,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(ScaleTimerLimit);
+
+            //bools
+            writer.Write(Phase2);
+            writer.Write(Transition);
+            writer.Write(FlowersSpawned);
+            writer.Write(ActuallyDead);
+            writer.Write(DeathAnimation);
+
+            //local ai
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -87,6 +98,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            ScaleTimerLimit = reader.ReadInt32();
+
+            //bools
+            Phase2 = reader.ReadBoolean();
+            Transition = reader.ReadBoolean();
+            FlowersSpawned = reader.ReadBoolean();
+            ActuallyDead = reader.ReadBoolean();
+            DeathAnimation = reader.ReadBoolean();
+
+            //local ai
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -315,6 +337,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.dontTakeDamage = true;
                 NPC.life = 1;
 
+                NPC.netUpdate = true;
+
                 return false;
             }
 
@@ -322,14 +346,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         }
 
         public override void AI()
-        {   
-            Player player = Main.player[NPC.target];
+        {
             NPC.TargetClosest(true);
+
+			Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
 
             NPC.spriteDirection = NPC.direction;
 
+            //EoC rotation
             Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
             float RotateX = player.Center.X - vector.X;
             float RotateY = player.Center.Y - vector.Y;
@@ -353,16 +379,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            //vanish if not attached to its flower pot
             if (Main.npc[(int)NPC.ai[3]].type != ModContent.NPCType<BigFlowerPot>())
             {
                 NPC.active = false;
             }
 
+            //big bone cannot heal over his max life
             if (NPC.life > NPC.lifeMax)
             {
                 NPC.life = NPC.lifeMax;
             }
 
+            //set these back to false during phase 2 if no defensive flowers exist
             if (Phase2 && !DeathAnimation && NPC.CountNPCS(ModContent.NPCType<DefensiveFlower>()) <= 0)
 			{
                 NPC.immortal = false;
@@ -394,15 +423,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     AttackPattern = AttackPattern.Append(7).ToArray();
                 }
 
-                NPC.netUpdate = true;
                 NPC.ai[2] = 1;
+                NPC.netUpdate = true;
             }
 
+            //transition to phase 2
             if (NPC.life < (NPC.lifeMax / 2) && !Phase2)
             {
                 Transition = true;
             }
 
+            //set ai based on current state
             if (Transition)
             {
                 NPC.ai[0] = -1;
@@ -539,12 +570,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         ActuallyDead = true;
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
-                        player.ApplyDamageToNPC(NPC, 99999, 0, 0, false);
-
-                        if (Main.netMode == NetmodeID.Server && NPC.whoAmI < Main.maxNPCs)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
-                        }
+                        player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                     }
 
                     break;
@@ -563,7 +589,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     NPC.localAI[2]++;
 
-                    if (NPC.localAI[2] >= 60 && !flowersSpawned)
+                    if (NPC.localAI[2] >= 60 && !FlowersSpawned)
                     {
                         int maxFlowers = 5;
                         for (int numFlowers = 0; numFlowers < maxFlowers; numFlowers++)
@@ -574,7 +600,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
                         }
 
-                        flowersSpawned = true;
+                        FlowersSpawned = true;
                     }
 
                     if (NPC.localAI[2] >= 180 && NPC.localAI[2] < 200)
@@ -623,7 +649,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.netUpdate = true;
                     }
 
-                    if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 0 && flowersSpawned)
+                    if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 0 && FlowersSpawned)
                     {
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;

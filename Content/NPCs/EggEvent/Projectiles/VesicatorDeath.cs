@@ -79,22 +79,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 Projectile.tileCollide = false;
             }
-
-            for (int i = 0; i < 20; i++)
-            {
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
-                float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
-
-                Vector2 offset = new();
-                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                offset.X += (float)(Math.Sin(angle) * Projectile.localAI[0] + (Projectile.localAI[0] < 100 ? fade : fade2));
-                offset.Y += (float)(Math.Cos(angle) * Projectile.localAI[0] + (Projectile.localAI[0] < 100 ? fade : fade2));
-                Dust dust = Main.dust[Dust.NewDust(Projectile.Center + offset - new Vector2(4, 4), 0, 0, DustID.GemRuby, 0, 0, 100, Color.White, 1f)];
-                dust.velocity *= 0;
-                dust.noGravity = true;
-                dust.scale = 0.5f;
-            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -117,7 +101,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[0] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), 
+                (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
             for (int numGores = 1; numGores <= 12; numGores++)

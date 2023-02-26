@@ -212,7 +212,7 @@ namespace Spooky.Core
 									{
 										if (placeWalls)
 										{
-											if (Main.rand.Next(2) == 0)
+											if (WorldGen.genRand.Next(2) == 0)
 											{
 												Main.tile[k, WallY].WallType = (ushort)wallType;
 											}

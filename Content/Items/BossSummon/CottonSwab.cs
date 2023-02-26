@@ -25,10 +25,5 @@ namespace Spooky.Content.Items.BossSummon
             Item.rare = ItemRarityID.Blue;
             Item.maxStack = 1;
         }
-		
-        public override bool CanUseItem(Player player)
-        {
-            return false;
-        }
     }
 }

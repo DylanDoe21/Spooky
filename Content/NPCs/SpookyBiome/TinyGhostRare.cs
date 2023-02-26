@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spookier Ghost");
+			DisplayName.SetDefault("Spooky Ghost");
 			Main.npcFrameCount[NPC.type] = 2;
 			Main.npcCatchable[NPC.type] = true;
 		}

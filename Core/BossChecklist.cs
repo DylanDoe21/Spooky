@@ -105,6 +105,7 @@ namespace Spooky.Core
 			bossChecklistMod.Call("AddBoss", Mod, PumpkinName, Pumpkin, 2.5f, PumpkinDowned, true, PumpkinDrops, 
 			PumpkinSummonItem, PumpkinSpawnInfo, PumpkinDespawnInfo, PumpkinPortrait);
 
+
 			//Moco
 			string MocoName = "Moco";
 			int Moco = ModContent.NPCType<Content.NPCs.Boss.Moco.Moco>();
@@ -178,7 +179,7 @@ namespace Spooky.Core
 			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>();
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
-			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes. You must complete the Egg Incursion event beforehand.";
+			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes, which is obtained after you complete all of little eye's quests. You must complete the Egg Incursion event beforehand.";
 			string OrroboroDespawnInfo = "Orro-Boro has eaten all players";
 
 			List<int> OrroboroDrops = new List<int>()

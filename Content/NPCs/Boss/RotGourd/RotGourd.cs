@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC",
                 Position = new Vector2(20f, 20f),
                 PortraitPositionXOverride = 0f,
-                PortraitPositionYOverride = 10f
+                PortraitPositionYOverride = 12f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
@@ -55,6 +55,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+            writer.Write(FirstFlySpawned);
+            writer.Write(SecondFlySpawned);
+            writer.Write(ThirdFlySpawned);
+
+			//local ai
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -62,6 +68,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+			//bools
+            FirstFlySpawned = reader.ReadBoolean();
+            SecondFlySpawned = reader.ReadBoolean();
+            ThirdFlySpawned = reader.ReadBoolean();
+
+			//local ai
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -190,12 +202,14 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             {
                 NPC.ai[2]++;
 
+				//play sound
 				if (NPC.ai[2] == 60)
 				{
 					NPC.noTileCollide = false;
 					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 				}
 
+				//jump up super fast, then despawn
                 if (NPC.ai[2] >= 60)
                 {
                     NPC.velocity.Y = -40;
@@ -207,12 +221,14 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			{
 				NPC.ai[1] = 0;
 				FirstFlySpawned = true;
+				NPC.netUpdate = true;
 			}
 
 			if (NPC.life < (NPC.lifeMax / 2) && !SecondFlySpawned)
 			{
 				NPC.ai[1] = 0;
 				SecondFlySpawned = true;
+				NPC.netUpdate = true;
 			}
 
 			if (NPC.life < (NPC.lifeMax / 3) && !ThirdFlySpawned)
@@ -225,6 +241,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				NPC.noGravity = false;
 				NPC.noTileCollide = false;
 				ThirdFlySpawned = true;
+				NPC.netUpdate = true;
 			}
 
 			//spawn swarm of flies when spawned

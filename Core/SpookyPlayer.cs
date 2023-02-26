@@ -136,7 +136,7 @@ namespace Spooky.Core
             {
                 damage = 0;
                 quiet = true;
-                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 2700);
+                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
                 SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
                 Player.statLife = Player.statLife;
 

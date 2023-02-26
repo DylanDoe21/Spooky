@@ -29,8 +29,8 @@ namespace Spooky.Content.NPCs
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Position = new Vector2(5f, 65f),
-                PortraitPositionXOverride = 0f,
+                Position = new Vector2(15f, 75f),
+                PortraitPositionXOverride = 8f,
                 PortraitPositionYOverride = 45f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
@@ -164,9 +164,6 @@ namespace Spooky.Content.NPCs
                     //increase and use localAI[0] for the distance
                     NPC.localAI[0] += 0.5f;
 
-                    //lol
-                    NPC.damage = 9999999;
-
                     if (NPC.localAI[0] > 150f)
                     {
                         NPC.localAI[0] += 35f;
@@ -208,7 +205,8 @@ namespace Spooky.Content.NPCs
 
                     if (NPC.Hitbox.Intersects(player.Hitbox))
                     {
-                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " Was [REDACTED]."), NPC.damage, 0, false);
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " Was [REDACTED]."), 9999999, 0, false);
+                        player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
                         NPC.netUpdate = true;

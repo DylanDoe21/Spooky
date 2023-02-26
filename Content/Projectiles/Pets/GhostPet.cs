@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.Pets
             {
                 speed = 15f;
             }
-            if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+            if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.Center, Projectile.width / 2, Projectile.height / 2))
             {
                 Projectile.ai[0] = 0f;
                 Projectile.netUpdate = true;

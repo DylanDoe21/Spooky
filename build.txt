@@ -1,5 +1,5 @@
 displayName = [c/FFA01C:Spooky Mod]
-author = DylanDoe21 and Contributers
+author = The Spooky Mod Team
 version = 0.6
 
 homepage = https://discord.gg/WPNkrsxdPx
@@ -9,3 +9,5 @@ hideResources = true
 includeSource = false
 hideCode = true
 includePDB = false
+
+modReferences = StructureHelper

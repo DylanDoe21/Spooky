@@ -24,7 +24,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
     public class Moco : ModNPC
     {
         public bool Sneezing = false;
-        public bool EyeAttack = false;
         public bool SwitchedSides = false;
         public bool AfterImages = false;
 
@@ -60,6 +59,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(MoveSpeedX);
+            writer.Write(MoveSpeedY);
+
+            //bools
+            writer.Write(Sneezing);
+            writer.Write(SwitchedSides);
+            writer.Write(AfterImages);
+            writer.Write(Phase2);
+            writer.Write(Transition);
+
+            //local ai
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -67,6 +78,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            MoveSpeedX = reader.ReadInt32();
+            MoveSpeedY = reader.ReadInt32();
+
+            //bools
+            Sneezing = reader.ReadBoolean();
+            SwitchedSides = reader.ReadBoolean();
+            AfterImages = reader.ReadBoolean();
+            Phase2 = reader.ReadBoolean();
+            Transition = reader.ReadBoolean();
+
+            //local ai
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();

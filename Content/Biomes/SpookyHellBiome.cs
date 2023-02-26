@@ -49,35 +49,4 @@ namespace Spooky.Content.Biomes
             return BiomeCondition;
         }
     }
-
-    //exists for the events special effects
-    public class EggEventBiome : ModBiome
-    {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/EggEvent");
-
-        public override SceneEffectPriority Priority => SceneEffectPriority.Event;
-
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            if (EggEventWorld.EggEventActive && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-            {
-                //VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
-                //vignettePlayer.SetVignette(1, 1200, 1.2f, Color.Black, player.Center);
-            }
-
-            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", EggEventWorld.EggEventActive && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()), player.Center);
-        }
-        
-        public override void OnLeave(Player player)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", false, player.Center);
-        }
-
-        public override bool IsBiomeActive(Player player)
-        {
-            bool BiomeCondition = EggEventWorld.EggEventActive && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>());
-
-            return BiomeCondition;
-        }
-    }
 }

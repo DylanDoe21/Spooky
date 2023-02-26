@@ -20,6 +20,9 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
     //[AutoloadBossHead]
     public class Boro : ModNPC
     {
+        public bool idleRotation = true;
+        public bool spawnedOtherWorm = false;
+
         Vector2 SavePlayerPosition;
         Vector2 SaveNPCPosition;
 
@@ -35,8 +38,8 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/OrroboroNew/BoroBC",
-                Position = new Vector2(20f, 24f),
-                PortraitPositionXOverride = 0f,
+                Position = new Vector2(100f, 5f),
+                PortraitPositionXOverride = 100f,
                 PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
@@ -53,6 +56,11 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+            writer.Write(idleRotation);
+            writer.Write(spawnedOtherWorm);
+
+            //local ai
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -61,6 +69,11 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //bools
+            idleRotation = reader.ReadBoolean();
+            spawnedOtherWorm = reader.ReadBoolean();
+
+            //local ai
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -96,10 +109,10 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("placeholder lol"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
+				new FlavorTextBestiaryInfoElement("A blind and aggressive creature that will work together with Orro to defend its territory. Its vicious appearance reflects its nasty attacks and hostile behavior."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -127,10 +140,59 @@ namespace Spooky.Content.NPCs.Boss.OrroboroNew
 
             NPC.spriteDirection = NPC.direction;
 
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = player.Center.X - vector.X;
-            float RotateY = player.Center.Y - vector.Y;
-            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+            //use rotation depending on if its idle or not
+            if (idleRotation)
+            {
+                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                float RotateX = player.Center.X - vector.X;
+                float RotateY = player.Center.Y - vector.Y;
+                NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+            }
+            else
+            {
+                NPC.rotation = NPC.velocity.ToRotation() + (int)4.71239;
+			    NPC.rotation += 0f * NPC.direction;
+            }
+
+            switch ((int)NPC.ai[0])
+			{
+                //turn invisible and go above player when orro is spawned
+                //if boro is spawned after orro, then stop attacking, summon orro back to the fight, and reset ai
+                case -1:
+				{
+                    break;
+                }
+
+                //do a series of short dashes
+                case 0:
+				{
+                    break;
+                }
+
+                //spit some explosive biomass
+                case 1:
+				{
+                    break;
+                }
+
+                //create telegraphs around the player, then charge at each one
+                case 2:
+				{
+                    break;
+                }
+
+                //shoot massive spitball towards the player
+                case 3:
+				{
+                    break;
+                }
+
+                //fly close to the player, then use massive damage aura
+                case 4:
+				{
+                    break;
+                }
+            }
 		}
 
         //Loot and stuff

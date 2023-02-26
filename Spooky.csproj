@@ -30,4 +30,9 @@
     <Folder Include="Content\Projectiles\" />
     <Folder Include="Content\NPCs\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="StructureHelper">
+      <HintPath>StructureHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

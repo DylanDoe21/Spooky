@@ -57,26 +57,15 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
-        public static bool Spawn(int i, int j, int type = -1, UnifiedRandom random = null, int minSize = 5, 
-        int maxSize = 18, bool leaves = false, int leavesType = -1, bool saplingExists = false)
+        public static bool Spawn(int i, int j, int minSize = 5, int maxSize = 18, bool saplingExists = false)
         {
-            if (type == -1) 
-            {
-                type = ModContent.TileType<EyeTree>();
-            }
-
-            if (random == null)
-            {
-                random = Main.rand;
-            }
-
             if (saplingExists)
             {
                 WorldGen.KillTile(i, j, false, false, true);
                 WorldGen.KillTile(i, j - 1, false, false, true);
             }
 
-            int height = random.Next(minSize, maxSize); //Height & trunk
+            int height = WorldGen.genRand.Next(minSize, maxSize); //Height & trunk
             for (int k = 1; k < height; ++k)
             {
                 if (SolidTile(i, j - k))
@@ -116,7 +105,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             {
                 if (extraPlaces[k + 2])
                 {
-                    WorldGen.PlaceTile(i + k, j, type, true);
+                    WorldGen.PlaceTile(i + k, j, ModContent.TileType<EyeTree>(), true);
                 }
                 else
                 {
@@ -124,7 +113,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 }
 
                 Framing.GetTileSafely(i + k, j).TileFrameX = (short)((k + 2) * 18);
-                Framing.GetTileSafely(i + k, j).TileFrameY = (short)(random.Next(3) * 18);
+                Framing.GetTileSafely(i + k, j).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
 
                 if (!extraPlaces[1] && !extraPlaces[3] && k == 0) 
                 {
@@ -134,9 +123,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             for (int k = 1; k < height; k++)
             {
-                WorldGen.PlaceTile(i, j - k, type, true);
+                WorldGen.PlaceTile(i, j - k, ModContent.TileType<EyeTree>(), true);
                 Framing.GetTileSafely(i, j - k).TileFrameX = 0;
-                Framing.GetTileSafely(i, j - k).TileFrameY = (short)(random.Next(3) * 18);
+                Framing.GetTileSafely(i, j - k).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
 
                 if (k == height - 1)
                 {

@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             DisplayName.SetDefault("Monster Blood");
             Tooltip.SetDefault("Massively increases life regeneration while not moving"
-            + "\nWhile moving, you gain 5% increased critical strike");
+            + "\nWhile moving, you gain 5% increased critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

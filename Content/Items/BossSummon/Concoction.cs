@@ -30,19 +30,5 @@ namespace Spooky.Content.Items.BossSummon
         {
             return false;
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Flask1>())
-            .AddIngredient(ModContent.ItemType<Flask2>())
-            .AddIngredient(ModContent.ItemType<Flask3>())
-            .AddIngredient(ModContent.ItemType<Flask4>())
-            .AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
-            .AddIngredient(ItemID.Bone, 12)
-            .AddRecipeGroup("SpookyMod:AnyMechBossSoul", 5)
-            .AddTile(TileID.DemonAltar)
-            .Register();
-        }
     }
 }

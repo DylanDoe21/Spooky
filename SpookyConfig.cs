@@ -19,6 +19,7 @@ namespace Spooky
         [Tooltip("Changes the position where the spooky forest is placed during world generation"
         + "\nKeeping this option on will make it placed at spawn, which is the default option"
         + "\nTurning this off will cause the spooky forest to generate away from spawn"
+        + "\nThis option is applied when making new worlds, and will have no effect on existing worlds"
         + "\nWARNING: Playing on small worlds with this option off may destroy parts of other biomes!")]
         [DefaultValue(true)]
         public bool SpookyForestSpawn { get; set; }

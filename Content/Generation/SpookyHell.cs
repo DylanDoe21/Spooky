@@ -22,23 +22,23 @@ namespace Spooky.Content.Generation
 {
     public class SpookyHell : ModSystem
     {
-        static int StartPosition = (Main.maxTilesX / 2) + 650;
-        static int BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 7);
+        static int StartPosition = (Main.maxTilesX / 2) + 750;
+        static int BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 9);
 
         //clear area for the biome to generate in
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            StartPosition = (Main.maxTilesX / 2) + 700;
-            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 8);
+            //set these to their intended values again just to be safe
+            StartPosition = (Main.maxTilesX / 2) + 750;
+            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 9);
 
-            //clear all blocks and lava in the area
             for (int X = StartPosition; X <= BiomeEdge; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 2; Y++)
+                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
                 {
-                    Tile newTile = Main.tile[X, Y];
+                    Tile tile = Main.tile[X, Y];
 
-                    newTile.ClearEverything();
+                    tile.ClearEverything();
                     WorldGen.KillWall(X, Y);
                 }
             }
@@ -115,20 +115,6 @@ namespace Spooky.Content.Generation
                     if (WorldGen.genRand.Next(50) == 0)
                     {
                         SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 10), (ushort)ModContent.TileType<SpookyMush>(), false);
-                    }
-                }
-            }
-
-            //generate caves
-            for (int X = StartPosition + 50; X <= BiomeEdge - 50; X++)
-            {
-                for (int Y = Main.maxTilesY - 120; Y <= Main.maxTilesY - 40; Y++)
-                {
-                    if (WorldGen.genRand.Next(900) == 0)
-                    {
-                        TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
-                        new Point16(-35, 35), 15f, Main.rand.Next(100, 200), 0, false, true);
-                        runner.Start();
                     }
                 }
             }
@@ -229,7 +215,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            EyeTree.Spawn(X, Y - 1, -1, WorldGen.genRand, 12, 35, false, -1, false);
+            EyeTree.Spawn(X, Y - 1, 12, 35, false);
 
             return true;
         }
@@ -516,21 +502,21 @@ namespace Spooky.Content.Generation
                             case 5:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest2>(), true, 1);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest>(), true, 1);
                                 break;
                             }
                             //chest
                             case 6:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest3>(), true, 1);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest>(), true, 1);
                                 break;
                             }
                             //chest
                             case 7:
                             {
                                 tile.ClearTile();
-                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest4>(), true, 1);
+                                WorldGen.PlaceChest(StructureX, StructureY, (ushort)ModContent.TileType<EyeChest>(), true, 1);
                                 break;
                             }
                             //little eye
@@ -1113,8 +1099,8 @@ namespace Spooky.Content.Generation
             {
 				Chest chest = Main.chest[chestIndex]; 
 
-				if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>() || 
-                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>()))
+				if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>() || 
+                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>() || Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>()))
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 5; inventoryIndex++) 
                     {
@@ -1126,17 +1112,17 @@ namespace Spooky.Content.Generation
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshAxe>());
                                 chest.item[0].stack = 1;
                             }
-                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest2>())
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshBow>());
                                 chest.item[0].stack = 1;
                             }
-                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest3>())
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshStaff>());
                                 chest.item[0].stack = 1;
                             }
-                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest4>())
+                            if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<EyeChest>())
                             {
                                 chest.item[0].SetDefaults(ModContent.ItemType<FleshWhip>());
                                 chest.item[0].stack = 1;

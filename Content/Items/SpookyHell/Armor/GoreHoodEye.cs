@@ -19,14 +19,14 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			DisplayName.SetDefault("Gore Monger's Seer Hood");
 			Tooltip.SetDefault("15% increased magic and summon damage"
 			+ "\n8% increased magic and summon critical strike chance"
-			+ "\n12% reduced mana usage and increases your max minions by 2"
+			+ "\n10% reduced mana usage and increases your max minions by 2"
 			+ "\nEnemies are more likely to target you");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 8;
+			Item.defense = 7;
 			Item.width = 30;
 			Item.height = 26;
 			Item.rare = ItemRarityID.LightRed;
@@ -41,17 +41,16 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = "Grants you a protective aura that will block one attack"
-			+ "\nWhile the aura is active, you gain 15% increased magic and summon damage"
-			+ "\nWhen you are hit the aura will vanish, and will regenerate after 45 seconds";
+			+ "\nWhile the aura is active, you gain 8% increased magic and summon damage"
+			+ "\nWhen you are hit the aura will vanish, and will regenerate after one minute";
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
 			{
 				player.AddBuff(ModContent.BuffType<GoreAuraBuff>(), 1);
 
-				player.GetDamage(DamageClass.Magic) += 0.15f;
-				player.GetDamage(DamageClass.Summon) += 0.15f;
-				player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.15f;
+				player.GetDamage(DamageClass.Magic) += 0.8f;
+				player.GetDamage(DamageClass.Summon) += 0.8f;
 			}
 		}
 
@@ -68,7 +67,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.15f;
 			player.GetCritChance(DamageClass.Magic) += 8;
 			player.GetCritChance(DamageClass.Summon) += 8;
-			player.manaCost -= 0.12f;
+			player.manaCost -= 0.10f;
 			player.maxMinions += 2;
 			player.aggro += 75;
 		}
