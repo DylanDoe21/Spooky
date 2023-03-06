@@ -1,4 +1,4 @@
-Spooky mod is a work-in-progress mod that adds in new content with the general theme of halloween and spookiness.
+Spooky mod is a decently sized work-in-progress mod that adds in new content with the general and more goofy theme of halloween
 
 Currently the mod has:
 
@@ -13,7 +13,7 @@ Currently the mod has:
 -And much more to come in the future!
 
 
-Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions!
+Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods how you like, just be aware of potential issues!
 
 
 [h1]Special Thanks[/h1]
@@ -21,10 +21,12 @@ Just a warning: this mod is very worldgen heavy, so playing this mod with small 
 HUGE thanks to all the people who have helped out on the mod, it is really appreciated!
 
 Thanks to Renk, Graydee, and Lemmy for their help with coding
-Thanks to Seasalt, Triangle, Hugekraken, Taco, HondaCivicMoment, Waasephi, and Heart Plus up! for making awesome sprites
+Thanks to Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Soft for contributing awesome sprites
 Thanks to Bananalizard for composing the mod's amazing OST, as well as some other awesome soundtracks by Rockwizard5 and LuxCapacitor
+Thanks to Hat in a River for making a bunch of awesome concept art
+Thanks to Jim2OUK for building all the cool structures you'll find in the mod
 
-And of course, thanks to everyone else who has supported the mod in any way!
+And of course, thanks to everyone else who has supported the mod or shown interest in any way!
 
 [h1]Other Stuff[/h1]
 
@@ -35,7 +37,7 @@ Since the spooky mod now has an official discord server, and discord is generall
 You can also listen to and support bananalizard's soundtrack here:
 [h1][url=https://www.youtube.com/playlist?list=PLTkIRNhpw-3HBf7cKj8oRwepQE6vRYsdR] Youtube Playlist [/url][/h1]
 
-You can also support the soundtrack on bandcamp, which steam sadly won't let me link here 
+You can also support the soundtrack on bandcamp, which steam won't let me link here for whatever reason, but you can find it in the discord server
 
 
 

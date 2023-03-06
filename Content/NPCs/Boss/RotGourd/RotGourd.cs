@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
-using Spooky.Content.Items.BossBags.Pets;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -251,7 +251,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
                 for (int numFlies = 0; numFlies < maxFlies; numFlies++)
                 {
-                    Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+                    Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57f) * new Vector2(5f, 3f);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

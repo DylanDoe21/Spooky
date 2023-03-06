@@ -464,8 +464,6 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyLoot", GenerateUndergroundCabins));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("SpookyHouse", GenerateStarterHouse));
 
             //place objects and grow trees
             int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
@@ -474,13 +472,15 @@ namespace Spooky.Content.Generation
                 return;
             }
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyHouse", GenerateStarterHouse));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
             tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyTrees", GrowSpookyTrees));
             tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyTrees", GrowSpookyTrees));
             tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(GenIndex2 + 7, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 7, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 8, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex2 + 9, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests

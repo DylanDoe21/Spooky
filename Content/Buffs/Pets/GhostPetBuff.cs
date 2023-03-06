@@ -10,7 +10,7 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lil Ghost");
+			DisplayName.SetDefault("Little Ghost");
 			Description.SetDefault("A spooky little ghost will guide you");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.lightPet[Type] = true;

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.Tiles.Catacomb;
 
 namespace Spooky.Content.Biomes
@@ -29,9 +30,17 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
-            if (!Flags.downedBigBone)
+            player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+
+            //spawn a catacomb guardian if you enter too early
+            int PlayerX = (int)player.Center.X / 16;
+            int PlayerY = (int)player.Center.Y / 16;
+
+            if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()) &&
+            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !Flags.CatacombKey1) ||
+            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Flags.CatacombKey2)))
             {
-                player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+                NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<CatacombGuardian>());
             }
         }
 

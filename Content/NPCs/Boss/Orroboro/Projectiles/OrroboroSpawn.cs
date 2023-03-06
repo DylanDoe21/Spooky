@@ -69,8 +69,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 SoundEngine.PlaySound(EggCrackSound2, Projectile.Center);
 
                 //spawn orroboro with message
-                int Orroboro = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroboroHead>());
-                Main.NewText("Orro-Boro has awoken!", 171, 64, 255);
+                int Orroboro = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHead>());
+                Main.NewText("Orro & Boro have awoken!", 171, 64, 255);
 
                 //net update so it doesnt vanish on multiplayer
                 if (Main.netMode == NetmodeID.Server)

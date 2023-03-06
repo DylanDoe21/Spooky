@@ -6,6 +6,7 @@ using Terraria.GameContent.Creative;
 
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.Vinyl;
+using Spooky.Core;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
@@ -14,6 +15,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Spooky Wood Crate");
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
 		}
 
@@ -28,7 +30,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 99;
-			Item.rare = ItemRarityID.Green;  
+			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(gold: 1);
 			Item.createTile = ModContent.TileType<SpookyCrateTile>();
 		}
@@ -45,6 +47,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 		public override void ModifyItemLoot(ItemLoot itemLoot) 
 		{
+			//main items
 			int[] spookyChestDrops = new int[] 
 			{
 				ModContent.ItemType<ToiletPaper>(),
@@ -53,7 +56,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<CreepyCandle>(),
 				ModContent.ItemType<CandyBag>()
 			};
-			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));
+
+			//only drop main items if rot gours has been defeated
+			if (Flags.downedRotGourd)
+			{
+				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));
+			}
 
 			//rarely drop one of the vinyl discs
 			int[] vinylDiscs = new int[] 
@@ -65,8 +73,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(45, vinylDiscs));
 
-			itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 3));
-
+			//drop vanilla ores
 			IItemDropRule[] oreTypes = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.CopperOre, 1, 8, 15),
@@ -80,6 +87,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(7, oreTypes));
 
+			//drop vanilla bars
 			IItemDropRule[] oreBars = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.IronBar, 1, 2, 10),
@@ -91,6 +99,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(4, oreBars));
 
+			//drop some potions
 			IItemDropRule[] explorationPotions = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.ObsidianSkinPotion, 1, 2, 3),
@@ -102,6 +111,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(4, explorationPotions));
 
+			//healing and mana potions
 			IItemDropRule[] resourcePotions = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.HealingPotion, 1, 5, 6),
@@ -110,12 +120,16 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 			itemLoot.Add(new OneFromRulesRule(2, resourcePotions));
 
+			//fishing bait
 			IItemDropRule[] highendBait = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.JourneymanBait, 1, 2, 6),
 				ItemDropRule.Common(ItemID.MasterBait, 1, 2, 7),
 			};
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
+
+			//coins
+			itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 3));
 		}
 	}
 }

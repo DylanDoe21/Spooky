@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossBags;
-using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Tiles.MusicBox;
@@ -150,7 +150,8 @@ namespace Spooky.Core
 
 			Func<bool> EggEventDowned = () => Flags.downedEggEvent;
 			int EggEventSummonItem = ModContent.ItemType<Concoction>();
-			string EggEventSpawnInfo = $"Use the [i:{EggEventSummonItem}] at the egg in the valley of eyes.";
+			int EggEventSummonItem2 = ModContent.ItemType<StrangeCyst>();
+			string EggEventSpawnInfo = $"Use the [i:{EggEventSummonItem}] at the egg in the valley of eyes, or use a [i:{EggEventSummonItem2}] anywhere in the valley of eyes.";
 
 			List<int> EggEventDrops = new List<int>()
 			{
@@ -171,12 +172,12 @@ namespace Spooky.Core
 
 			//register egg event
 			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 9.49f, EggEventDowned, true, EggEventDrops,
-			EggEventSummonItem, EggEventSpawnInfo, EggEventPortrait, Icon);
+			EggEventSummonItem2, EggEventSpawnInfo, EggEventPortrait, Icon);
 
 
 			//Orroboro
 			string OrroboroName = "Orro & Boro";
-			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroboroHead>();
+			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroHead>();
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
 			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes, which is obtained after you complete all of little eye's quests. You must complete the Egg Incursion event beforehand.";
@@ -186,7 +187,8 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroEye>(),
 				ModContent.ItemType<OrroboroRelicItem>(),
-				ModContent.ItemType<BossBagOrroboro>(),
+				ModContent.ItemType<BossBagOrro>(),
+				ModContent.ItemType<BossBagBoro>(),
 				ModContent.ItemType<OrroboroChunk>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),

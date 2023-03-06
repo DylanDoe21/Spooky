@@ -10,9 +10,9 @@ using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.Items.Catacomb.Key;
-using Spooky.Content.Items.SpookyBiome.Misc;
-using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.RotGourd;
@@ -24,7 +24,7 @@ namespace Spooky.Core
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
 			//draw red aura around any enemy with the egg event enemy buff
-			//this will never actually be applied on any enemy in game, besides egg event enemies
+			//this will never actually be applied on any enemy in game, besides the egg event enemies
             if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
             {
 				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
@@ -83,6 +83,7 @@ namespace Spooky.Core
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
+			//moco expert item booger drop
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
 			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
 			{
@@ -102,6 +103,7 @@ namespace Spooky.Core
 
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
+			//moco expert item booger drop
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
 			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
 			{
@@ -121,11 +123,11 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-            //make hardmode enemies drop the biome keys, 1/2500 chance like vanilla
+            //make enemies drop spooky mod's biome keys, 1 in 2500 chance like vanilla
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 
-            //catacomb keys
+            //make certain bosses drop the catacomb barrier keys
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey1Condition(), ModContent.ItemType<CatacombKey1>(), 1));
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey2Condition(), ModContent.ItemType<CatacombKey2>(), 1));
             globalLoot.Add(ItemDropRule.ByCondition(new CatacombKey3Condition(), ModContent.ItemType<CatacombKey3>(), 1));

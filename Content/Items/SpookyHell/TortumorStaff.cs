@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gore Staff");
-			Tooltip.SetDefault("Summons a tortumor to fight with you");
+			Tooltip.SetDefault("Summons friendly tortumors that shoot blood globs at enemies");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.aiStyle = -1;
@@ -121,7 +121,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.rotation = NPC.velocity.X * 0.04f;
 
             int Damage = Main.expertMode ? 30 : 40;
-			
+
 			NPC.ai[0]++;  
 
             //dust spawning for when big tumor summons this

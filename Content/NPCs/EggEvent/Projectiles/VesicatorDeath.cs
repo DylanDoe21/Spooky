@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
@@ -68,7 +69,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.localAI[0] >= 225)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
+                Projectile.velocity.Y += 0.25f;
             }
 
             if (Projectile.localAI[0] >= 450 && Projectile.velocity.Y >= 15)
@@ -101,10 +102,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[0] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), 
-                (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
+            //spawn vesicator gores
             for (int numGores = 1; numGores <= 12; numGores++)
             {
                 if (Main.netMode != NetmodeID.Server) 
@@ -113,12 +114,52 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
             }
 
-            for (int numDust = 0; numDust < 55; numDust++)
+            //spawn blood splatter
+            int NumProjectiles = Main.rand.Next(15, 25);
+            for (int i = 0; i < NumProjectiles; i++)
             {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-                Main.dust[newDust].velocity.X *= Main.rand.Next(-30, 30);
-                Main.dust[newDust].velocity.Y *= Main.rand.Next(-30, 30);
-                Main.dust[newDust].scale *= 2.5f;
+                //chance to shoot them directly up
+                if (Main.rand.Next(2) == 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-1, 1),
+                        Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    }
+                }
+                else
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 12),
+                        Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    }
+                }
+            }
+
+            //spawn blood explosion clouds
+            for (int numExplosion = 0; numExplosion < 15; numExplosion++)
+            {
+                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1.8f, 2.5f));
+                Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-3f, 3f);
+                Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 0f);
+                Main.dust[DustGore].noGravity = true;
+
+                if (Main.rand.Next(2) == 0)
+                {
+                    Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                }
+            }
+
+            //spawn vanilla blood dust
+            for (int numDust = 0; numDust < 75; numDust++)
+            {
+                int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 1f);
+                Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
+                Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
+                Main.dust[newDust].scale *= Main.rand.NextFloat(1.8f, 2.5f);
                 Main.dust[newDust].noGravity = true;
 
                 if (Main.rand.Next(2) == 0)

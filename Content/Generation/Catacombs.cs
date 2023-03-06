@@ -29,23 +29,6 @@ namespace Spooky.Content.Generation
         public static int EntranceY = 0;
         public static int BiomeWidth = 420;
 
-        //modify the jungles position to prevent the catacombs from destroying it or the jungle temple
-        //essentially just make the jungles position not near the graveyard/catacombs
-        private void ModifyJungleCoordinate(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int WorldCenterOffset = Main.maxTilesX / 4;
-
-            //place biome based on opposite dungeon side
-            if (WorldGen.dungeonSide == -1)
-			{
-                WorldGen.jungleOriginX = (Main.maxTilesX / 2) + WorldCenterOffset;
-            }
-			else
-			{
-                WorldGen.jungleOriginX = (Main.maxTilesX / 2) - WorldCenterOffset;
-            }
-        }
-
         public static void PlaceCryptTunnel(int X, int Y, int[,] BlocksArray, int[,] ObjectArray)
         {
             for (int PlaceX = 0; PlaceX < BlocksArray.GetLength(1); PlaceX++)
@@ -1684,7 +1667,6 @@ namespace Spooky.Content.Generation
                     {
                         PlaceCatacombRoom(X - 15, Y + 12, EntranceRoom, EntranceRoomObjects, 0, 0);
                     }
-
                     //chest rooms
                     else if (X == XMiddle - 100 && Y == (int)Main.worldSurface + 55)
                     {
@@ -1702,13 +1684,11 @@ namespace Spooky.Content.Generation
                     {
                         PlaceCatacombRoom(X - 15, Y - 10, EndRoom, EndRoomObjects, 0, 3);
                     }
-
                     //place lava parkour rooms next to the loot rooms
                     else if ((X == XMiddle - 100 || X == XMiddle + 100) && Y == (int)Main.worldSurface + 100)
                     {
                         PlaceCatacombRoom(X - 15, Y - 10, LavaRoom, LavaRoomObjects, 0, 0);
                     }
-
                     //otherwise, place a regular room
                     else
                     {
@@ -2321,22 +2301,21 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Grass"));
-            if (GenIndex1 == -1)
-            {
-                return;
-            }
-
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("JungleCoords", ModifyJungleCoordinate));
-
-            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
-			if (GenIndex2 == -1)
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
+
+            //re-locate the jungle temple deeper underground so it never conflicts with the catacombs
+            int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
+            tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
+            {
+                WorldGen.makeTemple(WorldGen.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+            });
         }
 
         //place items in chests

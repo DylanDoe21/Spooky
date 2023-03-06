@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.Catacomb
                     {
                         if (NPC.velocity.Y == 0)
                         {
-                            velocity.Y -= 0.12f;
+                            velocity.Y -= 0.18f;
                         }
 
                         velocity.X *= 1.5f;

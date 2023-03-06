@@ -11,7 +11,6 @@ using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.Boss.Orroboro.Phase2;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
@@ -65,7 +64,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 			}
 
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroboroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				frame = 2;
 			}
@@ -114,7 +113,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override bool RightClick(int i, int j)
 		{
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroboroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				return true;
 			}
@@ -152,7 +151,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 					}
 					else 
 					{
-						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 0, 0, 0, 0);
+						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroHead>(), 0, 0, 0, 0, 0);
 					}
 				}
 			}

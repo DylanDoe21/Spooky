@@ -10,7 +10,7 @@ using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.Tiles.SpookyHell.Chests
 {

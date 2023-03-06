@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
@@ -145,18 +146,28 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Biomatter."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
-            for (int numDust = 0; numDust < 45; numDust++)
+            //spawn blood splatter
+            int NumProjectiles = Main.rand.Next(8, 12);
+            for (int i = 0; i < NumProjectiles; i++)
             {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-                Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
-                Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
-                Main.dust[newDust].scale *= 1.5f;
-                Main.dust[newDust].noGravity = true;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 5),
+                    Main.rand.Next(-5, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                }
+            }
+
+            //spawn blood explosion clouds
+            for (int numExplosion = 0; numExplosion < 5; numExplosion++)
+            {
+                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
+                Main.dust[DustGore].noGravity = true;
 
                 if (Main.rand.Next(2) == 0)
                 {
-                    Main.dust[newDust].scale = 0.5f;
-                    Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[DustGore].scale = 0.5f;
+                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
         }

@@ -12,7 +12,6 @@ using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Tiles.Pylon;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -85,9 +84,7 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Quest";
-			button2 = Main.LocalPlayer.HasItem(ModContent.ItemType<OrroboroHeart>()) &&
-			(Main.LocalPlayer.HasItem(ModContent.ItemType<FleshAxe>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FleshBow>()) ||
-			Main.LocalPlayer.HasItem(ModContent.ItemType<FleshStaff>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FleshWhip>())) ? "Sentient Upgrade" : "Upgrades?";
+			button2 = "Upgrades?";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -189,50 +186,7 @@ namespace Spooky.Content.NPCs.Friendly
 			//upgrade button
 			else
 			{
-				//flesh axe
-				if (Main.LocalPlayer.HasItem(ModContent.ItemType<OrroboroHeart>()) && Main.LocalPlayer.HasItem(ModContent.ItemType<FleshAxe>()))
-				{
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OrroboroHeart>());
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FleshAxe>());
-
-					Main.npcChatText = "Ooga booga, I proclaim this weapon SENTIENT! I didn't actually have to say that but it sounds cool anyways haha. Anyways have fun smashing stuff with your new axe!";
-					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<SentientFleshAxe>(), 1);
-					SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
-				}
-				//flesh bow
-				else if (Main.LocalPlayer.HasItem(ModContent.ItemType<OrroboroHeart>()) && Main.LocalPlayer.HasItem(ModContent.ItemType<FleshBow>()))
-				{
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OrroboroHeart>());
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FleshBow>());
-
-					Main.npcChatText = "What's better than disturbingly put together bow that shoots blood? A bigger bow of flesh that shoots organ chunks! Here, take your silly new weapon.";
-					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<SentientFleshBow>(), 1);
-					SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
-				}
-				//flesh staff
-				else if (Main.LocalPlayer.HasItem(ModContent.ItemType<OrroboroHeart>()) && Main.LocalPlayer.HasItem(ModContent.ItemType<FleshStaff>()))
-				{
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OrroboroHeart>());
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FleshStaff>());
-
-					Main.npcChatText = "Eyes, eyes, and more eyes! I dunno how but it looks like your weird staff has grown. Hope it doesn't try to stalk you or something.";
-					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<SentientFleshStaff>(), 1);
-					SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
-				}
-				//flesh whip
-				else if (Main.LocalPlayer.HasItem(ModContent.ItemType<OrroboroHeart>()) && Main.LocalPlayer.HasItem(ModContent.ItemType<FleshWhip>()))
-				{
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OrroboroHeart>());
-					Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FleshWhip>());
-
-					Main.npcChatText = "Whoa there, don't just start lashing peoples eyes out with that thing! Also not sure how it duplicated itself either. Oh well, have fun beating up random creatures with it!";
-					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<SentientFleshWhip>(), 1);
-					SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
-				}
-				else
-				{
-					Main.npcChatText = "So, you want me to upgrade your weapons? Well, if you show me one of those peculiar flesh weapons and the heart of a giant beast, I can turn them into something a little crazy.";
-				}
+				Main.npcChatText = "So, you want me to upgrade your weapons? Well, if you show me one of those peculiar flesh weapons and the heart of a giant beast, I can turn them into something a little crazy.";
 			}
 		}
 
@@ -240,7 +194,7 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			List<string> Dialogue = new List<string>
 			{
-                "This place is really funky. I love watching those weird flying things crash into stuff!",
+                "This place is really funky. I love watching those weird floating flesh creatures crash into stuff!",
 				"Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!",
 				"You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.",
 				"You may use my magic cauldron... Under the condition that you say 'The magic word'... Alright fine, you can use it whenever.",
@@ -249,7 +203,7 @@ namespace Spooky.Content.NPCs.Friendly
 				"If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong."
 			};
 
-			if (Main.LocalPlayer.HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && Main.rand.Next(4) == 0)
+			if (Main.LocalPlayer.HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && !Flags.downedEggEvent)
             {
 				return "So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'";
 			}

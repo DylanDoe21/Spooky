@@ -124,7 +124,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
 
-            int[] Type = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3, };
+            int[] Type = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
 
             for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
             {

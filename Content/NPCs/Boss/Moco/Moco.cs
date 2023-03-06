@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
-using Spooky.Content.Items.BossBags.Pets;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;

@@ -3,9 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Misc;
-
 namespace Spooky.Content.Items.BossSummon
 {
     public class Concoction : ModItem

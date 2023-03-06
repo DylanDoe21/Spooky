@@ -42,14 +42,17 @@ namespace Spooky.Core
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
 
-        //minions and pets
+        //minions
         public bool SkullWisp = false;
         public bool EntityMinion = false;
         public bool TumorMinion = false;
         public bool NoseMinion = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
+
+        //pets
         public bool FuzzBatPet = false;
+        public bool SkullEmojiPet = false;
         public bool GhostPet = false;
         public bool RotGourdPet = false;
         public bool MocoPet = false;
@@ -74,14 +77,17 @@ namespace Spooky.Core
             OrroboroEmbyro = false;
             BoneMask = false;
 
-            //minions and pets
+            //minions
             SkullWisp = false;
             EntityMinion = false;
             TumorMinion = false;
             NoseMinion = false;
             SoulSkull = false;
             Brainy = false;
+
+            //pets
             FuzzBatPet = false;
+            SkullEmojiPet = false;
             GhostPet = false;
             RotGourdPet = false;
             MocoPet = false;

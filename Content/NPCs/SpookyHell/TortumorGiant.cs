@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.aiStyle = -1;

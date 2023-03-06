@@ -6,7 +6,7 @@ using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
-using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {

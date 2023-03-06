@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Catacomb;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -132,7 +133,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 for (int k = 0; k < Main.maxNPCs; k++)
                 {
-                    if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigBone>()) 
+                    if (Main.npc[k].active && (Main.npc[k].type == ModContent.NPCType<BigBone>() || Main.npc[k].type == ModContent.NPCType<CatacombGuardian>()))
                     {
                         float goToX = Main.npc[k].Center.X + Offset - Projectile.Center.X;
                         float goToY = Main.npc[k].Center.Y + Offset - Projectile.Center.Y;

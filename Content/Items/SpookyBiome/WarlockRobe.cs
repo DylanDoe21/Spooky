@@ -10,8 +10,7 @@ namespace Spooky.Content.Items.SpookyBiome
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Warlock's Cloak");
-			Tooltip.SetDefault("5% increased summon damage and movement speed"
-			+ "\nIncreases your max minions by 1");
+			Tooltip.SetDefault("5% increased summon damage and movement speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

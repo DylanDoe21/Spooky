@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Catacomb
 {
     public class HauntedSkull : ModNPC  
     {
-        public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/HauntedSkull", SoundType.Sound);
+        public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/Catacomb/HauntedSkull", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

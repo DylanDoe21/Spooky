@@ -197,8 +197,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Vector2 Speed = targetPlayer.Center - Projectile.Center;
                 Speed.Normalize();
                         
-                Speed.X *= 20;
-                Speed.Y *= 20;
+                Speed *= 17;
                 Projectile.velocity.X = Speed.X;
                 Projectile.velocity.Y = Speed.Y;
             }

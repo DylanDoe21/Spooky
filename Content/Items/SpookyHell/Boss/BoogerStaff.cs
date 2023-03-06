@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 
 		public override void SetDefaults()
 		{
-			Item.damage = 25;
+			Item.damage = 15;
 			Item.mana = 20;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;

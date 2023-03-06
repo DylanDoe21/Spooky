@@ -6,7 +6,6 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.RotGourd;

@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Flourence might be small and innocent looking, but their devastating ability to accelerate and roll at uncanny speeds is not."),
+				new FlavorTextBestiaryInfoElement("Flourence might be small and innocent looking, but their ability to roll and accelerate at uncanny speeds is not."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

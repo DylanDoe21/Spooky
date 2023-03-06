@@ -23,7 +23,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.height = 56;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit1;

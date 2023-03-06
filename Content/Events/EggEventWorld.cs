@@ -31,6 +31,7 @@ namespace Spooky.Content.Events
 			{
 				EggEventTimer++;
 
+				//increase progress every second
 				if (EggEventTimer >= 60)
 				{
 					EggEventProgress += 1f;
@@ -45,9 +46,9 @@ namespace Spooky.Content.Events
 				EggEventTimer = 0;
 			}
 
-			if (EggEventProgress >= 300f)
+			if (EggEventProgress >= 200f)
 			{
-				Main.NewText("The giant egg has become fragile!", 100, 12, 150);
+				Main.NewText("The giant egg has become fragile", 100, 12, 150);
 
 				NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
 
@@ -95,11 +96,11 @@ namespace Spooky.Content.Events
 				Rectangle ProgressBackground = Utils.CenteredRectangle(new Vector2(Main.screenWidth - OffsetX - 100f, Main.screenHeight - OffsetY - 23f), new Vector2(width, height));
 				Utils.DrawInvBG(spriteBatch, ProgressBackground, new Color(95, 27, 43, 255) * 0.785f);
 
-				string ProgressText = "Progress: " + Math.Round(EggEventProgress / 3, 0, MidpointRounding.AwayFromZero) + "%";
+				string ProgressText = "Progress: " + Math.Round(EggEventProgress / 2, 0, MidpointRounding.AwayFromZero) + "%";
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
-				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp(EggEventProgress / 3, 0f, 100f)), TextureAssets.ColorBar.Height());
+				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp(EggEventProgress / 2, 0f, 100f)), TextureAssets.ColorBar.Height());
 				var offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * Scale)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * Scale)) * 0.5f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, null, ProgressBarColor1 * Alpha, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, waveProgressAmount, ProgressBarColor2, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);

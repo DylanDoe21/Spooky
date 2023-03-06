@@ -109,7 +109,7 @@ namespace Spooky
                 case SpookyMessageType.SpawnOrroboro:
                 { 
                     (int x, int y) = (reader.ReadInt32(), reader.ReadInt32());
-                    NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroboroHead>(), 0, 0, 0, 0, 0);
+                    NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroHead>(), 0, 0, 0, 0, 0);
                     break;
                 }
                 default:

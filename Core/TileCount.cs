@@ -1,9 +1,7 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 
-using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;

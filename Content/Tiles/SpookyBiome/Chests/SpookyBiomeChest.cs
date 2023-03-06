@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Chests
 {

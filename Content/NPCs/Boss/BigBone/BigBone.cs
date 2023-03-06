@@ -17,8 +17,8 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
-using Spooky.Content.Items.BossBags.Pets;
 using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Relic;
 
@@ -31,6 +31,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         int[] SpecialAttack = new int[] { 6, 7 };
 
         public int ScaleTimerLimit = 12;
+        public int SaveDirection;
+        public float SaveRotation;
         public float ScaleAmount = 0f;
         public float RealScaleAmount = 0f;
         public float GoreSpread = -1600;
@@ -186,7 +188,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura").Value;
 
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var effects = SpriteEffects.None;
+
+            if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+            {
+                effects = SpriteEffects.None;
+            }
+            else
+            {
+                effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
 
             Vector2 frameOrigin = NPC.frame.Size() / 2f;
             Vector2 offset = new Vector2(NPC.width / 2 - frameOrigin.X, NPC.height - NPC.frame.Height);
@@ -243,6 +254,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            //draw aura during death animation
             if (DeathAnimation)
             {
                 for (float i = 0f; i < 1f; i += 0.25f)
@@ -295,7 +307,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3").Value;
             }
 
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var effects = SpriteEffects.None;
+
+            if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+            {
+                effects = SpriteEffects.None;
+            }
+            else
+            {
+                effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
@@ -347,9 +368,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void AI()
         {
+            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
-
-			Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
 
@@ -385,7 +405,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.active = false;
             }
 
-            //big bone cannot heal over his max life
+            //make sure big bone cannot heal over his max life
             if (NPC.life > NPC.lifeMax)
             {
                 NPC.life = NPC.lifeMax;
@@ -398,26 +418,29 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.dontTakeDamage = false;
             }
 
-            //reset and randomize attack pattern array
+            //reset and randomize attack pattern list
             if (NPC.ai[2] == 0)
             {
+                //play laughing sound
                 SoundEngine.PlaySound(LaughSound, NPC.Center);
 
-                //remove special attacks from the attack array
+                //remove his special attacks from the attack list
                 foreach (var i in AttackPattern)
                 {
                     AttackPattern = AttackPattern.Where(i => i != 6).ToArray();
                     AttackPattern = AttackPattern.Where(i => i != 7).ToArray();
                 }
                     
-                //shuffle the attack pattern array
+                //shuffle the attack pattern list
                 AttackPattern = AttackPattern.OrderBy(x => Main.rand.Next()).ToArray();
 
-                //add one of the special attacks to the end of the array
+                //add one of the special attacks to the end of the list
+                //if none of big bones healing/immunity flowers exist, then add one of his two special attacks
                 if (NPC.CountNPCS(ModContent.NPCType<HealingFlower>()) <= 0 && NPC.CountNPCS(ModContent.NPCType<DefensiveFlower>()) <= 0)
 			    {
                     AttackPattern = AttackPattern.Append(Main.rand.Next(SpecialAttack)).ToArray();
                 }
+                //if his flowers do exist, only add his charging attack to the list to prevent more healing/immunity flowers from being spammed
                 else
                 {
                     AttackPattern = AttackPattern.Append(7).ToArray();
@@ -575,6 +598,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     break;
                 }
+                
                 //phase 2 transition
                 case -1:
                 {
@@ -1255,6 +1279,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(GrowlSound3, NPC.Center);
 
+                        SaveRotation = NPC.rotation;
+                        SaveDirection = NPC.direction;
+
                         Vector2 Recoil = player.Center - NPC.Center;
                         Recoil.Normalize();
                                 
@@ -1264,6 +1291,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.velocity.Y = Recoil.Y;
 
                         SavePlayerPosition = player.Center;
+                    }
+
+                    if (NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+                    {
+                        NPC.spriteDirection = SaveDirection;
+                        NPC.rotation = SaveRotation;
                     }
 
                     if (NPC.localAI[0] == 95)

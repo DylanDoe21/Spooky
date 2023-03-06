@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {

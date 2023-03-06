@@ -117,7 +117,7 @@ namespace Spooky.Content.NPCs.Friendly
 					if (AdviceSwitch == 0)
 					{
 						AdviceSwitch++;
-						Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it towards one of the oceans in this world.";
+						Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it below one of the buildings in that foggy cemetery past the jungle.";
 					}
 					else if (AdviceSwitch == 1)
 					{

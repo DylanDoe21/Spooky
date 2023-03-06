@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -94,12 +95,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             SoundEngine.PlaySound(SoundID.Item62, target.Center);
 
-            for (int numDusts = 0; numDusts < 45; numDusts++)
-            {
-                int NewDust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 2, Projectile.height / 2, 
-                DustID.YellowTorch, Main.rand.Next(-10, 10), Main.rand.Next(-20, 20), 0, Color.Transparent, Main.rand.NextFloat(1.5f, 3.5f));
-                Main.dust[NewDust].velocity.X *= Main.rand.Next(-5, 5);
-                Main.dust[NewDust].velocity.Y *= Main.rand.Next(-20, 20);
+            for (int numDusts = 0; numDusts < 30; numDusts++)
+			{
+                int dustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+                Main.dust[dustGore].color = Color.Yellow;
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
+                Main.dust[dustGore].scale = 0.25f;
+                Main.dust[dustGore].noGravity = true;
             }
         }
 

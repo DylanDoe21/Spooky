@@ -13,6 +13,7 @@ namespace Spooky.Core
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
+            //creepy candle makes magic projectiles inflict on fire
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
             {
                 if (Main.rand.Next(2) == 0)
@@ -21,7 +22,7 @@ namespace Spooky.Core
                 }
             }
 
-            if(Main.LocalPlayer.GetModPlayer<SpookyPlayer>().ShadowflameCandle && projectile.DamageType == DamageClass.Magic)
+            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().ShadowflameCandle && projectile.DamageType == DamageClass.Magic)
             {
                 target.AddBuff(BuffID.ShadowFlame, 120);
             }
