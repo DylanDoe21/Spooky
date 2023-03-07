@@ -27,7 +27,6 @@ namespace Spooky.Content.Biomes
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
-
         public override void OnInBiome(Player player)
         {
             player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
@@ -37,8 +36,8 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
 
             if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()) &&
-            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !Flags.CatacombKey1) ||
-            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Flags.CatacombKey2)))
+            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !NPC.downedBoss2) ||
+            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Main.hardMode)))
             {
                 NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<CatacombGuardian>());
             }

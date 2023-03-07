@@ -142,7 +142,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!Flags.CatacombKey1 && (npc.type == NPCID.BrainofCthulhu || 
+				if (!NPC.downedBoss2 && (npc.type == NPCID.BrainofCthulhu || 
 				((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && npc.boss)))
                 {
 					return true;
@@ -159,7 +159,7 @@ namespace Spooky.Core
 
         public string GetConditionDescription() 
         {
-			return "Drops from Eye of Cthulhu";
+			return "Drops from Evil Bosses";
 		}
 	}
 
@@ -171,7 +171,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!Flags.CatacombKey2 && npc.type == NPCID.WallofFlesh)
+				if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
                 {
 					return true;
 				}
@@ -199,7 +199,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (!Flags.CatacombKey3 && npc.type == NPCID.Golem)
+				if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
                 {
 					return true;
 				}

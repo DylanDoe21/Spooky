@@ -93,7 +93,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
                 if (attackPattern == 2 && NPC.localAI[0] >= 360)
                 {
-                    effects = SpriteEffects.None;
+                    effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                 }
                 else
                 {

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Generation;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -86,15 +87,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				SoundEngine.PlaySound(SoundID.Item103, Projectile.Center);
 
-				if (!Flags.CatacombKey2)
-				{
-					Flags.CatacombKey2 = true;
-
-					if (Main.netMode == NetmodeID.Server)
-					{
-						NetMessage.SendData(MessageID.WorldData);
-					}
-				}
+				Catacombs.DestroyBarrier(1, false);
 
 				Projectile.Kill();
 			}

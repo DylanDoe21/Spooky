@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Generation;
 using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
@@ -74,12 +75,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.netUpdate = true;
             }
 
+            if (NPC.ai[2] == 0 && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+            {
+                Catacombs.DestroyBarrier(3, true);
+                NPC.ai[2] = 1;
+            }
+
             if (NPC.ai[1] == 1)
             {
                 NPC.ai[0]++;
 
                 if (NPC.ai[0] == 1)
                 {
+                    Catacombs.DestroyBarrier(0, true);
+
                     SaveNPCPosition = NPC.Center;
                     
                     //shoot dirt particles up
@@ -141,6 +150,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
+                    NPC.ai[2] = 0;
                     NPC.netUpdate = true;
                 }
             }

@@ -192,7 +192,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
             {
-                effects = SpriteEffects.None;
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
             else
             {
@@ -311,7 +311,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
             {
-                effects = SpriteEffects.None;
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
             else
             {

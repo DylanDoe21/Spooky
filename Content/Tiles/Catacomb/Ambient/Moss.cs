@@ -22,6 +22,14 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
 		}
+
+		public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects) 
+		{
+			if (i % 2 == 1) 
+			{
+				spriteEffects = SpriteEffects.FlipHorizontally;
+			}
+		}
 	}
 
 	public class Moss2 : Moss1

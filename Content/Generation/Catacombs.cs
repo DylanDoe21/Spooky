@@ -2446,5 +2446,57 @@ namespace Spooky.Content.Generation
                 }
             }
         }
+
+        public static void DestroyBarrier(int ColorToDestroy, bool Unactuate)
+        {
+            int xMin = 0;
+            int xMax = 0;
+
+            if (WorldGen.dungeonSide == -1)
+			{
+                xMin = Main.maxTilesX - 955;
+                xMax = Main.maxTilesX - 755;
+			}
+			else
+			{
+                xMin = 300;
+                xMax = 500;
+            }
+
+            for (int x = xMin; x <= xMax; x++)
+            {
+                for (int y = (int)Main.worldSurface; y <= Main.maxTilesY - 300; y++)
+                {
+                    Tile tile = Framing.GetTileSafely(x, y);
+
+                    if (!tile.Get<TileWallWireStateData>().IsActuated && !Unactuate)
+                    {
+                        if (tile.TileType == ModContent.TileType<CatacombBarrier>() && ColorToDestroy == 0)
+                        {
+                            tile.Get<TileWallWireStateData>().IsActuated = true;
+                        }
+
+                        if (tile.TileType == ModContent.TileType<CatacombBarrier2>() && ColorToDestroy == 1)
+                        {
+                            tile.Get<TileWallWireStateData>().IsActuated = true;
+                        }
+
+                        if (tile.TileType == ModContent.TileType<CatacombBarrier3>() && ColorToDestroy == 2)
+                        {
+                            tile.Get<TileWallWireStateData>().IsActuated = true;
+                        }
+                    }
+
+                    //for when big bone unactuates the barrier
+                    if (Unactuate)
+                    {
+                        if (tile.TileType == ModContent.TileType<CatacombBarrier3>())
+                        {
+                            tile.Get<TileWallWireStateData>().IsActuated = false;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
