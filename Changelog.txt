@@ -29,7 +29,7 @@ Monster Blood Vial:
 Gore Staff:
 -Rare drop from small tortumors, and a common drop from giant tortumors
 
-Monster Heart: 
+Monster Heart:
 -Removed from the mod entirely
 
 
