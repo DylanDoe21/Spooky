@@ -23,7 +23,7 @@ Old Eye Valley Chest Item Changes:
 Exposed Nerve: 
 -There is now a rare purple colored nerve tile that grows in the valley of eyes during hardmode, break it to get the exposed nerve
 
-Monster Blood Vial:s
+Monster Blood Vial:
 -Rarely drops from any pre-hardmode eye valley enemy
 
 Gore Staff:
