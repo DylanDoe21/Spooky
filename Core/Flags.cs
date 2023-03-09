@@ -15,6 +15,10 @@ namespace Spooky.Core
 
         public static bool SpookyBackgroundAlt = false;
 
+        public static bool CatacombKey1 = false; 
+        public static bool CatacombKey2 = false;
+        public static bool CatacombKey3 = false;
+
         public static bool EyeQuest1 = false; 
         public static bool EyeQuest2 = false;
         public static bool EyeQuest3 = false;
@@ -30,6 +34,10 @@ namespace Spooky.Core
             downedBigBone = false;
 
             SpookyBackgroundAlt = false;
+
+            CatacombKey1 = false; 
+            CatacombKey2 = false;
+            CatacombKey3 = false;
 
             EyeQuest1 = false; 
             EyeQuest2 = false;
@@ -48,6 +56,10 @@ namespace Spooky.Core
 
             SpookyBackgroundAlt = false;
 
+            CatacombKey1 = false; 
+            CatacombKey2 = false;
+            CatacombKey3 = false;
+
             EyeQuest1 = false; 
             EyeQuest2 = false;
             EyeQuest3 = false;
@@ -64,6 +76,10 @@ namespace Spooky.Core
             if (downedBigBone) tag["downedBigBone"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
+            
+            if (CatacombKey1) tag["CatacombKey1"] = true;
+            if (CatacombKey2) tag["CatacombKey2"] = true;
+            if (CatacombKey3) tag["CatacombKey3"] = true;
 
             if (EyeQuest1) tag["EyeQuest1"] = true;
             if (EyeQuest2) tag["EyeQuest2"] = true;
@@ -80,7 +96,11 @@ namespace Spooky.Core
             downedBigBone = tag.ContainsKey("downedBigBone");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
-            
+
+            CatacombKey1 = tag.ContainsKey("CatacombKey1");
+            CatacombKey2 = tag.ContainsKey("CatacombKey2");
+            CatacombKey3 = tag.ContainsKey("CatacombKey3");
+
             EyeQuest1 = tag.ContainsKey("EyeQuest1");
             EyeQuest2 = tag.ContainsKey("EyeQuest2");
             EyeQuest3 = tag.ContainsKey("EyeQuest3");
@@ -100,6 +120,9 @@ namespace Spooky.Core
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
+            miscFlags[1] = CatacombKey1;
+            miscFlags[2] = CatacombKey2;
+            miscFlags[3] = CatacombKey3;
             writer.Write(miscFlags);
 
             var questFlags = new BitsByte();
@@ -122,6 +145,9 @@ namespace Spooky.Core
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
+            CatacombKey1 = miscFlags[1];
+            CatacombKey2 = miscFlags[2];
+            CatacombKey3 = miscFlags[3];
 
             BitsByte questFlags = reader.ReadByte();
             EyeQuest1 = miscFlags[0];

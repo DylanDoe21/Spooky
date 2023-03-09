@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
+using Terraria.Graphics.Shaders;
+using Microsoft.Xna.Framework;
 
 namespace Spooky.Effects
 {

@@ -48,39 +48,18 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.Next(7) == 0)
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyWeedsGreen>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(7) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
                     {
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                     }
 				}
-
-                if (Main.rand.Next(8) == 0) 
-                {
-                    ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallGreen1>(), 
-                    (ushort)ModContent.TileType<SpookyWeedsTallGreen2>(),(ushort)ModContent.TileType<SpookyWeedsTallGreen3>() };
-
-                    ushort newObject = Main.rand.Next(TallWeed);
-
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
-                }
-
-                if (Main.rand.Next(15) == 0) 
-                {
-                    ushort[] BigWeeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig3>(), (ushort)ModContent.TileType<SpookyWeedBig4>() };
-
-                    ushort newObject = Main.rand.Next(BigWeeds);
-
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
-                }
             }
 
             //spread grass

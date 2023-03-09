@@ -87,8 +87,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				SoundEngine.PlaySound(SoundID.Item103, Projectile.Center);
 
-				Catacombs.DestroyBarrier(1, false);
-
 				Projectile.Kill();
 			}
 		}
@@ -109,6 +107,16 @@ namespace Spooky.Content.Projectiles.Catacomb
 			else
 			{
 				ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The red barrier has been opened!"), Color.Red);
+			}
+
+			if (!Flags.CatacombKey2)
+			{
+				Flags.CatacombKey2 = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
 			}
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)

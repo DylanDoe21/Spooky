@@ -2220,25 +2220,6 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place junk chests
-            for (int X = XMiddle - 165; X <= XMiddle + 165; X++)
-            {
-                for (int Y = (int)Main.worldSurface + 20; Y <= (int)Main.worldSurface + 250; Y++)
-                {
-                    if ((Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrick>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombTiles>()) &&
-                    !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y - 1].HasTile && 
-                    !Main.tile[X, Y - 2].HasTile && !Main.tile[X - 1, Y - 2].HasTile)
-                    {
-                        if (WorldGen.genRand.Next(35) == 0)
-                        {    
-                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<WoodTombChest>());
-                        }
-                    }
-                }
-            }
-
             //place final ambient stuff
             for (int X = XMiddle - 165; X <= XMiddle + 165; X++)
             {
@@ -2418,83 +2399,6 @@ namespace Spooky.Content.Generation
                     //gold coins
                     chest.item[4].SetDefaults(ItemID.GoldCoin);
                     chest.item[4].stack = WorldGen.genRand.Next(1, 2);
-                }
-
-                //old chest items
-                if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<WoodTombChest>()))
-                {
-                    int[] ItemList1 = new int[] { ItemID.Cobweb, ItemID.Silk, ItemID.Leather };
-                    int[] ItemList2 = new int[] { ItemID.Torch, ItemID.Bottle, ItemID.GrassSeeds };
-                    int[] ItemList3 = new int[]  { ItemID.Chain, ItemID.WoodenArrow, ItemID.Shuriken };
-                    int[] Potions = new int[]  { ItemID.LesserHealingPotion, ItemID.ShinePotion, ItemID.IronskinPotion };
-
-                    //first item
-                    chest.item[0].SetDefaults(WorldGen.genRand.Next(ItemList1));
-                    chest.item[0].stack = WorldGen.genRand.Next(5, 12);
-                    //second item
-                    chest.item[1].SetDefaults(WorldGen.genRand.Next(ItemList2));
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 12);
-                    //third item
-                    chest.item[2].SetDefaults(WorldGen.genRand.Next(ItemList3));
-                    chest.item[2].stack = WorldGen.genRand.Next(12, 20);
-                    //potions
-                    chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-                    chest.item[3].stack = WorldGen.genRand.Next(1, 3);
-                    //gold coins
-                    chest.item[4].SetDefaults(ItemID.GoldCoin);
-                    chest.item[5].stack = WorldGen.genRand.Next(1, 2);
-                }
-            }
-        }
-
-        public static void DestroyBarrier(int ColorToDestroy, bool Unactuate)
-        {
-            int xMin = 0;
-            int xMax = 0;
-
-            if (WorldGen.dungeonSide == -1)
-			{
-                xMin = Main.maxTilesX - 955;
-                xMax = Main.maxTilesX - 755;
-			}
-			else
-			{
-                xMin = 300;
-                xMax = 500;
-            }
-
-            for (int x = xMin; x <= xMax; x++)
-            {
-                for (int y = (int)Main.worldSurface; y <= Main.maxTilesY - 300; y++)
-                {
-                    Tile tile = Framing.GetTileSafely(x, y);
-
-                    if (!tile.Get<TileWallWireStateData>().IsActuated && !Unactuate)
-                    {
-                        if (tile.TileType == ModContent.TileType<CatacombBarrier>() && ColorToDestroy == 0)
-                        {
-                            tile.Get<TileWallWireStateData>().IsActuated = true;
-                        }
-
-                        if (tile.TileType == ModContent.TileType<CatacombBarrier2>() && ColorToDestroy == 1)
-                        {
-                            tile.Get<TileWallWireStateData>().IsActuated = true;
-                        }
-
-                        if (tile.TileType == ModContent.TileType<CatacombBarrier3>() && ColorToDestroy == 2)
-                        {
-                            tile.Get<TileWallWireStateData>().IsActuated = true;
-                        }
-                    }
-
-                    //for when big bone unactuates the barrier
-                    if (Unactuate)
-                    {
-                        if (tile.TileType == ModContent.TileType<CatacombBarrier3>())
-                        {
-                            tile.Get<TileWallWireStateData>().IsActuated = false;
-                        }
-                    }
                 }
             }
         }

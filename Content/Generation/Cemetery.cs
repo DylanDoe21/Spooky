@@ -64,36 +64,24 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
+                    //dithering on the edge of the biome
                     if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
                     {
                         if (WorldGen.genRand.Next(2) == 0)
                         {
-                            //place dirt blobs
                             if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                             {
                                 Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
-                                //SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), 1, ModContent.TileType<CemeteryDirt>(), 
-                                //WallID.Cave3Unsafe, WallID.Cave3Unsafe, true, 0f, 0f, true, false, false, true, false);
-                            }
-
-                            //place small blob where walls exist to prevent unwanted craters or caves
-                            if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
-                            {
-                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                             }
                         }
                     }
                     else
                     {
-                        //place dirt blobs
                         if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                         {
                             Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
-                            //SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), 1, ModContent.TileType<CemeteryDirt>(), 
-                            //WallID.Cave3Unsafe, WallID.Cave3Unsafe, true, 0f, 0f, true, false, false, true, false);
                         }
 
-                        //place small blob where walls exist to prevent unwanted craters or caves
                         if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
                         {
                             WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
@@ -136,11 +124,17 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    Tile tile = Main.tile[x, y];
+                    Tile tile = Main.tile[X, Y];
                     Tile up = Main.tile[X, Y - 1];
                     Tile down = Main.tile[X, Y + 1];
                     Tile left = Main.tile[X - 1, Y];
                     Tile right = Main.tile[X + 1, Y];
+
+                    //convert grass blocks that are covered up back into dirt
+                    if (tile.TileType == ModContent.TileType<CemeteryGrass>() && up.HasTile && down.HasTile && left.HasTile && right.HasTile)
+                    {
+                        tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                    }
 
                     //convert grass
                     if (tile.TileType == ModContent.TileType<CemeteryDirt>() &&
@@ -155,14 +149,6 @@ namespace Spooky.Content.Generation
                     left.TileType == ModContent.TileType<CemeteryGrass>() || right.TileType == ModContent.TileType<CemeteryGrass>()))
                     {
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>(), false);
-                    }
-
-                    //convert grass blocks that are covered up back into dirt
-                    if (tile.TileType == ModContent.TileType<CemeteryGrass>() &&
-                    up.TileType == ModContent.TileType<CemeteryDirt>() && down.TileType == ModContent.TileType<CemeteryDirt>() &&
-                    left.TileType == ModContent.TileType<CemeteryDirt>() && right.TileType == ModContent.TileType<CemeteryDirt>())
-                    {
-                        tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
                     }
 
                     //place bushes
@@ -267,10 +253,10 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                Vector2 origin = new Vector2(CryptX - 30, CryptY - 40);
+                Vector2 origin = new Vector2(CryptX - 28, CryptY - 37);
                 Generator.GenerateStructure("Content/Structures/CemeteryCrypt", origin.ToPoint16(), Mod);
 
-                //set the catacomb entrance tunnel position so it places properly
+                //set the catacomb entrance position so it places the tunnel down to the catacombs properly
                 Catacombs.EntranceY = CryptY - 37;
 
                 placedCrypt = true;
@@ -293,7 +279,7 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                Vector2 origin = new Vector2(LakeX - 19, LakeY - 25);
+                Vector2 origin = new Vector2(LakeX - 19, LakeY - 18);
                 Generator.GenerateStructure("Content/Structures/CemeteryLake", origin.ToPoint16(), Mod);
 
                 placedlake = true;
@@ -339,7 +325,7 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                Vector2 origin = new Vector2(HutX - 16, HutY - 15);
+                Vector2 origin = new Vector2(HutX - 16, HutY - 11);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);
 
                 placedHut2 = true;
@@ -354,8 +340,8 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("Cemetery1", PlaceCemeteryArea));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Cemetery2", GenerateCemeteryStructures));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("CemeteryTerrain", PlaceCemeteryArea));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("CemeteryStructures", GenerateCemeteryStructures));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryGrass", SpreadCemeteryGrass));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("CemeteryTrees", GrowCemeteryTrees));
         }

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     //[AutoloadBossHead]
     public class OrroHead : ModNPC
     {
-        Vector2 SavePoint;
+        Vector2 SavePlayerPosition;
         public bool Transition = false;
         private bool spawned;
 
@@ -280,40 +280,40 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.localAI[0]++;
 
                         //use chase movement
-                        if (NPC.localAI[0] < 210 || (NPC.localAI[0] >= 250 && NPC.localAI[0] < 410) || NPC.localAI[0] >= 450)
+                        if (NPC.localAI[0] < 180 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 380) || NPC.localAI[0] >= 450)
                         {
-                            Movement(player, 13f, 0.2f, true);
+                            Movement(player, 10f, 0.25f, true);
                         }
 
                         //save the player position before charging
-                        if (NPC.localAI[0] == 210 || NPC.localAI[0] == 410)
+                        if (NPC.localAI[0] == 180 || NPC.localAI[0] == 380)
                         {
-                            SavePoint = player.Center;
+                            SavePlayerPosition = player.Center;
 
                             NPC.velocity *= 0.97f;
                         }
 
                         //charge at the saved location
-                        if (NPC.localAI[0] == 220 || NPC.localAI[0] == 420)
+                        if (NPC.localAI[0] == 200 || NPC.localAI[0] == 400)
                         {
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
-                            Vector2 ChargeDirection = SavePoint - NPC.Center;
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= 30;
-                            ChargeDirection.Y *= 30;
+                            ChargeDirection.X *= 28;
+                            ChargeDirection.Y *= 28;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
                         //slow down after charging
-                        if (NPC.localAI[0] == 250 || NPC.localAI[0] == 450)
+                        if (NPC.localAI[0] == 240 || NPC.localAI[0] == 450)
                         {
-                            NPC.velocity *= 0f;
+                            NPC.velocity *= 0.2f;
                         }
 
-                        if (NPC.localAI[0] > 600)
+                        if (NPC.localAI[0] > 475)
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
@@ -394,54 +394,58 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //TODO: new attack, charge at the player and shoot spreads of spit while charging, 3 times
+                    //charge at the player and shoot spreads of spit, 3 times
                     case 3:
                     {
                         NPC.localAI[0]++;
 
                         if (NPC.localAI[1] < 3)
                         {
-                            if (NPC.localAI[0] < 60)
+                            //chase the player
+                            if (NPC.localAI[0] < 80)
                             {
                                 Movement(player, 13f, 0.2f, true);
                             }
 
-                            if (NPC.localAI[0] == 60)
+                            //slow down
+                            if (NPC.localAI[0] == 80)
                             {
-                                SavePoint = player.Center;
+                                SavePlayerPosition = player.Center;
 
                                 NPC.velocity *= 0.97f;
                             }
 
-                            if (NPC.localAI[0] == 70)
+                            //charge at the player
+                            if (NPC.localAI[0] == 90)
                             {
-                                SoundEngine.PlaySound(HissSound1, NPC.Center);
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
-                                Vector2 ChargeDirection = SavePoint - NPC.Center;
+                                Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                                 ChargeDirection.Normalize();
                                         
                                 ChargeDirection.X *= 30;
                                 ChargeDirection.Y *= 30;
                                 NPC.velocity.X = ChargeDirection.X;
                                 NPC.velocity.Y = ChargeDirection.Y;
+                            }
 
-                                //shoot spread of venom spit
-                                int MaxProjectiles = Main.rand.Next(2, 3);
-
-                                for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
+                            //shoot spread of venom spit
+                            if (NPC.localAI[0] == 110)
+                            {
+                                for (int numProjectiles = -3; numProjectiles <= 3; numProjectiles++)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                        4.2f * NPC.DirectionTo(SavePoint).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
+                                        4.5f * NPC.DirectionTo(SavePlayerPosition).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
                                         ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
                                     }
                                 }
                             }
 
-                            if (NPC.localAI[0] >= 100)
+                            if (NPC.localAI[0] >= 120)
                             {
+                                NPC.velocity *= 0.5f;
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
@@ -588,7 +592,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == 125 || NPC.localAI[0] == 135)
                         {
-                            SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                            SoundEngine.PlaySound(SpitSound, NPC.Center);
 
                             int MaxProjectiles = Main.rand.Next(5, 8);
 
@@ -623,11 +627,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.localAI[0]++;
 
-                        if (NPC.localAI[1] < 2)
+                        if (NPC.localAI[1] < 3)
                         {
                             Vector2 GoTo = player.Center;
                             GoTo.X += 0;
-                            GoTo.Y += 700;
+                            GoTo.Y += 750;
 
                             //go from side to side
                             if (NPC.localAI[0] < 120)
@@ -642,7 +646,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                            if (NPC.localAI[0] % 20 == 5)
+                            if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
                             {
                                 for (int j = 0; j <= 0; j++) //0 was 1, 1 was 10
                                 {

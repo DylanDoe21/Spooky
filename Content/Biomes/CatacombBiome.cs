@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Effects;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.Tiles.Catacomb;
 
@@ -29,6 +31,13 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
+            //vignette effect
+            if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
+            {
+                VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
+                vignettePlayer.SetVignette(2, 600, 1f, Color.Black, player.Center);
+            }
+
             player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
 
             //spawn a catacomb guardian if you enter too early
@@ -36,8 +45,8 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
 
             if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()) &&
-            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !NPC.downedBoss2) ||
-            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Main.hardMode)))
+            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !Flags.CatacombKey1) ||
+            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Flags.CatacombKey2)))
             {
                 NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<CatacombGuardian>());
             }

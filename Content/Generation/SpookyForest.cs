@@ -296,27 +296,6 @@ namespace Spooky.Content.Generation
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Pumpkins));    
                             }
-
-                            //tall weeds
-                            if (Main.rand.Next(3) == 0) 
-                            {
-                                ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallOrange1>(), 
-                                (ushort)ModContent.TileType<SpookyWeedsTallOrange2>(),(ushort)ModContent.TileType<SpookyWeedsTallOrange3>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(TallWeed));
-                            }
-                        }
-
-                        //place green grass only on green grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
-                        {
-                            if (Main.rand.Next(3) == 0) 
-                            {
-                                ushort[] TallWeed = new ushort[] { (ushort)ModContent.TileType<SpookyWeedsTallGreen1>(), 
-                                (ushort)ModContent.TileType<SpookyWeedsTallGreen2>(),(ushort)ModContent.TileType<SpookyWeedsTallGreen3>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(TallWeed));
-                            }
                         }
                     }
                 }

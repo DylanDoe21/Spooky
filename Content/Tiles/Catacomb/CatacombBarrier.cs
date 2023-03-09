@@ -40,6 +40,15 @@ namespace Spooky.Content.Tiles.Catacomb
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
+			if (Flags.CatacombKey1)
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = true;
+			}
+			else
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = false;
+			}
+
 			float time = Main.GameUpdateCount * 0.01f;
 
 			float brightness = 0.7f;
@@ -61,6 +70,15 @@ namespace Spooky.Content.Tiles.Catacomb
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
+			if (Flags.CatacombKey2)
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = true;
+			}
+			else
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = false;
+			}
+
 			float time = Main.GameUpdateCount * 0.01f;
 
 			float brightness = 0.7f;
@@ -81,6 +99,32 @@ namespace Spooky.Content.Tiles.Catacomb
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
+
+			if (Flags.CatacombKey3)
+			{
+				for (int k = 0; k < Main.maxNPCs; k++)
+				{
+					if (Main.npc[k].type == ModContent.NPCType<BigFlowerPot>()) 
+					{
+						if (Main.npc[k].ai[0] > 0)
+						{
+							tile.Get<TileWallWireStateData>().IsActuated = false;
+						}
+					}
+				}
+				if (NPC.CountNPCS(ModContent.NPCType<BigBone>()) > 0)
+				{
+					tile.Get<TileWallWireStateData>().IsActuated = false;
+				}
+				else
+				{
+					tile.Get<TileWallWireStateData>().IsActuated = true;
+				}
+			}
+			else
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = false;
+			}
 
 			float time = Main.GameUpdateCount * 0.01f;
 

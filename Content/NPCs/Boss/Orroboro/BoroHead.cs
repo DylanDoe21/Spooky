@@ -462,7 +462,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                            if ((!Enraged && NPC.localAI[0] % 60 == 20) || (Enraged && NPC.localAI[0] % 20 == 5))
+                            if (((!Enraged && NPC.localAI[0] % 60 == 20) || (Enraged && NPC.localAI[0] % 20 == 5)) && NPC.localAI[1] > 0)
                             {
                                 for (int j = 0; j <= 0; j++)
                                 {
@@ -518,7 +518,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //charge and shoot acidic flames while orro drops acid
+                    //charge and shoot venom breath while orro drops venom spit
                     case 4:
                     {
                         NPC.localAI[0]++;
@@ -529,7 +529,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             int time1 = Enraged ? 60 : 80;
                             int time2 = Enraged ? 120 : 160;
                             int time3 = Enraged ? 180 : 240;
-                            if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2)
+                            if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                             {
                                 Vector2 CenterPoint = player.Center;
 
@@ -541,7 +541,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
 
                             //charge towards where the telegraphs saved point is
-                            if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15)
+                            if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                             {
                                 SoundEngine.PlaySound(GrowlSound, NPC.Center);
                                 SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
@@ -555,18 +555,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NPC.velocity.Y = ChargeDirection.Y;
                             }
                             
-                            if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35))
+                            if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
+                            (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
                                 NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
                                 ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
                             }
 
-                            int endTime = Enraged ? 60 : 80;   
-                            int extraTime = Enraged ? 60 : 80;
-                            if (NPC.localAI[0] >= 160 + extraTime)
+                            if (NPC.localAI[0] >= time3 + 35)
                             {
-                                NPC.localAI[0] = 20;
+                                NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
                             }
@@ -673,21 +672,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
-            
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBoro>()));
 
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
+            if (Enraged)
+            {
+                npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBoro>()));
 
-            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
-            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
-            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+                npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
+                npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+                int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
+                ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
+                ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+                notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            npcLoot.Add(notExpertRule);
+                notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+
+                npcLoot.Add(notExpertRule);
+            }
         }
 
         public override void OnKill()

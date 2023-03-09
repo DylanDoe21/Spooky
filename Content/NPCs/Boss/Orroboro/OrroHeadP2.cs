@@ -294,7 +294,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
 
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250, 
-                                0, 0, ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
+                                0, 0, ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
                             }
 
                             int chargeTime = Enraged ? 65 : 75;
@@ -365,7 +365,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.position.Y = player.Center.Y + 0;
 
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
+                            ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
                         }
 
                         if (NPC.localAI[0] == 90)
@@ -429,7 +429,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.localAI[0]++;
 
-                        //having it happen more times when enraged doesnt matter since boro doesnt exist
                         int repeats = Enraged ? 5 : 3;
                         if (NPC.localAI[1] < repeats)
                         {
@@ -503,7 +502,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                            if (NPC.localAI[0] % 20 == 5)
+                            if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
                             {
                                 //if enraged shoot spreads of fangs downward
                                 if (Enraged)
@@ -530,10 +529,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 }
                             }
 
-                            if (NPC.localAI[0] >= 240)
+                            if (NPC.localAI[0] >= 275)
                             {
                                 NPC.velocity *= 0.25f;
-                                NPC.localAI[0] = 20;
+                                NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
                             }
@@ -882,20 +881,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrro>()));
+            if (Enraged)
+            {
+                npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrro>()));
 
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
+                npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
+                npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
 
-            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
-            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
-            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+                int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
+                ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
+                ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+                notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+                notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
 
-            npcLoot.Add(notExpertRule);
+                npcLoot.Add(notExpertRule);
+            }
         }
 
         public override void OnKill()
