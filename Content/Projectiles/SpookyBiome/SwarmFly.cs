@@ -33,9 +33,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             return false;
         }
 
-		public override void AI()
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+
+        public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
+
+            player.statDefense += 1;
 
             Projectile.timeLeft = 500;
 
@@ -58,7 +65,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            if (!player.active || player.dead || !player.GetModPlayer<SpookyPlayer>().PumpkinCore)
+            if (!player.active || player.dead || !player.GetModPlayer<SpookyPlayer>().FlyAmulet)
 			{
 				Projectile.alpha += 10;
 

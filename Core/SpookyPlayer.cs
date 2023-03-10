@@ -21,6 +21,7 @@ namespace Spooky.Core
         public static int ShakeTimer = 0;
         public static float ScreenShakeAmount = 0;
 
+        public int flySpawnTimer = 0;
         public int BoneWispTimer = 0;
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
@@ -37,7 +38,7 @@ namespace Spooky.Core
         public bool CrossCharmShield = false;
 
         //expert accessories
-        public bool PumpkinCore = false;
+        public bool FlyAmulet = false;
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
@@ -72,7 +73,7 @@ namespace Spooky.Core
             ShadowflameCandle = false; 
 
             //expert accessories
-            PumpkinCore = false;
+            FlyAmulet = false;
             MocoNose = false;
             OrroboroEmbyro = false;
             BoneMask = false;
@@ -138,6 +139,14 @@ namespace Spooky.Core
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
+            if (FlyAmulet)
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
+                {
+                    Player.AddBuff(ModContent.BuffType<FlyCooldown>(), 1800);
+                }
+            }
+
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
                 damage = 0;
@@ -208,17 +217,26 @@ namespace Spooky.Core
                 }
             }
 
-            if (PumpkinCore)
+            //spawn flies with the fly amulet
+            if (FlyAmulet)
             {
-                Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
-
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] <= 0)
+                //add the buff if the player has any flies around them
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
                 {
-                    for (int i = 0; i < 10; i++)
+                    Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
+                }
+
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
+                {
+                    flySpawnTimer++;
+
+                    if (flySpawnTimer == 300)
                     {
-                        Vector2 vector2_2 = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
-                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector2_2.X, vector2_2.Y,
-                        ModContent.ProjectileType<SwarmFly>(), 15, 0f, Main.myPlayer, 0f, 0f);
+                        Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
+                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
+
+                        flySpawnTimer = 0;
                     }
                 }
             }

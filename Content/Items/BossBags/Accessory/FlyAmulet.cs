@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<SpookyPlayer>().PumpkinCore = true;
+            player.GetModPlayer<SpookyPlayer>().FlyAmulet = true;
         }
     }
 }
