@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 5;
             NPC.width = 34;
             NPC.height = 24;
-			NPC.knockBackResist = 0.45f;
+			NPC.knockBackResist = 0.65f;
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
@@ -144,24 +144,24 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			}
 
 			//actual jumping
-			if (NPC.ai[0] >= 60 && NPC.ai[0] <= 65)
+			if (NPC.ai[0] >= 60 && NPC.ai[0] <= 70)
 			{
 				float speed = MathHelper.Clamp(velocity.Length() / 36, 3, 5);
 				velocity.Normalize();
-				velocity.Y -= 0.2f;
+				velocity.Y -= 0.18f;
 				velocity.X *= Main.rand.NextFloat(1.2f, 1.32f);
 				NPC.velocity = velocity * speed * 1.1f;
 			}
 
 			//fall on the ground
-			if (NPC.ai[0] >= 90 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
+			if (NPC.ai[0] >= 100 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
 			{
 				landingRecoil = 0.5f;
 
-				NPC.velocity.X *= 0;
+				NPC.velocity.X *= 0.2f;
 				
-				//complete the slam attack
-				NPC.ai[1] = 1; 
+				//complete the jump attack
+				NPC.ai[1] = 1;
 			}
 
 			//only loop attack if the jump has been completed

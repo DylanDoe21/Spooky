@@ -52,8 +52,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				Projectile.ai[0] = 30;
 				SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
 
-				Projectile.velocity.X = -Projectile.velocity.X * 1.1f;
-				Projectile.velocity.Y = -Projectile.velocity.Y * 1.1f;
+				if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                }
 			}
 
 			return false;

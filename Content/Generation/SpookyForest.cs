@@ -41,13 +41,14 @@ namespace Spooky.Content.Generation
                 Flags.SpookyBackgroundAlt = true;
             }
 
+            //if config is enabled, place it at spawn
             if (ModContent.GetInstance<SpookyConfig>().SpookyForestSpawn)
             {
                 PositionX = Main.maxTilesX / 2;
             }
+            //otherwise place it off to the side of the snow biome
             else
             {
-                //place biome based on opposite dungeon side
                 if (WorldGen.dungeonSide == -1)
                 {
                     PositionX = WorldGen.snowOriginLeft - (Main.maxTilesX / 10);
@@ -58,17 +59,22 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //set y position again so it is always correct before placing
             PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
-            //set to default values in case of non vanilla world sizes
-            int Size = Main.maxTilesX / 12;
-            int BiomeHeight = Main.maxTilesY / 6;
+            //set size and height
+            int Size = Main.maxTilesX / 15;
+            int BiomeHeight = Main.maxTilesY / 10;
 
             //place the actual biome
             for (int Y = 0; Y < BiomeHeight; Y += 50)
             {
-                SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + 10, (double)Size + Y / 2, 1, ModContent.TileType<SpookyDirt>(), 
-                ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, true);
+                //loop to make the sides of the spooky forest more smooth
+                for (int cutOff = 0; cutOff < Main.maxTilesX / 28; cutOff += 10)
+                {
+                    SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + cutOff, (double)Size + Y / 2, 1, ModContent.TileType<SpookyDirt>(), 
+                    ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, true);
+                }
             }
 
             //dig crater to lead to the underground
@@ -367,10 +373,10 @@ namespace Spooky.Content.Generation
         public void GenerateUndergroundCabins(GenerationProgress progress, GameConfiguration configuration)
         {
             //how much distance should be inbetween each loot room
-            int ChestDistance = (Main.maxTilesX / 82);
+            int ChestDistance = (Main.maxTilesX / 75);
 
             //depth of each loot room
-            int InitialDepth = (int)Main.worldSurface + (Main.maxTilesY / 30);
+            int InitialDepth = (int)Main.worldSurface + (Main.maxTilesY / 28);
             int ChestDepth = (Main.maxTilesY / 15) / 2;
 
             //actual loot room positions

@@ -178,6 +178,7 @@ Cowbell Entity Changes:
 
 Little Bone Changes:
 
+-(stuff will go here when i get to writing it down)
 
 
 Other Uncategorized Changes:
@@ -201,6 +202,11 @@ Other Uncategorized Changes:
 -All spooky mod music boxes now produce music notes when turned on like vanilla ones do
 -World globe will now only change the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind
+-Modified putty slime jumping ai so that they can now jump over short walls, also increased how far they can jump a bit
+-Decreased putty slime knockback resistance
+-Modified marigold's jumping ai and made it a lot smoother in game
+-Marigolds will now make a sound every time they spit a spore at you
+
 
 
 ~New Music~

@@ -221,11 +221,12 @@ namespace Spooky.Core
             if (FlyAmulet)
             {
                 //add the buff if the player has any flies around them
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
                 {
                     Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
                 }
 
+                //spawn flies
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
                 {
                     flySpawnTimer++;

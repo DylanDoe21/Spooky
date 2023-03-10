@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
@@ -17,16 +18,6 @@ namespace Spooky.Content.NPCs.Catacomb
         {
             DisplayName.SetDefault("Marigold");
             Main.npcFrameCount[NPC.type] = 5;
-        }
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(NPC.localAI[0]);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            NPC.localAI[0] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -69,31 +60,34 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void FindFrame(int frameHeight)
         {   
-            if (NPC.ai[0] == 0)
+            Player player = Main.player[NPC.target];
+
+            if (NPC.Distance(player.Center) > 200f)
             {
-                //falling up
+                //jumping up frame
                 if (NPC.velocity.Y < 0)
                 {
                     NPC.frame.Y = 1 * frameHeight;
                 }
-                //falling down
+                //falling down frame
                 else if (NPC.velocity.Y > 0)
                 {
                     NPC.frame.Y = 2 * frameHeight;
                 }
+                //idle frame
                 else
                 {
                     NPC.frame.Y = 0 * frameHeight;
                 }
             }
 
-            if (NPC.ai[0] == 1)
+            if (NPC.Distance(player.Center) <= 200f)
             {
-                if (NPC.localAI[1] < 45)
+                if (NPC.ai[1] < 45)
                 {
                     NPC.frame.Y = 3 * frameHeight;
                 }
-                if (NPC.localAI[1] >= 45)
+                if (NPC.ai[1] >= 45)
                 {
                     NPC.frame.Y = 4 * frameHeight;
                 }
@@ -107,55 +101,59 @@ namespace Spooky.Content.NPCs.Catacomb
 
             NPC.spriteDirection = NPC.direction;
 
-            if (NPC.Distance(player.Center) <= 200f) 
-            {
-                NPC.ai[0] = 1;
-            }
-            else
-            {
-                NPC.ai[0] = 0;
-            }
-
             //jumping ai
-            if (NPC.ai[0] == 0)
+            if (NPC.Distance(player.Center) > 200f)
             {
-                NPC.localAI[0]++;
-                NPC.localAI[1] = 0;
+                NPC.ai[0]++;
+                NPC.ai[1] = 0;
 
-                if (NPC.localAI[0] >= 75)
+                if (NPC.ai[0] >= 75)
                 {
-                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 60);
+                    //set where the it should be jumping towards
+                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 100);
+
+                    if (Vector2.Distance(NPC.Center, player.Center) >= 300)
+                    {
+                        JumpTo = new(player.Center.X, player.Center.Y - 60);
+                    }
+
+                    //set velocity and speed
                     Vector2 velocity = JumpTo - NPC.Center;
                     velocity.Normalize();
 
-                    float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 18);
-                 
+                    float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 12);
+
+                    //actual jumping
                     if (NPC.velocity.X == 0)
                     {
                         if (NPC.velocity.Y == 0)
                         {
-                            velocity.Y -= 0.18f;
+                            velocity.Y -= 0.25f;
                         }
 
-                        velocity.X *= 1.5f;
+                        velocity.X *= 1.2f;
                         NPC.velocity = velocity * speed;
                     }
 
-                    if (NPC.localAI[0] >= 100)
+                    //loop ai
+                    if (NPC.ai[0] >= 100)
                     {
-                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
                     }
                 }
             }
 
-            //spit spores
-            if (NPC.ai[0] == 1)
+            //spit spores when close
+            if (NPC.Distance(player.Center) <= 200f)
             {
-                NPC.localAI[1]++;
-                NPC.localAI[0] = 0;
+                NPC.ai[1]++;
+                NPC.ai[0] = 0;
 
-                if (NPC.localAI[1] == 45)
+                //spit a spore
+                if (NPC.ai[1] == 45)
                 {
+                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed.X *= 4f;
@@ -168,9 +166,10 @@ namespace Spooky.Content.NPCs.Catacomb
                     }
                 }
 
-                if (NPC.localAI[1] >= 70)
+                //loop ai
+                if (NPC.ai[1] >= 70)
                 {
-                    NPC.localAI[1] = 0;
+                    NPC.ai[1] = 0;
                 }
             }
         }

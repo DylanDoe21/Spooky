@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {
@@ -31,7 +32,10 @@ namespace Spooky.Content.Items.BossBags.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<SpookyPlayer>().FlyAmulet = true;
+            if (!player.HasBuff(ModContent.BuffType<FlyCooldown>()))
+            {
+                player.GetModPlayer<SpookyPlayer>().FlyAmulet = true;
+            }
         }
     }
 }

@@ -89,6 +89,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             float speed = 0.08f;
 
+            if (Vector2.Distance(Projectile.Center, player.Center) >= 300)
+            {
+                Projectile.position = player.Center;
+            }
+            
             if (Vector2.Distance(Projectile.Center, player.Center) >= 135)
             {
                 speed = 3f;
