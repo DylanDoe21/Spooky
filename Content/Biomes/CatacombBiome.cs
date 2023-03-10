@@ -32,7 +32,7 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             //vignette effect
-            if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
+            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
                 vignettePlayer.SetVignette(2, 600, 1f, Color.Black, player.Center);

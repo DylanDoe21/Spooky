@@ -176,6 +176,10 @@ Cowbell Entity Changes:
 -Now drops a special new reward after you encounter it
 
 
+Little Bone Changes:
+
+
+
 Other Uncategorized Changes:
 
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
@@ -193,9 +197,10 @@ Other Uncategorized Changes:
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
 -All natural spawns will be disabled during spooky mod's boss fights
--Added a ton of new dialogue for little bone, and changed some of his advice dialogue to make it better and more clear
 -All spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
 -All spooky mod music boxes now produce music notes when turned on like vanilla ones do
+-World globe will now only change the spooky forest background while you are in the spooky forest
+-All of the wild grasses in the spooky forest now sway in the wind
 
 
 ~New Music~

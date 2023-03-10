@@ -64,26 +64,38 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    //dithering on the edge of the biome
                     if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
                     {
                         if (WorldGen.genRand.Next(2) == 0)
                         {
+                            //place dirt blobs
                             if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                             {
-                                Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                                Main.tile[X, Y].ClearEverything();
+                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                            }
+
+                            //place small blob where walls exist to prevent unwanted craters or caves
+                            if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
+                            {
+                                Main.tile[X, Y].ClearEverything();
+                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                             }
                         }
                     }
                     else
                     {
+                        //place dirt blobs
                         if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                         {
-                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                            Main.tile[X, Y].ClearEverything();
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                         }
 
+                        //place small blob where walls exist to prevent unwanted craters or caves
                         if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
                         {
+                            Main.tile[X, Y].ClearEverything();
                             WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                         }
                     }
@@ -329,6 +341,21 @@ namespace Spooky.Content.Generation
                 Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);
 
                 placedHut2 = true;
+            }
+
+            //clear extra dirt and grass because silly me removed tiles that the structure files had in them
+            //i am not re-exporting the structures so this is going to have to do
+            for (int X = XMiddle - Catacombs.BiomeWidth / 2; X <= XMiddle + Catacombs.BiomeWidth / 2; X++)
+            {
+                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+
+                    if (tile.TileType == TileID.Grass || tile.TileType == TileID.Dirt)
+                    {
+                        WorldGen.KillTile(X, Y);
+                    }
+                }
             }
         }
 

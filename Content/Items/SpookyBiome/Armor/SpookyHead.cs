@@ -36,7 +36,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Your own head will now fight for you!";
+			player.setBonus = "Your own head will now fight with you!";
 			player.GetModPlayer<SpookyPlayer>().SpookySet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PumpkinHead>()] <= 0;

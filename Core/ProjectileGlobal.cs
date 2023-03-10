@@ -30,7 +30,7 @@ namespace Spooky.Core
 
         public override bool PreAI(Projectile projectile)
 		{
-            //disable gravestones in the catacombs to prevent clutter
+            //disable gravestones in the catacombs to prevent graveyards forming there
             int[] Gravestones = new int[] {ProjectileID.Tombstone, ProjectileID.GraveMarker, ProjectileID.CrossGraveMarker,
             ProjectileID.Headstone, ProjectileID.Gravestone, ProjectileID.Obelisk, ProjectileID.RichGravestone1, ProjectileID.RichGravestone2,
             ProjectileID.RichGravestone3, ProjectileID.RichGravestone4, ProjectileID.RichGravestone5 };
@@ -54,7 +54,7 @@ namespace Spooky.Core
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
-            if (projectile.type == ProjectileID.WorldGlobe)
+            if (projectile.type == ProjectileID.WorldGlobe && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
             {
                 if (!Flags.SpookyBackgroundAlt)
                 {
@@ -64,9 +64,9 @@ namespace Spooky.Core
                 { 
                     Flags.SpookyBackgroundAlt = false;
                 }
+                
+                NetMessage.SendData(MessageID.WorldData);
             }
-
-            NetMessage.SendData(MessageID.WorldData);
 
             return true;
         }

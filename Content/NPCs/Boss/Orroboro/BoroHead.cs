@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.DataStructures;
@@ -669,28 +670,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        public static void DefineLoot(NPCLoot npcLoot)
         {
-            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new ShouldBoroDropLootExpert(), ModContent.ItemType<BossBagBoro>()));
 
-            if (Enraged)
-            {
-                npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBoro>()));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
 
-                npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
-                npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
+            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(),
+            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(),
+            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-                int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
-                ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
-                ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), Main.rand.Next(MainItem)));
 
-                notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
-
-                notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
-
-                npcLoot.Add(notExpertRule);
-            }
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
         }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) => DefineLoot(npcLoot);
 
         public override void OnKill()
         {
@@ -711,6 +707,60 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             scale = 1.2f;
             return null;
+        }
+    }
+
+    //for non expert drops
+    public class ShouldBoroDropLoot : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "Drops from Boro";
+        }
+    }
+
+    //for expert drops
+    public class ShouldBoroDropLootExpert : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.expertMode)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "Drops from Boro";
         }
     }
 }

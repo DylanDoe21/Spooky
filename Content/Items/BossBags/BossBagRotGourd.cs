@@ -43,7 +43,7 @@ namespace Spooky.Content.Items.BossBags
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
 
 			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<PumpkinCore>());
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyAmulet>());
 		}
 
 		public override int BossBagNPC => ModContent.NPCType<RotGourd>();

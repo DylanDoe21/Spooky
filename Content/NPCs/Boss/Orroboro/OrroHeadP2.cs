@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
             {
-                SpecificallyImmuneTo = new int[] 
+                SpecificallyImmuneTo = new int[]
                 {
                     BuffID.Confused
                 }
@@ -102,15 +102,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
-        
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-				new FlavorTextBestiaryInfoElement("A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are constantly growing, and constantly consuming the other's flesh."),
+                new FlavorTextBestiaryInfoElement("A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are constantly growing, and constantly consuming the other's flesh."),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
-			});
-		}
+            });
+        }
 
         //rotate the bosses map icon to the NPCs direction
         public override void BossHeadRotation(ref float rotation)
@@ -119,18 +119,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			float Divide = 1.8f;
+        {
+            float Divide = 1.8f;
 
-			if (projectile.penetrate <= -1)
-			{
-				damage /= (int)Divide;
-			}
-			else if (projectile.penetrate >= 3)
-			{
-				damage /= (int)Divide;
-			}
-		}
+            if (projectile.penetrate <= -1)
+            {
+                damage /= (int)Divide;
+            }
+            else if (projectile.penetrate >= 3)
+            {
+                damage /= (int)Divide;
+            }
+        }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -145,7 +145,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, Color.Red * 0.75f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
             }
 
-            Texture2D texture =  ModContent.Request<Texture2D>(Texture).Value;
+            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
             Rectangle frame = new Rectangle(0, NPC.frame.Y, texture.Width, texture.Height / Main.npcFrameCount[NPC.type]);
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
             Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
@@ -154,7 +154,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         }
 
         public override void AI()
-        {   
+        {
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
@@ -188,33 +188,40 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     int LatestNPC = NPC.whoAmI;
 
                     //spawn the 3 orro segments
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
+                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2),
+                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);
                     Main.npc[LatestNPC].realLife = NPC.whoAmI;
                     Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
                     Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
+                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2),
+                    ModContent.NPCType<OrroBody2>(), NPC.whoAmI, 0, LatestNPC);
                     Main.npc[LatestNPC].realLife = NPC.whoAmI;
                     Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
                     Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
+                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2),
+                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);
                     Main.npc[LatestNPC].realLife = NPC.whoAmI;
                     Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
                     Main.npc[LatestNPC].netUpdate = true;
 
                     //spawn tail
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroTail>(), NPC.whoAmI, 0, LatestNPC);                   
+                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2),
+                    ModContent.NPCType<OrroTail>(), NPC.whoAmI, 0, LatestNPC);
                     Main.npc[LatestNPC].realLife = NPC.whoAmI;
                     Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
                     Main.npc[LatestNPC].netUpdate = true;
 
                     //spawn boro manually because funny shennanigans
                     NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroHead>(), ai1: NPC.whoAmI);
+
+                    //net update so it doesnt vanish on multiplayer
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
+                    }
+
                     Enraged = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
-                    
+
                     NPC.netUpdate = true;
                     spawned = true;
                 }
@@ -227,411 +234,411 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     //chase the player while chomping
                     case 0:
-                    {
-                        NPC.localAI[0]++;
+                        {
+                            NPC.localAI[0]++;
 
-                        if (NPC.localAI[1] < 3)
-                        {
-                            float speed = Enraged ? 13f : 10f;
-                            float acceleration = Enraged ? 0.16f : 0.18f;
-                            ChaseMovement(player, speed, acceleration);
-                            
-                            if (NPC.localAI[0] >= 145)
+                            if (NPC.localAI[1] < 3)
                             {
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            //sync boros ai to prevent being slightly off sync
-                            for (int i = 0; i < Main.maxNPCs; i++)
-                            {
-                                //if any boro exists and it is active
-                                if (Main.npc[i].type == ModContent.NPCType<BoroHead>() && Main.npc[i].active)
+                                float speed = Enraged ? 13f : 10f;
+                                float acceleration = Enraged ? 0.16f : 0.18f;
+                                ChaseMovement(player, speed, acceleration);
+
+                                if (NPC.localAI[0] >= 145)
                                 {
-                                    Main.npc[i].localAI[0] = 0;
-                                    Main.npc[i].localAI[1] = 0;
-                                    Main.npc[i].ai[0] = 1;
-                                    Main.npc[i].netUpdate = true;
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1]++;
+                                    NPC.netUpdate = true;
                                 }
                             }
+                            else
+                            {
+                                //sync boros ai to prevent being slightly off sync
+                                for (int i = 0; i < Main.maxNPCs; i++)
+                                {
+                                    //if any boro exists and it is active
+                                    if (Main.npc[i].type == ModContent.NPCType<BoroHead>() && Main.npc[i].active)
+                                    {
+                                        Main.npc[i].localAI[0] = 0;
+                                        Main.npc[i].localAI[1] = 0;
+                                        Main.npc[i].ai[0] = 1;
+                                        Main.npc[i].netUpdate = true;
+                                    }
+                                }
 
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0;
+                                NPC.ai[0]++;
+                                NPC.netUpdate = true;
+                            }
+
+                            break;
                         }
-                        
-                        break;
-                    }
 
                     //charge from the top/bottom while boro dashes
                     case 1:
-                    {
-                        NPC.localAI[0]++;
-
-                        int repeats = Enraged ? 4 : 3;
-                        if (NPC.localAI[1] < repeats)
                         {
-                            int positionTime = Enraged ? 50 : 60;
-                            if (NPC.localAI[0] < positionTime)
-                            {
-                                Vector2 GoTo = player.Center;
-                                GoTo.X += 0;
-                                GoTo.Y += (NPC.Center.Y < player.Center.Y) ? -750 : 750;
+                            NPC.localAI[0]++;
 
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+                            int repeats = Enraged ? 4 : 3;
+                            if (NPC.localAI[1] < repeats)
+                            {
+                                int positionTime = Enraged ? 50 : 60;
+                                if (NPC.localAI[0] < positionTime)
+                                {
+                                    Vector2 GoTo = player.Center;
+                                    GoTo.X += 0;
+                                    GoTo.Y += (NPC.Center.Y < player.Center.Y) ? -750 : 750;
+
+                                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+                                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                                }
+
+                                if (NPC.localAI[0] == positionTime)
+                                {
+                                    NPC.velocity *= 0;
+
+                                    NPC.position.X = player.Center.X - 20;
+                                    NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
+
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250,
+                                    0, 0, ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
+                                }
+
+                                int chargeTime = Enraged ? 65 : 75;
+                                if (NPC.localAI[0] == chargeTime)
+                                {
+                                    SoundEngine.PlaySound(GrowlSound, NPC.Center);
+
+                                    Vector2 ChargeDirection = player.Center - NPC.Center;
+                                    ChargeDirection.Normalize();
+
+                                    ChargeDirection.X *= 0;
+                                    ChargeDirection.Y *= Enraged ? 45 : 40;
+                                    NPC.velocity.X = ChargeDirection.X;
+                                    NPC.velocity.Y = ChargeDirection.Y;
+                                }
+
+                                int stopTime = Enraged ? 85 : 100;
+                                if (NPC.localAI[0] > stopTime)
+                                {
+                                    NPC.velocity *= 0.99f;
+                                }
+
+                                int extraTime = Enraged ? 15 : 45;
+                                if (NPC.localAI[0] >= stopTime + extraTime)
+                                {
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1]++;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+                            else
+                            {
+                                if (NPC.localAI[0] >= 60)
+                                {
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1] = 0;
+                                    NPC.ai[0]++;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+
+                            break;
+                        }
+
+                    //go to players side, charge and then curve and spit projectiles in sync with boro
+                    case 2:
+                        {
+                            NPC.localAI[0]++;
+
+                            if (NPC.localAI[0] < 75)
+                            {
+                                //this is slightly offset so its even with the other worm in game
+                                Vector2 GoTo = player.Center;
+                                GoTo.X -= 1250;
+                                GoTo.Y += 0;
+
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
                                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                             }
 
-                            if (NPC.localAI[0] == positionTime)
+                            //set exact position right before so the curling up is always even
+                            if (NPC.localAI[0] == 75)
                             {
                                 NPC.velocity *= 0;
 
-                                NPC.position.X = player.Center.X - 20;
-                                NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
+                                //this is slightly offset so its even with the other worm in game
+                                NPC.position.X = player.Center.X - 1250;
+                                NPC.position.Y = player.Center.Y + 0;
 
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250, 
-                                0, 0, ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
+                                ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
                             }
 
-                            int chargeTime = Enraged ? 65 : 75;
-                            if (NPC.localAI[0] == chargeTime)
+                            if (NPC.localAI[0] == 90)
                             {
                                 SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
-                                Vector2 ChargeDirection = player.Center - NPC.Center;
-                                ChargeDirection.Normalize();
-                                        
-                                ChargeDirection.X *= 0;
-                                ChargeDirection.Y *= Enraged ? 45 : 40;  
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
+                                NPC.velocity.X = Enraged ? 48 : 42;
+                                NPC.velocity.Y *= 0;
                             }
 
-                            int stopTime = Enraged ? 85 : 100;
-                            if (NPC.localAI[0] > stopTime)
+                            if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)
                             {
-                                NPC.velocity *= 0.99f;
+                                double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
+                                while (angle > Math.PI)
+                                {
+                                    angle -= 2.0 * Math.PI;
+                                }
+                                while (angle < -Math.PI)
+                                {
+                                    angle += 2.0 * Math.PI;
+                                }
+
+                                NPC.localAI[1] = Math.Sign(angle);
+                                NPC.velocity = Vector2.Normalize(NPC.velocity) * 32;
+
+                                NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
+
+                                if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
+                                {
+                                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                                    ShootSpeed.Normalize();
+                                    ShootSpeed.X *= Enraged ? 4.5f : 3f;
+                                    ShootSpeed.Y *= Enraged ? 4.5f : 3f;
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
+                                        ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                                    }
+                                }
                             }
 
-                            int extraTime = Enraged ? 15 : 45;
-                            if (NPC.localAI[0] >= stopTime + extraTime)
+                            if (NPC.localAI[0] == 170)
                             {
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
+                                NPC.velocity *= 0.25f;
                             }
-                        }
-                        else
-                        {
-                            if (NPC.localAI[0] >= 60)
+
+                            if (NPC.localAI[0] > 270)
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1] = 0;
                                 NPC.ai[0]++;
                                 NPC.netUpdate = true;
                             }
+
+                            break;
                         }
-
-                        break;
-                    }
-
-                    //go to players side, charge and then curve and spit projectiles in sync with boro
-                    case 2:
-                    {
-                        NPC.localAI[0]++;
-                        
-                        if (NPC.localAI[0] < 75)
-                        {
-                            //this is slightly offset so its even with the other worm in game
-                            Vector2 GoTo = player.Center;
-                            GoTo.X -= 1250;
-                            GoTo.Y += 0;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-                        
-                        //set exact position right before so the curling up is always even
-                        if (NPC.localAI[0] == 75)
-                        {
-                            NPC.velocity *= 0;
-
-                            //this is slightly offset so its even with the other worm in game
-                            NPC.position.X = player.Center.X - 1250;
-                            NPC.position.Y = player.Center.Y + 0;
-
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
-                            ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
-                        }
-
-                        if (NPC.localAI[0] == 90)
-                        {
-                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
-
-                            NPC.velocity.X = Enraged ? 48 : 42;
-                            NPC.velocity.Y *= 0;
-                        }
-
-                        if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)
-                        {
-                            double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
-                            while (angle > Math.PI)
-                            {
-                                angle -= 2.0 * Math.PI;
-                            }
-                            while (angle < -Math.PI)
-                            {
-                                angle += 2.0 * Math.PI;
-                            }
-
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 32;
-
-                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
-
-                            if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
-                            {
-                                Vector2 ShootSpeed = player.Center - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed.X *= Enraged ? 4.5f : 3f;
-                                ShootSpeed.Y *= Enraged ? 4.5f : 3f;
-
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
-                                }
-                            }
-                        }
-
-                        if (NPC.localAI[0] == 170)
-                        {
-                            NPC.velocity *= 0.25f;
-                        }
-
-                        if (NPC.localAI[0] > 270)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
-                    }
 
                     //spit acid bolt spreads and chase player while boro summons tentacle pillars
                     case 3:
-                    {
-                        NPC.localAI[0]++;
-
-                        int repeats = Enraged ? 5 : 3;
-                        if (NPC.localAI[1] < repeats)
                         {
-                            //use chase movement
-                            ChaseMovement(player, 8.5f, 0.18f);
+                            NPC.localAI[0]++;
 
-                            //Shoot toxic spit when nearby the player
-                            if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 200) 
+                            int repeats = Enraged ? 5 : 3;
+                            if (NPC.localAI[1] < repeats)
                             {
-                                NPC.velocity *= 0.95f;
+                                //use chase movement
+                                ChaseMovement(player, 8.5f, 0.18f);
 
-                                if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180 || (Enraged && NPC.localAI[0] == 200)) 
+                                //Shoot toxic spit when nearby the player
+                                if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 200)
                                 {
-                                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                                    NPC.velocity *= 0.95f;
 
-                                    int MaxProjectiles = Main.rand.Next(2, 4);
-
-                                    float speed = Enraged ? 4.8f : 4.2f;
-
-                                    for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
+                                    if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180 || (Enraged && NPC.localAI[0] == 200))
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+
+                                        int MaxProjectiles = Main.rand.Next(2, 4);
+
+                                        float speed = Enraged ? 4.8f : 4.2f;
+
+                                        for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                            speed * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                                speed * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                                ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                            }
                                         }
                                     }
                                 }
+
+                                if (NPC.localAI[0] >= 240)
+                                {
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1]++;
+                                    NPC.netUpdate = true;
+                                }
                             }
-                            
-                            if (NPC.localAI[0] >= 240)
+                            else
                             {
                                 NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
+                                NPC.localAI[1] = 0;
+                                NPC.ai[0]++;
                                 NPC.netUpdate = true;
                             }
-                        }
-                        else
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0]++; 
-                            NPC.netUpdate = true;
-                        }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     //fly above player and drop projectiles down while boro uses acid breath
                     case 4:
-                    {
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[1] < 3)
                         {
-                            Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
-                            GoTo.Y -= 750;
+                            NPC.localAI[0]++;
 
-                            //go from side to side
-                            if (NPC.localAI[0] < 120)
+                            if (NPC.localAI[1] < 3)
                             {
-                                GoTo.X += -1000;
-                            }
-                            if (NPC.localAI[0] > 120)
-                            {
-                                GoTo.X += 1000;
-                            }
-                            
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                                Vector2 GoTo = player.Center;
+                                GoTo.X += 0;
+                                GoTo.Y -= 750;
 
-                            if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
-                            {
-                                //if enraged shoot spreads of fangs downward
-                                if (Enraged)
+                                //go from side to side
+                                if (NPC.localAI[0] < 120)
                                 {
-                                    Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y + 50);
+                                    GoTo.X += -1000;
+                                }
+                                if (NPC.localAI[0] > 120)
+                                {
+                                    GoTo.X += 1000;
+                                }
 
-                                    for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                                if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
+                                {
+                                    //if enraged shoot spreads of fangs downward
+                                    if (Enraged)
+                                    {
+                                        Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y + 50);
+
+                                        for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
+                                        {
+                                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                                4.5f * NPC.DirectionTo(position).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                                ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                            }
+                                        }
+                                    }
+                                    else
                                     {
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                            4.5f * NPC.DirectionTo(position).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 5,
+                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 0);
                                         }
                                     }
                                 }
-                                else
+
+                                if (NPC.localAI[0] >= 275)
                                 {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 5, 
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 0);
-                                    }
+                                    NPC.velocity *= 0.25f;
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1]++;
+                                    NPC.netUpdate = true;
                                 }
                             }
-
-                            if (NPC.localAI[0] >= 275)
+                            else
                             {
                                 NPC.velocity *= 0.25f;
                                 NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
+                                NPC.localAI[1] = 0;
+                                NPC.ai[0]++;
                                 NPC.netUpdate = true;
                             }
+
+                            break;
                         }
-                        else
-                        {
-                            NPC.velocity *= 0.25f;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0]++; 
-                            NPC.netUpdate = true;
-                        }
-                        
-                        break;
-                    }
 
                     //circle and chase other worm
                     case 5:
-                    {
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[0] < 119)
                         {
-                            Vector2 GoTo = player.Center;
-                            GoTo.X -= 1000;
-                            GoTo.Y += 750;
+                            NPC.localAI[0]++;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-                        
-                        //set exact position right before so it is even
-                        if (NPC.localAI[0] == 119)
-                        {
-                            NPC.velocity *= 0;
-
-                            NPC.position.X = player.Center.X - 1000;
-                            NPC.position.Y = player.Center.Y + 750;
-                        }
-
-                        if (NPC.localAI[0] == 120)
-                        {
-                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
-
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
-                            ChargeDirection.Normalize();
-                                    
-                            ChargeDirection.X *= Enraged ? 45 : 40;
-                            ChargeDirection.Y *= 0;
-                            NPC.velocity.X = ChargeDirection.X;
-                            NPC.velocity.Y = ChargeDirection.Y;
-                        }
-
-                        if (NPC.localAI[0] >= 151 && NPC.localAI[0] <= 500)
-                        {
-                            if (NPC.localAI[0] >= 250 && NPC.localAI[0] <= 380)
+                            if (NPC.localAI[0] < 119)
                             {
-                                int frequency = Enraged ? 5 : 8;
+                                Vector2 GoTo = player.Center;
+                                GoTo.X -= 1000;
+                                GoTo.Y += 750;
 
-                                if (NPC.localAI[0] % 20 == frequency)
-                                {
-                                    Vector2 ShootSpeed = player.Center - NPC.Center;
-                                    ShootSpeed.Normalize();
-                                    ShootSpeed.X *= Enraged ? 3f : 2f;
-                                    ShootSpeed.Y *= Enraged ? 3f : 2f;
-
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
-                                    }
-                                }
-
-                                NPC.localAI[2] += 0.025f;
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                             }
 
-                            double angle = NPC.velocity.ToRotation();
+                            //set exact position right before so it is even
+                            if (NPC.localAI[0] == 119)
+                            {
+                                NPC.velocity *= 0;
 
-                            //always subtract angle so it goes in a set circle
-                            angle -= 3.5 * Math.PI;
+                                NPC.position.X = player.Center.X - 1000;
+                                NPC.position.Y = player.Center.Y + 750;
+                            }
 
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 50;
+                            if (NPC.localAI[0] == 120)
+                            {
+                                SoundEngine.PlaySound(GrowlSound, NPC.Center);
 
-                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(3.5f + NPC.localAI[2]) * NPC.localAI[1]);
+                                Vector2 ChargeDirection = player.Center - NPC.Center;
+                                ChargeDirection.Normalize();
+
+                                ChargeDirection.X *= Enraged ? 45 : 40;
+                                ChargeDirection.Y *= 0;
+                                NPC.velocity.X = ChargeDirection.X;
+                                NPC.velocity.Y = ChargeDirection.Y;
+                            }
+
+                            if (NPC.localAI[0] >= 151 && NPC.localAI[0] <= 500)
+                            {
+                                if (NPC.localAI[0] >= 250 && NPC.localAI[0] <= 380)
+                                {
+                                    int frequency = Enraged ? 5 : 8;
+
+                                    if (NPC.localAI[0] % 20 == frequency)
+                                    {
+                                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                                        ShootSpeed.Normalize();
+                                        ShootSpeed.X *= Enraged ? 3f : 2f;
+                                        ShootSpeed.Y *= Enraged ? 3f : 2f;
+
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
+                                            ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                                        }
+                                    }
+
+                                    NPC.localAI[2] += 0.025f;
+                                }
+
+                                double angle = NPC.velocity.ToRotation();
+
+                                //always subtract angle so it goes in a set circle
+                                angle -= 3.5 * Math.PI;
+
+                                NPC.localAI[1] = Math.Sign(angle);
+                                NPC.velocity = Vector2.Normalize(NPC.velocity) * 50;
+
+                                NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(3.5f + NPC.localAI[2]) * NPC.localAI[1]);
+                            }
+
+                            if (NPC.localAI[0] >= 500)
+                            {
+                                NPC.velocity *= 0.25f;
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0;
+                                NPC.localAI[2] = 0;
+                                NPC.ai[0] = 0;
+                                NPC.netUpdate = true;
+                            }
+
+                            break;
                         }
-
-                        if (NPC.localAI[0] >= 500)
-                        {
-                            NPC.velocity *= 0.25f;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.localAI[2] = 0;
-                            NPC.ai[0] = 0;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
-                    }
                 }
             }
         }
@@ -647,10 +654,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 int maxDistance = 12;
                 bool playerCollision = true;
                 Rectangle rectangle1 = new((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-                
+
                 if (player.active)
                 {
-                    Rectangle rectangle2 = new((int)player.position.X - maxDistance, 
+                    Rectangle rectangle2 = new((int)player.position.X - maxDistance,
                     (int)player.position.Y - maxDistance, maxDistance * 2, maxDistance * 2);
                     if (rectangle1.Intersects(rectangle2))
                     {
@@ -675,7 +682,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             float dirX = targetRoundedPosX - NPCCenter.X;
             float dirY = targetRoundedPosY - NPCCenter.Y;
             float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-            
+
             if (!collision)
             {
                 NPC.TargetClosest(true);
@@ -715,7 +722,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
-                        NPC.velocity.X -= acceleration * 1f; 
+                        NPC.velocity.X -= acceleration * 1f;
                     }
                 }
             }
@@ -726,7 +733,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.velocity.Y = NPC.velocity.Y + 0.11f;
 
                 if (NPC.velocity.Y > speed)
-                { 
+                {
                     NPC.velocity.Y = speed;
                 }
 
@@ -741,8 +748,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity.X += acceleration * 1.4f;
                     }
                 }
-                
-                if (NPC.velocity.Y > 5.0) 
+
+                if (NPC.velocity.Y > 5.0)
                 {
                     if (NPC.velocity.X < 0.0)
                     {
@@ -870,35 +877,30 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.ai[2] = 0.0f;
             }
 
-            if ((NPC.velocity.X > 0.0 && NPC.oldVelocity.X < 0.0 || NPC.velocity.X < 0.0 && NPC.oldVelocity.X > 0.0 || 
+            if ((NPC.velocity.X > 0.0 && NPC.oldVelocity.X < 0.0 || NPC.velocity.X < 0.0 && NPC.oldVelocity.X > 0.0 ||
             (NPC.velocity.Y > 0.0 && NPC.oldVelocity.Y < 0.0 || NPC.velocity.Y < 0.0 && NPC.oldVelocity.Y > 0.0)) && !NPC.justHit)
             {
                 NPC.netUpdate = true;
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        public static void DefineLoot(NPCLoot npcLoot)
         {
-            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
-            
-            if (Enraged)
-            {
-                npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOrro>()));
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new ShouldOrroDropLootExpert(), ModContent.ItemType<BossBagOrro>()));
 
-                npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
-                npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
 
-                int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), 
-                ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(), 
-                ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(),
+            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(),
+            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-                notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldOrroDropLoot(), Main.rand.Next(MainItem)));
 
-                notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
-
-                npcLoot.Add(notExpertRule);
-            }
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldOrroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
         }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) => DefineLoot(npcLoot);
 
         public override void OnKill()
         {
@@ -919,6 +921,60 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             scale = 1.2f;
             return null;
+        }
+    }
+
+    //for non expert drops
+    public class ShouldOrroDropLoot : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && !Main.expertMode)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "Drops from Orro";
+        }
+    }
+
+    //for expert drops
+    public class ShouldOrroDropLootExpert : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && Main.expertMode)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "Drops from Orro";
         }
     }
 }

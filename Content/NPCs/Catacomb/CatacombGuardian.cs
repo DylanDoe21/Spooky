@@ -33,6 +33,7 @@ namespace Spooky.Content.NPCs.Catacomb
             DisplayName.SetDefault("Catacomb Guardian");
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
