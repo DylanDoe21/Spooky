@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 16 };
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(191, 189, 166));
+            AddMapEntry(new Color(225, 225, 0));
 			ItemDrop = ModContent.ItemType<CandleItem>();
 			DustType = DustID.Torch;
 			HitSound = SoundID.Dig;

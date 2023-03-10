@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			TileObjectData.newTile.AnchorBottom = default(AnchorData);
 			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(12, 49, 10));
+			AddMapEntry(new Color(62, 95, 38));
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
 		}

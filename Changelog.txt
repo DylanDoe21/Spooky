@@ -206,6 +206,8 @@ Other Uncategorized Changes:
 -Decreased putty slime knockback resistance
 -Modified marigold's jumping ai and made it a lot smoother in game
 -Marigolds will now make a sound every time they spit a spore at you
+-Made slight modifications to the spooky forest gen to make the biome a bit smaller and way less intrusive with other biomes
+-Changed the map colors for some of the plants in the spooky forest to make them look nicer
 
 
 
