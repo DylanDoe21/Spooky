@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.DataStructures;
@@ -15,7 +14,6 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Pets;
-using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -670,12 +668,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
 
-        public static void DefineLoot(NPCLoot npcLoot)
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBagByCondition(new ShouldBoroDropLootExpert(), ModContent.ItemType<BossBagBoro>()));
 
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<OrroboroEye>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OrroboroRelicItem>()));
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
 
             int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(),
             ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(),
@@ -685,8 +683,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
         }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) => DefineLoot(npcLoot);
 
         public override void OnKill()
         {
@@ -710,6 +706,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         }
     }
 
+    //i love having to make custom drop rules just so the first worm doesnt drop anything
     //for non expert drops
     public class ShouldBoroDropLoot : IItemDropRuleCondition
     {
@@ -745,6 +742,33 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             if (!info.IsInSimulation)
             {
                 if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.expertMode)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "Drops from Boro";
+        }
+    }
+
+    //for master drops
+    public class ShouldBoroDropLootMaster : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.masterMode)
                 {
                     return true;
                 }
