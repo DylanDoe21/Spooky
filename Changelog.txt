@@ -58,6 +58,7 @@ New Catacombs Visual:
 
 -while in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
 -this is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
+-The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
 
 
 

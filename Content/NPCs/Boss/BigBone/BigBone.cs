@@ -19,10 +19,12 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb.Boss;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
@@ -1452,6 +1454,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             ModContent.ItemType<BigBoneStaff>(), ModContent.ItemType<BigBoneScepter>() };
 
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+
+            //trophy and mask always drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
         }

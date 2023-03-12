@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(150, 12, 12));
            	DustType = DustID.Blood;
-			HitSound = SoundID.Grass;
+            HitSound = SoundID.NPCHit13;
 		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

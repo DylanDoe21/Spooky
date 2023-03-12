@@ -13,10 +13,12 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
 {
@@ -27,7 +29,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public bool Enraged = false;
         private bool spawned;
 
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroGrowl2", SoundType.Sound);
+        public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroDeath", SoundType.Sound);
 
@@ -261,7 +265,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             int chargeTime = Enraged ? 65 : 75;
                             if (NPC.localAI[0] == chargeTime)
                             {
-                                SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                                SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                                 Vector2 ChargeDirection = player.Center - NPC.Center;
                                 ChargeDirection.Normalize();
@@ -320,7 +324,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             int time3 = Enraged ? 115 : 145;
                             if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                             {
-                                SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                                SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                                 Vector2 ChargeDirection = player.Center - NPC.Center;
                                 ChargeDirection.Normalize();
@@ -383,7 +387,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == 90)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                            SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             NPC.velocity.X = Enraged ? -50 : -42;
                             NPC.velocity.Y *= 0;
@@ -543,7 +547,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             //charge towards where the telegraphs saved point is
                             if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                             {
-                                SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                                SoundEngine.PlaySound(HissSound1, NPC.Center);
                                 SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 
                                 Vector2 ChargeDirection = SavePoint - NPC.Center;
@@ -608,7 +612,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == 120)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.position);
+                            SoundEngine.PlaySound(HissSound1, NPC.position);
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
@@ -683,6 +687,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), Main.rand.Next(MainItem)));
 
             npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+
+            //trophy and mask always drop directly from the boss
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));
         }
 
         public override void OnKill()
@@ -742,7 +750,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (!info.IsInSimulation)
             {
-                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.expertMode)
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode && !Main.masterMode)
                 {
                     return true;
                 }

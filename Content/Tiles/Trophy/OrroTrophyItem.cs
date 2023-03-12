@@ -5,11 +5,11 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Trophy
 {
-    public class RotGourdTrophyItem : ModItem
+    public class OrroTrophyItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rot Gourd Trophy");
+            DisplayName.SetDefault("Orro Trophy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.Trophy
 			Item.maxStack = 99;
             Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.createTile = ModContent.TileType<RotGourdTrophy>();
+			Item.createTile = ModContent.TileType<OrroTrophy>();
         }
     }
 }

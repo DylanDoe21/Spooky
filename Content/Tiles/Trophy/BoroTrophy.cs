@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.Trophy
 {
-	public class RotGourdTrophy : ModTile
+	public class BoroTrophy : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.Trophy
 		
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RotGourdTrophyItem>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<BoroTrophyItem>());
 		}
 	}
 }

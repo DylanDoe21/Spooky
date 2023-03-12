@@ -83,7 +83,7 @@ namespace Spooky.Content.Generation
             {
                 TileRunner runner = new TileRunner(new Vector2(PositionX - Main.rand.Next(30, 55), CraterDepth), new Vector2(0, 5), new Point16(-5, 5), 
                 new Point16(-5, 5), 15f, Main.rand.Next(5, 10), 0, false, true);
-                runner.Start();    
+                runner.Start();
             }
             
             //place clumps of stone in the underground
@@ -364,9 +364,9 @@ namespace Spooky.Content.Generation
                     //clear trees around the house since it is placed after them
                     for (int i = (int)origin.X - 15; i <= (int)origin.X + 15; i++)
                     {
-                        for (int j = (int)origin.Y - 50; j <= (int)origin.Y + 10; j++)
+                        for (int j = (int)origin.Y - 50; j <= (int)origin.Y + 50; j++)
                         {
-                            if (Main.tile[i, j].TileType == TileID.Trees)
+                            if (Main.tile[i, j].TileType == 5)
                             {
                                 WorldGen.KillTile(i, j);
                             }

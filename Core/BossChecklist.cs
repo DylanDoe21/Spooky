@@ -121,6 +121,8 @@ namespace Spooky.Core
 
 			List<int> MocoDrops = new List<int>()
 			{
+				ModContent.ItemType<MocoTrophyItem>(),
+				ModContent.ItemType<MocoMask>(),
 				ModContent.ItemType<BoogerFlail>(),
 				ModContent.ItemType<BoogerBlaster>(),
 				ModContent.ItemType<BoogerStaff>(),
@@ -192,6 +194,10 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroEye>(),
 				ModContent.ItemType<OrroboroRelicItem>(),
+				ModContent.ItemType<OrroTrophyItem>(),
+				ModContent.ItemType<BoroTrophyItem>(),
+				ModContent.ItemType<OrroMask>(),
+				ModContent.ItemType<BoroMask>(),
 				ModContent.ItemType<OrroboroChunk>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),
@@ -224,6 +230,8 @@ namespace Spooky.Core
 
 			List<int> BigBoneDrops = new List<int>()
 			{
+				ModContent.ItemType<BigBoneTrophyItem>(),
+				ModContent.ItemType<BigBoneMask>(),
 				ModContent.ItemType<BigBoneHammer>(),
 				ModContent.ItemType<BigBoneBow>(),
 				ModContent.ItemType<BigBoneStaff>(),

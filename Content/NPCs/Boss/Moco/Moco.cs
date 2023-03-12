@@ -13,10 +13,12 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.Moco
 {
@@ -850,6 +852,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
             ModContent.ItemType<BoogerBlaster>(), ModContent.ItemType<BoogerStaff>() };
             
             notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+
+            //trophy and mask always drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
         }

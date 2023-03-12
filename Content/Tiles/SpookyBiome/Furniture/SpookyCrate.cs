@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<CandyBag>()
 			};
 
-			//only drop main items if rot gours has been defeated
+			//only drop main items if rot gourd has been defeated
 			if (Flags.downedRotGourd)
 			{
 				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));

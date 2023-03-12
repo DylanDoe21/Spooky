@@ -31,6 +31,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.GetDamage(DamageClass.Summon) += 0.05f;
 			player.maxMinions += 1;
+			player.maxTurrets += 1;
 		}
 
 		public override void AddRecipes()
