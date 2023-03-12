@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -32,6 +33,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = 64;
 			AIType = NPCID.Firefly;
+            NPC.catchItem = (short)ModContent.ItemType<TinyGhostItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiome>().Type };
 		}
 

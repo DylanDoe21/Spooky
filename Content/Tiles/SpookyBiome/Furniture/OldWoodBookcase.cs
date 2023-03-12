@@ -19,7 +19,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16 };
             TileObjectData.addTile(Type);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Bookcase");
             AddMapEntry(new Color(93, 62, 39), name);

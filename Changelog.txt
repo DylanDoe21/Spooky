@@ -2,6 +2,32 @@ WTF FINALLY!!!! New update changelogs so people can actually tell what changed!!
 
 Also, if you want to figure out new features on your own then avoid reading this, as this changelog describes all of the new changes and additions in detail
 
+This updates main focus is the valley of eyes, the biome has been entirely overhauled, and tons of new content has been added along with improvements to existing stuff
+
+
+~NEW STUFF~
+
+
+New Friendly NPC, Little Eye the Alchemist:
+
+-Has a total of four quests, each of which involve you gathering a large selection of materials to craft a special potion for him
+-Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards
+-Upon completing his third quest, he will give you the cotton swab to summon moco. This is now the only way to obtain it, and the previous method has been removed entirely
+-Upon completing his fourth quest he will give you the eye valley pylon, and this is also now the only way to obtain it
+-After completing the four main quests, you must give him 5 of any mechanical boss soul, and he will then reward you with orro & boros summon item, the acidic concoction
+(NOTE: you must give him 5 of ONE type of mech soul, like 5 souls of might, ect)
+
+
+
+New Event, The Egg Incursion:
+
+-A new endurance invasion event that takes place before you can summon orro & boro, during early hardmode
+-It only needs to be completed once. Afterward you will be able to summon orro & boro at any time without being forced to do it again
+-However, if you die during the event then you will need to restart it again
+-It will begin upon trying to break the egg with the concoction for the first time
+-The event does not have an enemy kill count. It is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
+
+
 
 New Eye Valley Chest Weapons:
 
@@ -18,7 +44,57 @@ Eye Lasher:
 -A whip that can sometimes lower enemy defense on hit for a short time
 
 
-Old Eye Valley Chest Item Changes:
+
+New Biome, The Swampy Cemetery:
+
+-A brand new biome introduced this update, it serves as the above ground biome that transitions into the catacombs
+-The biome also counts as a vanilla graveyard biome, so you will no longer need to make a graveyard biome yourself to get the unique content
+-This biome doesn't have much unique loot, but is meant to be more of an ambient area with some cool structures, new enemies, ect
+-It also has it's own pylon, which you can buy from npcs who are happy enough in the biome
+
+
+
+New Catacombs Visual:
+
+-while in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
+-this is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
+
+
+
+New Enemy, the Catacomb Guardian:
+
+-Basically a dungeon guardian but for the catacombs, to prevent exploring it or getting loot before its intended to be found
+-They will spawn in each layer of the catacombs if that layer's barrier has not been opened (does not apply to big bone's arena)
+-you will be able to spawn them manually after big bone if you want to actually fight one (if you are insane)
+-Defeating the catacomb guardian will give you a funny pet item
+
+
+
+New Music:
+
+-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
+-"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
+-"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
+
+
+
+New Config Options:
+
+Spooky Forest at Spawn:
+-Allows you to determine whether the spooky forest generates at your spawn point, or off to the side away from spawn
+-Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes on small worlds)
+-This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
+
+Screen Shaking Effect:
+-Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
+(For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
+
+
+
+~CHANGES TO EXISTING STUFF~
+
+
+Old Eye Valley Chest Items:
 
 Exposed Nerve: 
 -There is now a rare purple colored nerve tile that grows in the valley of eyes during hardmode, break it to get the exposed nerve
@@ -33,51 +109,27 @@ Monster Heart:
 -Removed from the mod entirely
 
 
-New Friendly NPC, Little Eye the Alchemist:
-
--Has a total of four quests, each of which involve you gathering a large selection of materials to craft a special potion for him
--Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards
--Upon completing his third quest, he will give you the cotton swab to summon moco. This is now the only way to obtain it, and the previous method has been removed entirely
--Upon completing his fourth quest he will give you the eye valley pylon, and this is also now the only way to obtain it
--After completing the four main quests, you must give him 5 of any mechanical boss soul, and he will then reward you with orro & boros summon item, the acidic concoction
-(NOTE: you must give him 5 of ONE type of mech soul, like 5 souls of might, ect)
-
-
-New Event, The Egg Incursion:
-
--A new endurance invasion event that takes place before you can summon orro & boro, during early hardmode
--It only needs to be completed once. Afterward you will be able to summon orro & boro at any time without being forced to do it again
--However, if you die during the event then you will need to restart it again
--It will begin upon trying to break the egg with the concoction for the first time
--The event does not have an enemy kill count. It is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
-
-
-New Biome, The Swampy Cemetery:
-
--A brand new biome introduced this update, it serves as the above ground biome that transitions into the catacombs
--The biome also counts as a vanilla graveyard biome, so you will no longer need to make a graveyard biome yourself to get the unique content
--This biome doesn't have much unique loot, but is meant to be more of an ambient area with some cool structures, new enemies, ect
--It also has it's own pylon, which you can buy from npcs who are happy enough in the biome
-
 
 Moco Item Changes:
 
 Snot Ball:
 -Damage has been buffed slightly
--Now detaches from the chain when flung and will bounce around for a bit before dying
+-Now detaches from the chain when flung and will bounce around comically for a bit before dying
 
 Booger Blaster:
 -Damage has been buffed slightly
 -Rather than spamming spreads, you can now hold it down to charge it up to three times
 -The first charge shoots a tiny snot, the second shoots a close spread of three tiny snots, and the third shoots a big snot glob that does triple damage
 
-New moco drop, Sneeze Staff:
+New Moco Drop, Sneeze Staff:
 -summons flying noses that attack by flying above enemies and dropping snot balls from above that will linger if they hit the ground
 
 Reworked the Snotty Schnoz:
 -Hitting enemies will sometimes drop globs of snot you can pick up
--After picking up fifteen snot globs, using weapons will shoot snot for a short period
+-After picking up fifteen snot globs, using weapons that shoot projectiles will shoot snot for a short period along with their regular projectile
+-The booger will use the same damage type as the weapon used (For example, if shot by a magic weapon then the booger will deal magic damage)
 -Enemies will stop dropping snot for thirty seconds after this effect is triggered
+
 
 
 Catacomb Item Changes:
@@ -109,44 +161,24 @@ Thorn Covered Bulb:
 -No longer bounces off of tiles, instead when it hits a tile, it will fall down until it hits the floor, where it will linger for a bit before dying
 -The thorns created by its explosion now deal slightly less damage
 
-
-New Catacombs Visual:
-
--while in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
--this is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore instead of just seeing what rooms are around you
-
-
-Big Bone Changes:
-
--All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
--The bolts shot by big bone's solar flowers during his phase transition now properly damage players
--The bouncing flowers he shoots during his first phase now have much better bouncing behavior
--Added fancy dust particles for his healing and defensive flowers on death, since before they just vanished
--The intense screen shaking during big bone's death animation will now immediately stop when he dies
--During big bone's phase transition, he will now begin shooting orange fire balls after two solar flowers die instead of three
--Big bone's solar flowers now drop way more hearts on death
--While charging big bone will now face towards where he is charging to, instead of facing the player
--Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
-
-Disciple's mask changes:
--Now displays it's damage and crit chance
+Disciple's Mask:
+-Now displays it's damage and crit chance in it's tooltip
 -Buffed the skull wisp's homing speed and enemy detection range
 -Skull wisps can now go through tiles while homing on an enemy
--Now plays a less annoying sound when wisps are fired
+-Now plays a less annoying sound when wisps are fired and when they die
 
 
-New Enemy, the Catacomb Guardian:
 
--Basically a dungeon guardian but for the catacombs to prevent early exploration 
--They will spawn in each layer of the catacombs if that layer's barrier has not been opened
--You can spawn them manually later on after big bone if you so choose
--When you get them below 85% life, they will begin using 3 different attacks, each of which are dangerous and will instakill you if you get hit
--Defeating the catacomb guardian will give you a funny pet item
+Rot Gourd Changes:
+
+-Rot gourd launching players up when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
+-Rot gourd no longer creates dirt debris projectiles when jumping in his desperation phase
+
 
 
 Orro & Boro Changes:
 
-Phase 1 Attack Changes:
+~phase 1~
 
 -his attack where he flies around at the beginning of the fight now lasts for much less time
 
@@ -156,15 +188,24 @@ Phase 1 Attack Changes:
 -his attack where he flies around and vomits projectiles everywhere and has been removed and replaced
 -the new attack consists of him charging at you 3 times, and during each charge he will spit a spread venom globs towards where he is charging to
 
-Phase 2 Attack Changes:
+~phase 2~
 
--new enrage mechanic, when one worm dies during phase 2 it will no longer become immortal, and the other remaining worm will become enraged
+-When one worm dies during phase 2 it will now actually die instead of becoming immune, but the remaining worm will enrage, causing it to become way more aggressive
 
 
-Rot Gourd Changes:
 
--Rot gourd launching players upward when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
--Rot gourd no longer creates dirt debris projectiles when jumping in his desperation phase
+Big Bone Changes:
+
+-All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
+-The bolts shot by big bone's solar flowers during his phase transition now properly damage players
+-The bouncing flowers he shoots during his first phase now have much better bouncing behavior
+-Added fancy dust particles for his healing and defensive flowers when they die
+-The intense screen shaking during big bone's death animation will now immediately stop when he dies
+-During big bone's phase transition, he will now begin shooting orange fire balls after two solar flowers die instead of three
+-Big bone's solar flowers now drop way more hearts on death
+-While charging, big bone will now face towards the direction he is charging, instead of facing the player
+-Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
+
 
 
 Cowbell Entity Changes:
@@ -176,76 +217,43 @@ Cowbell Entity Changes:
 -Now drops a special new reward after you encounter it
 
 
+
 Little Bone Changes:
 
 -(stuff will go here when i get to writing it down)
 
 
-Other Uncategorized Changes:
+
+Config Changes:
+
+-The halloween season config being off will not disable halloween if the pumpkins moon's one day of halloween is happening or if halloween is normally occuring in vanilla
+-The halloween season config also no longer requires you to leave and re-enter the world for it to apply
+
+
+Other Changes and Fixes:
 
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
 -Green solution for the clentaminator will now convert spooky forest blocks back into their respective vanilla blocks
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
--The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused many issues with structure placement (and just make the biome look like garbage)
+-The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement (and they were ugly tbh)
 -The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
 -Tortumors and Giant Tortumors can no longer move through blocks
--Buffed the exposed nerve's damage scaling when it hits multiple enemies, but it now caps at five enemies instead of ten
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
--Warlock's cloak no longer gives an extra minion slot
+-Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
 -The catacomb barrier keys now have a cool animation when you use them
 -The yellow catacomb key is now dropped by the Eater of Worlds/Brain of Cthulhu instead of Eye of Cthulhu
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
 -All natural spawns will be disabled during spooky mod's boss fights
--All spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
--All spooky mod music boxes now produce music notes when turned on like vanilla ones do
+-Spooky mod's summon weapons now have much better enemy targeting, and now have proper right click targeting
+-Spooky mod's music boxes now produce music notes when turned on like vanilla's music boxes
 -World globe will now only change the spooky forest background while you are in the spooky forest
--All of the wild grasses in the spooky forest now sway in the wind
--Modified putty slime jumping ai so that they can now jump over short walls, also increased how far they can jump a bit
+-All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
+-Modified putty slime jumping ai so that they can now jump over short walls, also increased how far they can jump slightly
 -Decreased putty slime knockback resistance
 -Modified marigold's jumping ai and made it a lot smoother in game
 -Marigolds will now make a sound every time they spit a spore at you
--Made slight modifications to the spooky forest gen to make the biome a bit smaller and way less intrusive with other biomes
+-Made slight modifications to the spooky forest gen to make the biome a bit smaller and way less intrusive in general
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
-
-
-
-~New Music~
-
-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
-"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
-"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
-
-
-
-~New Config Options~
-
-Spooky Forest at Spawn:
--Allows you to determine whether the spooky forest generates at your spawn point, or off to the side away from spawn
--Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes on small worlds)
--This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
-
-Screen Shaking Effect:
--Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
-(For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-Flies, big flies, little spiders, and tiny ghosts can now be caught with bug net

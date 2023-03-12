@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
+	[AutoloadEquip(EquipType.Front, EquipType.Back)]
 	public class WarlockRobe : ModItem
 	{
 		public override void SetStaticDefaults() 
@@ -27,7 +28,6 @@ namespace Spooky.Content.Items.SpookyBiome
 		{
 			player.GetDamage(DamageClass.Summon) += 0.05f;
 			player.moveSpeed += 0.05f;
-			player.maxMinions += 1;
 		}
 	}
 }

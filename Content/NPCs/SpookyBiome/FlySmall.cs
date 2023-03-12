@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -16,6 +17,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
 			DisplayName.SetDefault("Fly");
 			Main.npcFrameCount[NPC.type] = 3;
+            Main.npcCatchable[NPC.type] = true;
 		}
 
 		public override void SetDefaults()
@@ -31,6 +33,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath47;
 			NPC.aiStyle = 114;
 			AIType = NPCID.BlackDragonfly;
+            NPC.catchItem = (short)ModContent.ItemType<FlySmallItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 

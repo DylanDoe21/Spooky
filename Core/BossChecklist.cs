@@ -5,13 +5,16 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Core
 {
@@ -80,21 +83,23 @@ namespace Spooky.Core
 			*/
 
 			//Rot Gourd
-			string PumpkinName = "Rot Gourd";
-			int Pumpkin = ModContent.NPCType<Content.NPCs.Boss.RotGourd.RotGourd>();
-			Func<bool> PumpkinDowned = () => Flags.downedRotGourd;
-			int PumpkinSummonItem = ModContent.ItemType<RottenSeed>();
-			string PumpkinSpawnInfo = $"Use a [i:{PumpkinSummonItem}] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.";
-			string PumpkinDespawnInfo = "Rot Gourd has smashed all players";
+			string GourdName = "Rot Gourd";
+			int Gourd = ModContent.NPCType<Content.NPCs.Boss.RotGourd.RotGourd>();
+			Func<bool> GourdDowned = () => Flags.downedRotGourd;
+			int GourdSummonItem = ModContent.ItemType<RottenSeed>();
+			string GourdSpawnInfo = $"Use a [i:{GourdSummonItem}] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.";
+			string GourdDespawnInfo = "Rot Gourd has smashed all players";
 
-			List<int> PumpkinDrops = new List<int>()
+			List<int> GourdDrops = new List<int>()
 			{
+				ModContent.ItemType<RotGourdTrophyItem>(),
+				ModContent.ItemType<RotGourdMask>(),
 				ModContent.ItemType<SpookyChestKey>(),
 				ModContent.ItemType<RottenChunk>(),
-				ModContent.ItemType<PumpkinBossBox>()
+				ModContent.ItemType<RotGourdBox>()
 			};
 
-			var PumpkinPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+			var GourdPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
 				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -102,8 +107,8 @@ namespace Spooky.Core
 			};
 
 			//register rot gourd
-			bossChecklistMod.Call("AddBoss", Mod, PumpkinName, Pumpkin, 2.5f, PumpkinDowned, true, PumpkinDrops, 
-			PumpkinSummonItem, PumpkinSpawnInfo, PumpkinDespawnInfo, PumpkinPortrait);
+			bossChecklistMod.Call("AddBoss", Mod, GourdName, Gourd, 2.5f, GourdDowned, true, GourdDrops, 
+			GourdSummonItem, GourdSpawnInfo, GourdDespawnInfo, GourdPortrait);
 
 
 			//Moco
@@ -177,7 +182,7 @@ namespace Spooky.Core
 
 			//Orroboro
 			string OrroboroName = "Orro & Boro";
-			int Orroboro = ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroHead>();
+			List<int> Orroboro = new List<int>() { ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroHeadP2>(), ModContent.NPCType<Content.NPCs.Boss.Orroboro.BoroHead>() };
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
 			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes, which is obtained after you complete all of little eye's quests. You must complete the Egg Incursion event beforehand.";
@@ -187,8 +192,6 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroEye>(),
 				ModContent.ItemType<OrroboroRelicItem>(),
-				ModContent.ItemType<BossBagOrro>(),
-				ModContent.ItemType<BossBagBoro>(),
 				ModContent.ItemType<OrroboroChunk>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),

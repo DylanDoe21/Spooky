@@ -10,8 +10,7 @@ namespace Spooky
         [Label("Halloween Season")]
         [Tooltip("The spooky mod makes terraria's halloween seasonal event always active"
         + "\nTurn off to disable the halloween seasonal event being active"
-        + "\nThe halloween seasonal event will still occur during October 10th-31st regardless"
-        + "\nYou will need to leave and re-enter your world for changes to this option to take effect")]
+        + "\nTurning this config off will not disable halloween if it is meant to occur in vanilla")]
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
 

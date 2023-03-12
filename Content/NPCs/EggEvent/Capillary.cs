@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Player player = spawnInfo.Player;
 
-            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= 90)
+            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= 60)
             {
                 return 15f;
             }

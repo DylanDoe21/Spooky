@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Purple);
 
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/CruxAuraDraw").Value;
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/PurpleAura").Value;
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 

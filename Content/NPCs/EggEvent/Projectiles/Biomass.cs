@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
 
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/ExplosionAuraTexture").Value;
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/RedAura").Value;
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] >= 0 && Projectile.ai[0] < 180)
+            if (Projectile.ai[0] < 180)
             {
                 Player player = Main.LocalPlayer;
                 float goToX = player.Center.X - Projectile.Center.X;

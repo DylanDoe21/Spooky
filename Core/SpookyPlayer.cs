@@ -289,7 +289,7 @@ namespace Spooky.Core
                 int num19 = 216000;
                 float num20 = num16 * (float)num19 / (float)num18;
 
-                //do not shoot skulls under 20mph (while not moving fast)
+                //do not shoot skulls under 20mph (basically if you are not moving fast enough)
                 if (num20 >= 20)
                 {
                     BoneWispTimer++;
@@ -301,7 +301,7 @@ namespace Spooky.Core
                         Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
                         Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
-                        int damage = 70 + ((int)num20 / 3);
+                        int damage = 80 + ((int)num20 / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
                         ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer, 0f, 0f);

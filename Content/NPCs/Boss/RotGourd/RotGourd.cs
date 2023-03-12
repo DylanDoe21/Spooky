@@ -13,10 +13,12 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.RotGourd
 {
@@ -1026,6 +1028,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
+
+			//trophy and mask always drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
         }

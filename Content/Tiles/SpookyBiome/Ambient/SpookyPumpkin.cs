@@ -20,8 +20,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileNoAttach[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.addTile(Type);
             TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.addTile(Type);
             AddMapEntry(new Color(214, 106, 49));
             DustType = 288;
             HitSound = SoundID.Dig;

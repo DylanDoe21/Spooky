@@ -1,3 +1,4 @@
+/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,7 +31,6 @@ namespace Spooky.Content.Items.SpookyBiome
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            /*
             player.GetModPlayer<SpookyPlayer>().HauntedSac = true;
             
             bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<HauntedSacProj>()] <= 0;
@@ -40,7 +40,7 @@ namespace Spooky.Content.Items.SpookyBiome
 				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, 
 				ModContent.ProjectileType<HauntedSacProj>(), 0, 0f, player.whoAmI, 0f, 0f);
 			}
-            */
         }
     }
 }
+*/

@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.Pylon
 			ModContent.GetInstance<PylonTileEntity>().Kill(i, j);
 
 			// Also, like other pylons, breaking it simply drops the item once again. Pretty straight-forward.
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 2, 3, ModContent.ItemType<CemeteryPylonItem>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<CemeteryPylonItem>());
 		}
 
 		public override bool ValidTeleportCheck_BiomeRequirements(TeleportPylonInfo pylonInfo, SceneMetrics sceneData) 

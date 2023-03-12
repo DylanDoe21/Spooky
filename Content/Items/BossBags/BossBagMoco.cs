@@ -36,6 +36,11 @@ namespace Spooky.Content.Items.BossBags
 			return true;
 		}
 
+		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+		{
+			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
+		}
+
 		public override void OpenBossBag(Player player)
         {
 			int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), 

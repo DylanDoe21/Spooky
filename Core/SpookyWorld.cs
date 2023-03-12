@@ -4,18 +4,37 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Content.Biomes;
-using Spooky.Content.NPCs;
-using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Core
 {
     public class SpookyWorld : ModSystem
     {
-        public override void PostUpdateWorld()
+        public static bool initializeHalloween;
+        public bool storedHalloween;
+        public bool storedHalloweenForToday;
+
+        public override void PostUpdateTime()
         {
+            //store whatever vanilla halloween is set to before setting it based on the config
+            if (!initializeHalloween)
+            {
+                storedHalloween = Main.halloween;
+                storedHalloweenForToday = Main.forceHalloweenForToday;
+                initializeHalloween = true;
+            }
+
+            //if config is on, force halloween to be active
             if (ModContent.GetInstance<SpookyConfig>().HalloweenEnabled)
             {
                 Main.halloween = true;
+            }
+            //otherwise set halloween to what it was before
+            else
+            {
+                //set initializeHalloween to false so vanillas stuff is constantly saved
+                initializeHalloween = false;
+                Main.halloween = storedHalloween;
+                Main.forceHalloweenForToday = storedHalloweenForToday;
             }
         }
 

@@ -64,18 +64,19 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
+                    //dithring on the biome edges
                     if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
                     {
                         if (WorldGen.genRand.Next(2) == 0)
                         {
-                            //place dirt blobs
+                            //place dirt blocks
                             if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                             {
                                 Main.tile[X, Y].ClearEverything();
                                 WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                             }
 
-                            //place small blob where walls exist to prevent unwanted craters or caves
+                            //place dirt blocks where walls exist to prevent unwanted craters or caves
                             if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
                             {
                                 Main.tile[X, Y].ClearEverything();
@@ -85,14 +86,14 @@ namespace Spooky.Content.Generation
                     }
                     else
                     {
-                        //place dirt blobs
+                        //place dirt blocks
                         if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                         {
                             Main.tile[X, Y].ClearEverything();
                             WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                         }
 
-                        //place small blob where walls exist to prevent unwanted craters or caves
+                        //place dirt blocks where walls exist to prevent unwanted craters or caves
                         if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
                         {
                             Main.tile[X, Y].ClearEverything();

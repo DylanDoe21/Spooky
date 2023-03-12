@@ -8,7 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.MusicBox
 {
-    public class PumpkinBossBoxTile : ModTile
+    [LegacyName("PumpkinBossBoxTile")]
+    public class RotGourdBoxTile : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -28,7 +29,7 @@ namespace Spooky.Content.Tiles.MusicBox
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<PumpkinBossBox>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<RotGourdBox>());
         }
 
         public override void MouseOver(int i, int j)
@@ -36,7 +37,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<PumpkinBossBox>();
+            player.cursorItemIconID = ModContent.ItemType<RotGourdBox>();
         }
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)

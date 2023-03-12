@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
@@ -399,7 +401,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
-            //vanish if not attached to its flower pot
+            //immediately vanish if not attached to its flower pot
             if (Main.npc[(int)NPC.ai[3]].type != ModContent.NPCType<BigFlowerPot>())
             {
                 NPC.active = false;
@@ -1456,6 +1458,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void OnKill()
         {
+            if (!Flags.downedBigBone)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Main.NewText("The darkness of the catacombs fades away!", Color.Yellow);
+                }
+                else
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The darkness of the catacombs fades away!"), Color.Yellow);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedBigBone, -1);
         }
 

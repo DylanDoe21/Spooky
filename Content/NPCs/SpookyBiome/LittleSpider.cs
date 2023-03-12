@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -16,6 +17,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
 			DisplayName.SetDefault("Little Spider");
 			Main.npcFrameCount[NPC.type] = 4;
+            Main.npcCatchable[NPC.type] = true;
 		}
 
 		public override void SetDefaults()
@@ -31,6 +33,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 66;
 			AIType = NPCID.Buggy;
+            NPC.catchItem = (short)ModContent.ItemType<LittleSpiderItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 

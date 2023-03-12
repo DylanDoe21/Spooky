@@ -43,7 +43,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
 
         public override void SetDefaults()
         {
-            Item.damage = 70;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Generic;
             Item.width = 34;
             Item.height = 26;

@@ -89,6 +89,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.height = 75;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 12, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -345,7 +346,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //go to players side, charge and then curve and spit projectiles in sync with boro
+                    //go to players side, charge and then curve and spit biomass in sync with boro
                     case 2:
                     {
                         NPC.localAI[0]++;
@@ -409,7 +410,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                                    ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer, 0, 0);
                                 }
                             }
                         }
@@ -538,7 +539,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             if (NPC.localAI[0] >= 275)
                             {
                                 NPC.velocity *= 0.25f;
-                                NPC.localAI[0] = 0;
+                                NPC.localAI[0] = 20;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
                             }
