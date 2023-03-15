@@ -13,6 +13,9 @@ using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.Tiles.SpookyHell.Chests
 {
+	[LegacyName("EyeChest2")]
+	[LegacyName("EyeChest3")]
+	[LegacyName("EyeChest4")]
 	public class EyeChest : ModTile
 	{
 		public override void SetStaticDefaults() 

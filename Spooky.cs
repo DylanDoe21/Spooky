@@ -106,12 +106,6 @@ namespace Spooky
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
 					break;
                 }
-                case SpookyMessageType.SpawnOrroboro:
-                { 
-                    (int x, int y) = (reader.ReadInt32(), reader.ReadInt32());
-                    NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroHead>(), 0, 0, 0, 0, 0);
-                    break;
-                }
                 default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
@@ -124,6 +118,5 @@ namespace Spooky
     enum SpookyMessageType : byte
     {
         SpawnMoco,
-        SpawnOrroboro,
     }
 }

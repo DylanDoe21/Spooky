@@ -9,7 +9,7 @@ using System;
 using Spooky.Core;
 using Spooky.Content.Projectiles.Catacomb;
  
-namespace Spooky.Content.Items.Catacomb.Boss
+namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneHammer : SwingWeaponBase
 	{

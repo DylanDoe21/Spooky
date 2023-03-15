@@ -13,6 +13,10 @@ using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Chests
 {
+	[LegacyName("HalloweenChest2")]
+	[LegacyName("HalloweenChest3")]
+	[LegacyName("HalloweenChest4")]
+	[LegacyName("HalloweenChest5")]
 	public class HalloweenChest : ModTile
 	{
 		public override void SetStaticDefaults() 

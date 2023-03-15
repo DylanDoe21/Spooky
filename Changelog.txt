@@ -92,6 +92,13 @@ Screen Shaking Effect:
 
 
 
+Other New Additions:
+
+-Added old wood armor, old wood sword, and old wood bow
+-New eye armor set, a prehardmode eye valley armor for the summon/sentry class
+
+
+
 ~CHANGES TO EXISTING STUFF~
 
 
@@ -238,7 +245,6 @@ Other Changes and Fixes:
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
 -The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement (and they were ugly tbh)
 -The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
--New eye armor set, a prehardmode eye valley armor for the summon/sentry class
 -Tortumors and Giant Tortumors can no longer move through blocks
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
@@ -251,10 +257,10 @@ Other Changes and Fixes:
 -Spooky mod's music boxes now produce music notes when turned on like vanilla's music boxes
 -World globe will now only change the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
--Modified putty slime jumping ai so that they can now jump over short walls, also increased how far they can jump slightly
--Decreased putty slime knockback resistance
+-Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
+-All 3 putty slime variants have different bestiary entries now
 -Modified marigold's jumping ai and made it a lot smoother in game
 -Marigolds will now make a sound every time they spit a spore at you
--Made slight modifications to the spooky forest gen to make the biome a bit smaller and way less intrusive in general
+-Made modifications to the spooky forest generation, the sides of the biome are less wide to make it less intrusive on other worldgen
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
--Flies, big flies, little spiders, and tiny ghosts can now be caught with bug net
+-Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets

@@ -324,7 +324,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             int time3 = Enraged ? 115 : 145;
                             if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                             {
-                                SoundEngine.PlaySound(HissSound1, NPC.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
                                 Vector2 ChargeDirection = player.Center - NPC.Center;
                                 ChargeDirection.Normalize();
@@ -686,7 +686,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), Main.rand.Next(MainItem)));
 
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));

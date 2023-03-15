@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Distended");
+            DisplayName.SetDefault("Distended Brute");
             Main.npcFrameCount[NPC.type] = 6;
         }
         

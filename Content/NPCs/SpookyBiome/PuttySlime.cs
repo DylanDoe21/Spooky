@@ -212,6 +212,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
 
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Slimes made out of spooky putty, brought to life by the spirit of halloween. They hop around the spooky forest mindlessly."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
 		public override void HitEffect(int hitDirection, double damage) 
         {
             if (NPC.life <= 0) 
@@ -244,6 +253,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime3"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Putty blobs with little faces that hop around the spooky forest. The putty they are made out of allows them to jump higher than normal slimes."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
 		}
 
 		public override void HitEffect(int hitDirection, double damage) 

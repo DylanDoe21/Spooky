@@ -70,7 +70,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
                 //spawn orroboro with message
                 int Orroboro = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHead>());
-                Main.NewText("Orro & Boro have awoken!", 171, 64, 255);
 
                 //net update so it doesnt vanish on multiplayer
                 if (Main.netMode == NetmodeID.Server)
@@ -78,6 +77,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                     NetMessage.SendData(MessageID.SyncNPC, number: Orroboro);
                 }
 
+                //spawn message
+                string text = "Orro & Boro have awoken!";
+
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Main.NewText(text, 171, 64, 255);
+                }
+                else
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+                }
+
+                //spawn egg gores to make it look like it broke
                 Vector2 Position = new((int)Projectile.Center.X, (int)Projectile.Center.Y + 65);
 
                 if (Main.netMode != NetmodeID.Server)
@@ -89,6 +101,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                     Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard5").Type, 1.2f);
                 }
 
+                /*
+                //spawn dusts, dunno if this is needed anymore
                 for (int numDust = 0; numDust < 75; numDust++)
                 {
                     int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y + 65), 
@@ -104,6 +118,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                         Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                     }
                 }
+                */
 
                 CrackTimer = 0;
                 Projectile.Kill();

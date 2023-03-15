@@ -100,13 +100,15 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Main.dust[DustGore].noGravity = false;
             }
 
+			string text = "The yellow barrier has been opened!";
+
 			if (Main.netMode != NetmodeID.Server)
 			{
-				Main.NewText("The yellow barrier has been opened!", Color.Yellow);
+				Main.NewText(text, Color.Yellow);
 			}
 			else
 			{
-				ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The yellow barrier has been opened!"), Color.Yellow);
+				ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), Color.Yellow);
 			}
 
 			if (!Flags.CatacombKey1)

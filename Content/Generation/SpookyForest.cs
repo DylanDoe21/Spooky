@@ -224,6 +224,8 @@ namespace Spooky.Content.Generation
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             //grow trees
+            int houseLoctation = PositionX + ((Main.maxTilesX / 12) / 5);
+            
             for (int X = PositionX - 300; X <= PositionX + 300; X++)
             {
                 for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)

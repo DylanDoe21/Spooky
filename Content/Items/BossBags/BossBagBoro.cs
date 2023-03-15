@@ -52,7 +52,7 @@ namespace Spooky.Content.Items.BossBags
             player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroChunk>(), Main.rand.Next(20, 35));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<ArteryPiece>(), Main.rand.Next(20, 35));
 				
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroEmbryo>());

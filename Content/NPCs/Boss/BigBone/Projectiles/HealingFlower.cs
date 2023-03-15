@@ -116,15 +116,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			NPC.ai[1]++;
 			if (NPC.ai[1] >= 360)
 			{
-				HealingAmount = Main.masterMode ? 35 : Main.expertMode ? 25 : 10;
+				HealingAmount = Main.masterMode ? 45 : Main.expertMode ? 35 : 25;
 			}
 			if (NPC.ai[1] >= 720)
 			{
-				HealingAmount = Main.masterMode ? 45 : Main.expertMode ? 35 : 20;
+				HealingAmount = Main.masterMode ? 55 : Main.expertMode ? 45 : 35;
 			}
 			if (NPC.ai[1] >= 1080)
 			{
-				HealingAmount = Main.masterMode ? 58 : Main.expertMode ? 48 : 32;
+				HealingAmount = Main.masterMode ? 65 : Main.expertMode ? 55 : 45;
 			}
 		}
 

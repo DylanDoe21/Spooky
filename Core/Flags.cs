@@ -8,6 +8,7 @@ namespace Spooky.Core
     public class Flags : ModSystem
     {
         public static bool downedRotGourd = false;
+        public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
@@ -28,6 +29,7 @@ namespace Spooky.Core
         public override void OnWorldLoad() 
         {
 			downedRotGourd = false;
+            downedSpookySpirit = false;
             downedMoco = false;
             downedEggEvent = false;
             downedOrroboro = false;
@@ -70,6 +72,7 @@ namespace Spooky.Core
         public override void SaveWorldData(TagCompound tag)
         {
             if (downedRotGourd) tag["downedRotGourd"] = true;
+            if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
             if (downedMoco) tag["downedMoco"] = true;
             if (downedEggEvent) tag["downedEggEvent"] = true;
             if (downedOrroboro) tag["downedOrroboro"] = true;
@@ -90,6 +93,7 @@ namespace Spooky.Core
         public override void LoadWorldData(TagCompound tag) 
         {
 			downedRotGourd = tag.ContainsKey("downedRotGourd");
+            downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
             downedMoco = tag.ContainsKey("downedMoco");
             downedEggEvent = tag.ContainsKey("downedEggEvent");
             downedOrroboro = tag.ContainsKey("downedOrroboro");
@@ -112,10 +116,11 @@ namespace Spooky.Core
         {
             var flags = new BitsByte();
             flags[0] = downedRotGourd;
-            flags[1] = downedMoco;
-            flags[2] = downedEggEvent;
-            flags[3] = downedOrroboro;
-            flags[4] = downedBigBone;
+            flags[1] = downedSpookySpirit;
+            flags[2] = downedMoco;
+            flags[3] = downedEggEvent;
+            flags[4] = downedOrroboro;
+            flags[5] = downedBigBone;
             writer.Write(flags);
 
             var miscFlags = new BitsByte();
@@ -138,10 +143,11 @@ namespace Spooky.Core
         {
             BitsByte flags = reader.ReadByte();
             downedRotGourd = flags[0];
-            downedMoco = flags[1];
-            downedEggEvent = flags[2];
-            downedOrroboro = flags[3];
-            downedBigBone = flags[4];
+            downedSpookySpirit = flags[1];
+            downedMoco = flags[2];
+            downedEggEvent = flags[3];
+            downedOrroboro = flags[4];
+            downedBigBone = flags[5];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];

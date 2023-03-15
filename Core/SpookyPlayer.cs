@@ -321,12 +321,12 @@ namespace Spooky.Core
             bool inWater = !attempt.inLava && !attempt.inHoney;
             bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
 
-            if (inWater && inSpookyBiome && attempt.crate)
+            if (inWater && inSpookyBiome && Flags.downedRotGourd && attempt.crate)
             {
                 if (!attempt.veryrare && !attempt.legendary && !attempt.rare)
                 {
                     sonar.Text = "Spooky Crate";
-                    sonar.Color = Color.LimeGreen;
+                    sonar.Color = Color.Orange;
                     sonar.Velocity = Vector2.Zero;
                     sonar.DurationInFrames = 300;
 

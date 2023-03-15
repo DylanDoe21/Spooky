@@ -63,13 +63,30 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.ai[0] == 1)
             {
-                SoundEngine.PlaySound(SoundID.Roar, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, Projectile.Center);
 
-                Main.NewText("The Egg Incusrion has begun!", 171, 64, 255);
+                //event start message
+                string text = "The Egg Incusrion has begun!";
 
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Main.NewText(text, 171, 64, 255);
+                }
+                else
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+                }
+
+                //set egg event to true, net update on multiplayer
                 EggEventWorld.EggEventActive = true;
+
+                if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
             }
 
+            //spawn dust particles that get sucked towards this projectile, which is basically the egg
             if (Projectile.ai[0] % 20 == 0)
             {
                 int MaxDusts = Main.rand.Next(10, 15);
@@ -92,6 +109,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
             }
 
+            //always kill this projectile if the egg event is not active
             if (!EggEventWorld.EggEventActive)
             {
                 Projectile.Kill();

@@ -9,7 +9,7 @@ using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 
-namespace Spooky.Content.Items.Catacomb.Boss
+namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneScepter : ModItem
 	{

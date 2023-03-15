@@ -76,7 +76,6 @@ namespace Spooky.Content.Items.BossSummon
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Leather, 12)
             .AddIngredient(ItemID.BeetleHusk, 2)
             .AddIngredient(ItemID.Bone, 25)
             .AddIngredient(ItemID.DirtBlock, 100)

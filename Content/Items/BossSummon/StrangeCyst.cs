@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Content.Events;
+using Spooky.Content.Items.SpookyHell.Boss;
 
 namespace Spooky.Content.Items.BossSummon
 {
@@ -33,7 +34,7 @@ namespace Spooky.Content.Items.BossSummon
 
 		public override bool? UseItem(Player player)
 		{
-			SoundEngine.PlaySound(SoundID.Roar, player.Center);
+			SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, player.Center);
 
 			EggEventWorld.EggEventActive = true;
 			

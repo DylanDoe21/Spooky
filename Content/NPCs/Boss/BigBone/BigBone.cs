@@ -20,7 +20,7 @@ using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Relic;

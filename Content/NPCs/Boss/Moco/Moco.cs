@@ -99,7 +99,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 4500;
+            NPC.lifeMax = 5200;
             NPC.damage = 42;
             NPC.defense = 15;
             NPC.width = 130;

@@ -60,45 +60,22 @@ namespace Spooky.Content.Generation
                 foundSurface = true;
             }
 
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 20; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 20; X++)
+            for (int X = XMiddle - (Catacombs.BiomeWidth / 2); X <= XMiddle + (Catacombs.BiomeWidth / 2); X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    //dithring on the biome edges
-                    if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
+                    //place dirt blocks
+                    if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
                     {
-                        if (WorldGen.genRand.Next(2) == 0)
-                        {
-                            //place dirt blocks
-                            if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
-                            {
-                                Main.tile[X, Y].ClearEverything();
-                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                            }
-
-                            //place dirt blocks where walls exist to prevent unwanted craters or caves
-                            if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
-                            {
-                                Main.tile[X, Y].ClearEverything();
-                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                            }
-                        }
+                        Main.tile[X, Y].ClearEverything();
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
-                    else
-                    {
-                        //place dirt blocks
-                        if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
-                        {
-                            Main.tile[X, Y].ClearEverything();
-                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                        }
 
-                        //place dirt blocks where walls exist to prevent unwanted craters or caves
-                        if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
-                        {
-                            Main.tile[X, Y].ClearEverything();
-                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                        }
+                    //place dirt blocks where walls exist to prevent unwanted craters or caves
+                    if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
+                    {
+                        Main.tile[X, Y].ClearEverything();
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
                 }
 

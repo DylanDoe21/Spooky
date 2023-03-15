@@ -56,12 +56,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<CreepyCandle>(),
 				ModContent.ItemType<CandyBag>()
 			};
-
-			//only drop main items if rot gourd has been defeated
-			if (Flags.downedRotGourd)
-			{
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));
-			}
+			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, spookyChestDrops));
 
 			//rarely drop one of the vinyl discs
 			int[] vinylDiscs = new int[] 

@@ -227,7 +227,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (Main.hardMode && !npc.friendly && !npc.boss && info.player.InModBiome<SpookyBiome>())
+				if (Main.hardMode && npc.value > 0 && info.player.InModBiome<SpookyBiome>())
                 {
 					return true;
 				}
@@ -255,7 +255,7 @@ namespace Spooky.Core
             {
 				NPC npc = info.npc;
 
-				if (Main.hardMode && !npc.friendly && !npc.boss && info.player.InModBiome<SpookyHellBiome>())
+				if (Main.hardMode && npc.value > 0 && info.player.InModBiome<SpookyHellBiome>())
                 {
 					return true;
 				}

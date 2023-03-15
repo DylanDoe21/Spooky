@@ -8,7 +8,7 @@ using System;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.Catacomb;
  
-namespace Spooky.Content.Items.Catacomb.Boss
+namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneBow : ModItem
 	{
@@ -32,11 +32,11 @@ namespace Spooky.Content.Items.Catacomb.Boss
 			Item.height = 72;        
 			Item.useTime = 10;
 			Item.useAnimation = 10;
-			Item.useStyle = ItemUseStyleID.Shoot;         
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 5;
 			Item.rare = ItemRarityID.Yellow;  
 			Item.value = Item.buyPrice(gold: 25);
-			Item.UseSound = SoundID.Item34;
+			Item.UseSound = SoundID.Item5;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 12f;
 			Item.useAmmo = AmmoID.Arrow;

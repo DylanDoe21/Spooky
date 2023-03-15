@@ -143,21 +143,22 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 				else
 				{
-					if (Main.netMode == NetmodeID.MultiplayerClient) 
-					{
-						ModPacket packet = Mod.GetPacket();
-						packet.Write((byte)SpookyMessageType.SpawnOrroboro);
-						packet.Send();
-					}
-					else 
-					{
-						NPC.NewNPC(new EntitySource_TileBreak(x / 16, y / 16), x, y, ModContent.NPCType<OrroHead>(), 0, 0, 0, 0, 0);
-					}
+					Projectile.NewProjectile(new EntitySource_TileBreak(x / 16, y / 16), x * 16f + 65f, y * 16f + 155f, 0, -1, 
+					ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 			}
             else
             {
-				Main.NewText("You need a special substance to destroy the egg", 171, 64, 255);
+				string text = "You need a special substance to destroy the egg";
+
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Main.NewText(text, 171, 64, 255);
+				}
+				else
+				{
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+				}
 			}
 
 			return true;

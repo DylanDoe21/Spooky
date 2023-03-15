@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Core
 {

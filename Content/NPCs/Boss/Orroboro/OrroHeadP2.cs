@@ -900,7 +900,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             npcLoot.Add(ItemDropRule.ByCondition(new ShouldOrroDropLoot(), Main.rand.Next(MainItem)));
 
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldOrroDropLoot(), ModContent.ItemType<OrroboroChunk>(), 1, 12, 25));
+            npcLoot.Add(ItemDropRule.ByCondition(new ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));

@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Acid Blaster");
+			DisplayName.SetDefault("Venom Blaster");
 			Tooltip.SetDefault("Creates a continuous stream of acidic flames");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

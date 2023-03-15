@@ -399,7 +399,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < 3)
                         {
                             //chase the player
-                            if (NPC.localAI[0] < 80)
+                            if (NPC.localAI[0] < 70)
                             {
                                 Movement(player, 13f, 0.2f, true);
                             }
@@ -411,7 +411,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
 
                             //charge at the player
-                            if (NPC.localAI[0] == 90)
+                            if (NPC.localAI[0] == 100)
                             {
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
@@ -425,7 +425,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
 
                             //shoot spread of venom spit
-                            if (NPC.localAI[0] == 95)
+                            if (NPC.localAI[0] == 110)
                             {
                                 for (int numProjectiles = -3; numProjectiles <= 3; numProjectiles++)
                                 {
@@ -433,14 +433,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                        velocity.RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, velocity.RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
                                         ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
                                     }
                                 }
                             }
 
-                            if (NPC.localAI[0] >= 120)
+                            if (NPC.localAI[0] >= 130)
                             {
                                 NPC.velocity *= 0.5f;
                                 NPC.localAI[0] = 0;
@@ -627,7 +626,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < 3)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1000 : 1000;
                             GoTo.Y += 750;
 
                             //go from side to side

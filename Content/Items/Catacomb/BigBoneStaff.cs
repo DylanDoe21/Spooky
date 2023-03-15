@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.Catacomb;
 
-namespace Spooky.Content.Items.Catacomb.Boss
+namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneStaff : ModItem
 	{

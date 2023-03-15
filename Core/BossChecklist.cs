@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.Catacomb.Boss;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
@@ -39,7 +39,7 @@ namespace Spooky.Core
 			}
 
 			/*
-			Boss Checklist weight for all vanilla bosses, mini bosses, and events
+			Boss Checklist weights for all vanilla bosses, mini bosses, and events (copied directly from their source code)
 
 			KingSlime = 1f;
 			EyeOfCthulhu = 2f;
@@ -111,6 +111,32 @@ namespace Spooky.Core
 			GourdSummonItem, GourdSpawnInfo, GourdDespawnInfo, GourdPortrait);
 
 
+			//Spooky Spirit
+			string SpiritName = "Spooky Spirit";
+			int Spirit = ModContent.NPCType<Content.NPCs.Boss.SpookySpirit.SpookySpirit>();
+			Func<bool> SpiritDowned = () => Flags.downedSpookySpirit;
+			string SpiritSpawnInfo = $"Right click the suspicious purple gravestone in the cemetery at night, after the world's evil boss has been defeated.";
+			string SpiritDespawnInfo = "Spooky Spirit has haunted all players";
+
+			List<int> SpiritDrops = new List<int>()
+			{
+				/*
+				ModContent.ItemType<RotGourdTrophyItem>(),
+				*/
+			};
+
+			var SpiritPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+            {
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritBC").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			//register rot gourd
+			bossChecklistMod.Call("AddBoss", Mod, SpiritName, Spirit, 3.5f, SpiritDowned, true, SpiritDrops, 
+			null, SpiritSpawnInfo, SpiritDespawnInfo, SpiritPortrait);
+
+
 			//Moco
 			string MocoName = "Moco";
 			int Moco = ModContent.NPCType<Content.NPCs.Boss.Moco.Moco>();
@@ -137,7 +163,7 @@ namespace Spooky.Core
 			};
 
 			//register moco
-			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 3.5f, MocoDowned, true, MocoDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 4.5f, MocoDowned, true, MocoDrops, 
 			MocoSummonItem, MocoSpawnInfo, MocoDespawnInfo, MocoPortrait);
 
 
@@ -194,11 +220,11 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroEye>(),
 				ModContent.ItemType<OrroboroRelicItem>(),
-				ModContent.ItemType<OrroTrophyItem>(),
-				ModContent.ItemType<BoroTrophyItem>(),
 				ModContent.ItemType<OrroMask>(),
+				ModContent.ItemType<OrroTrophyItem>(),
 				ModContent.ItemType<BoroMask>(),
-				ModContent.ItemType<OrroboroChunk>(),
+				ModContent.ItemType<BoroTrophyItem>(),
+				ModContent.ItemType<ArteryPiece>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),
 				ModContent.ItemType<EyeRocketLauncher>(),
