@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
@@ -86,7 +88,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
 
                 //spawn egg gores to make it look like it broke

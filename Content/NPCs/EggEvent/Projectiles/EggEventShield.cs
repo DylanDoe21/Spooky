@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,7 +76,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
 
                 //set egg event to true, net update on multiplayer

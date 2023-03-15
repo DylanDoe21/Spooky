@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria.Enums;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
@@ -157,7 +159,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 				else
 				{
-					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), 171, 64, 255);
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 				}
 			}
 
