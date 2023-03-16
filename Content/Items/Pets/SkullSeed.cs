@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Pets
 			Item.height = 30;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
-			Item.value = Item.buyPrice(gold: 25);
+			Item.value = Item.buyPrice(gold: 5);
 			Item.shoot = ModContent.ProjectileType<BigBonePet>();
 			Item.buffType = ModContent.BuffType<BigBonePetBuff>();
 		}
@@ -35,10 +35,5 @@ namespace Spooky.Content.Items.Pets
 			player.AddBuff(Item.buffType, 2);
 			return true;
         }
-
-		public override bool CanUseItem(Player player)
-		{
-			return player.miscEquips[0].IsAir;
-		}
 	}
 }

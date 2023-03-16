@@ -5,28 +5,29 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Relic
 {
-	public class OrroboroRelicItem : ModItem
+	public class SpookySpiritRelicItem : ModItem
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Orro-Boro Relic");
+			DisplayName.SetDefault("Spooky Spirit Relic");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
         {
+			Item.width = 30;
+			Item.height = 46;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-            Item.width = 30;
-			Item.height = 44;
+			Item.master = true;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 99;
-			Item.master = true;
 			Item.rare = ItemRarityID.Master;
-			Item.createTile = ModContent.TileType<OrroboroRelic>();
+			Item.value = Item.buyPrice(gold: 5);
+			Item.createTile = ModContent.TileType<SpookySpiritRelic>();
 		}
 	}
 }

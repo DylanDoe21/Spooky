@@ -9,19 +9,19 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Pets
 {
-	public class GhostPet : ModProjectile
+	public class SpookySpiritPet : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lil Ghost");
-			Main.projFrames[Projectile.type] = 2;
+			DisplayName.SetDefault("Mini Spirit");
+			Main.projFrames[Projectile.type] = 3;
 			ProjectileID.Sets.LightPet[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 16;
-            Projectile.height = 22;
+			Projectile.width = 40;
+            Projectile.height = 42;
             Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -40,10 +40,10 @@ namespace Spooky.Content.Projectiles.Pets
             
 			if (player.dead)
             {
-				player.GetModPlayer<SpookyPlayer>().GhostPet = false;
+				player.GetModPlayer<SpookyPlayer>().SpookySpiritPet = false;
             }
 
-			if (player.GetModPlayer<SpookyPlayer>().GhostPet)
+			if (player.GetModPlayer<SpookyPlayer>().SpookySpiritPet)
             {
 				Projectile.timeLeft = 2;
             }
@@ -54,24 +54,24 @@ namespace Spooky.Content.Projectiles.Pets
 				Projectile.frameCounter = 0;
 				
                 Projectile.frame++;
-				if (Projectile.frame >= 2) 
+				if (Projectile.frame >= 3)
 				{
 					Projectile.frame = 0;
 				}
 			}
             
-            Lighting.AddLight(Projectile.Center, 0.85f, 0.5f, 0f);
+            Lighting.AddLight(Projectile.Center, 0.3f, 0f, 0.6f);
 
 			if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {
                 Projectile.ai[0] = 1f;
             }
 
-            float speed = 5f;
+            float speed = 6f;
 
             if (Projectile.ai[0] == 1f)
             {
-                speed = 10f;
+                speed = 12f;
             }
 
             Vector2 center = Projectile.Center;
@@ -87,7 +87,7 @@ namespace Spooky.Content.Projectiles.Pets
                 }
             }
             direction.X += ((10 + num * 40) * player.direction);
-            direction.Y -= 70f;
+            direction.Y -= 50f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 30f)
             {

@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override void AddRecipes()
+        public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 30)

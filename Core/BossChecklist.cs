@@ -220,17 +220,17 @@ namespace Spooky.Core
 			{
 				ModContent.ItemType<OrroboroEye>(),
 				ModContent.ItemType<OrroboroRelicItem>(),
-				ModContent.ItemType<OrroMask>(),
-				ModContent.ItemType<OrroTrophyItem>(),
 				ModContent.ItemType<BoroMask>(),
 				ModContent.ItemType<BoroTrophyItem>(),
+				ModContent.ItemType<OrroMask>(),
+				ModContent.ItemType<OrroTrophyItem>(),
 				ModContent.ItemType<ArteryPiece>(),
 				ModContent.ItemType<Scycler>(),
 				ModContent.ItemType<EyeFlail>(),
 				ModContent.ItemType<EyeRocketLauncher>(),
 				ModContent.ItemType<MouthFlamethrower>(),
-				ModContent.ItemType<LeechStaff>(),
 				ModContent.ItemType<LeechWhip>(),
+				ModContent.ItemType<LeechStaff>(),
 				ModContent.ItemType<SpookyHellBossBox>()
 			};
 

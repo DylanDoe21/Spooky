@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
-			NPC.height = 40;
+			NPC.height = 50;
 			NPC.friendly = true;
 			NPC.townNPC = true;
 			NPC.immortal = true;

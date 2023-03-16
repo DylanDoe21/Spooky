@@ -5,16 +5,15 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Items.Vinyl;
+using Spooky.Content.Items.Catacomb;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Furniture
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
-	public class SpookyCrate : ModItem
+	public class CatacombCrate : ModItem
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Wood Crate");
+			DisplayName.SetDefault("Skull Crate");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
 		}
@@ -32,7 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.maxStack = 99;
 			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(gold: 1);
-			Item.createTile = ModContent.TileType<SpookyCrateTile>();
+			Item.createTile = ModContent.TileType<CatacombCrateTile>();
 		}
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) 
@@ -48,25 +47,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void ModifyItemLoot(ItemLoot itemLoot) 
 		{
 			//main items
-			int[] spookyChestDrops = new int[] 
+			int[] catacombChestDrops = new int[] 
 			{
-				ModContent.ItemType<ToiletPaper>(),
-				ModContent.ItemType<LeafBlower>(),
-				ModContent.ItemType<NecromancyTome>(),
-				ModContent.ItemType<CreepyCandle>(),
-				ModContent.ItemType<CandyBag>()
+				ModContent.ItemType<HarvesterScythe>(),
+				ModContent.ItemType<GraveCrossbow>(),
+				ModContent.ItemType<ThornStaff>(),
+				ModContent.ItemType<NineTails>()
 			};
-            itemLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostRotGourdCondition(), Main.rand.Next(spookyChestDrops)));
-
-            //rarely drop one of the vinyl discs
-            int[] vinylDiscs = new int[] 
-			{
-				ModContent.ItemType<VinylAlley>(),
-				ModContent.ItemType<VinylLazy>(),
-				ModContent.ItemType<VinylMysterious>(),
-				ModContent.ItemType<VinylSleepy>()
-			};
-			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(45, vinylDiscs));
+            itemLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostSpookySpiritCondition(), Main.rand.Next(catacombChestDrops)));
 
 			//drop vanilla ores
 			IItemDropRule[] oreTypes = new IItemDropRule[] 

@@ -2,20 +2,21 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Buffs;
+using Spooky.Core;
 using Spooky.Content.Events;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
-    public class Capillary : ModNPC  
+    public class Capillary : ModNPC
     {
         int aura;
 
@@ -52,25 +53,25 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.noTileCollide = false;
             NPC.noGravity = false;
             NPC.HitSound = HitSound;
-			NPC.DeathSound = DeathSound;
+            NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.EggEventBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-				new FlavorTextBestiaryInfoElement("Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, using special auras to support their allies and weaken prey."),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
-			});
-		}
+                new FlavorTextBestiaryInfoElement("Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, using special auras to support their allies and weaken prey."),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/CapillaryGlow").Value;
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
         }
 
@@ -114,7 +115,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    aura = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+                    aura = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0,
                     ModContent.ProjectileType<CapillaryAura>(), 0, 1, NPC.target, 0, 0);
                 }
 
@@ -122,15 +123,15 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(int hitDirection, double damage)
         {
             //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
+            if (Main.netMode == NetmodeID.Server)
             {
-				return;
-			}
+                return;
+            }
 
-			if (NPC.life <= 0) 
+            if (NPC.life <= 0)
             {
                 Main.projectile[aura].Kill();
 
@@ -139,6 +140,11 @@ namespace Spooky.Content.NPCs.EggEvent
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CapillaryGore" + numGores).Type);
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
     }
 }

@@ -6,27 +6,27 @@ using Spooky.Content.Projectiles.Pets;
 
 namespace Spooky.Content.Buffs.Pets
 {
-	public class BigBonePetBuff : ModBuff
+	public class SpookySpiritPetBuff : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Baby Bone");
-			Description.SetDefault("What a goofy looking plant");
+			DisplayName.SetDefault("Mini Spirit");
+			Description.SetDefault("The mini spirit lingers around you");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.lightPet[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<SpookyPlayer>().BigBonePet = true;
+			player.GetModPlayer<SpookyPlayer>().SpookySpiritPet = true;
 
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<BigBonePet>()] < 1)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<SpookySpiritPet>()] < 1)
 			{
 				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 
-				0f, 0f, ModContent.ProjectileType<BigBonePet>(), 0, 0f, player.whoAmI);
+				0f, 0f, ModContent.ProjectileType<SpookySpiritPet>(), 0, 0f, player.whoAmI);
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().BigBonePet)
+			if (player.GetModPlayer<SpookyPlayer>().SpookySpiritPet)
 			{
 				player.buffTime[buffIndex] = 2;
 			}

@@ -25,9 +25,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileNoAttach[Type] = true;
             Main.tileNoFail[Type] = true;
             Main.tileLavaDeath[Type] = true;
-            Main.tileWaterDeath[Type] = true;
             Main.tileFrameImportant[Type] = true;
-			TileID.Sets.ReplaceTileBreakUp[Type] = true;
 			TileID.Sets.SwaysInWindBasic[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.addTile(Type);

@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Leech");
+            DisplayName.SetDefault("Leecher");
             Tooltip.SetDefault("Your summons will focus struck enemies"
             + "\nHitting enemies will sometimes drop gore chunks"
 			+ "\nPicking up gore chunks will restore a small amount of health");

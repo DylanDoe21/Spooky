@@ -10,7 +10,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Events;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
@@ -233,6 +235,11 @@ namespace Spooky.Content.NPCs.EggEvent
                 Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 2), -3, 
                 ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 1, NPC.target, 0, 0);
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
     }
 }

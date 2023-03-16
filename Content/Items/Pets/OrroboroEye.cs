@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
-			Item.value = Item.buyPrice(gold: 15);
+			Item.value = Item.buyPrice(gold: 5);
 			Item.mountType = ModContent.MountType<OrroboroMount>();
 			Item.UseSound = SoundID.Item77;
 		}

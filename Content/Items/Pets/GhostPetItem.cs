@@ -31,10 +31,5 @@ namespace Spooky.Content.Items.Pets
 			player.AddBuff(Item.buffType, 2);
 			return true;
         }
-
-        public override bool CanUseItem(Player player)
-		{
-			return player.miscEquips[0].IsAir;
-		}
 	}
 }

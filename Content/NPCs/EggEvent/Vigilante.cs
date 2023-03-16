@@ -6,11 +6,11 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Events;
+using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Boss;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -238,6 +238,11 @@ namespace Spooky.Content.NPCs.EggEvent
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/VigilanteGore" + numGores).Type);
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
     }
 }

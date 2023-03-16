@@ -5,6 +5,7 @@ using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Content.Events;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Boss;
 
 namespace Spooky.Content.Items.BossSummon
@@ -40,5 +41,14 @@ namespace Spooky.Content.Items.BossSummon
 			
 			return true;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<ArteryPiece>(), 5)
+			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 10)
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
 	}
 }

@@ -212,7 +212,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 38 / 2 : 25;
 
             NPC.spriteDirection = NPC.direction;
-            NPC.rotation = NPC.velocity.Y * 0.02f;
+            NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.02f : -0.02f);
 
             Phase2 = NPC.life <= (NPC.lifeMax / 2);
 
