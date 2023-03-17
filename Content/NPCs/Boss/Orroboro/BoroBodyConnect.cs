@@ -16,6 +16,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Boro");
+            Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -35,8 +36,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 55000 / 3 : Main.expertMode ? 45000 / 2 : 35000;
             NPC.damage = 55;
             NPC.defense = 35;
-            NPC.width = 85;
-            NPC.height = 85;
+            NPC.width = 75;
+            NPC.height = 75;
             NPC.knockBackResist = 0f;
             NPC.behindTiles = true;
             NPC.noTileCollide = true;
@@ -60,14 +61,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			}
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        public override void FindFrame(int frameHeight)
         {
-            Texture2D texture =  ModContent.Request<Texture2D>(Texture).Value;
-            Rectangle frame = new Rectangle(0, NPC.frame.Y, texture.Width, texture.Height / Main.npcFrameCount[NPC.type]);
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
-
-            return false;
+            NPC.frameCounter += 1;
+            if (NPC.frameCounter > 4)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 5)
+            {
+                NPC.frame.Y = 0;
+            }
         }
 
         public override bool PreAI()

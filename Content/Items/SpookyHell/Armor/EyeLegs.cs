@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<CreepyChunk>(), 10)
+            .AddIngredient(ModContent.ItemType<EyeBlockItem>(), 32)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 65)
             .AddTile(TileID.Anvils)
             .Register();

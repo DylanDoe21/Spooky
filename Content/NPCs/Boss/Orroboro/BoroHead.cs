@@ -38,6 +38,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Boro");
+            Main.npcFrameCount[NPC.type] = 5;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -89,8 +90,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 18000 / 3 : Main.expertMode ? 14500 / 2 : 10000;
             NPC.damage = 55;
             NPC.defense = 30;
-            NPC.width = 54;
-            NPC.height = 54;
+            NPC.width = 65;
+            NPC.height = 65;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 12, 0, 0);
@@ -111,7 +112,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A blind and aggressive serpent that works together with Orro to defend it's territory. Stories say that valley of eyes is made from the flesh these serpents have torn off each other."),
+				new FlavorTextBestiaryInfoElement("A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that valley of eyes is made from the left over flesh these serpents have torn off each other."),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -136,6 +137,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			}
 		}
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter += 1;
+            if (NPC.frameCounter > 4)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 5)
+            {
+                NPC.frame.Y = 0;
+            }
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //if orro is in its enraged state
@@ -149,12 +164,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, Color.Purple * 0.75f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
             }
 
-            Texture2D texture =  ModContent.Request<Texture2D>(Texture).Value;
-            Rectangle frame = new Rectangle(0, NPC.frame.Y, texture.Width, texture.Height / Main.npcFrameCount[NPC.type]);
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
-
-            return false;
+            return true;
         }
 
         public override void AI()
@@ -191,36 +201,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 if (!spawned)
                 {
                     NPC.realLife = NPC.whoAmI;
-                    int LatestNPC = NPC.whoAmI;
+                    int latestNPC = NPC.whoAmI;
 
-                    //spawn the 4 boro segments
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
+                    for (int Segment = 0; Segment < 3; Segment++)
+                    {
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                        ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        Main.npc[latestNPC].realLife = NPC.whoAmI;
+                        Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        Main.npc[latestNPC].netUpdate = true;
+                    }
 
-                    //spawn tail
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                    ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].realLife = NPC.whoAmI;
+                    Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                    Main.npc[latestNPC].netUpdate = true;
 
                     NPC.netUpdate = true;
                     spawned = true;
@@ -450,7 +446,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < repeats)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1000 : 1000;
                             GoTo.Y += 600;
 
                             //go from side to side
@@ -675,22 +671,32 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new ShouldBoroDropLootExpert(), ModContent.ItemType<BossBagBoro>()));
+            //treasure bag
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new DropConditions.ShouldOrroDropLootExpert(), ModContent.ItemType<BossBagOrroboro>()));
+            
+            //master relic and pet
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
 
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
+            //weapon drops
+            int[] MainItem = new int[] 
+            { 
+                ModContent.ItemType<EyeFlail>(), 
+                ModContent.ItemType<Scycler>(),
+                ModContent.ItemType<EyeRocketLauncher>(), 
+                ModContent.ItemType<MouthFlamethrower>(),
+                ModContent.ItemType<LeechStaff>(),
+                ModContent.ItemType<LeechWhip>()
+            };
 
-            int[] MainItem = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(),
-            ModContent.ItemType<EyeRocketLauncher>(), ModContent.ItemType<MouthFlamethrower>(),
-            ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), Main.rand.Next(MainItem)));
 
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), Main.rand.Next(MainItem)));
-
-            npcLoot.Add(ItemDropRule.ByCondition(new ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
+            //material
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
             //trophy and mask always drop directly from the boss
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));
         }
 
         public override void OnKill()
@@ -712,88 +718,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             scale = 1.2f;
             return null;
-        }
-    }
-
-    //i love having to make custom drop rules just so the first worm doesnt drop anything
-    //for non expert drops
-    public class ShouldBoroDropLoot : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info)
-        {
-            if (!info.IsInSimulation)
-            {
-                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool CanShowItemDropInUI()
-        {
-            return true;
-        }
-
-        public string GetConditionDescription()
-        {
-            return "Drops from Boro";
-        }
-    }
-
-    //for expert drops
-    public class ShouldBoroDropLootExpert : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info)
-        {
-            if (!info.IsInSimulation)
-            {
-                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode && !Main.masterMode)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool CanShowItemDropInUI()
-        {
-            return true;
-        }
-
-        public string GetConditionDescription()
-        {
-            return "Drops from Boro";
-        }
-    }
-
-    //for master drops
-    public class ShouldBoroDropLootMaster : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info)
-        {
-            if (!info.IsInSimulation)
-            {
-                if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.masterMode)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool CanShowItemDropInUI()
-        {
-            return true;
-        }
-
-        public string GetConditionDescription()
-        {
-            return "Drops from Boro";
         }
     }
 }

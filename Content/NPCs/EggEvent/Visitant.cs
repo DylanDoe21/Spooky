@@ -21,8 +21,6 @@ namespace Spooky.Content.NPCs.EggEvent
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public bool AfterImages = false;
-
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
 
@@ -30,8 +28,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             DisplayName.SetDefault("Visitant");
             Main.npcFrameCount[NPC.type] = 5;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 7;
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -69,25 +66,6 @@ namespace Spooky.Content.NPCs.EggEvent
 				new FlavorTextBestiaryInfoElement("Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass chunks at foes."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-			if (AfterImages) 
-			{
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
-
-				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
-				{
-					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
-				}
-			}
-            
-            return true;
 		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

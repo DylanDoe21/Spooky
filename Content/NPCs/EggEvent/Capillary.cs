@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             DisplayName.SetDefault("Capillary");
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

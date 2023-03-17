@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             DisplayName.SetDefault("Crux");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.noTileCollide = false;
             NPC.netAlways = true;
             NPC.boss = true;
-            NPC.HitSound = SoundID.NPCHit2;
+            NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = DeathSound2;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone");
@@ -1444,20 +1444,27 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
+            //treasure bag
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagBigBone>()));
             
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SkullSeed>(), 4));
+            //relic and master pet
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BigBoneRelicItem>()));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SkullSeed>(), 4));
 
-            //normal drops
-            int[] MainItem = new int[] { ModContent.ItemType<BigBoneHammer>(), ModContent.ItemType<BigBoneBow>(), 
-            ModContent.ItemType<BigBoneStaff>(), ModContent.ItemType<BigBoneScepter>() };
+            //weapon drops
+            int[] MainItem = new int[] 
+            { 
+                ModContent.ItemType<BigBoneHammer>(), 
+                ModContent.ItemType<BigBoneBow>(), 
+                ModContent.ItemType<BigBoneStaff>(), 
+                ModContent.ItemType<BigBoneScepter>() 
+            };
 
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //trophy and mask always drop directly from the boss
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
         }

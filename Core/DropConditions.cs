@@ -1,8 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky.Core
 {
@@ -197,10 +199,172 @@ namespace Spooky.Core
             {
                 return true;
             }
-
-            public string GetConditionDescription() 
+            
+            public string GetConditionDescription()
             {
                 return "Drops after Orro & Boro have been defeated";
+            }
+        }
+
+        //for orro's non expert drops
+        public class ShouldOrroDropLoot : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && !Main.expertMode && !Main.masterMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return !Main.expertMode && !Main.masterMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Orro";
+            }
+        }
+
+        //for orro's expert drops
+        public class ShouldOrroDropLootExpert : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && Main.expertMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return Main.expertMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Orro";
+            }
+        }
+
+        //for orro's master drops
+        public class ShouldOrroDropLootMaster : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && Main.masterMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return Main.masterMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Orro";
+            }
+        }
+
+        //for boro's non expert drops
+        public class ShouldBoroDropLoot : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode && !Main.masterMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return !Main.expertMode && !Main.masterMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Boro";
+            }
+        }
+
+        //for boro's expert drops
+        public class ShouldBoroDropLootExpert : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.expertMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return Main.expertMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Boro";
+            }
+        }
+
+        //for boro's master drops
+        public class ShouldBoroDropLootMaster : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation)
+                {
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.masterMode)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            public bool CanShowItemDropInUI()
+            {
+                return Main.masterMode;
+            }
+
+            public string GetConditionDescription()
+            {
+                return "Drops from Boro";
             }
         }
     }

@@ -14,18 +14,18 @@ New Friendly NPC, Little Eye the Alchemist:
 -Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards
 -Upon completing his third quest, he will give you the cotton swab to summon moco. This is now the only way to obtain it, and the previous method has been removed entirely
 -Upon completing his fourth quest he will give you the eye valley pylon, and this is also now the only way to obtain it
--After completing the four main quests, you must give him 5 of any mechanical boss soul, and he will then reward you with orro & boros summon item, the acidic concoction
-(NOTE: you must give him 5 of ONE type of mech soul, like 5 souls of might, ect)
+-After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with orro & boros summon item, the acidic concoction
 
 
 
 New Event, The Egg Incursion:
 
 -A new endurance invasion event that takes place before you can summon orro & boro, during early hardmode
--It only needs to be completed once. Afterward you will be able to summon orro & boro at any time without being forced to do it again
+-It only needs to be completed once, afterward you will be able to summon orro & boro at any time without being forced to do it again
 -However, if you die during the event then you will need to restart it again
 -It will begin upon trying to break the egg with the concoction for the first time
--The event does not have an enemy kill count. It is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
+-The event does not have an enemy kill count, and since it is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
+-There is a craftable summon item for the event you can get after orro & boro, as the enemies will drop orro & boro's crafting material after you defeat them
 
 
 

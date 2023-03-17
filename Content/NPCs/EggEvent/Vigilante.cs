@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.EggEvent
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

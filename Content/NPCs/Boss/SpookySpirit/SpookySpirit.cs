@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit
@@ -726,6 +727,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 }
             }
 		}
+
+        public override void OnKill()
+        {
+            NPC.SetEventFlagCleared(ref Flags.downedSpookySpirit, -1);
+        }
 
         public override void BossLoot(ref string name, ref int potionType)
 		{

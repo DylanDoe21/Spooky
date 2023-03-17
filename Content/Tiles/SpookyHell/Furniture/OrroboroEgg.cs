@@ -6,7 +6,6 @@ using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria.Localization;
 using Terraria.Chat;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -126,6 +125,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				{
 					return true;
 				}
+
+				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<OrroboroSpawn>()) 
+				{
+					return true;
+				}
 			}
 
 			//check if player has the concoction
@@ -145,8 +149,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 				else
 				{
-					Projectile.NewProjectile(new EntitySource_TileBreak(x / 16, y / 16), x * 16f + 65f, y * 16f + 155f, 0, -1, 
-					ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 65, y * 16 + 155), 
+					x * 16 + 65, y * 16 + 155, 0, -1, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 			}
             else

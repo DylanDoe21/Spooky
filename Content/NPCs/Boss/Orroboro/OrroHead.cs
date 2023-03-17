@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orro");
+            Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -73,10 +74,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 52000 / 3 : Main.expertMode ? 45000 / 2 : 32000;
             NPC.damage = 60;
             NPC.defense = 35;
-            NPC.width = 54;
-            NPC.height = 54;
+            NPC.width = 75;
+            NPC.height = 75;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 12, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -102,19 +104,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			}
 		}
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter += 1;
+            if (NPC.frameCounter > 4)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 5)
+            {
+                NPC.frame.Y = 0;
+            }
+        }
+
         //rotate the bosses map icon to the NPCs direction
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = NPC.rotation;
-        }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            Texture2D texture =  ModContent.Request<Texture2D>(Texture).Value;
-            Rectangle frame = new Rectangle(0, NPC.frame.Y, texture.Width, texture.Height / Main.npcFrameCount[NPC.type]);
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
-            return false;
         }
         
         public override void AI()
@@ -147,61 +154,37 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 if (!spawned)
                 {
                     NPC.realLife = NPC.whoAmI;
-                    int LatestNPC = NPC.whoAmI;
+                    int latestNPC = NPC.whoAmI;
 
-                    //spawn the 3 orro segments
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<OrroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
+                    for (int Segment1 = 0; Segment1 < 3; Segment1++)
+                    {
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                        ModContent.NPCType<OrroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        Main.npc[latestNPC].realLife = NPC.whoAmI;
+                        Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        Main.npc[latestNPC].netUpdate = true;
+                    }
+                    
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                    ModContent.NPCType<BoroBodyConnect>(), NPC.whoAmI, 0, latestNPC);                   
+                    Main.npc[latestNPC].realLife = NPC.whoAmI;
+                    Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                    Main.npc[latestNPC].netUpdate = true;
 
-                    //spawn connector segment
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBodyConnect>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
+                    for (int Segment2 = 0; Segment2 < 3; Segment2++)
+                    {
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                        ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        Main.npc[latestNPC].realLife = NPC.whoAmI;
+                        Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        Main.npc[latestNPC].netUpdate = true;
+                    }
 
-                    //spawn the 3 boro segments
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody1>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-                    //add extra body here so boro is the same length as orro visually
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBody2>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
-
-                    //spawn boro tail
-                    LatestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, LatestNPC);                   
-                    Main.npc[LatestNPC].realLife = NPC.whoAmI;
-                    Main.npc[LatestNPC].ai[3] = NPC.whoAmI;
-                    Main.npc[LatestNPC].netUpdate = true;
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
+                    ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].realLife = NPC.whoAmI;
+                    Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                    Main.npc[latestNPC].netUpdate = true;
 
                     NPC.netUpdate = true;
                     spawned = true;

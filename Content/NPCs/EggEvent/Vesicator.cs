@@ -35,6 +35,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             DisplayName.SetDefault("Vesicator");
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

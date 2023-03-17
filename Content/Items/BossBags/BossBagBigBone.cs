@@ -45,9 +45,14 @@ namespace Spooky.Content.Items.BossBags
         {
 			player.TryGettingDevArmor(player.GetSource_OpenItem(Type));
 
-			//normal drops
-            int[] MainItem = new int[] { ModContent.ItemType<BigBoneHammer>(), ModContent.ItemType<BigBoneBow>(), 
-            ModContent.ItemType<BigBoneStaff>(), ModContent.ItemType<BigBoneScepter>() };
+			//weapon drops
+            int[] MainItem = new int[] 
+			{ 
+				ModContent.ItemType<BigBoneHammer>(), 
+				ModContent.ItemType<BigBoneBow>(), 
+            	ModContent.ItemType<BigBoneStaff>(), 
+				ModContent.ItemType<BigBoneScepter>() 
+			};
 
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
 

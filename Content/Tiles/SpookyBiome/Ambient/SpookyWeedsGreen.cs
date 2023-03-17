@@ -19,14 +19,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
     {
         public override void SetStaticDefaults()
         {
-            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileSolid[Type] = false;
-            Main.tileNoAttach[Type] = true;
-            Main.tileNoFail[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            Main.tileFrameImportant[Type] = true;
-			TileID.Sets.SwaysInWindBasic[Type] = true;
+            TileID.Sets.SwaysInWindBasic[Type] = true;
+            TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
+            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(62, 95, 38));

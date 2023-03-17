@@ -6,6 +6,7 @@ using Terraria.Audio;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
@@ -16,6 +17,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 		public override float SwingDownSpeed => 15f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
+        static bool hasHitEnemies = false;
 
         public override void SetStaticDefaults()
         {
@@ -61,6 +63,14 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
+            if (!hasHitEnemies)
+            {
+                hasHitEnemies = true;
+
+                Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
+                ModContent.ProjectileType<FleshAxeHitSentient>(), Item.damage, 0f, Main.myPlayer, 0, 0);
+            }
+
             if (target.life <= target.lifeMax * 0.5)
             {
                 target.takenDamageMultiplier = 1.65f;

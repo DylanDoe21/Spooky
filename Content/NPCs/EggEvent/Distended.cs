@@ -22,6 +22,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             DisplayName.SetDefault("Distended");
             Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
         
         public override void SetDefaults()

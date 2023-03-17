@@ -6,18 +6,17 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky.Content.Items.BossBags
 {
-	public class BossBagOrro : ModItem
+	public class BossBagOrroboro : ModItem
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Orro)");
+			DisplayName.SetDefault("Treasure Bag (Orro & Boro)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
@@ -44,21 +43,24 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
+			//dev armor
 			player.TryGettingDevArmor(player.GetSource_OpenItem(Type));
 
+			//weapon
 			int[] MainItem1 = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), ModContent.ItemType<EyeRocketLauncher>() };
 			int[] MainItem2 = new int[] { ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
             player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
 
+			//material
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<ArteryPiece>(), Main.rand.Next(20, 35));
 				
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroEmbryo>());
 		}
-
-		public override int BossBagNPC => ModContent.NPCType<OrroHeadP2>();
+		
+		public override int BossBagNPC => ModContent.NPCType<OrroHead>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

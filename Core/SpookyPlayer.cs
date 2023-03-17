@@ -12,6 +12,7 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Core
@@ -322,17 +323,31 @@ namespace Spooky.Core
         {
             bool inWater = !attempt.inLava && !attempt.inHoney;
             bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
+            bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>();
 
-            if (inWater && inSpookyBiome && Flags.downedRotGourd && attempt.crate)
+            if (inWater && attempt.crate)
             {
-                if (!attempt.veryrare && !attempt.legendary && !attempt.rare)
+                if (!attempt.legendary && !attempt.veryrare && attempt.rare)
                 {
-                    sonar.Text = "Spooky Crate";
-                    sonar.Color = Color.Orange;
-                    sonar.Velocity = Vector2.Zero;
-                    sonar.DurationInFrames = 300;
+                    if (inSpookyBiome)
+                    {
+                        sonar.Text = "Spooky Crate";
+                        sonar.Color = Color.Orange;
+                        sonar.Velocity = Vector2.Zero;
+                        sonar.DurationInFrames = 300;
 
-                    itemDrop = ModContent.ItemType<SpookyCrate>();
+                        itemDrop = ModContent.ItemType<SpookyCrate>();
+                    }
+
+                    if (inCatacombArea)
+                    {
+                        sonar.Text = "Skull Crate";
+                        sonar.Color = Color.Yellow;
+                        sonar.Velocity = Vector2.Zero;
+                        sonar.DurationInFrames = 300;
+
+                        itemDrop = ModContent.ItemType<CatacombCrate>();
+                    }
                 }
             }
         }

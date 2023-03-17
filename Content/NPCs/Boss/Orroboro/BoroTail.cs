@@ -35,8 +35,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 55000 / 3 : Main.expertMode ? 45000 / 2 : 35000;
             NPC.damage = 50;
             NPC.defense = 35;
-            NPC.width = 40;
-            NPC.height = 40;
+            NPC.width = 65;
+            NPC.height = 65;
             NPC.knockBackResist = 0f;
             NPC.behindTiles = true;
             NPC.noTileCollide = true;
@@ -73,12 +73,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, Color.Purple * 0.75f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
             }
 
-            Texture2D texture =  ModContent.Request<Texture2D>(Texture).Value;
-            Rectangle frame = new Rectangle(0, NPC.frame.Y, texture.Width, texture.Height / Main.npcFrameCount[NPC.type]);
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
-
-            return false;
+            return true;
         }
 
         public override bool PreAI()

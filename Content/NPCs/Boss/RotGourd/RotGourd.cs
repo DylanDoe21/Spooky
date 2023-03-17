@@ -1020,18 +1020,22 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
+			//treasure bag
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagRotGourd>()));
             
+			//master relic and pet
+			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<RotGourdRelicItem>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<RotGourdRelicItem>()));
-
+            
+			//spooky key
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
+			//material
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
 
 			//trophy and mask always drop directly from the boss
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
 
             npcLoot.Add(notExpertRule);
         }

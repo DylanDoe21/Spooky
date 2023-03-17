@@ -843,19 +843,26 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
+            //treasure bag
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagMoco>()));
 
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
+            //master relic and pet
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
 
-            int[] MainItem = new int[] { ModContent.ItemType<BoogerFlail>(), 
-            ModContent.ItemType<BoogerBlaster>(), ModContent.ItemType<BoogerStaff>() };
-            
-            notExpertRule.OnSuccess(ItemDropRule.Common(Main.rand.Next(MainItem)));
+            //weapon drops
+            int[] MainItem = new int[] 
+            { 
+                ModContent.ItemType<BoogerFlail>(), 
+                ModContent.ItemType<BoogerBlaster>(), 
+                ModContent.ItemType<BoogerStaff>()
+            };
+
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //trophy and mask always drop directly from the boss
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoTrophyItem>(), 10));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
         }
