@@ -113,6 +113,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //kill segment if the head doesnt exist
 			if (!Main.npc[(int)NPC.ai[1]].active)
             {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore2").Type);
+                }
+
                 NPC.active = false;
             }
 			

@@ -29,6 +29,9 @@ namespace Spooky
         {
             if (!Main.dedServ)
             {
+                Filters.Scene["Spooky:Cemetery"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
+                SkyManager.Instance["Spooky:Cemetery"] = new CemeterySky();
+
                 Filters.Scene["Spooky:Raveyard"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(75f, 0f, 130f).UseOpacity(0.005f), EffectPriority.VeryHigh);
                 SkyManager.Instance["Spooky:Raveyard"] = new RaveyardSky();
 

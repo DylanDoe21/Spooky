@@ -22,17 +22,19 @@ using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class OrroHeadP2 : ModNPC
     {
         public bool Enraged = false;
+        public bool Chomp = false;
+        public bool OpenMouth = false;
         private bool spawned;
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroDeath", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -101,7 +103,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.behindTiles = true;
             NPC.netAlways = true;
             NPC.HitSound = HitSound;
-            NPC.DeathSound = DeathSound;
+            NPC.DeathSound = SoundID.Zombie40;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
@@ -138,15 +140,31 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
-            if (NPC.frameCounter > 4)
+            if (!Chomp)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                if (!OpenMouth)
+                {
+                    NPC.frame.Y = frameHeight * 0;
+                }
+                if (OpenMouth)
+                {
+                    NPC.frame.Y = frameHeight * 3;
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 5)
+            if (Chomp)
             {
-                NPC.frame.Y = 0;
+                NPC.frameCounter += 1;
+                if (NPC.frameCounter > 4)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0.0;
+                }
+                if (NPC.frame.Y >= frameHeight * 5)
+                {
+                    SoundEngine.PlaySound(CrunchSound, NPC.Center);
+
+                    NPC.frame.Y = 0;
+                }
             }
         }
 
@@ -897,6 +915,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         { 
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+
             //treasure bag
             npcLoot.Add(ItemDropRule.BossBagByCondition(new DropConditions.ShouldOrroDropLootExpert(), ModContent.ItemType<BossBagOrroboro>()));
             
@@ -910,12 +930,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 ModContent.ItemType<EyeFlail>(), 
                 ModContent.ItemType<Scycler>(),
                 ModContent.ItemType<EyeRocketLauncher>(), 
-                ModContent.ItemType<MouthFlamethrower>(),
-                ModContent.ItemType<LeechStaff>(),
-                ModContent.ItemType<LeechWhip>()
             };
 
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), Main.rand.Next(MainItem)));
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
@@ -923,10 +940,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrroTrophyItem>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));
+
+            npcLoot.Add(notExpertRule);
         }
 
         public override void OnKill()
         {
+            for (int numGores = 1; numGores <= 2; numGores++)
+            {
+                if (Main.netMode == NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/OrroHeadGore" + numGores).Type);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
         }
 

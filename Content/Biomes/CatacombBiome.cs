@@ -38,7 +38,10 @@ namespace Spooky.Content.Biomes
                 vignettePlayer.SetVignette(2, 600, 1f, Color.Black, player.Center);
             }
 
-            player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            if (!Flags.downedBigBone)
+            {
+                player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
+            }
 
             //spawn a catacomb guardian if you enter too early
             int PlayerX = (int)player.Center.X / 16;

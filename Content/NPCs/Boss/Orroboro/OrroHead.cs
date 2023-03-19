@@ -12,17 +12,20 @@ using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class OrroHead : ModNPC
     {
         Vector2 SavePlayerPosition;
         public bool Transition = false;
+        public bool Chomp = false;
+        public bool OpenMouth = false;
         private bool spawned;
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle SplitSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroSplit", SoundType.Sound);
+        public static readonly SoundStyle SplitSound = new("Spooky/Content/Sounds/Orroboro/OrroboroSplit", SoundType.Sound);
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
@@ -47,6 +50,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             //bools
             writer.Write(Transition);
+            writer.Write(Chomp);
+            writer.Write(OpenMouth);
             writer.Write(spawned);
 
             //local ai
@@ -60,6 +65,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             //bools
             Transition = reader.ReadBoolean();
+            Chomp = reader.ReadBoolean();
+            OpenMouth = reader.ReadBoolean();
             spawned = reader.ReadBoolean();
 
             //local ai
@@ -106,15 +113,31 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
-            if (NPC.frameCounter > 4)
+            if (!Chomp)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                if (!OpenMouth)
+                {
+                    NPC.frame.Y = frameHeight * 0;
+                }
+                if (OpenMouth)
+                {
+                    NPC.frame.Y = frameHeight * 3;
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 5)
+            if (Chomp)
             {
-                NPC.frame.Y = 0;
+                NPC.frameCounter += 1;
+                if (NPC.frameCounter > 4)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0.0;
+                }
+                if (NPC.frame.Y >= frameHeight * 5)
+                {
+                    SoundEngine.PlaySound(CrunchSound, NPC.Center);
+
+                    NPC.frame.Y = 0;
+                }
             }
         }
 

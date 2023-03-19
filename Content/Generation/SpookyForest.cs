@@ -30,7 +30,7 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating spooky forest";
+            progress.Message = "Spreading the spooky forest";
 
             //decide whether or not to use the alt background
             if (Main.rand.Next(2) == 0)

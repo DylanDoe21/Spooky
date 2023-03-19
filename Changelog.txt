@@ -14,8 +14,7 @@ New Friendly NPC, Little Eye the Alchemist:
 -Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards
 -Upon completing his third quest, he will give you the cotton swab to summon moco. This is now the only way to obtain it, and the previous method has been removed entirely
 -Upon completing his fourth quest he will give you the eye valley pylon, and this is also now the only way to obtain it
--After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with orro & boros summon item, the acidic concoction
-
+-After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with the orro & boro summon item
 
 
 New Event, The Egg Incursion:
@@ -26,7 +25,6 @@ New Event, The Egg Incursion:
 -It will begin upon trying to break the egg with the concoction for the first time
 -The event does not have an enemy kill count, and since it is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
 -There is a craftable summon item for the event you can get after orro & boro, as the enemies will drop orro & boro's crafting material after you defeat them
-
 
 
 New Eye Valley Chest Weapons:
@@ -44,7 +42,6 @@ Eye Lasher:
 -A whip that can sometimes lower enemy defense on hit for a short time
 
 
-
 New Biome, The Swampy Cemetery:
 
 -A brand new biome introduced this update, it serves as the above ground biome that transitions into the catacombs
@@ -53,13 +50,11 @@ New Biome, The Swampy Cemetery:
 -It also has it's own pylon, which you can buy from npcs who are happy enough in the biome
 
 
-
 New Catacombs Visual:
 
 -while in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
 -this is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
 -The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
-
 
 
 New Enemy, the Catacomb Guardian:
@@ -70,13 +65,11 @@ New Enemy, the Catacomb Guardian:
 -Defeating the catacomb guardian will give you a funny pet item
 
 
-
 New Music:
 
 -"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
 -"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
 -"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
-
 
 
 New Config Options:
@@ -91,11 +84,11 @@ Screen Shaking Effect:
 (For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
 
 
-
 Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
+
 
 
 
@@ -117,7 +110,6 @@ Monster Heart:
 -Removed from the mod entirely
 
 
-
 Moco Item Changes:
 
 Snot Ball:
@@ -137,7 +129,6 @@ Reworked the Snotty Schnoz:
 -After picking up fifteen snot globs, using weapons that shoot projectiles will shoot snot for a short period along with their regular projectile
 -The booger will use the same damage type as the weapon used (For example, if shot by a magic weapon then the booger will deal magic damage)
 -Enemies will stop dropping snot for thirty seconds after this effect is triggered
-
 
 
 Catacomb Item Changes:
@@ -176,12 +167,10 @@ Disciple's Mask:
 -Now plays a less annoying sound when wisps are fired and when they die
 
 
-
 Rot Gourd Changes:
 
 -Rot gourd launching players up when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
 -Rot gourd no longer creates dirt debris projectiles when jumping in his desperation phase
-
 
 
 Orro & Boro Changes:
@@ -201,7 +190,6 @@ Orro & Boro Changes:
 -When one worm dies during phase 2 it will now actually die instead of becoming immune, but the remaining worm will enrage, causing it to become way more aggressive
 
 
-
 Big Bone Changes:
 
 -All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
@@ -215,7 +203,6 @@ Big Bone Changes:
 -Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
 
 
-
 Cowbell Entity Changes:
 
 -Now has it's own bestiary entry after being encountered (It is only unlocked once you get killed by it)
@@ -225,11 +212,9 @@ Cowbell Entity Changes:
 -Now drops a special new reward after you encounter it
 
 
-
 Little Bone Changes:
 
 -(stuff will go here when i get to writing it down)
-
 
 
 Config Changes:

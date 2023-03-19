@@ -294,7 +294,7 @@ namespace Spooky.Content.Generation
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating catacombs";
+            progress.Message = "Creating the catacombs";
 
             //tiles
             //0 = clear blocks

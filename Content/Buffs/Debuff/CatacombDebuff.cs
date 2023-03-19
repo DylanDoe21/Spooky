@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Debuff
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Catacomb's Curse");
-			Description.SetDefault("You cannot build, break blocks, or teleport");
-			Main.debuff[Type] = true;  
+			Description.SetDefault("You cannot build, use tools, or use the rod of discord\nYour vision is very limited");
+			Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

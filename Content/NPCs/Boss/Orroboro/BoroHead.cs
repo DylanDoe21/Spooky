@@ -22,7 +22,7 @@ using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public class BoroHead : ModNPC
     {
         Vector2 SavePoint;
@@ -33,7 +33,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/OrroboroDeath", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -102,7 +101,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.behindTiles = true;
             NPC.netAlways = true;
             NPC.HitSound = HitSound;
-            NPC.DeathSound = DeathSound;
+            NPC.DeathSound = SoundID.Zombie38;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
@@ -671,36 +670,45 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+
             //treasure bag
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new DropConditions.ShouldOrroDropLootExpert(), ModContent.ItemType<BossBagOrroboro>()));
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new DropConditions.ShouldBoroDropLootExpert(), ModContent.ItemType<BossBagOrroboro>()));
             
             //master relic and pet
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
 
             //weapon drops
             int[] MainItem = new int[] 
-            { 
-                ModContent.ItemType<EyeFlail>(), 
-                ModContent.ItemType<Scycler>(),
-                ModContent.ItemType<EyeRocketLauncher>(), 
+            {
                 ModContent.ItemType<MouthFlamethrower>(),
                 ModContent.ItemType<LeechStaff>(),
                 ModContent.ItemType<LeechWhip>()
             };
 
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), Main.rand.Next(MainItem)));
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //material
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
+
+            npcLoot.Add(notExpertRule);
         }
 
         public override void OnKill()
         {
+            for (int numGores = 1; numGores <= 2; numGores++)
+            {
+                if (Main.netMode == NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/BoroHeadGore" + numGores).Type);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
         }
 

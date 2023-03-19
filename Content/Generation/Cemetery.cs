@@ -24,7 +24,7 @@ namespace Spooky.Content.Generation
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemeteryArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating burial grounds";
+            progress.Message = "Placing burial grounds";
 
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
@@ -60,23 +60,60 @@ namespace Spooky.Content.Generation
                 foundSurface = true;
             }
 
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2); X <= XMiddle + (Catacombs.BiomeWidth / 2); X++)
+            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 20; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 20; X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    //place dirt blocks
-                    if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != TileID.Cloud && Main.tile[X, Y].TileType != TileID.RainCloud)
+                    Tile tile = Main.tile[X, Y];
+                    Tile tileUp = Main.tile[X, Y - 1];
+                    Tile tileDown = Main.tile[X, Y + 1];
+                    Tile tileLeft = Main.tile[X - 1, Y];
+                    Tile tileRight = Main.tile[X + 1, Y];
+
+                    if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
                     {
-                        Main.tile[X, Y].ClearEverything();
+                        if (WorldGen.genRand.Next(2) == 0)
+                        {
+                            //place dirt blocks
+                            if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud)
+                            {
+                                tile.ClearEverything();
+                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                            }
+
+                            //place dirt blocks where walls exist to prevent unwanted craters or caves
+                            if (tile.WallType > 0 && !tile.HasTile)
+                            {
+                                tile.ClearEverything();
+                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //place dirt blocks
+                        if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud)
+                        {
+                            tile.ClearEverything();
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                        }
+
+                        //place dirt blocks where walls exist to prevent unwanted craters or caves
+                        if (tile.WallType > 0 && !tile.HasTile)
+                        {
+                            tile.ClearEverything();
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                        }
+                    }
+
+                    //fill in any single empty tiles
+                    if (!tile.HasTile && tileUp.HasTile && tileDown.HasTile && tileLeft.HasTile && tileRight.HasTile)
+                    {
+                        tile.ClearEverything();
                         WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
 
-                    //place dirt blocks where walls exist to prevent unwanted craters or caves
-                    if (Main.tile[X, Y].WallType > 0 && !Main.tile[X, Y].HasTile)
-                    {
-                        Main.tile[X, Y].ClearEverything();
-                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                    }
+                    tile.LiquidAmount = 0;
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs

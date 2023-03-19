@@ -25,6 +25,17 @@ namespace Spooky.Content.Biomes
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
+        public override void SpecialVisuals(Player player, bool isActive)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) &&
+            !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
+        }
+        
+        public override void OnLeave(Player player)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", false, player.Center);
+        }
+
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CemeteryBiomeIcon";
         public override string MapBackground => BackgroundPath;
