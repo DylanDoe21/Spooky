@@ -6,17 +6,17 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.RotGourd;
 
 namespace Spooky.Content.Items.BossBags
 {
-	public class BossBagMoco : ModItem
+	public class BossBagSpookySpirit : ModItem
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Moco)");
+			DisplayName.SetDefault("Treasure Bag (Spooky Spirit)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
@@ -43,21 +43,17 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			//weapon drops
-			int[] MainItem = new int[] 
-			{ 
-				ModContent.ItemType<BoogerFlail>(), 
-				ModContent.ItemType<BoogerBlaster>(), 
-				ModContent.ItemType<BoogerStaff>() 
-			};
+			/*
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
 
 			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<MocoNose>());
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyAmulet>());
+			*/
 		}
 
-		public override int BossBagNPC => ModContent.NPCType<Moco>();
+		public override int BossBagNPC => ModContent.NPCType<RotGourd>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{
@@ -126,14 +122,14 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(159, 213, 49, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(250, 174, 6, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(159, 213, 49, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(250, 174, 6, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

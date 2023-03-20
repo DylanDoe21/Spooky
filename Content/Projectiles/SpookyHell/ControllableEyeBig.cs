@@ -126,7 +126,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, 
-                ModContent.ProjectileType<ControllableEyeBigExplosion>(), Projectile.damage * 3, Projectile.knockBack, Main.myPlayer);
+                ModContent.ProjectileType<ControllableEyeBigExplosion>(), Projectile.damage * 5, Projectile.knockBack, Main.myPlayer);
             }
             else
             {

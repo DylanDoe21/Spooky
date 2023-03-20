@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Catacomb
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 420000;
+            NPC.lifeMax = 280000;
             NPC.damage = 420000;
             NPC.defense = 0;
             NPC.width = 126;

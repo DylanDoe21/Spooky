@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 99;
-			Item.rare = ItemRarityID.Blue;  
+			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 1);
 			Item.createTile = ModContent.TileType<SpookyCrateTile>();
 		}

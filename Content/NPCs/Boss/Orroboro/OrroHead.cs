@@ -256,21 +256,28 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            if (!Transition && !player.dead && NPC.localAI[3] < 75)
+            if (NPC.localAI[3] < 75)
             {
                 //attacks
                 switch ((int)NPC.ai[0])
                 {
-                    //basic movement
+                    //charge up after spawning from the egg
                     case 0:
                     {
                         NPC.localAI[0]++;
 
-                        //literally just basic worm movement
-                        Movement(player, 20f, 0.38f, false);
-                            
-                        if (NPC.localAI[0] > 350)
+                        //charge up
+                        if (NPC.localAI[0] == 2)
                         {
+                            SoundEngine.PlaySound(HissSound1, NPC.position);
+
+                            NPC.velocity.X *= 0;
+                            NPC.velocity.Y = -35;
+                        }
+                            
+                        if (NPC.localAI[0] > 40)
+                        {
+                            NPC.velocity *= 0.35f;
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
                             NPC.netUpdate = true;
@@ -293,15 +300,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //slow down before charging
                         if (NPC.localAI[0] == 170 || NPC.localAI[0] == 370)
                         {
+                            SavePlayerPosition = player.Center;
                             NPC.velocity *= 0.95f;
                         }
 
                         //charge at the saved location
-                        if (NPC.localAI[0] == 200 || NPC.localAI[0] == 400)
+                        if (NPC.localAI[0] == 190 || NPC.localAI[0] == 390)
                         {
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
                                     
                             ChargeDirection.X *= 28;
@@ -311,12 +319,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
 
                         //slow down after charging
-                        if (NPC.localAI[0] == 240 || NPC.localAI[0] == 450)
+                        if (NPC.localAI[0] == 230 || NPC.localAI[0] == 440)
                         {
                             NPC.velocity *= 0.2f;
                         }
 
-                        if (NPC.localAI[0] > 475)
+                        if (NPC.localAI[0] > 470)
                         {
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
@@ -632,17 +640,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < 3)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1000 : 1000;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
                             GoTo.Y += 750;
 
                             //go from side to side
                             if (NPC.localAI[0] < 120)
                             {
-                                GoTo.X += 1000;
+                                GoTo.X += 550;
                             }
                             if (NPC.localAI[0] > 120)
                             {
-                                GoTo.X += -1000;
+                                GoTo.X += -550;
                             }
                             
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
@@ -732,57 +740,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0; 
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
-                    }
-
-                    //charge up after thorns
-                    case 7:
-                    {
-                        NPC.localAI[0]++;
-
-                        //go directly below the player
-                        if (NPC.localAI[0] < 60)
-                        {
-                            Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
-                            GoTo.Y += 750;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-
-                        //teleport below the player, then create telegraph
-                        if (NPC.localAI[0] == 60)
-                        {
-                            NPC.velocity *= 0;
-                            
-                            NPC.position.X = player.Center.X - 20;
-                            NPC.position.Y = player.Center.Y + 750;
-
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, player.Center.Y + 225, 0, 0,
-                            ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
-                        }
-
-                        //charge up
-                        if (NPC.localAI[0] == 75)
-                        {
-                            SoundEngine.PlaySound(HissSound1, NPC.position);
-
-                            NPC.velocity.X *= 0;
-                            NPC.velocity.Y = -35;
-                        }
-
-                        //reset attack pattern back to the beginning
-                        if (NPC.localAI[0] >= 130)
-                        {
-                            NPC.velocity *= 0.5f;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0] = 0; 
+                            NPC.ai[0] = 1;
                             NPC.netUpdate = true;
                         }
 

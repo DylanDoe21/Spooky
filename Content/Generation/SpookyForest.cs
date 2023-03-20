@@ -26,6 +26,8 @@ namespace Spooky.Content.Generation
         static int PositionX = Main.maxTilesX / 2;
         static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
+        Vector2 SaveHousePosition;
+
         static bool PlacedGrass = false;
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
@@ -381,9 +383,16 @@ namespace Spooky.Content.Generation
                     //place little bone in the house
                     NPC.NewNPC(null, (x + 1) * 16, (y - 6) * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
 
+                    SaveHousePosition = origin;
+
                     placed = true;
 				}
             }
+        }
+
+        public void GenerateStarterHouseAgain(GenerationProgress progress, GameConfiguration configuration)
+        {
+            Generator.GenerateStructure("Content/Structures/SpookyForestHouse", SaveHousePosition.ToPoint16(), Mod);
         }
 
         public void GenerateUndergroundCabins(GenerationProgress progress, GameConfiguration configuration)
@@ -465,6 +474,7 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyHouse", GenerateStarterHouse));
 
             //place objects and grow trees
             int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
@@ -488,7 +498,7 @@ namespace Spooky.Content.Generation
                 return;
             }
 
-            tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouse", GenerateStarterHouse));
+            tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
             tasks.Insert(GenIndex3 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
         }
 

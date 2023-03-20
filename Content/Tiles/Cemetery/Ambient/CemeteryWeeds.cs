@@ -41,7 +41,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
             }
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             if (Main.rand.Next(35) == 0)
             {

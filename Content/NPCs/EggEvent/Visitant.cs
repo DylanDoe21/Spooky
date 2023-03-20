@@ -29,6 +29,14 @@ namespace Spooky.Content.NPCs.EggEvent
             DisplayName.SetDefault("Visitant");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(25f, -5f),
+                PortraitPositionXOverride = 8f,
+                PortraitPositionYOverride = 0f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

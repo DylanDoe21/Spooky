@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Pets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spirit Lantern");
-			Tooltip.SetDefault("Summons a mini spirit to provide light"
+			Tooltip.SetDefault("Summons a mini spirit to light the way"
 			+ "\n'What kind of spirit possesses a lantern?'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

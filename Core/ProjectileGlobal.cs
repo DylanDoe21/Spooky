@@ -54,7 +54,8 @@ namespace Spooky.Core
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
-            if (projectile.type == ProjectileID.WorldGlobe && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
+            if (projectile.type == ProjectileID.WorldGlobe && (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()) || 
+            Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiomeUg>())))
             {
                 if (!Flags.SpookyBackgroundAlt)
                 {

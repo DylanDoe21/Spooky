@@ -28,12 +28,12 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(NPC.localAI[0]);
+            writer.Write(Biting);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            NPC.localAI[0] = reader.ReadSingle();
+            Biting = reader.ReadBoolean();
         }
 
         public override void SetDefaults()
@@ -110,10 +110,11 @@ namespace Spooky.Content.NPCs.Catacomb
         {
             Biting = true;
 
-            if (NPC.localAI[0] != 1)
+            if (NPC.ai[0] != 1)
             {
+                NPC.frame.Y = 4;
                 SoundEngine.PlaySound(ChompSound, NPC.Center);
-                NPC.localAI[0] = 1;
+                NPC.ai[0] = 1;
             }
         }
 

@@ -243,9 +243,9 @@ Other Changes and Fixes:
 -World globe will now only change the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
 -Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
--All 3 putty slime variants have different bestiary entries now
 -Modified marigold's jumping ai and made it a lot smoother in game
 -Marigolds will now make a sound every time they spit a spore at you
 -Made modifications to the spooky forest generation, the sides of the biome are less wide to make it less intrusive on other worldgen
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
+-Enemies in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)

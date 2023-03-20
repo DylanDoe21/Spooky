@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb
@@ -106,12 +107,15 @@ namespace Spooky.Content.NPCs.Catacomb
                             other.life += healamount;
                         }
 
-                        for (int k = 0; k < 10; k++)
+                        for (int numDust = 0; numDust < 3; numDust++)
                         {
-                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, DustID.YellowTorch)];
-                            dust.noGravity = true;
-                            dust.velocity *= 0.04f;
-                            dust.scale *= 1.5f;
+
+                            int magicDust = Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, ModContent.DustType<GlowyDust>());
+                            Main.dust[magicDust].color = Color.Yellow;
+                            Main.dust[magicDust].velocity.X *= Main.rand.NextFloat(-1.05f, 1.05f);
+                            Main.dust[magicDust].velocity.Y *= Main.rand.NextFloat(-1.05f, 1.05f);
+                            Main.dust[magicDust].scale = 0.12f;
+                            Main.dust[magicDust].noGravity = true;
                         }
                     }
 

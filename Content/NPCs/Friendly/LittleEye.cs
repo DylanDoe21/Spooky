@@ -168,7 +168,7 @@ namespace Spooky.Content.NPCs.Friendly
                     {
 						if (!Main.hardMode)
 						{
-							Main.npcChatText = "In order for me to combine all four flasks, you'll need to bring me five special souls. But, I don't know if you can get them just yet."
+							Main.npcChatText = "In order for me to combine all four flasks, you'll need to bring me a special soul. But, I don't know if you can get them just yet."
 							+ $"\nMaterials: [i:{ItemID.SoulofSight}][i:{ItemID.SoulofMight}][i:{ItemID.SoulofFright}]x1 (Any mechanical boss soul)";
 						}
 						else

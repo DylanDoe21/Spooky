@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
@@ -15,6 +16,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             DisplayName.SetDefault("Fuzz Bat");
             Main.npcFrameCount[NPC.type] = 4;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(0f, -10f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = -30f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
         
         public override void SetDefaults()

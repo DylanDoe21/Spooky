@@ -15,6 +15,7 @@ using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 
 namespace Spooky.Core
@@ -65,7 +66,8 @@ namespace Spooky.Core
 			}
 
 			//disable spawns when any spooky mod boss is alive
-			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
+			NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				pool.Clear();
 			}

@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/Orroboro/BoroBestiary",
-                Position = new Vector2(2f, -24f),
+                Position = new Vector2(2f, -35f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -24f
             };
@@ -222,7 +222,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            if (!player.dead && player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && NPC.localAI[3] < 75)
+            if (NPC.localAI[3] < 75)
             {
                 //attacks
                 switch ((int)NPC.ai[0])
@@ -445,17 +445,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < repeats)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1000 : 1000;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
                             GoTo.Y += 600;
 
                             //go from side to side
                             if (NPC.localAI[0] < 120)
                             {
-                                GoTo.X += -1000;
+                                GoTo.X += -550;
                             }
                             if (NPC.localAI[0] > 120)
                             {
-                                GoTo.X += 1000;
+                                GoTo.X += 550;
                             }
                             
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
@@ -571,11 +571,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                         else
                         {
-                            NPC.velocity *= 0.25f;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
+                            if (NPC.localAI[0] >= 30)
+                            {
+                                NPC.velocity *= 0.25f;
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0; 
+                                NPC.ai[0]++;
+                                NPC.netUpdate = true;
+                            }
                         }
                         
                         break;
@@ -709,7 +712,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
+            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()))
+            {
+                NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
+            }
         }
 
         public override void BossLoot(ref string name, ref int potionType)

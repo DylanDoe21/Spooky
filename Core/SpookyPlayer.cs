@@ -203,6 +203,11 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
+            if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+            {
+                Player.buffImmune[BuffID.WindPushed] = true;
+            }
+
             if (MocoBoogerCharge >= 15)
             {
                 BoogerFrenzyTime++;

@@ -107,7 +107,7 @@ namespace Spooky.Core
 			};
 
 			//register rot gourd
-			bossChecklistMod.Call("AddBoss", Mod, GourdName, Gourd, 2.5f, GourdDowned, true, GourdDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, GourdName, Gourd, 2.01f, GourdDowned, true, GourdDrops, 
 			GourdSummonItem, GourdSpawnInfo, GourdDespawnInfo, GourdPortrait);
 
 
@@ -133,7 +133,7 @@ namespace Spooky.Core
 			};
 
 			//register rot gourd
-			bossChecklistMod.Call("AddBoss", Mod, SpiritName, Spirit, 3.5f, SpiritDowned, true, SpiritDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, SpiritName, Spirit, 3.01f, SpiritDowned, true, SpiritDrops, 
 			null, SpiritSpawnInfo, SpiritDespawnInfo, SpiritPortrait);
 
 
@@ -163,7 +163,7 @@ namespace Spooky.Core
 			};
 
 			//register moco
-			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 4.5f, MocoDowned, true, MocoDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 4.01f, MocoDowned, true, MocoDrops, 
 			MocoSummonItem, MocoSpawnInfo, MocoDespawnInfo, MocoPortrait);
 
 
@@ -204,7 +204,7 @@ namespace Spooky.Core
 			};
 
 			//register egg event
-			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 9.49f, EggEventDowned, true, EggEventDrops,
+			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 11.02f, EggEventDowned, true, EggEventDrops,
 			EggEventSummonItem2, EggEventSpawnInfo, EggEventPortrait, Icon);
 
 
@@ -242,7 +242,7 @@ namespace Spooky.Core
 			};
 
 			//register orroboro
-			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 9.5f, OrroboroDowned, true, OrroboroDrops, 
+			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 11.03f, OrroboroDowned, true, OrroboroDrops, 
 			OrroboroSummonItem, OrroboroSpawnInfo, OrroboroDespawnInfo, OrroboroPortrait);
 
 

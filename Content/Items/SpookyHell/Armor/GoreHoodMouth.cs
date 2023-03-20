@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Gore Monger's Brutal Hood");
-			Tooltip.SetDefault("15% increased melee and ranged damage"
+			Tooltip.SetDefault("12% increased melee and ranged damage"
 			+ "\n8% increased melee and ranged critical strike chance"
 			+ "\n12% increased melee speed and 20% chance to not consume ammo"
 			+ "\nEnemies are more likely to target you");
@@ -42,7 +42,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.setBonus = "Grants you a protective aura that will block one attack"
 			+ "\nWhile the aura is active, you gain 8% increased melee and ranged damage"
-			+ "\nWhen you are hit the aura will vanish, and will regenerate after one minute";
+			+ "\nWhen you get hit the aura will vanish, and will regenerate after one minute";
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
@@ -62,8 +62,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Melee) += 0.15f;
-			player.GetDamage(DamageClass.Ranged) += 0.15f;
+			player.GetDamage(DamageClass.Melee) += 0.12f;
+			player.GetDamage(DamageClass.Ranged) += 0.12f;
 			player.GetCritChance(DamageClass.Melee) += 8;
 			player.GetCritChance(DamageClass.Ranged) += 8;
 			player.GetAttackSpeed(DamageClass.Melee) += 0.10f;

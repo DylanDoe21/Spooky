@@ -259,7 +259,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Putty blobs with little faces that hop around the spooky forest. The putty they are made out of allows them to jump higher than normal slimes."),
+				new FlavorTextBestiaryInfoElement("Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes."),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

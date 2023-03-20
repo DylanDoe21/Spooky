@@ -36,7 +36,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Summons a little eye to protect you"
+			player.setBonus = "Summons a tiny floating eye to protect you"
 			+ "\nThe eye does not take up any minion slots";
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
 

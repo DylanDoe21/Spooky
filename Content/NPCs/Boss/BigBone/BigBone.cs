@@ -1475,11 +1475,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             {
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Main.NewText("The darkness of the catacombs fades away!", Color.Yellow);
+                    Main.NewText("The curse of the catacombs has been lifted", Color.Yellow);
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The darkness of the catacombs fades away!"), Color.Yellow);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The curse of the catacombs has been lifted"), Color.Yellow);
                 }
             }
 

@@ -38,7 +38,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useAnimation = 45;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 12;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.scale = 1.25f;
@@ -47,6 +47,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void UseAnimation(Player player)
         {
             hasHitSomething = false;
+            hasHitEnemies = false;
         }
 
         public override void OnHitTiles(Player player)

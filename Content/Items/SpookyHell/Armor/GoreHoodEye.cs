@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Gore Monger's Seer Hood");
-			Tooltip.SetDefault("15% increased magic and summon damage"
+			Tooltip.SetDefault("12% increased magic and summon damage"
 			+ "\n8% increased magic and summon critical strike chance"
 			+ "\n10% reduced mana usage and increases your max minions by 2"
 			+ "\nEnemies are more likely to target you");
@@ -42,7 +42,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.setBonus = "Grants you a protective aura that will block one attack"
 			+ "\nWhile the aura is active, you gain 8% increased magic and summon damage"
-			+ "\nWhen you are hit the aura will vanish, and will regenerate after one minute";
+			+ "\nWhen you get hit the aura will vanish, and will regenerate after one minute";
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
@@ -62,9 +62,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Magic) += 0.15f;
-			player.GetDamage(DamageClass.Summon) += 0.15f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.15f;
+			player.GetDamage(DamageClass.Magic) += 0.12f;
+			player.GetDamage(DamageClass.Summon) += 0.12f;
 			player.GetCritChance(DamageClass.Magic) += 8;
 			player.GetCritChance(DamageClass.Summon) += 8;
 			player.manaCost -= 0.10f;

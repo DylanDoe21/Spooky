@@ -24,16 +24,17 @@ namespace Spooky.Content.Generation
 {
     public class SpookyHell : ModSystem
     {
-        static int StartPosition = (Main.maxTilesX / 2) + 750;
-        static int BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 9);
+        static int StartPosition = (WorldGen.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
+        static int BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
         //clear area for the biome to generate in
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
             //set these to their intended values again just to be safe
-            StartPosition = (Main.maxTilesX / 2) + 750;
-            BiomeEdge = Main.maxTilesX - (Main.maxTilesX / 9);
+            StartPosition = (WorldGen.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
+            BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
+            //clear everything in the area the biome generates in
             for (int X = StartPosition; X <= BiomeEdge; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
@@ -90,33 +91,69 @@ namespace Spooky.Content.Generation
             //place clumps of blocks along the edge of the biome so it doesnt look weird
             for (int X = StartPosition - 50; X <= StartPosition; X++)
             {
-                for (int Y = Main.maxTilesY - 135; Y < Main.maxTilesY - 2; Y++)
+                for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 2; Y++)
                 {
                     if (WorldGen.genRand.Next(30) == 0)
                     {
-                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(5, 20);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
-			for (int X = BiomeEdge; X <= BiomeEdge + 50; X++)
+            for (int X = BiomeEdge; X <= BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 135; Y < Main.maxTilesY - 2; Y++)
+                for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 2; Y++)
                 {
                     if (WorldGen.genRand.Next(30) == 0)
                     {
-                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 8), (ushort)ModContent.TileType<SpookyMush>(), false);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(5, 20);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
 
             //place ceiling across the top of the biome
-            for (int X = StartPosition; X <= BiomeEdge; X++)
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 192; Y++)
                 {
-                    if (WorldGen.genRand.Next(50) == 0)
+                    if (WorldGen.genRand.Next(15) == 0)
                     {
-                        SpookyWorldMethods.Circle(X, Y, WorldGen.genRand.Next(5, 10), (ushort)ModContent.TileType<SpookyMush>(), false);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(3, 5);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
@@ -418,7 +455,7 @@ namespace Spooky.Content.Generation
             int houseAttempts = 0;
             while (!placedHouse && houseAttempts++ < 100000)
             {
-                int HouseX = (StartPosition + XMiddle) / 2;
+                int HouseX = (WorldGen.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
                 int HouseY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.maxTilesY)
@@ -503,7 +540,7 @@ namespace Spooky.Content.Generation
             int shrineAttempts = 0;
             while (!placedShrine && shrineAttempts++ < 100000)
             {
-                int ShrineX = (XMiddle + BiomeEdge) / 2;
+                int ShrineX = (WorldGen.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
                 int ShrineY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(ShrineX, ShrineY) && ShrineY <= Main.maxTilesY)
