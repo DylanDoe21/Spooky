@@ -52,24 +52,37 @@ namespace Spooky.Core
 			//increase spawnrates and max spawns during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
-				spawnRate = (int)(spawnRate / 2f);
-				maxSpawns = (int)(maxSpawns * 2f);
+				spawnRate /= 3;
+				maxSpawns *= 2;
 			}
 		}
 
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
-			//disable spawns during the entity encounter
-			if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
+            //disable all spawns when any spooky mod boss is alive
+            if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            {
+                pool.Clear();
+            }
+
+            //disable spawns during the entity encounter
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
 			{
 				pool.Clear();
 			}
 
-			//disable spawns when any spooky mod boss is alive
-			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
-			NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			//remove all hell enemies from the spawn pool while in the eye valley
+			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
-				pool.Clear();
+				pool.Remove(NPCID.Hellbat);
+				pool.Remove(NPCID.Lavabat);
+				pool.Remove(NPCID.LavaSlime);
+				pool.Remove(NPCID.FireImp);
+				pool.Remove(NPCID.Demon);
+				pool.Remove(NPCID.VoodooDemon);
+				pool.Remove(NPCID.RedDevil);
+				pool.Remove(NPCID.Mimic);
 			}
 		}
 

@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(40, 100, 63));
             DustType = ModContent.DustType<CemeteryGrassDust>();

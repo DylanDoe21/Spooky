@@ -80,13 +80,6 @@ namespace Spooky.Content.Generation
                                 tile.ClearEverything();
                                 WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                             }
-
-                            //place dirt blocks where walls exist to prevent unwanted craters or caves
-                            if (tile.WallType > 0 && !tile.HasTile)
-                            {
-                                tile.ClearEverything();
-                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                            }
                         }
                     }
                     else

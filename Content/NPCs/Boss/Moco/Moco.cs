@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused
+                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

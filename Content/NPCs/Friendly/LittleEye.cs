@@ -205,11 +205,12 @@ namespace Spooky.Content.NPCs.Friendly
 
 			if (Main.LocalPlayer.HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && !Flags.downedEggEvent)
             {
-				return "So, you must be really ballsy trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'";
+				return "So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying: 'Bloody red, you'll be dead, purplish blue, cripple you!'";
 			}
+
 			if (EggEventWorld.EggEventActive)
             {
-				return "You're trying to start conversation, right NOW? You might wanna take care of the literal abominations trying to attack you.";
+				return "You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.";
 			}
 
 			return Main.rand.Next(Dialogue);

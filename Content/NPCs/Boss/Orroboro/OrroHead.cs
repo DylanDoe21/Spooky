@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused
+                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire, BuffID.Venom, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
@@ -163,7 +163,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 if (NPC.localAI[3] >= 75)
                 {
                     NPC.velocity.Y = 25;
-                    NPC.EncourageDespawn(10);
+                }
+
+                if (NPC.localAI[3] >= 120)
+                {
+                    NPC.active = false;
                 }
             }
             else
@@ -256,7 +260,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            if (NPC.localAI[3] < 75)
+            if (!Transition && NPC.localAI[3] < 75)
             {
                 //attacks
                 switch ((int)NPC.ai[0])
@@ -269,14 +273,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //charge up
                         if (NPC.localAI[0] == 2)
                         {
+                            OpenMouth = true;
+
                             SoundEngine.PlaySound(HissSound1, NPC.position);
 
                             NPC.velocity.X *= 0;
-                            NPC.velocity.Y = -35;
+                            NPC.velocity.Y = -30;
                         }
                             
-                        if (NPC.localAI[0] > 40)
+                        if (NPC.localAI[0] > 30)
                         {
+                            OpenMouth = false;
+
                             NPC.velocity *= 0.35f;
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
@@ -294,12 +302,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //use chase movement
                         if (NPC.localAI[0] < 170 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 370) || NPC.localAI[0] >= 450)
                         {
+                            Chomp = true;
+
                             Movement(player, 10f, 0.2f, true);
                         }
 
                         //slow down before charging
-                        if (NPC.localAI[0] == 170 || NPC.localAI[0] == 370)
+                        if (NPC.localAI[0] == 180 || NPC.localAI[0] == 380)
                         {
+                            Chomp = false;
+
                             SavePlayerPosition = player.Center;
                             NPC.velocity *= 0.95f;
                         }
@@ -307,6 +319,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //charge at the saved location
                         if (NPC.localAI[0] == 190 || NPC.localAI[0] == 390)
                         {
+                            OpenMouth = true;
+
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -321,11 +335,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //slow down after charging
                         if (NPC.localAI[0] == 230 || NPC.localAI[0] == 440)
                         {
+                            OpenMouth = false;
+                            Chomp = false;
+
                             NPC.velocity *= 0.2f;
                         }
 
                         if (NPC.localAI[0] > 470)
                         {
+                            OpenMouth = false;
+                            Chomp = false;
+
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
                             NPC.netUpdate = true;
@@ -365,6 +385,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //charge up
                         if (NPC.localAI[0] == 75)
                         {
+                            OpenMouth = true;
+
                             SoundEngine.PlaySound(HissSound2, NPC.Center);
 
                             NPC.velocity.X *= 0;
@@ -395,6 +417,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] > 135)
                         {
+                            OpenMouth = false;
+
                             NPC.velocity *= 0.5f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
@@ -427,6 +451,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             //charge at the player
                             if (NPC.localAI[0] == 100)
                             {
+                                OpenMouth = true;
+
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
                                 Vector2 ChargeDirection = player.Center - NPC.Center;
@@ -455,6 +481,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             if (NPC.localAI[0] >= 130)
                             {
+                                OpenMouth = false;
+
                                 NPC.velocity *= 0.5f;
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
@@ -539,8 +567,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //shoot venom spit at the player while spinning
                         if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 250)
                         {
+                            OpenMouth = true;
+
                             if (NPC.localAI[0] % 20 == 5)
                             {
+                                SoundEngine.PlaySound(SpitSound, NPC.Center);
+
                                 Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
                                 ShootSpeed.X *= 3f;
@@ -556,6 +588,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] > 250)
                         {
+                            OpenMouth = false;
+
                             NPC.velocity *= 0.5f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
@@ -594,6 +628,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == 100)
                         {
+                            OpenMouth = true;
+
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             NPC.velocity.X *= 0;
@@ -618,6 +654,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] > 135)
                         {
+                            OpenMouth = false;
+
                             NPC.velocity *= 0.97f;
                         }
 

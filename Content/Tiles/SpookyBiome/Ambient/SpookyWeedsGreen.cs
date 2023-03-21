@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(62, 95, 38));
             DustType = ModContent.DustType<SpookyGrassDustGreen>();

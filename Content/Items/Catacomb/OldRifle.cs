@@ -15,14 +15,14 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elephant Killer");
+			DisplayName.SetDefault("Old Hunter's Rifle");
 			Tooltip.SetDefault("Shoots out rusty bullets that split on impact");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 120;
+			Item.damage = 130;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true; 

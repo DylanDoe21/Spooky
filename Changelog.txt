@@ -175,19 +175,13 @@ Rot Gourd Changes:
 
 Orro & Boro Changes:
 
-~phase 1~
+~Specific AI Changes~
 
--his attack where he flies around at the beginning of the fight now lasts for much less time
 
--during his chasing attack, he will now preform dashes at the player twice
--his chasing speed has also been increased a bit
 
--his attack where he flies around and vomits projectiles everywhere and has been removed and replaced
--the new attack consists of him charging at you 3 times, and during each charge he will spit a spread venom globs towards where he is charging to
+~General Changes~
 
-~phase 2~
-
--When one worm dies during phase 2 it will now actually die instead of becoming immune, but the remaining worm will enrage, causing it to become way more aggressive
+-Both Orro & Boro are now immune to poisoned, on fire, venom, cursed inferno, ichor, and shadowflame
 
 
 Big Bone Changes:
@@ -201,6 +195,7 @@ Big Bone Changes:
 -Big bone's solar flowers now drop way more hearts on death
 -While charging, big bone will now face towards the direction he is charging, instead of facing the player
 -Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
+-Big bone is now immune to poisoned, on fire, venom, cursed inferno, ichor, and shadowflame
 
 
 Cowbell Entity Changes:
