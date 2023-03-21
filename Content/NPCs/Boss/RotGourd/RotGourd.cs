@@ -492,9 +492,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								}
 							}
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-							ModContent.ProjectileType<RotStomp>(), Damage, 2, NPC.target, 0, 0);
-
 							//make cool dust effect when slamming the ground
 							for (int i = 0; i < 65; i++)
 							{                                                                                  
@@ -654,9 +651,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0, 
-								ModContent.ProjectileType<RotStomp>(), Damage, 1, NPC.target, 0, 0);
-
 								int NumProjectiles = Main.rand.Next(10, 15);
 								for (int i = 0; i < NumProjectiles; i++)
 								{
@@ -779,9 +773,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 										Main.player[i].velocity.Y -= 8f;
 									}
 								}
-
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-								ModContent.ProjectileType<RotStomp>(), Damage, 2, NPC.target, 0, 0);
 
 								//make cool dust effect when slamming the ground
 								for (int i = 0; i < 45; i++)
