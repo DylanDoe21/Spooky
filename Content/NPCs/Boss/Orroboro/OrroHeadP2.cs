@@ -32,8 +32,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound);
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
@@ -196,7 +196,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
+            int Damage = Main.masterMode ? 80 / 3 : Main.expertMode ? 60 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -245,12 +245,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Main.npc[latestNPC].netUpdate = true;
 
                     //spawn boro manually because funny shennanigans
-                    NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroHead>(), ai1: NPC.whoAmI);
-
-                    //net update so it doesnt vanish on multiplayer
-                    if (Main.netMode == NetmodeID.Server)
+                    for (int i = 0; i < Main.maxNPCs; i++)
                     {
-                        NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
+                        //if any boro exists and it is active
+                        if (Main.npc[i].type == ModContent.NPCType<BoroBodyConnect>() && Main.npc[i].active)
+                        {
+                            NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<BoroHead>(), ai1: NPC.whoAmI);
+
+                            //net update so it doesnt vanish on multiplayer
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
+                            }
+                        }
                     }
 
                     Enraged = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
@@ -285,19 +292,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                         else
                         {
-                            //sync boros ai to prevent being slightly off sync
-                            for (int i = 0; i < Main.maxNPCs; i++)
-                            {
-                                //if any boro exists and it is active
-                                if (Main.npc[i].type == ModContent.NPCType<BoroHead>() && Main.npc[i].active)
-                                {
-                                    Main.npc[i].localAI[0] = 0;
-                                    Main.npc[i].localAI[1] = 0;
-                                    Main.npc[i].ai[0] = 1;
-                                    Main.npc[i].netUpdate = true;
-                                }
-                            }
-
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;

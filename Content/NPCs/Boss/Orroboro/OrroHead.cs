@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle CrunchSound = new("Spooky/Content/Sounds/Orroboro/OrroboroCrunch", SoundType.Sound);
         public static readonly SoundStyle SplitSound = new("Spooky/Content/Sounds/Orroboro/OrroboroSplit", SoundType.Sound);
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
 
@@ -152,7 +152,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
+            int Damage = Main.masterMode ? 80 / 3 : Main.expertMode ? 60 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -242,20 +242,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.Center += Main.rand.NextVector2Square(-2, 2);
                 }
 
-                //spawn both worms (boro is spawned by orro because yeah)
-                if (NPC.ai[2] >= 180)
+                //spawn both worms (boro is spawned by orro for ai syncing reasons)
+                if (NPC.ai[2] == 180)
                 {
                     SoundEngine.PlaySound(SplitSound, NPC.Center);
 
                     int Orro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP2>());
 
-                    //net update so the worms dont vanish on multiplayer
+                    //net update so it doesnt vanish on multiplayer
                     if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: Orro);
                     }
 
                     NPC.netUpdate = true;
+                }
+
+                if (NPC.ai[2] >= 181)
+                {
                     NPC.active = false;
                 }
             }
@@ -360,7 +364,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.localAI[0]++;
 
                         //go below the player
-                        if (NPC.localAI[0] < 60)
+                        if (NPC.localAI[0] < 75)
                         {
                             Vector2 GoTo = player.Center;
                             GoTo.X += 0;
@@ -371,7 +375,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
 
                         //teleport below the player, then create telegraph
-                        if (NPC.localAI[0] == 60)
+                        if (NPC.localAI[0] == 75)
                         {
                             NPC.velocity *= 0;
 
@@ -383,7 +387,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
 
                         //charge up
-                        if (NPC.localAI[0] == 75)
+                        if (NPC.localAI[0] == 90)
                         {
                             OpenMouth = true;
 
@@ -394,7 +398,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
 
                         //turn around after vertically passing the player
-                        if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 135)
+                        if (NPC.localAI[0] >= 90 && NPC.localAI[0] <= 150)
                         {
                             double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                             while (angle > Math.PI)
@@ -415,7 +419,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * NPC.localAI[1]);
                         }
 
-                        if (NPC.localAI[0] > 135)
+                        if (NPC.localAI[0] > 150)
                         {
                             OpenMouth = false;
 
@@ -776,10 +780,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                         else
                         {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0] = 1;
-                            NPC.netUpdate = true;
+                            if (NPC.localAI[0] <= 60)
+                            {
+                                Vector2 GoTo = player.Center;
+                                GoTo.X += 0;
+                                GoTo.Y += 650;
+
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            }
+                            else
+                            {
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0; 
+                                NPC.ai[0] = 1;
+                                NPC.netUpdate = true;
+                            }
                         }
 
                         break;

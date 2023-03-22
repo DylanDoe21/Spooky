@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire, BuffID.Venom, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
+                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame, BuffID.Frostburn
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
@@ -246,14 +246,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, 
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, 
                     NPC.frame, new Color(255, 69, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.34f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time,
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time,
                     NPC.frame, new Color(224, 69, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
@@ -375,7 +375,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
+            int Damage = Main.masterMode ? 110 / 3 : Main.expertMode ? 80 / 2 : 60;
 
             NPC.spriteDirection = NPC.direction;
 

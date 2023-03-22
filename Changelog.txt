@@ -1,8 +1,8 @@
-WTF FINALLY!!!! New update changelogs so people can actually tell what changed!!!!
+Changelogs for the new eye valley overhaul update (version 0.6 in game)
 
-Also, if you want to figure out new features on your own then avoid reading this, as this changelog describes all of the new changes and additions in detail
+If you want to figure out new features on your own, then avoid reading this, as this changelog describes all of the new changes and additions in detail
 
-This updates main focus is the valley of eyes, the biome has been entirely overhauled, and tons of new content has been added along with improvements to existing stuff
+Additionally, you can scroll down to the "changes to existing stuff" category if you wish to read only changes made to existing things in the mod
 
 
 ~NEW STUFF~
@@ -52,8 +52,8 @@ New Biome, The Swampy Cemetery:
 
 New Catacombs Visual:
 
--while in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
--this is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
+-While in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
+-This is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
 -The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
 
 
@@ -75,8 +75,8 @@ New Music:
 New Config Options:
 
 Spooky Forest at Spawn:
--Allows you to determine whether the spooky forest generates at your spawn point, or off to the side away from spawn
--Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes on small worlds)
+-Allows you to determine whether the spooky forest generates at your spawn point, or away from spawn
+-Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes, especially on small worlds)
 -This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
 
 Screen Shaking Effect:
@@ -88,7 +88,6 @@ Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
-
 
 
 
@@ -181,21 +180,23 @@ Orro & Boro Changes:
 
 ~General Changes~
 
--Both Orro & Boro are now immune to poisoned, on fire, venom, cursed inferno, ichor, and shadowflame
+-Both Orro & Boro are now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, and ichor
 
 
 Big Bone Changes:
 
 -All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
 -The bolts shot by big bone's solar flowers during his phase transition now properly damage players
--The bouncing flowers he shoots during his first phase now have much better bouncing behavior
+-The bouncing flowers he shoots during his first phase now have much better bouncing behavior, and are shot in tighter spreads to make them more fair
 -Added fancy dust particles for his healing and defensive flowers when they die
 -The intense screen shaking during big bone's death animation will now immediately stop when he dies
 -During big bone's phase transition, he will now begin shooting orange fire balls after two solar flowers die instead of three
--Big bone's solar flowers now drop way more hearts on death
 -While charging, big bone will now face towards the direction he is charging, instead of facing the player
+-Big bone's red thorn telegraphs now have better sprites and better visuals
+-Big bone's solar flowers in his second phase transition now drop way more hearts on death
+-Big bone is now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, ichor, shadowflame, and frostburn
 -Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
--Big bone is now immune to poisoned, on fire, venom, cursed inferno, ichor, and shadowflame
+-Changed big bone's hit sound because the vanilla skeleton hit sound is a bit annoying
 
 
 Cowbell Entity Changes:
@@ -212,7 +213,7 @@ Little Bone Changes:
 -(stuff will go here when i get to writing it down)
 
 
-Config Changes:
+Config Changes and Fixes:
 
 -The halloween season config being off will not disable halloween if the pumpkins moon's one day of halloween is happening or if halloween is normally occuring in vanilla
 -The halloween season config also no longer requires you to leave and re-enter the world for it to apply
@@ -223,19 +224,18 @@ Other Changes and Fixes:
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
 -Green solution for the clentaminator will now convert spooky forest blocks back into their respective vanilla blocks
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
--The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement (and they were ugly tbh)
+-The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement
 -The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
 -Tortumors and Giant Tortumors can no longer move through blocks
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
 -The catacomb barrier keys now have a cool animation when you use them
--The yellow catacomb key is now dropped by the Eater of Worlds/Brain of Cthulhu instead of Eye of Cthulhu
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
 -All natural spawns will be disabled during spooky mod's boss fights
 -Spooky mod's summon weapons now have much better enemy targeting, and now have proper right click targeting
 -Spooky mod's music boxes now produce music notes when turned on like vanilla's music boxes
--World globe will now only change the spooky forest background while you are in the spooky forest
+-World globes will now only change the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
 -Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
 -Modified marigold's jumping ai and made it a lot smoother in game
@@ -244,3 +244,4 @@ Other Changes and Fixes:
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
+-Fixed vanilla's underworld enemies sometimes spawning while in the valley of eyes

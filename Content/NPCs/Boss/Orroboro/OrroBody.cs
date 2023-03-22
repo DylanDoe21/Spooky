@@ -111,7 +111,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
+			if (!Main.npc[(int)NPC.ai[1]].active && Main.npc[(int)NPC.ai[1]].type != ModContent.NPCType<OrroHead>())
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {

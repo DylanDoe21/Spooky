@@ -170,10 +170,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC Orro = Main.npc[(int)NPC.ai[1]];
 
+            //always sync the necessary ai timers if orro is active
+            if (Orro.active && Orro.type == ModContent.NPCType<OrroHeadP2>())
+            {
+                NPC.ai[0] = Orro.ai[0];
+                NPC.localAI[0] = Orro.localAI[0];
+            }
+
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 80 / 2 : 50;
+            int Damage = Main.masterMode ? 80 / 3 : Main.expertMode ? 60 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
