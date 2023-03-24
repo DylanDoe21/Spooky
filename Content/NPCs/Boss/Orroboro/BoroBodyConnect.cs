@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire, BuffID.Venom, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
+                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
@@ -39,6 +39,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.width = 75;
             NPC.height = 75;
             NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
             NPC.behindTiles = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
@@ -46,20 +47,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.HitSound = HitSound;
             NPC.aiStyle = -1;
         }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			float Divide = 1.8f;
-
-			if (projectile.penetrate <= -1)
-			{
-				damage /= (int)Divide;
-			}
-			else if (projectile.penetrate >= 3)
-			{
-				damage /= (int)Divide;
-			}
-		}
 
         public override void FindFrame(int frameHeight)
         {
@@ -78,7 +65,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override bool PreAI()
         {   
             //go invulnerable and shake during phase 2 transition
-            if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
             {
                 if (Main.npc[(int)NPC.ai[1]].ai[2] > 0)
                 {

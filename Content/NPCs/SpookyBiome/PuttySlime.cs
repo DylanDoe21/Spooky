@@ -29,9 +29,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 30;
-            NPC.damage = 15;
-            NPC.defense = 5;
+            NPC.lifeMax = 22;
+            NPC.damage = 10;
+            NPC.defense = 0;
             NPC.width = 34;
             NPC.height = 24;
 			NPC.knockBackResist = 0.65f;
@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && Main.dayTime)
                 {
-                    return 10f;
+                    return 8f;
                 }
             }
 

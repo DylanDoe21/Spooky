@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass chunks at foes."),
+				new FlavorTextBestiaryInfoElement("Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass at foes."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

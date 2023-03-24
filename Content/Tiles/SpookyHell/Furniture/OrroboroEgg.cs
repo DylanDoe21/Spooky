@@ -65,7 +65,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 			}
 
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				frame = 2;
 			}
@@ -114,7 +114,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override bool RightClick(int i, int j)
 		{
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				return true;
 			}
@@ -157,14 +157,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             {
 				string text = "You need a special substance to destroy the egg";
 
-				if (Main.netMode != NetmodeID.Server)
-				{
-					Main.NewText(text, 171, 64, 255);
-				}
-				else
-				{
-					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-				}
+				Main.NewText(text, 171, 64, 255);
 			}
 
 			return true;

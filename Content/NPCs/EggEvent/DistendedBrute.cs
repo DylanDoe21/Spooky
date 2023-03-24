@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Bloated entities that serve merely as grunts. This variant has had it's entire face ripped off, yet still puts up a fight to protect the egg."),
+				new FlavorTextBestiaryInfoElement("These bloated fodder enemies are much more brutish, gaining more strength but not being able to see too well."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

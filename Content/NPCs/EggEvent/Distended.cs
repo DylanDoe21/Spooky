@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Bloated entities that serve merely as grunts. They fight alongside their alien like allies when the giant egg is disturbed."),
+				new FlavorTextBestiaryInfoElement("Bloated human-like creatures meant to serve as fodder to protect the giant egg."),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

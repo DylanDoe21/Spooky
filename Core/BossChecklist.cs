@@ -184,7 +184,7 @@ namespace Spooky.Core
 			Func<bool> EggEventDowned = () => Flags.downedEggEvent;
 			int EggEventSummonItem = ModContent.ItemType<Concoction>();
 			int EggEventSummonItem2 = ModContent.ItemType<StrangeCyst>();
-			string EggEventSpawnInfo = $"Use the [i:{EggEventSummonItem}] at the egg in the valley of eyes, or use a [i:{EggEventSummonItem2}] anywhere in the valley of eyes.";
+			string EggEventSpawnInfo = $"Use the [i:{EggEventSummonItem}] at the egg in the valley of eyes, or use a [i:{EggEventSummonItem2}] anywhere in the valley of eyes if you have completed the event already.";
 
 			List<int> EggEventDrops = new List<int>()
 			{
@@ -210,7 +210,7 @@ namespace Spooky.Core
 
 			//Orroboro
 			string OrroboroName = "Orro & Boro";
-			List<int> Orroboro = new List<int>() { ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroHeadP2>(), ModContent.NPCType<Content.NPCs.Boss.Orroboro.BoroHead>() };
+			List<int> Orroboro = new List<int>() { ModContent.NPCType<Content.NPCs.Boss.Orroboro.OrroHead>(), ModContent.NPCType<Content.NPCs.Boss.Orroboro.BoroHead>() };
 			Func<bool> OrroboroDowned = () => Flags.downedOrroboro;
 			int OrroboroSummonItem = ModContent.ItemType<Concoction>();
 			string OrroboroSpawnInfo = $"Use the [i:{OrroboroSummonItem}] at the egg in the valley of eyes, which is obtained after you complete all of little eye's quests. You must complete the Egg Incursion event beforehand.";

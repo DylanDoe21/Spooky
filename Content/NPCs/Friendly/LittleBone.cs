@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else if (AdviceSwitch == 1)
 					{
 						AdviceSwitch--;
-						Main.npcChatText = "I have heard that past the tropical jungle, is a dark and foggy cemetery. You can probably search for some loot there!";
+						Main.npcChatText = "If you go past the tropical jungle, there is a dark and foggy cemetery. You can probably search for some loot there!";
 					}
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
@@ -111,8 +111,14 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = "Now that you have that key from the giant gourd, you should be able to open those underground chests. I'm sure there is probably some useful goodies in them!";
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
+				//spooky spirit
+				else if (NPC.downedBoss2 && !Flags.downedSpookySpirit)
+				{
+					Main.npcChatText = "I have heard rumors that a giant, powerful spirit who resides in the swampy cemetery challenges those who it deems worthy, and I think you might be worthy enough with your current strength.";
+					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+				}
 				//catacombs/valley of eyes
-				else if (NPC.downedBoss2 && !Main.hardMode)
+				else if (Flags.downedSpookySpirit && !Main.hardMode)
 				{
 					if (AdviceSwitch == 0)
 					{

@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 
 		public override void SetDefaults() 
         {
-			Item.damage = 60;
+			Item.damage = 55;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<LeechWhipProj>();
-			Item.shootSpeed = 4f;
+			Item.shootSpeed = 3.5f;
 		}
 	}
 }

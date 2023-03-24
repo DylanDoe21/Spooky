@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     [AutoloadBossHead]
     public class BoroHead : ModNPC
     {
-        Vector2 SavePoint;
+        Vector2 SavePlayerPosition;
         public bool Enraged = false;
         private bool spawned;
 
@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire, BuffID.Venom, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
+                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
@@ -122,20 +122,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             rotation = NPC.rotation;
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			float Divide = 1.8f;
-
-			if (projectile.penetrate <= -1)
-			{
-				damage /= (int)Divide;
-			}
-			else if (projectile.penetrate >= 3)
-			{
-				damage /= (int)Divide;
-			}
-		}
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;
@@ -171,7 +157,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC Orro = Main.npc[(int)NPC.ai[1]];
 
             //always sync the necessary ai timers if orro is active
-            if (Orro.active && Orro.type == ModContent.NPCType<OrroHeadP2>())
+            if (Orro.active && Orro.type == ModContent.NPCType<OrroHead>())
             {
                 NPC.ai[0] = Orro.ai[0];
                 NPC.localAI[0] = Orro.localAI[0];
@@ -184,7 +170,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
-            Enraged = !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>());
+            Enraged = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>());
 
             //despawn if all players are dead or not in the biome
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
@@ -192,10 +178,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.localAI[3]++;
                 if (NPC.localAI[3] >= 75)
                 {
-                    NPC.velocity.Y = 25;
+                    NPC.velocity.Y = 35;
                 }
 
-                if (NPC.localAI[3] >= 120)
+                if (NPC.localAI[3] >= 240)
                 {
                     NPC.active = false;
                 }
@@ -217,6 +203,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
                         ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                         Main.npc[latestNPC].netUpdate = true;
@@ -224,6 +211,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
                     ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                     Main.npc[latestNPC].netUpdate = true;
@@ -456,15 +444,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < repeats)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
-                            GoTo.Y += 600;
+                            GoTo.Y += 750;
 
                             //go from side to side
-                            if (NPC.localAI[0] < 120)
+                            if (NPC.localAI[0] < 130)
                             {
                                 GoTo.X += -550;
                             }
-                            if (NPC.localAI[0] > 120)
+                            if (NPC.localAI[0] > 130)
                             {
                                 GoTo.X += 550;
                             }
@@ -510,7 +497,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 }
                             }
 
-                            if (NPC.localAI[0] >= 240)
+                            if (NPC.localAI[0] >= 260)
                             {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
@@ -519,10 +506,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                         else
                         {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0]++; 
-                            NPC.netUpdate = true;
+                            //go below player after pillar attack is over to prepare for acid breath
+                            if (NPC.localAI[0] <= 60)
+                            {
+                                Vector2 GoTo = player.Center;
+                                GoTo.X += 0;
+                                GoTo.Y += 750;
+
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            }
+                            else
+                            {
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0; 
+                                NPC.ai[0]++; 
+                                NPC.netUpdate = true;
+                            }
                         }
 
                         break;
@@ -546,8 +546,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), CenterPoint.X, CenterPoint.Y, 0, 0, 
                                 ModContent.ProjectileType<AcidTarget>(), 0, 0f, 0);
                                 
-                                //use SavePoint to save where the telegraph was
-                                SavePoint = CenterPoint;
+                                //use SavePlayerPosition to save where the telegraph was
+                                SavePlayerPosition = CenterPoint;
                             }
 
                             //charge towards where the telegraphs saved point is
@@ -556,7 +556,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 SoundEngine.PlaySound(HissSound1, NPC.Center);
                                 SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 
-                                Vector2 ChargeDirection = SavePoint - NPC.Center;
+                                Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                                 ChargeDirection.Normalize();
                                         
                                 ChargeDirection.X *= Enraged ? 35 : 28;
@@ -582,7 +582,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                         else
                         {
-                            if (NPC.localAI[0] >= 30)
+                            if (NPC.localAI[0] > 60)
                             {
                                 NPC.velocity *= 0.25f;
                                 NPC.localAI[0] = 0;
@@ -723,7 +723,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
             {
                 NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
             }

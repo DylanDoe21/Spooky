@@ -20,6 +20,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			ItemDrop = ModContent.ItemType<SpookyStoneItem>();
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
+            MineResist = 0.85f;
 		}
 
 		public override void RandomUpdate(int i, int j)

@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.OnFire, BuffID.Venom, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
+                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
@@ -35,9 +35,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = Main.masterMode ? 55000 / 3 : Main.expertMode ? 45000 / 2 : 35000;
             NPC.damage = 50;
             NPC.defense = 35;
-            NPC.width = 65;
-            NPC.height = 65;
+            NPC.width = 55;
+            NPC.height = 55;
             NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
             NPC.behindTiles = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
@@ -46,24 +47,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.aiStyle = -1;
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			float Divide = 1.8f;
-
-			if (projectile.penetrate <= -1)
-			{
-				damage /= (int)Divide;
-			}
-			else if (projectile.penetrate >= 3)
-			{
-				damage /= (int)Divide;
-			}
-		}
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //if orro is in its enraged state
-            if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
@@ -78,23 +65,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool PreAI()
         {
-            //go invulnerable and shake during phase 2 transition
-            if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
-            {
-                if (Main.npc[(int)NPC.ai[1]].ai[2] > 0)
-                {
-                    NPC.immortal = true;
-                    NPC.dontTakeDamage = true;
-                    NPC.netUpdate = true;
-                    NPC.velocity *= 0f;
-
-                    NPC.ai[2]++;
-
-                    NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
-                    NPC.Center += Main.rand.NextVector2Square(-2, 2);
-                }
-            }
-
             //kill segment if the head doesnt exist
 			if (!Main.npc[(int)NPC.ai[1]].active)
             {

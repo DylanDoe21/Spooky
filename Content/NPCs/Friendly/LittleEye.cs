@@ -20,6 +20,12 @@ namespace Spooky.Content.NPCs.Friendly
     [AutoloadHead]
 	public class LittleEye : ModNPC
 	{
+		int Quest1Timer = 0;
+		int Quest2Timer = 0;
+		int Quest3Timer = 0;
+		int Quest4Timer = 0;
+		int Quest5Timer = 0;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemist");
@@ -79,7 +85,7 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Quest";
-			button2 = "Upgrades?";
+			button2 = "Upgrades";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -93,7 +99,7 @@ namespace Spooky.Content.NPCs.Friendly
 					{
 						Main.npcChatText = "You made that potion faster than expected. I'll be holding onto these for later use, Take this stuff as a reward for your troubles.";
 
-						NPC.ai[0]++;
+						Quest1Timer++;
 					}
 					else
                     {
@@ -105,9 +111,9 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask2>()))
 					{
-						Main.npcChatText = "So, you're getting the hang of this. Here, since I know how much you love my magical little hat, you can have this bootleg version!";
+						Main.npcChatText = "You're getting the hang of this! Here, since I know how much you love my magical little hat, you can have this bootleg version!";
 
-						NPC.ai[0]++;
+						Quest2Timer++;
 					}
 					else
                     {	
@@ -129,7 +135,7 @@ namespace Spooky.Content.NPCs.Friendly
 					{
 						Main.npcChatText = "Good work! I've heard that this little cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.";
 
-						NPC.ai[0]++;
+						Quest3Timer++;
 					}
 					else
                     {
@@ -143,7 +149,7 @@ namespace Spooky.Content.NPCs.Friendly
 					{
 						Main.npcChatText = "Alright, this is the final flask! Eventually, I'll need you to bring me a special ingredient and I can make you a special concoction of mine.";
 
-						NPC.ai[0]++;
+						Quest4Timer++;
 					}
 					else
                     {
@@ -157,7 +163,7 @@ namespace Spooky.Content.NPCs.Friendly
 					{
 						Main.npcChatText = "Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.";
 
-						NPC.ai[0]++;
+						Quest5Timer++;
 					}
 					else
                     {
@@ -208,7 +214,7 @@ namespace Spooky.Content.NPCs.Friendly
 				return "You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.";
 			}
 
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
 				return "Hey there's a giant serpent chasing you. Maybe go worry about that?";
 			}
@@ -231,7 +237,7 @@ namespace Spooky.Content.NPCs.Friendly
 				NPC.netUpdate = true;
 			}
 
-			if (NPC.ai[0] > 0)
+			if (Quest1Timer > 0)
 			{
 				QuestRewards();
 
@@ -242,7 +248,63 @@ namespace Spooky.Content.NPCs.Friendly
 					NetMessage.SendData(MessageID.WorldData);
 				}
 
-				NPC.ai[0] = 0;
+				Quest1Timer = 0;
+			}
+
+			if (Quest2Timer > 0)
+			{
+				QuestRewards();
+
+				Flags.EyeQuest2 = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+
+				Quest2Timer = 0;
+			}
+
+			if (Quest3Timer > 0)
+			{
+				QuestRewards();
+
+				Flags.EyeQuest3 = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+
+				Quest3Timer = 0;
+			}
+
+			if (Quest4Timer > 0)
+			{
+				QuestRewards();
+
+				Flags.EyeQuest4 = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+
+				Quest4Timer = 0;
+			}
+
+			if (Quest5Timer > 0)
+			{
+				QuestRewards();
+
+				Flags.EyeQuest5 = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+
+				Quest5Timer = 0;
 			}
 		}
 

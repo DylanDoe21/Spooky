@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Events;
 

@@ -20,6 +20,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             AddMapEntry(new Color(114, 78, 53));
 			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
             DustType = DustID.Dirt;
+			MineResist = 0.75f;
 		}
 	}
 

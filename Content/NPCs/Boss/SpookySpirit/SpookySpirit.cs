@@ -555,7 +555,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Volume = SoundID.DD2_DarkMageSummonSkeleton.Volume * 3.5f }, NPC.Center);
 
                         int NumProjectiles = Main.rand.Next(5, 8);
-                        for (int i = 0; i < NumProjectiles; ++i)
+                        for (int i = 0; i < NumProjectiles; i++)
                         {
                             float Spread = (float)Main.rand.Next(-1000, 1000) * 0.01f;
 
@@ -662,9 +662,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), Main.rand.NextFloat(-7f, 7f), 
-                                Main.rand.NextFloat(-7f, 7f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
-                            }	
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
+                                Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-7f, 7f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
                         }
                     }
 

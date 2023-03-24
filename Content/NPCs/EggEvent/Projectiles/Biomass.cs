@@ -152,7 +152,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 5),
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 6),
                     Main.rand.Next(-5, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
                 }
             }

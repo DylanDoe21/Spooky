@@ -88,13 +88,23 @@ Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
+-New moco drop, the sneeze staff: summons flying noses that attack by flying above enemies and dropping snot balls from above that will linger if they hit the ground
 
 
 
 ~CHANGES TO EXISTING STUFF~
 
 
-Old Eye Valley Chest Items:
+Spooky Biome Item Changes:
+
+Rot Gourd Loot:
+-Removed all of rout gourds item drops, and instead rot gourd will now drop a key used to unlock the chests in the underground spooky forest
+
+Warlock's Cloak:
+-Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
+
+
+Eye Valley Item Changes:
 
 Exposed Nerve: 
 -There is now a rare purple colored nerve tile that grows in the valley of eyes during hardmode, break it to get the exposed nerve
@@ -108,9 +118,6 @@ Gore Staff:
 Monster Heart:
 -Removed from the mod entirely
 
-
-Moco Item Changes:
-
 Snot Ball:
 -Damage has been buffed slightly
 -Now detaches from the chain when flung and will bounce around comically for a bit before dying
@@ -119,9 +126,6 @@ Booger Blaster:
 -Damage has been buffed slightly
 -Rather than spamming spreads, you can now hold it down to charge it up to three times
 -The first charge shoots a tiny snot, the second shoots a close spread of three tiny snots, and the third shoots a big snot glob that does triple damage
-
-New Moco Drop, Sneeze Staff:
--summons flying noses that attack by flying above enemies and dropping snot balls from above that will linger if they hit the ground
 
 Reworked the Snotty Schnoz:
 -Hitting enemies will sometimes drop globs of snot you can pick up
@@ -174,11 +178,9 @@ Rot Gourd Changes:
 
 Orro & Boro Changes:
 
-~Specific AI Changes~
+Specific AI Changes:
 
-
-
-~General Changes~
+General Changes:
 
 -Both Orro & Boro are now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, and ichor
 
@@ -228,7 +230,6 @@ Other Changes and Fixes:
 -The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
 -Tortumors and Giant Tortumors can no longer move through blocks
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
--Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
 -The catacomb barrier keys now have a cool animation when you use them
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets

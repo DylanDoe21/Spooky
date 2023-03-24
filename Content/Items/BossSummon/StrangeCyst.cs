@@ -13,8 +13,6 @@ namespace Spooky.Content.Items.BossSummon
 {
 	public class StrangeCyst : ModItem
 	{
-		public static readonly SoundStyle EventBeginSound = new("Spooky/Content/Sounds/SpookyHell/EggEventBegin", SoundType.Sound);
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Strange Cyst");
@@ -36,7 +34,7 @@ namespace Spooky.Content.Items.BossSummon
 
 		public override bool CanUseItem(Player player)
         {
-            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && 
+            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && 
 			player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
             {
                 return true;

@@ -18,8 +18,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 58;
+            Projectile.width = 50;
+            Projectile.height = 46;
             Projectile.tileCollide = false;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;

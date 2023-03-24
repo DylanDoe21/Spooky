@@ -294,7 +294,7 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation)
                 {
-                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && !Main.expertMode && !Main.masterMode)
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !Main.expertMode && !Main.masterMode)
                     {
                         return true;
                     }
@@ -321,7 +321,7 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation)
                 {
-                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.expertMode)
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && Main.expertMode)
                     {
                         return true;
                     }
@@ -348,7 +348,7 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation)
                 {
-                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) && Main.masterMode)
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && Main.masterMode)
                     {
                         return true;
                     }

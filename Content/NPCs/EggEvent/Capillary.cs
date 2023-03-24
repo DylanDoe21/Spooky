@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Position = new Vector2(0f, 15f),
+                Position = new Vector2(0f, 30f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 0f
             };
@@ -88,9 +88,11 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Player player = spawnInfo.Player;
 
-            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= 75)
+            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 75;
+
+            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= minPointsToSpawn)
             {
-                return 15f;
+                return 10f;
             }
 
             return 0f;

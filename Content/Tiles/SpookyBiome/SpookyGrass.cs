@@ -23,6 +23,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             AddMapEntry(new Color(226, 116, 17));
 			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
             DustType = ModContent.DustType<SpookyGrassDust>();
+            MineResist = 0.75f;
 		}
 
         public override void RandomUpdate(int i, int j)

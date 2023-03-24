@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -46,11 +49,26 @@ namespace Spooky.Content.Events
 				EggEventTimer = 0;
 			}
 
-			if (EggEventProgress >= 250f)
-			{
-				Main.NewText("The giant egg has become fragile", 100, 12, 150);
+			float maxPoints = Flags.downedEggEvent ? 150f : 250f;
 
-				NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
+			if (EggEventProgress >= maxPoints)
+			{
+				if (!Flags.downedEggEvent)
+				{
+					//event end message
+					string text = "The giant egg has become fragile";
+
+					if (Main.netMode != NetmodeID.Server)
+					{
+						Main.NewText(text, 171, 64, 255);
+					}
+					else
+					{
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+					}
+
+					NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
+				}
 
 				EggEventActive = false;
 				EggEventProgress = 0f;
@@ -96,11 +114,13 @@ namespace Spooky.Content.Events
 				Rectangle ProgressBackground = Utils.CenteredRectangle(new Vector2(Main.screenWidth - OffsetX - 100f, Main.screenHeight - OffsetY - 23f), new Vector2(width, height));
 				Utils.DrawInvBG(spriteBatch, ProgressBackground, new Color(95, 27, 43, 255) * 0.785f);
 
-				string ProgressText = "Progress: " + Math.Round(EggEventProgress / 2.5f, 0, MidpointRounding.AwayFromZero) + "%";
+				float divide = Flags.downedEggEvent ? 1.5f : 2.5f;
+
+				string ProgressText = "Progress: " + Math.Round(EggEventProgress / divide, 0, MidpointRounding.AwayFromZero) + "%";
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
-				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp(EggEventProgress / 2.5f, 0f, 100f)), TextureAssets.ColorBar.Height());
+				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp(EggEventProgress / divide, 0f, 100f)), TextureAssets.ColorBar.Height());
 				var offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * Scale)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * Scale)) * 0.5f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, null, ProgressBarColor1 * Alpha, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, waveProgressAmount, ProgressBarColor2, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);

@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
+using System.Linq;
 
 namespace Spooky.Core
 {
@@ -24,13 +25,13 @@ namespace Spooky.Core
     {
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			//draw red aura around any enemy with the egg event enemy buff
+			//draw purple aura around any enemy with the egg event enemy buff
 			//this will never actually be applied on any enemy in game, besides the egg event enemies
             if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
             {
 				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
 
-				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Red);
+				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Purple);
 
 				var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -49,11 +50,10 @@ namespace Spooky.Core
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			//increase spawnrates and max spawns during the egg event
+			//increase spawn rate during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
-				spawnRate /= 3;
-				maxSpawns *= 2;
+				spawnRate /= 2; //lower spawnRate = higher enemy spawn rate
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace Spooky.Core
 		{
             //disable all spawns when any spooky mod boss is alive
             if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP2>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
                 pool.Clear();
             }
@@ -73,7 +73,7 @@ namespace Spooky.Core
 			}
 
 			//remove all hell enemies from the spawn pool while in the eye valley
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) || Main.LocalPlayer.InModBiome(ModContent.GetInstance<EggEventBiome>()))
 			{
 				pool.Remove(NPCID.Hellbat);
 				pool.Remove(NPCID.Lavabat);
@@ -95,6 +95,28 @@ namespace Spooky.Core
 				nextSlot++;
 			}
 		}
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+			//all orro & boro segments resist piercing projectiles
+            int[] OrroBoroPieces = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
+            ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
+            ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
+
+            if (OrroBoroPieces.Contains(npc.type))
+			{
+                float Divide = 1.85f;
+
+                if (projectile.penetrate <= -1)
+                {
+                    damage /= (int)Divide;
+                }
+                else if (projectile.penetrate >= 2)
+                {
+                    damage /= (int)Divide;
+                }
+            }
+        }
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {

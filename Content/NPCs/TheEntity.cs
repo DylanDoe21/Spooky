@@ -205,7 +205,7 @@ namespace Spooky.Content.NPCs
 
                     if (NPC.Hitbox.Intersects(player.Hitbox))
                     {
-                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " Was [REDACTED]."), 9999999, 0, false);
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " was [REDACTED]."), 9999999, 0, false);
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;

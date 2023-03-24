@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 SoundEngine.PlaySound(EggCrackSound2, Projectile.Center);
 
                 //spawn orroboro with message
-                int Orroboro = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHead>());
+                int Orroboro = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHeadP1>(), 0, -1);
 
                 //net update so it doesnt vanish on multiplayer
                 if (Main.netMode == NetmodeID.Server)
@@ -96,31 +96,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard1").Type, 1.2f);
-                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard2").Type, 1.2f);
-                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard3").Type, 1.2f);
-                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard4").Type, 1.2f);
-                    Gore.NewGore(Projectile.GetSource_Death(), Position, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard5").Type, 1.2f);
-                }
-
-                /*
-                //spawn dusts, dunno if this is needed anymore
-                for (int numDust = 0; numDust < 75; numDust++)
-                {
-                    int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y + 65), 
-                    Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-
-                    Main.dust[DustGore].scale *= Main.rand.NextFloat(2f, 3f);
-                    Main.dust[DustGore].velocity *= Main.rand.NextFloat(5f, 10f);
-                    Main.dust[DustGore].noGravity = true;
-
-                    if (Main.rand.Next(2) == 0)
+                    for (int numGores = 1; numGores <= 5; numGores++)
                     {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                        Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard" + numGores).Type, 1.2f);
                     }
                 }
-                */
 
                 CrackTimer = 0;
                 Projectile.Kill();

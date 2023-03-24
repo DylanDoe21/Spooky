@@ -485,6 +485,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     SpookyPlayer.ScreenShakeAmount = NPC.localAI[0] / 8;
 
+                    //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                     if (NPC.localAI[0] <= 5)
                     {
                         for (int k = 0; k < Main.projectile.Length; k++)
@@ -496,11 +497,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
+                    //save where big bone is
                     if (NPC.localAI[0] == 60)
                     {
                         SaveNPCPosition = NPC.Center;
                     }
 
+                    //shake, and cause a circle of dusts around big bone that become bigger over time
                     if (NPC.localAI[0] >= 60)
                     {
                         int Shake = (int)NPC.localAI[0] / 10;
@@ -529,6 +532,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
+                    //increase the scaling amounts
                     if (NPC.localAI[0] == 60 || NPC.localAI[0] == 120 || NPC.localAI[0] == 180 || NPC.localAI[0] == 240)
                     {
                         ScaleAmount += 0.02f;
@@ -536,6 +540,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     }
 
                     NPC.localAI[1]++;
+
+                    //more scaling stuff
                     if (NPC.localAI[1] < ScaleTimerLimit)
                     {
                         RealScaleAmount += ScaleAmount;
@@ -544,12 +550,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         RealScaleAmount -= ScaleAmount / 2;
                     }
-
                     if (NPC.localAI[1] > ScaleTimerLimit * 2)
                     {
                         NPC.localAI[1] = 0;
                     }
 
+                    //kill big bone, spawn gores, ect
                     if (NPC.localAI[0] >= 360)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
