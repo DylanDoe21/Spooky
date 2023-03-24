@@ -45,8 +45,6 @@ namespace Spooky.Content.Items.BossBags
         {
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
-
 			//expert item
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyAmulet>());
 		}

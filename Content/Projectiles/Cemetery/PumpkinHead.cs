@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,7 @@ using System;
 using Spooky.Core;
 using Spooky.Content.Buffs.Minion;
 
-namespace Spooky.Content.Projectiles.SpookyBiome
+namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PumpkinHead : ModProjectile
     {   
@@ -25,7 +26,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         
         public override void SetDefaults()
         {
-            Projectile.width = 24;
+            Projectile.width = 26;
             Projectile.height = 28;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
@@ -74,26 +75,24 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Lighting.AddLight(Projectile.Center, 0.6f, 0.3f, 0f);
 
-            shootTimer++;
-
+            //targetting and shooting
             for (int i = 0; i < 200; i++)
             {
-                NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && NPC.damage > 0 && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
-                {
-                    if (shootTimer >= 40)
-                    {
-                        float Speed = 8f;
-                        Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-                        float rotation = (float)Math.Atan2(vector.Y - (NPC.position.Y + (NPC.height * 0.5f)), vector.X - (NPC.position.X + (NPC.width * 0.5f)));
-                        Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1)).RotatedByRandom(MathHelper.ToRadians(20));
-                        
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                        perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadSeed>(), 30, 0f, Main.myPlayer, 0f, 0f);
+				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+				if (Target != null && Target.CanBeChasedBy(this, false))
+				{
+					Shoot(Target);
 
-                        shootTimer = 0;
-                    }
-                }
+					break;
+				}
+
+				NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 300f)
+                {
+					Shoot(NPC);
+
+					break;
+				}
             }
 
             //movement
@@ -157,6 +156,26 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 return;
             }
         }
+
+        public void Shoot(NPC target)
+		{
+			shootTimer++;
+
+			if (shootTimer >= 40)
+			{
+				SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
+
+				float Speed = 20f;
+				Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
+
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
+				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadBolt>(), 30, 0f, Main.myPlayer, 0f, 0f);
+
+                shootTimer = 0;
+			}
+		}
 
         public override void Kill(int timeLeft)
 		{

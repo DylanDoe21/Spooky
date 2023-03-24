@@ -29,11 +29,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-            if (Main.rand.Next(3) == 0 && Flags.downedRotGourd)
-            {
-			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenChunk>());
-            }
-
             if (Main.rand.Next(7) == 0)
             {
 			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenSeed>());

@@ -4,34 +4,33 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Projectiles.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Projectiles.Cemetery;
 
-namespace Spooky.Content.Items.SpookyBiome.Armor
+namespace Spooky.Content.Items.Cemetery.Armor
 {
+	[LegacyName("SpookyHead")]
 	[AutoloadEquip(EquipType.Head)]
-	public class SpookyHead : ModItem
+	public class SpiritHorsemanHead : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Pumpkin Head");
-			Tooltip.SetDefault("2% increased critical strike chance");
+			DisplayName.SetDefault("Spirit Horseman's Pumpkin");
+			Tooltip.SetDefault("3% increased critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 2;
-			Item.width = 24;
-			Item.height = 26;
+			Item.defense = 3;
+			Item.width = 26;
+			Item.height = 28;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 
 		{
-			return body.type == ModContent.ItemType<SpookyBody>() && legs.type == ModContent.ItemType<SpookyLegs>();
+			return body.type == ModContent.ItemType<SpiritHorsemanBody>() && legs.type == ModContent.ItemType<SpiritHorsemanLegs>();
 		}
 		
 		public override void UpdateArmorSet(Player player) 
@@ -50,15 +49,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Generic) += 2;
+			player.GetCritChance(DamageClass.Generic) += 3;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 10)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
 	}
 }

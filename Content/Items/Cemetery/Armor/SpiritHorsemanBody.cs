@@ -3,27 +3,25 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome;
-
-namespace Spooky.Content.Items.SpookyBiome.Armor
+namespace Spooky.Content.Items.Cemetery.Armor
 {
+	[LegacyName("SpookyBody")]
 	[AutoloadEquip(EquipType.Body)]
-	public class SpookyBody : ModItem
+	public class SpiritHorsemanBody : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Pumpkin Chestmail");
+			DisplayName.SetDefault("Spirit Horseman's Chestmail");
 			Tooltip.SetDefault("3% increased damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
-			Item.width = 30;
-			Item.height = 24;
-			Item.rare = ItemRarityID.Blue;
+			Item.defense = 4;
+			Item.width = 34;
+			Item.height = 22;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 		}
 
@@ -32,6 +30,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			player.GetDamage(DamageClass.Generic) += 0.03f;
 		}
 
+		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
@@ -40,5 +39,6 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
             .AddTile(TileID.Anvils)
             .Register();
         }
+		*/
 	}
 }

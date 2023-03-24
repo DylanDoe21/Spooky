@@ -95,7 +95,6 @@ namespace Spooky.Core
 				ModContent.ItemType<RotGourdTrophyItem>(),
 				ModContent.ItemType<RotGourdMask>(),
 				ModContent.ItemType<SpookyChestKey>(),
-				ModContent.ItemType<RottenChunk>(),
 				ModContent.ItemType<RotGourdBox>()
 			};
 
