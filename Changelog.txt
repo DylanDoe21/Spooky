@@ -265,9 +265,10 @@ Other Changes and Fixes:
 -Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
 -Modified marigold's jumping ai and made it a lot smoother in game
 -Marigolds will now make a sound every time they spit a spore at you
+-Spooky dance ghosts no longer drop money
 -Made modifications to the spooky forest generation, the sides of the biome are less wide to make it less intrusive on other worldgen
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
 -Fixed vanilla's underworld enemies sometimes spawning while in the valley of eyes
--Spooky dance ghosts no longer drop money
+-Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
