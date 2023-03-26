@@ -47,6 +47,8 @@ namespace Spooky.Core
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
+            //Item.useTurn = true;
+
             if (Item.useStyle != SwingUseStyle)
             {
                 return;

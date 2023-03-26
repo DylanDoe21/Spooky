@@ -266,22 +266,8 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 2; Y++)
                 {
-                    //follicle vines
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() && !Main.tile[X, Y + 1].HasTile)
-                    {
-                        if (WorldGen.genRand.Next(8) == 0)
-                        {
-                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<TendrilVine>());
-                        }
-                    }
-
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<TendrilVine>())
-                    {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<TendrilVine>());
-                    }
-
                     //eye vines
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<EyeBlock>() && !Main.tile[X, Y + 1].HasTile)
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() && !Main.tile[X, Y + 1].HasTile)
                     {
                         if (WorldGen.genRand.Next(8) == 0)
                         {
@@ -330,10 +316,9 @@ namespace Spooky.Content.Generation
                         //eye flowers
                         if (WorldGen.genRand.Next(10) == 0)
                         {
-                            ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), 
-                            (ushort)ModContent.TileType<EyeFlower2>(), (ushort)ModContent.TileType<EyeFlower3>() };
+                            ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), (ushort)ModContent.TileType<EyeFlower2>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeFlowers)); 
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeFlowers));
                         }
 
                         //tendrils

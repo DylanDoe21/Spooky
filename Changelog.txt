@@ -5,16 +5,24 @@ If you want to figure out new features on your own, then avoid reading this, as 
 Additionally, you can scroll down to the "changes to existing stuff" category if you wish to read only changes made to existing things in the mod
 
 
+
 ~NEW STUFF~
+
 
 
 New Friendly NPC, Little Eye the Alchemist:
 
+-A little eye stalk with a wizard hat who lives in his house in the eye valley
 -Has a total of four quests, each of which involve you gathering a large selection of materials to craft a special potion for him
--Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards
--Upon completing his third quest, he will give you the cotton swab to summon moco. This is now the only way to obtain it, and the previous method has been removed entirely
--Upon completing his fourth quest he will give you the eye valley pylon, and this is also now the only way to obtain it
--After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with the orro & boro summon item
+-Upon completing a quest, you will get one monster chest food (which is basically just a chest key), and a few other rewards, as well as some unique rewards
+-Upon completing his third quest, you will get the cotton swab to summon moco, and this is now the only way you can get it
+-Upon completing his fourth quest, you will get the eye valley pylon, and this is now the only way you can get it
+-After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with the acidic concoction
+
+-He will also give you only one sentient heart per quest
+-After orro & boro are defeated, he will start giving you random quests you can complete in return for one sentient heart 
+(sentient hearts will be explained below in the sentient weapons section)
+
 
 
 New Event, The Egg Incursion:
@@ -27,20 +35,6 @@ New Event, The Egg Incursion:
 -There is a craftable summon item for the event you can get after orro & boro, as the enemies will drop orro & boro's crafting material after you defeat them
 
 
-New Eye Valley Chest Weapons:
-
-Flesh Mincer:
--Slow swinging and high damage axe that does even more damage to low health enemies
-
-Seer:
--A bow that converts arrows into bloody tears, every tenth shot fires a homing eye
-
-Retina Staff:
--Shoots controllable eyes that follow the cursor, and deal double damage when you launch them by releasing left click
-
-Eye Lasher:
--A whip that can sometimes lower enemy defense on hit for a short time
-
 
 New Biome, The Swampy Cemetery:
 
@@ -50,11 +44,20 @@ New Biome, The Swampy Cemetery:
 -It also has it's own pylon, which you can buy from npcs who are happy enough in the biome
 
 
+
+An Old Friend Returns, The Spooky Spirit:
+
+-The spooky spirit from older versions of the mod has been re-added as a boss fought in the swampy cemetery biome
+-his fight is still somewhat the same, but with many improvements, as well as new visual effects to make it feel more special
+
+
+
 New Catacombs Visual:
 
 -While in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
 -This is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
 -The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
+
 
 
 New Enemy, the Catacomb Guardian:
@@ -64,12 +67,6 @@ New Enemy, the Catacomb Guardian:
 -you will be able to spawn them manually after big bone if you want to actually fight one (if you are insane)
 -Defeating the catacomb guardian will give you a funny pet item
 
-
-New Music:
-
--"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
--"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
--"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
 
 
 New Config Options:
@@ -81,18 +78,38 @@ Spooky Forest at Spawn:
 
 Screen Shaking Effect:
 -Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
-(For example: when rot-gourd shakes the screen after slamming the ground, or during big bone's death animation)
+(For example, when rot-gourd shakes the screen after slamming the ground, certain weapons impacting the ground, ect)
+
+Halloween Season Config Fixes:
+-The halloween season config being off will no longer disable halloween if it is meant to normally occur in vanilla (like during october or if you defeat the pumpkin moon)
+-The halloween season config also no longer requires you to leave and re-enter the world for it to apply
+
+
+
+New Music:
+
+-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
+-"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
+-"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
+
 
 
 Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
--New moco drop, the sneeze staff: summons flying noses that attack by flying above enemies and dropping snot balls from above that will linger if they hit the ground
+-New rot gourd set, a melee armor obtained after rot gourd with a nasty and maybe broken set bonus
+-New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
+-Added masks and trophies for each spooky mod boss, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
+-Moco, Orro, and Boro will each drop one sentient heart upon being defeated for the first time (for orro & boro, only the last worm killed will drop one)
+-Four new eye valley chest weapons: Flesh Mincer, Seer, Retina Staff, and Eye Lasher
 
 
 
-~CHANGES TO EXISTING STUFF~
+
+
+~CHANGES TO EXISTING FEATURES~
+
 
 
 Spooky Biome Item Changes:
@@ -102,6 +119,11 @@ Rot Gourd Loot:
 
 Warlock's Cloak:
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
+
+Horseman Armor:
+-Horseman armor is now part of spooky spirit's craftable items, and has been re-tiered to fit where spooky spirit is fought
+-It is functionally the same, but each individual piece of the set has received buffs to their stat bonuses and defense
+
 
 
 Eye Valley Item Changes:
@@ -120,11 +142,11 @@ Monster Heart:
 
 Snot Ball:
 -Damage has been buffed slightly
--Now detaches from the chain when flung and will bounce around comically for a bit before dying
+-Now detaches from the chain when flung and will comically bounce around for a bit before dying
 
 Booger Blaster:
--Damage has been buffed slightly
--Rather than spamming spreads, you can now hold it down to charge it up to three times
+-Damage has been buffed significantly
+-Rather than spamming spreads of snot, you can now hold it down to charge it up to three times
 -The first charge shoots a tiny snot, the second shoots a close spread of three tiny snots, and the third shoots a big snot glob that does triple damage
 
 Reworked the Snotty Schnoz:
@@ -134,11 +156,13 @@ Reworked the Snotty Schnoz:
 -Enemies will stop dropping snot for thirty seconds after this effect is triggered
 
 
+
 Catacomb Item Changes:
 
 Harvester's Scythe:
 -Damage has been buffed slightly
 -Swing speed has been slightly increased
+-Souls will now home in on enemies after you have five of them, instead of ten
 
 Old Hunter's Crossbow:
 -Damage has been buffed significantly
@@ -170,19 +194,19 @@ Disciple's Mask:
 -Now plays a less annoying sound when wisps are fired and when they die
 
 
+
 Rot Gourd Changes:
 
 -Rot gourd launching players up when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
 -Rot gourd no longer creates dirt debris projectiles when jumping in his desperation phase
+-Removed rot gourd's weird slamming hitbox thing because it was just unfair and was a pain to balance
+
 
 
 Orro & Boro Changes:
 
-Specific AI Changes:
-
-General Changes:
-
 -Both Orro & Boro are now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, and ichor
+
 
 
 Big Bone Changes:
@@ -201,6 +225,7 @@ Big Bone Changes:
 -Changed big bone's hit sound because the vanilla skeleton hit sound is a bit annoying
 
 
+
 Cowbell Entity Changes:
 
 -Now has it's own bestiary entry after being encountered (It is only unlocked once you get killed by it)
@@ -210,32 +235,31 @@ Cowbell Entity Changes:
 -Now drops a special new reward after you encounter it
 
 
+
 Little Bone Changes:
 
 -(stuff will go here when i get to writing it down)
 
 
-Config Changes and Fixes:
-
--The halloween season config being off will not disable halloween if the pumpkins moon's one day of halloween is happening or if halloween is normally occuring in vanilla
--The halloween season config also no longer requires you to leave and re-enter the world for it to apply
-
 
 Other Changes and Fixes:
 
 -Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
--Green solution for the clentaminator will now convert spooky forest blocks back into their respective vanilla blocks
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
 -The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement
 -The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
 -Tortumors and Giant Tortumors can no longer move through blocks
+-Green solution for the clentaminator will now convert spooky forest blocks back into their respective vanilla blocks
+-Spooky forest blocks are now easier and quicker to mine
+-Old wood now counts as an actual wood type for crafting recipes
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -The catacomb barrier keys now have a cool animation when you use them
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
 -All natural spawns will be disabled during spooky mod's boss fights
--Spooky mod's summon weapons now have much better enemy targeting, and now have proper right click targeting
--Spooky mod's music boxes now produce music notes when turned on like vanilla's music boxes
+-Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
+-Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes
+-Spooky mod music boxes now display the actual name and composer of the song in their item tooltip
 -World globes will now only change the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
 -Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
@@ -246,3 +270,4 @@ Other Changes and Fixes:
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
 -Fixed vanilla's underworld enemies sometimes spawning while in the valley of eyes
+-Spooky dance ghosts no longer drop money

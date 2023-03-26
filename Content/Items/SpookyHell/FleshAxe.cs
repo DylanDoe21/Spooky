@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void SetDefaults()
         {
-            Item.damage = 65;
+            Item.damage = 50;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 54;
@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell
             Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.useStyle = SwingUseStyle;
-			Item.knockBack = 8;
+			Item.knockBack = 4;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;

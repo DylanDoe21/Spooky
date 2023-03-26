@@ -43,5 +43,14 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 		{
 			return player.statLife >= (player.statLifeMax2 / 4);
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<ArteryPiece>(), 10)
+			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 15)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

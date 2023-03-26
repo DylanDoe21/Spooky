@@ -8,6 +8,7 @@ namespace Spooky.Content.Generation
 {
     public class RecipeGlobal : ModSystem
     {
+        /*
         public override void AddRecipes()
         {
             Recipe furnaceRecipe = Recipe.Create(ItemID.Furnace);
@@ -20,6 +21,13 @@ namespace Spooky.Content.Generation
             torchRecipe.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1);
             torchRecipe.AddIngredient(ItemID.Gel, 1);
             torchRecipe.Register();
+        }
+        */
+
+        public override void AddRecipeGroups()
+        {
+            RecipeGroup wood = RecipeGroup.recipeGroups[RecipeGroupID.Wood];
+            wood.ValidItems.Add(ModContent.ItemType<SpookyWoodItem>());
         }
     }
 }

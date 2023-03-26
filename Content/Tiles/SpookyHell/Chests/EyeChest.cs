@@ -3,12 +3,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.Localization;
-using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
+using Terraria.Localization;
+using Terraria.Enums;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.SpookyHell;
 
 namespace Spooky.Content.Tiles.SpookyHell.Chests
@@ -46,7 +48,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			name.SetDefault("Monster Chest");
 			AddMapEntry(new Color(255, 55, 41), name, MapChestName);
 			name = CreateMapEntryName(Name + "_Sleeping"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Sleeping Eye Chest");
+			name.SetDefault("Sleeping Monster Chest");
 			AddMapEntry(new Color(255, 55, 41), name, MapChestName);
 			DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
@@ -258,5 +260,21 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 				player.cursorItemIconID = 0;
 			}
 		}
+
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+        {
+            bool isPlayerNear = WorldGen.PlayerLOS(i, j);
+            Tile Above = Framing.GetTileSafely(i, j - 1);
+
+            if (!Main.gamePaused && Main.instance.IsActive && !Above.HasTile && isPlayerNear && IsLockedChest(i, j))
+            {
+                if (Main.rand.Next(75) == 0)
+                {
+                    int newDust = Dust.NewDust(new Vector2((i + Main.rand.Next(0, 1)) * 16, (j + Main.rand.Next(0, 1)) * 16), 5, 5, ModContent.DustType<ChestSleepyDust>());
+
+                    Main.dust[newDust].velocity.Y += 0.09f;
+                }
+            }
+        }
 	}
 }

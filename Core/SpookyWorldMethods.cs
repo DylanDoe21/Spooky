@@ -173,7 +173,7 @@ namespace Spooky.Core
 								}
 
 								//replace tiles if it is not in the kill list
-								if (!Kill.Contains(Main.tile[k, l].TileType))
+								if (!Kill.Contains(Main.tile[k, l].TileType) || Main.tile[k, l].WallType == WallID.EbonstoneUnsafe)
 								{
 									Main.tile[k, l].TileType = (ushort)tileType;
 								}

@@ -66,7 +66,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetDamage(DamageClass.Ranged) += 0.12f;
 			player.GetCritChance(DamageClass.Melee) += 8;
 			player.GetCritChance(DamageClass.Ranged) += 8;
-			player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
+			player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
 			player.ammoCost80 = true;
 			player.aggro += 75;
 		}

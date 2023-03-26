@@ -7,6 +7,7 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Cemetery
 {
+	[LegacyName("CemeteryBrickMoss")]
 	public class CemeteryBrick : ModTile
 	{
 		public override void SetStaticDefaults()

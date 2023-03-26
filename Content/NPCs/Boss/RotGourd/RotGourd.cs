@@ -1021,6 +1021,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//spooky key
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
+			//material
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
+
 			//trophy and mask always drop directly from the boss
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));

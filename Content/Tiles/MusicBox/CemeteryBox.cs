@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Swampy Cemetery)");
+            Tooltip.SetDefault("'A Boneyard Too Far' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery"), 
             ModContent.ItemType<CemeteryBox>(), ModContent.TileType<CemeteryBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

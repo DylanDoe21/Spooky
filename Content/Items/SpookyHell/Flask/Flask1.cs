@@ -3,14 +3,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Items.SpookyHell
+namespace Spooky.Content.Items.SpookyHell.Flask
 {
     public class Flask1 : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mysterious Flask I");
-            Tooltip.SetDefault("A smelly substance, made from ground up plants");
+            Tooltip.SetDefault("A smelly substance, made from ground up plants"
+            + "\nLittle eye may be interested in this");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -18,7 +19,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             Item.width = 18;
             Item.height = 28;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Quest;
             Item.value = Item.buyPrice(gold: 1); 
             Item.maxStack = 999;
         }

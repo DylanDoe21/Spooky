@@ -19,6 +19,7 @@ namespace Spooky.Content.Tiles.Cemetery
             AddMapEntry(new Color(73, 62, 49));
 			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
             DustType = DustID.Dirt;
+			MineResist = 0.65f;
 		}
 	}
 }

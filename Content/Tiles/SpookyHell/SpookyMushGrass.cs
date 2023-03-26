@@ -24,6 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
             DustType = DustID.Blood;
             HitSound = SoundID.Dig;
+            MineResist = 0.7f;
         }
 
         public override void RandomUpdate(int i, int j)
@@ -36,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             {
                 if (Main.rand.Next(15) == 0)
                 {
-                    Below.TileType = (ushort)ModContent.TileType<TendrilVine>();
+                    Below.TileType = (ushort)ModContent.TileType<EyeVine>();
                     Below.HasTile = true;
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server)

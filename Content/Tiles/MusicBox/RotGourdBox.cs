@@ -11,6 +11,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Rot Gourd)");
+            Tooltip.SetDefault("'Funky Pumpkin' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/RotGourd"), 
             ModContent.ItemType<RotGourdBox>(), ModContent.TileType<RotGourdBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

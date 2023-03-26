@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Big Bone)");
+            Tooltip.SetDefault("'Doom Abloom' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone"), 
             ModContent.ItemType<BigBoneBox>(), ModContent.TileType<BigBoneBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

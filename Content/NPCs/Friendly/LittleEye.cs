@@ -12,6 +12,7 @@ using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Flask;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.Pylon;
 
@@ -147,7 +148,7 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask4>()))
 					{
-						Main.npcChatText = "Alright, this is the final flask! Eventually, I'll need you to bring me a special ingredient and I can make you a special concoction of mine.";
+						Main.npcChatText = "Alright, this is the final flask. As a reward for your troubles, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient and I can make you a special concoction of mine.";
 
 						Quest4Timer++;
 					}
@@ -169,13 +170,13 @@ namespace Spooky.Content.NPCs.Friendly
                     {
 						if (!Main.hardMode)
 						{
-							Main.npcChatText = "In order for me to combine all four flasks, you'll need to bring me a special soul. But, I don't know if you can get them just yet."
-							+ $"\nMaterials: [i:{ItemID.SoulofSight}][i:{ItemID.SoulofMight}][i:{ItemID.SoulofFright}]x1 (Any mechanical boss soul)";
+							Main.npcChatText = "In order for me to combine all four flasks, you'll need to bring me a special soul. But, I don't know if you can get them one yet."
+							+ $"\nItem Needed: [i:{ItemID.SoulofSight}][i:{ItemID.SoulofMight}][i:{ItemID.SoulofFright}] (One of any mechanical boss soul)";
 						}
 						else
 						{
 							Main.npcChatText = "In order for me to combine all four flasks, you'll need to bring me a special soul. Since you defeated that giant flesh wall, you should be able to get one now."
-							+ $"\nMaterials: [i:{ItemID.SoulofSight}][i:{ItemID.SoulofMight}][i:{ItemID.SoulofFright}]x1 (Any mechanical boss soul)";
+							+ $"\nItem Needed: [i:{ItemID.SoulofSight}][i:{ItemID.SoulofMight}][i:{ItemID.SoulofFright}] (One of any mechanical boss soul)";
 						}
 					}
 				}
@@ -310,15 +311,17 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void QuestRewards()
 		{
+			//monster chest food
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<ChestFood>());
+
+			//different potions
 			int[] Potions1 = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion, ItemID.ArcheryPotion };
 			int[] Potions2 = new int[] { ItemID.BattlePotion, ItemID.CalmingPotion, ItemID.TitanPotion, ItemID.EndurancePotion };
 			int[] Potions3 = new int[] { ItemID.LuckPotion, ItemID.ManaRegenerationPotion, ItemID.SummoningPotion, ItemID.ThornsPotion };
 
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
-
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(2, 5));
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(2, 5));
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions3), Main.rand.Next(2, 5));
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(1, 3));
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(1, 3));
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions3), Main.rand.Next(1, 3));
 
 			//second quest
 			if (Flags.EyeQuest1 && !Flags.EyeQuest2)
@@ -335,10 +338,14 @@ namespace Spooky.Content.NPCs.Friendly
 			{
 				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SpookyHellPylonItem>());
 			}
+			//final quest
 			if (Flags.EyeQuest4 && !Flags.EyeQuest5)
 			{
 				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<Concoction>());
 			}
+
+			//money
+			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

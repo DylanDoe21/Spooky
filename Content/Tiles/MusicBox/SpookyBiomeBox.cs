@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Spooky Forest Day)");
+            Tooltip.SetDefault("'Dead Trees...' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome"), 
             ModContent.ItemType<SpookyBiomeBox>(), ModContent.TileType<SpookyBiomeBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

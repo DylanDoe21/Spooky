@@ -9,8 +9,8 @@ namespace Spooky.Content.Tiles.MusicBox
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (Orro-Boro)");
-            //register the song to the music box
+            DisplayName.SetDefault("Music Box (Orro & Boro)");
+            Tooltip.SetDefault("'The All Is One' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro"), 
             ModContent.ItemType<SpookyHellBossBox>(), ModContent.TileType<SpookyHellBossBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

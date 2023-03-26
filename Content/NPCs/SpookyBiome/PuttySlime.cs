@@ -29,18 +29,19 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 22;
+            NPC.lifeMax = 20;
             NPC.damage = 10;
             NPC.defense = 0;
             NPC.width = 34;
             NPC.height = 24;
-			NPC.knockBackResist = 0.65f;
+			NPC.knockBackResist = 0.5f;
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 1;
+			AIType = NPCID.BlueSlime;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -73,20 +74,20 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-			float stretch = NPC.velocity.Y * 0.1f;
+			float stretch = NPC.velocity.Y * 0.45f;
 
-			stretch = Math.Abs(stretch) - addedStretch;
-			
-			//limit how much he can stretch
-			if (stretch > 0.2f)
+			stretch = Math.Abs(stretch);
+
+			//limit how much it can stretch
+			if (stretch > 0.12f)
 			{
-				stretch = 0.2f;
+				stretch = 0.12f;
 			}
 
-			//limit how much he can squish
-			if (stretch < -0.2f)
+			//limit how much it can squish
+			if (stretch < -0.12f)
 			{
-				stretch = -0.2f;
+				stretch = -0.12f;
 			}
 
 			Vector2 scaleStretch = new Vector2(1f - stretch, 1f + stretch);
@@ -114,63 +115,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.TargetClosest(true);
 
 			NPC.spriteDirection = NPC.direction;
-
-			if (landingRecoil > 0)
-			{
-				landingRecoil *= 0.965f;
-				landingRecoil -= 0.02f;
-			}
-			else
-			{
-				landingRecoil = 0;
-			}
-
-			addedStretch = -landingRecoil;
-
-			NPC.ai[0]++;
-
-			Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 150 : -150), player.Center.Y - 400);
-
-			if (NPC.position.X <= player.Center.X + 200 && NPC.position.X >= player.Center.X - 200)
-			{
-				JumpTo = new(player.Center.X, player.Center.Y - 400);
-			}
-
-			Vector2 velocity = JumpTo - NPC.Center;
-
-			if (NPC.ai[0] < 60 && NPC.velocity.Y <= 0.1f)
-			{
-				NPC.velocity.X *= 0;
-			}
-
-			//actual jumping
-			if (NPC.ai[0] >= 60 && NPC.ai[0] <= 70)
-			{
-				float speed = MathHelper.Clamp(velocity.Length() / 36, 3, 5);
-				velocity.Normalize();
-				velocity.Y -= 0.18f;
-				velocity.X *= Main.rand.NextFloat(1.2f, 1.32f);
-				NPC.velocity = velocity * speed * 1.1f;
-			}
-
-			//fall on the ground
-			if (NPC.ai[0] >= 100 && NPC.ai[1] == 0 && NPC.velocity.Y <= 0.1f)
-			{
-				landingRecoil = 0.5f;
-
-				NPC.velocity.X *= 0.2f;
-				
-				//complete the jump attack
-				NPC.ai[1] = 1;
-			}
-
-			//only loop attack if the jump has been completed
-			if (NPC.ai[1] == 1)
-			{
-				NPC.ai[0] = 0;
-				NPC.ai[1] = 0;
-				NPC.netUpdate = true;
-			}
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 

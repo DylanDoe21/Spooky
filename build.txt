@@ -1,5 +1,5 @@
 displayName = [c/FFA01C:Spooky Mod]
-author = The Spooky Mod Team
+author = DylanDoe21 and the Spooky Team
 version = 0.6
 
 homepage = https://discord.gg/WPNkrsxdPx

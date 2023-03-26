@@ -8,13 +8,15 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {
-    public class SpiritCharm : ModItem
+    [LegacyName("PumpkinCore")]
+    public class FlyCharm : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Charm");
-            Tooltip.SetDefault("When hit, you will sometimes release homing spirit particles around you"
-            + "\n15% increased movement speed");
+            DisplayName.SetDefault("Charm of the Flies");
+            Tooltip.SetDefault("Summons a swarm of flies around you over time, up to ten total"
+            + "\nEach active fly will give you one extra point of defense"
+            + "\nWhen you get hit, the flies will die and respawn after thirty seconds");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

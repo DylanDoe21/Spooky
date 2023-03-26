@@ -20,6 +20,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             ItemDrop = ModContent.ItemType<SpookyMushItem>();
 			DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
+			MineResist = 0.7f;
 		}
 	}
 }

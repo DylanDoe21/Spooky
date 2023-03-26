@@ -26,6 +26,7 @@ namespace Spooky.Content.Tiles.Cemetery
             AddMapEntry(new Color(70, 130, 93));
 			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
             DustType = ModContent.DustType<CemeteryGrassDust>();
+            MineResist = 0.65f;
 		}
 
         public override void RandomUpdate(int i, int j)

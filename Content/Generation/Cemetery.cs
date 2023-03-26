@@ -60,7 +60,7 @@ namespace Spooky.Content.Generation
                 foundSurface = true;
             }
 
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 20; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 20; X++)
+            for (int X = XMiddle - Catacombs.BiomeWidth / 2; X <= XMiddle + Catacombs.BiomeWidth / 2; X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
@@ -70,33 +70,40 @@ namespace Spooky.Content.Generation
                     Tile tileLeft = Main.tile[X - 1, Y];
                     Tile tileRight = Main.tile[X + 1, Y];
 
-                    if (X <= XMiddle - (Catacombs.BiomeWidth / 2) || X >= XMiddle + (Catacombs.BiomeWidth / 2))
+                    //place dirt blocks
+                    if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
                     {
-                        if (WorldGen.genRand.Next(2) == 0)
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(3, 5);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
                         {
-                            //place dirt blocks
-                            if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud)
-                            {
-                                tile.ClearEverything();
-                                WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //place dirt blocks
-                        if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud)
-                        {
-                            tile.ClearEverything();
-                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                        }
+                            blotchMod.Output(circle)
+                        }));
 
-                        //place dirt blocks where walls exist to prevent unwanted craters or caves
-                        if (tile.WallType > 0 && !tile.HasTile)
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                         {
-                            tile.ClearEverything();
-                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
-                        }
+                            new Actions.ClearTile(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
+                        }));
+                    }
+
+                    //place dirt blocks where walls exist to prevent unwanted craters or caves
+                    if (tile.WallType > 0 && !tile.HasTile)
+                    {
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(3, 5);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
+                        }));
                     }
 
                     //fill in any single empty tiles
@@ -112,7 +119,19 @@ namespace Spooky.Content.Generation
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
                 for (int FillY = (int)Main.worldSurface - 45; FillY <= Main.worldSurface; FillY++)
                 {
-                    SpookyWorldMethods.Circle(X, FillY, 10, ModContent.TileType<CemeteryDirt>(), false);
+                    ShapeData circle = new ShapeData();
+                    GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                    int radius = WorldGen.genRand.Next(3, 5);
+                    WorldUtils.Gen(new Point(X, FillY), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                    {
+                        blotchMod.Output(circle)
+                    }));
+
+                    WorldUtils.Gen(new Point(X, FillY), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                    {
+                        new Actions.ClearTile(),
+                        new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
+                    }));
                 }
             }
 
@@ -216,7 +235,7 @@ namespace Spooky.Content.Generation
             while (!placedHut1 && hut1Attempts++ < 100000)
             {
                 int HutX = XMiddle - 175;
-                int HutY = Catacombs.PositionY - 60;
+                int HutY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
 				{
@@ -239,7 +258,7 @@ namespace Spooky.Content.Generation
             while (!placedHole1 && hole1Attempts++ < 100000)
             {
                 int HoleX = XMiddle - 100;
-                int HoleY = Catacombs.PositionY - 60;
+                int HoleY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
 				{
@@ -262,7 +281,7 @@ namespace Spooky.Content.Generation
             while (!placedCrypt && cryptAttempts++ < 100000)
             {
                 int CryptX = XMiddle;
-                int CryptY = Catacombs.PositionY - 60;
+                int CryptY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(CryptX, CryptY) && CryptY <= Main.worldSurface)
 				{
@@ -288,7 +307,7 @@ namespace Spooky.Content.Generation
             while (!placedlake && lakeAttempts++ < 100000)
             {
                 int LakeX = XMiddle + 75;
-                int LakeY = Catacombs.PositionY - 60;
+                int LakeY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(LakeX, LakeY) && LakeY <= Main.worldSurface)
 				{
@@ -311,7 +330,7 @@ namespace Spooky.Content.Generation
             while (!placedHole2 && hole2Attempts++ < 100000)
             {
                 int HoleX = XMiddle + 135;
-                int HoleY = Catacombs.PositionY - 60;
+                int HoleY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
 				{
@@ -334,7 +353,7 @@ namespace Spooky.Content.Generation
             while (!placedHut2 && hut2Attempts++ < 100000)
             {
                 int HutX = XMiddle + 185;
-                int HutY = Catacombs.PositionY - 60;
+                int HutY = Catacombs.PositionY - 50;
 
                 while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
 				{
@@ -351,7 +370,7 @@ namespace Spooky.Content.Generation
                 placedHut2 = true;
             }
 
-            //clear extra dirt and grass because silly me removed tiles that the structure files had in them
+            //clear extra dirt and grass because i accidentally removed tiles that the structure files had in them
             //i am not re-exporting the structures so this is going to have to do
             for (int X = XMiddle - Catacombs.BiomeWidth / 2; X <= XMiddle + Catacombs.BiomeWidth / 2; X++)
             {
@@ -363,6 +382,29 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.KillTile(X, Y);
                     }
+                }
+            }
+        }
+
+        public static void ClearAboveArea(int x, int y)
+        {
+            for (int i = x - 30; i <= x + 30; i++)
+            {
+                for (int j = y - 5; j <= y; j++)
+                {
+                    ShapeData circle = new ShapeData();
+                    GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                    int radius = WorldGen.genRand.Next(3, 5);
+                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                    {
+                        blotchMod.Output(circle)
+                    }));
+
+                    WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                    {
+                        new Actions.ClearTile(),
+                        new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
+                    }));
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Egg Incursion)");
-            //register the song to the music box
+            Tooltip.SetDefault("'The Evolution of Evil' by Rockwizard5");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/EggEvent"), 
             ModContent.ItemType<EggEventBox>(), ModContent.TileType<EggEventBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

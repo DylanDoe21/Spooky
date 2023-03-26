@@ -34,7 +34,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-				float scale = (Projectile.scale * 1.2f) * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(Color.White) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);

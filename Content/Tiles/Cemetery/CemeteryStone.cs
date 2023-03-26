@@ -20,6 +20,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			ItemDrop = ModContent.ItemType<CemeteryStoneItem>();
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
+			MineResist = 0.85f;
 		}
 	}
 }

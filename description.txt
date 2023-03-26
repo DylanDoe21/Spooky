@@ -2,9 +2,9 @@ Spooky mod is a decently sized work-in-progress mod that adds in new content wit
 
 Currently the mod has:
 
--Four large biomes/areas to explore: the Spooky Forest, Valley of Eyes, Swampy Cemetery, and the Creepy Catacombs
+-Four new biomes/areas to explore: the Spooky Forest, Valley of Eyes, Swampy Cemetery, and the Creepy Catacombs
 
--Four brand new bosses, all with boss checklist support
+-Five brand new bosses, and a new event, all with boss checklist support
 
 -Tons of other usual mod content such as weapons, armor sets, and stuff like that
 
@@ -13,12 +13,12 @@ Currently the mod has:
 -And much more to come in the future!
 
 
-Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods how you like, just be aware of potential issues!
+Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods however you like, but just be aware of potential issues!
 
 
-[h1]Special Thanks[/h1]
+[h1]Developers[/h1]
 
-HUGE thanks to all the people who have helped out on the mod, it is really appreciated!
+Massive thanks to all the people who have helped out the mod in some way, or are actively helping develop it!
 
 Thanks to Renk, Graydee, and Lemmy for their help with coding
 Thanks to Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Soft for contributing awesome sprites

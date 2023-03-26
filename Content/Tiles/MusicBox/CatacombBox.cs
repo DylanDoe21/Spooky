@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Creepy Catacombs)");
+            Tooltip.SetDefault("'Deep Dive to the Catacombs' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs"), 
             ModContent.ItemType<CatacombBox>(), ModContent.TileType<CatacombBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

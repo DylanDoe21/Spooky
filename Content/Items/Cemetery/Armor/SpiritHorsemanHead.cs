@@ -8,23 +8,22 @@ using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery.Armor
 {
-	[LegacyName("SpookyHead")]
 	[AutoloadEquip(EquipType.Head)]
 	public class SpiritHorsemanHead : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Spirit Horseman's Pumpkin");
-			Tooltip.SetDefault("3% increased critical strike chance");
+			Tooltip.SetDefault("5% increased critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
+			Item.defense = 4;
 			Item.width = 26;
 			Item.height = 28;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 		}
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Generic) += 3;
+			player.GetCritChance(DamageClass.Generic) += 5;
 		}
 	}
 }

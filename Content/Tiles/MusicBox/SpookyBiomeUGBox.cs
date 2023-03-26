@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Spooky Forest Underground)");
+            Tooltip.SetDefault("'Spooky Spelunking' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground"), 
             ModContent.ItemType<SpookyBiomeUGBox>(), ModContent.TileType<SpookyBiomeUGBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

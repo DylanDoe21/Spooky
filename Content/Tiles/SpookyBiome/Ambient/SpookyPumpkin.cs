@@ -29,11 +29,19 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
+            //rot gourd material
+            if (Main.rand.Next(3) == 0 && Flags.downedRotGourd)
+            {
+			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenChunk>());
+            }
+
+            //rot gourd summon
             if (Main.rand.Next(7) == 0)
             {
 			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenSeed>());
             }
 
+            //spawn gores
             if (Main.netMode != NetmodeID.MultiplayerClient) 
 			{
                 Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore1").Type);

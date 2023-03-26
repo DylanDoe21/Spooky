@@ -16,14 +16,14 @@ namespace Spooky.Content.Items.SpookyHell
             DisplayName.SetDefault("Retina Staff");
             Tooltip.SetDefault("Casts eyes that follow the cursor while holding left click"
             + "\nRelease left click to fling the eyes, dealing double their original damage"
-            + "\nOnly up to eight eyes can be active at once");
+            + "\nOnly up to five eyes can be active at once");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 22;
+            Item.damage = 18;
 			Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
@@ -44,7 +44,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[Item.shoot] < 8;
+			return player.ownedProjectileCounts[Item.shoot] < 5;
 		}
     }
 }

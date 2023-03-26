@@ -43,10 +43,14 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
+			//spooky key
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
 
+			//material
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
+
 			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyAmulet>());
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyCharm>());
 		}
 
 		public override int BossBagNPC => ModContent.NPCType<RotGourd>();

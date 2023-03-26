@@ -105,15 +105,15 @@ namespace Spooky.Core
 
             if (OrroBoroPieces.Contains(npc.type))
 			{
-                float Divide = 1.85f;
+                float damageDivide = 1.85f;
 
                 if (projectile.penetrate <= -1)
                 {
-                    damage /= (int)Divide;
+                    damage /= (int)damageDivide;
                 }
                 else if (projectile.penetrate >= 2)
                 {
-                    damage /= (int)Divide;
+                    damage /= (int)damageDivide;
                 }
             }
         }

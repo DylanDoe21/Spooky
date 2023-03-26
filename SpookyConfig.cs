@@ -8,8 +8,8 @@ namespace Spooky
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
         [Label("Halloween Season")]
-        [Tooltip("The spooky mod makes terraria's halloween seasonal event always active"
-        + "\nTurn off to disable the halloween seasonal event being active"
+        [Tooltip("Spooky mod makes terraria's halloween seasonal event always active"
+        + "\nTurn this option off to disable the halloween seasonal event being active"
         + "\nTurning this config off will not disable halloween if it is meant to occur in vanilla"
         + "\n(For example, when you get one day of halloween after the pumpkin moon, or during october)")]
         [DefaultValue(true)]

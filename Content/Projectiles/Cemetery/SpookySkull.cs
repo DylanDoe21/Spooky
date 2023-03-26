@@ -91,7 +91,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
             Projectile.velocity.X = Projectile.velocity.X * 0.99f;
 
-            if (Projectile.velocity.Y > 10)
+            if (Projectile.velocity.Y > 1)
             {
                 Projectile.tileCollide = true;
             }
