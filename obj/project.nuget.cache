@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TKb5Ly7gL7PtuWNkAPim6rMOyGFHYQITuugy28TMt0YZK9lgS0YLbtyWeAn2eaO4QNEE/yIq9OuVKPylMvKQ1A==",
+  "dgSpecHash": "y7tRHjdRtkzFr0rvMO0NMwwJRcIMOkPuLnhc3cXRGztpcHkzxru1rIEL0vvlyqVdr7wtyQpm4vKmNGvgh2GW/g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
+  "projectFilePath": "C:\\Users\\colto\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Dylan\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+    "C:\\Users\\colto\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],
   "logs": []
 }

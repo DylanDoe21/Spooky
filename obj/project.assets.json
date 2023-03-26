@@ -31,19 +31,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dylan\\.nuget\\packages\\": {}
+    "C:\\Users\\colto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
+      "projectUniqueName": "C:\\Users\\colto\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
       "projectName": "Spooky",
-      "projectPath": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
-      "packagesPath": "C:\\Users\\Dylan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dylan\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\obj\\",
+      "projectPath": "C:\\Users\\colto\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\Spooky.csproj",
+      "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\colto\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Spooky\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dylan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -90,7 +90,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
