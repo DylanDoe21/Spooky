@@ -67,22 +67,25 @@ namespace Spooky.Core
             }
 
             //disable spawns during the entity encounter
-            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<EntityDebuff>()))
+            if (spawnInfo.Player.HasBuff(ModContent.BuffType<EntityDebuff>()))
 			{
 				pool.Clear();
 			}
 
 			//remove all hell enemies from the spawn pool while in the eye valley
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) || Main.LocalPlayer.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) || spawnInfo.Player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
 			{
 				pool.Remove(NPCID.Hellbat);
 				pool.Remove(NPCID.Lavabat);
-				pool.Remove(NPCID.LavaSlime);
-				pool.Remove(NPCID.FireImp);
-				pool.Remove(NPCID.Demon);
-				pool.Remove(NPCID.VoodooDemon);
+                pool.Remove(NPCID.LavaSlime);
+                pool.Remove(NPCID.FireImp);
+                pool.Remove(NPCID.Demon);
+                pool.Remove(NPCID.VoodooDemon);
 				pool.Remove(NPCID.RedDevil);
-				pool.Remove(NPCID.Mimic);
+                pool.Remove(NPCID.BoneSerpentHead);
+                pool.Remove(NPCID.BoneSerpentBody);
+                pool.Remove(NPCID.BoneSerpentTail);
+                pool.Remove(NPCID.DemonTaxCollector);
 			}
 		}
 

@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
     [AutoloadBossHead]
     public class SpookySpirit : ModNPC
     {
+        Vector2 SavePlayerPosition;
+
         public bool EyeSprite = false;
         public bool BothEyes = false;
         public bool StopSpinning = false;
@@ -289,27 +291,32 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        //actual dash attack
                         if (NPC.localAI[0] == 60)
+                        {
+                            SavePlayerPosition = player.Center;
+                        }
+
+                        //actual dash attack
+                        if (NPC.localAI[0] == 75)
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.Center);
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X = ChargeDirection.X * 20;
+                            ChargeDirection.X = ChargeDirection.X * 50;
                             ChargeDirection.Y = ChargeDirection.Y * 1;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
-                        if (NPC.localAI[0] >= 100)
+                        if (NPC.localAI[0] >= 85)
                         {
                             NPC.velocity *= 0.98f;
                         }
 
                         //loop charge attack
-                        if (NPC.localAI[0] == 110)
+                        if (NPC.localAI[0] == 120)
                         {
                             NPC.localAI[1]++;
                             NPC.localAI[0] = 0;
@@ -376,6 +383,40 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     if (NPC.localAI[0] >= 300)
                     {
                         NPC.localAI[0] = 0;
+                        NPC.ai[0] = Phase2 ? 3 : 4;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //go above player and then fire off homing skull circles
+                case 3:
+                {
+                    if (NPC.localAI[0] >= 0 && NPC.localAI[0] < 75) 
+                    {	
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += 0;
+                        GoTo.Y -= 350;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 165 || NPC.localAI[0] == 210)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item84, NPC.position);
+
+                        for (int numSkulls = 0; numSkulls < 6; numSkulls++)
+                        {
+                            int distance = 360 / 6;
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<PhantomSkull>(), NPC.whoAmI, NPC.whoAmI, numSkulls * distance);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        NPC.localAI[0] = 0;
                         NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
@@ -384,7 +425,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 }
 
                 //teleport around the player, fire bolt spread, repeat 4 times
-                case 3:
+                case 4:
                 {
                     NPC.localAI[0]++;
 
@@ -516,7 +557,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 }
 
                 //fly above the player, shoot skulls upward
-                case 4:
+                case 5:
                 {
                     NPC.localAI[0]++;
 
@@ -583,7 +624,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 }
 
                 //spin around the player and go slightly invisible, shoot pumpkin seeds, and then charge
-                case 5:
+                case 6:
                 {
                     NPC.localAI[0]++;
 

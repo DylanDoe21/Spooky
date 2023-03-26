@@ -190,6 +190,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            //draw aura when healed or protected by flowers
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura").Value;
 
             var effects = SpriteEffects.None;

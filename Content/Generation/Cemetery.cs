@@ -246,6 +246,8 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
+                ClearAreaAboveStructure(HutX, HutY - 20);
+
                 Vector2 origin = new Vector2(HutX - 14, HutY - 15);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut1", origin.ToPoint16(), Mod);
 
@@ -268,6 +270,8 @@ namespace Spooky.Content.Generation
                 {
 					continue;
                 }
+
+                ClearAreaAboveStructure(HoleX, HoleY - 27);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole1", origin.ToPoint16(), Mod);
@@ -318,6 +322,8 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
+                ClearAreaAboveStructure(LakeX, LakeY - 23);
+
                 Vector2 origin = new Vector2(LakeX - 19, LakeY - 18);
                 Generator.GenerateStructure("Content/Structures/CemeteryLake", origin.ToPoint16(), Mod);
 
@@ -340,6 +346,8 @@ namespace Spooky.Content.Generation
                 {
 					continue;
                 }
+
+                ClearAreaAboveStructure(HoleX, HoleY - 27);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole2", origin.ToPoint16(), Mod);
@@ -364,6 +372,8 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
+                ClearAreaAboveStructure(HutX, HutY - 16);
+
                 Vector2 origin = new Vector2(HutX - 16, HutY - 11);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);
 
@@ -386,16 +396,36 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public static void ClearAboveArea(int x, int y)
+        public static void ClearAreaAboveStructure(int x, int y)
         {
-            for (int i = x - 30; i <= x + 30; i++)
+            for (int i = x - 25; i <= x + 25; i++)
             {
-                for (int j = y - 5; j <= y; j++)
+                for (int j = y - 10; j <= y; j++)
                 {
                     ShapeData circle = new ShapeData();
                     GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    int radius = WorldGen.genRand.Next(3, 5);
-                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(3), Actions.Chain(new GenAction[]
+                    {
+                        blotchMod.Output(circle)
+                    }));
+
+                    WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                    {
+                        new Actions.ClearTile()
+                    }));
+                }
+            }
+        }
+
+        public static void PlacePlatformBelowStructure(int x, int y)
+        {
+            for (int i = x - 25; i <= x + 25; i++)
+            {
+                for (int j = y; j <= y; j++)
+                {
+                    ShapeData circle = new ShapeData();
+                    GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(3), Actions.Chain(new GenAction[]
                     {
                         blotchMod.Output(circle)
                     }));

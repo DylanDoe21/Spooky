@@ -26,6 +26,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     public class BoroHead : ModNPC
     {
         Vector2 SavePlayerPosition;
+        
         public bool Enraged = false;
         private bool spawned;
 

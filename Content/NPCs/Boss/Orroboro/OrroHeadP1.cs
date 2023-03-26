@@ -16,6 +16,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     public class OrroHeadP1 : ModNPC
     {
         Vector2 SavePlayerPosition;
+
         public bool Transition = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
@@ -208,51 +209,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            //splitting transition
+            //set to phase transition
             if (NPC.life <= NPC.lifeMax / 2)
 			{
-                Transition = true;
-                NPC.immortal = true;
-                NPC.dontTakeDamage = true;
-                NPC.netUpdate = true;
-                NPC.velocity *= 0.97f;
-
-                NPC.ai[2]++;
-                
-                //hiss
-                if (NPC.ai[2] == 2)
-                {
-                    SoundEngine.PlaySound(HissSound2, NPC.Center);
-                }
-                
-                //shake
-                if (NPC.ai[2] < 180)
-                {
-                    NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
-                    NPC.Center += Main.rand.NextVector2Square(-2, 2);
-                }
-
-                //spawn both worms (boro is spawned by orro for ai syncing reasons)
-                if (NPC.ai[2] == 180)
-                {
-                    SoundEngine.PlaySound(SplitSound, NPC.Center);
-
-                    int Orro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHead>());
-
-                    //net update so it doesnt vanish on multiplayer
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: Orro);
-                    }
-
-                    NPC.netUpdate = true;
-                }
-
-                if (NPC.ai[2] >= 181)
-                {
-                    NPC.active = false;
-                    NPC.netUpdate = true;
-                }
+                NPC.ai[0] = -2;
             }
 
             if (!Transition && NPC.localAI[3] < 75)
@@ -260,6 +220,57 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 //attacks
                 switch ((int)NPC.ai[0])
                 {
+                    //phase 2 transition
+                    case -2:
+                    {
+                        OpenMouth = true;
+                        Chomp = false;
+
+                        Transition = true;
+                        NPC.immortal = true;
+                        NPC.dontTakeDamage = true;
+                        NPC.netUpdate = true;
+                        NPC.velocity *= 0.97f;
+
+                        NPC.ai[2]++;
+                        
+                        //hiss
+                        if (NPC.ai[2] == 2)
+                        {
+                            SoundEngine.PlaySound(HissSound2, NPC.Center);
+                        }
+                        
+                        //shake
+                        if (NPC.ai[2] < 180)
+                        {
+                            NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            NPC.Center += Main.rand.NextVector2Square(-2, 2);
+                        }
+
+                        //spawn both worms (boro is spawned by orro for ai syncing reasons)
+                        if (NPC.ai[2] == 180)
+                        {
+                            SoundEngine.PlaySound(SplitSound, NPC.Center);
+
+                            int Orro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHead>());
+
+                            //net update so it doesnt vanish on multiplayer
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: Orro);
+                            }
+
+                            NPC.netUpdate = true;
+                        }
+
+                        if (NPC.ai[2] >= 181)
+                        {
+                            NPC.active = false;
+                            NPC.netUpdate = true;
+                        }
+
+                        break;
+                    }
                     //charge up after spawning from the egg
                     case -1:
                     {
