@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Quest";
-			button2 = "Upgrades";
+			button2 = "Upgrades?";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -188,7 +188,7 @@ namespace Spooky.Content.NPCs.Friendly
 			//upgrade button
 			else
 			{
-				Main.npcChatText = "So, you want me to upgrade your weapons? Well, if you show me one of those peculiar flesh weapons and the heart of a giant beast, I can turn them into something a little crazy.";
+				Main.npcChatText = "So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something... A little crazy.";
 			}
 		}
 
