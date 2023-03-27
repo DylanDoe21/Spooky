@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 using System.Linq;
 
 namespace Spooky.Core
