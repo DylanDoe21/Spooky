@@ -113,7 +113,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CreepyChunk>(), 3, 1, 2));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MonsterBloodVial>(), 65));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MonsterBloodVial>(), 100));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 100));
         }
 

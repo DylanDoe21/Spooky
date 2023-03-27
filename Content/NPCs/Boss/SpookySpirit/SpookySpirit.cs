@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit
@@ -20,6 +21,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
     public class SpookySpirit : ModNPC
     {
         Vector2 SavePlayerPosition;
+        public int SaveDirection = 0;
+        public int SaveNPCDamage;
 
         public bool EyeSprite = false;
         public bool BothEyes = false;
@@ -29,7 +32,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
         public int Spin = 0;
-        public int SaveDirection;
 
         public float rotate = 0;
 		public float SpinX = 0;
@@ -68,10 +70,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public override void SendExtraAI(BinaryWriter writer)
         {
             //ints
+            writer.Write(SaveDirection);
+            writer.Write(SaveNPCDamage);
             writer.Write(MoveSpeedX);
             writer.Write(MoveSpeedY);
             writer.Write(Spin);
-            writer.Write(SaveDirection);
 
             //bools
             writer.Write(EyeSprite);
@@ -88,10 +91,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //ints
+            SaveDirection = reader.ReadInt32();
+            SaveNPCDamage = reader.ReadInt32();
             MoveSpeedX = reader.ReadInt32();
             MoveSpeedY = reader.ReadInt32();
             Spin = reader.ReadInt32();
-            SaveDirection = reader.ReadInt32();
 
             //bools
             EyeSprite = reader.ReadBoolean();
@@ -143,16 +147,21 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            //draw after images
+            //draw aura
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritAura").Value;
 
             Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
+            if (SaveDirection != 0)
+            {
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
+
             for (int numEffect = 0; numEffect < 4; numEffect++)
             {
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, (EyeSprite ? Color.OrangeRed : Color.BlueViolet), numEffect));
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, (EyeSprite ? Color.OrangeRed : Color.BlueViolet), numEffect));
 
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
@@ -180,6 +189,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             Texture2D eyeTex2 = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye2").Value;
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            if (SaveDirection != 0)
+            {
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
             
             if (!EyeSprite || BothEyes)
             {
@@ -214,7 +228,15 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
             int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 38 / 2 : 25;
 
-            NPC.spriteDirection = NPC.direction;
+            if (SaveDirection != 0)
+            {
+                NPC.spriteDirection = SaveDirection;
+            }
+            else
+            {
+                NPC.spriteDirection = NPC.direction;
+            }
+
             NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.02f : -0.02f);
 
             Phase2 = NPC.life <= (NPC.lifeMax / 2);
@@ -239,11 +261,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     NPC.localAI[0]++;
 
                     //flies to players X position
-                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -45) 
+                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -55) 
                     {
                         MoveSpeedX -= 2;
                     }
-                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 45)
+                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 55)
                     {
                         MoveSpeedX += 2;
                     }
@@ -284,24 +306,26 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         if (NPC.localAI[0] >= 0 && NPC.localAI[0] < 60) 
                         {	
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -335 : 335;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -400 : 400;
                             GoTo.Y += 0;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 30);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
                         if (NPC.localAI[0] == 60)
                         {
+                            NPC.velocity *= 0;
                             SavePlayerPosition = player.Center;
+                            SaveDirection = NPC.direction;
                         }
 
                         //actual dash attack
-                        if (NPC.localAI[0] == 75)
+                        if (NPC.localAI[0] == 70)
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.Center);
 
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
                                     
                             ChargeDirection.X = ChargeDirection.X * 50;
@@ -312,12 +336,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                         if (NPC.localAI[0] >= 85)
                         {
-                            NPC.velocity *= 0.98f;
+                            NPC.velocity *= 0.65f;
                         }
 
                         //loop charge attack
-                        if (NPC.localAI[0] == 120)
+                        if (NPC.localAI[0] == 100)
                         {
+                            SaveDirection = 0;
                             NPC.localAI[1]++;
                             NPC.localAI[0] = 0;
                             NPC.netUpdate = true;
@@ -325,7 +350,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     }
                     else
                     { 
-                        NPC.velocity *= 0.5f;
+                        SaveDirection = 0;
+                        NPC.velocity *= 0.65f;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.ai[0]++;
@@ -393,14 +419,18 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 //go above player and then fire off homing skull circles
                 case 3:
                 {
-                    if (NPC.localAI[0] >= 0 && NPC.localAI[0] < 75) 
-                    {	
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 0;
-                        GoTo.Y -= 350;
+                    NPC.localAI[0]++;
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    Vector2 GoTo = player.Center;
+                    GoTo.X += 0;
+                    GoTo.Y -= 350;
+
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                    if (NPC.localAI[0] > 75)
+                    {
+                        NPC.velocity *= 0.75f;
                     }
 
                     if (NPC.localAI[0] == 120 || NPC.localAI[0] == 165 || NPC.localAI[0] == 210)
@@ -429,7 +459,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[1] <= 5)
+                    int repeats = Phase2 ? 6 : 5;
+                    if (NPC.localAI[1] < repeats)
                     {
                         NPC.velocity *= 0;
 
@@ -470,8 +501,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         //teleport
                         if (NPC.localAI[0] == 120)
                         {
-                            NPC.position.X = player.Center.X + Main.rand.Next(-300, 300);
-                            NPC.position.Y = player.Center.Y - Main.rand.Next(350, 400);
+                            NPC.position.X = player.velocity.X > 0 ? player.Center.X + 530 : player.Center.X - 530;
+                            NPC.position.Y = player.Center.Y - 350;
 
                             NPC.netUpdate = true;
                         }
@@ -501,6 +532,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 alpha += 0.01f;
                             }
                         }
+
+                        if (NPC.localAI[0] == 150)
+                        {
+                            SaveDirection = NPC.direction;
+                        }
                         
                         //after the first 4 teleports use bolt spread
                         if (NPC.localAI[1] <= 4)
@@ -516,28 +552,58 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 Vector2 projSpeed = new Vector2((float)((Math.Cos(storeRotation) * 10) * -1), (float)((Math.Sin(storeRotation) * 10) * -1));
                                 float rotation = MathHelper.ToRadians(5);
                                 float amount = NPC.direction == -1 ? NPC.localAI[2] - 7.2f / 2 : -(NPC.localAI[2] - 8.8f / 2);
-                                Vector2 perturbedSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
+                                Vector2 ShootSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, 
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                                     ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
                                 }
                             }
 
                             if (NPC.localAI[0] > 180)
                             {
+                                SaveDirection = 0;
                                 NPC.localAI[0] = 50;
                                 NPC.localAI[2] = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
                             }
                         }
-                        //TODO: make him shoot a barrage of death beams out of his eye
-                        else
+                        
+                        //shoot laser out of his eye
+                        if (NPC.localAI[1] == 5)
                         {
-                            if (NPC.localAI[0] >= 400)
+                            if (NPC.localAI[0] == 155)
                             {
+                                SaveDirection = NPC.direction;
+                                SavePlayerPosition = new Vector2(player.Center.X, player.Center.Y + 10);
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y, 0, 0, 
+                                ModContent.ProjectileType<EyeBeamTelegraph>(), 0, 0f, Main.myPlayer);
+                            }
+
+                            if (NPC.localAI[0] == 200)
+                            {
+                                SpookyPlayer.ScreenShakeAmount = 8;
+                                
+                                SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
+                            }
+
+                            if (NPC.localAI[0] >= 200 && NPC.localAI[0] <= 250)
+                            {
+                                Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed.X *= 5f;
+                                ShootSpeed.Y *= 5f;
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -52 : 52), NPC.Center.Y, 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeBeam>(), Damage * 2, 0f, Main.myPlayer);
+                            }
+
+                            if (NPC.localAI[0] >= 300)
+                            {
+                                SaveDirection = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;
                             }
@@ -546,6 +612,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     else
                     {
                         EyeSprite = false;
+                        SaveDirection = 0;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.localAI[2] = 0;
@@ -651,6 +718,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     //actual spin attack
                     if (NPC.localAI[0] > 120 && NPC.localAI[0] < 300)
                     {   
+                        SaveNPCDamage = NPC.damage;
                         NPC.damage = 0;
                         NPC.immortal = true;
                         NPC.dontTakeDamage = true;
@@ -712,7 +780,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     //make spirit visible again after spin attack
                     else
                     {
-                        NPC.damage = 35;
+                        NPC.damage = SaveNPCDamage;
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
 

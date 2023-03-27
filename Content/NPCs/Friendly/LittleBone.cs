@@ -225,14 +225,15 @@ namespace Spooky.Content.NPCs.Friendly
 
 			if (Main.LocalPlayer.ZoneDesert)
             {
-				Dialogue.Add("What is this horrible place? Its nothing but sand and awfully hot weather. I rate this area a zero out of ten.");
+				Dialogue.Add("What is this horrible place? Its nothing but sand and awfully hot weather. I don't like this area.");
 				Dialogue.Add("Ouch! Why are there so many painful prickly plants here? I thought plants were supposed to be nice and friendly!");
+				Dialogue.Add("Can we go somewhere else? Sand keeps getting inside my flower pot!");
             }
 
 			if (Main.LocalPlayer.ZoneJungle)
 			{
-				Dialogue.Add("This is a really dense and humid forest. Not the kind of weather I was expecting.");
-				Dialogue.Add("Why is everything here so unfriendly? Some of these creatures are a bit too territorial, even by nature's standards.");
+				Dialogue.Add("This is a really dense and humid forest. I wonder ");
+				Dialogue.Add("Why is everything here so unfriendly? Even the giant plants here try to eat you!");
 			}
 
 			if (Main.LocalPlayer.ZoneGlowshroom)

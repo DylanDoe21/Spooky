@@ -4,35 +4,38 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
-    public class PhantomBomb : ModProjectile
-    {
+	public class EyeBeam : ModProjectile
+	{
         private List<Vector2> cache;
         private Trail trail;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Skull Bomb");
-        }
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Eye Beam");
+		}
 
-        public override void SetDefaults()
-        {
-            Projectile.width = 24;
-            Projectile.height = 28;
-            Projectile.hostile = true;
-            Projectile.tileCollide = true;
+		public override void SetDefaults()
+		{
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.hostile = true;
+			Projectile.tileCollide = true;
+			Projectile.timeLeft = 500;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 2000;
-        }
+            Projectile.extraUpdates = 15;
+            Projectile.alpha = 255;
+		}
 
         public override bool PreDraw(ref Color lightColor)
         {
-            //draw prim trail
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
 
@@ -52,7 +55,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             return true;
         }
 
-        const int TrailLength = 15;
+        const int TrailLength = 200;
 
         private void ManageCaches()
         {
@@ -75,40 +78,36 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
             {
-                return Color.Lerp(Color.DarkViolet, Color.DarkSlateBlue, factor.X) * factor.X;
+                return Color.OrangeRed;
             });
 
             trail.Positions = cache.ToArray();
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override void AI()
-        {
-            Lighting.AddLight(Projectile.Center, 0.5f, 0.35f, 0.7f);
-
-            Projectile.rotation += 0.2f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
-            Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-
-            if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+		public override void AI()
+		{
+            if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();
-            }
-        }
+			}
+		}
 
-        public override void Kill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 25, 0, 0, 
-                ModContent.ProjectileType<PhantomExplosion>(), Projectile.damage, 0, Main.myPlayer, 0, 0);
-            }
-        }
-    }
+            for (int numDust = 0; numDust < 25; numDust++)
+			{                                                                                  
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-12f, 12f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
+                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
+                Main.dust[dustGore].noGravity = true;
+			}
+		}
+	}
 }

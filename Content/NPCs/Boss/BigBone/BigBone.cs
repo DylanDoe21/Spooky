@@ -88,6 +88,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             //ints
             writer.Write(ScaleTimerLimit);
+            writer.Write(SaveDirection);
 
             //bools
             writer.Write(Phase2);
@@ -106,6 +107,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             //ints
             ScaleTimerLimit = reader.ReadInt32();
+            SaveDirection = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();

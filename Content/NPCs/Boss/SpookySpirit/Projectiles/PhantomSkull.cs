@@ -35,6 +35,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
         
         public override void AI()
         {
+            Lighting.AddLight(NPC.Center, 0.5f, 0.35f, 0.7f);
+
             Player player = Main.player[NPC.target];
 
             Vector2 vector92 = new Vector2(NPC.Center.X, NPC.Center.Y);

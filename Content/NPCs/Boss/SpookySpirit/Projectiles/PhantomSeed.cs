@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 18;                   			 
-            Projectile.height = 26;         
+			Projectile.width = 14;                   			 
+            Projectile.height = 20;         
 			Projectile.hostile = true;                                 			  		
             Projectile.tileCollide = false;
 			Projectile.ignoreWater = false;
@@ -89,6 +89,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override void AI()
 		{		
+			Lighting.AddLight(Projectile.Center, 0.5f, 0.35f, 0.7f);
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
