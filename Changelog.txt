@@ -19,20 +19,19 @@ New Friendly NPC, Little Eye the Alchemist:
 -Upon completing his fourth quest, you will get the eye valley pylon, and this is now the only way you can get it
 -After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with the acidic concoction
 
--He will also give you only one sentient heart per quest
--After orro & boro are defeated, he will start giving you random quests you can complete in return for one sentient heart 
+-After orro & boro are defeated, he will start giving you a selection of new random quests you can complete in return for one sentient heart 
 (sentient hearts will be explained below in the sentient weapons section)
 
 
 
 New Event, The Egg Incursion:
 
--A new endurance invasion event that takes place before you can summon orro & boro, during early hardmode
+-A new endurance invasion event that takes place before you can summon orro & boro, it will begin upon trying to break the egg with the concoction for the first time
 -It only needs to be completed once, afterward you will be able to summon orro & boro at any time without being forced to do it again
 -However, if you die during the event then you will need to restart it again
--It will begin upon trying to break the egg with the concoction for the first time
--The event does not have an enemy kill count, and since it is an endurance event, and the progress bar increases on its own over time while you are in the valley of eyes
+-The event does not have an enemy kill count, and since it is an endurance event the progress bar increases on its own over time while you are in the valley of eyes
 -There is a craftable summon item for the event you can get after orro & boro, as the enemies will drop orro & boro's crafting material after you defeat them
+-The event will also last for less time if you have already completed it
 
 
 
@@ -48,14 +47,14 @@ New Biome, The Swampy Cemetery:
 An Old Friend Returns, The Spooky Spirit:
 
 -The spooky spirit from older versions of the mod has been re-added as a boss fought in the swampy cemetery biome
--his fight is still somewhat the same, but with many improvements, as well as new visual effects to make it feel more special
+-his fight is still somewhat the same, but with many improvements, as well as new visual effects to make it feel more special, and improved loot
 
 
 
-New Catacombs Visual:
+New Catacomb Mechanic, The Darkness:
 
--While in the catacombs your vision will be darkened, only allowing you to see a certain distance away from you
--This is to make exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
+-While in the catacombs your vision will be darkened, only allowing you to see a certain distance ahead
+-This makes exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
 -The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
 
 
@@ -63,17 +62,16 @@ New Catacombs Visual:
 New Enemy, the Catacomb Guardian:
 
 -Basically a dungeon guardian but for the catacombs, to prevent exploring it or getting loot before its intended to be found
--They will spawn in each layer of the catacombs if that layer's barrier has not been opened (does not apply to big bone's arena)
--you will be able to spawn them manually after big bone if you want to actually fight one (if you are insane)
--Defeating the catacomb guardian will give you a funny pet item
+-They will spawn in each layer of the catacombs if that layer's barrier has not been opened (Does not apply to big bone's arena)
+-You are not forced to fight this enemy, but it can be an optional challenge (Or if you want to do it for the meme)
 
 
 
 New Music:
 
--"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
 -"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
 -"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
+-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
 
 
 
@@ -89,9 +87,9 @@ Screen Shaking Effect:
 (For example, when rot-gourd shakes the screen after slamming the ground, certain weapons impacting the ground, ect)
 
 Redone Halloween Season Config:
--This config option existed in past updates, but has been re-written to be functionally better in game
+-This config option existed in past versions, but has been re-written to be functionally better in game
 -The halloween config no longer requires you to leave and re-enter the world, it will now automatically be applied in game the moment you change it
--The halloween config being turned off will not disable halloween if it is meant to normally occur in vanilla (like during october or if you defeat the pumpkin moon)
+-The halloween config being turned off will not disable halloween if it is meant to occur in vanilla (like during october or if you defeat the pumpkin moon)
 
 
 
@@ -109,10 +107,6 @@ Other New Additions:
 
 
 ~CHANGES TO EXISTING STUFF~
-
-
-This category is basically changes to items
-The specific categories are for more detailed changes, and at the bottom is just a list of other random changes that dont really fit in a category
 
 
 
@@ -245,17 +239,17 @@ Little Bone Changes:
 ~OTHER SMALL CHANGES TO EXISTING STUFF~
 
 
-Biomes:
+Biomes, Blocks, and Ambience:
 
 -Made modifications to the spooky forest generation, the sides of the biome are now less wide to make it less intrusive on other worldgen
--Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
--Spooky forest blocks are now quicker to mine, each block having the same "breaking speed" as their vanilla counterpart
+-Green clentaminator solution will now convert spooky forest blocks back into their respective vanilla blocks
+-World globes will now only switch the spooky forest backgrounds while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
--Green clentaminator solution will now convert spooky forest blocks back into their respective vanilla blocks
--World globes will now only change the spooky forest background while you are in the spooky forest
+-Spooky forest blocks are now quicker to mine, each block having the same "breaking speed" as their vanilla counterpart
 -The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused the structures to place weirdly sometimes
 -The fleshy eye blocks in the valley of eyes now produce cool new ambient particles, and produce blood particles when walked on
+-Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 
 
 Items:
@@ -263,15 +257,16 @@ Items:
 -Old wood now counts as an actual wood type for crafting recipes
 -Old wood platforms can now be crafted by hand
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
--The catacomb barrier unlocking keys now have a cool animation when you use them
+-Necromancy for dummies projectiles no longer bounce off of enemies, and can now only pierce up to two enemies
+-The catacomb barrier keys now have a cool animation when you use them
 -Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
 -Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes, and they now display the actual name and composer of the song in their item tooltip
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
 -Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
--Fixed certain items that were supposed to have sell prices but didnt have any
--Fixed certain items in the mod not having journey mode research (Please report if any remaining items still do not have journey mode researchability)
+-Fixed certain items in the mod that were supposed to have sell prices but didnt have any
+-Fixed certain items in the mod not having journey mode researchability (Please report if any remaining items still do not have journey mode researchability)
 
 
 Enemies:

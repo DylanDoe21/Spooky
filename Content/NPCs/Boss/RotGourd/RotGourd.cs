@@ -25,11 +25,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 	[AutoloadBossHead]
 	public class RotGourd : ModNPC
 	{
+		Vector2 SavePlayerPosition;
+
 		public bool FirstFlySpawned = false;
 		public bool SecondFlySpawned = false;
 		public bool ThirdFlySpawned = false;
-
-		Vector2 SavePosition;
 
 		public override void SetStaticDefaults()
 		{
@@ -279,6 +279,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									
 						if (NPC.localAI[1] < 3)
 						{
+							//jumping velocity
 							Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 200 : -200), player.Center.Y - 400);
 
 							if (NPC.position.X <= player.Center.X + 300 && NPC.position.X >= player.Center.X - 300)
@@ -304,6 +305,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 115)
 							{
 								NPC.noTileCollide = true;
+							}
+
+							if (NPC.localAI[0] > 75 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 10 && NPC.Center.X >= player.Center.X - 10)
+							{
+								NPC.localAI[0] = 110;
 							}
 
 							//charge down
@@ -617,7 +623,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							if (NPC.localAI[0] == 2)
 							{
-								SavePosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
+								SavePlayerPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
 							}
 
 							if (NPC.localAI[0] == 60)
@@ -637,7 +643,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							if (NPC.localAI[0] >= 90)
 							{
-								if (NPC.position.Y >= SavePosition.Y)
+								if (NPC.position.Y >= SavePlayerPosition.Y)
 								{
 									NPC.noTileCollide = false;
 								}

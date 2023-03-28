@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 			Projectile.width = 10;
 			Projectile.height = 10;
 			Projectile.hostile = true;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
             Projectile.extraUpdates = 15;
             Projectile.penetrate = 1;
 			Projectile.timeLeft = 500;
@@ -89,12 +89,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
         {
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] >= 5)
+            if (Projectile.ai[0] >= 10)
             {
                 Projectile.Kill();
             }
 
-            return true;
+            return false;
         }
 
         public override void AI()

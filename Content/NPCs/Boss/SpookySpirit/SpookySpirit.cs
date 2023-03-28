@@ -237,7 +237,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 42 / 3 : Main.expertMode ? 30 / 2 : 22;
+            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 25;
 
             if (SaveDirection != 0)
             {
@@ -264,6 +264,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 //attacks
                 switch ((int)NPC.ai[0])
                 {
+                    //fight intro
+                    case -1:
+                    {
+                        break;
+                    }
                     //fly at the player for a bit
                     case 0:
                     {
@@ -788,10 +793,15 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             {
                                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
 
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                        
+                                ShootSpeed = ShootSpeed * -5;
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
-                                    Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-7f, 7f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
+                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
                                 }
                             }
                         }

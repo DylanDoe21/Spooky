@@ -2,13 +2,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Furniture
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
-	public class OldWoodPlatformItem : ModItem
+	public class SpookyOrganItem : ModItem
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Old Wood Platform");
+			DisplayName.SetDefault("Spooky Organ");
+			Tooltip.SetDefault("Right click to play the organ\nBut, it can only play Toccata and Fugue in D minor");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -19,18 +20,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 7;
+			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
-			Item.maxStack = 999;
-			Item.createTile = ModContent.TileType<OldWoodPlatform>();
+			Item.maxStack = 99;
+			Item.createTile = ModContent.TileType<SpookyOrgan>();
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe(2)
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1)
-            .Register();
-        }
 	}
 }

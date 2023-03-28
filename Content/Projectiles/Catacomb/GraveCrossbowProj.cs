@@ -9,8 +9,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class GraveCrossbowProj : ModProjectile
 	{
-		Vector2 holdOffset = new Vector2(-3, -12);
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Grave Crossbow");
@@ -20,7 +18,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		public override void SetDefaults()
 		{
             Projectile.width = 66;
-            Projectile.height = 66;
+            Projectile.height = 88;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -71,7 +69,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + new Vector2(-23, -17);
+				Projectile.position = player.position + new Vector2(-18, -15);
 				player.velocity.X *= 0.98f;
 
                 Projectile.localAI[0] += 0.25f;

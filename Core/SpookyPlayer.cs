@@ -203,11 +203,13 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
+            //make player immune to the sandstorm debuff because it still applies it when you are in a spooky mod biome and theres a desert nearby
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
                 Player.buffImmune[BuffID.WindPushed] = true;
             }
 
+            //bogger frenzy stuff
             if (MocoBoogerCharge >= 15)
             {
                 BoogerFrenzyTime++;
@@ -250,11 +252,13 @@ namespace Spooky.Core
                 }
             }
 
+            //increase endurance while you have the cross charm protection
             if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
-                Player.endurance += 0.05f;
+                Player.endurance += 0.12f;
             }
 
+            //bone mask wisp spawning
             if (BoneMask)
             {
                 //all of these formulas are just copied from vanilla's stopwatch
@@ -326,6 +330,7 @@ namespace Spooky.Core
 
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
+            //fishing stuff for spooky mod crates
             bool inWater = !attempt.inLava && !attempt.inHoney;
             bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
             bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>();
@@ -337,7 +342,7 @@ namespace Spooky.Core
                     if (inSpookyBiome)
                     {
                         sonar.Text = "Spooky Crate";
-                        sonar.Color = Color.Orange;
+                        sonar.Color = Color.Green;
                         sonar.Velocity = Vector2.Zero;
                         sonar.DurationInFrames = 300;
 
@@ -347,7 +352,7 @@ namespace Spooky.Core
                     if (inCatacombArea)
                     {
                         sonar.Text = "Skull Crate";
-                        sonar.Color = Color.Yellow;
+                        sonar.Color = Color.Green;
                         sonar.Velocity = Vector2.Zero;
                         sonar.DurationInFrames = 300;
 
@@ -358,6 +363,7 @@ namespace Spooky.Core
         }
     }
 
+    //cross charm draw layer
     public class CrossCharmShield : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
@@ -377,6 +383,7 @@ namespace Spooky.Core
         }
     }
 
+    //gore monger aura draw layer
     public class GoreAura : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);

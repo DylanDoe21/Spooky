@@ -51,14 +51,14 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			float time = Main.GameUpdateCount * 0.01f;
 
-			float brightness = 0.7f;
-			brightness *= (float)MathF.Sin(-j / 8f + time + i);
-			brightness *= (float)MathF.Sin(-i / 8f + time + j);
-			brightness += 0.7f;
+			float intensity = 0.7f;
+			intensity *= (float)MathF.Sin(-j / 8f + time + i);
+			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity += 0.7f;
 
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * brightness);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
 		}
     }
 
@@ -81,14 +81,14 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			float time = Main.GameUpdateCount * 0.01f;
 
-			float brightness = 0.7f;
-			brightness *= (float)MathF.Sin(-j / 8f + time + i);
-			brightness *= (float)MathF.Sin(-i / 8f + time + j);
-			brightness += 0.7f;
+			float intensity = 0.7f;
+			intensity *= (float)MathF.Sin(-j / 8f + time + i);
+			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity += 0.7f;
 
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * brightness);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * intensity);
 		}
 	}
 
@@ -128,14 +128,14 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			float time = Main.GameUpdateCount * 0.01f;
 
-			float brightness = 0.7f;
-			brightness *= (float)MathF.Sin(-j / 8f + time + i);
-			brightness *= (float)MathF.Sin(-i / 8f + time + j);
-			brightness += 0.7f;
+			float intensity = 0.7f;
+			intensity *= (float)MathF.Sin(-j / 8f + time + i);
+			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity += 0.7f;
 
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * brightness);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * intensity);
 		}
 	}
 }

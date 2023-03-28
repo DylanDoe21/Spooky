@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         Vector2 SavePlayerPosition;
 
-        public bool Transition = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
         private bool spawned;
@@ -50,7 +49,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(Transition);
             writer.Write(Chomp);
             writer.Write(OpenMouth);
             writer.Write(spawned);
@@ -65,7 +63,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            Transition = reader.ReadBoolean();
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
             spawned = reader.ReadBoolean();
@@ -221,7 +218,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.ai[0] = -2;
             }
 
-            if (!Transition && NPC.localAI[3] < 75)
+            if (NPC.localAI[3] < 75)
             {
                 //attacks
                 switch ((int)NPC.ai[0])
@@ -232,7 +229,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         OpenMouth = true;
                         Chomp = false;
 
-                        Transition = true;
                         NPC.immortal = true;
                         NPC.dontTakeDamage = true;
                         NPC.netUpdate = true;

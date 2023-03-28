@@ -69,9 +69,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-                Vector2 holdOffset = player.direction == -1 ? new Vector2(100, -16) : new Vector2(-100, -16);
-
-				Projectile.position = player.position + holdOffset;
+                Projectile.position = player.position + new Vector2(-5, -2);
 				player.velocity.X *= 0.95f;
 
                 Projectile.localAI[0] += 0.25f;
@@ -104,11 +102,11 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed.X *= 25;
-                        ShootSpeed.Y *= 25;	
+                        ShootSpeed.X *= 7;
+                        ShootSpeed.Y *= 7;
 
-                        //Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        //ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<SlingshotBall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 				}
 

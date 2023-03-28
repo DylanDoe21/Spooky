@@ -158,38 +158,41 @@ namespace Spooky.Content.NPCs
                     break;
                 }
 
-                //create distance ring that increases, do funny jumpscare instakill if player enters the ring
+                //countdown (you better start running)
                 case 1:
                 {
-                    //increase and use localAI[0] for the distance
-                    NPC.localAI[0] += 0.5f;
+                    NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] > 150f)
+                    if (NPC.localAI[0] == 60)
                     {
-                        NPC.localAI[0] += 35f;
+                        CombatText.NewText(NPC.getRect(), Color.White, "5", true);
                     }
-
-                    for (int i = 0; i < 20; i++)
+                    if (NPC.localAI[0] == 120)
                     {
-                        Vector2 offset = new();
-                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                        offset.X += (float)(Math.Sin(angle) * NPC.localAI[0]);
-                        offset.Y += (float)(Math.Cos(angle) * NPC.localAI[0]);
-                        Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, DustID.GemDiamond, 0, 0, 100, Color.White, 1f)];
-                        dust.velocity *= 0;
-                        dust.noGravity = true;
-                        dust.scale = 0.5f;
+                        CombatText.NewText(NPC.getRect(), Color.White, "4", true);
                     }
-
-                    if (player.Distance(NPC.Center) <= NPC.localAI[0])
+                    if (NPC.localAI[0] == 180)
                     {
+                        CombatText.NewText(NPC.getRect(), Color.White, "3", true);
+                    }
+                    if (NPC.localAI[0] == 240)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.White, "2", true);
+                    }
+                    if (NPC.localAI[0] == 300)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.White, "1", true);
+                    }
+                    if (NPC.localAI[0] == 360)
+                    {
+                        NPC.localAI[0] = 0;
                         NPC.ai[0]++;
-                        NPC.netUpdate = true;
                     }
 
                     break;
                 }
 
+                //KILL KILL KILL KILL KILL KILL
                 case 2:
                 {
                     NPC.noGravity = true;
@@ -213,7 +216,7 @@ namespace Spooky.Content.NPCs
                     }
 
                     break;
-                }   
+                }
             }
         }
 

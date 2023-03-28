@@ -155,9 +155,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
             else
             {
-				string text = "You need a special substance to destroy the egg";
-
-				Main.NewText(text, 171, 64, 255);
+				Main.NewText("You need a special substance to destroy the egg", 171, 64, 255);
 			}
 
 			return true;
