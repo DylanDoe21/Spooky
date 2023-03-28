@@ -99,9 +99,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 5200;
-            NPC.damage = 42;
-            NPC.defense = 15;
+            NPC.lifeMax = 4200;
+            NPC.damage = 40;
+            NPC.defense = 12;
             NPC.width = 130;
             NPC.height = 112;
             NPC.knockBackResist = 0f;
@@ -121,7 +121,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.6f);
+            NPC.damage = (int)(NPC.damage * 0.85f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

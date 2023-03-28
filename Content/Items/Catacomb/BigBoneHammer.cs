@@ -109,10 +109,10 @@ namespace Spooky.Content.Items.Catacomb
 
 				for (int numDusts = 0; numDusts < 30; numDusts++)
 				{
-					int dustGore = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width / 2, hitbox.Height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+					int dustGore = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y + 10), hitbox.Width / 2, hitbox.Height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
 					Main.dust[dustGore].color = Color.Yellow;
-					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
-					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-1f, 1f);
+					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-4f, 4f);
+					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-0.2f, 0.2f);
 					Main.dust[dustGore].scale = 0.25f; 
 					Main.dust[dustGore].noGravity = true;
 				}

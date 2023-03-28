@@ -4,8 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -24,13 +22,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 20;
-			Projectile.height = 20;
+			Projectile.width = 10;
+			Projectile.height = 10;
 			Projectile.hostile = true;
-			Projectile.tileCollide = true;
-			Projectile.timeLeft = 500;
-            Projectile.penetrate = 1;
+			Projectile.tileCollide = false;
             Projectile.extraUpdates = 15;
+            Projectile.penetrate = 1;
+			Projectile.timeLeft = 500;
             Projectile.alpha = 255;
 		}
 
@@ -87,26 +85,24 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-		public override void AI()
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] >= 5)
+            {
+                Projectile.Kill();
+            }
+
+            return true;
+        }
+
+        public override void AI()
 		{
             if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();
-			}
-		}
-
-		public override void Kill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
-
-            for (int numDust = 0; numDust < 25; numDust++)
-			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-12f, 12f);
-                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
-                Main.dust[dustGore].noGravity = true;
 			}
 		}
 	}

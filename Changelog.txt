@@ -69,6 +69,14 @@ New Enemy, the Catacomb Guardian:
 
 
 
+New Music:
+
+-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
+-"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
+-"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
+
+
+
 New Config Options:
 
 Spooky Forest at Spawn:
@@ -80,17 +88,10 @@ Screen Shaking Effect:
 -Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
 (For example, when rot-gourd shakes the screen after slamming the ground, certain weapons impacting the ground, ect)
 
-Halloween Season Config Fixes:
--The halloween season config being off will no longer disable halloween if it is meant to normally occur in vanilla (like during october or if you defeat the pumpkin moon)
--The halloween season config also no longer requires you to leave and re-enter the world for it to apply
-
-
-
-New Music:
-
--"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
--"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
--"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
+Redone Halloween Season Config:
+-This config option existed in past updates, but has been re-written to be functionally better in game
+-The halloween config no longer requires you to leave and re-enter the world, it will now automatically be applied in game the moment you change it
+-The halloween config being turned off will not disable halloween if it is meant to normally occur in vanilla (like during october or if you defeat the pumpkin moon)
 
 
 
@@ -101,28 +102,24 @@ Other New Additions:
 -New rot gourd set, a melee armor obtained after rot gourd with a nasty and maybe broken set bonus
 -New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
 -Added masks and trophies for each spooky mod boss, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
--Moco, Orro, and Boro will each drop one sentient heart upon being defeated for the first time (for orro & boro, only the last worm killed will drop one)
--Four new eye valley chest weapons: Flesh Mincer, Seer, Retina Staff, and Eye Lasher
+-Four new eye valley chest weapons, Flesh Mincer, Seer, Retina Staff, and Eye Lasher
 
 
 
 
 
-~CHANGES TO EXISTING FEATURES~
+~CHANGES TO EXISTING STUFF~
 
 
+This category is basically changes to items
+The specific categories are for more detailed changes, and at the bottom is just a list of other random changes that dont really fit in a category
 
-Spooky Biome Item Changes:
+
 
 Rot Gourd Loot:
--Removed all of rout gourds item drops, and instead rot gourd will now drop a key used to unlock the chests in the underground spooky forest
 
-Warlock's Cloak:
--Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
-
-Horseman Armor:
--Horseman armor is now part of spooky spirit's craftable items, and has been re-tiered to fit where spooky spirit is fought
--It is functionally the same, but each individual piece of the set has received buffs to their stat bonuses and defense
+-Removed all of rot gourd's weapon drops, and instead he will now drop a key that you use to unlock the chests in the underground spooky forest
+-The items in the spooky biome chests have been buffed to compensate as they are now basically rot gourd's loot
 
 
 
@@ -168,6 +165,7 @@ Old Hunter's Crossbow:
 -Damage has been buffed significantly
 -The crossbow now has an actual arrow on it while you are holding it down to charge it
 -The crossbow also now shoots the arrow at any point when you release left click, and will shoot faster based on how far back the arrow is pulled on the held crossbow
+-Reduced how much it slows your movement speed while you are holding it down
 
 Rod of Ensnaring:
 -Mana cost has been slightly increased
@@ -197,9 +195,9 @@ Disciple's Mask:
 
 Rot Gourd Changes:
 
--Rot gourd launching players up when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
--Rot gourd no longer creates dirt debris projectiles when jumping in his desperation phase
--Removed rot gourd's weird slamming hitbox thing because it was just unfair and was a pain to balance
+-Rot gourd launching players upward when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
+-Rot gourd no longer creates dirt debris when slamming the ground in his desperation phase as it was very spammy and unfair when combined with the flies charging at you
+-Removed rot gourd's ground slam hitbox thing because it was unfair and was a pain to balance
 
 
 
@@ -211,7 +209,7 @@ Orro & Boro Changes:
 
 Big Bone Changes:
 
--All of big bone's fiery projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
+-All of big bone's fire projectiles will now inflict the on fire debuff (Duration depends on the specific projectile)
 -The bolts shot by big bone's solar flowers during his phase transition now properly damage players
 -The bouncing flowers he shoots during his first phase now have much better bouncing behavior, and are shot in tighter spreads to make them more fair
 -Added fancy dust particles for his healing and defensive flowers when they die
@@ -242,33 +240,48 @@ Little Bone Changes:
 
 
 
-Other Changes and Fixes:
 
--Items that were not researchable for duplication in journey mode have all been fixed (Please report if any remaining items still do not have journey mode researchability)
--The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
--The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused strange generation with structure placement
--The fleshy eye blocks in the valley of eyes now produce ambient particles, and produce blood particles when walked on
--Tortumors and Giant Tortumors can no longer move through blocks
--Green solution for the clentaminator will now convert spooky forest blocks back into their respective vanilla blocks
--Spooky forest blocks are now easier and quicker to mine
--Old wood now counts as an actual wood type for crafting recipes
+
+~OTHER SMALL CHANGES TO EXISTING STUFF~
+
+
+Biomes:
+
+-Made modifications to the spooky forest generation, the sides of the biome are now less wide to make it less intrusive on other worldgen
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
--The catacomb barrier keys now have a cool animation when you use them
--Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
--Also added sell prices for items that were supposed to have them, such as the spooky mod bosses master relics and pets
--All natural spawns will be disabled during spooky mod's boss fights
--Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
--Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes
--Spooky mod music boxes now display the actual name and composer of the song in their item tooltip
--World globes will now only change the spooky forest background while you are in the spooky forest
+-Spooky forest blocks are now quicker to mine, each block having the same "breaking speed" as their vanilla counterpart
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
--Modified putty slime jumping ai so that they can now jump over short walls, increased how far they can jump, and decreased their knockback resistance
--Modified marigold's jumping ai and made it a lot smoother in game
--Marigolds will now make a sound every time they spit a spore at you
--Spooky dance ghosts no longer drop money
--Made modifications to the spooky forest generation, the sides of the biome are less wide to make it less intrusive on other worldgen
 -Changed the map colors for some of the plants in the spooky forest to make them look nicer
+-Green clentaminator solution will now convert spooky forest blocks back into their respective vanilla blocks
+-World globes will now only change the spooky forest background while you are in the spooky forest
+-The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused the structures to place weirdly sometimes
+-The fleshy eye blocks in the valley of eyes now produce cool new ambient particles, and produce blood particles when walked on
+
+
+Items:
+
+-Old wood now counts as an actual wood type for crafting recipes
+-Old wood platforms can now be crafted by hand
+-Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
+-The catacomb barrier unlocking keys now have a cool animation when you use them
+-Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
+-Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes, and they now display the actual name and composer of the song in their item tooltip
+-The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
+-Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
+-Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
+-Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
+-Fixed certain items that were supposed to have sell prices but didnt have any
+-Fixed certain items in the mod not having journey mode research (Please report if any remaining items still do not have journey mode researchability)
+
+
+Enemies:
+
+-Spooky dance ghosts no longer drop money
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
+-Putty slimes now use vanilla slime ai since there old ai was kind of annoying in game and was annoying to fix/work with
+-Marigold jumping ai has been polished a bit to look and behave better, and they will now make a sound every time they spit a spore at you
+-Tortumors and Giant Tortumors can no longer move through blocks
+-All natural spawns will be disabled during spooky mod's boss fights
+-Increased contact damage scaling for all spooky mod bosses in expert and master mode because it was way too weak before
 -Fixed vanilla's underworld enemies sometimes spawning while in the valley of eyes
--Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors

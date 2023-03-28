@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.Pets
 				}
 			}
             
-            Lighting.AddLight(Projectile.Center, 0.3f, 0f, 0.6f);
+            Lighting.AddLight(Projectile.Center, 0.5f, 0.35f, 0.75f);
 
 			if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {

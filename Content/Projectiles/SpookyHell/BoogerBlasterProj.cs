@@ -11,8 +11,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
         int Charge = 0;
 
-		Vector2 holdOffset = new Vector2(-3, -2);
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Booger Blaster");
@@ -20,8 +18,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 32;
-            Projectile.height = 45;
+            Projectile.width = 64;
+            Projectile.height = 64;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -72,8 +70,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + holdOffset;
-				player.velocity.X *= 0.95f;
+                Projectile.position = player.position + new Vector2(-23, -17);
+				player.velocity.X *= 0.98f;
 
                 Projectile.localAI[0] += 0.25f;
 

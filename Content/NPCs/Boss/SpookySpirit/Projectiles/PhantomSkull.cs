@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
         public override void SetDefaults()
         {
             NPC.lifeMax = 1;
-            NPC.damage = 25;
+            NPC.damage = 35;
             NPC.defense = 0;
             NPC.width = 28;
             NPC.height = 24;
@@ -72,7 +72,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 float rotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);
 
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, (float)((Math.Cos(rotation) * 3.8f) * -1),
-                (float)((Math.Sin(rotation) * 3.8f) * -1), ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage, 0f, Main.myPlayer);
+                (float)((Math.Sin(rotation) * 3.8f) * -1), ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage / 2, 0f, Main.myPlayer);
 
                 NPC.active = false;
             }

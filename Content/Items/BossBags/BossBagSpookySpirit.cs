@@ -6,9 +6,9 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.NPCs.Boss.RotGourd;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -43,17 +43,25 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void OpenBossBag(Player player)
         {
-			/*
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
+			//weapon drops
+            int[] MainItem = new int[] 
+            { 
+                ModContent.ItemType<SpiritSword>(), 
+                ModContent.ItemType<SpiritSlingshot>(), 
+                ModContent.ItemType<SpiritHandStaff>(), 
+                ModContent.ItemType<SpiritScroll>()
+            };
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+
+			//material
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyPlasma>(), Main.rand.Next(20, 35));
 
 			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyAmulet>());
-			*/
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpiritAmulet>());
 		}
 
-		public override int BossBagNPC => ModContent.NPCType<RotGourd>();
+		public override int BossBagNPC => ModContent.NPCType<SpookySpirit>();
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

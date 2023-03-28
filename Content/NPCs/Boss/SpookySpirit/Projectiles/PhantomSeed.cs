@@ -175,7 +175,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 						Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
 					}
                 }
-				Projectile.velocity *= 1.045f;	 //1.058				
+				Projectile.velocity *= 1.042f;				
 			}
 		}
 

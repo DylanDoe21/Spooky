@@ -5,22 +5,20 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace Spooky.Content.Projectiles.Catacomb
+namespace Spooky.Content.Projectiles.Cemetery
 {
-	public class GraveCrossbowProj : ModProjectile
+	public class SpiritSlingshotProj : ModProjectile
 	{
-		Vector2 holdOffset = new Vector2(-3, -12);
-
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grave Crossbow");
+			DisplayName.SetDefault("Ghostly Slingshot");
             Main.projFrames[Projectile.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 66;
-            Projectile.height = 66;
+            Projectile.width = 34;
+            Projectile.height = 32;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -71,8 +69,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + new Vector2(-23, -17);
-				player.velocity.X *= 0.98f;
+                Vector2 holdOffset = player.direction == -1 ? new Vector2(100, -16) : new Vector2(-100, -16);
+
+				Projectile.position = player.position + holdOffset;
+				player.velocity.X *= 0.95f;
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -107,8 +107,8 @@ namespace Spooky.Content.Projectiles.Catacomb
                         ShootSpeed.X *= 25;
                         ShootSpeed.Y *= 25;	
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        //Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        //ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 				}
 

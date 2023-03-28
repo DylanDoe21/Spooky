@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = Main.masterMode ? 52000 / 3 : Main.expertMode ? 45000 / 2 : 32000;
+            NPC.lifeMax = 32000;
             NPC.damage = 60;
             NPC.defense = 35;
             NPC.width = 75;
@@ -96,6 +96,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.HitSound = HitSound;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+            NPC.damage = (int)(NPC.damage * 0.85f);
         }
 
         public override void FindFrame(int frameHeight)

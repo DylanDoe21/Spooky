@@ -92,9 +92,6 @@ namespace Spooky.Core
 
 			List<int> GourdDrops = new List<int>()
 			{
-				ModContent.ItemType<RotGourdTrophyItem>(),
-				ModContent.ItemType<RotGourdMask>(),
-				ModContent.ItemType<SpookyChestKey>(),
 				ModContent.ItemType<RotGourdBox>()
 			};
 
@@ -146,11 +143,6 @@ namespace Spooky.Core
 
 			List<int> MocoDrops = new List<int>()
 			{
-				ModContent.ItemType<MocoTrophyItem>(),
-				ModContent.ItemType<MocoMask>(),
-				ModContent.ItemType<BoogerFlail>(),
-				ModContent.ItemType<BoogerBlaster>(),
-				ModContent.ItemType<BoogerStaff>(),
 				ModContent.ItemType<MocoBox>()
 			};
 
@@ -217,19 +209,6 @@ namespace Spooky.Core
 
 			List<int> OrroboroDrops = new List<int>()
 			{
-				ModContent.ItemType<OrroboroEye>(),
-				ModContent.ItemType<OrroboroRelicItem>(),
-				ModContent.ItemType<BoroMask>(),
-				ModContent.ItemType<BoroTrophyItem>(),
-				ModContent.ItemType<OrroMask>(),
-				ModContent.ItemType<OrroTrophyItem>(),
-				ModContent.ItemType<ArteryPiece>(),
-				ModContent.ItemType<Scycler>(),
-				ModContent.ItemType<EyeFlail>(),
-				ModContent.ItemType<EyeRocketLauncher>(),
-				ModContent.ItemType<MouthFlamethrower>(),
-				ModContent.ItemType<LeechWhip>(),
-				ModContent.ItemType<LeechStaff>(),
 				ModContent.ItemType<SpookyHellBossBox>()
 			};
 
@@ -255,12 +234,6 @@ namespace Spooky.Core
 
 			List<int> BigBoneDrops = new List<int>()
 			{
-				ModContent.ItemType<BigBoneTrophyItem>(),
-				ModContent.ItemType<BigBoneMask>(),
-				ModContent.ItemType<BigBoneHammer>(),
-				ModContent.ItemType<BigBoneBow>(),
-				ModContent.ItemType<BigBoneStaff>(),
-				ModContent.ItemType<BigBoneScepter>(),
 				ModContent.ItemType<BigBoneBox>()
 			};
 

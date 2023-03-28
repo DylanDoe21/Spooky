@@ -11,11 +11,12 @@ namespace Spooky.Content.Tiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
+			TileID.Sets.CanBeDugByShovel[Type] = true;
+			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(73, 62, 49));
 			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
             DustType = DustID.Dirt;
