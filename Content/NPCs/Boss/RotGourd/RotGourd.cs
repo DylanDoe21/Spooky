@@ -199,26 +199,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			NPC.spriteDirection = NPC.direction;
 			NPC.rotation = NPC.velocity.X * 0.02f;
 
-			//despawn if all players are dead or not in the biome
-            if (player.dead)
-            {
-                NPC.ai[2]++;
-
-				//play sound
-				if (NPC.ai[2] == 60)
-				{
-					NPC.noTileCollide = false;
-					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-				}
-
-				//jump up super fast, then despawn
-                if (NPC.ai[2] >= 60)
-                {
-                    NPC.velocity.Y = -40;
-					NPC.EncourageDespawn(10);
-                }
-            }
-
 			if (NPC.life < (NPC.lifeMax / 1.25f) && !FirstFlySpawned)
 			{
 				NPC.ai[1] = 0;
@@ -267,8 +247,29 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                 NPC.ai[1] = 1;
             }
 
-			if (!player.dead)
+			//despawn if all players are dead
+            if (player.dead)
+            {
+                NPC.ai[2]++;
+
+				//play sound
+				if (NPC.ai[2] == 60)
+				{
+					NPC.noTileCollide = false;
+					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+				}
+
+				//jump up super high, then despawn
+                if (NPC.ai[2] >= 60)
+                {
+                    NPC.velocity.Y = -40;
+					NPC.EncourageDespawn(10);
+                }
+            }
+			//use normal attacks
+			else
 			{
+				//attacks
 				switch ((int)NPC.ai[0])
 				{
 					//Jump 3 times towards the player
