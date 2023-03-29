@@ -280,12 +280,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						if (NPC.localAI[1] < 3)
 						{
 							//jumping velocity
-							Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 200 : -200), player.Center.Y - 400);
-
-							if (NPC.position.X <= player.Center.X + 300 && NPC.position.X >= player.Center.X - 300)
-							{
-								JumpTo = new(player.Center.X, player.Center.Y - 400);
-							}
+							Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 500);
 
 							Vector2 velocity = JumpTo - NPC.Center;
 
@@ -309,7 +304,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							if (NPC.localAI[0] > 75 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 10 && NPC.Center.X >= player.Center.X - 10)
 							{
-								NPC.localAI[0] = 110;
+								NPC.localAI[0] = 115;
 							}
 
 							//charge down
