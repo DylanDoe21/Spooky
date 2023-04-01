@@ -5,6 +5,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.EggEvent.Projectiles;
+
 namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class EyeRocket : ModProjectile
@@ -26,7 +29,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 200;
-            Projectile.penetrate = 2;
         }
         
         public override bool PreDraw(ref Color lightColor)
@@ -71,21 +73,25 @@ namespace Spooky.Content.Projectiles.SpookyHell
             if (foundTarget != -1)
             {
                 NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 100;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                Projectile.tileCollide = false;
+            }
+            else
+            {
+                Projectile.tileCollide = true;
             }
         }
 
         private int HomeOnTarget()
         {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 400;
+            const float homingMaximumRangeInPixels = 600;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC target = Main.npc[i];
-                if (target.CanBeChasedBy(Projectile) && (!target.wet || homingCanAimAtWetEnemies))
+                if (target.CanBeChasedBy(Projectile))
                 {
                     float distance = Projectile.Distance(target.Center);
                     if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
@@ -100,26 +106,30 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
-            for (int numGores = 0; numGores < 5; numGores++)
+            //spawn blood splatter
+            int NumProjectiles = Main.rand.Next(8, 12);
+            for (int i = 0; i < NumProjectiles; i++)
             {
-                int Explosion = Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, default, Main.rand.Next(61, 64), 1f);
-                Main.gore[Explosion].velocity *= 0.4f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 7),
+                    Main.rand.Next(-3, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                }
             }
 
-            for (int numDust = 0; numDust < 20; numDust++)
+            //spawn blood explosion clouds
+            for (int numExplosion = 0; numExplosion < 5; numExplosion++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-
-                Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
-                Main.dust[DustGore].velocity *= 3f;
+                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
                 Main.dust[DustGore].noGravity = true;
 
                 if (Main.rand.Next(2) == 0)
                 {
                     Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                 }
             }
         }

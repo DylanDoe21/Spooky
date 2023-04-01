@@ -1,15 +1,17 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
+using System;
 
 using Spooky.Core;
-using Spooky.Content.Events;
 
 namespace Spooky.Content.Biomes
 {
     public class SpookyHellBiome : ModBiome
     {
+        static bool hasDisabledLighting = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Valley of Eyes");

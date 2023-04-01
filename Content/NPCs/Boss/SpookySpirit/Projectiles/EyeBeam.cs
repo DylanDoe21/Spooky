@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 			Projectile.width = 10;
 			Projectile.height = 10;
 			Projectile.hostile = true;
-			Projectile.tileCollide = true;
+			Projectile.tileCollide = false;
             Projectile.extraUpdates = 15;
             Projectile.penetrate = 1;
 			Projectile.timeLeft = 500;
@@ -83,18 +83,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             trail.Positions = cache.ToArray();
             trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.ai[0]++;
-
-            if (Projectile.ai[0] >= 10)
-            {
-                Projectile.Kill();
-            }
-
-            return false;
         }
 
         public override void AI()

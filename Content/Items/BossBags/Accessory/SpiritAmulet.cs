@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.BossBags.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spirit Amulet");
-            Tooltip.SetDefault("When hit, you will sometimes release homing spirit particles around you"
-            + "\n15% increased movement speed");
+            Tooltip.SetDefault("15% increased movement speed"
+            + "\nWhen hit, you will sometimes release homing spirit particles around you");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -30,10 +30,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            if (!player.HasBuff(ModContent.BuffType<FlyCooldown>()))
-            {
-                player.GetModPlayer<SpookyPlayer>().FlyAmulet = true;
-            }
+            //player.GetModPlayer<SpookyPlayer>().FlyAmulet = true;
         }
     }
 }

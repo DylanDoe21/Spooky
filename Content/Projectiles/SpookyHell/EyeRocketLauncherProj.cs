@@ -5,24 +5,26 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace Spooky.Content.Projectiles.Catacomb
+using Spooky.Core;
+
+namespace Spooky.Content.Projectiles.SpookyHell
 {
-	public class GraveCrossbowProj : ModProjectile
+	public class EyeRocketLauncherProj : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grave Crossbow");
-            Main.projFrames[Projectile.type] = 3;
+			DisplayName.SetDefault("I.C.U");
+            Main.projFrames[Projectile.type] = 5;
 		}
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 66;
-            Projectile.height = 88;
+            Projectile.width = 78;
+            Projectile.height = 80;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
@@ -62,25 +64,43 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-			if (player.channel) 
+			if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + new Vector2(-23, -25);
+                Projectile.position = player.position + new Vector2(-28, -23);
 				player.velocity.X *= 0.98f;
 
-                Projectile.localAI[0] += 0.25f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
+                //charge up the rocket
+                if (Projectile.localAI[0] == 10 || Projectile.localAI[0] == 20 || Projectile.localAI[0] == 30 || Projectile.localAI[0] == 40)
                 {
                     Projectile.frame++;
                 }
-                if (Projectile.frame >= 3)
-                {   
-                    Projectile.frame = 2;
+
+                //shoot rocket
+                if (Projectile.localAI[0] >= 80)
+                {
+                    SpookyPlayer.ScreenShakeAmount = 3;
+
+                    SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+
+                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed.X *= 55;
+                    ShootSpeed.Y *= 55;
+
+                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 10f;
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y - 8 + muzzleOffset.Y, 
+                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                    Projectile.frame = 0;
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (direction.X > 0) 
@@ -94,22 +114,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
-				{
-                    if (Projectile.frame >= 2)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
-
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed.X *= 25;
-                        ShootSpeed.Y *= 25;	
-
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    }
-				}
-
 				Projectile.active = false;
 			}
 

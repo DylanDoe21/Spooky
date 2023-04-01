@@ -512,34 +512,34 @@ namespace Spooky.Content.Generation
 
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) 
             {
-				Chest chest = Main.chest[chestIndex]; 
+                Chest chest = Main.chest[chestIndex]; 
 
-				if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest>()))
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest>() && Main.tile[chest.x, chest.y].TileFrameX == 36)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 5; inventoryIndex++) 
                     {
-						if (chest.item[inventoryIndex].type == ItemID.None) 
+                        if (chest.item[inventoryIndex].type == ItemID.None) 
                         {
                             //iron or lead bars
-							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-							chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+                            chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+                            chest.item[1].stack = WorldGen.genRand.Next(5, 10);
                             //light sources
                             chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
-							chest.item[2].stack = WorldGen.genRand.Next(3, 8);
+                            chest.item[2].stack = WorldGen.genRand.Next(3, 8);
                             //potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-							chest.item[3].stack = WorldGen.genRand.Next(2, 3);
+                            chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
+                            chest.item[3].stack = WorldGen.genRand.Next(2, 3);
                             //goodie bags
-							chest.item[4].SetDefaults(ItemID.GoodieBag);
-							chest.item[4].stack = WorldGen.genRand.Next(1, 2);
+                            chest.item[4].SetDefaults(ItemID.GoodieBag);
+                            chest.item[4].stack = WorldGen.genRand.Next(1, 2);
                             //pumpkin seeds or cobwebs
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
-							chest.item[5].stack = WorldGen.genRand.Next(5, 10);
+                            chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
+                            chest.item[5].stack = WorldGen.genRand.Next(5, 10);
                             //coins
                             chest.item[6].SetDefaults(ItemID.GoldCoin);
-							chest.item[6].stack = WorldGen.genRand.Next(1, 2);
-						}
-					}
+                            chest.item[6].stack = WorldGen.genRand.Next(1, 2);
+                        }
+                    }
                 }
             }
         }

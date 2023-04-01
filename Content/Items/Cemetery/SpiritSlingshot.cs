@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Cemetery
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 25;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = false;

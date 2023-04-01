@@ -12,8 +12,8 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
+            Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
 			TileObjectData.newTile.Width = 2;
 			TileObjectData.newTile.Height = 4;	

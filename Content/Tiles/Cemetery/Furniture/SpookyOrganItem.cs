@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			Item.useAnimation = 15;
 			Item.useStyle = 1;
 			Item.maxStack = 99;
-			Item.createTile = ModContent.TileType<SpookyOrgan>();
+			Item.createTile = ModContent.TileType<SpiritAltar>();
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {   
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
         }
 
         public override void Kill(int timeLeft)

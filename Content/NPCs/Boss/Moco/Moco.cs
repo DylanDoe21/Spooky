@@ -229,7 +229,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 72 / 3 : Main.expertMode ? 50 / 2 : 35;
+            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 45 / 2 : 35;
 
             NPC.spriteDirection = NPC.direction;
 

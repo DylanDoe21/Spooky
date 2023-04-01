@@ -20,13 +20,13 @@ namespace Spooky.Content.Items.Cemetery
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Buster");
-            Tooltip.SetDefault("Launches explosive skulls upon striking the ground");
+            Tooltip.SetDefault("Launches explosive skulls upon striking the ground or enemies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 28;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 66;
@@ -47,6 +47,27 @@ namespace Spooky.Content.Items.Cemetery
 
         public override void OnHitTiles(Player player)
         {
+            if (!hasHitSomething)
+            {
+                hasHitSomething = true;
+
+                SpookyPlayer.ScreenShakeAmount = 2;
+
+                SoundEngine.PlaySound(SoundID.Item69, player.Center);
+
+                for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + (player.direction == 1 ? 90 + (Item.scale * 2) : -90 + (-Item.scale * 2)), 
+                        player.Center.Y, Main.rand.Next(-2, 2), Main.rand.Next(-7, -5), ModContent.ProjectileType<SpookySkull>(), Item.damage, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+            }
+        }
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+		{
             if (!hasHitSomething)
             {
                 hasHitSomething = true;

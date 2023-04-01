@@ -313,7 +313,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								NPC.noGravity = true;
 
 								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 18;
+								NPC.velocity.Y = Main.expertMode ? 16 : 13;
 							}
 
 							//set tile collide to true after jumping so you cant avoid them
@@ -529,7 +529,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                     {
                         NPC.localAI[0]++;
 
-                        Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? - 400 : 400), player.Center.Y - 1000);
+                        Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? -400 : 400), player.Center.Y - 1000);
 						Vector2 velocity = JumpTo - NPC.Center;
 
                         //actual jumping
@@ -856,11 +856,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 						if (NPC.localAI[1] < 2)
 						{
-							Vector2 JumpTo = new(player.Center.X + (NPC.Center.X > player.Center.X ? 420 : -420), player.Center.Y - 400);
+							Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? 420 : -420), player.Center.Y - 400);
 
 							if (NPC.position.X <= player.Center.X + 420 && NPC.position.X >= player.Center.X - 420)
 							{
-								JumpTo = new(player.Center.X, player.Center.Y - 400);
+								JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
 							}
 
 							Vector2 velocity = JumpTo - NPC.Center;

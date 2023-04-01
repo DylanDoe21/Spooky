@@ -83,7 +83,8 @@ Spooky Forest at Spawn:
 -This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
 
 Screen Shaking Effect:
--Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reason
+-Allows you to toggle the mod's screen shaking effects, in case you do not want it on for any reaso
+-Was added because now a lot more stuff in the mod uses screen shaking effects
 (For example, when rot-gourd shakes the screen after slamming the ground, certain weapons impacting the ground, ect)
 
 Redone Halloween Season Config:
@@ -250,6 +251,7 @@ Biomes, Blocks, and Ambience:
 -The valley of eyes no longer has any caves in it because they served absolutely no purpose and caused the structures to place weirdly sometimes
 -The fleshy eye blocks in the valley of eyes now produce cool new ambient particles, and produce blood particles when walked on
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
+-Removed the junk chests from the mod, and any old junk chests that existed in previous versions will be replaced with old wood chests
 
 
 Items:

@@ -41,9 +41,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 		public float SpinX = 0;
 		public float SpinY = 0;
         public float alpha;
-
-        //good spawn noise: DD2_EtherianPortalOpen
-        //DD2_DefeatScene and DD2_WinScene are cool too
         
         public override void SetStaticDefaults()
         {
@@ -237,7 +234,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 25;
+            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 25;
 
             if (SaveDirection != 0)
             {

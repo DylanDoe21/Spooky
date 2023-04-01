@@ -133,17 +133,7 @@ namespace Spooky.Content.Items.Catacomb
 
 				SoundEngine.PlaySound(SoundID.Item62, player.itemLocation);
 
-				for (int numDusts = 0; numDusts < 30; numDusts++)
-				{
-					int dustGore = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width / 2, hitbox.Height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
-					Main.dust[dustGore].color = Color.Yellow;
-					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
-					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-1f, 1f);
-					Main.dust[dustGore].scale = 0.25f; 
-					Main.dust[dustGore].noGravity = true;
-				}
-
-				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
+				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X / 2, target.Center.Y, 0, 0,
                 ModContent.ProjectileType<BigBoneHammerHit>(), Item.damage * 5, 0f, Main.myPlayer, 0, 0);
 			}
 		}

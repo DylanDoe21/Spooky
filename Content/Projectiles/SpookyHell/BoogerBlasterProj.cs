@@ -14,12 +14,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Booger Blaster");
+            Main.projFrames[Projectile.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
             Projectile.width = 64;
-            Projectile.height = 64;
+            Projectile.height = 120;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -44,7 +45,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
+                Vector2 ProjDirection = Main.MouseWorld - player.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -63,14 +64,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-			if (player.channel)
+            if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-                Projectile.position = player.position + new Vector2(-23, -15);
+                Projectile.position = player.position + new Vector2(-23, -42);
 				player.velocity.X *= 0.98f;
 
                 Projectile.localAI[0] += 0.25f;
@@ -82,7 +83,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 if (Projectile.localAI[0] == 2 || Projectile.localAI[0] == 15 || Projectile.localAI[0] == 28)
                 {
                     SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
-
+                    
                     Charge++;
                 }
 
@@ -94,15 +95,40 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 {
 					player.direction = -1;
 				}
+
+                //change frame
+                switch (Charge)
+                {
+                    case 0:
+                    {
+                        Projectile.frame = 0;
+                        break;
+                    }   
+                    case 1:
+                    {
+                        Projectile.frame = 0;
+                        break;
+                    }
+                    case 2:
+                    {
+                        Projectile.frame = 1;
+                        break;
+                    }
+                    case 3:
+                    {
+                        Projectile.frame = 2;
+                        break;
+                    }
+                }
 			}
 			else 
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
-
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
+
+                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 75f;
 
                     switch (Charge)
 				    {
@@ -115,11 +141,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         //shoot one small booger
                         case 1:
                         {
+                            SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+
                             ShootSpeed.X *= 12;
                             ShootSpeed.Y *= 12;	
 
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                            ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                             break;
                         }
@@ -127,9 +155,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         //shoot spread of 3 small boogers
                         case 2:
                         {
+                            SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+
                             for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset,
                                 16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                 ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                             }
@@ -140,11 +170,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         //shoot big booger that deals double damage
                         case 3:
                         {
+                            SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+
                             ShootSpeed.X *= 22;
                             ShootSpeed.Y *= 22;	
 
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                            ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
 
                             break;
                         }

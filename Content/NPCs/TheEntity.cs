@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs
         {
             Player player = Main.player[NPC.target];
 
-            if (player.Distance(NPC.Center) <= NPC.localAI[0] && NPC.ai[0] >= 1)
+            if (NPC.ai[0] == 2)
             {
                 NPC.frame.Y = frameHeight * 1;
             }
@@ -192,7 +192,7 @@ namespace Spooky.Content.NPCs
                     break;
                 }
 
-                //KILL KILL KILL KILL KILL KILL
+                //Kill
                 case 2:
                 {
                     NPC.noGravity = true;
@@ -219,17 +219,6 @@ namespace Spooky.Content.NPCs
                 }
             }
         }
-
-        /*
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            if (NPC.ai[0] == 2)
-            {
-                NPC.ai[1] = 1;
-                NPC.netUpdate = true;
-            }
-        }
-        */
 
         private void Teleport(Player player, int attemptNum)
         {
