@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 12000;
+            NPC.lifeMax = 15000;
             NPC.damage = 55;
             NPC.defense = 35;
             NPC.width = 65;

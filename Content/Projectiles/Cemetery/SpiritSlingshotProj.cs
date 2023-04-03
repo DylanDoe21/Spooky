@@ -70,7 +70,6 @@ namespace Spooky.Content.Projectiles.Cemetery
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
                 Projectile.position = player.position + new Vector2(-5, -2);
-				player.velocity.X *= 0.95f;
 
                 Projectile.localAI[0] += 0.25f;
 

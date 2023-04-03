@@ -59,6 +59,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
             }
 
+            Projectile.rotation += 0.5f * (float)Projectile.direction;
+
             Projectile.localAI[0]++;
 
             if (Projectile.localAI[0] > 20)

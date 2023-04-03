@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
                 Projectile.position = player.position + new Vector2(-28, -23);
-				player.velocity.X *= 0.98f;
+				player.velocity.X *= 0.99f;
 
                 Projectile.localAI[0]++;
 
@@ -94,9 +94,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     ShootSpeed.X *= 55;
                     ShootSpeed.Y *= 55;
 
-                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 10f;
-
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y - 8 + muzzleOffset.Y, 
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 8, 
                     ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                     Projectile.frame = 0;

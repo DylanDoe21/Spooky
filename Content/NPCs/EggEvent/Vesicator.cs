@@ -117,7 +117,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Player player = spawnInfo.Player;
 
-            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 125;
+            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 90;
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && 
             EggEventWorld.EggEventProgress >= minPointsToSpawn && !NPC.AnyNPCs(ModContent.NPCType<Vesicator>()))

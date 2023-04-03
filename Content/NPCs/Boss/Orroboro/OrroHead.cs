@@ -27,6 +27,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         Vector2 SavePlayerPosition;
 
+        public bool ShouldDamagePlayer = true;
         public bool Enraged = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
@@ -65,6 +66,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
+            writer.Write(ShouldDamagePlayer);
             writer.Write(Enraged);
             writer.Write(Chomp);
             writer.Write(OpenMouth);
@@ -80,6 +82,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
+            ShouldDamagePlayer = reader.ReadBoolean();
             Enraged = reader.ReadBoolean();
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
@@ -94,9 +97,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 12000;
+            NPC.lifeMax = 15000;
             NPC.damage = 55;
-            NPC.defense = 30;
+            NPC.defense = 35;
             NPC.width = 98;
             NPC.height = 88;
             NPC.npcSlots = 25f;
@@ -180,6 +183,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             return true;
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return ShouldDamagePlayer;
         }
 
         public override void AI()
@@ -303,8 +311,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.localAI[0]++;
 
-                        int repeats = Enraged ? 4 : 3;
-                        if (NPC.localAI[1] < repeats)
+                        if (NPC.localAI[1] < 3)
                         {
                             int positionTime = Enraged ? 50 : 60;
                             if (NPC.localAI[0] < positionTime)
@@ -344,10 +351,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NPC.velocity.Y = ChargeDirection.Y;
                             }
 
-                            int stopTime = Enraged ? 85 : 100;
+                            int stopTime = Enraged ? 80 : 90;
                             if (NPC.localAI[0] > stopTime)
                             {
-                                NPC.velocity *= 0.99f;
+                                NPC.velocity *= 0.98f;
                             }
 
                             int extraTime = Enraged ? 15 : 45;
@@ -558,11 +565,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             //go from side to side
                             if (NPC.localAI[0] < 138)
                             {
-                                GoTo.X += -600;
+                                GoTo.X += -750;
                             }
                             if (NPC.localAI[0] > 138)
                             {
-                                GoTo.X += 600;
+                                GoTo.X += 750;
                             }
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);

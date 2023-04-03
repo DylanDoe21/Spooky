@@ -220,6 +220,7 @@ namespace Spooky.Content.NPCs
             }
         }
 
+        //teleport code from vanilla caster ai, it sucks and i will probably redo it at some point
         private void Teleport(Player player, int attemptNum)
         {
             int playerTileX = (int)player.position.X / 16;

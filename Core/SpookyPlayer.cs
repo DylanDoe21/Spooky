@@ -28,6 +28,7 @@ namespace Spooky.Core
         public int BoogerFrenzyTime = 0;
 
         //armors
+        public bool GourdSet = false;
         public bool SpookySet = false;
         public bool EyeArmorSet = false;
         public bool GoreArmorSet = false;
@@ -64,6 +65,7 @@ namespace Spooky.Core
         public override void ResetEffects()
         {
             //armors
+            GourdSet = false;
             SpookySet = false;
             EyeArmorSet = false;
             GoreArmorSet = false;

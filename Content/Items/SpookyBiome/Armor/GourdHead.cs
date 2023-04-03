@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Core;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
@@ -33,9 +34,9 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Melee weapons will inflict decay"
-			+ "\nDecay will damage enemies over time"
-			+ "\nAfter a bit, decay will also lower enemies attack and defense";
+			player.setBonus = "Melee weapons may inflict decay, which damages enemies over time"
+			+ "\nAfter a while, decay will also lower their attack and defense";
+			player.GetModPlayer<SpookyPlayer>().GourdSet = true;
 		}
 
 		public override void UpdateEquip(Player player) 

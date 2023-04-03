@@ -27,6 +27,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         Vector2 SavePlayerPosition;
         
+        public bool ShouldDamagePlayer = true;
         public bool Enraged = false;
         private bool spawned;
 
@@ -62,6 +63,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
+            writer.Write(ShouldDamagePlayer);
             writer.Write(Enraged);
             writer.Write(spawned);
 
@@ -75,6 +77,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
+            ShouldDamagePlayer = reader.ReadBoolean();
             Enraged = reader.ReadBoolean();
             spawned = reader.ReadBoolean();
 
@@ -87,9 +90,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 12000;
+            NPC.lifeMax = 15000;
             NPC.damage = 55;
-            NPC.defense = 30;
+            NPC.defense = 35;
             NPC.width = 65;
             NPC.height = 65;
             NPC.npcSlots = 25f;
@@ -157,6 +160,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             return true;
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return ShouldDamagePlayer;
         }
 
         public override void AI()
@@ -456,11 +464,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             //go from side to side
                             if (NPC.localAI[0] < 130)
                             {
-                                GoTo.X += -550;
+                                GoTo.X += -750;
                             }
                             if (NPC.localAI[0] > 130)
                             {
-                                GoTo.X += 550;
+                                GoTo.X += 750;
                             }
                             
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);

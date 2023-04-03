@@ -1,18 +1,21 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class ScyclerProj : ModProjectile
     {
+        Vector2 saveMousePositon;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scycler");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
@@ -21,66 +24,48 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.height = 44;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
-            Projectile.timeLeft = 2000;
-            Projectile.penetrate = 3;
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Red) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
-            }
-
-            return true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 10000;
         }
 
         public override void AI()
-        {   
-            Projectile.rotation += 0.35f * (float)Projectile.direction;
+        {
+            Player player = Main.player[Projectile.owner];
+
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+            Projectile.rotation += 0.5f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] <= 12)
+            if (Projectile.ai[0] <= 30)
             {
-                Projectile.tileCollide = false;
-            }
+                Vector2 ReturnSpeed = Main.MouseWorld - Projectile.Center;
+                ReturnSpeed.Normalize();
 
-            if (Projectile.ai[0] > 12)
-            {
-                Projectile.tileCollide = true;
-            }
+                ReturnSpeed *= 25;
 
-            if (Projectile.ai[0] >= 45)
-            {
-                Projectile.velocity.X = Projectile.velocity.X * 0.97f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
-            }
-        }
+                Projectile.velocity = ReturnSpeed;
 
-        public override void Kill(int timeLeft)
-        {
-            for (int numDust = 0; numDust < 20; numDust++)
-            {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.PurpleCrystalShard, 0f, 0f, 100, default(Color), 2f);
-
-                Main.dust[newDust].scale *= 0.5f;
-                Main.dust[newDust].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                if (Projectile.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5)))
                 {
-                    Main.dust[newDust].scale = 0.5f;
-                    Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Projectile.ai[0] = 30;
+                }
+            }
+            if (Projectile.ai[0] > 30)
+            {
+                Vector2 ReturnSpeed = player.Center - Projectile.Center;
+                ReturnSpeed.Normalize();
+
+                ReturnSpeed *= 25;
+
+                Projectile.velocity = ReturnSpeed;
+
+                if (Projectile.Hitbox.Intersects(player.Hitbox))
+                {
+                    Projectile.Kill();
                 }
             }
         }
-    }
+	}
 }

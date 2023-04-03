@@ -25,6 +25,10 @@ namespace Spooky
         public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
+        public Spooky() { Instance = this; }
+
+        public static Spooky Instance { get; set; }
+
         public override void Load()
         {
             if (!Main.dedServ)

@@ -12,8 +12,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 {
     public class SentientFleshWhip : ModItem
     {
-		int shootRotation = 0;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sentient Eye Lasher");
@@ -31,7 +29,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.noUseGraphic = true;
 			Item.width = 52;
             Item.height = 50;
-			Item.useTime = 42;
+			Item.useTime = 21;
 			Item.useAnimation = 42;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
@@ -44,8 +42,17 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, player.Center.X, player.Center.Y, velocity.X, velocity.Y, 
-        	ModContent.ProjectileType<SentientFleshWhipProj2>(), damage, knockback, player.whoAmI, 0f, 0f);
+            int ProjToShoot = 0;
+            if (ProjToShoot == 0)
+            {
+                type = ModContent.ProjectileType<SentientFleshWhipProj1>();
+                ProjToShoot = 1;
+            }
+            if (ProjToShoot == 1)
+            {
+                type = ModContent.ProjectileType<SentientFleshWhipProj2>();
+                ProjToShoot = 0;
+            }
 			
 			return true;
         }

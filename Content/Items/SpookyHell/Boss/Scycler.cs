@@ -12,8 +12,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scycler");
-            Tooltip.SetDefault("Throws piercing discs"
-            + "\nOnly up to 5 discs can be out at once");
+            Tooltip.SetDefault("Throws discs that follow your cursor before returning to you");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -35,14 +34,9 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.value = Item.buyPrice(gold: 2);   
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<ScyclerProj>();  
-            Item.shootSpeed = 15f;     
+            Item.shootSpeed = 25f;
         }
-
-        public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[Item.shoot] < 5;
-		}
-
+        
         public override void AddRecipes()
         {
             CreateRecipe()

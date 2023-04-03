@@ -18,16 +18,28 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-			if (npc.buffTime[buffIndex] > 5 && npc.buffTime[buffIndex] < 5)
+			if (!npc.friendly)
             {
-				if (!initializeStats)
-				{
-					storedDamage = npc.damage;
-					storedDefense = npc.defense;
-					npc.damage = (int)(npc.damage * 0.8f);
-					npc.defense = (int)(npc.defense * 0.8f);
+                //Dust.NewDust(NPC.Center, NPC.width, npc.height, DustID.Blood);
+                
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
 
-					initializeStats = true;
+                npc.lifeRegen -= 10;
+
+				if (npc.buffTime[buffIndex] < 1800 && npc.buffTime[buffIndex] > 5)
+				{
+					if (!initializeStats)
+					{
+						storedDamage = npc.damage;
+						storedDefense = npc.defense;
+						npc.damage = (int)(npc.damage * 0.8f);
+						npc.defense = (int)(npc.defense * 0.8f);
+
+						initializeStats = true;
+					}
 				}
 			}
 

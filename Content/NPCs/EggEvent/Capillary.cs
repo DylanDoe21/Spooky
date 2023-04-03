@@ -88,7 +88,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Player player = spawnInfo.Player;
 
-            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 75;
+            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 55;
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && EggEventWorld.EggEventProgress >= minPointsToSpawn)
             {

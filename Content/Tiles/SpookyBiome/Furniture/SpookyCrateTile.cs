@@ -20,7 +20,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.CoordinateHeights = new int[2] { 16, 16 };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
             AddMapEntry(new Color(130, 110, 82));
             DustType = DustID.WoodFurniture;
         }

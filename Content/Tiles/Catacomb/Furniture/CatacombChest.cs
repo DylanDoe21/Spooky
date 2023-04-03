@@ -40,9 +40,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Tomb Chest");
 			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
-			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Tomb Chest");
-			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
 			DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
@@ -53,13 +50,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
         {
 			return true;
         }
-
-        public override bool IsLockedChest(int i, int j) => Main.tile[i, j].TileFrameX / 36 == 1;
-
-		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) 
-		{
-			return true;
-		}
 
 		public static string MapChestName(string name, int i, int j) 
 		{
@@ -156,40 +146,26 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			}
 			else 
 			{
-				if (isLocked) 
+				int chest = Chest.FindChest(left, top);
+				if (chest >= 0) 
 				{
-					int key = ModContent.ItemType<CatacombChestItem>();
-					if (player.ConsumeItem(key) && Chest.Unlock(left, top)) 
+					Main.stackSplit = 600;
+					if (chest == player.chest) 
 					{
-						if (Main.netMode == NetmodeID.MultiplayerClient) 
-						{
-							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
-						}
+						player.chest = -1;
+						SoundEngine.PlaySound(SoundID.MenuClose);
 					}
-				}
-				else 
-				{
-					int chest = Chest.FindChest(left, top);
-					if (chest >= 0) 
+					else 
 					{
-						Main.stackSplit = 600;
-						if (chest == player.chest) 
-						{
-							player.chest = -1;
-							SoundEngine.PlaySound(SoundID.MenuClose);
-						}
-						else 
-						{
-							player.chest = chest;
-							Main.playerInventory = true;
-							Main.recBigList = false;
-							player.chestX = left;
-							player.chestY = top;
-							SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
-						}
+						player.chest = chest;
+						Main.playerInventory = true;
+						Main.recBigList = false;
+						player.chestX = left;
+						player.chestY = top;
+						SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+					}
 
-						Recipe.FindRecipes();
-					}
+					Recipe.FindRecipes();
 				}
 			}
 
@@ -223,11 +199,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				if (player.cursorItemIconText == "Tomb Chest") 
 				{
 					player.cursorItemIconID = ModContent.ItemType<CatacombChestItem>();
-
-					if (Main.tile[left, top].TileFrameX / 36 == 1) 
-					{
-						player.cursorItemIconID = ModContent.ItemType<CatacombChestItem>();
-					}
 
 					player.cursorItemIconText = "";
 				}
