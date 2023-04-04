@@ -9,8 +9,8 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rotten Chunk");
-            Tooltip.SetDefault("'It smells foul'");
+            // DisplayName.SetDefault("Rotten Chunk");
+            // Tooltip.SetDefault("'It smells foul'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
         }
 

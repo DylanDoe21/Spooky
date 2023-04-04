@@ -14,9 +14,9 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Necromancy for Dummies");
-			Tooltip.SetDefault("Conjures various zombie parts that bounce everywhere"
-			+ "\n'Not quite strong enough to summon full zombies'");
+			// DisplayName.SetDefault("Necromancy for Dummies");
+			/* Tooltip.SetDefault("Conjures various zombie parts that bounce everywhere"
+			+ "\n'Not quite strong enough to summon full zombies'"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

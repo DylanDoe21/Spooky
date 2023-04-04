@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Warlock's Hood");
-			Tooltip.SetDefault("'It doesn't give powers, but it looks cool!'");
+			// DisplayName.SetDefault("Warlock's Hood");
+			// Tooltip.SetDefault("'It doesn't give powers, but it looks cool!'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

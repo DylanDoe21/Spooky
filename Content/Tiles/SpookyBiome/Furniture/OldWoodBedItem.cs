@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Old Wood Bed");
+			// DisplayName.SetDefault("Old Wood Bed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

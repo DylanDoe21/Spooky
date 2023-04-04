@@ -19,8 +19,8 @@ namespace Spooky.Content.Items.SpookyBiome
 
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Cowbell");
-			Tooltip.SetDefault("Summons actual friendly shadow creatures to fight with you");
+			// DisplayName.SetDefault("Shadow Cowbell");
+			// Tooltip.SetDefault("Summons actual friendly shadow creatures to fight with you");
 			Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

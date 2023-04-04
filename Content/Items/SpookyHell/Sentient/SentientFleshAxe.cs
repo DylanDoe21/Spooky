@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sentient Flesh Mincer");
-            Tooltip.SetDefault("Deals far more damage to enemies below half health\nCritical hits will bleed enemies, dealing rapid damage over time");
+            // DisplayName.SetDefault("Sentient Flesh Mincer");
+            // Tooltip.SetDefault("Deals far more damage to enemies below half health\nCritical hits will bleed enemies, dealing rapid damage over time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -62,7 +62,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             }
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!hasHitEnemies)
             {
@@ -77,7 +77,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 target.takenDamageMultiplier = 1.65f;
             }
 
-            if (crit)
+            if (hit.Crit)
             {
                 target.AddBuff(ModContent.BuffType<SentientAxeBleed>(), 180);
             }

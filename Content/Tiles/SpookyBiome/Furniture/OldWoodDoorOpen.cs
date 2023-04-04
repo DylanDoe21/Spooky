@@ -1,12 +1,13 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
@@ -21,9 +22,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileID.Sets.HousingWalls[Type] = true;
 			TileID.Sets.HasOutlines[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
-			AdjTiles = new int[] { TileID.OpenDoor };
-			TileObjectData.newTile.Width = 2;
+            TileID.Sets.CloseDoorID[Type] = ModContent.TileType<OldWoodDoorClosed>();
+            TileObjectData.newTile.Width = 2;
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.Origin = new Point16(0, 0);
 			TileObjectData.newTile.DrawYOffset = 0;
@@ -63,13 +63,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceLeft;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Door");
-			AddMapEntry(new Color(93, 62, 39), name);
-            AdjTiles = new int[] { TileID.OpenDoor };
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
+            LocalizedText name = CreateMapEntryName();
+            AddMapEntry(new Color(93, 62, 39), name);
+            ItemDrop = ModContent.ItemType<OldWoodDoorItem>();
             DustType = DustID.WoodFurniture;
-			CloseDoorID = ModContent.TileType<OldWoodDoorClosed>();
-		}
+            AdjTiles = new int[] { TileID.OpenDoor };
+        }
         
         public override bool Slope(int i, int j) 
         {
@@ -84,11 +84,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = 1;
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<OldWoodDoorItem>());
         }
 
         public override void MouseOver(int i, int j)

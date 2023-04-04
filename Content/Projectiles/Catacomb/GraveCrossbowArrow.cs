@@ -14,7 +14,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crossbow Arrow");
+            // DisplayName.SetDefault("Crossbow Arrow");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

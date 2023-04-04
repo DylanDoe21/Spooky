@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grave Crossbow");
+			// DisplayName.SetDefault("Grave Crossbow");
             Main.projFrames[Projectile.type] = 3;
 		}
 

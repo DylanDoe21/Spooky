@@ -52,7 +52,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     ushort newObject = Main.rand.Next(TallMushroom);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacment(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 			}
 		}

@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boro Aura");
+            // DisplayName.SetDefault("Boro Aura");
         }
 
         public override void SetDefaults()

@@ -8,7 +8,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gore Food");
+			// DisplayName.SetDefault("Gore Food");
 		}
 
 		public override void SetDefaults()

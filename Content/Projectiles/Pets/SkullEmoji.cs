@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Emoji");
+			// DisplayName.SetDefault("Skull Emoji");
 			Main.projFrames[Projectile.type] = 14;
 			Main.projPet[Projectile.type] = true;
 		}

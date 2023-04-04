@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Tomb Chest");
+			// DisplayName.SetDefault("Tomb Chest");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

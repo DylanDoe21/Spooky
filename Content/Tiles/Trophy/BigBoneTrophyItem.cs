@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Trophy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Bone Trophy");
+            // DisplayName.SetDefault("Big Bone Trophy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

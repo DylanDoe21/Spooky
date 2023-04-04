@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spooky Scroll");
+			// DisplayName.SetDefault("Spooky Scroll");
 		}
 
 		public override void SetDefaults()
@@ -54,7 +54,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
-			if (player.channel) 
+			if (player.channel && player.statMana > 0)
             {
                 Projectile.timeLeft = 2;
 
@@ -63,14 +63,18 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.position = player.position + new Vector2(direction.X > 0 ? 12 : -18, 2);
                 player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
-                Projectile.localAI[0] += 0.5f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] % 35 == 5)
+                if (Projectile.localAI[0] == 60)
                 {
+                    player.statMana -= 5;
+
                     SoundEngine.PlaySound(SoundID.DD2_EtherianPortalSpawnEnemy with { Volume = SoundID.DD2_EtherianPortalSpawnEnemy.Volume * 2.5f }, Projectile.Center);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 10, 0, Main.rand.Next(-5, -3), 
                     ModContent.ProjectileType<ScrollPumpkin>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (direction.X > 0) 

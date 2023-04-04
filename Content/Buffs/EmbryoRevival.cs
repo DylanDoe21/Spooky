@@ -7,9 +7,9 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Embryotic Revival");
-			Description.SetDefault("The embyro has saved you from death"
-			+ "\nMajorly increases defense and life regeneration");
+			// DisplayName.SetDefault("Embryotic Revival");
+			/* Description.SetDefault("The embyro has saved you from death"
+			+ "\nMajorly increases defense and life regeneration"); */
 		}
 
 		public override void Update(Player player, ref int buffIndex)

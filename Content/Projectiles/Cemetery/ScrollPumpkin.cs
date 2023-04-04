@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Pumpkin");
+            // DisplayName.SetDefault("Magic Pumpkin");
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -162,8 +162,11 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override void Kill(int timeLeft)
 		{
-			//Gore.NewGore(projectile.position, projectile.velocity, mod.GetGoreSlot("Gores/SpookyBiome/ScrollPumpkinGore1"), 1f);
-            //Gore.NewGore(projectile.position, projectile.velocity, mod.GetGoreSlot("Gores/SpookyBiome/ScrollPumpkinGore2"), 1f);
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/ScrollPumpkinGore1").Type);
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/ScrollPumpkinGore2").Type);
+            }
 
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  

@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Old Wood Work Bench");
+			// DisplayName.SetDefault("Old Wood Work Bench");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

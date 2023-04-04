@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sneeze Scepter");
-			Tooltip.SetDefault("Summons flying noses that drop lingering boogers down on enemies");
+			// DisplayName.SetDefault("Sneeze Scepter");
+			// Tooltip.SetDefault("Summons flying noses that drop lingering boogers down on enemies");
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

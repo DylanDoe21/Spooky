@@ -8,7 +8,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Chest");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

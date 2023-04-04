@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Blast");
+			// DisplayName.SetDefault("Solar Blast");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

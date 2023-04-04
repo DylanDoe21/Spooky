@@ -91,17 +91,16 @@ namespace Spooky.Core
 			}
 		}
 
-		public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
 		{
 			//steampunker sells spooky clentaminator solution
-			if (type == NPCID.Steampunker)
+			if (npc.type == NPCID.Steampunker)
 			{
-				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpookySolution>());
-				nextSlot++;
-			}
-		}
+				items[items.Length + 1].type = ModContent.ItemType<SpookySolution>();
+            }
+        }
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
 			//all orro & boro segments resist piercing projectiles
             int[] OrroBoroPieces = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
@@ -114,22 +113,22 @@ namespace Spooky.Core
 
                 if (projectile.penetrate <= -1)
                 {
-                    damage /= (int)damageDivide;
+                    modifiers.FinalDamage /= (int)damageDivide;
                 }
                 else if (projectile.penetrate >= 2)
                 {
-                    damage /= (int)damageDivide;
+                    modifiers.FinalDamage /= (int)damageDivide;
                 }
             }
         }
 
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
 			//moco expert item booger drop
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
 			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
 			{
-				if (Main.rand.Next(25) == 0)
+				if (Main.rand.NextBool(25))
 				{
 					int itemType = ModContent.ItemType<MocoNoseBooger>();
 					int newItem = Item.NewItem(npc.GetSource_OnHit(npc), npc.Hitbox, itemType);
@@ -143,13 +142,13 @@ namespace Spooky.Core
 			}
 		}
 
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
 			//moco expert item booger drop
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
 			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
 			{
-				if (Main.rand.Next(25) == 0)
+				if (Main.rand.NextBool(25))
 				{
 					int itemType = ModContent.ItemType<MocoNoseBooger>();
 					int newItem = Item.NewItem(npc.GetSource_OnHit(npc), npc.Hitbox, itemType);

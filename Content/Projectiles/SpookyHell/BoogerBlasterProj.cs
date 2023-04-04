@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Booger Blaster");
+			// DisplayName.SetDefault("Booger Blaster");
             Main.projFrames[Projectile.type] = 3;
 		}
 

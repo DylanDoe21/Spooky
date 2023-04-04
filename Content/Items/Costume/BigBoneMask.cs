@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Big Bone Mask");
+			// DisplayName.SetDefault("Big Bone Mask");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

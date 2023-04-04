@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
@@ -22,8 +23,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16, 16 };
 			TileObjectData.newTile.Origin = new Point16(0, 4);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Clock");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Clock");
 			AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.GrandfatherClocks };

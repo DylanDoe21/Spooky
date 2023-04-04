@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Biomass");
+            // DisplayName.SetDefault("Biomass");
         }
 
         public override void SetDefaults()

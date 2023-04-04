@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
@@ -24,8 +25,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Chandelier");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Chandelier");
 			AddMapEntry(new Color(114, 13, 39), name);
             AdjTiles = new int[] { TileID.Chandeliers };
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

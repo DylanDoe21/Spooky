@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Boro Mask");
+			// DisplayName.SetDefault("Boro Mask");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

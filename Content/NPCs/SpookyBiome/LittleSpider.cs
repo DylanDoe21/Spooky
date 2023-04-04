@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Little Spider");
+			// DisplayName.SetDefault("Little Spider");
 			Main.npcFrameCount[NPC.type] = 4;
             Main.npcCatchable[NPC.type] = true;
 		}
@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.spriteDirection = NPC.direction;
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 
             {

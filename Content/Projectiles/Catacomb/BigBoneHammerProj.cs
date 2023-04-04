@@ -21,7 +21,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Smasher");
+            // DisplayName.SetDefault("Skull Smasher");
             Main.projFrames[Projectile.type] = 2;
         }
 

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -34,8 +35,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.newTile.StyleMultiplier = 3;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Stalk Sapling");
+			LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Stalk Sapling");
             AddMapEntry(new Color(95, 27, 43), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Saplings };

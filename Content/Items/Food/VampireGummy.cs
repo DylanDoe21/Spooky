@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Vampire Gummy");
-			Tooltip.SetDefault("Gives a short sugar rush when eaten\n'Put it in your mouth and scare people!'");
+			// DisplayName.SetDefault("Vampire Gummy");
+			// Tooltip.SetDefault("Gives a short sugar rush when eaten\n'Put it in your mouth and scare people!'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

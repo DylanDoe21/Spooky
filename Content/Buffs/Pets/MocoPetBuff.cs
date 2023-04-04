@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Baby Moco");
-			Description.SetDefault("Sniffle... Achooo!");
+			// DisplayName.SetDefault("Baby Moco");
+			// Description.SetDefault("Sniffle... Achooo!");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

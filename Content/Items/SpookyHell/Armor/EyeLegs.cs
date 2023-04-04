@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Eye Leggings");
-			Tooltip.SetDefault("5% increased movement speed");
+			// DisplayName.SetDefault("Eye Leggings");
+			// Tooltip.SetDefault("5% increased movement speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -10,8 +10,8 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spirit Horseman's Chestmail");
-			Tooltip.SetDefault("5% increased damage");
+			// DisplayName.SetDefault("Spirit Horseman's Chestmail");
+			// Tooltip.SetDefault("5% increased damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -9,7 +9,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantom Explosion");
+            // DisplayName.SetDefault("Phantom Explosion");
             Main.projFrames[Projectile.type] = 6;
         }
 

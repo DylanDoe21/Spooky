@@ -8,7 +8,7 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bleeding");
+			// DisplayName.SetDefault("Bleeding");
 			Main.debuff[Type] = true;
 		}
 

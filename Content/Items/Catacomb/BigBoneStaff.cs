@@ -13,9 +13,9 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flame Orb Staff");
-			Tooltip.SetDefault("Left click to cast a large spread of fire balls that bounce off of tiles"
-			+ "\nRight click to unleash a high damage fire beam that targets enemies");
+			// DisplayName.SetDefault("Flame Orb Staff");
+			/* Tooltip.SetDefault("Left click to cast a large spread of fire balls that bounce off of tiles"
+			+ "\nRight click to unleash a high damage fire beam that targets enemies"); */
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

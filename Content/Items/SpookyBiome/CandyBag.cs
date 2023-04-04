@@ -12,10 +12,10 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bag O' Treats");
-            Tooltip.SetDefault("Summons a magical bag of candy to float above you"
+            // DisplayName.SetDefault("Bag O' Treats");
+            /* Tooltip.SetDefault("Summons a magical bag of candy to float above you"
             + "\nThe candy bag will drop pieces of candy every twenty seconds"
-            + "\nPicking up candies will provide different summoner benefits");
+            + "\nPicking up candies will provide different summoner benefits"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

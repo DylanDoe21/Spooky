@@ -16,7 +16,7 @@ namespace Spooky.Content.Biomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creepy Catacombs");
+            // DisplayName.SetDefault("Creepy Catacombs");
         }
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs");

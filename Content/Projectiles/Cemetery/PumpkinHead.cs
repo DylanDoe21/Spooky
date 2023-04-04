@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pumpkin Head");
+            // DisplayName.SetDefault("Pumpkin Head");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;

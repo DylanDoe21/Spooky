@@ -9,7 +9,7 @@ namespace Spooky.Content.Projectiles.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Explosion");
+            // DisplayName.SetDefault("Skull Explosion");
             Main.projFrames[Projectile.type] = 6;
         }
 

@@ -10,8 +10,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 	{
 		public override void SetStaticDefaults() 
 		{
-            DisplayName.SetDefault("Small Candle");
-			Tooltip.SetDefault("It flickers eerily");
+            // DisplayName.SetDefault("Small Candle");
+			// Tooltip.SetDefault("It flickers eerily");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
         }
 

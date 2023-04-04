@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyBiome;
 
@@ -43,18 +44,33 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Old Wood Chest");
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Old Wood Chest");
-			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
-			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Old Wood Chest");
-			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
-			DustType = DustID.WoodFurniture;
+            AddMapEntry(new Color(142, 101, 71), this.GetLocalization("MapEntry0"), MapChestName);
+            AddMapEntry(new Color(142, 101, 71), this.GetLocalization("MapEntry1"), MapChestName);
+            DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
 
-		public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            Tile tile = Main.tile[i, j];
+            int style = TileObjectData.GetTileStyle(tile);
+            if (style == 0)
+            {
+                yield return new Item(ModContent.ItemType<HalloweenChestItem>());
+            }
+            if (style == 1)
+            {
+                yield return new Item(ModContent.ItemType<HalloweenChestItem>());
+            }
+        }
+
+        public override LocalizedText DefaultContainerName(int frameX, int frameY)
+        {
+            int option = frameX / 36;
+            return this.GetLocalization("MapEntry" + option);
+        }
+
+        public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
@@ -104,7 +120,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<HalloweenChestItem>());
 			Chest.DestroyChest(i, j);
 		}
 
@@ -170,7 +185,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient) 
 						{
-							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
+							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
 						}
 					}
 				}

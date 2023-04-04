@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Candy Corn");
-			Tooltip.SetDefault("Gives a short sugar rush when eaten\n'The best halloween candy'");
+			// DisplayName.SetDefault("Candy Corn");
+			// Tooltip.SetDefault("Gives a short sugar rush when eaten\n'The best halloween candy'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

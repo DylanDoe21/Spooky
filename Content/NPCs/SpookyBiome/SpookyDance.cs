@@ -12,7 +12,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Dance Ghost");
+            // DisplayName.SetDefault("Spooky Dance Ghost");
             Main.npcFrameCount[NPC.type] = 4;
         }
         
@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 30) * 30;
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {

@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Gourd Breastplate");
-			Tooltip.SetDefault("3% increased melee critical strike chance");
+			// DisplayName.SetDefault("Rotten Gourd Breastplate");
+			// Tooltip.SetDefault("3% increased melee critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

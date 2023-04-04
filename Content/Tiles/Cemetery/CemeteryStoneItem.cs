@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rocky Soil");
+            // DisplayName.SetDefault("Rocky Soil");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

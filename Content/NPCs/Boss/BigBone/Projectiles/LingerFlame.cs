@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greek Fire");
+			// DisplayName.SetDefault("Greek Fire");
 			Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 300);
         }

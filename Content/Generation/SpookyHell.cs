@@ -24,14 +24,14 @@ namespace Spooky.Content.Generation
 {
     public class SpookyHell : ModSystem
     {
-        static int StartPosition = (WorldGen.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
+        static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
         static int BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
         //clear area for the biome to generate in
         private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
         {
             //set these to their intended values again just to be safe
-            StartPosition = (WorldGen.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
+            StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
             BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
             //clear everything in the area the biome generates in
@@ -440,7 +440,7 @@ namespace Spooky.Content.Generation
             int houseAttempts = 0;
             while (!placedHouse && houseAttempts++ < 100000)
             {
-                int HouseX = (WorldGen.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+                int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
                 int HouseY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.maxTilesY)
@@ -525,7 +525,7 @@ namespace Spooky.Content.Generation
             int shrineAttempts = 0;
             while (!placedShrine && shrineAttempts++ < 100000)
             {
-                int ShrineX = (WorldGen.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
                 int ShrineY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(ShrineX, ShrineY) && ShrineY <= Main.maxTilesY)
@@ -593,7 +593,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
 			if (GenIndex1 == -1)

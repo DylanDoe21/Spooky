@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
@@ -23,8 +24,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newSubTile.LavaPlacement = LiquidPlacement.Allowed;
             TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Lantern");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Lantern");
             AddMapEntry(new Color(114, 13, 39), name);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             DustType = DustID.Blood;

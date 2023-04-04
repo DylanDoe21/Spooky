@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.Cemetery
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ghastly Ball");
+			// DisplayName.SetDefault("Ghastly Ball");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			SoundEngine.PlaySound(SoundID.Item56, Projectile.position);
 

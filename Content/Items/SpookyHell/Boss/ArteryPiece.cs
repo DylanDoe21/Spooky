@@ -10,8 +10,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Living Artery");
-            Tooltip.SetDefault("Filled with strange blood");
+            // DisplayName.SetDefault("Living Artery");
+            // Tooltip.SetDefault("Filled with strange blood");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
         }
 

@@ -16,11 +16,11 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gore Monger's Seer Hood");
-			Tooltip.SetDefault("12% increased magic and summon damage"
+			// DisplayName.SetDefault("Gore Monger's Seer Hood");
+			/* Tooltip.SetDefault("12% increased magic and summon damage"
 			+ "\n8% increased magic and summon critical strike chance"
 			+ "\n10% reduced mana usage and increases your max minions by 2"
-			+ "\nEnemies are more likely to target you");
+			+ "\nEnemies are more likely to target you"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

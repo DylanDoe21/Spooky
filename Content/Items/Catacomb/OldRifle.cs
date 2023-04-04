@@ -15,8 +15,8 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Old Hunter's Rifle");
-			Tooltip.SetDefault("Shoots out rusty bullets that split on impact");
+			// DisplayName.SetDefault("Old Hunter's Rifle");
+			// Tooltip.SetDefault("Shoots out rusty bullets that split on impact");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -53,7 +53,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                 if (Main.hardMode && Main.rand.Next(550) == 0)
                 {
                     WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ExposedNerveTile>(), true);
-                    NetMessage.SendObjectPlacment(-1, i, j - 1, ModContent.TileType<ExposedNerveTile>(), 0, 0, -1, -1);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, ModContent.TileType<ExposedNerveTile>(), 0, 0, -1, -1);
                 }
             }
 

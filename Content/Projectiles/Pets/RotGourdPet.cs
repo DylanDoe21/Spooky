@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotten Gourd");
+			// DisplayName.SetDefault("Rotten Gourd");
 			Main.projFrames[Projectile.type] = 10;
 			Main.projPet[Projectile.type] = true;
 		}

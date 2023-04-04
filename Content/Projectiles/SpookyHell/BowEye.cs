@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seer Eye");
+			// DisplayName.SetDefault("Seer Eye");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

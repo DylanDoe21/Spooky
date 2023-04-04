@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nose Minion");
+            // DisplayName.SetDefault("Nose Minion");
             Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;

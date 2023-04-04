@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Putty Slime");
+			// DisplayName.SetDefault("Putty Slime");
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
         }
 
-		public override void HitEffect(int hitDirection, double damage) 
+		public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
@@ -144,7 +144,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Putty Slime");
+			// DisplayName.SetDefault("Putty Slime");
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -162,7 +162,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
-		public override void HitEffect(int hitDirection, double damage) 
+		public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
@@ -187,7 +187,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Putty Slime");
+			// DisplayName.SetDefault("Putty Slime");
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -205,7 +205,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
-		public override void HitEffect(int hitDirection, double damage) 
+		public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {

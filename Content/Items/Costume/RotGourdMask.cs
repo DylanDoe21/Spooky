@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rot Gourd Mask");
+			// DisplayName.SetDefault("Rot Gourd Mask");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Razor Rose");
+            // DisplayName.SetDefault("Razor Rose");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -92,13 +92,13 @@ namespace Spooky.Content.Projectiles.Catacomb
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             float Multiplier = 1.75f;
 
 			if (target.HasBuff(ModContent.BuffType<ThornMark>()))
 			{
-				damage = damage * (int)Multiplier;
+				modifiers.FinalDamage = modifiers.SourceDamage * (int)Multiplier;
 			}
         }
 

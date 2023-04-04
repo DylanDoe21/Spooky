@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Orange Solution");
-			Tooltip.SetDefault("Used by the Clentaminator\nSpreads the Spooky Forest");
+			// DisplayName.SetDefault("Orange Solution");
+			// Tooltip.SetDefault("Used by the Clentaminator\nSpreads the Spooky Forest");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 		}
 
@@ -38,7 +38,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Spooky Spray");
+			// DisplayName.SetDefault("Spooky Spray");
 		}
 
 		public override void SetDefaults() 

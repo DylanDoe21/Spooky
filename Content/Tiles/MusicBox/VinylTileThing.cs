@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -18,8 +19,7 @@ namespace Spooky.Content.Tiles.MusicBox
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Music Box");
+            LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = -1;
             HitSound = SoundID.Dig;

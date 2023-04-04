@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Defensive Flower");
+			// DisplayName.SetDefault("Defensive Flower");
 
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 		}
 
-		public override void HitEffect(int hitDirection, double damage) 
+		public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

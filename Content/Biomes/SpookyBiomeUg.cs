@@ -11,7 +11,7 @@ namespace Spooky.Content.Biomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Underground");
+            // DisplayName.SetDefault("Spooky Underground");
         }
 
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBGAlt") : ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBG");

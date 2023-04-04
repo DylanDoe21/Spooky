@@ -12,7 +12,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dirt Debris");
+            // DisplayName.SetDefault("Dirt Debris");
         }
 		
         public override void SetDefaults()

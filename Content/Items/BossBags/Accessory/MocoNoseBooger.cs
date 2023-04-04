@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Snot");
+			// DisplayName.SetDefault("Snot");
 		}
 
 		public override void SetDefaults()

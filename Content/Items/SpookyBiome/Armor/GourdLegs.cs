@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Gourd Leggings");
-			Tooltip.SetDefault("5% increased melee speed");
+			// DisplayName.SetDefault("Rotten Gourd Leggings");
+			// Tooltip.SetDefault("5% increased melee speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spooky Ghost");
+			// DisplayName.SetDefault("Spooky Ghost");
 			Main.npcFrameCount[NPC.type] = 2;
 			Main.npcCatchable[NPC.type] = true;
 		}
@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0f);
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 
             {

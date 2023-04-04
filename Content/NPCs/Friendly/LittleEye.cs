@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemist");
+			// DisplayName.SetDefault("Alchemist");
 			NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 5;
 		}
@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Friendly
 			button2 = "Upgrades?";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			//quest button
 			if (firstButton) 

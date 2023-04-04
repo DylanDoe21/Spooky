@@ -35,9 +35,9 @@ namespace Spooky.Content.Items.BossBags.Accessory
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Disciple's Mask");
-            Tooltip.SetDefault("Fire off homing skull wisps while you are flying or running"
-            + "\nThe rate wisps are fired and their damage scales with your current speed");
+            // DisplayName.SetDefault("Disciple's Mask");
+            /* Tooltip.SetDefault("Fire off homing skull wisps while you are flying or running"
+            + "\nThe rate wisps are fired and their damage scales with your current speed"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -49,7 +49,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
             Item.height = 26;
             Item.expert = true;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            Item.hasVanityEffects = true;
             Item.rare = ItemRarityID.Lime;
             Item.value = Item.buyPrice(gold: 50);
         }

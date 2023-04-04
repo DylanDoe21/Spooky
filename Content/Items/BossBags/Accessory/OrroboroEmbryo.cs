@@ -11,11 +11,11 @@ namespace Spooky.Content.Items.BossBags.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Undying Embryo");
-            Tooltip.SetDefault("Upon death, you will be revived and given embryotic revival"
+            // DisplayName.SetDefault("Undying Embryo");
+            /* Tooltip.SetDefault("Upon death, you will be revived and given embryotic revival"
             + "\nThe embryotic revival buff gives increased life regeneration and defense"
             + "\nThis revival ability has a ten minute cool down before it can activate again"
-            + "\nDuring the cool down, you gain 8% increased damage and critical strike chance");
+            + "\nDuring the cool down, you gain 8% increased damage and critical strike chance"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

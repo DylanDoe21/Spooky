@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye Minion");
+			// DisplayName.SetDefault("Eye Minion");
 			Main.projFrames[Projectile.type] = 3;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

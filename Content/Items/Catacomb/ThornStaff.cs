@@ -11,10 +11,10 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rod of Ensnaring");
-			Tooltip.SetDefault("Casts a lump of thorns that can sometimes ensnare and poison enemies"
+			// DisplayName.SetDefault("Rod of Ensnaring");
+			/* Tooltip.SetDefault("Casts a lump of thorns that can sometimes ensnare and poison enemies"
 			+ "\nBosses cannot be ensared, but they will be poisoned for longer"
-			+ "\nEnemies cannot be ensnared again for fifteen seconds");
+			+ "\nEnemies cannot be ensnared again for fifteen seconds"); */
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

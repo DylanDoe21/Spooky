@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brainy");
+            // DisplayName.SetDefault("Brainy");
             Main.projFrames[Projectile.type] = 7;
             Main.projPet[Projectile.type] = true;
         }

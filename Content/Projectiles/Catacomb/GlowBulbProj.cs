@@ -14,7 +14,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glow Bulb");
+            // DisplayName.SetDefault("Glow Bulb");
         }
         
         public override void SetDefaults()
@@ -52,7 +52,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			return false;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

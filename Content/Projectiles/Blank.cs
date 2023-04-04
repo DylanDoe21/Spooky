@@ -7,7 +7,7 @@ namespace Spooky.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blank");
+            // DisplayName.SetDefault("Blank");
         }
 
         public override void SetDefaults()

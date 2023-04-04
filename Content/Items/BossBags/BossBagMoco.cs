@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.Moco;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -16,10 +16,10 @@ namespace Spooky.Content.Items.BossBags
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Moco)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-		}
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
         {
@@ -41,23 +41,24 @@ namespace Spooky.Content.Items.BossBags
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
 		}
 
-		public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			//weapon drops
-			int[] MainItem = new int[] 
+            //weapon drops
+            int[] MainItem = new int[] 
 			{ 
 				ModContent.ItemType<BoogerFlail>(), 
 				ModContent.ItemType<BoogerBlaster>(), 
 				ModContent.ItemType<BoogerStaff>() 
 			};
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
 
-			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<MocoNose>());
-		}
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoNose>(), 1));
 
-		public override int BossBagNPC => ModContent.NPCType<Moco>();
+            //money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Moco>()));
+        }
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

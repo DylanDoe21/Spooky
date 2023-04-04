@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Trophy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orro Trophy");
+            // DisplayName.SetDefault("Orro Trophy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

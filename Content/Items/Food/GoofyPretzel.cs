@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Goofy Pretzel");
-			Tooltip.SetDefault("Minor improvements to all stats\n'It looks disturbed, hope It's not alive'");
+			// DisplayName.SetDefault("Goofy Pretzel");
+			// Tooltip.SetDefault("Minor improvements to all stats\n'It looks disturbed, hope It's not alive'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

@@ -15,10 +15,10 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Totem Scepter");
-			Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge at enemies"
+			// DisplayName.SetDefault("Skull Totem Scepter");
+			/* Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge at enemies"
 			+ "\nRight click to summon a stationary skull idol at your cursor position that lasts for one minute"
-			+ "\nAny player within the idol's radius will receive various summoner stat increases");
+			+ "\nAny player within the idol's radius will receive various summoner stat increases"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -29,7 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			// use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 32;
-			Projectile.WhipSettings.RangeMultiplier = 1.05f;
+			Projectile.WhipSettings.RangeMultiplier = 0.99f;
 		}
 
 		// This example uses PreAI to implement a charging mechanic.
@@ -61,7 +61,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		int numHits = 0;
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			numHits++;
 
@@ -69,7 +69,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			
 			if (numHits < 5)
 			{
-				Projectile.damage = (int)(damage * 1.15f);
+				Projectile.damage = (int)(damageDone * 1.15f);
 			}
 		}
 

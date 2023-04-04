@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.Vinyl
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vinyl Disc (Mysterious)");
+            // DisplayName.SetDefault("Vinyl Disc (Mysterious)");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Vinyl/Mysterious"), 
             ModContent.ItemType<VinylMysterious>(), ModContent.TileType<VinylTileThing3>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Vinyl
 
         public override void SetDefaults()
         {
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            Item.hasVanityEffects = true;
             Item.accessory = true;
             Item.width = 32;
             Item.height = 22;

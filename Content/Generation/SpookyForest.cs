@@ -52,13 +52,13 @@ namespace Spooky.Content.Generation
             //otherwise place it off to the side of the snow biome
             else
             {
-                if (WorldGen.dungeonSide == -1)
+                if (GenVars.dungeonSide == -1)
                 {
-                    PositionX = WorldGen.snowOriginLeft - (Main.maxTilesX / 10);
+                    PositionX = GenVars.snowOriginLeft - (Main.maxTilesX / 10);
                 }
                 else
                 {
-                    PositionX = WorldGen.snowOriginRight + (Main.maxTilesX / 15);
+                    PositionX = GenVars.snowOriginRight + (Main.maxTilesX / 15);
                 }
             }
 
@@ -464,7 +464,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome
 			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));

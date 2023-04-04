@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mossy Stone");
+            // DisplayName.SetDefault("Mossy Stone");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

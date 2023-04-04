@@ -62,12 +62,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return false; //Prevent the vanilla whip AI from running.
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
-			Projectile.damage = (int)(damage * 0.8f);
+			Projectile.damage = (int)(damageDone * 0.8f);
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
 				if (!target.HasBuff(ModContent.BuffType<FleshWhipCooldown>()))
 				{

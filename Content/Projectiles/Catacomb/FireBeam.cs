@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Beam");
+			// DisplayName.SetDefault("Fire Beam");
 		}
 
 		public override void SetDefaults()

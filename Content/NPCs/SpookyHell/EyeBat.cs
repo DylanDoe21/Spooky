@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bat n' Eye");
+            // DisplayName.SetDefault("Bat n' Eye");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -138,7 +138,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoofyPretzel>(), 100));
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

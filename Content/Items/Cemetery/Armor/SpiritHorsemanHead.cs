@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spirit Horseman's Pumpkin");
-			Tooltip.SetDefault("5% increased critical strike chance");
+			// DisplayName.SetDefault("Spirit Horseman's Pumpkin");
+			// Tooltip.SetDefault("5% increased critical strike chance");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

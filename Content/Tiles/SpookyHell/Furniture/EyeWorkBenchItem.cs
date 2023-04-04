@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Living Flesh Work Bench");
+			// DisplayName.SetDefault("Living Flesh Work Bench");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

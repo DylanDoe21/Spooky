@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Razor Leaf");
+            // DisplayName.SetDefault("Razor Leaf");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -35,8 +36,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 			TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.addTile(Type);
 			AdjTiles = new int[]{ TileID.Saplings };
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Sapling");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Sapling");
 			AddMapEntry(new Color(200, 200, 200), name);
             DustType = -1;
 			HitSound = SoundID.Dig;

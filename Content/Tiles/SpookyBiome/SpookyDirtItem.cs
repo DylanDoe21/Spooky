@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Dirt");
+            // DisplayName.SetDefault("Spooky Dirt");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Suspicious Looking Tissue");
-			Tooltip.SetDefault("Summons a baby moco pet"
-			+ "\n'The most unsanitary tissue known to mankind'");
+			// DisplayName.SetDefault("Suspicious Looking Tissue");
+			/* Tooltip.SetDefault("Summons a baby moco pet"
+			+ "\n'The most unsanitary tissue known to mankind'"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

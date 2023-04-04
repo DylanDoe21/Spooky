@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crux Aura");
+            // DisplayName.SetDefault("Crux Aura");
         }
 
         public override void SetDefaults()

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,8 +9,8 @@ namespace Spooky.Content.Tiles.Cemetery
 	{
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cemetery Grass Seeds");
-			Tooltip.SetDefault("Places grass on loose soil");
+			// DisplayName.SetDefault("Cemetery Grass Seeds");
+			// Tooltip.SetDefault("Places grass on loose soil");
 		}
 
 		public override void SetDefaults()
@@ -29,7 +30,8 @@ namespace Spooky.Content.Tiles.Cemetery
 		{
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 			
-			if (tile.HasTile && tile.TileType == ModContent.TileType<CemeteryDirt>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY))
+			if (tile.HasTile && tile.TileType == ModContent.TileType<CemeteryDirt>() && 
+			player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
 			{
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
 

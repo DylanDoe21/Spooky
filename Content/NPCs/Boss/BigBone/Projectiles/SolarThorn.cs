@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Thorn");
+			// DisplayName.SetDefault("Solar Thorn");
 		}
 
 		public override void SetDefaults()
@@ -68,7 +68,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			behindNPCsAndTiles.Add(index);
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 300);
         }	

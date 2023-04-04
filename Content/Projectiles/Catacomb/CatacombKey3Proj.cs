@@ -18,7 +18,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Key");
+			// DisplayName.SetDefault("Skull Key");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

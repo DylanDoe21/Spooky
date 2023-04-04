@@ -10,9 +10,9 @@ namespace Spooky.Content.Items.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye of Orro-Boro");
-			Tooltip.SetDefault("Summons a ridable eye serpent"
-			+ "\n'Hope it doesn't try to eat you'");
+			// DisplayName.SetDefault("Eye of Orro-Boro");
+			/* Tooltip.SetDefault("Summons a ridable eye serpent"
+			+ "\n'Hope it doesn't try to eat you'"); */
 		}
 
 		public override void SetDefaults()

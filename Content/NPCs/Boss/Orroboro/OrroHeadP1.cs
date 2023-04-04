@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orro");
+            // DisplayName.SetDefault("Orro");
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
@@ -98,10 +98,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
         public override void FindFrame(int frameHeight)

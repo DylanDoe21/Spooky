@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chalupo");
+            // DisplayName.SetDefault("Chalupo");
             Main.npcFrameCount[NPC.type] = 5;
         }
 
@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.velocity.Y = MoveSpeedY * 0.1f;
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 
             {

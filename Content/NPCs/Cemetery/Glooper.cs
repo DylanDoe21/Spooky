@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Glooper");
+			// DisplayName.SetDefault("Glooper");
 			Main.npcFrameCount[NPC.type] = 4;
 		}
 
@@ -70,7 +70,7 @@ namespace Spooky.Content.NPCs.Cemetery
             return 0f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Poisoned, 300);
             target.AddBuff(BuffID.OgreSpit, 300);
@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.Cemetery
             }
 		}
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
@@ -121,7 +121,7 @@ namespace Spooky.Content.NPCs.Cemetery
 			});
 		}
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {

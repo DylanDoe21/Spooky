@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Bomb");
+            // DisplayName.SetDefault("Skull Bomb");
         }
 
         public override void SetDefaults()

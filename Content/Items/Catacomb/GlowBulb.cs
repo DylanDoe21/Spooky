@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bulb Bomb");
-            Tooltip.SetDefault("Throws an explosive bulb that can stick to the ground"
-            + "\nThe bulb will explode into smaller thorns when it hits an enemy");
+            // DisplayName.SetDefault("Bulb Bomb");
+            /* Tooltip.SetDefault("Throws an explosive bulb that can stick to the ground"
+            + "\nThe bulb will explode into smaller thorns when it hits an enemy"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

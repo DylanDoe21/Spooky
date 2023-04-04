@@ -18,7 +18,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Wisp");
+			// DisplayName.SetDefault("Skull Wisp");
 		}
 
 		public override void SetDefaults()

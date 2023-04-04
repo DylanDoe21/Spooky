@@ -2280,7 +2280,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
 			if (GenIndex1 == -1)
@@ -2295,7 +2295,7 @@ namespace Spooky.Content.Generation
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
-                WorldGen.makeTemple(WorldGen.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+                WorldGen.makeTemple(GenVars.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
             });
         }
 

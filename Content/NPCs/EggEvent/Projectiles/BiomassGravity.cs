@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Biomass");
+            // DisplayName.SetDefault("Biomass");
         }
 
         public override void SetDefaults()

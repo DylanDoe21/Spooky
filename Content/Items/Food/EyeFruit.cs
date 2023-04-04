@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Eye Fruit");
-			Tooltip.SetDefault("Can grant you night vision or dangersense when eaten\nHowever, it may sometimes poison you\n'No, it does not taste like fruit or candy'");
+			// DisplayName.SetDefault("Eye Fruit");
+			// Tooltip.SetDefault("Can grant you night vision or dangersense when eaten\nHowever, it may sometimes poison you\n'No, it does not taste like fruit or candy'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

@@ -14,11 +14,11 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Brainy in a Jar");
-			Tooltip.SetDefault("Summons brainy the brain to hover around you"
+			// DisplayName.SetDefault("Brainy in a Jar");
+			/* Tooltip.SetDefault("Summons brainy the brain to hover around you"
 			+ "\nEvery minute, he will convulsate, causing all of your existing minions to explode"
 			+ "\nEach explosions damage will scale further based on each individual minion's damage"
-			+ "\nBrainy does not take up any minion slots");
+			+ "\nBrainy does not take up any minion slots"); */
 			Item.staff[Item.type] = true;
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vesicator");
+            // DisplayName.SetDefault("Vesicator");
         }
 
         public override void SetDefaults()

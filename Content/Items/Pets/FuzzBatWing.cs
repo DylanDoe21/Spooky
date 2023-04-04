@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fuzz Bat Wing");
-			Tooltip.SetDefault("Summons a goofy fuzz bat pet");
+			// DisplayName.SetDefault("Fuzz Bat Wing");
+			// Tooltip.SetDefault("Summons a goofy fuzz bat pet");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

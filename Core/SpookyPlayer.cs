@@ -142,7 +142,7 @@ namespace Spooky.Core
             return ShouldRevive;
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (FlyAmulet)
             {
@@ -154,19 +154,18 @@ namespace Spooky.Core
 
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
-                damage = 0;
-                quiet = true;
+                modifiers.FinalDamage *= 0;
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
                 SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
                 Player.statLife = Player.statLife;
 
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
-                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, 90, 0f, 0f, 100, default, 2f);
+                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.GemRuby, 0f, 0f, 100, default, 2f);
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[dustEffect].scale = 0.5f;
                         Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -184,15 +183,13 @@ namespace Spooky.Core
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[dustEffect].scale = 0.5f;
                         Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
             }
-
-            return true;
         }
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)

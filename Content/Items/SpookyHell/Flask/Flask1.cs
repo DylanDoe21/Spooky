@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell.Flask
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Flask I");
-            Tooltip.SetDefault("A smelly substance, made from ground up plants"
-            + "\nLittle eye may be interested in this");
+            // DisplayName.SetDefault("Mysterious Flask I");
+            /* Tooltip.SetDefault("A smelly substance, made from ground up plants"
+            + "\nLittle eye may be interested in this"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

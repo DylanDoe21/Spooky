@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Old Wood Sword");
+            // DisplayName.SetDefault("Old Wood Sword");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -20,9 +20,9 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harvester's Scythe");
-			Tooltip.SetDefault("Killing enemies with the scythe will release souls around you"
-			+ "\nAfter you have five souls, they will fly away and home in on nearby enemies");
+			// DisplayName.SetDefault("Harvester's Scythe");
+			/* Tooltip.SetDefault("Killing enemies with the scythe will release souls around you"
+			+ "\nAfter you have five souls, they will fly away and home in on nearby enemies"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -59,7 +59,7 @@ namespace Spooky.Content.Items.Catacomb
 			base.UseAnimation(player);
 		}
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!hasHitSomething)
 			{

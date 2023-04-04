@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Caramel Apple");
-			Tooltip.SetDefault("Minor improvements to all stats\n'Don't know how the apple got caramel on it'");
+			// DisplayName.SetDefault("Caramel Apple");
+			// Tooltip.SetDefault("Minor improvements to all stats\n'Don't know how the apple got caramel on it'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

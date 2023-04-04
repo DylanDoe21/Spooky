@@ -8,7 +8,7 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotting");
+			// DisplayName.SetDefault("Rotting");
 			Main.debuff[Type] = true;
 		}
 

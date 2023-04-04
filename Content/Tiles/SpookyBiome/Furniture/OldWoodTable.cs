@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -24,8 +25,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.StyleHorizontal = true;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Table");
+			LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Table");
 			AddMapEntry(new Color(93, 62, 39), name);
 			DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.Tables };

@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flower Spore");
+            // DisplayName.SetDefault("Flower Spore");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

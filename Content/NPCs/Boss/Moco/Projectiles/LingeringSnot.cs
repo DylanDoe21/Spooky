@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snot Pile");
+            // DisplayName.SetDefault("Snot Pile");
             Main.projFrames[Projectile.type] = 5;
         }
 		
@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             return true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OgreSpit, 60, true);
         }

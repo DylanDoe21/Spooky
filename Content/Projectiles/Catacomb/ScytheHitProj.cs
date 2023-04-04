@@ -7,7 +7,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Harvester's Scythe");
+            // DisplayName.SetDefault("Harvester's Scythe");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.alpha = 255;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
 

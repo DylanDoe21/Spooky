@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Franken Marshmallow");
-			Tooltip.SetDefault("Minor improvements to all stats\n'A chewy abomination'");
+			// DisplayName.SetDefault("Franken Marshmallow");
+			// Tooltip.SetDefault("Minor improvements to all stats\n'A chewy abomination'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

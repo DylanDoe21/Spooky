@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Bolt");
+            // DisplayName.SetDefault("Soul Bolt");
         }
 		
         public override void SetDefaults()

@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell.Flask
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Flask IV");
-            Tooltip.SetDefault("A gooey substance, made from the most sticky items"
-            + "\nLittle eye may be interested in this");
+            // DisplayName.SetDefault("Mysterious Flask IV");
+            /* Tooltip.SetDefault("A gooey substance, made from the most sticky items"
+            + "\nLittle eye may be interested in this"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seer");
-			Tooltip.SetDefault("Converts arrows into bloody tears\nEvery tenth shot will fire out a homing eye");
+			// DisplayName.SetDefault("Seer");
+			// Tooltip.SetDefault("Converts arrows into bloody tears\nEvery tenth shot will fire out a homing eye");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpookyHell
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
-						NetMessage.SendData(MessageID.ItemAnimation, -1, -1, null, player.whoAmI);
+						NetMessage.SendData(MessageID.ShotAnimationAndSound, -1, -1, null, player.whoAmI);
 					}
 
 					return;

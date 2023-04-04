@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mini Spirit");
+			// DisplayName.SetDefault("Mini Spirit");
 			Main.projFrames[Projectile.type] = 3;
 			ProjectileID.Sets.LightPet[Projectile.type] = true;
 		}

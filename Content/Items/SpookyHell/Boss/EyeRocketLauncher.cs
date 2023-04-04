@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("I.C.U");
-			Tooltip.SetDefault("Hold down to shoot explosive eye missles that track enemies");
+			// DisplayName.SetDefault("I.C.U");
+			// Tooltip.SetDefault("Hold down to shoot explosive eye missles that track enemies");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thorn Pillar");
+			// DisplayName.SetDefault("Thorn Pillar");
 		}
 
 		public override void SetDefaults()

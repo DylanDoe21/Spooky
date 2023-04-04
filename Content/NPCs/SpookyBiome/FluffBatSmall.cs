@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fuzz Bat");
+            // DisplayName.SetDefault("Fuzz Bat");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -81,7 +81,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VampireGummy>(), 100));
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 
@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
     public class FluffBatSmall2 : FluffBatSmall1  
     {
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

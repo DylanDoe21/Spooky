@@ -59,10 +59,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 			return false; // Prevent the vanilla whip AI from running.
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
-			Projectile.damage = (int)(damage * 0.75f);
+			Projectile.damage = (int)(damageDone * 0.75f);
 		}
 
         public override bool PreDraw(ref Color lightColor) 

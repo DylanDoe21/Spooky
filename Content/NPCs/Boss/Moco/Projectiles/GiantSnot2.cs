@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snot Ball");
+            // DisplayName.SetDefault("Snot Ball");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.alpha = 255;
 		}
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OgreSpit, 180, true);
         }

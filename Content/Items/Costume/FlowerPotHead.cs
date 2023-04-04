@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flower Pot Head");
-			Tooltip.SetDefault("'That's not how you're supposed to use it'");
+			// DisplayName.SetDefault("Flower Pot Head");
+			// Tooltip.SetDefault("'That's not how you're supposed to use it'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

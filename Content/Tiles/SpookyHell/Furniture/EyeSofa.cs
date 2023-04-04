@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
@@ -19,8 +20,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Sofa");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Sofa");
 			AddMapEntry(new Color(114, 13, 39), name);
 			DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Benches };

@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Capillary Aura");
+            // DisplayName.SetDefault("Capillary Aura");
         }
 
         public override void SetDefaults()

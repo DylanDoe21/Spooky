@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fly");
+			// DisplayName.SetDefault("Fly");
             Main.projFrames[Projectile.type] = 3;
 		}
 

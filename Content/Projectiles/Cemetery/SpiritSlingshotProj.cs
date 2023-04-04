@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ghostly Slingshot");
+			// DisplayName.SetDefault("Ghostly Slingshot");
             Main.projFrames[Projectile.type] = 3;
 		}
 

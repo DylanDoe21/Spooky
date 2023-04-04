@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using Terraria.DataStructures;
@@ -12,6 +13,7 @@ using System.Linq;
 using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyHell;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpookyHell.Tree
 {
@@ -31,8 +33,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Eye Stalk");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Eye Stalk");
             AddMapEntry(new Color(86, 2, 28), name);
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
@@ -145,7 +147,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
         }
 
-        public override bool Drop(int i, int j)
+        /*
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
         {
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
@@ -166,8 +169,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 }
             }
 
-            return true;
+            return null;
         }
+        */
 
         private void CheckEntireTree(ref int x, ref int y)
         {
@@ -180,6 +184,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (Main.tile[x, y].TileFrameX == 16)
             {
+                /*
                 for (int k = 0; k < WorldGen.numTreeShakes; k++)
 				{
                     if (WorldGen.treeShakeX[k] == x && WorldGen.treeShakeY[k] == y)
@@ -191,6 +196,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 WorldGen.treeShakeX[WorldGen.numTreeShakes] = x;
                 WorldGen.treeShakeY[WorldGen.numTreeShakes] = y;
                 WorldGen.numTreeShakes++;
+                */
 
                 //spawn an item out of the tree
                 if (Main.rand.Next(10) == 0)

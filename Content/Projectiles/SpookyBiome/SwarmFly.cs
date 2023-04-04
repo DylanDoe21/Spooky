@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fly");
+			// DisplayName.SetDefault("Fly");
             Main.projFrames[Projectile.type] = 3;
 		}
 

@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mold Spore");
+			// DisplayName.SetDefault("Mold Spore");
 		}
 
 		public override void SetDefaults()

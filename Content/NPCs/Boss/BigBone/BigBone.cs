@@ -61,7 +61,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Bone");
+            // DisplayName.SetDefault("Big Bone");
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
 
@@ -125,7 +125,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void SetDefaults()
         {
             NPC.lifeMax = 65000;
-            NPC.damage = 100;
+            NPC.damage = 65;
             NPC.defense = 65;
             NPC.width = 134;
             NPC.height = 170;
@@ -143,10 +143,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

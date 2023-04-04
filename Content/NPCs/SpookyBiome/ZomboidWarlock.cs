@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zomboid Warlock");
+            // DisplayName.SetDefault("Zomboid Warlock");
             Main.npcFrameCount[NPC.type] = 9;
         }
 
@@ -168,7 +168,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         }
 
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

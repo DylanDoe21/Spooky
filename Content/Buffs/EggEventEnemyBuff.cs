@@ -8,7 +8,7 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Capillary buff");
+			// DisplayName.SetDefault("Capillary buff");
 		}
 
         private bool initializeStats;

@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Rotten Gourd Head");
-			Tooltip.SetDefault("2% increased melee damage");
+			// DisplayName.SetDefault("Rotten Gourd Head");
+			// Tooltip.SetDefault("2% increased melee damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

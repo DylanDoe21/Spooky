@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Spirit");
+            // DisplayName.SetDefault("Spooky Spirit");
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -114,8 +114,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 3400;
-            NPC.damage = 40;
+            NPC.lifeMax = 3500;
+            NPC.damage = 25;
             NPC.defense = 8;
             NPC.width = 116;
             NPC.height = 112;
@@ -133,10 +133,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -234,7 +233,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 25;
+            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 25;
 
             if (SaveDirection != 0)
             {

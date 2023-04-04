@@ -9,8 +9,8 @@ namespace Spooky.Content.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acidic Concoction");
-            Tooltip.SetDefault("Can be used to corrode the giant egg\nHowever, the creature inside will be unleashed");
+            // DisplayName.SetDefault("Acidic Concoction");
+            // Tooltip.SetDefault("Can be used to corrode the giant egg\nHowever, the creature inside will be unleashed");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thorn Vine");
+			// DisplayName.SetDefault("Thorn Vine");
 		}
 
 		public override void SetDefaults()
@@ -69,7 +69,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			behindNPCsAndTiles.Add(index);
 		}
 
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
 			target.AddBuff(ModContent.BuffType<ThornMark>(), 180);
         }

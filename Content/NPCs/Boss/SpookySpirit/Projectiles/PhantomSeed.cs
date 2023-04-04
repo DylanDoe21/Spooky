@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phantom Seed");
+			// DisplayName.SetDefault("Phantom Seed");
 		}
 
 		public override void SetDefaults()

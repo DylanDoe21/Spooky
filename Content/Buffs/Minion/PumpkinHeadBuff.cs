@@ -9,8 +9,8 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pumpkin Head");
-			Description.SetDefault("Your head is now fighting with you!");
+			// DisplayName.SetDefault("Pumpkin Head");
+			// Description.SetDefault("Your head is now fighting with you!");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

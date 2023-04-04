@@ -41,7 +41,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orro");
             Main.npcFrameCount[NPC.type] = 5;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -118,10 +117,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

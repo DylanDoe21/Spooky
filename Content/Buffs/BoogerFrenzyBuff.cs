@@ -7,8 +7,8 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Booger Frenzy");
-			Description.SetDefault("Your weapons have been blessed with boogers");
+			// DisplayName.SetDefault("Booger Frenzy");
+			// Description.SetDefault("Your weapons have been blessed with boogers");
 			Main.buffNoSave[Type] = true;
 		}
 	}

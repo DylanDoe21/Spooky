@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("");
+            // DisplayName.SetDefault("");
         }
 
         public override void SetDefaults()

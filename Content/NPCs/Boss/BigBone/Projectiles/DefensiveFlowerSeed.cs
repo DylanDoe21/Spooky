@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flower Seed");
+			// DisplayName.SetDefault("Flower Seed");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orro");
+            // DisplayName.SetDefault("Orro");
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -45,12 +45,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.noGravity = true;
             NPC.HitSound = HitSound;
             NPC.aiStyle = -1;
-        }
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

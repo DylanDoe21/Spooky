@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Entity");
+            // DisplayName.SetDefault("Entity");
             Main.projFrames[Projectile.type] = 12;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

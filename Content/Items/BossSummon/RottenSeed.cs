@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rotten Seed");
-            Tooltip.SetDefault("Summons the rotten gourd\nCan be used in the spooky forest");
+            // DisplayName.SetDefault("Rotten Seed");
+            // Tooltip.SetDefault("Summons the rotten gourd\nCan be used in the spooky forest");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }

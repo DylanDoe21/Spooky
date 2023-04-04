@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -17,7 +18,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(130, 123, 95));
             DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
@@ -41,7 +42,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(130, 123, 95));
             DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
@@ -65,7 +66,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(130, 123, 95));
             DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;

@@ -8,7 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Big Fly Jar");
+			// DisplayName.SetDefault("Big Fly Jar");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

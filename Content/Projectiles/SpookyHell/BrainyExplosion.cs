@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brain Explosion");
+            // DisplayName.SetDefault("Brain Explosion");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 1;
         }

@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sentient Seer");
-            Tooltip.SetDefault("Rapidly fires organic chunks\nEvery twentieth shot will fire multiple homing eyes");
+            // DisplayName.SetDefault("Sentient Seer");
+            // Tooltip.SetDefault("Rapidly fires organic chunks\nEvery twentieth shot will fire multiple homing eyes");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
-						NetMessage.SendData(MessageID.ItemAnimation, -1, -1, null, player.whoAmI);
+						NetMessage.SendData(MessageID.ShotAnimationAndSound, -1, -1, null, player.whoAmI);
 					}
 
 					return;

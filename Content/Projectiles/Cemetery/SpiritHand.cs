@@ -9,7 +9,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spirit Hand");
+			// DisplayName.SetDefault("Spirit Hand");
             Main.projFrames[Projectile.type] = 4;
 		}
 

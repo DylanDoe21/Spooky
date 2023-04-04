@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Wisp");
+			// DisplayName.SetDefault("Skull Wisp");
 			Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

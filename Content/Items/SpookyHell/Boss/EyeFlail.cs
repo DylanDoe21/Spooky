@@ -15,10 +15,10 @@ namespace Spooky.Content.Items.SpookyHell.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chained Eyes");
-            Tooltip.SetDefault("Shoots out two long range eye flails"
+            // DisplayName.SetDefault("Chained Eyes");
+            /* Tooltip.SetDefault("Shoots out two long range eye flails"
             + "\nThe smaller eye flail travels further but deals less damage"
-            + "\nThe bigger eye flail travels less far but deals more damage");
+            + "\nThe bigger eye flail travels less far but deals more damage"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

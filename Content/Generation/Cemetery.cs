@@ -29,7 +29,7 @@ namespace Spooky.Content.Generation
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
             //place biome based on opposite dungeon side
-            if (WorldGen.dungeonSide == -1)
+            if (GenVars.dungeonSide == -1)
 			{
                 Catacombs.PositionX = Main.maxTilesX - 835;
 			}
@@ -439,7 +439,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Dirt Rock Wall Runner"));
 			if (GenIndex1 == -1)

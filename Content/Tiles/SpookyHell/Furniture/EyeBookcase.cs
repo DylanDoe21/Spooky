@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -20,8 +21,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16 };
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bookcase");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Bookcase");
             AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
             AdjTiles = new int[] { TileID.Bookcases };

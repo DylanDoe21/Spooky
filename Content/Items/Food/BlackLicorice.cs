@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.Food
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Black Licorice");
-			Tooltip.SetDefault("Minor deterioration to all stats\n'Why would you eat this?'");
+			// DisplayName.SetDefault("Black Licorice");
+			// Tooltip.SetDefault("Minor deterioration to all stats\n'Why would you eat this?'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
             ItemID.Sets.IsFood[Type] = true;
 

@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Valley Key");
-            Tooltip.SetDefault("Unlocks an eye chest in the catacombs"
-            + "\nCannot be used until plantera has been defeated");
+            // DisplayName.SetDefault("Eye Valley Key");
+            /* Tooltip.SetDefault("Unlocks an eye chest in the catacombs"
+            + "\nCannot be used until plantera has been defeated"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goofy Fuzz Bat");
-			Description.SetDefault("It doesn't know why, but it likes following you");
+			// DisplayName.SetDefault("Goofy Fuzz Bat");
+			// Description.SetDefault("It doesn't know why, but it likes following you");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

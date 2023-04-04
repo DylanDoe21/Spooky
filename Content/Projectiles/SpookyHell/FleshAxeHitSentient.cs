@@ -9,7 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sentient Flesh Mincer");
+            // DisplayName.SetDefault("Sentient Flesh Mincer");
         }
 
         public override void SetDefaults()
@@ -23,14 +23,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.alpha = 255;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (target.life <= target.lifeMax * 0.5)
             {
                 target.takenDamageMultiplier = 1.65f;
             }
 
-            if (crit)
+            if (hit.Crit)
             {
                 target.AddBuff(ModContent.BuffType<SentientAxeBleed>(), 180);
             }

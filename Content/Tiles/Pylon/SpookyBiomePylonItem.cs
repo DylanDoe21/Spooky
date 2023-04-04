@@ -9,9 +9,9 @@ namespace Spooky.Content.Tiles.Pylon
     {
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spooky Forest Pylon");
-			Tooltip.SetDefault("Teleport to another pylon when 2 villagers are nearby"
-			+ "\nYou can only place one per type and in the matching biome");
+			// DisplayName.SetDefault("Spooky Forest Pylon");
+			/* Tooltip.SetDefault("Teleport to another pylon when 2 villagers are nearby"
+			+ "\nYou can only place one per type and in the matching biome"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

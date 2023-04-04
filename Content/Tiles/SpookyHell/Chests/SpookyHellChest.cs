@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.SpookyHell;
@@ -39,18 +40,33 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Eye Chest");
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Eye Chest");
-			AddMapEntry(new Color(146, 135, 238), name, MapChestName);
-			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Eye Chest");
-			AddMapEntry(new Color(146, 135, 238), name, MapChestName);
-			DustType = ModContent.DustType<SpookyHellPurpleDust>();
+            AddMapEntry(new Color(146, 135, 238), this.GetLocalization("MapEntry0"), MapChestName);
+            AddMapEntry(new Color(146, 135, 238), this.GetLocalization("MapEntry1"), MapChestName);
+            DustType = ModContent.DustType<SpookyHellPurpleDust>();
 			HitSound = SoundID.Dig;
 		}
 
-		public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            Tile tile = Main.tile[i, j];
+            int style = TileObjectData.GetTileStyle(tile);
+            if (style == 0)
+            {
+                yield return new Item(ModContent.ItemType<EyeChestItem>());
+            }
+            if (style == 1)
+            {
+                yield return new Item(ModContent.ItemType<EyeChestItem>());
+            }
+        }
+
+        public override LocalizedText DefaultContainerName(int frameX, int frameY)
+        {
+            int option = frameX / 36;
+            return this.GetLocalization("MapEntry" + option);
+        }
+
+        public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
@@ -105,7 +121,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<SpookyHellChestItem>());
 			Chest.DestroyChest(i, j);
 		}
 
@@ -174,7 +189,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 						{
 							if (Main.netMode == NetmodeID.MultiplayerClient) 
 							{
-								NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
+								NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
 							}
 						}
 					}

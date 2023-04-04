@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flesh Orb");
+			// DisplayName.SetDefault("Flesh Orb");
 		}
 
 		public override void SetDefaults()

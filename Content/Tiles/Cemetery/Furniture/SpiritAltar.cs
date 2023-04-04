@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -27,8 +28,8 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Spirit Altar");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Spirit Altar");
 			AddMapEntry(new Color(136, 0, 253), name);
             DustType = DustID.Stone;
         }

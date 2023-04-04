@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Plant");
+			// DisplayName.SetDefault("Skull Plant");
 			NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 8;
 		}
@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Friendly
 			button2 = "Transport";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton) 
             {

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fly");
+			// DisplayName.SetDefault("Fly");
 			Main.npcFrameCount[NPC.type] = 3;
             Main.npcCatchable[NPC.type] = true;
 		}
@@ -82,7 +82,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.rotation = NPC.velocity.X * 0.07f;
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

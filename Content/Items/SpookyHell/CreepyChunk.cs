@@ -9,8 +9,8 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Monster Meat");
-            Tooltip.SetDefault("'Looks almost edible!'");
+            // DisplayName.SetDefault("Monster Meat");
+            // Tooltip.SetDefault("'Looks almost edible!'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
         }
 

@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Catacomb Guardian");
+            // DisplayName.SetDefault("Catacomb Guardian");
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -257,7 +257,7 @@ namespace Spooky.Content.NPCs.Catacomb
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullKey>()));
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

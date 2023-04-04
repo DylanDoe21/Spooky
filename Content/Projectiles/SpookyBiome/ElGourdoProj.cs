@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("El Gourdo");
+            // DisplayName.SetDefault("El Gourdo");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -112,7 +112,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			return false;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }

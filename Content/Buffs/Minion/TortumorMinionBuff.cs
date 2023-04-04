@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Friendly Tortumor");
-			Description.SetDefault("The tortumor will fight with you");
+			// DisplayName.SetDefault("Friendly Tortumor");
+			// Description.SetDefault("The tortumor will fight with you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Floating Skull");
-			Description.SetDefault("He spins for eternity");
+			// DisplayName.SetDefault("Floating Skull");
+			// Description.SetDefault("He spins for eternity");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

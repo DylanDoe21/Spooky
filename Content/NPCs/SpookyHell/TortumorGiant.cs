@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Giant Tortumor");
+            // DisplayName.SetDefault("Giant Tortumor");
             Main.npcFrameCount[NPC.type] = 6;
         }
 
@@ -230,7 +230,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

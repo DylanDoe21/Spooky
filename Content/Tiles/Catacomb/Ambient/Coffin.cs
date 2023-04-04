@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(61, 56, 46));
             DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;

@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Totem");
+            // DisplayName.SetDefault("Soul Totem");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

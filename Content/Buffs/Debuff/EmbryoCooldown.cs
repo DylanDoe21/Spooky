@@ -7,8 +7,8 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Embryotic Shatter");
-			Description.SetDefault("The embyro's revival must recharge\nIncreases all damage and critical strike chance by 8%");
+			// DisplayName.SetDefault("Embryotic Shatter");
+			// Description.SetDefault("The embyro's revival must recharge\nIncreases all damage and critical strike chance by 8%");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

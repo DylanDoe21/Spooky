@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Map;
 using Terraria.GameContent;
@@ -45,8 +46,7 @@ namespace Spooky.Content.Tiles.Pylon
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(moddedPylon.Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.CountsAsPylon);
-			ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Eye Valley Pylon");
+			LocalizedText name = CreateMapEntryName();
             AddMapEntry(Color.Red, name);
 			DustType = -1;
 		}
@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.Pylon
 			return true;
 		}
 
-		public override int? IsPylonForSale(int npcType, Player player, bool isNPCHappyEnough) 
+		public override NPCShop.Entry GetNPCShopEntry()
         {
 			//this pylon is never sold
 			return null;
@@ -65,23 +65,17 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override void MouseOver(int i, int j) 
         {
-			// Show a little pylon icon on the mouse indicating we are hovering over it.
 			Main.LocalPlayer.cursorItemIconEnabled = true;
 			Main.LocalPlayer.cursorItemIconID = ModContent.ItemType<SpookyHellPylonItem>();
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
         {
-			// We need to clean up after ourselves, since this is still a "unique" tile, separate from Vanilla Pylons, so we must kill the TileEntity.
 			ModContent.GetInstance<PylonTileEntity>().Kill(i, j);
-
-			// Also, like other pylons, breaking it simply drops the item once again. Pretty straight-forward.
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpookyHellPylonItem>());
 		}
 		
 		public override bool ValidTeleportCheck_BiomeRequirements(TeleportPylonInfo pylonInfo, SceneMetrics sceneData) 
         {
-			//conditions for the pylon
 			return ModContent.GetInstance<TileCount>().spookyHellTiles >= 500;
 		}
 

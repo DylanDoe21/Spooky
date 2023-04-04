@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Distended");
+            // DisplayName.SetDefault("Distended");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
@@ -104,7 +104,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.spriteDirection = NPC.direction;
         }
 
-        public override void HitEffect(int hitDirection, double damage) 
+        public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

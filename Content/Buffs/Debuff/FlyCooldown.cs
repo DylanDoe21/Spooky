@@ -9,8 +9,8 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fly Amulet Recharge");
-			Description.SetDefault("Your defensive flies cannot respawn");
+			// DisplayName.SetDefault("Fly Amulet Recharge");
+			// Description.SetDefault("Your defensive flies cannot respawn");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = false;

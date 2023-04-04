@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell.Flask
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sandstorm Flask");
-            Tooltip.SetDefault("A mythical substance of rare desert materials"
-            + "\nLittle eye may be interested in this");
+            // DisplayName.SetDefault("Sandstorm Flask");
+            /* Tooltip.SetDefault("A mythical substance of rare desert materials"
+            + "\nLittle eye may be interested in this"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

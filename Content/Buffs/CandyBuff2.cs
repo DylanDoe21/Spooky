@@ -7,8 +7,8 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Summoner Candy");
-			Description.SetDefault("1 extra minion slot");
+			// DisplayName.SetDefault("Summoner Candy");
+			// Description.SetDefault("1 extra minion slot");
 			Main.buffNoSave[Type] = true;
 		}
 

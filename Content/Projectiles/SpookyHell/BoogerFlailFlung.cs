@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snot Ball");
+            // DisplayName.SetDefault("Snot Ball");
         }
 
         public override void SetDefaults()

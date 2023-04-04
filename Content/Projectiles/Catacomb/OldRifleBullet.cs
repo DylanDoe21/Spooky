@@ -18,7 +18,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Old Bullet");
+            // DisplayName.SetDefault("Old Bullet");
         }
         
         public override void SetDefaults()

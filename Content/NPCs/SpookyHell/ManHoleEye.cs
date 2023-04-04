@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stalking Eye");
+            // DisplayName.SetDefault("Stalking Eye");
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }

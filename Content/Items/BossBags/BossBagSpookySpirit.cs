@@ -2,13 +2,16 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
+using Spooky.Content.NPCs.Boss.Moco;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.UI;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -16,10 +19,10 @@ namespace Spooky.Content.Items.BossBags
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Spooky Spirit)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-		}
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
         {
@@ -41,9 +44,9 @@ namespace Spooky.Content.Items.BossBags
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
 		}
 
-		public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			//weapon drops
+            //weapon drops
             int[] MainItem = new int[] 
             { 
                 ModContent.ItemType<SpiritSword>(), 
@@ -52,16 +55,17 @@ namespace Spooky.Content.Items.BossBags
                 ModContent.ItemType<SpiritScroll>()
             };
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
 
-			//material
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyPlasma>(), Main.rand.Next(20, 35));
+            //material
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookyPlasma>(), 1, 18, 30));
 
-			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpiritAmulet>());
-		}
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpiritAmulet>(), 1));
 
-		public override int BossBagNPC => ModContent.NPCType<SpookySpirit>();
+            //money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<SpookySpirit>()));
+        }
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

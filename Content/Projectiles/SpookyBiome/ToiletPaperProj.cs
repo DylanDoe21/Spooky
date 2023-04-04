@@ -9,7 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Toilet Paper");
+            // DisplayName.SetDefault("Toilet Paper");
         }
 
         public override void SetDefaults()

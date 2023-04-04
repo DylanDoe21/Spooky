@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Party Skeleton");
+            // DisplayName.SetDefault("Party Skeleton");
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 6;
         }

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
@@ -34,8 +35,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chair");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chair");
 			AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Chairs };

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using Terraria.DataStructures;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -9,8 +10,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Green Spooky Seeds");
-			Tooltip.SetDefault("Places grass on spooky dirt");
+			// DisplayName.SetDefault("Green Spooky Seeds");
+			// Tooltip.SetDefault("Places grass on spooky dirt");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 		}
 
@@ -32,7 +33,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
 			if ((tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() || tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt2>()) &&
-			player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY))
+			player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
 			{
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
 

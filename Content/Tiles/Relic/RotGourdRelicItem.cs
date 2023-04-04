@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Relic
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Rot Gourd Relic");
+			// DisplayName.SetDefault("Rot Gourd Relic");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

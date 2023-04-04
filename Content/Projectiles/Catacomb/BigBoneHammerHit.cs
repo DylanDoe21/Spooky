@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Smasher");
+            // DisplayName.SetDefault("Skull Smasher");
         }
 
         public override void SetDefaults()
@@ -25,7 +25,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.alpha = 255;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 3;
         }

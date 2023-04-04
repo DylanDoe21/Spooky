@@ -15,8 +15,8 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yellow Skull Key");
-			Tooltip.SetDefault("Use to destroy the yellow barrier, allowing access into the catacombs");
+			// DisplayName.SetDefault("Yellow Skull Key");
+			// Tooltip.SetDefault("Use to destroy the yellow barrier, allowing access into the catacombs");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

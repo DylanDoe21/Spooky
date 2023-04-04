@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crypt Brick");
+            // DisplayName.SetDefault("Crypt Brick");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

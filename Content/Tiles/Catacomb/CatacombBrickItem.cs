@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Catacomb
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Catacomb Bricks");
+            // DisplayName.SetDefault("Catacomb Bricks");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
         }
 

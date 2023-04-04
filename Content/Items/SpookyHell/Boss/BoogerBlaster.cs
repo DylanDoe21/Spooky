@@ -14,9 +14,9 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Booger Blaster");
-			Tooltip.SetDefault("Charge up to shoot nasty boogers that slow enemies on hit"
-			+ "\nThe longer you charge it, the stronger and faster the boogers will become");
+			// DisplayName.SetDefault("Booger Blaster");
+			/* Tooltip.SetDefault("Charge up to shoot nasty boogers that slow enemies on hit"
+			+ "\nThe longer you charge it, the stronger and faster the boogers will become"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

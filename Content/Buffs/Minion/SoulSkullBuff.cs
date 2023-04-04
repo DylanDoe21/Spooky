@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Soul Skull");
-			Description.SetDefault("The soul minions will fight with you");
+			// DisplayName.SetDefault("Soul Skull");
+			// Description.SetDefault("The soul minions will fight with you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

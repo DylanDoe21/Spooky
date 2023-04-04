@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sleeping Skull");
+			// DisplayName.SetDefault("Sleeping Skull");
 			NPCID.Sets.ActsLikeTownNPC[Type] = true;
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);

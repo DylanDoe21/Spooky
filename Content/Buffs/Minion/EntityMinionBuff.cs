@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Little Entity");
-			Description.SetDefault("The baby entity will fight with you");
+			// DisplayName.SetDefault("Little Entity");
+			// Description.SetDefault("The baby entity will fight with you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

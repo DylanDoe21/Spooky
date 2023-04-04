@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Saliva Ball");
+            // DisplayName.SetDefault("Saliva Ball");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

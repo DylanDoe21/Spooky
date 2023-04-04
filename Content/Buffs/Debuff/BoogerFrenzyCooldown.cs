@@ -9,8 +9,8 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Booger Frenzy Cooldown");
-			Description.SetDefault("Your booger frenzy is recharging");
+			// DisplayName.SetDefault("Booger Frenzy Cooldown");
+			// Description.SetDefault("Your booger frenzy is recharging");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = false;

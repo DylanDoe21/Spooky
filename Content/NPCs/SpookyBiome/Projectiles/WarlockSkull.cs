@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magic Skull");
+			// DisplayName.SetDefault("Magic Skull");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Splatter");
+            // DisplayName.SetDefault("Blood Splatter");
             Main.projFrames[Projectile.type] = 10;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

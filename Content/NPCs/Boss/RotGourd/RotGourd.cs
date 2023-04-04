@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rot Gourd");
+			// DisplayName.SetDefault("Rot Gourd");
 			Main.npcFrameCount[NPC.type] = 2;
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 3000;
-            NPC.damage = 30;
+            NPC.damage = 18;
             NPC.defense = 5;
             NPC.width = 78;
             NPC.height = 134;
@@ -102,13 +102,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
@@ -977,7 +976,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			}
 		}
 
-		public override void HitEffect(int hitDirection, double damage) 
+		public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
 			if (Main.netMode == NetmodeID.Server) 

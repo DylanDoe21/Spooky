@@ -14,9 +14,9 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Eye Mask");
-			Tooltip.SetDefault("3% increased summon damage"
-			+ "\nIncreases your max minions by 1");
+			// DisplayName.SetDefault("Eye Mask");
+			/* Tooltip.SetDefault("3% increased summon damage"
+			+ "\nIncreases your max minions by 1"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

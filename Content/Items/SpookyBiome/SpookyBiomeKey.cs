@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Forest Key");
-            Tooltip.SetDefault("Unlocks a spooky chest in the catacombs"
-            + "\nCannot be used until plantera has been defeated");
+            // DisplayName.SetDefault("Spooky Forest Key");
+            /* Tooltip.SetDefault("Unlocks a spooky chest in the catacombs"
+            + "\nCannot be used until plantera has been defeated"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

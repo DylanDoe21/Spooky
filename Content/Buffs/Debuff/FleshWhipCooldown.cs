@@ -8,7 +8,7 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye Lasher Cooldown");
+			// DisplayName.SetDefault("Eye Lasher Cooldown");
 			Main.debuff[Type] = true;
 		}
     }

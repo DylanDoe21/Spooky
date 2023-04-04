@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Eye Chestpiece");
-			Tooltip.SetDefault("5% increased summon damage"
-			+ "\nIncreases your max minions and sentries by 1");
+			// DisplayName.SetDefault("Eye Chestpiece");
+			/* Tooltip.SetDefault("5% increased summon damage"
+			+ "\nIncreases your max minions and sentries by 1"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

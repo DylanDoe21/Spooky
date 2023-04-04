@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Freaky Fertalizer");
-            Tooltip.SetDefault("A creepy bag of fertalizer and bones\nCan be used when nearby the giant flower pot");
+            // DisplayName.SetDefault("Freaky Fertalizer");
+            // Tooltip.SetDefault("A creepy bag of fertalizer and bones\nCan be used when nearby the giant flower pot");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

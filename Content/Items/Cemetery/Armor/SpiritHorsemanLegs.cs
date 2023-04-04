@@ -10,8 +10,8 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spirit Horseman's Greaves");
-			Tooltip.SetDefault("12% increased movement speed");
+			// DisplayName.SetDefault("Spirit Horseman's Greaves");
+			// Tooltip.SetDefault("12% increased movement speed");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

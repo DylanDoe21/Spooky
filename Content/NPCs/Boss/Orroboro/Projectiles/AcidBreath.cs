@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acidic Breath");
+            // DisplayName.SetDefault("Acidic Breath");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

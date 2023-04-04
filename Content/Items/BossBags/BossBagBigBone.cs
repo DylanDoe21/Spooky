@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.NPCs.Boss.BigBone;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -16,10 +16,10 @@ namespace Spooky.Content.Items.BossBags
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Big Bone)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-		}
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = false;
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
         {
@@ -41,10 +41,8 @@ namespace Spooky.Content.Items.BossBags
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
 		}
 
-		public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			player.TryGettingDevArmor(player.GetSource_OpenItem(Type));
-
 			//weapon drops
             int[] MainItem = new int[] 
 			{ 
@@ -54,13 +52,14 @@ namespace Spooky.Content.Items.BossBags
 				ModContent.ItemType<BigBoneScepter>() 
 			};
 
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
 
-			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<BoneMask>());
-		}
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BoneMask>(), 1));
 
-		public override int BossBagNPC => ModContent.NPCType<BigBone>();
+			//money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<BigBone>()));
+        }
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thorn Vine");
+			// DisplayName.SetDefault("Thorn Vine");
 		}
 
 		public override void SetDefaults()

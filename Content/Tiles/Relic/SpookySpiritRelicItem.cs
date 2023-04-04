@@ -9,7 +9,7 @@ namespace Spooky.Content.Tiles.Relic
 	{
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Spooky Spirit Relic");
+			// DisplayName.SetDefault("Spooky Spirit Relic");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

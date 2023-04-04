@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bulb Thorn");
+            // DisplayName.SetDefault("Bulb Thorn");
         }
 		
         public override void SetDefaults()

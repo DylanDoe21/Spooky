@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Candy");
+			// DisplayName.SetDefault("Candy");
 		}
 
 		public override void SetDefaults()

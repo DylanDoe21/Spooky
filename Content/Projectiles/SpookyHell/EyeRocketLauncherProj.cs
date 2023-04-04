@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("I.C.U");
+			// DisplayName.SetDefault("I.C.U");
             Main.projFrames[Projectile.type] = 5;
 		}
 

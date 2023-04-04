@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Smasher");
+            // DisplayName.SetDefault("Skull Smasher");
         }
 
         public override void SetDefaults()
@@ -87,7 +87,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SpookyPlayer.ScreenShakeAmount = 8;
 

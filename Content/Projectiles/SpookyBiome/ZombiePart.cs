@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zombie Piece");
+			// DisplayName.SetDefault("Zombie Piece");
 		}
 		
         public override void SetDefaults()
@@ -68,7 +68,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Bounces++;
 			if (Bounces >= 3)

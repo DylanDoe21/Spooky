@@ -14,7 +14,7 @@ namespace Spooky.Content.Biomes
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Valley of Eyes");
+            // DisplayName.SetDefault("Valley of Eyes");
         }
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");

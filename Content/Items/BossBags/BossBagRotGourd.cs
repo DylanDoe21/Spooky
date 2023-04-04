@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.RotGourd;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -16,10 +16,10 @@ namespace Spooky.Content.Items.BossBags
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Rot Gourd)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-		}
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
         {
@@ -41,19 +41,20 @@ namespace Spooky.Content.Items.BossBags
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
 		}
 
-		public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			//spooky key
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<SpookyChestKey>());
+            //spooky key
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookyChestKey>(), 1));
 
-			//material
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<RottenChunk>(), Main.rand.Next(20, 35));
+            //material
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<RottenChunk>(), 1, 20, 35));
 
-			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<FlyCharm>());
-		}
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<FlyCharm>(), 1));
 
-		public override int BossBagNPC => ModContent.NPCType<RotGourd>();
+            //money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<RotGourd>()));
+        }
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

@@ -35,7 +35,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetStaticDefaults() 
         {
-			DisplayName.SetDefault("Snot Ball");
+			// DisplayName.SetDefault("Snot Ball");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
@@ -477,20 +477,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		}
 		*/
 
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) 
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
         {
-			// Flails do a few custom things, you'll want to keep these to have the same feel as vanilla flails.
+			modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
 
-			// The hitDirection is always set to hit away from the player, even if the flail damages the npc while returning
-			hitDirection = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
-
-			// Knockback is only 25% as powerful when in spin mode
 			if (CurrentAIState == AIState.Spinning)
             {
-				knockback *= 0.25f;
+				modifiers.Knockback *= 0.25f;
             }
-
-			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 	}
 }

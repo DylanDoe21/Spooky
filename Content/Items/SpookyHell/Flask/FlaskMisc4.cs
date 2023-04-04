@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell.Flask
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aquatic Flask");
-            Tooltip.SetDefault("Made from materials of the sea"
-            + "\nLittle eye may be interested in this");
+            // DisplayName.SetDefault("Aquatic Flask");
+            /* Tooltip.SetDefault("Made from materials of the sea"
+            + "\nLittle eye may be interested in this"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

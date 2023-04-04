@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Entity");
+            // DisplayName.SetDefault("The Entity");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;

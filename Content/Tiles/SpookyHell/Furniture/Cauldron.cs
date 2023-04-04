@@ -149,11 +149,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 	public class CauldronGItem : GlobalItem
 	{
-        public override void OnCreate(Item item, ItemCreationContext context)
+        public override void OnCreated(Item item, ItemCreationContext context)
         {
-			if (item.ModItem is ICauldronOutput && context is RecipeCreationContext rContext)
+			if (item.ModItem is ICauldronOutput && context is RecipeItemCreationContext rContext)
 			{
-				Recipe recipe = rContext.recipe;
+				Recipe recipe = rContext.Recipe;
 				Player player = Main.LocalPlayer;
 				int inputItem = recipe.requiredItem[0].type;
 				CauldronSystem.SpawnItemTransform(player, inputItem, item.type);

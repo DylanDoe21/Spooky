@@ -20,8 +20,8 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flesh Mincer");
-            Tooltip.SetDefault("Deals more damage to enemies with low health");
+            // DisplayName.SetDefault("Flesh Mincer");
+            // Tooltip.SetDefault("Deals more damage to enemies with low health");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -60,7 +60,7 @@ namespace Spooky.Content.Items.SpookyHell
             }
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!hasHitEnemies)
             {

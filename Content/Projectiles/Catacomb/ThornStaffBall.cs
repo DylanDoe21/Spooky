@@ -14,7 +14,7 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Thorn Ball");
+            // DisplayName.SetDefault("Thorn Ball");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             return true;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Main.rand.Next(5) == 0 && !target.HasBuff(ModContent.BuffType<EnsnaredCooldown>()))
             {

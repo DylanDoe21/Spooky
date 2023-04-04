@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Spooky.Content.Items.BossBags
 {
@@ -16,10 +16,10 @@ namespace Spooky.Content.Items.BossBags
 	{
 		public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Treasure Bag (Orro & Boro)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-		}
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = false;
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
         {
@@ -41,26 +41,24 @@ namespace Spooky.Content.Items.BossBags
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossBags;
 		}
 
-		public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-			//dev armor
-			player.TryGettingDevArmor(player.GetSource_OpenItem(Type));
-
 			//weapon
 			int[] MainItem1 = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), ModContent.ItemType<EyeRocketLauncher>() };
 			int[] MainItem2 = new int[] { ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
 
-            player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem1));
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), Main.rand.Next(MainItem2));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem1));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem2));
 
-			//material
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<ArteryPiece>(), Main.rand.Next(20, 35));
-				
-			//expert item
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OrroboroEmbryo>());
-		}
-		
-		public override int BossBagNPC => ModContent.NPCType<OrroHead>();
+            //material
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ArteryPiece>(), 1, 20, 35));
+
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<OrroboroEmbryo>(), 1));
+
+            //money
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<OrroHead>()));
+        }
 
 		public override Color? GetAlpha(Color lightColor) 
 		{

@@ -7,8 +7,8 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gore Monger Aura");
-			Description.SetDefault("Your aura is protecting you");
+			// DisplayName.SetDefault("Gore Monger Aura");
+			// Description.SetDefault("Your aura is protecting you");
 			Main.buffNoSave[Type] = true;
 		}
 	}

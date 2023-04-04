@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bananalizard's Mask");
-			Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
+			// DisplayName.SetDefault("Bananalizard's Mask");
+			// Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

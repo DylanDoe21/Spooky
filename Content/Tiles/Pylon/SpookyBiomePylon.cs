@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Map;
 using Terraria.GameContent;
@@ -11,10 +12,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Biomes;
 
 namespace Spooky.Content.Tiles.Pylon
 {
-	public class SpookyBiomePylon : ModPylon
+    public static class SpookyBiomeCondition
+    {
+        public static Condition InBiome = new Condition("Mods.Spooky.Conditions.InBiome", () => Main.LocalPlayer.InModBiome<Biomes.SpookyBiome>() || Main.LocalPlayer.InModBiome<SpookyBiomeUg>());
+    }
+
+    public class SpookyBiomePylon : ModPylon
 	{
 		public const int CrystalVerticalFrameCount = 8;
 
@@ -45,43 +52,29 @@ namespace Spooky.Content.Tiles.Pylon
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(moddedPylon.Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.CountsAsPylon);
-			ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Spooky Forest Pylon");
+            LocalizedText name = CreateMapEntryName();
             AddMapEntry(Color.OrangeRed, name);
-			DustType = -1;
+            DustType = -1;
 		}
 
-		public override int? IsPylonForSale(int npcType, Player player, bool isNPCHappyEnough) 
+        public override NPCShop.Entry GetNPCShopEntry()
         {
-			// Let's say that our pylon is for sale no matter what for any NPC under all circumstances, granted that the NPC
-			// is in the Example Surface/Underground Biome.
-			return (ModContent.GetInstance<Biomes.SpookyBiome>().IsBiomeActive(player) || 
-			ModContent.GetInstance<Biomes.SpookyBiomeUg>().IsBiomeActive(player)) && isNPCHappyEnough ? ModContent.ItemType<SpookyBiomePylonItem>() : null;
-		}
+            return new NPCShop.Entry(ModContent.ItemType<SpookyBiomePylonItem>(), Condition.HappyEnoughToSellPylons, CemeteryCondition.InBiome);
+        }
 
-		public override void MouseOver(int i, int j) 
+        public override void MouseOver(int i, int j) 
         {
-			// Show a little pylon icon on the mouse indicating we are hovering over it.
 			Main.LocalPlayer.cursorItemIconEnabled = true;
 			Main.LocalPlayer.cursorItemIconID = ModContent.ItemType<SpookyBiomePylonItem>();
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
         {
-			// We need to clean up after ourselves, since this is still a "unique" tile, separate from Vanilla Pylons, so we must kill the TileEntity.
 			ModContent.GetInstance<PylonTileEntity>().Kill(i, j);
-
-			// Also, like other pylons, breaking it simply drops the item once again. Pretty straight-forward.
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpookyBiomePylonItem>());
 		}
 
 		public override bool ValidTeleportCheck_BiomeRequirements(TeleportPylonInfo pylonInfo, SceneMetrics sceneData) 
         {
-			// Right before this hook is called, the sceneData parameter exports its information based on wherever the destination pylon is,
-			// and by extension, it will call ALL ModSystems that use the TileCountsAvailable method. This means, that if you determine biomes
-			// based off of tile count, when this hook is called, you can simply check the tile threshold, like we do here. In the context of ExampleMod,
-			// something is considered within the Example Surface/Underground biome if there are 40 or more example blocks at that location.
-
 			return ModContent.GetInstance<TileCount>().spookyTiles >= 500;
 		}
 

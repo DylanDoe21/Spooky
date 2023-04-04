@@ -22,10 +22,10 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skull Smasher");
-			Tooltip.SetDefault("Left click to swing the hammer and create explosions on enemy hits"
+			// DisplayName.SetDefault("Skull Smasher");
+			/* Tooltip.SetDefault("Left click to swing the hammer and create explosions on enemy hits"
 			+ "\nHold down right click to swing the hammer around you and charge it up" 
-			+ "\nOnce fully charged, releasing right click will throw the hammer");
+			+ "\nOnce fully charged, releasing right click will throw the hammer"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
@@ -119,7 +119,7 @@ namespace Spooky.Content.Items.Catacomb
 			}
 		}
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!hasHitSomething)
 			{

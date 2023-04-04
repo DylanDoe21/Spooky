@@ -11,9 +11,9 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creepy Candle");
-            Tooltip.SetDefault("Increases magic damage by 5%"
-            + "\nMagic projectiles will sometimes ignite enemies");
+            // DisplayName.SetDefault("Creepy Candle");
+            /* Tooltip.SetDefault("Increases magic damage by 5%"
+            + "\nMagic projectiles will sometimes ignite enemies"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -11,9 +11,9 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Lasher");
-            Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nHitting enemies may lower their defense for a short time");
+            // DisplayName.SetDefault("Eye Lasher");
+            /* Tooltip.SetDefault("Your summons will focus struck enemies"
+            + "\nHitting enemies may lower their defense for a short time"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

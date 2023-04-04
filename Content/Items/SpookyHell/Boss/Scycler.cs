@@ -11,8 +11,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scycler");
-            Tooltip.SetDefault("Throws discs that follow your cursor before returning to you");
+            // DisplayName.SetDefault("Scycler");
+            // Tooltip.SetDefault("Throws discs that follow your cursor before returning to you");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -31,7 +31,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             CurrentBGID = -1;
             HellBGs = new HellBGType[0];
 
-            On.Terraria.Main.DrawUnderworldBackground += DrawHellBG;
+            Terraria.On_Main.DrawUnderworldBackground += DrawHellBG;
         }
 
         public static void Unload()
@@ -39,7 +39,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             HellBGs = null;
         }
 
-        private static void DrawHellBG(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main self, bool flat)
+        private static void DrawHellBG(Terraria.On_Main.orig_DrawUnderworldBackground orig, Main self, bool flat)
         {
             int oldID = CurrentBGID;
             CurrentBGID = -1;

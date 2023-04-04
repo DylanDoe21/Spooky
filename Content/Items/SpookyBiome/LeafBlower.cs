@@ -14,9 +14,9 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pump-Action Leaf Blower");
-			Tooltip.SetDefault("Rapidly fires different colored autumn leaves"
-			+ "\n'It's like a leaf blower, but it creates more leaves!'");
+			// DisplayName.SetDefault("Pump-Action Leaf Blower");
+			/* Tooltip.SetDefault("Rapidly fires different colored autumn leaves"
+			+ "\n'It's like a leaf blower, but it creates more leaves!'"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

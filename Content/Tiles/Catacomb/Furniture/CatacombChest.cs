@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
@@ -36,15 +37,22 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Tomb Chest");
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Tomb Chest");
-			AddMapEntry(new Color(142, 101, 71), name, MapChestName);
+            AddMapEntry(new Color(142, 101, 71), this.GetLocalization("MapEntry"), MapChestName);
 			DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
 
-		public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<CatacombChestItem>());
+        }
+
+        public override LocalizedText DefaultContainerName(int frameX, int frameY)
+        {
+            return this.GetLocalization("MapEntry");
+        }
+
+        public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
@@ -87,7 +95,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<CatacombChestItem>());
 			Chest.DestroyChest(i, j);
 		}
 

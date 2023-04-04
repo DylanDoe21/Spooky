@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantom Skull");
+            // DisplayName.SetDefault("Phantom Skull");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

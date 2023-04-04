@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow Clump");
+            // DisplayName.SetDefault("Shadow Clump");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

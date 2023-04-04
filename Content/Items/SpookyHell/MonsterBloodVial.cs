@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Monster Blood");
-            Tooltip.SetDefault("Massively increases life regeneration while not moving"
-            + "\nWhile moving, you gain 5% increased critical strike chance");
+            // DisplayName.SetDefault("Monster Blood");
+            /* Tooltip.SetDefault("Massively increases life regeneration while not moving"
+            + "\nWhile moving, you gain 5% increased critical strike chance"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

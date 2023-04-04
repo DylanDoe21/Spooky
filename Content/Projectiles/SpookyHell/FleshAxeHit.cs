@@ -7,7 +7,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flesh Mincer");
+            // DisplayName.SetDefault("Flesh Mincer");
         }
 
         public override void SetDefaults()

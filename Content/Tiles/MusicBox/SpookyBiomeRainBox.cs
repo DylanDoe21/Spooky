@@ -9,8 +9,6 @@ namespace Spooky.Content.Tiles.MusicBox
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (Spooky Forest Rain)");
-            Tooltip.SetDefault("'Harvest Rainfall' by Bananalizard");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain"), 
             ModContent.ItemType<SpookyBiomeRainBox>(), ModContent.TileType<SpookyBiomeRainBoxTile>());
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -18,7 +16,7 @@ namespace Spooky.Content.Tiles.MusicBox
 
         public override void SetDefaults()
         {
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            Item.hasVanityEffects = true;
             Item.useTurn = true;
             Item.autoReuse = true;
             Item.consumable = true;

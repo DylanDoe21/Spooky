@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Egg Barrier");
+            // DisplayName.SetDefault("Egg Barrier");
         }
 
         public override void SetDefaults()

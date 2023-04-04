@@ -9,9 +9,9 @@ namespace Spooky.Content.Items.SpookyHell.Flask
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flask of Night");
-            Tooltip.SetDefault("Concocted from the souls of evil creatures"
-            + "\nLittle eye may be interested in this");
+            // DisplayName.SetDefault("Flask of Night");
+            /* Tooltip.SetDefault("Concocted from the souls of evil creatures"
+            + "\nLittle eye may be interested in this"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

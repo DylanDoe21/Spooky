@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
@@ -22,8 +23,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AnimationFrameHeight = 36;
-			ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Big Fly Jar");
+			LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Big Fly Jar");
             AddMapEntry(new Color(203, 248, 218), name);
 			DustType = DustID.Glass;
 			HitSound = SoundID.Dig;

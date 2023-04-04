@@ -36,15 +36,17 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Dresser");
-			AddMapEntry(new Color(114, 13, 39), name);
-			ContainerName.SetDefault("Living Flesh Dresser");
+            AddMapEntry(new Color(114, 13, 39), this.GetLocalization("MapEntry"), MapChestName);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Dressers };
 		}
 
-		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 
+        public override LocalizedText DefaultContainerName(int frameX, int frameY)
+        {
+            return this.GetLocalization("MapEntry");
+        }
+
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 
         {
             return true;
         }
@@ -234,5 +236,34 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				player.cursorItemIconID = ItemID.FamiliarShirt;
 			}
         }
-	}
+
+        public static string MapChestName(string name, int i, int j)
+        {
+            int left = i;
+            int top = j;
+            Tile tile = Main.tile[i, j];
+            if (tile.TileFrameX % 36 != 0)
+            {
+                left--;
+            }
+
+            if (tile.TileFrameY != 0)
+            {
+                top--;
+            }
+
+            int chest = Chest.FindChest(left, top);
+            if (chest < 0)
+            {
+                return Language.GetTextValue("LegacyDresserType.0");
+            }
+
+            if (Main.chest[chest].name == "")
+            {
+                return name;
+            }
+
+            return name + ": " + Main.chest[chest].name;
+        }
+    }
 }

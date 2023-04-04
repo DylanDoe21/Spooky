@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -20,8 +21,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Candle");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Candle");
 			AddMapEntry(new Color(93, 62, 39), name);
             AdjTiles = new int[] { TileID.Candles };
             ItemDrop = ModContent.ItemType<OldWoodCandleItem>();

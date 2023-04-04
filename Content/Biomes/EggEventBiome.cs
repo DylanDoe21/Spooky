@@ -13,7 +13,7 @@ namespace Spooky.Content.Biomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Egg Incursion");
+            // DisplayName.SetDefault("Egg Incursion");
         }
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/EggEvent");

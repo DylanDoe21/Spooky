@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scycler");
+            // DisplayName.SetDefault("Scycler");
         }
 
         public override void SetDefaults()

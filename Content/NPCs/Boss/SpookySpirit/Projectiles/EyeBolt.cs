@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Bolt");
+            // DisplayName.SetDefault("Eye Bolt");
         }
 		
         public override void SetDefaults()

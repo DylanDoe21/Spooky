@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moco");
+            // DisplayName.SetDefault("Moco");
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -118,10 +118,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
-            NPC.damage = (int)(NPC.damage * 0.85f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -229,7 +228,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 45 / 2 : 35;
+            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 30;
 
             NPC.spriteDirection = NPC.direction;
 

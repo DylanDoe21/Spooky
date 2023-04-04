@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.BossBags.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Amulet");
-            Tooltip.SetDefault("15% increased movement speed"
-            + "\nWhen hit, you will sometimes release homing spirit particles around you");
+            // DisplayName.SetDefault("Spirit Amulet");
+            /* Tooltip.SetDefault("15% increased movement speed"
+            + "\nWhen hit, you will sometimes release homing spirit particles around you"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -16,15 +16,15 @@ namespace Spooky.Content.Items.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rod of Hands");
-            Tooltip.SetDefault("Casts spooky hands out of nearby surfaces"
-            + "\nHands cannot be summoned if your cursor is too far from any surfaces");
+            // DisplayName.SetDefault("Rod of Hands");
+            /* Tooltip.SetDefault("Casts spooky hands out of nearby surfaces"
+            + "\nHands cannot be summoned if your cursor is too far from any surfaces"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 15;
 			Item.mana = 12;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;

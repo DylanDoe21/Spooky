@@ -10,8 +10,8 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bag O' Treats");
-			Description.SetDefault("The magic candy bag flies above you");
+			// DisplayName.SetDefault("Bag O' Treats");
+			// Description.SetDefault("The magic candy bag flies above you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

@@ -11,9 +11,9 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Toilet Paper");
-            Tooltip.SetDefault("Throws rolls of toilet paper"
-            + "\n'The perfect thing for some nefarious halloween pranks'");
+            // DisplayName.SetDefault("Toilet Paper");
+            /* Tooltip.SetDefault("Throws rolls of toilet paper"
+            + "\n'The perfect thing for some nefarious halloween pranks'"); */
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
