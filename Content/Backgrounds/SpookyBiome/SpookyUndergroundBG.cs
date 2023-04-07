@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Backgrounds.SpookyBiome
 {
-	public class SpookyUndergroundBackgroundStyle1 : ModUndergroundBackgroundStyle
+	public class SpookyUndergroundBackgroundStyle : ModUndergroundBackgroundStyle
 	{
 		public override void FillTextureArray(int[] textureSlots)
         {
@@ -13,7 +13,7 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 		}
 	}
 
-    public class SpookyUndergroundBackgroundStyle2 : ModUndergroundBackgroundStyle
+    public class SpookyUndergroundBackgroundStyleAlt : ModUndergroundBackgroundStyle
 	{
 		public override void FillTextureArray(int[] textureSlots)
         {
