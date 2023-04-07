@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 
 namespace Spooky.Content.Tiles.SpookyBiome
@@ -10,9 +9,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
         public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Green Spooky Seeds");
-			// Tooltip.SetDefault("Places grass on spooky dirt");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void SetDefaults()
@@ -25,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 		}
 
         public override bool? UseItem(Player player)

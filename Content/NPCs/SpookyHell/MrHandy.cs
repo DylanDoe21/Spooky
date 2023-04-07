@@ -16,7 +16,6 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Mr. Handy");
             Main.npcFrameCount[NPC.type] = 3;
         }
         
@@ -42,7 +41,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MrHandy"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

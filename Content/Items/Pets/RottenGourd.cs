@@ -10,14 +10,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class RottenGourd : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Rotten Gourd");
-			/* Tooltip.SetDefault("Summons a squishy little gourd to follow you"
-			+ "\n'Its small, but smells awful'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

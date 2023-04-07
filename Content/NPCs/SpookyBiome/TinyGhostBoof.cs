@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Tiny Ghost");
 			Main.npcFrameCount[NPC.type] = 4;
 			Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A more fancy and well mannered ghost who also smokes his little pipe."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinyGhostBoof"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] < 75)
+            if (Projectile.ai[0] < 120)
             {
                 Player player = Main.LocalPlayer;
                 float goToX = player.Center.X - Projectile.Center.X;
@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] >= 75)
+            if (Projectile.ai[0] >= 120)
             {
                 Projectile.velocity *= 0.98f;
 

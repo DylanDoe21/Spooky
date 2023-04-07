@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Man Hole");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -50,7 +49,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will detect and attack intruders, allowing the mouth to hunt prey much easier."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ManHoleBig"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

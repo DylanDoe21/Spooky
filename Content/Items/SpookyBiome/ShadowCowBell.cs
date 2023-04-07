@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,14 +15,6 @@ namespace Spooky.Content.Items.SpookyBiome
     public class ShadowCowBell : ModItem
     {
         public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
-
-        public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Shadow Cowbell");
-			// Tooltip.SetDefault("Summons actual friendly shadow creatures to fight with you");
-			Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
 
         public override void SetDefaults()
         {

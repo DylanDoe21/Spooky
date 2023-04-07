@@ -26,7 +26,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Visitant");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -51,7 +50,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 500;
+            NPC.lifeMax = 350;
             NPC.damage = 55;
             NPC.defense = 40;
             NPC.width = 94;
@@ -71,7 +70,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass at foes."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Visitant"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

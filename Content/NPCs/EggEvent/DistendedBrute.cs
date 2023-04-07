@@ -18,14 +18,13 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Distended Brute");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 320;
+            NPC.lifeMax = 350;
             NPC.damage = 75;
             NPC.defense = 5;
             NPC.width = 62;
@@ -46,7 +45,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These bloated fodder enemies are much more brutish, gaining more strength but not being able to see too well."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.DistendedBrute"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

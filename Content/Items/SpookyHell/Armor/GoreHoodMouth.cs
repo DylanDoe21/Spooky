@@ -14,16 +14,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	[AutoloadEquip(EquipType.Head)]
 	public class GoreHoodMouth : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Gore Monger's Brutal Hood");
-			/* Tooltip.SetDefault("12% increased melee and ranged damage"
-			+ "\n8% increased melee and ranged critical strike chance"
-			+ "\n12% increased melee speed and 20% chance to not consume ammo"
-			+ "\nEnemies are more likely to target you"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 7;

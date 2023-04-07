@@ -12,7 +12,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Spooky Dance Ghost");
             Main.npcFrameCount[NPC.type] = 4;
         }
         
@@ -35,7 +34,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Spooky month lasts all year!"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SpookyDance"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

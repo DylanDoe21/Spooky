@@ -103,7 +103,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.height = 88;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 12, 0, 0);
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-                new FlavorTextBestiaryInfoElement("A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are constantly growing, and constantly consuming the other's flesh."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrroHead"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
             });
         }
@@ -524,11 +524,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NPC.velocity.Y = ChargeDirection.Y;
                             }
 
-                            if (NPC.localAI[0] >= 260)
+                            if (NPC.localAI[0] == 230)
                             {
                                 OpenMouth = false;
 
-                                NPC.velocity *= 0.85f;
+                                NPC.velocity *= 0.75f;
+                            }
+
+                            if (NPC.localAI[0] >= 260)
+                            {
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1]++;
                                 NPC.netUpdate = true;

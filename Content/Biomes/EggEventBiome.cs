@@ -11,11 +11,6 @@ namespace Spooky.Content.Biomes
 {
     public class EggEventBiome : ModBiome
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Egg Incursion");
-        }
-
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/EggEvent");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;

@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Fly");
 			Main.npcFrameCount[NPC.type] = 3;
             Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Gross and irritating flies that hover around the spooky forest."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FlySmall"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

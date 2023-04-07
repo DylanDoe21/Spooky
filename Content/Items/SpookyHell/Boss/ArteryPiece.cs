@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.SpookyHell.Boss
 {
@@ -10,9 +9,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Living Artery");
-            // Tooltip.SetDefault("Filled with strange blood");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
+            Item.ResearchUnlockCount = 50;
         }
 
         public override void SetDefaults()

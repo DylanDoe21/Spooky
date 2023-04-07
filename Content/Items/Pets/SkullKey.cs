@@ -10,13 +10,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class SkullKey : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Key");
-			// Tooltip.SetDefault("Summons a pet skull to float above you");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

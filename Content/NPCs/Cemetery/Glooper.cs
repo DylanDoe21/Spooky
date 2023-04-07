@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Glooper");
 			Main.npcFrameCount[NPC.type] = 4;
 		}
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.Cemetery
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Peaceful slimes that slide across the ground and walls. While they are not hostile, touching them may not be so pleasant."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Glooper1"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -116,7 +115,7 @@ namespace Spooky.Content.NPCs.Cemetery
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Friendly blobs of venomous goo that wander around the cemetery. Make sure not to accidentally step on them!"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Glooper2"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

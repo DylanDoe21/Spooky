@@ -26,7 +26,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Capillary");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -51,7 +50,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 700;
+            NPC.lifeMax = 600;
             NPC.damage = 50;
             NPC.defense = 35;
             NPC.width = 50;
@@ -71,7 +70,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-                new FlavorTextBestiaryInfoElement("Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, using special auras to support their allies and weaken prey."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Capillary"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
             });
         }

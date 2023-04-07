@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Little Spider");
 			Main.npcFrameCount[NPC.type] = 4;
             Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Despite being widely feared by humans, these peaceful arachnids wander around the damp underground spooky forest."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.LittleSpider"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

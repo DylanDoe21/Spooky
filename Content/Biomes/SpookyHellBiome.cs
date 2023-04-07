@@ -10,13 +10,6 @@ namespace Spooky.Content.Biomes
 {
     public class SpookyHellBiome : ModBiome
     {
-        static bool hasDisabledLighting = false;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Valley of Eyes");
-        }
-
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;

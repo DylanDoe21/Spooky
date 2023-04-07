@@ -8,13 +8,6 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	[AutoloadEquip(EquipType.Body)]
 	public class SpiritHorsemanBody : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Spirit Horseman's Chestmail");
-			// Tooltip.SetDefault("5% increased damage");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 5;
@@ -29,15 +22,13 @@ namespace Spooky.Content.Items.Cemetery.Armor
 			player.GetDamage(DamageClass.Generic) += 0.05f;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 15)
+            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 15)
 			.AddIngredient(ItemID.Silk, 25)
             .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
 	}
 }

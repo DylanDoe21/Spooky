@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -12,21 +11,19 @@ namespace Spooky.Content.Items.SpookyBiome
 {
 	public class SpookySolution : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
         {
-			// DisplayName.SetDefault("Orange Solution");
-			// Tooltip.SetDefault("Used by the Clentaminator\nSpreads the Spooky Forest");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
-		}
+            Item.ResearchUnlockCount = 99;
+        }
 
 		public override void SetDefaults() 
         {
             Item.width = 12;
 			Item.height = 12;
-			Item.value = Item.buyPrice(0, 0, 25);
-			Item.rare = ItemRarityID.Orange;
-			Item.maxStack = 999;
 			Item.consumable = true;
+			Item.value = Item.buyPrice(0, 0, 25);
+			Item.maxStack = 9999;
+			Item.rare = ItemRarityID.Orange;
             Item.ammo = AmmoID.Solution;
             Item.shoot = ModContent.ProjectileType<SpookySolutionProj>() - ProjectileID.PureSpray;
 		}

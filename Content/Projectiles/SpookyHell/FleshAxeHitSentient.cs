@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Content.Buffs.Debuff;
@@ -7,11 +8,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class FleshAxeHitSentient : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Sentient Flesh Mincer");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 200;

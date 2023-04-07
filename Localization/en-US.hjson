@@ -1,6 +1,181 @@
 
 Mods: {
 	Spooky: {
+		Config: {
+			HalloweenEnabled: {
+				Label: Halloween Season
+				Tooltip:
+					'''
+					Spooky mod makes terraria's halloween seasonal event always active
+					Turn this option off to disable the halloween seasonal event being active
+					Turning this config off will not disable halloween if it is meant to occur in vanilla
+					For example, when you get one day of halloween after the pumpkin moon, or during october
+					'''
+			}
+
+			SpookyForestAtSpawn: {
+				Label: Spooky Forest at Spawn
+				Tooltip:
+					'''
+					Changes the position where the spooky forest is placed during world generation
+					Keeping this option on will make it placed at spawn, which is the default option
+					Turning this off will cause the spooky forest to generate away from spawn
+					This option is applied when making new worlds, and will have no effect on existing worlds
+					WARNING: Playing on small worlds with this option off may destroy parts of other biomes
+					'''
+			}
+
+			ScreenShakingEffect: {
+				Label: Screen Shaking Effect
+				Tooltip: Turn off to disable the screen shaking effect caused by various things in the mod
+			}
+		}
+
+		Dialogue: {
+			LittleBone: {
+				Awaken: Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!
+				SpookyBiome: It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.
+				RotGourd: Now that you have some decent gear, I have heard stories that an old rotting gourd the size of a house once looked over this biome! Breaking the pumpkins that grow here might allow you to find him.
+				CemeteryBiome: If you go past the tropical jungle, there is a dark and foggy cemetery. You can probably search for some loot there!
+				SpookyBiomeChests: Now that you have that key from the giant gourd, you should be able to open those underground chests. I'm sure there is probably some useful goodies in them!
+				SpookySpirit: I have heard rumors that a giant, powerful spirit who resides in the swampy cemetery challenges those who it deems worthy, and I think you might be worthy enough with your current strength.
+				CatacombLayer1: Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it below one of the buildings in that foggy cemetery past the jungle.
+				EyeValley: Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.
+				CatacombLayer2: Now that you have access deeper into the catacombs, you should return there. maybe the deeper parts will have some better treasure?
+				OrroBoro: Now that you have defeated one of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create a special substance.
+				BigBone: Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.
+				NoAdvice: Sorry, I do not have any advice to offer right now.
+				Transport: Here, take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.
+				NoTransport: It looks like you already have my magical flower pot.
+				Default1: Why am I dancing, you ask? Because it's fun, You should try it sometime.
+				Default2: When is spooky season? It's always spooky season! Well, from my perspective anyway.
+				SpookyBiome1: Sometimes I like to talk to the other skull plants that pop up around here, but they don't seem to respond back.
+				SpookyBiome2: The spooky forest is such a wonderful place to live! Well, aside from those weird zomboids at night.
+				SpookyBiome3: I have heard rumors of secret loot found underneath this forest, but the key to open those chests has been lost ages ago.
+				SpookyHell1: You know, for a place that exists in the underworld, it is oddly cold here.
+				SpookyHell2: This place gives me the creeps! Somehow I feel like I am being stalked even when nothing is nearby.
+				SpookyHell3: There is so many nasty organs and tentacles growing in this biome, it's grossing me out.
+				SpookyHell4: The creatures that live here are so much different than anywhere else, and how are some of them even alive?
+				Cemetery1: This place is really foggy and dreary, and I love it!
+				Cemetery2: Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.
+				Cemetery3: The cemetery is a strange area, where zombies and other undead monsters come to life. Be careful around here!
+				Catacomb1: This giant underground catacomb was once used as a burial to house the deceased, but it looks like something very strange has happened here.
+				Catacomb2: I wonder how there is so much plant life down here, with absolutely no sunlight. Perhaps something magical is keeping them alive?
+				Catacomb3: Something about this place is strange. These plant creatures seem weirdly familiar.
+				Forest1: This forest is like the spooky forest... but where did all the spooky go?
+				Forest2: This is a nice area you've found! Very calm and peaceful.
+				Forest3: I like this place. This nice forest makes me feel at home, even outside of the spooky forest.
+				Snow1: Brrrr, this is a very cold forest!
+				Snow2: This place looks a bit spooky, but its awfully cold here!
+				Desert1: What is this horrible place? Its nothing but sand and awfully hot weather. I don't like this area.
+				Desert2: Ouch! Why are there so many painful prickly plants here? I thought plants were supposed to be nice and friendly!
+				Desert3: Can we go somewhere else? Sand keeps getting inside my flower pot!
+				Jungle1: This is a really dense and humid forest. Very groovy!
+				Jungle2: Why is everything here so unfriendly? Even the plants here try to eat you!
+				Mushroom1: This place looks really nice, but why are you looking at me like that?
+				Mushroom2: I have heard of such strange places before, but I never thought you would actually bring me to one!
+				Dungeon: This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?
+				Shimmer1: This is the most pretty lake I have ever seen!
+				Shimmer2: What a mystical and sparkly lake, I wonder what would happen when you jump in it?
+			}
+
+			LittleEye: {
+				Awaken: Whoa there, I was trying to take a nap! You must be a pretty curious adventurer to have found your way down here.
+				Quest1: So, there are four different flasks you can make that I can combine into something that will be helpful later. However, I am unable to gather the needed ingredients, so I'll need your help to find them. To make this first flask, you'll need the following.
+				Quest1Rewards: You made that potion faster than expected. I'll be holding onto this for later use, Take this stuff as a reward for your troubles.
+				Quest2: This next flask is similar, but again my inability to move prevents me from getting these materials, so I'll need you to craft the next flask with this stuff.
+				Quest2Rewards: You're getting the hang of this! Here, since I know how much you love my magical little hat, you can have this bootleg version!
+				Quest3: At this point I assume you understand what to do. For this next flask, you'll need the following materials.
+				Quest3Rewards: Good work! I've heard that this little cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
+				Quest4: So, now that you only have one last substance to make for me, I've got a special reward for you if you can bring me it. As usual you'll need some materials to make it.
+				Quest4Rewards: Alright, that was the final flask I need! As a reward, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient so I can cook up a special concoction for you.
+				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me a special soul. But, I don't know if you can get them one yet.
+				Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me a special soul. Since you defeated that giant flesh wall, you should be able to get one now.
+				Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
+				NoQuests: Sorry, I don't have anything else for you to gather.
+				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something... A little crazy.
+				Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
+				Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
+				Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
+				Default4: You may use my magic cauldron, under the condition that you say the magic word... alright fine, you can use it whenever.
+				Default5: My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.
+				Default6: The alchemy we do down here is not science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
+				Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
+				EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, Bloody red, you'll be dead, purplish blue, cripple you!
+				EggEvent: You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.
+				OrroBoro: Hey there's a giant serpent chasing you. Maybe go worry about that?
+			}
+		}
+
+		Bestiary: {
+			TheEntity: Information Redacted
+			BigBone: The long lost brother of little bone who was trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
+			Moco: The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly.
+			OrroHead: A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are constantly growing, and constantly consuming the other's flesh.
+			BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that valley of eyes is made from the left over flesh these serpents have torn off each other.
+			RotGourd: This connected duo and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry will act as a turret, spitting nasty mold spores and bugs.
+			SpookySpirit: A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
+			CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
+			FloatyFlower: Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls.
+			FlowerSentry: These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring.
+			HauntedSkull: Little rapscallions that wander throughout the catacomb walls, stalking and charging at intruders.
+			HoppingFlower: These blind and malicious marigold creatures hop around the catacombs, spitting deadly spores as a parting gift to any unwelcomed guests.
+			PlantTrap: These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb.
+			RollFlower: Flourence might be small and innocent looking, but their ability to roll and accelerate at uncanny speeds is not.
+			ChalupoBig: These ghosts seem small and innocent at first, but when approached they will grow and begin to chase down their target.
+			Glooper1: Peaceful slimes that slide across the ground and walls. While they are not hostile, touching them may not be so pleasant.
+			Glooper2: Friendly blobs of venomous goo that wander around the cemetery. Make sure not to accidentally step on them!
+			Capillary: Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, using special auras to support their allies and weaken prey.
+			Crux: Crude and misshapen creatures who's heart is outside of their body, allowing them to see their surroundings. They can use auras that inflict negative effects on prey.
+			Distended: Bloated human-like creatures meant to serve as fodder to protect the giant egg.
+			DistendedBrute: These bloated fodder enemies are much more brutish, gaining more strength but not being able to see too well.
+			Vesicator: These massive blistered bags of flesh fly around, dropping explosive biomatter in their wake. Beware though, as these somehow living beings are chunks of explosive biomatter themselves.
+			Vigilante: Flying creatures who's purpose is to monitor and attack any threat to the egg. Their fast speed should not be taken lightly.
+			Visitant: Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass at foes.
+			LittleBone: A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.
+			LittleEye: A strange little eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others.
+			PartySkeleton1: Colorful skeletons revived by the power of the raveyard. They are eternally grateful to those who are able to start such a party.
+			PartySkeleton2: Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery.
+			PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
+			FluffBatBig1: These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder.
+			FluffBatBig2: Large winged balls of fuzz that aimlessly fly around in the underground beneath the spooky forest.
+			FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and swarm anyone they deem an intruder.
+			FluffBatSmall2: Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial.
+			FlyBig: Bigger and grosser flies that linger around in the spooky forest. Their wings look too small to allow flight, but they do anyways.
+			FlySmall: Gross and irritating flies that hover around the spooky forest.
+			LittleSpider: Despite being widely feared by humans, these peaceful arachnids wander around the damp underground spooky forest.
+			PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest, attempting to frighten anyone that comes across them.
+			PuttySlime2: Slimes made out of spooky putty, brought to life by the spirit of halloween. They hop around the spooky forest mindlessly.
+			PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
+			SpookyDance: Spooky month lasts all year!
+			TinyGhost: Little mischevious ghosts that wander around during the night in the spooky forest.
+			TinyGhostBoof: A more fancy and well mannered ghost who also smokes his little pipe.
+			TinyGhostRare: It's a tiny ghost, but these ones are orange. These elusive ghosts may be on your side if you can catch one!
+			ZomboidFungus: Zomboids that have become overrun with a strange fungus. Despite being blind, they can still sniff out their target's location.
+			ZomboidThorn: Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared.
+			ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.
+			ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
+			EyeBat: These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions.
+			ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit toxic saliva to digest prey from afar.
+			ManHoleBig: Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will detect and attack intruders, allowing the mouth to hunt prey much easier.
+			MrHandy: A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.
+			Tortumor: Disgusting flesh amalgams born from the eye valley. They can attack by using chunks of themselves as projectiles.
+			TortumorGiant: If regular tortumors weren't gross enough, these mutated blobs of flesh can fly around, making smaller clones of themselves to attack it's prey.
+		}
+
+		DropConditions: {
+			RedCatacombKeyCondition: Drops from Wall of Flesh
+			OrangeCatacombKeyCondition: Drops from Golem
+			SpookyKeyCondition: Drops in the Spooky Forest in hardmode
+			SpookyHellKeyCondition: Drops in the Valley of Eyes in hardmode
+			PostOrroboroCondition: Drops after Orro & Boro have been defeated
+		}
+
+		Conditions: {
+			InSpookyBiome: In the Spooky Forest
+			InCemeteryBiome: In the Swampy Cemetery
+		}
+
 		Biomes: {
 			SpookyBiome.DisplayName: Spooky Forest
 			SpookyBiomeUg.DisplayName: Spooky Underground
@@ -1934,10 +2109,10 @@ Mods: {
 			Vesicator.DisplayName: Vesicator
 			Vigilante.DisplayName: Vigilante
 			Visitant.DisplayName: Visitant
-			LittleBone.DisplayName: Skull Plant
+			LittleBone.DisplayName: Little Bone
 			LittleBonePotTransform.DisplayName: Little Bone
-			LittleBoneSleeping.DisplayName: Sleeping Skull
-			LittleEye.DisplayName: Alchemist
+			LittleBoneSleeping.DisplayName: Sleeping Plant
+			LittleEye.DisplayName: Little Eye
 			LittleEyeSleeping.DisplayName: Sleeping Eye
 			PartySkeleton1.DisplayName: Party Skeleton
 			PartySkeleton2.DisplayName: Party Skeleton
@@ -2079,7 +2254,5 @@ Mods: {
 			OrroTrophy.MapEntry: Trophy
 			RotGourdTrophy.MapEntry: Trophy
 		}
-
-		Conditions.InBiome: Mods.Spooky.Conditions.InBiome
 	}
 }

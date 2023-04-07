@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
@@ -14,10 +13,7 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Gore Staff");
-			// Tooltip.SetDefault("Summons friendly tortumors that shoot blood globs at enemies");
 			Item.staff[Item.type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()

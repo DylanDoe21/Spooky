@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,13 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
 	public class EyeRocketLauncher : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("I.C.U");
-			// Tooltip.SetDefault("Hold down to shoot explosive eye missles that track enemies");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 120;

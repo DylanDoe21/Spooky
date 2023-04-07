@@ -25,10 +25,6 @@ namespace Spooky
         public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
-        public Spooky() { Instance = this; }
-
-        public static Spooky Instance { get; set; }
-
         public override void Load()
         {
             if (!Main.dedServ)
@@ -89,18 +85,6 @@ namespace Spooky
             }
 
             loadCache = null;
-        }
-
-        public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
-        {
-            //add recipe group for any mech boss soul for orroboro summon item
-            RecipeGroup group = new RecipeGroup(() => "Any Mechanical Boss Soul", new int[]
-            {
-                ItemID.SoulofSight,
-                ItemID.SoulofMight,
-                ItemID.SoulofFright
-            });
-            RecipeGroup.RegisterGroup("SpookyMod:AnyMechBossSoul", group);
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

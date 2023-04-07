@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.SpookyBiome;
@@ -12,13 +11,6 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	[AutoloadEquip(EquipType.Head)]
 	public class GourdHead : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Rotten Gourd Head");
-			// Tooltip.SetDefault("2% increased melee damage");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 2;

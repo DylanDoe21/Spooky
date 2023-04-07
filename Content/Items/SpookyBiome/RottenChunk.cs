@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
@@ -9,9 +8,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Rotten Chunk");
-            // Tooltip.SetDefault("'It smells foul'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
+            Item.ResearchUnlockCount = 50;
         }
 
         public override void SetDefaults()

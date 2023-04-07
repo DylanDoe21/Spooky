@@ -35,7 +35,10 @@ namespace Spooky.Content.Generation
             BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
             //clear everything in the area the biome generates in
-            for (int X = StartPosition; X <= BiomeEdge; X++)
+            int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;
+            int extraClearEnd = (GenVars.JungleX > Main.maxTilesX / 2) ? 50 : 0;
+
+            for (int X = StartPosition - extraClearStart; X <= BiomeEdge + extraClearEnd; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
                 {

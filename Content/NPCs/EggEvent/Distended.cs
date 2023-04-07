@@ -20,14 +20,13 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Distended");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 520;
+            NPC.lifeMax = 400;
             NPC.damage = 60;
             NPC.defense = 15;
             NPC.width = 62;
@@ -48,7 +47,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Bloated human-like creatures meant to serve as fodder to protect the giant egg."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Distended"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

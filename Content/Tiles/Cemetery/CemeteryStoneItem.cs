@@ -9,8 +9,7 @@ namespace Spooky.Content.Tiles.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Rocky Soil");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+            Item.ResearchUnlockCount = 100;
         }
 
         public override void SetDefaults()
@@ -22,8 +21,8 @@ namespace Spooky.Content.Tiles.Cemetery
 			Item.height = 16;
 			Item.useTime = 7;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 999;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<CemeteryStone>();
         }
     }

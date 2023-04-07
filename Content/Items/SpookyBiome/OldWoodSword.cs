@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.SpookyBiome;
  
@@ -9,12 +8,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class OldWoodSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Old Wood Sword");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 8;

@@ -12,13 +12,6 @@ namespace Spooky.Content.Items.Costume
 	[AutoloadEquip(EquipType.Head)]
 	public class WaasephiHead : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Waasephi's Mask");
-			// Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 20;

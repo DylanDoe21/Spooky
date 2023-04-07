@@ -35,7 +35,7 @@ namespace Spooky.Content.Generation
             progress.Message = "Spreading the spooky forest";
 
             //decide whether or not to use the alt background
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool(2))
             {
                 Flags.SpookyBackgroundAlt = false;
             }

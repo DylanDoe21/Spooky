@@ -14,7 +14,6 @@ namespace Spooky.Content.NPCs.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Daisy");
             Main.npcFrameCount[NPC.type] = 7;
         }
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FloatyFlower"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

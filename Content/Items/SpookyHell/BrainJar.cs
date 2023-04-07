@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
@@ -12,17 +11,6 @@ namespace Spooky.Content.Items.SpookyHell
 {
 	public class BrainJar : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Brainy in a Jar");
-			/* Tooltip.SetDefault("Summons brainy the brain to hover around you"
-			+ "\nEvery minute, he will convulsate, causing all of your existing minions to explode"
-			+ "\nEach explosions damage will scale further based on each individual minion's damage"
-			+ "\nBrainy does not take up any minion slots"); */
-			Item.staff[Item.type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 200;

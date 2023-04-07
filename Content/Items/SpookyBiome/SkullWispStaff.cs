@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
@@ -14,11 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Zomboid Warlock's Skull");
-			/* Tooltip.SetDefault("Summons skull wisps to fight with you"
-			+ "\n'Did you really need to take it's arm off too?'"); */
 			Item.staff[Item.type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()

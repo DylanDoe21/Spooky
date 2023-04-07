@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -9,8 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Old Wood Wall");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
@@ -22,8 +20,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.height = 16;
 			Item.useTime = 7;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 999;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.createWall = ModContent.WallType<SpookyWoodWall>();
         }
 

@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Giant Flower Pot");
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -36,6 +35,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.townNPC = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath5;
             NPC.aiStyle = -1;
@@ -66,15 +66,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void AI()
         {
-            NPC.life = 1;
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NPC.homeless = false;
-                NPC.homeTileX = -1;
-                NPC.homeTileY = -1;
-                NPC.netUpdate = true;
-            }
+            NPC.homeless = true;
 
             if (NPC.ai[1] == 1)
             {

@@ -14,14 +14,6 @@ namespace Spooky.Content.Items.Cemetery
 {
     public class SpiritHandStaff : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Rod of Hands");
-            /* Tooltip.SetDefault("Casts spooky hands out of nearby surfaces"
-            + "\nHands cannot be summoned if your cursor is too far from any surfaces"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 15;

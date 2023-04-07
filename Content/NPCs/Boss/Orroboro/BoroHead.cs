@@ -96,7 +96,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.height = 65;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 12, 0, 0);
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that valley of eyes is made from the left over flesh these serpents have torn off each other."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrroHead"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

@@ -1,11 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Personalities;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
-
-using Spooky.Core;
-using Spooky.Content.Biomes;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -13,27 +10,28 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Sleeping Skull");
-			NPCID.Sets.ActsLikeTownNPC[Type] = true;
+            NPCID.Sets.ActsLikeTownNPC[Type] = true;
+            NPCID.Sets.ShimmerTownTransform[Type] = false;
+
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 150;
+			NPC.lifeMax = 250;
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
 			NPC.height = 50;
-			NPC.friendly = true;
 			NPC.townNPC = true;
+			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
-			NPC.HitSound = SoundID.NPCHit1;
+            TownNPCStayingHomeless = true;
+            NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-			NPC.rarity = 1;
             NPC.aiStyle = -1;
 		}
 
@@ -45,28 +43,12 @@ namespace Spooky.Content.NPCs.Friendly
 		public override string GetChat()
 		{
 			NPC.Transform(ModContent.NPCType<LittleBone>());
-			return "Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!";
+            return Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Awaken");
 		}
 
-		public override void AI()
-		{
-			if (Main.netMode != NetmodeID.MultiplayerClient) 
-            {
-				NPC.homeless = false;
-				NPC.homeTileX = -1;
-				NPC.homeTileY = -1;
-				NPC.netUpdate = true;
-			}
-
-            foreach (var player in Main.player)
-            {
-                if (!player.active) continue;
-                if (player.talkNPC == NPC.whoAmI)
-                {
-                    NPC.Transform(ModContent.NPCType<LittleBone>());
-                    return;
-                }
-            }
+        public override void AI()
+        {
+            NPC.homeless = true;
         }
     }
 }

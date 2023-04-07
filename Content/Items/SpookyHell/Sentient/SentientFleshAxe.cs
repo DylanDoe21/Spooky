@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Core;
@@ -19,17 +18,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         static bool hasHitSomething = false;
         static bool hasHitEnemies = false;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Sentient Flesh Mincer");
-            // Tooltip.SetDefault("Deals far more damage to enemies below half health\nCritical hits will bleed enemies, dealing rapid damage over time");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
-            Item.damage = 120;
-            Item.crit = 35;
+            Item.damage = 110;
+            Item.crit = 10;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 88;

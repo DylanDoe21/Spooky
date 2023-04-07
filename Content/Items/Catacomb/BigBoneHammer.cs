@@ -20,15 +20,6 @@ namespace Spooky.Content.Items.Catacomb
 		public override bool CollideWithTiles => true;
 		static bool hasHitSomething = false;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Smasher");
-			/* Tooltip.SetDefault("Left click to swing the hammer and create explosions on enemy hits"
-			+ "\nHold down right click to swing the hammer around you and charge it up" 
-			+ "\nOnce fully charged, releasing right click will throw the hammer"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 250; 

@@ -147,32 +147,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
         }
 
-        /*
-        public override IEnumerable<Item> GetItemDrops(int i, int j)
-        {
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
-            {
-                //drop living flesh blocks
-                int totalFlesh = Main.rand.Next(5, 10);
-                for (int numFlesh = 0; numFlesh < totalFlesh; numFlesh++)
-                {
-                    Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-46, 46), 
-                    Main.rand.Next(-40, 40) - 66), ModContent.ItemType<LivingFleshItem>(), Main.rand.Next(1, 5));
-                }
-
-                //drop this trees seeds
-                int totalSeeds = Main.rand.Next(1, 3);
-                for (int numSeed = 0; numSeed < totalSeeds; numSeed++)
-                {
-                    Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-46, 46), 
-                    Main.rand.Next(-40, 40) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 5));
-                }
-            }
-
-            return null;
-        }
-        */
-
         private void CheckEntireTree(ref int x, ref int y)
         {
             while (Main.tile[x, y].TileType == Type)
@@ -184,35 +158,28 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (Main.tile[x, y].TileFrameX == 16)
             {
-                /*
-                for (int k = 0; k < WorldGen.numTreeShakes; k++)
-				{
-                    if (WorldGen.treeShakeX[k] == x && WorldGen.treeShakeY[k] == y)
-					{
-                        return;
-					}
-				}
-
-                WorldGen.treeShakeX[WorldGen.numTreeShakes] = x;
-                WorldGen.treeShakeY[WorldGen.numTreeShakes] = y;
-                WorldGen.numTreeShakes++;
-                */
-
-                //spawn an item out of the tree
+                //spawn a seed from the tree
                 if (Main.rand.Next(10) == 0)
+                {
+                    Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
+					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
+                }
+
+                //spawn a fruit from the tree
+                if (Main.rand.Next(25) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
                 }
 
 				//spawn tortumors out of the tree sometimes
-                if (Main.rand.Next(12) == 0)
+                if (Main.rand.Next(50) == 0)
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
                 }
 
                 //rarely spawn giant tortumors
-                if (Main.rand.Next(50) == 0)
+                if (Main.rand.Next(100) == 0)
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
                 }

@@ -1,20 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.SpookyHell.Flask
 {
     public class Flask3 : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Mysterious Flask III");
-            /* Tooltip.SetDefault("A warm substance, created from hellish ingredients"
-            + "\nLittle eye may be interested in this"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 18;

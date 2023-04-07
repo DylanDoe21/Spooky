@@ -18,8 +18,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Putty Slime");
-
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime1"
@@ -49,7 +47,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Little blobs of putty with spooky faces that hop around the spooky forest, attempting to frighten anyone that comes across them."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PuttySlime1"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -144,8 +142,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Putty Slime");
-
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime2"
@@ -157,7 +153,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Slimes made out of spooky putty, brought to life by the spirit of halloween. They hop around the spooky forest mindlessly."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PuttySlime2"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -187,8 +183,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Putty Slime");
-
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime3"
@@ -200,7 +194,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PuttySlime3"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

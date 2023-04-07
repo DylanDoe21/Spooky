@@ -9,14 +9,6 @@ namespace Spooky.Content.Items.Catacomb
 {
     public class CrossCharm : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Cross Charm");
-            /* Tooltip.SetDefault("Grants you a magic cross that reduces damage the next time you are hit"
-            + "\nAfter being hit, the the cross will disappear and regenerate after ten seconds"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 28;

@@ -11,7 +11,6 @@ namespace Spooky.Content.Tiles.MusicBox
         {
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery"), 
             ModContent.ItemType<CemeteryBox>(), ModContent.TileType<CemeteryBoxTile>());
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -21,12 +20,12 @@ namespace Spooky.Content.Tiles.MusicBox
             Item.autoReuse = true;
             Item.consumable = true;
             Item.accessory = true;
-            Item.width = 26;
-            Item.height = 26;
+            Item.width = 24;
+            Item.height = 32;
             Item.useTime = 10;
             Item.useAnimation = 15;
-            Item.useStyle = 1;
-            Item.rare = 4;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.rare = ItemRarityID.Orange;
             Item.value = Item.buyPrice(gold: 10);
             Item.createTile = ModContent.TileType<CemeteryBoxTile>();
         }

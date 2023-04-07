@@ -12,12 +12,6 @@ namespace Spooky.Content.Items.Costume
 	[AutoloadEquip(EquipType.Head)]
 	public class BoroMask : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Boro Mask");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 28;

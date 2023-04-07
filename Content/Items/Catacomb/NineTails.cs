@@ -12,15 +12,6 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class NineTails : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Cat O' Nine Tails");
-			/* Tooltip.SetDefault("Your summons will focus struck enemies"
-			+ "\nSwings out multiple short range whips at once"
-			+ "\n'There is no safeword'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 10;

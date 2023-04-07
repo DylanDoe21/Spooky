@@ -18,14 +18,6 @@ namespace Spooky.Content.Items.Catacomb
 		public override bool CollideWithTiles => false;
 		static bool hasHitSomething = false;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Harvester's Scythe");
-			/* Tooltip.SetDefault("Killing enemies with the scythe will release souls around you"
-			+ "\nAfter you have five souls, they will fly away and home in on nearby enemies"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 32;

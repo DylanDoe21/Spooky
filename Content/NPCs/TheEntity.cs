@@ -21,7 +21,6 @@ namespace Spooky.Content.NPCs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("The Entity");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
@@ -67,7 +66,7 @@ namespace Spooky.Content.NPCs
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-                new FlavorTextBestiaryInfoElement("[Information Redacted]"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheEntity"),
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
             });
         }

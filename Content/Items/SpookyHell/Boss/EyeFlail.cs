@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,15 +12,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
     public class EyeFlail : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Chained Eyes");
-            /* Tooltip.SetDefault("Shoots out two long range eye flails"
-            + "\nThe smaller eye flail travels further but deals less damage"
-            + "\nThe bigger eye flail travels less far but deals more damage"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
         {
 			Item.damage = 85;

@@ -11,13 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class EyeLegs : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Eye Leggings");
-			// Tooltip.SetDefault("5% increased movement speed");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 2;

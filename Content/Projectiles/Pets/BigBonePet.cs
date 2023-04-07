@@ -13,7 +13,6 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Baby Bone");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.LightPet[Projectile.type] = true;
 		}

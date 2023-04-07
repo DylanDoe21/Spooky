@@ -24,7 +24,6 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sunny");
             Main.npcFrameCount[NPC.type] = 4;
         }
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FlowerSentry"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

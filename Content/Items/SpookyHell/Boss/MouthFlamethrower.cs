@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,13 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
 	public class MouthFlamethrower : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Acid Blaster");
-			// Tooltip.SetDefault("Creates a continuous stream of acidic flames");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 50;       

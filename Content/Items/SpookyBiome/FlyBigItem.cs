@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.NPCs.SpookyBiome;
 
@@ -11,8 +10,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Giant Fly");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+            Item.ResearchUnlockCount = 5;
         }
 
         public override void SetDefaults()

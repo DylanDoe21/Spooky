@@ -10,11 +10,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
 	public class Candy1 : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Candy");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 32;

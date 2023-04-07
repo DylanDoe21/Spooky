@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
@@ -11,8 +10,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Old Wood");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+            Item.ResearchUnlockCount = 100;
         }
 
         public override void SetDefaults()
@@ -24,8 +22,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.height = 16;
 			Item.useTime = 7;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 999;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<SpookyWood>();
         }
 

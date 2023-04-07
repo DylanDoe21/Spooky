@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyHell;
@@ -11,13 +10,6 @@ namespace Spooky.Content.Items.SpookyHell
 {
 	public class FleshBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Seer");
-			// Tooltip.SetDefault("Converts arrows into bloody tears\nEvery tenth shot will fire out a homing eye");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 25;

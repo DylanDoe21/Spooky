@@ -13,7 +13,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Zomboid");
             Main.npcFrameCount[NPC.type] = 6;
         }
         
@@ -38,7 +37,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Zomboids that have become overrun with a strange fungus. Despite being blind, they can still sniff out their target's location."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidFungus"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}

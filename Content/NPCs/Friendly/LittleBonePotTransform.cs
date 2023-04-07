@@ -33,7 +33,6 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-			NPC.rarity = 1;
             NPC.aiStyle = -1;
 		}
 
@@ -57,25 +56,27 @@ namespace Spooky.Content.NPCs.Friendly
 				NPC.Center += Main.rand.NextVector2Square(-4, 4);
 			}
 
-			if (NPC.ai[0] == 120)
+			if (NPC.ai[0] == 45)
 			{
 				SoundEngine.PlaySound(SoundID.NPCDeath58, NPC.Center);
 
-				NPC.Transform(ModContent.NPCType<LittleBone>());
+                NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X + 2, (int)NPC.Center.Y, ModContent.NPCType<LittleBone>());
 
-				for (int numDusts = 0; numDusts < 20; numDusts++)
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 222, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.FireworkFountain_Yellow, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].noGravity = true;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
+
+				NPC.active = false;
 			}
         }
     }

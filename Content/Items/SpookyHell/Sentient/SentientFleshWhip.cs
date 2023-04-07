@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,15 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 {
     public class SentientFleshWhip : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Sentient Eye Lasher");
-            /* Tooltip.SetDefault("Your summons will focus struck enemies"
-			+ "\nLashes out two long range whips at once"
-            + "\nHitting enemies may lower their defense massively for a short time"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 35;

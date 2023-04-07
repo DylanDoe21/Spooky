@@ -44,7 +44,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Spooky Spirit");
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -142,7 +141,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SpookySpirit"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

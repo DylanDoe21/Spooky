@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -9,15 +8,6 @@ namespace Spooky.Content.Items.SpookyHell
 {
 	public class NerveWhip : ModItem
 	{
-		public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Exposed Nerve");
-            /* Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nDeals more damage the more enemies it hits"
-			+ "\nDamage scaling caps after five enemies are hit"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
 		public override void SetDefaults() 
         {
 			Item.damage = 38;
@@ -34,7 +24,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<NerveWhipProj>();
-			Item.shootSpeed = 4.5f;
+			Item.shootSpeed = 3.5f;
 		}
 	}
 }

@@ -16,7 +16,6 @@ namespace Spooky.Content.NPCs.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Marigold");
             Main.npcFrameCount[NPC.type] = 5;
         }
         
@@ -41,8 +40,8 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These blind and malicious marigold creatures hop around the catacombs, spitting deadly spores as a parting gift to any unwelcomed guests."),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HoppingFlower"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

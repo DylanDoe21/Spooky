@@ -8,13 +8,6 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class SpiritHorsemanLegs : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Spirit Horseman's Greaves");
-			// Tooltip.SetDefault("12% increased movement speed");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 4;
@@ -28,5 +21,14 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		{
 			player.moveSpeed += 0.12f;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 12)
+			.AddIngredient(ItemID.Silk, 15)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

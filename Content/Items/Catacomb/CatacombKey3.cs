@@ -13,13 +13,6 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class CatacombKey3 : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Orange Skull Key");
-			// Tooltip.SetDefault("Use to destroy the orange barrier, allowing access into the catacombs arena");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 30;

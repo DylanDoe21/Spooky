@@ -11,15 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class GoreLegs : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Gore Monger's Robe");
-			/* Tooltip.SetDefault("10% increased movement speed"
-			+ "\n5% increased critical strike chance"
-			+ "\nEnemies are more likely to target you"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 8;

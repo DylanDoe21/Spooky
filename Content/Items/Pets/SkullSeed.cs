@@ -10,14 +10,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class SkullSeed : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Seed");
-			/* Tooltip.SetDefault("Summons a baby bone to provide light"
-			+ "\n'Will it grow into a plant, or a skull?'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

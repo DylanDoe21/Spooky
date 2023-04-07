@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -9,15 +8,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
 	public class LeechWhip : ModItem
 	{
-		public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Leecher");
-            /* Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nHitting enemies will sometimes rip meat chunks off of them"
-			+ "\nPicking up these meat chunks will heal a small amount of your health"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
 		public override void SetDefaults() 
         {
 			Item.damage = 55;

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyHell;
@@ -11,13 +10,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 {
     public class SentientFleshBow : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Sentient Seer");
-            // Tooltip.SetDefault("Rapidly fires organic chunks\nEvery twentieth shot will fire multiple homing eyes");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
 			Item.damage = 80;

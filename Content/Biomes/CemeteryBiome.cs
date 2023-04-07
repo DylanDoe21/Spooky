@@ -12,11 +12,6 @@ namespace Spooky.Content.Biomes
 {
     public class CemeteryBiome : ModBiome
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Swampy Cemetery");
-        }
-        
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/CemeteryBG");
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");

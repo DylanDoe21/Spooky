@@ -13,7 +13,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Zomboid");
             Main.npcFrameCount[NPC.type] = 6;
         }
         
@@ -38,7 +37,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidThorn"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

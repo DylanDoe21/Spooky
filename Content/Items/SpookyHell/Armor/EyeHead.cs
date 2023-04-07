@@ -12,14 +12,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	[AutoloadEquip(EquipType.Head)]
 	public class EyeHead : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Eye Mask");
-			/* Tooltip.SetDefault("3% increased summon damage"
-			+ "\nIncreases your max minions by 1"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 3;

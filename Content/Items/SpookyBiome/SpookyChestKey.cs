@@ -7,13 +7,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class SpookyChestKey : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Old Wood Key");
-            // Tooltip.SetDefault("Opens locked chests in the underground spooky forest\n'It's covered in nasty pumpkin guts'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 30;

@@ -10,13 +10,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class GhostPetItem : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spooky Ghost");
-			// Tooltip.SetDefault("Summons a little ghost to provide light");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

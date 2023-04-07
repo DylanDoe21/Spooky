@@ -33,7 +33,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Rot Gourd");
 			Main.npcFrameCount[NPC.type] = 2;
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -111,8 +110,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("This connected duo and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry will act as a turret, spitting nasty mold spores and bugs."),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.RotGourd"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

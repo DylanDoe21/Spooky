@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton3"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

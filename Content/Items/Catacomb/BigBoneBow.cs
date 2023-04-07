@@ -12,16 +12,6 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Flower Shot");
-			/* Tooltip.SetDefault("Left click to rapidly fire piercing roses that can slightly home on enemies"
-			+ "\nRight click to shoot a stationary thorn flower that inflicts thorn mark on enemies"
-			+ "\nEnemies with the thorn mark debuff will take more damage from this weapon"
-			+ "\n10% chance to save ammo"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 100;    

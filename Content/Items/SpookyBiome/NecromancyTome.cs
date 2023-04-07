@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,14 +11,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class NecromancyTome : ModItem
     {
-        public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Necromancy for Dummies");
-			/* Tooltip.SetDefault("Conjures various zombie parts that bounce everywhere"
-			+ "\n'Not quite strong enough to summon full zombies'"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
         {
             Item.damage = 20;

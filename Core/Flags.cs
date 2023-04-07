@@ -160,7 +160,7 @@ namespace Spooky.Core
             EyeQuest2 = miscFlags[1];
             EyeQuest3 = miscFlags[2];
             EyeQuest4 = miscFlags[3];
-            EyeQuest4 = miscFlags[4];
+            EyeQuest5 = miscFlags[4];
         }
     }
 }

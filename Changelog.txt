@@ -231,6 +231,7 @@ Cowbell Entity Changes:
 
 Little Bone Changes:
 
+-No longer shows up on the vanilla housing UI
 -(stuff will go here when i get to writing it down)
 
 
@@ -256,10 +257,11 @@ Biomes, Blocks, and Ambience:
 
 Items:
 
+-All spooky mod blocks and materials now stack to 9999
 -Old wood now counts as an actual wood type for crafting recipes
 -Old wood platforms can now be crafted by hand
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
--Necromancy for dummies projectiles no longer bounce off of enemies, and can now only pierce up to two enemies
+-Necromancy for dummies projectiles no longer bounce off of enemies, they now have improved bouncing behavior, and can now only pierce up to two enemies
 -The catacomb barrier keys now have a cool animation when you use them
 -Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
 -Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes, and they now display the actual name and composer of the song in their item tooltip
@@ -268,8 +270,7 @@ Items:
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
 -Fixed a ton of spooky mod item sell prices, nerfed ones that were too expensive, and buffed ones that were too cheap
 -Fixed certain items in the mod that were supposed to have sell prices but didnt have any
--Fixed certain items in the mod not having journey mode researchability (Please report if any remaining items still do not have journey mode researchability)
-
+-Fixed certain items in the mod not having journey mode researchability
 
 Enemies:
 

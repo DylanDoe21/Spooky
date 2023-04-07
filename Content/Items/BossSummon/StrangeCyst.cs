@@ -15,10 +15,7 @@ namespace Spooky.Content.Items.BossSummon
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Strange Cyst");
-			// Tooltip.SetDefault("Begins the egg incursion event\nCan be used in the valley of eyes");
 			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override void SetDefaults()

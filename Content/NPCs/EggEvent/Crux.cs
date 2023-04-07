@@ -28,7 +28,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Crux");
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -53,7 +52,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 350;
+            NPC.lifeMax = 420;
             NPC.damage = 60;
             NPC.defense = 35;
             NPC.width = 56;
@@ -73,7 +72,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Crude and misshapen creatures who's heart is outside of their body, allowing them to see their surroundings. They can use auras that inflict negative effects on prey."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Crux"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

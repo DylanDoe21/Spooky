@@ -26,7 +26,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Vigilante");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -75,7 +74,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Flying creatures who's purpose is to monitor and attack any threat to the egg. Their fast speed should not be taken lightly."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Vigilante"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

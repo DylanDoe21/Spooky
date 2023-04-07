@@ -19,7 +19,6 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Haunted Skull");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -58,7 +57,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Little rapscallions that wander throughout the catacomb walls, stalking and charging at intruders."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HauntedSkull"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

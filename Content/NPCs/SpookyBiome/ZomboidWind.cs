@@ -13,7 +13,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Zomboid");
             Main.npcFrameCount[NPC.type] = 6;
         }
         
@@ -38,7 +37,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidWind"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

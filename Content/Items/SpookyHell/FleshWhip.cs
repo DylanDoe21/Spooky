@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -9,14 +8,6 @@ namespace Spooky.Content.Items.SpookyHell
 {
     public class FleshWhip : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Eye Lasher");
-            /* Tooltip.SetDefault("Your summons will focus struck enemies"
-            + "\nHitting enemies may lower their defense for a short time"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 20;

@@ -33,7 +33,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Vesicator");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -56,7 +55,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 3000;
+            NPC.lifeMax = 2200;
             NPC.damage = 60;
             NPC.defense = 35;
             NPC.width = 138;
@@ -76,7 +75,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These massive blistered bags of flesh fly around, dropping explosive biomatter in their wake. Beware though, as these somehow living beings are chunks of explosive biomatter themselves."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Vesicator"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

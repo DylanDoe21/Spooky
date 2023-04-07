@@ -12,13 +12,6 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class GraveCrossbow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Old Hunter's Crossbow");
-			// Tooltip.SetDefault("Charge the crossbow to shoot a high velocity piercing arrow");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 45;

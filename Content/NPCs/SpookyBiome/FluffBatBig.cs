@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Giant Fuzz Bat");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -48,7 +47,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatBig1"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -100,6 +99,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
     public class FluffBatBig2 : FluffBatBig1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatBig2"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer

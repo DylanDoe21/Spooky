@@ -19,7 +19,6 @@ namespace Spooky.Content.NPCs.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Flourence");
             Main.npcFrameCount[NPC.type] = 5;
         }
 
@@ -54,7 +53,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Flourence might be small and innocent looking, but their ability to roll and accelerate at uncanny speeds is not."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.RollFlower"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

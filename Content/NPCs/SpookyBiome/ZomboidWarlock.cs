@@ -20,7 +20,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Zomboid Warlock");
             Main.npcFrameCount[NPC.type] = 9;
         }
 
@@ -54,7 +53,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidWarlock"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});

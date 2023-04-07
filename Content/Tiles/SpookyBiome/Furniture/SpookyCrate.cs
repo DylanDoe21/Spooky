@@ -14,9 +14,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			// DisplayName.SetDefault("Spooky Wood Crate");
-			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
+			Item.ResearchUnlockCount = 5;
 		}
 
 		public override void SetDefaults() 
@@ -28,8 +26,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.height = 34;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 99;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 1);
 			Item.createTile = ModContent.TileType<SpookyCrateTile>();

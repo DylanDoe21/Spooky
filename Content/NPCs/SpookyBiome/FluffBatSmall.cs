@@ -14,7 +14,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Fuzz Bat");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -48,7 +47,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatSmall1"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
@@ -101,6 +100,16 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
     public class FluffBatSmall2 : FluffBatSmall1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatSmall2"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer

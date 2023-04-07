@@ -3,21 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-using Spooky.Content.Projectiles.Pets;
 using Spooky.Content.Buffs.Pets;
+using Spooky.Content.Projectiles.Pets;
 
 namespace Spooky.Content.Items.Pets
 {
 	public class SpiritLamp : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spirit Lantern");
-			/* Tooltip.SetDefault("Summons a mini spirit to light the way"
-			+ "\n'What kind of spirit possesses a lantern?'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

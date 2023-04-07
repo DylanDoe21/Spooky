@@ -9,9 +9,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Eye Stalk Seed");
-            // Tooltip.SetDefault("Plants eye stalk saplings");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+            Item.ResearchUnlockCount = 50;
         }
 
         public override void SetDefaults()
@@ -23,8 +21,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			Item.height = 26;
 			Item.useTime = 7;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 999;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<EyeSapling>();
         }
     }

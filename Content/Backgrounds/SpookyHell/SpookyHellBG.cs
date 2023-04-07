@@ -6,6 +6,7 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using ReLogic.Content;
 
 namespace Spooky.Content.Backgrounds.SpookyHell
 {

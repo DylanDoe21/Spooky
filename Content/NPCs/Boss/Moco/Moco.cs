@@ -44,7 +44,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
         
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Moco");
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -127,7 +126,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Moco"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

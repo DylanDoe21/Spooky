@@ -23,7 +23,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
 		public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Giant Tortumor");
             Main.npcFrameCount[NPC.type] = 6;
         }
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("If regular tortumors weren't gross enough, these mutated blobs of flesh can fly around, making smaller clones of themselves to attack it's prey."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TortumorGiant"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

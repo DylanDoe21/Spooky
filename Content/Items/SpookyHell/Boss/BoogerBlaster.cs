@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,14 +11,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
 	public class BoogerBlaster : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Booger Blaster");
-			/* Tooltip.SetDefault("Charge up to shoot nasty boogers that slow enemies on hit"
-			+ "\nThe longer you charge it, the stronger and faster the boogers will become"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 35;

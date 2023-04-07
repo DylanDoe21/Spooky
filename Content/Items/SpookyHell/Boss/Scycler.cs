@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyHell;
  
@@ -9,13 +8,6 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 {
     public class Scycler : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Scycler");
-            // Tooltip.SetDefault("Throws discs that follow your cursor before returning to you");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 55;    

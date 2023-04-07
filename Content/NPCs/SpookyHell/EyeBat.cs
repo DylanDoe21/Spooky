@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Bat n' Eye");
             Main.npcFrameCount[NPC.type] = 4;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -50,7 +49,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.EyeBat"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

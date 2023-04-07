@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Giant Fly");
 			Main.npcFrameCount[NPC.type] = 3;
             Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Bigger and grosser flies that linger around in the spooky forest. Their wings look too small to allow flight, but they do anyways."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FlyBig"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

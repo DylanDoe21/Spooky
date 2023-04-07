@@ -17,13 +17,6 @@ namespace Spooky.Content.Items.Cemetery
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Spooky Buster");
-            // Tooltip.SetDefault("Launches explosive skulls upon striking the ground or enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 28;

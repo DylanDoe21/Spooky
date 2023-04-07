@@ -10,14 +10,6 @@ namespace Spooky.Content.Items.Catacomb
 {
     public class GlowBulb : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Bulb Bomb");
-            /* Tooltip.SetDefault("Throws an explosive bulb that can stick to the ground"
-            + "\nThe bulb will explode into smaller thorns when it hits an enemy"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 50;

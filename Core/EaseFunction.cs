@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+
 namespace Spooky.Core
 {
 	public abstract class EaseFunction

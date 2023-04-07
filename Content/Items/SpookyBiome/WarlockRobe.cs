@@ -1,20 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
 	[AutoloadEquip(EquipType.Front, EquipType.Back)]
 	public class WarlockRobe : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Warlock's Cloak");
-			// Tooltip.SetDefault("5% increased summon damage and movement speed");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
         {
             Item.width = 32;

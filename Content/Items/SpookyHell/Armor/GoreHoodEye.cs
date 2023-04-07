@@ -14,16 +14,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	[AutoloadEquip(EquipType.Head)]
 	public class GoreHoodEye : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Gore Monger's Seer Hood");
-			/* Tooltip.SetDefault("12% increased magic and summon damage"
-			+ "\n8% increased magic and summon critical strike chance"
-			+ "\n10% reduced mana usage and increases your max minions by 2"
-			+ "\nEnemies are more likely to target you"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 7;

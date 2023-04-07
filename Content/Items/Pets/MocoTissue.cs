@@ -10,14 +10,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class MocoTissue : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Suspicious Looking Tissue");
-			/* Tooltip.SetDefault("Summons a baby moco pet"
-			+ "\n'The most unsanitary tissue known to mankind'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);

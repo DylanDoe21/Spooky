@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -11,13 +10,6 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class GourdLegs : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Rotten Gourd Leggings");
-			// Tooltip.SetDefault("5% increased melee speed");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.defense = 2;

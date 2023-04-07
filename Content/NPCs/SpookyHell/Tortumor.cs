@@ -23,7 +23,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
 		public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Tortumor");
             Main.npcFrameCount[NPC.type] = 6;
         }
 
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Disgusting flesh amalgams born from the eye valley. They can attack by using chunks of themselves as projectiles."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Tortumor"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

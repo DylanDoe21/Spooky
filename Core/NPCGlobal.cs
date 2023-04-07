@@ -91,23 +91,21 @@ namespace Spooky.Core
 			}
 		}
 
+		/*
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
 		{
-			//steampunker sells spooky clentaminator solution
-			if (npc.type == NPCID.Steampunker)
-			{
-				items[items.Length + 1].type = ModContent.ItemType<SpookySolution>();
-            }
+			//steam punker should sell spooky solution, need to learn how new npc shops work
         }
+		*/
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
 			//all orro & boro segments resist piercing projectiles
-            int[] OrroBoroPieces = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
+            int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
             ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
             ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
 
-            if (OrroBoroPieces.Contains(npc.type))
+            if (OrroBoroSegments.Contains(npc.type))
 			{
                 float damageDivide = 1.85f;
 
@@ -169,8 +167,8 @@ namespace Spooky.Core
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 
             //make certain bosses drop the catacomb barrier keys (the first key is not here because it drops from spooky spirit)
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CatacombKey2Condition(), ModContent.ItemType<CatacombKey2>(), 1));
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CatacombKey3Condition(), ModContent.ItemType<CatacombKey3>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.RedCatacombKeyCondition(), ModContent.ItemType<CatacombKey2>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
         }
     }
 }

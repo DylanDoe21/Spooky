@@ -13,15 +13,6 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneScepter : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Totem Scepter");
-			/* Tooltip.SetDefault("Left click to summon skull wisps that can shoot magic blasts and charge at enemies"
-			+ "\nRight click to summon a stationary skull idol at your cursor position that lasts for one minute"
-			+ "\nAny player within the idol's radius will receive various summoner stat increases"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 90; 

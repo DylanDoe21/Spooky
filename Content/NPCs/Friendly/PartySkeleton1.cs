@@ -18,7 +18,6 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Party Skeleton");
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 6;
         }
@@ -59,7 +58,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Colorful skeletons revived by the power of the raveyard. They are eternally grateful to those who are able to start such a party."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton1"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

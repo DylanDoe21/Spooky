@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -10,15 +9,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class CandyBag : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Bag O' Treats");
-            /* Tooltip.SetDefault("Summons a magical bag of candy to float above you"
-            + "\nThe candy bag will drop pieces of candy every twenty seconds"
-            + "\nPicking up candies will provide different summoner benefits"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 30;

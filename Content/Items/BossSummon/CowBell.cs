@@ -14,10 +14,7 @@ namespace Spooky.Content.Items.BossSummon
 
         public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Rusty Cowbell");
-			// Tooltip.SetDefault("Summons friendly shadow creatures to fight with you");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
         public override void SetDefaults()

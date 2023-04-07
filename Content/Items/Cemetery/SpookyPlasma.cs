@@ -9,10 +9,8 @@ namespace Spooky.Content.Items.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Spooky Plasma");
-            // Tooltip.SetDefault("A piece of the creepy spirit");
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
+            Item.ResearchUnlockCount = 50;
         }
 
         public override void SetDefaults()

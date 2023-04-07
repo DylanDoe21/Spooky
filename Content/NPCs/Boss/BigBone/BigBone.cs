@@ -61,7 +61,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Big Bone");
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
 
@@ -152,7 +151,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("The long lost brother of little bone who was trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BigBone"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

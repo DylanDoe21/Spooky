@@ -12,15 +12,6 @@ namespace Spooky.Content.Items.Cemetery
 {
     public class SpiritSlingshot : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Ghostly Slingshot");
-            /* Tooltip.SetDefault("Hold down to pull back the slingshot, then release to fling a ghastly orb"
-			+ "\nThe ghastly orb will wildy ricochet off of surfaces and enemies"
-			+ "\nDoes not require ammo to use"); */
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 25;

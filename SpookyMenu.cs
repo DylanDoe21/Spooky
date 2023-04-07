@@ -1,10 +1,10 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyBiome;
 
 namespace Spooky.Core
@@ -19,7 +19,7 @@ namespace Spooky.Core
         
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyMenu");
         
-        public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<SpookyForestBG>();
+        public override ModSurfaceBackgroundStyle MenuBackgroundStyle => Main.dayTime ? ModContent.GetInstance<SpookyForestBG>() : ModContent.GetInstance<CemeteryBG>();
 
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {

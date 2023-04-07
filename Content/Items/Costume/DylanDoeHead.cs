@@ -14,10 +14,6 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("DylanDoe's Mask");
-			// Tooltip.SetDefault("'Great for impersonating spooky mod devs!'");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
 			DylanHeadGlowmask.AddGlowMask(Item.type, "Spooky/Content/Items/Costume/DylanDoeHead_Head_Glow");
 		}
 

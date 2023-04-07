@@ -8,13 +8,6 @@ namespace Spooky.Content.Items.Pets
 {
 	public class OrroboroEye : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Eye of Orro-Boro");
-			/* Tooltip.SetDefault("Summons a ridable eye serpent"
-			+ "\n'Hope it doesn't try to eat you'"); */
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 40;

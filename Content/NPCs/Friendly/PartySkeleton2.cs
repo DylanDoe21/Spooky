@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton2"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
         }

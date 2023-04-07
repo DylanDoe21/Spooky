@@ -12,13 +12,6 @@ namespace Spooky.Content.Items.Costume
 	[AutoloadEquip(EquipType.Head)]
 	public class LittleEyeHat : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Little Eye's Wizard Hat");
-			// Tooltip.SetDefault("'It is way too big for your head'");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 36;

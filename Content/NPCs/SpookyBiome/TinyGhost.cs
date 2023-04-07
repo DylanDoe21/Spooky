@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Tiny Ghost");
 			Main.npcFrameCount[NPC.type] = 2;
 			Main.npcCatchable[NPC.type] = true;
 		}
@@ -41,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Little mischevious ghosts that wander around during the night in the spooky forest."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinyGhost"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

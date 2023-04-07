@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Chalupo");
             Main.npcFrameCount[NPC.type] = 5;
         }
 
@@ -43,7 +42,7 @@ namespace Spooky.Content.NPCs.Cemetery
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These ghosts seem small and innocent at first, but when approached they will grow and begin to chase down their target."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ChalupoBig"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

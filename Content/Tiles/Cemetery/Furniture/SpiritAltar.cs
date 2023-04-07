@@ -29,7 +29,6 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Spirit Altar");
 			AddMapEntry(new Color(136, 0, 253), name);
             DustType = DustID.Stone;
         }
@@ -61,7 +60,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 
             if (!NPC.downedBoss2)
             {
-                Main.NewText("The spirit has not deemed you worthy of playing it's organ", 171, 64, 255);
+                //Main.NewText("The spirit has not deemed you worthy of playing it's organ", 171, 64, 255);
             }
             else
             {

@@ -1,20 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class CandleItem : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-            // DisplayName.SetDefault("Small Candle");
-			// Tooltip.SetDefault("It flickers eerily");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
-        }
-
 		public override void SetDefaults() 
         {
 			Item.useTurn = true;
@@ -24,9 +16,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.height = 18;
 			Item.useTime = 10;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.holdStyle = ItemHoldStyleID.HoldFront;
-			Item.maxStack = 99;
+			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<Candle>();
 		}
 

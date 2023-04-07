@@ -12,9 +12,9 @@ namespace Spooky.Content.Items.BossBags.Accessory
 	public class MocoNoseBooger : ModItem
 	{
 		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Snot");
-		}
+        {
+            Item.ResearchUnlockCount = 0;
+        }
 
 		public override void SetDefaults()
 		{

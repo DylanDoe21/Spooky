@@ -6,12 +6,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class OldWoodBookcaseItem : ModItem
     {
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Old Wood Bookcase");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.useTurn = true;
@@ -21,8 +15,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.height = 16;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = 1;
-			Item.maxStack = 99;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<OldWoodBookcase>();
 		}
 

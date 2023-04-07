@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -12,14 +11,6 @@ namespace Spooky.Content.Items.SpookyBiome
 {
 	public class LeafBlower : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Pump-Action Leaf Blower");
-			/* Tooltip.SetDefault("Rapidly fires different colored autumn leaves"
-			+ "\n'It's like a leaf blower, but it creates more leaves!'"); */
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 8;

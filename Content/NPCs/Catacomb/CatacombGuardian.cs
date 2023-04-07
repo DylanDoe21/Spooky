@@ -26,11 +26,8 @@ namespace Spooky.Content.NPCs.Catacomb
         public int SaveDirection;
         public float SaveRotation;
 
-        public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/Catacomb/HauntedSkull", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Catacomb Guardian");
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -77,7 +74,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CatacombGuardian"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

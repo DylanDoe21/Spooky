@@ -2,8 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.Personalities;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -17,16 +18,34 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		int AdviceSwitch = 0;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Plant");
-			NPCID.Sets.ActsLikeTownNPC[Type] = true;
-            Main.npcFrameCount[NPC.type] = 8;
-		}
+        private static int ShimmerHeadIndex;
+        private static Profiles.StackedNPCProfile NPCProfile;
 
-		public override void SetDefaults()
+        public override void SetStaticDefaults()
 		{
-            NPC.lifeMax = 150;
+            NPCID.Sets.ActsLikeTownNPC[Type] = true;
+            NPCID.Sets.ShimmerTownTransform[Type] = true;
+			Main.npcFrameCount[NPC.type] = 8;
+
+            NPCProfile = new Profiles.StackedNPCProfile(
+                new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)),
+                new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex)
+            );
+        }
+
+        public override void Load()
+        {
+            ShimmerHeadIndex = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
+        }
+
+        public override ITownNPCProfile TownNPCProfile()
+        {
+            return NPCProfile;
+        }
+
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 250;
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
@@ -35,19 +54,19 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
-			NPC.HitSound = SoundID.NPCHit1;
+            TownNPCStayingHomeless = true;
+            NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-			NPC.rarity = 1;
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 7;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys."),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.LittleBone"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -67,13 +86,6 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
-		public override List<string> SetNPCNameList()
-        {
-            string[] names = { "Little Bone" };
-
-            return new List<string>(names);
-        }
-
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Advice";
@@ -87,34 +99,34 @@ namespace Spooky.Content.NPCs.Friendly
 				//spooky biome
 				if (!NPC.downedBoss1 && Main.LocalPlayer.statDefense < 10)
 				{
-					Main.npcChatText = "It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//rot gourd
+				//rot gourd and cemetery biome
 				else if ((NPC.downedBoss1 || Main.LocalPlayer.statDefense >= 10) && !Flags.downedRotGourd)
 				{
 					if (AdviceSwitch == 0)
 					{
 						AdviceSwitch++;
-						Main.npcChatText = "Now that you have some decent gear, I have heard stories that an old rotting gourd the size of a house once looked over this biome! Breaking the pumpkins that grow here might allow you to find him.";
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.RotGourd");
 					}
 					else if (AdviceSwitch == 1)
 					{
 						AdviceSwitch--;
-						Main.npcChatText = "If you go past the tropical jungle, there is a dark and foggy cemetery. You can probably search for some loot there!";
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
 					}
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//underground spooky forest chests
 				else if (Flags.downedRotGourd && !NPC.downedBoss2)
 				{
-					Main.npcChatText = "Now that you have that key from the giant gourd, you should be able to open those underground chests. I'm sure there is probably some useful goodies in them!";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiomeChests");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//spooky spirit
 				else if (NPC.downedBoss2 && !Flags.downedSpookySpirit)
 				{
-					Main.npcChatText = "I have heard rumors that a giant, powerful spirit who resides in the swampy cemetery challenges those who it deems worthy, and I think you might be worthy enough with your current strength.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookySpirit");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//catacombs/valley of eyes
@@ -123,37 +135,37 @@ namespace Spooky.Content.NPCs.Friendly
 					if (AdviceSwitch == 0)
 					{
 						AdviceSwitch++;
-						Main.npcChatText = "Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it below one of the buildings in that foggy cemetery past the jungle.";
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombLayer1");
 					}
 					else if (AdviceSwitch == 1)
 					{
 						AdviceSwitch--;
-						Main.npcChatText = "Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.";
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.EyeValley");
 					}
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//catacombs second layer
 				else if (Main.hardMode && !NPC.downedMechBossAny)
 				{
-					Main.npcChatText = "Now that you have access deeper into the catacombs, you should return there. maybe the deeper parts will have some better treasure?";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombLayer2");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//orroboro
 				else if (Main.hardMode && NPC.downedMechBossAny && !Flags.downedOrroboro)
 				{
-					Main.npcChatText = "Now that you have defeated one of those giant robots, you can probably make a special flask using their souls to see what's inside that giant egg in the eye valley I have been hearing rumors about. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create such a substance.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.OrroBoro");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//big bone
 				else if (NPC.downedGolemBoss && !Flags.downedBigBone)
 				{
-					Main.npcChatText = "Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.BigBone");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//no advice dialogue
 				else
 				{
-					Main.npcChatText = "Sorry, I do not have any advice to offer right now!";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.NoAdvice");
 					SoundEngine.PlaySound(SoundID.Item16, NPC.Center);
 				}
             }
@@ -161,13 +173,13 @@ namespace Spooky.Content.NPCs.Friendly
 			{
 				if (!Main.LocalPlayer.HasItem(ModContent.ItemType<LittleBonePot>()))
 				{
-					Main.npcChatText = "Oh here, Take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Transport");
 					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBonePot>(), 1);
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				else
 				{
-					Main.npcChatText = "Oh, it looks like I already gave you my magical pot.";
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.NoTransport");
 					SoundEngine.PlaySound(SoundID.Item16, NPC.Center);
 				}
 			}
@@ -175,91 +187,92 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			//three default dialogue options
+			//default dialogue options
 			List<string> Dialogue = new List<string>
 			{
-				"Why am I dancing, you ask? Because it's fun, You should try it sometime.",
-				"What do you mean, when is spooky season? It's always spooky season! Well, from my perspective anyway.",
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default1"),
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default2"),
 			};
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()))
 			{
-				Dialogue.Add("Sometimes I like to talk to the other skull plants that pop up around here, but they don't seem to respond back.");
-				Dialogue.Add("The spooky forest is such a wonderful place to live! Well, aside from those weird zomboids at night.");
-				Dialogue.Add("I have heard rumors of secret loot found underneath this forest, but the key to open those chests has been lost ages ago.");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome3"));
 			}
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
-				Dialogue.Add("You know, for a place that exists in the underworld, it is oddly cold here.");
-				Dialogue.Add("This place gives me the creeps! Somehow I feel like I am being stalked even when nothing is nearby.");
-				Dialogue.Add("There is so many nasty organs and tentacles growing in this biome, it's grossing me out.");
-				Dialogue.Add("The creatures that live here are so much different than anywhere else, and how are some of them even alive?");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell3"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell4"));
 			}
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
 			{
-				Dialogue.Add("This place is really foggy and dreary, and I absolutely love it!");
-				Dialogue.Add("Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.");
-				Dialogue.Add("The cemetery is a strange area, where zombies and other undead monsters come to life. Be careful!");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery3"));
 			}
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome>()))
 			{
-				Dialogue.Add("This giant underground catacomb was once used as a burial to house the deceased, but it looks like something very strange has happened here...");
-				Dialogue.Add("I wonder how there is so much plant life down here, with absolutely no sunlight. Perhaps something magical is keeping them alive?");
-				Dialogue.Add("Something about this place is strange. These plant creatures seem weirdly familiar.");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb3"));
 			}
 
 			if (Main.LocalPlayer.ZonePurity)
             {
-				Dialogue.Add("This is a nice area you've found! Very calm and peaceful.");
-				Dialogue.Add("I like this place. This nice forest makes me feel at home, even outside of the spooky forest.");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest3"));
             }
 
 			if (Main.LocalPlayer.ZoneSnow)
             {
-				Dialogue.Add("Brrrr, this is a very cold forest! Could also use some more spookiness, in my opinion.");
-				Dialogue.Add("This place looks a bit spooky, but the temperature here is awful!");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Snow1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Snow2"));
             }
 
 			if (Main.LocalPlayer.ZoneDesert)
             {
-				Dialogue.Add("What is this horrible place? Its nothing but sand and awfully hot weather. I don't like this area.");
-				Dialogue.Add("Ouch! Why are there so many painful prickly plants here? I thought plants were supposed to be nice and friendly!");
-				Dialogue.Add("Can we go somewhere else? Sand keeps getting inside my flower pot!");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert3"));
             }
 
 			if (Main.LocalPlayer.ZoneJungle)
 			{
-				Dialogue.Add("This is a really dense and humid forest. I wonder ");
-				Dialogue.Add("Why is everything here so unfriendly? Even the giant plants here try to eat you!");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Jungle1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Jungle2"));
 			}
 
 			if (Main.LocalPlayer.ZoneGlowshroom)
             {
-				Dialogue.Add("This place looks really nice, but why are you looking at me like that?");
-				Dialogue.Add("I have heard of such strange places before, but I never thought you would actually bring me to one!");
-				Dialogue.Add("I wonder if these mushrooms have any sentience like me... probably not though.");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Mushroom1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Mushroom2"));
             }
 
 			if (Main.LocalPlayer.ZoneDungeon)
             {
-				Dialogue.Add("This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?");
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Dungeon"));
 			}
+
+			if (Main.LocalPlayer.ZoneShimmer)
+			{
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Shimmer1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Shimmer2"));
+            }
 
 			return Main.rand.Next(Dialogue);
 		}
 
 		public override void AI()
 		{
-			if (Main.netMode != NetmodeID.MultiplayerClient)
-			{
-				NPC.homeless = false;
-				NPC.homeTileX = -1;
-				NPC.homeTileY = -1;
-				NPC.netUpdate = true;
-			}
+			NPC.velocity.X *= 0;
+			NPC.homeless = true;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

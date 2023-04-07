@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Core;
@@ -17,13 +16,6 @@ namespace Spooky.Content.Items.SpookyHell
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
         static bool hasHitEnemies = false;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Flesh Mincer");
-            // Tooltip.SetDefault("Deals more damage to enemies with low health");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
 
         public override void SetDefaults()
         {

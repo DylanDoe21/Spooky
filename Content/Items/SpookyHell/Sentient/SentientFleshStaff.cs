@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Projectiles.SpookyHell;
 
@@ -11,13 +10,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sentient Retina Staff");
-            /* Tooltip.SetDefault("Summon eyes that follow your cursor while holding down left click"
-            + "\nRelease left click to fling the eyes, dealing double their original damage"
-            + "\nReleasing left click with maximum eyes active will explode them, dealing massive damage"
-            + "\nOnly up to eight eyes can be active at once"); */
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

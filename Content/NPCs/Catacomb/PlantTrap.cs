@@ -22,7 +22,6 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Toothy");
             Main.npcFrameCount[NPC.type] = 10;
         }
 
@@ -56,7 +55,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb."),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

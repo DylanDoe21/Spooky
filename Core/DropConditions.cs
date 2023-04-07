@@ -10,7 +10,7 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
-        public class CatacombKey2Condition : IItemDropRuleCondition
+        public class RedCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
             {
@@ -34,11 +34,11 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return "Drops from Wall of Flesh";
+                return "Mods.Spooky.DropConditions.RedCatacombKeyCondition";
             }
         }
 
-        public class CatacombKey3Condition : IItemDropRuleCondition
+        public class OrangeCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
             {
@@ -62,7 +62,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return "Drops from Golem";
+                return "Mods.Spooky.DropConditions.OrangeCatacombKeyCondition";
             }
         }
 
@@ -90,7 +90,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return "Drops in the Spooky Forest in hardmode";
+                return "Mods.Spooky.DropConditions.SpookyKeyCondition";
             }
         }
 
@@ -118,7 +118,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return "Drops in the Valley of Eyes in hardmode";
+                return "Mods.Spooky.DropConditions.SpookyHellKeyCondition";
             }
         }
 
@@ -139,14 +139,15 @@ namespace Spooky.Core
                 return false;
             }
 
+            //this will never show up in ui
             public bool CanShowItemDropInUI()
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription()
             {
-                return "Drops after Rot Gourd is defeated";
+                return "";
             }
         }
 
@@ -167,14 +168,15 @@ namespace Spooky.Core
                 return false;
             }
 
+            //this will never show up in ui
             public bool CanShowItemDropInUI()
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription()
             {
-                return "Drops after the Spooky Spirit is defeated";
+                return "";
             }
         }
 
@@ -202,7 +204,7 @@ namespace Spooky.Core
             
             public string GetConditionDescription()
             {
-                return "Drops after Orro & Boro have been defeated";
+                return "Mods.Spooky.DropConditions.PostOrroboroCondition";
             }
         }
 
@@ -229,7 +231,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Orro";
+                return "";
             }
         }
 
@@ -256,7 +258,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Orro";
+                return "";
             }
         }
 
@@ -283,7 +285,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Orro";
+                return "";
             }
         }
 
@@ -310,7 +312,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Boro";
+                return "";
             }
         }
 
@@ -337,7 +339,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Boro";
+                return "";
             }
         }
 
@@ -364,7 +366,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "Drops from Boro";
+                return "";
             }
         }
     }

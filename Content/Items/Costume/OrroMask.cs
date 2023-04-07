@@ -12,12 +12,6 @@ namespace Spooky.Content.Items.Costume
 	[AutoloadEquip(EquipType.Head)]
 	public class OrroMask : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Orro Mask");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 28;

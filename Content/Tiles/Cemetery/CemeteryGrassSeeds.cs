@@ -9,8 +9,7 @@ namespace Spooky.Content.Tiles.Cemetery
 	{
         public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Cemetery Grass Seeds");
-			// Tooltip.SetDefault("Places grass on loose soil");
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void SetDefaults()
@@ -23,7 +22,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 		}
 
         public override bool? UseItem(Player player)
