@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
-using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -14,7 +13,6 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
-using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky
 {
