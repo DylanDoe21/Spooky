@@ -6,20 +6,20 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 	{
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAlt1");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAltClose");
 		}
 
 		public override int ChooseMiddleTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAlt2");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAltMiddle");
 		}
 
 		public override int ChooseFarTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAlt3");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGAltFar");
 		}
-		
-		public override void ModifyFarFades(float[] fades, float transitionSpeed)
+
+        public override void ModifyFarFades(float[] fades, float transitionSpeed)
 		{
 			for (int i = 0; i < fades.Length; i++)
 			{
@@ -41,5 +41,5 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 				}
 			}
 		}
-	}
+    }
 }

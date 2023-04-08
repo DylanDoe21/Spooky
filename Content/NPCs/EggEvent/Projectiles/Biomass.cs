@@ -14,14 +14,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class Biomass : ModProjectile
     {
-        int target;
-
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Biomass");
-        }
 
         public override void SetDefaults()
         {

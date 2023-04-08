@@ -405,7 +405,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							ShootSpeed.X *= Main.rand.NextFloat(2f, 4f);
 							ShootSpeed.Y *= Main.rand.NextFloat(2f, 4f);
 
-							if (Main.rand.Next(4) == 0)
+							if (Main.rand.NextBool(4))
 							{
 								SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
 
@@ -547,7 +547,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 							{
-								if ((NPC.localAI[0] >= 90 && NPC.localAI[0] < 160 && Main.rand.Next(50) == 0) || NPC.localAI[0] == 160)
+								if ((NPC.localAI[0] >= 90 && NPC.localAI[0] < 160 && Main.rand.NextBool(50)) || NPC.localAI[0] == 160)
 								{
 									Main.projectile[k].ai[0] = 1;
 								}
@@ -604,7 +604,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					case 4:
 					{
 						goto case 0;
-						break;
 					}
 
 					//jump in place, sending multiple spreads of dirt debris everywhere
@@ -845,7 +844,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 									Main.projectile[k].localAI[1] = 1;
 								}
 
-								if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 145 && Main.rand.Next(35) == 0 || NPC.localAI[0] == 145)
+								if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 145 && Main.rand.NextBool(35)|| NPC.localAI[0] == 145)
 								{
 									Main.projectile[k].ai[0] = 3;
 								}
@@ -992,12 +991,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 				for (int numDusts = 0; numDusts < 45; numDusts++)
 				{
-					int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 288, 0f, 0f, 100, default, 2f);
+					int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.DesertWater2, 0f, 0f, 100, default, 2f);
 					Main.dust[DustGore].color = Color.MediumPurple;
 					Main.dust[DustGore].scale = 0.8f;
 					Main.dust[DustGore].velocity *= 1.2f;
 
-					if (Main.rand.Next(2) == 0)
+					if (Main.rand.NextBool(2))
 					{
 						Main.dust[DustGore].scale = 0.5f;
 						Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

@@ -16,7 +16,7 @@ using Spooky.Content.NPCs.Boss.Moco;
 
 namespace Spooky
 {
-	public partial class Spooky : Mod
+	public class Spooky : Mod
 	{
         private List<IAutoload> loadCache;
 
@@ -52,7 +52,7 @@ namespace Spooky
             //hell background loading
             HellBGManager.Load();
 
-            //IAutoload stuff for hell background
+            //IAutoload stuff
             loadCache = new List<IAutoload>();
 
             foreach (Type type in Code.GetTypes())

@@ -1,13 +1,4 @@
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Effects;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Backgrounds.SpookyBiome
 {
@@ -15,19 +6,19 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 	{
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBG1");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGClose");
 		}
 
 		public override int ChooseMiddleTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBG2");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGMiddle");
 		}
 
 		public override int ChooseFarTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBG3");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/SpookyBiome/SpookyForestBGFar");
 		}
-		
+
 		public override void ModifyFarFades(float[] fades, float transitionSpeed)
 		{
 			for (int i = 0; i < fades.Length; i++)
@@ -50,5 +41,5 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 				}
 			}
 		}
-	}
+    }
 }

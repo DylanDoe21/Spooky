@@ -127,8 +127,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             NPC.netAlways = true;
             NPC.HitSound = SoundID.NPCHit54;
             NPC.DeathSound = SoundID.NPCDeath52;
-            Music = MusicID.Eclipse;
             NPC.aiStyle = -1;
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookySpirit");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 

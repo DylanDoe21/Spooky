@@ -16,9 +16,6 @@ namespace Spooky.Core
 {
 	public abstract class SwingWeaponBase : ModItem
 	{
-        private List<Vector2> cache;
-        private Trail trail;
-
         public abstract int Length { get; }
         public abstract int TopSize { get; }
         public abstract float SwingDownSpeed { get; }

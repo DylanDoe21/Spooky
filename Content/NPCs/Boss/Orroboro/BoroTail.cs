@@ -11,12 +11,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 {
     public class BoroTail : OrroTail
     {
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Boro");
-
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 

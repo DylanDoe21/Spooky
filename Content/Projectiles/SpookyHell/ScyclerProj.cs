@@ -12,12 +12,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
     public class ScyclerProj : ModProjectile
     {
         Vector2 saveMousePositon;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Scycler");
-        }
-
+        
         public override void SetDefaults()
         {
             Projectile.width = 60;

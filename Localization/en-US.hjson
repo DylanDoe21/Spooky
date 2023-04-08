@@ -1590,6 +1590,11 @@ Mods: {
 				Tooltip: "'Welcome to Spooky Mod' by Bananalizard"
 			}
 
+			SpookySpiritBox: {
+				DisplayName: Music Box (Spooky Spirit)
+				Tooltip: "'Spooky Spirit' by Bananalizard"
+			}
+
 			CemeteryPylonItem: {
 				DisplayName: Swampy Cemetery Pylon
 				Tooltip:
@@ -2205,6 +2210,7 @@ Mods: {
 			SpookyHellBossBoxTile.MapEntry: Music Box
 			SpookyHellBoxTile.MapEntry: Music Box
 			SpookyMenuBoxTile.MapEntry: Music Box
+			SpookySpiritBoxTile.MapEntry: Music Box
 			VinylTileThing.MapEntry: Music Box
 			VinylTileThing2.MapEntry: Music Box
 			VinylTileThing3.MapEntry: Music Box

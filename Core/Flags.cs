@@ -26,29 +26,7 @@ namespace Spooky.Core
         public static bool EyeQuest4 = false;
         public static bool EyeQuest5 = false;
 
-        public override void OnWorldLoad() 
-        {
-			downedRotGourd = false;
-            downedSpookySpirit = false;
-            downedMoco = false;
-            downedEggEvent = false;
-            downedOrroboro = false;
-            downedBigBone = false;
-
-            SpookyBackgroundAlt = false;
-
-            CatacombKey1 = false; 
-            CatacombKey2 = false;
-            CatacombKey3 = false;
-
-            EyeQuest1 = false; 
-            EyeQuest2 = false;
-            EyeQuest3 = false;
-            EyeQuest4 = false;
-            EyeQuest5 = false;
-		}
-
-		public override void OnWorldUnload() 
+        public override void ClearWorld()
         {
 			downedRotGourd = false;
             downedMoco = false;
@@ -156,11 +134,11 @@ namespace Spooky.Core
             CatacombKey3 = miscFlags[3];
 
             BitsByte questFlags = reader.ReadByte();
-            EyeQuest1 = miscFlags[0];
-            EyeQuest2 = miscFlags[1];
-            EyeQuest3 = miscFlags[2];
-            EyeQuest4 = miscFlags[3];
-            EyeQuest5 = miscFlags[4];
+            EyeQuest1 = questFlags[0];
+            EyeQuest2 = questFlags[1];
+            EyeQuest3 = questFlags[2];
+            EyeQuest4 = questFlags[3];
+            EyeQuest5 = questFlags[4];
         }
     }
 }

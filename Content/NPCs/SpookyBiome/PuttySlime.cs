@@ -13,9 +13,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttySlime1 : ModNPC
 	{
-		float addedStretch = 0f;
-		float landingRecoil = 0f;
-
 		public override void SetStaticDefaults()
 		{
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)

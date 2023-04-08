@@ -6,7 +6,6 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ObjectInteractions;
-using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture

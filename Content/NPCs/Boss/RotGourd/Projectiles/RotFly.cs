@@ -12,13 +12,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 {
 	public class RotFly : ModProjectile
 	{
-        int target;
-
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Fly");
             Main.projFrames[Projectile.type] = 3;
 		}
 
