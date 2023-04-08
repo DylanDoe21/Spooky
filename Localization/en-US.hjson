@@ -2176,9 +2176,8 @@ Mods: {
 			}
 
 			SpookyHellChest: {
-				MapEntry: Eye Valley Chest
-				MapEntry0: Mods.Spooky.Tiles.SpookyHellChest.MapEntry0
-				MapEntry1: Mods.Spooky.Tiles.SpookyHellChest.MapEntry1
+				MapEntry0: Eye Valley Chest
+				MapEntry1: Locked Eye Valley Chest
 			}
 
 			EyeDresser: {
@@ -2186,14 +2185,6 @@ Mods: {
 				MapEntry: Dresser
 			}
 
-			CatacombAltar.MapEntry: Mods.Spooky.MapObject.CatacombAltar
-			Coffin1.MapEntry: Mods.Spooky.MapObject.Coffin1
-			Coffin2.MapEntry: Mods.Spooky.MapObject.Coffin2
-			Coffin3.MapEntry: Mods.Spooky.MapObject.Coffin3
-			SkullLamp.MapEntry: Mods.Spooky.MapObject.SkullLamp
-			SkullStick1.MapEntry: Mods.Spooky.MapObject.SkullStick1
-			SkullStick2.MapEntry: Mods.Spooky.MapObject.SkullStick2
-			SkullStick3.MapEntry: Mods.Spooky.MapObject.SkullStick3
 			SpiritAltar.MapEntry: Spirit Altar
 			CemeterySapling.MapEntry: Sapling
 			BigBoneBoxTile.MapEntry: Music Box
@@ -2259,6 +2250,14 @@ Mods: {
 			MocoTrophy.MapEntry: Trophy
 			OrroTrophy.MapEntry: Trophy
 			RotGourdTrophy.MapEntry: Trophy
+			CatacombAltar.MapEntry: Catacomb Altar
+			Coffin1.MapEntry: Coffin1
+			Coffin2.MapEntry: Coffin2
+			Coffin3.MapEntry: Coffin3
+			SkullLamp.MapEntry: Skull Lamp
+			SkullStick1.MapEntry: Skull Stick1
+			SkullStick2.MapEntry: Skull Stick2
+			SkullStick3.MapEntry: Skull Stick3
 		}
 	}
 }

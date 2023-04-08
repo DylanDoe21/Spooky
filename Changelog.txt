@@ -265,6 +265,7 @@ Items:
 -The catacomb barrier keys now have a cool animation when you use them
 -Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
 -Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes, and they now display the actual name and composer of the song in their item tooltip
+-Spooky mod music boxes can no longer be reforged, and will turn back into regular music boxes when thrown into shimmer
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it (You will still need to place it in the valley of eyes to use it)
 -Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors

@@ -9,6 +9,8 @@ namespace Spooky.Content.Tiles.MusicBox
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.CanGetPrefixes[Type] = false;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox;
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro"), 
             ModContent.ItemType<SpookyHellBossBox>(), ModContent.TileType<SpookyHellBossBoxTile>());
         }
