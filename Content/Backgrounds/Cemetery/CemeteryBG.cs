@@ -15,17 +15,17 @@ namespace Spooky.Content.Backgrounds.Cemetery
 	{
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBG1");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBGClose");
 		}
 
 		public override int ChooseMiddleTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBG2");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBGMiddle");
 		}
 
 		public override int ChooseFarTexture()
 		{
-			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBG3");
+			return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Content/Backgrounds/Cemetery/CemeteryBGFar");
 		}
 		
 		public override void ModifyFarFades(float[] fades, float transitionSpeed)

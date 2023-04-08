@@ -14,7 +14,9 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBGAlt") : ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBG");
 
-        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyleAlt") : ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyle");
+        //for whatever reason spooky mod underground backgrounds just break underground backgrounds
+        //this will be disabled until it magically gets fixed or something
+        //public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyleAlt") : ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyle");
 
         public override int Music => !Main.raining ? Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
         
