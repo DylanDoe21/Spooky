@@ -3,23 +3,23 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.Localization;
-using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
+using Terraria.Localization;
+using Terraria.Enums;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Dusts;
+using Spooky.Content.Items.SpookyHell;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Chests
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
-	[LegacyName("HalloweenChest2")]
-	[LegacyName("HalloweenChest3")]
-	[LegacyName("HalloweenChest4")]
-	[LegacyName("HalloweenChest5")]
-	[LegacyName("WoodTombChest")]
-	public class HalloweenChest : ModTile
+    [LegacyName("EyeChest2")]
+	[LegacyName("EyeChest3")]
+	[LegacyName("EyeChest4")]
+	public class EyeChest : ModTile
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -39,14 +39,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
 			TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
+			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.AnchorInvalidTiles = new int[] { TileID.MagicalIceBlock };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(142, 101, 71), this.GetLocalization("MapEntry0"), MapChestName);
-            AddMapEntry(new Color(142, 101, 71), this.GetLocalization("MapEntry1"), MapChestName);
-            DustType = DustID.WoodFurniture;
+            AddMapEntry(new Color(255, 55, 41), this.GetLocalization("MapEntry0"), MapChestName);
+            AddMapEntry(new Color(255, 55, 41), this.GetLocalization("MapEntry1"), MapChestName);
+            DustType = DustID.Blood;
 			HitSound = SoundID.Dig;
 		}
 
@@ -56,11 +56,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
             int style = TileObjectData.GetTileStyle(tile);
             if (style == 0)
             {
-                yield return new Item(ModContent.ItemType<HalloweenChestItem>());
+                yield return new Item(ModContent.ItemType<EyeChestItem>());
             }
             if (style == 1)
             {
-                yield return new Item(ModContent.ItemType<HalloweenChestItem>());
+                yield return new Item(ModContent.ItemType<EyeChestItem>());
             }
         }
 
@@ -81,6 +81,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) 
 		{
+			SoundEngine.PlaySound(SoundID.Item2);
+			dustType = -1;
 			return true;
 		}
 
@@ -142,7 +144,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 			if (player.sign >= 0) 
 			{
-				SoundEngine.PlaySound(SoundID.MenuClose);
+				SoundEngine.PlaySound(SoundID.ChesterOpen);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
@@ -150,7 +152,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 
 			if (Main.editChest) 
 			{
-				SoundEngine.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.ChesterOpen);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -168,7 +170,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					SoundEngine.PlaySound(SoundID.MenuClose);
+					SoundEngine.PlaySound(SoundID.ChesterOpen);
 				}
 				else 
 				{
@@ -180,13 +182,17 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			{
 				if (isLocked) 
 				{
-					int key = ModContent.ItemType<SpookyChestKey>();
-					if (player.HasItem(key) && Chest.Unlock(left, top)) 
+					int key = ModContent.ItemType<ChestFood>();
+					if (player.ConsumeItem(key) && Chest.Unlock(left, top)) 
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient) 
 						{
 							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
 						}
+					}
+					else
+					{
+						Main.NewText("The chest creature won't budge", 199, 7, 49);
 					}
 				}
 				else 
@@ -198,7 +204,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 						if (chest == player.chest) 
 						{
 							player.chest = -1;
-							SoundEngine.PlaySound(SoundID.MenuClose);
+							SoundEngine.PlaySound(SoundID.ChesterOpen);
 						}
 						else 
 						{
@@ -207,7 +213,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 							Main.recBigList = false;
 							player.chestX = left;
 							player.chestY = top;
-							SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+							SoundEngine.PlaySound(SoundID.ChesterOpen);
 						}
 
 						Recipe.FindRecipes();
@@ -241,14 +247,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Old Wood Chest";
-				if (player.cursorItemIconText == "Old Wood Chest") 
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Eye Chest";
+				if (player.cursorItemIconText == "Eye Chest") 
 				{
-					player.cursorItemIconID = ModContent.ItemType<HalloweenChestItem>();
+					player.cursorItemIconID = ModContent.ItemType<EyeChestItem>();
 
 					if (Main.tile[left, top].TileFrameX / 36 == 1) 
 					{
-						player.cursorItemIconID = ModContent.ItemType<SpookyChestKey>();
+						player.cursorItemIconID = ModContent.ItemType<ChestFood>();
 					}
 
 					player.cursorItemIconText = "";
@@ -269,5 +275,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Chests
 				player.cursorItemIconID = 0;
 			}
 		}
+
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+        {
+            bool isPlayerNear = WorldGen.PlayerLOS(i, j);
+            Tile Above = Framing.GetTileSafely(i, j - 1);
+
+            if (!Main.gamePaused && Main.instance.IsActive && !Above.HasTile && isPlayerNear && IsLockedChest(i, j))
+            {
+                if (Main.rand.NextBool(75))
+                {
+                    int newDust = Dust.NewDust(new Vector2((i + Main.rand.Next(0, 1)) * 16, (j + Main.rand.Next(0, 1)) * 16), 5, 5, ModContent.DustType<ChestSleepyDust>());
+
+                    Main.dust[newDust].velocity.Y += 0.09f;
+                }
+            }
+        }
 	}
 }

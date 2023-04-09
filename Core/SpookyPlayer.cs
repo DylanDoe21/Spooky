@@ -274,6 +274,7 @@ namespace Spooky.Core
             if (BoneMask)
             {
                 //all of these formulas are just copied from vanilla's stopwatch
+                //too lazy to change all the ugly ass "num" names
                 Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
                 if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)

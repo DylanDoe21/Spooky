@@ -1,9 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.SpookyHell.Chests
+namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
-	public class EyeChestItem : ModItem
+	public class HalloweenChestItem : ModItem
 	{
 		public override void SetDefaults() 
 		{
@@ -16,13 +17,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<EyeChest>();
+			Item.createTile = ModContent.TileType<HalloweenChest>();
 		}
 
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 8)
+            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 8)
 			.AddRecipeGroup(RecipeGroupID.IronBar, 2)
             .AddTile(TileID.WorkBenches)
             .Register();

@@ -158,27 +158,27 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             if (Main.tile[x, y].TileFrameX == 16)
             {
                 //spawn a seed from the tree
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.Next(15) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
                 }
 
                 //spawn a fruit from the tree
-                if (Main.rand.Next(25) == 0)
+                if (Main.rand.Next(30) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
                 }
 
 				//spawn tortumors out of the tree sometimes
-                if (Main.rand.Next(50) == 0)
+                if (Main.rand.Next(45) == 0)
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
                 }
 
                 //rarely spawn giant tortumors
-                if (Main.rand.Next(100) == 0)
+                if (Main.rand.Next(75) == 0)
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
                 }

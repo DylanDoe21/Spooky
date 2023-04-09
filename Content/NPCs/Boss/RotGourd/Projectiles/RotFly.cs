@@ -92,7 +92,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
             int index1 = (int)Projectile.ai[1];
             
-            if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<RotGourd>()))
+            if (Main.npc[index1].active && Main.npc[index1].type == ModContent.NPCType<RotGourd>())
             {
                 Projectile.timeLeft = 300;
             }
@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                 //home in on rot gourd if it exists
                 case 0:
                 {
-                    if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<RotGourd>()))
+                    if (Main.npc[index1].active && Main.npc[index1].type == ModContent.NPCType<RotGourd>())
                     {
                         float goToX = Main.npc[index1].Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
                         float goToY = Main.npc[index1].Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);

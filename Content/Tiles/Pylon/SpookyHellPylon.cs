@@ -98,7 +98,7 @@ namespace Spooky.Content.Tiles.Pylon
         {
 			// Just like in SpecialDraw, we want things to be handled the EXACT same way vanilla would handle it, which ModPylon also has built in methods for:
 			bool mouseOver = DefaultDrawMapIcon(ref context, mapIcon, pylonInfo.PositionInTiles.ToVector2() + new Vector2(1.5f, 2f), drawColor, deselectedScale, selectedScale);
-			DefaultMapClickHandle(mouseOver, pylonInfo, "Mods.Spooky.ItemName.SpookyHellPylonItem", ref mouseOverText);
+			DefaultMapClickHandle(mouseOver, pylonInfo, ModContent.GetInstance<SpookyHellPylonItem>().DisplayName.Key, ref mouseOverText);
 		}
 	}
 }

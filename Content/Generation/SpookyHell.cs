@@ -10,13 +10,12 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
-using Spooky.Content.Tiles.SpookyHell.Chests;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.NPCs.Friendly;
 
 using StructureHelper;
 

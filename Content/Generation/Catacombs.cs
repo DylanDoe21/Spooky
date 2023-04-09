@@ -16,9 +16,8 @@ using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
-using Spooky.Content.Tiles.SpookyHell.Chests;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Generation
 {

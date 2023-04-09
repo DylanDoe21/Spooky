@@ -1,27 +1,37 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+
+using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Debuff
 {
 	public class GourdDecay : ModBuff
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Rotting");
-			Main.debuff[Type] = true;
-		}
-
+		int flySpawnTimer = 0;
 		private bool initializeStats;
         private int storedDamage;
         private int storedDefense;
 
+		public override void SetStaticDefaults()
+		{
+			Main.debuff[Type] = true;
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
         {
 			if (!npc.friendly)
-            {
-                //Dust.NewDust(NPC.Center, NPC.width, npc.height, DustID.Blood);
-                
+            {   
+				if (Main.rand.NextBool(50))
+				{
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, Main.rand.Next(-2, 2), Main.rand.Next(-3, -1), 
+                        ModContent.ProjectileType<DecayDebuffFly>(), 0, 0f, npc.target, 0f, (float)npc.whoAmI);
+					}
+				}
+
                 if (npc.lifeRegen > 0)
                 {
                     npc.lifeRegen = 0;

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyBiome;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Chests
+namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class SpookyBiomeChest : ModTile
 	{

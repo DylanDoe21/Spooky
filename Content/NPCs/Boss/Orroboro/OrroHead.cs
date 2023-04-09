@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public bool Enraged = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
-        private bool spawned;
+        private bool segmentsSpawned;
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             writer.Write(Enraged);
             writer.Write(Chomp);
             writer.Write(OpenMouth);
-            writer.Write(spawned);
+            writer.Write(segmentsSpawned);
 
             //local ai
             writer.Write(NPC.localAI[0]);
@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Enraged = reader.ReadBoolean();
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
-            spawned = reader.ReadBoolean();
+            segmentsSpawned = reader.ReadBoolean();
 
             //local ai
             NPC.localAI[0] = reader.ReadSingle();
@@ -221,7 +221,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (!spawned)
+                if (!segmentsSpawned)
                 {
                     NPC.realLife = NPC.whoAmI;
                     int latestNPC = NPC.whoAmI;
@@ -261,8 +261,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     Enraged = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 
+                    segmentsSpawned = true;
                     NPC.netUpdate = true;
-                    spawned = true;
                 }
             }
 

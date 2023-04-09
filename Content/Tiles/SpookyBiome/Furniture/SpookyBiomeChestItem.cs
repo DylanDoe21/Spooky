@@ -1,9 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.SpookyHell.Chests
+namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
-	public class SpookyHellChestItem : ModItem
+	public class SpookyBiomeChestItem : ModItem
 	{
 		public override void SetDefaults() 
 		{
@@ -16,7 +17,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Chests
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpookyHellChest>();
+			Item.createTile = ModContent.TileType<SpookyBiomeChest>();
 		}
 	}
 }

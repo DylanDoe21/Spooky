@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.SpookyHell;
 
-namespace Spooky.Content.Tiles.SpookyHell.Chests
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
 	public class SpookyHellChest : ModTile
 	{

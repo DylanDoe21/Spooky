@@ -137,8 +137,8 @@ Mods: {
 			PartySkeleton2: Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery.
 			PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
 			FluffBatBig1: These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder.
-			FluffBatBig2: Large winged balls of fuzz that aimlessly fly around in the underground beneath the spooky forest.
-			FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and swarm anyone they deem an intruder.
+			FluffBatBig2: Large winged balls of fuzz that aimlessly fly around in the underground beneath the spooky forest. Don't let them bit you!
+			FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and will attack anyone they deem an intruder.
 			FluffBatSmall2: Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial.
 			FlyBig: Bigger and grosser flies that linger around in the spooky forest. Their wings look too small to allow flight, but they do anyways.
 			FlySmall: Gross and irritating flies that hover around the spooky forest.
@@ -489,7 +489,7 @@ Mods: {
 				DisplayName: Acidic Concoction
 				Tooltip:
 					'''
-					Can be used to corrode giant objects, like eggs
+					A very corrosive substance, made from the most vile ingredients
 					Summons Orro & Boro when used at the giant egg
 					'''
 			}
@@ -2068,6 +2068,7 @@ Mods: {
 			TortumorMinionOrb2.DisplayName: Tumor Orb
 			CauldronTransformProj.DisplayName: Cauldron Transform Proj
 			OrroboroSpawn.DisplayName: Orroboro Spawn
+			DecayDebuffFly.DisplayName: Decay Debuff Fly
 		}
 
 		NPCs: {

@@ -26,7 +26,29 @@ namespace Spooky.Core
         public static bool EyeQuest4 = false;
         public static bool EyeQuest5 = false;
 
-        public override void ClearWorld()
+        public override void OnWorldLoad() 
+        {
+			downedRotGourd = false;
+            downedSpookySpirit = false;
+            downedMoco = false;
+            downedEggEvent = false;
+            downedOrroboro = false;
+            downedBigBone = false;
+
+            SpookyBackgroundAlt = false;
+
+            CatacombKey1 = false; 
+            CatacombKey2 = false;
+            CatacombKey3 = false;
+
+            EyeQuest1 = false; 
+            EyeQuest2 = false;
+            EyeQuest3 = false;
+            EyeQuest4 = false;
+            EyeQuest5 = false;
+		}
+
+		public override void OnWorldUnload() 
         {
 			downedRotGourd = false;
             downedMoco = false;

@@ -54,7 +54,7 @@ namespace Spooky.Core
 			//increase spawn rate during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
-				spawnRate /= 2; //lower spawnRate = higher enemy spawn rate
+				spawnRate /= 3; //lower spawnRate = higher enemy spawn rate
 			}
 		}
 
@@ -157,6 +157,14 @@ namespace Spooky.Core
 					{
 						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 					}
+				}
+			}
+
+			if (item.DamageType == DamageClass.Melee)
+			{
+				if (Main.rand.NextBool(12))
+				{
+					npc.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
 				}
 			}
 		}

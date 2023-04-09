@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
-using Spooky.Content.Tiles.SpookyBiome.Chests;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 using Spooky.Content.NPCs.Friendly;
