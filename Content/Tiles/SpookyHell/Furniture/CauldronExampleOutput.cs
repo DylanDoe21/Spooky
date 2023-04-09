@@ -9,7 +9,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
     {
 		public override void SetStaticDefaults() 
 		{
-			// DisplayName.SetDefault("Example cauldron output");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

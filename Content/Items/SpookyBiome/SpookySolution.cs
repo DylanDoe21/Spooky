@@ -31,13 +31,6 @@ namespace Spooky.Content.Items.SpookyBiome
 
 	public class SpookySolutionProj : ModProjectile
 	{
-		public ref float Progress => ref Projectile.ai[0];
-
-		public override void SetStaticDefaults() 
-        {
-			// DisplayName.SetDefault("Spooky Spray");
-		}
-
 		public override void SetDefaults() 
         {
 			Projectile.width = 6;
@@ -52,8 +45,6 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void AI() 
         {
-			int dustType = DustID.GemAmber;
-
 			if (Projectile.owner == Main.myPlayer)
             {
 				Convert((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
@@ -64,41 +55,42 @@ namespace Spooky.Content.Items.SpookyBiome
 				Projectile.timeLeft = 133;
 			}
 
-			if (Progress > 7f) 
+			if (Projectile.ai[0] > 7f) 
 			{
 				float dustScale = 1f;
 
-				if (Progress == 8f) 
+				if (Projectile.ai[0] == 8f) 
                 {
 					dustScale = 0.2f;
 				}
-				else if (Progress == 9f) 
+				else if (Projectile.ai[0] == 9f) 
                 {
 					dustScale = 0.4f;
 				}
-				else if (Progress == 10f) 
+				else if (Projectile.ai[0] == 10f) 
                 {
 					dustScale = 0.6f;
 				}
-				else if (Progress == 11f) 
+				else if (Projectile.ai[0] == 11f) 
                 {
 					dustScale = 0.8f;
 				}
 
-				Progress += 1f;
+				Projectile.ai[0] += 1f;
 
 
-				var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, dustType, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100);
+				var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 
+				DustID.OrangeTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100);
 
 				dust.noGravity = true;
-				dust.scale *= 1.75f;
+				dust.scale *= Main.rand.NextFloat(1.75f, 3.5f);
 				dust.velocity.X *= 2f;
 				dust.velocity.Y *= 2f;
 				dust.scale *= dustScale;
 			}
 			else 
             {
-				Progress += 1f;
+				Projectile.ai[0] += 1f;
 			}
 
 			Projectile.rotation += 0.3f * Projectile.direction;

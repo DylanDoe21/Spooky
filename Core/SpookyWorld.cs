@@ -9,9 +9,12 @@ namespace Spooky.Core
 {
     public class SpookyWorld : ModSystem
     {
-        public static bool initializeHalloween;
+        public bool initializeHalloween;
         public bool storedHalloween;
         public bool storedHalloweenForToday;
+
+        public static bool DaySwitched;
+        private static bool LastTime;
 
         public override void PostUpdateTime()
         {
@@ -23,7 +26,7 @@ namespace Spooky.Core
                 initializeHalloween = true;
             }
 
-            //if config is on, force halloween to be active
+            //if the halloween config is on, force halloween to be active
             if (ModContent.GetInstance<SpookyConfig>().HalloweenEnabled)
             {
                 Main.halloween = true;
@@ -36,6 +39,18 @@ namespace Spooky.Core
                 Main.halloween = storedHalloween;
                 Main.forceHalloweenForToday = storedHalloweenForToday;
             }
+
+            //for when day time and night time switch, will be used for little eyes sentient heart quests
+            if (Main.dayTime != LastTime)
+            {
+				DaySwitched = true;
+            }
+			else
+            {
+				DaySwitched = false;
+            }
+
+			LastTime = Main.dayTime;
         }
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

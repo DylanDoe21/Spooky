@@ -1,15 +1,10 @@
 Eye Valley Update:
 
--better rot gourd expert item (maybe?)
-
--add cemetery biome enemies
+-add remaining cemetery biome enemies
 
 -make sentient upgrades have a cool animation
 
 -finish party skeletons giving players items sometimes (can be done later)
 
 -finish potion mechanic with the alchemy cauldron (can be done later)
-
--new orroboro relics and master mode pets
-
 

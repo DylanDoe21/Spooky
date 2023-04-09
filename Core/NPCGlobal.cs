@@ -91,12 +91,13 @@ namespace Spooky.Core
 			}
 		}
 
-		/*
-        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+		public override void ModifyShop(NPCShop shop)
 		{
-			//steam punker should sell spooky solution, need to learn how new npc shops work
-        }
-		*/
+			if (shop.NpcType == NPCID.Steampunker)
+			{
+				shop.Add<SpookySolution>();
+			}
+		}
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {

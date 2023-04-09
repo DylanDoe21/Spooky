@@ -15,6 +15,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
+			Item.holdStyle = ItemHoldStyleID.HoldFront;
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<OldWoodCandle>();
 		}

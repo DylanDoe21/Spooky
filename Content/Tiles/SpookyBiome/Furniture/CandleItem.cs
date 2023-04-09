@@ -37,5 +37,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				Main.dust[newDust].velocity.Y -= 0.001f;
 			}
 		}
+
+		public override void AutoLightSelect(ref bool dryTorch, ref bool wetTorch, ref bool glowstick) 
+		{
+			dryTorch = true;
+		}
 	}
 }

@@ -94,6 +94,15 @@ Redone Halloween Season Config:
 
 
 
+Localization:
+
+-This change does not really change anything in game, but it is part of tmodloader 1.4.4, and it is very helpful with localization
+-Now, every single thing in spooky mod (display names, tooltips, dialogue, bestiaries, and more) is localized (as of writing this, only english localization exists in the mod)
+-With tmodloader's new localization changes, anyone will now be able to translate the localization files, and send them back to me
+-Once I am given back the translated localization, I can put it into the mod's files, and it will now have full support for that language
+
+
+
 Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
@@ -102,8 +111,6 @@ Other New Additions:
 -New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
 -Added masks and trophies for each spooky mod boss, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
 -Four new eye valley chest weapons, Flesh Mincer, Seer, Retina Staff, and Eye Lasher
-
-
 
 
 
@@ -192,12 +199,15 @@ Rot Gourd Changes:
 
 -Rot gourd launching players upward when landing now applies to all players who are within a certain distance of him, and you wont be knocked in the air if you are far away from him
 -Rot gourd no longer creates dirt debris when slamming the ground in his desperation phase as it was very spammy and unfair when combined with the flies charging at you
+-During rot gourd's jumping attack, he will now immediately slam downward if he is directly above you, making it a bit more difficult to avoid
 -Removed rot gourd's ground slam hitbox thing because it was unfair and was a pain to balance
 
 
 
 Orro & Boro Changes:
 
+-All of Orro & Boro's telegraphs now have better sprites and better visual effects so you can see them more easily
+-Orro & Boro now have an enrage mechanic: when one worm is killed, it will actually die, but the other worm will become enraged, causing it to become super aggressive and difficult
 -Both Orro & Boro are now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, and ichor
 
 
@@ -213,9 +223,9 @@ Big Bone Changes:
 -While charging, big bone will now face towards the direction he is charging, instead of facing the player
 -Big bone's red thorn telegraphs now have better sprites and better visuals
 -Big bone's solar flowers in his second phase transition now drop way more hearts on death
--Big bone is now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, ichor, shadowflame, and frostburn
 -Big bone now drops way more coins, buffed from an average of 10 gold to an average of 30 gold
 -Changed big bone's hit sound because the vanilla skeleton hit sound is a bit annoying
+-Big bone is now immune to the following debuffs: poisoned, venom, on fire, cursed inferno, ichor, shadowflame, and frostburn
 
 
 
@@ -262,6 +272,8 @@ Items:
 -Old wood platforms can now be crafted by hand
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
 -Necromancy for dummies projectiles no longer bounce off of enemies, they now have improved bouncing behavior, and can now only pierce up to two enemies
+-The fuzz bat wing has been changed into fuzz bat blood, it is still the same pet item functionally but with a different sprite and name
+-Changed the tooltips of multiple boss summoning items to be more helpful and less cryptic
 -The catacomb barrier keys now have a cool animation when you use them
 -Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
 -Spooky mod music boxes now produce music notes when turned on like vanilla's music boxes, and they now display the actual name and composer of the song in their item tooltip

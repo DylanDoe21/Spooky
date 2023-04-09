@@ -8,7 +8,8 @@ using Spooky.Content.Buffs.Pets;
 
 namespace Spooky.Content.Items.Pets
 {
-	public class FuzzBatWing : ModItem
+	[LegacyName("FuzzBatWing")]
+	public class FuzzBatBlood : ModItem
 	{
 		public override void SetDefaults()
 		{

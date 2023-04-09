@@ -327,8 +327,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[1] < 3)
                         {
                             int time1 = Enraged ? 45 : 45;
-                            int time2 = Enraged ? 80 : 95;
-                            int time3 = Enraged ? 115 : 145;
+                            int time2 = Enraged ? 80 : 90;
+                            int time3 = Enraged ? 115 : 130;
                             if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                             {
                                 SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);

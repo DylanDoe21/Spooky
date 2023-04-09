@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
 	public class EyeChair : ModTile
     {
-		public const int NextStyleHeight = 40; // Calculated by adding all CoordinateHeights + CoordinatePaddingFix.Y applied to all of them + 2
+		public const int NextStyleHeight = 40;
 
 		public override void SetStaticDefaults()
 		{
@@ -32,24 +32,18 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Chair");
 			AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[] { TileID.Chairs };
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = fail ? 1 : 3;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<EyeChairItem>());
         }
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)

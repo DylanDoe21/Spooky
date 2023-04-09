@@ -25,7 +25,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Bed");
 			AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
@@ -51,11 +50,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = 1;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, ModContent.ItemType<EyeBedItem>());
         }
 
 		public override bool RightClick(int i, int j)

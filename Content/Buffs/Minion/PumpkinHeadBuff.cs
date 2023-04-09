@@ -9,14 +9,12 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Pumpkin Head");
-			// Description.SetDefault("Your head is now fighting with you!");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.GetModPlayer<SpookyPlayer>().SpookySet)
+			if (player.GetModPlayer<SpookyPlayer>().HorsemanSet)
 			{
 				player.buffTime[buffIndex] = 2;
 			}

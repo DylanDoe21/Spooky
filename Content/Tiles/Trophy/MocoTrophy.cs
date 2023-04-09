@@ -21,13 +21,7 @@ namespace Spooky.Content.Tiles.Trophy
 			TileObjectData.addTile(Type);
 			DustType = DustID.WoodFurniture;
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Trophy");
 			AddMapEntry(new Color(120, 85, 60), name);
-		}
-		
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<MocoTrophyItem>());
 		}
 	}
 }

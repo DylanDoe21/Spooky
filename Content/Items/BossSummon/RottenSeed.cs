@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.BossSummon
             Item.useTime = 45;
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.maxStack = 20;
+            Item.maxStack = 9999;
         }
 		
         public override bool CanUseItem(Player player)

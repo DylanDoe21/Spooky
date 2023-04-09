@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.SpookyHell.Furniture;
+
 namespace Spooky.Content.Items.SpookyHell.Flask
 {
     public class Flask1 : ModItem
@@ -24,6 +26,7 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.PurificationPowder, 10)
             .AddIngredient(ItemID.SuspiciousLookingEye, 1)
             .AddIngredient(ItemID.Bottle, 1)
+            .AddTile(ModContent.TileType<Cauldron>())
             .Register();
         }
     }

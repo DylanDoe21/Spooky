@@ -24,10 +24,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.addTile(Type);
             AnimationFrameHeight = 36;
 			LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Fly Jar");
             AddMapEntry(new Color(203, 248, 218), name);
 			DustType = DustID.Glass;
-			HitSound = SoundID.Dig;
 		}
 
         public override void AnimateTile(ref int frame, ref int frameCounter)
@@ -44,10 +42,5 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				}
 			}
 		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FlySmallJarItem>());
-        }
     }
 }

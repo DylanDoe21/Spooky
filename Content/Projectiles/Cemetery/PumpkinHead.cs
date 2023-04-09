@@ -17,7 +17,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Pumpkin Head");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
@@ -59,16 +58,16 @@ namespace Spooky.Content.Projectiles.Cemetery
             
             if (player.dead)
             {
-                modPlayer.SpookySet = false;
+                modPlayer.HorsemanSet = false;
             }
 
-            if (modPlayer.SpookySet)
+            if (modPlayer.HorsemanSet)
             {
                 Projectile.timeLeft = 2;
                 player.AddBuff(ModContent.BuffType<PumpkinHeadBuff>(), 1, false);
             }
             
-            if (!modPlayer.SpookySet)
+            if (!modPlayer.HorsemanSet)
             {
                 Projectile.Kill();
             }

@@ -42,10 +42,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newAlternate.Origin = new Point16(0, 2);
 			TileObjectData.addAlternate(0);
 			TileObjectData.addTile(Type);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AdjTiles = new int[] { TileID.OpenDoor };
         }
 

@@ -22,12 +22,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Candle");
             AddMapEntry(new Color(114, 13, 39), name);
-            AdjTiles = new int[] { TileID.Candles };
-            ItemDrop = ModContent.ItemType<EyeCandleItem>();
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             DustType = DustID.Blood;
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
+            AdjTiles = new int[] { TileID.Candles };
         }
 
         public override void HitWire(int i, int j)

@@ -14,14 +14,15 @@ using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Terraria.WorldBuilding;
 
 namespace Spooky.Core
 {
     public class SpookyPlayer : ModPlayer
     {
+        //misc timers
         public static int ShakeTimer = 0;
         public static float ScreenShakeAmount = 0;
-
         public int flySpawnTimer = 0;
         public int BoneWispTimer = 0;
         public int MocoBoogerCharge = 0;
@@ -29,7 +30,7 @@ namespace Spooky.Core
 
         //armors
         public bool GourdSet = false;
-        public bool SpookySet = false;
+        public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool GoreArmorSet = false;
 
@@ -41,6 +42,7 @@ namespace Spooky.Core
 
         //expert accessories
         public bool FlyAmulet = false;
+        public bool SpiritAmulet = false;
         public bool MocoNose = false;
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
@@ -66,7 +68,7 @@ namespace Spooky.Core
         {
             //armors
             GourdSet = false;
-            SpookySet = false;
+            HorsemanSet = false;
             EyeArmorSet = false;
             GoreArmorSet = false;
 
@@ -78,6 +80,7 @@ namespace Spooky.Core
 
             //expert accessories
             FlyAmulet = false;
+            SpiritAmulet = false;
             MocoNose = false;
             OrroboroEmbyro = false;
             BoneMask = false;
@@ -142,8 +145,9 @@ namespace Spooky.Core
             return ShouldRevive;
         }
 
-        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        public override void OnHurt(Player.HurtInfo info)
         {
+            //add fly cooldown when hit and the player has flies
             if (FlyAmulet)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
@@ -152,12 +156,18 @@ namespace Spooky.Core
                 }
             }
 
+            //spawn homing seeds when hit with the spirit amulet
+            if (SpiritAmulet)
+            {
+
+            }
+
+            //gore armor set aura protection
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
-                modifiers.FinalDamage *= 0;
+                info.Damage = 1; //TODO: idk if it its my fault or not, but this doesnt seem to reduce damage, and it needs to be fixed
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
                 SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
-                Player.statLife = Player.statLife;
 
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
@@ -173,6 +183,7 @@ namespace Spooky.Core
                 }
             }
 
+            //cross charm damage reduction cooldown
             if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
                 Player.AddBuff(ModContent.BuffType<CrossCooldown>(), 600);
@@ -194,7 +205,8 @@ namespace Spooky.Core
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
-            if (SpookySet)
+            //hide player head with full horseman armor equipped
+            if (HorsemanSet)
             {
                 PlayerDrawLayers.Head.Hide();
             }
@@ -203,6 +215,7 @@ namespace Spooky.Core
         public override void PreUpdate()
         {
             //make player immune to the sandstorm debuff because it still applies it when you are in a spooky mod biome and theres a desert nearby
+            //despite both spooky mod surface biomes having higher priority
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
                 Player.buffImmune[BuffID.WindPushed] = true;
@@ -229,7 +242,7 @@ namespace Spooky.Core
             //spawn flies with the fly amulet
             if (FlyAmulet)
             {
-                //add the buff if the player has any flies around them
+                //add the fly buff if the player has any flies around them
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
                 {
                     Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
@@ -254,7 +267,7 @@ namespace Spooky.Core
             //increase endurance while you have the cross charm protection
             if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
-                Player.endurance += 0.12f;
+                Player.endurance += 0.15f;
             }
 
             //bone mask wisp spawning

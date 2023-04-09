@@ -123,14 +123,14 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(178, 67, 46, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(255, 112, 0, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(178, 67, 46, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(255, 112, 0, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

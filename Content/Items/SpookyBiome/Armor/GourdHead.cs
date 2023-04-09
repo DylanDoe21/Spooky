@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
-using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {

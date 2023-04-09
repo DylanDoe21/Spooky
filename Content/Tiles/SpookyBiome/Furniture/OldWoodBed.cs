@@ -25,10 +25,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Bed");
 			AddMapEntry(new Color(93, 62, 39), name);
             DustType = DustID.WoodFurniture;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			AdjTiles = new int[]{ TileID.Beds };
 		}
 
@@ -51,11 +51,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = 1;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, ModContent.ItemType<OldWoodBedItem>());
         }
 
 		public override bool RightClick(int i, int j)

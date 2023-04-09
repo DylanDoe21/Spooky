@@ -34,7 +34,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Eye Stalk");
             AddMapEntry(new Color(86, 2, 28), name);
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;

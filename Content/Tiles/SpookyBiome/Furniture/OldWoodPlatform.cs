@@ -29,12 +29,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.StyleWrapLimit = 27;
 			TileObjectData.newTile.UsesCustomCanPlace = false;
 			TileObjectData.newTile.LavaDeath = true;
-			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			TileObjectData.newTile.DrawYOffset = 0;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(93, 62, 39));
             ItemDrop = ModContent.ItemType<OldWoodPlatformItem>();
 			DustType = DustID.WoodFurniture;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AdjTiles = new int[] { TileID.Platforms };
 		}
 

@@ -22,9 +22,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(225, 225, 0));
-			ItemDrop = ModContent.ItemType<CandleItem>();
 			DustType = DustID.Torch;
-			HitSound = SoundID.Dig;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
+            AdjTiles = new int[] { TileID.Candles };
 		}
 
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData) 

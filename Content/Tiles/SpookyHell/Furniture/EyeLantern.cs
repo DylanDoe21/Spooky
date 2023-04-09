@@ -25,16 +25,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newSubTile.LavaPlacement = LiquidPlacement.Allowed;
             TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Lantern");
             AddMapEntry(new Color(114, 13, 39), name);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             DustType = DustID.Blood;
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.HangingLanterns };
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<EyeLanternItem>());
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num) 

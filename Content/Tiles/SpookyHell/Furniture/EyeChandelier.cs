@@ -26,11 +26,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Chandelier");
 			AddMapEntry(new Color(114, 13, 39), name);
-            AdjTiles = new int[] { TileID.Chandeliers };
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             DustType = DustID.Blood;
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
+            AdjTiles = new int[] { TileID.Chandeliers };
         }
 
         public override void HitWire(int i, int j)
@@ -78,12 +77,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                 g = 0.85f;
                 b = 0.85f;
             }
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<EyeChandelierItem>());
-            Chest.DestroyChest(i, j);
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

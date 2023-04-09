@@ -26,7 +26,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Work Bench");
 			AddMapEntry(new Color(93, 62, 39), name);
             DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.WorkBenches };
@@ -36,10 +35,5 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
         {
             num = fail ? 1 : 3;
         }
-
-		public override void KillMultiTile(int x, int y, int frameX, int frameY)
-		{
-			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, ModContent.ItemType<OldWoodWorkBenchItem>());
-		}
 	}
 }

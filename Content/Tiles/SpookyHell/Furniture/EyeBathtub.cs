@@ -20,7 +20,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Bathtub");
 			AddMapEntry(new Color(114, 13, 39), name);
 			DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Bathtubs };
@@ -29,11 +28,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<EyeBathtubItem>());
         }
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

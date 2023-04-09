@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
 	public class OrroboroEgg : ModTile
 	{
-		public bool Spawn = false;
+		public bool Spawned = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -57,11 +57,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<OrroboroSpawn>()) 
 				{
-					Spawn = true;
+					Spawned = true;
 				}
 				else
 				{
-					Spawn = false;
+					Spawned = false;
 				}
 			}
 
@@ -72,7 +72,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			else
 			{
 				//this probably looks dumb being here but AnimateTile is the only hook that updates constantly
-				if (OrroboroSpawn.CrackTimer <= 100 || !Spawn)
+				if (OrroboroSpawn.CrackTimer <= 100 || !Spawned)
 				{
 					frame = 0;
 				}

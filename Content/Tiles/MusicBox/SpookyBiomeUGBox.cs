@@ -27,7 +27,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Item.useTime = 10;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 10);
             Item.createTile = ModContent.TileType<SpookyBiomeUGBoxTile>();
         }

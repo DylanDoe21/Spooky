@@ -35,9 +35,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
             AddMapEntry(new Color(114, 13, 39), this.GetLocalization("MapEntry"), MapChestName);
             DustType = DustID.Blood;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			AdjTiles = new int[] { TileID.Dressers };
 		}
 
@@ -58,7 +58,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<EyeDresserItem>());
 			Chest.DestroyChest(i, j);
 		}
 

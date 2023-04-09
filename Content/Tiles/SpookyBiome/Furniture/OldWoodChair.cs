@@ -32,24 +32,18 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Chair");
 			AddMapEntry(new Color(93, 62, 39), name);
             DustType = DustID.WoodFurniture;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[] { TileID.Chairs };
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = fail ? 1 : 3;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<OldWoodChairItem>());
         }
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)

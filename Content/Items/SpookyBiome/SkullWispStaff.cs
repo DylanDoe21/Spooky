@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetDefaults()
 		{
-			Item.damage = 8;
+			Item.damage = 5;
 			Item.mana = 12;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;

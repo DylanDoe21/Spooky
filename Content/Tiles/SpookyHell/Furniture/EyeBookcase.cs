@@ -20,22 +20,16 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16 };
             TileObjectData.addTile(Type);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
             LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Bookcase");
             AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
             AdjTiles = new int[] { TileID.Bookcases };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
-        }
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<EyeBookcaseItem>());
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

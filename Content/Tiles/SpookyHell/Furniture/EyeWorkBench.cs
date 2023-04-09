@@ -23,12 +23,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 			TileObjectData.newTile.CoordinateHeights = new[] { 18 };
 			TileObjectData.newTile.DrawYOffset = -2;
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Work Bench");
 			AddMapEntry(new Color(114, 13, 39), name);
             DustType = DustID.Blood;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			AdjTiles = new int[] { TileID.WorkBenches };
 		}
 
@@ -36,11 +35,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         {
             num = fail ? 1 : 3;
         }
-
-		public override void KillMultiTile(int x, int y, int frameX, int frameY)
-		{
-			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, ModContent.ItemType<EyeWorkBenchItem>());
-		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
