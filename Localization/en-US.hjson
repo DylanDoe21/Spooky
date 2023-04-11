@@ -542,9 +542,9 @@ Mods: {
 				DisplayName: Skull Smasher
 				Tooltip:
 					'''
-					Left click to swing the hammer and create explosions on enemy hits
+					Left click to quickly throw the hammer a short distance
 					Hold down right click to swing the hammer around you and charge it up
-					Once fully charged, releasing right click will throw the hammer
+					Once fully charged, release right click to throw the hammer
 					'''
 			}
 
@@ -2069,6 +2069,7 @@ Mods: {
 			CauldronTransformProj.DisplayName: Cauldron Transform Proj
 			OrroboroSpawn.DisplayName: Orroboro Spawn
 			DecayDebuffFly.DisplayName: Decay Debuff Fly
+			BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
 		}
 
 		NPCs: {

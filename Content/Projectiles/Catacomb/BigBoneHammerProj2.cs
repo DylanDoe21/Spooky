@@ -17,11 +17,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         private List<Vector2> cache;
         private Trail trail;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Skull Smasher");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 82;
@@ -124,9 +119,9 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.Kill();
             }
 
-            Projectile.localAI[0]++;
+            Projectile.ai[0]++;
 
-            if (Projectile.localAI[0] >= 30)
+            if (Projectile.ai[0] >= 30)
             {
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;
                 ReturnSpeed.Normalize();

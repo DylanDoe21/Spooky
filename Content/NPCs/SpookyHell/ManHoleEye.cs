@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
             
             //idle, float above parent
-            if (Main.npc[(int)NPC.ai[3]].active && NPC.ai[0] < 180)
+            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>() && NPC.ai[0] < 180)
             {
                 float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
                 float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;

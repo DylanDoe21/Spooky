@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrroHead"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BoroHead"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}

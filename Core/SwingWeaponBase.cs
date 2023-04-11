@@ -44,17 +44,9 @@ namespace Spooky.Core
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            //Item.useTurn = true;
-
             if (Item.useStyle != SwingUseStyle)
             {
                 return;
-            }
-
-            if (player.altFunctionUse != 2 && Item.type == ModContent.ItemType<BigBoneHammer>())
-            {
-                Item.noMelee = false;
-				Item.noUseGraphic = false;
             }
 
             float animationProgress = 1 - (player.itemAnimation - 1) / (float)player.itemAnimationMax;

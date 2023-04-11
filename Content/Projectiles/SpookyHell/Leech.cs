@@ -12,7 +12,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Leech");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
