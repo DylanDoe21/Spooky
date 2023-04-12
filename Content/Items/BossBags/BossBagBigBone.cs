@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.BossBags
 			Item.consumable = true;
 			Item.expert = true;
 			Item.rare = ItemRarityID.Expert;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 		}
 
 		public override bool CanRightClick() 

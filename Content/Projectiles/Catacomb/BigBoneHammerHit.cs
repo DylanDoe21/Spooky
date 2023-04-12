@@ -9,11 +9,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class BigBoneHammerHit : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Skull Smasher");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 200;

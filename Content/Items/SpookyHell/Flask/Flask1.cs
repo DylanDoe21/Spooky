@@ -26,7 +26,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.PurificationPowder, 10)
             .AddIngredient(ItemID.SuspiciousLookingEye, 1)
             .AddIngredient(ItemID.Bottle, 1)
-            .AddTile(ModContent.TileType<Cauldron>())
             .Register();
         }
     }

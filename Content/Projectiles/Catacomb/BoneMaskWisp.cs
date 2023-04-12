@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             trail?.Render(effect);
 
-            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
             return true;
         }
@@ -142,9 +142,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.NPCDeath39, Projectile.Center);
-        
-        	for (int i = 0; i < 25; i++)
+        	for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[newDust].noGravity = true;

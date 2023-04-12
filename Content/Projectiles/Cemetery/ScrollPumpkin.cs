@@ -11,7 +11,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
-	//TODO: make this use custom ai to hover above the player instead of vanilla minion ai
+	//TODO: make this use custom ai to hover above the player instead of vanilla minion ai, make it charge at nearby enemies also
     public class ScrollPumpkin : ModProjectile
     {   
         private List<Vector2> cache;
@@ -56,7 +56,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             trail?.Render(effect);
 
-            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
             return true;
         }

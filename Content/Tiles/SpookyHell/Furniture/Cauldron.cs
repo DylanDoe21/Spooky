@@ -6,19 +6,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.ObjectInteractions;
 using Terraria.ObjectData;
 using Terraria.Enums;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
-using System.Collections.Generic;
-using Steamworks;
-using Microsoft.Xna.Framework.Graphics;
-using Spooky.Core;
-using rail;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -87,7 +83,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override void Load()
         {
-			AddTransformation(ItemID.Amethyst, ModContent.ItemType<CauldronExampleOutput>());
+			AddTransformation(ModContent.ItemType<FleshBow>(), ModContent.ItemType<SentientFleshBow>());
         }
 
         public override void AddRecipes()

@@ -24,10 +24,10 @@ namespace Spooky.Content.Buffs
                 npc.damage = (int)(npc.damage * 2f);
 
                 storedDefense = npc.defense;
-                npc.defense = (int)(npc.defense * 1.75f);
+                npc.defense = (int)(npc.defense * 2f);
 
                 storedColor = npc.color;
-                npc.color = Color.Red * 0.50f;
+                npc.color = Color.Red * 0.75f;
 
                 initializeStats = true;
             }

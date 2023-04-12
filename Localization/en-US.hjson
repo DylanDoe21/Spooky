@@ -81,15 +81,15 @@ Mods: {
 			LittleEye: {
 				Awaken: Whoa there, I was trying to take a nap! You must be a pretty curious adventurer to have found your way down here.
 				Quest1: So, there are four different flasks you can make that I can combine into something that will be helpful later. However, I am unable to gather the needed ingredients, so I'll need your help to find them, and then craft the flask with them. To make this first flask, you'll need the following.
-				Quest1Rewards: You made that potion faster than expected. I'll be holding onto this for later use, Take this stuff as a reward for your troubles.
-				Quest2: This next flask is similar, but again my inability to move prevents me from getting these materials, so I'll need you to craft the next flask with this stuff.
+				Quest1Rewards: You made that potion faster than expected. I'll be holding onto this for later use, take this stuff as a reward for your troubles.
+				Quest2: This next flask is similar, but my inability to move prevents me from getting these materials, so I'll need you to craft the next flask with these materials.
 				Quest2Rewards: You're getting the hang of this! Here, since I know how much you love my magical little hat, you can have this bootleg version!
 				Quest3: At this point I assume you understand what to do. For this next flask, you'll need the following materials.
-				Quest3Rewards: Good work! I've heard that this little cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
+				Quest3Rewards: Good work! I've heard that this giant cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
 				Quest4: So, now that you only have one last substance to make for me, I've got a special reward for you if you can bring me it. As usual you'll need some materials to make it.
 				Quest4Rewards: Alright, that was the final flask I need! As a reward, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient so I can cook up a special concoction for you.
-				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me a special soul. But, I don't know if you can get them one yet.
-				Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me a special soul. Since you defeated that giant flesh wall, you should be able to get one now.
+				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me specials soul. But, I don't know if you can get them yet.
+				Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
 				Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
 				NoQuests: Sorry, I don't have anything else for you to gather.
 				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something... A little crazy.
@@ -98,7 +98,7 @@ Mods: {
 				Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
 				Default4: You may use my magic cauldron, under the condition that you say the magic word... alright fine, you can use it whenever.
 				Default5: My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.
-				Default6: The alchemy we do down here is not science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
+				Default6: The alchemy I do down here is not really science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
 				Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
 				EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, 'Bloody red, you'll be dead, purplish blue, cripple you!'
 				EggEvent: You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.
@@ -278,6 +278,11 @@ Mods: {
 			GourdDecay: {
 				DisplayName: Rotting
 				Description: Mods.Spooky.BuffDescription.GourdDecay
+			}
+
+			Possessed: {
+				DisplayName: Possessed
+				Description: You are being controlled by a ghost!
 			}
 
 			SentientAxeBleed: {
@@ -1413,6 +1418,48 @@ Mods: {
 					'''
 			}
 
+			SentientClingerStaff: {
+				DisplayName: Sentient Clinger Staff
+				Tooltip:
+					'''
+					Summons massive pillars of cursed fire on the ground 
+					only up to three flame pillars can exist at once
+					'''
+			}
+
+			SentientGatligator: {
+				DisplayName: Sentient Gatligator
+				Tooltip: Fires bullets completely randomly around you
+			}
+
+			SentientKatana: {
+				DisplayName: Sentient Katana
+				Tooltip: Creates extra slashes upon hitting enemies
+			}
+
+			SentientLifeDrain: {
+				DisplayName: Sentient Life Drain
+				Tooltip:
+					'''
+					Drains life from enemies nearby your cursor, each time you are healed builds up a charge
+					Once at maximum charge, the staff will unleash a powerful wave of blood
+					'''
+			}
+
+			SentientShootius: {
+				DisplayName: Sentient Shootius
+				Tooltip: Summons a powerful eye tendril sentry that shoots beams at enemies
+			}
+
+			SentientUmbrella: {
+				DisplayName: Sentient Umbrella
+				Tooltip:
+					'''
+					Poke enemies with the umbrella
+					Sometimes the umbrella will launch itself out and return to you
+					'''
+			}
+
 			SentientHeart: {
 				DisplayName: Sentient Heart
 				Tooltip:
@@ -1612,7 +1659,7 @@ Mods: {
 				DisplayName: Valley of Eyes Pylon
 				Tooltip:
 					'''
-					Teleport to another pylon, regardless of how many villagers are nearby
+					This pylon can be teleported to regardless of how many villagers are nearby
 					You can only place one per type and in the matching biome
 					'''
 			}
@@ -2070,6 +2117,7 @@ Mods: {
 			OrroboroSpawn.DisplayName: Orroboro Spawn
 			DecayDebuffFly.DisplayName: Decay Debuff Fly
 			BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
+			BrainJarProj.DisplayName: Brain Jar Proj
 		}
 
 		NPCs: {

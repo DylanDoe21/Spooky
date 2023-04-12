@@ -18,11 +18,11 @@ namespace Spooky.Content.Items.SpookyHell.Flask
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.HoneyBlock, 35)
-            .AddIngredient(ItemID.Pumpkin, 35)
-            .AddIngredient(ItemID.Sluggy, 5)
-            .AddIngredient(ItemID.Cobweb, 15)
-            .AddIngredient(ItemID.Abeemination, 1)
+            .AddIngredient(ItemID.Fireblossom, 5)
+            .AddIngredient(ItemID.Deathweed, 5)
+            .AddIngredient(ItemID.Ruby, 12)
+            .AddIngredient(ItemID.AshBlock, 35)
+            .AddIngredient(ItemID.DeerThing, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
         }

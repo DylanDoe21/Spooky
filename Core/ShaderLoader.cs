@@ -12,7 +12,6 @@ namespace Spooky.Core
             GlowyTrail = ModContent.Request<Effect>("Spooky/Effects/GlowyTrail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         }
 
-
         public void Unload()
         {
             GlowyTrail = null;

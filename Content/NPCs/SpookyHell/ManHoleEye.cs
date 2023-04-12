@@ -35,8 +35,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //only draw if the parent is active
-            if (Main.npc[(int)NPC.ai[3]].active)
-			{
+            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>())
+            {
                 Vector2 rootPosition = Main.npc[(int)NPC.ai[3]].Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), NPC.Center + new Vector2(-30 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(-12 * NPC.direction, 0).RotatedBy(NPC.rotation) };
@@ -89,106 +89,109 @@ namespace Spooky.Content.NPCs.SpookyHell
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            //attack player if nearby
-            if (NPC.Distance(player.Center) <= 500f) 
+            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>())
             {
-                NPC.ai[0]++;
-
-                if (NPC.ai[1] < 3)
+                //attack player if nearby
+                if (NPC.Distance(player.Center) <= 500f) 
                 {
-                    if (NPC.ai[0] == 180)
-                    {
-                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
+                    NPC.ai[0]++;
 
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X *= 30;
-                        ChargeDirection.Y *= 20;
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
+                    if (NPC.ai[1] < 3)
+                    {
+                        if (NPC.ai[0] == 180)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.position);
+
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= 30;
+                            ChargeDirection.Y *= 20;
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
+                        }
+
+                        if (NPC.ai[0] > 195)
+                        {
+                            NPC.ai[1]++;
+                            NPC.ai[0] = 100;
+                            NPC.velocity *= 0f;
+                        }
                     }
-
-                    if (NPC.ai[0] > 195)
+                    else
                     {
-                        NPC.ai[1]++;
-                        NPC.ai[0] = 100;
-                        NPC.velocity *= 0f;
+                        NPC.ai[0] = 0;
+                        NPC.ai[1] = 0;
                     }
-                }
-                else
-                {
-                    NPC.ai[0] = 0;
-                    NPC.ai[1] = 0;
-                }
-            }
-            
-            //idle, float above parent
-            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>() && NPC.ai[0] < 180)
-            {
-                float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
-                float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
+        
+                    if (NPC.ai[0] < 180)
+                    {
+                        //move above parent npc
+                        float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
+                        float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
 
-                float speed;
+                        float speed;
 
-                if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
-                {
-                    speed = 0.8f;
-                }
-                else
-                {
-                    speed = 0.5f;
-                }
-                
-                if (NPC.velocity.X > speed)
-                {
-                    NPC.velocity.X *= 0.98f;
-                }
-                if (NPC.velocity.Y > speed)
-                {
-                    NPC.velocity.Y *= 0.98f;
-                }
+                        if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
+                        {
+                            speed = 0.8f;
+                        }
+                        else
+                        {
+                            speed = 0.5f;
+                        }
+                        
+                        if (NPC.velocity.X > speed)
+                        {
+                            NPC.velocity.X *= 0.98f;
+                        }
+                        if (NPC.velocity.Y > speed)
+                        {
+                            NPC.velocity.Y *= 0.98f;
+                        }
 
-                if (NPC.velocity.X < goToX)
-                {
-                    NPC.velocity.X = NPC.velocity.X + speed;
-                    if (NPC.velocity.X < 0f && goToX > 0f)
-                    {
-                        NPC.velocity.X = NPC.velocity.X + speed;
-                    }
-                }
-                else if (NPC.velocity.X > goToX)
-                {
-                    NPC.velocity.X = NPC.velocity.X - speed;
-                    if (NPC.velocity.X > 0f && goToX < 0f)
-                    {
-                        NPC.velocity.X = NPC.velocity.X - speed;
-                    }
-                }
-                if (NPC.velocity.Y < goToY)
-                {
-                    NPC.velocity.Y = NPC.velocity.Y + speed;
-                    if (NPC.velocity.Y < 0f && goToY > 0f)
-                    {
-                        NPC.velocity.Y = NPC.velocity.Y + speed;
-                        return;
-                    }
-                }
-                else if (NPC.velocity.Y > goToY)
-                {
-                    NPC.velocity.Y = NPC.velocity.Y - speed;
-                    if (NPC.velocity.Y > 0f && goToY < 0f)
-                    {
-                        NPC.velocity.Y = NPC.velocity.Y - speed;
-                        return;
+                        if (NPC.velocity.X < goToX)
+                        {
+                            NPC.velocity.X = NPC.velocity.X + speed;
+                            if (NPC.velocity.X < 0f && goToX > 0f)
+                            {
+                                NPC.velocity.X = NPC.velocity.X + speed;
+                            }
+                        }
+                        else if (NPC.velocity.X > goToX)
+                        {
+                            NPC.velocity.X = NPC.velocity.X - speed;
+                            if (NPC.velocity.X > 0f && goToX < 0f)
+                            {
+                                NPC.velocity.X = NPC.velocity.X - speed;
+                            }
+                        }
+                        if (NPC.velocity.Y < goToY)
+                        {
+                            NPC.velocity.Y = NPC.velocity.Y + speed;
+                            if (NPC.velocity.Y < 0f && goToY > 0f)
+                            {
+                                NPC.velocity.Y = NPC.velocity.Y + speed;
+                                return;
+                            }
+                        }
+                        else if (NPC.velocity.Y > goToY)
+                        {
+                            NPC.velocity.Y = NPC.velocity.Y - speed;
+                            if (NPC.velocity.Y > 0f && goToY < 0f)
+                            {
+                                NPC.velocity.Y = NPC.velocity.Y - speed;
+                                return;
+                            }
+                        }
                     }
                 }
             }
 
             //kill npc if parent is not active
-            if (!Main.npc[(int)NPC.ai[3]].active)
+            if (!Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type != ModContent.NPCType<ManHoleBig>())
             {
-                if (Main.netMode != NetmodeID.Server) 
+                if (Main.netMode != NetmodeID.Server)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleEyeGore").Type);
                 }

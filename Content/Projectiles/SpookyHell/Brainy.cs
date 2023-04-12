@@ -22,7 +22,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Brainy");
             Main.projFrames[Projectile.type] = 7;
             Main.projPet[Projectile.type] = true;
         }
@@ -103,9 +102,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.localAI[0] < 3510)
             {
-                if (Main.rand.Next(350) == 0)
+                if (Main.rand.NextBool(350))
                 {
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         SoundEngine.PlaySound(BrainySound1, Projectile.Center);
                     }
@@ -160,7 +159,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         SoundEngine.PlaySound(SoundID.Item96, Main.projectile[k].Center);
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.projectile[k].Center.X, Main.projectile[k].Center.Y, 
-                        0, 0, ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + (Main.projectile[k].damage / 2), 0f, Main.myPlayer, 0, 0);
+                        0, 0, ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + (Main.projectile[k].damage), 0f, Main.myPlayer, 0, 0);
 
                         Main.projectile[k].Kill();
                     }

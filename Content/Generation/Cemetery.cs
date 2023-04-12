@@ -31,7 +31,7 @@ namespace Spooky.Content.Generation
             //place biome based on opposite dungeon side
             if (GenVars.dungeonSide == -1)
 			{
-                Catacombs.PositionX = Main.maxTilesX - 835;
+                Catacombs.PositionX = Main.maxTilesX - 850;
 			}
 			else
 			{

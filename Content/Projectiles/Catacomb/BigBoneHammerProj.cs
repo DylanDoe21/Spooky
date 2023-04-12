@@ -19,6 +19,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.height = 82;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
+            Projectile.hostile = false;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10000;
@@ -40,7 +41,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             trail?.Render(effect);
 
-            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
             return true;
         }

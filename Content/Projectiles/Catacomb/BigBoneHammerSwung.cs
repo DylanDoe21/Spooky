@@ -11,6 +11,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
+    //TODO: make this projectile deal no knockback but make it fling enemies away from the player on hit to simulate knockback
     public class BigBoneHammerSwung : ModProjectile
     {
         public float Speed = 0.02f;
@@ -52,7 +53,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.frame = 1;
             }
 
-            /*
             //disabled for now until prim system gets funny fixes
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
@@ -68,8 +68,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             trail?.Render(effect);
 
-            Main.spriteBatch.Begin(default, default, default, default, default, default, Main.GameViewMatrix.TransformationMatrix);
-            */
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
             int frameHeight = tex.Height / Main.projFrames[Projectile.type];
@@ -181,7 +180,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 ShootSpeed.Y *= 55;
                         
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage * 2, 12f, Main.myPlayer, 0f, 0f);
 
                 Projectile.Kill();
             }

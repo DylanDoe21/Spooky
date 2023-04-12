@@ -154,7 +154,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3")
-						+ $"\n[i:{ItemID.Fireblossom}]x5, [i:{ItemID.Deathweed}]x5, [i:{ItemID.Ruby}]x12, [i:{ItemID.AshBlock}]x35, [i:{ItemID.DeerThing}]x1, [i:{ItemID.Bottle}]x1";
+						+ $"\n[i:{ItemID.HoneyBlock}]x35, [i:{ItemID.Pumpkin}]x35, [i:{ItemID.Sluggy}]x5, [i:{ItemID.Cobweb}]x15, [i:{ItemID.Abeemination}]x1, [i:{ItemID.Bottle}]x1";
 					}
 				}
 				if (Flags.EyeQuest3 && !Flags.EyeQuest4)
@@ -168,7 +168,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4")
-						+ $"\n[i:{ItemID.HoneyBlock}]x35, [i:{ItemID.Pumpkin}]x35, [i:{ItemID.Sluggy}]x5, [i:{ItemID.Cobweb}]x15, [i:{ItemID.Abeemination}]x1, [i:{ItemID.Bottle}]x1";
+						+ $"\n[i:{ItemID.Fireblossom}]x5, [i:{ItemID.Deathweed}]x5, [i:{ItemID.Ruby}]x12, [i:{ItemID.AshBlock}]x35, [i:{ItemID.DeerThing}]x1, [i:{ItemID.Bottle}]x1";
 					}
 				}
 				if (Flags.EyeQuest4 && !Flags.EyeQuest5)
