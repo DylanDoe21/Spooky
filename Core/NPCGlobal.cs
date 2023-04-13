@@ -11,6 +11,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.Boss.BigBone;
@@ -96,6 +97,7 @@ namespace Spooky.Core
 			if (shop.NpcType == NPCID.Steampunker)
 			{
 				shop.Add<SpookySolution>();
+				shop.Add<CemeterySolution>();
 			}
 		}
 
