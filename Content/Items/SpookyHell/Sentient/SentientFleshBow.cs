@@ -5,10 +5,11 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
-    public class SentientFleshBow : ModItem
+    public class SentientFleshBow : ModItem, ICauldronOutput
     {
         public override void SetDefaults()
         {

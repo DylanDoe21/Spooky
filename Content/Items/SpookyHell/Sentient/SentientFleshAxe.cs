@@ -6,10 +6,11 @@ using Terraria.Audio;
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
-    public class SentientFleshAxe : SwingWeaponBase
+    public class SentientFleshAxe : SwingWeaponBase, ICauldronOutput
     {
         public override int Length => 90;
 		public override int TopSize => 45;

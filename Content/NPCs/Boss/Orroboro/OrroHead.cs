@@ -468,7 +468,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //spit acid bolt spreads and chase player while boro summons tentacle pillars
+                    //spit acid bolt spreads and charge while boro summons tentacle pillars
                     case 3:
                     {
                         NPC.localAI[0]++;
@@ -518,8 +518,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                                 ChargeDirection.Normalize();
                                         
-                                ChargeDirection.X *= 28;
-                                ChargeDirection.Y *= 28;
+                                ChargeDirection.X *= 25;
+                                ChargeDirection.Y *= 25;
                                 NPC.velocity.X = ChargeDirection.X;
                                 NPC.velocity.Y = ChargeDirection.Y;
                             }
@@ -528,7 +528,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             {
                                 OpenMouth = false;
 
-                                NPC.velocity *= 0.75f;
+                                NPC.velocity *= 0.65f;
                             }
 
                             if (NPC.localAI[0] >= 260)

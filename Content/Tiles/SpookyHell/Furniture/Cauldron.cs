@@ -83,7 +83,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override void Load()
         {
-			AddTransformation(ModContent.ItemType<FleshBow>(), ModContent.ItemType<SentientFleshBow>());
+			AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
         }
 
         public override void AddRecipes()

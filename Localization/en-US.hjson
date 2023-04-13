@@ -668,6 +668,15 @@ Mods: {
 					'''
 			}
 
+			CemeterySolution: {
+				DisplayName: Teal Solution
+				Tooltip:
+					'''
+					Used by the Clentaminator
+					Spreads the Swampy Cemetery
+					'''
+			}
+
 			SpiritScroll: {
 				DisplayName: Spooky Scroll
 				Tooltip:
@@ -1971,6 +1980,7 @@ Mods: {
 
 		Projectiles: {
 			SpookySolutionProj.DisplayName: Spooky Spray
+			CemeterySolutionProj.DisplayName: Cemetery Solution Proj
 			BigBoneThorn.DisplayName: Thorn Vine
 			BigBoneThornTelegraph.DisplayName: Telegraph
 			BoneWisp.DisplayName: Bone Wisp

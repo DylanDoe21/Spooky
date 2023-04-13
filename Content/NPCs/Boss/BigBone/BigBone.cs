@@ -247,15 +247,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, 
-                    NPC.frame, new Color(255, 69, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, 
+                    NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.34f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time,
-                    NPC.frame, new Color(224, 69, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time,
+                    NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -1480,13 +1480,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             if (!Flags.downedBigBone)
             {
+                string text = "The curse of the catacombs has been lifted!";
+
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Main.NewText("The curse of the catacombs has been lifted", Color.Yellow);
+                    Main.NewText(text, Color.Yellow);
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The curse of the catacombs has been lifted"), Color.Yellow);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), Color.Yellow);
                 }
             }
 

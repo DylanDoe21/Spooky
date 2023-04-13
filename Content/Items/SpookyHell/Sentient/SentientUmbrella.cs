@@ -3,9 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Content.Tiles.SpookyHell.Furniture;
+
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
-    public class SentientUmbrella : ModItem
+    public class SentientUmbrella : ModItem, ICauldronOutput
     {
         public override void SetDefaults()
         {

@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
@@ -82,7 +83,7 @@ namespace Spooky.Core
                     {
 
                         //replace spooky grasses with regular grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>() };
+                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
 
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
@@ -92,7 +93,9 @@ namespace Spooky.Core
                         }
 
                         //replace spooky dirt with dirt 
-                        if (Main.tile[k, l].TileType == ModContent.TileType<SpookyDirt>())
+                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
+
+                        if (DirtReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Dirt;
                             WorldGen.SquareTileFrame(k, l);
@@ -100,7 +103,9 @@ namespace Spooky.Core
                         }
 
                         //replace spooky stone with stone
-                        if (Main.tile[k, l].TileType == ModContent.TileType<SpookyStone>())
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+
+                        if (StoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Stone;
                             WorldGen.SquareTileFrame(k, l);

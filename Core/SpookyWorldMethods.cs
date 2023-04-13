@@ -153,7 +153,7 @@ namespace Spooky.Core
 							float divide = 7.5f;
 							int heightLimit = limit ? (int)Main.worldSurface - (Main.maxTilesY / (int)divide) : 0;
 
-							if (l > heightLimit)
+							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud)
 							{
 								//I think this checks if the tile is air?
 								if (tileType < 0)

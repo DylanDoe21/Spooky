@@ -853,12 +853,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 						if (NPC.localAI[1] < 2)
 						{
-							Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? 420 : -420), player.Center.Y - 400);
-
-							if (NPC.position.X <= player.Center.X + 420 && NPC.position.X >= player.Center.X - 420)
-							{
-								JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
-							}
+							Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
 
 							Vector2 velocity = JumpTo - NPC.Center;
 

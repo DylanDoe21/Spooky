@@ -319,7 +319,10 @@ namespace Spooky.Content.NPCs.Friendly
 		private void QuestRewards()
 		{
 			//monster chest food
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<ChestFood>());
+			if (!Flags.EyeQuest4)
+			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<ChestFood>());
+			}
 
 			//different potions
 			int[] Potions1 = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion, ItemID.ArcheryPotion };

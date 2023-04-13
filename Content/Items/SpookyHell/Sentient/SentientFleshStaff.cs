@@ -3,10 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
-    public class SentientFleshStaff : ModItem
+    public class SentientFleshStaff : ModItem, ICauldronOutput
     {
         public override void SetStaticDefaults()
         {

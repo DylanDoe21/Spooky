@@ -88,6 +88,7 @@ namespace Spooky.Core
             if (EyeQuest2) tag["EyeQuest2"] = true;
             if (EyeQuest3) tag["EyeQuest3"] = true;
             if (EyeQuest4) tag["EyeQuest4"] = true;
+            if (EyeQuest5) tag["EyeQuest5"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 

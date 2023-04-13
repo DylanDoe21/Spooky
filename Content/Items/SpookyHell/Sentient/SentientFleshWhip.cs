@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
-    public class SentientFleshWhip : ModItem
+    public class SentientFleshWhip : ModItem, ICauldronOutput
     {
         public override void SetDefaults()
         {
