@@ -1,9 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky.Core
@@ -29,12 +31,12 @@ namespace Spooky.Core
 
             public bool CanShowItemDropInUI() 
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription() 
             {
-                return "Mods.Spooky.DropConditions.RedCatacombKeyCondition";
+                return null;
             }
         }
 
@@ -57,12 +59,12 @@ namespace Spooky.Core
 
             public bool CanShowItemDropInUI() 
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription() 
             {
-                return "Mods.Spooky.DropConditions.OrangeCatacombKeyCondition";
+                return null;
             }
         }
 
@@ -85,12 +87,12 @@ namespace Spooky.Core
 
             public bool CanShowItemDropInUI() 
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription() 
             {
-                return "Mods.Spooky.DropConditions.SpookyKeyCondition";
+                return null;
             }
         }
 
@@ -113,12 +115,12 @@ namespace Spooky.Core
 
             public bool CanShowItemDropInUI() 
             {
-                return true;
+                return false;
             }
 
             public string GetConditionDescription() 
             {
-                return "Mods.Spooky.DropConditions.SpookyHellKeyCondition";
+                return null;
             }
         }
 
@@ -128,8 +130,6 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation)
                 {
-                    NPC npc = info.npc;
-
                     if (Flags.downedRotGourd)
                     {
                         return true;
@@ -147,7 +147,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -157,8 +157,6 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation)
                 {
-                    NPC npc = info.npc;
-
                     if (Flags.downedSpookySpirit)
                     {
                         return true;
@@ -176,18 +174,18 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
         public class PostOrroboroCondition : IItemDropRuleCondition
         {
+            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.PostOrroboroCondition");
+
             public bool CanDrop(DropAttemptInfo info) 
             {
                 if (!info.IsInSimulation) 
                 {
-                    NPC npc = info.npc;
-
                     if (Flags.downedOrroboro)
                     {
                         return true;
@@ -204,7 +202,39 @@ namespace Spooky.Core
             
             public string GetConditionDescription()
             {
-                return "Mods.Spooky.DropConditions.PostOrroboroCondition";
+                return Description.Value;
+            }
+        }
+
+        public class SentientHeartCondition : IItemDropRuleCondition
+        {
+            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.SentientHeartCondition");
+
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if ((!Flags.downedMoco && npc.type == ModContent.NPCType<Moco>()) ||
+                    (!Flags.downedOrroboro && npc.type == ModContent.NPCType<OrroHead>() && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>())) || 
+                    (!Flags.downedOrroboro && npc.type == ModContent.NPCType<BoroHead>() && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>())))
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return true;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return Description.Value;
             }
         }
 
@@ -231,7 +261,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -258,7 +288,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -285,7 +315,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -312,7 +342,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -339,7 +369,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
 
@@ -366,7 +396,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription()
             {
-                return "";
+                return null;
             }
         }
     }

@@ -110,14 +110,9 @@ namespace Spooky.Core
 
             if (OrroBoroSegments.Contains(npc.type))
 			{
-                float damageDivide = 1.85f;
-
-                if (projectile.penetrate <= -1)
+                if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
-                    modifiers.FinalDamage /= (int)damageDivide;
-                }
-                else if (projectile.penetrate >= 2)
-                {
+                    float damageDivide = 1.85f;
                     modifiers.FinalDamage /= (int)damageDivide;
                 }
             }

@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using System.Linq;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
@@ -9,12 +11,13 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 3;
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
         }
 
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 44;
+            Item.width = 40;
+            Item.height = 50;
             Item.maxStack = 9999;
             Item.rare = ModContent.RarityType<SentientRarity>();
         }

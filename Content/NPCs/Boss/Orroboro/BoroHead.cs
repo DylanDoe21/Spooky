@@ -16,6 +16,7 @@ using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
@@ -718,6 +719,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
+
+            //heart
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
 
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));

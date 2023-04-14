@@ -19,6 +19,7 @@ using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
+using Spooky.Content.Items.SpookyHell.Sentient;
 
 namespace Spooky.Content.NPCs.Boss.Moco
 {
@@ -849,7 +850,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MocoTissue>(), 4));
 
             //weapon drops
-            int[] MainItem = new int[] 
+            int[] MainItem = new int[]
             { 
                 ModContent.ItemType<BoogerFlail>(), 
                 ModContent.ItemType<BoogerBlaster>(), 
@@ -857,6 +858,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
             };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
+
+            //heart
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
 
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoTrophyItem>(), 10));

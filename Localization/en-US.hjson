@@ -168,6 +168,7 @@ Mods: {
 			SpookyKeyCondition: Drops in the Spooky Forest in hardmode
 			SpookyHellKeyCondition: Drops in the Valley of Eyes in hardmode
 			PostOrroboroCondition: Drops after Orro & Boro have been defeated
+			SentientHeartCondition: Drops on first defeat only
 		}
 
 		Conditions: {
@@ -1388,84 +1389,60 @@ Mods: {
 					'''
 			}
 
-			SentientFleshAxe: {
-				DisplayName: Sentient Flesh Mincer
-				Tooltip:
-					'''
-					Deals far more damage to enemies below half health
-					Critical hits will bleed enemies, dealing rapid damage over time
-					'''
-			}
-
-			SentientFleshBow: {
-				DisplayName: Sentient Seer
-				Tooltip:
-					'''
-					Rapidly fires organic chunks
-					Every twentieth shot will fire multiple homing eyes
-					'''
-			}
-
-			SentientFleshStaff: {
-				DisplayName: Sentient Retina Staff
-				Tooltip:
-					'''
-					Summon eyes that follow your cursor while holding down left click
-					Release left click to fling the eyes, dealing double their original damage
-					Releasing left click with maximum eyes active will explode them, dealing massive damage
-					Only up to eight eyes can be active at once
-					'''
-			}
-
-			SentientFleshWhip: {
-				DisplayName: Sentient Eye Lasher
-				Tooltip:
-					'''
-					Your summons will focus struck enemies
-					Lashes out two long range whips at once
-					Hitting enemies may lower their defense massively for a short time
-					'''
-			}
-
 			SentientClingerStaff: {
-				DisplayName: Sentient Clinger Staff
+				DisplayName: Cursed Creature Scepter
 				Tooltip:
 					'''
 					Summons massive pillars of cursed fire on the ground 
 					only up to three flame pillars can exist at once
+					'Strange sounds come from it's flame'
 					'''
 			}
 
 			SentientGatligator: {
-				DisplayName: Sentient Gatligator
-				Tooltip: Fires bullets completely randomly around you
+				DisplayName: Gator Gun
+				Tooltip:
+					'''
+					Fires bullets very inaccurately
+					'It has a mind of it's own, making it hard to control'
+					'''
 			}
 
 			SentientKatana: {
-				DisplayName: Sentient Katana
-				Tooltip: Creates extra slashes upon hitting enemies
+				DisplayName: Conscious Cutter
+				Tooltip:
+					'''
+					Creates extra slashes upon hitting enemies
+					'A living sword that can slash enemies on it's own'
+					'''
 			}
 
 			SentientLifeDrain: {
-				DisplayName: Sentient Life Drain
+				DisplayName: Soul Sucker
 				Tooltip:
 					'''
 					Drains life from enemies nearby your cursor, each time you are healed builds up a charge
 					Once at maximum charge, the staff will unleash a powerful wave of blood
+					'It looks like it has something to say'
 					'''
 			}
 
 			SentientShootius: {
 				DisplayName: Sentient Shootius
-				Tooltip: Summons a powerful eye tendril sentry that shoots beams at enemies
+				Tooltip:
+					'''
+					Summons a living eye tendril sentry to shoot beams at enemies
+					'Legends say it can stare holes through any living thing'
+					'''
 			}
 
 			SentientUmbrella: {
-				DisplayName: Sentient Umbrella
+				DisplayName: Observant Umbrella
 				Tooltip:
 					'''
-					Poke enemies with the umbrella
-					Sometimes the umbrella will launch itself out and return to you
+					Hold out the umbrella to damage enemies, killing enemies builds up a charge
+					When it has enough, releasing will shoot out a giant spread of blood
+					'A living umbrella that scares people, but doesn't like rain'
 					'''
 			}
 
