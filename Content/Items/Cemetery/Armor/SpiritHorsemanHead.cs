@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
@@ -27,7 +28,8 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Your own head will now fight with you!";
+			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.SpiritHorsemanArmor");
+			player.setBonus = Description.Value;
 			player.GetModPlayer<SpookyPlayer>().HorsemanSet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PumpkinHead>()] <= 0;

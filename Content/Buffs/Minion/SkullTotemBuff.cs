@@ -1,14 +1,12 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Buffs
+namespace Spooky.Content.Buffs.Minion
 {
 	public class SkullTotemBuff : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Skull Idol's Power");
-			// Description.SetDefault("12% increased summon damage, 5% increased whip range, and +2 max minions");
 			Main.buffNoSave[Type] = true;
 		}
 

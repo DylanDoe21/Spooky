@@ -8,7 +8,6 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Ensnared");
 			Main.debuff[Type] = true;
 		}
 

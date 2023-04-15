@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Nose Fly");
-			// Description.SetDefault("The nose buzzes around you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

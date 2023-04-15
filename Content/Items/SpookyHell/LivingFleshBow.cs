@@ -4,12 +4,12 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Projectiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
-namespace Spooky.Content.Items.SpookyHell.Sentient
+namespace Spooky.Content.Items.SpookyHell
 {
-    public class SentientFleshBow : ModItem, ICauldronOutput
+    public class LivingFleshBow : ModItem
     {
         public override void SetDefaults()
         {
@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;
-			Item.rare = ModContent.RarityType<SentientRarity>();
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
@@ -81,7 +81,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                     }
                     else
                     {
-                        int[] Types = new int[] { ModContent.ProjectileType<SentientBowChunk1>(), ModContent.ProjectileType<SentientBowChunk2>() };
+                        int[] Types = new int[] { ModContent.ProjectileType<LivingBowChunk1>(), ModContent.ProjectileType<LivingBowChunk2>() };
 
                         Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20), 
 					    shootDir * Item.shootSpeed, Main.rand.Next(Types), Item.damage, Item.knockBack, player.whoAmI);
@@ -101,5 +101,14 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 		{
 			return new Vector2(2, 0);
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FleshBow>(), 1)
+			.AddIngredient(ModContent.ItemType<ArteryPiece>(), 15)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
     }
 }

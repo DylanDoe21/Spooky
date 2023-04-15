@@ -7,8 +7,6 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Cross Barrier Cooldown");
-			// Description.SetDefault("Your barrier is recharging");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = false;

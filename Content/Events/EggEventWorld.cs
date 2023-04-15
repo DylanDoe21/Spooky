@@ -49,7 +49,7 @@ namespace Spooky.Content.Events
 				EggEventTimer = 0;
 			}
 
-			float maxPoints = Flags.downedEggEvent ? 120f : 180f;
+			float maxPoints = Flags.downedEggEvent ? 120f : 210f;
 
 			if (EggEventProgress >= maxPoints)
 			{
@@ -114,7 +114,7 @@ namespace Spooky.Content.Events
 				Rectangle ProgressBackground = Utils.CenteredRectangle(new Vector2(Main.screenWidth - OffsetX - 100f, Main.screenHeight - OffsetY - 23f), new Vector2(width, height));
 				Utils.DrawInvBG(spriteBatch, ProgressBackground, new Color(95, 27, 43, 255) * 0.785f);
 
-				float divide = Flags.downedEggEvent ? 1.2f : 1.8f;
+				float divide = Flags.downedEggEvent ? 1.2f : 2.1f;
 
 				string ProgressText = "Progress: " + Math.Round(EggEventProgress / divide, 0, MidpointRounding.AwayFromZero) + "%";
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);

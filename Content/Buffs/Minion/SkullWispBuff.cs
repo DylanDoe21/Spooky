@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Skull Wisp");
-			// Description.SetDefault("The skull wisp will fight with you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

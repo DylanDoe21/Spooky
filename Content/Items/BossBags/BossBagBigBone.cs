@@ -92,14 +92,12 @@ namespace Spooky.Content.Items.BossBags
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) 
 		{
-			// Draw the periodic glow effect behind the item when dropped in the world (hence PreDrawInWorld)
 			Texture2D texture = TextureAssets.Item[Item.type].Value;
 
 			Rectangle frame;
 
 			if (Main.itemAnimations[Item.type] != null) 
 			{
-				// In case this item is animated, this picks the correct frame
 				frame = Main.itemAnimations[Item.type].GetFrame(texture, Main.itemFrameCounter[whoAmI]);
 			}
 			else 
@@ -135,7 +133,7 @@ namespace Spooky.Content.Items.BossBags
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(224, 170, 6, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(224, 170, 6, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

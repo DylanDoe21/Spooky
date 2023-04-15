@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
+using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,7 +25,8 @@ namespace Spooky.Content.Generation
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemeteryArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Placing burial grounds";
+            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery");
+            progress.Message = Description.Value;
 
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 

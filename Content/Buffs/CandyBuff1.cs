@@ -7,8 +7,6 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Summoner Candy");
-			// Description.SetDefault("5% increased summon damage");
 			Main.buffNoSave[Type] = true;
 		}
 

@@ -5,12 +5,12 @@ using Terraria.Audio;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Projectiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
-namespace Spooky.Content.Items.SpookyHell.Sentient
+namespace Spooky.Content.Items.SpookyHell
 {
-    public class SentientFleshAxe : SwingWeaponBase, ICauldronOutput
+    public class LivingFleshAxe : SwingWeaponBase
     {
         public override int Length => 90;
 		public override int TopSize => 45;
@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useAnimation = 45;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 12;
-            Item.rare = ModContent.RarityType<SentientRarity>();
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.scale = 1.25f;
@@ -62,7 +62,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 hasHitEnemies = true;
 
                 Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<FleshAxeHitSentient>(), Item.damage, 0f, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, 0f, Main.myPlayer, 0, 0);
             }
 
             if (target.life <= target.lifeMax * 0.5)
@@ -72,8 +72,17 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
             if (hit.Crit)
             {
-                target.AddBuff(ModContent.BuffType<SentientAxeBleed>(), 180);
+                target.AddBuff(ModContent.BuffType<LivingAxeBleed>(), 180);
             }
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FleshAxe>(), 1)
+			.AddIngredient(ModContent.ItemType<ArteryPiece>(), 15)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

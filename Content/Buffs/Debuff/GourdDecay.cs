@@ -9,7 +9,6 @@ namespace Spooky.Content.Buffs.Debuff
 {
 	public class GourdDecay : ModBuff
 	{
-		int flySpawnTimer = 0;
 		private bool initializeStats;
         private int storedDamage;
         private int storedDefense;
@@ -21,8 +20,8 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-			if (!npc.friendly)
-            {   
+			if (!npc.friendly && !npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
+            {
 				if (Main.rand.NextBool(50))
 				{
 					if (Main.netMode != NetmodeID.MultiplayerClient)

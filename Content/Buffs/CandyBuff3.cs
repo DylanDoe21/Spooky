@@ -7,8 +7,6 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Summoner Candy");
-			// Description.SetDefault("Slightly increased whip range");
 			Main.buffNoSave[Type] = true;
 		}
 

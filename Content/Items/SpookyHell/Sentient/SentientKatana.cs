@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Projectiles.Sentient;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
@@ -23,6 +23,12 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y,
+            0, 0, ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Item.damage, Item.knockBack, player.whoAmI, 0f, 0f);
         }
     }
 }

@@ -145,27 +145,12 @@ namespace Spooky.Core
             return ShouldRevive;
         }
 
-        public override void OnHurt(Player.HurtInfo info)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            //add fly cooldown when hit and the player has flies
-            if (FlyAmulet)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
-                {
-                    Player.AddBuff(ModContent.BuffType<FlyCooldown>(), 1800);
-                }
-            }
-
-            //spawn homing seeds when hit with the spirit amulet
-            if (SpiritAmulet)
-            {
-
-            }
-
             //gore armor set aura protection
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
-                info.Damage = 1; //TODO: idk if it its my fault or not, but this doesnt seem to reduce damage, and it needs to be fixed
+                modifiers.SetMaxDamage(1);
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
                 SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
 
@@ -181,6 +166,57 @@ namespace Spooky.Core
                         Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
+            }
+        }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+        {
+            //gore armor set aura protection
+            if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
+            {
+                modifiers.SetMaxDamage(1);
+                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
+                SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
+
+                for (int numDust = 0; numDust < 20; numDust++)
+                {
+                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.GemRuby, 0f, 0f, 100, default, 2f);
+                    Main.dust[dustEffect].velocity *= 3f;
+                    Main.dust[dustEffect].noGravity = true;
+
+                    if (Main.rand.NextBool(2))
+                    {
+                        Main.dust[dustEffect].scale = 0.5f;
+                        Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
+        }
+
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            //add fly cooldown when hit and the player has flies
+            if (FlyAmulet)
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
+                {
+                    Player.AddBuff(ModContent.BuffType<FlyCooldown>(), 1800);
+                }
+            }
+
+            //spawn homing seeds when hit with the spirit amulet
+            if (SpiritAmulet && Main.rand.Next(2) == 0)
+            {
+                /*
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {   
+                    for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(Player.Center.X + Main.rand.Next(-60, 60), Player.Center.Y + Main.rand.Next(-60, 60), 
+                        Main.rand.NextFloat(-5.3f, 5.3f), Main.rand.NextFloat(-5.3f, 5.3f), ModContent.ProjectileType<SpookyCoreSeed>(), 30, 1, Main.myPlayer, 0, 0);	
+                    }
+                }
+                */
             }
 
             //cross charm damage reduction cooldown

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
@@ -30,9 +31,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Grants you a protective aura that will block one attack"
-			+ "\nWhile the aura is active, you gain 8% increased magic and summon damage"
-			+ "\nWhen you get hit the aura will vanish, and will regenerate after one minute";
+			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.GoreArmorMagicSummon");
+			player.setBonus = Description.Value;
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))

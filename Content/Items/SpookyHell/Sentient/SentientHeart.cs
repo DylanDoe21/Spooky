@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 3;
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
         }
 
         public override void SetDefaults()

@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs
@@ -6,8 +7,7 @@ namespace Spooky.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Fly Swarm");
-			// Description.SetDefault("The swarm of flies is protecting you");
+			Main.buffNoSave[Type] = true;
 		}
     }
 }

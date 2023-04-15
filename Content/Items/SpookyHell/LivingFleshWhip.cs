@@ -4,13 +4,14 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
-namespace Spooky.Content.Items.SpookyHell.Sentient
+namespace Spooky.Content.Items.SpookyHell
 {
-    public class SentientFleshWhip : ModItem, ICauldronOutput
+    public class LivingFleshWhip : ModItem
     {
         public override void SetDefaults()
         {
@@ -24,7 +25,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useAnimation = 42;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
-			Item.rare = ModContent.RarityType<SentientRarity>();
+			Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
@@ -36,16 +37,25 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             int ProjToShoot = 0;
             if (ProjToShoot == 0)
             {
-                type = ModContent.ProjectileType<SentientFleshWhipProj1>();
+                type = ModContent.ProjectileType<LivingFleshWhipProj1>();
                 ProjToShoot = 1;
             }
             if (ProjToShoot == 1)
             {
-                type = ModContent.ProjectileType<SentientFleshWhipProj2>();
+                type = ModContent.ProjectileType<LivingFleshWhipProj2>();
                 ProjToShoot = 0;
             }
 			
 			return true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FleshWhip>(), 1)
+			.AddIngredient(ModContent.ItemType<ArteryPiece>(), 15)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

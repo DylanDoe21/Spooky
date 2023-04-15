@@ -8,7 +8,6 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Eye Lasher Defense");
 			Main.debuff[Type] = true;
 		}
 

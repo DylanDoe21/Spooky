@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.GameContent.Creative;
 
 using Spooky.Core;
@@ -28,8 +29,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "Summons a tiny floating eye to protect you"
-			+ "\nThe eye does not take up any minion slots";
+			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.EyeArmor");
+			player.setBonus = Description.Value;
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EyeArmorMinion>()] <= 0;

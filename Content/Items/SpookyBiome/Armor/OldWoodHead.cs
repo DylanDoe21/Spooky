@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -24,7 +25,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = "1 defense";
+			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.OldWoodArmor");
+			player.setBonus = Description.Value;
 			player.statDefense += 1;
 		}
 

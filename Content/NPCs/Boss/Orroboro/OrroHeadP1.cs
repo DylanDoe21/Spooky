@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         Vector2 SavePlayerPosition;
 
-        public bool ShouldDamagePlayer = true;
         public bool Chomp = false;
         public bool OpenMouth = false;
         private bool segmentsSpawned;
@@ -50,7 +49,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(ShouldDamagePlayer);
             writer.Write(Chomp);
             writer.Write(OpenMouth);
             writer.Write(segmentsSpawned);
@@ -65,7 +63,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            ShouldDamagePlayer = reader.ReadBoolean();
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
@@ -137,11 +134,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = NPC.rotation;
-        }
-
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
-        {
-            return ShouldDamagePlayer;
         }
         
         public override void AI()

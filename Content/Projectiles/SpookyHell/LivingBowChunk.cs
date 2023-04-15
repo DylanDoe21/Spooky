@@ -7,11 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class SentientBowChunk1 : ModProjectile
+    public class LivingBowChunk1 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Organic Chunk");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -71,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         }
     }
 
-    public class SentientBowChunk2 : SentientBowChunk1
+    public class LivingBowChunk2 : LivingBowChunk1
     {
         public override bool PreDraw(ref Color lightColor)
         {

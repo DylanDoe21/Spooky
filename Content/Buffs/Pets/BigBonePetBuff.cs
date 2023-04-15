@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Baby Bone");
-			// Description.SetDefault("What a goofy looking plant");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.lightPet[Type] = true;
 		}

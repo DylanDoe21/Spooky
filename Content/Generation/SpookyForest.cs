@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
+using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -31,7 +32,8 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Spreading the spooky forest";
+            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest");
+            progress.Message = Description.Value;
 
             //decide whether or not to use the alt background
             if (Main.rand.NextBool(2))

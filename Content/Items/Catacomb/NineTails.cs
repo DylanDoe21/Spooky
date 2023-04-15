@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 5.5f;
+			Item.shootSpeed = 4f;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Brainy");
-			// Description.SetDefault("Brainy suspiciously follows you");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

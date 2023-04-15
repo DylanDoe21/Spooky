@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
+using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System;
@@ -52,7 +53,8 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating the eye valley";
+            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley");
+            progress.Message = Description.Value;
 
             //generate the surface
             int width = BiomeEdge;
@@ -211,8 +213,6 @@ namespace Spooky.Content.Generation
 
         public static void SpookyHellTrees(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Growing eye stalks";
-
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 175; Y < Main.maxTilesY - 120; Y++)

@@ -6,7 +6,7 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class FleshAxeHitSentient : ModProjectile
+    public class FleshAxeHitLiving : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (hit.Crit)
             {
-                target.AddBuff(ModContent.BuffType<SentientAxeBleed>(), 180);
+                target.AddBuff(ModContent.BuffType<LivingAxeBleed>(), 180);
             }
         }
     }

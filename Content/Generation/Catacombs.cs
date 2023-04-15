@@ -3,6 +3,7 @@ using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
+using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using System.Collections.Generic;
 
@@ -293,7 +294,8 @@ namespace Spooky.Content.Generation
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Creating the catacombs";
+            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs");
+            progress.Message = Description.Value;
 
             //tiles
             //0 = clear blocks

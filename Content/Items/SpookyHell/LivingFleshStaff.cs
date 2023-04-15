@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Projectiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
-namespace Spooky.Content.Items.SpookyHell.Sentient
+namespace Spooky.Content.Items.SpookyHell
 {
-    public class SentientFleshStaff : ModItem, ICauldronOutput
+    public class LivingFleshStaff : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.rare = ModContent.RarityType<SentientRarity>();
+			Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item17;     
 			Item.shoot = ModContent.ProjectileType<ControllableEyeBig>();
@@ -39,5 +39,14 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 8;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FleshStaff>(), 1)
+			.AddIngredient(ModContent.ItemType<ArteryPiece>(), 15)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
     }
 }

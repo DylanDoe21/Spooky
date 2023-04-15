@@ -9,8 +9,6 @@ namespace Spooky.Content.Buffs.Minion
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Lil Eye");
-			// Description.SetDefault("The tiny eye will help protect you!");
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

@@ -9,8 +9,6 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Eye Worm");
-			// Description.SetDefault("The eye worm will help you travel");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}

@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Looming Presence");
-			// Description.SetDefault("Escaping is not possible");
 			Main.debuff[Type] = true;  
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

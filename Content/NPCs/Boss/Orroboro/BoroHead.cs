@@ -28,7 +28,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         Vector2 SavePlayerPosition;
         
-        public bool ShouldDamagePlayer = true;
         public bool Enraged = false;
         private bool segmentsSpawned;
 
@@ -63,7 +62,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(ShouldDamagePlayer);
             writer.Write(Enraged);
             writer.Write(segmentsSpawned);
 
@@ -77,7 +75,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            ShouldDamagePlayer = reader.ReadBoolean();
             Enraged = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
 
@@ -159,11 +156,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             return true;
-        }
-
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
-        {
-            return ShouldDamagePlayer;
         }
 
         public override void AI()
@@ -730,16 +722,21 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             npcLoot.Add(notExpertRule);
         }
 
-        public override void OnKill()
+        public override bool CheckDead()
         {
-            for (int numGores = 1; numGores <= 2; numGores++)
+            if (Main.netMode != NetmodeID.Server) 
             {
-                if (Main.netMode == NetmodeID.Server) 
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/BoroHeadGore" + numGores).Type);
                 }
             }
 
+            return true;
+        }
+
+        public override void OnKill()
+        {
             if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
             {
                 NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);

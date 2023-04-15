@@ -11,7 +11,7 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-	public class SentientFleshWhipProj2 : ModProjectile
+	public class LivingFleshWhipProj1 : ModProjectile
 	{
 		private float ChargeTime 
 		{
@@ -52,14 +52,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.WhipSettings.Segments++;
 			}
 
-			//Increase range up to 2x for full charge.
+			// Increase range up to 2x for full charge.
 			Projectile.WhipSettings.RangeMultiplier += 1 / 120f;
 
-			//Reset the animation and item timer while charging.
+			// Reset the animation and item timer while charging.
 			owner.itemAnimation = owner.itemAnimationMax;
 			owner.itemTime = owner.itemTimeMax;
 
-			return false; //Prevent the vanilla whip AI from running.
+			return false; // Prevent the vanilla whip AI from running.
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 

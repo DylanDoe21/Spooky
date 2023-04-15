@@ -6,11 +6,6 @@ namespace Spooky.Content.Buffs
 {
 	public class EggEventEnemyBuff : ModBuff
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Capillary buff");
-		}
-
         private bool initializeStats;
         private int storedDamage;
         private int storedDefense;

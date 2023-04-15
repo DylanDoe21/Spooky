@@ -157,7 +157,7 @@ namespace Spooky.Core
 				}
 			}
 
-			if (item.DamageType == DamageClass.Melee)
+			if (player.GetModPlayer<SpookyPlayer>().GourdSet && item.DamageType == DamageClass.Melee)
 			{
 				if (Main.rand.NextBool(12))
 				{

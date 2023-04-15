@@ -10,8 +10,6 @@ namespace Spooky.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Tiny Rot Gourd");
-			// Description.SetDefault("Smelly, but cute");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

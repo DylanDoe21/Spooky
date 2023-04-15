@@ -517,7 +517,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * distance).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 dustPos = (Vector2.One * new Vector2(NPC.width / 3f, NPC.height / 3f) * distance).RotatedBy((double)((numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / MaxDusts), default) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
 
                             if (Main.rand.Next(2) == 0)

@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.height = 26;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(silver: 2);
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
         }
     }
 }

@@ -1,6 +1,40 @@
 
 Mods: {
 	Spooky: {
+		WorldgenTasks: {
+			Catacombs: Creating the catacombs
+			Cemetery: Placing burial grounds
+			SpookyForest: Spreading the spooky forest
+			EyeValley: Generating the eye valley
+		}
+
+		ArmorSetBonus: {
+			OldWoodArmor: 1 defense
+			GourdArmor:
+				'''
+				Melee weapons may inflict decay, which damages enemies over time
+				After a while, decay will also lower their attack and defense
+				'''
+			SpiritHorsemanArmor: Your own head will now fight with you!
+			EyeArmor:
+				'''
+				Summons a tiny floating eye to protect you
+				The eye does not take up any minion slots
+				'''
+			GoreArmorMeleeRanged:
+				'''
+				Grants you a protective aura that will block one attack
+				While the aura is active, you gain 8% increased melee and ranged damage
+				When you get hit the aura will vanish, and will regenerate after one minute
+				'''
+			GoreArmorMagicSummon:
+				'''
+				Grants you a protective aura that will block one attack
+				While the aura is active, you gain 8% increased magic and summon damage
+				When you get hit the aura will vanish, and will regenerate after one minute
+				'''
+		}
+
 		Config: {
 			HalloweenEnabled: {
 				Label: Halloween Season
@@ -286,9 +320,9 @@ Mods: {
 				Description: You are being controlled by a ghost!
 			}
 
-			SentientAxeBleed: {
+			LivingAxeBleed: {
 				DisplayName: Bleeding
-				Description: Mods.Spooky.BuffDescription.SentientAxeBleed
+				Description: Mods.Spooky.BuffDescription.LivingAxeBleed
 			}
 
 			ThornMark: {
@@ -367,7 +401,7 @@ Mods: {
 
 			BigBonePetBuff: {
 				DisplayName: Baby Bone
-				Description: What a goofy looking plant
+				Description: It may be absorbing your nutrients
 			}
 
 			FuzzBatPetBuff: {
@@ -1370,6 +1404,45 @@ Mods: {
 					'''
 			}
 
+			LivingFleshAxe: {
+				DisplayName: Living Flesh Mincer
+				Tooltip:
+					'''
+					Deals far more damage to enemies below half health
+					Critical hits will bleed enemies, dealing rapid damage over time
+					'''
+			}
+
+			LivingFleshBow: {
+				DisplayName: Living Seer
+				Tooltip:
+					'''
+					Rapidly fires organic chunks
+					Every twentieth shot will fire multiple homing eyes
+					'''
+			}
+
+			LivingFleshStaff: {
+				DisplayName: Living Retina Staff
+				Tooltip:
+					'''
+					Summon eyes that follow your cursor while holding down left click
+					Release left click to fling the eyes, dealing double their original damage
+					Releasing left click with maximum eyes active will explode them, dealing massive damage
+					Only up to eight eyes can be active at once
+					'''
+			}
+
+			LivingFleshWhip: {
+				DisplayName: Living Eye Lasher
+				Tooltip:
+					'''
+					Your summons will focus struck enemies
+					Lashes out two long range whips at once
+					Hitting enemies may lower their defense massively for a short time
+					'''
+			}
+
 			MonsterBloodVial: {
 				DisplayName: Monster Blood
 				Tooltip:
@@ -1390,12 +1463,12 @@ Mods: {
 			}
 
 			SentientClingerStaff: {
-				DisplayName: Cursed Creature Scepter
+				DisplayName: Moocher Staff
 				Tooltip:
 					'''
-					Summons massive pillars of cursed fire on the ground 
-					only up to three flame pillars can exist at once
-					'Strange sounds come from it's flame'
+					Summons massive walls of cursed fire at your cursor position
+					Only up to three flame pillars can exist at once
+					'Funny noises come from it's flames'
 					'''
 			}
 
@@ -1403,8 +1476,9 @@ Mods: {
 				DisplayName: Gator Gun
 				Tooltip:
 					'''
-					Fires bullets very inaccurately
-					'It has a mind of it's own, making it hard to control'
+					Fires bullets extremely wildly and inaccurately
+					'Half aligator, half gun, and has a mind of it's own'
+					33% chance to save ammo
 					'''
 			}
 
@@ -1412,8 +1486,8 @@ Mods: {
 				DisplayName: Conscious Cutter
 				Tooltip:
 					'''
-					Creates extra slashes upon hitting enemies
-					'A living sword that can slash enemies on it's own'
+					Creates extra slashes at your cursor upon hitting enemies
+					'It's a mystery how it doesn't get whiplash from swinging so much'
 					'''
 			}
 
@@ -1423,7 +1497,7 @@ Mods: {
 					'''
 					Drains life from enemies nearby your cursor, each time you are healed builds up a charge
 					Once at maximum charge, the staff will unleash a powerful wave of blood
-					'It looks like it has something to say'
+					'It looks like it has something malicious to say'
 					'''
 			}
 
@@ -1432,7 +1506,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons a living eye tendril sentry to shoot beams at enemies
-					'Legends say it can stare holes through any living thing'
+					'Some say it can stare holes through anything'
 					'''
 			}
 
@@ -1442,7 +1516,7 @@ Mods: {
 					'''
 					Hold out the umbrella to damage enemies, killing enemies builds up a charge
 					When it has enough, releasing will shoot out a giant spread of blood
-					'A living umbrella that scares people, but doesn't like rain'
+					'It doesn't like when rain gets in it's eye'
 					'''
 			}
 
@@ -2085,7 +2159,7 @@ Mods: {
 			EyeRocket.DisplayName: Eye Rocket
 			EyeRocketLauncherProj.DisplayName: I.C.U
 			FleshAxeHit.DisplayName: Flesh Mincer
-			FleshAxeHitSentient.DisplayName: Sentient Flesh Mincer
+			FleshAxeHitLiving.DisplayName: Living Flesh Mincer
 			FleshWhipProj.DisplayName: Flesh Whip Proj
 			Leech.DisplayName: Leech
 			LeechWhipProj.DisplayName: Leech Whip Proj
@@ -2093,10 +2167,10 @@ Mods: {
 			NoseMinion.DisplayName: Nose Minion
 			NoseMinionSnot.DisplayName: Snot Pile
 			ScyclerProj.DisplayName: Scycler
-			SentientBowChunk1.DisplayName: Organic Chunk
-			SentientBowChunk2.DisplayName: Organic Chunk
-			SentientFleshWhipProj1.DisplayName: Sentient Flesh Whip Proj1
-			SentientFleshWhipProj2.DisplayName: Sentient Flesh Whip Proj2
+			LivingBowChunk1.DisplayName: Organic Chunk
+			LivingBowChunk2.DisplayName: Organic Chunk
+			LivingFleshWhipProj1.DisplayName: Living Flesh Whip Proj1
+			LivingFleshWhipProj2.DisplayName: Living Flesh Whip Proj2
 			TortumorMinion.DisplayName: Tortumor
 			TortumorMinionOrb1.DisplayName: Tumor Orb
 			TortumorMinionOrb2.DisplayName: Tumor Orb
@@ -2105,6 +2179,8 @@ Mods: {
 			DecayDebuffFly.DisplayName: Decay Debuff Fly
 			BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
 			BrainJarProj.DisplayName: Brain Jar Proj
+			SentientKatanaSlash.DisplayName: Sentient Katana Slash
+			SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
 		}
 
 		NPCs: {

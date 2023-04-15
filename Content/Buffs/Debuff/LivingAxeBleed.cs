@@ -4,11 +4,10 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs.Debuff
 {
-	public class SentientAxeBleed : ModBuff
+	public class LivingAxeBleed : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Bleeding");
 			Main.debuff[Type] = true;
 		}
 
