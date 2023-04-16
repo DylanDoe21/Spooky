@@ -31,8 +31,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.GoreArmorMagicSummon");
-			player.setBonus = Description.Value;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmorMagicSummon");
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))

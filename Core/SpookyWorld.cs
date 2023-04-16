@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Core
 {
@@ -40,10 +41,10 @@ namespace Spooky.Core
                 Main.forceHalloweenForToday = storedHalloweenForToday;
             }
 
-            //for when day time and night time switch, will be used for little eyes sentient heart quests
+            //for when day and night switch
             if (Main.dayTime != LastTime)
             {
-				DaySwitched = true;
+                DaySwitched = true;
             }
 			else
             {
@@ -51,6 +52,13 @@ namespace Spooky.Core
             }
 
 			LastTime = Main.dayTime;
+
+            //reset little eye quest
+            if (DaySwitched)
+            {
+                LittleEye.ChosenQuestForToday = Main.rand.Next(5);
+                LittleEye.QuestCompletedForToday = false;
+            }
         }
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

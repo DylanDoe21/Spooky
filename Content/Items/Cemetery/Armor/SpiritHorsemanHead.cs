@@ -28,8 +28,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.SpiritHorsemanArmor");
-			player.setBonus = Description.Value;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.SpiritHorsemanArmor");
 			player.GetModPlayer<SpookyPlayer>().HorsemanSet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PumpkinHead>()] <= 0;

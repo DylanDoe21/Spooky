@@ -29,8 +29,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.EyeArmor");
-			player.setBonus = Description.Value;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.EyeArmor");
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
 
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EyeArmorMinion>()] <= 0;

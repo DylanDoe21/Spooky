@@ -25,8 +25,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			LocalizedText Description = Language.GetOrRegister("Mods.Spooky.ArmorSetBonus.OldWoodArmor");
-			player.setBonus = Description.Value;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.OldWoodArmor");
 			player.statDefense += 1;
 		}
 

@@ -125,7 +125,11 @@ Mods: {
 				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me specials soul. But, I don't know if you can get them yet.
 				Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
 				Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
-				NoQuests: Sorry, I don't have anything else for you to gather.
+				RandomQuest: If you want, I can bring you more of those sentient hearts... if you can craft this flask for me. You'll need these materials to make the one I need right now.
+				RandomQuestReward: Thanks, here take these silly little rewards.
+				NoQuests1: I don't need you to get another flask for me right now, stop by later and I may need something then.
+				NoQuests2: You're gonna have to give me some time before I'll need another flask from you.
+				NoQuests3: Sorry, I don't have anything else for you to gather at the moment.
 				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something... A little crazy.
 				Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
 				Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
@@ -1348,7 +1352,7 @@ Mods: {
 				DisplayName: Spooky Flask
 				Tooltip:
 					'''
-					A flask of pumpkin and halloween
+					A flask of mushed up pumpkins
 					Little eye may be interested in this
 					'''
 			}

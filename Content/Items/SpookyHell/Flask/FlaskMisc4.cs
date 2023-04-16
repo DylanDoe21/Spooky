@@ -11,8 +11,17 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             Item.width = 18;
             Item.height = 28;
             Item.rare = ItemRarityID.Quest;
-            Item.value = Item.buyPrice(gold: 1);
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.SharkFin, 5)
+            .AddIngredient(ItemID.Coral, 15)
+            .AddIngredient(ItemID.Glowstick, 20)
+            .AddIngredient(ItemID.Bottle, 1)
+            .Register();
         }
     }
 }
