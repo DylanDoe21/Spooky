@@ -187,9 +187,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     }
                 }
             }
-
-            //kill npc if parent is not active
-            if (!Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type != ModContent.NPCType<ManHoleBig>())
+            else
             {
                 if (Main.netMode != NetmodeID.Server)
                 {
