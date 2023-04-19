@@ -96,7 +96,7 @@ Redone Halloween Season Config:
 
 Localization:
 
--This change does not really change anything in game, but it is part of tmodloader 1.4.4, and it is very helpful with localization
+-This change does not really change anything gameplay wise, but it is part of tmodloader 1.4.4, and it is very helpful with localization
 -Now, every single thing in spooky mod (display names, tooltips, dialogue, bestiaries, and more) is localized (as of writing this, only english localization exists in the mod)
 -With tmodloader's new localization changes, anyone will now be able to translate the localization files, and send them back to me
 -Once I am given back the translated localization, I can put it into the mod's files, and it will now have full support for that language
@@ -110,7 +110,7 @@ Other New Additions:
 -New rot gourd set, a melee armor obtained after rot gourd with a nasty and maybe broken set bonus
 -New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
 -Added masks and trophies for each spooky mod boss, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
--Four new eye valley chest weapons, Flesh Mincer, Seer, Retina Staff, and Eye Lasher
+-Four new weapons you can get from the eye valley chests
 
 
 
@@ -192,6 +192,11 @@ Disciple's Mask:
 -Buffed the skull wisp's homing speed and enemy detection range
 -Skull wisps can now go through tiles while homing on an enemy
 -Now plays a less annoying sound when wisps are fired and when they die
+
+Skull Smasher:
+-Damage has been nerfed significantly
+-reworked left click ability because the true melee was useless, it now functions like a better version of the palandins hammer
+-Right click ability now does double it's base damage
 
 
 

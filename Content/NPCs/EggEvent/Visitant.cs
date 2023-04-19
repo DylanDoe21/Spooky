@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             NPC.lifeMax = 350;
             NPC.damage = 55;
-            NPC.defense = 40;
+            NPC.defense = 15;
             NPC.width = 94;
             NPC.height = 74;
             NPC.npcSlots = 1f;

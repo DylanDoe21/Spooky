@@ -17,11 +17,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         private List<Vector2> cache;
         private Trail trail;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Fire Beam");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 2;

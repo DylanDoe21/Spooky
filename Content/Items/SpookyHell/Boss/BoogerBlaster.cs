@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 			Item.channel = true;
 			Item.width = 64;          
 			Item.height = 32;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;
@@ -34,7 +34,10 @@ namespace Spooky.Content.Items.SpookyHell.Boss
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<BoogerBlasterProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<BoogerBlasterProj>()] < 1)
+            {
+				Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<BoogerBlasterProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			}
 
 			return false;
 		}

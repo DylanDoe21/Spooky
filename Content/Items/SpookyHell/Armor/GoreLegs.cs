@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateEquip(Player player) 
 		{
 			player.GetCritChance(DamageClass.Generic) += 5;
-			player.moveSpeed += 0.10f;
+			player.moveSpeed += 0.20f;
 			player.aggro += 75;
 		}
 

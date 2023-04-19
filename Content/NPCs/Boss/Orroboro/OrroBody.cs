@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Orro");
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
@@ -60,22 +59,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 NPC.frame.Y = 0;
             }
-        }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            //if orro is in its enraged state
-            if (NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
-            {
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
-
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-
-                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (6.28318548f + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, Color.Red * 0.5f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
-            }
-
-            return true;
         }
 
         public override bool PreAI()

@@ -37,7 +37,10 @@ namespace Spooky.Content.Items.Catacomb
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<GraveCrossbowProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<GraveCrossbowProj>()] < 1)
+            {
+				Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<GraveCrossbowProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			}
 
 			return false;
 		}

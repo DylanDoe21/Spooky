@@ -25,6 +25,7 @@ namespace Spooky.Core
         public static bool EyeQuest3 = false;
         public static bool EyeQuest4 = false;
         public static bool EyeQuest5 = false;
+        public static bool QuestCompleteForToday = false;
 
         public override void ClearWorld()
         {

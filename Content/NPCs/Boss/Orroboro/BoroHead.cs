@@ -144,15 +144,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            //if orro is in its enraged state
+            //if boro is in its enraged state
             if (Enraged)
             {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/BoroEnrageCircle").Value;
+
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                Color color = Color.Lerp(Color.Red, Color.Red * 0.5f, fade);
 
-                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (6.28318548f + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, Color.Purple * 0.75f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, 
+                NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.75f + fade, SpriteEffects.None, 0);
             }
 
             return true;

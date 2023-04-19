@@ -31,15 +31,12 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmorMagicSummon");
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmor");
 			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
 
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
 			{
 				player.AddBuff(ModContent.BuffType<GoreAuraBuff>(), 1);
-
-				player.GetDamage(DamageClass.Magic) += 0.8f;
-				player.GetDamage(DamageClass.Summon) += 0.8f;
 			}
 		}
 
@@ -51,8 +48,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Magic) += 0.12f;
-			player.GetDamage(DamageClass.Summon) += 0.12f;
+			player.GetDamage(DamageClass.Magic) += 0.20f;
+			player.GetDamage(DamageClass.Summon) += 0.20f;
 			player.GetCritChance(DamageClass.Magic) += 8;
 			player.GetCritChance(DamageClass.Summon) += 8;
 			player.manaCost -= 0.10f;
