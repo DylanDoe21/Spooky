@@ -53,7 +53,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.frame = 1;
             }
 
-            //disabled for now until prim system gets funny fixes
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
 

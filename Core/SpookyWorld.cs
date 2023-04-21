@@ -57,7 +57,7 @@ namespace Spooky.Core
             if (DaySwitched)
             {
                 LittleEye.ChosenQuestForToday = Main.rand.Next(5);
-                LittleEye.QuestCompletedForToday = false;
+                Flags.DailyQuest = false;
             }
         }
 

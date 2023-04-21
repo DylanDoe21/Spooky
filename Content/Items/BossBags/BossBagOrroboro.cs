@@ -57,7 +57,7 @@ namespace Spooky.Content.Items.BossBags
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<OrroboroEmbryo>(), 1));
 
             //money
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<OrroHead>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<OrroHeadP1>()));
         }
 
 		public override Color? GetAlpha(Color lightColor) 

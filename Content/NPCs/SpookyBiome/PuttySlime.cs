@@ -120,7 +120,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.LimeGreen;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
@@ -161,7 +161,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.MediumPurple;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
@@ -202,7 +202,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.Chocolate;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;

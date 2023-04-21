@@ -428,7 +428,7 @@ namespace Spooky.Core
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.Center.X, drawInfo.drawPlayer.Center.Y - 45)  - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.MountedCenter.X, drawInfo.drawPlayer.MountedCenter.Y - 45)  - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 

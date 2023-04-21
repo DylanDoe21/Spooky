@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using System.Text;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
@@ -39,7 +40,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			return Main.rand.Next(3) != 0;
 		}
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 60f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -47,10 +48,12 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 position += muzzleOffset;
             }
 
-			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(65));
+            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(50));
 
-            Projectile.NewProjectile(player.GetSource_ItemUse(Item), position.X, position.Y, newVelocity.X + Main.rand.Next(-1, 2), 
+            Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X + Main.rand.Next(-1, 2),
             newVelocity.Y + Main.rand.Next(-1, 2), type, damage, knockback, player.whoAmI, 0f, 0f);
+
+            return false;
         }
     }
 }

@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using System.Linq;
 
-namespace Spooky.Content.Items.SpookyHell.Sentient
+using Spooky.Content.Items.SpookyHell.Sentient;
+
+namespace Spooky.Content.Items.SpookyHell
 {
     public class SentientHeart : ModItem
     {

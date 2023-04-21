@@ -25,7 +25,7 @@ namespace Spooky.Core
         public static bool EyeQuest3 = false;
         public static bool EyeQuest4 = false;
         public static bool EyeQuest5 = false;
-        public static bool QuestCompleteForToday = false;
+        public static bool DailyQuest = false;
 
         public override void ClearWorld()
         {
@@ -47,6 +47,7 @@ namespace Spooky.Core
             EyeQuest3 = false;
             EyeQuest4 = false;
             EyeQuest5 = false;
+            DailyQuest = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
@@ -69,6 +70,7 @@ namespace Spooky.Core
             if (EyeQuest3) tag["EyeQuest3"] = true;
             if (EyeQuest4) tag["EyeQuest4"] = true;
             if (EyeQuest5) tag["EyeQuest5"] = true;
+            if (DailyQuest) tag["DailyQuest"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -91,6 +93,7 @@ namespace Spooky.Core
             EyeQuest3 = tag.ContainsKey("EyeQuest3");
             EyeQuest4 = tag.ContainsKey("EyeQuest4");
             EyeQuest5 = tag.ContainsKey("EyeQuest5");
+            DailyQuest = tag.ContainsKey("DailyQuest");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -117,6 +120,7 @@ namespace Spooky.Core
             questFlags[2] = EyeQuest3;
             questFlags[3] = EyeQuest4;
             questFlags[4] = EyeQuest5;
+            questFlags[5] = DailyQuest;
             writer.Write(questFlags);
         }
 
@@ -142,6 +146,7 @@ namespace Spooky.Core
             EyeQuest3 = questFlags[2];
             EyeQuest4 = questFlags[3];
             EyeQuest5 = questFlags[4];
+            DailyQuest = questFlags[5];
         }
     }
 }

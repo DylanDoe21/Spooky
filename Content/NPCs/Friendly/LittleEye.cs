@@ -15,7 +15,6 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Flask;
-using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.Pylon;
 
@@ -25,7 +24,6 @@ namespace Spooky.Content.NPCs.Friendly
 	public class LittleEye : ModNPC
 	{
 		public static int ChosenQuestForToday = 0;
-		public static bool QuestCompletedForToday = false;
 
         int Quest1Timer = 0;
 		int Quest2Timer = 0;
@@ -199,7 +197,7 @@ namespace Spooky.Content.NPCs.Friendly
 				}
 				if (Flags.EyeQuest5)
 				{
-                    if (!QuestCompletedForToday)
+                    if (!Flags.DailyQuest)
                     {
 						//flask of night
 						if (ChosenQuestForToday == 0)
@@ -421,7 +419,7 @@ namespace Spooky.Content.NPCs.Friendly
 			{
                 QuestRewards();
 
-                QuestCompletedForToday = true;
+                Flags.DailyQuest = true;
 				RandomQuestTimer = 0;
             }
 		}

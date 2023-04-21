@@ -2,8 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Projectiles.Sentient;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {

@@ -16,11 +16,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         private List<Vector2> cache;
         private Trail trail;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Skull Wisp");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 24;

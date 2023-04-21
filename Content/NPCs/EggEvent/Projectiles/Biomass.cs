@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] < 120)
+            if (Projectile.ai[0] < 180)
             {
                 Player player = Main.LocalPlayer;
                 float goToX = player.Center.X - Projectile.Center.X;

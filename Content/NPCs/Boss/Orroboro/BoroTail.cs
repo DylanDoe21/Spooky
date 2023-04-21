@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroTail";
     }
 
-    public class BoroTailP1 : BoroTail
+    public class BoroTailP1 : OrroTail
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroTail";
 

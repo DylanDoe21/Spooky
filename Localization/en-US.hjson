@@ -23,7 +23,7 @@ Mods: {
 			GoreArmor:
 				'''
 				Grants you a protective aura that will block one attack
-				When you get hit the aura will vanish, and will regenerate after one minute
+				When you get hit the aura will vanish, and it will regenerate after one minute
 				'''
 		}
 
@@ -114,7 +114,7 @@ Mods: {
 				Quest3Rewards: Good work! I've heard that this giant cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
 				Quest4: So, now that you only have one last substance to make for me, I've got a special reward for you if you can bring me it. As usual you'll need some materials to make it.
 				Quest4Rewards: Alright, that was the final flask I need! As a reward, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient so I can cook up a special concoction for you.
-				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me specials soul. But, I don't know if you can get them yet.
+				Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. But, I don't know if you can get them yet.
 				Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
 				Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
 				RandomQuest: If you want, I can bring you more of those sentient hearts... if you can craft this flask for me. You'll need these materials to make the one I need right now.
@@ -139,9 +139,9 @@ Mods: {
 		Bestiary: {
 			TheEntity: "[Information Redacted]"
 			BigBone: The long lost brother of little bone who was trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
-			Moco: The legendary flying schnoz, said to present himself when his beloved shrine is disturbed. His fast mobility and nasty snot are not to be taken lightly.
-			OrroHead: A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are constantly growing, and constantly consuming the other's flesh.
-			BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that valley of eyes is made from the left over flesh these serpents have torn off each other.
+			Moco: The legendary flying schnoz, said to present itself when its beloved shrine is disturbed. Its fast mobility and nasty snot are not to be taken lightly.
+			OrroHead: A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are growing constantly, and are eating each other in an endless cycle.
+			BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that the valley of eyes is made from the left over flesh these serpents have torn off each other.
 			RotGourd: This connected duo and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry will act as a turret, spitting nasty mold spores and bugs.
 			SpookySpirit: A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
 			CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
@@ -161,8 +161,8 @@ Mods: {
 			Vesicator: These massive blistered bags of flesh fly around, dropping explosive biomatter in their wake. Beware though, as these somehow living beings are chunks of explosive biomatter themselves.
 			Vigilante: Flying creatures who's purpose is to monitor and attack any threat to the egg. Their fast speed should not be taken lightly.
 			Visitant: Nasty alien abominations like the rest of the egg guardians. They use flesh from prey and gas stored in their mouth to shoot explosive biomass at foes.
-			LittleBone: A cute and friendly little skull creature who hangs around in his flower pot. He likes to give advice to passerbys.
-			LittleEye: A strange little eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others.
+			LittleBone: A cute and friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
+			LittleEye: A strange, sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 			PartySkeleton1: Colorful skeletons revived by the power of the raveyard. They are eternally grateful to those who are able to start such a party.
 			PartySkeleton2: Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery.
 			PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
@@ -1462,8 +1462,7 @@ Mods: {
 				DisplayName: Moocher Staff
 				Tooltip:
 					'''
-					Summons massive walls of cursed fire at your cursor position
-					Only up to three flame pillars can exist at once
+					Summons massive, short lived pillars of cursed fire on the ground
 					'Funny noises come from it's flames'
 					'''
 			}
@@ -1714,7 +1713,7 @@ Mods: {
 				DisplayName: Valley of Eyes Pylon
 				Tooltip:
 					'''
-					This pylon can be teleported to regardless of how many villagers are nearby
+					This pylon can be teleported to regardless of how many villagers are nearby it
 					You can only place one per type and in the matching biome
 					'''
 			}
@@ -2177,6 +2176,7 @@ Mods: {
 			SentientKatanaSlash.DisplayName: Sentient Katana Slash
 			SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
 			SentientUmbrellaProj.DisplayName: Sentient Umbrella
+			CursedFlamePillar.DisplayName: Cursed Flame Pillar
 		}
 
 		NPCs: {

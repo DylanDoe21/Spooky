@@ -16,6 +16,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
