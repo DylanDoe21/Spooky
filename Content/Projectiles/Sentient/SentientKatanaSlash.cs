@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class SentientKatanaSlash : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private List<Vector2> cache;
         private Trail trail;
 		

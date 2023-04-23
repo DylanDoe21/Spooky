@@ -5,10 +5,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class ScytheHitProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Harvester's Scythe");
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
         {

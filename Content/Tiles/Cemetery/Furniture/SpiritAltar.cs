@@ -19,6 +19,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             Main.tileFrameImportant[Type] = true;
             Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
+            TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 			TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 5;	
 			TileObjectData.newTile.Origin = new Point16(1, 4);

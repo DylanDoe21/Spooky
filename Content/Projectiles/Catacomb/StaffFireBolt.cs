@@ -14,15 +14,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class StaffFireBolt : ModProjectile
 	{
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
 		private List<Vector2> cache;
         private Trail trail;
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Solar Bolt");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-		}
 
 		public override void SetDefaults()
 		{

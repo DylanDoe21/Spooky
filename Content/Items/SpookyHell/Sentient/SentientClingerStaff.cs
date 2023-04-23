@@ -23,8 +23,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.autoReuse = true;
             Item.width = 52;
             Item.height = 52;
-            Item.useTime = 25;
-			Item.useAnimation = 25;
+            Item.useTime = 20;
+			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
@@ -37,9 +37,9 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         {
             Vector2 mouse = Main.MouseWorld;
             List<Vector2> tiles = new List<Vector2>();
-            for (int i = -1; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
-                for (int j = -50; j < 50; j++)
+                for (int j = 0; j < 50; j++)
                 {
                     Tile tile = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16));
                     Tile tileAbove = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16) - 1);
@@ -63,9 +63,9 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         {
             Vector2 mouse = Main.MouseWorld;
             List<Vector2> tiles = new List<Vector2>();
-            for (int i = -1; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
-                for (int j = -50; j < 50; j++)
+                for (int j = 0; j < 50; j++)
                 {
                     Tile tile = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16));
                     Tile tileAbove = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16) - 1);

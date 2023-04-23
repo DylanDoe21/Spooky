@@ -54,6 +54,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidWarlock"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});

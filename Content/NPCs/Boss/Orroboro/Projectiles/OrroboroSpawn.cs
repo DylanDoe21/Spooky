@@ -10,16 +10,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
     public class OrroboroSpawn : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         public static int CrackTimer = 0;
 
         public static readonly SoundStyle EggDecaySound = new("Spooky/Content/Sounds/SpookyHell/EggDecay", SoundType.Sound);
         public static readonly SoundStyle EggCrackSound1 = new("Spooky/Content/Sounds/SpookyHell/EggCrack1", SoundType.Sound);
         public static readonly SoundStyle EggCrackSound2 = new("Spooky/Content/Sounds/SpookyHell/EggCrack2", SoundType.Sound);
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("");
-        }
 
         public override void SetDefaults()
         {

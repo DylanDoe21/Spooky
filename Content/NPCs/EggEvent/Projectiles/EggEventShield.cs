@@ -18,10 +18,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class EggEventShield : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Egg Barrier");
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
         {

@@ -138,7 +138,7 @@ Mods: {
 
 		Bestiary: {
 			TheEntity: "[Information Redacted]"
-			BigBone: The long lost brother of little bone who was trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
+			BigBone: The long lost brother of little bone who is trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
 			Moco: The legendary flying schnoz, said to present itself when its beloved shrine is disturbed. Its fast mobility and nasty snot are not to be taken lightly.
 			OrroHead: A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are growing constantly, and are eating each other in an endless cycle.
 			BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that the valley of eyes is made from the left over flesh these serpents have torn off each other.
@@ -154,6 +154,7 @@ Mods: {
 			ChalupoBig: These ghosts seem small and innocent at first, but when approached they will grow and begin to chase down their target.
 			Glooper1: Peaceful slimes that slide across the ground and walls. While they are not hostile, touching them may not be so pleasant.
 			Glooper2: Friendly blobs of venomous goo that wander around the cemetery. Make sure not to accidentally step on them!
+			Possesser: A ghost capable of possessing people, causing uncontrollable movement. Make sure to not let them near you.
 			Capillary: Normally hiding in the ground, the eye valley's living capillaries emerge when the egg is threatened, using special auras to support their allies and weaken prey.
 			Crux: Crude and misshapen creatures who's heart is outside of their body, allowing them to see their surroundings. They can use auras that inflict negative effects on prey.
 			Distended: Bloated human-like creatures meant to serve as fodder to protect the giant egg.
@@ -167,8 +168,8 @@ Mods: {
 			PartySkeleton2: Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery.
 			PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
 			FluffBatBig1: These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder.
-			FluffBatBig2: Large winged balls of fuzz that aimlessly fly around in the underground beneath the spooky forest. Don't let them bit you!
-			FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and will attack anyone they deem an intruder.
+			FluffBatBig2: Large winged balls of fuzz that fly around in the underground beneath the spooky forest. Don't let them bite you!
+			FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and attack anyone they deem an intruder.
 			FluffBatSmall2: Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial.
 			FlyBig: Bigger and grosser flies that linger around in the spooky forest. Their wings look too small to allow flight, but they do anyways.
 			FlySmall: Gross and irritating flies that hover around the spooky forest.
@@ -176,9 +177,9 @@ Mods: {
 			PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest, attempting to frighten anyone that comes across them.
 			PuttySlime2: Slimes made out of spooky putty, brought to life by the spirit of halloween. They hop around the spooky forest mindlessly.
 			PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
-			SpookyDance: Spooky month lasts all year!
+			SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 			TinyGhost: Little mischevious ghosts that wander around during the night in the spooky forest.
-			TinyGhostBoof: A more fancy and well mannered ghost who also smokes his little pipe.
+			TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
 			TinyGhostRare: It's a tiny ghost, but these ones are orange. These elusive ghosts may be on your side if you can catch one!
 			ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despite being blind, they can still sniff out their target's location.
 			ZomboidThorn: Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared.
@@ -387,7 +388,17 @@ Mods: {
 
 			SoulSkullBuff: {
 				DisplayName: Soul Skull
-				Description: The soul minions will fight with you
+				Description: The soul skull will fight with you
+			}
+
+			SkullTotemBuff: {
+				DisplayName: Skull Idol Empowerment
+				Description:
+					'''
+					12% increased summon damage
+					50% increased whip range
+					+2 max minions
+					'''
 			}
 
 			TortumorMinionBuff: {
@@ -433,11 +444,6 @@ Mods: {
 			SpookySpiritPetBuff: {
 				DisplayName: Mini Spirit
 				Description: The mini spirit lingers around you
-			}
-
-			SkullTotemBuff: {
-				DisplayName: Skull Idol's Power
-				Description: 12% increased summon damage, 5% increased whip range, and +2 max minions
 			}
 		}
 
@@ -1458,6 +1464,15 @@ Mods: {
 					'''
 			}
 
+			SentientChik: {
+				DisplayName: Pendeloque
+				Tooltip:
+					'''
+					Will sometimes cry out damaging crystal tears
+					'Don't worry, it isn't actually sad'
+					'''
+			}
+
 			SentientClingerStaff: {
 				DisplayName: Moocher Staff
 				Tooltip:
@@ -1472,8 +1487,8 @@ Mods: {
 				Tooltip:
 					'''
 					Fires bullets extremely wildly and inaccurately
-					'Half aligator, half gun, and has a mind of it's own'
 					33% chance to save ammo
+					'Half aligator, half gun, and has a mind of it's own'
 					'''
 			}
 
@@ -1481,16 +1496,21 @@ Mods: {
 				DisplayName: Conscious Cutter
 				Tooltip:
 					'''
-					Creates extra slashes at your cursor upon hitting enemies
-					'It's a mystery how it doesn't get whiplash from swinging so much'
+					Creates slashes at your cursor upon hitting enemies
+					'It's a mystery how it doesn't get whiplash'
 					'''
+			}
+
+			SentientLeatherWhip: {
+				DisplayName: Tongue Creature
+				Tooltip: "'It tastes everything it hits'"
 			}
 
 			SentientLifeDrain: {
 				DisplayName: Soul Sucker
 				Tooltip:
 					'''
-					Drains life from enemies nearby your cursor, each time you are healed builds up a charge
+					Drains energy from nearby enemies, which builds up a charge
 					Once at maximum charge, the staff will unleash a powerful wave of blood
 					'It looks like it has something malicious to say'
 					'''
@@ -1502,6 +1522,16 @@ Mods: {
 					'''
 					Summons a living eye tendril sentry to shoot beams at enemies
 					'Some say it can stare holes through anything'
+					'''
+			}
+
+			SentientToxikarp: {
+				DisplayName: Bubble Belcher
+				Tooltip:
+					'''
+					Vomits out toxic bubbles that float around and bounce off surfaces
+					Sometimes shoots blood bubbles that burst into blood splatter
+					'Killer fish from valley of eyes!'
 					'''
 			}
 
@@ -2177,6 +2207,14 @@ Mods: {
 			SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
 			SentientUmbrellaProj.DisplayName: Sentient Umbrella
 			CursedFlamePillar.DisplayName: Cursed Flame Pillar
+			SentientChikTear: Pendeloque Tear
+
+			SentientChikProj: {
+				$parentVal: Pendeloque
+				DisplayName: Pendeloque
+			}
+
+			ToxicBubble.DisplayName: Toxic Bubble
 		}
 
 		NPCs: {
@@ -2253,6 +2291,7 @@ Mods: {
 			Tortumor.DisplayName: Tortumor
 			TortumorGiant.DisplayName: Giant Tortumor
 			TheEntity.DisplayName: The Entity
+			Possesser.DisplayName: Possesser
 		}
 
 		Tiles: {

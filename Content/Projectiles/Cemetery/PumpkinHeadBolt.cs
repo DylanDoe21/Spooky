@@ -11,13 +11,10 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PumpkinHeadBolt : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private List<Vector2> cache;
         private Trail trail;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Spooky Bolt");
-        }
 		
         public override void SetDefaults()
         {
@@ -32,7 +29,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
-            //draw prim trail
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
 

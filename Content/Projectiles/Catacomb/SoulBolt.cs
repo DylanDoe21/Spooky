@@ -8,10 +8,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class SoulBolt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Soul Bolt");
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 		
         public override void SetDefaults()
         {

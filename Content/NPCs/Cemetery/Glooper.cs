@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.Cemetery
 
                     if (Main.dust[DustGore].position != NPC.Center)
                     {
-                        Main.dust[DustGore].velocity = NPC.DirectionTo(Main.dust[DustGore].position) * 2f;
+                        Main.dust[DustGore].velocity = NPC.DirectionTo(Main.dust[DustGore].position) * Main.rand.NextFloat(1f, 2f);
                     }
                 }
             }
@@ -133,7 +133,7 @@ namespace Spooky.Content.NPCs.Cemetery
 
                     if (Main.dust[DustGore].position != NPC.Center)
                     {
-                        Main.dust[DustGore].velocity = NPC.DirectionTo(Main.dust[DustGore].position) * 2f;
+                        Main.dust[DustGore].velocity = NPC.DirectionTo(Main.dust[DustGore].position) * Main.rand.NextFloat(1f, 2f);
                     }
                 }
             }

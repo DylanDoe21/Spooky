@@ -18,7 +18,6 @@ New Friendly NPC, Little Eye the Alchemist:
 -Upon completing his third quest, you will get the cotton swab to summon moco, and this is now the only way you can get it
 -Upon completing his fourth quest, you will get the eye valley pylon, and this is now the only way you can get it
 -After completing the four main quests, you must give him one of any mechanical boss soul, and he will then reward you with the acidic concoction
-
 -After orro & boro are defeated, he will start giving you a selection of new random quests you can complete in return for one sentient heart 
 (sentient hearts will be explained below in the sentient weapons section)
 
@@ -47,7 +46,7 @@ New Biome, The Swampy Cemetery:
 An Old Friend Returns, The Spooky Spirit:
 
 -The spooky spirit from older versions of the mod has been re-added as a boss fought in the swampy cemetery biome
--his fight is still somewhat the same, but with many improvements, as well as new visual effects to make it feel more special, and improved loot
+-his fight is still somewhat the same, but with many improvements, as well as new visual effects to make it higher quality, and improved loot
 
 
 
@@ -300,4 +299,5 @@ Enemies:
 -Tortumors and Giant Tortumors can no longer move through blocks
 -All natural spawns will be disabled during spooky mod's boss fights
 -Increased contact damage scaling for all spooky mod bosses in expert and master mode because it was way too weak before
--Fixed vanilla's underworld enemies sometimes spawning while in the valley of eyes
+-Enemies now have more specific biome labels in the bestiary, such as day time or night time only enemies
+

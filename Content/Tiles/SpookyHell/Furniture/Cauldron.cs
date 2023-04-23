@@ -84,17 +84,20 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         public override void Load()
         {
 			//melee
+			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
 			AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
 
 			//ranged
 			AddTransformation(ItemID.Gatligator, ModContent.ItemType<SentientGatligator>());
+			AddTransformation(ItemID.Toxikarp, ModContent.ItemType<SentientToxikarp>());
 
 			//magic
 			AddTransformation(ItemID.ClingerStaff, ModContent.ItemType<SentientClingerStaff>());
 			AddTransformation(ItemID.SoulDrain, ModContent.ItemType<SentientLifeDrain>());
 
 			//summon
+			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
 			AddTransformation(ItemID.HoundiusShootius, ModContent.ItemType<SentientShootius>());
         }
 

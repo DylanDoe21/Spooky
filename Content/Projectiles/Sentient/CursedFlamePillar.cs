@@ -7,24 +7,29 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
     public class CursedFlamePillar : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
+        int trailWidth = 75;
+
         private List<Vector2> cache;
         private Trail trail;
 
         public override void SetDefaults()
         {
-			Projectile.width = 40;                   			 
-            Projectile.height = 40;
+			Projectile.width = 50;                   			 
+            Projectile.height = 50;
             Projectile.friendly = true;                               			  		
             Projectile.tileCollide = false;
             Projectile.ignoreWater = false;        
             Projectile.penetrate = -1;
             Projectile.extraUpdates = 5;
-            Projectile.timeLeft = 85;
+            Projectile.timeLeft = 100;
             Projectile.alpha = 255;
 		}
 
@@ -72,12 +77,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
         private void ManageTrail()
         {
-            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
-            //using (factor => 12 * (1 - factor)) makes the trail get bigger the further from the projectile, the number (12 in this case) affects how thick it is
-            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 55 * (1 - factor), factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => trailWidth * (1 - factor), factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Green, Color.Lime, factor.X);
             });
 
@@ -93,13 +94,33 @@ namespace Spooky.Content.Projectiles.Sentient
                 ManageTrail();
             }
 
+            Projectile.ai[1]++;
+
             if (Projectile.ai[0] == 0)
             {
                 Projectile.velocity.Y = -5f;
 
-                SpookyPlayer.ScreenShakeAmount = 5;
+                SpookyPlayer.ScreenShakeAmount = 2;
+
+                //spawn dusts
+                for (int numDust = 0; numDust < 50; numDust++)
+				{                                                                                  
+					int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+					Main.dust[dustGore].color = Color.Lime;
+					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-1f, 1f);
+					Main.dust[dustGore].velocity.Y -= Main.rand.NextFloat(1f, 12f);
+					Main.dust[dustGore].scale = 0.1f; 
+					Main.dust[dustGore].noGravity = true;
+				}
 
                 Projectile.ai[0] = 1;
+            }
+
+            if (Projectile.ai[1] > 60)
+            {
+                Projectile.velocity *= 0;
+
+                trailWidth -= 3;
             }
         }
     }

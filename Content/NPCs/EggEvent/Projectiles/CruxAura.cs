@@ -16,6 +16,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class CruxAura : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        
+        public static readonly SoundStyle AuraSound = new("Spooky/Content/Sounds/SpookyHell/AuraDebuff", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
+        
         public static List<int> BuffableNPCs = new List<int>() 
         {
             ModContent.NPCType<Distended>(),
@@ -25,14 +30,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             ModContent.NPCType<Visitant>()
         };
 
-        public static readonly SoundStyle AuraSound = new("Spooky/Content/Sounds/SpookyHell/AuraDebuff", SoundType.Sound);
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Crux Aura");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 64;
@@ -41,6 +38,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
+            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)

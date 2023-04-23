@@ -10,12 +10,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
     public class ThornTelegraph : ModProjectile
     {
-        public static readonly SoundStyle BoneSnap = new SoundStyle("Spooky/Content/Sounds/Orroboro/BoneSnap", SoundType.Sound);
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Telegraph");
-        }
+        public static readonly SoundStyle BoneSnap = new SoundStyle("Spooky/Content/Sounds/Orroboro/BoneSnap", SoundType.Sound);
 
         public override void SetDefaults()
         {

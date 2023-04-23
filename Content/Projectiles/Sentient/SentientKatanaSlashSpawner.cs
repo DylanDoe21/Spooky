@@ -7,6 +7,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class SentientKatanaSlashSpawner : ModProjectile
     {	
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         public override void SetDefaults()
         {
 			Projectile.width = 18;                   			 

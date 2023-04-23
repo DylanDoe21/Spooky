@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class FleshAxeHitLiving : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         public override void SetDefaults()
         {
             Projectile.width = 200;

@@ -14,13 +14,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class SoulSkullBolt : ModProjectile
 	{
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
 		private List<Vector2> cache;
         private Trail trail;
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Soul Bolt");
-		}
 
 		public override void SetDefaults()
 		{

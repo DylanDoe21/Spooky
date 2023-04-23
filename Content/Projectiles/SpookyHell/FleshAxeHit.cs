@@ -5,10 +5,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class FleshAxeHit : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Flesh Mincer");
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
         {

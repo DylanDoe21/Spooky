@@ -14,6 +14,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class MassiveFlameBallBolt : ModProjectile
 	{
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
 		private List<Vector2> cache;
         private Trail trail;
 
