@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
@@ -11,10 +12,17 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Skull Emoji");
 			Main.projFrames[Projectile.type] = 14;
 			Main.projPet[Projectile.type] = true;
+
+			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 10)
+            .WithOffset(0f, -8f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
 		}
+
+        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
+        {
+            DelegateMethods.CharacterPreview.Float(proj, walking);
+        }
 
 		public override void SetDefaults()
 		{

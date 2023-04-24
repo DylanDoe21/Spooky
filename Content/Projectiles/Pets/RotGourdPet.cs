@@ -10,10 +10,17 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Rotten Gourd");
 			Main.projFrames[Projectile.type] = 10;
 			Main.projPet[Projectile.type] = true;
+
+			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, 6, 5)
+            .WithOffset(-8f, 0f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
 		}
+
+		public static void CharacterPreviewCustomization(Projectile proj, bool walking)
+        {
+            DelegateMethods.CharacterPreview.Float(proj, walking);
+        }
 
 		public override void SetDefaults()
 		{

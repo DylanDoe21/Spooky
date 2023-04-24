@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
@@ -11,12 +12,19 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Baby Moco");
 			Main.projFrames[Projectile.type] = 4;
 			Main.projPet[Projectile.type] = true;
+
+            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 5)
+            .WithOffset(-12f, -10f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
 		}
 
-		public override void SetDefaults()
+        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
+        {
+            DelegateMethods.CharacterPreview.Float(proj, walking);
+        }
+
+        public override void SetDefaults()
 		{
 			Projectile.width = 40;
             Projectile.height = 36;

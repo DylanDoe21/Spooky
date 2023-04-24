@@ -11,7 +11,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Ghostly Slingshot");
             Main.projFrames[Projectile.type] = 3;
 		}
 
@@ -69,7 +68,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-                Projectile.position = player.position + new Vector2(-5, -2);
+                Projectile.position = player.position + new Vector2(-6, -2);
 
                 Projectile.localAI[0] += 0.25f;
 
