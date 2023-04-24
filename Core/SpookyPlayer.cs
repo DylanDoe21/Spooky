@@ -396,6 +396,7 @@ namespace Spooky.Core
                         sonar.DurationInFrames = 300;
 
                         itemDrop = ModContent.ItemType<SpookyCrate>();
+                        return;
                     }
 
                     if (inCatacombArea)
@@ -406,6 +407,7 @@ namespace Spooky.Core
                         sonar.DurationInFrames = 300;
 
                         itemDrop = ModContent.ItemType<CatacombCrate>();
+                        return;
                     }
                 }
             }
