@@ -7,11 +7,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ToiletPaperProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Toilet Paper");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 28;
@@ -29,8 +24,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
 			Projectile.rotation += 0.1f * (float)Projectile.direction;
 
-            Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 60f)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 60)
             {
                 Projectile.velocity.X = Projectile.velocity.X * 0.99f;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.08f;

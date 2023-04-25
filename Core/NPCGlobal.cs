@@ -1,9 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
@@ -19,7 +21,6 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
-using System.Linq;
 
 namespace Spooky.Core
 {
@@ -103,16 +104,17 @@ namespace Spooky.Core
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-			//all orro & boro segments resist piercing projectiles
+            //list of every orro & boro segment
             int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
-            ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
-            ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
+			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
+			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
 
             if (OrroBoroSegments.Contains(npc.type))
 			{
+				//resist piercing projectiles
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
-                    float damageDivide = 1.85f;
+                    float damageDivide = 1.8f;
                     modifiers.FinalDamage /= (int)damageDivide;
                 }
             }

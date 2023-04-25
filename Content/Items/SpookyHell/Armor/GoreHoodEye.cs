@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 7;
+			Item.defense = 10;
 			Item.width = 30;
 			Item.height = 26;
 			Item.rare = ItemRarityID.LightRed;
@@ -50,8 +50,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.GetDamage(DamageClass.Magic) += 0.20f;
 			player.GetDamage(DamageClass.Summon) += 0.20f;
-			player.GetCritChance(DamageClass.Magic) += 8;
-			player.GetCritChance(DamageClass.Summon) += 8;
+			player.GetCritChance(DamageClass.Magic) += 10;
+			player.GetCritChance(DamageClass.Summon) += 10;
 			player.manaCost -= 0.10f;
 			player.maxMinions += 2;
 			player.aggro += 75;

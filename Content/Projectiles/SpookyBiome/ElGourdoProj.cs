@@ -17,7 +17,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("El Gourdo");
             Main.projFrames[Projectile.type] = 5;
         }
 

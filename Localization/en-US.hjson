@@ -1170,7 +1170,7 @@ Mods: {
 				Tooltip:
 					'''
 					20% increased magic and summon damage
-					8% increased magic and summon critical strike chance
+					10% increased magic and summon critical strike chance
 					10% reduced mana usage and increases your max minions by 2
 					Enemies are more likely to target you
 					'''
@@ -1181,8 +1181,8 @@ Mods: {
 				Tooltip:
 					'''
 					20% increased melee and ranged damage
-					8% increased melee and ranged critical strike chance
-					12% increased melee speed and 20% chance to not consume ammo
+					10% increased melee and ranged critical strike chance
+					12% increased melee speed and 20% chance to save ammo
 					Enemies are more likely to target you
 					'''
 			}
@@ -1502,8 +1502,12 @@ Mods: {
 			}
 
 			SentientLeatherWhip: {
-				DisplayName: Tongue Creature
-				Tooltip: "'It tastes everything it hits'"
+				DisplayName: Licker
+				Tooltip:
+					'''
+					Your summons will focus struck enemies
+					'It tastes everything it hits'
+					'''
 			}
 
 			SentientLifeDrain: {
@@ -2207,14 +2211,12 @@ Mods: {
 			SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
 			SentientUmbrellaProj.DisplayName: Sentient Umbrella
 			CursedFlamePillar.DisplayName: Cursed Flame Pillar
-			SentientChikTear: Pendeloque Tear
-
-			SentientChikProj: {
-				$parentVal: Pendeloque
-				DisplayName: Pendeloque
-			}
-
+			SentientChikProj.DisplayName: Pendeloque
+			SentientChikTear.DisplayName: Pendeloque Tear
 			ToxicBubble.DisplayName: Toxic Bubble
+			SentientLeatherWhipProj.DisplayName: Licker
+			ToxicBloodSplatter.DisplayName: Toxic Blood Splatter
+			ToxicBubbleBlood.DisplayName: Toxic Bubble Blood
 		}
 
 		NPCs: {

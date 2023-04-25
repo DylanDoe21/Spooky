@@ -56,7 +56,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame
+                    BuffID.Confused, 
+                    BuffID.Poisoned, 
+                    BuffID.Venom, 
+                    BuffID.OnFire, 
+                    BuffID.CursedInferno, 
+                    BuffID.Ichor, 
+                    BuffID.ShadowFlame
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

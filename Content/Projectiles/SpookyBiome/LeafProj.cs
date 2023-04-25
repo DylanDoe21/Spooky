@@ -12,7 +12,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Leaf");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
