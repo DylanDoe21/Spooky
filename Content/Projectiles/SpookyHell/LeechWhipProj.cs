@@ -24,39 +24,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetDefaults() 
 		{
-			//This method quickly sets the whip's properties.
 			Projectile.DefaultToWhip();
 
-			//use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 40;
-			Projectile.WhipSettings.RangeMultiplier = 1.5f;
-		}
-
-		//This example uses PreAI to implement a charging mechanic.
-		//If you remove this, also remove Item.channel = true from the item's SetDefaults.
-		public override bool PreAI() 
-		{
-			Player owner = Main.player[Projectile.owner];
-
-			// Like other whips, this whip updates twice per frame (Projectile.extraUpdates = 1), so 120 is equal to 1 second.
-			if (!owner.channel || ChargeTime >= 120) 
-			{
-				return true; // Let the vanilla whip AI run.
-			}
-
-			if (++ChargeTime % 12 == 0) // 1 segment per 12 ticks of charge.
-			{
-				Projectile.WhipSettings.Segments++;
-			}
-
-			//Increase range up to 2x for full charge.
-			Projectile.WhipSettings.RangeMultiplier += 1 / 180f;
-
-			// Reset the animation and item timer while charging.
-			owner.itemAnimation = owner.itemAnimationMax;
-			owner.itemTime = owner.itemTimeMax;
-
-			return false; // Prevent the vanilla whip AI from running.
+			Projectile.WhipSettings.RangeMultiplier = 1.25f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -114,7 +85,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Vector2 element = list[i];
 				Vector2 diff = list[i + 1] - element;
 
-				float rotation = diff.ToRotation() - MathHelper.PiOver2; // This projectile's sprite faces down, so PiOver2 is used to correct rotation.
+				float rotation = diff.ToRotation() - MathHelper.PiOver2; //This projectile's sprite faces down, so PiOver2 is used to correct rotation.
 				Color color = Lighting.GetColor(element.ToTileCoordinates());
 
 				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);

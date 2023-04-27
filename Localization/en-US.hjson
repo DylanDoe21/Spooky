@@ -1506,6 +1506,7 @@ Mods: {
 				Tooltip:
 					'''
 					Your summons will focus struck enemies
+					Hold down to charge the whip up, giving it longer range and higher damage
 					'It tastes everything it hits'
 					'''
 			}
@@ -1533,8 +1534,8 @@ Mods: {
 				DisplayName: Bubble Belcher
 				Tooltip:
 					'''
-					Vomits out toxic bubbles that float around and bounce off surfaces
-					Sometimes shoots blood bubbles that burst into blood splatter
+					Spits out toxic bubbles that bounce off surfaces
+					Will sometimes spit blood bubbles that burst into blood splatter
 					'Killer fish from valley of eyes!'
 					'''
 			}
@@ -2217,6 +2218,8 @@ Mods: {
 			SentientLeatherWhipProj.DisplayName: Licker
 			ToxicBloodSplatter.DisplayName: Toxic Blood Splatter
 			ToxicBubbleBlood.DisplayName: Toxic Bubble Blood
+			SentientShootiusSentry.DisplayName: Sentient Shootius
+			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
 		}
 
 		NPCs: {

@@ -21,45 +21,15 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetStaticDefaults() 
 		{
-			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
 		}
 
 		public override void SetDefaults() 
 		{
-			// This method quickly sets the whip's properties.
 			Projectile.DefaultToWhip();
 
-			// use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 25;
 			Projectile.WhipSettings.RangeMultiplier = 1f;
-		}
-
-		// This example uses PreAI to implement a charging mechanic.
-		// If you remove this, also remove Item.channel = true from the item's SetDefaults.
-		public override bool PreAI() 
-		{
-			Player owner = Main.player[Projectile.owner];
-
-			// Like other whips, this whip updates twice per frame (Projectile.extraUpdates = 1), so 120 is equal to 1 second.
-			if (!owner.channel || ChargeTime >= 120) 
-			{
-				return true; // Let the vanilla whip AI run.
-			}
-
-			if (++ChargeTime % 12 == 0) // 1 segment per 12 ticks of charge.
-			{
-				Projectile.WhipSettings.Segments++;
-			}
-
-			// Increase range up to 2x for full charge.
-			Projectile.WhipSettings.RangeMultiplier += 1 / 120f;
-
-			// Reset the animation and item timer while charging.
-			owner.itemAnimation = owner.itemAnimationMax;
-			owner.itemTime = owner.itemTimeMax;
-
-			return false; // Prevent the vanilla whip AI from running.
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 

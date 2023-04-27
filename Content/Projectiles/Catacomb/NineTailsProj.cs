@@ -18,45 +18,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults() 
 		{
-			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
 		}
 
 		public override void SetDefaults() 
 		{
-			// This method quickly sets the whip's properties.
 			Projectile.DefaultToWhip();
 
-			// use these to change from the vanilla defaults
 			Projectile.WhipSettings.Segments = 28;
-			Projectile.WhipSettings.RangeMultiplier = 0.92f;
-		}
-
-		// This example uses PreAI to implement a charging mechanic.
-		// If you remove this, also remove Item.channel = true from the item's SetDefaults.
-		public override bool PreAI() 
-		{
-			Player owner = Main.player[Projectile.owner];
-
-			// Like other whips, this whip updates twice per frame (Projectile.extraUpdates = 1), so 120 is equal to 1 second.
-			if (!owner.channel || ChargeTime >= 120) 
-			{
-				return true; // Let the vanilla whip AI run.
-			}
-
-			if (++ChargeTime % 12 == 0) // 1 segment per 12 ticks of charge.
-			{
-				Projectile.WhipSettings.Segments++;
-			}
-
-			// Increase range up to 2x for full charge.
-			Projectile.WhipSettings.RangeMultiplier += 1 / 120f;
-
-			// Reset the animation and item timer while charging.
-			owner.itemAnimation = owner.itemAnimationMax;
-			owner.itemTime = owner.itemTimeMax;
-
-			return false; // Prevent the vanilla whip AI from running.
+			Projectile.WhipSettings.RangeMultiplier = 0.93f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -77,18 +47,18 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			for (int i = 0; i < list.Count - 1; i++) 
             {
-				//14 is the width of the whole whip, 26 is the height for the tips hotbox
-				Rectangle frame = new(0, 0, 14, 26);
+				//14 is the width of the whole whip, 18 is the height for the tips hotbox
+				Rectangle frame = new(0, 0, 14, 18);
 				Vector2 origin = new(5, 8);
 				float scale = 1;
 
-				// These statements determine what part of the spritesheet to draw for the current segment.
-				// They can also be changed to suit your sprite.
+				//tip of the whip
 				if (i == list.Count - 2) 
                 {
 					frame.Y = 58;
 					frame.Height = 18;
 				}
+				//two body segments
 				else if (i > 10) 
                 {
 					frame.Y = 46;
@@ -99,6 +69,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 					frame.Y = 34;
 					frame.Height = 12;
 				}
+				//bottom segment
 				else if (i > 0) 
                 {
 					frame.Y = 22;
