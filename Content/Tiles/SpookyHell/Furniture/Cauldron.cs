@@ -1,7 +1,3 @@
-//TODO:
-//Actual animation effects
-//Make cauldron dummy tile
-
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,6 +11,9 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
+using System.Linq;
+using Terraria.Audio;
+using System;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -36,7 +35,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-            AnimationFrameHeight = 72;
             AddMapEntry(new Color(0, 128, 0));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
@@ -52,29 +50,73 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			return false;
         }
 
-        public override void AnimateTile(ref int frame, ref int frameCounter)
-		{
-			frameCounter++;
-			if (frameCounter > 8)
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+			Tile tile = Main.tile[i, j];
+			if (tile.TileFrameX == 0 && tile.TileFrameY == 0)
 			{
-				frameCounter = 0;
-				frame++;
-
-				if (frame > 3)
+				var existing = Main.projectile.Where(n => n.active && n.type == ModContent.ProjectileType<CauldronDummy>()).FirstOrDefault();
+				if (existing == default)
 				{
-					frame = 0;
+					Projectile.NewProjectile(new EntitySource_TileUpdate(i, j), new Vector2(i + 2, j + 2) * 16, Vector2.Zero, ModContent.ProjectileType<CauldronDummy>(), 0, 0);
 				}
 			}
-		}
+        }
 
-		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
 		{
 			noBreak = true;
 			return true;
 		}
     }
 
-	public class CauldronSystem : ModSystem
+	public class CauldronDummy : ModProjectile
+	{
+		public int shakeTimer = 0;
+
+		Vector2 scaleVec;
+        public override void SetStaticDefaults()
+        {
+			Main.projFrames[Projectile.type] = 4;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = Projectile.height = 64;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.friendly = false;
+            Projectile.hostile = false;
+        }
+
+        public override void AI()
+        {
+			if (shakeTimer-- > 0)
+			{
+				float sin = shakeTimer * 0.08971428571f * 2;
+				scaleVec = new Vector2(MathF.Sin(sin), -MathF.Sin(sin));
+			}
+			else
+				scaleVec = Vector2.Zero;
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter % 6 == 0)
+			{
+				Projectile.frame++;
+			}
+			Projectile.frame %= Main.projFrames[Projectile.type];
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
+			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+			Main.spriteBatch.Draw(tex, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+            return false;
+        }
+    }
+
+    public class CauldronSystem : ModSystem
 	{
 		public static Dictionary<int, int> transform = new Dictionary<int, int>();
 
@@ -214,7 +256,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			else if (timer < 70)
 			{
 				Vector2 startPos = initialPos + new Vector2(0, -10);
-				Vector2 endPos = initialPos + new Vector2(0, 48);
+				Vector2 endPos = initialPos + new Vector2(0, 64);
 				float progress = (timer - 50) / 20f;
                 progress = EaseFunction.EaseCircularIn.Ease(progress);
                 Projectile.Center = Vector2.Lerp(startPos, endPos, progress);
@@ -223,9 +265,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				transformed = true;
                 Vector2 endPos = initialPos + new Vector2(0, -10);
-                Vector2 startPos = initialPos + new Vector2(0, 48);
-                float progress = (timer - 200) / 60f;
-				if (timer >= 260)
+                Vector2 startPos = initialPos + new Vector2(0, 64);
+                float progress = (timer - 200) / 20f;
+				if (timer >= 220)
 				{
 					Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, outputItemID);
 					Projectile.Kill();
@@ -234,6 +276,30 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				progress = EaseFunction.EaseCircularOut.Ease(progress);
                 Projectile.Center = Vector2.Lerp(startPos, endPos, progress);
             }
+			else if (timer % 10 == 9)
+			{
+                SoundEngine.PlaySound(SoundID.Splash, Projectile.Center);
+            }
+			else if (timer == 70)
+			{
+                var existing = Main.projectile.Where(n => n.active && n.type == ModContent.ProjectileType<CauldronDummy>()).FirstOrDefault();
+                if (existing != default)
+                {
+					(existing.ModProjectile as CauldronDummy).shakeTimer = 130;
+                }
+                SoundEngine.PlaySound(SoundID.Splash, Projectile.Center);
+			}
+			else if (timer == 200)
+			{
+				SpookyPlayer.ScreenShakeAmount = 8;
+
+                for (int j = 0; j < 16; j++)
+				{
+					Vector2 vel = Main.rand.NextVector2Circular(2, 4);
+					vel.Y = MathF.Abs(vel.Y) * -1;
+					Dust.NewDustPerfect(Projectile.Top + new Vector2(Main.rand.Next(-24, 24), 0), ModContent.DustType<CauldronBubble>(), vel, 0, Color.White, Main.rand.NextFloat(0.75f, 1.1f));
+				}
+			}
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -250,7 +316,34 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         }
     }
 
-	public interface ICauldronOutput
+    class CauldronBubble : ModDust
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            dust.noGravity = true;
+            dust.noLight = false;
+            dust.frame = new Rectangle(0, 0, 10, 10);
+        }
+
+        public override Color? GetAlpha(Dust dust, Color lightColor)
+        {
+			return lightColor;
+        }
+
+        public override bool Update(Dust dust)
+        {
+			dust.position += dust.velocity;
+			dust.velocity.Y += 0.05f;
+			dust.scale *= 0.99f;
+
+			if (dust.scale < 0.05f)
+				dust.active = false;
+
+            return false;
+        }
+    }
+
+    public interface ICauldronOutput
 	{
 
 	}

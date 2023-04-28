@@ -2220,6 +2220,7 @@ Mods: {
 			ToxicBubbleBlood.DisplayName: Toxic Bubble Blood
 			SentientShootiusSentry.DisplayName: Sentient Shootius
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
+			CauldronDummy.DisplayName: Cauldron Dummy
 		}
 
 		NPCs: {
