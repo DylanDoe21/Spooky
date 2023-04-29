@@ -18,12 +18,12 @@ namespace Spooky.Content.Projectiles.Sentient
 		
         public override void SetDefaults()
         {
-			Projectile.width = 22;                   			 
-            Projectile.height = 22;         
+			Projectile.width = 6;                  			 
+            Projectile.height = 6;       
 			Projectile.friendly = true;                               			  		
             Projectile.tileCollide = false;
             Projectile.ignoreWater = false;  
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 2;
             Projectile.timeLeft = 200;
             Projectile.alpha = 255;
 		}
@@ -73,7 +73,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 8 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
             {
                 return Color.Lerp(Color.DarkRed, Color.Red, factor.X);
             });

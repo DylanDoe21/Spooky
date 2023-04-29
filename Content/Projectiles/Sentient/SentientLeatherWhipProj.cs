@@ -30,7 +30,7 @@ namespace Spooky.Content.Projectiles.Sentient
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 1;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.WhipSettings.Segments = 13;
+			Projectile.WhipSettings.Segments = 11;
 			Projectile.WhipSettings.RangeMultiplier = 0.95f;
 		}
 
@@ -105,6 +105,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		public override bool PreDraw(ref Color lightColor) 
 		{
+			Player owner = Main.player[Projectile.owner];
+
 			List<Vector2> list = new List<Vector2>();
 			Projectile.FillWhipControlPoints(Projectile, list);
 
@@ -120,51 +122,34 @@ namespace Spooky.Content.Projectiles.Sentient
 				//14 is the width of the whole whip, 18 is the height for the tips hotbox
 				Rectangle frame = new Rectangle(0, 0, 14, 18);
 				Vector2 origin = new Vector2(3, 5);
-				float scale = 1;
 
-				if (Projectile.ai[0] <= 0)
-				{
-					scale = 0;
-				}
+				//scale the whip down as it retracts, and scale it up as it is swung out
+				Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
+				float t = Projectile.ai[0] / timeToFlyOut;
+				float scale = MathHelper.Lerp(0.75f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 
 				//tip of the whip
-				if (i == list.Count - 2) 
+				if (i == list.Count - 2)
 				{
 					frame.Y = 86;
 					frame.Height = 22;
-
-					Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
-					float t = Projectile.ai[0] / timeToFlyOut;
-					scale = MathHelper.Lerp(0.5f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 				}
 				//loop between the two middle segments
 				else if (i % 2 == 0) 
 				{
 					frame.Y = 68;
 					frame.Height = 16;
-
-					Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
-					float t = Projectile.ai[0] / timeToFlyOut;
-					scale = MathHelper.Lerp(0.5f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 				}
 				else if (i % 1 == 0) 
 				{
 					frame.Y = 50;
 					frame.Height = 16;
-
-					Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
-					float t = Projectile.ai[0] / timeToFlyOut;
-					scale = MathHelper.Lerp(0.5f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 				}
 				//bottom part of the whip?
 				else if (i > 0)
 				{
 					frame.Y = 32;
 					frame.Height = 16;
-
-					Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
-					float t = Projectile.ai[0] / timeToFlyOut;
-					scale = MathHelper.Lerp(0.5f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 				}
 
 				Vector2 element = list[i];

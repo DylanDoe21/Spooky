@@ -33,7 +33,8 @@ namespace Spooky.Content.Projectiles.Sentient
             if (Projectile.localAI[0] >= 45)
             {
                 Vector2 speed = new Vector2(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-7f, -5f));
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, ModContent.ProjectileType<SentientChikTear>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, 
+                ModContent.ProjectileType<SentientChikTear>(), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
             
                 Projectile.localAI[0] = 0;
             }

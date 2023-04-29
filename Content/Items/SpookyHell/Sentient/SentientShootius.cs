@@ -29,21 +29,28 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.autoReuse = true;
             Item.width = 40;
             Item.height = 50;
-            Item.useTime = 45;
-			Item.useAnimation = 45;
-			Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 8);
-            Item.UseSound = SoundID.DD2_MonkStaffSwing;
+            Item.UseSound = SoundID.Item82;
             Item.shoot = ModContent.ProjectileType<SentientShootiusSentry>();
             Item.shootSpeed = 0f;
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            position = Main.MouseWorld;
+            int sentry = Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback, player.whoAmI);
+            if (Main.projectile.IndexInRange(sentry))
+            {
+                Main.projectile[sentry].originalDamage = Item.damage;
+            }
+            
             player.UpdateMaxTurrets();
+
+            return false;
         }
 
         public override bool CanUseItem(Player player)

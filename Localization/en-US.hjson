@@ -122,7 +122,7 @@ Mods: {
 				NoQuests1: I don't need you to get another flask for me right now, stop by later and I may need something then.
 				NoQuests2: You're gonna have to give me some time before I'll need another flask from you.
 				NoQuests3: Sorry, I don't have anything else for you to gather at the moment.
-				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something... A little crazy.
+				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy.
 				Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
 				Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
 				Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
@@ -191,6 +191,19 @@ Mods: {
 			MrHandy: A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.
 			Tortumor: Disgusting flesh amalgams born from the eye valley. They can attack by using chunks of themselves as projectiles.
 			TortumorGiant: If regular tortumors weren't gross enough, these mutated blobs of flesh can fly around, making smaller clones of themselves to attack it's prey.
+		}
+
+		GameTips: {
+			SpookyTip: The spooky forest can be a nice starting area, be sure to explore it as much as you can!
+			SpookyHellTip: The valley of eyes is a strange biome that seems to be alive, located in the underworld. Make sure to check behind you often!
+			CemeteryTip: The swampy cemetery is where the deceased are put to rest... or sometimes to party, under the right conditions.
+			CatacombTip: If the regular dungeon isn't enough, you can explore the catacombs found beneath the cemetery! Just don't let those goofy plant creatures trap you down there.
+			RotGourdTip: A giant gourd in the spooky forest lost his seeds, if you can find one you can attract it.
+			SpookySpiritTip: Some say that ghost hunters are frauds. But some say that they have heard voices in the swampy cemetery, which might be worth investigating.
+			MocoTip: No one likes cotton swabs up their noses, or anything else really. Using one at the nose shrine can attract a strange creature.
+			OrroboroTip: Sometimes eggs can be used to make scrambled eggs. The egg in the valley of eyes cannot make that, but it does contain two worms that eat each other in an endless cycle. It is not known how to break it though.
+			BigBoneTip: Sometimes plants can grow long. Sometimes they can take over a giant underground catacomb and infest it with plantlife. At least thats how Big Bone ended up.
+			CowBellTip: Some say that using an old cowbell can summon helpful creatures to assist you!
 		}
 
 		DropConditions: {
@@ -1468,7 +1481,7 @@ Mods: {
 				DisplayName: Pendeloque
 				Tooltip:
 					'''
-					Will sometimes cry out damaging crystal tears
+					Cries out crystal tears
 					'Don't worry, it isn't actually sad'
 					'''
 			}
@@ -2208,9 +2221,9 @@ Mods: {
 			DecayDebuffFly.DisplayName: Decay Debuff Fly
 			BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
 			BrainJarProj.DisplayName: Brain Jar Proj
+			CauldronDummy.DisplayName: Cauldron Dummy
 			SentientKatanaSlash.DisplayName: Sentient Katana Slash
 			SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
-			SentientUmbrellaProj.DisplayName: Sentient Umbrella
 			CursedFlamePillar.DisplayName: Cursed Flame Pillar
 			SentientChikProj.DisplayName: Pendeloque
 			SentientChikTear.DisplayName: Pendeloque Tear
@@ -2220,7 +2233,7 @@ Mods: {
 			ToxicBubbleBlood.DisplayName: Toxic Bubble Blood
 			SentientShootiusSentry.DisplayName: Sentient Shootius
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
-			CauldronDummy.DisplayName: Cauldron Dummy
+			SentientLifeDrainProj.DisplayName: Sentient Life Drain Proj
 		}
 
 		NPCs: {
@@ -2375,6 +2388,7 @@ Mods: {
 			SpookySaplingGreen.MapEntry: Sapling
 			EyeChest_Sleeping.MapEntry: Sleeping Monster Chest
 			SpookyHellChest_Locked.MapEntry: Locked Eye Chest
+			Cauldron.MapEntry: Creepy Cauldron
 			EyeBathtub.MapEntry: Bathtub
 			EyeBed.MapEntry: Bed
 			EyeBookcase.MapEntry: Bookcase

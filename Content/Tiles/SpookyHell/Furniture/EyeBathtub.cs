@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;

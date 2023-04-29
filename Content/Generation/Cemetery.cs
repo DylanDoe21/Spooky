@@ -85,7 +85,7 @@ namespace Spooky.Content.Generation
 
                         WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                         {
-                            new Actions.ClearTile(),
+                            new Actions.ClearTile(), new Actions.ClearWall(),
                             new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
                         }));
                     }
@@ -103,7 +103,7 @@ namespace Spooky.Content.Generation
 
                         WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                         {
-                            new Actions.ClearTile(),
+                            new Actions.ClearTile(), new Actions.ClearWall(),
                             new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
                         }));
                     }
@@ -131,7 +131,7 @@ namespace Spooky.Content.Generation
 
                     WorldUtils.Gen(new Point(X, FillY), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                     {
-                        new Actions.ClearTile(),
+                        new Actions.ClearTile(), new Actions.ClearWall(),
                         new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
                     }));
                 }
@@ -402,7 +402,7 @@ namespace Spooky.Content.Generation
         {
             for (int i = x - 25; i <= x + 25; i++)
             {
-                for (int j = y - 10; j <= y; j++)
+                for (int j = y - 50; j <= y; j++)
                 {
                     ShapeData circle = new ShapeData();
                     GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -413,13 +413,13 @@ namespace Spooky.Content.Generation
 
                     WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                     {
-                        new Actions.ClearTile()
+                        new Actions.ClearTile(), new Actions.ClearWall()
                     }));
                 }
             }
         }
 
-        public static void PlacePlatformBelowStructure(int x, int y)
+        public static void PlaceBlocksBelowStructure(int x, int y)
         {
             for (int i = x - 25; i <= x + 25; i++)
             {
@@ -434,7 +434,7 @@ namespace Spooky.Content.Generation
 
                     WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
                     {
-                        new Actions.ClearTile(),
+                        new Actions.ClearTile(), new Actions.ClearWall(),
                         new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
                     }));
                 }

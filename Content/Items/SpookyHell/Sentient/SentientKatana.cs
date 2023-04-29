@@ -22,13 +22,15 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.knockBack = 2;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
-            Item.UseSound = SoundID.DD2_MonkStaffSwing;
+            Item.UseSound = SoundID.Item152;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y,
-            0, 0, ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Item.damage, Item.knockBack, player.whoAmI, 0f, 0f);
+            float divide = 1.5f;
+
+            Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y, 0, 0, 
+            ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Item.damage / (int)divide, Item.knockBack, player.whoAmI, 0f, 0f);
         }
     }
 }

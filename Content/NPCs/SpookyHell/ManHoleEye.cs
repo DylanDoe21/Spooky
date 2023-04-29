@@ -126,65 +126,12 @@ namespace Spooky.Content.NPCs.SpookyHell
         
                     if (NPC.ai[0] < 180)
                     {
-                        //move above parent npc
-                        float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
-                        float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
-
-                        float speed;
-
-                        if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
-                        {
-                            speed = 0.8f;
-                        }
-                        else
-                        {
-                            speed = 0.5f;
-                        }
-                        
-                        if (NPC.velocity.X > speed)
-                        {
-                            NPC.velocity.X *= 0.98f;
-                        }
-                        if (NPC.velocity.Y > speed)
-                        {
-                            NPC.velocity.Y *= 0.98f;
-                        }
-
-                        if (NPC.velocity.X < goToX)
-                        {
-                            NPC.velocity.X = NPC.velocity.X + speed;
-                            if (NPC.velocity.X < 0f && goToX > 0f)
-                            {
-                                NPC.velocity.X = NPC.velocity.X + speed;
-                            }
-                        }
-                        else if (NPC.velocity.X > goToX)
-                        {
-                            NPC.velocity.X = NPC.velocity.X - speed;
-                            if (NPC.velocity.X > 0f && goToX < 0f)
-                            {
-                                NPC.velocity.X = NPC.velocity.X - speed;
-                            }
-                        }
-                        if (NPC.velocity.Y < goToY)
-                        {
-                            NPC.velocity.Y = NPC.velocity.Y + speed;
-                            if (NPC.velocity.Y < 0f && goToY > 0f)
-                            {
-                                NPC.velocity.Y = NPC.velocity.Y + speed;
-                                return;
-                            }
-                        }
-                        else if (NPC.velocity.Y > goToY)
-                        {
-                            NPC.velocity.Y = NPC.velocity.Y - speed;
-                            if (NPC.velocity.Y > 0f && goToY < 0f)
-                            {
-                                NPC.velocity.Y = NPC.velocity.Y - speed;
-                                return;
-                            }
-                        }
+                        GoAboveParent();
                     }
+                }
+                else
+                {
+                    GoAboveParent();
                 }
             }
             else
@@ -195,6 +142,68 @@ namespace Spooky.Content.NPCs.SpookyHell
                 }
                 
                 NPC.active = false;
+            }
+        }
+
+        public void GoAboveParent()
+        {
+            //move above parent npc
+            float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
+            float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
+
+            float speed;
+
+            if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
+            {
+                speed = 0.8f;
+            }
+            else
+            {
+                speed = 0.5f;
+            }
+            
+            if (NPC.velocity.X > speed)
+            {
+                NPC.velocity.X *= 0.98f;
+            }
+            if (NPC.velocity.Y > speed)
+            {
+                NPC.velocity.Y *= 0.98f;
+            }
+
+            if (NPC.velocity.X < goToX)
+            {
+                NPC.velocity.X = NPC.velocity.X + speed;
+                if (NPC.velocity.X < 0f && goToX > 0f)
+                {
+                    NPC.velocity.X = NPC.velocity.X + speed;
+                }
+            }
+            else if (NPC.velocity.X > goToX)
+            {
+                NPC.velocity.X = NPC.velocity.X - speed;
+                if (NPC.velocity.X > 0f && goToX < 0f)
+                {
+                    NPC.velocity.X = NPC.velocity.X - speed;
+                }
+            }
+            if (NPC.velocity.Y < goToY)
+            {
+                NPC.velocity.Y = NPC.velocity.Y + speed;
+                if (NPC.velocity.Y < 0f && goToY > 0f)
+                {
+                    NPC.velocity.Y = NPC.velocity.Y + speed;
+                    return;
+                }
+            }
+            else if (NPC.velocity.Y > goToY)
+            {
+                NPC.velocity.Y = NPC.velocity.Y - speed;
+                if (NPC.velocity.Y > 0f && goToY < 0f)
+                {
+                    NPC.velocity.Y = NPC.velocity.Y - speed;
+                    return;
+                }
             }
         }
     }

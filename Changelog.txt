@@ -51,7 +51,7 @@ Enemy list:
 -Distended: a simple fodder enemy that attacks by running at you, there is also a bloody variant that has less defense but higher attack damage
 -Vigilante: a fast flying enemy that will sometimes preform quick horizontal dashes at you
 -Visitant: slow flying enemy that will sometimes barf out explosive chunks of biomatter
--Crux: very slow flying enemy, will sometimes use purple auras that inflict debuffs on playera and buff enemies
+-Crux: very slow flying enemy, will sometimes use purple auras that inflict debuffs on players and buff enemies
 -Capillary: stationary enemy that will occasionally use a giant purple aura, which will inflict debuffs on players and buff enemies
 -Vesicator: flying mini-boss enemy that drops explosive biomatter below it, on death it will fall to the ground and explode, avoid this at all costs
 
@@ -69,11 +69,11 @@ New Biome, The Swampy Cemetery:
 An Old Friend Returns, The Spooky Spirit:
 
 -The spooky spirit from older versions of the mod has been re-added as a boss fought in the swampy cemetery biome
--his fight is still somewhat the same, but with many improvements, as well as new visual effects, and improved loot
+-his fight is still somewhat the same, but with many improvements, new attacks, new visual effects, and improved loot
 
 
 
-New Catacomb Mechanic, The Darkness:
+New Catacomb Darkness:
 
 -While in the catacombs your vision will be darkened, only allowing you to see a certain distance ahead
 -This makes exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
@@ -111,8 +111,8 @@ Screen Shaking Effect:
 (For example, when rot-gourd shakes the screen after slamming the ground, certain weapons impacting the ground, ect)
 
 Improved the Halloween Season Config:
--The halloween config no longer requires you to leave and re-enter the world, it will now automatically be applied in game the moment you change it
--The halloween config being turned off will not disable halloween if it is meant to normally occur in vanilla (basically during october or if you defeat the pumpkin moon's final wave)
+-No longer requires you to leave and re-enter the world, it will now automatically be applied in game the moment you change it
+-This option being turned off will not disable halloween if it is meant to normally occur in vanilla (basically during october or if you defeat the pumpkin moon's final wave)
 
 
 
@@ -133,6 +133,7 @@ Other New Additions:
 -New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
 -Added masks and trophies for spooky mod's bosses, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
 -Four new weapons you can get from the eye valley chests
+-Added new spooky mod related tips that display at the bottom of the menu screen, they will sometimes appear along with the vanilla ones
 
 
 
@@ -161,7 +162,7 @@ Gore Staff:
 -Now drops rarely from regular tortumors, and drops commonly from giant tortumors
 
 Monster Heart:
--Has been removed from the mod entirely, got turned into the new sentient heart
+-Has been removed from the mod entirely, got turned into the new sentient heart item
 
 Snot Ball:
 -Damage has been buffed slightly
@@ -213,7 +214,7 @@ Thorn Covered Bulb:
 
 Skull Smasher:
 -Damage has been nerfed significantly
--reworked its left click ability because the previous true melee swing was useless, it now functions like a better version of the palandins hammer with slight AoE damage
+-reworked its left click ability because the previous true melee swing was useless, it now functions like a better version of the palandin's hammer with slight AoE damage
 -Right click ability now does double the item's base damage
 
 Disciple's Mask:
@@ -237,6 +238,7 @@ Orro & Boro Changes:
 
 -All of Orro & Boro's attacks have been changed or modified to make the fight more fun, there's too many changes to list here but basically everything has been tweaked to some degree
 -Orro & Boro now have an enrage mechanic where, when one worm is killed it will actually die, but the other worm will become enraged, causing it to become super aggressive
+-When enraged, they will gain a pulsing red ring around their head (Ultrakill moment)
 -Both Orro & Boro are now immune to the following debuffs: confused, poisoned, venom, on fire, cursed inferno, ichor, and shadow flame
 
 
@@ -292,7 +294,7 @@ Little Bone Changes:
 -The fleshy eye blocks in the valley of eyes now produce cool new ambient particles, and produce blood particles when walked on
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -Removed the catacomb junk chests from the mod, and any old junk chests that existed in previous versions will be replaced with old wood chests
--All spooky mod blocks, materials, boss summons, and ect now stack to 9999
+-All spooky mod blocks, materials, boss summons, ect now stack to 9999
 -Fixed a ton of spooky mod item sell prices, lowered ones that were too expensive, and increased ones that were too cheap
 -Fixed certain items in the mod that were supposed to have sell prices but didnt have any
 -Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
@@ -308,7 +310,7 @@ Little Bone Changes:
 -Spooky mod music boxes now produce notes when turned on, display the name and composer of the song in their item tooltip, cannot be reforged, and will turn back into a normal music box when shimmered
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it
 -Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
--Added a new visual effect for the gore monger armor's aura to match the auras orro & boro get when enraged
+-Added a new visual effect for the gore monger armor's aura to match the new auras orro & boro get when enraged
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
 -Spooky dance ghosts no longer drop money
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets

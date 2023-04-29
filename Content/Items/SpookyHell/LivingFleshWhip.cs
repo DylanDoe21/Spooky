@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.noUseGraphic = true;
 			Item.width = 52;
             Item.height = 50;
-			Item.useTime = 21;
-			Item.useAnimation = 42;
+			Item.useTime = 20;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;
@@ -34,16 +34,13 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-            int ProjToShoot = 0;
-            if (ProjToShoot == 0)
+            if (Main.rand.NextBool(2))
             {
                 type = ModContent.ProjectileType<LivingFleshWhipProj1>();
-                ProjToShoot = 1;
             }
-            if (ProjToShoot == 1)
+            else
             {
                 type = ModContent.ProjectileType<LivingFleshWhipProj2>();
-                ProjToShoot = 0;
             }
 			
 			return true;

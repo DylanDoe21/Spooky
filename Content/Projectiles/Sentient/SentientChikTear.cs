@@ -61,14 +61,15 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
-            for (int numDusts = 0; numDusts < 35; numDusts++)
+            for (int numDusts = 0; numDusts < 12; numDusts++)
 			{                                                                                  
 				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PinkCrystalShard, 0f, -2f, 0, default(Color), 1.5f);
                 Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                Main.dust[DustGore].scale = 0.85f;
+				Main.dust[DustGore].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
 			}
 		}
     }

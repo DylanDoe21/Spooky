@@ -1,8 +1,15 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 
+using Spooky.Content.Projectiles;
+using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
@@ -20,6 +27,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.mana = 5;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
+            Item.noMelee = true;
+            Item.channel = true;
             Item.width = 46;
             Item.height = 48;
             Item.useTime = 15;
@@ -27,7 +36,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 40);
+            Item.value = Item.buyPrice(gold: 45);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
         }
     }

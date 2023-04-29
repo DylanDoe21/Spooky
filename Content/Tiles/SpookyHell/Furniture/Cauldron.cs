@@ -1,19 +1,21 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria.Enums;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
-using System.Linq;
-using Terraria.Audio;
-using System;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -35,7 +37,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(0, 128, 0));
+			LocalizedText name = CreateMapEntryName();
+            AddMapEntry(new Color(0, 128, 0), name);
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}
@@ -82,7 +85,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 64;
+            Projectile.width = 64;
+			Projectile.height = 66;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = false;
@@ -97,21 +101,33 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				scaleVec = new Vector2(MathF.Sin(sin), -MathF.Sin(sin));
 			}
 			else
+			{
 				scaleVec = Vector2.Zero;
+			}
+
 			Projectile.frameCounter++;
 			if (Projectile.frameCounter % 6 == 0)
 			{
 				Projectile.frame++;
 			}
+			
 			Projectile.frame %= Main.projFrames[Projectile.type];
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+			Texture2D bubbleTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyBubbles").Value;
 			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
 			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+
 			Main.spriteBatch.Draw(tex, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+
+			if (shakeTimer <= 0)
+			{
+				Main.spriteBatch.Draw(bubbleTex, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+			}
+
             return false;
         }
     }
@@ -242,12 +258,16 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         public override void OnSpawn(IEntitySource source)
         {
 			initialPos = Projectile.Center;
-			//Projectile.scale = 0.7f;
         }
 
         public override void AI()
         {
 			timer++;
+
+			if (timer > 70 && timer < 200)
+			{
+				Projectile.scale *= 0;
+			}
 
 			if (timer < 50)
 			{
@@ -267,12 +287,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                 Vector2 endPos = initialPos + new Vector2(0, -10);
                 Vector2 startPos = initialPos + new Vector2(0, 64);
                 float progress = (timer - 200) / 20f;
+
 				if (timer >= 220)
 				{
 					Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, outputItemID);
 					Projectile.Kill();
 					return;
 				}
+
 				progress = EaseFunction.EaseCircularOut.Ease(progress);
                 Projectile.Center = Vector2.Lerp(startPos, endPos, progress);
             }
@@ -287,11 +309,16 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                 {
 					(existing.ModProjectile as CauldronDummy).shakeTimer = 130;
                 }
+
                 SoundEngine.PlaySound(SoundID.Splash, Projectile.Center);
 			}
 			else if (timer == 200)
 			{
+				Projectile.scale = 1;
+
 				SpookyPlayer.ScreenShakeAmount = 8;
+
+				SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, Projectile.Center);
 
                 for (int j = 0; j < 16; j++)
 				{
@@ -313,33 +340,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Vector2 pos = Projectile.Center - Main.screenPosition;
             Main.spriteBatch.Draw(mainTex, pos, null, lightColor, 0f, mainTex.Size() / 2, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
-        }
-    }
-
-    class CauldronBubble : ModDust
-    {
-        public override void OnSpawn(Dust dust)
-        {
-            dust.noGravity = true;
-            dust.noLight = false;
-            dust.frame = new Rectangle(0, 0, 10, 10);
-        }
-
-        public override Color? GetAlpha(Dust dust, Color lightColor)
-        {
-			return lightColor;
-        }
-
-        public override bool Update(Dust dust)
-        {
-			dust.position += dust.velocity;
-			dust.velocity.Y += 0.05f;
-			dust.scale *= 0.99f;
-
-			if (dust.scale < 0.05f)
-				dust.active = false;
-
-            return false;
         }
     }
 

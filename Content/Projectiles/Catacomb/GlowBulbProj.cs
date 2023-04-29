@@ -47,7 +47,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.ai[1] = 1;
 
 			Projectile.velocity.X *= 0;
-            Projectile.velocity.Y *= 0;
 
 			return false;
 		}
