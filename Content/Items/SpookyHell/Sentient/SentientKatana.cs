@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.knockBack = 2;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
-            Item.UseSound = SoundID.Item152;
+            Item.UseSound = SoundID.Item1;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

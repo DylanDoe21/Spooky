@@ -20,8 +20,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.channel = true;
 			Item.width = 56;
 			Item.height = 50;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ModContent.RarityType<SentientRarity>();

@@ -147,6 +147,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
 
 			//ranged
+			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());
 			AddTransformation(ItemID.Gatligator, ModContent.ItemType<SentientGatligator>());
 			AddTransformation(ItemID.Toxikarp, ModContent.ItemType<SentientToxikarp>());
 
@@ -155,8 +156,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			AddTransformation(ItemID.SoulDrain, ModContent.ItemType<SentientLifeDrain>());
 
 			//summon
-			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
+			AddTransformation(ItemID.ImpStaff, ModContent.ItemType<SentientImpStaff>());
 			AddTransformation(ItemID.HoundiusShootius, ModContent.ItemType<SentientShootius>());
+			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
         }
 
         public override void AddRecipes()

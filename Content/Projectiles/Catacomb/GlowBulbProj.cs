@@ -28,6 +28,15 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.timeLeft = 600;
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            Projectile.ai[1] = 1;
+
+			Projectile.velocity.X *= 0;
+
+			return false;
+		}
+
         public override void AI()
         {
             if (Projectile.ai[1] == 0)
@@ -41,15 +50,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
         }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            Projectile.ai[1] = 1;
-
-			Projectile.velocity.X *= 0;
-
-			return false;
-		}
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

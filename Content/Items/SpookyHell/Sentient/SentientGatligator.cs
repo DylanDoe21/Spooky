@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 45;
 			Item.DamageType = DamageClass.Ranged;
 			Item.autoReuse = true;
             Item.width = 72;
@@ -48,7 +48,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 position += muzzleOffset;
             }
 
-            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(50));
+            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(40));
 
             Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X + Main.rand.Next(-1, 2),
             newVelocity.Y + Main.rand.Next(-1, 2), type, damage, knockback, player.whoAmI, 0f, 0f);

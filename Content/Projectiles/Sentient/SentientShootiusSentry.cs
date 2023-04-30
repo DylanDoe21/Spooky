@@ -79,6 +79,9 @@ namespace Spooky.Content.Projectiles.Sentient
             //animation
             if (!isAttacking)
             {
+                //reset ai timer
+                Projectile.ai[0] = 0;
+
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
                 {

@@ -20,6 +20,11 @@ using StructureHelper;
 
 namespace Spooky.Content.Generation
 {
+    //TODO list for catacomb update:
+    //make the cemetery get longer based on worldsize, and make the catacombs get deeper based on worldsize
+    //make the structures in the cemetery more spread out based on worldsize
+    //make the cemetery generate further from the ocean based on worldsize
+    //make new brick block for the cemetery structures or have it just use the catacomb layer one bricks
     public class Cemetery : ModSystem
     {
         //place a giant dirt area for the graveyard to generate on
@@ -77,7 +82,7 @@ namespace Spooky.Content.Generation
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        int radius = WorldGen.genRand.Next(3, 5);
+                        int radius = WorldGen.genRand.Next(2, 3);
                         WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
                         {
                             blotchMod.Output(circle)
@@ -95,7 +100,7 @@ namespace Spooky.Content.Generation
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        int radius = WorldGen.genRand.Next(3, 5);
+                        int radius = WorldGen.genRand.Next(2, 3);
                         WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
                         {
                             blotchMod.Output(circle)
@@ -114,16 +119,14 @@ namespace Spooky.Content.Generation
                         tile.ClearEverything();
                         WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
-
-                    tile.LiquidAmount = 0;
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
-                for (int FillY = (int)Main.worldSurface - 45; FillY <= Main.worldSurface; FillY++)
+                for (int FillY = (int)Main.worldSurface - 10; FillY <= Main.worldSurface; FillY++)
                 {
                     ShapeData circle = new ShapeData();
                     GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    int radius = WorldGen.genRand.Next(3, 5);
+                    int radius = WorldGen.genRand.Next(2, 3);
                     WorldUtils.Gen(new Point(X, FillY), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
                     {
                         blotchMod.Output(circle)
@@ -249,6 +252,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HutX, HutY - 20);
+                PlaceBlocksBelowStructure(HutX, HutY, 7);
 
                 Vector2 origin = new Vector2(HutX - 14, HutY - 15);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut1", origin.ToPoint16(), Mod);
@@ -274,6 +278,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HoleX, HoleY - 27);
+                PlaceBlocksBelowStructure(HoleX, HoleY, 15);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole1", origin.ToPoint16(), Mod);
@@ -297,6 +302,8 @@ namespace Spooky.Content.Generation
                 {
 					continue;
                 }
+
+                PlaceBlocksBelowStructure(CryptX, CryptY, 20);
 
                 Vector2 origin = new Vector2(CryptX - 28, CryptY - 37);
                 Generator.GenerateStructure("Content/Structures/CemeteryCrypt", origin.ToPoint16(), Mod);
@@ -325,6 +332,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(LakeX, LakeY - 23);
+                PlaceBlocksBelowStructure(LakeX, LakeY, 15);
 
                 Vector2 origin = new Vector2(LakeX - 19, LakeY - 18);
                 Generator.GenerateStructure("Content/Structures/CemeteryLake", origin.ToPoint16(), Mod);
@@ -350,6 +358,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HoleX, HoleY - 27);
+                PlaceBlocksBelowStructure(HoleX, HoleY, 15);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole2", origin.ToPoint16(), Mod);
@@ -375,6 +384,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HutX, HutY - 16);
+                PlaceBlocksBelowStructure(HutX, HutY, 7);
 
                 Vector2 origin = new Vector2(HutX - 16, HutY - 11);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);
@@ -382,6 +392,7 @@ namespace Spooky.Content.Generation
                 placedHut2 = true;
             }
 
+            /*
             //clear extra dirt and grass because i accidentally removed tiles that the structure files had in them
             //i am not re-exporting the structures so this is going to have to do
             for (int X = XMiddle - Catacombs.BiomeWidth / 2; X <= XMiddle + Catacombs.BiomeWidth / 2; X++)
@@ -396,6 +407,7 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+            */
         }
 
         public static void ClearAreaAboveStructure(int x, int y)
@@ -406,7 +418,7 @@ namespace Spooky.Content.Generation
                 {
                     ShapeData circle = new ShapeData();
                     GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(3), Actions.Chain(new GenAction[]
+                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(2), Actions.Chain(new GenAction[]
                     {
                         blotchMod.Output(circle)
                     }));
@@ -419,15 +431,15 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public static void PlaceBlocksBelowStructure(int x, int y)
+        public static void PlaceBlocksBelowStructure(int x, int y, int width)
         {
-            for (int i = x - 25; i <= x + 25; i++)
+            for (int i = x - width; i <= x + width; i++)
             {
-                for (int j = y; j <= y; j++)
+                for (int j = y; j <= y + 35; j++)
                 {
                     ShapeData circle = new ShapeData();
                     GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(3), Actions.Chain(new GenAction[]
+                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(2), Actions.Chain(new GenAction[]
                     {
                         blotchMod.Output(circle)
                     }));

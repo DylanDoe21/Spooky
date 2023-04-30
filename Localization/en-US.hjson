@@ -195,14 +195,14 @@ Mods: {
 
 		GameTips: {
 			SpookyTip: The spooky forest can be a nice starting area, be sure to explore it as much as you can!
-			SpookyHellTip: The valley of eyes is a strange biome that seems to be alive, located in the underworld. Make sure to check behind you often!
+			SpookyHellTip: The valley of eyes is a strange biome that seems to be alive, located in the underworld. Make sure to watch your back!
 			CemeteryTip: The swampy cemetery is where the deceased are put to rest... or sometimes to party, under the right conditions.
-			CatacombTip: If the regular dungeon isn't enough, you can explore the catacombs found beneath the cemetery! Just don't let those goofy plant creatures trap you down there.
+			CatacombTip: If the regular dungeon isn't enough, you can explore the catacombs found beneath the cemetery. Just don't let those goofy plant creatures trap you down there!
 			RotGourdTip: A giant gourd in the spooky forest lost his seeds, if you can find one you can attract it.
-			SpookySpiritTip: Some say that ghost hunters are frauds. But some say that they have heard voices in the swampy cemetery, which might be worth investigating.
+			SpookySpiritTip: Some say that ghost hunters are frauds. But some say that they have seen a paranormal statue in the cemetery, which might be worth checking out.
 			MocoTip: No one likes cotton swabs up their noses, or anything else really. Using one at the nose shrine can attract a strange creature.
-			OrroboroTip: Sometimes eggs can be used to make scrambled eggs. The egg in the valley of eyes cannot make that, but it does contain two worms that eat each other in an endless cycle. It is not known how to break it though.
-			BigBoneTip: Sometimes plants can grow long. Sometimes they can take over a giant underground catacomb and infest it with plantlife. At least thats how Big Bone ended up.
+			OrroboroTip: Eggs can be made into food. The egg in the valley of eyes should not be eaten, as it contains two strange creatures that protect the valley of eyes.
+			BigBoneTip: The plant infestation in the catacombs is said to have been caused by a strange giant skull plant, who is locked away at the very bottom of it.
 			CowBellTip: Some say that using an old cowbell can summon helpful creatures to assist you!
 		}
 
@@ -384,6 +384,11 @@ Mods: {
 				Description: The tiny eye will help protect you!
 			}
 
+			GrugBuff: {
+				DisplayName: Grugoyle
+				Description: Grug the gargoyle fights with you!
+			}
+
 			NoseMinionBuff: {
 				DisplayName: Nose Fly
 				Description: The nose buzzes around you
@@ -561,6 +566,15 @@ Mods: {
 			CowBell: {
 				DisplayName: Rusty Cowbell
 				Tooltip: Summons a friendly shadow creature to fight with you
+			}
+
+			EMFReader: {
+				DisplayName: EMF Reader
+				Tooltip:
+					'''
+					Used to find ghosts in the swampy cemetery
+					Summons Spooky Spirit when used near the cursed statue
+					'''
 			}
 
 			Fertalizer: {
@@ -1477,6 +1491,15 @@ Mods: {
 					'''
 			}
 
+			SentientBloodRainBow: {
+				DisplayName: Uncanine
+				Tooltip:
+					'''
+					Shoots teeth that fly upward, and then fall back down
+					'It looks severely brain damaged'
+					'''
+			}
+
 			SentientChik: {
 				DisplayName: Pendeloque
 				Tooltip:
@@ -1491,7 +1514,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons massive, short lived pillars of cursed fire on the ground
-					'Funny noises come from it's flames'
+					'Funny noises come from its flames'
 					'''
 			}
 
@@ -1502,6 +1525,16 @@ Mods: {
 					Fires bullets extremely wildly and inaccurately
 					33% chance to save ammo
 					'Half aligator, half gun, and has a mind of it's own'
+					'''
+			}
+
+			SentientImpStaff: {
+				DisplayName: Gargoyle Scepter
+				Tooltip:
+					'''
+					Summons grug the gargoyle to fight with you
+					Only one grug can exist, and he requires two minion slots to summon
+					'Hes actually a gargoyle, not a grugoyle'
 					'''
 			}
 
@@ -1547,8 +1580,8 @@ Mods: {
 				DisplayName: Bubble Belcher
 				Tooltip:
 					'''
-					Spits out toxic bubbles that bounce off surfaces
-					Will sometimes spit blood bubbles that burst into blood splatter
+					Spits out toxic bubbles that bounce off of surfaces
+					Will sometimes spit bloody bubbles that burst into blood splatter
 					'Killer fish from valley of eyes!'
 					'''
 			}
@@ -2234,6 +2267,7 @@ Mods: {
 			SentientShootiusSentry.DisplayName: Sentient Shootius
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
 			SentientLifeDrainProj.DisplayName: Sentient Life Drain Proj
+			Grug.DisplayName: Grug
 		}
 
 		NPCs: {

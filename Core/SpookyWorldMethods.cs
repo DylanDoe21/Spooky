@@ -192,7 +192,7 @@ namespace Spooky.Core
 								//place walls below each block
 								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
 								{
-									Main.tile[k, l + 2].WallType = (ushort)wallType;
+									Main.tile[k, l + 4].WallType = (ushort)wallType;
 								}
 
 								//place walls

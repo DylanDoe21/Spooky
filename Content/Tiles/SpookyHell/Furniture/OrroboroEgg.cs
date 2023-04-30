@@ -87,6 +87,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 		}
 
+		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
+			noBreak = true;
+			return true;
+		}
+
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
@@ -104,12 +110,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				player.cursorItemIconEnabled = false;
 				player.cursorItemIconID = 0;
 			}
-		}
-
-		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			noBreak = true;
-			return true;
 		}
 
 		public override bool RightClick(int i, int j)

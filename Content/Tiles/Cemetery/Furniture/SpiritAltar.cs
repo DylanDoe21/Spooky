@@ -69,6 +69,8 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
                 //DD2_DefeatScene and DD2_WinScene are cool too
             }
 
+            Main.LocalPlayer.AddBuff(BuffID.Obstructed, 600);
+
             return true;
         }
 
