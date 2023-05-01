@@ -240,7 +240,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
         }
 
-        internal static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
+        public static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
@@ -265,7 +265,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int frameSizeY = 16;
 
             Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
-            Vector2 pos = TileCustomPosition(i, j) - offset;
+            Vector2 pos = TileCustomPosition(i, j); // - offset;
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
@@ -287,7 +287,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
-            return false; 
+            return false;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

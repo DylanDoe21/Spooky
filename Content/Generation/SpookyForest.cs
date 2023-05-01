@@ -227,10 +227,9 @@ namespace Spooky.Content.Generation
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             //grow trees
-            int houseLoctation = PositionX + ((Main.maxTilesX / 12) / 5);
-            
             for (int X = PositionX - 300; X <= PositionX + 300; X++)
             {
+                //regular surface trees
                 for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
                 {
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyDirt>() ||
@@ -239,7 +238,63 @@ namespace Spooky.Content.Generation
                         WorldGen.GrowTree(X, Y - 1);
                     }
                 }
+
+                //grow giant mushrooms
+                for (int Y = (int)Main.worldSurface; Y < Main.maxTilesY - 250; Y++)
+                {
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>() &&
+                    !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                    {
+                        if (WorldGen.genRand.Next(25) == 0)
+                        {
+                            PlaceGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
+                        }
+                    }
+                }
             }
+        }
+
+        public static bool PlaceGiantMushroom(int X, int Y, int tileType)
+        {
+            int canPlace = 0;
+
+            //do not allow giant mushrooms to place if another one is too close
+            for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //make sure the area is large enough for it to place in both horizontally and vertically
+            for (int i = X - 2; i < X + 2; i++)
+            {
+                for (int j = Y - 12; j < Y - 2; j++)
+                {
+                    //only check for solid blocks, ambient objects dont matter
+                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            GiantShroom.Spawn(X, Y - 1, 5, 8, false);
+
+            return true;
         }
 
         private void SpookyForestAmbience(GenerationProgress progress, GameConfiguration configuration)
@@ -320,17 +375,12 @@ namespace Spooky.Content.Generation
                         if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
                         Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
                         {   
+                            //mushrooms
                             if (Main.rand.Next(8) == 0) 
                             {
                                 ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<SpookyMushroomTall1>(), (ushort)ModContent.TileType<SpookyMushroomTall2>() };
 
                                 WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(Mushrooms));
-                            }
-
-                            //candles
-                            if (WorldGen.genRand.Next(20) == 0)
-                            {
-                                WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<Candle>());
                             }
 
                             //hanging glow vines

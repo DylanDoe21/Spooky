@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class Grug : ModProjectile
     {
+        int saveDirection = 0;
+
         bool StoneForm = true;
         bool UsingMagic = false;
         bool Charging = false;
@@ -38,6 +40,52 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.timeLeft = 600;
             Projectile.minionSlots = 2;
             Projectile.penetrate = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Charging || UsingMagic)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+
+                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
+
+                if (UsingMagic)
+                {
+                    color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Lime);
+                }
+
+                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+                for (int numEffect = 0; numEffect < 4; numEffect++)
+                {
+                    var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    Color newColor = color;
+                    newColor = Projectile.GetAlpha(newColor);
+                    newColor *= 1f;
+                    Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 4 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                    Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                    Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, effects, 0);
+                }
+            }
+
+            return true;
+        }
+
+        public override void PostDraw(Color lightColor)
+        {
+            if (UsingMagic)
+            {
+                Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/GrugMagicGlow").Value;
+
+                var spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                int height = glowTex.Height / Main.projFrames[Projectile.type];
+                int frameHeight = height * Projectile.frame;
+                Rectangle rectangle = new Rectangle(0, frameHeight, glowTex.Width, height);
+
+                Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
+                rectangle, Color.White, Projectile.rotation, new Vector2(glowTex.Width / 2f, height / 2f), Projectile.scale, spriteEffects, 0);
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -125,11 +173,20 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             isAttacking = true;
 
+            if (Projectile.ai[1] < 200)
+            {
+                Projectile.spriteDirection = target.Center.X > Projectile.Center.X ? -1 : 1;
+            }
+            else
+            {
+                Projectile.spriteDirection = saveDirection;
+            }
+
             //flying animation
             if (!Charging)
             {
                 Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 8)
+                if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
@@ -143,7 +200,7 @@ namespace Spooky.Content.Projectiles.Sentient
             else
             {
                 Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 8)
+                if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
@@ -166,12 +223,20 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
             }
 
-            //shoot cursed flames
-            if (Projectile.ai[1] == 80 || Projectile.ai[1] == 100 || Projectile.ai[1] == 120)
+            //shoot cursed fireballs
+            if (Projectile.ai[1] == 80 || Projectile.ai[1] == 90 || Projectile.ai[1] == 100 || Projectile.ai[1] == 110 || Projectile.ai[1] == 120)
             {
                 UsingMagic = true;
 
-                Projectile.velocity *= 0.75f;
+                Projectile.velocity *= 0.2f;
+
+                float Speed = 25f;
+				Vector2 vector = new(Projectile.position.X + 2 + (Projectile.width / 2), Projectile.position.Y - 23 + (Projectile.height / 2));
+				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
+
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, 
+                ModContent.ProjectileType<GrugFireball>(), Projectile.damage / 2, 0f, Main.myPlayer, 0f, 0f);
             }
 
             //go to the side of the target to prepare for dashing
@@ -191,30 +256,38 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Charging = true;
 
+                saveDirection = Projectile.spriteDirection;
+
                 Projectile.frame = 5;
                 
                 Vector2 ChargeDirection = target.Center - Projectile.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X *= 35;
-                ChargeDirection.Y *= 0;
+                ChargeDirection.X *= 25;
+                ChargeDirection.Y *= 1;
                 Projectile.velocity.X = ChargeDirection.X;
                 Projectile.velocity.Y = ChargeDirection.Y;
             }
 
-            if (Projectile.ai[1] >= 220)
+            if (Projectile.ai[1] >= 230)
+            {
+                Projectile.velocity *= 0.7f;
+            }
+
+            if (Projectile.ai[1] >= 250)
             {
                 Charging = false;
-                Projectile.velocity *= 0.85f;
                 Projectile.ai[1] = 0;
             }
         }
 
         public void IdleAI(Player player)
 		{
+            Projectile.spriteDirection = player.Center.X > Projectile.Center.X ? -1 : 1;
+
             //idle animation
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 8)
+            if (Projectile.frameCounter >= 6)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
@@ -280,11 +353,8 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
             }
 
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
-
             if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
             {
-                Projectile.spriteDirection = -Projectile.direction;
                 return;
             }
         }
