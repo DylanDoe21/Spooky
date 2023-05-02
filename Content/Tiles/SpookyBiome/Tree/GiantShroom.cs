@@ -49,7 +49,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
-        public static bool Spawn(int i, int j, int minSize = 5, int maxSize = 20, bool saplingExists = false)
+        public static bool Grow(int i, int j, int minSize, int maxSize, bool saplingExists = false)
         {
             if (saplingExists)
             {
@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 WorldGen.KillTile(i, j - 1, false, false, true);
             }
 
-            int height = WorldGen.genRand.Next(minSize, maxSize); //Height & trunk
+            int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; ++k)
             {
                 if (SolidTile(i, j - k))
@@ -67,61 +67,35 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 }
             }
 
-            if (height < 4 || height < minSize) 
+            //if the trees height is too short, dont let it grow
+            if (height < minSize) 
             {
                 return false;
             }
 
-            bool[] extraPlaces = new bool[5];
-            for (int k = -2; k <= 2; k++) //check base
+            //make sure the block is valid for the tree to place on
+            if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
             {
-                extraPlaces[k + 2] = false;
-
-                if ((SolidTopTile(i + k, j + 1) || SolidTile(i + k, j + 1)) && !Framing.GetTileSafely(i + k, j).HasTile)
-                {
-                    extraPlaces[k + 2] = true;
-                }
+                WorldGen.PlaceTile(i, j, ModContent.TileType<GiantShroom>(), true);
+                Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
             }
-
-            if (!extraPlaces[1]) extraPlaces[0] = false;
-            if (!extraPlaces[3]) extraPlaces[4] = false;
-
-            if (!extraPlaces[2]) 
+            //otherwise dont allow the tree to grow
+            else
             {
                 return false;
             }
 
-            extraPlaces = new bool[5] { false, false, true, false, false };
-
-            for (int k = -2; k <= 2; k++) //place base
+            for (int numSegments = 1; numSegments < height; numSegments++)
             {
-                if (extraPlaces[k + 2])
-                {
-                    WorldGen.PlaceTile(i + k, j, ModContent.TileType<GiantShroom>(), true);
-                }
-                else
-                {
-                    continue;
-                }
+                //place tree segments
+                WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<GiantShroom>(), true);
+                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 0;
+                Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
 
-                Framing.GetTileSafely(i + k, j).TileFrameX = (short)((k + 2) * 18);
-                Framing.GetTileSafely(i + k, j).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
-
-                if (!extraPlaces[1] && !extraPlaces[3] && k == 0) 
+                //place the tree top at the top of the tree
+                if (numSegments == height - 1)
                 {
-                    Framing.GetTileSafely(i + k, j).TileFrameX = 0;
-                }
-            }
-
-            for (int k = 1; k < height; k++)
-            {
-                WorldGen.PlaceTile(i, j - k, ModContent.TileType<GiantShroom>(), true);
-                Framing.GetTileSafely(i, j - k).TileFrameX = 0;
-                Framing.GetTileSafely(i, j - k).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
-
-                if (k == height - 1)
-                {
-                    Framing.GetTileSafely(i, j - k).TileFrameX = 16;
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 16;
                 }
             }
 

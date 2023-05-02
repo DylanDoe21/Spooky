@@ -259,14 +259,14 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.Next(25) == 0)
                         {
-                            PlaceGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
+                            GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
                         }
                     }
                 }
             }
         }
 
-        public static bool PlaceGiantMushroom(int X, int Y, int tileType)
+        public static bool GrowGiantMushroom(int X, int Y, int tileType)
         {
             int canPlace = 0;
 
@@ -303,7 +303,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            GiantShroom.Spawn(X, Y - 1, 5, 8, false);
+            GiantShroom.Grow(X, Y - 1, 5, 8, false);
 
             return true;
         }

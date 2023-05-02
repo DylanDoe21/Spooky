@@ -50,9 +50,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		{
             if (Main.tile[i, j + 1].TileType != ModContent.TileType<EyeBlock>() && Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyMushGrass>())
             {
-				if (WorldGen.genRand.Next(20) == 0)
+				if (WorldGen.genRand.Next(10) == 0)
 				{
-					EyeTree.Spawn(i, j + 1, 12, 35, true);
+					EyeTree.Grow(i, j + 1, 12, 35, true);
 				}
             }
 		}

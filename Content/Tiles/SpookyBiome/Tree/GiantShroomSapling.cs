@@ -51,12 +51,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             if (Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyGrass>() && Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyGrassGreen>() &&
 			Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyStone>())
             {
-				if (WorldGen.genRand.Next(20) == 0)
+				if (WorldGen.genRand.Next(10) == 0)
 				{
+					//make the mushroom grow height bigger if its on the surface
 					int minHeight = j <= (int)Main.worldSurface ? 8 : 5;
 					int maxHeight = j <= (int)Main.worldSurface ? 15 : 8;
 
-					GiantShroom.Spawn(i, j + 1, minHeight, maxHeight, true);
+					GiantShroom.Grow(i, j + 1, minHeight, maxHeight, true);
 				}
             }
 		}

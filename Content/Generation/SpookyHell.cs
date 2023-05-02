@@ -258,7 +258,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            EyeTree.Spawn(X, Y - 1, 12, 35, false);
+            EyeTree.Grow(X, Y - 1, 12, 35, false);
 
             return true;
         }
