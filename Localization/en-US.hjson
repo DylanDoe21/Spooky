@@ -102,6 +102,8 @@ Mods: {
 				Dungeon: This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?
 				Shimmer1: This is the most pretty lake I have ever seen!
 				Shimmer2: What a mystical and sparkly lake, I wonder what would happen when you jump in it?
+				Button1: Advice
+				Button2: Transport
 			}
 
 			LittleEye: {
@@ -133,6 +135,8 @@ Mods: {
 				EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, 'Bloody red, you'll be dead, purplish blue, cripple you!'
 				EggEvent: You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.
 				OrroBoro: Hey there's a giant serpent chasing you. Maybe go worry about that?
+				Button1: Quest
+				Button2: Cauldron?
 			}
 		}
 
@@ -747,7 +751,7 @@ Mods: {
 					'''
 					Conjures pumpkin heads that will quickly charge at any nearby enemy
 					Pumpkin heads will die on contact with any surface or enemy
-					They do not take up minion slots, but you cannot have more than ten at once
+					They do not take up minion slots, but you cannot have more than five at once
 					'''
 			}
 

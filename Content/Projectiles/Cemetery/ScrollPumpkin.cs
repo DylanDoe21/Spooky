@@ -11,22 +11,20 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
-	//TODO: make this use custom ai to hover above the player instead of vanilla minion ai, make it charge at nearby enemies also
-    public class ScrollPumpkin : ModProjectile
+	public class ScrollPumpkin : ModProjectile
     {   
         private List<Vector2> cache;
         private Trail trail;
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Magic Pumpkin");
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
         
         public override void SetDefaults()
         {
-			Projectile.width = 38;
+			Projectile.width = 36;
             Projectile.height = 40;
             Projectile.DamageType = DamageClass.Summon;
 			Projectile.minion = true;
@@ -123,14 +121,14 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
 
-            if (Projectile.ai[0] < 180)
+            if (Projectile.ai[0] < 120)
             {
                 Projectile.timeLeft = 600;
 
                 GoAbovePlayer(player);
             }
 
-            if (Projectile.ai[0] == 180)
+            if (Projectile.ai[0] == 120)
             {
                 for (int i = 0; i < 200; i++)
                 {
@@ -140,8 +138,8 @@ namespace Spooky.Content.Projectiles.Cemetery
                         Vector2 ChargeDirection = Target.Center - Projectile.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X = ChargeDirection.X * 12;
-                        ChargeDirection.Y = ChargeDirection.Y * 12;  
+                        ChargeDirection.X = ChargeDirection.X * 18;
+                        ChargeDirection.Y = ChargeDirection.Y * 18;  
                         Projectile.velocity.X = ChargeDirection.X;
                         Projectile.velocity.Y = ChargeDirection.Y;
                     }
@@ -152,8 +150,8 @@ namespace Spooky.Content.Projectiles.Cemetery
                         Vector2 ChargeDirection = NPC.Center - Projectile.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X = ChargeDirection.X * 12;
-                        ChargeDirection.Y = ChargeDirection.Y * 12;  
+                        ChargeDirection.X = ChargeDirection.X * 18;
+                        ChargeDirection.Y = ChargeDirection.Y * 18;
                         Projectile.velocity.X = ChargeDirection.X;
                         Projectile.velocity.Y = ChargeDirection.Y;
                     }

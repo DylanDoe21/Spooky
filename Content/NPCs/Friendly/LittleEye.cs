@@ -101,8 +101,8 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "Quest";
-			button2 = "Upgrades?";
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Button1");
+			button2 = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Button2");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)

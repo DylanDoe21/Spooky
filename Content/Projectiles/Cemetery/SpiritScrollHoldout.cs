@@ -63,9 +63,12 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.position = player.position + new Vector2(direction.X > 0 ? 12 : -18, 2);
                 player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
-                Projectile.localAI[0]++;
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<ScrollPumpkin>()] < 5)
+                {
+                    Projectile.localAI[0]++;
+                }
 
-                if (Projectile.localAI[0] == 60)
+                if (Projectile.localAI[0] >= 60)
                 {
                     player.statMana -= 5;
 
