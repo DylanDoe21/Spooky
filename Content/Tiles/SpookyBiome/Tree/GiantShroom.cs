@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,7 +27,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(104, 95, 128), name);
-            //DustType = DustID.Blood; //TODO: find a good dust for this
+            DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
         }
 
@@ -136,6 +137,26 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             }
         }
 
+        private void CheckEntireTree(ref int x, ref int y)
+        {
+            while (Main.tile[x, y].TileType == Type)
+			{
+                y--;
+			}
+
+            y++;
+
+            if (Main.tile[x, y].TileFrameX == 16)
+            {
+                //spawn a seed from the tree
+                if (Main.rand.Next(10) == 0)
+                {
+                    Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
+					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<GiantShroomSeed>(), Main.rand.Next(1, 2));
+                }
+            }
+        }
+
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             //X frame 0 = normal tree segment
@@ -147,6 +168,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             if (fail && !effectOnly && !noItem)
             {
                 (int x, int y) = (i, j);
+                CheckEntireTree(ref x, ref y);
             }
 
             if (fail)
@@ -210,7 +232,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //draw the tree tops
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
-                Lighting.AddLight(new Vector2(i * 16, j * 16), 0.45f, 0.25f, 0.45f);
+                Lighting.AddLight(new Vector2(i * 16, (j - 5) * 16), 0.45f, 0.25f, 0.45f);
 
                 Texture2D topTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTop").Value;
                 Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTopCap").Value;

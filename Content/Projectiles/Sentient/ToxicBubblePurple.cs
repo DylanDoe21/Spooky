@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.timeLeft = 180;
             Projectile.penetrate = -1;
             Projectile.alpha = 125;
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()

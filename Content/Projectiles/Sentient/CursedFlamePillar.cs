@@ -86,6 +86,11 @@ namespace Spooky.Content.Projectiles.Sentient
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.immune[Projectile.owner] = 3;
+        }
+
         public override void AI()
         {
             if (!Main.dedServ)

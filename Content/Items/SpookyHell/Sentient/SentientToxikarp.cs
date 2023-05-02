@@ -42,8 +42,18 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            //TODO: change this so the default bubble shoots, and then have a 1 in 5 chance to shoot any of the 3 special bubbles
             int[] Types = new int[] { ModContent.ProjectileType<ToxicBubble>(), ModContent.ProjectileType<ToxicBubbleBlood>(), 
             ModContent.ProjectileType<ToxicBubblePurple>() };
+
+            if (Main.rand.NextBool(3))
+            {
+                type = Main.rand.Next(Types);
+            }
+            else
+            {
+                type = ModContent.ProjectileType<ToxicBubble>();
+            }
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 60f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -54,7 +64,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
 
             Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X + Main.rand.Next(-1, 2),
-            newVelocity.Y + Main.rand.Next(-1, 2), Main.rand.Next(Types), damage, knockback, player.whoAmI, 0f, 0f);
+            newVelocity.Y + Main.rand.Next(-1, 2), type, damage, knockback, player.whoAmI, 0f, 0f);
 
             return false;
         }

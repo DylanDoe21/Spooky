@@ -4,9 +4,9 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Gores
+namespace Spooky.Content.Gores.Misc
 {
-	public class CemeteryWaterDroplet : ModGore
+	public class SpookyWaterDroplet : ModGore
 	{
 		public override void OnSpawn(Gore gore, IEntitySource source)
 		{

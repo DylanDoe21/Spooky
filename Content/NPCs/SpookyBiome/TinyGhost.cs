@@ -17,6 +17,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
 			Main.npcFrameCount[NPC.type] = 2;
 			Main.npcCatchable[NPC.type] = true;
+            NPCID.Sets.CountsAsCritter[NPC.type] = true;
 		}
 
 		public override void SetDefaults()
@@ -27,7 +28,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.width = 18;
 			NPC.height = 24;
             NPC.npcSlots = 1;
-            NPC.friendly = true;
             NPC.noGravity = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;

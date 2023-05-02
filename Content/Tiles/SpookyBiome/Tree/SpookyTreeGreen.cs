@@ -5,7 +5,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Gores;
+using Spooky.Content.Gores.Misc;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Tree

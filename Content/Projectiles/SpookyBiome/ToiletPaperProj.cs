@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Gores.Misc;
+
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ToiletPaperProj : ModProjectile
@@ -34,7 +36,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             if (Main.rand.Next(45) == 0)
             {
                 float Scale = Main.rand.NextFloat(0.5f, 1f);
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.GoreType<Content.Gores.ToiletPaperGore>(), Scale);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.GoreType<ToiletPaperGore>(), Scale);
             }
         }
 		
@@ -43,7 +45,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             for (int i = 0; i < 8; i++)
             {
                 float Scale = Main.rand.NextFloat(0.7f, 1.2f);
-                Gore.NewGore(Projectile.GetSource_Death(), new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20)), Vector2.Zero, ModContent.GoreType<Content.Gores.ToiletPaperGore>(), Scale);
+                Gore.NewGore(Projectile.GetSource_Death(), new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20)), Vector2.Zero, ModContent.GoreType<ToiletPaperGore>(), Scale);
             }
         }
     }

@@ -16,11 +16,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     {
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/VesicatorExplosion", SoundType.Sound);
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Vesicator");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 130;

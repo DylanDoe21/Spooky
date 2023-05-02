@@ -128,11 +128,12 @@ Localization:
 Other New Additions:
 
 -Added old wood armor, old wood sword, and old wood bow
+-Four new weapons you can get from the eye valley chests, along with craftable post-orroboro upgrades for each one
 -New eye armor set, a prehardmode eye valley armor for the summon/sentry class
 -New rot gourd set, a melee armor obtained after rot gourd with a nasty (And maybe broken?) set bonus
 -New moco drop, the sneeze staff, which summons flying noses that attack by flying above enemies and then dropping snot balls from above that will linger if they hit the ground
 -Added masks and trophies for spooky mod's bosses, each dropping from their respective boss with the same drop chances as vanilla masks and trophies
--Four new weapons you can get from the eye valley chests
+-Added new giant mushrooms to the underground spooky forest, they are placed during worldgen and can drop saplings you can plant anywhere in the spooky forest
 -Added new spooky mod related tips that display at the bottom of the menu screen, they will sometimes appear along with the vanilla ones
 
 

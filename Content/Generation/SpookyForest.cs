@@ -163,6 +163,17 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            for (int gold = 0; gold < (int)((double)(Main.maxTilesX * Main.maxTilesY * 20) * 6E-05); gold++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                {
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(3, 6), TileID.Gold, false, 0f, 0f, false, true);
+                }
+            }
+
             //place custom caves
             for (int caves = 0; caves < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); caves++)
             {
@@ -374,15 +385,7 @@ namespace Spooky.Content.Generation
                     { 
                         if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
                         Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
-                        {   
-                            //mushrooms
-                            if (Main.rand.Next(8) == 0) 
-                            {
-                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<SpookyMushroomTall1>(), (ushort)ModContent.TileType<SpookyMushroomTall2>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, Main.rand.Next(Mushrooms));
-                            }
-
+                        {
                             //hanging glow vines
                             if (WorldGen.genRand.Next(8) == 0)
                             {    

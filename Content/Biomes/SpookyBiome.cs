@@ -5,7 +5,7 @@ using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Gores;
+using Spooky.Content.Gores.Misc;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes

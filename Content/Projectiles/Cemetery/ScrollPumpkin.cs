@@ -36,7 +36,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.netImportant = true;
             Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
-            Projectile.aiStyle = 62;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -95,12 +94,14 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return Projectile.localAI[0] > 180;
+			return Projectile.ai[0] > 180;
 		}
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+
+            Projectile.spriteDirection = -Projectile.direction;
 
 			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
             {
@@ -108,25 +109,60 @@ namespace Spooky.Content.Projectiles.Cemetery
                 ManageTrail();
             }
 
-			Projectile.localAI[0]++;
-
-            if (Projectile.localAI[0] == 180)
+			for (int i = 0; i < 200; i++)
             {
-                Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
-                ChargeDirection.Normalize();
-                        
-                ChargeDirection.X = ChargeDirection.X * 12;
-                ChargeDirection.Y = ChargeDirection.Y * 12;  
-                Projectile.velocity.X = ChargeDirection.X;
-                Projectile.velocity.Y = ChargeDirection.Y;
+                NPC NPC = Main.npc[i];
+                NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 450f)
+                {
+                    Projectile.ai[0]++;
+                }
+                else if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+                {
+                    Projectile.ai[0]++;
+                }
             }
 
-            if (Projectile.localAI[0] >= 180)
+            if (Projectile.ai[0] < 180)
             {
-                Projectile.spriteDirection = -Projectile.direction;
+                Projectile.timeLeft = 600;
 
+                GoAbovePlayer(player);
+            }
+
+            if (Projectile.ai[0] == 180)
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+                    if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 450f)
+                    {
+                        Vector2 ChargeDirection = Target.Center - Projectile.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection.X = ChargeDirection.X * 12;
+                        ChargeDirection.Y = ChargeDirection.Y * 12;  
+                        Projectile.velocity.X = ChargeDirection.X;
+                        Projectile.velocity.Y = ChargeDirection.Y;
+                    }
+
+                    NPC NPC = Main.npc[i];
+                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+                    {
+                        Vector2 ChargeDirection = NPC.Center - Projectile.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection.X = ChargeDirection.X * 12;
+                        ChargeDirection.Y = ChargeDirection.Y * 12;  
+                        Projectile.velocity.X = ChargeDirection.X;
+                        Projectile.velocity.Y = ChargeDirection.Y;
+                    }
+                }
+            }
+
+            if (Projectile.ai[0] >= 180)
+            {
                 Projectile.tileCollide = true;
-                Projectile.aiStyle = 0;
             }
             else
             {
@@ -159,6 +195,67 @@ namespace Spooky.Content.Projectiles.Cemetery
 				}
 			}
 		}
+
+        public void GoAbovePlayer(Player player)
+        {
+            float goToX = player.Center.X - Projectile.Center.X;
+            float goToY = player.Center.Y - Projectile.Center.Y - 100;
+
+            float speed = 0.08f;
+            
+            if (Vector2.Distance(Projectile.Center, player.Center) >= 140)
+            {
+                speed = 0.12f;
+            }
+            else
+            {
+                speed = 0.08f;
+            }
+            
+            if (Projectile.velocity.X > speed)
+            {
+                Projectile.velocity.X *= 0.98f;
+            }
+            if (Projectile.velocity.Y > speed)
+            {
+                Projectile.velocity.Y *= 0.98f;
+            }
+
+            if (Projectile.velocity.X < goToX)
+            {
+                Projectile.velocity.X = Projectile.velocity.X + speed;
+                if (Projectile.velocity.X < 0f && goToX > 0f)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X + speed;
+                }
+            }
+            else if (Projectile.velocity.X > goToX)
+            {
+                Projectile.velocity.X = Projectile.velocity.X - speed;
+                if (Projectile.velocity.X > 0f && goToX < 0f)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X - speed;
+                }
+            }
+            if (Projectile.velocity.Y < goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                if (Projectile.velocity.Y < 0f && goToY > 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                    return;
+                }
+            }
+            else if (Projectile.velocity.Y > goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                if (Projectile.velocity.Y > 0f && goToY < 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                    return;
+                }
+            }
+        }
 
 		public override void Kill(int timeLeft)
 		{

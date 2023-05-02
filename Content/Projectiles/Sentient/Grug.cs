@@ -88,6 +88,11 @@ namespace Spooky.Content.Projectiles.Sentient
             }
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.immune[Projectile.owner] = Charging ? 3 : 10;
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
             StoneForm = false;
@@ -96,6 +101,14 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.frame = 1;
             
             SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.3f }, Projectile.position);
+
+            for (int numGores = 1; numGores <= 6; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-6, -3)), ModContent.Find<ModGore>("Spooky/GrugStatueGore" + numGores).Type);
+                }
+            }
 
 			return false;
 		}
@@ -118,6 +131,8 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Projectile.frame = 0;
 
+                Projectile.rotation += 0.2f * (float)Projectile.direction;
+
                 Projectile.ai[2]++;
                 if (Projectile.ai[2] >= 30)
                 {
@@ -132,13 +147,15 @@ namespace Spooky.Content.Projectiles.Sentient
             }
             else
             {
+                Projectile.rotation = 0;
+
                 Projectile.tileCollide = false;
 
                 //target an enemy
                 for (int i = 0; i < 200; i++)
                 {
                     NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                    if (Target != null && Target.CanBeChasedBy(this, false) && Vector2.Distance(Projectile.Center, Target.Center) <= 750f)
+                    if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 750f)
                     {
                         AttackingAI(Target);
 
@@ -150,7 +167,7 @@ namespace Spooky.Content.Projectiles.Sentient
                     }
 
                     NPC NPC = Main.npc[i];
-                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 750f)
+                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 750f)
                     {
                         AttackingAI(NPC);
 

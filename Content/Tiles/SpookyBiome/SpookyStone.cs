@@ -31,29 +31,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
 			if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
-                //grow small weeds
-                if (Main.rand.Next(15) == 0)
+                //grow mushrooms
+                if (Main.rand.Next(12) == 0)
                 {
-                    Above.TileType = (ushort)ModContent.TileType<SpookyMushroomSmall>();
+                    Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(2) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
+
                     if (Main.netMode == NetmodeID.Server) 
                     {
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                     }
 				}
-
-                if (Main.rand.Next(20) == 0) 
-                {
-                    ushort[] TallMushroom = new ushort[] { (ushort)ModContent.TileType<SpookyMushroomTall1>(), (ushort)ModContent.TileType<SpookyMushroomTall2>() };
-
-                    ushort newObject = Main.rand.Next(TallMushroom);
-
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
-                }
 			}
 		}
 	}
