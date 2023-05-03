@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.WorldBuilding;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,10 +12,10 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
 using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
-using Terraria.WorldBuilding;
 
 namespace Spooky.Core
 {
@@ -209,16 +210,14 @@ namespace Spooky.Core
             //spawn homing seeds when hit with the spirit amulet
             if (SpiritAmulet && Main.rand.Next(2) == 0)
             {
-                /*
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {   
-                    for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Player.Center.X + Main.rand.Next(-60, 60), Player.Center.Y + Main.rand.Next(-60, 60), 
-                        Main.rand.NextFloat(-5.3f, 5.3f), Main.rand.NextFloat(-5.3f, 5.3f), ModContent.ProjectileType<SpookyCoreSeed>(), 30, 1, Main.myPlayer, 0, 0);	
+                        Projectile.NewProjectile(null, Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
+                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 30, 1, Main.myPlayer, 0, 0);
                     }
                 }
-                */
             }
 
             //cross charm damage reduction cooldown

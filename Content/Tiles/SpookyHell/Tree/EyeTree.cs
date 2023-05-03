@@ -85,7 +85,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
             {
                 WorldGen.PlaceTile(i, j, ModContent.TileType<EyeTree>(), true);
-                Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
+                Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
             }
             //otherwise dont allow the tree to grow
             else
@@ -128,13 +128,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (Main.tile[x, y].TileFrameX == 16)
             {
-                //spawn a seed from the tree
-                if (Main.rand.Next(15) == 0)
-                {
-                    Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
-                }
-
                 //spawn a fruit from the tree
                 if (Main.rand.Next(30) == 0)
                 {
@@ -185,7 +178,15 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (tile.TileFrameX == 16)
             {
+                //play squishy sound
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
+
+                //spawn a seed from the tree
+                if (Main.rand.Next(2) == 0)
+                {
+                    Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
+					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
+                }
 
                 //spawn gores out of the tree
                 for (int numGores = 0; numGores <= Main.rand.Next(8, 15); numGores++)

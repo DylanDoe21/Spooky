@@ -144,7 +144,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			//melee
 			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
-			AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
+			//AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
 
 			//ranged
 			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());

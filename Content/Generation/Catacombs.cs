@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.GameContent.Generation;
+using ReLogic.Utilities;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -2297,6 +2299,59 @@ namespace Spooky.Content.Generation
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
                 WorldGen.makeTemple(GenVars.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+            });
+
+            //re-locate the shimmer to be closer to the edge of the world so it also never conflicts with the catacombs
+            //let it be known that i could not find any other way to relocate it other than modifying all of the vanilla gen code
+            //this is a huge moment of weakness and i will eventually make a youtuber apology for this
+            int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
+            tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
+            {
+                int num702 = 50;
+                int num703 = (int)(Main.worldSurface + Main.rockLayer) / 2 + num702;
+                int num704 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
+                if (num704 > Main.maxTilesY - 330 - 100 - 30)
+                {
+                    num704 = Main.maxTilesY - 330 - 100 - 30;
+                }
+                if (num704 <= num703)
+                {
+                    num704 = num703 + 50;
+                }
+                int num705 = WorldGen.genRand.Next(num703, num704);
+                int num706 = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
+                int num707 = (int)Main.worldSurface + 150;
+                int num708 = (int)(Main.rockLayer + Main.worldSurface + 200.0) / 2;
+                if (num708 <= num707)
+                {
+                    num708 = num707 + 50;
+                }
+                if (WorldGen.tenthAnniversaryWorldGen)
+                {
+                    num705 = WorldGen.genRand.Next(num707, num708);
+                }
+                int num709 = 0;
+                while (!WorldGen.ShimmerMakeBiome(num706, num705))
+                {
+                    num709++;
+
+                    //probably some silly special seed generation, dont want to mess with this
+                    if (WorldGen.tenthAnniversaryWorldGen && num709 < 10000)
+                    {
+                        num705 = WorldGen.genRand.Next(num707, num708);
+                        num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.89), Main.maxTilesX - 200) : WorldGen.genRand.Next(200, (int)((double)Main.maxTilesX * 0.11)));
+                    }
+                    //force the shimmer to only spawn close to the edge of the world to prevent collision with the catacombs
+                    else
+                    {
+                        num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 20, num704);
+                        num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.95), Main.maxTilesX - 150) : WorldGen.genRand.Next(150, (int)((double)Main.maxTilesX * 0.05)));
+                    }
+                }
+
+                GenVars.shimmerPosition = new Vector2D((double)num706, (double)num705);
+                int num710 = 200;
+                GenVars.structures.AddProtectedStructure(new Rectangle(num706 - num710 / 2, num705 - num710 / 2, num710, num710));
             });
         }
 

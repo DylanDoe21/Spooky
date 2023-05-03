@@ -42,9 +42,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            //TODO: change this so the default bubble shoots, and then have a 1 in 5 chance to shoot any of the 3 special bubbles
-            int[] Types = new int[] { ModContent.ProjectileType<ToxicBubble>(), ModContent.ProjectileType<ToxicBubbleBlood>(), 
-            ModContent.ProjectileType<ToxicBubblePurple>() };
+            int[] Types = new int[] { ModContent.ProjectileType<ToxicBubbleRed>(), ModContent.ProjectileType<ToxicBubblePurple>(), ModContent.ProjectileType<ToxicBubbleBlue>() };
 
             if (Main.rand.NextBool(3))
             {

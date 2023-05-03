@@ -155,7 +155,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 for (int i = 0; i < 200; i++)
                 {
                     NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                    if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 750f)
+                    if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type])
                     {
                         AttackingAI(Target);
 

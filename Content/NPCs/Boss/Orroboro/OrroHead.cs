@@ -170,6 +170,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
 
+        /*
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //if orro is in its enraged state
@@ -187,6 +188,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             
             return true;
         }
+        */
 
         public override void AI()
         {

@@ -28,8 +28,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
 			Item.autoReuse = true;
-            Item.width = 40;
-            Item.height = 50;
+            Item.width = 58;
+            Item.height = 56;
             Item.useTime = 30;
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;

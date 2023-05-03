@@ -158,7 +158,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
 
-            if (Projectile.ai[0] >= 180)
+            if (Projectile.ai[0] >= 120)
             {
                 Projectile.tileCollide = true;
             }

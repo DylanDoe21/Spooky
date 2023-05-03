@@ -749,8 +749,7 @@ Mods: {
 				DisplayName: Spooky Scroll
 				Tooltip:
 					'''
-					Conjures pumpkin heads that will quickly charge at any nearby enemy
-					Pumpkin heads will die on contact with any surface or enemy
+					Conjures pumpkin heads that will charge at nearby enemies
 					They do not take up minion slots, but you cannot have more than five at once
 					'''
 			}
@@ -1585,7 +1584,8 @@ Mods: {
 				DisplayName: Bubble Belcher
 				Tooltip:
 					'''
-					Spits out a variety of colored bubbles that all do different things
+					Spits out toxic bubbles that bounce off of surfaces
+					Sometimes spits out special colored bubbles that all do different things
 					'Killer fish from valley of eyes!'
 					'''
 			}
@@ -2196,6 +2196,7 @@ Mods: {
 			SoulSkullMinion.DisplayName: Soul Skull
 			StaffFireBolt.DisplayName: Solar Bolt
 			ThornStaffBall.DisplayName: Thorn Ball
+			AmuletSeed.DisplayName: Amulet Seed
 			PumpkinHead.DisplayName: Pumpkin Head
 			PumpkinHeadBolt.DisplayName: Spooky Bolt
 			ScrollPumpkin.DisplayName: Magic Pumpkin
@@ -2270,14 +2271,14 @@ Mods: {
 			SentientChikProj.DisplayName: Pendeloque
 			SentientChikTear.DisplayName: Pendeloque Tear
 			ToxicBubble.DisplayName: Toxic Bubble
+			ToxicBubblePurple.DisplayName: Toxic Bubble
+			ToxicBubbleBlue.DisplayName: Toxic Bubble
+			ToxicBubbleRed.DisplayName: Toxic Bubble
+			ToxicBloodSplatter.DisplayName: Blood Splatter
 			SentientLeatherWhipProj.DisplayName: Licker
-			ToxicBloodSplatter.DisplayName: Toxic Blood Splatter
-			ToxicBubbleBlood.DisplayName: Toxic Bubble Blood
 			SentientShootiusSentry.DisplayName: Sentient Shootius
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
-			SentientLifeDrainProj.DisplayName: Sentient Life Drain Proj
 			Grug.DisplayName: Grug
-			ToxicBubblePurple.DisplayName: Toxic Bubble Purple
 			GrugFireball.DisplayName: Grug Fireball
 		}
 
