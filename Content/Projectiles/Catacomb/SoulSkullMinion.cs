@@ -77,7 +77,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             for (int i = 0; i < 200; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this, false))
+                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type])
                 {
                     Shoot(Target);
 
@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
 
                 NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
                 {
                     Shoot(NPC);
 

@@ -307,7 +307,7 @@ Little Bone Changes:
 -Changed the tooltips of every spooky mod boss summoning item to be more helpful and less cryptic
 -The catacomb barrier keys now have a cool animation when you use them
 -Added a cool new visual effect for the catacomb barrier blocks
--Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting
+-Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting, and will no longer target friendly critters
 -Spooky mod music boxes now produce notes when turned on, display the name and composer of the song in their item tooltip, cannot be reforged, and will turn back into a normal music box when shimmered
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it
 -Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
