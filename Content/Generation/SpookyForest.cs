@@ -545,7 +545,7 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
             tasks.Insert(GenIndex2 + 7, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
 
-            //place house because stupid ahh walls
+            //place house again because stupid ahh walls
             int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
 			if (GenIndex3 == -1)
 			{
@@ -554,6 +554,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
             tasks.Insert(GenIndex3 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
+            tasks.Insert(GenIndex3 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
         }
 
         //post worldgen to place items in the spooky biome chests

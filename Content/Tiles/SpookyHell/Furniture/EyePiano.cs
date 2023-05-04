@@ -32,11 +32,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             num = fail ? 1 : 3;
         }
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<EyePianoItem>());
-        }
-
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);

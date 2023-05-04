@@ -280,6 +280,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 saveDirection = Projectile.spriteDirection;
 
+                //set frame to charging immediately 
                 Projectile.frame = 5;
                 
                 Vector2 ChargeDirection = target.Center - Projectile.Center;
@@ -291,11 +292,13 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.velocity.Y = ChargeDirection.Y;
             }
 
+            //slow down at the end of the charge
             if (Projectile.ai[1] >= 230)
             {
                 Projectile.velocity *= 0.7f;
             }
 
+            //loop ai
             if (Projectile.ai[1] >= 250)
             {
                 Charging = false;

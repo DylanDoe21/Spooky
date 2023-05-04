@@ -18,7 +18,12 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 2000;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 2;
+        }
+
+        public override bool? CanDamage()
+        {
+            return Projectile.ai[0] >= 50;
         }
 
         public override void AI()
@@ -30,23 +35,37 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] <= 30)
+            if (Projectile.ai[0] < 40)
             {
-                Projectile.velocity.X *= 0.85f;
-                Projectile.velocity.Y = -3;
+                Projectile.velocity.X *= 0.98f;
+                Projectile.velocity.Y = -22;
+            }
+
+            if (Projectile.ai[0] > 40 && Projectile.ai[0] < 50)
+            {
+                Projectile.velocity *= 0.98f;
+            }
+
+            if (Projectile.ai[0] == 50)
+            {
+                Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
+                ChargeDirection.Normalize();
+                        
+                ChargeDirection *= 50;
+                Projectile.velocity = ChargeDirection;
+
+                Projectile.tileCollide = true;
             }
         }
 
         public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
-
             for (int numDust = 0; numDust < 35; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default(Color), 1.5f);
                 Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[DustGore].position.X += Main.rand.Next(-25, 25) * .05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-25, 25) * .05f - 1.5f;
 			}
 		}
     }
