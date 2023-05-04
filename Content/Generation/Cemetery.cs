@@ -273,7 +273,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HoleX, HoleY - 27);
-                PlaceBlocksBelowStructure(HoleX, HoleY, 18);
+                PlaceBlocksBelowStructure(HoleX, HoleY- 15, 25);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole1", origin.ToPoint16(), Mod);
@@ -353,7 +353,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HoleX, HoleY - 27);
-                PlaceBlocksBelowStructure(HoleX, HoleY, 18);
+                PlaceBlocksBelowStructure(HoleX, HoleY - 15, 25);
 
                 Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
                 Generator.GenerateStructure("Content/Structures/CemeteryHole2", origin.ToPoint16(), Mod);

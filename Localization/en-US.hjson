@@ -1498,7 +1498,8 @@ Mods: {
 				DisplayName: Uncanine
 				Tooltip:
 					'''
-					Shoots teeth that fly upward, and then fall back down
+					Shoots teeth that fly upward, and then fall back down towards your cursor
+					The teeth can pierce through enemies and inflict severe bleeding
 					'It looks severely brain damaged'
 					'''
 			}
@@ -2280,6 +2281,7 @@ Mods: {
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
 			Grug.DisplayName: Grug
 			GrugFireball.DisplayName: Grug Fireball
+			BloodTooth.DisplayName: Blood Tooth
 		}
 
 		NPCs: {

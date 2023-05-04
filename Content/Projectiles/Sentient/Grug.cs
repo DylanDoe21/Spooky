@@ -42,6 +42,11 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.penetrate = -1;
         }
 
+        public override bool? CanDamage()
+        {
+            return StoneForm || Charging;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             if (Charging || UsingMagic)
