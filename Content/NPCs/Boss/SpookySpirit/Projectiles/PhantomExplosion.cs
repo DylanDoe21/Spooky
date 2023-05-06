@@ -1,7 +1,7 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Terraria.ID;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
@@ -9,7 +9,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Phantom Explosion");
             Main.projFrames[Projectile.type] = 6;
         }
 

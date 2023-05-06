@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using System.Linq;
 
 using Spooky.Content.Items.SpookyHell.Sentient;
 
@@ -14,6 +13,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             Item.ResearchUnlockCount = 3;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
         }
 
         public override void SetDefaults()

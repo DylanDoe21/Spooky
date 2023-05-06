@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Minion
 {

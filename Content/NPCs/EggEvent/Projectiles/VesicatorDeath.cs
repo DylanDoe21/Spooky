@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 1200;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -114,7 +114,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             for (int i = 0; i < NumProjectiles; i++)
             {
                 //chance to shoot them directly up
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -141,7 +141,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 0f);
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Main.dust[newDust].scale *= Main.rand.NextFloat(1.8f, 2.5f);
                 Main.dust[newDust].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[newDust].scale = 0.5f;
                     Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

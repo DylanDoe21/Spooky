@@ -82,7 +82,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
 
                 //shoot rocket
-                if (Projectile.localAI[0] >= 80)
+                if (Projectile.localAI[0] >= 55)
                 {
                     SpookyPlayer.ScreenShakeAmount = 3;
 

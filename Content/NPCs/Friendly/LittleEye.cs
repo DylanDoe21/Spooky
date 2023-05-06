@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
@@ -9,7 +8,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Biomes;
 using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;

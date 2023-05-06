@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
         //the tiles this tree can grow on
         public override void SetStaticDefaults() 
 		{
-			GrowsOnTileId = new int[2] { ModContent.TileType<SpookyDirt2>(), ModContent.TileType<SpookyGrassGreen>() };
+			GrowsOnTileId = new int[1] { ModContent.TileType<SpookyGrassGreen>() };
 		}
 
 		//the sapling that grows into this tree

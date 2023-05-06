@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.MusicBox;
 
@@ -11,10 +10,8 @@ namespace Spooky.Content.Items.Vinyl
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Vinyl Disc (Sleepy)");
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Vinyl/Sleepy"), 
             ModContent.ItemType<VinylSleepy>(), ModContent.TileType<VinylTileThing4>());
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

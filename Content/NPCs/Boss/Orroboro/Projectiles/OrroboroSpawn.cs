@@ -49,13 +49,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 for (int numDust = 0; numDust < 50; numDust++)
                 {
                     int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-                    Projectile.width, Projectile.height, 5, 0f, 0f, 100, default(Color), 2f);
+                    Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
 
                     Main.dust[DustGore].scale *= Main.rand.NextFloat(1.2f, 2f);
                     Main.dust[DustGore].velocity *= Main.rand.NextFloat(3f, 5f);
                     Main.dust[DustGore].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

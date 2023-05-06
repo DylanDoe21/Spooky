@@ -16,11 +16,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		int target;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Phantom Seed");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 14;                   			 
@@ -110,7 +105,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             {
                 for (int i = 0; i < 10; i++)
 				{
-					int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 65, 0f, -2f, 0, default(Color), 1.5f);
+					int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
 					Main.dust[newDust].noGravity = true;
                     Main.dust[newDust].scale = 1.5f;
 					Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
@@ -186,7 +181,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 		{
 			for (int i = 0; i < 25; i++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 65, 0f, -2f, 0, default(Color), 1.5f);
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].noGravity = true;
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

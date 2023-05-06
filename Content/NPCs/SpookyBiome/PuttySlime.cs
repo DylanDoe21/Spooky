@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -121,12 +120,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.LimeGreen;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -163,12 +162,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.MediumPurple;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -205,12 +204,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, 4, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.Chocolate;
 					Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].velocity *= 1.2f;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

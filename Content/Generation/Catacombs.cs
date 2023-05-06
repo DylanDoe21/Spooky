@@ -1652,7 +1652,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = (int)Main.worldSurface + 8; Y <= (int)Main.worldSurface + 270; Y++)
                 {
-                    if (WorldGen.genRand.Next(250) == 0)
+                    if (WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.TileRunner(X, Y, WorldGen.genRand.Next(15, 22), 1, ModContent.TileType<CatacombBrickMoss>(), 
                         0, 0, true, 0f, 0f, false, false, false, false, true);
@@ -2170,7 +2170,7 @@ namespace Spooky.Content.Generation
                     !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y - 1].HasTile && 
                     !Main.tile[X, Y - 2].HasTile && !Main.tile[X - 1, Y - 2].HasTile)
                     {
-                        if (WorldGen.genRand.Next(350) == 0 && !placedChest)
+                        if (WorldGen.genRand.NextBool(350) && !placedChest)
                         {    
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<SpookyBiomeChest>(), true, 1);
                         }
@@ -2202,7 +2202,7 @@ namespace Spooky.Content.Generation
                     !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y - 1].HasTile && 
                     !Main.tile[X, Y - 2].HasTile && !Main.tile[X - 1, Y - 2].HasTile)
                     {
-                        if (WorldGen.genRand.Next(350) == 0 && !placedChest2)
+                        if (WorldGen.genRand.NextBool(350) && !placedChest2)
                         {    
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<SpookyHellChest>(), true, 1);
                         }
@@ -2231,7 +2231,7 @@ namespace Spooky.Content.Generation
                     //vines
                     if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() && !Main.tile[X, Y + 1].HasTile)
                     {
-                        if (WorldGen.genRand.Next(2) == 0)
+                        if (WorldGen.genRand.NextBool(2))
                         {
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
                         }
@@ -2245,7 +2245,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>())
                     {
                         //ambient moss
-                        if (WorldGen.genRand.Next(3) == 0)
+                        if (WorldGen.genRand.NextBool(3))
                         {    
                             ushort[] Moss = new ushort[] { (ushort)ModContent.TileType<Moss1>(), (ushort)ModContent.TileType<Moss2>(), 
                             (ushort)ModContent.TileType<Moss3>(), (ushort)ModContent.TileType<Moss4>(), (ushort)ModContent.TileType<Moss5>() };
@@ -2254,7 +2254,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //ceiling roots
-                        if (WorldGen.genRand.Next(5) == 0)
+                        if (WorldGen.genRand.NextBool(5))
                         {    
                             ushort[] Roots = new ushort[] { (ushort)ModContent.TileType<CatacombRoot1>(), 
                             (ushort)ModContent.TileType<CatacombRoot2>(), (ushort)ModContent.TileType<CatacombRoot3>() };
@@ -2267,14 +2267,14 @@ namespace Spooky.Content.Generation
                     Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall2>()))
                     {
                         //catacombs
-                        if (WorldGen.genRand.Next(150) == 0)
+                        if (WorldGen.genRand.NextBool(150))
                         {    
                             //dunno why catacombs internal id is Painting4X3 but whatever
                             WorldGen.PlaceObject(X, Y, TileID.Painting4X3, true, Main.rand.Next(0, 8));
                         }
 
                         //wall skeletons
-                        if (WorldGen.genRand.Next(150) == 0)
+                        if (WorldGen.genRand.NextBool(150))
                         {    
                             WorldGen.PlaceObject(X, Y, TileID.Painting3X3, true, Main.rand.Next(17, 18));
                         }
@@ -2330,23 +2330,10 @@ namespace Spooky.Content.Generation
                 {
                     num705 = WorldGen.genRand.Next(num707, num708);
                 }
-                int num709 = 0;
                 while (!WorldGen.ShimmerMakeBiome(num706, num705))
                 {
-                    num709++;
-
-                    //probably some silly special seed generation, dont want to mess with this
-                    if (WorldGen.tenthAnniversaryWorldGen && num709 < 10000)
-                    {
-                        num705 = WorldGen.genRand.Next(num707, num708);
-                        num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.89), Main.maxTilesX - 200) : WorldGen.genRand.Next(200, (int)((double)Main.maxTilesX * 0.11)));
-                    }
-                    //force the shimmer to only spawn close to the edge of the world to prevent collision with the catacombs
-                    else
-                    {
-                        num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 20, num704);
-                        num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.92), Main.maxTilesX - 150) : WorldGen.genRand.Next(150, (int)((double)Main.maxTilesX * 0.08)));
-                    }
+                    num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, num704);
+                    num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.95), Main.maxTilesX - 150) : WorldGen.genRand.Next(150, (int)((double)Main.maxTilesX * 0.05)));
                 }
 
                 GenVars.shimmerPosition = new Vector2D((double)num706, (double)num705);

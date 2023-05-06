@@ -13,11 +13,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         private List<Vector2> cache;
         private Trail trail;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Eye Bolt");
-        }
 		
         public override void SetDefaults()
         {

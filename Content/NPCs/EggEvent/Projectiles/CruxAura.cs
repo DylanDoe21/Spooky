@@ -1,14 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
 
@@ -123,7 +121,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Main.dust[newDust].scale *= 1.5f;
                 Main.dust[newDust].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[newDust].scale = 0.5f;
                     Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

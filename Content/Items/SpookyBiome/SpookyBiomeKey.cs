@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.NPCs.SpookyBiome;
-
 namespace Spooky.Content.Items.SpookyBiome
 {
     public class SpookyBiomeKey : ModItem

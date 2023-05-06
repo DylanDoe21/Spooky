@@ -1,13 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
@@ -95,7 +92,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDust = 0; numDust < 35; numDust++)
                 {                                                                                  
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
                     Main.dust[DustGore].noGravity = true;
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
@@ -126,7 +123,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDust = 0; numDust < 35; numDust++)
                 {                                                                                  
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.ArgonMoss, 0f, -2f, 0, default(Color), 1.5f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.ArgonMoss, 0f, -2f, 0, default, 1.5f);
                     Main.dust[DustGore].noGravity = true;
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

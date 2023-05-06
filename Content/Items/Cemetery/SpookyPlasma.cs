@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Cemetery
             Item.height = 26;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(silver: 5);
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
         }
     }
 }

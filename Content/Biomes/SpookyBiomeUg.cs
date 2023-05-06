@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;

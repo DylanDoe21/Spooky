@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -11,7 +10,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Flower Seed");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
@@ -50,7 +48,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.rotation += 0.25f * Projectile.direction; 
 
 			Projectile.ai[0]++;
-			if (Projectile.ai[0] > 20 && Main.rand.Next(45) == 0)
+			if (Projectile.ai[0] > 20 && Main.rand.NextBool(45))
 			{
 				Projectile.Kill();
 			}
@@ -60,7 +58,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

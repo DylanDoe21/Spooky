@@ -22,7 +22,7 @@ namespace Spooky.Content.Dusts
         {
             dust.alpha += Main.rand.Next(1, 2);
 
-            if (Main.rand.Next(12) == 0)
+            if (Main.rand.NextBool(12))
             {
                 dust.velocity.X += Main.rand.NextFloat(-0.01f, 0.01f);
                 dust.velocity.Y += Main.rand.NextFloat(0.02f, 0.05f);

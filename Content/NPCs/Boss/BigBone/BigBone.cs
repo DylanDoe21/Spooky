@@ -16,7 +16,6 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
@@ -520,7 +519,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 dustPos = (Vector2.One * new Vector2(NPC.width / 3f, NPC.height / 3f) * distance).RotatedBy((double)((numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / MaxDusts), default) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
 
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool(2))
                             {
                                 int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
                                 Main.dust[dustEffect].color = Color.Orange;
@@ -593,7 +592,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
                             Main.dust[DustGore].noGravity = true;
 
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool(2))
                             {
                                 Main.dust[DustGore].scale = 0.5f;
                                 Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -737,7 +736,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 165)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                         }
@@ -773,7 +772,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         int WispChance = Phase2 ? 5 : 3;
 
-                        if (Main.rand.Next(WispChance) == 0)
+                        if (Main.rand.NextBool(WispChance))
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
 
@@ -792,7 +791,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 240)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                         }
@@ -888,7 +887,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             if (NPC.localAI[0] >= 75)
                             {
-                                if (Main.rand.Next(3) == 0)
+                                if (Main.rand.NextBool(3))
                                 {
                                     SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                                 }
@@ -943,7 +942,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                         if (NPC.localAI[0] >= 280)
                         {
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                             {
                                 SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                             }
@@ -980,7 +979,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         NPC.velocity *= 0.98f;
 
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool(2))
                         {
                             //recoil
                             Vector2 Recoil = player.Center - NPC.Center;
@@ -1006,7 +1005,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 200)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                         }
@@ -1068,7 +1067,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 160)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                         }
@@ -1172,7 +1171,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 175)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(GrowlSound1, NPC.Center);
                         }
@@ -1472,6 +1471,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //trophy and mask always drop directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlowerPotHead>(), 20));
 
             npcLoot.Add(notExpertRule);
         }

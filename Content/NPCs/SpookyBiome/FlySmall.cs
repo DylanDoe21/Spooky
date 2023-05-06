@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome

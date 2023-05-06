@@ -24,14 +24,14 @@ namespace Spooky.Content.Items.Food
 
 		public override void SetDefaults() 
         {
-			Item.DefaultToFood(28, 28, Main.rand.Next(3) == 0 ? BuffID.Dangersense : BuffID.NightOwl, 7200);
+			Item.DefaultToFood(28, 28, Main.rand.NextBool(2) ? BuffID.Dangersense : BuffID.NightOwl, 7200);
 			Item.value = Item.buyPrice(silver: 1);
 			Item.rare = ItemRarityID.Blue;
 		}
 
 		public override bool ConsumeItem(Player player) 
 		{
-			if (Main.rand.Next(5) == 0)
+			if (Main.rand.NextBool(5))
 			{
 				player.AddBuff(BuffID.Poisoned, 900);
 			}

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
@@ -34,40 +33,34 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-			{
-				Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-				int i = Main.myPlayer;
-				float num72 = Item.shootSpeed - Main.rand.Next(2, 4);
-				int num73 = damage;
-				float num74 = knockback;
-				float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-				float num79 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
-				float f = Main.rand.NextFloat() * 6.28318548f;
-				float value12 = 20f;
-				float value13 = 60f;
-				Vector2 vector13 = vector2 + f.ToRotationVector2() * MathHelper.Lerp(value12, value13, Main.rand.NextFloat());
-				
-				for (int num202 = 0; num202 < 50; num202++)
-				{
-					vector13 = vector2 + f.ToRotationVector2() * MathHelper.Lerp(value12, value13, Main.rand.NextFloat());
-					if (Collision.CanHit(vector2, 0, 0, vector13 + (vector13 - vector2).SafeNormalize(Vector2.UnitX) * 8f, 0, 0))
-					{
-						break;
-					}
+			for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
+            {
+                Vector2 mountedCenter = player.RotatedRelativePoint(player.MountedCenter, true);
+                float mousePosX = Main.mouseX + Main.screenPosition.X - mountedCenter.X;
+                float mousePosY = Main.mouseY + Main.screenPosition.Y - mountedCenter.Y;
+                float random = Main.rand.NextFloat() * 6.28318548f;
+                Vector2 randomPosition = mountedCenter + random.ToRotationVector2() * MathHelper.Lerp(20f, 60f, Main.rand.NextFloat());
 
-					f = Main.rand.NextFloat() * 6.28318548f;
-				}
+                for (int numPositon = 0; numPositon < 50; numPositon++)
+                {
+                    randomPosition = mountedCenter + random.ToRotationVector2() * MathHelper.Lerp(20f, 60f, Main.rand.NextFloat());
+                    if (Collision.CanHit(mountedCenter, 0, 0, randomPosition + (randomPosition - mountedCenter).SafeNormalize(Vector2.UnitX) * 8f, 0, 0))
+                    {
+                        break;
+                    }
 
-				Vector2 mouseWorld = Main.MouseWorld;
-				Vector2 vector14 = mouseWorld - vector13;
-				Vector2 vector15 = new Vector2(num78, num79).SafeNormalize(Vector2.UnitY) * num72;
-				vector14 = vector14.SafeNormalize(vector15) * num72;
-				vector14 = Vector2.Lerp(vector14, vector15, Main.rand.NextFloat(-0.25f, 0.25f));
-				Projectile.NewProjectile(source, player.Center, vector14, ModContent.ProjectileType<NineTailsProj>(), num73, num74, i, 0f, 0f);
-			}
-			
-			return true;
+                    random = Main.rand.NextFloat() * 6.28318548f;
+                }
+
+                Vector2 mouseWorld = Main.MouseWorld;
+                Vector2 newVelocity = mouseWorld - randomPosition;
+                Vector2 newShootSpeed = new Vector2(mousePosX, mousePosY).SafeNormalize(Vector2.UnitY) * (Item.shootSpeed - Main.rand.Next(2, 4));
+                newVelocity = newVelocity.SafeNormalize(newShootSpeed) * (Item.shootSpeed - Main.rand.Next(2, 4));
+                newVelocity = Vector2.Lerp(newVelocity, newShootSpeed, Main.rand.NextFloat(-0.25f, 0.25f));
+                Projectile.NewProjectile(source, randomPosition, newVelocity, ModContent.ProjectileType<NineTailsProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+            }
+
+            return true;
 		}
 	}
 }

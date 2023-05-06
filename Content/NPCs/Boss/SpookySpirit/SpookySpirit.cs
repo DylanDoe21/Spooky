@@ -15,8 +15,8 @@ using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Pets;
-using Spooky.Content.Tiles.Relic;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
+using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit
 {
@@ -404,7 +404,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             NPC.velocity.Y = MoveSpeedY * 0.1f;
 
                             //fire out homing seeds
-                            if (Main.rand.Next(12) == 0)
+                            if (Main.rand.NextBool(12))
                             {
                                 SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
@@ -784,7 +784,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 NPC.velocity.Y = 0;
                             }
 
-                            if (Main.rand.Next(15) == 0)
+                            if (Main.rand.NextBool(15))
                             {
                                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
 

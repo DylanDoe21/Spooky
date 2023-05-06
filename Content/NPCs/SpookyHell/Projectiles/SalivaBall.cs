@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 { 
@@ -11,7 +10,6 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Toxic Spit");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

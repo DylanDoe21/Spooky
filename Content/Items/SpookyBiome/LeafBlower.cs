@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome
@@ -26,7 +25,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.rare = ItemRarityID.Blue;  
 			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item34;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<LeafProjGreen>();
 			Item.shootSpeed = 12f;
 		}
 
@@ -48,7 +47,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			int[] Types = new int[] { ModContent.ProjectileType<LeafProjGreen>(), ModContent.ProjectileType<LeafProjRed>(), ModContent.ProjectileType<LeafProjOrange>() };
 			Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X, newVelocity.Y, Main.rand.Next(Types), damage, knockback, player.whoAmI, 0f, 0f);
 			
-			return true;
+			return false;
 		}
 	}
 }

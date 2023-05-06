@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.value = Item.buyPrice(gold: 25);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
-            Item.shootSpeed = 35f;
+            Item.shootSpeed = 10f;
         }
 
 		public override bool AltFunctionUse(Player player)

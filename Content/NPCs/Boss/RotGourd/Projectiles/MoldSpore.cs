@@ -1,9 +1,7 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 using Spooky.Content.NPCs.Boss.RotGourd;
 
@@ -11,11 +9,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 {
 	public class MoldSpore : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Mold Spore");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 20;

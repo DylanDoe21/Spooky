@@ -135,7 +135,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Main.dust[DustGore].velocity *= 3f;
                     Main.dust[DustGore].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[DustGore].scale = 0.5f;
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -192,7 +192,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Main.dust[DustGore].velocity *= 3f;
                         Main.dust[DustGore].noGravity = true;
 
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool(2))
                         {
                             Main.dust[DustGore].scale = 0.5f;
                             Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
@@ -250,7 +250,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Main.dust[newDust].velocity.Y *= Main.rand.Next(-8, 8);
                     Main.dust[newDust].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[newDust].scale = 0.5f;
                         Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

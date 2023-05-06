@@ -1,14 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
-
-using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -18,7 +15,6 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Party Skeleton");
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 6;
         }
@@ -147,7 +143,7 @@ namespace Spooky.Content.NPCs.Friendly
                 string[] names = { "McRibb ", "Fibula", "Mike" };
                 NPC.GivenName = Main.rand.Next(names);
 
-                if (Main.rand.Next(12) == 0)
+                if (Main.rand.NextBool(12))
                 {
                     hasDrink = true;
                 }

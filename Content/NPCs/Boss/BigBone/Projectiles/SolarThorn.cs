@@ -2,11 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
@@ -14,11 +11,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
     public class SolarThorn : ModProjectile
     {
 		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Solar Thorn");
-		}
 
 		public override void SetDefaults()
 		{

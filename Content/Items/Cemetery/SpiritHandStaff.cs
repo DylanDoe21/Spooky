@@ -51,7 +51,6 @@ namespace Spooky.Content.Items.Cemetery
                 }
             }
 
-            double currentdist = 9999;
             if (tiles.Count > 0)
             {
                 return true;
@@ -90,10 +89,10 @@ namespace Spooky.Content.Items.Cemetery
                     }
                 }
 
-                Vector2 direction9 = mouse - position;
-                direction9.Normalize();
-                direction9 *= Item.shootSpeed;
-                velocity = direction9;
+                Vector2 direction = mouse - position;
+                direction.Normalize();
+                direction *= Item.shootSpeed;
+                velocity = direction;
                 SoundEngine.PlaySound(SoundID.Item103, position);
             }
         }

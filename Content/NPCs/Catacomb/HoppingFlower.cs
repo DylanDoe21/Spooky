@@ -5,7 +5,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;

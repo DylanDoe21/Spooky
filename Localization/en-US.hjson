@@ -124,7 +124,7 @@ Mods: {
 				NoQuests1: I don't need you to get another flask for me right now, stop by later and I may need something then.
 				NoQuests2: You're gonna have to give me some time before I'll need another flask from you.
 				NoQuests3: Sorry, I don't have anything else for you to gather at the moment.
-				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy.
+				Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
 				Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
 				Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
 				Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
@@ -1201,7 +1201,7 @@ Mods: {
 					'''
 					20% increased magic and summon damage
 					10% increased magic and summon critical strike chance
-					10% reduced mana usage and increases your max minions by 2
+					10% reduced mana usage and increases your max minions by 3
 					Enemies are more likely to target you
 					'''
 			}
@@ -1498,8 +1498,7 @@ Mods: {
 				DisplayName: Uncanine
 				Tooltip:
 					'''
-					Shoots teeth that fly upward, and then fall back down towards your cursor
-					The teeth can pierce through enemies and inflict severe bleeding
+					Shoots piercing teeth that fly upward, and then fall back down towards your cursor
 					'It looks severely brain damaged'
 					'''
 			}
@@ -1517,8 +1516,8 @@ Mods: {
 				DisplayName: Moocher Staff
 				Tooltip:
 					'''
-					Summons massive, short lived pillars of cursed fire on the ground
-					The cursed flame pillars also slightly ignore immunity frames
+					Summons short lived pillars of cursed fire on the ground
+					The cursed flame pillars slightly ignore immunity frames
 					'Funny noises come from its flames'
 					'''
 			}
@@ -1566,8 +1565,8 @@ Mods: {
 				DisplayName: Soul Sucker
 				Tooltip:
 					'''
-					Drains energy from nearby enemies, which builds up a charge
-					Once at maximum charge, the staff will unleash a powerful wave of blood
+					Siphons souls from enemies near your cursor, which can heal life or mana
+					After being healed ten times, it will unleash a powerful wave of blood
 					'It looks like it has something malicious to say'
 					'''
 			}
@@ -1577,7 +1576,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons a living eye tendril sentry to shoot beams at enemies
-					'Some say it can stare holes through anything'
+					'It can stare holes through anything'
 					'''
 			}
 
@@ -2282,6 +2281,9 @@ Mods: {
 			Grug.DisplayName: Grug
 			GrugFireball.DisplayName: Grug Fireball
 			BloodTooth.DisplayName: Blood Tooth
+			DrainedSoul.DisplayName: Drained Soul
+			DrainedSoulHealth.DisplayName: Drained Soul Health
+			DrainedSoulMana.DisplayName: Drained Soul Mana
 		}
 
 		NPCs: {

@@ -3,21 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-
-using Spooky.Content.NPCs.SpookyHell;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
 	public class TumorOrb1 : ModProjectile
 	{
         int Offset = Main.rand.Next(-50, 50);
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Flesh Orb");
-		}
 
 		public override void SetDefaults()
 		{
@@ -121,13 +113,13 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             for (int numDust = 0; numDust < 20; numDust++)
             {
                 int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-                Projectile.width, Projectile.height, 5, 0f, 0f, 100, default(Color), 2f);
+                Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
 
                 Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
                 Main.dust[DustGore].velocity *= 3f;
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

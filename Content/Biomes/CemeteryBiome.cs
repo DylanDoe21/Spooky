@@ -1,12 +1,8 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Gores;
-using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
@@ -47,7 +43,7 @@ namespace Spooky.Content.Biomes
                 Main.GraveyardVisualIntensity = 0.42f;
             }
 
-            if (Main.rand.Next(800) == 0)
+            if (Main.rand.NextBool(800))
             {
                 Main.NewLightning();
             }

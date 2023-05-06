@@ -1,9 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using System;
 
 using Spooky.Core;
 using Spooky.Content.Projectiles.Catacomb;
@@ -37,11 +35,8 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
-			Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 160, 
-			player.velocity.X / 2, player.velocity.Y / 2, 0, Color.Transparent, 1.5f)].noGravity = true;
-
-			Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 160, 
-			player.velocity.X / 2, player.velocity.Y / 2, 0, Color.Transparent, 1.5f)].noGravity = true;
+			int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.MagnetSphere, player.velocity.X / 2, player.velocity.Y / 2, 0, default, 1.5f);
+			Main.dust[dust].noGravity = true;
 		}
 
 		public override void UseAnimation(Player player)

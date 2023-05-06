@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome
@@ -13,7 +12,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
 		public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 15;
 			Item.mana = 8;                        
             Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;  
@@ -27,7 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.rare = ItemRarityID.Blue;         
 			Item.value = Item.buyPrice(gold: 1); 
             Item.UseSound = SoundID.NPCHit1;
-            Item.shoot = ModContent.ProjectileType<Blank>();
+            Item.shoot = ModContent.ProjectileType<ZombiePart1>();
 			Item.shootSpeed = 6.5f;
         }
 
@@ -37,7 +36,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Projectiles[Main.rand.Next(3)], damage, knockback, player.whoAmI, 0f, 0f);
 			
-			return true;
+			return false;
 		}
 	}
 }

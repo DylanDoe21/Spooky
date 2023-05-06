@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

@@ -10,8 +10,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
-using Spooky.Content.Dusts;
 using Spooky.Content.Events;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
@@ -97,7 +95,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                     Vector2 dustPos = (Vector2.One * new Vector2((float)Projectile.width / 3f, (float)Projectile.height / 3f) * distance).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + Projectile.Center;
                     Vector2 velocity = dustPos - Projectile.Center;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.DemonTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
                         Main.dust[dustEffect].scale = 5f;

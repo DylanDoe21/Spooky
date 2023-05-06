@@ -25,9 +25,10 @@ namespace Spooky.Core
         public static int ShakeTimer = 0;
         public static float ScreenShakeAmount = 0;
         public int flySpawnTimer = 0;
-        public int BoneWispTimer = 0;
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
+        public int SoulDrainCharge = 0;
+        public int BoneWispTimer = 0;
 
         //armors
         public bool GourdSet = false;
@@ -119,6 +120,7 @@ namespace Spooky.Core
                 {
                     ScreenShakeAmount = 0;
                 }
+                
                 Main.screenPosition += new Vector2(ScreenShakeAmount * Main.rand.NextFloat(), ScreenShakeAmount * Main.rand.NextFloat());
             }
             else

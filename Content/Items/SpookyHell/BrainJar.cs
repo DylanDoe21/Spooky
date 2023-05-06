@@ -1,12 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
 
-using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.SpookyHell;
-using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.SpookyHell
 {

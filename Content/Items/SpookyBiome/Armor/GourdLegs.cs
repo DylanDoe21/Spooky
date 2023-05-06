@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpookyBiome;
-
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[LegacyName("SpookyLegs")]

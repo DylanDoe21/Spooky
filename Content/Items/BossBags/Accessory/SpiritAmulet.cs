@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {

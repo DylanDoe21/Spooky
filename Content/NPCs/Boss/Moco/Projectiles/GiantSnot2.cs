@@ -11,7 +11,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Snot Ball");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

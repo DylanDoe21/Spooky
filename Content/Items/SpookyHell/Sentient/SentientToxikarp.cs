@@ -35,16 +35,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.shootSpeed = 12f;
         }
 
-        public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-10, 0);
-		}
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int[] Types = new int[] { ModContent.ProjectileType<ToxicBubbleRed>(), ModContent.ProjectileType<ToxicBubblePurple>(), ModContent.ProjectileType<ToxicBubbleBlue>() };
 
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(5))
             {
                 type = Main.rand.Next(Types);
             }

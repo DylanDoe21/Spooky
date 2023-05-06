@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
@@ -11,7 +10,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Acidic Breath");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

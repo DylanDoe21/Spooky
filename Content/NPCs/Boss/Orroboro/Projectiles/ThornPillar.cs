@@ -1,23 +1,13 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {   
     public class ThornPillar : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Thorn Pillar");
-		}
-
 		public override void SetDefaults()
 		{
 			DrawOffsetX = 0;

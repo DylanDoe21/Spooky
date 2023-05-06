@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Items.BossSummon
 {
@@ -14,9 +13,9 @@ namespace Spooky.Content.Items.BossSummon
 		
         public override void SetDefaults()
         {
-            Item.width = 40;
-            Item.height = 26;
-            Item.rare = ItemRarityID.Green;
+            Item.width = 30;
+            Item.height = 38;
+            Item.rare = ItemRarityID.White;
             Item.maxStack = 1;
         }
 		

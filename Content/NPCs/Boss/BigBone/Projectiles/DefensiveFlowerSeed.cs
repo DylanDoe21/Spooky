@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -11,7 +10,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Flower Seed");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
@@ -50,7 +48,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.rotation += 0.25f * Projectile.direction; 
 
 			Projectile.ai[0]++;
-			if (Projectile.ai[0] > 20 && Main.rand.Next(45) == 0)
+			if (Projectile.ai[0] > 20 && Main.rand.NextBool(45))
 			{
 				Projectile.Kill();
 			}

@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
@@ -58,10 +57,10 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 				NPC.alpha -= 5;
 			}
 
-            NPC.ai[2] += 0f; // wave
-            NPC.ai[1] += 2f; // speed
+            NPC.ai[2] += 0f; //wave
+            NPC.ai[1] += 2f; //speed it spins at
             int distance = 165 + (int)(Math.Sin(NPC.ai[2] / 60) * 30);
-            double rad = NPC.ai[1] * (Math.PI / 180); // angle to radians
+            double rad = NPC.ai[1] * (Math.PI / 180);
             NPC.position.X = parent.Center.X - (int)(Math.Cos(rad) * distance) - NPC.width / 2;
             NPC.position.Y = parent.Center.Y - (int)(Math.Sin(rad) * distance) - NPC.height / 2;
 

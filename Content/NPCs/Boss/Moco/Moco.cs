@@ -288,12 +288,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-8, 8);
 
-                            int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                            int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
                             Main.gore[Steam1].velocity.X *= 2f;
                             Main.gore[Steam1].velocity.Y *= -2f;
                             Main.gore[Steam1].alpha = 125;
 
-                            int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2 (NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                            int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
                             Main.gore[Steam2].velocity.X *= -2f;
                             Main.gore[Steam2].velocity.Y *= -2f;
                             Main.gore[Steam2].alpha = 125;
@@ -469,20 +469,15 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                             if (!Phase2)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                                    ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
                             }
 
                             if (Phase2)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                                    ShootSpeed.Y, ModContent.ProjectileType<GiantSnot2>(), Damage, 1, NPC.target, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<GiantSnot2>(), Damage, 1, NPC.target, 0, 0);
+           
                             }
                         }
 
@@ -548,11 +543,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 
                                 float Spread = Main.rand.Next(-15, 15);
                                 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
-                                    Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall2>(), Damage, 1, NPC.target, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
+                                Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall2>(), Damage, 1, NPC.target, 0, 0);
                             }
                         }
 
@@ -705,11 +697,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                                 SoundEngine.PlaySound(SneezeSound1, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
-                                    ShootSpeed.Y + Spread, ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                                ShootSpeed.Y + Spread, ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
                             }
                         }
 
@@ -782,11 +771,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                             for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
-                                    ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
                             }
                         }
 

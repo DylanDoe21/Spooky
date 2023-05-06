@@ -200,7 +200,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         int[] Projectiles = new int[] { ModContent.ProjectileType<TumorOrb1>(), 
                         ModContent.ProjectileType<TumorOrb2>(), ModContent.ProjectileType<TumorOrb3>() };
 
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(SoundID.Item87, NPC.Center);
 
@@ -251,7 +251,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
                     Main.dust[newDust].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[newDust].scale = 0.5f;
                         Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

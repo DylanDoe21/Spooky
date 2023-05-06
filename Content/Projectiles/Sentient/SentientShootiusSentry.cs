@@ -23,7 +23,7 @@ namespace Spooky.Content.Projectiles.Sentient
         public override void SetDefaults()
         {
             Projectile.width = 40;
-            Projectile.height = 62;
+            Projectile.height = 60;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;

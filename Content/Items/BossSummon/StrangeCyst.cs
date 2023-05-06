@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
 using Spooky.Content.Events;
@@ -16,12 +15,13 @@ namespace Spooky.Content.Items.BossSummon
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
-		}
+            Item.ResearchUnlockCount = 3;
+        }
 
 		public override void SetDefaults()
 		{
-			Item.width = 24;
-			Item.height = 32;
+			Item.width = 26;
+			Item.height = 34;
 			Item.consumable = true;
 			Item.useTime = 45;
 			Item.useAnimation = 45;
@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.BossSummon
 		public override bool CanUseItem(Player player)
         {
             if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && 
-			player.InModBiome(ModContent.GetInstance<Content.Biomes.SpookyHellBiome>()))
+			player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !EggEventWorld.EggEventActive)
             {
                 return true;
             }

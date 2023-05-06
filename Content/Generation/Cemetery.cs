@@ -193,7 +193,7 @@ namespace Spooky.Content.Generation
                     //place bushes
                     if (tile.TileType == ModContent.TileType<CemeteryDirt>() || tile.TileType == ModContent.TileType<CemeteryGrass>())
                     {
-                        if (WorldGen.genRand.Next(12) == 0)
+                        if (WorldGen.genRand.NextBool(12))
                         {
                             ushort[] Bushes = new ushort[] { (ushort)ModContent.TileType<CemeteryBush1>(), (ushort)ModContent.TileType<CemeteryBush2>() };
 
@@ -247,7 +247,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HutX, HutY - 20);
-                PlaceBlocksBelowStructure(HutX, HutY, 7);
+                PlaceBlocksBelowStructure(HutX, HutY, 10);
 
                 Vector2 origin = new Vector2(HutX - 14, HutY - 15);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut1", origin.ToPoint16(), Mod);
@@ -379,7 +379,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(HutX, HutY - 16);
-                PlaceBlocksBelowStructure(HutX, HutY, 8);
+                PlaceBlocksBelowStructure(HutX, HutY, 10);
 
                 Vector2 origin = new Vector2(HutX - 16, HutY - 11);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);

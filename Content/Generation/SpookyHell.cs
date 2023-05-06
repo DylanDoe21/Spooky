@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.GameContent.Generation;
@@ -12,7 +11,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.NPCs.Friendly;
-using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -98,7 +96,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
                 {
-                    if (WorldGen.genRand.Next(30) == 0)
+                    if (WorldGen.genRand.NextBool(30))
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -120,7 +118,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
                 {
-                    if (WorldGen.genRand.Next(30) == 0)
+                    if (WorldGen.genRand.NextBool(30))
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -144,7 +142,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 192; Y++)
                 {
-                    if (WorldGen.genRand.Next(15) == 0)
+                    if (WorldGen.genRand.NextBool(15))
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -220,7 +218,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
                     {
-                        if (WorldGen.genRand.Next(20) == 0)
+                        if (WorldGen.genRand.NextBool(20))
                         {
                             PlaceTree(X, Y, ModContent.TileType<EyeTree>());
                         }
@@ -228,7 +226,7 @@ namespace Spooky.Content.Generation
 
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
-                        if (WorldGen.genRand.Next(10) == 0 && Main.tile[X, Y - 1].WallType <= 0 &&
+                        if (WorldGen.genRand.NextBool(10) && Main.tile[X, Y - 1].WallType <= 0 &&
                         !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                         {
                             PlaceTree(X, Y, ModContent.TileType<EyeTree>());
@@ -272,7 +270,7 @@ namespace Spooky.Content.Generation
                     //eye vines
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() && !Main.tile[X, Y + 1].HasTile)
                     {
-                        if (WorldGen.genRand.Next(8) == 0)
+                        if (WorldGen.genRand.NextBool(8))
                         {
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<EyeVine>());
                         }
@@ -288,7 +286,7 @@ namespace Spooky.Content.Generation
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
                         //eye bushes
-                        if (WorldGen.genRand.Next(8) == 0)
+                        if (WorldGen.genRand.NextBool(8))
                         {
                             ushort[] EyeBushes = new ushort[] { (ushort)ModContent.TileType<EyeBush1>(), (ushort)ModContent.TileType<EyeBush2>() };
 
@@ -296,7 +294,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //tall eye stalks
-                        if (WorldGen.genRand.Next(10) == 0)
+                        if (WorldGen.genRand.NextBool(10))
                         {
                             ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<TallEyeStalk1>(), 
                             (ushort)ModContent.TileType<TallEyeStalk2>(), (ushort)ModContent.TileType<TallEyeStalk2>() };
@@ -305,7 +303,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //eye piles
-                        if (WorldGen.genRand.Next(10) == 0)
+                        if (WorldGen.genRand.NextBool(10))
                         {
                             ushort[] EyePiles = new ushort[] { (ushort)ModContent.TileType<EyePile1>(), (ushort)ModContent.TileType<EyePile2>() };
 
@@ -317,7 +315,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
                     {
                         //eye flowers
-                        if (WorldGen.genRand.Next(10) == 0)
+                        if (WorldGen.genRand.NextBool(10))
                         {
                             ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), (ushort)ModContent.TileType<EyeFlower2>() };
 
@@ -325,7 +323,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //tendrils
-                        if (WorldGen.genRand.Next(10) == 0)
+                        if (WorldGen.genRand.NextBool(10))
                         {
                             ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<Tentacle1>(), (ushort)ModContent.TileType<Tentacle2>(),
                             (ushort)ModContent.TileType<Tentacle3>(), (ushort)ModContent.TileType<Tentacle4>() };
@@ -334,7 +332,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //fingers
-                        if (WorldGen.genRand.Next(8) == 0)
+                        if (WorldGen.genRand.NextBool(8))
                         {
                             ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<Finger1>(), (ushort)ModContent.TileType<Finger2>() };
 
@@ -342,7 +340,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //hanging fingers
-                        if (WorldGen.genRand.Next(8) == 0)
+                        if (WorldGen.genRand.NextBool(8))
                         {
                             ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
 
@@ -358,7 +356,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
                         //arteries
-                        if (WorldGen.genRand.Next(4) == 0)
+                        if (WorldGen.genRand.NextBool(4))
                         {
                             ushort[] Arteries = new ushort[] { (ushort)ModContent.TileType<Artery1>(), 
                             (ushort)ModContent.TileType<Artery2>(), (ushort)ModContent.TileType<Artery3>() };
@@ -367,7 +365,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //bone piles
-                        if (WorldGen.genRand.Next(4) == 0)
+                        if (WorldGen.genRand.NextBool(4))
                         {
                             ushort[] BonePiles = new ushort[] { (ushort)ModContent.TileType<BonePile1>(), (ushort)ModContent.TileType<BonePile2>() };
 

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,8 +14,8 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 30;
-			Item.height = 26;
+			Item.width = 18;
+			Item.height = 32;
             Item.consumable = true;
 			Item.noUseGraphic = true;
             Item.useTime = 10;

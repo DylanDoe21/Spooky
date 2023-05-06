@@ -192,7 +192,7 @@ namespace Spooky.Core
 								//place walls below each block
 								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
 								{
-									Main.tile[k, l + 4].WallType = (ushort)wallType;
+									Main.tile[k, l + 6].WallType = (ushort)wallType;
 								}
 
 								//place walls
@@ -203,12 +203,12 @@ namespace Spooky.Core
 									{
 										if (placeWalls)
 										{
-											Main.tile[k, WallY + 5].WallType = (ushort)wallType2;
+											Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
 										}
 									}
 
 									//randomized wall placement so the underground and surface walls transition nicely
-									for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 10; WallY++)
+									for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 15; WallY++)
 									{
 										if (placeWalls)
 										{

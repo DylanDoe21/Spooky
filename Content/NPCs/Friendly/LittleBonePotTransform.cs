@@ -3,8 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -14,7 +12,6 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Little Bone");
 			NPCID.Sets.TownCritter[NPC.type] = true;
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);

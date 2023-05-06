@@ -1,13 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
@@ -77,7 +75,7 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             for (int numDusts = 0; numDusts < 20; numDusts++)
             {
-                int GhostDust = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229, 0f, 0f, 100, default(Color), 2f);
+                int GhostDust = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 100, default(Color), 2f);
                 Main.dust[GhostDust].velocity *= 3f;
                 Main.dust[GhostDust].noGravity = true;
                 if (Main.rand.NextBool(2))
@@ -103,7 +101,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDust = 0; numDust < 35; numDust++)
                 {                                                                                  
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.HallowSpray, 0f, -2f, 0, default(Color), 1.5f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.HallowSpray, 0f, -2f, 0, default, 1.5f);
                     Main.dust[DustGore].noGravity = true;
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

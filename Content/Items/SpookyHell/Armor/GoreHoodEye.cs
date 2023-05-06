@@ -2,13 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Terraria.GameContent.Creative;
 
 using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.SpookyHell.Boss;
-using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
@@ -17,7 +15,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 10;
+			Item.defense = 8;
 			Item.width = 30;
 			Item.height = 26;
 			Item.rare = ItemRarityID.LightRed;
@@ -53,7 +51,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetCritChance(DamageClass.Magic) += 10;
 			player.GetCritChance(DamageClass.Summon) += 10;
 			player.manaCost -= 0.10f;
-			player.maxMinions += 2;
+			player.maxMinions += 3;
 			player.aggro += 75;
 		}
 

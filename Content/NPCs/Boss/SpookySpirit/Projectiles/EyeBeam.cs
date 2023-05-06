@@ -1,7 +1,5 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -14,11 +12,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 	{
         private List<Vector2> cache;
         private Trail trail;
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Eye Beam");
-		}
 
 		public override void SetDefaults()
 		{

@@ -10,10 +10,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
-using Spooky.Content.Tiles.Catacomb;
 
 namespace Spooky.Content.NPCs.Catacomb
 {

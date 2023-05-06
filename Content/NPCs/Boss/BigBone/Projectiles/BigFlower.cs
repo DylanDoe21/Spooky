@@ -17,8 +17,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Solar Flower");
-
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}
@@ -166,7 +164,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
-					if (Main.rand.Next(2) == 0)
+					if (Main.rand.NextBool(2))
 					{
                     	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlowerGore1").Type);
 					}
@@ -184,7 +182,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Main.dust[DustGore].velocity *= 3f;
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

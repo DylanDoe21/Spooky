@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.ai[0]++;
             if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)
             {
-                if (Main.rand.Next(8) == 0)
+                if (Main.rand.NextBool(8))
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
 

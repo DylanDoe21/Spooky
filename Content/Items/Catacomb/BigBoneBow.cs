@@ -1,11 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using System;
 
-using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb
@@ -70,7 +67,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
-			return Main.rand.Next(10) != 0;
+			return !Main.rand.NextBool(10);
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 

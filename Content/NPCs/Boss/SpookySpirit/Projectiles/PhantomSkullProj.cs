@@ -18,7 +18,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Phantom Skull");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -158,7 +157,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 					}
                 }
 
-				Projectile.velocity *= 1.045f; //was 1.058				
+				Projectile.velocity *= 1.045f;			
 			}
 		}
 
@@ -166,7 +165,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 		{
 			for (int i = 0; i < 25; i++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 65, 0f, -2f, 0, default(Color), 1.5f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

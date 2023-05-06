@@ -1,12 +1,9 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Capture;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Gores.Misc;
-using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
@@ -69,8 +66,8 @@ namespace Spooky.Content.Biomes
             //spawn falling leaves while in the spooky forest
             int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
 
-            if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
-            {
+            if (Main.rand.NextBool(40) && player.ZoneOverworldHeight)
+            { 
                 float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X - 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
@@ -80,7 +77,7 @@ namespace Spooky.Content.Biomes
                 Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
             }
 
-            if (Main.rand.Next(40) == 0 && player.ZoneOverworldHeight)
+            if (Main.rand.NextBool(40) && player.ZoneOverworldHeight)
             {
                 float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X + Main.screenWidth + 100;

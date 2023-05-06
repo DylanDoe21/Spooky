@@ -28,8 +28,6 @@ namespace Spooky.Content.Generation
 
         Vector2 SaveHousePosition;
 
-        static bool PlacedGrass = false;
-
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
             LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest");
@@ -163,7 +161,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            for (int gold = 0; gold < (int)((double)(Main.maxTilesX * Main.maxTilesY * 20) * 6E-05); gold++)
+            for (int gold = 0; gold < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 5E-05); gold++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
@@ -201,14 +199,12 @@ namespace Spooky.Content.Generation
                     Tile left = Main.tile[X - 1, Y];
                     Tile right = Main.tile[X + 1, Y];
 
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() &&
-                    ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() && (!up.HasTile || !down.HasTile || !left.HasTile || !right.HasTile))
                     {
                         Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrass>();
                     }
 
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() &&
-                    ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>() && (!up.HasTile || !down.HasTile || !left.HasTile || !right.HasTile))
                     {
                         Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
                     }
@@ -226,11 +222,6 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyDirt2>(), ModContent.TileType<SpookyGrassGreen>(), false);
                     }
-
-                    if (X == PositionX + 500 && Y == Main.maxTilesY - 100)
-                    {
-                        PlacedGrass = true;
-                    }
                 }
             }
         }
@@ -238,26 +229,26 @@ namespace Spooky.Content.Generation
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             //grow trees
-            for (int X = PositionX - 300; X <= PositionX + 300; X++)
+            for (int X = PositionX - 500; X <= PositionX + 500; X++)
             {
                 //regular surface trees
                 for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyDirt>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyDirt2>())
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrass>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>())
                     {
                         WorldGen.GrowTree(X, Y - 1);
                     }
                 }
 
                 //grow giant mushrooms
-                for (int Y = (int)Main.worldSurface; Y < Main.maxTilesY - 250; Y++)
+                for (int Y = (int)Main.worldSurface + 25; Y < Main.maxTilesY - 100; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>() &&
+                    if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
-                        if (WorldGen.genRand.Next(25) == 0)
+                        if (WorldGen.genRand.NextBool(18))
                         {
                             GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
                         }
@@ -310,90 +301,87 @@ namespace Spooky.Content.Generation
 
         private void SpookyForestAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
-            if (PlacedGrass)
+            //place ambient objects
+            for (int X = PositionX - 500; X < PositionX + 500; X++)
             {
-                //place ambient objects
-                for (int X = PositionX - 300; X < PositionX + 300; X++)
-                {
-                    for (int Y = PositionY - 100; Y < Main.maxTilesY - 100; Y++)
-                    {  
-                        //kill any single floating tiles so things dont look ugly
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() ||
-                        Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
-                        Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
-                        {
-                            if (!Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile &&
-                            !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
-                            {
-                                WorldGen.KillTile(X, Y);
-                            }
-                        }
-
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
+                for (int Y = PositionY - 100; Y < Main.maxTilesY - 100; Y++)
+                {  
+                    //kill any single floating tiles so things dont look ugly
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() ||
+                    Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
+                    Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                    {
+                        if (!Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile &&
+                        !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
                         {
                             WorldGen.KillTile(X, Y);
-                            WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyDirt>());
                         }
+                    }
 
-                        //orange spooky vines
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() && !Main.tile[X, Y + 1].HasTile)
+                    //convert leftover green grass dirt back into regular dirt
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
+                    {
+                        Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyDirt>();
+                    }
+
+                    //orange spooky vines
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() && !Main.tile[X, Y + 1].HasTile)
+                    {
+                        if (WorldGen.genRand.NextBool(2))
                         {
-                            if (WorldGen.genRand.Next(2) == 0)
-                            {
-                                WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVines>());
-                            }
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVines>());
                         }
+                    }
 
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVines>())
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVines>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVines>());
+                    }
+
+                    //green spooky vines
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() && !Main.tile[X, Y + 1].HasTile)
+                    {
+                        if (WorldGen.genRand.NextBool(2))
                         {
-                            SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVines>());
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVinesGreen>());
                         }
+                    }
 
-                        //green spooky vines
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() && !Main.tile[X, Y + 1].HasTile)
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVinesGreen>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
+                    }
+
+                    //place orange grass only on orange grass
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
+                    {
+                        //pumpkins
+                        if (WorldGen.genRand.NextBool(7))
                         {
-                            if (WorldGen.genRand.Next(2) == 0)
-                            {
-                                WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVinesGreen>());
-                            }
-                        }
+                            ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
+                            (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
 
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVinesGreen>())
-                        {
-                            SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
-                        }
-
-                        //place orange grass only on orange grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
-                        {
-                            //pumpkins
-                            if (WorldGen.genRand.Next(7) == 0)
-                            {
-                                ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
-                                (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Pumpkins));    
-                            }
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Pumpkins));    
                         }
                     }
                 }
+            }
 
-                //place stuff underground
-                for (int X = PositionX - 300; X < PositionX + 300; X++)
-                {
-                    for (int Y = (int)Main.worldSurface; Y < (int)Main.worldSurface + 250; Y++)
-                    { 
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
-                        Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
-                        {
-                            //hanging glow vines
-                            if (WorldGen.genRand.Next(8) == 0)
-                            {    
-                                ushort[] Vines = new ushort[] { (ushort)ModContent.TileType<HangingVine1>(), 
-                                (ushort)ModContent.TileType<HangingVine2>(), (ushort)ModContent.TileType<HangingVine3>() };
+            //place stuff underground
+            for (int X = PositionX - 500; X < PositionX + 500; X++)
+            {
+                for (int Y = (int)Main.worldSurface; Y < (int)Main.worldSurface + 250; Y++)
+                { 
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||
+                    Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                    {
+                        //hanging glow vines
+                        if (WorldGen.genRand.NextBool(8))
+                        {    
+                            ushort[] Vines = new ushort[] { (ushort)ModContent.TileType<HangingVine1>(), 
+                            (ushort)ModContent.TileType<HangingVine2>(), (ushort)ModContent.TileType<HangingVine3>() };
 
-                                WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(Vines));           
-                            }
+                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(Vines));           
                         }
                     }
                 }
@@ -407,7 +395,7 @@ namespace Spooky.Content.Generation
             while (!placed && attempts++ < 100000)
             {
                 //place starter house
-                int x = PositionX + ((Main.maxTilesX / 12) / 5); //get the biomes size, then divide that more and get the distance from the center
+                int x = PositionX + ((Main.maxTilesX / 12) / 6); //get the biomes size, then divide that more and get the distance from the center
                 int y = PositionY; //start here to not touch floating islands
 
                 while (!WorldGen.SolidTile(x, y) && y <= Main.worldSurface)
@@ -529,6 +517,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyHouse", GenerateStarterHouse));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
 
             //place objects and grow trees
             int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
@@ -538,12 +527,7 @@ namespace Spooky.Content.Generation
             }
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(GenIndex2 + 7, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
 
             //place house again because stupid ahh walls
             int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));

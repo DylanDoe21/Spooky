@@ -31,7 +31,9 @@ namespace Spooky.Content.Items.Cemetery
 
 	public class CemeterySolutionProj : ModProjectile
 	{
-		public override void SetDefaults() 
+        public override string Texture => "Spooky/Content/Items/Cemetery/CemeterySolution";
+
+        public override void SetDefaults() 
         {
 			Projectile.width = 6;
 			Projectile.height = 6;

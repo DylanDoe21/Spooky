@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Gores.Misc

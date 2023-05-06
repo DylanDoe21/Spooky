@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
@@ -11,7 +10,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Snot Ball");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -76,7 +74,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void AI()
         {
-			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
@@ -84,7 +81,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             {
                 Projectile.alpha -= 8;
             }
-		}
+        }
 
 		public override void Kill(int timeLeft)
 		{

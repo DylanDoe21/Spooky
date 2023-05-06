@@ -2,16 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
-using Spooky.Content.NPCs.Boss.Moco;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.UI;
-using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Items.BossBags
 {

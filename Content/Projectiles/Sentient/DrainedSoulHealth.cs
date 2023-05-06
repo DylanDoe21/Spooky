@@ -1,28 +1,30 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
 
-namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
+namespace Spooky.Content.Projectiles.Sentient
 {
-    public class PhantomBomb : ModProjectile
+    public class DrainedSoulHealth : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private List<Vector2> cache;
         private Trail trail;
 
         public override void SetDefaults()
         {
-            Projectile.width = 24;
-            Projectile.height = 28;
-            Projectile.hostile = true;
-            Projectile.tileCollide = true;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 2000;
+            Projectile.width = 14;
+            Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 75;
+            Projectile.penetrate = -1;
+            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -36,7 +38,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value); //trails texture image
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
             effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
 
@@ -47,7 +49,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             return true;
         }
 
-        const int TrailLength = 15;
+        const int TrailLength = 12;
 
         private void ManageCaches()
         {
@@ -68,11 +70,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             }
         }
 
-		private void ManageTrail()
+        private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 6 * factor, factor =>
             {
-                return Color.Lerp(Color.DarkViolet, Color.DarkSlateBlue, factor.X) * factor.X;
+                return Color.Lerp(Color.Red, Color.LightPink, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -81,28 +83,28 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.5f, 0.35f, 0.7f);
+            Player player = Main.player[Projectile.owner];
 
-            Projectile.rotation += 0.2f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
-            Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-
-            if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+            if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();
             }
-        }
 
-        public override void Kill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+            Vector2 ReturnSpeed = player.Center - Projectile.Center;
+            ReturnSpeed.Normalize();
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            ReturnSpeed *= 15;
+
+            Projectile.velocity = ReturnSpeed;
+
+            if (Projectile.Hitbox.Intersects(player.Hitbox))
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 25, 0, 0, 
-                ModContent.ProjectileType<PhantomExplosion>(), Projectile.damage, 0, Main.myPlayer, 0, 0);
+                int LifeHealed = Main.rand.Next(2, 10);
+                player.statLife += LifeHealed;
+                player.HealEffect(LifeHealed, true);
+
+                Projectile.Kill();
             }
         }
     }

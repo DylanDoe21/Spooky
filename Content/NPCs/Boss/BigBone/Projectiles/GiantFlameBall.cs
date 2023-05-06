@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -22,7 +21,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Flame Blast");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -193,29 +191,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 {
                     Projectile.velocity *= 1.068f;
                 }
-
-                /*
-                if (Projectile.ai[1] >= 180)
-                {
-                    Projectile.velocity *= 0.5f;	
-
-                    Projectile.ai[2]++;
-                    if (Projectile.ai[2] < 2)
-                    {
-                        Projectile.scale -= 3;
-                    }
-                    if (Projectile.ai[2] >= 2)
-                    {
-                        Projectile.scale += 3;
-                    }
-
-                    if (Projectile.ai[2] > 4)
-                    {
-                        Projectile.ai[2] = 0;
-                        Projectile.scale = 1f;
-                    }
-                }	
-                */	
 			}
         }
 
@@ -242,7 +217,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -79,7 +78,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     Main.dust[GhostDust].velocity *= 3f;
                     Main.dust[GhostDust].noGravity = true;
 
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool(2))
                     {
                         Main.dust[GhostDust].scale = 0.5f;
                         Main.dust[GhostDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

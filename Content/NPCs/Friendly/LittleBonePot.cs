@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -26,7 +25,8 @@ namespace Spooky.Content.NPCs.Friendly
             for (int k = 0; k < Main.maxNPCs; k++)
 			{
 				if (Main.npc[k].active && (Main.npc[k].type == ModContent.NPCType<LittleBone>() ||
-                Main.npc[k].type == ModContent.NPCType<LittleBonePotTransform>())) 
+                Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<LittleBoneSleeping>() ||
+                Main.npc[k].type == ModContent.NPCType<LittleBonePotTransform>()))
 				{
                     Main.npc[k].active = false;
                 }

@@ -48,12 +48,7 @@ New Event, The Egg Incursion:
 -The event will also last for less time if you have already completed it
 
 Enemy list:
--Distended: a simple fodder enemy that attacks by running at you, there is also a bloody variant that has less defense but higher attack damage
--Vigilante: a fast flying enemy that will sometimes preform quick horizontal dashes at you
--Visitant: slow flying enemy that will sometimes barf out explosive chunks of biomatter
--Crux: very slow flying enemy, will sometimes use purple auras that inflict debuffs on players and buff enemies
--Capillary: stationary enemy that will occasionally use a giant purple aura, which will inflict debuffs on players and buff enemies
--Vesicator: flying mini-boss enemy that drops explosive biomatter below it, on death it will fall to the ground and explode, avoid this at all costs
+-Do the event in game and find out (lmao)
 
 
 
@@ -75,7 +70,7 @@ An Old Friend Returns, The Spooky Spirit:
 
 New Catacomb Darkness:
 
--While in the catacombs your vision will be darkened, only allowing you to see a certain distance ahead
+-While in the catacombs your vision will be darkened, only allowing you to see a certain distance ahead in any direction
 -This makes exploring the catacombs more creepy, but also more engaging since you'll actually need to explore properly instead of just seeing what rooms are around you
 -The darkness will go away during big bones fight, and will go away permanently after big bone is defeated for the first time
 -This mechanic will also be very cool and good with our future plans :)
@@ -92,10 +87,10 @@ New Enemy, the Catacomb Guardian:
 
 New Music:
 
+-"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
 -"Harvest Rainfall" By Bananalizard, plays when it rains in the Spooky Forest biome
 -"A Boneyard Too Far" By Bananalizard, plays in the new Swampy Cemetery biome
--"The Evolution of Evil" By Rockwizard5, plays during the Egg Incursion event
-
+-"Spooky Spirit" By Bananlizard, plays during spooky spirit's fight (This theme is currently an unfinished placeholder, the proper theme will be finished in the future)
 
 
 New Config Options:
@@ -213,9 +208,13 @@ Thorn Covered Bulb:
 -No longer bounces off of tiles, instead when it hits a tile, it will fall down until it hits the floor, where it will linger for a bit before dying
 -The thorns created by its explosion now deal slightly less damage
 
+Elephant Killer:
+-renamed to Old Hunter's Rifle to fit more with the old hunter's crossbow
+-Damage has been buffed slightly
+
 Skull Smasher:
 -Damage has been nerfed significantly
--reworked its left click ability because the previous true melee swing was useless, it now functions like a better version of the palandin's hammer with slight AoE damage
+-reworked its left click ability because the true melee swing was useless, it now functions like a better version of the palandin's hammer with slight AoE damage
 -Right click ability now does double the item's base damage
 
 Disciple's Mask:
@@ -239,7 +238,6 @@ Orro & Boro Changes:
 
 -All of Orro & Boro's attacks have been changed or modified to make the fight more fun, there's too many changes to list here but basically everything has been tweaked to some degree
 -Orro & Boro now have an enrage mechanic where, when one worm is killed it will actually die, but the other worm will become enraged, causing it to become super aggressive
--When enraged, they will gain a pulsing red ring around their head (Ultrakill moment)
 -Both Orro & Boro are now immune to the following debuffs: confused, poisoned, venom, on fire, cursed inferno, ichor, and shadow flame
 
 
@@ -277,14 +275,16 @@ Little Bone Changes:
 -No longer shows up on the vanilla housing UI
 -Little bone now has a ton of new dialogue for each different vanilla biome and spooky mod biome
 -A lot of little bone's adivce has been changed and/or rewritten to be more clear and to make sense with some of the new changes made in this update
+-Added new advice dialogue for some of the newly added features this update
 
 
 
 
-~OTHER SMALL CHANGES AND TWEAKS TO EXISTING STUFF~
+~OTHER SMALL CHANGES AND TWEAKS~
 
 
 -Made modifications to the spooky forest generation, the sides of the biome are now less wide to make it less intrusive on other worldgen
+-The spooky forest now generates with chunks of gold ore along with the other basic vanilla ores
 -Green clentaminator solution will now convert spooky forest blocks back into their respective vanilla blocks, same for the new swampy cemetery blocks as well
 -World globes will now only switch the spooky forest background while you are in the spooky forest
 -All of the wild grasses in the spooky forest now sway in the wind instead of only the small ones
@@ -295,7 +295,7 @@ Little Bone Changes:
 -The fleshy eye blocks in the valley of eyes now produce cool new ambient particles, and produce blood particles when walked on
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -Removed the catacomb junk chests from the mod, and any old junk chests that existed in previous versions will be replaced with old wood chests
--All spooky mod blocks, materials, boss summons, ect now stack to 9999
+-All spooky mod blocks, materials, ect now stack to 9999
 -Fixed a ton of spooky mod item sell prices, lowered ones that were too expensive, and increased ones that were too cheap
 -Fixed certain items in the mod that were supposed to have sell prices but didnt have any
 -Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
@@ -311,9 +311,9 @@ Little Bone Changes:
 -Spooky mod music boxes now produce notes when turned on, display the name and composer of the song in their item tooltip, cannot be reforged, and will turn back into a normal music box when shimmered
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it
 -Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
--Added a new visual effect for the gore monger armor's aura to match the new auras orro & boro get when enraged
+-Added a new visual effect for the gore monger armor's aura to make it look nicer and less in your face
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
--Spooky dance ghosts no longer drop money
+-Spooky dance ghosts no longer drop money, and are now considered friendly
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies and critters in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
 -Putty slimes now use vanilla slime ai since there old ai was kind of annoying in game, and was annoying to fix/work with
@@ -321,6 +321,7 @@ Little Bone Changes:
 -Tortumors and Giant Tortumors can no longer move through blocks
 -All natural spawns will be disabled during spooky mod's boss fights
 -Increased contact damage scaling for all spooky mod bosses in expert and master mode because it was way too weak before
--Spooky mod enemies and critters now have more specific spawn condition labels in the bestiary, specifically for day time or night time exclusive enemies
+-Fixed moco's projectiles being invisible in multiplayer
+-Spooky mod enemies and critters now have more specific spawn condition labels in the bestiary, specifically for daytime and nighttime exclusive enemies
 -All spooky mod pets now display on character selection screen if you have them equipped
 

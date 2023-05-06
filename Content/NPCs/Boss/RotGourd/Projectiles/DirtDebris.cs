@@ -4,17 +4,11 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 { 
     public class DirtDebris : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Dirt Debris");
-        }
-		
         public override void SetDefaults()
         {
 			Projectile.width = 16;                   			 

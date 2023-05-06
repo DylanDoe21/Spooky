@@ -1,21 +1,12 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class EyeBeamTelegraph : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Telegraph");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 50;

@@ -39,6 +39,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 2;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -147,25 +149,28 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
 
-        /*
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            //if boro is in its enraged state
             if (Enraged)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/BoroEnrageCircle").Value;
+                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6.28318548f)) / 2f + 0.5f;
 
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-                Color color = Color.Lerp(Color.Red, Color.Red * 0.5f, fade);
+                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, 
-                NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.75f + fade, SpriteEffects.None, 0);
+                for (int numEffect = 0; numEffect < 4; numEffect++)
+                {
+                    Color newColor = color;
+                    newColor = NPC.GetAlpha(newColor);
+                    newColor *= 1f - fade;
+                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6.28318548f + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
+                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                }
             }
 
             return true;
         }
-        */
 
         public override void AI()
         {

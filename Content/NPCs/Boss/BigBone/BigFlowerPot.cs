@@ -2,12 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-using Spooky.Core;
-using Spooky.Content.Generation;
-using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
@@ -122,10 +117,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 {
                     Main.NewText("Big Bone has awoken!", 171, 64, 255);
 
-                    if (Main.netMode != 1)
-                    {
-                        NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
-                    }
+                    NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
 
                     //net update so it doesnt vanish on multiplayer
                     if (Main.netMode == NetmodeID.Server)

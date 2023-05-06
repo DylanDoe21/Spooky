@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.Catacomb;
@@ -63,35 +62,29 @@ namespace Spooky.Content.Items.Catacomb
 			{
 				for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
 				{
-					Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-					int i = Main.myPlayer;
-					float num72 = Item.shootSpeed;
-					int num73 = damage;
-					float num74 = knockback;
-					float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-					float num79 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
-					float f = Main.rand.NextFloat() * 6.28318548f;
-					float value12 = 20f;
-					float value13 = 60f;
-					Vector2 vector13 = vector2 + f.ToRotationVector2() * MathHelper.Lerp(value12, value13, Main.rand.NextFloat());
+					Vector2 mountedCenter = player.RotatedRelativePoint(player.MountedCenter, true);
+					float mousePosX = Main.mouseX + Main.screenPosition.X - mountedCenter.X;
+					float mousePosY = Main.mouseY + Main.screenPosition.Y - mountedCenter.Y;
+					float random = Main.rand.NextFloat() * 6.28318548f;
+					Vector2 randomPosition = mountedCenter + random.ToRotationVector2() * MathHelper.Lerp(20f, 60f, Main.rand.NextFloat());
 					
-					for (int num202 = 0; num202 < 50; num202++)
+					for (int numPositon = 0; numPositon < 50; numPositon++)
 					{
-						vector13 = vector2 + f.ToRotationVector2() * MathHelper.Lerp(value12, value13, Main.rand.NextFloat());
-						if (Collision.CanHit(vector2, 0, 0, vector13 + (vector13 - vector2).SafeNormalize(Vector2.UnitX) * 8f, 0, 0))
+                        randomPosition = mountedCenter + random.ToRotationVector2() * MathHelper.Lerp(20f, 60f, Main.rand.NextFloat());
+						if (Collision.CanHit(mountedCenter, 0, 0, randomPosition + (randomPosition - mountedCenter).SafeNormalize(Vector2.UnitX) * 8f, 0, 0))
 						{
 							break;
 						}
 
-						f = Main.rand.NextFloat() * 6.28318548f;
+                        random = Main.rand.NextFloat() * 6.28318548f;
 					}
 
 					Vector2 mouseWorld = Main.MouseWorld;
-					Vector2 vector14 = mouseWorld - vector13;
-					Vector2 vector15 = new Vector2(num78, num79).SafeNormalize(Vector2.UnitY) * num72;
-					vector14 = vector14.SafeNormalize(vector15) * num72;
-					vector14 = Vector2.Lerp(vector14, vector15, 0.25f);
-					Projectile.NewProjectile(source, vector13, vector14, type, num73, num74, i, 0f, 0f);
+					Vector2 newVelocity = mouseWorld - randomPosition;
+					Vector2 newShootSpeed = new Vector2(mousePosX, mousePosY).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
+                    newVelocity = newVelocity.SafeNormalize(newShootSpeed) * Item.shootSpeed;
+                    newVelocity = Vector2.Lerp(newVelocity, newShootSpeed, 0.25f);
+					Projectile.NewProjectile(source, randomPosition, newVelocity, type, damage, knockback, player.whoAmI, 0f, 0f);
 				}
 			}
 			

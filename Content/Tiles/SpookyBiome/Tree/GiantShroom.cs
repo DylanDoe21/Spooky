@@ -123,10 +123,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             if (Main.tile[x, y].TileFrameX == 16)
             {
                 //spawn a seed from the tree
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.Next(3) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<GiantShroomSeed>(), Main.rand.Next(1, 2));
+					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<GiantShroomSeed>(), Main.rand.Next(1, 3));
                 }
             }
         }

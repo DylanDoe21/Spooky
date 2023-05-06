@@ -2,12 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.Catacomb;
-using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Items.Catacomb
 {

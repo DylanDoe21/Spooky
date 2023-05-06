@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.Catacomb
         {
             ModContent.NPCType<FloatyFlower>(),
             ModContent.NPCType<HauntedSkull>(),
-            ModContent.NPCType<HauntedSkull>(),
             ModContent.NPCType<HoppingFlower>(),
             ModContent.NPCType<RollFlower>()
         };
@@ -107,7 +106,6 @@ namespace Spooky.Content.NPCs.Catacomb
 
                         for (int numDust = 0; numDust < 3; numDust++)
                         {
-
                             int magicDust = Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, ModContent.DustType<GlowyDust>());
                             Main.dust[magicDust].color = Color.Yellow;
                             Main.dust[magicDust].velocity.X *= Main.rand.NextFloat(-1.05f, 1.05f);

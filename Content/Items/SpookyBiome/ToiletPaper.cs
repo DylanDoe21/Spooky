@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.value = Item.buyPrice(gold: 1);   
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<ToiletPaperProj>();  
-            Item.shootSpeed = 5.5f;     
+            Item.shootSpeed = 5.5f; 
         }
     }
 }
