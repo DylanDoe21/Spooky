@@ -799,6 +799,11 @@ Mods: {
 				Tooltip: "'That's not how you're supposed to use it'"
 			}
 
+			HatHead: {
+				DisplayName: Hat in a River's Mask
+				Tooltip: "'Great for impersonating spooky mod devs!'"
+			}
+
 			KrakenHead: {
 				DisplayName: HugeKraken's Mask
 				Tooltip: "'Great for impersonating spooky mod devs!'"
@@ -2279,11 +2284,10 @@ Mods: {
 			SentientShootiusSentry.DisplayName: Sentient Shootius
 			SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
 			Grug.DisplayName: Grug
-			GrugFireball.DisplayName: Grug Fireball
+			GrugFireball.DisplayName: Cursed Fireball
 			BloodTooth.DisplayName: Blood Tooth
-			DrainedSoul.DisplayName: Drained Soul
-			DrainedSoulHealth.DisplayName: Drained Soul Health
-			DrainedSoulMana.DisplayName: Drained Soul Mana
+			DrainedSoulHealth.DisplayName: Health Soul
+			DrainedSoulMana.DisplayName: Mana Soul
 		}
 
 		NPCs: {

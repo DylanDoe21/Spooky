@@ -53,8 +53,8 @@ namespace Spooky.Core
 		{
 			if (item.type == ItemID.GoodieBag)
 			{
-				int[] DevMasks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(),
-                ModContent.ItemType<KrakenHead>(), ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>() };
+				int[] DevMasks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(), ModContent.ItemType<KrakenHead>(), 
+                ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>(), ModContent.ItemType<HatHead>() };
 
                 itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
 			}
