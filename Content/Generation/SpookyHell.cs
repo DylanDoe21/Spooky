@@ -36,7 +36,7 @@ namespace Spooky.Content.Generation
             int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;
             int extraClearEnd = (GenVars.JungleX > Main.maxTilesX / 2) ? 50 : 0;
 
-            //clear everything in the area the biome generates in
+            //clear everything in the area the biome generates in to prevent unwanted collisions with obsidian houses or lava flooding
             for (int X = StartPosition - extraClearStart; X <= BiomeEdge + extraClearEnd; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
@@ -51,8 +51,7 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
-            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley");
-            progress.Message = Description.Value;
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley").Value;
 
             //generate the surface
             int width = BiomeEdge;
@@ -215,8 +214,8 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 155; Y < Main.maxTilesY - 120; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>())
+                    //place 
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
                     {
                         if (WorldGen.genRand.NextBool(20))
                         {
@@ -297,7 +296,7 @@ namespace Spooky.Content.Generation
                         if (WorldGen.genRand.NextBool(10))
                         {
                             ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<TallEyeStalk1>(), 
-                            (ushort)ModContent.TileType<TallEyeStalk2>(), (ushort)ModContent.TileType<TallEyeStalk2>() };
+                            (ushort)ModContent.TileType<TallEyeStalk2>(), (ushort)ModContent.TileType<TallEyeStalk3>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeStalks)); 
                         }
@@ -380,7 +379,7 @@ namespace Spooky.Content.Generation
         {
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 230; Y < Main.maxTilesY - 5; Y++)
                 {
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)

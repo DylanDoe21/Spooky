@@ -19,7 +19,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             return ModContent.GetInstance<TileCount>().spookyHellTiles >= 500;
         }
 
-        public override Color DrawColor => Color.Gray;
+        public override Color DrawColor => new Color(185, 185, 185);
     }
 
     internal static class HellBGManager
@@ -119,7 +119,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                 {
                     case 0:
                     {
-                        zero.Y += 150f;
+                        zero.Y += 160f;
                         break;
                     }
                     case 1:
@@ -129,7 +129,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     }
                     case 2:
                     {
-                        zero.Y += 30f;
+                        zero.Y += 20f;
                         break;
                     }
                     case 3:

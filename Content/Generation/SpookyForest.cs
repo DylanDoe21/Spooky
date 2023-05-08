@@ -30,8 +30,7 @@ namespace Spooky.Content.Generation
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
         {
-            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest");
-            progress.Message = Description.Value;
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
             //decide whether or not to use the alt background
             if (Main.rand.NextBool(2))

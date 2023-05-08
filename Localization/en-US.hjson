@@ -67,7 +67,7 @@ Mods: {
 				CatacombLayer1: Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it below one of the buildings in that foggy cemetery past the jungle.
 				EyeValley: Somewhere down in the underworld, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.
 				CatacombLayer2: Now that you have access deeper into the catacombs, you should return there. maybe the deeper parts will have some better treasure?
-				OrroBoro: Now that you have defeated one of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create a special substance.
+				OrroBoro: Now that you have defeated all of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create a special substance.
 				BigBone: Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.
 				NoAdvice: Sorry, I do not have any advice to offer right now.
 				Transport: Here, take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.
@@ -569,7 +569,7 @@ Mods: {
 
 			CowBell: {
 				DisplayName: Rusty Cowbell
-				Tooltip: Summons a friendly shadow creature to fight with you
+				Tooltip: Summons a friendly shadow entities to fight with you
 			}
 
 			EMFReader: {
@@ -827,6 +827,11 @@ Mods: {
 			RotGourdMask: {
 				DisplayName: Rot Gourd Mask
 				Tooltip: ""
+			}
+
+			SeasaltHead: {
+				DisplayName: Seasalt's Mask
+				Tooltip: "'Great for impersonating spooky mod devs!'"
 			}
 
 			TacoHead: {
@@ -1499,6 +1504,16 @@ Mods: {
 					'''
 			}
 
+			SentientBladeTongue: {
+				DisplayName: Tongueblade
+				Tooltip:
+					'''
+					Hitting enemies with the tongue will paralyze them for a short time
+					Hold down right click to blech out short lived clouds of ichor
+					'Which came first, the tongue or the creature?'
+					'''
+			}
+
 			SentientBloodRainBow: {
 				DisplayName: Uncanine
 				Tooltip:
@@ -1543,7 +1558,7 @@ Mods: {
 					'''
 					Summons grug the gargoyle to fight with you
 					Only one grug can exist, and he requires two minion slots to summon
-					'Hes actually a gargoyle, not a grugoyle'
+					'He's actually a gargoyle, not a grugoyle'
 					'''
 			}
 
@@ -1570,8 +1585,8 @@ Mods: {
 				DisplayName: Soul Sucker
 				Tooltip:
 					'''
-					Siphons souls from enemies near your cursor, which can heal life or mana
-					After being healed ten times, it will unleash a powerful wave of blood
+					Siphons souls from enemies near your cursor, which can heal your life or mana
+					After absorbing twenty souls, the staff will unleash a powerful damaging aura
 					'It looks like it has something malicious to say'
 					'''
 			}
@@ -1582,6 +1597,15 @@ Mods: {
 					'''
 					Summons a living eye tendril sentry to shoot beams at enemies
 					'It can stare holes through anything'
+					'''
+			}
+
+			SentientSkullBook: {
+				DisplayName: Necronomicon
+				Tooltip:
+					'''
+					Casts out fast magic skulls that will bite and stick to enemies
+					'Nom nom nom!'
 					'''
 			}
 
@@ -2078,7 +2102,7 @@ Mods: {
 			}
 
 			SpookyMushItem: {
-				DisplayName: Valley Mush
+				DisplayName: Organic Mush
 				Tooltip: ""
 			}
 
@@ -2288,6 +2312,11 @@ Mods: {
 			BloodTooth.DisplayName: Blood Tooth
 			DrainedSoulHealth.DisplayName: Health Soul
 			DrainedSoulMana.DisplayName: Mana Soul
+			SentientLifeDrainSkull.DisplayName: Sentient Life Drain Skull
+			SentientBladeTongueProj.DisplayName: Sentient Blade Tongue Proj
+			IchorCloud.DisplayName: Ichor Cloud
+			SentientSkull.DisplayName: Sentient Skull
+			SoulDrainShockwave.DisplayName: Soul Drain Shockwave
 		}
 
 		NPCs: {

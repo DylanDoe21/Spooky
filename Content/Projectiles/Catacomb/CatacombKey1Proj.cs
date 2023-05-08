@@ -53,6 +53,11 @@ namespace Spooky.Content.Projectiles.Catacomb
             return true;
         }
 
+		public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
 		public override void AI()
 		{
             Projectile.ai[0]++;

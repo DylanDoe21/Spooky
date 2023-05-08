@@ -42,8 +42,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 2;
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

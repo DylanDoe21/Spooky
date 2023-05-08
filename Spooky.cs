@@ -13,6 +13,7 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
+using Terraria.Graphics.Shaders;
 
 namespace Spooky
 {
@@ -35,8 +36,8 @@ namespace Spooky
 
                 Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:SpookyHellTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(45f, 0f, 225f).UseOpacity(0.002f), EffectPriority.VeryHigh);
-                
+                Filters.Scene["Spooky:EyeValleyTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(112f, 11f, 176f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+
                 Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.6f, -0.8f, -0.6f), EffectPriority.Medium);
 
                 Filters.Scene["Spooky:EntityEffect"] = new Filter(new SpookyScreenShader("FilterMoonLordShake").UseIntensity(0.5f), EffectPriority.VeryHigh);

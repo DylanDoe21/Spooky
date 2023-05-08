@@ -65,9 +65,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameX < 18)
             {
-                r = 0.45f;
-                g = 0.38f;
-                b = 0.22f;
+                r = 0.75f;
+                g = 0.58f;
+                b = 0.32f;
             }
         }
 

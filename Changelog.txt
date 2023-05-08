@@ -47,9 +47,6 @@ New Event, The Egg Incursion:
 -There is a craftable summon item for the event you can get after orro & boro, as the enemies will drop orro & boro's crafting material after you defeat them
 -The event will also last for less time if you have already completed it
 
-Enemy list:
--Do the event in game and find out (lmao)
-
 
 
 New Biome, The Swampy Cemetery:
@@ -300,7 +297,7 @@ Little Bone Changes:
 -Fixed certain items in the mod that were supposed to have sell prices but didnt have any
 -Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
 -Old wood now counts as an actual wood type for crafting recipes
--Old wood platforms can now be crafted by hand like vanilla platforms
+-Resprited old wood platforms because it was vanilla recolor before, and they can now be crafted by hand like vanilla platforms
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
 -Necromancy for dummies projectiles no longer bounce off of enemies, they now have improved bouncing behavior, and they now only pierce up to two enemies
 -The fuzz bat wing has been changed into fuzz bat blood, it is still the same pet item functionally but with a different sprite and name

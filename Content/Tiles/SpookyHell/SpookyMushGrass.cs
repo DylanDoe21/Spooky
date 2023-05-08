@@ -27,6 +27,11 @@ namespace Spooky.Content.Tiles.SpookyHell
             MineResist = 0.7f;
         }
 
+        public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+        {
+            frameXOffset = i % 3 * 288;
+        }
+
         public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);

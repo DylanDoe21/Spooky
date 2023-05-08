@@ -35,13 +35,11 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool CanUseItem(Player player)
 		{
-			for (int i = 0; i < 1000; i++)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj>()] > 0 || 
+			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerSwung>()] > 0 ||
+			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj2>()] > 0) 
 			{
-				if (Main.projectile[i].active && (Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj>() ||
-				Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerSwung>() || Main.projectile[i].type == ModContent.ProjectileType<BigBoneHammerProj2>()))
-				{
-					return false;
-				}
+				return false;
 			}
 
 			return true;

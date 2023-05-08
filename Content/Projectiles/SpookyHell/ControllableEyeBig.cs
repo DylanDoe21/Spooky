@@ -66,7 +66,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 if (Projectile.ai[0] == 1)
                 {
-                    if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<ControllableEyeBig>()] >= 8)
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<ControllableEyeBig>()] >= 8)
                     {
                         Projectile.Kill();
                     }

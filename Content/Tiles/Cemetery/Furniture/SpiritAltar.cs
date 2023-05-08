@@ -77,13 +77,20 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
-			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarOutline").Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+            //draw glowy outline
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarOutline").Value;
 
             float glowspeed = Main.GameUpdateCount * 0.02f;
             float glowbrightness = (float)MathF.Sin(j / 15f - glowspeed);
 
 			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Fuchsia * glowbrightness);
+
+            //draw actual glowmask
+            Texture2D glowtex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarGlow").Value;
+
+            spriteBatch.Draw(glowtex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 		}
     }
 }

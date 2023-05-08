@@ -64,9 +64,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameX < 18)
             {
-                r = 0.35f;
-                g = 0.35f;
-                b = 0.35f;
+                r = 0.45f;
+                g = 0.45f;
+                b = 0.45f;
             }
         }
 

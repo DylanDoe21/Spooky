@@ -301,7 +301,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 
 							//slam down instantly if above the player
-							if (NPC.localAI[0] > 85 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 10 && NPC.Center.X >= player.Center.X - 10)
+							if (NPC.localAI[0] > 80 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 10 && NPC.Center.X >= player.Center.X - 10)
 							{
 								NPC.localAI[0] = 115;
 							}

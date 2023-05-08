@@ -25,8 +25,7 @@ namespace Spooky.Content.Generation
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemeteryArea(GenerationProgress progress, GameConfiguration configuration)
         {
-            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery");
-            progress.Message = Description.Value;
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery").Value;
 
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
@@ -235,7 +234,7 @@ namespace Spooky.Content.Generation
             while (!placedHut1 && hut1Attempts++ < 100000)
             {
                 int HutX = XMiddle - 175;
-                int HutY = Catacombs.PositionY - 50;
+                int HutY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
 				{
@@ -261,7 +260,7 @@ namespace Spooky.Content.Generation
             while (!placedHole1 && hole1Attempts++ < 100000)
             {
                 int HoleX = XMiddle - 100;
-                int HoleY = Catacombs.PositionY - 50;
+                int HoleY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
 				{
@@ -287,7 +286,7 @@ namespace Spooky.Content.Generation
             while (!placedCrypt && cryptAttempts++ < 100000)
             {
                 int CryptX = XMiddle;
-                int CryptY = Catacombs.PositionY - 50;
+                int CryptY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(CryptX, CryptY) && CryptY <= Main.worldSurface)
 				{
@@ -315,7 +314,7 @@ namespace Spooky.Content.Generation
             while (!placedlake && lakeAttempts++ < 100000)
             {
                 int LakeX = XMiddle + 75;
-                int LakeY = Catacombs.PositionY - 50;
+                int LakeY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(LakeX, LakeY) && LakeY <= Main.worldSurface)
 				{
@@ -341,7 +340,7 @@ namespace Spooky.Content.Generation
             while (!placedHole2 && hole2Attempts++ < 100000)
             {
                 int HoleX = XMiddle + 135;
-                int HoleY = Catacombs.PositionY - 50;
+                int HoleY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
 				{
@@ -367,7 +366,7 @@ namespace Spooky.Content.Generation
             while (!placedHut2 && hut2Attempts++ < 100000)
             {
                 int HutX = XMiddle + 185;
-                int HutY = Catacombs.PositionY - 50;
+                int HutY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
 				{

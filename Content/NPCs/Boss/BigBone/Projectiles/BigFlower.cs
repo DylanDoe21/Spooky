@@ -195,8 +195,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		//Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.Heart, 1));
-
 			var parameters = new DropOneByOne.Parameters() 
 			{
 				ChanceNumerator = 1,
@@ -204,7 +202,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				MinimumStackPerChunkBase = 1,
 				MaximumStackPerChunkBase = 1,
 				MinimumItemDropsCount = 2,
-				MaximumItemDropsCount = 5,
+				MaximumItemDropsCount = 3,
 			};
 
 			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));

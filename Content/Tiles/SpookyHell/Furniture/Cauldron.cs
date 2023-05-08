@@ -117,7 +117,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         public override bool PreDraw(ref Color lightColor)
         {
 			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Texture2D bubbleTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyBubbles").Value;
+			Texture2D bubbleTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyGlow").Value;
 			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
 			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
 
@@ -142,9 +142,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         public override void Load()
         {
 			//melee
-			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
-			//AddTransformation(ItemID.TragicUmbrella, ModContent.ItemType<SentientUmbrella>());
+			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
+			AddTransformation(ItemID.Bladetongue, ModContent.ItemType<SentientBladeTongue>());
 
 			//ranged
 			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());
@@ -152,13 +152,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			AddTransformation(ItemID.Toxikarp, ModContent.ItemType<SentientToxikarp>());
 
 			//magic
+			AddTransformation(ItemID.BookofSkulls, ModContent.ItemType<SentientSkullBook>());
 			AddTransformation(ItemID.ClingerStaff, ModContent.ItemType<SentientClingerStaff>());
 			AddTransformation(ItemID.SoulDrain, ModContent.ItemType<SentientLifeDrain>());
 
 			//summon
+			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
 			AddTransformation(ItemID.ImpStaff, ModContent.ItemType<SentientImpStaff>());
 			AddTransformation(ItemID.HoundiusShootius, ModContent.ItemType<SentientShootius>());
-			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
         }
 
         public override void AddRecipes()

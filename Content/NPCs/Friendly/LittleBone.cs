@@ -151,7 +151,7 @@ namespace Spooky.Content.NPCs.Friendly
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//orroboro
-				else if (Main.hardMode && NPC.downedMechBossAny && !Flags.downedOrroboro)
+				else if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !Flags.downedOrroboro)
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.OrroBoro");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);

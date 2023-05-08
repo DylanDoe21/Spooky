@@ -107,6 +107,8 @@ namespace Spooky.Content.Projectiles.Sentient
                 player.statMana += ManaHealed;
                 player.ManaEffect(ManaHealed);
 
+                player.GetModPlayer<SpookyPlayer>().SoulDrainCharge++;
+
                 Projectile.Kill();
             }
         }

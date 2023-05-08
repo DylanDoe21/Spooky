@@ -296,8 +296,7 @@ namespace Spooky.Content.Generation
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
-            LocalizedText Description = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs");
-            progress.Message = Description.Value;
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
 
             //tiles
             //0 = clear blocks

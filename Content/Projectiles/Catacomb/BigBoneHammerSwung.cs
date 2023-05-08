@@ -11,7 +11,6 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
-    //TODO: make this projectile deal no knockback but make it fling enemies away from the player on hit to simulate knockback
     public class BigBoneHammerSwung : ModProjectile
     {
         public float Speed = 0.02f;
@@ -36,6 +35,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.netImportant = true;
             Projectile.ownerHitCheck = true;
             Projectile.tileCollide = false;
+            Projectile.knockBack = 0;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10000;
         }
@@ -112,6 +112,20 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             trail.Positions = cache.ToArray();
             trail.NextPosition = Projectile.Center + Projectile.velocity;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            Vector2 Knockback = owner.Center - target.Center;
+            Knockback.Normalize();
+            Knockback *= 20;
+
+            if (target.knockBackResist > 0)
+            {
+                target.velocity = -Knockback;
+            }
         }
 
         public override void AI()

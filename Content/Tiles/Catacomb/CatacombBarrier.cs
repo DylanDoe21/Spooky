@@ -49,16 +49,20 @@ namespace Spooky.Content.Tiles.Catacomb
 				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 
-			float time = Main.GameUpdateCount * 0.01f;
+			if (!tile.Get<TileWallWireStateData>().IsActuated)
+			{
+				float time = Main.GameUpdateCount * 0.01f;
 
-			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
+				float intensity = 0.7f;
+				intensity *= (float)MathF.Sin(-j / 8f + time + i);
+				intensity *= (float)MathF.Sin(-i / 8f + time + j);
+				intensity += 0.7f;
 
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
+				Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
+			}
 		}
     }
 
@@ -79,16 +83,20 @@ namespace Spooky.Content.Tiles.Catacomb
 				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 
-			float time = Main.GameUpdateCount * 0.01f;
+			if (!tile.Get<TileWallWireStateData>().IsActuated)
+			{
+				float time = Main.GameUpdateCount * 0.01f;
 
-			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
+				float intensity = 0.7f;
+				intensity *= (float)MathF.Sin(-j / 8f + time + i);
+				intensity *= (float)MathF.Sin(-i / 8f + time + j);
+				intensity += 0.7f;
 
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * intensity);
+				Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * intensity);
+			}
 		}
 	}
 
@@ -126,16 +134,20 @@ namespace Spooky.Content.Tiles.Catacomb
 				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 
-			float time = Main.GameUpdateCount * 0.01f;
+			if (!tile.Get<TileWallWireStateData>().IsActuated)
+			{
+				float time = Main.GameUpdateCount * 0.01f;
 
-			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
+				float intensity = 0.7f;
+				intensity *= (float)MathF.Sin(-j / 8f + time + i);
+				intensity *= (float)MathF.Sin(-i / 8f + time + j);
+				intensity += 0.7f;
 
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * intensity);
+				Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * intensity);
+			}
 		}
 	}
 }

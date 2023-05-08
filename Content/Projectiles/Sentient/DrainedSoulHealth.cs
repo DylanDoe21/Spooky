@@ -104,6 +104,8 @@ namespace Spooky.Content.Projectiles.Sentient
                 player.statLife += LifeHealed;
                 player.HealEffect(LifeHealed, true);
 
+                player.GetModPlayer<SpookyPlayer>().SoulDrainCharge++;
+
                 Projectile.Kill();
             }
         }
