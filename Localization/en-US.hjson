@@ -7,6 +7,22 @@ Mods: {
 			EyeValley: Generating the eye valley
 		}
 
+		DeathReasons: {
+			BiomassExplosion: was exploded by Biomatter.
+			VesicatorExplosion: was exploded by Vesicator.
+			EntityDeath: "was [REDACTED]."
+		}
+
+		EventsAndBosses: {
+			SpookySpiritSpawn: Spooky Spirit has awoken!
+			OrroboroSpawn: Orro & Boro have awoken!
+			EggNoConcoction: You need a special concoction to destroy the egg
+			EggEventBegin: The Egg Incusrion has begun!
+			EggEventOver: The giant egg has become fragile!
+			EggEventBarProgress: "Progress: "
+			EggEventBarDisplayName: Egg Incursion
+		}
+
 		ArmorSetBonus: {
 			OldWoodArmor: 1 defense
 			GourdArmor:
@@ -57,6 +73,13 @@ Mods: {
 		}
 
 		Dialogue: {
+			FlowerPot: {
+				Dialogue1: It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?
+				Dialogue2: Maybe if you have a special fertalizer, you can regrow whatever is in this flower pot.
+				Dialogue3: A giangantic flower pot, seems like whatever was inside isn't very alive anymore.
+				Dialogue4: Why are you talking to a giant flower pot? Weirdo.
+			}
+
 			LittleBone: {
 				Awaken: Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!
 				SpookyBiome: It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.
@@ -576,7 +599,7 @@ Mods: {
 				DisplayName: EMF Reader
 				Tooltip:
 					'''
-					Used to find ghosts in the swampy cemetery
+					Used to find paranormal entities
 					Summons Spooky Spirit when used near the cursed statue
 					'''
 			}
@@ -1508,7 +1531,7 @@ Mods: {
 				DisplayName: Tongueblade
 				Tooltip:
 					'''
-					Hitting enemies with the tongue will paralyze them for a short time
+					Hitting enemies with the tongue may inflict slowness on them
 					Hold down right click to blech out short lived clouds of ichor
 					'Which came first, the tongue or the creature?'
 					'''
@@ -2317,6 +2340,7 @@ Mods: {
 			IchorCloud.DisplayName: Ichor Cloud
 			SentientSkull.DisplayName: Sentient Skull
 			SoulDrainShockwave.DisplayName: Soul Drain Shockwave
+			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawn
 		}
 
 		NPCs: {

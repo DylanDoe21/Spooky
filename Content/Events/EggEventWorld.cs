@@ -56,7 +56,7 @@ namespace Spooky.Content.Events
 				if (!Flags.downedEggEvent)
 				{
 					//event end message
-					string text = "The giant egg has become fragile!";
+					string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
 
 					if (Main.netMode != NetmodeID.Server)
 					{
@@ -116,7 +116,7 @@ namespace Spooky.Content.Events
 
 				float divide = Flags.downedEggEvent ? 1.2f : 2.1f;
 
-				string ProgressText = "Progress: " + Math.Round(EggEventProgress / divide, 0, MidpointRounding.AwayFromZero) + "%";
+				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarProgress") + Math.Round(EggEventProgress / divide, 0, MidpointRounding.AwayFromZero) + "%";
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
@@ -133,7 +133,7 @@ namespace Spooky.Content.Events
 				int descOffset = (descBackground.Height - (int)(32f * Scale)) / 2;
 				var icon = new Rectangle(descBackground.X + descOffset + 7, descBackground.Y + descOffset, (int)(32 * Scale), (int)(32 * Scale));
 				spriteBatch.Draw(EventIcon, icon, Color.White);
-				Utils.DrawBorderString(spriteBatch, "Egg Incursion", new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
+				Utils.DrawBorderString(spriteBatch, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarDisplayName"), new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
 			}
 		}
 	}

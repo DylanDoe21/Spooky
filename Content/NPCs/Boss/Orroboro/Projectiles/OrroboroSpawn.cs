@@ -77,7 +77,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 }
 
                 //spawn message
-                string text = "Orro & Boro have awoken!";
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
 
                 if (Main.netMode != NetmodeID.Server)
                 {

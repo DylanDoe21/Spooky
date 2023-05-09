@@ -1,11 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria.Enums;
-using Terraria.Localization;
-using Terraria.Chat;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -96,7 +95,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled  = true;
+			player.cursorItemIconEnabled = true;
 			player.cursorItemIconID = ModContent.ItemType<Concoction>();
 			player.cursorItemIconText = "";
 		}
@@ -105,11 +104,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		{
 			MouseOver(i, j);
 			Player player = Main.LocalPlayer;
-			if (player.cursorItemIconText == "")
-			{
-				player.cursorItemIconEnabled = false;
-				player.cursorItemIconID = 0;
-			}
+			player.cursorItemIconEnabled = false;
+			player.cursorItemIconID = 0;
 		}
 
 		public override bool RightClick(int i, int j)
@@ -155,7 +151,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
             else
             {
-				Main.NewText("You need a special substance to destroy the egg", 171, 64, 255);
+				Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggNoConcoction"), 171, 64, 255);
 			}
 
 			return true;

@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -206,7 +207,7 @@ namespace Spooky.Content.NPCs
 
                     if (NPC.Hitbox.Intersects(player.Hitbox))
                     {
-                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " was [REDACTED]."), 9999999, 0, false);
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.EntityDeath")), 9999999, 0, false);
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;

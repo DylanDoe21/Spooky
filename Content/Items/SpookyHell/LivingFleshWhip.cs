@@ -28,21 +28,18 @@ namespace Spooky.Content.Items.SpookyHell
             Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 4f;
+			Item.shootSpeed = 3f;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-            if (Main.rand.NextBool(2))
-            {
-                type = ModContent.ProjectileType<LivingFleshWhipProj1>();
-            }
-            else
-            {
-                type = ModContent.ProjectileType<LivingFleshWhipProj2>();
-            }
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y,
+            ModContent.ProjectileType<LivingFleshWhipProj1>(), damage, knockback, player.whoAmI, 0f, 0f);
+
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y,
+            ModContent.ProjectileType<LivingFleshWhipProj2>(), damage, knockback, player.whoAmI, 0f, 0f);
 			
-			return true;
+			return false;
         }
 
         public override void AddRecipes()

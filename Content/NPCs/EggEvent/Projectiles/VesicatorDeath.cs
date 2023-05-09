@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -97,7 +98,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[0] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Vesicator."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
             //spawn vesicator gores

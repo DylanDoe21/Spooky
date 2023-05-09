@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -134,7 +135,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
             if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + fade2)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " was exploded by Biomatter."), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
             }
 
             //spawn blood splatter

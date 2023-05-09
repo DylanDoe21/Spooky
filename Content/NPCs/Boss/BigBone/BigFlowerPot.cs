@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -50,10 +51,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             List<string> Dialogue = new List<string>
             {
-                "It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?",
-                "Maybe if you have a special fertalizer, you can regrow whatever is in this flower pot.",
-                "A giangantic flower pot, seems like whatever was inside isn't very alive anymore.",
-                "Why are you talking to a giant flower pot? Weirdo.",
+                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue1"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue2"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue3"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue4"),
             };
 
             return Main.rand.Next(Dialogue);

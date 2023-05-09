@@ -7,11 +7,40 @@ using Terraria.GameContent.ItemDropRules;
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Core
 {
     public class DropConditions
     {
+        public class YellowCatacombKeyCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (!Flags.downedSpookySpirit && npc.type == ModContent.NPCType<SpookySpirit>())
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         public class RedCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 

@@ -33,7 +33,10 @@ namespace Spooky.Content.Biomes
                     }
                     else
                     {   
-                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
+                        if (!Main.bloodMoon)
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
+                        }
                     }
                 }
                 

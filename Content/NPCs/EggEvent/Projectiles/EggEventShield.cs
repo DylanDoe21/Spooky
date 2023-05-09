@@ -64,7 +64,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, Projectile.Center);
 
                 //event start message
-                string text = "The Egg Incusrion has begun!";
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
 
                 if (Main.netMode != NetmodeID.Server)
                 {
