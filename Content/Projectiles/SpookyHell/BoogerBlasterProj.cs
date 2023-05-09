@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -13,7 +12,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Booger Blaster");
             Main.projFrames[Projectile.type] = 3;
 		}
 

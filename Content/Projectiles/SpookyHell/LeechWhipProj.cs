@@ -10,12 +10,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class LeechWhipProj : ModProjectile
 	{
-		private float ChargeTime 
-		{
-			get => Projectile.ai[1];
-			set => Projectile.ai[1] = value;
-		}
-
 		public override void SetStaticDefaults() 
 		{
 			//This makes the projectile use whip collision detection and allows flasks to be applied to it.
@@ -35,7 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
-			if (Main.rand.Next(8) == 0)
+			if (Main.rand.NextBool(8))
             {
 				Item.NewItem(Projectile.GetSource_DropAsItem(), target.position, target.Size, ModContent.ItemType<LeechWhipGore>());
             }

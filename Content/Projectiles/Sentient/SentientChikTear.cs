@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
@@ -61,15 +60,15 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void Kill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 
             for (int numDusts = 0; numDusts < 12; numDusts++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PinkCrystalShard, 0f, -2f, 0, default(Color), 1.5f);
-                Main.dust[DustGore].noGravity = true;
-                Main.dust[DustGore].scale = 0.85f;
-				Main.dust[DustGore].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PinkCrystalShard, 0f, -2f, 0, default(Color), 1.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].scale = 0.85f;
+				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
 			}
 		}
     }

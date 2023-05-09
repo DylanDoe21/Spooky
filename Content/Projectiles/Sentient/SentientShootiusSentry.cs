@@ -148,6 +148,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 {
                     Vector2 dustPos = (Vector2.One * new Vector2((float)Projectile.width / 2f, (float)Projectile.height / 2f) * 0.5f).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + new Vector2(Projectile.Center.X + 2, Projectile.Center.Y - 23);
                     Vector2 velocity = dustPos - new Vector2(Projectile.Center.X + 2, Projectile.Center.Y - 23);
+                    
                     int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
                     Main.dust[dustEffect].color = Color.Red;
                     Main.dust[dustEffect].scale = 0.075f;

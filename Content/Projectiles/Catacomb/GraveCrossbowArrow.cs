@@ -3,10 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-
-using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -14,7 +10,6 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Crossbow Arrow");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

@@ -3,18 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class GlowBulbThorn : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Bulb Thorn");
-        }
-		
         public override void SetDefaults()
         {
             Projectile.width = 10;                  			 
@@ -28,7 +21,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
@@ -40,7 +32,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);
 
-			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, 0f, 0, default(Color), 1f);
+			int newDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Dirt, 0f, 0f, 0, default, 1f);
 			Main.dust[newDust].position = position;
             Main.dust[newDust].scale = 0.95f;
 			Main.dust[newDust].fadeIn = 0.5f;
@@ -53,14 +45,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             for (int numDust = 0; numDust < 10; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-12, 12) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-12, 12) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-12, 12) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-12, 12) * .05f - 1.5f;
                 
-				if (Main.dust[DustGore].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
 		}

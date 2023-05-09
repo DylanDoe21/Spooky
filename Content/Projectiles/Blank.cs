@@ -5,11 +5,6 @@ namespace Spooky.Content.Projectiles
 {
     public class Blank : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Blank");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 16;

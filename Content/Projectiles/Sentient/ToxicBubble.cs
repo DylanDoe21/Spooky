@@ -3,8 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
@@ -59,11 +57,11 @@ namespace Spooky.Content.Projectiles.Sentient
 
             for (int numDust = 0; numDust < 35; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0f, -2f, 0, default(Color), 1.5f);
-                Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-			}
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+                Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+            }
 		}
     }
 }

@@ -15,11 +15,6 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         private List<Vector2> cache;
         private Trail trail;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Old Bullet");
-        }
         
         public override void SetDefaults()
         {
@@ -78,11 +73,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageTrail()
         {
-            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
-            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Red, Color.Brown, factor.X) * factor.X;
             });
 

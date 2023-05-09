@@ -1,12 +1,7 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
@@ -15,11 +10,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class BowFlowerThorn : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Thorn Vine");
-		}
-
 		public override void SetDefaults()
 		{
 			DrawOffsetX = 0;
@@ -79,9 +69,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
 			Lighting.AddLight(Projectile.Center, 0.2f, 0f, 0f);
 
-			if (Projectile.localAI[0] == 0)
+			if (Projectile.ai[2] == 0)
 			{
-				Projectile.localAI[0] = 1;
+				Projectile.ai[2] = 1;
 				Projectile.rotation = Projectile.ai[0];
 				Projectile.ai[0] = 0;
 			}

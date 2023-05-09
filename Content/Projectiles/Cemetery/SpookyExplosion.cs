@@ -1,7 +1,7 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Terraria.ID;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
@@ -9,7 +9,6 @@ namespace Spooky.Content.Projectiles.Cemetery
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Skull Explosion");
             Main.projFrames[Projectile.type] = 6;
         }
 
@@ -49,10 +48,5 @@ namespace Spooky.Content.Projectiles.Cemetery
 		{
 			return Color.White;
 		}
-
-        public override void Kill(int timeLeft)
-        {
-            Projectile.timeLeft = 0;
-        }
     }
 }

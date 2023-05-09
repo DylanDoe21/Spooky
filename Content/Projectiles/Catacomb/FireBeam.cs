@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -142,11 +141,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             for (int numDust = 0; numDust < 25; numDust++)
 			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-12f, 12f);
-                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 2f);
-                Main.dust[dustGore].noGravity = true;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dust].velocity.X *= Main.rand.NextFloat(-12f, 12f);
+                Main.dust[dust].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
+                Main.dust[dust].scale = Main.rand.NextFloat(1f, 2f);
+                Main.dust[dust].noGravity = true;
 			}
 		}
 	}

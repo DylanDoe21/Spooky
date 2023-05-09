@@ -341,7 +341,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.spriteDirection = NPC.direction;
 
             NPC.velocity.X *= 0;
-            NPC.homeless = true;
+			NPC.homeless = true;
 
             if (Quest1Timer > 0)
 			{

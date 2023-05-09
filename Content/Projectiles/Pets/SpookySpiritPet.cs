@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
@@ -13,7 +12,6 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Mini Spirit");
 			Main.projFrames[Projectile.type] = 3;
 			ProjectileID.Sets.LightPet[Projectile.type] = true;
 		}

@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +11,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Magic Eye");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -46,7 +44,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             return true;
         }
-		
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            return Projectile.ai[0] > 0;
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -107,14 +110,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             for (int numDust = 0; numDust < 10; numDust++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-                Main.dust[DustGore].velocity *= 1.5f;
-                Main.dust[DustGore].noGravity = true;
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
+                Main.dust[dust].velocity *= 1.5f;
+                Main.dust[dust].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[dust].scale = 0.5f;
+                    Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                 }
             }
         }

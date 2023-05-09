@@ -106,7 +106,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
-
                 ReturnSpeed *= 65;
 
                 Projectile.velocity = ReturnSpeed;

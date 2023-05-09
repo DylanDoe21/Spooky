@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
-using Spooky.Content.Generation;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -18,7 +17,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Skull Key");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}

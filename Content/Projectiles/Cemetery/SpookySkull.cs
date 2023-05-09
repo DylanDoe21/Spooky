@@ -15,11 +15,6 @@ namespace Spooky.Content.Projectiles.Cemetery
         private List<Vector2> cache;
         private Trail trail;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Skull Bomb");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 24;

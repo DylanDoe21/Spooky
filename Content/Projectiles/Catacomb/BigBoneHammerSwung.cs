@@ -106,7 +106,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Black, Color.Yellow, factor.X) * factor.X;
             });
 
@@ -188,9 +187,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                 ShootSpeed.Normalize();
-
-                ShootSpeed.X *= 55;
-                ShootSpeed.Y *= 55;
+                ShootSpeed *= 55;
                         
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
                 ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage * 2, 12f, Main.myPlayer, 0f, 0f);

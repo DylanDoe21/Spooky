@@ -1,16 +1,10 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class LeechWhipGore : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Gore Food");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 26;

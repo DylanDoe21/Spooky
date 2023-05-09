@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {

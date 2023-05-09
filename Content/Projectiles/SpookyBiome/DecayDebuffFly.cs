@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -27,14 +26,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override bool CanHitPlayer(Player target)
         {
-            if (Projectile.ai[0] == 1 || Projectile.ai[0] == 3)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public override void AI()

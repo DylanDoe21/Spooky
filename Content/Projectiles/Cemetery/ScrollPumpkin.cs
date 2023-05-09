@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -136,24 +135,20 @@ namespace Spooky.Content.Projectiles.Cemetery
                     if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 450f)
                     {
                         Vector2 ChargeDirection = Target.Center - Projectile.Center;
-                        ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X = ChargeDirection.X * 18;
-                        ChargeDirection.Y = ChargeDirection.Y * 18;  
-                        Projectile.velocity.X = ChargeDirection.X;
-                        Projectile.velocity.Y = ChargeDirection.Y;
+                        ChargeDirection.Normalize();                     
+                        ChargeDirection.X *= 18;
+
+                        Projectile.velocity = ChargeDirection;
                     }
 
                     NPC NPC = Main.npc[i];
                     if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
                     {
-                        Vector2 ChargeDirection = NPC.Center - Projectile.Center;
+                        Vector2 ChargeDirection = Target.Center - Projectile.Center;
                         ChargeDirection.Normalize();
-                                
-                        ChargeDirection.X = ChargeDirection.X * 18;
-                        ChargeDirection.Y = ChargeDirection.Y * 18;
-                        Projectile.velocity.X = ChargeDirection.X;
-                        Projectile.velocity.Y = ChargeDirection.Y;
+                        ChargeDirection.X *= 18;
+
+                        Projectile.velocity = ChargeDirection;
                     }
                 }
             }
@@ -265,14 +260,14 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 65, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].noGravity = true;
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
 
-				if (Main.dust[newDust].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
         }

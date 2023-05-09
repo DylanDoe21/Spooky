@@ -3,18 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ZombiePart1 : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Zombie Piece");
-		}
-		
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -89,16 +82,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{	
 			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
 
-			for (int i = 0; i < 50; i++)
+			for (int numDust = 0; numDust < 50; numDust++)
 			{
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[dustGore].noGravity = true;
-				Main.dust[dustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-
-				if (Main.dust[dustGore].position != Projectile.Center)
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-35, 35) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-35, 35) * 0.05f - 1.5f;
+					
+				if (Main.dust[dust].position != Projectile.Center)
 				{
-					Main.dust[dustGore].velocity = Projectile.DirectionTo(Main.dust[dustGore].position) * 2f;
+					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
 				}
 			}
 		}

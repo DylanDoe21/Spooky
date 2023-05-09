@@ -10,7 +10,7 @@ Mods: {
 		DeathReasons: {
 			BiomassExplosion: was exploded by Biomatter.
 			VesicatorExplosion: was exploded by Vesicator.
-			EntityDeath: "was [REDACTED]."
+			EntityDeath: was [REDACTED].
 		}
 
 		EventsAndBosses: {

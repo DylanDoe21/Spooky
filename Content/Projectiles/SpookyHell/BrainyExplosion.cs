@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +9,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Brain Explosion");
             Main.projFrames[Projectile.type] = 5;
         }
 

@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -73,14 +72,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
                 
-				if (Main.dust[DustGore].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
 		}

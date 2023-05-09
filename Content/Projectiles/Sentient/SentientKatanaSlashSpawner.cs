@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Projectiles.Sentient
 {

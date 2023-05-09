@@ -193,17 +193,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
+                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
                 Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
 
-                Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
-                Main.dust[DustGore].velocity *= 3f;
-                Main.dust[DustGore].noGravity = true;
+                Main.dust[dust].scale *= Main.rand.NextFloat(1f, 2f);
+                Main.dust[dust].velocity *= 3f;
+                Main.dust[dust].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[dust].scale = 0.5f;
+                    Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                 }
             }
 		}

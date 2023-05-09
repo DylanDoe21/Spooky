@@ -150,19 +150,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 15; // was 15  // How much time the projectile can go before retracting (speed and shootTimer will set the flail's range)
-			float launchSpeed = 25f; //was 14f // How fast the projectile can move
-			float maxLaunchLength = 800f; //was 800f // How far the projectile's chain can stretch before being forced to retract when in launched state
-			float retractAcceleration = 3f; //was 3f // How quickly the projectile will accelerate back towards the player while retracting
-			float maxRetractSpeed = 20f; //was 10f // The max speed the projectile will have while retracting
-			float forcedRetractAcceleration = 20f; // How quickly the projectile will accelerate back towards the player while being forced to retract
-			float maxForcedRetractSpeed = 15f; // The max speed the projectile will have while being forced to retract
+			int launchTimeLimit = 15;
+			float launchSpeed = 25f; 
+			float maxLaunchLength = 800f;
+			float retractAcceleration = 3f; 
+			float maxRetractSpeed = 20f;
+			float forcedRetractAcceleration = 20f; 
+			float maxForcedRetractSpeed = 15f; 
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
-			int defaultHitCooldown = 10; // How often your flail hits when resting on the ground, or retracting
-			int spinHitCooldown = 20; // How often your flail hits when spinning
-			int movingHitCooldown = 20; // How often your flail hits when moving
+			int defaultHitCooldown = 10; 
+			int spinHitCooldown = 20; 
+			int movingHitCooldown = 20; 
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
 			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed

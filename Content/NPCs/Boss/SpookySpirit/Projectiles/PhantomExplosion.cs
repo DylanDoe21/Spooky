@@ -47,10 +47,5 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 		{
 			return Color.White;
 		}
-
-        public override void Kill(int timeLeft)
-        {
-            Projectile.timeLeft = 0;
-        }
     }
 }

@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -125,7 +124,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
-
                 ReturnSpeed *= 55;
 
                 Projectile.velocity = ReturnSpeed;

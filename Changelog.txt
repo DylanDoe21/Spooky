@@ -10,7 +10,6 @@ Additionally, you can scroll down to the "changes to existing stuff" category if
 ~NEW STUFF~
 
 
-
 New Friendly NPC, Little Eye the Alchemist:
 
 -A little eye stalk with a wizard hat who lives in his house in the eye valley
@@ -62,6 +61,7 @@ An Old Friend Returns, The Spooky Spirit:
 
 -The spooky spirit from older versions of the mod has been re-added as a boss fought in the swampy cemetery biome
 -his fight is still somewhat the same, but with many improvements, new attacks, new visual effects, and improved loot
+-He can be summoned by right clicking a strange statue with an EMF reader
 
 
 
@@ -104,7 +104,7 @@ Screen Shaking Effect:
 
 Improved the Halloween Season Config:
 -No longer requires you to leave and re-enter the world, it will now automatically be applied in game the moment you change it
--This option being turned off will not disable halloween if it is meant to normally occur in vanilla (basically during october or if you defeat the pumpkin moon's final wave)
+-This option being turned off will not disable halloween if it is meant to normally occur (Like during october, or if you defeat the pumpkin moon's final wave)
 
 
 
@@ -132,7 +132,6 @@ Other New Additions:
 
 
 ~CHANGES TO EXISTING STUFF~
-
 
 
 Rot Gourd Loot:
@@ -277,7 +276,7 @@ Little Bone Changes:
 
 
 
-~OTHER SMALL CHANGES AND TWEAKS~
+~OTHER SMALL CHANGES~
 
 
 -Made modifications to the spooky forest generation, the sides of the biome are now less wide to make it less intrusive on other worldgen
@@ -293,9 +292,6 @@ Little Bone Changes:
 -Fixed grass blocks in the spooky forest and valley of eyes looking weird when sloped
 -Removed the catacomb junk chests from the mod, and any old junk chests that existed in previous versions will be replaced with old wood chests
 -All spooky mod blocks, materials, ect now stack to 9999
--Fixed a ton of spooky mod item sell prices, lowered ones that were too expensive, and increased ones that were too cheap
--Fixed certain items in the mod that were supposed to have sell prices but didnt have any
--Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
 -Old wood now counts as an actual wood type for crafting recipes
 -Resprited old wood platforms because it was vanilla recolor before, and they can now be crafted by hand like vanilla platforms
 -Warlock's cloak no longer gives an extra minion slot, and it is now visible on the player when equipped
@@ -307,9 +303,7 @@ Little Bone Changes:
 -Spooky mod summon weapons now have much better enemy targeting, and now have proper right click targeting, and will no longer target friendly critters
 -Spooky mod music boxes now produce notes when turned on, display the name and composer of the song in their item tooltip, cannot be reforged, and will turn back into a normal music box when shimmered
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it
--Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
 -Added a new visual effect for the gore monger armor's aura to make it look nicer and less in your face
--Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
 -Spooky dance ghosts no longer drop money, and are now considered friendly
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies and critters in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
@@ -318,7 +312,22 @@ Little Bone Changes:
 -Tortumors and Giant Tortumors can no longer move through blocks
 -All natural spawns will be disabled during spooky mod's boss fights
 -Increased contact damage scaling for all spooky mod bosses in expert and master mode because it was way too weak before
--Fixed moco's projectiles being invisible in multiplayer
 -Spooky mod enemies and critters now have more specific spawn condition labels in the bestiary, specifically for daytime and nighttime exclusive enemies
 -All spooky mod pets now display on character selection screen if you have them equipped
+
+
+
+
+~BUGS AND OTHER FIXES~
+
+-Fixed moco's projectiles being invisible in multiplayer
+-Fixed an issue where big bone's phase transition forcefield would draw off center when you zoomed in
+-Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
+-Fixed a ton of spooky mod item sell prices, lowered ones that were too expensive, and increased ones that were too cheap
+-Fixed certain items in the mod that were supposed to have sell prices but didnt have any
+-Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
+-Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
+
+
+
 

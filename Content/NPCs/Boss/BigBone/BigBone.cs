@@ -331,7 +331,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             if (NPC.ai[0] == -1 && NPC.CountNPCS(ModContent.NPCType<BigFlower>()) > 0)
             {
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
                 float intensity = fade;
@@ -340,8 +340,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
                 drawData.Draw(Main.spriteBatch);
+
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
                 return;
             }

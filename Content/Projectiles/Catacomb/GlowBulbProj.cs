@@ -5,18 +5,10 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Core;
-using Spooky.Content.Dusts;
-
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class GlowBulbProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Glow Bulb");
-        }
-        
         public override void SetDefaults()
         {
             Projectile.width = 36;
@@ -57,11 +49,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             for (int numDust = 0; numDust < 12; numDust++)
 			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
-                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-5f, 5f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(1f, 1.25f);
-                Main.dust[dustGore].noGravity = true;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dust].velocity.X *= Main.rand.NextFloat(-5f, 5f);
+                Main.dust[dust].velocity.Y *= Main.rand.NextFloat(-5f, 5f);
+                Main.dust[dust].scale = Main.rand.NextFloat(1f, 1.25f);
+                Main.dust[dust].noGravity = true;
 			}
 
             Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
@@ -84,14 +76,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             for (int numDust = 0; numDust < 10; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
         }

@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
@@ -12,7 +11,6 @@ namespace Spooky.Content.Projectiles.Cemetery
     {
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Ghastly Ball");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
@@ -82,16 +80,16 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 10; i++)
+			for (int numDust = 0; numDust < 10; numDust++)
 			{
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[dustGore].noGravity = true;
-				Main.dust[dustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
 
-				if (Main.dust[dustGore].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
 				{
-					Main.dust[dustGore].velocity = Projectile.DirectionTo(Main.dust[dustGore].position) * 2f;
+					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
 				}
 			}
 		}

@@ -13,7 +13,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Eye Minion");
 			Main.projFrames[Projectile.type] = 3;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -88,9 +87,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
-                Main.dust[DustGore].velocity *= 1.5f;
-                Main.dust[DustGore].noGravity = true;
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
+                Main.dust[dust].velocity *= 1.5f;
+                Main.dust[dust].noGravity = true;
             }
 		}
 	}

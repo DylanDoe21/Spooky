@@ -1,11 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -75,11 +72,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		private void ManageTrail()
         {
-            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
-            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Green, Color.Green, factor.X) * factor.X;
             });
 
@@ -135,14 +129,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             for (int numDusts = 0; numDusts < 15; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].noGravity = true;
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
 
-				if (Main.dust[newDust].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
         }

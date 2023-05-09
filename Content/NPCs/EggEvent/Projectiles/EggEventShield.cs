@@ -16,8 +16,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class EggEventShield : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
-
         public override void SetDefaults()
         {
             Projectile.width = 16;
@@ -28,24 +26,24 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             Projectile.alpha = 255;
         }
 
-        public override void PostDraw(Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
             var center = Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
-            float intensity = fade;
-            DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/Liquid").Value, center,
-            new Rectangle(0, 0, 500, 420), Color.Purple, 0, new Vector2(250f, 250f), Projectile.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
+            float intensity = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+            DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/Noise").Value, center,
+            new Rectangle(0, 0, 500, 420), Color.BlueViolet, 0, new Vector2(250f, 250f), Projectile.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
+
             GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
             GameShaders.Misc["ForceField"].Apply(drawData);
             drawData.Draw(Main.spriteBatch);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin();
 
-            return;
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            
+            return false;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -84,7 +82,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				}
             }
 
-            //spawn dust particles that get sucked towards this projectile, which is basically the egg
+            //spawn dust particles that get sucked towards this projectile, which is technically the egg
             if (Projectile.ai[0] % 20 == 0)
             {
                 int MaxDusts = Main.rand.Next(10, 15);

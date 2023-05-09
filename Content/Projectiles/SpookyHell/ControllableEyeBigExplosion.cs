@@ -10,7 +10,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Eye Explosion");
             Main.projFrames[Projectile.type] = 7;
         }
 

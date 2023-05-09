@@ -11,7 +11,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Bloody Tear");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -65,14 +64,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             for (int numDust = 0; numDust < 25; numDust++)
             {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
+                Main.dust[dust].noGravity = true;
 
-                Main.dust[newDust].noGravity = true;
-
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
-                    Main.dust[newDust].scale = 0.5f;
-                    Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[dust].scale = 0.5f;
+                    Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                 }
             }
         }

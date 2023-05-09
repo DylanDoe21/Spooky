@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
 
 using Spooky.Core;
 
@@ -90,8 +89,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= 55;
-                    ShootSpeed.Y *= 55;
+                    ShootSpeed *= 55;
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 8, 
                     ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

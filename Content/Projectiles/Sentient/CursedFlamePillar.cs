@@ -1,9 +1,7 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -110,12 +108,12 @@ namespace Spooky.Content.Projectiles.Sentient
                 //spawn dusts
                 for (int numDust = 0; numDust < 50; numDust++)
 				{                                                                                  
-					int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
-					Main.dust[dustGore].color = Color.Lime;
-					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-1f, 1f);
-					Main.dust[dustGore].velocity.Y -= Main.rand.NextFloat(1f, 12f);
-					Main.dust[dustGore].scale = 0.1f; 
-					Main.dust[dustGore].noGravity = true;
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+					Main.dust[dust].color = Color.Lime;
+					Main.dust[dust].velocity.X *= Main.rand.NextFloat(-1f, 1f);
+					Main.dust[dust].velocity.Y -= Main.rand.NextFloat(1f, 12f);
+					Main.dust[dust].scale = 0.1f; 
+					Main.dust[dust].noGravity = true;
 				}
 
                 Projectile.ai[0] = 1;

@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class BoogerFlailProj : ModProjectile
 	{
-		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyHell/BoogerFlailChain"; // The folder path to the flail chain sprite
+		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyHell/BoogerFlailChain";
 		
 		private enum AIState
 		{
@@ -23,7 +23,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			ForcedRetracting
 		}
 
-		// These properties wrap the usual ai and localAI arrays for cleaner and easier to understand code.
 		private AIState CurrentAIState 
         {
 			get => (AIState)Projectile.ai[0];
@@ -35,7 +34,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetStaticDefaults() 
         {
-			// DisplayName.SetDefault("Snot Ball");
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
@@ -52,7 +50,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.localNPCHitCooldown = 10;
 		}
 
-		// PreDraw is used to draw a chain and trail before the projectile is drawn normally.
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
@@ -63,8 +60,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 			
 			Rectangle? chainSourceRectangle = null;
-			// Drippler Crippler customizes sourceRectangle to cycle through sprite frames: sourceRectangle = asset.Frame(1, 6);
-			float chainHeightAdjustment = 0f; // Use this to adjust the chain overlap. 
+			float chainHeightAdjustment = 0f;
 
 			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
 			Vector2 chainDrawPosition = Projectile.Center;
@@ -124,7 +120,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return true;
 		}
 
-		// This AI code was adapted from vanilla code: Terraria.Projectile.AI_015_Flails() 
 		public override void AI() 
         {
 			Player player = Main.player[Projectile.owner];
@@ -142,20 +137,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 13; // was 15  // How much time the projectile can go before retracting (speed and shootTimer will set the flail's range)
-			float launchSpeed = 25f; //was 14f // How fast the projectile can move
-			float maxLaunchLength = 820f; //was 800f // How far the projectile's chain can stretch before being forced to retract when in launched state
-			float retractAcceleration = 3f; //was 3f // How quickly the projectile will accelerate back towards the player while retracting
-			float maxRetractSpeed = 20f; //was 10f // The max speed the projectile will have while retracting
-			float forcedRetractAcceleration = 20f; // How quickly the projectile will accelerate back towards the player while being forced to retract
-			float maxForcedRetractSpeed = 15f; // The max speed the projectile will have while being forced to retract
+			int launchTimeLimit = 13; 
+			float launchSpeed = 25f; 
+			float maxLaunchLength = 820f; 
+			float retractAcceleration = 3f; 
+			float maxRetractSpeed = 20f; 
+			float forcedRetractAcceleration = 20f;
+			float maxForcedRetractSpeed = 15f; 
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
-			int defaultHitCooldown = 10; // How often your flail hits when resting on the ground, or retracting
-			int spinHitCooldown = 20; // How often your flail hits when spinning
-			int movingHitCooldown = 20; // How often your flail hits when moving
-			int ricochetTimeLimit = launchTimeLimit + 5;
+			int defaultHitCooldown = 10;
+			int spinHitCooldown = 20; 
+			int movingHitCooldown = 20;
 
 			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
 			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
@@ -396,22 +390,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CollisionCounter += 1f;
 			}
 
-			/*
-			// If in the Launched state, spawn sparks
-			if (CurrentAIState == AIState.LaunchingForward) 
-            {
-				CurrentAIState = AIState.Ricochet;
-				Projectile.localNPCHitCooldown = defaultLocalNPCHitCooldown;
-				Projectile.netUpdate = true;
-				Point scanAreaStart = Projectile.TopLeft.ToTileCoordinates();
-				Point scanAreaEnd = Projectile.BottomRight.ToTileCoordinates();
-				impactIntensity = 2;
-				Projectile.CreateImpactExplosion(2, Projectile.Center, ref scanAreaStart, ref scanAreaEnd, Projectile.width, out bool causedShockwaves);
-				Projectile.CreateImpactExplosion2_FlailTileCollision(Projectile.Center, causedShockwaves, velocity);
-				Projectile.position -= velocity;
-			}
-			*/
-
 			// Here the tiles spawn dust indicating they've been hit
 			if (impactIntensity > 0) 
             {
@@ -430,10 +408,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
 			}
-
-			// tModLoader currently does not provide the wetVelocity parameter, this code should make the flail bounce back faster when colliding with tiles underwater.
-			//if (Projectile.wet)
-			//	wetVelocity = Projectile.velocity;
 
 			return false;
 		}
@@ -463,19 +437,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			// Regular collision logic happens otherwise.
 			return base.Colliding(projHitbox, targetHitbox);
 		}
-
-		/*
-		public override void ModifyDamageScaling(ref float damageScale)
-		{
-			// Flails do 20% more damage while spinning
-			if (CurrentAIState == AIState.Spinning)
-				damageScale *= 1.2f;
-
-			// Flails do 100% more damage while launched or retracting. This is the damage the item tooltip for flails aim to match, as this is the most common mode of attack. This is why the item has ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
-			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Retracting)
-				damageScale *= 2f;
-		}
-		*/
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
         {

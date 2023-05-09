@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
@@ -180,9 +179,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 288, 0f, 0f, 100, default, 2f);
-                Main.dust[DustGore].velocity *= 1.5f;
-                Main.dust[DustGore].noGravity = true;
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, 0f, 100, default, 2f);
+                Main.dust[dust].velocity *= 1.5f;
+                Main.dust[dust].noGravity = true;
             }
 		}
     }

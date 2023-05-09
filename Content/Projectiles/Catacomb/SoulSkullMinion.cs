@@ -17,7 +17,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Soul Skull");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -169,14 +168,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].noGravity = true;
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
 
-				if (Main.dust[newDust].position != Projectile.Center)
+				if (Main.dust[dust].position != Projectile.Center)
                 {
-				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
                 }
 			}
         }

@@ -3,21 +3,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class BowThornFlower : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Thorn Flower");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 30;
@@ -44,7 +37,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			{
 				Projectile.velocity *= 0.5f;
 			}
-			if (Projectile.ai[0] >= 60)
+			if (Projectile.ai[0] >= 30)
 			{
 				Projectile.velocity *= 0;
 

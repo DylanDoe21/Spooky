@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -11,7 +10,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Grave Crossbow");
             Main.projFrames[Projectile.type] = 3;
 		}
 
@@ -96,18 +94,32 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    if (Projectile.frame >= 2)
+                    SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+
+                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    ShootSpeed.Normalize();
+
+                    switch (Projectile.frame)
                     {
-                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
-
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed.X *= 25;
-                        ShootSpeed.Y *= 25;	
-
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        case 0:
+                        {
+                            ShootSpeed *= 8;
+                            break;
+                        }
+                        case 1:
+                        {
+                            ShootSpeed *= 15;
+                            break;
+                        }
+                        case 2:
+                        {
+                            ShootSpeed *= 25;
+                            break;
+                        }
                     }
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                    ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 				}
 
 				Projectile.active = false;

@@ -13,12 +13,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class LivingFleshWhipProj1 : ModProjectile
 	{
-		private float ChargeTime 
-		{
-			get => Projectile.ai[1];
-			set => Projectile.ai[1] = value;
-		}
-
 		public override void SetStaticDefaults() 
 		{
 			ProjectileID.Sets.IsAWhip[Type] = true;
@@ -45,17 +39,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 					for (int numDust = 0; numDust < 25; numDust++)
 					{
-						int DustGore = Dust.NewDust(new Vector2(target.Center.X, target.Center.Y), 
+						int dust = Dust.NewDust(new Vector2(target.Center.X, target.Center.Y), 
 						target.width / 2, target.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
 
-						Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
-						Main.dust[DustGore].velocity *= 5f;
-						Main.dust[DustGore].noGravity = true;
-
-						if (Main.rand.Next(2) == 0)
+						Main.dust[dust].scale *= Main.rand.NextFloat(1f, 2f);
+						Main.dust[dust].velocity *= 5f;
+						Main.dust[dust].noGravity = true;
+							
+						if (Main.rand.NextBool(2))
 						{
-							Main.dust[DustGore].scale = 0.5f;
-							Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+							Main.dust[dust].scale = 0.5f;
+							Main.dust[dust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
 						}
 					}
 

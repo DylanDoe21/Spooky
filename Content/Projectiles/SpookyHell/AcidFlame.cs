@@ -10,7 +10,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Acidic Flames");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -61,9 +60,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation += 0.5f * (float)Projectile.direction;
 
-            Projectile.localAI[0]++;
+            Projectile.ai[0]++;
 
-            if (Projectile.localAI[0] > 20)
+            if (Projectile.ai[0] > 20)
             {
                 Projectile.alpha -= 5;
                 

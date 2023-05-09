@@ -3,19 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
 	public class SpiritScrollHoldout : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spooky Scroll");
-		}
-
 		public override void SetDefaults()
 		{
             Projectile.width = 26;

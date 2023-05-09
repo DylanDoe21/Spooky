@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
@@ -100,8 +99,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed.X *= 7;
-                        ShootSpeed.Y *= 7;
+                        ShootSpeed *= 7;
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<SlingshotBall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

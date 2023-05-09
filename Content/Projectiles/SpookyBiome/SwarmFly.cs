@@ -1,8 +1,6 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
@@ -13,7 +11,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Fly");
             Main.projFrames[Projectile.type] = 3;
 		}
 

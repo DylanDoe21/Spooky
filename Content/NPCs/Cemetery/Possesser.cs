@@ -32,8 +32,8 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.height = 42;
             NPC.npcSlots = 1f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
-            NPC.HitSound = SoundID.NPCHit54;
-			NPC.DeathSound = SoundID.NPCHit36;
+            NPC.HitSound = SoundID.NPCHit36;
+			NPC.DeathSound = SoundID.NPCHit54;
             NPC.aiStyle = 14;
 			AIType = NPCID.GiantBat;
             AnimationType = NPCID.GiantBat;
