@@ -226,7 +226,6 @@ namespace Spooky.Content.Generation
         {
             int XStart = Catacombs.PositionX;
             int XMiddle = XStart + (Catacombs.BiomeWidth / 2);
-            int XEdge = XStart + Catacombs.BiomeWidth;
 
             //first hut
             bool placedHut1 = false;
@@ -240,13 +239,13 @@ namespace Spooky.Content.Generation
 				{
 					HutY++;
 				}
-                if (!Main.tile[HutX, HutY].HasTile)
+                if (!Main.tile[HutX, HutY].HasTile || Main.tile[HutX, HutY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
 
                 ClearAreaAboveStructure(HutX, HutY - 20);
-                PlaceBlocksBelowStructure(HutX, HutY, 10);
+                PlaceBlocksBelowStructure(HutX, HutY, 25);
 
                 Vector2 origin = new Vector2(HutX - 14, HutY - 15);
                 Generator.GenerateStructure("Content/Structures/CemeteryHut1", origin.ToPoint16(), Mod);
@@ -266,7 +265,7 @@ namespace Spooky.Content.Generation
 				{
 					HoleY++;
 				}
-                if (!Main.tile[HoleX, HoleY].HasTile)
+                if (!Main.tile[HoleX, HoleY].HasTile || Main.tile[HoleX, HoleY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
@@ -292,7 +291,7 @@ namespace Spooky.Content.Generation
 				{
 					CryptY++;
 				}
-                if (!Main.tile[CryptX, CryptY].HasTile)
+                if (!Main.tile[CryptX, CryptY].HasTile || Main.tile[CryptX, CryptY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
@@ -320,7 +319,7 @@ namespace Spooky.Content.Generation
 				{
 					LakeY++;
 				}
-                if (!Main.tile[LakeX, LakeY].HasTile)
+                if (!Main.tile[LakeX, LakeY].HasTile || Main.tile[LakeX, LakeY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
@@ -343,10 +342,10 @@ namespace Spooky.Content.Generation
                 int HoleY = Catacombs.PositionY - 75;
 
                 while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
-				{
-					HoleY++;
+                {
+                    HoleY++;
 				}
-                if (!Main.tile[HoleX, HoleY].HasTile)
+                if (!Main.tile[HoleX, HoleY].HasTile || Main.tile[HoleX, HoleY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
@@ -372,7 +371,7 @@ namespace Spooky.Content.Generation
 				{
 					HutY++;
 				}
-                if (!Main.tile[HutX, HutY].HasTile)
+                if (!Main.tile[HutX, HutY].HasTile || Main.tile[HutX, HutY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
@@ -410,7 +409,7 @@ namespace Spooky.Content.Generation
 
         public static void PlaceBlocksBelowStructure(int x, int y, int width)
         {
-            for (int i = x - width; i <= x + width; i += 2)
+            for (int i = x - width + 5; i <= x + width - 5; i += 2)
             {
                 for (int j = y; j <= (int)Main.worldSurface - 20; j += 2)
                 {
@@ -418,7 +417,7 @@ namespace Spooky.Content.Generation
                     {
                         ShapeData circle = new ShapeData();
                         GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        WorldUtils.Gen(new Point(i, j), new Shapes.Circle(2), Actions.Chain(new GenAction[]
+                        WorldUtils.Gen(new Point(i, j), new Shapes.Circle(Main.rand.Next(1, 3)), Actions.Chain(new GenAction[]
                         {
                             blotchMod.Output(circle)
                         }));

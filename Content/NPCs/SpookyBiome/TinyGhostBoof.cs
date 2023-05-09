@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !Main.dayTime)
                 {
-                    return 3f;
+                    return 2f;
                 }
             }
 

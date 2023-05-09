@@ -304,7 +304,7 @@ Little Bone Changes:
 -Spooky mod music boxes now produce notes when turned on, display the name and composer of the song in their item tooltip, cannot be reforged, and will turn back into a normal music box when shimmered
 -The valley of eyes pylon can now be used regardless of how many town npcs are near it
 -Added a new visual effect for the gore monger armor's aura to make it look nicer and less in your face
--Spooky dance ghosts no longer drop money, and are now considered friendly
+-Spooky dance ghosts no longer drop money, are now considered friendly, and reduced their spawnrate
 -Flies, big flies, little spiders, and tiny ghosts can now be caught with bug nets
 -Enemies and critters in spooky mod that have different variants now have different bestiary entires (like the fuzzbats and putty slimes)
 -Putty slimes now use vanilla slime ai since there old ai was kind of annoying in game, and was annoying to fix/work with

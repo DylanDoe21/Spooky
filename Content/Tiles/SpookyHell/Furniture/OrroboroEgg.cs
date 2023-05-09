@@ -5,6 +5,8 @@ using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria.Enums;
+using Terraria.Chat;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -12,6 +14,7 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
+using Spooky.Content.Events;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -141,7 +144,30 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 				if (!Flags.downedEggEvent)
 				{
-					Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventShield>(), 0, 1, Main.myPlayer, 0, 0);
+                    SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, new Vector2(x * 16f + 65f, y * 16f + 100f));
+
+                    //event start message
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
+
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    else
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+
+                    //set egg event to true, net update on multiplayer
+                    EggEventWorld.EggEventActive = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+
+					//spawn shield projectile
+                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventShield>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 				else
 				{

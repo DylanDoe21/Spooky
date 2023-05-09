@@ -10,11 +10,11 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
-using Spooky.Content.NPCs.Friendly;
 
 using StructureHelper;
 
@@ -47,16 +47,16 @@ namespace Spooky.Content.Generation
             {
                 PositionX = Main.maxTilesX / 2;
             }
-            //otherwise place it off to the side of the snow biome
+            //otherwise place it infront of the dungeon
             else
             {
                 if (GenVars.dungeonSide == -1)
                 {
-                    PositionX = GenVars.snowOriginLeft - (Main.maxTilesX / 10);
+                    PositionX = GenVars.dungeonX + (Main.maxTilesX / 32);
                 }
                 else
                 {
-                    PositionX = GenVars.snowOriginRight + (Main.maxTilesX / 15);
+                    PositionX = GenVars.dungeonX - (Main.maxTilesX / 32);
                 }
             }
 
@@ -394,7 +394,7 @@ namespace Spooky.Content.Generation
             while (!placed && attempts++ < 100000)
             {
                 //place starter house
-                int x = PositionX + ((Main.maxTilesX / 12) / 6); //get the biomes size, then divide that more and get the distance from the center
+                int x = PositionX <= (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 6) : PositionX - ((Main.maxTilesX / 12) / 6);
                 int y = PositionY; //start here to not touch floating islands
 
                 while (!WorldGen.SolidTile(x, y) && y <= Main.worldSurface)

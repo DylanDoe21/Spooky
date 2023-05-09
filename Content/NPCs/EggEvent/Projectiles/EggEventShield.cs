@@ -3,9 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
-using Terraria.Localization;
-using Terraria.Chat;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +13,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class EggEventShield : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         public override void SetDefaults()
         {
             Projectile.width = 16;
@@ -53,34 +52,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void AI()
         {
-            Projectile.timeLeft = 2;
-
             Projectile.ai[0]++;
-
-            if (Projectile.ai[0] == 1)
-            {
-                SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, Projectile.Center);
-
-                //event start message
-                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
-
-                if (Main.netMode != NetmodeID.Server)
-                {
-                    Main.NewText(text, 171, 64, 255);
-                }
-                else
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                }
-
-                //set egg event to true, net update on multiplayer
-                EggEventWorld.EggEventActive = true;
-
-                if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-            }
 
             //spawn dust particles that get sucked towards this projectile, which is technically the egg
             if (Projectile.ai[0] % 20 == 0)
@@ -103,10 +75,16 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                         Main.dust[dustEffect].fadeIn = 1.2f;
                     }
                 }
+
+                Projectile.ai[0] = 2;
             }
 
             //always kill this projectile if the egg event is not active
-            if (!EggEventWorld.EggEventActive)
+            if (EggEventWorld.EggEventActive)
+            {
+                Projectile.timeLeft = 5;
+            }
+            else
             {
                 Projectile.Kill();
             }

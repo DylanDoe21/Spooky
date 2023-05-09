@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 //spawn on the surface during the day, or underground
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookyDance>()))
                 {
-                    return 5f;
+                    return 1f;
                 }
             }
 
