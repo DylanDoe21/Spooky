@@ -24,11 +24,13 @@ namespace Spooky.Content.Items.BossSummon
         {
             CreateRecipe()
             .AddIngredient(ItemID.DemoniteBar, 5)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
             .AddTile(TileID.Anvils)
             .Register();
 
             CreateRecipe()
             .AddIngredient(ItemID.CrimtaneBar, 5)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
             .AddTile(TileID.Anvils)
             .Register();
         }
