@@ -46,7 +46,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 int[] Types = new int[] { ModContent.ProjectileType<DrainedSoulHealth>(), ModContent.ProjectileType<DrainedSoulMana>() };
 
                 //only up to ten enemies can be drained at once to prevent the aura from being completely broken
-                for (int target = 0; target < 10; target++)
+                for (int target = 0; target < Main.maxNPCs; target++)
                 {
                     NPC npc = Main.npc[target];
                     Vector2 newPosition = new Vector2(Main.npc[target].Center.X, Main.npc[target].Center.Y);

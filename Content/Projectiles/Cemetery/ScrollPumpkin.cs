@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -91,7 +92,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return Projectile.ai[0] > 180;
+			return Projectile.ai[0] >= 120;
 		}
 
         public override void AI()
@@ -108,16 +109,21 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 			for (int i = 0; i < 200; i++)
             {
-                NPC NPC = Main.npc[i];
-                NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 450f)
+				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+				if (Target != null && Target.CanBeChasedBy(this, false))
+				{
+					AttackingAI(Target);
+
+					break;
+				}
+
+				NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
                 {
-                    Projectile.ai[0]++;
-                }
-                else if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
-                {
-                    Projectile.ai[0]++;
-                }
+					AttackingAI(NPC);
+
+					break;
+				}
             }
 
             if (Projectile.ai[0] < 120)
@@ -125,32 +131,6 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.timeLeft = 600;
 
                 GoAbovePlayer(player);
-            }
-
-            if (Projectile.ai[0] == 120)
-            {
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                    if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 450f)
-                    {
-                        Vector2 ChargeDirection = Target.Center - Projectile.Center;
-                        ChargeDirection.Normalize();                     
-                        ChargeDirection.X *= 18;
-
-                        Projectile.velocity = ChargeDirection;
-                    }
-
-                    NPC NPC = Main.npc[i];
-                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
-                    {
-                        Vector2 ChargeDirection = Target.Center - Projectile.Center;
-                        ChargeDirection.Normalize();
-                        ChargeDirection.X *= 18;
-
-                        Projectile.velocity = ChargeDirection;
-                    }
-                }
             }
 
             if (Projectile.ai[0] >= 120)
@@ -188,6 +168,20 @@ namespace Spooky.Content.Projectiles.Cemetery
 				}
 			}
 		}
+    
+        public void AttackingAI(NPC target)
+        {
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] == 120)
+            {
+                Vector2 ChargeDirection = target.Center - Projectile.Center;
+                ChargeDirection.Normalize();                     
+                ChargeDirection *= 18;
+
+                Projectile.velocity = ChargeDirection;
+            }
+        }
 
         public void GoAbovePlayer(Player player)
         {
@@ -252,6 +246,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override void Kill(int timeLeft)
 		{
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+
             if (Main.netMode != NetmodeID.Server) 
             {
                 Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/ScrollPumpkinGore1").Type);

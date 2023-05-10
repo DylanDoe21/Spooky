@@ -90,6 +90,7 @@ New Music:
 -"Spooky Spirit" By Bananlizard, plays during spooky spirit's fight (This theme is currently an unfinished placeholder, the proper theme will be finished in the future)
 
 
+
 New Config Options:
 
 Spooky Forest at Spawn:
@@ -278,7 +279,6 @@ Little Bone Changes:
 
 ~OTHER SMALL CHANGES~
 
-
 -Made modifications to the spooky forest generation, the sides of the biome are now less wide to make it less intrusive on other worldgen
 -The spooky forest now generates with chunks of gold ore along with the other basic vanilla ores
 -Green clentaminator solution will now convert spooky forest blocks back into their respective vanilla blocks, same for the new swampy cemetery blocks as well
@@ -322,11 +322,12 @@ Little Bone Changes:
 
 -Fixed moco's projectiles being invisible in multiplayer
 -Fixed an issue where big bone's phase transition forcefield would draw off center when you zoomed in
+-Fixed the valley of eyes crashing during world generation with large worlds
 -Fixed a strange issue with the gore monger armor's aura where it became nearly invisible if you didnt have any after-images or pulsing outlines caused by certain armors
+-Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
 -Fixed a ton of spooky mod item sell prices, lowered ones that were too expensive, and increased ones that were too cheap
 -Fixed certain items in the mod that were supposed to have sell prices but didnt have any
--Fixed certain items in the mod not having journey mode researchability (this was fixed by tmod since they finally made items have a default journey mode research value of 1)
--Fixed an issue with the old hunter's crossbow being positioned on the player weirdly when held
+-Fixed certain items in the mod not having journey mode researchability (this was fixed by tmodloader since they finally made items have a default journey mode research value of 1)
 
 
 

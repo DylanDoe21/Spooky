@@ -17,8 +17,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;

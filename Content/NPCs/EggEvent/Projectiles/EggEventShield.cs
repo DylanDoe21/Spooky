@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             var center = Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             float intensity = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
             DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/Noise").Value, center,
-            new Rectangle(0, 0, 500, 420), Color.BlueViolet, 0, new Vector2(250f, 250f), Projectile.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
+            new Rectangle(0, 0, 500, 420), Color.Indigo, 0, new Vector2(250f, 250f), Projectile.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
 
             GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
             GameShaders.Misc["ForceField"].Apply(drawData);

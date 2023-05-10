@@ -1,11 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.WorldBuilding;
-using Terraria.GameContent.Generation;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 
@@ -172,49 +168,55 @@ namespace Spooky.Core
 									WorldGen.KillTile(k, l);
 								}
 
-								//replace tiles if it is not in the kill list
-								if (!Kill.Contains(Main.tile[k, l].TileType) || Main.tile[k, l].WallType == WallID.EbonstoneUnsafe)
+								if (!Main.tileDungeon[Main.tile[k, l].TileType])
 								{
-									Main.tile[k, l].TileType = (ushort)tileType;
-								}
-
-								if (addTile)
-								{
-									Main.tile[k, l].TileType = (ushort)tileType;
-								}
-
-								//replace all walls
-								if (Main.tile[k, l].WallType > 0 && replaceWalls)
-								{
-									Main.tile[k, l].WallType = (ushort)wallType;
-								}
-
-								//place walls below each block
-								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
-								{
-									Main.tile[k, l + 6].WallType = (ushort)wallType;
-								}
-
-								//place walls
-								if (SpookyWalls)
-								{
-									//this loop is for placing walls in the underground part of the spooky biome
-									for (int WallY = (int)Main.worldSurface; WallY < l; WallY++)
+									//replace tiles if it is not in the kill list
+									if (!Kill.Contains(Main.tile[k, l].TileType) || Main.tile[k, l].WallType == WallID.EbonstoneUnsafe)
 									{
-										if (placeWalls)
-										{
-											Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
-										}
+										Main.tile[k, l].TileType = (ushort)tileType;
 									}
 
-									//randomized wall placement so the underground and surface walls transition nicely
-									for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 15; WallY++)
+									if (addTile)
 									{
-										if (placeWalls)
+										Main.tile[k, l].TileType = (ushort)tileType;
+									}
+								}
+
+								if (!Main.wallDungeon[Main.tile[k, l].WallType])
+								{
+									//replace all walls
+									if (Main.tile[k, l].WallType > 0 && replaceWalls)
+									{
+										Main.tile[k, l].WallType = (ushort)wallType;
+									}
+
+									//place walls below each block
+									if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
+									{
+										Main.tile[k, l + 6].WallType = (ushort)wallType;
+									}
+
+									//place walls
+									if (SpookyWalls)
+									{
+										//this loop is for placing walls in the underground part of the spooky biome
+										for (int WallY = (int)Main.worldSurface; WallY < l; WallY++)
 										{
-											if (WorldGen.genRand.Next(2) == 0)
+											if (placeWalls)
 											{
-												Main.tile[k, WallY].WallType = (ushort)wallType;
+												Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
+											}
+										}
+
+										//randomized wall placement so the underground and surface walls transition nicely
+										for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 15; WallY++)
+										{
+											if (placeWalls)
+											{
+												if (WorldGen.genRand.NextBool(2))
+												{
+													Main.tile[k, WallY].WallType = (ushort)wallType;
+												}
 											}
 										}
 									}

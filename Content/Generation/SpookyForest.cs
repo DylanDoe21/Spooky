@@ -35,11 +35,11 @@ namespace Spooky.Content.Generation
             //decide whether or not to use the alt background
             if (Main.rand.NextBool(2))
             {
-                Flags.SpookyBackgroundAlt = false;
+                Flags.SpookyBackgroundAlt = true;
             }
             else
             {
-                Flags.SpookyBackgroundAlt = true;
+                Flags.SpookyBackgroundAlt = false;
             }
 
             //if config is enabled, place it at spawn
@@ -50,13 +50,15 @@ namespace Spooky.Content.Generation
             //otherwise place it infront of the dungeon
             else
             {
+                //left side dungeon
                 if (GenVars.dungeonSide == -1)
                 {
-                    PositionX = GenVars.dungeonX + (Main.maxTilesX / 32);
+                    PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
                 }
+                //right side dungeon
                 else
                 {
-                    PositionX = GenVars.dungeonX - (Main.maxTilesX / 32);
+                    PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
                 }
             }
 
@@ -508,7 +510,7 @@ namespace Spooky.Content.Generation
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Dungeon"));
 			if (GenIndex1 == -1)
 			{
 				return;
