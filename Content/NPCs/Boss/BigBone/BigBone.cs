@@ -76,7 +76,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             {
                 SpecificallyImmuneTo = new int[] 
                 {
-                    BuffID.Confused, BuffID.Poisoned, BuffID.Venom, BuffID.OnFire, BuffID.CursedInferno, BuffID.Ichor, BuffID.ShadowFlame, BuffID.Frostburn
+                    BuffID.Confused, 
+                    BuffID.Poisoned, 
+                    BuffID.Venom, 
+                    BuffID.OnFire,
+                    BuffID.OnFire3,
+                    BuffID.Frostburn,
+                    BuffID.Frostburn2,
+                    BuffID.CursedInferno, 
+                    BuffID.Ichor, 
+                    BuffID.ShadowFlame,
                 }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

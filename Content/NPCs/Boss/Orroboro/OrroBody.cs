@@ -28,7 +28,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     BuffID.Confused, 
                     BuffID.Poisoned, 
                     BuffID.Venom, 
-                    BuffID.OnFire, 
+                    BuffID.OnFire,
+                    BuffID.OnFire3,
+                    BuffID.Frostburn, 
+                    BuffID.Frostburn2,
                     BuffID.CursedInferno, 
                     BuffID.Ichor, 
                     BuffID.ShadowFlame

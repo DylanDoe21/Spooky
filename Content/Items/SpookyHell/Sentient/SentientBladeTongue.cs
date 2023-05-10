@@ -68,6 +68,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (Main.rand.NextBool(3))
+            {
+                target.AddBuff(BuffID.Confused, 180);
+            }
+
             for (int numDusts = 0; numDusts < 30; numDusts++)
 			{
                 int dustGore = Dust.NewDust(target.Center, target.width / 2, target.height / 2, 103, 0f, -2f, 0, default, 1.5f);
