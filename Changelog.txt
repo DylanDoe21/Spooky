@@ -273,6 +273,7 @@ Little Bone Changes:
 -Little bone now has a ton of new dialogue for each different vanilla biome and spooky mod biome
 -A lot of little bone's adivce has been changed and/or rewritten to be more clear and to make sense with some of the new changes made in this update
 -Added new advice dialogue for some of the newly added features this update
+-Now has a new shimmer variant
 
 
 

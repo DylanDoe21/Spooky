@@ -29,10 +29,28 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 10);
+            Item.value = Item.buyPrice(gold: 8);
             Item.UseSound = SoundID.NPCHit2;
             Item.shoot = ModContent.ProjectileType<SentientSkull>();
             Item.shootSpeed = 10f;
+        }
+
+        public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-4, 0);
+		}
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 20f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+
+            return false;
         }
     }
 }
