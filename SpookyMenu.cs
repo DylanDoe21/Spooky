@@ -3,10 +3,6 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-
-using Spooky.Content.Backgrounds.Cemetery;
-using Spooky.Content.Backgrounds.SpookyBiome;
 
 namespace Spooky.Core
 {
@@ -14,9 +10,9 @@ namespace Spooky.Core
     {
         public override string DisplayName => "Spooky Mod";
 
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Spooky/SpookyMenuLogo");
-        
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyMenu");
+
+        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Spooky/SpookyMenuLogo");
 
         public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blank");
 
@@ -24,9 +20,20 @@ namespace Spooky.Core
         
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
 
+        public override void OnDeselected()
+        {
+            //un-hide the sun when this menu is switched
+            Main.sunModY = 0;
+        }
+
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
             drawColor = Color.White;
+
+            //hides the sun offscreen so you cant click it
+            Main.sunModY = -300;
+
+            //set daytime to true 
             Main.time = 27000;
             Main.dayTime = true;
 

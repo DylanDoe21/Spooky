@@ -96,6 +96,7 @@ New Config Options:
 Spooky Forest at Spawn:
 -Allows you to determine whether the spooky forest generates at your spawn point, or away from spawn
 -Turn this option off to make the spooky forest generate away from spawn (Be warned, this might destroy parts of vanilla's or other mod's biomes, especially on small worlds)
+-When turned off, the spooky forest will generate either infront of the dungeon or behind it, depending on where the dungeon itself is placed
 -This option may also be helpful if you are playing with other mods that have worldgen at or nearby spawn
 
 Screen Shaking Effect:
