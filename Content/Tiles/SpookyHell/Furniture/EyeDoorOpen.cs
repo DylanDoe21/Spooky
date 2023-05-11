@@ -8,6 +8,7 @@ using Terraria.ObjectData;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -65,6 +66,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(114, 13, 39), name);
+            RegisterItemDrop(ModContent.ItemType<EyeDoorItem>());
             DustType = DustID.Blood;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AdjTiles = new int[] { TileID.OpenDoor };

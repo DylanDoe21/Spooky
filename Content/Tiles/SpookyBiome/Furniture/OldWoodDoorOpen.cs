@@ -65,7 +65,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(93, 62, 39), name);
-            ItemDrop = ModContent.ItemType<OldWoodDoorItem>();
+            RegisterItemDrop(ModContent.ItemType<OldWoodDoorItem>());
             DustType = DustID.WoodFurniture;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AdjTiles = new int[] { TileID.OpenDoor };

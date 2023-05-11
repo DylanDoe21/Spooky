@@ -17,8 +17,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(185, 25, 66));
-            ItemDrop = ModContent.ItemType<LivingFleshItem>();
-			DustType = DustID.Blood;
+            DustType = DustID.Blood;
             HitSound = SoundID.NPCHit20;
 		}
     }

@@ -17,7 +17,6 @@ namespace Spooky.Content.Tiles.Cemetery
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(56, 56, 64));
-			ItemDrop = ModContent.ItemType<CemeteryStoneItem>();
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MineResist = 0.85f;

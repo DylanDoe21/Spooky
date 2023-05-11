@@ -12,7 +12,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(56, 36, 22));
             DustType = DustID.WoodFurniture;
-			ItemDrop = ModContent.ItemType<SpookyWoodWallItem>();
         }
     }
 }

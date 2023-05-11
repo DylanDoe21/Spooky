@@ -19,7 +19,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			AddMapEntry(new Color(138, 61, 8));
 			DustType = ModContent.DustType<SpookyGrassDust>();
 			HitSound = SoundID.Grass;
-			ItemDrop = -1;
 		}
 		
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

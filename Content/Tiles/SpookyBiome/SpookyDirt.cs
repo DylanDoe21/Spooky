@@ -19,7 +19,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(114, 78, 53));
-			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
             DustType = DustID.Dirt;
 			MineResist = 0.65f;
 		}
@@ -38,7 +37,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(1, 1, 1)); //different map color for debugging
-			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
             DustType = DustID.Dirt;
 			MineResist = 0.65f;
 		}

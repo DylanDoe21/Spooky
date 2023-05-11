@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
+using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -22,7 +23,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(226, 116, 17));
-			ItemDrop = ModContent.ItemType<SpookyDirtItem>();
+            RegisterItemDrop(ModContent.ItemType<SpookyDirtItem>());
             DustType = ModContent.DustType<SpookyGrassDust>();
             MineResist = 0.7f;
 		}

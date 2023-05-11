@@ -18,8 +18,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			AddMapEntry(new Color(75, 78, 0));
-			ItemDrop = ModContent.ItemType<CatacombBrickMossItem>();
+            AddMapEntry(new Color(75, 78, 0));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}

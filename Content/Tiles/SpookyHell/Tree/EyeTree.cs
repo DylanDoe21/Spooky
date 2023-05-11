@@ -37,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             AddMapEntry(new Color(86, 2, 28), name);
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
-            ItemDrop = ModContent.ItemType<LivingFleshItem>();
+            RegisterItemDrop(ModContent.ItemType<LivingFleshItem>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

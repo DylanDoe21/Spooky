@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(70, 130, 93));
-			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
+			RegisterItemDrop(ModContent.ItemType<CemeteryDirtItem>());
             DustType = ModContent.DustType<CemeteryGrassDust>();
             MineResist = 0.7f;
 		}

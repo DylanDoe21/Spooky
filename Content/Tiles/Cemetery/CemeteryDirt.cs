@@ -3,8 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Dusts;
-
 namespace Spooky.Content.Tiles.Cemetery
 {
 	public class CemeteryDirt : ModTile
@@ -18,7 +16,6 @@ namespace Spooky.Content.Tiles.Cemetery
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(73, 62, 49));
-			ItemDrop = ModContent.ItemType<CemeteryDirtItem>();
             DustType = DustID.Dirt;
 			MineResist = 0.65f;
 		}

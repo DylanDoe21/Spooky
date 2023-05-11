@@ -21,7 +21,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			AddMapEntry(new Color(62, 95, 38));
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
-			ItemDrop = -1;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
