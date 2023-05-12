@@ -209,7 +209,7 @@ namespace Spooky.Content.Generation
         private void SpreadSpookyGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all spooky dirt tiles
-            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+            for (int X = 20; X <= Main.maxTilesX - 20; X++)
 			{
                 for (int Y = PositionY - 100; Y <= Main.maxTilesY - 100; Y++)
 				{ 
@@ -248,7 +248,7 @@ namespace Spooky.Content.Generation
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             //grow trees
-            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+            for (int X = 20; X <= Main.maxTilesX - 20; X++)
 			{
                 //regular surface trees
                 for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
@@ -321,7 +321,7 @@ namespace Spooky.Content.Generation
         private void SpookyForestAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
             //place ambient objects
-            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+            for (int X = 20; X <= Main.maxTilesX - 20; X++)
 			{
                 for (int Y = PositionY - 100; Y < Main.maxTilesY - 100; Y++)
                 {  
@@ -387,7 +387,7 @@ namespace Spooky.Content.Generation
             }
 
             //place stuff underground
-            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+            for (int X = 20; X <= Main.maxTilesX - 20; X++)
 			{
                 for (int Y = (int)Main.worldSurface; Y < (int)Main.worldSurface + 250; Y++)
                 { 
