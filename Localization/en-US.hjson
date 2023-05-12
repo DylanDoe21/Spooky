@@ -1579,8 +1579,8 @@ Mods: {
 				DisplayName: Gargoyle Scepter
 				Tooltip:
 					'''
-					Summons grug the gargoyle to fight with you
-					Only one grug can exist, and he requires two minion slots to summon
+					Summons Grug the gargoyle to fight with you
+					Only one Grug can exist, and he requires two minion slots to summon
 					'He's actually a gargoyle, not a grugoyle'
 					'''
 			}

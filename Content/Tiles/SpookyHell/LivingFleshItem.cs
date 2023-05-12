@@ -31,12 +31,10 @@ namespace Spooky.Content.Tiles.SpookyHell
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<EyePlatformItem>(), 2)
-            .AddTile(TileID.WorkBenches)
             .Register();
 
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<LivingFleshWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

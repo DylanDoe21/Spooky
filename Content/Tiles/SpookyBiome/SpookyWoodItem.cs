@@ -31,12 +31,10 @@ namespace Spooky.Content.Tiles.SpookyBiome
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
             .Register();
 
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<OldWoodPlatformItem>(), 2)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
     }

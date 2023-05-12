@@ -87,7 +87,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 
             //check if player has the EMF reader
             Player player = Main.LocalPlayer;
-            if (player.HasItem(ModContent.ItemType<EMFReader>()) && NPC.downedBoss2 && !Main.dayTime)
+            if (player.HasItem(ModContent.ItemType<EMFReader>()) && !Main.dayTime)
             {
                 int x = i;
                 int y = j;
