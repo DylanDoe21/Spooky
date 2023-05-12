@@ -163,13 +163,13 @@ namespace Spooky.Core
 								63, 64, 65, 66, 67, 68, 192, 10, 11, 12, 14, 15, 16, 17, 18, 19, 26, 28, 31,
 								32, 33, 34, 42, 79, 86, 87, 88, 89, 90, 91, 92, 93, 100, 101, 104, 105, 374 };
 
-								if (Kill.Contains(Main.tile[k, l].TileType))
-								{
-									WorldGen.KillTile(k, l);
-								}
-
 								if (!Main.tileDungeon[Main.tile[k, l].TileType])
 								{
+									if (Kill.Contains(Main.tile[k, l].TileType))
+									{
+										WorldGen.KillTile(k, l);
+									}
+
 									//replace tiles if it is not in the kill list
 									if (!Kill.Contains(Main.tile[k, l].TileType) || Main.tile[k, l].WallType == WallID.EbonstoneUnsafe)
 									{

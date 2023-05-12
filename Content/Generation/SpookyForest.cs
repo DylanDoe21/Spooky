@@ -26,6 +26,8 @@ namespace Spooky.Content.Generation
         static int PositionX = Main.maxTilesX / 2;
         static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
+        static int Size = Main.maxTilesX / 15;
+
         Vector2 SaveHousePosition;
 
         private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
@@ -54,7 +56,7 @@ namespace Spooky.Content.Generation
                 if (GenVars.dungeonSide == -1)
                 {
                     //decide the biome position based on how far to the right the dungeon generates
-                    if (GenVars.dungeonX > (Main.maxTilesX / 9))
+                    if (GenVars.dungeonX > (Main.maxTilesX / 10))
                     {
                         PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
                     }
@@ -67,7 +69,7 @@ namespace Spooky.Content.Generation
                 else
                 {
                     //decide the biome position based on how far to the left the dungeon generates
-                    if (GenVars.dungeonX < Main.maxTilesX - (Main.maxTilesX / 9))
+                    if (GenVars.dungeonX < Main.maxTilesX - (Main.maxTilesX / 10))
                     {
                         PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
                     }
@@ -82,7 +84,7 @@ namespace Spooky.Content.Generation
             PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
             //set size and height
-            int Size = Main.maxTilesX / 15;
+            Size = Main.maxTilesX / 15;
             int BiomeHeight = Main.maxTilesY / 10;
 
             //place the actual biome
@@ -207,7 +209,7 @@ namespace Spooky.Content.Generation
         private void SpreadSpookyGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all spooky dirt tiles
-            for (int X = PositionX - 500; X <= PositionX + 500; X++)
+            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
 			{
                 for (int Y = PositionY - 100; Y <= Main.maxTilesY - 100; Y++)
 				{ 
@@ -246,8 +248,8 @@ namespace Spooky.Content.Generation
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             //grow trees
-            for (int X = PositionX - 500; X <= PositionX + 500; X++)
-            {
+            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+			{
                 //regular surface trees
                 for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
                 {
@@ -319,8 +321,8 @@ namespace Spooky.Content.Generation
         private void SpookyForestAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
             //place ambient objects
-            for (int X = PositionX - 500; X < PositionX + 500; X++)
-            {
+            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+			{
                 for (int Y = PositionY - 100; Y < Main.maxTilesY - 100; Y++)
                 {  
                     //kill any single floating tiles so things dont look ugly
@@ -385,8 +387,8 @@ namespace Spooky.Content.Generation
             }
 
             //place stuff underground
-            for (int X = PositionX - 500; X < PositionX + 500; X++)
-            {
+            for (int X = PositionX - Size / 2 - 50; X <= PositionX + Size / 2 + 50; X++)
+			{
                 for (int Y = (int)Main.worldSurface; Y < (int)Main.worldSurface + 250; Y++)
                 { 
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>() ||

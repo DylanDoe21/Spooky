@@ -121,6 +121,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
 
+			//goodie bags
+			itemLoot.Add(ItemDropRule.Common(ItemID.GoodieBag, 2, 1, 2));
+
 			//coins
 			itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 3));
 		}

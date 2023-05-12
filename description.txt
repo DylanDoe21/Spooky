@@ -13,7 +13,9 @@ Currently the mod has:
 -And much more to come in the future!
 
 
-Just a warning: this mod is very worldgen heavy, so playing this mod with small worlds and/or other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods however you like, but just be aware of potential issues!
+Just a warning:
+-This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods however you like, but just be aware of potential issues!
+-It is also recommended that you don't play with this mod on small worlds, due to the same reasons mentioned above
 
 
 [h1]Developers[/h1]

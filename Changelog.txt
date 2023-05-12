@@ -316,6 +316,7 @@ Little Bone Changes:
 -Increased contact damage scaling for all spooky mod bosses in expert and master mode because it was way too weak before
 -Spooky mod enemies and critters now have more specific spawn condition labels in the bestiary, specifically for daytime and nighttime exclusive enemies
 -All spooky mod pets now display on character selection screen if you have them equipped
+-Spooky wood crates can now drop goodie bags when opened
 
 
 
