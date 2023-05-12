@@ -5,41 +5,10 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-namespace Spooky.Core
+namespace Spooky.Content.Generation
 {
 	public class SpookyWorldMethods
 	{
-		//clear or make a circle
-		public static void Circle(int i, int j, int size, int tileType, bool killTile = true)
-		{
-			int BaseRadius = size;
-			int radius = BaseRadius;
-
-			for (int y = j - radius; y <= j + radius; y++)
-			{
-				for (int x = i - radius; x <= i + radius + 1; x++)
-				{
-					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= radius && WorldGen.InWorld(x, y))
-                    {
-						Tile tile = Framing.GetTileSafely(x, y);
-
-						if (killTile)
-						{
-							WorldGen.KillTile(x, y);
-							tile.Slope = 0;
-						}
-						if (!killTile)
-						{
-							WorldGen.PlaceTile(x, y, tileType);
-							tile.Slope = 0;
-						}
-                    }
-				}
-
-				radius = BaseRadius - WorldGen.genRand.Next(-1, 2);
-			}
-		}
-
 		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, int wallType2, bool placeWalls = false)
 		{
 			for (int X = i - (XSize / 2); X <= i + (XSize / 2); X++)
@@ -171,12 +140,17 @@ namespace Spooky.Core
 									}
 
 									//replace tiles if it is not in the kill list
-									if (!Kill.Contains(Main.tile[k, l].TileType) || Main.tile[k, l].WallType == WallID.EbonstoneUnsafe)
+									if (!Kill.Contains(Main.tile[k, l].TileType))
 									{
 										Main.tile[k, l].TileType = (ushort)tileType;
 									}
 
-									if (addTile)
+									if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
+									{
+										WorldGen.PlaceTile(k, l, tileType);
+									}
+
+                                    if (addTile)
 									{
 										Main.tile[k, l].TileType = (ushort)tileType;
 									}

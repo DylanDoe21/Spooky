@@ -80,7 +80,12 @@ namespace Spooky.Content.Projectiles.Cemetery
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-		public override void AI()
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.ai[0] > 80;
+        }
+
+        public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
@@ -96,32 +101,31 @@ namespace Spooky.Content.Projectiles.Cemetery
                 ManageTrail();
             }
 
-			Projectile.localAI[0]++;
-            if (Projectile.localAI[0] == 1)
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] == 1)
             {
                 for (int numDust = 0; numDust < 10; numDust++)
-				{
-					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
-					Main.dust[dust].noGravity = true;
+                {
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[dust].noGravity = true;
                     Main.dust[dust].scale = 1.5f;
-					Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-					Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
 
-					if (Main.dust[dust].position != Projectile.Center)
-					{
-						Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-					}
-				}
+                    if (Main.dust[dust].position != Projectile.Center)
+                    {
+                        Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
+                    }
+                }
             }
 
-            Projectile.ai[1]++;
-
-			if (Projectile.ai[1] < 80)
+            if (Projectile.ai[0] < 80)
 			{
 				Projectile.velocity *= 0.98f;
 			}
 			
-			if (Projectile.ai[1] > 80 && Projectile.ai[1] < 120)
+			if (Projectile.ai[0] > 80 && Projectile.ai[0] < 120)
 			{
 				int foundTarget = HomeOnTarget();
 				if (foundTarget != -1)

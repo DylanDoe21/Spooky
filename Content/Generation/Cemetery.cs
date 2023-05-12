@@ -325,7 +325,7 @@ namespace Spooky.Content.Generation
                 }
 
                 ClearAreaAboveStructure(LakeX, LakeY - 23);
-                PlaceBlocksBelowStructure(LakeX, LakeY, 15);
+                PlaceBlocksBelowStructure(LakeX, LakeY, 22);
 
                 Vector2 origin = new Vector2(LakeX - 19, LakeY - 16);
                 Generator.GenerateStructure("Content/Structures/CemeteryLake", origin.ToPoint16(), Mod);

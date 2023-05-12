@@ -64,6 +64,16 @@ namespace Spooky.Content.Tiles.SpookyBiome
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                     }
 				}
+
+                if (Main.rand.Next(25) == 0) 
+                {
+                    ushort[] Weeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), (ushort)ModContent.TileType<SpookyWeedBig2>() };
+
+                    ushort newObject = Main.rand.Next(Weeds);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
                 
                 if (Main.rand.Next(35) == 0) 
                 {

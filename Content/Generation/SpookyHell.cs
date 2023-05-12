@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
