@@ -43,14 +43,5 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		{
 			player.GetCritChance(DamageClass.Generic) += 5;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 10)
-			.AddIngredient(ItemID.Silk, 12)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
 	}
 }

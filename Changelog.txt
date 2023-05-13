@@ -1,8 +1,5 @@
 Update v0.6.1 (Bugfixing update)
 
-
-fixed all of the following issues:
-
 -fixed a lot of grammar issues in various spooky mod item tooltips
 -tortumor orbs now deal damage properly in master mode
 -fixed issue where the spooky forest would cause black spots on the map on large worlds

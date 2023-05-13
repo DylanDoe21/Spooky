@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Cemetery;
+using Spooky.Content.Items.Cemetery.Armor;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -888,8 +889,15 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
-			//material
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyPlasma>(), 1, 12, 18));
+            //drop one piece of the armor
+            int[] ArmorPieces = new int[] 
+            { 
+                ModContent.ItemType<SpiritHorsemanHead>(), 
+                ModContent.ItemType<SpiritHorsemanBody>(), 
+                ModContent.ItemType<SpiritHorsemanLegs>()
+            };
+
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ArmorPieces));
 
             npcLoot.Add(notExpertRule);
         }

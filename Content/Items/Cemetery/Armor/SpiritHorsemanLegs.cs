@@ -20,14 +20,5 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		{
 			player.moveSpeed += 0.12f;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 12)
-			.AddIngredient(ItemID.Silk, 15)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
 	}
 }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.Cemetery;
+using Spooky.Content.Items.Cemetery.Armor;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 
@@ -54,8 +55,14 @@ namespace Spooky.Content.Items.BossBags
 
 			itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
 
-            //material
-            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookyPlasma>(), 1, 18, 30));
+            int[] ArmorPieces = new int[] 
+            { 
+                ModContent.ItemType<SpiritHorsemanHead>(), 
+                ModContent.ItemType<SpiritHorsemanBody>(), 
+                ModContent.ItemType<SpiritHorsemanLegs>()
+            };
+
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, ArmorPieces));
 
             //expert item
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpiritAmulet>(), 1));

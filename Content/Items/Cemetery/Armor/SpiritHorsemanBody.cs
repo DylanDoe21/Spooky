@@ -20,14 +20,5 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		{
 			player.GetDamage(DamageClass.Generic) += 0.05f;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyPlasma>(), 15)
-			.AddIngredient(ItemID.Silk, 25)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
 	}
 }
