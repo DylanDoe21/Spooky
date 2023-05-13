@@ -67,6 +67,14 @@ namespace Spooky.Core
         public bool MocoPet = false;
         public bool BigBonePet = false;
 
+        public override void OnEnterWorld()
+        {
+            if (ModContent.GetInstance<SpookyMenu>().IsSelected)
+            {
+                Main.sunModY = 0;
+            }
+        }
+
         public override void ResetEffects()
         {
             //armors

@@ -8,6 +8,7 @@ Update v0.6.1 (Bugfixing update)
 -Removed the spooky plasma crafting material dropped by spooky spirit, and he now drops one piece of the horseman armor (this was supposed to be added last update but i forgot)
 -Gore monger armor now requires less monster meat to craft
 -EMF reader now clarifies you can only use it at night
+-Fixed issue where the sun would be offscreen and move down if you entered the world after having the spooky mod menu on
 
 
 
