@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.Cemetery.Ambient
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
-    public class Tombstone1 : ModTile
+    public class BurialCasket1 : ModTile
     {
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileObjectData.newTile.Width = 2;
-			TileObjectData.newTile.Height = 3;	
-			TileObjectData.newTile.Origin = new Point16(0, 2);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
+			TileObjectData.newTile.Width = 4;
+			TileObjectData.newTile.Height = 2;	
+			TileObjectData.newTile.Origin = new Point16(1, 1);
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
         }
     }
 
-    public class Tombstone2 : Tombstone1
+    public class BurialCasket2 : BurialCasket1
     {
     }
 }

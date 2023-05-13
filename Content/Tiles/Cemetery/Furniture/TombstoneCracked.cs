@@ -5,7 +5,7 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.Cemetery.Ambient
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
     public class TombstoneCracked1 : ModTile
     {

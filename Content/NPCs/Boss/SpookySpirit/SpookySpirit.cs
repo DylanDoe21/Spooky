@@ -512,8 +512,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             //teleport
                             if (NPC.localAI[0] == 120)
                             {
-                                NPC.position.X = player.direction == 1 ? player.Center.X + 550 : player.Center.X - 650;
-                                NPC.position.Y = player.Center.Y - 350;
+                                if (player.velocity.X != 0)
+                                {
+                                    NPC.position.X = player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 650;
+                                    NPC.position.Y = player.Center.Y - 350;
+                                }
+                                else
+                                {
+                                    NPC.position.X = player.Center.X;
+                                    NPC.position.Y = player.Center.Y - 350;
+                                }
 
                                 NPC.netUpdate = true;
                             }

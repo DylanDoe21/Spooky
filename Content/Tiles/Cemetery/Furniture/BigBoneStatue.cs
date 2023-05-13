@@ -7,7 +7,7 @@ using Terraria.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spooky.Content.Tiles.Cemetery.Ambient
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
     public class BigBoneStatue : ModTile
     {
@@ -63,7 +63,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
 			{
 				float shakeX = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
-				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Ambient/BigBoneStatueGlow").Value;
+				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/BigBoneStatueGlow").Value;
 				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, 
 				new Rectangle(frameX, frameY, width, height), new Color(255, 103, 0, 0), 0f, default, 1f, effects, 0f);
 			}

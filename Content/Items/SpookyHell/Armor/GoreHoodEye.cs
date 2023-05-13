@@ -59,7 +59,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<ArteryPiece>(), 12)
-			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
+			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 15)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

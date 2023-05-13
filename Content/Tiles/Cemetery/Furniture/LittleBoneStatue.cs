@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.Cemetery.Ambient
+namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
     public class LittleBoneStatue1 : ModTile
     {

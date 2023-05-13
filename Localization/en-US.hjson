@@ -600,7 +600,7 @@ Mods: {
 				Tooltip:
 					'''
 					Used to find paranormal entities
-					Summons Spooky Spirit when used at the cursed statue
+					Summons Spooky Spirit when used at the cursed statue at night
 					'''
 			}
 
