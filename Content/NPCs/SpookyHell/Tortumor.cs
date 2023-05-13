@@ -119,8 +119,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             NPC.rotation = NPC.velocity.X * 0.04f;
 
-            int Damage = Main.expertMode ? 30 : 40;
-
 			NPC.ai[0]++;  
 
             //dust spawning for when big tumor summons this
@@ -204,13 +202,13 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb1>(), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb1>(), NPC.damage / 2, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
 
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb2>(), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb2>(), NPC.damage / 2, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
 
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb3>(), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb3>(), NPC.damage / 2, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
                     }
                 }
 

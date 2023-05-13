@@ -592,7 +592,7 @@ Mods: {
 
 			CowBell: {
 				DisplayName: Rusty Cowbell
-				Tooltip: Summons a friendly shadow entities to fight with you
+				Tooltip: Summons friendly shadow entities to fight with you
 			}
 
 			EMFReader: {
@@ -1377,7 +1377,7 @@ Mods: {
 				DisplayName: Mysterious Flask III
 				Tooltip:
 					'''
-					A warm substance, created from hellish ingredients
+					A gooey substance, made from the most sticky items
 					Little eye may be interested in this
 					'''
 			}
@@ -1386,7 +1386,7 @@ Mods: {
 				DisplayName: Mysterious Flask IV
 				Tooltip:
 					'''
-					A gooey substance, made from the most sticky items
+					A warm substance, created from hellish ingredients
 					Little eye may be interested in this
 					'''
 			}
