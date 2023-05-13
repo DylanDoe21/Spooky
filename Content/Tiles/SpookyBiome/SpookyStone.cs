@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(4) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
 
                     if (Main.netMode == NetmodeID.Server) 
