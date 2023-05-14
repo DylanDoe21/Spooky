@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         {
             NPC.lifeMax = 3500;
             NPC.damage = 25;
-            NPC.defense = 8;
+            NPC.defense = 15;
             NPC.width = 116;
             NPC.height = 112;
             NPC.knockBackResist = 0f;
@@ -519,7 +519,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 }
                                 else
                                 {
-                                    NPC.position.X = player.Center.X;
+                                    NPC.position.X = player.Center.X - NPC.width / 2;
                                     NPC.position.Y = player.Center.Y - 350;
                                 }
 

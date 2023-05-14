@@ -11,6 +11,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class EyeBolt : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private List<Vector2> cache;
         private Trail trail;
 		

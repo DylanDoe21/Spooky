@@ -69,6 +69,7 @@ namespace Spooky.Core
 
         public override void OnEnterWorld()
         {
+            //un-hide the sun if you enter the world with the spooky mod menu enabled
             if (ModContent.GetInstance<SpookyMenu>().IsSelected)
             {
                 Main.sunModY = 0;
