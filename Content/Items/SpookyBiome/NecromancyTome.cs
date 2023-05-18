@@ -19,8 +19,8 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.autoReuse = true;                  
             Item.width = 32;
             Item.height = 32;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;         

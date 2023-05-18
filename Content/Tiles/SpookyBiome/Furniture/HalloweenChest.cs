@@ -19,6 +19,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 	[LegacyName("HalloweenChest4")]
 	[LegacyName("HalloweenChest5")]
 	[LegacyName("WoodTombChest")]
+	[LegacyName("CatacombChest")]
 	public class HalloweenChest : ModTile
 	{
 		public override void SetStaticDefaults() 

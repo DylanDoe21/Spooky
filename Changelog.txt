@@ -1,14 +1,11 @@
-Update v0.6.1 (Bugfixing update)
+Update v1.0 (The catacomb update)
 
--Fixed a lot of grammar issues in various spooky mod item tooltips
--Tortumor orbs now deal damage properly in master mode
--Fixed issue where the spooky forest would cause black spots on the map on large worlds
--The spooky spirit altar can now summon spooky spirit at any time, it is no longer locked behind the evil bosses
--Old wood platforms and living flesh platforms now have the correct journey mode research amount of 200
--Removed the spooky plasma crafting material dropped by spooky spirit, and he now drops one piece of the horseman armor (this was supposed to be added last update but i forgot)
--Gore monger armor now requires less monster meat to craft
--EMF reader now clarifies you can only use it at night
--Fixed issue where the sun would be offscreen and move down if you entered the world after having the spooky mod menu on
+
+~OTHER SMALL CHANGES~
+
+-Increased the use speed for the toilet paper and necromancy for dummies
+-Increased the creepy candle's magic damage bonus to 7%
+-Increased harvester's scythe knockback
 
 
 

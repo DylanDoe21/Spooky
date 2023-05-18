@@ -76,6 +76,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 {
                     Projectile.frame++;
                 }
+
                 if (Projectile.frame >= 3)
                 {   
                     Projectile.frame = 2;
@@ -99,27 +100,32 @@ namespace Spooky.Content.Projectiles.Catacomb
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
 
+                    int damage = Projectile.damage;
+
                     switch (Projectile.frame)
                     {
                         case 0:
                         {
-                            ShootSpeed *= 8;
+                            ShootSpeed *= 10;
+                            damage = Projectile.damage / 3;
                             break;
                         }
                         case 1:
                         {
                             ShootSpeed *= 15;
+                            damage = Projectile.damage / 2;
                             break;
                         }
                         case 2:
                         {
                             ShootSpeed *= 25;
+                            damage = Projectile.damage;
                             break;
                         }
                     }
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                    ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<GraveCrossbowArrow>(), damage, Projectile.knockBack, Projectile.owner);
 				}
 
 				Projectile.active = false;

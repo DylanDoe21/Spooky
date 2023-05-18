@@ -1,0 +1,16 @@
+Catacomb overhaul:
+
+-new catacomb rooms
+
+-new enemies, and better versions of the old enemies
+
+-Make big bone found sleeping outside the flower pot, and you can talk to him to summon him
+-if you die or leave the world, he goes back to sleeping
+-if you win, then he wont be sleeping and you need to respawn him with fertalizer
+
+
+Other stuff:
+
+-make certain sentient weapon projectiles inflict ichor and cursed flames properly
+
+-make rot gourd slamming more fair and not literally require a dash

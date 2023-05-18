@@ -172,7 +172,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				else
 				{
 					Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 65, y * 16 + 155), 
-					x * 16 + 65, y * 16 + 155, 0, -1, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
+					x * 16 + 65, y * 16 + 155, 0, 0, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
 				}
 			}
             else

@@ -74,37 +74,13 @@ namespace Spooky.Content.Generation
                     //place dirt blocks
                     if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
                     {
-                        ShapeData circle = new ShapeData();
-                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        int radius = WorldGen.genRand.Next(2, 3);
-                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
-                        {
-                            blotchMod.Output(circle)
-                        }));
-
-                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-                        {
-                            new Actions.ClearTile(), new Actions.ClearWall(),
-                            new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
-                        }));
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                     }
 
                     //place dirt blocks where walls exist to prevent unwanted craters or caves
                     if (tile.WallType > 0 && !tile.HasTile)
                     {
-                        ShapeData circle = new ShapeData();
-                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        int radius = WorldGen.genRand.Next(2, 3);
-                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
-                        {
-                            blotchMod.Output(circle)
-                        }));
-
-                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-                        {
-                            new Actions.ClearTile(), new Actions.ClearWall(),
-                            new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
-                        }));
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                     }
 
                     //fill in any single empty tiles
@@ -118,19 +94,7 @@ namespace Spooky.Content.Generation
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
                 for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
                 {
-                    ShapeData circle = new ShapeData();
-                    GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    int radius = WorldGen.genRand.Next(2, 3);
-                    WorldUtils.Gen(new Point(X, FillY), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
-                    {
-                        blotchMod.Output(circle)
-                    }));
-
-                    WorldUtils.Gen(new Point(X, FillY), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-                    {
-                        new Actions.ClearTile(), new Actions.ClearWall(),
-                        new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
-                    }));
+                    SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }
             }
 

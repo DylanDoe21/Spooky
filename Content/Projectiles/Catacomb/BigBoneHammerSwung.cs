@@ -28,8 +28,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 82;
-            Projectile.height = 82;
+            Projectile.width = 120;
+            Projectile.height = 120;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.netImportant = true;

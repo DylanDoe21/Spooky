@@ -1068,7 +1068,7 @@ Mods: {
 				DisplayName: Creepy Candle
 				Tooltip:
 					'''
-					Increases magic damage by 5%
+					Increases magic damage by 7%
 					Magic projectiles will sometimes ignite enemies
 					'''
 			}
@@ -2161,6 +2161,41 @@ Mods: {
 
 			RotGourdTrophyItem: {
 				DisplayName: Rot Gourd Trophy
+				Tooltip: ""
+			}
+
+			CatacombGrassSeeds: {
+				DisplayName: Catacomb Grass Seeds
+				Tooltip: ""
+			}
+
+			CatacombBrick1Item: {
+				DisplayName: Upper Catacomb Brick
+				Tooltip: ""
+			}
+
+			CatacombBrick2Item: {
+				DisplayName: Lower Catacomb Brick
+				Tooltip: ""
+			}
+
+			CatacombFlooringItem: {
+				DisplayName: Catacomb Flooring
+				Tooltip: ""
+			}
+
+			GildedBrickItem: {
+				DisplayName: Gilded Brick
+				Tooltip: ""
+			}
+
+			CatacombBrickWall1Item: {
+				DisplayName: Upper Catacomb Brick Wall
+				Tooltip: ""
+			}
+
+			CatacombBrickWall2Item: {
+				DisplayName: Lower Catacomb Brick Wall
 				Tooltip: ""
 			}
 		}
