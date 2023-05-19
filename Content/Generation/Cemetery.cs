@@ -248,7 +248,7 @@ namespace Spooky.Content.Generation
             int cryptAttempts = 0;
             while (!placedCrypt && cryptAttempts++ < 100000)
             {
-                int CryptX = XMiddle;
+                int CryptX = XMiddle - 3;
                 int CryptY = Catacombs.PositionY - 55;
 
                 while (!WorldGen.SolidTile(CryptX, CryptY) && CryptY <= Main.worldSurface)

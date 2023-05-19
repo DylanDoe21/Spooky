@@ -39,7 +39,9 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			Tile tile = Framing.GetTileSafely(i, j);
+			MinPick = Flags.downedBigBone ? 0 : 999999;
+
+            Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey1)
 			{
@@ -89,7 +91,9 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			Tile tile = Framing.GetTileSafely(i, j);
+            MinPick = Flags.downedBigBone ? 0 : 999999;
+
+            Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey2)
 			{
@@ -139,7 +143,9 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			Tile tile = Framing.GetTileSafely(i, j);
+            MinPick = Flags.downedBigBone ? 0 : 999999;
+
+            Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey3)
 			{
