@@ -1,12 +1,24 @@
 Update v1.0 (The catacomb update)
 
 
+~NEW STUFF~
+
+
+Creepy catacombs changes
+
+
+
 ~OTHER SMALL CHANGES~
 
 -Increased the use speed for the toilet paper and necromancy for dummies
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback
 
+
+
+~BUGS AND OTHER FIXES~
+
+-Fixed the soul drain's aura damaging the player
 
 
 

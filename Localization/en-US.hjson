@@ -17,7 +17,7 @@ Mods: {
 			SpookySpiritSpawn: Spooky Spirit has awoken!
 			OrroboroSpawn: Orro & Boro have awoken!
 			EggNoConcoction: You need a special concoction to destroy the egg
-			EggEventBegin: The Egg Incusrion has begun!
+			EggEventBegin: The Egg Incursion has begun!
 			EggEventOver: The giant egg has become fragile!
 			EggEventBarProgress: "Progress: "
 			EggEventBarDisplayName: Egg Incursion
@@ -248,14 +248,45 @@ Mods: {
 		}
 
 		Biomes: {
-			SpookyBiome.DisplayName: Spooky Forest
-			SpookyBiomeUg.DisplayName: Spooky Underground
-			SpookyHellBiome.DisplayName: Valley of Eyes
-			CatacombBiome.DisplayName: Creepy Catacombs
-			CemeteryBiome.DisplayName: Swampy Cemetery
-			EggEventBiome.DisplayName: Egg Incursion
-			EntityZone.DisplayName: Entity Zone
-			RaveyardBiome.DisplayName: Raveyard Biome
+			SpookyBiome: {
+				DisplayName: Spooky Forest
+				TownNPCDialogueName: the Spooky Biome
+			}
+
+			SpookyBiomeUg: {
+				DisplayName: Spooky Underground
+				TownNPCDialogueName: the Spooky Biome Ug
+			}
+
+			SpookyHellBiome: {
+				DisplayName: Valley of Eyes
+				TownNPCDialogueName: the Spooky Hell Biome
+			}
+
+			CatacombBiome: {
+				DisplayName: Creepy Catacombs
+				TownNPCDialogueName: the Catacomb Biome
+			}
+
+			CemeteryBiome: {
+				DisplayName: Swampy Cemetery
+				TownNPCDialogueName: the Cemetery Biome
+			}
+
+			EggEventBiome: {
+				DisplayName: Egg Incursion
+				TownNPCDialogueName: the Egg Event Biome
+			}
+
+			EntityZone: {
+				DisplayName: Entity Zone
+				TownNPCDialogueName: the Entity Zone
+			}
+
+			RaveyardBiome: {
+				DisplayName: Raveyard Biome
+				TownNPCDialogueName: the Raveyard Biome
+			}
 		}
 
 		Buffs: {
@@ -1759,8 +1790,13 @@ Mods: {
 			}
 
 			CatacombBox: {
-				DisplayName: Music Box (Creepy Catacombs)
+				DisplayName: Music Box (Higher Catacombs)
 				Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
+			}
+
+			CatacombBox2: {
+				DisplayName: Music Box (Lower Catacombs)
+				Tooltip: "'Title to be decided' by Bananalizard"
 			}
 
 			CemeteryBox: {
@@ -1825,7 +1861,7 @@ Mods: {
 
 			SpookySpiritBox: {
 				DisplayName: Music Box (Spooky Spirit)
-				Tooltip: "'Spooky Spirit' by Bananalizard"
+				Tooltip: "'Groovy Geist' by Bananalizard"
 			}
 
 			CemeteryPylonItem: {
@@ -2373,14 +2409,37 @@ Mods: {
 			SentientLifeDrainSkull.DisplayName: Sentient Life Drain Skull
 			SentientBladeTongueProj.DisplayName: Sentient Blade Tongue Proj
 			IchorCloud.DisplayName: Ichor Cloud
-			SentientSkull.DisplayName: Sentient Skull
-			SoulDrainShockwave.DisplayName: Soul Drain Shockwave
-			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawn
+			SentientSkull.DisplayName: Chomping Skull
+			SoulDrainShockwave.DisplayName: Soul Shockwave
+			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
 		}
 
 		NPCs: {
 			BigBone.DisplayName: Big Bone
-			BigFlowerPot.DisplayName: Giant Flower Pot
+
+			BigFlowerPot: {
+				DisplayName: Giant Flower Pot
+
+				TownNPCMood: {
+					Princess_LovesNPC: I like {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					HateNPC: I hate {NPCName}.
+					DislikeNPC: I dislike {NPCName}.
+					LikeNPC: I like {NPCName}.
+					LoveNPC: I love {NPCName}.
+					HateBiome: I hate {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					LikeBiome: I like {BiomeName}.
+					LoveBiome: I love {BiomeName}.
+					HateCrowded: I hate how crowded I am.
+					DislikeCrowded: I dislike how crowded I am.
+					LoveSpace: I love having so much space.
+					FarFromHome: I am too far from home.
+					NoHome: I hate not having a home.
+					Content: I am content.
+				}
+			}
+
 			BigFlower.DisplayName: Solar Flower
 			DefensiveFlower.DisplayName: Defensive Flower
 			HealingFlower.DisplayName: Healing Flower
@@ -2493,6 +2552,7 @@ Mods: {
 			CemeterySapling.MapEntry: Sapling
 			BigBoneBoxTile.MapEntry: Music Box
 			CatacombBoxTile.MapEntry: Music Box
+			CatacombBox2Tile.MapEntry: Music Box
 			CemeteryBoxTile.MapEntry: Music Box
 			EggEventBoxTile.MapEntry: Music Box
 			EntityBoxTile.MapEntry: Music Box
@@ -2565,6 +2625,30 @@ Mods: {
 			SkullStick1.MapEntry: Skull Stick1
 			SkullStick2.MapEntry: Skull Stick2
 			SkullStick3.MapEntry: Skull Stick3
+			SkullCandle3.MapEntry: Skull Candle3
+			SkullCandle2.MapEntry: Skull Candle2
+			SkullCandle1.MapEntry: Skull Candle1
+		}
+
+		Configs: {
+			SpookyConfig: {
+				SpookyForestSpawn: {
+					Label: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Label}"
+					Tooltip: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Tooltip}"
+				}
+
+				HalloweenEnabled: {
+					Tooltip: "{$Mods.Spooky.Config.HalloweenEnabled.Tooltip}"
+					Label: "{$Mods.Spooky.Config.HalloweenEnabled.Label}"
+				}
+
+				DisplayName: Spooky Config
+
+				ScreenShakeEnabled: {
+					Label: "{$Mods.Spooky.Config.ScreenShakingEffect.Label}"
+					Tooltip: "{$Mods.Spooky.Config.ScreenShakingEffect.Tooltip}"
+				}
+			}
 		}
 	}
 }

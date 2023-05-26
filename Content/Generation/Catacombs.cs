@@ -159,7 +159,14 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                                if (WorldGen.genRand.NextBool(2))
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
+                                }
+                                else
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
+                                }
                             }
                             else
                             {
@@ -189,7 +196,14 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                                if (WorldGen.genRand.NextBool(2))
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
+                                }
+                                else
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
+                                }
                             }
                             else
                             {
@@ -211,7 +225,14 @@ namespace Spooky.Content.Generation
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(35))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                            if (WorldGen.genRand.NextBool(2))
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
+                            }
                         }
                         else
                         {

@@ -18,15 +18,18 @@ namespace Spooky.Core
     {
         public override bool CanUseItem(Item item, Player player)
         {
+            //TODO: disable liquid buckets
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
-                //disable tools and the rod of discord
-                if (item.pick > 0 || item.hammer > 0 || item.axe > 0 || item.createTile > 0 || item.type == ItemID.RodofDiscord)
+                int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
+
+                //disable tools, block placement, and the rod of discord
+                if (item.pick > 0 || item.hammer > 0 || item.axe > 0 || (item.createTile > 0 && !Torches.Contains(item.type)) || item.type == ItemID.RodofDiscord)
                 {
                     return false;
                 }
 
-                //disable the use of any explosive item
+                //disable the use of any explosives
                 int[] Explosives = { 166, 3196, 3115, 3547, 4908, 4827, 167, 4826, 4825, 4423, 235, 4909, 2896, 4824 };
 
                 if (Explosives.Contains(item.type))

@@ -16,7 +16,7 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             Projectile.width = 66;
             Projectile.height = 64;
-            Projectile.hostile = true;
+            Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;

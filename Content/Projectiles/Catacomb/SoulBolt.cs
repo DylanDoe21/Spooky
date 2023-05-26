@@ -169,20 +169,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.ai[0] = 1;
             }
-
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 5)
-            {
-                Projectile.localAI[0]++;
-
-                if (Projectile.localAI[0] >= 600)
-                {
-                    Projectile.Kill();
-                }
-            }
-            else
-            {
-                Projectile.localAI[0] = 0;
-            }
         }
 
         private int HomeOnTarget()
