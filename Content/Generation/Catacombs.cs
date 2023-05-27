@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Tiles.Catacomb;
 
 using StructureHelper;
+using ReLogic.Utilities;
 
 namespace Spooky.Content.Generation
 {
@@ -30,19 +31,6 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom3 = false;
         public static bool placedLootRoom4 = false;
         public static bool placedMoyaiRoom = false;
-
-        public override void Load()
-        {
-            //shimmer re-location
-            On_WorldGen.ShimmerMakeBiome += On_WorldGen_ShimmerMakeBiome;
-        }
-
-        private static bool On_WorldGen_ShimmerMakeBiome(On_WorldGen.orig_ShimmerMakeBiome orig, int X, int Y) 
-        {
-            X = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.95f), Main.maxTilesX - 150) : WorldGen.genRand.Next(150, (int)((double)Main.maxTilesX * 0.05f)));
-
-            return orig(X, Y);
-        }
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -159,14 +147,7 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                if (WorldGen.genRand.NextBool(2))
-                                {
-                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
-                                }
-                                else
-                                {
-                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
-                                }
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -196,14 +177,7 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                if (WorldGen.genRand.NextBool(2))
-                                {
-                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
-                                }
-                                else
-                                {
-                                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
-                                }
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -225,14 +199,7 @@ namespace Spooky.Content.Generation
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(35))
                         {
-                            if (WorldGen.genRand.NextBool(2))
-                            {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-2", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-1", origin.ToPoint16(), Mod);
-                            }
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
                         }
                         else
                         {
@@ -330,7 +297,7 @@ namespace Spooky.Content.Generation
             }
 
             /*
-            //oh my goodness gracious i will edit this later
+            //oh my goodness gracious, i will edit this later
             //second layer
             for (int X = XMiddle - 150; X <= XMiddle + 150; X += 65)
             {
@@ -634,65 +601,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-
-            //place final ambient stuff
-            for (int X = XMiddle - 165; X <= XMiddle + 165; X++)
-            {
-                for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + 350; Y++)
-                {
-                    //vines
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() && !Main.tile[X, Y + 1].HasTile)
-                    {
-                        if (WorldGen.genRand.NextBool(2))
-                        {
-                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
-                        }
-                    }
-
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombVines>())
-                    {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<CatacombVines>());
-                    }
-
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>())
-                    {
-                        //ambient moss
-                        if (WorldGen.genRand.NextBool(3))
-                        {    
-                            ushort[] Moss = new ushort[] { (ushort)ModContent.TileType<Moss1>(), (ushort)ModContent.TileType<Moss2>(), 
-                            (ushort)ModContent.TileType<Moss3>(), (ushort)ModContent.TileType<Moss4>(), (ushort)ModContent.TileType<Moss5>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Moss));
-                        }
-
-                        //ceiling roots
-                        if (WorldGen.genRand.NextBool(5))
-                        {    
-                            ushort[] Roots = new ushort[] { (ushort)ModContent.TileType<CatacombRoot1>(), 
-                            (ushort)ModContent.TileType<CatacombRoot2>(), (ushort)ModContent.TileType<CatacombRoot3>() };
-
-                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(Roots)); 
-                        }
-                    }
-
-                    if (!Main.tile[X, Y].HasTile && (Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall>() ||
-                    Main.tile[X, Y].WallType == ModContent.WallType<CatacombBrickWall2>()))
-                    {
-                        //catacombs
-                        if (WorldGen.genRand.NextBool(150))
-                        {    
-                            //dunno why catacombs internal id is Painting4X3 but whatever
-                            WorldGen.PlaceObject(X, Y, TileID.Painting4X3, true, Main.rand.Next(0, 8));
-                        }
-
-                        //wall skeletons
-                        if (WorldGen.genRand.NextBool(150))
-                        {    
-                            WorldGen.PlaceObject(X, Y, TileID.Painting3X3, true, Main.rand.Next(17, 18));
-                        }
-                    }
-                }
-            }
         }
         */
 
@@ -712,6 +620,46 @@ namespace Spooky.Content.Generation
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
                 WorldGen.makeTemple(GenVars.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+            });
+
+            //re-locate the shimmer to be closer to the edge of the world so it also never conflicts with the catacombs
+            //let it be known that i could not find any other way to relocate it other than modifying all of the vanilla gen code
+            //this is a huge moment of weakness and i will eventually make a youtuber apology for this
+            int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
+            tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
+            {
+                int num702 = 50;
+                int num703 = (int)(Main.worldSurface + Main.rockLayer) / 2 + num702;
+                int num704 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
+                if (num704 > Main.maxTilesY - 330 - 100 - 30)
+                {
+                    num704 = Main.maxTilesY - 330 - 100 - 30;
+                }
+                if (num704 <= num703)
+                {
+                    num704 = num703 + 50;
+                }
+                int num705 = WorldGen.genRand.Next(num703, num704);
+                int num706 = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
+                int num707 = (int)Main.worldSurface + 150;
+                int num708 = (int)(Main.rockLayer + Main.worldSurface + 200.0) / 2;
+                if (num708 <= num707)
+                {
+                    num708 = num707 + 50;
+                }
+                if (WorldGen.tenthAnniversaryWorldGen)
+                {
+                    num705 = WorldGen.genRand.Next(num707, num708);
+                }
+                while (!WorldGen.ShimmerMakeBiome(num706, num705))
+                {
+                    num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, num704);
+                    num706 = ((GenVars.dungeonSide < 0) ? WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.95), Main.maxTilesX - 150) : WorldGen.genRand.Next(150, (int)((double)Main.maxTilesX * 0.05)));
+                }
+
+                GenVars.shimmerPosition = new Vector2D((double)num706, (double)num705);
+                int num710 = 200;
+                GenVars.structures.AddProtectedStructure(new Rectangle(num706 - num710 / 2, num705 - num710 / 2, num710, num710));
             });
         }
 

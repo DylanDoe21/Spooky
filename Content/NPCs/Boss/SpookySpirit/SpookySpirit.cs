@@ -446,7 +446,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                         if (NPC.localAI[0] == 120 || NPC.localAI[0] == 165 || NPC.localAI[0] == 210)
                         {
-                            SoundEngine.PlaySound(SoundID.Item84, NPC.position);
+                            SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
 
                             for (int numSkulls = 0; numSkulls < 6; numSkulls++)
                             {
@@ -514,13 +514,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             {
                                 if (player.velocity.X != 0)
                                 {
-                                    NPC.position.X = player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 650;
+                                    NPC.position.X = (player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 650) - NPC.width / 2;
                                     NPC.position.Y = player.Center.Y - 350;
                                 }
                                 else
                                 {
                                     NPC.position.X = player.Center.X - NPC.width / 2;
-                                    NPC.position.Y = player.Center.Y - 350;
+                                    NPC.position.Y = player.Center.Y - 450;
                                 }
 
                                 NPC.netUpdate = true;
@@ -782,8 +782,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             }
                             else
                             {
-                                NPC.position.X = player.Center.X + SpinTo.X - NPC.height / 2;
-                                NPC.position.Y = player.Center.Y + SpinTo.Y - NPC.width / 2;
+                                NPC.position.X = player.Center.X + SpinTo.X - NPC.width / 2;
+                                NPC.position.Y = player.Center.Y + SpinTo.Y - NPC.height / 2;
                                     
                                 distance = 6.5f / distance;
                                                     
@@ -795,7 +795,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                             if (Main.rand.NextBool(15))
                             {
-                                SoundEngine.PlaySound(SoundID.Item20, NPC.position);
+                                SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
                                 Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
@@ -826,8 +826,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         //teleport right above the player
                         if (NPC.localAI[0] == 300)
                         {
-                            NPC.position.X = player.position.X + Main.rand.Next(-250, 250);
-                            NPC.position.Y = player.position.Y - Main.rand.Next(300, 350);
+                            NPC.position.X = player.Center.X + Main.rand.Next(-250, 250) - NPC.width / 2;
+                            NPC.position.Y = player.Center.Y - Main.rand.Next(300, 350);
                         }
 
                         //slow down right before charging
@@ -841,7 +841,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         {
                             SaveDirection = NPC.direction;
 
-                            SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.position);
+                            SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.Center);
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();

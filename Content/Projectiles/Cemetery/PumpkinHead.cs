@@ -53,20 +53,19 @@ namespace Spooky.Content.Projectiles.Cemetery
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            SpookyPlayer modPlayer = player.GetModPlayer<SpookyPlayer>();
             
             if (player.dead)
             {
-                modPlayer.HorsemanSet = false;
+                player.GetModPlayer<SpookyPlayer>().HorsemanSet = false;
             }
 
-            if (modPlayer.HorsemanSet)
+            if (player.GetModPlayer<SpookyPlayer>().HorsemanSet)
             {
                 Projectile.timeLeft = 2;
                 player.AddBuff(ModContent.BuffType<PumpkinHeadBuff>(), 1, false);
             }
             
-            if (!modPlayer.HorsemanSet)
+            if (!player.GetModPlayer<SpookyPlayer>().HorsemanSet)
             {
                 Projectile.Kill();
             }

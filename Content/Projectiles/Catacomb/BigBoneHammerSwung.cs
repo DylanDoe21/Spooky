@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageCaches()
         {
-            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * Projectile.width;
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 30);
 
             if (cache == null)
             {

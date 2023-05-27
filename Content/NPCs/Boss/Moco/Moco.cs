@@ -812,19 +812,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 		}
 
-        public override bool CheckDead()
-        {
-            if (Main.netMode != NetmodeID.Server) 
-            {
-                for (int numGores = 1; numGores <= 7; numGores++)
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
-                }
-            }
-
-            return true;
-        }
-
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
@@ -855,6 +842,19 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
 
             npcLoot.Add(notExpertRule);
+        }
+
+        public override bool CheckDead()
+        {
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
+                }
+            }
+
+            return true;
         }
 
         public override void OnKill()
