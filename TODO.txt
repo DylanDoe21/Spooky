@@ -17,6 +17,8 @@ Catacomb overhaul:
 
 Other stuff:
 
+-implement suggestions such as the slingshot projectile ability, big bone sleeping infront of the flower pot, sentient galigator shooting chunks, ect
+
 -make certain sentient weapon projectiles inflict ichor and cursed flames properly
 
 -make rot gourd slamming more fair and not require a dash

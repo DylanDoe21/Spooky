@@ -1739,6 +1739,96 @@ Mods: {
 				Tooltip: ""
 			}
 
+			PuttySlime1Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Green Putty Slime"
+			}
+
+			PuttySlime2Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Purple Putty Slime"
+			}
+
+			PuttySlime3Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Brown Putty Slime"
+			}
+
+			ZomboidBanner: {
+				DisplayName: Zomboid Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid"
+			}
+
+			ZomboidWarlockBanner: {
+				DisplayName: Zomboid Warlock Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid Warlock"
+			}
+
+			FluffBatSmallBanner: {
+				DisplayName: Fuzz Bat Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Fuzz Bat"
+			}
+
+			FluffBatGiantBanner: {
+				DisplayName: Giant Fuzz Bat Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fuzz Bat"
+			}
+
+			SpookyDanceBanner: {
+				DisplayName: Spooky Dance Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Spooky Dance Ghost"
+			}
+
+			TinyGhostBanner: {
+				DisplayName: Tiny Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Ghost"
+			}
+
+			TinyGhostBoofBanner: {
+				DisplayName: Tiny Boof Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Boof Ghost"
+			}
+
+			TinyGhostRareBanner: {
+				DisplayName: Tiny Orange Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Orange Ghost"
+			}
+
+			TinyMushroomBanner: {
+				DisplayName: Tiny Mushroom Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Mushroom"
+			}
+
+			FlyBigBanner: {
+				DisplayName: Giant Fly Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fly"
+			}
+
+			FlySmallBanner: {
+				DisplayName: Fly Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Fly"
+			}
+
+			LittleSpiderBanner: {
+				DisplayName: Little Spider Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Little Spider"
+			}
+
+			PuttyPumpkinBanner: {
+				DisplayName: Putty Pumpkin Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Putty Pumpkin"
+			}
+
+			CandleMonsterBanner: {
+				DisplayName: Candle Monster Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Candle Monster"
+			}
+
+			WitchBanner: {
+				DisplayName: Witch Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Witch"
+			}
+
 			CatacombBrickItem: {
 				DisplayName: Catacomb Bricks
 				Tooltip: ""
@@ -2628,6 +2718,7 @@ Mods: {
 			SkullCandle3.MapEntry: Skull Candle3
 			SkullCandle2.MapEntry: Skull Candle2
 			SkullCandle1.MapEntry: Skull Candle1
+			SpookyForestBanners.MapEntry: Spooky Forest Banners
 		}
 
 		Configs: {

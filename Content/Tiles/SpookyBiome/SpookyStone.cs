@@ -32,7 +32,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow mushrooms
-                if (Main.rand.Next(35) == 0)
+                if (Main.rand.Next(45) == 0)
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;

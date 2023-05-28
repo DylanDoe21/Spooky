@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageCaches()
         {
-            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 30);
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 40);
 
             if (cache == null)
             {
@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
-                return Color.Lerp(Color.Black, Color.Yellow, factor.X) * factor.X;
+                return Color.Lerp(Color.Black, Color.Gold, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
