@@ -5,6 +5,7 @@ using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -31,6 +32,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.aiStyle = 66;
 			AIType = NPCID.Buggy;
             NPC.catchItem = (short)ModContent.ItemType<LittleSpiderItem>();
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<LittleSpiderBanner>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 

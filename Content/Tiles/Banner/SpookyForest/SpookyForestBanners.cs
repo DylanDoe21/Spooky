@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Localization;
@@ -8,7 +9,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.NPCs.SpookyBiome;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.Banner.SpookyForest
 {
@@ -25,6 +25,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.StyleWrapLimit = 111;
+			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(13, 88, 130), name);

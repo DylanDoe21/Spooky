@@ -18,6 +18,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 0;
         }
@@ -36,6 +37,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 1;
         }
@@ -54,6 +56,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 2;
         }
@@ -72,6 +75,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 3;
         }
@@ -90,6 +94,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 4;
         }
@@ -108,6 +113,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 5;
         }
@@ -126,6 +132,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 6;
         }
@@ -144,6 +151,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 7;
         }
@@ -162,6 +170,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 8;
         }
@@ -180,6 +189,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 9;
         }
@@ -198,6 +208,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 10;
         }
@@ -216,6 +227,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 11;
         }
@@ -234,6 +246,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 12;
         }
@@ -252,6 +265,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 13;
         }
@@ -270,6 +284,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 14;
         }
@@ -288,6 +303,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 15;
         }
@@ -306,6 +322,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 16;
         }
@@ -324,6 +341,7 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
+            Item.rare = ItemRarityID.Blue;
 			Item.createTile = ModContent.TileType<SpookyForestBanners>();
             Item.placeStyle = 17;
         }

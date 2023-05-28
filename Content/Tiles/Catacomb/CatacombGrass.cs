@@ -82,6 +82,11 @@ namespace Spooky.Content.Tiles.Catacomb
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                     }
 				}
+
+                if (Main.rand.Next(10) == 0)
+                {
+                    BigFlower.Grow(i, j - 1, 3, 6);
+                }
             }
 
             //spread grass

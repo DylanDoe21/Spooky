@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
 				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Furniture/SkullCandle1Flame").Value;
 				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 15f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, 
-				new Rectangle(frameX, frameY, width, height), new Color(125, 255, 0, 0), 0f, default, 1f, effects, 0f);
+				new Rectangle(frameX, frameY, width, height), new Color(172, 255, 93, 0), 0f, default, 1f, effects, 0f);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
 				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Furniture/SkullCandle2Flame").Value;
 				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 15f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, 
-				new Rectangle(frameX, frameY, width, height), new Color(125, 255, 0, 0), 0f, default, 1f, effects, 0f);
+				new Rectangle(frameX, frameY, width, height), new Color(172, 255, 93, 0), 0f, default, 1f, effects, 0f);
 			}
 		}
     }
@@ -141,7 +141,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
 				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Furniture/SkullCandle3Flame").Value;
 				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 15f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, 
-				new Rectangle(frameX, frameY, width, height), new Color(125, 255, 0, 0), 0f, default, 1f, effects, 0f);
+				new Rectangle(frameX, frameY, width, height), new Color(172, 255, 93, 0), 0f, default, 1f, effects, 0f);
 			}
 		}
     }

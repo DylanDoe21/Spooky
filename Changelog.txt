@@ -4,12 +4,13 @@ Update v1.0 (The catacomb update)
 ~NEW STUFF~
 
 
-Creepy catacombs changes
+Creepy catacombs changes:
 
 
 
 ~OTHER SMALL CHANGES~
 
+-Increased all orro-boro weapon sell prices because they were far too low
 -Increased the use speed for the toilet paper and necromancy for dummies
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback

@@ -2719,6 +2719,7 @@ Mods: {
 			SkullCandle2.MapEntry: Skull Candle2
 			SkullCandle1.MapEntry: Skull Candle1
 			SpookyForestBanners.MapEntry: Spooky Forest Banners
+			BigFlower.MapEntry: Big Flower
 		}
 
 		Configs: {

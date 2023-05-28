@@ -12,6 +12,7 @@ using Spooky.Content.Items.Food;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
+using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -44,8 +45,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
-            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type,
-            ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<ZomboidWarlockBanner>();
+            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type, ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
