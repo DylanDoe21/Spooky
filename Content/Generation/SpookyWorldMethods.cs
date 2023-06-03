@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Tiles.Catacomb;
+
 namespace Spooky.Content.Generation
 {
 	public class SpookyWorldMethods
@@ -40,6 +42,32 @@ namespace Spooky.Content.Generation
 			{
 				new Actions.PlaceTile((ushort)tileType)
 			}));
+
+			//wall placing stuff
+			ShapeData wallCircle = new ShapeData();
+			GenAction wallBlotchMod = new Modifiers.Blotches(2, 0.4);
+			WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius - 5), Actions.Chain(new GenAction[]
+			{
+				wallBlotchMod.Output(wallCircle)
+			}));
+
+			//place walls for the first catacomb layer
+			if (tileType == ModContent.TileType<CatacombBrick1>())
+			{
+				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
+				{
+					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall1>())
+				}));
+			}
+
+			//place walls for the first catacomb layer
+			if (tileType == ModContent.TileType<CatacombBrick2>())
+			{
+				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
+				{
+					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall2>())
+				}));
+			}
 		}
 
 		public static void PlaceVines(int VineX, int VineY, int numVines, ushort vineType, bool finished = false)

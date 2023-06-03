@@ -573,13 +573,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SpookyPlayer.ScreenShakeAmount = 0;
 
                         //spawn gores
-                        if (Main.netMode != NetmodeID.Server) 
+                        for (int numGores = 1; numGores <= 7; numGores++)
                         {
-                            for (int numGores = 1; numGores <= 7; numGores++)
+                            GoreSpread += 400;
+
+                            if (Main.netMode != NetmodeID.Server) 
                             {
-                                GoreSpread += 400;
-                                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(0 + GoreSpread * 0.01f, Main.rand.Next(-5, -2)), 
-                                ModContent.Find<ModGore>("Spooky/BigBoneGore" + numGores).Type);
+                                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(0 + GoreSpread * 0.01f, Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/BigBoneGore" + numGores).Type);
                             }
                         }
 
@@ -641,7 +641,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
                             int distance = 360 / 12;
 
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
+                            int solarFlower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
+
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: solarFlower);
+                            }
                         }
 
                         FlowersSpawned = true;
@@ -738,7 +743,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             int ProjType = Phase2 ? ModContent.ProjectileType<HomingFlower>() : ModContent.ProjectileType<BouncingFlower>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
                             10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), 
                             ProjType, Damage, 0f, Main.myPlayer);
                         }

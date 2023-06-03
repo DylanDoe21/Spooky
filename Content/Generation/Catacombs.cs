@@ -51,11 +51,13 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
-            //200 = large, 150 = anything smaller than large
+            //sets the width for the catacombs (how many horizontal rows of rooms it has)
+            //200 = large (7 rooms horizontally), 150 = anything smaller than large (5 rooms)
             int layer1Width = Main.maxTilesX >= 8400 ? 200 : 150;
 
-            //235 = large, 190 = medium, 145 = small
-            int layer1Depth = Main.maxTilesY >= 2400 ? (Main.maxTilesY >= 1800 ? 190 : 145) : 235;
+            //sets the height for the catacombs (how far down the vertical rows go)
+            //235 = large (6 rooms deep), 190 = medium (5 rooms deep), 145 = small (4 rooms deep)
+            int layer1Depth = Main.maxTilesY >= 2400 ? 235 : (Main.maxTilesY >= 1800 ? 190 : 145);
 
             //first, place a circle of bricks where each catacomb room will be
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -113,7 +115,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(100) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
@@ -138,7 +140,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(100) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
@@ -147,7 +149,7 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -168,7 +170,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(100) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
@@ -177,7 +179,7 @@ namespace Spooky.Content.Generation
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(35))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -186,11 +188,11 @@ namespace Spooky.Content.Generation
                         }
                     }
 
-                    //fifth and sixth row
-                    if (Y == (int)Main.worldSurface + 190 || Y == (int)Main.worldSurface + 235)
+                    //fifth row
+                    if (Y == (int)Main.worldSurface + 190)
                     {
                         //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(100) && !placedMoyaiRoom)
+                        if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
                         {
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
@@ -199,7 +201,28 @@ namespace Spooky.Content.Generation
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(35))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 2), origin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                        }
+                        else
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                        }
+                    }
+
+                    //sixth row
+                    if (Y == (int)Main.worldSurface + 235)
+                    {
+                        //rare chance to place a golden treasure room
+                        if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                        {
+                            //only one treasure room can be placed in a world
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
+                            placedMoyaiRoom = true;
+                        }
+                        //place trap rooms sometimes
+                        else if (WorldGen.genRand.NextBool(35))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                         }
                         else
                         {
@@ -218,31 +241,7 @@ namespace Spooky.Content.Generation
                     Vector2 horizontalHallOrigin = new Vector2(X + 17, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
-                    //always place a vertical hallway on the first entrance room
-                    if (X == XMiddle && Y == (int)Main.worldSurface + 10)
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 2), verticalHallOrigin.ToPoint16(), Mod);
-                    }
-
-                    //always place a horizontal hall on the very center room
-                    if (X == XMiddle && Y == (int)Main.worldSurface + 55)
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 4), horizontalHallOrigin.ToPoint16(), Mod);
-                    }
-
-                    //always place a horizontal hall on the row two edge rooms
-                    if ((X == XMiddle - layer1Width && Y == (int)Main.worldSurface + 55) || (X == XMiddle + layer1Width - 50 && Y == (int)Main.worldSurface + 55))
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 4), horizontalHallOrigin.ToPoint16(), Mod);
-                    }
-
-                    //on the first and last room in the first row always place a vertical hallway
-                    if ((X == XMiddle - layer1Width && Y == (int)Main.worldSurface + 10) || (X == XMiddle + layer1Width && Y == (int)Main.worldSurface + 10))
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 2), verticalHallOrigin.ToPoint16(), Mod);
-                    }
-
-                    //for the top two rows
+                    //for all rows besides the bottom, place horizontal halls between each room and a change to place a vertical hall on the bottom
                     if (Y < (int)Main.worldSurface + layer1Depth)
                     {
                         //place a horizontal hallway on every room besides the one on the end
@@ -257,7 +256,7 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 2), verticalHallOrigin.ToPoint16(), Mod);
                         }
                     }
-                    //otherwise place a horizontal hall
+                    //on the bottom row just place a horizontal hall
                     else
                     {
                         //dont place a hall on the last room

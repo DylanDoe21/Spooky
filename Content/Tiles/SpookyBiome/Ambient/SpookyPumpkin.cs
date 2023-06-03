@@ -40,6 +40,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
 			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenSeed>());
             }
+
+            //spawn gores
+            if (Main.netMode != NetmodeID.Server)
+			{
+                Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore1").Type);
+                Gore.NewGore(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/PumpkinTileGore2").Type);
+            }
 		}
     }
 

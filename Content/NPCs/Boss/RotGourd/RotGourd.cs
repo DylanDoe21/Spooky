@@ -34,6 +34,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 2;
+			NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

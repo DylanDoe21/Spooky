@@ -48,7 +48,7 @@ namespace Spooky.Content.Tiles.Catacomb
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
                     {
-                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace Spooky.Content.Tiles.Catacomb
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
                     {
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                     }
 				}
 
@@ -79,13 +79,14 @@ namespace Spooky.Content.Tiles.Catacomb
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
                     {
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                     }
 				}
 
-                if (Main.rand.Next(10) == 0)
+                //grow giant flowers
+                if (Main.rand.Next(10) == 0 && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>())
                 {
-                    BigFlower.Grow(i, j - 1, 3, 6);
+                    GrowGiantFlower(i, j, ModContent.TileType<BigFlower>());
                 }
             }
 
@@ -105,6 +106,48 @@ namespace Spooky.Content.Tiles.Catacomb
                     }
                 }
             }
+        }
+
+        public static bool GrowGiantFlower(int X, int Y, int tileType)
+        {
+            int canPlace = 0;
+
+            //do not allow giant flowers to place if another one is too close
+            for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //make sure the area is large enough for it to place in both horizontally and vertically
+            for (int i = X - 2; i < X + 2; i++)
+            {
+                for (int j = Y - 8; j < Y - 2; j++)
+                {
+                    //only check for solid blocks, ambient objects dont matter
+                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            BigFlower.Grow(X, Y - 1, 3, 6);
+
+            return true;
         }
 
         private List<Point> OpenAdjacents(int i, int j, int type)

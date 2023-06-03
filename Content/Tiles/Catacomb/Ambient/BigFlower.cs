@@ -62,9 +62,18 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             }
 
             //if the trees height is too short, dont let it grow
-            if (height < minSize) 
+            if (height < minSize)
             {
                 return false;
+            }
+
+            //do not allow the flower to grow if theres not enough room
+            for (int yCheck = j; yCheck <= j - 7; yCheck--)
+            {
+                if (Main.tile[i, yCheck].TileType > 0)
+                {
+                    return false;
+                }
             }
 
             //make sure the block is valid for the tree to place on

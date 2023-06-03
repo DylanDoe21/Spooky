@@ -12,7 +12,7 @@ namespace Spooky.Content.Tiles.Catacomb
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(33, 42, 45));
+            AddMapEntry(new Color(29, 24, 35));
             DustType = DustID.Stone;
         }
 

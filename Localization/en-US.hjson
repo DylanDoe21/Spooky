@@ -73,13 +73,6 @@ Mods: {
 		}
 
 		Dialogue: {
-			FlowerPot: {
-				Dialogue1: It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?
-				Dialogue2: Maybe if you have a special fertalizer, you can regrow whatever is in this flower pot.
-				Dialogue3: A giangantic flower pot, seems like whatever was inside isn't very alive anymore.
-				Dialogue4: Why are you talking to a giant flower pot? Weirdo.
-			}
-
 			LittleBone: {
 				Awaken: Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!
 				SpookyBiome: It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.
@@ -1686,7 +1679,7 @@ Mods: {
 				DisplayName: Sentient Heart
 				Tooltip:
 					'''
-					A strange heart ripped from a strong monster, it is still beating on it's own
+					A strange heart ripped from a strong monster, it is still beating on its own
 					When combined with certain weapons at the cauldron, it will bring them sentience
 					'''
 			}
@@ -1880,12 +1873,12 @@ Mods: {
 			}
 
 			CatacombBox: {
-				DisplayName: Music Box (Higher Catacombs)
+				DisplayName: Music Box (Upper Catacomb)
 				Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
 			}
 
 			CatacombBox2: {
-				DisplayName: Music Box (Lower Catacombs)
+				DisplayName: Music Box (Lower Catacomb)
 				Tooltip: "'Title to be decided' by Bananalizard"
 			}
 
@@ -2306,7 +2299,7 @@ Mods: {
 			}
 
 			CatacombFlooringItem: {
-				DisplayName: Catacomb Flooring
+				DisplayName: Catacomb Flooring Brick
 				Tooltip: ""
 			}
 
@@ -2602,6 +2595,7 @@ Mods: {
 			Tortumor.DisplayName: Tortumor
 			TortumorGiant.DisplayName: Giant Tortumor
 			TheEntity.DisplayName: The Entity
+			Daffodil.DisplayName: Daffodil
 		}
 
 		Tiles: {

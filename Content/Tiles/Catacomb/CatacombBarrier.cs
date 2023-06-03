@@ -46,11 +46,11 @@ namespace Spooky.Content.Tiles.Catacomb
 			if (Flags.CatacombKey1)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
-			}
+            }
 			else
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = false;
-			}
+            }
 
 			if (!tile.Get<TileWallWireStateData>().IsActuated)
 			{
@@ -98,11 +98,11 @@ namespace Spooky.Content.Tiles.Catacomb
 			if (Flags.CatacombKey2)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
-			}
+            }
 			else
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = false;
-			}
+            }
 
 			if (!tile.Get<TileWallWireStateData>().IsActuated)
 			{

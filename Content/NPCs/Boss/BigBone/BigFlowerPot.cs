@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
@@ -29,7 +29,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.friendly = true;
-            NPC.townNPC = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             TownNPCStayingHomeless = true;
@@ -43,28 +42,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             return true;
         }
 
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = "";
-        }
-
-        public override string GetChat()
-        {
-            List<string> Dialogue = new List<string>
-            {
-                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue1"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue2"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue3"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.FlowerPot.Dialogue4"),
-            };
-
-            return Main.rand.Next(Dialogue);
-        }
-
         public override void AI()
         {
-            NPC.homeless = true;
-
             if (NPC.ai[1] == 1)
             {
                 NPC.ai[0]++;
@@ -120,9 +99,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     Main.NewText("Big Bone has awoken!", 171, 64, 255);
 
                     NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
-
-                    //net update so it doesnt vanish on multiplayer
-                    if (Main.netMode == NetmodeID.Server)
+                    
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
                     }

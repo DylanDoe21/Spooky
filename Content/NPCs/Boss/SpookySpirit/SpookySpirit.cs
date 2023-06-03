@@ -30,7 +30,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public bool ShouldDamagePlayer = true;
         public bool EyeSprite = false;
-        public bool BothEyes = false;
         public bool StopSpinning = false;
         public bool Phase2 = false;
         
@@ -80,7 +79,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //bools
             writer.Write(ShouldDamagePlayer);
             writer.Write(EyeSprite);
-            writer.Write(BothEyes);
             writer.Write(StopSpinning);
             writer.Write(Phase2);
 
@@ -102,7 +100,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //bools
             ShouldDamagePlayer = reader.ReadBoolean();
             EyeSprite = reader.ReadBoolean();
-            BothEyes = reader.ReadBoolean();
             StopSpinning = reader.ReadBoolean();
             Phase2 = reader.ReadBoolean();
 
@@ -197,12 +194,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
             
-            if (!EyeSprite || BothEyes)
+            if (!EyeSprite)
             {
                 Main.EntitySpriteDraw(eyeTex1, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
                 new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
-            if (EyeSprite || BothEyes)
+            if (EyeSprite)
             {
                 Main.EntitySpriteDraw(eyeTex2, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
                 new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);

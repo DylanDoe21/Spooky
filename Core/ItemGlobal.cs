@@ -18,7 +18,6 @@ namespace Spooky.Core
     {
         public override bool CanUseItem(Item item, Player player)
         {
-            //TODO: disable liquid buckets
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
                 int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
@@ -33,6 +32,14 @@ namespace Spooky.Core
                 int[] Explosives = { 166, 3196, 3115, 3547, 4908, 4827, 167, 4826, 4825, 4423, 235, 4909, 2896, 4824 };
 
                 if (Explosives.Contains(item.type))
+                {
+                    return false;
+                }
+
+                //disable the use of buckets and sponges
+                int[] LiquidItems = { 205, 206, 207, 1128, 3031, 4820, 5302, 5364, 3032, 4872, 5303, 5304 };
+
+                if (LiquidItems.Contains(item.type))
                 {
                     return false;
                 }
