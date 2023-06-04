@@ -56,7 +56,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            player.cursorItemIconEnabled = true;
+            player.cursorItemIconEnabled = NPC.downedBoss2 ? true : false;
             player.cursorItemIconID = ModContent.ItemType<EMFReader>();
             player.cursorItemIconText = "";
         }

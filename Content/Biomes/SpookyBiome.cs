@@ -51,7 +51,11 @@ namespace Spooky.Content.Biomes
         
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:HalloweenSky", isActive, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:HalloweenSky", player.InModBiome(ModContent.GetInstance<SpookyBiome>()), player.Center);
+        }
+        public override void OnLeave(Player player)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:HalloweenSky", false, player.Center);
         }
 
         //bestiary stuff

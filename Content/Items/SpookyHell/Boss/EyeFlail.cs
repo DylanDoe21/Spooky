@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyHell.Boss
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
             Item.rare = ItemRarityID.LightRed;
-           	Item.value = Item.buyPrice(gold: 20);
+           	Item.value = Item.buyPrice(gold: 2);
             Item.UseSound = SoundID.Item10;
             Item.shoot = ModContent.ProjectileType<EyeFlailProj>();
             Item.shootSpeed = 12f;

@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.localAI[0]++;
                 }
 
-                if (Projectile.localAI[0] >= 30)
+                if (Projectile.localAI[0] >= 60)
                 {
                     player.statMana -= 5;
 

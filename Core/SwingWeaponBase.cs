@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Core
 {
@@ -176,7 +176,7 @@ namespace Spooky.Core
 
             float animationProgress = 1 - (player.itemAnimation - 1) / (float)player.itemAnimationMax;
 
-            if (animationProgress < SwingWindup(player))
+            if (animationProgress < SwingWindup(player)) 
             {
                 return false;
             }

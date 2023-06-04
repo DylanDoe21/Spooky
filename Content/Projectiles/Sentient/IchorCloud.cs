@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Projectiles.Sentient
@@ -20,11 +19,6 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.tileCollide = false;
             Projectile.timeLeft = 255;
             Projectile.penetrate = 3;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Ichor, 180);
         }
 
         public override void AI()

@@ -14,7 +14,12 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", isActive, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", EggEventWorld.EggEventActive && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()), player.Center);
+        }
+        
+        public override void OnLeave(Player player)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", false, player.Center);
         }
 
         //bestiary stuff

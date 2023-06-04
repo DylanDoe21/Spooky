@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
         }
 
@@ -92,7 +92,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return Projectile.ai[0] >= 60;
+			return Projectile.ai[0] >= 120;
 		}
 
         public override void AI()
@@ -126,14 +126,14 @@ namespace Spooky.Content.Projectiles.Cemetery
 				}
             }
 
-            if (Projectile.ai[0] < 60)
+            if (Projectile.ai[0] < 120)
             {
-                Projectile.timeLeft = 120;
+                Projectile.timeLeft = 600;
 
                 GoAbovePlayer(player);
             }
 
-            if (Projectile.ai[0] >= 60)
+            if (Projectile.ai[0] >= 120)
             {
                 Projectile.tileCollide = true;
             }

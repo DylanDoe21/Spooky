@@ -1,8 +1,7 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.Audio;
 
 namespace Spooky.Content.Tiles.Cemetery
 {
@@ -20,7 +19,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
+			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
@@ -33,8 +32,6 @@ namespace Spooky.Content.Tiles.Cemetery
 			if (tile.HasTile && tile.TileType == ModContent.TileType<CemeteryDirt>() && 
 			player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
 			{
-				SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
 
 				return true;

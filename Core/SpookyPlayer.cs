@@ -22,6 +22,7 @@ namespace Spooky.Core
     public class SpookyPlayer : ModPlayer
     {
         //misc timers
+        public static int ShakeTimer = 0;
         public static float ScreenShakeAmount = 0;
         public int flySpawnTimer = 0;
         public int MocoBoogerCharge = 0;
@@ -119,7 +120,8 @@ namespace Spooky.Core
         {
             if (!Main.gameMenu && ModContent.GetInstance<SpookyConfig>().ScreenShakeEnabled)
             {
-                if (ScreenShakeAmount >= 0)
+                ShakeTimer++;
+                if (ScreenShakeAmount >= 0 && ShakeTimer >= 5)
                 {
                     ScreenShakeAmount -= 0.1f;
                 }
@@ -133,6 +135,7 @@ namespace Spooky.Core
             else
             {
                 ScreenShakeAmount = 0;
+                ShakeTimer = 0;
             }
         }
 

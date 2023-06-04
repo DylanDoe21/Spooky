@@ -1,25 +1,8 @@
-Update v1.0 (The catacomb update)
+Update v0.6.1 (Bugfixing update)
 
-
-~NEW STUFF~
-
-
-Creepy catacombs changes:
-
-
-
-~OTHER SMALL CHANGES~
-
--Increased all orro-boro weapon sell prices because they were far too low
--Increased the use speed for the toilet paper and necromancy for dummies
--Increased the creepy candle's magic damage bonus to 7%
--Increased harvester's scythe knockback
-
-
-
-~BUGS AND OTHER FIXES~
-
+-Fixed the mod to work with the most recent tmod version (so glad they keep making breaking changes!!!!)
 -Fixed the soul drain's aura damaging the player
+
 
 
 

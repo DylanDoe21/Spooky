@@ -1,14 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.SpookyHell.Boss;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
@@ -65,7 +62,7 @@ namespace Spooky.Content.Items.SpookyHell
                 hasHitEnemies = true;
 
                 Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, Item.knockBack, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, 0f, Main.myPlayer, 0, 0);
             }
 
             if (target.life <= target.lifeMax * 0.5)

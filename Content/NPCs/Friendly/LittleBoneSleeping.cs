@@ -12,7 +12,7 @@ namespace Spooky.Content.NPCs.Friendly
 		{
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
-			NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}

@@ -18,7 +18,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyDirt>();
-            Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
@@ -52,7 +51,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
-                if (Main.rand.Next(15) == 0)
+                if (Main.rand.Next(7) == 0)
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyWeedsOrange>();
                     Above.HasTile = true;
@@ -66,7 +65,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     }
 				}
 
-                if (Main.rand.Next(35) == 0) 
+                if (Main.rand.Next(25) == 0) 
                 {
                     ushort[] Weeds = new ushort[] { (ushort)ModContent.TileType<SpookyWeedBig1>(), (ushort)ModContent.TileType<SpookyWeedBig2>() };
 
@@ -76,7 +75,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
                 
-                if (Main.rand.Next(40) == 0)
+                if (Main.rand.Next(35) == 0) 
                 {
                     ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
                     (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };

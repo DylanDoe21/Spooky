@@ -241,11 +241,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-
-                        if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                        }
+                        Main.npc[latestNPC].netUpdate = true;
                     }
 
                     latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
@@ -253,11 +249,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;         
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-
-                    if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                    }
+                    Main.npc[latestNPC].netUpdate = true;
 
                     //spawn boro manually because funny shennanigans
                     for (int i = 0; i < Main.maxNPCs; i++)
@@ -268,7 +260,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<BoroHead>(), ai1: NPC.whoAmI);
 
                             //net update so it doesnt vanish on multiplayer
-                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            if (Main.netMode == NetmodeID.Server)
                             {
                                 NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
                             }

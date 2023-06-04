@@ -16,7 +16,6 @@ namespace Spooky.Content.Tiles.SpookyHell
             TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyMush>();
-            Main.tileBrick[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
             Main.tileSolid[Type] = true;

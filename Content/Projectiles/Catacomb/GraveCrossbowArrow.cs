@@ -29,8 +29,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
         }
 
         public override void Kill(int timeLeft)

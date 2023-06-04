@@ -1,9 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Sentient;

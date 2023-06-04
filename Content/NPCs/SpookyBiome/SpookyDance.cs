@@ -5,8 +5,6 @@ using Terraria.GameContent.Bestiary;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.Banner.SpookyForest;
-
 namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class SpookyDance : ModNPC  
@@ -29,8 +27,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
             AnimationType = NPCID.Ghost;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<SpookyDanceBanner>();
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiome>().Type };
         }
 

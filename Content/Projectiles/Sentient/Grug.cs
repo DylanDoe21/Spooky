@@ -108,7 +108,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             for (int numGores = 1; numGores <= 6; numGores++)
             {
-                if (Main.netMode != NetmodeID.Server)
+                if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-6, -3)), ModContent.Find<ModGore>("Spooky/GrugStatueGore" + numGores).Type);
                 }

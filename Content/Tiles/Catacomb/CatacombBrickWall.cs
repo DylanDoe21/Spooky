@@ -7,16 +7,15 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
-    public class CatacombBrickWall1 : ModWall 
+    public class CatacombBrickWall : ModWall 
     {
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(29, 24, 35));
+            AddMapEntry(new Color(14, 33, 29));
             DustType = DustID.Stone;
         }
 
-        /*
         public override bool CanExplode(int i, int j)
 		{
 			return false;
@@ -26,6 +25,5 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             fail = true;
         }
-        */
     }
 }

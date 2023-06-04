@@ -34,7 +34,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 2;
-			NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -83,7 +82,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 2200;
+            NPC.lifeMax = 3000;
             NPC.damage = 18;
             NPC.defense = 5;
             NPC.width = 78;
@@ -307,22 +306,17 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								NPC.localAI[0] = 115;
 							}
 
-							if (NPC.localAI[0] == 115)
-							{
-								NPC.velocity.X *= 0;
-							}
-
 							//charge down
-							if (NPC.localAI[0] == 125)
+							if (NPC.localAI[0] == 115)
 							{
 								NPC.noGravity = true;
 
 								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 16;
+								NPC.velocity.Y = Main.expertMode ? 16 : 13;
 							}
 
 							//set tile collide to true after jumping so you cant avoid them
-							if (NPC.localAI[0] >= 125)
+							if (NPC.localAI[0] >= 115)
 							{	
 								if (NPC.position.Y >= player.Center.Y - 200)
 								{
@@ -331,7 +325,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 
 							//slam the ground
-							if (NPC.localAI[0] >= 125 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+							if (NPC.localAI[0] >= 115 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
 							{
 								NPC.noGravity = false;
 

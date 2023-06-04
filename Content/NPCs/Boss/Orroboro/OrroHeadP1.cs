@@ -186,11 +186,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-
-                        if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                        }
+                        Main.npc[latestNPC].netUpdate = true;
                     }
                     
                     latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
@@ -198,11 +194,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-                   
-                    if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                    }
+                    Main.npc[latestNPC].netUpdate = true;
 
                     for (int Segment2 = 0; Segment2 < 3; Segment2++)
                     {
@@ -211,11 +203,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-                        
-                        if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                        }
+                        Main.npc[latestNPC].netUpdate = true;
                     }
 
                     latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
@@ -223,11 +211,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-                    
-                    if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
-                    }
+                    Main.npc[latestNPC].netUpdate = true;
 
                     segmentsSpawned = true;
                     NPC.netUpdate = true;
@@ -278,7 +262,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             int Orro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHead>());
 
-                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            //net update so it doesnt vanish on multiplayer
+                            if (Main.netMode == NetmodeID.Server)
                             {
                                 NetMessage.SendData(MessageID.SyncNPC, number: Orro);
                             }

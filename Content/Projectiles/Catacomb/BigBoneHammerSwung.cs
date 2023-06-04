@@ -28,8 +28,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 120;
-            Projectile.height = 120;
+            Projectile.width = 82;
+            Projectile.height = 82;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.netImportant = true;
@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageCaches()
         {
-            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 40);
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * Projectile.width;
 
             if (cache == null)
             {
@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
-                return Color.Lerp(Color.Black, Color.Gold, factor.X) * factor.X;
+                return Color.Lerp(Color.Black, Color.Yellow, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

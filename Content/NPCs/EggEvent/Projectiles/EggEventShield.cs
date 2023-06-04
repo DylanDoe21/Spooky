@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Events;
-using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
@@ -61,19 +60,19 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 int MaxDusts = Main.rand.Next(10, 15);
                 float distance = 50f;
 
-                for (int numDust = 0; numDust < MaxDusts; numDust++)
+                for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                 {
-                    Vector2 dustPos = (Vector2.One * new Vector2((float)Projectile.width / 3f, (float)Projectile.height / 3f) * distance).RotatedBy((double)((float)(numDust - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + Projectile.Center;
+                    Vector2 dustPos = (Vector2.One * new Vector2((float)Projectile.width / 3f, (float)Projectile.height / 3f) * distance).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + Projectile.Center;
                     Vector2 velocity = dustPos - Projectile.Center;
 
                     if (Main.rand.NextBool(2))
                     {
-                        int dust = Dust.NewDust(dustPos + velocity, 0, 0, DustID.DemonTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                        Main.dust[dust].scale = 5f;
-                        Main.dust[dust].noGravity = true;
-                        Main.dust[dust].noLight = false;
-                        Main.dust[dust].velocity = Vector2.Normalize(velocity) * (-50f);
-                        Main.dust[dust].fadeIn = 1.2f;
+                        int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.DemonTorch, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                        Main.dust[dustEffect].scale = 5f;
+                        Main.dust[dustEffect].noGravity = true;
+                        Main.dust[dustEffect].noLight = false;
+                        Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-50f);
+                        Main.dust[dustEffect].fadeIn = 1.2f;
                     }
                 }
 

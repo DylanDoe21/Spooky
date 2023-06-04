@@ -72,7 +72,7 @@ namespace Spooky.Content.Items.SpookyHell
                     {
 						for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
 						{
-							Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20),
+							Projectile.NewProjectile(Item.GetSource_FromThis(), player.MountedCenter + (shootDir * 20),
 							(Item.shootSpeed / 2) * player.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles),
 							ModContent.ProjectileType<BowEye>(), Item.damage, Item.knockBack, player.whoAmI);
 						}
@@ -83,7 +83,7 @@ namespace Spooky.Content.Items.SpookyHell
                     {
                         int[] Types = new int[] { ModContent.ProjectileType<LivingBowChunk1>(), ModContent.ProjectileType<LivingBowChunk2>() };
 
-                        Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20), 
+                        Projectile.NewProjectile(Item.GetSource_FromThis(), player.MountedCenter + (shootDir * 20), 
 					    shootDir * Item.shootSpeed, Main.rand.Next(Types), Item.damage, Item.knockBack, player.whoAmI);
                     }
                     

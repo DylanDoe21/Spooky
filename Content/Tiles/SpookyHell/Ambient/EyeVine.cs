@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             {
 				bool PlaceVine = false;
 				int Test = j;
-				while (Test > j - 18) 
+				while (Test > j - 10) 
                 {
 					Tile testTile = Framing.GetTileSafely(i, Test);
 					if (testTile.BottomSlope) 

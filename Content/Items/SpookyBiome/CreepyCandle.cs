@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpookyBiome
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Magic) += 0.07f;
+            player.GetDamage(DamageClass.Magic) += 0.05f;
             player.GetModPlayer<SpookyPlayer>().MagicCandle = true;
         }
     }

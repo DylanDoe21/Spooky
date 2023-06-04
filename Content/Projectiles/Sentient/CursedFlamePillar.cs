@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -88,8 +87,6 @@ namespace Spooky.Content.Projectiles.Sentient
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 3;
-
-            target.AddBuff(BuffID.CursedInferno, 240);
         }
 
         public override void AI()

@@ -124,7 +124,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				}
 			}
 
-			if (Main.netMode != NetmodeID.Server)
+			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
 				Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/KeyOrangeGore1").Type);
 				Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/KeyOrangeGore2").Type);

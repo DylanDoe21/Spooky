@@ -73,7 +73,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			{		
 				int Flower = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<DefensiveFlower>());
 
-				if (Main.netMode != NetmodeID.SinglePlayer)
+				//net update so it doesnt vanish on multiplayer
+				if (Main.netMode == NetmodeID.Server)
 				{
 					NetMessage.SendData(MessageID.SyncNPC, number: Flower);
 				}

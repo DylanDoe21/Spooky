@@ -75,7 +75,7 @@ namespace Spooky.Content.Items.SpookyHell
 
 					Vector2 shootDir = Vector2.UnitX.RotatedBy(player.AngleTo(Main.MouseWorld));
 
-					Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.MountedCenter + (shootDir * 20), 
+					Projectile.NewProjectile(Item.GetSource_FromThis(), player.MountedCenter + (shootDir * 20), 
 					shootDir * Item.shootSpeed, type, Item.damage, Item.knockBack, player.whoAmI);
 
 					numUses++;

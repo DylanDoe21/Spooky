@@ -1,97 +1,14 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
-
-using Spooky.Content.Tiles.Catacomb;
 
 namespace Spooky.Content.Generation
 {
 	public class SpookyWorldMethods
 	{
-		public static void PlaceCircle(int X, int Y, int tileType, int radius, bool clearTiles, bool clearWalls)
-		{
-			ShapeData circle = new ShapeData();
-			GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-			WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
-			{
-				blotchMod.Output(circle)
-			}));
-
-			if (clearTiles)
-			{
-				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-				{
-					new Actions.ClearTile()
-				}));
-			}
-
-			if (clearWalls)
-			{
-				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-				{
-					new Actions.ClearWall()
-				}));
-			}
-
-			WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-			{
-				new Actions.PlaceTile((ushort)tileType)
-			}));
-
-			//wall placing stuff
-			ShapeData wallCircle = new ShapeData();
-			GenAction wallBlotchMod = new Modifiers.Blotches(2, 0.4);
-			WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius - 5), Actions.Chain(new GenAction[]
-			{
-				wallBlotchMod.Output(wallCircle)
-			}));
-
-			//place walls for the first catacomb layer
-			if (tileType == ModContent.TileType<CatacombBrick1>())
-			{
-				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
-				{
-					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall1>())
-				}));
-			}
-
-			//place walls for the first catacomb layer
-			if (tileType == ModContent.TileType<CatacombBrick2>())
-			{
-				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
-				{
-					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall2>())
-				}));
-			}
-		}
-
-		public static void PlaceVines(int VineX, int VineY, int numVines, ushort vineType, bool finished = false)
-		{
-            for (int Y = VineY; Y <= VineY + numVines && !finished; Y++)
-            {
-                Tile tileBelow = Framing.GetTileSafely(VineX, Y + 1);
-
-                if ((!tileBelow.HasTile || tileBelow.TileType == TileID.Cobweb) && WorldGen.InWorld(VineX, Y))
-                {
-                    WorldGen.PlaceTile(VineX, Y, vineType);
-                }
-                else
-                {
-                    finished = true;
-				}
-                
-                if (numVines <= 1)
-                {
-                    finished = true;
-                }
-            }
-        }
-
 		public static void Square(int i, int j, int XSize, int YSize, int tileType, int wallType, int wallType2, bool placeWalls = false)
 		{
 			for (int X = i - (XSize / 2); X <= i + (XSize / 2); X++)
@@ -130,6 +47,28 @@ namespace Spooky.Content.Generation
 				}
 			}
 		}
+
+		public static void PlaceVines(int VineX, int VineY, int numVines, ushort vineType, bool finished = false)
+		{
+            for (int Y = VineY; Y <= VineY + numVines && !finished; Y++)
+            {
+                Tile tileBelow = Framing.GetTileSafely(VineX, Y + 1);
+
+                if ((!tileBelow.HasTile || tileBelow.TileType == TileID.Cobweb) && WorldGen.InWorld(VineX, Y))
+                {
+                    WorldGen.PlaceTile(VineX, Y, vineType);
+                }
+                else
+                {
+                    finished = true;
+				}
+                
+                if (numVines <= 1)
+                {
+                    finished = true;
+                }
+            }
+        }
 
 		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
 		public static void TileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 

@@ -37,7 +37,6 @@ namespace Spooky.Content.NPCs.Friendly
 		{
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = true;
-			NPCID.Sets.NoTownNPCHappiness[Type] = true;
 			Main.npcFrameCount[NPC.type] = 5;
 
             NPCProfile = new Profiles.StackedNPCProfile(

@@ -15,16 +15,15 @@ namespace Spooky.Content.Tiles.Catacomb
 	{
 		public override void SetStaticDefaults()
 		{
-			TileID.Sets.DrawsWalls[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(Color.Yellow);
-			HitSound = SoundID.Dig;
-			DustType = -1;
+			TileID.Sets.DrawsWalls[Type] = true;
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+			AddMapEntry(new Color(36, 69, 39));
+			DustType = DustID.Grass;
+			HitSound = SoundID.Grass;
 		}
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
@@ -37,20 +36,18 @@ namespace Spooky.Content.Tiles.Catacomb
 			return false;
 		}
 
-		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			MinPick = Flags.downedBigBone ? 0 : 999999;
-
-            Tile tile = Framing.GetTileSafely(i, j);
+			Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey1)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
-            }
+			}
 			else
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = false;
-            }
+			}
 
 			if (!tile.Get<TileWallWireStateData>().IsActuated)
 			{
@@ -66,8 +63,6 @@ namespace Spooky.Content.Tiles.Catacomb
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
 				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
 			}
-
-			return false;
 		}
     }
 
@@ -75,34 +70,18 @@ namespace Spooky.Content.Tiles.Catacomb
 	{
 		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
 
-		public override void SetStaticDefaults()
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			TileID.Sets.DrawsWalls[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			Main.tileBrick[Type] = true;
-			Main.tileMergeDirt[Type] = true;
-            Main.tileBlendAll[Type] = true;
-			Main.tileSolid[Type] = true;
-			Main.tileBlockLight[Type] = true;
-			AddMapEntry(Color.Red);
-			HitSound = SoundID.Dig;
-			DustType = -1;
-		}
-
-		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-            MinPick = Flags.downedBigBone ? 0 : 999999;
-
-            Tile tile = Framing.GetTileSafely(i, j);
+			Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey2)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
-            }
+			}
 			else
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = false;
-            }
+			}
 
 			if (!tile.Get<TileWallWireStateData>().IsActuated)
 			{
@@ -118,8 +97,6 @@ namespace Spooky.Content.Tiles.Catacomb
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
 				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * intensity);
 			}
-
-			return false;
 		}
 	}
 
@@ -127,25 +104,9 @@ namespace Spooky.Content.Tiles.Catacomb
 	{
 		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
 
-		public override void SetStaticDefaults()
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			TileID.Sets.DrawsWalls[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			Main.tileBrick[Type] = true;
-			Main.tileMergeDirt[Type] = true;
-            Main.tileBlendAll[Type] = true;
-			Main.tileSolid[Type] = true;
-			Main.tileBlockLight[Type] = true;
-			AddMapEntry(Color.Orange);
-			HitSound = SoundID.Dig;
-			DustType = -1;
-		}
-
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-            MinPick = Flags.downedBigBone ? 0 : 999999;
-
-            Tile tile = Framing.GetTileSafely(i, j);
+			Tile tile = Framing.GetTileSafely(i, j);
 
 			if (Flags.CatacombKey3)
 			{
@@ -187,8 +148,6 @@ namespace Spooky.Content.Tiles.Catacomb
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
 				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * intensity);
 			}
-
-			return false;
 		}
 	}
 }

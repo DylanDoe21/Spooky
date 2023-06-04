@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpookyHell
             Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.useStyle = SwingUseStyle;
-			Item.knockBack = 8;
+			Item.knockBack = 4;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
@@ -59,7 +59,7 @@ namespace Spooky.Content.Items.SpookyHell
                 hasHitEnemies = true;
 
                 Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<FleshAxeHit>(), Item.damage, Item.knockBack, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<FleshAxeHit>(), Item.damage, 0f, Main.myPlayer, 0, 0);
             }
 
             if (target.life <= target.lifeMax * 0.35)

@@ -5,8 +5,6 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Dusts;
-
 namespace Spooky.Content.Tiles.Catacomb.Ambient
 {
 	public class CatacombVines : ModTile
@@ -18,7 +16,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			AddMapEntry(new Color(31, 85, 37));
+			AddMapEntry(new Color(12, 49, 10));
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
 		}
@@ -48,7 +46,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 				type = tileAbove.TileType;
 			}
 
-			if (type == ModContent.TileType<CatacombGrass>() || type == Type) 
+			if (type == ModContent.TileType<CatacombBrickMoss>() || type == Type)
             {
 				return true;
 			}
@@ -60,7 +58,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (WorldGen.genRand.Next(12) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (WorldGen.genRand.Next(2) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
 				bool PlaceVine = false;
 				int Test = j;
@@ -71,7 +69,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombGrass>()) 
+					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombBrickMoss>())
                     {
 						Test--;
 						continue;

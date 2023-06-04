@@ -96,7 +96,19 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(5, 20), true, true);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(5, 20);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(), new Actions.ClearWall(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
@@ -106,7 +118,19 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(5, 20), true, true);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(5, 20);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(), new Actions.ClearWall(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
@@ -118,7 +142,19 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(15))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(3, 5), true, true);
+                        ShapeData circle = new ShapeData();
+                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+                        int radius = WorldGen.genRand.Next(3, 5);
+                        WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius), Actions.Chain(new GenAction[]
+                        {
+                            blotchMod.Output(circle)
+                        }));
+
+                        WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+                        {
+                            new Actions.ClearTile(), new Actions.ClearWall(),
+                            new Actions.PlaceTile((ushort)ModContent.TileType<SpookyMush>())
+                        }));
                     }
                 }
             }
