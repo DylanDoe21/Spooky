@@ -73,13 +73,6 @@ Mods: {
 		}
 
 		Dialogue: {
-			FlowerPot: {
-				Dialogue1: It's a giant flower pot. Perhaps a certain fertalizer may re-awaken the plant inside of it?
-				Dialogue2: Maybe if you have a special fertalizer, you can regrow whatever is in this flower pot.
-				Dialogue3: A giangantic flower pot, seems like whatever was inside isn't very alive anymore.
-				Dialogue4: Why are you talking to a giant flower pot? Weirdo.
-			}
-
 			LittleBone: {
 				Awaken: Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!
 				SpookyBiome: It seems you are still beginning your adventure. Just search around the spooky forest and see what you can discover, and maybe get some good ores underground.
@@ -1099,7 +1092,7 @@ Mods: {
 				DisplayName: Creepy Candle
 				Tooltip:
 					'''
-					Increases magic damage by 5%
+					Increases magic damage by 7%
 					Magic projectiles will sometimes ignite enemies
 					'''
 			}
@@ -1686,7 +1679,7 @@ Mods: {
 				DisplayName: Sentient Heart
 				Tooltip:
 					'''
-					A strange heart ripped from a strong monster, it is still beating on it's own
+					A strange heart ripped from a strong monster, it is still beating on its own
 					When combined with certain weapons at the cauldron, it will bring them sentience
 					'''
 			}
@@ -1737,6 +1730,96 @@ Mods: {
 			LeechWhipGore: {
 				DisplayName: Gore Food
 				Tooltip: ""
+			}
+
+			PuttySlime1Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Green Putty Slime"
+			}
+
+			PuttySlime2Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Purple Putty Slime"
+			}
+
+			PuttySlime3Banner: {
+				DisplayName: Putty Slime Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Brown Putty Slime"
+			}
+
+			ZomboidBanner: {
+				DisplayName: Zomboid Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid"
+			}
+
+			ZomboidWarlockBanner: {
+				DisplayName: Zomboid Warlock Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid Warlock"
+			}
+
+			FluffBatSmallBanner: {
+				DisplayName: Fuzz Bat Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Fuzz Bat"
+			}
+
+			FluffBatGiantBanner: {
+				DisplayName: Giant Fuzz Bat Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fuzz Bat"
+			}
+
+			SpookyDanceBanner: {
+				DisplayName: Spooky Dance Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Spooky Dance Ghost"
+			}
+
+			TinyGhostBanner: {
+				DisplayName: Tiny Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Ghost"
+			}
+
+			TinyGhostBoofBanner: {
+				DisplayName: Tiny Boof Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Boof Ghost"
+			}
+
+			TinyGhostRareBanner: {
+				DisplayName: Tiny Orange Ghost Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Orange Ghost"
+			}
+
+			TinyMushroomBanner: {
+				DisplayName: Tiny Mushroom Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Mushroom"
+			}
+
+			FlyBigBanner: {
+				DisplayName: Giant Fly Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fly"
+			}
+
+			FlySmallBanner: {
+				DisplayName: Fly Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Fly"
+			}
+
+			LittleSpiderBanner: {
+				DisplayName: Little Spider Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Little Spider"
+			}
+
+			PuttyPumpkinBanner: {
+				DisplayName: Putty Pumpkin Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Putty Pumpkin"
+			}
+
+			CandleMonsterBanner: {
+				DisplayName: Candle Monster Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Candle Monster"
+			}
+
+			WitchBanner: {
+				DisplayName: Witch Banner
+				Tooltip: "{$CommonItemTooltip.BannerBonus}Witch"
 			}
 
 			CatacombBrickItem: {
@@ -1790,8 +1873,13 @@ Mods: {
 			}
 
 			CatacombBox: {
-				DisplayName: Music Box (Creepy Catacombs)
+				DisplayName: Music Box (Upper Catacomb)
 				Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
+			}
+
+			CatacombBox2: {
+				DisplayName: Music Box (Lower Catacomb)
+				Tooltip: "'Title to be decided' by Bananalizard"
 			}
 
 			CemeteryBox: {
@@ -1856,7 +1944,7 @@ Mods: {
 
 			SpookySpiritBox: {
 				DisplayName: Music Box (Spooky Spirit)
-				Tooltip: "'Spooky Spirit' by Bananalizard"
+				Tooltip: "'Groovy Geist' by Bananalizard"
 			}
 
 			CemeteryPylonItem: {
@@ -2194,6 +2282,41 @@ Mods: {
 				DisplayName: Rot Gourd Trophy
 				Tooltip: ""
 			}
+
+			CatacombGrassSeeds: {
+				DisplayName: Catacomb Grass Seeds
+				Tooltip: ""
+			}
+
+			CatacombBrick1Item: {
+				DisplayName: Upper Catacomb Brick
+				Tooltip: ""
+			}
+
+			CatacombBrick2Item: {
+				DisplayName: Lower Catacomb Brick
+				Tooltip: ""
+			}
+
+			CatacombFlooringItem: {
+				DisplayName: Catacomb Flooring Brick
+				Tooltip: ""
+			}
+
+			GildedBrickItem: {
+				DisplayName: Gilded Brick
+				Tooltip: ""
+			}
+
+			CatacombBrickWall1Item: {
+				DisplayName: Upper Catacomb Brick Wall
+				Tooltip: ""
+			}
+
+			CatacombBrickWall2Item: {
+				DisplayName: Lower Catacomb Brick Wall
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -2369,9 +2492,9 @@ Mods: {
 			SentientLifeDrainSkull.DisplayName: Sentient Life Drain Skull
 			SentientBladeTongueProj.DisplayName: Sentient Blade Tongue Proj
 			IchorCloud.DisplayName: Ichor Cloud
-			SentientSkull.DisplayName: Sentient Skull
-			SoulDrainShockwave.DisplayName: Soul Drain Shockwave
-			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawn
+			SentientSkull.DisplayName: Chomping Skull
+			SoulDrainShockwave.DisplayName: Soul Shockwave
+			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
 		}
 
 		NPCs: {
@@ -2381,14 +2504,22 @@ Mods: {
 				DisplayName: Giant Flower Pot
 
 				TownNPCMood: {
-					Content: I am content.
-					NoHome: I hate not having a home.
-					FarFromHome: I am too far from home.
-					LoveSpace: I love having so much space.
-					DislikeCrowded: I dislike how crowded I am.
-					HateCrowded: I hate how crowded I am.
-					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					HateNPC: I hate {NPCName}.
+					DislikeNPC: I dislike {NPCName}.
+					LikeNPC: I like {NPCName}.
+					LoveNPC: I love {NPCName}.
+					HateBiome: I hate {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					LikeBiome: I like {BiomeName}.
+					LoveBiome: I love {BiomeName}.
+					HateCrowded: I hate how crowded I am.
+					DislikeCrowded: I dislike how crowded I am.
+					LoveSpace: I love having so much space.
+					FarFromHome: I am too far from home.
+					NoHome: I hate not having a home.
+					Content: I am content.
 				}
 			}
 
@@ -2429,69 +2560,11 @@ Mods: {
 			Vesicator.DisplayName: Vesicator
 			Vigilante.DisplayName: Vigilante
 			Visitant.DisplayName: Visitant
-
-			LittleBone: {
-				DisplayName: Little Bone
-
-				TownNPCMood: {
-					Content: I am content.
-					NoHome: I hate not having a home.
-					FarFromHome: I am too far from home.
-					LoveSpace: I love having so much space.
-					DislikeCrowded: I dislike how crowded I am.
-					HateCrowded: I hate how crowded I am.
-					LikeNPC_Princess: I like {NPCName}.
-					Princess_LovesNPC: I like {NPCName}.
-				}
-			}
-
+			LittleBone.DisplayName: Little Bone
 			LittleBonePotTransform.DisplayName: Little Bone
-
-			LittleBoneSleeping: {
-				DisplayName: Sleeping Plant
-
-				TownNPCMood: {
-					Content: I am content.
-					NoHome: I hate not having a home.
-					FarFromHome: I am too far from home.
-					LoveSpace: I love having so much space.
-					DislikeCrowded: I dislike how crowded I am.
-					HateCrowded: I hate how crowded I am.
-					LikeNPC_Princess: I like {NPCName}.
-					Princess_LovesNPC: I like {NPCName}.
-				}
-			}
-
-			LittleEye: {
-				DisplayName: Little Eye
-
-				TownNPCMood: {
-					Content: I am content.
-					NoHome: I hate not having a home.
-					FarFromHome: I am too far from home.
-					LoveSpace: I love having so much space.
-					DislikeCrowded: I dislike how crowded I am.
-					HateCrowded: I hate how crowded I am.
-					LikeNPC_Princess: I like {NPCName}.
-					Princess_LovesNPC: I like {NPCName}.
-				}
-			}
-
-			LittleEyeSleeping: {
-				DisplayName: Sleeping Eye
-
-				TownNPCMood: {
-					Content: I am content.
-					NoHome: I hate not having a home.
-					FarFromHome: I am too far from home.
-					LoveSpace: I love having so much space.
-					DislikeCrowded: I dislike how crowded I am.
-					HateCrowded: I hate how crowded I am.
-					LikeNPC_Princess: I like {NPCName}.
-					Princess_LovesNPC: I like {NPCName}.
-				}
-			}
-
+			LittleBoneSleeping.DisplayName: Sleeping Plant
+			LittleEye.DisplayName: Little Eye
+			LittleEyeSleeping.DisplayName: Sleeping Eye
 			PartySkeleton1.DisplayName: Party Skeleton
 			PartySkeleton2.DisplayName: Party Skeleton
 			PartySkeleton3.DisplayName: Party Skeleton
@@ -2522,6 +2595,7 @@ Mods: {
 			Tortumor.DisplayName: Tortumor
 			TortumorGiant.DisplayName: Giant Tortumor
 			TheEntity.DisplayName: The Entity
+			Daffodil.DisplayName: Daffodil
 		}
 
 		Tiles: {
@@ -2562,6 +2636,7 @@ Mods: {
 			CemeterySapling.MapEntry: Sapling
 			BigBoneBoxTile.MapEntry: Music Box
 			CatacombBoxTile.MapEntry: Music Box
+			CatacombBox2Tile.MapEntry: Music Box
 			CemeteryBoxTile.MapEntry: Music Box
 			EggEventBoxTile.MapEntry: Music Box
 			EntityBoxTile.MapEntry: Music Box
@@ -2634,21 +2709,26 @@ Mods: {
 			SkullStick1.MapEntry: Skull Stick1
 			SkullStick2.MapEntry: Skull Stick2
 			SkullStick3.MapEntry: Skull Stick3
+			SkullCandle3.MapEntry: Skull Candle3
+			SkullCandle2.MapEntry: Skull Candle2
+			SkullCandle1.MapEntry: Skull Candle1
+			SpookyForestBanners.MapEntry: Spooky Forest Banners
+			BigFlower.MapEntry: Big Flower
 		}
 
 		Configs: {
 			SpookyConfig: {
-				DisplayName: Spooky Config
-
-				HalloweenEnabled: {
-					Label: "{$Mods.Spooky.Config.HalloweenEnabled.Label}"
-					Tooltip: "{$Mods.Spooky.Config.HalloweenEnabled.Tooltip}"
-				}
-
 				SpookyForestSpawn: {
 					Label: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Label}"
 					Tooltip: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Tooltip}"
 				}
+
+				HalloweenEnabled: {
+					Tooltip: "{$Mods.Spooky.Config.HalloweenEnabled.Tooltip}"
+					Label: "{$Mods.Spooky.Config.HalloweenEnabled.Label}"
+				}
+
+				DisplayName: Spooky Config
 
 				ScreenShakeEnabled: {
 					Label: "{$Mods.Spooky.Config.ScreenShakingEffect.Label}"

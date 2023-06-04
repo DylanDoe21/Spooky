@@ -18,13 +18,7 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) &&
-            !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
-        }
-        
-        public override void OnLeave(Player player)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", false, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
         }
 
         //bestiary stuff
@@ -52,7 +46,7 @@ namespace Spooky.Content.Biomes
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 50000000000; //was 500
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;
@@ -69,12 +63,7 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
-        }
-        
-        public override void OnLeave(Player player)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", false, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", isActive, player.Center);
         }
 
         public override bool IsBiomeActive(Player player)

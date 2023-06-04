@@ -11,11 +11,12 @@ namespace Spooky.Content.Tiles.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
+			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+			Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             AddMapEntry(new Color(56, 56, 64));
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;

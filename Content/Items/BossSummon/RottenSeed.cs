@@ -40,7 +40,16 @@ namespace Spooky.Content.Items.BossSummon
         {
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
-            NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<RotGourd>());
+            int type = ModContent.NPCType<RotGourd>();
+
+            if (Main.netMode != NetmodeID.MultiplayerClient) 
+            {
+                NPC.SpawnOnPlayer(player.whoAmI, type);
+            }
+            else 
+            {
+                NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
+            }
             
             return true;
         }

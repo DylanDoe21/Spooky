@@ -29,7 +29,7 @@ namespace Spooky.Content.Biomes
             if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(2, 600, 1f, Color.Black, player.Center);
+                vignettePlayer.SetVignette(0f, 450f, 1f, Color.Black, player.Center);
             }
 
             if (!Flags.downedBigBone)
@@ -41,12 +41,19 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
+            /*
             if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()) &&
-            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() && !Flags.CatacombKey1) ||
+            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() && !Flags.CatacombKey1) ||
             (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Flags.CatacombKey2)))
             {
                 NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<CatacombGuardian>());
             }
+            */
+
+            //graveyard visuals
+            player.ZoneGraveyard = true;
+
+            Main.GraveyardVisualIntensity = 0.42f;
         }
 
         public override bool IsBiomeActive(Player player)
@@ -54,8 +61,8 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>();
+            bool BiomeCondition = (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() || 
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>()) && PlayerY > Main.worldSurface;
 
             return BiomeCondition;
         }

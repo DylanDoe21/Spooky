@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void AI()
         {
-            //make a trail of blood dust
+            //make a trail of dust
             Vector2 dustPosition = Projectile.Center;
             dustPosition -= Projectile.velocity * 0.25f;
             int dust = Dust.NewDust(dustPosition, 1, 1, ModContent.DustType<GlowyDust>(), 0f, 0f, 0, default, 1f);
@@ -55,8 +55,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 //spawn spooky spirit with message
                 int Spirit = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
 
-                //net update so it doesnt vanish on multiplayer
-                if (Main.netMode == NetmodeID.Server)
+                if (Main.netMode != NetmodeID.SinglePlayer)
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
                 }

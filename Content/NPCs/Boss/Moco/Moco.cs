@@ -26,12 +26,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
     [AutoloadBossHead]
     public class Moco : ModNPC
     {
+        public bool Phase2 = false;
+        public bool Transition = false;
         public bool Sneezing = false;
         public bool SwitchedSides = false;
         public bool AfterImages = false;
-
-        public bool Phase2 = false;
-        public bool Transition = false;
 
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
@@ -68,11 +67,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
             writer.Write(MoveSpeedY);
 
             //bools
+            writer.Write(Phase2);
+            writer.Write(Transition);
             writer.Write(Sneezing);
             writer.Write(SwitchedSides);
             writer.Write(AfterImages);
-            writer.Write(Phase2);
-            writer.Write(Transition);
 
             //local ai
             writer.Write(NPC.localAI[0]);
@@ -87,11 +86,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
             MoveSpeedY = reader.ReadInt32();
 
             //bools
+            Phase2 = reader.ReadBoolean();
+            Transition = reader.ReadBoolean();
             Sneezing = reader.ReadBoolean();
             SwitchedSides = reader.ReadBoolean();
             AfterImages = reader.ReadBoolean();
-            Phase2 = reader.ReadBoolean();
-            Transition = reader.ReadBoolean();
 
             //local ai
             NPC.localAI[0] = reader.ReadSingle();
@@ -469,18 +468,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             ShootSpeed.X *= 15f;
                             ShootSpeed.Y *= 15f;
 
-                            if (!Phase2)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                                ShootSpeed.Y, ModContent.ProjectileType<GiantSnot>(), Damage, 1, NPC.target, 0, 0);
-                            }
-
-                            if (Phase2)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                                ShootSpeed.Y, ModContent.ProjectileType<GiantSnot2>(), Damage, 1, NPC.target, 0, 0);
-           
-                            }
+                            int snotBall = Phase2 ? ModContent.ProjectileType<GiantSnot2>() : ModContent.ProjectileType<GiantSnot>();
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, snotBall, Damage, 1, NPC.target, 0, 0);
                         }
 
                         if (NPC.localAI[0] >= 120)
@@ -812,19 +801,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 		}
 
-        public override bool CheckDead()
-        {
-            if (Main.netMode != NetmodeID.Server) 
-            {
-                for (int numGores = 1; numGores <= 7; numGores++)
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
-                }
-            }
-
-            return true;
-        }
-
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
@@ -855,6 +831,19 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
 
             npcLoot.Add(notExpertRule);
+        }
+
+        public override bool CheckDead()
+        {
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
+                }
+            }
+
+            return true;
         }
 
         public override void OnKill()

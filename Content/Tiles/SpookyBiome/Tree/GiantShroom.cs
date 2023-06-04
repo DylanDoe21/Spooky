@@ -166,7 +166,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
         }
 
-        public static void DrawTreestuff(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null, bool shake = false)
+        public static void DrawTreeStuff(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null, bool shake = false)
         {
             if (shake)
             {
@@ -214,8 +214,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 Vector2 treeOffset = new Vector2(48, 70);
                 Vector2 capOffset = new Vector2(49, 66);
 
-                DrawTreestuff(i - 1, j - 1, topTex, new Rectangle(0, 0, 112, 74), default, TileOffset.ToWorldCoordinates(), treeOffset, false);
-                DrawTreestuff(i - 1, j - 1, capTex, new Rectangle(0, 0, 112, 74), default, TileOffset.ToWorldCoordinates(), capOffset, true);
+                DrawTreeStuff(i - 1, j - 1, topTex, new Rectangle(0, 0, 112, 74), default, TileOffset.ToWorldCoordinates(), treeOffset, false);
+                DrawTreeStuff(i - 1, j - 1, capTex, new Rectangle(0, 0, 112, 74), default, TileOffset.ToWorldCoordinates(), capOffset, true);
             }
 
             //left side thing
@@ -225,7 +225,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
                 Vector2 offset = new Vector2(6, 0);
 
-                DrawTreestuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 16), default, TileOffset.ToWorldCoordinates(), offset, false);
+                DrawTreeStuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 16), default, TileOffset.ToWorldCoordinates(), offset, false);
             }
 
             //right side thing
@@ -235,7 +235,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
                 Vector2 offset = new Vector2(-10, 0);
 
-                DrawTreestuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 18), default, TileOffset.ToWorldCoordinates(), offset, false);
+                DrawTreeStuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 18), default, TileOffset.ToWorldCoordinates(), offset, false);
             }
 
             return false;

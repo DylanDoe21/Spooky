@@ -15,6 +15,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 		public override void SetStaticDefaults()
 		{
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;

@@ -12,6 +12,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		public override void SetStaticDefaults()
 		{
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
@@ -31,7 +32,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow mushrooms
-                if (Main.rand.Next(12) == 0)
+                if (Main.rand.Next(45) == 0)
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;

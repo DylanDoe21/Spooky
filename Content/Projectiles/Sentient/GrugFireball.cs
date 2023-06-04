@@ -18,14 +18,19 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.penetrate = 1;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.CursedInferno, 180);
+        }
+
         public override void AI()
         {
 			Projectile.rotation += 0.5f * (float)Projectile.direction;
 
-            for (int numDusts = 0; numDusts < 2; numDusts++)
+            for (int numDust = 0; numDust < 2; numDust++)
 			{
                 Vector2 dustPosition = Projectile.Center;
-                dustPosition -= Projectile.velocity * ((float)numDusts * 0.25f);
+                dustPosition -= Projectile.velocity * ((float)numDust * 0.25f);
                 int dust = Dust.NewDust(dustPosition, 1, 1, DustID.CursedTorch, 0f, 0f, 0, default, 1f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].position = dustPosition;

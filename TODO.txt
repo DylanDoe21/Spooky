@@ -1,0 +1,30 @@
+Catacomb overhaul:
+
+-new catacomb rooms
+
+-new enemies, and better versions of the old enemies
+
+-Make big bone found sleeping outside the flower pot, and you can talk to him to summon him
+-if you die or leave the world, he goes back to sleeping
+-if you win, then he wont be sleeping and you need to respawn him with fertalizer
+
+-add new root vines that can grow from the ceiling in layer 2 (cool roots with leaves on them)
+-add in possibly new lamp tiles that are skulls with candles and more candle tiles in general for layer 2 
+-possibly some ritual looking tiles involving plants 
+-new giant plant ambient objects, maybe even giant tree stalks with big yellow skulls at the top to show how big bone is formed
+-add in new variants of caskets and gravestones, maybe even some giant ones
+
+
+Other stuff:
+
+-add new meat giblet projectile for the sentient gatligator to shoot
+
+-add new slingshot ability suggestion
+
+-add big bone sleeping infront of the flower pot
+
+-make certain sentient weapon projectiles inflict ichor and cursed flames properly
+
+-make rot gourd slamming more fair and not require a dash
+
+-add better npc net updating for orro-boro segments (and anything else that needs it)

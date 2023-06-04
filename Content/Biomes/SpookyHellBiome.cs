@@ -72,12 +72,7 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()), player.Center);
-        }
-
-        public override void OnLeave(Player player)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", false, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", isActive, player.Center);
         }
 
         //bestiary stuff

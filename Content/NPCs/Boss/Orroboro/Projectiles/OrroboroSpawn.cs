@@ -91,9 +91,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 //spawn egg gores to make it look like it broke
                 Vector2 Position = new((int)Projectile.Center.X, (int)Projectile.Center.Y + 65);
 
-                if (Main.netMode != NetmodeID.Server)
+                for (int numGores = 1; numGores <= 5; numGores++)
                 {
-                    for (int numGores = 1; numGores <= 5; numGores++)
+                    if (Main.netMode != NetmodeID.Server)
                     {
                         Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/EggShard" + numGores).Type, 1.2f);
                     }

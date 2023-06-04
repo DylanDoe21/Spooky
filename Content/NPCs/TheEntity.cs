@@ -22,6 +22,7 @@ namespace Spooky.Content.NPCs
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 2;
+            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
