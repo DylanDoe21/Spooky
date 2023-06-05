@@ -93,6 +93,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //attack pattern
+            for (int i = 0; i <= AttackPattern.Length; i++)
+            {
+                writer.Write(AttackPattern[i]);
+            }
+
             //ints
             writer.Write(ScaleTimerLimit);
             writer.Write(SaveDirection);
@@ -112,6 +118,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //attack pattern
+            for (int i = 0; i <= AttackPattern.Length; i++)
+            {
+                AttackPattern[i] = reader.ReadInt32();
+            }
+
             //ints
             ScaleTimerLimit = reader.ReadInt32();
             SaveDirection = reader.ReadInt32();

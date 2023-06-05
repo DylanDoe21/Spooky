@@ -48,11 +48,10 @@ namespace Spooky.Content.Items.BossSummon
         {
             Main.dayTime = false;
             Main.time = 0;
-            NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TheEntity>());
 
             int type = ModContent.NPCType<TheEntity>();
 
-            if (Main.netMode != NetmodeID.MultiplayerClient) 
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.SpawnOnPlayer(player.whoAmI, type);
             }

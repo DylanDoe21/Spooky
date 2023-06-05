@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			NPC.DeathSound = SoundID.NPCDeath60;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Moco");
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -309,7 +309,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             Phase2 = true;
                             Transition = false;
-
                             NPC.immortal = false;
                             NPC.dontTakeDamage = false;
 

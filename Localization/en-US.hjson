@@ -15,7 +15,9 @@ Mods: {
 
 		EventsAndBosses: {
 			SpookySpiritSpawn: Spooky Spirit has awoken!
+			DaffodilSpawn: Daffodil has awoken!
 			OrroboroSpawn: Orro & Boro have awoken!
+			BigBoneSpawn: Big Bone has awoken!
 			EggNoConcoction: You need a special concoction to destroy the egg
 			EggEventBegin: The Egg Incursion has begun!
 			EggEventOver: The giant egg has become fragile!
@@ -159,6 +161,7 @@ Mods: {
 		Bestiary: {
 			TheEntity: "[Information Redacted]"
 			BigBone: The long lost brother of little bone who is trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
+			Daffodil: A giant flower that has been growing for who knows how long. It watches over the deep catcombs entrance, only letting those it deems worthy to continue further.
 			Moco: The legendary flying schnoz, said to present itself when its beloved shrine is disturbed. Its fast mobility and nasty snot are not to be taken lightly.
 			OrroHead: A fast and calculated serpent that works together with Boro to defend it's territory. These serpents are growing constantly, and are eating each other in an endless cycle.
 			BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that the valley of eyes is made from the left over flesh these serpents have torn off each other.
@@ -594,6 +597,11 @@ Mods: {
 			BossBagSpookySpirit: {
 				DisplayName: Treasure Bag (Spooky Spirit)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Brick: {
+				DisplayName: Heavy Brick
+				Tooltip: Can be thrown at giant creatures to wake them up
 			}
 
 			Concoction: {
@@ -2490,39 +2498,17 @@ Mods: {
 			DrainedSoulHealth.DisplayName: Health Soul
 			DrainedSoulMana.DisplayName: Mana Soul
 			SentientLifeDrainSkull.DisplayName: Sentient Life Drain Skull
-			SentientBladeTongueProj.DisplayName: Sentient Blade Tongue Proj
+			SentientBladeTongueProj.DisplayName: Sentient Blade Tongue
 			IchorCloud.DisplayName: Ichor Cloud
 			SentientSkull.DisplayName: Chomping Skull
 			SoulDrainShockwave.DisplayName: Soul Shockwave
 			SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
+			BrickProj.DisplayName: Brick
 		}
 
 		NPCs: {
 			BigBone.DisplayName: Big Bone
-
-			BigFlowerPot: {
-				DisplayName: Giant Flower Pot
-
-				TownNPCMood: {
-					Princess_LovesNPC: I like {NPCName}.
-					LikeNPC_Princess: I like {NPCName}.
-					HateNPC: I hate {NPCName}.
-					DislikeNPC: I dislike {NPCName}.
-					LikeNPC: I like {NPCName}.
-					LoveNPC: I love {NPCName}.
-					HateBiome: I hate {BiomeName}.
-					DislikeBiome: I dislike {BiomeName}.
-					LikeBiome: I like {BiomeName}.
-					LoveBiome: I love {BiomeName}.
-					HateCrowded: I hate how crowded I am.
-					DislikeCrowded: I dislike how crowded I am.
-					LoveSpace: I love having so much space.
-					FarFromHome: I am too far from home.
-					NoHome: I hate not having a home.
-					Content: I am content.
-				}
-			}
-
+			BigFlowerPot.DisplayName: Giant Flower Pot
 			BigFlower.DisplayName: Solar Flower
 			DefensiveFlower.DisplayName: Defensive Flower
 			HealingFlower.DisplayName: Healing Flower
@@ -2595,7 +2581,10 @@ Mods: {
 			Tortumor.DisplayName: Tortumor
 			TortumorGiant.DisplayName: Giant Tortumor
 			TheEntity.DisplayName: The Entity
-			Daffodil.DisplayName: Daffodil
+			DaffodilBody.DisplayName: Daffodil
+			DaffodilEye.DisplayName: Daffodil
+			DaffodilHandLeft.DisplayName: Daffodil
+			DaffodilHandRight.DisplayName: Daffodil
 		}
 
 		Tiles: {
@@ -2718,9 +2707,14 @@ Mods: {
 
 		Configs: {
 			SpookyConfig: {
+				ScreenShakeEnabled: {
+					Label: "{$Mods.Spooky.Config.ScreenShakingEffect.Label}"
+					Tooltip: "{$Mods.Spooky.Config.ScreenShakingEffect.Tooltip}"
+				}
+
 				SpookyForestSpawn: {
-					Label: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Label}"
 					Tooltip: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Tooltip}"
+					Label: "{$Mods.Spooky.Config.SpookyForestAtSpawn.Label}"
 				}
 
 				HalloweenEnabled: {
@@ -2729,11 +2723,6 @@ Mods: {
 				}
 
 				DisplayName: Spooky Config
-
-				ScreenShakeEnabled: {
-					Label: "{$Mods.Spooky.Config.ScreenShakingEffect.Label}"
-					Tooltip: "{$Mods.Spooky.Config.ScreenShakingEffect.Tooltip}"
-				}
 			}
 		}
 	}

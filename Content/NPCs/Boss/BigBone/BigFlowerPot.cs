@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -96,7 +98,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                 if (NPC.ai[0] >= 240)
                 {
-                    Main.NewText("Big Bone has awoken!", 171, 64, 255);
+                    //spawn message
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.BigBoneSpawn");
+
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    else
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
 
                     NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
                     

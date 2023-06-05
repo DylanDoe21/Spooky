@@ -100,7 +100,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				SoundEngine.PlaySound(SneezeSound, player.Center);
 
-				if (Main.netMode == NetmodeID.MultiplayerClient) 
+				if (Main.netMode != NetmodeID.SinglePlayer) 
 				{
 					ModPacket packet = Mod.GetPacket();
 					packet.Write((byte)SpookyMessageType.SpawnMoco);
