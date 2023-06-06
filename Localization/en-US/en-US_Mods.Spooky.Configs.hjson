@@ -1,0 +1,30 @@
+SpookyConfig: {
+	HalloweenEnabled: {
+		Label: Halloween Season
+		Tooltip:
+			'''
+			Spooky mod makes terraria's halloween seasonal event always active
+			Turn this off to disable the halloween seasonal event being active
+			However, turning this off will not disable halloween if it is meant to normally happen
+			'''
+	}
+
+	SpookyForestSpawn: {
+		Label: Spooky Forest at Spawn
+		Tooltip:
+			'''
+			Changes the position where the spooky forest is placed during world generation
+			Keeping this on will make it placed at spawn, which is the default option
+			Turning this off will cause the spooky forest to generate away from spawn
+			This is applied when making new worlds, and it will have no effect on existing worlds
+			Creating smaller worlds with this option off may potentially destroy or generate over other things!
+			'''
+	}
+
+	ScreenShakeEnabled: {
+		Label: Screen Shaking Effect
+		Tooltip: Turn off to disable the screen shaking effect caused by various things in the mod
+	}
+
+	DisplayName: Spooky Config
+}

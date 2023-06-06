@@ -1,0 +1,231 @@
+BoogerFrenzyBuff: {
+	DisplayName: Booger Frenzy
+	Description: Your weapons have been blessed with boogers
+}
+
+CandyBuff1: {
+	DisplayName: Summoner Candy
+	Description: 5% increased summon damage
+}
+
+CandyBuff2: {
+	DisplayName: Summoner Candy
+	Description: 1 extra minion slot
+}
+
+CandyBuff3: {
+	DisplayName: Summoner Candy
+	Description: Slightly increased whip range
+}
+
+BoogerFrenzyCooldown: {
+	DisplayName: Booger Frenzy Cooldown
+	Description: Your booger frenzy is recharging
+}
+
+CatacombDebuff: {
+	DisplayName: Catacomb's Curse
+	Description:
+		'''
+		You cannot build, use tools, or use the rod of discord
+		Your vision is very limited
+		'''
+}
+
+CrossCooldown: {
+	DisplayName: Cross Barrier Cooldown
+	Description: Your barrier is recharging
+}
+
+EmbryoCooldown: {
+	DisplayName: Embryotic Shatter
+	Description:
+		'''
+		The embyro's revival must recharge
+		Increases all damage and critical strike chance by 8%
+		'''
+}
+
+EnsnaredCooldown: {
+	DisplayName: Ensnared Cooldown
+	Description: Mods.Spooky.BuffDescription.EnsnaredCooldown
+}
+
+EnsnaredDebuff: {
+	DisplayName: Ensnared
+	Description: Mods.Spooky.BuffDescription.EnsnaredDebuff
+}
+
+EntityDebuff: {
+	DisplayName: Looming Presence
+	Description: Escaping is not possible
+}
+
+FleshWhipCooldown: {
+	DisplayName: Eye Lasher Cooldown
+	Description: Mods.Spooky.BuffDescription.FleshWhipCooldown
+}
+
+FleshWhipDefense: {
+	DisplayName: Eye Lasher Defense
+	Description: Mods.Spooky.BuffDescription.FleshWhipDefense
+}
+
+FleshWhipDefense2: {
+	DisplayName: Eye Lasher Defense
+	Description: Mods.Spooky.BuffDescription.FleshWhipDefense2
+}
+
+FlyCooldown: {
+	DisplayName: Fly Amulet Recharge
+	Description: Your defensive flies cannot respawn
+}
+
+GoreAuraCooldown: {
+	DisplayName: Gore Monger Aura Cooldown
+	Description: Your aura is recharging
+}
+
+GourdDecay: {
+	DisplayName: Rotting
+	Description: Mods.Spooky.BuffDescription.GourdDecay
+}
+
+Possessed: {
+	DisplayName: Possessed
+	Description: You are being controlled by a ghost!
+}
+
+LivingAxeBleed: {
+	DisplayName: Bleeding
+	Description: Mods.Spooky.BuffDescription.LivingAxeBleed
+}
+
+ThornMark: {
+	DisplayName: Thorn Mark
+	Description: Mods.Spooky.BuffDescription.ThornMark
+}
+
+EggEventEnemyBuff: {
+	DisplayName: Capillary buff
+	Description: Mods.Spooky.BuffDescription.EggEventEnemyBuff
+}
+
+EmbryoRevival: {
+	DisplayName: Embryotic Revival
+	Description:
+		'''
+		The embyro has saved you from death
+		Majorly increases defense and life regeneration
+		'''
+}
+
+FlyBuff: {
+	DisplayName: Fly Swarm
+	Description: The swarm of flies is protecting you
+}
+
+GoreAuraBuff: {
+	DisplayName: Gore Monger Aura
+	Description: Your aura is protecting you
+}
+
+BrainyBuff: {
+	DisplayName: Brainy
+	Description: Brainy suspiciously follows you
+}
+
+CandyBagBuff: {
+	DisplayName: Bag O' Treats
+	Description: The magic candy bag flies above you
+}
+
+EntityMinionBuff: {
+	DisplayName: Little Entity
+	Description: The baby entity will fight with you
+}
+
+EyeArmorMinionBuff: {
+	DisplayName: Lil Eye
+	Description: The tiny eye will help protect you!
+}
+
+GrugBuff: {
+	DisplayName: Gargoyle
+	Description: Grug the gargoyle protects you!
+}
+
+NoseMinionBuff: {
+	DisplayName: Nose Fly
+	Description: The nose buzzes around you
+}
+
+PumpkinHeadBuff: {
+	DisplayName: Pumpkin Head
+	Description: Your head is now fighting with you!
+}
+
+SkullWispBuff: {
+	DisplayName: Skull Wisp
+	Description: The skull wisp will fight with you
+}
+
+SoulSkullBuff: {
+	DisplayName: Soul Skull
+	Description: The soul skull will fight with you
+}
+
+SkullTotemBuff: {
+	DisplayName: Skull Idol Empowerment
+	Description:
+		'''
+		12% increased summon damage
+		50% increased whip range
+		+2 max minions
+		'''
+}
+
+TortumorMinionBuff: {
+	DisplayName: Friendly Tortumor
+	Description: The tortumor will fight with you
+}
+
+BigBonePetBuff: {
+	DisplayName: Baby Bone
+	Description: It may be absorbing your nutrients
+}
+
+FuzzBatPetBuff: {
+	DisplayName: Goofy Fuzz Bat
+	Description: It doesn't know why, but it likes following you
+}
+
+GhostPetBuff: {
+	DisplayName: Little Ghost
+	Description: A spooky little ghost will guide you
+}
+
+MocoPetBuff: {
+	DisplayName: Baby Moco
+	Description: Sniffle... Achooo!
+}
+
+OrroboroMountBuff: {
+	DisplayName: Eye Worm
+	Description: The eye worm will help you travel
+}
+
+RotGourdPetBuff: {
+	DisplayName: Tiny Rot Gourd
+	Description: Smelly, but cute
+}
+
+SkullEmojiBuff: {
+	DisplayName: Floating Skull
+	Description: He spins for eternity
+}
+
+SpookySpiritPetBuff: {
+	DisplayName: Mini Spirit
+	Description: The mini spirit lingers around you
+}

@@ -5,6 +5,7 @@ using Terraria.Localization;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
@@ -49,7 +50,7 @@ namespace Spooky.Core
                 {
                     NPC npc = info.npc;
 
-                    if (!Main.hardMode && npc.type == NPCID.WallofFlesh)
+                    if (!Flags.downedDaffodil && npc.type == ModContent.NPCType<DaffodilEye>())
                     {
                         return true;
                     }

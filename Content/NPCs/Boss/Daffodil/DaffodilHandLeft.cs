@@ -17,13 +17,19 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilHandLeft : ModNPC
     {
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+        }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 18000;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 50;
-            NPC.height = 54;
+            NPC.width = 56;
+            NPC.height = 56;
             NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
@@ -79,14 +85,25 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             NPC.direction = -1;
 
+            //add light for visibility
             Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
 
+            //kill the hand if the parent does not exist
+            if (!Main.npc[(int)NPC.ai[2]].active)
+            {
+                NPC.active = false;
+            }
+
+            //set rotation based on the parent npc
             Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
             float RotateX = Main.npc[(int)NPC.ai[2]].Center.X - 65 - vector.X;
             float RotateY = Main.npc[(int)NPC.ai[2]].Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            GoToPosition(-130, 180);
+            if (Main.npc[(int)NPC.ai[2]].active && Main.npc[(int)NPC.ai[2]].type == ModContent.NPCType<DaffodilEye>())
+            {
+                GoToPosition(-130, 180);
+            }
         }
 
         public void GoToPosition(float X, float Y)

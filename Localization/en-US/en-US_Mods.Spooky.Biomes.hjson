@@ -1,0 +1,39 @@
+SpookyBiome: {
+	DisplayName: Spooky Forest
+	TownNPCDialogueName: the Spooky Biome
+}
+
+SpookyBiomeUg: {
+	DisplayName: Spooky Underground
+	TownNPCDialogueName: the Spooky Biome Ug
+}
+
+SpookyHellBiome: {
+	DisplayName: Valley of Eyes
+	TownNPCDialogueName: the Spooky Hell Biome
+}
+
+CatacombBiome: {
+	DisplayName: Creepy Catacombs
+	TownNPCDialogueName: the Catacomb Biome
+}
+
+CemeteryBiome: {
+	DisplayName: Swampy Cemetery
+	TownNPCDialogueName: the Cemetery Biome
+}
+
+EggEventBiome: {
+	DisplayName: Egg Incursion
+	TownNPCDialogueName: the Egg Event Biome
+}
+
+EntityZone: {
+	DisplayName: Entity Zone
+	TownNPCDialogueName: the Entity Zone
+}
+
+RaveyardBiome: {
+	DisplayName: Raveyard Biome
+	TownNPCDialogueName: the Raveyard Biome
+}

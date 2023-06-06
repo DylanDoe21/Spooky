@@ -21,9 +21,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/Daffodil/DaffodilBestiary",
-                Position = new Vector2(0f, 0f),
-                PortraitPositionXOverride = 0f,
+                CustomTexturePath = "Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC",
+                Position = new Vector2(1f, 0f),
+                PortraitPositionXOverride = 2f,
                 PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
@@ -34,8 +34,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.lifeMax = 18000;
             NPC.damage = 0;
             NPC.defense = 35;
-            NPC.width = 54;
-            NPC.height = 54;
+            NPC.width = 58;
+            NPC.height = 56;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -89,8 +89,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             if (!SpawnedHands)
             {
-                NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 24, ModContent.NPCType<DaffodilHandLeft>(), ai2: NPC.whoAmI);
-                NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 24, ModContent.NPCType<DaffodilHandRight>(), ai3: NPC.whoAmI);
+                NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<DaffodilHandLeft>(), ai2: NPC.whoAmI);
+                NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<DaffodilHandRight>(), ai3: NPC.whoAmI);
                 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -100,6 +100,67 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 SpawnedHands = true;
             }
+
+            switch ((int)NPC.ai[0])
+            {
+                //solar laser barrage
+                //spawns a telegraph on the player, then shoot a barrage of beams in that area for a second
+                case 0:
+                {
+                    break;
+                }
+
+                //chlorophyll blasts
+                //move hands to the sides, shoot chlorophyll blasts from each hand (ai for this attack will be mostly handled in the hand's ai)
+                case 1:
+                {
+                    break;
+                }
+
+                //thorn bulbs
+                //shoot out thorn pods that each spawn a thorn when they hit the ground, thorns will linger for a bit, and when hit the thorn will die
+                //thorns will inflict bleeding and poison on contact
+                case 2:
+                {
+                    break;
+                }
+
+                //seed drop
+                //drop seeds randomly around the arena that turn into short lived thorn pillars that form upward upon hitting the floor
+                //based on that one kirby boss attack
+                case 3:
+                {
+                    break;
+                }
+
+                //fly swarm
+                //boss roars or makes a sound, then flies begin flying around the arena in a straight line in a random bullet hell fashion (like supreme calamitas)
+                //omega flowey attack reference, but also works because the catacombs is filled with flies due to being a burial for the dead
+                case 4:
+                {
+                    break;
+                }
+
+                //hand attack
+                //either swipe at the player or grab the player and pull them up, can be avoided by going under the outposts in the arena
+                case 5:
+                {
+                    break;
+                }
+
+                //solar beam
+                //shoot sweeping solar beams across the arena
+                //the only way to avoid this attack is by hiding under the outposts in the arena
+                case 6:
+                {
+                    break;
+                }
+            }
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.GreaterHealingPotion;
         }
     }
 }

@@ -111,14 +111,13 @@ namespace Spooky.Core
 			string SpiritName = "Spooky Spirit";
 			int Spirit = ModContent.NPCType<Content.NPCs.Boss.SpookySpirit.SpookySpirit>();
 			Func<bool> SpiritDowned = () => Flags.downedSpookySpirit;
-			string SpiritSpawnInfo = $"Right click the suspicious purple gravestone in the cemetery at night, after the world's evil boss has been defeated.";
+			int SpiritSummonItem = ModContent.ItemType<EMFReader>();
+			string SpiritSpawnInfo = $"Right click the possessed statue while you have an [i:{SpiritSummonItem}] in your inventory.";
 			string SpiritDespawnInfo = "Spooky Spirit has haunted all players";
 
 			List<int> SpiritDrops = new List<int>()
 			{
-				/*
-				ModContent.ItemType<RotGourdTrophyItem>(),
-				*/
+				ModContent.ItemType<SpookySpiritBox>()
 			};
 
 			var SpiritPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
@@ -128,9 +127,8 @@ namespace Spooky.Core
 				spriteBatch.Draw(texture, centered, color);
 			};
 
-			//register rot gourd
-			bossChecklistMod.Call("AddBoss", Mod, SpiritName, Spirit, 3.01f, SpiritDowned, true, SpiritDrops, 
-			null, SpiritSpawnInfo, SpiritDespawnInfo, SpiritPortrait);
+			//register spooky spirit
+			bossChecklistMod.Call("AddBoss", Mod, SpiritName, Spirit, 3.01f, SpiritDowned, true, SpiritDrops, null, SpiritSpawnInfo, SpiritDespawnInfo, SpiritPortrait);
 
 
 			//Moco
@@ -154,8 +152,31 @@ namespace Spooky.Core
 			};
 
 			//register moco
-			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 4.01f, MocoDowned, true, MocoDrops, 
-			MocoSummonItem, MocoSpawnInfo, MocoDespawnInfo, MocoPortrait);
+			bossChecklistMod.Call("AddBoss", Mod, MocoName, Moco, 4.01f, MocoDowned, true, MocoDrops, MocoSummonItem, MocoSpawnInfo, MocoDespawnInfo, MocoPortrait);
+
+
+			//Daffodil
+			string DaffodilName = "Daffodil";
+			int Daffodil = ModContent.NPCType<Content.NPCs.Boss.Daffodil.DaffodilEye>();
+			Func<bool> DaffodilDowned = () => Flags.downedDaffodil;
+			int DaffodilSummonItem = ModContent.ItemType<Brick>();
+			string DaffodilSpawnInfo = $"Throw a [i:{DaffodilSummonItem}] at Daffodil in the catacombs while it's sleeping";
+			string DaffodilDespawnInfo = "Daffodil has deemed all players unworthy to enter";
+
+			List<int> DaffodilDrops = new List<int>()
+			{
+				//ModContent.ItemType<DaffodilBox>()
+			};
+
+			var DaffodilPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+            {
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			//register daffodil
+			bossChecklistMod.Call("AddBoss", Mod, DaffodilName, Daffodil, 8.01f, DaffodilDowned, true, DaffodilDrops, DaffodilSummonItem, DaffodilSpawnInfo, DaffodilDespawnInfo, DaffodilPortrait);
 
 
 			//Egg Event
@@ -195,8 +216,7 @@ namespace Spooky.Core
 			};
 
 			//register egg event
-			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 11.02f, EggEventDowned, true, EggEventDrops,
-			EggEventSummonItem2, EggEventSpawnInfo, EggEventPortrait, Icon);
+			bossChecklistMod.Call("AddEvent", Mod, EggEventName, Enemies, 11.01f, EggEventDowned, true, EggEventDrops, EggEventSummonItem2, EggEventSpawnInfo, EggEventPortrait, Icon);
 
 
 			//Orroboro
@@ -220,8 +240,7 @@ namespace Spooky.Core
 			};
 
 			//register orroboro
-			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 11.03f, OrroboroDowned, true, OrroboroDrops, 
-			OrroboroSummonItem, OrroboroSpawnInfo, OrroboroDespawnInfo, OrroboroPortrait);
+			bossChecklistMod.Call("AddBoss", Mod, OrroboroName, Orroboro, 11.02f, OrroboroDowned, true, OrroboroDrops, OrroboroSummonItem, OrroboroSpawnInfo, OrroboroDespawnInfo, OrroboroPortrait);
 
 
 			//Big Bone
@@ -245,8 +264,7 @@ namespace Spooky.Core
 			};
 
 			//register big bone
-			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 14.5f, BigBoneDowned, true, BigBoneDrops, 
-			BigBoneSummonItem, BigBoneSpawnInfo, BigBoneDespawnInfo, BigBonePortrait);
+			bossChecklistMod.Call("AddBoss", Mod, BigBoneName, BigBone, 14.5f, BigBoneDowned, true, BigBoneDrops, BigBoneSummonItem, BigBoneSpawnInfo, BigBoneDespawnInfo, BigBonePortrait);
         }
     }       
 }

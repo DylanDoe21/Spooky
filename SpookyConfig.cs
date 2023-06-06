@@ -7,18 +7,18 @@ namespace Spooky
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [Label("$Mods.Spooky.Config.HalloweenEnabled.Label")]
-        [Tooltip("$Mods.Spooky.Config.HalloweenEnabled.Tooltip")]
+        [Label("$Mods.Spooky.Configs.HalloweenEnabled.Label")]
+        [Tooltip("$Mods.Spooky.Configs.HalloweenEnabled.Tooltip")]
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
 
-        [Label("$Mods.Spooky.Config.SpookyForestAtSpawn.Label")]
-        [Tooltip("$Mods.Spooky.Config.SpookyForestAtSpawn.Tooltip")]
+        [Label("$Mods.Spooky.Configs.SpookyForestSpawn.Label")]
+        [Tooltip("$Mods.Spooky.Configs.SpookyForestSpawn.Tooltip")]
         [DefaultValue(true)]
         public bool SpookyForestSpawn { get; set; }
 
-        [Label("$Mods.Spooky.Config.ScreenShakingEffect.Label")]
-        [Tooltip("$Mods.Spooky.Config.ScreenShakingEffect.Tooltip")]
+        [Label("$Mods.Spooky.Configs.ScreenShakeEnabled.Label")]
+        [Tooltip("$Mods.Spooky.Configs.ScreenShakeEnabled.Tooltip")]
         [DefaultValue(true)]
         public bool ScreenShakeEnabled { get; set; }
     }
