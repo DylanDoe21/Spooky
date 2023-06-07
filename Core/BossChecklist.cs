@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
@@ -14,6 +16,8 @@ using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.Tiles.MusicBox;
+using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Core
 {
@@ -99,7 +103,8 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<RottenSeed>(),
-					["collectibles"] = ModContent.ItemType<RotGourdBox>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<RotGourdTrophyItem>(), ModContent.ItemType<RotGourdMask>(), 
+					ModContent.ItemType<RotGourdRelicItem>(), ModContent.ItemType<RottenGourd>(), ModContent.ItemType<RotGourdBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.RotGourd.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.RotGourd.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = GourdPortrait,
@@ -125,7 +130,7 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<EMFReader>(),
-					["collectibles"] = ModContent.ItemType<SpookySpiritBox>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<SpookySpiritRelicItem>(), ModContent.ItemType<SpiritLamp>(), ModContent.ItemType<SpookySpiritBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookySpirit.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookySpirit.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = SpiritPortrait,
@@ -151,7 +156,8 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<CottonSwab>(),
-					["collectibles"] = ModContent.ItemType<MocoBox>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<MocoTrophyItem>(), ModContent.ItemType<MocoMask>(), 
+					ModContent.ItemType<MocoRelicItem>(), ModContent.ItemType<MocoTissue>(), ModContent.ItemType<MocoBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.Moco.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.Moco.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = MocoPortrait,
@@ -177,7 +183,6 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<Brick>(),
-					//["collectibles"] = ModContent.ItemType<MocoBox>(),
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = DaffodilPortrait,
@@ -218,9 +223,9 @@ namespace Spooky.Core
 				EggEventEnemies,
 				new Dictionary<string, object>()
 				{
-					["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.EggEvent.EntryName").Value,
 					["spawnItems"] = EggEventItems,
 					["collectibles"] = ModContent.ItemType<EggEventBox>(),
+					["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.EggEvent.EntryName").Value,
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.EggEvent.SpawnInfo").Value,
 					["overrideHeadTextures"] = EggEventIcon,
 					["customPortrait"] = EggEventPortrait,
@@ -251,7 +256,9 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<Concoction>(),
-					["collectibles"] = ModContent.ItemType<SpookyHellBossBox>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<OrroTrophyItem>(), ModContent.ItemType<BoroTrophyItem>(), 
+					ModContent.ItemType<OrroMask>(), ModContent.ItemType<BoroMask>(), ModContent.ItemType<OrroboroRelicItem>(),
+					ModContent.ItemType<OrroboroEye>(), ModContent.ItemType<SpookyHellBossBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = OrroboroPortrait,
@@ -277,7 +284,8 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<Fertalizer>(),
-					["collectibles"] = ModContent.ItemType<BigBoneBox>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<BigBoneTrophyItem>(), ModContent.ItemType<BigBoneMask>(), 
+					ModContent.ItemType<BigBoneRelicItem>(), ModContent.ItemType<SkullSeed>(), ModContent.ItemType<BigBoneBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.BigBone.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.BigBone.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = BigBonePortrait,
