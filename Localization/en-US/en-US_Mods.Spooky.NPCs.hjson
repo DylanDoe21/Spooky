@@ -1,9 +1,62 @@
-BigBone.DisplayName: Big Bone
+RotGourd: {
+	DisplayName: Rot Gourd
+
+	BossChecklistIntegration: {
+		SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.
+		DespawnMessage: Rot Gourd hops into the distance
+	}
+}
+
+SpookySpirit: {
+	DisplayName: Spooky Spirit
+
+	BossChecklistIntegration: {
+		SpawnInfo: Right click the cursed statue in the swampy cemetery at night while you have an [i:Spooky/EMFReader] in your inventory.
+		DespawnMessage: Spooky Spirit has haunted all players
+	}
+}
+
+Moco: {
+	DisplayName: Moco
+
+	BossChecklistIntegration: {
+		SpawnInfo: Right click the nose statue in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory. The cotton swab is given to you after completing 3 of little eye's quests.
+		DespawnMessage: Moco has sneezed on all players
+	}
+}
+
+DaffodilEye: {
+	DisplayName: Daffodil
+
+	BossChecklistIntegration: {
+		SpawnInfo: Throw a [i:Spooky/Brick] at it to wake it up.
+		DespawnMessage: Daffodil has ended your catacomb exploration
+	}
+}
+
+OrroHead: {
+	DisplayName: Orro
+
+	BossChecklistIntegration: {
+		EntryName: Orro & Boro
+		SpawnInfo: Right click the at the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once.
+		DespawnMessage: Orro & Boro have consumed all players
+	}
+}
+
+BigBone: {
+	DisplayName: Big Bone
+
+	BossChecklistIntegration: {
+		SpawnInfo: Use [i:Spooky/Fertalizer] while standing nearby the giant flower pot in the catacombs.
+		DespawnMessage: Big bone has overgrown all players
+	}
+}
+
 BigFlowerPot.DisplayName: Giant Flower Pot
 BigFlower.DisplayName: Solar Flower
 DefensiveFlower.DisplayName: Defensive Flower
 HealingFlower.DisplayName: Healing Flower
-Moco.DisplayName: Moco
 BoroBody.DisplayName: Boro
 BoroBodyConnect.DisplayName: Boro
 BoroBodyP1.DisplayName: Boro
@@ -12,12 +65,9 @@ BoroTail.DisplayName: Boro
 BoroTailP1.DisplayName: Boro
 OrroBody.DisplayName: Orro
 OrroBodyP1.DisplayName: Orro
-OrroHead.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
-RotGourd.DisplayName: Rot Gourd
 PhantomSkull.DisplayName: Phantom Skull
-SpookySpirit.DisplayName: Spooky Spirit
 CatacombGuardian.DisplayName: Catacomb Guardian
 FloatyFlower.DisplayName: Daisy
 FlowerSentry.DisplayName: Sunny
@@ -73,6 +123,5 @@ Tortumor.DisplayName: Tortumor
 TortumorGiant.DisplayName: Giant Tortumor
 TheEntity.DisplayName: The Entity
 DaffodilBody.DisplayName: ""
-DaffodilEye.DisplayName: Daffodil
 DaffodilHandLeft.DisplayName: Daffodil
 DaffodilHandRight.DisplayName: Daffodil

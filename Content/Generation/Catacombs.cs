@@ -1,17 +1,21 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.IO;
+using Terraria.GameContent.Generation;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
-using Terraria.GameContent.Generation;
+using Terraria.IO;
+using ReLogic.Utilities;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.Catacomb.Ambient;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 using StructureHelper;
-using ReLogic.Utilities;
 
 namespace Spooky.Content.Generation
 {
@@ -36,27 +40,16 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
 
-            //first layer room stuff
-            //catacomb main entrance = 15 x 6
-            //entrance room = 35 x 35 blocks
-            //normal rooms = 35 x 35 blocks
-            //horizontal halls = 15 x 14 blocks
-            //vertical hallways = 7 x 18 blocks
-
-            //second layer room stuff
-            //second layer rooms = 61 x 28 blocks
-            //second layer halls = 4 x 9 blocks
-
             int XStart = PositionX;
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
-            //sets the width for the catacombs (how many horizontal rows of rooms it has)
-            //200 = large (7 rooms horizontally), 150 = anything smaller than large (5 rooms)
+            //sets the width for the catacombs (how many rooms it has horizontally)
+            //200 = large worlds (9 rooms wide), 150 = anything smaller than large worlds (6 rooms wide)
             int layer1Width = Main.maxTilesX >= 8400 ? 200 : 150;
 
-            //sets the height for the catacombs (how far down the vertical rows go)
-            //235 = large (6 rooms deep), 190 = medium (5 rooms deep), 145 = small (4 rooms deep)
+            //sets the height for the catacombs (how many rooms it has vertically)
+            //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 145 = small worlds (4 rooms deep)
             int layer1Depth = Main.maxTilesY >= 2400 ? 235 : (Main.maxTilesY >= 1800 ? 190 : 145);
 
             //first, place a circle of bricks where each catacomb room will be
@@ -85,14 +78,14 @@ namespace Spooky.Content.Generation
                         switchRoom = 0;
                     }
 
-                    //origin offset for each room
+                    //origin offset for each room so it places at the center
                     Vector2 origin = new Vector2(X - 18, Y - 18);
 
                     //first row
                     if (Y == (int)Main.worldSurface + 10)
                     {
-                        //randomly place the first loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom1 && (WorldGen.genRand.NextBool(7) || X == XMiddle + layer1Width))
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom1 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-1", origin.ToPoint16(), Mod);
                             placedLootRoom1 = true;
@@ -106,8 +99,8 @@ namespace Spooky.Content.Generation
                     //second row
                     if (Y == (int)Main.worldSurface + 55)
                     {
-                        //randomly place the first loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(7) || X == XMiddle + layer1Width))
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-2", origin.ToPoint16(), Mod);
                             placedLootRoom2 = true;
@@ -131,8 +124,8 @@ namespace Spooky.Content.Generation
                     //third row
                     if (Y == (int)Main.worldSurface + 100)
                     {
-                        //randomly place the first loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(7) || X == XMiddle + layer1Width))
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-3", origin.ToPoint16(), Mod);
                             placedLootRoom3 = true;
@@ -147,9 +140,9 @@ namespace Spooky.Content.Generation
                                 placedMoyaiRoom = true;
                             }
                             //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(35))
+                            else if (WorldGen.genRand.NextBool(20))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -162,7 +155,7 @@ namespace Spooky.Content.Generation
                     if (Y == (int)Main.worldSurface + 145)
                     {
                         //randomly place the first loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(7) || X == XMiddle + layer1Width))
+                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-4", origin.ToPoint16(), Mod);
                             placedLootRoom4 = true;
@@ -177,9 +170,9 @@ namespace Spooky.Content.Generation
                                 placedMoyaiRoom = true;
                             }
                             //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(35))
+                            else if (WorldGen.genRand.NextBool(20))
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -199,9 +192,9 @@ namespace Spooky.Content.Generation
                             placedMoyaiRoom = true;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(35))
+                        else if (WorldGen.genRand.NextBool(20))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
                         else
                         {
@@ -220,9 +213,9 @@ namespace Spooky.Content.Generation
                             placedMoyaiRoom = true;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(35))
+                        else if (WorldGen.genRand.NextBool(20))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
                         else
                         {
@@ -241,56 +234,121 @@ namespace Spooky.Content.Generation
                     Vector2 horizontalHallOrigin = new Vector2(X + 17, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
-                    //for all rows besides the bottom, place horizontal halls between each room and a change to place a vertical hall on the bottom
+                    //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
                     if (Y < (int)Main.worldSurface + layer1Depth)
                     {
-                        //place a horizontal hallway on every room besides the one on the end
+                        //dont place a hall on the last room
                         if (X < XMiddle + layer1Width)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 4), horizontalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
 
                         //place a vertical hall randomly under any room
                         if (WorldGen.genRand.NextBool(2))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 2), verticalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
                     }
-                    //on the bottom row just place a horizontal hall
+                    //on the bottom row of rooms, only place horizontal halls
                     else
                     {
                         //dont place a hall on the last room
                         if (X < XMiddle + layer1Width)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 4), horizontalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                 }
             }
 
+            //crypt entrance to the catacombs
             int EntranceX = XMiddle - 5;
             bool PlacedBarrier = false;
 
             for (int EntranceNewY = EntranceY + 60; EntranceNewY <= (int)Main.worldSurface - 6 && !PlacedBarrier; EntranceNewY += 6)
             {
                 Vector2 entranceOrigin = new Vector2(EntranceX - 3, EntranceNewY);
+                Vector2 entranceBarrierOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
 
                 //place barrier entrance
                 if (EntranceNewY >= (int)Main.worldSurface - 11)
                 {
-                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", entranceOrigin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", entranceBarrierOrigin.ToPoint16(), Mod);
                     PlacedBarrier = true;
                 }
                 //place normal entrance
                 else 
                 {
-                    if (WorldGen.genRand.NextBool(3))
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
+                }
+            }
+
+            //place daffodil arena below the first layer, with 2 rooms on the side of it
+            int DaffodilArenaY = (int)Main.worldSurface + layer1Depth + 55;
+            Vector2 daffodilArenaOrigin = new Vector2(XMiddle - 52, DaffodilArenaY - 21);
+
+            //place circles around where the arena will generate
+            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 5)
+            {
+                for (int Y = DaffodilArenaY - 21; Y <= DaffodilArenaY + 21; Y += 3)
+                {
+                    if (Y <= DaffodilArenaY + 10)
                     {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-" + WorldGen.genRand.Next(2, 4), entranceOrigin.ToPoint16(), Mod);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), 10, true, true);
                     }
                     else
                     {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-1", entranceOrigin.ToPoint16(), Mod);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), 10, true, true);
+                    }
+                }
+            }
+
+            //place daffodil arena
+            Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena", daffodilArenaOrigin.ToPoint16(), Mod);
+
+            //spawn daffodil in the arena
+            NPC.NewNPC(null, (XMiddle) * 16, (DaffodilArenaY) * 16, ModContent.NPCType<DaffodilBody>());
+
+            //place tunnels leading into the daffodil arena 
+            for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
+            {
+                int Y = (int)Main.worldSurface + layer1Depth;
+
+                //place tunnels on the two rooms to the sides of the arena
+                if (X == XMiddle - 50 || X == XMiddle + 50)
+                {
+                    for (int tunnelX = X - 3; tunnelX <= X + 1; tunnelX++)
+                    {
+                        for (int tunnelY = Y + 15; tunnelY <= (int)Main.worldSurface + layer1Depth + 65; tunnelY++)
+                        {
+                            Main.tile[tunnelX, tunnelY].ClearEverything();
+
+                            WorldGen.PlaceWall(tunnelX, tunnelY, (ushort)ModContent.WallType<CatacombBrickWall1>());
+
+                            //place platforms at the top of the hole
+                            if (tunnelY == Y + 15)
+                            {
+                                WorldGen.PlaceTile(tunnelX, tunnelY, ModContent.TileType<OldWoodPlatform>());
+                            }
+                            //place other stuff
+                            else
+                            {
+                                //in the center place a chain that goes down
+                                if (tunnelX == X - 1)
+                                {
+                                    WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Chain);
+                                }
+                                //otherwise place cobwebs randomly
+                                else
+                                {
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Cobweb);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -603,6 +661,39 @@ namespace Spooky.Content.Generation
         }
         */
 
+        private void KillVinesAndPlants(GenerationProgress progress, GameConfiguration configuration)
+        {
+            int XStart = PositionX;
+            int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
+
+            //place actual rooms
+            for (int X = XMiddle - 250; X <= XMiddle + 250; X++)
+            {
+                for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 100; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+                    Tile tileAbove = Main.tile[X, Y - 1];
+                    Tile tileBelow = Main.tile[X, Y + 1];
+
+                    if (tile.TileType == ModContent.TileType<CatacombVines>() && tileAbove.TileType != ModContent.TileType<CatacombGrass>())
+                    {
+                        WorldGen.KillTile(X, Y);
+                    }
+
+                    if (tile.TileType == ModContent.TileType<CatacombWeeds>() && tileBelow.TileType != ModContent.TileType<CatacombGrass>())
+                    {
+                        WorldGen.KillTile(X, Y);
+                    }
+
+                    if (tile.TileType == ModContent.TileType<SporeMushroom>() && tileBelow.TileType != ModContent.TileType<CatacombGrass>())
+                    {
+                        WorldGen.KillTile(X, Y);
+                    }
+                }
+            }
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
@@ -612,13 +703,15 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
-            //tasks.Insert(GenIndex1 + 2, new PassLegacy("PlaceCatacombAmbience", PlaceCatacombAmbience));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("KillVinesAndPlants", KillVinesAndPlants));
 
             //re-locate the jungle temple deeper underground so it never conflicts with the catacombs
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
-                WorldGen.makeTemple(GenVars.JungleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+                int newTempleX = GenVars.JungleX < (Main.maxTilesX / 2) ? GenVars.JungleX + 50 : GenVars.JungleX - 50;
+
+                WorldGen.makeTemple(newTempleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
             });
 
             //re-locate the shimmer to be closer to the edge of the world so it also never conflicts with the catacombs

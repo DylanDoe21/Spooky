@@ -6,6 +6,7 @@ using Spooky.Core;
 using Spooky.Effects;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.Tiles.Catacomb;
 
@@ -26,7 +27,7 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             //vignette effect
-            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
+            if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
                 vignettePlayer.SetVignette(0f, 450f, 1f, Color.Black, player.Center);
@@ -62,7 +63,7 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
 
             bool BiomeCondition = (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>()) && PlayerY > Main.worldSurface;
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>()) && PlayerY > Main.worldSurface - 10;
 
             return BiomeCondition;
         }

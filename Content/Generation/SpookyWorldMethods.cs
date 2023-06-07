@@ -46,7 +46,7 @@ namespace Spooky.Content.Generation
 			//wall placing stuff
 			ShapeData wallCircle = new ShapeData();
 			GenAction wallBlotchMod = new Modifiers.Blotches(2, 0.4);
-			WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius - 5), Actions.Chain(new GenAction[]
+			WorldUtils.Gen(new Point(X, Y), new Shapes.Circle(radius - 1), Actions.Chain(new GenAction[]
 			{
 				wallBlotchMod.Output(wallCircle)
 			}));

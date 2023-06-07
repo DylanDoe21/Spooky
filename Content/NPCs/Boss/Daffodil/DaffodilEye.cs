@@ -11,6 +11,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilEye : ModNPC
@@ -156,6 +158,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
             }
+        }
+
+        public override void OnKill()
+        {
+            NPC.SetEventFlagCleared(ref Flags.downedDaffodil, -1);
         }
 
         public override void BossLoot(ref string name, ref int potionType)

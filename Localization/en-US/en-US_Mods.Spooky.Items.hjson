@@ -87,7 +87,7 @@ Concoction: {
 	Tooltip:
 		'''
 		A very corrosive substance, made from the most vile ingredients
-		Summons Orro & Boro when used at the giant egg
+		Right click the giant egg with this in your inventory to corrode it
 		'''
 }
 

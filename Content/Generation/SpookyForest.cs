@@ -442,7 +442,7 @@ namespace Spooky.Content.Generation
                     Generator.GenerateStructure("Content/Structures/SpookyForestHouse", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
-                    NPC.NewNPC(null, (x + 1) * 16, (y - 6) * 16, ModContent.NPCType<LittleBoneSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
+                    NPC.NewNPC(null, (x + 1) * 16, (y - 6) * 16, ModContent.NPCType<LittleBoneSleeping>());
 
                     SaveHousePosition = origin;
 

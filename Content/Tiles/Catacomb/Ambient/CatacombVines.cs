@@ -1,11 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Catacomb.Ambient
 {
@@ -23,7 +20,12 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			HitSound = SoundID.Grass;
 		}
 
-		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        public override bool CanDrop(int i, int j)
+        {
+			return false;
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
 			r = 0.2f;
 			g = 0.15f;
@@ -60,7 +62,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (WorldGen.genRand.Next(12) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (WorldGen.genRand.NextBool(12) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
 				bool PlaceVine = false;
 				int Test = j;
