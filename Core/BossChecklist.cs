@@ -283,7 +283,7 @@ namespace Spooky.Core
 				ModContent.NPCType<BigBone>(),
 				new Dictionary<string, object>() 
 				{
-					["spawnItems"] = ModContent.ItemType<Fertalizer>(),
+					["spawnItems"] = ModContent.ItemType<Fertilizer>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<BigBoneTrophyItem>(), ModContent.ItemType<BigBoneMask>(), 
 					ModContent.ItemType<BigBoneRelicItem>(), ModContent.ItemType<SkullSeed>(), ModContent.ItemType<BigBoneBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.BigBone.BossChecklistIntegration.SpawnInfo").Value,

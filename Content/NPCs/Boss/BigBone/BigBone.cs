@@ -159,7 +159,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 			NPC.DeathSound = DeathSound2;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone");
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -172,7 +172,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BigBone"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

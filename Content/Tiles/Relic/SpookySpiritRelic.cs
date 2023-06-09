@@ -47,7 +47,11 @@ namespace Spooky.Content.Tiles.Relic
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2; 
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
-			TileObjectData.newTile.StyleHorizontal = false; 
+			TileObjectData.newTile.StyleHorizontal = false;
+			TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
+			TileObjectData.newTile.StyleMultiplier = 2;
+			TileObjectData.newTile.StyleWrapLimit = 2;
+			TileObjectData.newTile.styleLineSkipVisualOverride = 0; 
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); 
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; 
 			TileObjectData.addAlternate(1);

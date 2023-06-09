@@ -62,8 +62,25 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            bool BiomeCondition = (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>()) && PlayerY > Main.worldSurface - 10;
+            bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() && PlayerY > Main.worldSurface - 10;
+
+            return BiomeCondition;
+        }
+    }
+
+    public class CatacombBiome2 : CatacombBiome
+    {
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs2");
+
+        //bestiary stuff
+        public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiome2Icon";
+
+        public override bool IsBiomeActive(Player player)
+        {
+            int PlayerX = (int)player.Center.X / 16;
+            int PlayerY = (int)player.Center.Y / 16;
+
+            bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && PlayerY > Main.worldSurface - 10;
 
             return BiomeCondition;
         }

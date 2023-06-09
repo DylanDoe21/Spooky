@@ -26,7 +26,7 @@ namespace Spooky.Content.Generation
 			{
 				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
 				{
-					new Actions.ClearTile()
+					new Actions.ClearTile(), new Actions.Clear()
 				}));
 			}
 

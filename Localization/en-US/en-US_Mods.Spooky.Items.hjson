@@ -114,8 +114,8 @@ EMFReader: {
 		'''
 }
 
-Fertalizer: {
-	DisplayName: Freaky Fertalizer
+Fertilizer: {
+	DisplayName: Freaky Fertilizer
 	Tooltip:
 		'''
 		A smelly bag of dirt and bones

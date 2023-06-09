@@ -16,7 +16,6 @@ namespace Spooky.Content.Biomes
 
         public override void Load()
         {
-            //this only needs to be loaded once
             On_TileLightScanner.ApplyHellLight += SpookyHellCustomLighting;
         }
 
@@ -24,7 +23,7 @@ namespace Spooky.Content.Biomes
         {
             orig.Invoke(self, tile, x, y, ref lightColor);
 
-            //basically, just makes the vanilla hell lighting completely white while in the eye valley to make it not look ugly
+            //copied vanilla hell lighting code, just makes the vanilla hell lighting completely white while in the eye valley to make it not look ugly
             if (ModContent.GetInstance<TileCount>().spookyHellTiles >= 500)
             {
                 float Red = 0f;

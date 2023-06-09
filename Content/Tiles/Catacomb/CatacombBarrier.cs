@@ -208,12 +208,9 @@ namespace Spooky.Content.Tiles.Catacomb
 			{
 				for (int k = 0; k < Main.maxNPCs; k++)
 				{
-					if (Main.npc[k].type == ModContent.NPCType<BigFlowerPot>()) 
+					if (Main.npc[k].type == ModContent.NPCType<BigFlowerPot>() && Main.npc[k].ai[1] > 0)
 					{
-						if (Main.npc[k].ai[0] > 0)
-						{
-							tile.Get<TileWallWireStateData>().IsActuated = false;
-						}
+						tile.Get<TileWallWireStateData>().IsActuated = false;
 					}
 				}
 				if (NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
@@ -243,12 +240,12 @@ namespace Spooky.Content.Tiles.Catacomb
 			if (!tile.Get<TileWallWireStateData>().IsActuated)
 			{
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Orange * intensity);
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * intensity);
 			}
 			else
 			{
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Orange * 0.1f);
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.OrangeRed * 0.1f);
 			}
 
 			return false;

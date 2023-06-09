@@ -44,8 +44,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //only draw if the parent is active
-            if (Main.npc[(int)NPC.ai[3]].active)
-			{
+            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<DaffodilEye>())
+            {
                 Vector2 armPosition = new Vector2(Main.npc[(int)NPC.ai[3]].Center.X + 65, Main.npc[(int)NPC.ai[3]].Center.Y);
 
                 Vector2[] bezierPoints = { armPosition, armPosition + new Vector2(0, -60), NPC.Center + new Vector2(20 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(0 * NPC.direction, 0).RotatedBy(NPC.rotation) };
@@ -94,14 +94,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 NPC.active = false;
             }
 
-            //set rotation based on the parent npc
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = Main.npc[(int)NPC.ai[3]].Center.X + 65 - vector.X;
-            float RotateY = Main.npc[(int)NPC.ai[3]].Center.Y - vector.Y;
-            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-
             if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<DaffodilEye>())
             {
+                //set rotation based on the parent npc
+                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                float RotateX = Main.npc[(int)NPC.ai[3]].Center.X + 65 - vector.X;
+                float RotateY = Main.npc[(int)NPC.ai[3]].Center.Y - vector.Y;
+                NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
                 GoToPosition(130, 180);
             }
         }
@@ -111,6 +111,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //NPC.ai[3] is the parent npc for this hand
             float goToX = (Main.npc[(int)NPC.ai[3]].Center.X + X) - NPC.Center.X;
             float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y + Y) - NPC.Center.Y;
+
+            NPC.ai[0]++;
+            goToX -= (float)Math.Sin(NPC.ai[0] / 30) * 15;
+            goToY += (float)Math.Sin(NPC.ai[0] / 30) * 15;
 
             float speed = 0.35f;
             

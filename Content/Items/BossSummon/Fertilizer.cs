@@ -7,7 +7,8 @@ using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.Items.BossSummon
 {
-    public class Fertalizer : ModItem
+    [LegacyName("Fertalizer")]
+    public class Fertilizer : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -43,7 +44,7 @@ namespace Spooky.Content.Items.BossSummon
                 }
             }
 
-            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && player.InModBiome(ModContent.GetInstance<Content.Biomes.CatacombBiome>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>())) //&& player.InModBiome(ModContent.GetInstance<Content.Biomes.CatacombBiome>()))
             {
                 return true;
             }

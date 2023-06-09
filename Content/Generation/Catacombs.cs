@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
@@ -23,7 +24,8 @@ namespace Spooky.Content.Generation
     {
         int chosenRoom = 0;
         int switchRoom = 0;
-        int[] RoomPattern = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7 };
 
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
@@ -44,6 +46,8 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
+            //LAYER 1
+
             //sets the width for the catacombs (how many rooms it has horizontally)
             //200 = large worlds (9 rooms wide), 150 = anything smaller than large worlds (6 rooms wide)
             int layer1Width = Main.maxTilesX >= 8400 ? 200 : 150;
@@ -62,18 +66,18 @@ namespace Spooky.Content.Generation
             }
 
             //randomize room pattern
-            RoomPattern = RoomPattern.OrderBy(x => Main.rand.Next()).ToArray();
+            RoomPatternLayer1 = RoomPatternLayer1.OrderBy(x => Main.rand.Next()).ToArray();
 
             //place actual rooms
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {
                 for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
-                    chosenRoom = RoomPattern[switchRoom];
+                    chosenRoom = RoomPatternLayer1[switchRoom];
 
                     switchRoom++;
 
-                    if (switchRoom >= RoomPattern.Length)
+                    if (switchRoom >= RoomPatternLayer1.Length)
                     {
                         switchRoom = 0;
                     }
@@ -261,6 +265,65 @@ namespace Spooky.Content.Generation
                 }
             }
 
+
+            //LAYER 2
+
+            //reset the room switch
+            switchRoom = 0;
+            chosenRoom = 0;
+
+            //sets the width for the catacombs (how many rooms it has horizontally)
+            //200 = large worlds (9 rooms wide), 150 = anything smaller than large worlds (6 rooms wide)
+            int layer2Width = Main.maxTilesX >= 8400 ? 240 : 160;
+
+            //sets the height for the catacombs (how many rooms it has vertically)
+            //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 145 = small worlds (4 rooms deep)
+            int layer2Depth = Main.maxTilesY >= 2400 ? 350 : (Main.maxTilesY >= 1800 ? 300 : 250);
+
+            //randomize room pattern
+            RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => Main.rand.Next()).ToArray();
+
+            //again, place a circle of bricks where each catacomb room will be
+            for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
+            {
+                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 40)
+                {
+                    SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
+                    SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
+                }
+            }
+
+            //place rooms
+            for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
+            {
+                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 40)
+                {
+                    chosenRoom = RoomPatternLayer2[switchRoom];
+
+                    switchRoom++;
+
+                    if (switchRoom >= RoomPatternLayer2.Length)
+                    {
+                        switchRoom = 0;
+                    }
+
+                    //origin offset for each room so it places at the center
+                    Vector2 origin = new Vector2(X - 35, Y - 18);
+
+                    if (WorldGen.genRand.NextBool(10))
+                    {
+                        Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                    }
+                    else
+                    {
+                        Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                    }
+                }
+            }
+
+
+            //EXTRA STUFF
+
             //crypt entrance to the catacombs
             int EntranceX = XMiddle - 5;
             bool PlacedBarrier = false;
@@ -286,7 +349,7 @@ namespace Spooky.Content.Generation
 
             //place daffodil arena below the first layer, with 2 rooms on the side of it
             int DaffodilArenaY = (int)Main.worldSurface + layer1Depth + 55;
-            Vector2 daffodilArenaOrigin = new Vector2(XMiddle - 52, DaffodilArenaY - 21);
+            Vector2 DaffodilArenaOrigin = new Vector2(XMiddle - 52, DaffodilArenaY - 21);
 
             //place circles around where the arena will generate
             for (int X = XMiddle - 100; X <= XMiddle + 100; X += 5)
@@ -305,10 +368,10 @@ namespace Spooky.Content.Generation
             }
 
             //place daffodil arena
-            Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena", daffodilArenaOrigin.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena", DaffodilArenaOrigin.ToPoint16(), Mod);
 
             //spawn daffodil in the arena
-            NPC.NewNPC(null, (XMiddle) * 16, (DaffodilArenaY) * 16, ModContent.NPCType<DaffodilBody>());
+            NPC.NewNPC(null, (XMiddle - 1) * 16, (DaffodilArenaY) * 16, ModContent.NPCType<DaffodilBody>());
 
             //place tunnels leading into the daffodil arena 
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -353,233 +416,23 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            /*
-            //oh my goodness gracious, i will edit this later
-            //second layer
-            for (int X = XMiddle - 150; X <= XMiddle + 150; X += 65)
-            {
-                for (int Y = (int)Main.worldSurface + 140; Y <= (int)Main.worldSurface + 220; Y += 40)
-                {
-                    //on the bottom left, place an ambush room
-                    if (X == XMiddle - 150 && Y == (int)Main.worldSurface + 220)
-                    {
-                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3, 0);
-                    }
-                    //on the bottom right, place another ambush room
-                    else if (X == XMiddle + 110 && Y == (int)Main.worldSurface + 220)
-                    {
-                        PlaceCatacombRoom(X - 8, Y, AmbushRoom, AmbushRoomObjects, 3, 0);
-                    }
-                    //in the middle place the entrance room
-                    else if (X == XMiddle - 20 && (Y == (int)Main.worldSurface + 140))
-                    {
-                        PlaceCatacombRoom(X - 8, Y, GiantEntranceRoom, GiantEntranceRoomObjects, 0, 0);
-                    }
+            //place big bone arena
+            int BigBoneArenaY = (int)Main.worldSurface + layer1Depth + layer2Depth + 50;
+            Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
 
-                    //place chest rooms in the left, right, and bottom
-                    else if (X == XMiddle - 85 && Y == (int)Main.worldSurface + 180)
-                    {
-                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 4);
-                    }
-                    else if (X == XMiddle + 45 && Y == (int)Main.worldSurface + 180) 
-                    {
-                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 5);
-                    }
-                    else if (X == XMiddle - 20 && Y == (int)Main.worldSurface + 220)
-                    {
-                        PlaceCatacombRoom(X - 8, Y, GiantChestRoom, GiantChestRoomObjects, 0, 6);
-                    }
-                    //otherwise, place a regular room
-                    else
-                    {
-                        //place rooms
-                        //evil, mouth, skull, soul
-                        switch (WorldGen.genRand.Next(3))
-                        {
-                            case 0:
-                            {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom1, GiantRoomObjects1, 0, 0);
-                                break;
-                            }
-                            case 1:
-                            {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom2, GiantRoomObjects2, 1, 0);
-                                break;
-                            }
-                            case 2:
-                            {
-                                PlaceCatacombRoom(X - 8, Y, GiantRoom3, GiantRoomObjects3, 2, 0);
-                                break;
-                            }
-                        }
-                    }
+            //place circles around where the arena will generate
+            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 5)
+            {
+                for (int Y = BigBoneArenaY - 25; Y <= BigBoneArenaY + 45; Y += 5)
+                {
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), 10, true, true);
                 }
             }
 
-            //layer two hallways
-            for (int X = XMiddle - 150; X <= XMiddle + 150; X += 65)
-            {
-                for (int Y = (int)Main.worldSurface + 140; Y <= (int)Main.worldSurface + 220; Y += 40)
-                {
-                    //always place a hall on the very center room
-                    if (X == XMiddle - 20)
-                    {
-                        switch (WorldGen.genRand.Next(2))
-                        {
-                            case 0:
-                            {
-                                PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
-                                break;
-                            }
-                            case 1:
-                            {
-                                PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
-                                break;
-                            }
-                        }
-                    }
+            Generator.GenerateStructure("Content/Structures/CatacombLayer2/BigBoneArena", BigBoneArenaOrigin.ToPoint16(), Mod);
 
-                    if (X == XMiddle - 20 && Y == (int)Main.worldSurface + 220)
-                    {
-                        PlaceCatacombRoom(X + 14, Y + 25, CatacombEntranceBarrier3, BlankObjects, 0, 0);
-                    }
-
-                    //for the top two rows, chance to place a sideways hallway or a tunnel, otherwise place a hallway normally
-                    if (Y < (int)Main.worldSurface + 220)
-                    {
-                        if (WorldGen.genRand.Next(3) <= 1)
-                        {
-                            //check to not place sideways hallways on the last room
-                            if (X < XMiddle + 110)
-                            {
-                                //place a hallway at the bottom or top side of the room
-                                switch (WorldGen.genRand.Next(2))
-                                {
-                                    case 0:
-                                    {
-                                        PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
-                                        break;
-                                    }
-                                    case 1:
-                                    {
-                                        PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        //else place a tunnel
-                        else
-                        {
-                            if (X != XMiddle - 20)
-                            {
-                                switch (WorldGen.genRand.Next(2))
-                                {
-                                    case 0:
-                                    {
-                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0, 0);
-                                        break;
-                                    }
-                                    case 1:
-                                    {
-                                        PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0, 0);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        //on the first and last room always place a tunnel
-                        if (X == XMiddle - 150 || X == XMiddle + 110)
-                        {
-                            switch (WorldGen.genRand.Next(2))
-                            {
-                                case 0:
-                                {
-                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel1, TunnelObjects1, 0, 0);
-                                    break;
-                                }
-                                case 1:
-                                {
-                                    PlaceCatacombRoom(X + 16, Y + 25, Tunnel2, TunnelObjects2, 0, 0);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (X < XMiddle + 110)
-                        {
-                            //on the last row, place a hallway at the bottom or top side of the room
-                            switch (WorldGen.genRand.Next(2))
-                            {
-                                case 0:
-                                {
-                                    PlaceCatacombRoom(X + 53, Y + 7, BigRoomHallway, BlankObjects, 0, 0);
-                                    break;
-                                }
-                                case 1:
-                                {
-                                    PlaceCatacombRoom(X + 53, Y + 19, BigRoomHallway, BlankObjects, 0, 0);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //TODO: again, can probably just be removed since big bones arena is getting redone and because of the circle thing
-            //place an extra box at the bottom so big bone arena has room to generate
-            SpookyWorldMethods.Square(XMiddle + 2, (int)Main.worldSurface + 296, 159, 50, ModContent.TileType<CatacombBrick>(), 
-            ModContent.WallType<CatacombBrickWall>(), ModContent.WallType<CatacombBrickWall2>(), true);
-
-            //big bone arena
-            PlaceCatacombRoom(XMiddle - 76, (int)Main.worldSurface + 250, BigBoneArena, BigBoneArenaObjects, 0, 0);
-
-
-            //entrance stuff
-            int EntranceX = XMiddle - 5;
-            bool PlacedBarrier = false;
-
-            //place the catacombs tunnel down to the first two rooms
-            for (int EntranceNewY = (int)Main.worldSurface - 15; EntranceNewY <= (int)Main.worldSurface + 25; EntranceNewY += 6)
-            {
-                PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0, 0);
-            }
-
-            //place tunnel between layer one and two, and an entrance to big bone's room
-            for (int EntranceNewY = (int)Main.worldSurface + 123; EntranceNewY <= (int)Main.worldSurface + 157; EntranceNewY += 6)
-            {
-                //place barrier entrance
-                if (EntranceNewY == (int)Main.worldSurface + 135)
-                {
-                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntranceBarrier2, BlankObjects, 0, 0);
-                }
-                else //place normal entrance
-                {
-                    PlaceCatacombRoom(EntranceX, EntranceNewY, CatacombEntrance2, BlankObjects, 0, 0);
-                }
-            }
-
-            //place the entrance down from the middle of the surface structure
-            for (int EntranceNewY = EntranceY + 62; EntranceNewY <= (int)Main.worldSurface - 10 && !PlacedBarrier; EntranceNewY += 6)
-            {
-                //place barrier entrance
-                if (EntranceNewY >= (int)Main.worldSurface - 15)
-                {
-                    PlaceCryptTunnel(EntranceX, EntranceNewY, CatacombEntranceBarrier, BlankObjects);
-                    PlacedBarrier = true;
-                }
-                else //place normal entrance
-                {
-                    PlaceCryptTunnel(EntranceX, EntranceNewY, CatacombEntrance, BlankObjects);
-                }
-            }
-
-            PlaceCatacombRoom(EntranceX, (int)Main.worldSurface + 245, CatacombEntranceBarrier3, BlankObjects, 0, 0);
-            */
+            //spawn giant flower pot in the arena
+            NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY - 35) * 16, ModContent.NPCType<BigFlowerPot>());
         }
 
         /*

@@ -107,12 +107,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
 				for (int numDust = 0; numDust < 50; numDust++)
