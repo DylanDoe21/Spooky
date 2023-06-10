@@ -1,4 +1,9 @@
 OldWoodArmor: 1 defense
+WizardGangsterArmor:
+	'''
+	10% reduced mana usage
+	Enemies may drop slightly more coins when killed with magic
+	'''
 GourdArmor:
 	'''
 	Melee weapons may inflict decay, which damages enemies over time

@@ -1,16 +1,40 @@
 Update v1.0 (The catacomb update)
 
+-This update is also the 1.0 update, as at this point spooky mod has enough content to where it can be fully played through
+-This is also because spooky mod is really not work in progress anymore, and is stable enough to be played (despite the horrid multiplayer which we are still working on I promise)
+
 
 ~NEW STUFF~
 
 
-Creepy catacombs changes:
+Catacombs changes:
+
+-TL;DR the entire catacomb has been overhauled and has recieved many improvements
+
+-Every single room has been redone to look more unique, more detailed, and more interesting to explore
+-The entirety of both layers have been redone to have new aesthetics, and their own unique blocks so they dont look exactly the same anymore
+-MANY more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh
+-The catacomb generation now scales with worldsize, meaning bigger worlds will have bigger catacombs
+-Big bone's boss arena has been redone completely to give you far more room during his boss fight
+-Added a new arena inbetween the first and second layer of the catacombs that you fight a new boss in
+-Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
+-Added tons of new content such as new enemies for the first layer, new weapons from both chests and enemy drops, a new hardmode armor set, and much more
+
+
+
+New Boss, Omega Flowey:
+
+-Ok fine it's not omega flowey but a new boss, daffodil, has been added this update
+-He is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
+-Daffodil drops the red skull key now, meaning you must defeat him before you can enter the second layer
+-Of course all the other goodies such as a trophy, mask, master relic and master pet have been added for daffodil
+
 
 
 
 ~OTHER SMALL CHANGES~
 
--Increased all orro-boro weapon sell prices because they were far too low
+-Increased all orro & boro weapon sell prices because they were far too low
 -Increased the use speed for the toilet paper and necromancy for dummies
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback

@@ -23,7 +23,6 @@ namespace Spooky.Core
         public virtual float WindupAmount => MathHelper.PiOver2;
         public virtual float MainSwingAmount => 1.35f * MathHelper.Pi;
 
-        //the total time spent on the actual swing
         public virtual float SwingTime => SwingDownSpeed;
 
         public virtual SoundStyle? SwingSound => SoundID.Item1;
@@ -35,10 +34,8 @@ namespace Spooky.Core
 
         public const int SwingUseStyle = 1728;
 
-        //gets the total amount of the swing spent on windup, from 0 to 1
         public float SwingWindup(Player player)
         {
-            //this ensures we always spend SwingTime in the actual swing, unless the item animation is shorter than SwingTime
             return 1 - SwingTime / Math.Max(player.itemAnimationMax, SwingTime);
         }
 
@@ -76,7 +73,6 @@ namespace Spooky.Core
                     player.itemRotation = (float)Math.IEEERemainder(-MathHelper.PiOver4 - WindupAmount + MainSwingAmount * motionProgress, MathHelper.TwoPi);
                 }
 
-                //this affects which way the item is swung, up or down
                 player.itemRotation *= player.direction * player.gravDir;
 
                 bool goodRotation = player.itemRotation * player.direction * player.gravDir <= -MathHelper.PiOver4;
@@ -98,7 +94,6 @@ namespace Spooky.Core
                         if (goodYPosition && colVelocity != velocity)
                         {
                             Collision.HitTiles(testPos - new Vector2(1, 1), colVelocity, hitbox.Width + 1, hitbox.Height + 1);
-                            //TileSound(testPos - new Vector2(1, 1), colVelocity, hitbox.Width + 1, hitbox.Height + 1);
                             hasHitTile = true;
                             mostRecentRotation = Utils.AngleLerp(oldRot, player.itemRotation, (i + colVelocity.Y / velocity.Y) / steps);
 
@@ -128,7 +123,6 @@ namespace Spooky.Core
 
             oldRot = player.itemRotation;
 
-            //adjust for player fullRotation
             player.itemRotation -= player.fullRotation;
             player.itemLocation = (player.position + player.fullRotationOrigin) + (player.itemLocation - (player.position + player.fullRotationOrigin)).RotatedBy(-player.fullRotation);
         }

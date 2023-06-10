@@ -7,11 +7,10 @@ using Spooky.Effects;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
-using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.Tiles.Catacomb;
 
 namespace Spooky.Content.Biomes
-{
+{ 
     public class CatacombBiome : ModBiome
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs");
@@ -54,7 +53,7 @@ namespace Spooky.Content.Biomes
             //graveyard visuals
             player.ZoneGraveyard = true;
 
-            Main.GraveyardVisualIntensity = 0.42f;
+            Main.GraveyardVisualIntensity = 0.12f;
         }
 
         public override bool IsBiomeActive(Player player)
@@ -70,9 +69,8 @@ namespace Spooky.Content.Biomes
 
     public class CatacombBiome2 : CatacombBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs2");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs");
 
-        //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiome2Icon";
 
         public override bool IsBiomeActive(Player player)

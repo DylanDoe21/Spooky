@@ -46,8 +46,7 @@ namespace Spooky.Content.Projectiles.Pets
         }
 
         public override void UpdateEffects(Player player)
-	    {
-            Lighting.AddLight(player.position, 0f, 0.5f, 1f); 
+	    { 
 		    player.gravity = 0;
 		    player.fallStart = (int)(player.position.Y / 16.0);
             float num1 = 0.5f;

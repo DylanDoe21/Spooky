@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
-                new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 34), Color.OrangeRed, 
+                new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 20), Color.White, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 
@@ -82,7 +82,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 				if (Projectile.localAI[1] <= 60)
 				{
-					Projectile.ai[1] += Main.rand.NextFloat(15f, 25f);
+					Projectile.ai[1] += 20f;
 				}
 
 				if (Projectile.localAI[1] > 60 && Projectile.localAI[1] <= 100)

@@ -260,7 +260,6 @@ namespace Spooky.Core
         public override void PreUpdate()
         {
             //make player immune to the sandstorm debuff because it still applies it when you are in a spooky mod biome and theres a desert nearby
-            //despite both spooky mod surface biomes having higher priority
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
                 Player.buffImmune[BuffID.WindPushed] = true;
@@ -319,7 +318,7 @@ namespace Spooky.Core
             if (BoneMask)
             {
                 //all of these formulas are just copied from vanilla's stopwatch
-                //too lazy to change all the ugly ass "num" names
+                //too lazy to change all the horrible "num" things
                 Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
                 if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
@@ -391,7 +390,7 @@ namespace Spooky.Core
             //fishing stuff for spooky mod crates
             bool inWater = !attempt.inLava && !attempt.inHoney;
             bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
-            bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>();
+            bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>();
 
             if (inWater && attempt.crate)
             {
@@ -420,58 +419,6 @@ namespace Spooky.Core
                     }
                 }
             }
-        }
-    }
-
-    //cross charm draw layer
-    public class CrossCharmShield : PlayerDrawLayer
-    {
-        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
-
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-        {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<CrossCooldown>());
-        }
-
-        protected override void Draw(ref PlayerDrawSet drawInfo)
-        {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/Catacomb/CrossCharmDraw").Value;
-
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.MountedCenter.X, drawInfo.drawPlayer.MountedCenter.Y - 45) - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
-        }
-    }
-
-    //gore monger aura draw layer
-    public class GoreAura : PlayerDrawLayer
-    {
-        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
-
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-        {
-            return !drawInfo.drawPlayer.HasBuff<GoreAuraCooldown>() && drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().GoreArmorSet;
-        }
-
-        protected override void Draw(ref PlayerDrawSet drawInfo)
-        {
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Armor/GoreAuraEffect").Value;
-            Color color = Color.Lerp(Color.Lerp(new Color(75, 5, 20, 10), new Color(255, 0, 50, 255), fade), new Color(75, 5, 20, 10), fade);
-
-            Color realColor;
-
-            if (!drawInfo.drawPlayer.armorEffectDrawOutlines && !drawInfo.drawPlayer.armorEffectDrawShadow)
-            {
-                realColor = color * 1.2f;
-            }
-            else
-            {
-                realColor = color * 0.25f;
-            }
-
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.MountedCenter.X - 1, drawInfo.drawPlayer.MountedCenter.Y) - Main.screenPosition, null, realColor, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 }

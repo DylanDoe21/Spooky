@@ -9,21 +9,15 @@ using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-    public class RazorLeaf : ModProjectile
+    public class RazorRose : ModProjectile
     {
         private List<Vector2> cache;
         private Trail trail;
 
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
-
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 18;
+            Projectile.width = 20;
+            Projectile.height = 24;
             Projectile.hostile = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 300;

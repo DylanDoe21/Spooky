@@ -30,7 +30,7 @@ namespace Spooky.Core
 
         private void BossChecklistSetup() 
         {
-			//do not load any of this without boss checklist enabled
+			//do not load any of this if boss checklist is not enabled
 			if (!ModLoader.TryGetMod("BossChecklist", out Mod bossChecklistMod)) 
             {
 				return;

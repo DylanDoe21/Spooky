@@ -215,7 +215,7 @@ HarvesterScythe: {
 	DisplayName: Harvester's Scythe
 	Tooltip:
 		'''
-		Killing enemies with the scythe will release souls around you
+		Killing an enemy with the scythe will unleash a soul that lingers around you
 		After you have five souls, they will fly away and home in on nearby enemies
 		'''
 }
@@ -424,7 +424,7 @@ EyeFruit: {
 		'''
 		Can grant you night vision or dangersense when eaten
 		However, it may sometimes poison you
-		'No, it does not taste like fruit or candy'
+		'No, it does not taste good'
 		'''
 }
 
@@ -519,6 +519,11 @@ SpiritLamp: {
 		'''
 }
 
+SuspiciousBrownie: {
+	DisplayName: Suspicious Looking Brownie
+	Tooltip: Your better judgement tells you to NOT eat this
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 3% increased melee critical strike chance
@@ -547,6 +552,21 @@ OldWoodHead: {
 OldWoodLegs: {
 	DisplayName: Old Wood Greaves
 	Tooltip: ""
+}
+
+WizardGangsterBody: {
+	DisplayName: Gilded Wizard's Shirt
+	Tooltip: Increases your magic damage by 5
+}
+
+WizardGangsterHead: {
+	DisplayName: Gilded Wizard's Hat
+	Tooltip: 2% increased magic critical strike chance
+}
+
+WizardGangsterLegs: {
+	DisplayName: Gilded Wizard's Robe
+	Tooltip: Increases maximum mana by 20
 }
 
 Candy1: {
@@ -964,8 +984,8 @@ FleshStaff: {
 	DisplayName: Retina Staff
 	Tooltip:
 		'''
-		Casts eyes that follow the cursor while holding left click
-		Release left click to fling the eyes, dealing double their original damage
+		Casts eyes that follow your cursor while holding left click
+		Release left click to fling existing eyes, dealing double their original damage
 		Only up to five eyes can be active at once
 		'''
 }

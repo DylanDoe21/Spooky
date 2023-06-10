@@ -46,7 +46,7 @@ namespace Spooky.Content.Biomes
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 5000000; //was 500
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;

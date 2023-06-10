@@ -38,7 +38,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public float SaveRotation;
         public float ScaleAmount = 0f;
         public float RealScaleAmount = 0f;
-        public float GoreSpread = -1600;
         public bool Phase2 = false;
         public bool Transition = false;
         public bool FlowersSpawned = false;
@@ -397,7 +396,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 110 / 3 : Main.expertMode ? 80 / 2 : 60;
+            int Damage = Main.masterMode ? 100 / 3 : (Main.expertMode ? 70 / 2 : 50);
 
             NPC.spriteDirection = NPC.direction;
 
@@ -587,11 +586,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //spawn gores
                         for (int numGores = 1; numGores <= 7; numGores++)
                         {
-                            GoreSpread += 400;
-
                             if (Main.netMode != NetmodeID.Server) 
                             {
-                                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(0 + GoreSpread * 0.01f, Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/BigBoneGore" + numGores).Type);
+                                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/BigBoneGore" + numGores).Type);
                             }
                         }
 
@@ -645,6 +642,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     NPC.localAI[2]++;
 
+                    //spawn solar flowers
                     if (NPC.localAI[2] >= 60 && !FlowersSpawned)
                     {
                         int maxFlowers = 5;
@@ -882,7 +880,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 }
                             }
 
-                            if (NPC.localAI[0] == 115)
+                            if (NPC.localAI[0] == 120)
                             {
                                 SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 
@@ -995,7 +993,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //shoot a continuous stream of leaves that move in a sinewave like pattern
+                //shoot a continuous stream of roses that move in a wave
                 case 3:
                 {
                     NPC.localAI[0]++;
@@ -1026,7 +1024,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorLeaf>(), Damage, 0f, Main.myPlayer, 0, 0);
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
                         }
                     }
 
