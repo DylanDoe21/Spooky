@@ -2,11 +2,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.WorldBuilding;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
@@ -65,6 +65,12 @@ namespace Spooky.Core
         public bool SpookySpiritPet = false;
         public bool MocoPet = false;
         public bool BigBonePet = false;
+
+        //armor glow mask stuff
+        internal static readonly Dictionary<int, Texture2D> ItemGlowMask = new Dictionary<int, Texture2D>();
+
+		internal new static void Unload() => ItemGlowMask.Clear();
+		public static void AddGlowMask(int itemType, string texturePath) => ItemGlowMask[itemType] = ModContent.Request<Texture2D>(texturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
         public override void OnEnterWorld()
         {

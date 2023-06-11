@@ -621,7 +621,7 @@ namespace Spooky.Content.Generation
             int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
             tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
             {
-                //copy pasted, and slightly modified shimmer generation code from terraria itself
+                //copy pasted and slightly modified shimmer generation code from terraria itself
                 //too lazy to change all the stupid "num" things right now, will do it at some point
                 int num702 = 50;
                 int num703 = (int)(Main.worldSurface + Main.rockLayer) / 2 + num702;
@@ -649,7 +649,7 @@ namespace Spooky.Content.Generation
                 while (!WorldGen.ShimmerMakeBiome(num706, num705))
                 {
                     num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, num704);
-                    num706 = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.94f) : (int)(Main.maxTilesX * 0.04f);
+                    num706 = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
                 }
 
                 GenVars.shimmerPosition = new Vector2D((double)num706, (double)num705);

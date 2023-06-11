@@ -7,6 +7,7 @@ using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -122,7 +123,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of green grass
+            //place clumps of green grass using a temporary dirt tile clone that will be replaced later in generation
             for (int moss = 0; moss < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); moss++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -142,6 +143,48 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), WorldGen.genRand.Next(15, 20), 
                         ModContent.TileType<SpookyDirt2>(), false, 0f, 0f, false, true);
+                    }
+                }
+            }
+
+            //generate caves
+            for (int caves = 0; caves < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); caves++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                {
+                    TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
+                    new Point16(-12, 12), 15f, Main.rand.Next(25, 50), 0, false, true);
+                    runner.Start();
+                }
+            }
+
+            //generate patches of vanilla glowing mushroom biomes, then convert them to spooky forest blocks
+            int mushroomDepth = (int)Main.worldSurface + Main.maxTilesY / 9;
+
+            WorldGen.ShroomPatch(PositionX, mushroomDepth - 10);
+            WorldGen.ShroomPatch(PositionX - 50, mushroomDepth);
+            WorldGen.ShroomPatch(PositionX + 50, mushroomDepth);
+            WorldGen.ShroomPatch(PositionX, mushroomDepth + 10);
+
+            //convert the mushroom patch generation to spooky forest blocks
+            for (int mushroomX = PositionX - 150; mushroomX <= PositionX + 150; mushroomX++)
+            {
+                for (int mushroomY = mushroomDepth - 75; mushroomY <= mushroomDepth + 75; mushroomY++)
+                {
+                    if (Main.tile[mushroomX, mushroomY].TileType == TileID.Mud)
+                    {
+                        if (!Main.tile[mushroomX - 1, mushroomY].HasTile || !Main.tile[mushroomX + 1, mushroomY].HasTile ||
+                        !Main.tile[mushroomX, mushroomY - 1].HasTile || !Main.tile[mushroomX, mushroomY + 1].HasTile)
+                        {
+                            Main.tile[mushroomX, mushroomY].TileType = (ushort)ModContent.TileType<MushroomMoss>();
+                        }
+                        else
+                        {
+                            Main.tile[mushroomX, mushroomY].TileType = (ushort)ModContent.TileType<SpookyStone>();
+                        }
                     }
                 }
             }
@@ -188,20 +231,6 @@ namespace Spooky.Content.Generation
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(2, 8), WorldGen.genRand.Next(3, 6), TileID.Gold, false, 0f, 0f, false, true);
-                }
-            }
-
-            //place custom caves
-            for (int caves = 0; caves < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); caves++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
-                {
-                    TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
-                    new Point16(-12, 12), 15f, Main.rand.Next(25, 50), 0, false, true);
-                    runner.Start();
                 }
             }
         }
@@ -268,6 +297,15 @@ namespace Spooky.Content.Generation
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
                         if (WorldGen.genRand.NextBool(18))
+                        {
+                            GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<MushroomMoss>() &&
+                    !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                    {
+                        if (WorldGen.genRand.NextBool(5))
                         {
                             GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>());
                         }
@@ -371,6 +409,20 @@ namespace Spooky.Content.Generation
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
                     }
 
+                    //spooky fungus vines
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>() && !Main.tile[X, Y + 1].HasTile)
+                    {
+                        if (WorldGen.genRand.NextBool(2))
+                        {
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyFungusVines>());
+                        }
+                    }
+
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyFungusVines>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyFungusVines>());
+                    }
+
                     //place orange grass only on orange grass
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
                     {
@@ -402,6 +454,25 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(Vines));           
                         }
+                    }
+                }
+            }
+        }
+
+        public void ClearStuffAboveMushroomMoss(GenerationProgress progress, GameConfiguration configuration)
+        {
+            //statues and traps are annoying, so clear out everything from the mushroom area in the spooky forest
+            for (int mushroomX = PositionX - 150; mushroomX <= PositionX + 150; mushroomX++)
+            {
+                for (int mushroomY = (int)Main.worldSurface + 50; mushroomY <= (int)Main.worldSurface + 220; mushroomY++)
+                {
+                    int[] ClearWhitelist = { ModContent.TileType<MushroomMoss>(), ModContent.TileType<SpookyMushroom>(), 
+                    ModContent.TileType<GiantShroom>(), ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(),
+                    ModContent.TileType<SpookyDirt>(), ModContent.TileType<SpookyStone>() };
+
+                    if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && !ClearWhitelist.Contains(Main.tile[mushroomX, mushroomY - 1].TileType))
+                    {
+                        WorldGen.KillTile(mushroomX, mushroomY - 1);
                     }
                 }
             }
@@ -463,7 +534,7 @@ namespace Spooky.Content.Generation
 
             //depth of each loot room
             int InitialDepth = (int)Main.worldSurface + (Main.maxTilesY / 28);
-            int ChestDepth = (Main.maxTilesY / 15) / 2;
+            int ChestDepth = (Main.maxTilesY / 30) / 2;
 
             //actual loot room positions
             int x = PositionX;
@@ -558,6 +629,7 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
             tasks.Insert(GenIndex3 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
             tasks.Insert(GenIndex3 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex3 + 4, new PassLegacy("MushroomClear", ClearStuffAboveMushroomMoss));
         }
 
         //post worldgen to place items in the spooky biome chests

@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.Items.SpookyBiome;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Tree
 {
     internal class GiantShroom : ModTile
@@ -126,7 +128,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 if (Main.rand.Next(3) == 0)
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<GiantShroomSeed>(), Main.rand.Next(1, 3));
+					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<SpookyGlowshroom>(), Main.rand.Next(1, 3));
                 }
             }
         }

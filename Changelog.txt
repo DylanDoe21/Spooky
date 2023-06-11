@@ -24,8 +24,8 @@ Catacombs changes:
 
 New Boss, Omega Flowey:
 
--Ok fine it's not omega flowey but a new boss, daffodil, has been added this update
--He is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
+-Ok it's not omega flowey but a new boss, daffodil, has been added this update
+-It is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
 -Daffodil drops the red skull key now, meaning you must defeat him before you can enter the second layer
 -Of course all the other goodies such as a trophy, mask, master relic and master pet have been added for daffodil
 
@@ -39,6 +39,7 @@ New Boss, Omega Flowey:
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback
 -Localized big bone's spawn message because I accidentally forgot to
+-Buffed the amount of defense each piece of the rotten gourd armor gives
 
 
 

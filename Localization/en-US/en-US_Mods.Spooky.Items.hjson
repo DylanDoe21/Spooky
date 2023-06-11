@@ -830,7 +830,7 @@ EyeRocketLauncher: {
 }
 
 LeechStaff: {
-	DisplayName: Staff of the Swarm
+	DisplayName: Swarm Scepter
 	Tooltip:
 		'''
 		Casts leeches that will swarm nearby enemies at the cost of 10 life
@@ -1822,4 +1822,9 @@ CatacombBrickWall1Item: {
 CatacombBrickWall2Item: {
 	DisplayName: Lower Catacomb Brick Wall
 	Tooltip: ""
+}
+
+SpookyGlowshroom: {
+	Tooltip: ""
+	DisplayName: Spooky Glowshroom
 }

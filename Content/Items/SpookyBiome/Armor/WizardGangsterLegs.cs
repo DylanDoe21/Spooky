@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 2;
+			Item.defense = 3;
 			Item.width = 30;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;

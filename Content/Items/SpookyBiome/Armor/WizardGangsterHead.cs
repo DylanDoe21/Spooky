@@ -16,9 +16,14 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public string ExtensionTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Hat";
         public Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
 
+		public override void SetStaticDefaults()
+		{
+			SpookyPlayer.AddGlowMask(Item.type, "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow");
+		}
+
 		public override void SetDefaults() 
 		{
-			Item.defense = 1;
+			Item.defense = 2;
 			Item.width = 30;
 			Item.height = 26;
 			Item.rare = ItemRarityID.Blue;
@@ -45,6 +50,11 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			player.GetCritChance(DamageClass.Magic) += 2;
 		}
 
+		public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
+		{
+			glowMaskColor = Color.White;
+		}
+
 		/*
 		public override void AddRecipes()
         {
@@ -54,5 +64,12 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
             .Register();
         }
 		*/
+	}
+
+	public class WizardGangsterHeadLayer : HelmetGlowmaskVanityLayer
+	{
+		protected override int ID => 10;
+		protected override EquipType Type => EquipType.Head;
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 	}
 }

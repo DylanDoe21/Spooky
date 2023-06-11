@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Tree
+namespace Spooky.Content.Items.SpookyBiome
 {
-    public class GiantShroomSeed : ModItem
+    public class SpookyGlowshroom : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,16 +14,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
         public override void SetDefaults()
         {
-            Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
             Item.width = 18;
 			Item.height = 26;
-			Item.useTime = 7;
-			Item.useAnimation = 15;
-			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<GiantShroomSapling>();
+            Item.rare = ItemRarityID.White;
         }
     }
 }
