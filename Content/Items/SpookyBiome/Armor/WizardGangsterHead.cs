@@ -55,15 +55,15 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			glowMaskColor = Color.White;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ItemID.GoldBar, 8)
+			.AddIngredient(ItemID.Silk, 20)
+			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 20)
+            .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
 	}
 
 	public class WizardGangsterHeadLayer : HelmetGlowmaskVanityLayer

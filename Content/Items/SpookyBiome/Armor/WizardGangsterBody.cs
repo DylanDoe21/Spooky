@@ -21,5 +21,15 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		{
 			player.GetDamage(DamageClass.Magic).Flat += 5;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.GoldBar, 15)
+			.AddIngredient(ItemID.Silk, 40)
+			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 30)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

@@ -31,6 +31,14 @@ New Boss, Omega Flowey:
 
 
 
+New Mini-Biome, The Mossy Mushroom Cave:
+
+-New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
+-Contains a two new exclusive enemies, some new treasure you can find here, and some stuff to craft
+-Keep in mind, this mini biome is basically the spooky forest equivalent of the neon moss biomes, so it is not meant to be a full expansive biome or anything
+
+
+
 
 ~OTHER SMALL CHANGES~
 

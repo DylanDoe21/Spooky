@@ -31,6 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             AddMapEntry(new Color(104, 95, 128), name);
             DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
+            RegisterItemDrop(ModContent.ItemType<SpookyGlowshroom>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -121,16 +122,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 			}
 
             y++;
-
-            if (Main.tile[x, y].TileFrameX == 16)
-            {
-                //spawn a seed from the tree
-                if (Main.rand.Next(3) == 0)
-                {
-                    Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<SpookyGlowshroom>(), Main.rand.Next(1, 3));
-                }
-            }
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

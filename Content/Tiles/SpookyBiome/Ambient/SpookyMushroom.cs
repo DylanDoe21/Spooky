@@ -7,14 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
-    /*
-    [LegacyName("SpookyMushroomSmall")]
-    [LegacyName("SpookyMushroomTall1")]
-    [LegacyName("SpookyMushroomTall2")]
-    */
     public class SpookyMushroom : ModTile
     {
         public override void SetStaticDefaults()
@@ -51,6 +47,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             if (i % 2 == 1)
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        {
+            if (Main.rand.Next(15) == 0)
+            {
+                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<SpookyGlowshroom>());
             }
         }
     }
