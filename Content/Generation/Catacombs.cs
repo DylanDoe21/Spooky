@@ -345,7 +345,7 @@ namespace Spooky.Content.Generation
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
-                    if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 2)
+                    if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 20)
                     {
                         //dont place a hall on the last room
                         if (X < XMiddle + layer2Width)
@@ -485,6 +485,7 @@ namespace Spooky.Content.Generation
                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/Entrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
             }
 
+
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
 
@@ -496,7 +497,8 @@ namespace Spooky.Content.Generation
             //dig entrance to big bone's arena
             for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)
             {
-                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesY >= 1800 ? 1 : 0);
+                //this determines how far down the big bone entrance is
+                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesY >= 1800 ? 1 : 9);
 
                 for (int tunnelY = (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance; tunnelY <= BigBoneArenaY - 36; tunnelY++)
                 {
@@ -505,7 +507,7 @@ namespace Spooky.Content.Generation
                     //place brick walls in the tunnel
                     WorldGen.PlaceWall(tunnelX, tunnelY, (ushort)ModContent.WallType<CatacombBrickWall2>());
 
-                    if (tunnelY == (int)Main.worldSurface + layer1Depth + layer2Depth + 1)
+                    if (tunnelY == (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance)
                     {
                         WorldGen.PlaceTile(tunnelX, tunnelY, ModContent.TileType<OldWoodPlatform>());
                     }
