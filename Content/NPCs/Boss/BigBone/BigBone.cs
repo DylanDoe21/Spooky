@@ -622,6 +622,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         ActuallyDead = true;
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
+                        NPC.netUpdate = true;
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                     }
 

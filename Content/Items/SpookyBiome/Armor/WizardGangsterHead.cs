@@ -42,12 +42,22 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.WizardGangsterArmor");
-			player.manaCost -= 0.10f;
-		}
+
+            if (player.HasItem(ItemID.PlatinumCoin))
+            {
+                player.GetDamage(DamageClass.Magic) += 0.15f;
+			}
+			else
+			{
+				float bonusPerGold = 0.015f;
+				int numGoldCoins = player.CountItem(ItemID.GoldCoin, 10);
+                player.GetDamage(DamageClass.Magic) += bonusPerGold * numGoldCoins;
+			}
+        }
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Magic) += 2;
+			player.GetDamage(DamageClass.Magic) += 0.03f;
 		}
 
 		public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
@@ -59,7 +69,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         {
             CreateRecipe()
             .AddIngredient(ItemID.GoldBar, 8)
-			.AddIngredient(ItemID.Silk, 20)
+			.AddIngredient(ItemID.Silk, 8)
 			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 20)
             .AddTile(TileID.Anvils)
             .Register();

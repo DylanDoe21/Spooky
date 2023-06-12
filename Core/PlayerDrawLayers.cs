@@ -72,7 +72,7 @@ namespace Spooky.Core
         }
     }
 
-    //vanity glowmask layer for my dev mask because funny effects
+    //vanity glowmask layer for my dev mask because it has a flickering effect, wasnt sure how to do this with the other armor glowmask layer
     public class DylanGlowmaskPlayer : ModPlayer
     {
         internal static readonly Dictionary<int, Texture2D> ItemGlowMask = new Dictionary<int, Texture2D>();

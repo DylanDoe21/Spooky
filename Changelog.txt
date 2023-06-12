@@ -9,12 +9,11 @@ Update v1.0 (The catacomb update)
 
 Catacombs changes:
 
--TL;DR the entire catacomb has been overhauled and has recieved many improvements
-
+-The entire catacomb has been overhauled and has recieved many improvements
 -Every single room has been redone to look more unique, more detailed, and more interesting to explore
 -The entirety of both layers have been redone to have new aesthetics, and their own unique blocks so they dont look exactly the same anymore
--MANY more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh
--The catacomb generation now scales with worldsize, meaning bigger worlds will have bigger catacombs
+-MANY more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh in different worlds
+-The size of the catacombs generation now scales with worldsize, meaning bigger worlds will have bigger catacombs
 -Big bone's boss arena has been redone completely to give you far more room during his boss fight
 -Added a new arena inbetween the first and second layer of the catacombs that you fight a new boss in
 -Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
@@ -39,6 +38,28 @@ New Mini-Biome, The Mossy Mushroom Cave:
 
 
 
+Localization File Split:
+
+-This only applies to people who are either currently translating or want to translate the mod
+-Essentially, all of the mods localization has been split up into different files for organization purposes
+-Due to the way tmod gets localization, each file is named "en-US_Mods.Spooky.FileName" where en-US is the language, and FileName is the name of each specific localization file
+-This means that you need to change the language infront of the file's name, like russian for example, you'd do "ru-RU_Mods.Spooky.FileName"
+-Also theres a lot of new content in the mod so if you're already localizing the mod currently, you can use what you've done but you will need to put it in the correct localization file
+-Hopefully the way I have organized things makes it easier for anyone trying to translate to mod, and feel free to let me know if you have questions or find any issues
+
+
+
+Other New Additions:
+
+-Added the gilded armor set, a new early game magic armor set
+
+
+
+
+~CHANGES TO EXISTING STUFF~
+
+
+
 
 ~OTHER SMALL CHANGES~
 
@@ -47,6 +68,7 @@ New Mini-Biome, The Mossy Mushroom Cave:
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback
 -Localized big bone's spawn message because I accidentally forgot to
+-Added new sprites for big bone's thorn attacks to make them look better
 -Buffed the amount of defense each piece of the rotten gourd armor gives
 
 

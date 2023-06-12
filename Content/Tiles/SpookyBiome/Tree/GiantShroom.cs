@@ -14,9 +14,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
     internal class GiantShroom : ModTile
     {
         //reminder:
-        //X frame 0 = normal tree segment
-        //X frame 16 = tree top draw segment
-        //X frame 36 = stubby top segment
+        //X frame 0 = root segment
+        //X frame 18 = normal tree segment
+        //X frame 36 = top segment
+        //X frame 54 = branches segment
+        //X frame 72 = stubby top segment
 
         public override void SetStaticDefaults()
         {
@@ -92,13 +94,35 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             {
                 //place tree segments
                 WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<GiantShroom>(), true);
-                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 0;
                 Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
+
+                //place root segment at the bottom
+                if (numSegments == 1)
+                {
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 0;
+                }
+
+                if (numSegments > 1 && numSegments < height - 1)
+                {
+                    if (Main.rand.NextBool(6))
+                    {
+                        Framing.GetTileSafely(i, j - numSegments).TileFrameX = 54;
+                    }
+                    else
+                    {
+                        Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
+                    }
+                }
 
                 //place the tree top at the top of the tree
                 if (numSegments == height - 1)
                 {
-                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 16;
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 36;
+                }
+
+                if (Framing.GetTileSafely(i, j - numSegments + 1).TileType != ModContent.TileType<MushroomMoss>() && Framing.GetTileSafely(i, j - numSegments).TileFrameX == 0)
+                {
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
                 }
             }
 
@@ -126,10 +150,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            //X frame 0 = normal tree segment
-            //X frame 16 = tree top draw segment
-            //X frame 36 = stubby top segment
-
             Tile tile = Framing.GetTileSafely(i, j);
 
             if (fail && !effectOnly && !noItem)
@@ -146,9 +166,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             int belowFrame = Framing.GetTileSafely(i, j + 1).TileFrameX;
 
             //if theres any remaining segments below, turn it into a stub top segment
-            if (belowFrame == 0 || belowFrame == 16)
+            if (belowFrame < 72)
             {
-                Framing.GetTileSafely(i, j + 1).TileFrameX = 36;
+                Framing.GetTileSafely(i, j + 1).TileFrameX = 72;
             }
         }
 
@@ -196,8 +216,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
 
+            //X frame 0 = root segment
+            //X frame 18 = normal tree segment
+            //X frame 36 = top segment
+            //X frame 54 = branches segment
+            //X frame 72 = stubby top segment
+
             //draw the tree tops
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 36)
             {
                 Lighting.AddLight(new Vector2(i * 16, (j - 5) * 16), 0.45f, 0.25f, 0.45f);
 
@@ -211,8 +237,30 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 DrawTreeStuff(i - 1, j - 1, capTex, new Rectangle(0, 0, 112, 74), default, TileOffset.ToWorldCoordinates(), capOffset, true);
             }
 
-            //left side thing
-            if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 18)
+            //draw tree roots
+            if (Framing.GetTileSafely(i, j).TileFrameX == 0)
+            {
+                if (Framing.GetTileSafely(i, j).TileFrameY == 0 || Framing.GetTileSafely(i, j).TileFrameY == 18)
+                {
+                    Texture2D rootTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomRoots1").Value;
+
+                    Vector2 offset = new Vector2(12, -8);
+
+                    DrawTreeStuff(i - 1, j - 1, rootTex, new Rectangle(0, 0, 38, 14), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
+
+                if (Framing.GetTileSafely(i, j).TileFrameY == 36 || Framing.GetTileSafely(i, j).TileFrameY == 54)
+                {
+                    Texture2D rootTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomRoots2").Value;
+
+                    Vector2 offset = new Vector2(10, -8);
+
+                    DrawTreeStuff(i - 1, j - 1, rootTex, new Rectangle(0, 0, 38, 14), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
+            }
+
+            //left side fungus
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18 && Framing.GetTileSafely(i, j).TileFrameY == 18)
             {
                 Texture2D sideTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomSide1").Value;
 
@@ -221,14 +269,56 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 DrawTreeStuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 16), default, TileOffset.ToWorldCoordinates(), offset, false);
             }
 
-            //right side thing
-            if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 36)
+            //right side fungus
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18 && Framing.GetTileSafely(i, j).TileFrameY == 36)
             {
                 Texture2D sideTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomSide2").Value;
 
                 Vector2 offset = new Vector2(-10, 0);
 
                 DrawTreeStuff(i - 1, j - 1, sideTex, new Rectangle(0, 0, 14, 18), default, TileOffset.ToWorldCoordinates(), offset, false);
+            }
+
+            //draw branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 54)
+            {
+                //left branches
+                if (Framing.GetTileSafely(i, j).TileFrameY == 0)
+                {
+                    Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomBranch1").Value;
+
+                    Vector2 offset = new Vector2(34, 12);
+
+                    DrawTreeStuff(i - 1, j - 1, branchTex, new Rectangle(0, 0, 36, 30), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
+
+                if (Framing.GetTileSafely(i, j).TileFrameY == 18)
+                {
+                    Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomBranch2").Value;
+
+                    Vector2 offset = new Vector2(26, 8);
+
+                    DrawTreeStuff(i - 1, j - 1, branchTex, new Rectangle(0, 0, 28, 24), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
+
+                //right branches
+                if (Framing.GetTileSafely(i, j).TileFrameY == 36)
+                {
+                    Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomBranch3").Value;
+
+                    Vector2 offset = new Vector2(-14, 12);
+
+                    DrawTreeStuff(i - 1, j - 1, branchTex, new Rectangle(0, 0, 36, 30), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
+
+                if (Framing.GetTileSafely(i, j).TileFrameY == 54)
+                {
+                    Texture2D branchTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomBranch4").Value;
+
+                    Vector2 offset = new Vector2(-14, 8);
+
+                    DrawTreeStuff(i - 1, j - 1, branchTex, new Rectangle(0, 0, 28, 24), default, TileOffset.ToWorldCoordinates(), offset, false);
+                }
             }
 
             return false;

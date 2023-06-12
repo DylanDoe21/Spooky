@@ -555,17 +555,22 @@ OldWoodLegs: {
 }
 
 WizardGangsterBody: {
-	DisplayName: Gilded Wizard's Shirt
+	DisplayName: Gilded Shirt
 	Tooltip: Increases your magic damage by 5
 }
 
 WizardGangsterHead: {
-	DisplayName: Gilded Wizard's Hat
-	Tooltip: 2% increased magic critical strike chance
+	DisplayName: Gilded Wizard Hat
+	Tooltip: 3% increased magic damage
+}
+
+WizardGangsterHead2: {
+	DisplayName: Gilded Magician Hat
+	Tooltip: 3% increased magic critical strike chance
 }
 
 WizardGangsterLegs: {
-	DisplayName: Gilded Wizard's Robe
+	DisplayName: Gilded Robe
 	Tooltip: Increases maximum mana by 20
 }
 

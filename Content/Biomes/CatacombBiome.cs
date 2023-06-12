@@ -69,7 +69,7 @@ namespace Spooky.Content.Biomes
 
     public class CatacombBiome2 : CatacombBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs2");
 
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiome2Icon";
 

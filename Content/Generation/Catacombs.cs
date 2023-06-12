@@ -287,7 +287,7 @@ namespace Spooky.Content.Generation
             //again, place a circle of bricks where each catacomb room will be
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 40)
+                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
                     SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
@@ -309,7 +309,7 @@ namespace Spooky.Content.Generation
             //place the actual rooms
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 40)
+                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     chosenRoom = RoomPatternLayer2[switchRoom];
 
@@ -335,43 +335,41 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            /*
             //place hallways
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 40)
+                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     //actual hallway positions
-                    Vector2 horizontalHallOrigin = new Vector2(X + 17, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
+                    Vector2 horizontalHallOrigin = new Vector2(X + 34, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
-                    if (Y < (int)Main.worldSurface + layer1Depth)
+                    if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 2)
                     {
                         //dont place a hall on the last room
-                        if (X < XMiddle + layer1Width)
+                        if (X < XMiddle + layer2Width)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
 
                         //place a vertical hall randomly under any room
                         if (WorldGen.genRand.NextBool(2))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                     //on the bottom row of rooms, only place horizontal halls
                     else
                     {
                         //dont place a hall on the last room
-                        if (X < XMiddle + layer1Width)
+                        if (X < XMiddle + layer2Width)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                 }
             }
-            */
 
 
             //EXTRA STUFF
@@ -479,13 +477,56 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place entrance from daffodil's arena to the second layer
+            for (int EntranceNewY = DaffodilArenaY + 21; EntranceNewY <= (int)Main.worldSurface + layer1Depth + 100; EntranceNewY += 6)
+            {
+                Vector2 entranceOrigin = new Vector2(XMiddle - 8, EntranceNewY);
+
+                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Entrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
+            }
+
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
 
             Generator.GenerateStructure("Content/Structures/CatacombLayer2/BigBoneArena", BigBoneArenaOrigin.ToPoint16(), Mod);
 
             //spawn giant flower pot in the big bone arena
-            NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY - 35) * 16, ModContent.NPCType<BigFlowerPot>());
+            NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY) * 16, ModContent.NPCType<BigFlowerPot>());
+
+            //dig entrance to big bone's arena
+            for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)
+            {
+                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesY >= 1800 ? 1 : 0);
+
+                for (int tunnelY = (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance; tunnelY <= BigBoneArenaY - 36; tunnelY++)
+                {
+                    Main.tile[tunnelX, tunnelY].ClearEverything();
+
+                    //place brick walls in the tunnel
+                    WorldGen.PlaceWall(tunnelX, tunnelY, (ushort)ModContent.WallType<CatacombBrickWall2>());
+
+                    if (tunnelY == (int)Main.worldSurface + layer1Depth + layer2Depth + 1)
+                    {
+                        WorldGen.PlaceTile(tunnelX, tunnelY, ModContent.TileType<OldWoodPlatform>());
+                    }
+                    else
+                    {
+                        //in the middle of the tunnel, place a chain that goes down
+                        if (tunnelX == XMiddle - 1)
+                        {
+                            WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Chain);
+                        }
+                        //place cobwebs randomly around the chain
+                        else
+                        {
+                            if (WorldGen.genRand.NextBool(3))
+                            {
+                                WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Cobweb);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /*

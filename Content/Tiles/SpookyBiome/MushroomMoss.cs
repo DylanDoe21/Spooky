@@ -16,7 +16,6 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
-            TileID.Sets.CanBeDugByShovel[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyStone>();
@@ -28,7 +27,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(136, 96, 213));
             RegisterItemDrop(ModContent.ItemType<SpookyStoneItem>());
-            //DustType = ModContent.DustType<SpookyGrassDust>();
+            DustType = DustID.Stone;
+			HitSound = SoundID.Tink;
             MineResist = 0.8f;
 		}
 
@@ -62,7 +62,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow mushrooms
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.NextBool(5))
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;
@@ -76,9 +76,21 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     }
 				}
 
-                if (Main.rand.Next(120) == 0)
+                //grow big mushrooms
+                if (Main.rand.NextBool(18))
                 {
-                    SpookyForest.GrowGiantMushroom(i, j, ModContent.TileType<GiantShroom>());
+                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<BigMushroom1>(), (ushort)ModContent.TileType<BigMushroom2>() };
+
+                    ushort newObject = Main.rand.Next(Shrooms);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //grow mushroom trees very rarely
+                if (Main.rand.NextBool(60))
+                {
+                    SpookyForest.GrowGiantMushroom(i, j, ModContent.TileType<GiantShroom>(), 6, 10);
                 }
             }
 

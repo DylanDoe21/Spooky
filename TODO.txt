@@ -17,6 +17,8 @@ Catacomb overhaul:
 
 Other stuff:
 
+-have it so that the flower shot with right click directly sticks to an enemy for a duration, but it gives a MUCH higher damage bonus since you can only have one at a time
+
 -add new meat giblet projectile for the sentient gatligator to shoot
 
 -add new slingshot ability suggestion

@@ -101,7 +101,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
                 if (numSegments == height - 1)
                 {
-                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 16;
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
                 }
             }
 
@@ -126,7 +126,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             y++;
 
-            if (Main.tile[x, y].TileFrameX == 16)
+            if (Main.tile[x, y].TileFrameX == 18)
             {
                 //spawn a fruit from the tree
                 if (Main.rand.Next(30) == 0)
@@ -171,12 +171,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int belowFrame = Framing.GetTileSafely(i, j + 1).TileFrameX;
 
             //if theres any remaining segments below, turn it into a stub top segment
-            if (belowFrame == 0 || belowFrame == 16)
+            if (belowFrame == 0 || belowFrame == 18)
             {
                 Framing.GetTileSafely(i, j + 1).TileFrameX = 36;
             }
 
-            if (tile.TileFrameX == 16)
+            if (tile.TileFrameX == 18)
             {
                 //play squishy sound
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
@@ -237,14 +237,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int frameSizeY = 16;
 
             Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
-            Vector2 pos = TileCustomPosition(i, j); // - offset;
+            Vector2 pos = TileCustomPosition(i, j);
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104); //new Vector2(248, 230);
+                Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
                 DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, false);
@@ -252,7 +252,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
 
-            Vector2 treeNormalOffset = new Vector2(0, 0); //new Vector2(130, 126);
+            Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
@@ -279,12 +279,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
             Vector2 pos = TileCustomPosition(i, j) - offset;
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104); //new Vector2(248, 230);
+                Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
                 DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, true);
@@ -292,7 +292,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;
 
-            Vector2 treeNormalOffset = new Vector2(0, 0); //new Vector2(130, 126);
+            Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
             spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 

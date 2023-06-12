@@ -1,5 +1,14 @@
 OldWoodArmor: 1 defense
-WizardGangsterArmor: 10% reduced mana usage
+WizardGangsterArmor:
+	'''
+	Grants 1.5% increased magic damage for each gold coin you have
+	This stops scaling after you have more than 10 gold coins
+	'''
+WizardGangsterArmor2:
+	'''
+	Grants 1.5% decreased mana usage for each gold coin you have
+	This stops scaling after you have more than 10 gold coins
+	'''
 GourdArmor:
 	'''
 	Melee weapons may inflict decay, which damages enemies over time
