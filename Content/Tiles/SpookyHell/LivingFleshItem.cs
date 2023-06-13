@@ -30,11 +30,12 @@ namespace Spooky.Content.Tiles.SpookyHell
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<EyePlatformItem>(), 2)
+            .AddIngredient(ModContent.ItemType<LivingFleshWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
             .Register();
 
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LivingFleshWallItem>(), 4)
+            .AddIngredient(ModContent.ItemType<EyePlatformItem>(), 2)
             .Register();
         }
     }

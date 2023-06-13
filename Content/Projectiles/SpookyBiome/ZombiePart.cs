@@ -71,7 +71,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			else
 			{
 				Projectile.ai[0] = 30;
-				SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
+
+				SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
 
 				Projectile.velocity.X = -Projectile.velocity.X * 1.1f;
 				Projectile.velocity.Y = -Projectile.velocity.Y * 1.1f;
@@ -80,9 +81,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void Kill(int timeLeft)
 		{	
-			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
+			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
 
-			for (int numDust = 0; numDust < 50; numDust++)
+			for (int numDust = 0; numDust < 25; numDust++)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;

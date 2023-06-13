@@ -90,7 +90,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
-                for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
+                for (int FillY = (int)Main.worldSurface - 55; FillY <= Main.worldSurface; FillY++)
                 {
                     SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }

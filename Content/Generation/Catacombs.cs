@@ -51,7 +51,7 @@ namespace Spooky.Content.Generation
 
             //set the width for the catacombs (how many rooms it has horizontally)
             //200 = large worlds (9 rooms wide), 150 = medium worlds (7 rooms wide), 100 = small worlds (5 rooms wide)
-            int layer1Width = Main.maxTilesX >= 8400 ? 200 : (Main.maxTilesY >= 1800 ? 150 : 100);
+            int layer1Width = Main.maxTilesX >= 8400 ? 200 : (Main.maxTilesX >= 6400 ? 150 : 100);
 
             //sets the height for the catacombs (how many rooms it has vertically)
             //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 145 = small worlds (4 rooms deep)
@@ -275,7 +275,7 @@ namespace Spooky.Content.Generation
 
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //200 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
-            int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesY >= 1800 ? 160 : 80);
+            int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
 
             //sets the height for the catacombs second layer (how many rooms it has vertically)
             //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)
@@ -394,7 +394,9 @@ namespace Spooky.Content.Generation
                     //place catacomb wall entrances after placing the actual barrier
                     if (PlacedFirstBarrier)
                     {
+                        Vector2 entranceOriginPlus = new Vector2(EntranceX - 3, EntranceNewY + 2);
                         Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceBarrierOrigin.ToPoint16(), Mod);
+                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceOriginPlus.ToPoint16(), Mod);
                     }
                     //place a normal crypt entrance otherwise
                     else 
@@ -498,7 +500,7 @@ namespace Spooky.Content.Generation
             for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)
             {
                 //this determines how far down the big bone entrance is
-                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesY >= 1800 ? 1 : 9);
+                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesX >= 6400 ? 1 : 9);
 
                 for (int tunnelY = (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance; tunnelY <= BigBoneArenaY - 36; tunnelY++)
                 {

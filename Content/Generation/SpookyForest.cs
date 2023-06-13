@@ -485,9 +485,9 @@ namespace Spooky.Content.Generation
         public void ClearStuffAboveMushroomMoss(GenerationProgress progress, GameConfiguration configuration)
         {
             //statues and traps are annoying, so clear out everything from the mushroom area in the spooky forest
-            for (int mushroomX = PositionX - 150; mushroomX <= PositionX + 150; mushroomX++)
-            {
-                for (int mushroomY = (int)Main.worldSurface + 50; mushroomY <= (int)Main.worldSurface + 220; mushroomY++)
+            for (int mushroomX = 20; mushroomX <= Main.maxTilesX - 20; mushroomX++)
+			{
+                for (int mushroomY = PositionY - 100; mushroomY < Main.maxTilesY - 100; mushroomY++)
                 {
                     //whitelist so tiles meant to be on mushroom moss dont get cleared
                     int[] ClearWhitelist = { ModContent.TileType<MushroomMoss>(), ModContent.TileType<SpookyMushroom>(), 
@@ -575,28 +575,30 @@ namespace Spooky.Content.Generation
             int x = PositionX;
             int y = InitialDepth + (ChestDepth + 35);
 
+            int extraChestDepth = Main.maxTilesX >= 6400 ? 65 : 25;
+
             //reset y each time so each room is at a different position
-            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin1 = new Vector2((x - (ChestDistance * 2)) - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyForestCabin-1", origin1.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
-            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin2 = new Vector2(((x - ChestDistance) - 8) - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyForestCabin-2", origin2.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
-            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin3 = new Vector2(x - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyForestCabin-3", origin3.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
-            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin4 = new Vector2((x + ChestDistance) - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyForestCabin-4", origin4.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
-            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + 65);
+            y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin5 = new Vector2((x + (ChestDistance * 2)) - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
 
