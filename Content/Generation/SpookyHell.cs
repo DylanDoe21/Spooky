@@ -38,7 +38,7 @@ namespace Spooky.Content.Generation
             //clear everything in the area the biome generates in to prevent unwanted collisions with obsidian houses or lava flooding
             for (int X = StartPosition - extraClearStart; X <= BiomeEdge + extraClearEnd; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 15; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
 
@@ -127,7 +127,7 @@ namespace Spooky.Content.Generation
             for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 5);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 15);
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Y >= Main.maxTilesY - 160)
                 {
@@ -145,7 +145,7 @@ namespace Spooky.Content.Generation
             //spread grass on all mush tiles
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 250; Y < Main.maxTilesY - 15; Y++)
                 {
                     Tile up = Main.tile[X, Y - 1];
                     Tile down = Main.tile[X, Y + 1];
@@ -227,7 +227,7 @@ namespace Spooky.Content.Generation
         {
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 15; Y++)
                 {
                     //eye vines
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() && !Main.tile[X, Y + 1].HasTile)
@@ -342,7 +342,7 @@ namespace Spooky.Content.Generation
         {
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 230; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 230; Y < Main.maxTilesY - 15; Y++)
                 {
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)
@@ -528,7 +528,7 @@ namespace Spooky.Content.Generation
             //lock all monster chests
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY - 5; Y++)
+                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY - 15; Y++)
                 {
                     //check for the top left frame of the chest
                     if (Main.tile[X, Y].TileType == ModContent.TileType<EyeChest>() && //top left

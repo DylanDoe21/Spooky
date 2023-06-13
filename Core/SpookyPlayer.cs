@@ -38,7 +38,6 @@ namespace Spooky.Core
         //accessories
         public bool CandyBag = false;
         public bool MagicCandle = false;
-        public bool ShadowflameCandle = false; 
         public bool CrossCharmShield = false;
 
         //expert accessories
@@ -93,7 +92,6 @@ namespace Spooky.Core
             CandyBag = false;
             MagicCandle = false;
             CrossCharmShield = false;
-            ShadowflameCandle = false; 
 
             //expert accessories
             FlyAmulet = false;
@@ -151,10 +149,10 @@ namespace Spooky.Core
             {
                 if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
                 {
+                    SoundEngine.PlaySound(SoundID.Item103, Player.Center);
                     Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
                     Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
                     Player.statLife = 1;
-                    SoundEngine.PlaySound(SoundID.Item103, Player.position);
                     ShouldRevive = false;
                 }
             }
@@ -189,6 +187,7 @@ namespace Spooky.Core
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             //gore armor set aura protection
+            //copied from above because getting hit by npcs and projectiles are handled separately by tmodloader now
             if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
             {
                 modifiers.SetMaxDamage(1);
@@ -221,7 +220,7 @@ namespace Spooky.Core
                 }
             }
 
-            //spawn homing seeds when hit with the spirit amulet
+            //spawn homing seeds when hit while wearing the spirit amulet
             if (SpiritAmulet && Main.rand.Next(2) == 0)
             {
                 for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
@@ -256,7 +255,7 @@ namespace Spooky.Core
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
-            //hide player head with full horseman armor equipped
+            //hide the player's head while wearing full horseman armor
             if (HorsemanSet)
             {
                 PlayerDrawLayers.Head.Hide();
@@ -265,22 +264,26 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
-            //make player immune to the sandstorm debuff because it still applies it when you are in a spooky mod biome and theres a desert nearby
+            //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
+            //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
                 Player.buffImmune[BuffID.WindPushed] = true;
             }
 
             //bogger frenzy stuff
+            //when the charge is high enough, grant the player the booger frenzy
             if (MocoBoogerCharge >= 15)
             {
                 BoogerFrenzyTime++;
 
+                //give the player the frenzy buff
                 if (BoogerFrenzyTime == 1)
                 {
                     Player.AddBuff(ModContent.BuffType<BoogerFrenzyBuff>(), 300);
                 }
 
+                //at the end of the frenzy, give the player the cooldown, then reset the charge and timer
                 if (BoogerFrenzyTime >= 300)
                 {
                     Player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
@@ -289,7 +292,7 @@ namespace Spooky.Core
                 }
             }
 
-            //spawn flies with the fly amulet
+            //spawn flies while wearing the fly amulet
             if (FlyAmulet)
             {
                 //add the fly buff if the player has any flies around them
@@ -314,7 +317,7 @@ namespace Spooky.Core
                 }
             }
 
-            //increase endurance while you have the cross charm protection
+            //increase endurance while you have the cross charm equipped
             if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
                 Player.endurance += 0.15f;
@@ -323,8 +326,8 @@ namespace Spooky.Core
             //bone mask wisp spawning
             if (BoneMask)
             {
-                //all of these formulas are just copied from vanilla's stopwatch
-                //too lazy to change all the horrible "num" things
+                //all of these calculations are just copied from vanilla's stopwatch
+                //too lazy to change all the "num" things for right now
                 Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
                 if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
@@ -376,6 +379,7 @@ namespace Spooky.Core
                         Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
                         Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
+                        //scale the damage based on the player's current speed
                         int damage = 80 + ((int)num20 / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,

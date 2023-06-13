@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.buyPrice(silver: 50);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ModContent.ProjectileType<Blank>();

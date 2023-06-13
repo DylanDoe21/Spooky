@@ -666,6 +666,11 @@ OldWoodSlingshot: {
 	Tooltip: Uses mossy pebbles as ammo
 }
 
+OldWoodStaff: {
+	DisplayName: Old Wood Staff
+	Tooltip: Casts a basic magic orb
+}
+
 OldWoodSword: {
 	DisplayName: Old Wood Sword
 	Tooltip: ""

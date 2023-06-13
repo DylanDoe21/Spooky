@@ -56,7 +56,7 @@ namespace Spooky.Core
 			//increase spawn rate during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
-				spawnRate /= 3; //lower spawnRate = higher enemy spawn rate
+				spawnRate /= 3; //lower spawnRate value = higher enemy spawn rate
 			}
 		}
 
@@ -95,6 +95,7 @@ namespace Spooky.Core
 
 		public override void ModifyShop(NPCShop shop)
 		{
+			//add spooky mod's biome solutions to the steampunker shop
 			if (shop.NpcType == NPCID.Steampunker)
 			{
 				shop.Add<SpookySolution>();
@@ -109,9 +110,9 @@ namespace Spooky.Core
 			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
 			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
 
+			//give all of orro & boro segments resistance to piercing projectiles
             if (OrroBoroSegments.Contains(npc.type))
 			{
-				//resist piercing projectiles
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
                     float damageDivide = 1.8f;
@@ -143,6 +144,7 @@ namespace Spooky.Core
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
 			//moco expert item booger drop
+			//copied from above because npcs getting hit by items and projectiles is handled separately by tmodloader now
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoBoogerCharge < 15 &&
 			!Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
 			{
@@ -159,6 +161,7 @@ namespace Spooky.Core
 				}
 			}
 
+			//inflict enemies with gourd decay while wearing the rotten gourd armor
 			if (player.GetModPlayer<SpookyPlayer>().GourdSet && item.DamageType == DamageClass.Melee)
 			{
 				if (Main.rand.NextBool(12))
@@ -170,7 +173,7 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-            //make enemies drop spooky mod's biome keys, 1 in 2500 chance like vanilla
+            //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 

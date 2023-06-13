@@ -79,7 +79,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 	public class WizardGangsterHead2Layer : HelmetGlowmaskVanityLayer
 	{
-		protected override int ID => 10;
+		protected override int ID => 0;
 		protected override EquipType Type => EquipType.Head;
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 	}

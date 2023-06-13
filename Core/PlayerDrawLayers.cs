@@ -128,7 +128,7 @@ namespace Spooky.Core
 		{
 			if (!drawInfo.drawPlayer.armor[ID].IsAir)
 			{
-				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count && 
+				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count &&
 				SpookyPlayer.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))
 				{
 					DrawHeadGlowMask(Type, textureLegs, drawInfo);

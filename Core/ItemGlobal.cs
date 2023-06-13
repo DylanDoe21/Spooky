@@ -50,15 +50,6 @@ namespace Spooky.Core
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.GetModPlayer<SpookyPlayer>().ShadowflameCandle && item.DamageType == DamageClass.Magic)
-            {
-                if (Main.rand.NextBool(10))
-                {
-                    SoundEngine.PlaySound(SoundID.Item103, player.Center);
-                    Projectile.NewProjectile(source, position, velocity * 1.35f, ProjectileID.ShadowFlame, (int)knockback, player.whoAmI);
-                }
-            }
-
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) &&
             !Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
             {
