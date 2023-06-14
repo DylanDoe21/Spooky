@@ -195,6 +195,11 @@ BigBonePetBuff: {
 	Description: It may be absorbing your nutrients
 }
 
+ColumboBuff: {
+	DisplayName: Columbo
+	Description: The creature lurks behind you
+}
+
 FuzzBatPetBuff: {
 	DisplayName: Goofy Fuzz Bat
 	Description: It doesn't know why, but it likes following you

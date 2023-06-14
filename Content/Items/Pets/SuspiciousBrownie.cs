@@ -14,13 +14,13 @@ namespace Spooky.Content.Items.Pets
 			Item.CloneDefaults(ItemID.Fish);
 			Item.width = 20;
 			Item.height = 20;
-			//Item.shoot = ModContent.ProjectileType<Columbo>();
-			//Item.buffType = ModContent.BuffType<ColumboBuff>();
+			Item.shoot = ModContent.ProjectileType<Columbo>();
+			Item.buffType = ModContent.BuffType<ColumboBuff>();
 		}
 
         public override bool? UseItem(Player player)
         {
-			//player.AddBuff(Item.buffType, 2);
+			player.AddBuff(Item.buffType, 2);
 			return true;
         }
 	}

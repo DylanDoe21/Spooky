@@ -11,6 +11,7 @@ using Spooky.Core;
 using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Flask;
 using Spooky.Content.NPCs.Boss.Orroboro;
@@ -466,6 +467,12 @@ namespace Spooky.Content.NPCs.Friendly
 			{
                 Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SentientHeart>());
             }
+
+			//columbo pet item
+			if (Main.rand.NextBool(50))
+			{
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SuspiciousBrownie>());
+			}
 
             //money
             Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);

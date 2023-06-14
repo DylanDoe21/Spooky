@@ -394,9 +394,7 @@ namespace Spooky.Content.Generation
                     //place catacomb wall entrances after placing the actual barrier
                     if (PlacedFirstBarrier)
                     {
-                        Vector2 entranceOriginPlus = new Vector2(EntranceX - 3, EntranceNewY + 2);
                         Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceBarrierOrigin.ToPoint16(), Mod);
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceOriginPlus.ToPoint16(), Mod);
                     }
                     //place a normal crypt entrance otherwise
                     else 

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -60,8 +61,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), playerRelativePoint + Projectile.velocity * 0.5f + muzzleOffset,
-                        Projectile.velocity, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity * 0.8f + muzzleOffset,
+                        Projectile.velocity * 1.5f, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 
