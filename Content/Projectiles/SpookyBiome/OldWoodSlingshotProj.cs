@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
@@ -60,9 +60,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-			if (player.channel) 
+			if (player.channel && Projectile.ai[2] == 0) 
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 20;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
@@ -93,20 +93,43 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    if (Projectile.frame >= 2)
+                    player.itemRotation = Projectile.rotation;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
+                    Projectile.position = player.position + new Vector2(-2, 0);
+
+                    if (Projectile.timeLeft >= 19)
                     {
+                        //set ai[2] to 1 so it cannot shoot again
+                        Projectile.ai[2] = 1;
+
                         SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 12;
+
+                        if (Projectile.frame == 0)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch * 0.33f }, Projectile.Center);
+                            ShootSpeed *= 3;
+                        }
+
+                        if (Projectile.frame == 1)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch * 0.66f }, Projectile.Center);
+                            ShootSpeed *= 7;
+                        }
+
+                        if (Projectile.frame >= 2)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+                            ShootSpeed *= 12;
+                        }
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<MossyPebbleProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
-				}
-
-				Projectile.active = false;
+                }
 			}
 
 			player.heldProj = Projectile.whoAmI;

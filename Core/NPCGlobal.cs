@@ -21,6 +21,7 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
+using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Core
 {

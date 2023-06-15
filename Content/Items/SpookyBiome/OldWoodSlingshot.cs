@@ -24,15 +24,21 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.height = 38;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
+			Item.reuseDelay = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.White;
-			Item.value = Item.buyPrice(silver: 50);
+			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ModContent.ProjectileType<Blank>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<OldWoodSlingshotProj>()] < 1;
+		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

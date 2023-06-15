@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.rare = ItemRarityID.White;
-            Item.value = Item.buyPrice(copper: 20);
+            Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.DD2_GhastlyGlaivePierce;
             Item.shoot = ModContent.ProjectileType<OldWoodStaffProj>();
             Item.shootSpeed = 5f;
@@ -70,7 +70,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 25)
-            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 12)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 8)
             .AddIngredient(ItemID.Amethyst, 5)
             .AddTile(TileID.WorkBenches)
             .Register();

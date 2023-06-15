@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;   
-            Item.knockBack = 5;
+            Item.knockBack = 2;
             Item.rare = ItemRarityID.White;
             Item.value = Item.buyPrice(copper: 20);
             Item.UseSound = SoundID.Item1;

@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
@@ -60,9 +60,9 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-			if (player.channel) 
+			if (player.channel && Projectile.ai[2] == 0) 
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 20;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
@@ -95,40 +95,48 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+                    Projectile.alpha = 255;
 
-                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                    ShootSpeed.Normalize();
+                    Projectile.position = player.position + new Vector2(-23, -25);
 
-                    int damage = Projectile.damage;
-
-                    switch (Projectile.frame)
+                    if (Projectile.timeLeft >= 19)
                     {
-                        case 0:
+                        //set ai[2] to 1 so it cannot shoot again
+                        Projectile.ai[2] = 1;
+
+                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        ShootSpeed.Normalize();
+
+                        int damage = Projectile.damage;
+
+                        switch (Projectile.frame)
                         {
-                            ShootSpeed *= 10;
-                            damage = Projectile.damage / 3;
-                            break;
+                            case 0:
+                            {
+                                ShootSpeed *= 10;
+                                damage = Projectile.damage / 3;
+                                break;
+                            }
+                            case 1:
+                            {
+                                ShootSpeed *= 15;
+                                damage = Projectile.damage / 2;
+                                break;
+                            }
+                            case 2:
+                            {
+                                ShootSpeed *= 25;
+                                damage = Projectile.damage;
+                                break;
+                            }
                         }
-                        case 1:
-                        {
-                            ShootSpeed *= 15;
-                            damage = Projectile.damage / 2;
-                            break;
-                        }
-                        case 2:
-                        {
-                            ShootSpeed *= 25;
-                            damage = Projectile.damage;
-                            break;
-                        }
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<GraveCrossbowArrow>(), damage, Projectile.knockBack, Projectile.owner);
                     }
-
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                    ModContent.ProjectileType<GraveCrossbowArrow>(), damage, Projectile.knockBack, Projectile.owner);
-				}
-
-				Projectile.active = false;
+                }
 			}
 
 			player.heldProj = Projectile.whoAmI;

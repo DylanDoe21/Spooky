@@ -24,12 +24,12 @@ namespace Spooky.Content.Generation
 
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
-            float worldEdgeOffset = Main.maxTilesX >= 6400 ? 7.6f : 5.5f;
+            float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.75f : 5.5f;
 
             //place biome based on the opposite side of the dungeon
             if (GenVars.dungeonSide == -1)
 			{
-                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset);
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 120;
 			}
 			else
 			{

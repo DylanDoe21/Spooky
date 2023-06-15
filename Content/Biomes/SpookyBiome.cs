@@ -38,6 +38,10 @@ namespace Spooky.Content.Biomes
                         {
                             music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
                         }
+                        else
+                        {
+                            music = MusicID.Eerie;
+                        }
                     }
                 }
                 

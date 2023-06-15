@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 
 using Spooky.Core;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
@@ -38,7 +39,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 20)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 12)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

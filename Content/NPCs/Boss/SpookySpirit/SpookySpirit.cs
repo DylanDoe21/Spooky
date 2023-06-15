@@ -883,11 +883,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookySpiritRelicItem>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SpiritLamp>(), 4));
 
+            var godSlayerVanity = ItemDropRule.Common(ModContent.ItemType<SpiritSlingshot>());
+
             //weapon drops
             int[] MainItem = new int[] 
             { 
-                ModContent.ItemType<SpiritSword>(), 
-                ModContent.ItemType<SpiritSlingshot>(), 
+                ModContent.ItemType<SpiritSword>(),
+                ModContent.ItemType<SpiritSlingshot>(),
                 ModContent.ItemType<SpiritHandStaff>(), 
                 ModContent.ItemType<SpiritScroll>()
             };
@@ -895,7 +897,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //drop one piece of the armor
-            int[] ArmorPieces = new int[] 
+            int[] ArmorPieces = new int[]
             { 
                 ModContent.ItemType<SpiritHorsemanHead>(), 
                 ModContent.ItemType<SpiritHorsemanBody>(), 
@@ -909,6 +911,15 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public override void OnKill()
         {
+            for (int i = 0; i < Main.maxItems; i++) 
+            { 
+                if (Main.item[i].type == ModContent.ItemType<SpiritSlingshot>())
+                {
+                    int newItem = Item.NewItem(NPC.GetSource_OnHit(NPC), NPC.Hitbox, ModContent.ItemType<GhastlyOrb>());
+                    Main.item[newItem].stack = Main.rand.Next(350, 650);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedSpookySpirit, -1);
         }
 

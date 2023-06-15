@@ -482,7 +482,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public void ClearStuffAboveMushroomMoss(GenerationProgress progress, GameConfiguration configuration)
+        public void ClearStuffAroundMushroomMoss(GenerationProgress progress, GameConfiguration configuration)
         {
             //statues and traps are annoying, so clear out everything from the mushroom area in the spooky forest
             for (int mushroomX = 20; mushroomX <= Main.maxTilesX - 20; mushroomX++)
@@ -504,9 +504,24 @@ namespace Spooky.Content.Generation
                     //also get rid of any liquids
                     if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && Main.tile[mushroomX, mushroomY - 1].LiquidAmount > 0)
                     {
-                        for (int checkY = mushroomY - 1; checkY >= mushroomY - 5; checkY--)
+                        for (int checkY = mushroomY - 1; checkY >= mushroomY - 12; checkY--)
                         {
                             Main.tile[mushroomX, checkY].LiquidAmount = 0;
+                        }
+                    }
+
+                    //kill any minecart track within the mushroom area because they are fucking annoying
+                    if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>())
+                    {
+                        for (int checkX = mushroomX - 10; checkX <= mushroomX + 10; checkX++)
+                        {
+                            for (int checkY = mushroomY - 10; checkY <= mushroomY + 10; checkY++)
+                            {
+                                if (Main.tile[checkX, checkY].TileType == TileID.MinecartTrack)
+                                {
+                                    WorldGen.KillTile(checkX, checkY);
+                                }
+                            }
                         }
                     }
                 }
@@ -654,7 +669,6 @@ namespace Spooky.Content.Generation
             }
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
 
             //place house again because stupid ahh walls
             int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
@@ -666,7 +680,8 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
             tasks.Insert(GenIndex3 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
             tasks.Insert(GenIndex3 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(GenIndex3 + 4, new PassLegacy("MushroomClear", ClearStuffAboveMushroomMoss));
+            tasks.Insert(GenIndex3 + 4, new PassLegacy("MushroomClearAround", ClearStuffAroundMushroomMoss));
+            tasks.Insert(GenIndex3 + 5, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests

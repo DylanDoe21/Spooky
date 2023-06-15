@@ -17,7 +17,6 @@ namespace Spooky.Content.Items.SpookyBiome
 		public override void SetDefaults() 
         {
 			Item.damage = 5;
-            Item.crit = 2;
 			Item.DamageType = DamageClass.Ranged; 
             Item.ammo = Item.type;
             Item.consumable = true;

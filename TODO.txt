@@ -21,7 +21,9 @@ Other stuff:
 
 -add new meat giblet projectile for the sentient gatligator to shoot
 
--add new slingshot ability suggestion
+-add new slingshot ability suggestion, where when it hits an enemy it teleports around them and charges a few times
+
+-add ammo for spirit slingshot
 
 -add big bone sleeping infront of the flower pot
 

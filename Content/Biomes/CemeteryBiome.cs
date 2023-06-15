@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -10,7 +11,24 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/CemeteryBG");
 
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+        public override int Music
+        {
+            get
+            {
+                int music = Main.curMusic;
+
+                if (!Main.bloodMoon)
+                {
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                }
+                else
+                {
+                    music = MusicID.Eerie;
+                }
+
+                return music;
+            }
+        }
         
         public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/CemeteryWaterStyle");
        

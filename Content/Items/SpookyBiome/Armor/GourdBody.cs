@@ -26,7 +26,8 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 30)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 25)
+			.AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 35)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

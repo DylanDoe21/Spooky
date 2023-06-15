@@ -24,7 +24,7 @@ namespace Spooky.Content.Generation
     {
         int chosenRoom = 0;
         int switchRoom = 0;
-        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7 };
 
         public static int PositionX = 0;
@@ -227,6 +227,12 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
                         }
                     }
+
+                    //chance to replace a crystal mine room with one thats filled with explosive barrels
+                    if (chosenRoom == 5 && WorldGen.genRand.NextBool(5))
+                    {
+                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-5Alt", origin.ToPoint16(), Mod);
+                    }
                 }
             }
 
@@ -381,6 +387,7 @@ namespace Spooky.Content.Generation
             {
                 Vector2 entranceOrigin = new Vector2(EntranceX - 3, EntranceNewY);
                 Vector2 entranceBarrierOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
+                Vector2 cryptEntranceOrigin = new Vector2(EntranceX - 3, EntranceNewY + 2);
 
                 //place the yellow barrier entrance once the catacombs is reached
                 if (Main.tile[EntranceX, EntranceNewY].TileType == ModContent.TileType<CatacombBrick1>())
@@ -395,6 +402,7 @@ namespace Spooky.Content.Generation
                     if (PlacedFirstBarrier)
                     {
                         Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceBarrierOrigin.ToPoint16(), Mod);
+                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", cryptEntranceOrigin.ToPoint16(), Mod);
                     }
                     //place a normal crypt entrance otherwise
                     else 
@@ -626,7 +634,7 @@ namespace Spooky.Content.Generation
                     Tile tileBelow = Main.tile[X, Y + 1];
 
                     //kill vines if the tile above it is not valid
-                    if (tile.TileType == ModContent.TileType<CatacombVines>() && (tileAbove.TileType != ModContent.TileType<CatacombGrass>() || tileAbove.TileType != ModContent.TileType<CatacombVines>()))
+                    if (tile.TileType == ModContent.TileType<CatacombVines>() && tileAbove.TileType != ModContent.TileType<CatacombGrass>() && tileAbove.TileType != ModContent.TileType<CatacombVines>())
                     {
                         WorldGen.KillTile(X, Y);
                     }

@@ -29,8 +29,14 @@ namespace Spooky.Content.Items.Cemetery
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.useAmmo = ModContent.ItemType<GhastlyOrb>();
 			Item.shootSpeed = 0f;
         }
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<SpiritSlingshotProj>()] < 1;
+		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

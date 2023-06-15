@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
-    public class SlingshotBall : ModProjectile
+    public class GhastlyOrbProj : ModProjectile
     {
 		public override void SetStaticDefaults()
 		{

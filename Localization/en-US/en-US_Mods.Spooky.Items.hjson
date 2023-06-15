@@ -278,6 +278,15 @@ CemeterySolution: {
 		'''
 }
 
+GhastlyOrb: {
+	DisplayName: Ghastly Orb
+	Tooltip:
+		'''
+		Used as ammo with the Ghostly Slingshot
+		Wildy ricochets off of surfaces and enemies
+		'''
+}
+
 SpiritScroll: {
 	DisplayName: Spooky Scroll
 	Tooltip:
@@ -291,9 +300,8 @@ SpiritSlingshot: {
 	DisplayName: Ghostly Slingshot
 	Tooltip:
 		'''
-		Hold down to pull back the slingshot, then release to fling a ghastly orb
-		The ghastly orb will wildy ricochet off of surfaces and enemies
-		Does not require ammo to use
+		Hold down to pull back the slingshot, then release to fling ammo
+		Uses Ghastly Orbs as ammo
 		'''
 }
 
@@ -644,7 +652,7 @@ LittleSpiderItem: {
 
 MossyPebble: {
 	DisplayName: Mossy Pebble
-	Tooltip: Used as ammo with slingshots
+	Tooltip: Used as ammo with the Old Wood Slingshot
 }
 
 NecromancyTome: {
@@ -661,14 +669,23 @@ OldWoodBow: {
 	Tooltip: ""
 }
 
+OldWoodGreatsword: {
+	DisplayName: Old Wood Greatsword
+	Tooltip: "'It's more of a club than a sword'"
+}
+
 OldWoodSlingshot: {
 	DisplayName: Old Wood Slingshot
-	Tooltip: Uses mossy pebbles as ammo
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Uses Mossy Pebbles as ammo
+		'''
 }
 
 OldWoodStaff: {
 	DisplayName: Old Wood Staff
-	Tooltip: Casts a basic magic orb
+	Tooltip: Casts magic shadow orbs
 }
 
 OldWoodSword: {
@@ -689,6 +706,15 @@ ShadowClump: {
 ShadowCowBell: {
 	DisplayName: Shadow Cowbell
 	Tooltip: Summons actual friendly shadow creatures to fight with you
+}
+
+ShroomWhip: {
+	DisplayName: Shroom Whip
+	Tooltip:
+		'''
+		Your summons will focus stuck enemies
+		Hitting enemies may sometimes create short lived spores
+		'''
 }
 
 SkullWispStaff: {

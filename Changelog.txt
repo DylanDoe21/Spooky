@@ -7,23 +7,22 @@ Update v1.0 (The catacomb update)
 ~NEW STUFF~
 
 
-Catacombs changes:
+Catacombs Changes:
 
--The entire catacomb has been overhauled and has recieved many improvements
--Every single room has been redone to look more unique, more detailed, and more interesting to explore
--The entirety of both layers have been redone to have new aesthetics, and their own unique blocks so they dont look exactly the same anymore
--MANY more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh in different worlds
--The size of the catacombs generation now scales with worldsize, meaning bigger worlds will have bigger catacombs
--Big bone's boss arena has been redone completely to give you far more room during his boss fight
+-Every single room has been redone to look more unique, more detailed, and be more interesting to explore
+-Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh in different worlds
+-The entirety of both layers have been redone to have new aesthetics and their own unique blocks so they dont look exactly the same anymore
+-The size of the catacombs generation now scales with world size, meaning bigger worlds will have bigger catacombs
+-Big bone's boss arena has been redone completely to give you far more room and fairness during his fight
 -Added a new arena inbetween the first and second layer of the catacombs that you fight a new boss in
 -Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
 -Added tons of new content such as new enemies for the first layer, new weapons from both chests and enemy drops, a new hardmode armor set, and much more
+-Added new ambush rooms, in which groups of enemies will lock and ambush you in a room, making the catacombs a lot more fun and interesting combat wise
 
 
 
-New Boss, Omega Flowey:
+New Boss, Daffodil:
 
--Ok it's not omega flowey but a new boss, daffodil, has been added this update
 -It is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
 -Daffodil drops the red skull key now, meaning you must defeat him before you can enter the second layer
 -Of course all the other goodies such as a trophy, mask, master relic and master pet have been added for daffodil
@@ -33,7 +32,7 @@ New Boss, Omega Flowey:
 New Mini-Biome, The Mossy Mushroom Cave:
 
 -New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
--Contains a two new exclusive enemies, some new treasure you can find here, and some stuff to craft
+-Contains a two new exclusive enemies, and a new material which can be used to craft various new early game items
 -Keep in mind, this mini biome is basically the spooky forest equivalent of the neon moss biomes, so it is not meant to be a full expansive biome or anything
 
 
@@ -51,23 +50,27 @@ Localization File Split:
 
 Other New Additions:
 
+-Added old wood greatsword, old wood slingshot, old wood staff, and shroom whip
 -Added the gilded armor set, a new early game magic armor set
+-Added giant feral rats
 
 
 
 
-~CHANGES TO EXISTING STUFF~
+~CHANGES TO EXISTING CONTENT~
+
+
+-The ghoslty slingshot now has it's own ammo, ghastly orbs, which are dropped by spooky spirit along with the ghostly slingshot
 
 
 
 
-~OTHER SMALL CHANGES~
+~OTHER SMALLER CHANGES~
 
 -Increased all orro & boro weapon sell prices because they were far too low
 -Increased the use speed for the toilet paper and necromancy for dummies
 -Increased the creepy candle's magic damage bonus to 7%
 -Increased harvester's scythe knockback
--Localized big bone's spawn message because I accidentally forgot to
 -Added new sprites for big bone's thorn attacks to make them look better
 -Buffed the amount of defense each piece of the rotten gourd armor gives
 
@@ -75,5 +78,6 @@ Other New Additions:
 
 ~BUGS AND OTHER FIXES~
 
+-Localized big bone's spawn message because I accidentally forgot to
 
 
