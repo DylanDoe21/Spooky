@@ -55,6 +55,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 35)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
             .AddIngredient(ItemID.Amethyst, 2)
             .AddTile(TileID.WorkBenches)
             .Register();
