@@ -355,7 +355,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
                 float intensity = fade;
-                DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/SkullEffect").Value, center - new Vector2(0, -55), 
+                DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/BigBoneShield").Value, center - new Vector2(0, -55), 
                 new Rectangle(0, 0, 500, 400), Color.Orange, 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
