@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
                 {
                     return 8f;
                 }

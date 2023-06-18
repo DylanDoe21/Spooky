@@ -70,7 +70,6 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 25)
-            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 8)
             .AddIngredient(ItemID.Amethyst, 5)
             .AddTile(TileID.WorkBenches)
             .Register();

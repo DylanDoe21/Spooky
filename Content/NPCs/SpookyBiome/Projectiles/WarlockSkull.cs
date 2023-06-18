@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
             {
-                return Color.Lerp(Color.DarkGray, Color.OrangeRed, factor.X) * factor.X;
+                return Color.Lerp(Color.Purple, Color.OrangeRed, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

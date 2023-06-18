@@ -2,13 +2,20 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class SoulBolt : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
+
+        private List<Vector2> cache;
+        private Trail trail;
 		
         public override void SetDefaults()
         {
@@ -21,6 +28,59 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
 		}
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.spriteBatch.End();
+            Effect effect = ShaderLoader.GlowyTrail;
+
+            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
+            Matrix view = Main.GameViewMatrix.ZoomMatrix;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+
+            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/EnergyTrail").Value); //trails texture image
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
+            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+
+            trail?.Render(effect);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+            return true;
+        }
+
+        const int TrailLength = 5;
+
+        private void ManageCaches()
+        {
+            if (cache == null)
+            {
+                cache = new List<Vector2>();
+                for (int i = 0; i < TrailLength; i++)
+                {
+                    cache.Add(Projectile.Center);
+                }
+            }
+
+            cache.Add(Projectile.Center);
+
+            while (cache.Count > TrailLength)
+            {
+                cache.RemoveAt(0);
+            }
+        }
+
+        private void ManageTrail()
+        {
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
+            {
+                return Color.Lerp(Color.Black, Color.Cyan, factor.X) * factor.X;
+            });
+
+            trail.Positions = cache.ToArray();
+            trail.NextPosition = Projectile.Center + Projectile.velocity;
+        }
 
         public override bool? CanCutTiles()
         {
@@ -41,23 +101,21 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-            //fix Projectile direction
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.rotation += 0f * (float)Projectile.direction;
-
-            int NewDust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.UltraBrightTorch, 0f, -2f, 0, default(Color), 1.5f);
-            Main.dust[NewDust].noGravity = true;
-            Main.dust[NewDust].velocity *= 0;
-
             Player player = Main.player[Projectile.owner];
+
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
 
             if (Projectile.ai[0] == 0)
             {
                 Projectile.penetrate = -1;
                 Projectile.timeLeft = 180;
 
-                float goToX = player.Center.X - Projectile.Center.X + Main.rand.Next(-200, 200);
-                float goToY = player.Center.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
+                float goToX = player.Center.X - Projectile.Center.X + Main.rand.Next(-100, 100);
+                float goToY = player.Center.Y - Projectile.Center.Y + Main.rand.Next(-100, 100);
 
                 float speed = 0.08f;
 
@@ -165,7 +223,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
 
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] >= 5)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] >= 10)
             {
                 Projectile.ai[0] = 1;
             }

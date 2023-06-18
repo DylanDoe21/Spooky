@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
+                Vector2 ProjDirection = Main.MouseWorld - player.position;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;

@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 20;
-			Item.height = 20;
+			Item.width = 14;
+			Item.height = 28;
 			Item.shoot = ModContent.ProjectileType<FuzzBatPet>();
 			Item.buffType = ModContent.BuffType<FuzzBatPetBuff>();
 		}

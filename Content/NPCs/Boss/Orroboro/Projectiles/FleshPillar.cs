@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {   
-    public class ThornPillar : ModProjectile
+    public class FleshPillar : ModProjectile
     {
 		public override void SetDefaults()
 		{
@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
-                new Rectangle(500 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 34), lightColor, 
+                new Rectangle(500 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 36), lightColor, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 

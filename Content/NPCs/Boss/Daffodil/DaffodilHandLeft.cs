@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
@@ -19,6 +20,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     {
         public override void SetStaticDefaults()
         {
+            Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
@@ -43,10 +45,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            NPC Parent = Main.npc[(int)NPC.ai[2]];
+
             //only draw if the parent is active
-            if (Main.npc[(int)NPC.ai[2]].active && Main.npc[(int)NPC.ai[2]].type == ModContent.NPCType<DaffodilEye>())
+            if (Parent.active && Parent.type == ModContent.NPCType<DaffodilEye>())
             {
-                Vector2 armPosition = new Vector2(Main.npc[(int)NPC.ai[2]].Center.X - 65, Main.npc[(int)NPC.ai[2]].Center.Y);
+                Vector2 armPosition = new Vector2(Parent.Center.X - 65, Parent.Center.Y);
 
                 Vector2[] bezierPoints = { armPosition, armPosition + new Vector2(0, -60), NPC.Center + new Vector2(-20 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(0 * NPC.direction, 0).RotatedBy(NPC.rotation) };
                 float bezierProgress = 0.1f;
@@ -78,10 +82,28 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             return true;
         }
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC Parent = Main.npc[(int)NPC.ai[2]];
+
+            if (Parent.ai[0] == 1 && Parent.localAI[0] >= 60)
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
+            else
+            {
+                NPC.frame.Y = frameHeight * 0;
+            }
+        }
+
         public override void AI()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[2]];
+
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+
+            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
 
             NPC.direction = -1;
 
@@ -89,28 +111,69 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
 
             //kill the hand if the parent does not exist
-            if (!Main.npc[(int)NPC.ai[2]].active)
+            if (!Parent.active)
             {
                 NPC.active = false;
             }
 
-            if (Main.npc[(int)NPC.ai[2]].active && Main.npc[(int)NPC.ai[2]].type == ModContent.NPCType<DaffodilEye>())
+            if (Parent.active && Parent.type == ModContent.NPCType<DaffodilEye>())
             {
                 //set rotation based on the parent npc
                 Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                float RotateX = Main.npc[(int)NPC.ai[2]].Center.X - 65 - vector.X;
-                float RotateY = Main.npc[(int)NPC.ai[2]].Center.Y - vector.Y;
+                float RotateX = Parent.Center.X - 65 - vector.X;
+                float RotateY = Parent.Center.Y - vector.Y;
                 NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+            }
 
-                GoToPosition(-130, 180);
+            NPC.ai[0] = Parent.ai[0];
+
+            switch ((int)NPC.ai[0])
+            {
+                case 0: 
+                {
+                    GoToPosition(-130, 180);
+
+                    break;
+                }
+
+                case 1: 
+                {
+                    if (Parent.localAI[0] < 60)
+                    {
+                        GoToPosition(-130, 180);
+                    }
+
+                    if (Parent.localAI[0] >= 60)
+                    {
+                        GoToPosition(-300, 35);
+                    }
+
+                    if (Parent.localAI[0] >= 120 && Parent.localAI[0] <= 240)
+                    {
+                        if (Main.rand.NextBool(10))
+                        {
+                            SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+
+                            Vector2 ShootSpeed = Parent.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= -10f;
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-20, 20), NPC.Center.Y + Main.rand.Next(-20, 20), 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<ChlorophyllFlower>(), Damage, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    break;
+                }
             }
         }
 
         public void GoToPosition(float X, float Y)
         {
-            //NPC.ai[2] is the parent npc for this hand
-            float goToX = (Main.npc[(int)NPC.ai[2]].Center.X + X) - NPC.Center.X;
-            float goToY = (Main.npc[(int)NPC.ai[2]].Center.Y + Y) - NPC.Center.Y;
+            NPC Parent = Main.npc[(int)NPC.ai[2]];
+
+            float goToX = (Parent.Center.X + X) - NPC.Center.X;
+            float goToY = (Parent.Center.Y + Y) - NPC.Center.Y;
 
             NPC.ai[0]++;
             goToX += (float)Math.Sin(NPC.ai[0] / 30) * 15;

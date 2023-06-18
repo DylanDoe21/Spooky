@@ -162,9 +162,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockHood>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 12));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockRobe>(), 18));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockHood>(), 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 5));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockRobe>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
         }
 

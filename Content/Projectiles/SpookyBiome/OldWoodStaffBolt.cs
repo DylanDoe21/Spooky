@@ -71,7 +71,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
                 return Color.Lerp(Color.Black, Color.Indigo, factor.X) * factor.X;
             });
 

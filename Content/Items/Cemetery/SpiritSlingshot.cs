@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Cemetery;
 
@@ -29,7 +30,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item17;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.useAmmo = ModContent.ItemType<GhastlyOrb>();
+			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }
 

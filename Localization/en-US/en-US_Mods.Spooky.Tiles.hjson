@@ -37,6 +37,7 @@ BigBoneBoxTile.MapEntry: Music Box
 CatacombBoxTile.MapEntry: Music Box
 CatacombBox2Tile.MapEntry: Music Box
 CemeteryBoxTile.MapEntry: Music Box
+DaffodilBoxTile.MapEntry: Music Box
 EggEventBoxTile.MapEntry: Music Box
 EntityBoxTile.MapEntry: Music Box
 MocoBoxTile.MapEntry: Music Box
@@ -113,3 +114,4 @@ SkullCandle2.MapEntry: Skull Candle2
 SkullCandle1.MapEntry: Skull Candle1
 SpookyForestBanners.MapEntry: Spooky Forest Banners
 BigFlower.MapEntry: Big Flower
+SpookySpiritTrophy.MapEntry: Spooky Spirit Trophy

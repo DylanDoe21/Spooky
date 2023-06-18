@@ -30,8 +30,6 @@ EyeSpit2.DisplayName: Saliva Ball
 OrroBiomatter.DisplayName: Biomass
 TelegraphPurple.DisplayName: Telegraph
 TelegraphRed.DisplayName: Telegraph
-ThornPillar.DisplayName: Thorn Pillar
-ThornTelegraph.DisplayName: Telegraph
 DirtDebris.DisplayName: Dirt Debris
 MoldSpore.DisplayName: Mold Spore
 RotFly.DisplayName: Fly
@@ -73,7 +71,6 @@ GraveCrossbowProj.DisplayName: Grave Crossbow
 NineTailsProj.DisplayName: Nine Tails Proj
 OldRifleBullet.DisplayName: Old Bullet
 OldRifleBullet2.DisplayName: Old Bullet
-ScytheHitProj.DisplayName: Harvester's Scythe
 SkullTotem.DisplayName: Soul Totem
 SoulBolt.DisplayName: Soul Bolt
 SoulSkullBolt.DisplayName: Soul Bolt
@@ -183,3 +180,17 @@ ColumboFinger.DisplayName: Columbo
 ShroomWhipProj.DisplayName: Shroom Whip
 ShroomWhipSpore.DisplayName: Shroom Whip Spore
 GhastlyOrbProj.DisplayName: Ghastly Orb
+SolarTelegraph.DisplayName: Solar Telegraph
+SolarLaser.DisplayName: Solar Laser
+ChlorophyllFlower.DisplayName: Chlorophyll Flower
+FleshPillarTelegraph.DisplayName: Telegraph
+FleshPillar.DisplayName: Flesh Pillar
+GourdFlailProj.DisplayName: Rotty's Wrath
+GourdFlailFly.DisplayName: Rotty's Wrath Fly
+GourdSlingshotProj.DisplayName: Gourd Slingshot
+MoldyPelletProj.DisplayName: Moldy Pellet
+MoldPelletFly.DisplayName: Mold Fly
+SkullGoop.DisplayName: Skull Goop
+ThornBomb.DisplayName: Thorn Bomb
+LingerThorn.DisplayName: Linger Thorn
+ShroomFlailProj.DisplayName: Fungal Flail

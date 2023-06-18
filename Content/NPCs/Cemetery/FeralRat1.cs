@@ -14,12 +14,20 @@ namespace Spooky.Content.NPCs.Cemetery
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(10f, 0f),
+                PortraitPositionXOverride = 10f,
+                PortraitPositionYOverride = 0f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
         
         public override void SetDefaults()
 		{
             NPC.lifeMax = 80;
-            NPC.damage = 35;
+            NPC.damage = 25;
             NPC.width = 32;
 			NPC.height = 32;
             NPC.npcSlots = 1f;
@@ -102,7 +110,10 @@ namespace Spooky.Content.NPCs.Cemetery
 
 			if (NPC.life <= 0) 
             {
-                //gore code goes here
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatGore" + numGores).Type);
+                }
             }
         }
     }
@@ -118,5 +129,22 @@ namespace Spooky.Content.NPCs.Cemetery
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatBrownGore" + numGores).Type);
+                }
+            }
+        }
     }
 }

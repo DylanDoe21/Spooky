@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 20;
+            Projectile.timeLeft = 25;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
@@ -62,12 +62,12 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 			if (player.channel && Projectile.ai[2] == 0) 
             {
-                Projectile.timeLeft = 20;
+                Projectile.timeLeft = 25;
 
                 player.itemRotation = Projectile.rotation;
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
 
-                Projectile.position = player.position + new Vector2(-6, -2);
+                Projectile.position = player.position + new Vector2(-7, -2);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -93,12 +93,11 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    player.itemRotation = Projectile.rotation;
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                    Projectile.alpha = 255;
 
-                    Projectile.position = player.position + new Vector2(-6, -2);
+                    Projectile.position = player.position + new Vector2(-7, -2);
 
-                    if (Projectile.timeLeft >= 19)
+                    if (Projectile.timeLeft >= 24)
                     {
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
@@ -108,26 +107,38 @@ namespace Spooky.Content.Projectiles.Cemetery
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
 
-                        if (Projectile.frame == 0)
-                        {
-                            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch * 0.33f }, Projectile.Center);
-                            ShootSpeed *= 1;
-                        }
+                        int extraDamage = 0;
 
-                        if (Projectile.frame == 1)
+                        switch (Projectile.frame)
                         {
-                            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch * 0.66f }, Projectile.Center);
-                            ShootSpeed *= 3;
-                        }
+                            case 0:
+                            {
+                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.66f }, Projectile.Center);
+                                ShootSpeed *= 1;
+                                extraDamage = -10;
 
-                        if (Projectile.frame >= 2)
-                        {
-                            SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
-                            ShootSpeed *= 5;
+                                break;
+                            }
+                            case 1:
+                            {
+                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.33f }, Projectile.Center);
+                                ShootSpeed *= 3;
+                                extraDamage = 0;
+
+                                break;
+                            }
+                            case 2:
+                            {
+                                SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+                                ShootSpeed *= 5;
+                                extraDamage = 10;
+
+                                break;
+                            }
                         }
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GhastlyOrbProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        ModContent.ProjectileType<GhastlyOrbProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 				}
 			}

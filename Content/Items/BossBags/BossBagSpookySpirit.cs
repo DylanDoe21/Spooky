@@ -6,9 +6,10 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
-using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Content.Items.BossBags
@@ -63,6 +64,9 @@ namespace Spooky.Content.Items.BossBags
             };
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, ArmorPieces));
+
+            //boss mask
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookySpiritMask>(), 7));
 
             //expert item
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpiritAmulet>(), 1));

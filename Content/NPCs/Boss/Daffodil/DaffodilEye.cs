@@ -12,12 +12,16 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilEye : ModNPC
     {
         public bool SpawnedHands = false;
+
+        Vector2 SavePlayerPosition;
 
         public override void SetStaticDefaults()
         {
@@ -29,6 +33,45 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused, 
+                    BuffID.Poisoned,
+                    BuffID.Venom
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //ints
+            //writer.Write(INT);
+
+            //bools
+            writer.Write(SpawnedHands);
+
+            //local ai
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //ints
+            //INT = reader.ReadInt32();
+
+            //bools
+            SpawnedHands = reader.ReadBoolean();
+
+            //local ai
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -47,6 +90,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.HitSound = SoundID.NPCHit7;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
+            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Daffodil");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
 
@@ -87,6 +131,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
+            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
+
             Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
 
             if (!SpawnedHands)
@@ -103,19 +149,77 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 SpawnedHands = true;
             }
 
+            if (player.dead)
+            {
+                NPC.localAI[2]++;
+
+                if (NPC.localAI[2] >= 180)
+                {
+                    NPC.active = false;
+                }
+            }
+
             switch ((int)NPC.ai[0])
             {
-                //solar laser barrage
-                //spawns a telegraph on the player, then shoot a barrage of beams in that area for a second
+                //spawn telegraph on the player, then shoot a solar laser barrage
                 case 0:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 85)
+                    {
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            Main.dust[dustEffect].color = Color.Gold;
+                            Main.dust[dustEffect].scale = 0.1f;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 85 && NPC.localAI[0] <= 145)
+                    {
+                        if (Main.rand.NextBool(3))
+                        {
+                            SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 25f;
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-20, 20), NPC.Center.Y + Main.rand.Next(-20, 20), 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 200)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
-                //chlorophyll blasts
-                //move hands to the sides, shoot chlorophyll blasts from each hand (ai for this attack will be mostly handled in the hand's ai)
+                //raise hands up, then shoot chlorophyll blasts from them (code this attack is handled in each hands ai)
                 case 1:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 320)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 

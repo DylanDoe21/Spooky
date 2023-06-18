@@ -15,9 +15,11 @@ using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit
 {
@@ -906,20 +908,17 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ArmorPieces));
 
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookySpiritMask>(), 7));
+
+            //trophy always drops directly from the boss
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpookySpiritTrophyItem>(), 10));
+
             npcLoot.Add(notExpertRule);
         }
 
         public override void OnKill()
         {
-            for (int i = 0; i < Main.maxItems; i++) 
-            { 
-                if (Main.item[i].type == ModContent.ItemType<SpiritSlingshot>())
-                {
-                    int newItem = Item.NewItem(NPC.GetSource_OnHit(NPC), NPC.Hitbox, ModContent.ItemType<GhastlyOrb>());
-                    Main.item[newItem].stack = Main.rand.Next(350, 650);
-                }
-            }
-
             NPC.SetEventFlagCleared(ref Flags.downedSpookySpirit, -1);
         }
 

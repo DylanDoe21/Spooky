@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 20;
+            Projectile.timeLeft = 30;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			if (player.channel && Projectile.ai[2] == 0) 
             {
-                Projectile.timeLeft = 20;
+                Projectile.timeLeft = 30;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
@@ -99,42 +99,44 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     Projectile.position = player.position + new Vector2(-23, -25);
 
-                    if (Projectile.timeLeft >= 19)
+                    if (Projectile.timeLeft >= 29)
                     {
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
-
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
 
-                        int damage = Projectile.damage;
+                        int extraDamage = 0;
 
                         switch (Projectile.frame)
                         {
                             case 0:
                             {
+                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 10;
-                                damage = Projectile.damage / 3;
+                                extraDamage = -15;
+
                                 break;
                             }
                             case 1:
                             {
+                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 15;
-                                damage = Projectile.damage / 2;
+                                extraDamage = -8;
                                 break;
                             }
                             case 2:
                             {
+                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot, Projectile.Center);
                                 ShootSpeed *= 25;
-                                damage = Projectile.damage;
+                                extraDamage = 0;
                                 break;
                             }
                         }
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), damage, Projectile.knockBack, Projectile.owner);
+                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 			}

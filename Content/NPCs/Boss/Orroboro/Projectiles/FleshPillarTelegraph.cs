@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
-    public class ThornTelegraph : ModProjectile
+    public class FleshPillarTelegraph : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
@@ -55,7 +55,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 20, Vector2.Zero.X, Vector2.Zero.Y,
-                    ModContent.ProjectileType<ThornPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                    ModContent.ProjectileType<FleshPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                 }
             }
             else if (Projectile.ai[0] >= 60)

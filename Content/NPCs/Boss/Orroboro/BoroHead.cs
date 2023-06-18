@@ -520,7 +520,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
-                                            ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                            ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                         }
                                     }
                                 }
@@ -735,12 +735,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
-            //heart
+            //sentient heart
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
 
-            //trophy and mask always drop directly from the boss
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
+
+            //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroTrophyItem>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
 
             npcLoot.Add(notExpertRule);
         }

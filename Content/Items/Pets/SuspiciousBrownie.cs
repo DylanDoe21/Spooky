@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 20;
-			Item.height = 20;
+			Item.width = 18;
+			Item.height = 16;
 			Item.shoot = ModContent.ProjectileType<Columbo>();
 			Item.buffType = ModContent.BuffType<ColumboBuff>();
 		}

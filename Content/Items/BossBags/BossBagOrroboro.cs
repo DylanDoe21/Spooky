@@ -6,8 +6,9 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky.Content.Items.BossBags
@@ -52,6 +53,10 @@ namespace Spooky.Content.Items.BossBags
 
             //material
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ArteryPiece>(), 1, 20, 35));
+
+			//boss masks
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<OrroMask>(), 7));
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BoroMask>(), 7));
 
             //expert item
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<OrroboroEmbryo>(), 1));
@@ -125,14 +130,14 @@ namespace Spooky.Content.Items.BossBags
             {
                 float radians = (i + timer) * MathHelper.TwoPi;
 
-                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(90, 70, 255, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(255, 0, 0, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
             }
 
             for (float i = 0f; i < 1f; i += 0.34f)
             {
                 float radians = (i + timer) * MathHelper.TwoPi;
 
-                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(140, 120, 255, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(255, 0, 0, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;

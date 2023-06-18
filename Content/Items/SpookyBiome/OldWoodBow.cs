@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.value = Item.buyPrice(copper: 20);
             Item.UseSound = SoundID.Item5;
 			Item.shoot = ProjectileID.PurificationPowder;
-			Item.shootSpeed = 12f;
+			Item.shootSpeed = 7f;
 			Item.useAmmo = AmmoID.Arrow;
         }
 

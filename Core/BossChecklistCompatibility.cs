@@ -130,7 +130,8 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<EMFReader>(),
-					["collectibles"] = new List<int>() { ModContent.ItemType<SpookySpiritRelicItem>(), ModContent.ItemType<SpiritLamp>(), ModContent.ItemType<SpookySpiritBox>() },
+					["collectibles"] = new List<int>() { ModContent.ItemType<SpookySpiritTrophyItem>(), ModContent.ItemType<SpookySpiritMask>(),
+					ModContent.ItemType<SpookySpiritRelicItem>(), ModContent.ItemType<SpiritLamp>(), ModContent.ItemType<SpookySpiritBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookySpirit.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookySpirit.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = SpiritPortrait,

@@ -6,10 +6,10 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 	{
 		public override void FillTextureArray(int[] textureSlots)
         {
-			textureSlots[0] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG0");
-			textureSlots[1] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG1");
-            textureSlots[2] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG2");
-            textureSlots[3] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG3");
+			for (int i = 0; i <= 3; i++)
+			{
+                textureSlots[i] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG" + i.ToString());
+			}
 		}
 	}
 
@@ -17,10 +17,10 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 	{
 		public override void FillTextureArray(int[] textureSlots)
         {
-			textureSlots[0] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUGAlt0");
-			textureSlots[1] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUGAlt1");
-            textureSlots[2] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUGAlt2");
-            textureSlots[3] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUGAlt3");
+			for (int i = 0; i <= 3; i++)
+			{
+                textureSlots[i] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG" + i.ToString());
+			}
 		}
 	}
 }

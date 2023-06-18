@@ -14,13 +14,13 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override int Length => 70;
 		public override int TopSize => 12;
-		public override float SwingDownSpeed => 20f;
+		public override float SwingDownSpeed => 12f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
 
         public override void SetDefaults()
         {
-            Item.damage = 15;
+            Item.damage = 25;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 74;

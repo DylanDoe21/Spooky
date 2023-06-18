@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.Pets
     public class Columbo : ModProjectile
     {
         private int playerStill = 0;
-        private bool fly = false;
+        private bool playerFlying = false;
 
         public override void SetStaticDefaults()
         {
@@ -64,29 +64,32 @@ namespace Spooky.Content.Projectiles.Pets
 				Projectile.timeLeft = 2;
             }
 
-            Vector2 vector46 = Projectile.position;
-
-            if (!fly)
+            if (!playerFlying)
             {
                 Projectile.rotation = 0;
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = vector48.Length();
+
                 if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 150f) || (playerDistance > 150f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -8f;
                 }
+
                 Projectile.velocity.Y += 0.35f;
+
                 if (Projectile.velocity.Y > 15f)
                 {
                     Projectile.velocity.Y = 15f;
                 }
+
                 if (playerDistance > 520f)
                 {
-                    fly = true;
+                    playerFlying = true;
                     Projectile.velocity.X = 0f;
                     Projectile.velocity.Y = 0f;
                 }
+
                 if (playerDistance > 100f)
                 {
                     if (player.position.X - Projectile.position.X > 0f)
@@ -106,6 +109,7 @@ namespace Spooky.Content.Projectiles.Pets
                         }
                     }
                 }
+
                 if (playerDistance < 100f)
                 {
                     if (Projectile.velocity.X != 0f)
@@ -124,6 +128,7 @@ namespace Spooky.Content.Projectiles.Pets
                         }
                     }
                 }
+
                 if (playerDistance < 70f)
                 {
                     Projectile.velocity.X *= 0.5f;
@@ -141,9 +146,9 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.frame = 1;
                     Projectile.frameCounter = 0;
                 }
+                //moving animation
                 else if (Projectile.velocity.X != 0)
                 {
-                    //moving animation
                     Projectile.frameCounter++;
                     if (Projectile.frameCounter > 5)
                     {
@@ -165,7 +170,7 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.spriteDirection = 1;
                 }
             }
-            else if (fly)
+            else if (playerFlying)
             {
                 float num16 = 0.5f;
                 Projectile.tileCollide = false;
@@ -200,7 +205,7 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                     if (playerStill > 10 && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                     {
-                        fly = false;
+                        playerFlying = false;
                         Projectile.velocity *= 0.2f;
                         Projectile.tileCollide = true;
                     }

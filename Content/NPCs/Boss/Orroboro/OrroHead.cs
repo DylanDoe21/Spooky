@@ -1003,12 +1003,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
-            //heart
+            //sentient heart
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
 
-            //trophy and mask always drop directly from the boss
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));
+
+            //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrroTrophyItem>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));
 
             npcLoot.Add(notExpertRule);
         }

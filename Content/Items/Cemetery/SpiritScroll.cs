@@ -17,6 +17,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.mana = 5;
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
+			Item.useTurn = false;
 			Item.autoReuse = false;
 			Item.noUseGraphic = true;
 			Item.channel = true;

@@ -1,10 +1,12 @@
-Spooky mod is a decently sized work-in-progress mod that adds in new content with the general and more goofy theme of halloween
+NOTE: the mod's latest version is on tmodloader 1.4.4 preview, please make sure you are on that version of tmodloader before playing the mod. The mod still exists on 1.4.3, but that version is NOT being supported and will not receive updates.
+
+Spooky mod is a large mod that adds in new content with the general and more goofy theme of halloween
 
 Currently the mod has:
 
 -Four new biomes/areas to explore: the Spooky Forest, Valley of Eyes, Swampy Cemetery, and the Creepy Catacombs
 
--Five brand new bosses, and a new event, all with boss checklist support
+-Six brand new bosses, and a new event (all with boss checklist support!)
 
 -Tons of other usual mod content such as weapons, armor sets, and stuff like that
 

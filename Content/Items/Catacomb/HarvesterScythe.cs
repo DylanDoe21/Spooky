@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetDefaults()
 		{
 			Item.damage = 35;
-			Item.crit = 10;
+			Item.crit = 5;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
 			Item.width = 64;          
@@ -49,15 +49,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (!hasHitSomething)
-			{
-				hasHitSomething = true;
-
-				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<ScytheHitProj>(), Item.damage, Item.knockBack, Main.myPlayer, 0, 0);
-			}
-
-            if (target.life <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 5)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
             {
 				Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
 				ModContent.ProjectileType<SoulBolt>(), Item.damage, 0f, Main.myPlayer, 0, 0);

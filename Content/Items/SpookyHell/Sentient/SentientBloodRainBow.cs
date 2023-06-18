@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.knockBack = 1;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 20);
-            Item.UseSound = SoundID.NPCDeath13; //probably can use a less annoying sound?
+            Item.UseSound = SoundID.NPCDeath13;
             Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shootSpeed = 0f;

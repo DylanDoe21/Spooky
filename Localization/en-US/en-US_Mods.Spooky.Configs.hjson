@@ -1,4 +1,6 @@
 SpookyConfig: {
+	DisplayName: Spooky Mod Config
+
 	HalloweenEnabled: {
 		Label: Halloween Season
 		Tooltip:
@@ -25,6 +27,4 @@ SpookyConfig: {
 		Label: Screen Shaking Effect
 		Tooltip: Turn off to disable the screen shaking effect caused by various things in the mod
 	}
-
-	DisplayName: Spooky Config
 }

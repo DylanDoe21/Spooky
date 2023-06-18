@@ -754,7 +754,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
-                                            ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                            ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                         }
                                     }
 
@@ -788,7 +788,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                             {
                                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
-                                                ModContent.ProjectileType<ThornTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                                ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                             }
                                         }
                                     }

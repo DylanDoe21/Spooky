@@ -186,7 +186,7 @@ namespace Spooky.Core
         public Rectangle GetHitbox(Player player)
         {
             Vector2 hitboxDisplacement = GetHitboxCenter(player);
-            return new Rectangle((int)hitboxDisplacement.X - TopSize, (int)hitboxDisplacement.Y - TopSize, TopSize * 2, TopSize * 2);
+            return new Rectangle((int)hitboxDisplacement.X - TopSize + 5, (int)hitboxDisplacement.Y - TopSize, TopSize + 5 * 2, TopSize * 2);
         }
 
         public virtual void OnHitTiles(Player player) { }

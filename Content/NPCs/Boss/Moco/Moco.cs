@@ -822,12 +822,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
-            //heart
+            //sentient heart
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
 
-            //trophy and mask always drop directly from the boss
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
+
+            //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoTrophyItem>(), 10));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
 
             npcLoot.Add(notExpertRule);
         }

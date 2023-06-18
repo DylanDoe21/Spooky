@@ -38,7 +38,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             for (int numDust = 0; numDust < 35; numDust++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0f, -2f, 0, default(Color), 1.5f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, 0f, -2f, 0, default(Color), 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
                 Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;

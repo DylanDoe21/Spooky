@@ -1494,10 +1494,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
-            //trophy and mask always drop directly from the boss
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlowerPotHead>(), 20));
+
+            //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlowerPotHead>(), 20));
 
             npcLoot.Add(notExpertRule);
         }

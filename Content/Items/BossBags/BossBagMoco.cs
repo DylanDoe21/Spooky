@@ -6,8 +6,9 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco;
 
 namespace Spooky.Content.Items.BossBags
@@ -52,6 +53,9 @@ namespace Spooky.Content.Items.BossBags
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
+
+			//boss mask
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoMask>(), 7));
 
             //expert item
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoNose>(), 1));

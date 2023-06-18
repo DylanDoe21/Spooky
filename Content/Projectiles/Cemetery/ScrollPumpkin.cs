@@ -92,7 +92,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return Projectile.ai[0] >= 60;
+			return Projectile.ai[0] >= 120;
 		}
 
         public override void AI()
@@ -133,7 +133,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 GoAbovePlayer(player);
             }
 
-            if (Projectile.ai[0] >= 60)
+            if (Projectile.ai[0] >= 120)
             {
                 Projectile.tileCollide = true;
             }

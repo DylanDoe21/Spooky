@@ -230,6 +230,11 @@ SkullEmojiBuff: {
 	Description: He spins for eternity
 }
 
+SkullGoopBuff: {
+	DisplayName: Skull Goop
+	Description: The mysterious goop slithers behind you
+}
+
 SpookySpiritPetBuff: {
 	DisplayName: Mini Spirit
 	Description: The mini spirit lingers around you

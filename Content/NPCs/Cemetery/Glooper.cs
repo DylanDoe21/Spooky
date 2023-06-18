@@ -13,17 +13,15 @@ namespace Spooky.Content.NPCs.Cemetery
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 4;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(0f, 20f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 20f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(NPC.localAI[0]);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            NPC.localAI[0] = reader.ReadSingle();
-        }
 
 		public override void SetDefaults()
 		{

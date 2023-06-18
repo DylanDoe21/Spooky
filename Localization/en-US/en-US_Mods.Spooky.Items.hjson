@@ -216,7 +216,7 @@ HarvesterScythe: {
 	Tooltip:
 		'''
 		Killing an enemy with the scythe will unleash a soul that lingers around you
-		After you have five souls, they will fly away and home in on nearby enemies
+		After you have ten souls, they will fly away and home in on nearby enemies
 		'''
 }
 
@@ -278,15 +278,6 @@ CemeterySolution: {
 		'''
 }
 
-GhastlyOrb: {
-	DisplayName: Ghastly Orb
-	Tooltip:
-		'''
-		Used as ammo with the Ghostly Slingshot
-		Wildy ricochets off of surfaces and enemies
-		'''
-}
-
 SpiritScroll: {
 	DisplayName: Spooky Scroll
 	Tooltip:
@@ -301,7 +292,7 @@ SpiritSlingshot: {
 	Tooltip:
 		'''
 		Hold down to pull back the slingshot, then release to fling ammo
-		Uses Ghastly Orbs as ammo
+		Converts Mossy Pebbles into Ghastly Orbs that wildly ricochet off of surfaces and enemies
 		'''
 }
 
@@ -373,6 +364,11 @@ RotGourdMask: {
 SeasaltHead: {
 	DisplayName: Seasalt's Mask
 	Tooltip: "'Great for impersonating spooky mod devs!'"
+}
+
+SpookySpiritMask: {
+	DisplayName: Spooky Spirit Mask
+	Tooltip: ""
 }
 
 TacoHead: {
@@ -460,6 +456,15 @@ VampireGummy: {
 		'''
 		Gives a short sugar rush when eaten
 		'Put it in your mouth and scare people!'
+		'''
+}
+
+DissolvedBone: {
+	DisplayName: Slightly Dissolved Bone
+	Tooltip:
+		'''
+		Summons a pet skull goop
+		'Its covered in gross goop'
 		'''
 }
 
@@ -636,6 +641,34 @@ FlySmallItem: {
 	Tooltip: ""
 }
 
+GourdBook: {
+	DisplayName: Jerry's Book of Stinkology
+	Tooltip: Casts a stream of stink that inflicts multiple negative effects
+}
+
+GourdFlail: {
+	DisplayName: Rotty's Wrath
+	Tooltip:
+		'''
+		Swinging the flail around you will build up flies
+		Releasing the flail will launch them 
+		'''
+}
+
+GourdSlingshot: {
+	DisplayName: Stinky Slinger
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Converts Mossy Pebbles into Moldy Pellets that linger and create flies
+		'''
+}
+
+GourdStaff: {
+	DisplayName: Branch of Gourd
+	Tooltip: Summons a gourd goober to fight with you
+}
+
 LeafBlower: {
 	DisplayName: Pump-Action Leaf Blower
 	Tooltip:
@@ -650,9 +683,18 @@ LittleSpiderItem: {
 	Tooltip: ""
 }
 
+MoldyPellet: {
+	DisplayName: Moldy Pellet
+	Tooltip:
+		'''
+		Used as ammo with the Stinky Slinger
+		Will linger on the ground and create flies
+		'''
+}
+
 MossyPebble: {
 	DisplayName: Mossy Pebble
-	Tooltip: Used as ammo with the Old Wood Slingshot
+	Tooltip: Used as ammo with slingshots
 }
 
 NecromancyTome: {
@@ -662,6 +704,11 @@ NecromancyTome: {
 		Conjures various zombie parts that bounce everywhere
 		'Not quite strong enough to summon full zombies'
 		'''
+}
+
+OldMossBow: {
+	DisplayName: Reinforced Old Wood Bow
+	Tooltip: ""
 }
 
 OldWoodBow: {
@@ -676,11 +723,7 @@ OldWoodGreatsword: {
 
 OldWoodSlingshot: {
 	DisplayName: Old Wood Slingshot
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Uses Mossy Pebbles as ammo
-		'''
+	Tooltip: Hold down to pull back the slingshot, then release to fling ammo
 }
 
 OldWoodStaff: {
@@ -694,7 +737,7 @@ OldWoodSword: {
 }
 
 RottenChunk: {
-	DisplayName: Rotten Chunk
+	DisplayName: Moldy Chunk
 	Tooltip: "'It smells foul'"
 }
 
@@ -708,8 +751,13 @@ ShadowCowBell: {
 	Tooltip: Summons actual friendly shadow creatures to fight with you
 }
 
+ShroomFlail: {
+	DisplayName: Fungal Flail
+	Tooltip: ""
+}
+
 ShroomWhip: {
-	DisplayName: Shroom Whip
+	DisplayName: Spore Smacker
 	Tooltip:
 		'''
 		Your summons will focus stuck enemies
@@ -1436,12 +1484,17 @@ CatacombBox: {
 
 CatacombBox2: {
 	DisplayName: Music Box (Lower Catacomb)
-	Tooltip: "'Title to be decided' by Bananalizard"
+	Tooltip: "'Lower Catacombs' by Bananalizard"
 }
 
 CemeteryBox: {
 	DisplayName: Music Box (Swampy Cemetery)
 	Tooltip: "'A Boneyard Too Far' by Bananalizard"
+}
+
+DaffodilBox: {
+	DisplayName: Music Box (Daffodil)
+	Tooltip: "'Daffodil' by Bananalizard"
 }
 
 EggEventBox: {
@@ -1837,6 +1890,11 @@ OrroTrophyItem: {
 
 RotGourdTrophyItem: {
 	DisplayName: Rot Gourd Trophy
+	Tooltip: ""
+}
+
+SpookySpiritTrophyItem: {
+	DisplayName: Spooky Spirit Trophy
 	Tooltip: ""
 }
 

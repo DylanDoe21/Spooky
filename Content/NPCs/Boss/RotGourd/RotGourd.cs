@@ -664,8 +664,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, 0 + Spread, Main.rand.Next(-18, -13), 
-										ModContent.ProjectileType<DirtDebris>(), Damage, 1, NPC.target, 0, 0);
+										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
+										Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
 									}
 								}
 
@@ -1025,9 +1025,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//material
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
 
-			//trophy and mask always drop directly from the boss
+			//drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
+
+            //trophy always drops directly from the boss
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
 
             npcLoot.Add(notExpertRule);
         }
