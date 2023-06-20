@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
+using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 namespace Spooky.Content.Tiles.SpookyBiome
@@ -79,7 +80,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 //grow big mushrooms
                 if (Main.rand.NextBool(18))
                 {
-                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<BigMushroom1>(), (ushort)ModContent.TileType<BigMushroom2>() };
+                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroom1>(), (ushort)ModContent.TileType<GiantShroom2>(),
+                    (ushort)ModContent.TileType<GiantShroom3>(), (ushort)ModContent.TileType<GiantShroom4>() };
+
+                    ushort newObject = Main.rand.Next(Shrooms);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //grow big yellow mushrooms
+                if (Main.rand.NextBool(25))
+                {
+                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomYellow1>(), (ushort)ModContent.TileType<GiantShroomYellow2>(),
+                    (ushort)ModContent.TileType<GiantShroomYellow3>(), (ushort)ModContent.TileType<GiantShroomYellow4>() };
 
                     ushort newObject = Main.rand.Next(Shrooms);
 

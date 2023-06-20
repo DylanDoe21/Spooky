@@ -15,6 +15,7 @@ using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 using StructureHelper;
@@ -463,19 +464,31 @@ namespace Spooky.Content.Generation
                     //place stuff on mushroom moss
                     if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>())
                     {
+                        //grow big mushrooms
                         if (WorldGen.genRand.NextBool(15))
                         {    
-                            ushort[] Vines = new ushort[] { (ushort)ModContent.TileType<BigMushroom1>(), (ushort)ModContent.TileType<BigMushroom2>() };
+                            ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroom1>(), (ushort)ModContent.TileType<GiantShroom2>(), 
+                            (ushort)ModContent.TileType<GiantShroom3>(), (ushort)ModContent.TileType<GiantShroom4>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Vines));           
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Shrooms));           
                         }
 
+                        //grow big yellow mushrooms
+                        if (WorldGen.genRand.NextBool(25))
+                        {    
+                            ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomYellow1>(), (ushort)ModContent.TileType<GiantShroomYellow2>(), 
+                            (ushort)ModContent.TileType<GiantShroomYellow3>(), (ushort)ModContent.TileType<GiantShroomYellow4>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Shrooms));           
+                        }
+
+                        //place mushroom rock piles
                         if (WorldGen.genRand.NextBool(8))
                         {    
-                            ushort[] Vines = new ushort[] { (ushort)ModContent.TileType<MushroomRockGiant>(), 
+                            ushort[] RockPiles = new ushort[] { (ushort)ModContent.TileType<MushroomRockGiant>(), 
                             (ushort)ModContent.TileType<MushroomRockBig>(), (ushort)ModContent.TileType<MushroomRockSmall>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Vines));           
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(RockPiles));       
                         }
                     }
                 }
@@ -492,9 +505,11 @@ namespace Spooky.Content.Generation
                     //whitelist so tiles meant to be on mushroom moss dont get cleared
                     int[] ClearWhitelist = { ModContent.TileType<MushroomMoss>(), ModContent.TileType<SpookyMushroom>(), 
                     ModContent.TileType<GiantShroom>(), ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(),
-                    ModContent.TileType<SpookyDirt>(), ModContent.TileType<SpookyStone>(), ModContent.TileType<BigMushroom1>(),
-                    ModContent.TileType<BigMushroom2>(), ModContent.TileType<MushroomRockGiant>(), ModContent.TileType<MushroomRockBig>(),
-                    ModContent.TileType<MushroomRockSmall>() };
+                    ModContent.TileType<SpookyDirt>(), ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomRockGiant>(), 
+                    ModContent.TileType<MushroomRockBig>(), ModContent.TileType<MushroomRockSmall>(), ModContent.TileType<GiantShroom1>(),
+                    ModContent.TileType<GiantShroom2>(), ModContent.TileType<GiantShroom3>(), ModContent.TileType<GiantShroom4>(),
+                    ModContent.TileType<GiantShroomYellow1>(), ModContent.TileType<GiantShroomYellow2>(), ModContent.TileType<GiantShroomYellow3>(), 
+                    ModContent.TileType<GiantShroomYellow4>() };
 
                     if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && !ClearWhitelist.Contains(Main.tile[mushroomX, mushroomY - 1].TileType))
                     {

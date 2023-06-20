@@ -81,9 +81,9 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 
         {
-			// Pylons in vanilla light up, which is just a simple functionality we add using ModTile's ModifyLight.
-			// Let's just add a simple white light for our pylon:
-			r = g = b = 0.75f;
+			r = 1f;
+			g = 0.2f;
+			b = 0.2f;
 		}
 
 		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch) 

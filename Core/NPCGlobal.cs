@@ -17,6 +17,7 @@ using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
@@ -65,8 +66,8 @@ namespace Spooky.Core
 		{
             //disable all spawns when any spooky mod boss is alive
             if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || 
-			NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || 
-			NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+			NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) || 
+			NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
                 pool.Clear();
             }
@@ -96,6 +97,12 @@ namespace Spooky.Core
 
 		public override void ModifyShop(NPCShop shop)
 		{
+			//merchant sells mossy pebbles for the slingshots
+			if (shop.NpcType == NPCID.Merchant)
+			{
+				shop.Add<MossyPebble>();
+			}
+
 			//add spooky mod's biome solutions to the steampunker shop
 			if (shop.NpcType == NPCID.Steampunker)
 			{

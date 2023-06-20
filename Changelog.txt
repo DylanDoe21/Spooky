@@ -81,6 +81,7 @@ Other New Additions:
 -Fixed moldy chunks stacking to 999 and not stacking to 9999
 -Nerfed giant tortumor contact damage from 65 to 40
 -All spooky mod boss masks now drop from that bosses respective treasure bag to be consistent with vanilla
+-Spooky mod's pylons now give off colored lighting like vanilla ones do
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 
 

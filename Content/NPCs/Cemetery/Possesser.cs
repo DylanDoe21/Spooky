@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Cemetery
                 }
             }
 
-            target.AddBuff(ModContent.BuffType<Possessed>(), 360, false);
+            target.AddBuff(ModContent.BuffType<Possessed>(), 600, false);
             NPC.active = false;
         }
 

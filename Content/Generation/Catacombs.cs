@@ -25,7 +25,7 @@ namespace Spooky.Content.Generation
         int chosenRoom = 0;
         int switchRoom = 0;
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
@@ -90,7 +90,8 @@ namespace Spooky.Content.Generation
                     if (Y == (int)Main.worldSurface + 10)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom1 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
+                        //do not place the first loot room in the middle where the entrance is either
+                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-1", origin.ToPoint16(), Mod);
                             placedLootRoom1 = true;
@@ -279,6 +280,11 @@ namespace Spooky.Content.Generation
             switchRoom = 0;
             chosenRoom = 0;
 
+            placedLootRoom1 = false;
+            placedLootRoom2 = false;
+            placedLootRoom3 = false;
+            placedLootRoom4 = false;
+
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //200 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
             int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
@@ -329,14 +335,121 @@ namespace Spooky.Content.Generation
                     //origin offset for each room so it places at the center
                     Vector2 origin = new Vector2(X - 35, Y - 18);
 
-                    //place rooms
-                    if (WorldGen.genRand.NextBool(10))
+                    int layer2Start = (int)Main.worldSurface + layer1Depth + 118;
+
+                    //first row
+                    if (Y == layer2Start)
                     {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        //do not place the first loot room in the middle where the entrance is either
+                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1", origin.ToPoint16(), Mod);
+                            placedLootRoom1 = true;
+                        }
+                        else
+                        {
+                            if (WorldGen.genRand.NextBool(10))
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            }
+                        }
                     }
-                    else
+
+                    //second row
+                    if (Y == layer2Start + 42)
                     {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", origin.ToPoint16(), Mod);
+                            placedLootRoom2 = true;
+                        }
+                        else
+                        {
+                            if (WorldGen.genRand.NextBool(10))
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            }
+                        }
+                    }
+
+                    //third row
+                    if (Y == layer2Start + 84)
+                    {
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", origin.ToPoint16(), Mod);
+                            placedLootRoom3 = true;
+                        }
+                        else
+                        {
+                            if (WorldGen.genRand.NextBool(10))
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            }
+                        }
+                    }
+
+                    //fourth row
+                    if (Y == layer2Start + 126)
+                    {
+                        //randomly place the loot room, or place it automatically if it reaches the edge
+                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-4", origin.ToPoint16(), Mod);
+                            placedLootRoom4 = true;
+                        }
+                        else
+                        {
+                            if (WorldGen.genRand.NextBool(10))
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            }
+                        }
+                    }
+
+                    //fifth row
+                    if (Y == layer2Start + 168)
+                    {
+                        if (WorldGen.genRand.NextBool(10))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                        }
+                        else
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                        }
+                    }   
+
+                    //sixth row
+                    if (Y == layer2Start + 210)
+                    {
+                        if (WorldGen.genRand.NextBool(10))
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                        }
+                        else
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                        }
                     }
                 }
             }

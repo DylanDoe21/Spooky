@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.height = 12;
 			Item.knockBack = 2f;
             Item.maxStack = 9999;
-			Item.value = Item.buyPrice(copper: 10);
+			Item.value = Item.buyPrice(copper: 35);
 			Item.rare = ItemRarityID.White; 
 			Item.shoot = ModContent.ProjectileType<MossyPebbleProj>();
 		}

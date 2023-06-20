@@ -79,7 +79,9 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 
         {
-			r = g = b = 0.75f;
+			r = 0f;
+			g = 1f;
+			b = 0.75f;
 		}
 
 		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch) 
