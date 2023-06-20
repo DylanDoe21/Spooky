@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 float bezierIncrement = 20;
 
                 Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilArm").Value;
-                Vector2 textureCenter = NPC.spriteDirection == -1 ? new Vector2(16, 16) : new Vector2(16, 16);
+                Vector2 textureCenter = new Vector2(16, 16);
 
                 float rotation;
 
@@ -162,6 +162,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<ChlorophyllFlower>(), Damage, 0f, Main.myPlayer);
                         }
                     }
+
+                    break;
+                }
+
+                case 2: 
+                {
+                    GoToPosition(130, 180);
 
                     break;
                 }

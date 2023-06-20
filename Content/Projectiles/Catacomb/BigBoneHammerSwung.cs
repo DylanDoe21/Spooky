@@ -117,6 +117,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player owner = Main.player[Projectile.owner];
 
+            //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
             Vector2 Knockback = owner.Center - target.Center;
             Knockback.Normalize();
             Knockback *= 20;
@@ -150,6 +151,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Main.mouseRight)
             {
+                //set time left super high since this projectile will always die manually
+                Projectile.timeLeft = 10000;
+
+                //set the player arm and projectile rotation depending on which direction you're facing
                 if (owner.direction == 1)
                 {
                     owner.itemRotation = Projectile.rotation + 2.14f;
@@ -161,16 +166,16 @@ namespace Spooky.Content.Projectiles.Catacomb
                     owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
                 }
 
-                Projectile.timeLeft = 10000;
-
                 Projectile.localAI[0]++;
 
+                //increase swing speed and the trail size as you swing it
                 if (Projectile.localAI[0] < 120)
                 {
                     Speed += 0.003f;
                     TrailSize += 0.12f;
                 }
 
+                //play a bell sound when fully charged
                 if (Projectile.localAI[0] == 120)
                 {
                     SoundEngine.PlaySound(SoundID.Item35, Projectile.Center);
@@ -181,6 +186,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 SetOwnerAnimation(owner);
             }
 
+            //when you release right click when the hammer is charged, throw it
             if (Projectile.localAI[0] >= 120 && Main.mouseRightRelease)
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
@@ -195,7 +201,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.Kill();
             }
 
-            //kill projectile if you release before its charged
+            //kill this projectile if you release right click before its charged
             if (Projectile.localAI[0] > 2 && Projectile.localAI[0] < 120 && Main.mouseRightRelease)
             {
                 Projectile.Kill();

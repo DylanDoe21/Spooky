@@ -216,7 +216,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 320)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 0;
+                        NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
 
@@ -228,6 +228,32 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //thorns will inflict bleeding and poison on contact
                 case 2:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 90 || NPC.localAI[0] == 120 || NPC.localAI[0] == 150)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
+
+                        int NumProjectiles = Main.rand.Next(2, 4);
+                        for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
+                        {
+                            float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Spread, 
+                                Main.rand.Next(2, 5), ModContent.ProjectileType<ThornBomb>(), Damage, 2, NPC.target, 0, 0);
+                            }
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 220)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 

@@ -54,6 +54,7 @@ Other New Additions:
 -Added the gilded armor set
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
+-Added boss checklist support for the new 1.4.4 version
 
 
 

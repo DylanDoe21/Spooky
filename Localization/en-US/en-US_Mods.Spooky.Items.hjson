@@ -215,7 +215,7 @@ HarvesterScythe: {
 	DisplayName: Harvester's Scythe
 	Tooltip:
 		'''
-		Killing an enemy with the scythe will unleash a soul that lingers around you
+		Hitting enemies will unleash a soul that lingers around you
 		After you have ten souls, they will fly away and home in on nearby enemies
 		'''
 }

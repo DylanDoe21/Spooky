@@ -658,8 +658,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
 								int NumProjectiles = Main.rand.Next(10, 15);
-								for (int i = 0; i < NumProjectiles; i++)
-								{
+								for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
+                        		{
 									float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
 
 									if (Main.netMode != NetmodeID.MultiplayerClient)
