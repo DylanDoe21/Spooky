@@ -230,24 +230,40 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] == 90 || NPC.localAI[0] == 120 || NPC.localAI[0] == 150)
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 85)
                     {
-                        SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 NPCCenter = new Vector2(NPC.Center.X, NPC.Center.Y + 200);
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPCCenter;
+                            Vector2 velocity = dustPos - NPCCenter;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            Main.dust[dustEffect].color = Main.rand.NextBool() ? Color.Lime : Color.Red;
+                            Main.dust[dustEffect].scale = 0.1f;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
+                    }
 
-                        int NumProjectiles = Main.rand.Next(2, 4);
+                    if (NPC.localAI[0] == 100 || NPC.localAI[0] == 130 || NPC.localAI[0] == 160)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+                        int NumProjectiles = Main.rand.Next(3, 4);
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
-                            float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
-
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Spread, 
-                                Main.rand.Next(2, 5), ModContent.ProjectileType<ThornBomb>(), Damage, 2, NPC.target, 0, 0);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-12f, 12f), 
+                                Main.rand.NextFloat(-3f, -1f), ModContent.ProjectileType<ThornBomb>(), Damage, 2, NPC.target, 0, 0);
                             }
                         }
                     }
 
-                    if (NPC.localAI[0] >= 220)
+                    if (NPC.localAI[0] >= 250)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;

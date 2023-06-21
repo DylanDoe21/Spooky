@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                 Projectile.velocity *= 0.99f;
             }
 
-            if (Projectile.ai[0] >= 50 && Projectile.ai[0] < 110)
+            if (Projectile.ai[0] >= 50 && Projectile.ai[0] < 90)
             {
                 if (Projectile.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -161,7 +161,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                     }
                 }
 
-                Projectile.velocity *= Main.rand.NextFloat(1.003f, 1.006f);
+                Projectile.velocity *= Main.rand.NextFloat(1.003f, 1.0085f);
             }
         }
 
