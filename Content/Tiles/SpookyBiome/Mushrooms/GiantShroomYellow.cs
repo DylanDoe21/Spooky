@@ -2,11 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.Enums;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 {
@@ -34,7 +35,15 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             b = 0.0f;
         }
 
-        public static Vector2 TileOffset => Vector2.One * 12;
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+            if (Main.rand.NextBool(20))
+            {
+			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<YellowSpore>());
+            }
+        }
+
+        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
 
         public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
         {
@@ -54,21 +63,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameOff = 0;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileCustomPosition(i, j);
-
             Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroomYellow1Cap").Value;
 
             //draw the mushroom cap, only draw it on the top of the tile so it only draws once
@@ -100,21 +94,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameOff = 0;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileCustomPosition(i, j);
-
             Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroomYellow2Cap").Value;
 
             //draw the mushroom cap, only draw it on the top of the tile so it only draws once
@@ -146,21 +125,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameOff = 0;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileCustomPosition(i, j);
-
             Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroomYellow3Cap").Value;
 
             //draw the mushroom cap, only draw it on the top of the tile so it only draws once
@@ -192,21 +156,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameOff = 0;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileCustomPosition(i, j);
-
             Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroomYellow4Cap").Value;
 
             //draw the mushroom cap, only draw it on the top of the tile so it only draws once

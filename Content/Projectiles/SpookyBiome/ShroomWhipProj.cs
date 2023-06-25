@@ -67,12 +67,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
-			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+			Player owner = Main.player[Projectile.owner];
+
+			owner.MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
-            if (Main.rand.NextBool(5))
+            if (owner.ownedProjectileCounts[ModContent.ProjectileType<ShroomWhipSpore>()] < 5 && Main.rand.NextBool(5))
             {
-                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<ShroomWhipSpore>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, 
+				ModContent.ProjectileType<ShroomWhipSpore>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
             }
         }
 

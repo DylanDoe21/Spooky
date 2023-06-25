@@ -129,20 +129,20 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             if (Main.tile[x, y].TileFrameX == 18)
             {
                 //spawn a fruit from the tree
-                if (Main.rand.Next(30) == 0)
+                if (Main.rand.NextBool(30))
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
                 }
 
 				//spawn tortumors out of the tree sometimes
-                if (Main.rand.Next(45) == 0)
+                if (Main.rand.NextBool(45))
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
                 }
 
                 //rarely spawn giant tortumors
-                if (Main.rand.Next(75) == 0)
+                if (Main.rand.NextBool(75))
                 {
                     NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
                 }
@@ -182,7 +182,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
 
                 //spawn a seed from the tree
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
@@ -205,7 +205,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
         }
 
-        public static Vector2 TileOffset => Vector2.One * 12;
+        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
 
         public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
         {

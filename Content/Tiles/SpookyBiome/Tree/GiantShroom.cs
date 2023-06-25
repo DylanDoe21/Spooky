@@ -150,8 +150,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
-
             if (fail && !effectOnly && !noItem)
             {
                 (int x, int y) = (i, j);
@@ -172,7 +170,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             }
         }
 
-        public static Vector2 TileOffset => Vector2.One * 12;
+        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
 
         public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
         {
@@ -197,12 +195,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
         {
             Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
 
             int frameSize = 16;
             int frameOff = 0;

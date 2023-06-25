@@ -138,8 +138,20 @@ namespace Spooky.Content.Projectiles.Pets
                 //set frames when idle
                 if (Projectile.position.X == Projectile.oldPosition.X && Projectile.position.Y == Projectile.oldPosition.Y && Projectile.velocity.X == 0)
                 {
-                    Projectile.frame = 0;
-                    Projectile.frameCounter = 0;
+                    Projectile.frameCounter++;
+                    if (Projectile.frameCounter > 10)
+                    {
+                        Projectile.frame++;
+                        Projectile.frameCounter = 0;
+                    }
+                    if (Projectile.frame == 2)
+                    {
+                        Projectile.frame = 4;
+                    }
+                    if (Projectile.frame >= 6)
+                    {
+                        Projectile.frame = 0;
+                    }
                 }
                 //falling frame
                 else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
