@@ -537,6 +537,11 @@ SuspiciousBrownie: {
 	Tooltip: Your better judgement tells you to NOT eat this
 }
 
+YellowSpore: {
+	DisplayName: Yellow Spore
+	Tooltip: Summons a small mushroom hopper to provide light
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 3% increased melee critical strike chance

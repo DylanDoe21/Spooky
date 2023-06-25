@@ -33,7 +33,7 @@ namespace Spooky.Content.Generation
 			}
 			else
 			{
-                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 50;
+                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 120;
             }
 
             int XStart = Catacombs.PositionX;

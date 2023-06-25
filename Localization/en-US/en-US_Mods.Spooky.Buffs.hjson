@@ -225,6 +225,11 @@ RotGourdPetBuff: {
 	Description: Smelly, but cute
 }
 
+ShroomHopperBuff: {
+	DisplayName: Shroom Hopper
+	Description: It likes your spore
+}
+
 SkullEmojiBuff: {
 	DisplayName: Floating Skull
 	Description: He spins for eternity

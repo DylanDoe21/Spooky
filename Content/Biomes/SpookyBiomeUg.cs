@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Backgrounds.SpookyBiome;
 
 namespace Spooky.Content.Biomes
 {
@@ -12,7 +13,7 @@ namespace Spooky.Content.Biomes
 
         //for whatever reason spooky mod underground backgrounds just break underground backgrounds
         //this will be disabled until it magically gets fixed or something
-        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyleAlt") : ModContent.Find<ModUndergroundBackgroundStyle>("Spooky/SpookyUndergroundBackgroundStyle");
+        //public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyUndergroundBackgroundStyleAlt>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
         

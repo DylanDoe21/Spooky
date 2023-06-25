@@ -676,27 +676,19 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyHouse", GenerateStarterHouse));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
 
-            //place objects and grow trees
-            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
+            //place house again because stupid ahh walls
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
 			if (GenIndex2 == -1)
 			{
                 return;
             }
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-
-            //place house again because stupid ahh walls
-            int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
-			if (GenIndex3 == -1)
-			{
-                return;
-            }
-
-            tasks.Insert(GenIndex3 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
-            tasks.Insert(GenIndex3 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
-            tasks.Insert(GenIndex3 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(GenIndex3 + 4, new PassLegacy("MushroomClearAround", ClearStuffAroundMushroomMoss));
-            tasks.Insert(GenIndex3 + 5, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyHouseAgain", GenerateStarterHouseAgain));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
+            tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("MushroomClearAround", ClearStuffAroundMushroomMoss));
+            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyTrees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests
