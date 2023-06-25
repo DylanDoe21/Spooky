@@ -13,12 +13,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class FleshWhipProj : ModProjectile
 	{
-		private float ChargeTime 
-		{
-			get => Projectile.ai[1];
-			set => Projectile.ai[1] = value;
-		}
-
 		public override void SetStaticDefaults() 
 		{
 			ProjectileID.Sets.IsAWhip[Type] = true;

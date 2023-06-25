@@ -103,7 +103,7 @@ namespace Spooky.Content.Generation
             //dig crater to lead to the underground
             for (int CraterDepth = PositionY; CraterDepth <= (int)Main.worldSurface + 55; CraterDepth += 5)
             {
-                TileRunner runner = new TileRunner(new Vector2(PositionX - Main.rand.Next(30, 55), CraterDepth), new Vector2(0, 5), new Point16(-5, 5), 
+                TileRunner runner = new TileRunner(new Vector2(PositionX - Main.rand.Next(45, 55), CraterDepth), new Vector2(0, 5), new Point16(-5, 5), 
                 new Point16(-5, 5), 15f, Main.rand.Next(5, 10), 0, false, true);
                 runner.Start();
             }

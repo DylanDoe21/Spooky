@@ -74,9 +74,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                 maxTilePosY = Main.maxTilesY;
             }
 
-            for (int i = minTilePosX; i < maxTilePosX; ++i)
+            for (int i = minTilePosX; i < maxTilePosX; i++)
             {
-                for (int j = minTilePosY; j < maxTilePosY; ++j)
+                for (int j = minTilePosY; j < maxTilePosY; j++)
                 {
                     if (Main.tile[i, j] != null && !Main.tile[i, j].Get<TileWallWireStateData>().IsActuated && Main.tile[i, j].HasTile && 
                     Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolid[Main.tile[i, j - 1].TileType] && 

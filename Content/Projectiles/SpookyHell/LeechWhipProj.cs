@@ -12,7 +12,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	{
 		public override void SetStaticDefaults() 
 		{
-			//This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
 		}
 
@@ -79,7 +78,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Vector2 element = list[i];
 				Vector2 diff = list[i + 1] - element;
 
-				float rotation = diff.ToRotation() - MathHelper.PiOver2; //This projectile's sprite faces down, so PiOver2 is used to correct rotation.
+				float rotation = diff.ToRotation() - MathHelper.PiOver2;
 				Color color = Lighting.GetColor(element.ToTileCoordinates());
 
 				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
