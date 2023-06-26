@@ -88,7 +88,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0f);
 
-			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+			if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();

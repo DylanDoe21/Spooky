@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(104, 95, 128));
+            AddMapEntry(new Color(166, 158, 187));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }

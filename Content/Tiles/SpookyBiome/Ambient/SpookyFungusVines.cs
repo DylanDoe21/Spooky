@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			AddMapEntry(new Color(104, 95, 128));
+			AddMapEntry(new Color(166, 158, 187));
 			DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
 		}

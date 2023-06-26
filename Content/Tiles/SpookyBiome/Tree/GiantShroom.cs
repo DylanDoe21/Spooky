@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(104, 95, 128), name);
+            AddMapEntry(new Color(196, 188, 217), name);
             DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
             RegisterItemDrop(ModContent.ItemType<SpookyGlowshroom>());
