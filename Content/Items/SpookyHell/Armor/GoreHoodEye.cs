@@ -6,7 +6,7 @@ using Terraria.Localization;
 using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.Items.SpookyHell.Armor
 {

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Tree
 {

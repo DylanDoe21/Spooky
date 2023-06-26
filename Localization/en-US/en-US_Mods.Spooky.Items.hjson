@@ -523,6 +523,11 @@ SkullSeed: {
 		'''
 }
 
+SmallDaffodil: {
+	DisplayName: Daffodil Sprout
+	Tooltip: Summons Cornelious
+}
+
 SpiritLamp: {
 	DisplayName: Spirit Lantern
 	Tooltip:
@@ -728,7 +733,11 @@ OldWoodGreatsword: {
 
 OldWoodSlingshot: {
 	DisplayName: Old Wood Slingshot
-	Tooltip: Hold down to pull back the slingshot, then release to fling ammo
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Uses Mossy Pebbles as ammo
+		'''
 }
 
 OldWoodStaff: {

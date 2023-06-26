@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;

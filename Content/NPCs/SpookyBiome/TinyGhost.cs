@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome

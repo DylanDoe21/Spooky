@@ -3,14 +3,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.Localization;
+using Terraria.Enums;
 using Terraria.Audio;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {

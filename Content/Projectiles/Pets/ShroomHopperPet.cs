@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.Pets
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = vector48.Length();
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 150f) || (playerDistance > 150f && Projectile.position.X == Projectile.oldPosition.X)))
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 100f) || (playerDistance > 100f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -8f;
                 }
@@ -84,7 +84,7 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.velocity.Y = 15f;
                 }
 
-                if (playerDistance > 520f)
+                if (playerDistance > 450f)
                 {
                     playerFlying = true;
                     Projectile.velocity.X = 0f;

@@ -200,6 +200,11 @@ ColumboBuff: {
 	Description: The creature lurks behind you
 }
 
+FlyPetBuff: {
+	DisplayName: Cornelious the Fly
+	Description: He hovers around you menacingly
+}
+
 FuzzBatPetBuff: {
 	DisplayName: Goofy Fuzz Bat
 	Description: It doesn't know why, but it likes following you

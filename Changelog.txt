@@ -1,7 +1,6 @@
 Update v1.0 (The catacomb update)
 
--This update is also the 1.0 update, as at this point spooky mod has enough content to where it can be fully played through
--This is also because spooky mod is really not work in progress anymore, and is stable enough to be played (despite the horrid multiplayer which we are still working on I promise)
+-This update is also spooky mods first FULL release, meaning at this point the mod has enough content and polish to where it is no longer a small WIP mod (despite the horrid multiplayer problems which we are still working on I promise)
 
 
 ~NEW STUFF~
@@ -9,12 +8,12 @@ Update v1.0 (The catacomb update)
 
 Catacombs Changes:
 
--Every single room has been redone to look more unique, more detailed, and be more interesting to explore
--Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh in different worlds
+-Every single room has been redone to look more unique, more detailed, and be more interesting to explore overall
+-Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh and new in different worlds
 -The entirety of both layers have been redone to have new aesthetics and their own unique blocks so they dont look exactly the same anymore
--The size of the catacombs generation now scales with world size, meaning bigger worlds will have bigger catacombs
--Big bone's boss arena has been redone completely to give you far more room and fairness during his fight
--Added a new arena inbetween the first and second layer of the catacombs that you fight a new boss in
+-The size of the catacombs now scales with world size, meaning bigger worlds will have bigger catacombs
+-Big bone's boss arena has been redone completely to give you far more room during his fight, making it more fair
+-Added a new arena between the first and second layer of the catacombs that you fight a new boss in
 -Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
 -Added tons of new content such as new enemies for the first layer, new weapons from both chests and enemy drops, a new hardmode armor set, and much more
 -Added new ambush rooms, in which groups of enemies will lock and ambush you in a room, making the catacombs a lot more fun and interesting combat wise
@@ -54,6 +53,7 @@ Other New Additions:
 -Added the gilded armor set
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
+-Added three new pets, and one new light pet
 -Added boss checklist support for the new 1.4.4 version
 
 

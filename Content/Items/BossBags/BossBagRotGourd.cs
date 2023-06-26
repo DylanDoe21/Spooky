@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd;
 
 namespace Spooky.Content.Items.BossBags

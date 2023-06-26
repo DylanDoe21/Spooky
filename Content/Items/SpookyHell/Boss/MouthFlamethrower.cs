@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
  
 namespace Spooky.Content.Items.SpookyHell.Boss

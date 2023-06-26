@@ -58,6 +58,7 @@ namespace Spooky.Core
 
         //pets
         public bool ColumboPet = false;
+        public bool FlyPet = false;
         public bool FuzzBatPet = false;
         public bool ShroomHopperPet = false;
         public bool SkullEmojiPet = false;
@@ -114,6 +115,7 @@ namespace Spooky.Core
 
             //pets
             ColumboPet = false;
+            FlyPet = false;
             FuzzBatPet = false;
             ShroomHopperPet = false;
             SkullEmojiPet = false;

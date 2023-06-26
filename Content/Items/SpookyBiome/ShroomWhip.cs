@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
 

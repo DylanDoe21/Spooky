@@ -7,7 +7,7 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Minion;
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {

@@ -2,9 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Items.SpookyHell
+namespace Spooky.Content.Items.SpookyHell.Misc
 {
-    public class CreepyChunk : ModItem
+    [LegacyName("OrroboroChunk")]
+    public class ArteryPiece : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,11 +14,11 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 22;
-            Item.maxStack = 9999;
+            Item.width = 28;
+            Item.height = 26;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(silver: 1);
+            Item.value = Item.buyPrice(silver: 2);
+            Item.maxStack = 9999;
         }
     }
 }

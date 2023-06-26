@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Tiles.SpookyBiome;
  
 namespace Spooky.Content.Items.SpookyBiome

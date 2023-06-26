@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using System.Linq;
 
-namespace Spooky.Content.Items.SpookyBiome
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
     public class ShadowClump : ModItem
     {

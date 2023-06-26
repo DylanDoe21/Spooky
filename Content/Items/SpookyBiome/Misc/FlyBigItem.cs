@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 using Spooky.Content.NPCs.SpookyBiome;
 
-namespace Spooky.Content.Items.SpookyBiome
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
     public class FlyBigItem : ModItem
     {

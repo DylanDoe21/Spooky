@@ -605,7 +605,7 @@ namespace Spooky.Content.Generation
             int x = PositionX;
             int y = InitialDepth + (ChestDepth + 35);
 
-            int extraChestDepth = Main.maxTilesX >= 6400 ? 65 : 25;
+            int extraChestDepth = Main.maxTilesX >= 6400 ? 45 : 25;
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);

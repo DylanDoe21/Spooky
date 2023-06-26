@@ -13,7 +13,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs
 {

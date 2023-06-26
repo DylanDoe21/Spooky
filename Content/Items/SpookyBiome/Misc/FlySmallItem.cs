@@ -4,9 +4,9 @@ using Terraria.ModLoader;
 
 using Spooky.Content.NPCs.SpookyBiome;
 
-namespace Spooky.Content.Items.SpookyBiome
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
-    public class LittleSpiderItem : ModItem
+    public class FlySmallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             Item.CloneDefaults(ItemID.BlackDragonfly);
             Item.rare = ItemRarityID.Blue;
-			Item.makeNPC = (short)ModContent.NPCType<LittleSpider>();
+			Item.makeNPC = (short)ModContent.NPCType<FlySmall>();
             Item.bait = 10;
         }
     }

@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class OldWoodGreatsword : SwingWeaponBase
     {
-        public override int Length => 70;
-		public override int TopSize => 12;
+        public override int Length => 55;
+		public override int TopSize => 15;
 		public override float SwingDownSpeed => 12f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
         }
-
+        
         public override void UseAnimation(Player player)
         {
             hasHitSomething = false;

@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpookyBiome;
 
-namespace Spooky.Content.Items.Cemetery
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
-	public class CemeterySolution : ModItem
+	public class SpookySolution : ModItem
 	{
 		public override void SetStaticDefaults()
         {
@@ -25,13 +25,13 @@ namespace Spooky.Content.Items.Cemetery
 			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.Orange;
             Item.ammo = AmmoID.Solution;
-            Item.shoot = ModContent.ProjectileType<CemeterySolutionProj>() - ProjectileID.PureSpray;
+            Item.shoot = ModContent.ProjectileType<SpookySolutionProj>() - ProjectileID.PureSpray;
 		}
 	}
 
-	public class CemeterySolutionProj : ModProjectile
+	public class SpookySolutionProj : ModProjectile
 	{
-        public override string Texture => "Spooky/Content/Items/Cemetery/CemeterySolution";
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults() 
         {
@@ -82,9 +82,8 @@ namespace Spooky.Content.Items.Cemetery
 
 
 				var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 
-				DustID.Clentaminator_Green, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100);
+				DustID.AmberBolt, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100);
 
-				dust.color = Color.Teal;
 				dust.noGravity = true;
 				dust.scale *= Main.rand.NextFloat(1.75f, 3.5f);
 				dust.velocity.X *= 2f;
@@ -107,12 +106,22 @@ namespace Spooky.Content.Items.Cemetery
                 {
 					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
                     {
-                        //replace grass with cemetery grass
-                        int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass, TileID.CorruptGrass, TileID.CrimsonGrass };
+                        //replace normal grass with orange grass
+                        int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass };
 
                         if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
                         {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrass>();
+							WorldGen.SquareWallFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+
+                        //replace corrupt biome grasses with green grass
+                        int[] GreenGrassReplace = { TileID.CorruptGrass, TileID.CrimsonGrass };
+
+                        if (GreenGrassReplace.Contains(Main.tile[k, l].TileType)) 
+                        {
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
 							WorldGen.SquareWallFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
@@ -120,7 +129,7 @@ namespace Spooky.Content.Items.Cemetery
                         //replace dirt blocks with spooky dirt
 						if (Main.tile[k, l].TileType == TileID.Dirt) 
                         {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyDirt>();
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
@@ -128,8 +137,19 @@ namespace Spooky.Content.Items.Cemetery
                         //replace stone blocks with spooky stone
 						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType]) 
                         {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryStone>();
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyStone>();
 							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+
+                        //replace grass walls with spooky grass walls
+                        int[] WallReplace = { WallID.GrassUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Flower, 
+                        WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
+
+						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
+                        {
+							Main.tile[k, l].WallType = (ushort)ModContent.WallType<SpookyGrassWall>();
+							WorldGen.SquareWallFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
 					}

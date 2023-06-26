@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Events;
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent

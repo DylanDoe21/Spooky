@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
 

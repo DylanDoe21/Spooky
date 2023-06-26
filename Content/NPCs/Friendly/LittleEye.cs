@@ -14,6 +14,7 @@ using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Flask;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.Pylon;
 

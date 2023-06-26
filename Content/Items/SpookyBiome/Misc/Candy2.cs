@@ -1,37 +1,33 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Core;
-using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Buffs;
 
-namespace Spooky.Content.Items.Catacomb
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
-	public class CatacombKey1 : ModItem
+	public class Candy2 : ModItem
 	{
 		public override void SetDefaults()
 		{
 			Item.width = 18;
-			Item.height = 32;
-            Item.consumable = true;
-			Item.noUseGraphic = true;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.rare = ItemRarityID.Quest;
-            Item.maxStack = 1;
+			Item.height = 30;
+			Item.maxStack = 1;
 		}
 
-		public override bool? UseItem(Player player)
-        {
-			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, -3,
-			ModContent.ProjectileType<CatacombKey1Proj>(), 0, 0, player.whoAmI, 0f, 0f);
-
+		public override bool ItemSpace(Player player)
+		{
 			return true;
-        }
+		}
+
+		public override bool OnPickup(Player player)
+		{
+			player.AddBuff(ModContent.BuffType<CandyBuff2>(), 600);
+
+			return false;
+		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) 
 		{

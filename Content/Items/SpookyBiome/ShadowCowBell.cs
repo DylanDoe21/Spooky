@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome

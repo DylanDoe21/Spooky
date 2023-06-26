@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Items.SpookyHell
+namespace Spooky.Content.Items.SpookyHell.Misc
 {
     public class SpookyHellKey : ModItem
     {

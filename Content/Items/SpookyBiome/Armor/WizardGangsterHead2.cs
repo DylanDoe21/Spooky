@@ -6,8 +6,8 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Tiles.SpookyBiome;
-using System.Linq;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
