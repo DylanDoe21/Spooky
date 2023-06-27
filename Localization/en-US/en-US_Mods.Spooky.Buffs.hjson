@@ -3,6 +3,11 @@ BoogerFrenzyBuff: {
 	Description: Your weapons have been blessed with boogers
 }
 
+BustlingGlowshroomHeal: {
+	DisplayName: Glowshroom Regeneration
+	Description: Your life regeneration is greatly increased
+}
+
 CandyBuff1: {
 	DisplayName: Summoner Candy
 	Description: 5% increased summon damage

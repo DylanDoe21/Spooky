@@ -51,7 +51,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
                 {
-                    return 8f;
+                    return 5f;
                 }
             }
 

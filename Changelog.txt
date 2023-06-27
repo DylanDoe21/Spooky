@@ -17,6 +17,7 @@ Catacombs Changes:
 -Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
 -Added tons of new content such as new enemies for the first layer, new weapons from both chests and enemy drops, a new hardmode armor set, and much more
 -Added new ambush rooms, in which groups of enemies will lock and ambush you in a room, making the catacombs a lot more fun and interesting combat wise
+-The swampy cemetery also now scales with world size, bigger worlds will have a wider cemetery biome
 
 
 
@@ -33,6 +34,14 @@ New Mini-Biome, The Mossy Mushroom Cave:
 -New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
 -Contains a few new exclusive enemies, and a new material which can be used to craft various new early game items
 
+
+
+Slingshot Sub-class:
+
+-Slingshot weapons are now a ranger subclass consisting of well, slingshots
+-They use mossy pebbles as ammo, which is crafted from mossy stone in the spooky forest, or can be purchased from the merchant
+-Like some vanilla ranged weapons, certain slingshots can convert mossy pebbles into their own unique projectile
+ 
 
 
 Localization File Split:
@@ -53,16 +62,15 @@ Other New Additions:
 -Added the gilded armor set
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
--Added three new pets, and one new light pet
--Added boss checklist support for the new 1.4.4 version
+-Added new pets and light pets
+-Added columbo
+-Added support for the new 1.4.4 version of boss checklist
 
 
 
 
 ~CHANGES TO EXISTING CONTENT~
 
-
--The ghoslty slingshot now has it's own ammo, ghastly orbs, which are dropped by spooky spirit along with the ghostly slingshot
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 
 
@@ -79,13 +87,15 @@ Other New Additions:
 -Rotten gourd armor now requires old wood to craft along with the rotten chunks
 -Increased the drop rate for the skull scepter, warlock's cloak, and warlock's hood from zomboid warlocks
 -Renamed rotten chunk to moldy chunk, because rotten chunks are already a vanilla item
--Fixed moldy chunks stacking to 999 and not stacking to 9999
+-Fixed moldy chunks stacking to 999 and not 9999
 -Nerfed giant tortumor contact damage from 65 to 40
 -All spooky mod boss masks now drop from that bosses respective treasure bag to be consistent with vanilla
 -Spooky mod's pylons now give off colored lighting like vanilla ones do
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Lowered the spooky orange ghost's spawnrate
-
+-Resprited the spooky forest and swampy cemetery backgrounds to make them look better
+-Nerfed gargoyle scepter base damage from 65 to 45, and the cursed fire balls shot by grug now inflict cursed flames
+-The ichor clouds shot by the tongueblade now inflict ichor for a short time
 
 
 

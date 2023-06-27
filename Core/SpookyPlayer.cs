@@ -23,11 +23,12 @@ namespace Spooky.Core
     {
         //misc timers
         public static float ScreenShakeAmount = 0;
-        public int flySpawnTimer = 0;
+        public int FlySpawnTimer = 0;
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
         public int BoneWispTimer = 0;
+        public int BustlingHealTimer = 0;
 
         //armors
         public bool GourdSet = false;
@@ -36,6 +37,7 @@ namespace Spooky.Core
         public bool GoreArmorSet = false;
 
         //accessories
+        public bool BustlingGlowshroom = false;
         public bool CandyBag = false;
         public bool MagicCandle = false;
         public bool CrossCharmShield = false;
@@ -93,6 +95,7 @@ namespace Spooky.Core
             GoreArmorSet = false;
 
             //accessories
+            BustlingGlowshroom = false;
             CandyBag = false;
             MagicCandle = false;
             CrossCharmShield = false;
@@ -279,6 +282,22 @@ namespace Spooky.Core
                 Player.buffImmune[BuffID.WindPushed] = true;
             }
 
+            if (Player.velocity == Vector2.Zero && BustlingGlowshroom)
+            {
+                BustlingHealTimer++;
+
+                //dont heal the player until after they are standing still for long enough
+                if (BustlingHealTimer >= 60)
+                {
+                    Player.AddBuff(ModContent.BuffType<BustlingGlowshroomHeal>(), 2);
+                }
+            }
+            else
+            {
+                //reset the time if you move at all
+                BustlingHealTimer = 0;
+            }
+
             //bogger frenzy stuff
             //when the charge is high enough, grant the player the booger frenzy
             if (MocoBoogerCharge >= 15)
@@ -312,15 +331,15 @@ namespace Spooky.Core
                 //spawn flies
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
                 {
-                    flySpawnTimer++;
+                    FlySpawnTimer++;
 
-                    if (flySpawnTimer == 300)
+                    if (FlySpawnTimer == 300)
                     {
                         Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
                         ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
 
-                        flySpawnTimer = 0;
+                        FlySpawnTimer = 0;
                     }
                 }
             }

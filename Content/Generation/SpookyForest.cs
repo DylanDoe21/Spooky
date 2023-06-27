@@ -95,8 +95,8 @@ namespace Spooky.Content.Generation
                 //loop to make the sides of the spooky forest more smooth
                 for (int cutOff = 0; cutOff < Main.maxTilesX / 28; cutOff += 50)
                 {
-                    SpookyWorldMethods.TileRunner(PositionX, PositionY + Y + cutOff, (double)Size + Y / 2, 1, ModContent.TileType<SpookyDirt>(), 
-                    ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, true);
+                    SpookyWorldMethods.SpookyForestTileRunner(PositionX, PositionY + Y + cutOff, (double)Size + Y / 2, 1, 
+                    ModContent.TileType<SpookyDirt>(), ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, true);
                 }
             }
 
@@ -465,7 +465,7 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>())
                     {
                         //grow big mushrooms
-                        if (WorldGen.genRand.NextBool(15))
+                        if (WorldGen.genRand.NextBool(20))
                         {    
                             ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroom1>(), (ushort)ModContent.TileType<GiantShroom2>(), 
                             (ushort)ModContent.TileType<GiantShroom3>(), (ushort)ModContent.TileType<GiantShroom4>() };

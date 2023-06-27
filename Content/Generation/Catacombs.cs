@@ -30,7 +30,6 @@ namespace Spooky.Content.Generation
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
         public static int EntranceY = 0;
-        public static int BiomeWidth = 420;
 
         public static bool PlacedFirstBarrier = false;
         public static bool placedLootRoom1 = false;
@@ -44,8 +43,8 @@ namespace Spooky.Content.Generation
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
 
             int XStart = PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+            int XEdge = XStart + Cemetery.BiomeWidth;
 
             //LAYER 1
 
@@ -280,23 +279,25 @@ namespace Spooky.Content.Generation
             switchRoom = 0;
             chosenRoom = 0;
 
+            //reset the loot room bools
             placedLootRoom1 = false;
             placedLootRoom2 = false;
             placedLootRoom3 = false;
             placedLootRoom4 = false;
 
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
-            //200 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
+            //240 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
             int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
 
             //sets the height for the catacombs second layer (how many rooms it has vertically)
-            //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)
+            //350 = large worlds (6 rooms deep), 300 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)
             int layer2Depth = Main.maxTilesY >= 2400 ? 350 : (Main.maxTilesY >= 1800 ? 300 : 250);
 
             //randomize room pattern
             RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => Main.rand.Next()).ToArray();
 
             //again, place a circle of bricks where each catacomb room will be
+            //since the rooms in layer 2 are wider, place two circles side by side
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
                 for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
@@ -653,14 +654,16 @@ namespace Spooky.Content.Generation
         }
 
         /*
+        //TODO: probably polish this up a bit once the catacomb generation is done, or possibly change the way the chests generate completely
+        
         bool placedChest = false;
         bool placedChest2 = false;
 
         private void PlaceCatacombAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+            int XEdge = XStart + Cemetery.BiomeWidth;
 
             int layer1Width = Main.maxTilesX >= 8400 ? 200 : 150;
             int layer1Depth = Main.maxTilesY >= 2400 ? (Main.maxTilesY >= 1800 ? 145 : 100) : 190;
@@ -734,8 +737,8 @@ namespace Spooky.Content.Generation
         private void KillVinesAndPlants(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+            int XEdge = XStart + Cemetery.BiomeWidth;
 
             //all of this code just kills plants and vines that are not on valid tiles, after everything in the catacombs generates
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)

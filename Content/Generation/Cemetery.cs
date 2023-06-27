@@ -17,6 +17,8 @@ namespace Spooky.Content.Generation
 {
     public class Cemetery : ModSystem
     {
+        public static int BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
+
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemeteryArea(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -24,21 +26,21 @@ namespace Spooky.Content.Generation
 
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
-            float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.75f : 5.5f;
+            float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.75f : 8.75f;
 
             //place biome based on the opposite side of the dungeon
             if (GenVars.dungeonSide == -1)
 			{
-                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 120;
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset);
 			}
 			else
 			{
-                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 120;
+                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset);
             }
 
             int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (Catacombs.BiomeWidth / 2);
-            int XEdge = XStart + Catacombs.BiomeWidth;
+            int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
 
             bool foundSurface = false;
             int attempts = 0;
@@ -59,7 +61,7 @@ namespace Spooky.Content.Generation
             }
 
             //place the terrain itself and replace blocks with cemetery blocks
-            for (int X = XMiddle - Catacombs.BiomeWidth / 2; X <= XMiddle + Catacombs.BiomeWidth / 2; X++)
+            for (int X = XMiddle - (BiomeWidth / 2); X <= XMiddle + (BiomeWidth / 2); X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
@@ -90,7 +92,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
-                for (int FillY = (int)Main.worldSurface - 55; FillY <= Main.worldSurface; FillY++)
+                for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
                 {
                     SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }
@@ -116,11 +118,11 @@ namespace Spooky.Content.Generation
         private void SpreadCemeteryGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (Catacombs.BiomeWidth / 2);
-            int XEdge = XStart + Catacombs.BiomeWidth;
+            int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
 
             //spread grass on all cemetery dirt tiles
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 100; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 100; X++)
+            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
@@ -167,10 +169,10 @@ namespace Spooky.Content.Generation
         private void GrowCemeteryTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (Catacombs.BiomeWidth / 2);
-            int XEdge = XStart + Catacombs.BiomeWidth;
+            int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
 
-            for (int X = XMiddle - (Catacombs.BiomeWidth / 2) - 100; X <= XMiddle + (Catacombs.BiomeWidth / 2) + 100; X++)
+            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
@@ -186,12 +188,12 @@ namespace Spooky.Content.Generation
         public void GenerateCemeteryStructures(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (Catacombs.BiomeWidth / 2);
+            int XMiddle = XStart + (BiomeWidth / 2);
 
             //first hut
             bool placedHut1 = false;
             int hut1Attempts = 0;
-            while (!placedHut1 && hut1Attempts++ < 100000)
+            while (!placedHut1 && hut1Attempts++ < 100000 && Main.maxTilesX >= 6400)
             {
                 int HutX = XMiddle - 175;
                 int HutY = Catacombs.PositionY - 55;
@@ -297,7 +299,7 @@ namespace Spooky.Content.Generation
             //second burial pit
             bool placedHole2 = false;
             int hole2Attempts = 0;
-            while (!placedHole2 && hole2Attempts++ < 100000)
+            while (!placedHole2 && hole2Attempts++ < 100000 && Main.maxTilesX >= 6400)
             {
                 int HoleX = XMiddle + 135;
                 int HoleY = Catacombs.PositionY - 55;
@@ -323,7 +325,7 @@ namespace Spooky.Content.Generation
             //second hut
             bool placedHut2 = false;
             int hut2Attempts = 0;
-            while (!placedHut2 && hut2Attempts++ < 100000)
+            while (!placedHut2 && hut2Attempts++ < 100000 && Main.maxTilesX >= 6400)
             {
                 int HutX = XMiddle + 185;
                 int HutY = Catacombs.PositionY - 55;

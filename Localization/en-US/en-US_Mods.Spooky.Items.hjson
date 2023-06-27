@@ -597,6 +597,11 @@ WizardGangsterLegs: {
 	Tooltip: Increases maximum mana by 20
 }
 
+BustlingGlowshroom: {
+	DisplayName: Bustling Glowshroom
+	Tooltip: Greatly increases life regeneration while standing still
+}
+
 Candy1: {
 	DisplayName: Candy
 	Tooltip: ""
