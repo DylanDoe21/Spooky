@@ -96,7 +96,7 @@ Other New Additions:
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Lowered the spooky orange ghost's spawnrate
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
--Nerfed gargoyle scepter base damage from 65 to 45, and the cursed fire balls shot by grug now inflict cursed flames
+-Nerfed gargoyle scepter base damage from 65 to 35, and the cursed fire balls shot by grug now inflict cursed flames
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time
 -Removed the haunted skull enemy from the mod
 

@@ -4,16 +4,15 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome.Misc;
-using Spooky.Content.Tiles.Banner.SpookyForest;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
-	public class LittleSpider : ModNPC
+	public class ShroomHopper : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 4;
+			Main.npcFrameCount[NPC.type] = 6;
             Main.npcCatchable[NPC.type] = true;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
 		}
@@ -29,11 +28,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.aiStyle = 66;
-			AIType = NPCID.Buggy;
-            NPC.catchItem = (short)ModContent.ItemType<LittleSpiderItem>();
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<LittleSpiderBanner>();
+			NPC.aiStyle = 7;
+			AIType = NPCID.Bunny;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 
@@ -41,7 +37,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.LittleSpider"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ShroomHopper"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -53,9 +49,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
                 {
-                    return 8f;
+                    return 4f;
                 }
             }
 
@@ -67,15 +63,20 @@ namespace Spooky.Content.NPCs.SpookyBiome
             if (NPC.velocity.X != 0)
             {
                 NPC.frameCounter += 1;
-                if (NPC.frameCounter > 7)
+
+                if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;
                 }
-                if (NPC.frame.Y >= frameHeight * 4)
+                if (NPC.frame.Y >= frameHeight * 6)
                 {
-                    NPC.frame.Y = 0;
+                    NPC.frame.Y = 0 * frameHeight;
                 }
+            }
+            else
+            {
+                NPC.frame.Y = 0 * frameHeight;
             }
 		}
 
@@ -86,9 +87,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
+            //dont run on multiplayer
+			if (Main.netMode == NetmodeID.Server) 
+            {
+				return;
+			}
+
 			if (NPC.life <= 0) 
             {
-                for (int numDusts = 0; numDusts < 10; numDusts++)
+                for (int numDusts = 0; numDusts < 5; numDusts++)
                 {
                     int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Asphalt, 0f, 0f, 100, default, 1f);
 
@@ -98,7 +105,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
                         Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
+
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ShroomHopperGore").Type);
             }
-		}
+        }
 	}
 }

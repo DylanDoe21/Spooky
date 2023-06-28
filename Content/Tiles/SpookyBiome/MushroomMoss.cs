@@ -90,7 +90,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
 
                 //grow big yellow mushrooms
-                if (Main.rand.NextBool(25))
+                if (Main.rand.NextBool(30))
                 {
                     ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomYellow1>(), (ushort)ModContent.TileType<GiantShroomYellow2>(),
                     (ushort)ModContent.TileType<GiantShroomYellow3>(), (ushort)ModContent.TileType<GiantShroomYellow4>() };
@@ -102,7 +102,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
 
                 //grow mushroom trees very rarely
-                if (Main.rand.NextBool(60))
+                if (Main.rand.NextBool(75))
                 {
                     SpookyForest.GrowGiantMushroom(i, j, ModContent.TileType<GiantShroom>(), 6, 10);
                 }

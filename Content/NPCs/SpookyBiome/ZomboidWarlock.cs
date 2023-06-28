@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 if (((player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !Main.dayTime) ||
                 player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>())) && !NPC.AnyNPCs(ModContent.NPCType<ZomboidWarlock>()))
                 {
-                    return 3f;
+                    return 1f;
                 }
             }
 
