@@ -201,7 +201,9 @@ FemurFracture: {
 	DisplayName: Femur Fracturer
 	Tooltip:
 		'''
-		Hold down to swing the hammer, then release to throw it
+		Holding down will swing the hammer, then release to throw it when charged
+		Hold down for even longer to super charge the hammer
+		When super charged, throwing it will leave behind homing skulls
 		'The perfect weapon to fracture your foes bones!'
 		'''
 }
@@ -392,7 +394,7 @@ WaasephiHead: {
 
 WarlockHood: {
 	DisplayName: Warlock's Hood
-	Tooltip: "'It doesn't give powers, but it looks cool!'"
+	Tooltip: "'We love casting spells!'"
 }
 
 BlackLicorice: {
@@ -472,8 +474,8 @@ DissolvedBone: {
 	DisplayName: Slightly Dissolved Bone
 	Tooltip:
 		'''
-		Summons a pet skull goop
-		'Its covered in gross goop'
+		Summons a mysterious pile of goo to follow you
+		'Its covered in nasty goop, gross!'
 		'''
 }
 
@@ -548,7 +550,11 @@ SpiritLamp: {
 
 SuspiciousBrownie: {
 	DisplayName: Suspicious Looking Brownie
-	Tooltip: Your better judgement tells you to NOT eat this
+	Tooltip:
+		'''
+		Summons Columbo
+		'Your better judgement tells you to NOT eat this'
+		'''
 }
 
 YellowSpore: {

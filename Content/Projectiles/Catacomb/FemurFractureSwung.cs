@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -21,8 +22,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 68;
-            Projectile.height = 68;
+            Projectile.width = 120;
+            Projectile.height = 120;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.netImportant = true;
@@ -43,9 +44,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/LightningTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
@@ -65,7 +66,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageCaches()
         {
-            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 2);
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 48);
 
             if (cache == null)
             {
@@ -125,9 +126,9 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.Kill();
             }
 
-            if (Projectile.localAI[0] == 0)
+            if (Projectile.ai[0] == 0)
             {
-                Projectile.localAI[0] = 1f;
+                Projectile.ai[0] = 1f;
                 Projectile.rotation -= owner.direction == 1 ? MathHelper.PiOver2 : 0f;
             }
 
@@ -148,19 +149,28 @@ namespace Spooky.Content.Projectiles.Catacomb
                     owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
                 }
 
-                Projectile.localAI[0]++;
+                Projectile.ai[0]++;
 
                 //increase swing speed and the trail size as you swing it
-                if (Projectile.localAI[0] < 120)
+                if (Projectile.ai[0] < 120)
                 {
-                    Speed += 0.002f;
+                    Speed += 0.0025f;
                     TrailSize += 0.08f;
                 }
 
-                //play a bell sound when fully charged
-                if (Projectile.localAI[0] == 120)
+                //play sound when fully charged
+                if (Projectile.ai[0] == 120)
                 {
-                    SoundEngine.PlaySound(SoundID.Item35, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 8f }, Projectile.Center);
+                }
+
+                //play different sound when super charged
+                if (Projectile.ai[0] == 300)
+                {
+                    Speed += 0.25f;
+                    TrailSize += 2f;
+
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Volume = SoundID.DD2_DarkMageSummonSkeleton.Volume * 3.5f }, Projectile.Center);
                 }
 
                 SetProjectilePosition(owner);
@@ -169,7 +179,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //when you release right click when the hammer is charged, throw it
-            if (Projectile.localAI[0] >= 120 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 300 && Main.mouseLeftRelease)
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
@@ -177,14 +187,29 @@ namespace Spooky.Content.Projectiles.Catacomb
                 ShootSpeed.Normalize();
                 ShootSpeed *= 45;
                         
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 
                 ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
 
                 Projectile.Kill();
             }
 
+            //throw the super charged hammer, but faster and set its ai to shoot skulls
+            if (Projectile.ai[0] >= 300 && Main.mouseLeftRelease)
+            {
+                SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
+
+                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed *= 55;
+                        
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 1f);
+
+                Projectile.Kill();
+            }
+
             //kill this projectile if you release right click before its charged
-            if (Projectile.localAI[0] > 2 && Projectile.localAI[0] < 120 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] > 2 && Projectile.ai[0] < 120 && Main.mouseLeftRelease)
             {
                 Projectile.Kill();
             }

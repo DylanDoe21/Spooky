@@ -14,6 +14,7 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery.Misc;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -182,6 +183,9 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
+			//drop skull goop during a blood moon if you are in the spooky biome
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
+
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));

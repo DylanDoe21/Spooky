@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -37,9 +38,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/LightningTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
@@ -121,6 +122,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.ai[0] >= 13)
             {
+                //remove knockback here so the hammer doesnt fling enemies directly towards you when returning
+                Projectile.knockBack = 0;
+
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
                 ReturnSpeed *= 35;
@@ -130,6 +134,19 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (Projectile.Hitbox.Intersects(owner.Hitbox))
                 {
                     Projectile.Kill();
+                }
+            }
+
+            //fire off skulls if super charged
+            if (Projectile.ai[1] == 1)
+            {
+                if (Projectile.ai[0] == 2 || Projectile.ai[0] == 4 || Projectile.ai[0] == 6 || Projectile.ai[0] == 8 || Projectile.ai[0] == 10 || Projectile.ai[0] == 12)
+                {
+                    Vector2 Speed = new Vector2(1f, 0f).RotatedByRandom(2 * Math.PI);
+                    Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, 
+                    ModContent.ProjectileType<FemurFractureSkull>(), Projectile.damage, 12f, Main.myPlayer, 0f, 1f);
                 }
             }
         }

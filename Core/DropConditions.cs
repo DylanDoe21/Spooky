@@ -14,6 +14,32 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
+        public class SkullGoopPetCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    if (Main.bloodMoon && info.player.InModBiome<SpookyBiome>())
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         public class YellowCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 

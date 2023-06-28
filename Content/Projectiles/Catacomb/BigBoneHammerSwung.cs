@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -178,7 +179,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play a bell sound when fully charged
                 if (Projectile.localAI[0] == 120)
                 {
-                    SoundEngine.PlaySound(SoundID.Item35, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 8f }, Projectile.Center);
                 }
 
                 SetProjectilePosition(owner);

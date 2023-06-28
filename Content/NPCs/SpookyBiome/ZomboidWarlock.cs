@@ -168,7 +168,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
         }
 
-
         public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer

@@ -5,6 +5,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -86,7 +87,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BustlingGlowshroom>(), 60));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
