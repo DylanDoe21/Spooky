@@ -16,7 +16,6 @@ using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;

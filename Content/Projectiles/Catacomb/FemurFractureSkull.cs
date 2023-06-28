@@ -23,7 +23,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 240;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
 
@@ -100,6 +100,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.ai[0] >= 30)
             {
+                Projectile.penetrate = 1;
+
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
                 {

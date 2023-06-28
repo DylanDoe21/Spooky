@@ -16,7 +16,6 @@ using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -598,7 +597,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
                             (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X), NPC.Center.Y + (NPC.velocity.Y),
                                 NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
                                 ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
                             }

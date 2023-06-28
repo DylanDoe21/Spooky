@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
                 {
-                    return 8f;
+                    return 12f;
                 }
             }
 

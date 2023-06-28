@@ -8,7 +8,7 @@ using System;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
-namespace Spooky.Content.Items.SpookyHell.Boss
+namespace Spooky.Content.Items.SpookyHell
 {
     public class EyeFlail : ModItem
     {

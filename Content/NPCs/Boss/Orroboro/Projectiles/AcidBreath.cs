@@ -2,72 +2,38 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
     public class AcidBreath : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 7;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
-        {   
-            Projectile.width = 46;
-            Projectile.height = 46;
+        {
+            Projectile.width = 40;
+            Projectile.height = 40;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            Projectile.timeLeft = 500;
+            Projectile.timeLeft = 150;
             Projectile.extraUpdates = 3;
             Projectile.alpha = 255;
         }
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Purple) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
-            }
-
-            return true;
-        }
-        
         public override void AI()
         {
-            Projectile.localAI[0]++;
+            Projectile.ai[0]++;
 
-            if (Projectile.localAI[0] > 20)
+            if (Projectile.ai[0] > 20)
             {
-                Projectile.alpha -= 1;
-                
-                if (Projectile.alpha <= 0)
+                if (Main.rand.NextBool(3))
                 {
-                    Projectile.alpha = 0;
-                }
-
-                Projectile.rotation += 0.01f * (float)Projectile.direction;
-                
-                Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 15)
-                {
-                    Projectile.frame++;
-                    Projectile.frameCounter = 0;
-                    if (Projectile.frame >= 7)
-                    {
-                        Projectile.frame = 0;
-                        Projectile.Kill();
-                    }
+                    int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 5, Projectile.height / 5, 
+                    ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.5f, Main.rand.NextFloat(0.35f, 0.65f));
+                    Main.dust[DustEffect].velocity *= 0;
+                    Main.dust[DustEffect].alpha = 100;
                 }
             }
         }

@@ -146,7 +146,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, 
-                    ModContent.ProjectileType<FemurFractureSkull>(), Projectile.damage, 12f, Main.myPlayer, 0f, 1f);
+                    ModContent.ProjectileType<FemurFractureSkull>(), Projectile.damage, 0f, Main.myPlayer, 0f, 1f);
                 }
             }
         }

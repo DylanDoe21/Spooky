@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.SpookyHell;
 
-namespace Spooky.Content.Items.SpookyHell.Boss
+namespace Spooky.Content.Items.SpookyHell
 {
 	public class BoogerStaff : ModItem
 	{

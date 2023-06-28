@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
-                new Rectangle(500 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 36), lightColor, 
+                new Rectangle(750 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 36), lightColor, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 
@@ -71,9 +71,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			{
 				Projectile.ai[1] += 25;
 
-				if (Projectile.ai[1] > 500)
+				if (Projectile.ai[1] > 750)
 				{
-					Projectile.ai[1] = 500;
+					Projectile.ai[1] = 750;
 
 					Projectile.ai[0]++;
 				}

@@ -106,7 +106,6 @@ ToiletPaperProj.DisplayName: Toilet Paper
 ZombiePart1.DisplayName: Zombie Piece
 ZombiePart2.DisplayName: Zombie Piece
 ZombiePart3.DisplayName: Zombie Piece
-AcidFlame.DisplayName: Acidic Flames
 BlasterBoogerBig.DisplayName: Snot Ball
 BlasterBoogerSmall.DisplayName: Snot Ball
 BloodyTear.DisplayName: Bloody Tear
@@ -199,3 +198,4 @@ FlyPet.DisplayName: Cornelious
 FemurFractureSwung.DisplayName: Femur Fracturer
 FemurFractureProj.DisplayName: Femur Fracturer
 FemurFractureSkull.DisplayName: Fractured Skull
+VenomBreath.DisplayName: Venom Breath

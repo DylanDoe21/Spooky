@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.height = 48;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.75f;
-            NPC.value = Item.buyPrice(0, 0, 2, 0);
+            NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 3;
@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BustlingGlowshroom>(), 60));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BustlingGlowshroom>(), 30));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

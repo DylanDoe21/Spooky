@@ -795,7 +795,7 @@ ShroomWhip: {
 	Tooltip:
 		'''
 		Your summons will focus stuck enemies
-		Hitting enemies may sometimes create short lived spores
+		Hitting enemies will sometimes create lingering spores
 		'''
 }
 
@@ -983,8 +983,8 @@ LeechWhip: {
 }
 
 MouthFlamethrower: {
-	DisplayName: Acid Blaster
-	Tooltip: Creates a continuous stream of acidic flames
+	DisplayName: Venom Gasser
+	Tooltip: Fires out a stream of venomous breath
 }
 
 Scycler: {

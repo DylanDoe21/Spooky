@@ -57,7 +57,9 @@ Localization File Split:
 
 Other New Additions:
 
--Added old wood greatsword, reinforced old wood bow, old wood slingshot, old wood staff, shroom whip, and fungal flail
+-Added bungus, chunky fungus, and mushroom hoppers
+-Added pumpkin putty, (list all other spooky forest enemies here as they are finished)
+-Added old wood greatsword, reinforced old wood bow, old wood slingshot, old wood staff, fungal flail, and spore smacker
 -Added Rotty's wrath, Jerry's Book of Stinkology, Stinky Slinger, and Branch of Gourd
 -Added bustling glowshroom
 -Added the femur fracturer
@@ -65,7 +67,6 @@ Other New Additions:
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
 -Added new pets and light pets
--Added columbo (Best new feature imo)
 -Added support for the new 1.4.4 version of boss checklist
 
 
@@ -99,6 +100,10 @@ Other New Additions:
 -Nerfed gargoyle scepter base damage from 65 to 35, and the cursed fire balls shot by grug now inflict cursed flames
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time
 -Removed the haunted skull enemy from the mod
+-Lowered the spawn rate of the glooper enemy in the cemetery
+-Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, its projectile now inflicts venom, pierces enemies, and has a cool new visual effect
+-Made orro & boro thorn pillars taller 
+
 
 
 

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.SpookyHell.Boss;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 

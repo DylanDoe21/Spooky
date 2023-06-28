@@ -4,8 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 
 using Spooky.Content.Events;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.Items.SpookyHell.Boss;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
 namespace Spooky.Content.Items.BossSummon

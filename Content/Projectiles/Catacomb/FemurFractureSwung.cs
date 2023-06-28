@@ -161,7 +161,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play sound when fully charged
                 if (Projectile.ai[0] == 120)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 8f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 20f }, Projectile.Center);
                 }
 
                 //play different sound when super charged
@@ -179,7 +179,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //when you release right click when the hammer is charged, throw it
-            if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 300 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 240 && Main.mouseLeftRelease)
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
@@ -194,7 +194,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //throw the super charged hammer, but faster and set its ai to shoot skulls
-            if (Projectile.ai[0] >= 300 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] >= 240 && Main.mouseLeftRelease)
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 

@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 if (player.InModBiome(ModContent.GetInstance<Biomes.CemeteryBiome>()))
                 {
-                    return 10f;
+                    return 4f;
                 }
             }
 
