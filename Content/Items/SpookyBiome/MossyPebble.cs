@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void AddRecipes()
         {
-            CreateRecipe(50)
+            CreateRecipe(15)
             .AddIngredient(ModContent.ItemType<SpookyStoneItem>())
             .Register();
         }

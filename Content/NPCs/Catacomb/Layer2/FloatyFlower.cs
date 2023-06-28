@@ -3,48 +3,44 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 
-namespace Spooky.Content.NPCs.Catacomb
+namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
-    public class PlantTrap : ModNPC  
+    public class FloatyFlower : ModNPC  
     {
-        public bool Biting = false;
-
-        public static readonly SoundStyle ChompSound = new("Spooky/Content/Sounds/Catacomb/Chomp", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 10;
+            Main.npcFrameCount[NPC.type] = 7;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(Biting);
+            writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            Biting = reader.ReadBoolean();
+            NPC.localAI[0] = reader.ReadSingle();
         }
-
+        
         public override void SetDefaults()
-        {
-            NPC.lifeMax = Main.hardMode ? 175 : 60;
-            NPC.damage = Main.hardMode ? 70 : 45;
-            NPC.defense = Main.hardMode ? 22 : 15;
-            NPC.width = 43;
-            NPC.height = 46;
+		{
+            NPC.lifeMax = 180;
+            NPC.damage = 45;
+            NPC.defense = 15;
+            NPC.width = 36;
+			NPC.height = 36;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.5f;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.Grass;
-            NPC.DeathSound = SoundID.NPCDeath5;
-            NPC.aiStyle = -1;
+			NPC.DeathSound = SoundID.NPCDeath1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
 
@@ -52,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FloatyFlower"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -63,19 +59,20 @@ namespace Spooky.Content.NPCs.Catacomb
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 15f;
+                return 20f;
             }
 
             return 0f;
         }
 
         public override void FindFrame(int frameHeight)
-        {
-            if (!Biting)
-            {
-                NPC.frameCounter += 1;
+        {   
+            NPC.frameCounter += 1;
 
-                if (NPC.frameCounter > 4)
+            //running animation
+            if (NPC.velocity.Y <= 0)
+            {
+                if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;
@@ -86,47 +83,47 @@ namespace Spooky.Content.NPCs.Catacomb
                 }
             }
 
-            if (Biting)
+            //floating animation
+            if (NPC.velocity.Y > 0)
             {
-                NPC.frameCounter += 1;
-
-                if (NPC.frameCounter > 1)
+                if (NPC.frameCounter > 2)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;
                 }
                 if (NPC.frame.Y >= frameHeight * 7)
                 {
-                    NPC.frame.Y = 6 * frameHeight;
+                    NPC.frame.Y = 4 * frameHeight;
                 }
             }
         }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-        {
-            Biting = true;
-
-            if (NPC.ai[0] != 1)
-            {
-                NPC.frame.Y = 4;
-                SoundEngine.PlaySound(ChompSound, NPC.Center);
-                NPC.ai[0] = 1;
-            }
-        }
-
+        
         public override void AI()
-        {
+		{
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            if (Biting)
-            {
-                player.Center = NPC.Center;
+            NPC.spriteDirection = NPC.direction;
 
-                if (player.statLife <= 0)
+            NPC.rotation = 0;
+
+            if (NPC.velocity.Y > 0)
+            {   
+                NPC.localAI[0]++;
+
+                if (NPC.localAI[0] >= 10)
                 {
-                    Biting = false;
+                    //NPC.aiStyle = 50;
+                    NPC.velocity.Y *= 0.85f;
+                    NPC.noGravity = false;
+                    NPC.noTileCollide = false;
                 }
+            }
+            else
+            {
+                NPC.aiStyle = 26;
+                AIType = NPCID.Wolf;
+                NPC.localAI[0] = 0;
             }
         }
 
@@ -145,9 +142,9 @@ namespace Spooky.Content.NPCs.Catacomb
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FloatyFlowerGore" + numGores).Type);
                 }
             }
         }

@@ -64,25 +64,27 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Projectile.position = player.position + new Vector2(-8, -9);
 
-                Projectile.localAI[0]++;
+                Projectile.ai[2]++;
 
                 //shoot ichor clouds
-                if (Projectile.localAI[0] >= 20)
+                if (Projectile.ai[2] >= 20)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath13, Projectile.Center);
 
-                    for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                    for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
                     {
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed.X *= Main.rand.Next(5, 25);
-                        ShootSpeed.Y *= Main.rand.Next(5, 25);
+                        ShootSpeed.X *= Main.rand.Next(10, 25);
+                        ShootSpeed.Y *= Main.rand.Next(10, 25);
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<IchorCloud>(), Projectile.damage / 2, 0, Projectile.owner);
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<IchorCloud>(), Projectile.damage / 2, 0, Projectile.owner);
                     }
 
-                    Projectile.localAI[0] = 0;
+                    Projectile.ai[2] = 0;
                 }
 
                 if (direction.X > 0) 

@@ -560,7 +560,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[x, y].HasTile)
 				{
-                    Vector2 origin = new Vector2(x - 10, y - 18);
+                    Vector2 origin = new Vector2(x - 10, y - 22);
 
                     //clear trees around the house since it is placed after them
                     for (int i = (int)origin.X - 15; i <= (int)origin.X + 15; i++)

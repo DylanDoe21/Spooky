@@ -197,6 +197,15 @@ CrossCharm: {
 		'''
 }
 
+FemurFracture: {
+	DisplayName: Femur Fracturer
+	Tooltip:
+		'''
+		Hold down to swing the hammer, then release to throw it
+		'The perfect weapon to fracture your foes bones!'
+		'''
+}
+
 GlowBulb: {
 	DisplayName: Bulb Bomb
 	Tooltip:

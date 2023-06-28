@@ -1,55 +1,41 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
     public class IchorCloud : ModProjectile
     {
-        public override void SetStaticDefaults()
-		{
-            Main.projFrames[Projectile.type] = 5;
-        }
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
         {
-            Projectile.width = 28;
-            Projectile.height = 30;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 255;
+            Projectile.timeLeft = 60;
             Projectile.penetrate = 3;
+            Projectile.alpha = 255;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Ichor, 180);
+            target.AddBuff(BuffID.Ichor, 120);
         }
 
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 6)
-            {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= 5)
-                {
-                    Projectile.frame = 0;
-                }
-            }
-
-            Projectile.alpha += 5;
-            
-            if (Projectile.alpha >= 255)
-            {
-                Projectile.Kill();
-            }
-
-			Projectile.rotation += 0.35f * (float)Projectile.direction;
-
             Projectile.velocity *= 0.95f;
+
+            int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 10, Projectile.height / 10, 
+            ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Gold * 0.5f, Main.rand.NextFloat(0.2f, 0.4f));
+            Main.dust[DustEffect].velocity *= 0;
+            Main.dust[DustEffect].alpha = 100;
         }
     }
 }

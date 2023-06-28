@@ -15,7 +15,7 @@ namespace Spooky.Content.Dusts
             dust.alpha = 0;
             dust.fadeIn = 12f;
             dust.scale *= Main.rand.NextFloat(0.75f, 1f);
-            dust.frame = new Rectangle(0, 0, 16, 16);
+            dust.frame = new Rectangle(0, 0, 22, 22);
         }
 
         public override bool Update(Dust dust)

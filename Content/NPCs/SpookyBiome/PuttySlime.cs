@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.NPCHit1;
+            NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.BlueSlime;
@@ -161,7 +161,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.NPCHit1;
+            NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.BlueSlime;
@@ -223,7 +223,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.NPCHit1;
+            NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.BlueSlime;

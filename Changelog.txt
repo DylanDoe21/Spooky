@@ -59,11 +59,13 @@ Other New Additions:
 
 -Added old wood greatsword, reinforced old wood bow, old wood slingshot, old wood staff, shroom whip, and fungal flail
 -Added Rotty's wrath, Jerry's Book of Stinkology, Stinky Slinger, and Branch of Gourd
+-Added bustling glowshroom
+-Added the femur fracturer
 -Added the gilded armor set
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
 -Added new pets and light pets
--Added columbo
+-Added columbo (Best new feature imo)
 -Added support for the new 1.4.4 version of boss checklist
 
 
@@ -84,18 +86,19 @@ Other New Additions:
 -Increased harvester's scythe knockback
 -Added new sprites for big bone's thorn attacks to make them look better
 -Buffed the amount of defense each piece of the rotten gourd armor gives
--Rotten gourd armor now requires old wood to craft along with the rotten chunks
--Increased the drop rate for the skull scepter, warlock's cloak, and warlock's hood from zomboid warlocks
 -Renamed rotten chunk to moldy chunk, because rotten chunks are already a vanilla item
+-Rotten gourd armor now requires old wood to craft along with the moldy chunks
+-Increased the drop rate for the skull scepter, warlock's cloak, and warlock's hood from zomboid warlocks
 -Fixed moldy chunks stacking to 999 and not 9999
 -Nerfed giant tortumor contact damage from 65 to 40
--All spooky mod boss masks now drop from that bosses respective treasure bag to be consistent with vanilla
+-All spooky mod boss masks now drop from that bosses respective treasure bag in expert mode to be consistent with vanilla
 -Spooky mod's pylons now give off colored lighting like vanilla ones do
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Lowered the spooky orange ghost's spawnrate
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Nerfed gargoyle scepter base damage from 65 to 45, and the cursed fire balls shot by grug now inflict cursed flames
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time
+-Removed the haunted skull enemy from the mod
 
 
 

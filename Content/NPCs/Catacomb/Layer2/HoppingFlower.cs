@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 
-namespace Spooky.Content.NPCs.Catacomb
+namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
     public class HoppingFlower : ModNPC  
     {

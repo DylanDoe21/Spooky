@@ -8,13 +8,13 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 
-namespace Spooky.Content.NPCs.Catacomb
+namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
-    public class FloatyFlower : ModNPC  
+    public class RollFlower : ModNPC  
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 7;
+            Main.npcFrameCount[NPC.type] = 5;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -29,11 +29,11 @@ namespace Spooky.Content.NPCs.Catacomb
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 180;
-            NPC.damage = 45;
-            NPC.defense = 15;
-            NPC.width = 36;
-			NPC.height = 36;
+            NPC.lifeMax = Main.hardMode ? 200 : 60;
+            NPC.damage = Main.hardMode ? 60 : 30;
+            NPC.defense = Main.hardMode ? 22 : 15;
+            NPC.width = 54;
+			NPC.height = 56;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.noGravity = false;
@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FloatyFlower"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.RollFlower"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 20f;
+                return 25f;
             }
 
             return 0f;
@@ -70,31 +70,20 @@ namespace Spooky.Content.NPCs.Catacomb
             NPC.frameCounter += 1;
 
             //running animation
-            if (NPC.velocity.Y <= 0)
+            if (NPC.frameCounter > 6)
             {
-                if (NPC.frameCounter > 6)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
-                }
-                if (NPC.frame.Y >= frameHeight * 4)
-                {
-                    NPC.frame.Y = 0 * frameHeight;
-                }
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 4)
+            {
+                NPC.frame.Y = 0 * frameHeight;
             }
 
-            //floating animation
-            if (NPC.velocity.Y > 0)
+            //jumping/rolling frame
+            if ((NPC.velocity.Y > 0 || NPC.velocity.Y < 0) || NPC.localAI[0] >= 420)
             {
-                if (NPC.frameCounter > 2)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
-                }
-                if (NPC.frame.Y >= frameHeight * 7)
-                {
-                    NPC.frame.Y = 4 * frameHeight;
-                }
+                NPC.frame.Y = 4 * frameHeight;
             }
         }
         
@@ -103,26 +92,38 @@ namespace Spooky.Content.NPCs.Catacomb
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            NPC.spriteDirection = NPC.direction;
+			NPC.spriteDirection = NPC.direction;
 
-            NPC.rotation = 0;
+            NPC.localAI[0]++;
 
-            if (NPC.velocity.Y > 0)
-            {   
-                NPC.localAI[0]++;
-
-                if (NPC.localAI[0] >= 10)
-                {
-                    //NPC.aiStyle = 50;
-                    NPC.velocity.Y *= 0.85f;
-                    NPC.noGravity = false;
-                    NPC.noTileCollide = false;
-                }
-            }
-            else
+            if (NPC.localAI[0] < 420)
             {
+                NPC.rotation = 0;
+                NPC.aiStyle = 3;
+			    AIType = NPCID.GoblinWarrior;
+            }
+
+            if (NPC.localAI[0] >= 420)
+            {
+                NPC.rotation += 0.45f * (float)NPC.direction;
+                NPC.velocity.X = NPC.velocity.X * 1.05f;
+
+                if (NPC.velocity.X >= 8)
+                {
+                    NPC.velocity.X = 8;
+                }
+
+                if (NPC.velocity.X <= -8)
+                {
+                    NPC.velocity.X = -8;
+                }
+
                 NPC.aiStyle = 26;
-                AIType = NPCID.Wolf;
+			    AIType = NPCID.Tumbleweed;
+            }
+
+            if (NPC.localAI[0] >= 620)
+            {
                 NPC.localAI[0] = 0;
             }
         }
@@ -142,9 +143,9 @@ namespace Spooky.Content.NPCs.Catacomb
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FloatyFlowerGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollFlowerGore" + numGores).Type);
                 }
             }
         }

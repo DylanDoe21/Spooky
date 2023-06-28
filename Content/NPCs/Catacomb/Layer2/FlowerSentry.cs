@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
 
-namespace Spooky.Content.NPCs.Catacomb
+namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
     public class FlowerSentry : ModNPC  
     {
         public static List<int> BuffableNPCs = new List<int>() 
         {
             ModContent.NPCType<FloatyFlower>(),
-            ModContent.NPCType<HauntedSkull>(),
             ModContent.NPCType<HoppingFlower>(),
             ModContent.NPCType<RollFlower>()
         };

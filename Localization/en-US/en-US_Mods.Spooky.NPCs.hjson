@@ -71,7 +71,6 @@ PhantomSkull.DisplayName: Phantom Skull
 CatacombGuardian.DisplayName: Catacomb Guardian
 FloatyFlower.DisplayName: Daisy
 FlowerSentry.DisplayName: Sunny
-HauntedSkull.DisplayName: Haunted Skull
 HoppingFlower.DisplayName: Marigold
 PlantTrap.DisplayName: Toothy
 RollFlower.DisplayName: Flourence
@@ -128,3 +127,8 @@ DaffodilHandRight.DisplayName: Daffodil
 Bungus.DisplayName: Bungus
 FeralRat1.DisplayName: Feral Rat
 FeralRat2.DisplayName: Feral Rat
+RollingSkull1.DisplayName: Rolling Skull
+RollingSkull4.DisplayName: Rolling Skull
+RollingSkull3.DisplayName: Rolling Skull
+RollingSkull2.DisplayName: Rolling Skull
+GiantPutty.DisplayName: Putty Cube

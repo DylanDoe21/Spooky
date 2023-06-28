@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 55;
+            NPC.lifeMax = 45;
             NPC.damage = 15;
             NPC.defense = 5;
             NPC.width = 46;
