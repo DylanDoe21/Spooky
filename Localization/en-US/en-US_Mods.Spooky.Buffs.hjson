@@ -200,6 +200,11 @@ BigBonePetBuff: {
 	Description: It may be absorbing your nutrients
 }
 
+CatBuff: {
+	DisplayName: Black Kitten
+	Description: The evil little kitten follows you
+}
+
 ColumboBuff: {
 	DisplayName: Columbo
 	Description: The creature lurks behind you

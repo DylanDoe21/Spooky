@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         {
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] > 20)
+            if (Projectile.ai[0] > 30)
             {
                 if (Main.rand.NextBool(3))
                 {

@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.HitSound = SoundID.Grass;
             NPC.DeathSound = SoundID.NPCDeath5;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -61,7 +61,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             Player player = spawnInfo.Player;
 
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
+            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
             {
                 return 15f;
             }

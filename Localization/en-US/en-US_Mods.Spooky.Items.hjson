@@ -470,6 +470,11 @@ VampireGummy: {
 		'''
 }
 
+CatEyes: {
+	DisplayName: Evil Eyes
+	Tooltip: Summons a pet black kitten
+}
+
 DissolvedBone: {
 	DisplayName: Slightly Dissolved Bone
 	Tooltip:
@@ -984,7 +989,7 @@ LeechWhip: {
 
 MouthFlamethrower: {
 	DisplayName: Venom Gasser
-	Tooltip: Fires out a stream of venomous breath
+	Tooltip: Spews out a stream of venomous gas breath
 }
 
 Scycler: {

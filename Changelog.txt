@@ -66,20 +66,13 @@ Other New Additions:
 -Added the gilded armor set
 -Added giant feral rats
 -Added a mask and trophy for spooky spirit
--Added new pets and light pets
+-Added some new pets and light pets
 -Added support for the new 1.4.4 version of boss checklist
 
 
 
 
 ~CHANGES TO EXISTING CONTENT~
-
--The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
-
-
-
-
-~OTHER SMALLER CHANGES~
 
 -Increased all orro & boro weapon sell prices because they were far too low
 -Increased the use speed for the toilet paper and necromancy for dummies
@@ -95,14 +88,17 @@ Other New Additions:
 -All spooky mod boss masks now drop from that bosses respective treasure bag in expert mode to be consistent with vanilla
 -Spooky mod's pylons now give off colored lighting like vanilla ones do
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
--Lowered the spooky orange ghost's spawnrate
+-Lowered the orange spooky ghost's spawnrate
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Nerfed gargoyle scepter base damage from 65 to 35, and the cursed fire balls shot by grug now inflict cursed flames
--The ichor clouds shot by the tongueblade now inflict ichor for a short time
+-The ichor clouds shot by the tongueblade now inflict ichor for a short time, and have a cooler visual effect
 -Removed the haunted skull enemy from the mod
 -Lowered the spawn rate of the glooper enemy in the cemetery
--Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, its projectile now inflicts venom, pierces enemies, and has a cool new visual effect
--Made orro & boro thorn pillars taller 
+-Renamed the acid blaster to venom gasser and nerfed its base damage from 50 to 30, its projectile now inflicts venom, pierces enemies, and has a cool new visual effect
+-Added a new visual effect for boro's acid breath attack
+-Made orro & boro thorn pillars taller
+-The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
+-Changed the sound effects for the skull smasher when it is ready to throw
 
 
 

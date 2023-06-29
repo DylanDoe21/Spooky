@@ -4,6 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 {
@@ -46,11 +49,35 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
         {
 			Projectile.rotation += 0.12f * (float)Projectile.direction;
 
-            Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 20f)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 20)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
             }
+
+            Projectile.ai[0]++;
+			if (Projectile.ai[0] >= 240)
+			{
+				Projectile.velocity *= 0.15f;
+
+				if (Projectile.ai[1] == 0)
+				{
+					for (float numProjectiles = 0; numProjectiles < 6; numProjectiles++)
+					{
+						Vector2 projPos = Projectile.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 6));
+
+						Vector2 Direction = Projectile.Center - projPos;
+						Direction.Normalize();
+
+						Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+
+						//Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0, 0,
+						//ModContent.ProjectileType<BowFlowerThorn>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+					}
+
+					Projectile.ai[1] = 1;
+				}
+			}
         }
 
 		int Bounces = 0;
@@ -79,19 +106,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			}
 
 			return false;
-		}
-
-        public override void Kill(int timeLeft)
-		{
-            int NumProjectiles = Main.rand.Next(1, 3);
-            for (int i = 0; i < NumProjectiles; i++)
-            {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 3),
-                    Main.rand.Next(-2, -1), ModContent.ProjectileType<LingerThorn>(), Projectile.damage, 0, Main.myPlayer);
-                }
-            }
 		}
     }
 }

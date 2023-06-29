@@ -22,8 +22,6 @@ SnotBall.DisplayName: Snot Ball
 SnotBall2.DisplayName: Snot Ball
 AcidBreath.DisplayName: Acidic Breath
 AcidTarget.DisplayName: Telegraph
-BigBoroAura.DisplayName: Boro Aura
-BigOrroAura.DisplayName: Orro Aura
 BoroBiomatter.DisplayName: Biomass
 EyeSpit.DisplayName: Saliva Ball
 EyeSpit2.DisplayName: Saliva Ball
@@ -143,7 +141,7 @@ CauldronTransformProj.DisplayName: Cauldron Transform Proj
 OrroboroSpawn.DisplayName: Orroboro Spawn
 DecayDebuffFly.DisplayName: Decay Debuff Fly
 BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
-BrainJarProj.DisplayName: Brain Jar Proj
+BrainJarProj.DisplayName: Brainy in a Jar
 CauldronDummy.DisplayName: Cauldron Dummy
 SentientKatanaSlash.DisplayName: Sentient Katana Slash
 SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
@@ -163,11 +161,10 @@ GrugFireball.DisplayName: Cursed Fireball
 BloodTooth.DisplayName: Blood Tooth
 DrainedSoulHealth.DisplayName: Health Soul
 DrainedSoulMana.DisplayName: Mana Soul
-SentientLifeDrainSkull.DisplayName: Sentient Life Drain Skull
+SoulDrainShockwave.DisplayName: Soul Shockwave
 SentientBladeTongueProj.DisplayName: Sentient Blade Tongue
 IchorCloud.DisplayName: Ichor Cloud
 SentientSkull.DisplayName: Chomping Skull
-SoulDrainShockwave.DisplayName: Soul Shockwave
 SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
 BrickProj.DisplayName: Brick
 OldWoodSlingshotProj.DisplayName: Old Wood Slingshot
@@ -199,3 +196,4 @@ FemurFractureSwung.DisplayName: Femur Fracturer
 FemurFractureProj.DisplayName: Femur Fracturer
 FemurFractureSkull.DisplayName: Fractured Skull
 VenomBreath.DisplayName: Venom Breath
+CatPet.DisplayName: Black Kitten
