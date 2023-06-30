@@ -9,6 +9,7 @@ using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
+using System;
 
 namespace Spooky.Core
 {
@@ -16,7 +17,7 @@ namespace Spooky.Core
     {
         public class SkullGoopPetCondition : IItemDropRuleCondition
         {
-            public bool CanDrop(DropAttemptInfo info) 
+            public bool CanDrop(DropAttemptInfo info)
             {
                 if (!info.IsInSimulation) 
                 {
@@ -257,38 +258,6 @@ namespace Spooky.Core
             }
             
             public string GetConditionDescription()
-            {
-                return Description.Value;
-            }
-        }
-
-        public class SentientHeartCondition : IItemDropRuleCondition
-        {
-            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.SentientHeartCondition");
-
-            public bool CanDrop(DropAttemptInfo info) 
-            {
-                if (!info.IsInSimulation) 
-                {
-                    NPC npc = info.npc;
-
-                    if ((!Flags.downedMoco && npc.type == ModContent.NPCType<Moco>()) ||
-                    (!Flags.downedOrroboro && npc.type == ModContent.NPCType<OrroHead>() && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>())) || 
-                    (!Flags.downedOrroboro && npc.type == ModContent.NPCType<BoroHead>() && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>())))
-                    {
-                        return true;
-                    }
-                }
-                
-                return false;
-            }
-
-            public bool CanShowItemDropInUI() 
-            {
-                return true;
-            }
-
-            public string GetConditionDescription() 
             {
                 return Description.Value;
             }

@@ -597,6 +597,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
                             (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
                             {
+                                NPC.velocity *= 0.97f;
+
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X), NPC.Center.Y + (NPC.velocity.Y),
                                 NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
                                 ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
@@ -735,9 +737,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
-            //sentient heart
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
-
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BoroMask>(), 7));
 
@@ -764,6 +763,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
             {
+                //drop a sentient heart for each active player in the world
+                if (!Flags.downedOrroboro)
+                {
+                    for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
+                    {
+                        if (Main.player[numPlayer].active)
+                        {
+                            Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                        }
+                    }
+                }
+
                 NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
             }
         }

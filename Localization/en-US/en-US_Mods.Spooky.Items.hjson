@@ -1012,7 +1012,7 @@ ChestFood: {
 	DisplayName: Chest Monster Food
 	Tooltip:
 		'''
-		Perhaps feeding it to a chest monster may awaken it
+		A strange and delicious piece of meat that seems to be alive
 		Opens one monster chest in the eye valley
 		'A chest monster's favorite delicacy'
 		'''
@@ -1200,7 +1200,7 @@ SentientBladeTongue: {
 	Tooltip:
 		'''
 		Hitting enemies with the tongue may confuse them
-		Hold down right click to belch out short lived clouds of ichor
+		Hold down right click to belch out clouds of ichor
 		'Which came first, the tongue or the creature?'
 		'''
 }
@@ -1307,15 +1307,6 @@ SentientToxikarp: {
 		Spits out toxic bubbles that bounce off of surfaces
 		Sometimes spits out special colored bubbles that all do different things
 		'Killer fish from valley of eyes!'
-		'''
-}
-
-SentientUmbrella: {
-	DisplayName: Observant Umbrella
-	Tooltip:
-		'''
-		Can be used to blow enemies away from you
-		'It doesn't like when rain gets in it's eye'
 		'''
 }
 

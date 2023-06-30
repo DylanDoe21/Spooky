@@ -28,14 +28,14 @@ namespace Spooky.Content.Projectiles.Sentient
             if (foundTarget != -1)
             {
                 NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 10;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 15;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
         }
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 160;
+            const float homingMaximumRangeInPixels = 200;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

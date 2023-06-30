@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework;
 using Spooky.Core;
 using Spooky.Content.Backgrounds.SpookyBiome;
 using Spooky.Content.Gores.Misc;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
     public class SpookyBiome : ModBiome
     {
-        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBGAlt") : ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/SpookyForestBG");
+        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyForestBGAlt>() : ModContent.GetInstance<SpookyForestBG>();
 
         //for whatever reason spooky mod underground backgrounds just break underground backgrounds
         //this will be disabled until it magically gets fixed or something
@@ -50,8 +51,7 @@ namespace Spooky.Content.Biomes
             }
         }
 
-
-        public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/SpookyWaterStyle");
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
         

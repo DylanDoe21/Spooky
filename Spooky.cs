@@ -13,7 +13,6 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
-using Terraria.Graphics.Shaders;
 
 namespace Spooky
 {

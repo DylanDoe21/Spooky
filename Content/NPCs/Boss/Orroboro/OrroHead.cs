@@ -1003,9 +1003,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //material
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
-            //sentient heart
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
-
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));
 
@@ -1032,6 +1029,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
+                //drop a sentient heart for each active player in the world
+                if (!Flags.downedOrroboro)
+                {
+                    for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
+                    {
+                        if (Main.player[numPlayer].active)
+                        {
+                            Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                        }
+                    }
+                }
+
                 NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
             }
         }

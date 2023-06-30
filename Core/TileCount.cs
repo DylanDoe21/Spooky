@@ -14,6 +14,7 @@ namespace Spooky.Core
 		public int raveyardTiles;
 		public int spookyTiles;
 		public int spookyHellTiles;
+		public int glowshroomTiles;
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{
@@ -21,6 +22,7 @@ namespace Spooky.Core
 			raveyardTiles = tileCounts[TileID.DiscoBall];
 			spookyTiles = tileCounts[ModContent.TileType<SpookyDirt>()] + tileCounts[ModContent.TileType<SpookyDirt2>()] + tileCounts[ModContent.TileType<SpookyGrass>()] + tileCounts[ModContent.TileType<SpookyGrassGreen>()] + tileCounts[ModContent.TileType<SpookyStone>()];
 			spookyHellTiles = tileCounts[ModContent.TileType<SpookyMush>()] + tileCounts[ModContent.TileType<SpookyMushGrass>()] + tileCounts[ModContent.TileType<EyeBlock>()];
+			glowshroomTiles = tileCounts[ModContent.TileType<MushroomMoss>()];
 		}
 	}
 }

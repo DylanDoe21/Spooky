@@ -4,12 +4,14 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Backgrounds.Cemetery;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
     public class CemeteryBiome : ModBiome
     {
-        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.Find<ModSurfaceBackgroundStyle>("Spooky/CemeteryBG");
+        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<CemeteryBG>();
 
         public override int Music
         {
@@ -30,7 +32,7 @@ namespace Spooky.Content.Biomes
             }
         }
         
-        public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/CemeteryWaterStyle");
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<CemeteryWaterStyle>();
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
@@ -75,7 +77,7 @@ namespace Spooky.Content.Biomes
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
         
-        public override ModWaterStyle WaterStyle => ModContent.Find<ModWaterStyle>("Spooky/LeanWaterStyle");
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<LeanWaterStyle>();
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

@@ -97,8 +97,9 @@ Other New Additions:
 -Renamed the acid blaster to venom gasser and nerfed its base damage from 50 to 30, its projectile now inflicts venom, pierces enemies, and has a cool new visual effect
 -Added a new visual effect for boro's acid breath attack
 -Made orro & boro thorn pillars taller
+-Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
--Changed the sound effects for the skull smasher when it is ready to throw
+-Changed the sound effect for the skull smasher when it is ready to throw
 
 
 

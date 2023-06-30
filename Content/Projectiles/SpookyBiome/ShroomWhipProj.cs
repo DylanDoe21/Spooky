@@ -30,6 +30,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.WhipSettings.RangeMultiplier = 0.9f;
 		}
 
+		/*
 		public override void AI() 
 		{
 			Player owner = Main.player[Projectile.owner];
@@ -64,6 +65,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				dust.velocity *= 0.5f;
 			}
 		}
+		*/
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{

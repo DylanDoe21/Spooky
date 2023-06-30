@@ -821,9 +821,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
-            //sentient heart
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SentientHeartCondition(), ModContent.ItemType<SentientHeart>()));
-
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));
 
@@ -848,6 +845,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void OnKill()
         {
+            //drop a sentient heart for each active player in the world
+            if (!Flags.downedMoco)
+            {
+                for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
+                {
+                    if (Main.player[numPlayer].active)
+                    {
+                        Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                    }
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedMoco, -1);
         }
 

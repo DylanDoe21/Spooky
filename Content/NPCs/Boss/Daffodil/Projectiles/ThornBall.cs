@@ -10,7 +10,7 @@ using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 {
-    public class ThornBomb : ModProjectile
+    public class ThornBall : ModProjectile
     {
         public override void SetStaticDefaults()
 		{
@@ -47,63 +47,66 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
         public override void AI()
         {
-			Projectile.rotation += 0.12f * (float)Projectile.direction;
+            //add light for visibility
+            Lighting.AddLight(Projectile.Center, 0.2f, 0.35f, 0f);
+
+            if (Projectile.ai[1] < 180)
+			{
+			    Projectile.rotation += 0.12f * (float)Projectile.direction;
+            }
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 20)
+            if (Projectile.ai[0] >= 20 && Projectile.ai[1] < 180)
             {
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
             }
 
-            Projectile.ai[0]++;
-			if (Projectile.ai[0] >= 240)
+            Projectile.ai[1]++;
+			if (Projectile.ai[1] >= 180)
 			{
 				Projectile.velocity *= 0.15f;
 
-				if (Projectile.ai[1] == 0)
+				if (Projectile.ai[2] == 0)
 				{
-					for (float numProjectiles = 0; numProjectiles < 6; numProjectiles++)
+                    Projectile.velocity *= 0;
+
+					for (float numProjectiles = 0; numProjectiles < 7; numProjectiles++)
 					{
-						Vector2 projPos = Projectile.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 6));
+						Vector2 projPos = Projectile.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 7));
 
 						Vector2 Direction = Projectile.Center - projPos;
 						Direction.Normalize();
 
 						Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-						//Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0, 0,
-						//ModContent.ProjectileType<BowFlowerThorn>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0, 0,
+						ModContent.ProjectileType<ThornBallSpike>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
 					}
 
-					Projectile.ai[1] = 1;
+					Projectile.ai[2] = 1;
 				}
 			}
-        }
 
-		int Bounces = 0;
+            if (Projectile.ai[1] >= 320)
+			{
+                Projectile.Kill();
+            }
+        }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Bounces++;
-			if (Bounces >= 3)
-			{
-				Projectile.Kill();
-			}
-			else
-			{
-				Projectile.ai[0] = 0;
+            Projectile.ai[0] = 0;
 
-				if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                    Projectile.velocity.X = -oldVelocity.X * 0.5f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.5f;
-                }
-			}
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+            }
 
 			return false;
 		}

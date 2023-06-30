@@ -258,12 +258,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-12f, 12f), 
-                                Main.rand.NextFloat(-3f, -1f), ModContent.ProjectileType<ThornBomb>(), Damage, 2, NPC.target, 0, 0);
+                                Main.rand.NextFloat(-3f, -1f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
                             }
                         }
                     }
 
-                    if (NPC.localAI[0] >= 250)
+                    if (NPC.localAI[0] >= 350)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;
