@@ -23,6 +23,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         Vector2 SavePlayerPosition;
 
+        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+
         public override void SetStaticDefaults()
         {
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -76,7 +79,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 18000;
+            NPC.lifeMax = 22000;
             NPC.damage = 0;
             NPC.defense = 35;
             NPC.width = 58;
@@ -161,7 +164,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
-                //spawn telegraph on the player, then shoot a solar laser barrage
+                //fire solar laser barrage at the player
                 case 0:
                 {
                     NPC.localAI[0]++;
@@ -193,7 +196,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             ShootSpeed.Normalize();
                             ShootSpeed *= 25f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-20, 20), NPC.Center.Y + Main.rand.Next(-20, 20), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + Main.rand.Next(-5, 5), 
                             ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0f, Main.myPlayer);
                         }
                     }
@@ -223,14 +226,17 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //thorn bulbs
-                //shoot out thorn pods that each spawn a thorn when they hit the ground, thorns will linger for a bit, and when hit the thorn will die
-                //thorns will inflict bleeding and poison on contact
+                //create bouncing thorn balls that petrude out thorns
                 case 2:
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 85)
+                    if (NPC.localAI[0] == 120)
+                    {
+                        SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 145)
                     {
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
@@ -248,22 +254,22 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         }
                     }
 
-                    if (NPC.localAI[0] == 100 || NPC.localAI[0] == 130 || NPC.localAI[0] == 160)
+                    if (NPC.localAI[0] == 160 || NPC.localAI[0] == 190 || NPC.localAI[0] == 220)
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                        int NumProjectiles = Main.rand.Next(3, 4);
+                        int NumProjectiles = Main.rand.Next(3, 6);
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-12f, 12f), 
-                                Main.rand.NextFloat(-3f, -1f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
+                                Main.rand.NextFloat(-5f, -2f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
                             }
                         }
                     }
 
-                    if (NPC.localAI[0] >= 350)
+                    if (NPC.localAI[0] >= 480)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
+using ReLogic.Content;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
@@ -50,32 +51,39 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<DaffodilEye>())
             {
-                Vector2 armPosition = new Vector2(Parent.Center.X - 65, Parent.Center.Y);
+                Vector2 ParentCenter = Parent.Center;
 
-                Vector2[] bezierPoints = { armPosition, armPosition + new Vector2(0, -60), NPC.Center + new Vector2(-20 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(0 * NPC.direction, 0).RotatedBy(NPC.rotation) };
-                float bezierProgress = 0.1f;
-                float bezierIncrement = 20;
+                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilArm");
 
-                Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilArm").Value;
-                Vector2 textureCenter = new Vector2(16, 16);
+                Rectangle? chainSourceRectangle = null;
+                float chainHeightAdjustment = 0f;
 
-                float rotation;
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainDrawPosition = NPC.Center;
+                Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+                Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
 
-                while (bezierProgress < 1)
+                if (chainSegmentLength == 0)
                 {
-                    //draw stuff
-                    Vector2 oldPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
+                    chainSegmentLength = 10;
+                }
 
-                    //increment progress
-                    while ((oldPos - BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress)).Length() < bezierIncrement)
-                    {
-                        bezierProgress += 0.1f / BezierCurveUtil.BezierCurveDerivative(bezierPoints, bezierProgress).Length();
-                    }
+                float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+                int chainCount = 0;
+                float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
 
-                    Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
-                    rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
+                while (chainLengthRemainingToDraw > 0f)
+                {
+                    Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    spriteBatch.Draw(texture, (oldPos + newPos) / 2 - Main.screenPosition, texture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
+                    var chainTextureToDraw = chainTexture;
+
+                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+
+                    chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+                    chainCount++;
+                    chainLengthRemainingToDraw -= chainSegmentLength;
                 }
             }
 
@@ -90,7 +98,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 1;
             }
-            else if (Parent.ai[0] == 2 && Parent.localAI[0] >= 60)
+            else if (Parent.ai[0] == 2 && Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
             {
                 NPC.frame.Y = frameHeight * 1;
             }   
@@ -144,7 +152,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     if (Parent.localAI[0] < 60)
                     {
-                        GoToPosition(-130, 180);
+                        GoToPosition(-210, 100);
                     }
 
                     if (Parent.localAI[0] >= 60)
@@ -172,7 +180,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case 2: 
                 {
-                    GoToPosition(-70, 180);
+                    if (Parent.localAI[0] < 60 || Parent.localAI[0] > 240)
+                    {
+                        GoToPosition(-130, 160);
+                    }
+                    else if (Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
+                    {
+                        GoToPosition(-50, 200);
+                    }
 
                     break;
                 }
@@ -186,11 +201,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             float goToX = (Parent.Center.X + X) - NPC.Center.X;
             float goToY = (Parent.Center.Y + Y) - NPC.Center.Y;
 
-            NPC.ai[0]++;
-            goToX += (float)Math.Sin(NPC.ai[0] / 30) * 15;
-            goToY += (float)Math.Sin(NPC.ai[0] / 30) * 15;
+            NPC.ai[1]++;
+            goToX += (float)Math.Sin(NPC.ai[1] / 30) * 15;
+            goToY += (float)Math.Sin(NPC.ai[1] / 30) * 15;
 
-            float speed = 0.35f;
+            float speed = 0.3f;
             
             if (NPC.velocity.X > speed)
             {
