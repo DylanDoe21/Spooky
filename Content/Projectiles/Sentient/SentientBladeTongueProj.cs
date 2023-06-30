@@ -69,7 +69,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 //shoot ichor clouds
                 if (Projectile.ai[2] >= 20)
                 {
-                    SoundEngine.PlaySound(SoundID.NPCDeath13, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
                     for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
                     {

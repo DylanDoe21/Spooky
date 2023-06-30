@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
+    [AutoloadBossHead]
     public class DaffodilEye : ModNPC
     {
         public bool SpawnedHands = false;
@@ -25,6 +26,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound);
         public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -164,6 +166,36 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                //spawn intro dialogue
+                case -1:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 120)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, "!!!!!!", true);
+                    }
+
+                    if (NPC.localAI[0] == 240)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, "Just who do you think you are waking me?!", true);
+                    }
+
+                    if (NPC.localAI[0] == 360)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then I will give you the battle you want", true);
+                    }
+
+                    if (NPC.localAI[0] >= 480)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
                 //fire solar laser barrage at the player
                 case 0:
                 {
@@ -272,6 +304,47 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 480)
                     {
                         NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //hold hands out, and create a bullet hell of flies all over the place
+                case 3:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_SkeletonSummoned with { Volume = SoundID.DD2_SkeletonSummoned.Volume * 80f }, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
+                    {
+                        //spawn flies from the left
+                        if (Main.rand.NextBool(13))
+                        {
+                            SoundEngine.PlaySound(FlySound, NPC.Center);
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(0, 400), 
+                            Main.rand.Next(8, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                        }
+
+                        //shoot flies from the right
+                        if (Main.rand.NextBool(13))
+                        {
+                            SoundEngine.PlaySound(FlySound, NPC.Center);
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(0, 400), 
+                            Main.rand.Next(-10, -8), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 480)
+                    {
+                        NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;
                         NPC.netUpdate = true;
                     }
@@ -282,14 +355,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //seed drop
                 //drop seeds randomly around the arena that turn into short lived thorn pillars that form upward upon hitting the floor
                 //based on that one kirby boss attack
-                case 3:
-                {
-                    break;
-                }
-
-                //fly swarm
-                //boss roars or makes a sound, then flies begin flying around the arena in a straight line in a random bullet hell fashion (like supreme calamitas)
-                //omega flowey attack reference, but also works because the catacombs is filled with flies due to being a burial for the dead
                 case 4:
                 {
                     break;

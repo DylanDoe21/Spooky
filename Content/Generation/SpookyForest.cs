@@ -560,7 +560,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[x, y].HasTile)
 				{
-                    Vector2 origin = new Vector2(x - 10, y - 22);
+                    Vector2 origin = new Vector2(x - 10, y - 25);
 
                     //clear trees around the house since it is placed after them
                     for (int i = (int)origin.X - 15; i <= (int)origin.X + 15; i++)
@@ -578,7 +578,7 @@ namespace Spooky.Content.Generation
                     Generator.GenerateStructure("Content/Structures/SpookyForestHouse", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
-                    NPC.NewNPC(null, (x + 1) * 16, (y - 6) * 16, ModContent.NPCType<LittleBoneSleeping>());
+                    NPC.NewNPC(null, (x + 1) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
 
                     SaveHousePosition = origin;
 

@@ -102,6 +102,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 1;
             }   
+            else if (Parent.ai[0] == 3)
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
             else
             {
                 NPC.frame.Y = frameHeight * 0;
@@ -141,6 +145,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                case -1: 
+                {
+                    GoToPosition(-130, 180);
+
+                    break;
+                }
+
                 case 0: 
                 {
                     GoToPosition(-130, 180);
@@ -188,6 +199,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         GoToPosition(-50, 200);
                     }
+
+                    break;
+                }
+
+                case 3: 
+                {
+                    GoToPosition(-300, 35);
 
                     break;
                 }

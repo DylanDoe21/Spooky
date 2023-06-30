@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.HoppinJack;
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -43,7 +43,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PuttyPumpkinling"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

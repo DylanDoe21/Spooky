@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Pets;
+using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb
@@ -70,7 +71,10 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            int associatedNPCType = ModContent.NPCType<BigBone>();
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CatacombGuardian"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)

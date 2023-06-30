@@ -91,15 +91,16 @@ Other New Additions:
 -Lowered the orange spooky ghost's spawnrate
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Nerfed gargoyle scepter base damage from 65 to 35, and the cursed fire balls shot by grug now inflict cursed flames
--The ichor clouds shot by the tongueblade now inflict ichor for a short time, and have a cooler visual effect
+-The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
 -Removed the haunted skull enemy from the mod
 -Lowered the spawn rate of the glooper enemy in the cemetery
--Renamed the acid blaster to venom gasser and nerfed its base damage from 50 to 30, its projectile now inflicts venom, pierces enemies, and has a cool new visual effect
+-Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, now inflicts venom, pierces enemies, can no longer go through blocks, and has a cool new visual effect
 -Added a new visual effect for boro's acid breath attack
 -Made orro & boro thorn pillars taller
 -Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 -Changed the sound effect for the skull smasher when it is ready to throw
+-Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
 
 
 

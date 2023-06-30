@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.height = 20;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.timeLeft = 60;
             Projectile.penetrate = 3;
             Projectile.alpha = 255;

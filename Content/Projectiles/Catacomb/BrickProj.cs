@@ -37,7 +37,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			{
 				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<DaffodilBody>()) 
 				{
-                    if (Main.npc[k].Distance(Projectile.Center) <= 100f)
+                    if (Main.npc[k].Distance(Projectile.Center) <= 100f && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
                     {
                         SoundEngine.PlaySound(BonkSound, Projectile.Center);
                         Main.npc[k].ai[0] = 1;
@@ -45,24 +45,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                     }
                 }
             }
-        }
-
-        public override void Kill(int timeLeft)
-		{
-            /*
-            for (int numDust = 0; numDust < 10; numDust++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Brick, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                    
-				if (Main.dust[dust].position != Projectile.Center)
-                {
-				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-                }
-			}
-            */
         }
     }
 }

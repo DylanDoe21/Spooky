@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 150;
+            NPC.lifeMax = 180;
             NPC.damage = 40;
             NPC.defense = 5;
             NPC.width = 44;
@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			AIType = NPCID.HoppinJack;
 			Banner = NPC.type;
             BannerItem = ModContent.ItemType<PuttyPumpkinBanner>();
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -48,7 +48,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PuttyPumpkin"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -59,9 +60,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
             !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
             {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && Main.hardMode)
+                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && Main.dayTime && Main.hardMode)
                 {
-                    return 10f;
+                    return 5f;
                 }
             }
 

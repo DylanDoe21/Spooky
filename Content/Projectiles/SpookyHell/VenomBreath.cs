@@ -18,7 +18,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.height = 46;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 75;
             Projectile.extraUpdates = 3;

@@ -1,18 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Terraria.Chat;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.IO;
-using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
@@ -67,7 +60,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             }
 
             //spawn daffodil eye if awakened
-            if (NPC.ai[0] == 1)
+            if (NPC.ai[0] == 1 && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
             {
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DaffodilSpawn");
@@ -81,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
 
-                int DaffodilEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 26, ModContent.NPCType<DaffodilEye>());
+                int DaffodilEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 26, ModContent.NPCType<DaffodilEye>(), 0, Flags.downedDaffodil ? 0 : -1);
                 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
