@@ -176,8 +176,6 @@ ColumboFinger.DisplayName: Columbo
 ShroomWhipProj.DisplayName: Shroom Whip
 ShroomWhipSpore.DisplayName: Shroom Whip Spore
 GhastlyOrbProj.DisplayName: Ghastly Orb
-SolarTelegraph.DisplayName: Solar Telegraph
-SolarLaser.DisplayName: Solar Laser
 ChlorophyllFlower.DisplayName: Chlorophyll Flower
 FleshPillarTelegraph.DisplayName: Telegraph
 FleshPillar.DisplayName: Flesh Pillar
@@ -187,9 +185,10 @@ GourdSlingshotProj.DisplayName: Gourd Slingshot
 MoldyPelletProj.DisplayName: Moldy Pellet
 MoldPelletFly.DisplayName: Mold Fly
 SkullGoop.DisplayName: Skull Goop
+SolarLaser.DisplayName: Solar Laser
 ThornBall.DisplayName: Thorn Ball
 ThornBallSpike.DisplayName: Thorn Spike
-LingerThorn.DisplayName: Linger Thorn
+DaffodilFly.DisplayName: Large Fly
 ShroomFlailProj.DisplayName: Fungal Flail
 ShroomHopperPet.DisplayName: Shroom Hopper
 FlyPet.DisplayName: Cornelious
@@ -198,4 +197,4 @@ FemurFractureProj.DisplayName: Femur Fracturer
 FemurFractureSkull.DisplayName: Fractured Skull
 VenomBreath.DisplayName: Venom Breath
 CatPet.DisplayName: Black Kitten
-DaffodilFly.DisplayName: Daffodil Fly
+StickyEyePet.DisplayName: Glow In The Dark Eye

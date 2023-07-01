@@ -789,41 +789,46 @@ namespace Spooky.Content.Generation
             tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
             {
                 //copy pasted and slightly modified shimmer generation code from terraria itself
-                //too lazy to change all the stupid "num" things right now, will do it at some point
-                int num702 = 50;
-                int num703 = (int)(Main.worldSurface + Main.rockLayer) / 2 + num702;
-                int num704 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
-                if (num704 > Main.maxTilesY - 330 - 100 - 30)
+                int RandomY1 = (int)(Main.worldSurface + Main.rockLayer) / 2 + 100;
+                int RandomY2 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
+
+                if (RandomY2 > Main.maxTilesY - 330 - 100 - 30)
                 {
-                    num704 = Main.maxTilesY - 330 - 100 - 30;
+                    RandomY2 = Main.maxTilesY - 330 - 100 - 30;
                 }
-                if (num704 <= num703)
+                if (RandomY2 <= RandomY1)
                 {
-                    num704 = num703 + 50;
-                }
-                int num705 = WorldGen.genRand.Next(num703, num704);
-                int num706 = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
-                int num707 = (int)Main.worldSurface + 150;
-                int num708 = (int)(Main.rockLayer + Main.worldSurface + 200.0) / 2;
-                if (num708 <= num707)
-                {
-                    num708 = num707 + 50;
-                }
-                if (WorldGen.tenthAnniversaryWorldGen)
-                {
-                    num705 = WorldGen.genRand.Next(num707, num708);
-                }
-                while (!WorldGen.ShimmerMakeBiome(num706, num705))
-                {
-                    num705 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, num704);
-                    num706 = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
+                    RandomY2 = RandomY1 + 50;
                 }
 
-                GenVars.shimmerPosition = new Vector2D((double)num706, (double)num705);
+                int ShimmerX = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
+                int ShimmerY = WorldGen.genRand.Next(RandomY1, RandomY2);
+
+                int ShimmerXAnniversary = (int)Main.worldSurface + 150;
+                int ShimmerYAnniversary = (int)(Main.rockLayer + Main.worldSurface + 200.0) / 2;
+
+                if (ShimmerYAnniversary <= ShimmerXAnniversary)
+                {
+                    ShimmerYAnniversary = ShimmerXAnniversary + 50;
+                }
+
+                if (WorldGen.tenthAnniversaryWorldGen)
+                {
+                    ShimmerY = WorldGen.genRand.Next(ShimmerXAnniversary, ShimmerYAnniversary);
+                }
+
+                while (!WorldGen.ShimmerMakeBiome(ShimmerX, ShimmerY))
+                {
+                    ShimmerX = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
+                    ShimmerY = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, RandomY2);
+                }
+
+                GenVars.shimmerPosition = new Vector2D((double)ShimmerX, (double)ShimmerY);
+
                 int num710 = 200;
 
                 //add the shimmer as a protected structure so nothing attempts to generate over it
-                GenVars.structures.AddProtectedStructure(new Rectangle(num706 - num710 / 2, num705 - num710 / 2, num710, num710));
+                GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - num710 / 2, ShimmerY - num710 / 2, num710, num710));
             });
         }
     }

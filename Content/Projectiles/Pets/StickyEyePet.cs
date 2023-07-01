@@ -8,14 +8,18 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Pets
 {
-    public class ShroomHopperPet : ModProjectile
+    public class StickyEyePet : ModProjectile
     {
         private int playerStill = 0;
         private bool playerFlying = false;
 
+        public bool shouldGlow = false;
+
+        float saveRotation;
+
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 2;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.LightPet[Projectile.type] = true;
         }
@@ -27,8 +31,8 @@ namespace Spooky.Content.Projectiles.Pets
 
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 22;
+            Projectile.height = 22;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
@@ -53,24 +57,53 @@ namespace Spooky.Content.Projectiles.Pets
 
 			if (player.dead)
             {
-				player.GetModPlayer<SpookyPlayer>().ShroomHopperPet = false;
+				player.GetModPlayer<SpookyPlayer>().StickyEyePet = false;
             }
 
-			if (player.GetModPlayer<SpookyPlayer>().ShroomHopperPet)
+			if (player.GetModPlayer<SpookyPlayer>().StickyEyePet)
             {
 				Projectile.timeLeft = 2;
             }
 
-            Lighting.AddLight(Projectile.Center, 0.35f, 0.15f, 0.05f);
+            //lighting check from companion cube pet
+            Color color;
+            color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16);
+            Vector3 vector3_1 = color.ToVector3();
+            color = Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16);
+            Vector3 vector3_2 = color.ToVector3();
+
+            if ((double)vector3_1.Length() < 0.3 && (double)vector3_2.Length() < 0.3)
+            {
+                shouldGlow = true;
+            }
+            if ((double)vector3_1.Length() >= 0.9 && (double)vector3_2.Length() >= 0.9)
+            {
+                shouldGlow = false;
+            }
+
+            //use glowing frame and glowy effect if you are in the dark
+            if (shouldGlow)
+            {
+                Lighting.AddLight(Projectile.Center, 0.32f, 0.6f, 0.3f);
+
+                Projectile.frame = 1;
+                Projectile.frameCounter = 0;
+            }
+            else
+            {
+                shouldGlow = false;
+
+                Projectile.frame = 0;
+                Projectile.frameCounter = 0;
+            }
 
             if (!playerFlying)
             {
-                Projectile.rotation = 0;
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = vector48.Length();
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 120f) || (playerDistance > 120f && Projectile.position.X == Projectile.oldPosition.X)))
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 100f) || (playerDistance > 100f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -8f;
                 }
@@ -89,27 +122,27 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.velocity.Y = 0f;
                 }
 
-                if (playerDistance > 100f)
+                if (playerDistance > 75f)
                 {
                     if (player.position.X - Projectile.position.X > 0f)
                     {
                         Projectile.velocity.X += 0.12f;
-                        if (Projectile.velocity.X > 6f)
+                        if (Projectile.velocity.X > 5.5f)
                         {
-                            Projectile.velocity.X = 6f;
+                            Projectile.velocity.X = 5.5f;
                         }
                     }
                     else
                     {
                         Projectile.velocity.X -= 0.12f;
-                        if (Projectile.velocity.X < -6f)
+                        if (Projectile.velocity.X < -5.5f)
                         {
-                            Projectile.velocity.X = -6f;
+                            Projectile.velocity.X = -5.5f;
                         }
                     }
                 }
 
-                if (playerDistance < 100f)
+                if (playerDistance < 75f && playerDistance >= 50f)
                 {
                     if (Projectile.velocity.X != 0f)
                     {
@@ -128,57 +161,20 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
 
-                if (playerDistance < 70f)
+                if (playerDistance < 50f)
                 {
-                    Projectile.velocity.X *= 0.5f;
+                    Projectile.velocity.X *= 0f;
                 }
 
-                //set frames when idle
-                if (Projectile.position.X == Projectile.oldPosition.X && Projectile.position.Y == Projectile.oldPosition.Y && Projectile.velocity.X == 0)
+                //rotate and store rotation constantly if moving, and if not moving then use the last stored rotation
+                if (Projectile.velocity.X != 0)
                 {
-                    Projectile.frameCounter++;
-                    if (Projectile.frameCounter > 10)
-                    {
-                        Projectile.frame++;
-                        Projectile.frameCounter = 0;
-                    }
-                    if (Projectile.frame == 2)
-                    {
-                        Projectile.frame = 4;
-                    }
-                    if (Projectile.frame >= 6)
-                    {
-                        Projectile.frame = 0;
-                    }
+                    saveRotation = Projectile.rotation;
+                    Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.032f * (float)Projectile.direction;
                 }
-                //falling frame
-                else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
+                else
                 {
-                    Projectile.frame = 2;
-                    Projectile.frameCounter = 0;
-                }
-                //moving animation
-                else if (Projectile.velocity.X != 0)
-                {
-                    Projectile.frameCounter++;
-                    if (Projectile.frameCounter > 4)
-                    {
-                        Projectile.frame++;
-                        Projectile.frameCounter = 0;
-                    }
-                    if (Projectile.frame >= 6)
-                    {
-                        Projectile.frame = 0;
-                    }
-                }
-
-                if (Projectile.velocity.X > 0.8f)
-                {
-                    Projectile.spriteDirection = -1;
-                }
-                else if (Projectile.velocity.X < -0.8f)
-                {
-                    Projectile.spriteDirection = 1;
+                    Projectile.rotation = saveRotation;
                 }
             }
             else if (playerFlying)
@@ -282,19 +278,7 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
 
-                Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
-
-                if (Projectile.Center.X < Main.player[Projectile.owner].Center.X)
-                {
-                    Projectile.spriteDirection = 1;
-                }
-                else if (Projectile.Center.X > Main.player[Projectile.owner].Center.X)
-                {
-                    Projectile.spriteDirection = -1;
-                }
-
-                Projectile.frame = 5;
-                Projectile.frameCounter = 0;
+                Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.025f * (float)Projectile.direction;
             }
         }
 
@@ -302,11 +286,14 @@ namespace Spooky.Content.Projectiles.Pets
         {
             int tileWidth = 4;
             int tileX = (int)(Projectile.Center.X / 16f) - tileWidth;
+
             if (Projectile.velocity.X > 0)
             {
                 tileX += tileWidth;
             }
+
             int tileY = (int)((Projectile.position.Y + Projectile.height) / 16f);
+
             for (int y = tileY; y < tileY + 2; y++)
             {
                 for (int x = tileX; x < tileX + tileWidth; x++)
@@ -317,6 +304,7 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
             }
+
             return true;
         }
     }

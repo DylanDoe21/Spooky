@@ -553,6 +553,11 @@ SpiritLamp: {
 		'''
 }
 
+StickyEye: {
+	DisplayName: Glow In The Dark Sticky Eye
+	Tooltip: Summons a sticky eye ball that glows in the dark
+}
+
 SuspiciousBrownie: {
 	DisplayName: Suspicious Looking Brownie
 	Tooltip:

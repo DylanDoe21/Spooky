@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Events;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -231,6 +232,12 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 400));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
@@ -238,11 +245,6 @@ namespace Spooky.Content.NPCs.EggEvent
                 Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 2), -3, 
                 ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 1, NPC.target, 0, 0);
             }
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
     }
 }

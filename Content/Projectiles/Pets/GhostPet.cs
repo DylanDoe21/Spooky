@@ -14,8 +14,9 @@ namespace Spooky.Content.Projectiles.Pets
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 2;
-			ProjectileID.Sets.LightPet[Projectile.type] = true;
-		}
+            Main.projPet[Projectile.type] = true;
+            ProjectileID.Sets.LightPet[Projectile.type] = true;
+        }
 
 		public override void SetDefaults()
 		{

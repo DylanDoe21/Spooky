@@ -82,14 +82,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SetDefaults()
         {
             NPC.lifeMax = 22000;
-            NPC.damage = 0;
+            NPC.damage = 45;
             NPC.defense = 35;
             NPC.width = 58;
             NPC.height = 56;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.netAlways = true;
             NPC.boss = true;
             NPC.HitSound = SoundID.NPCHit7;
@@ -129,6 +129,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             drawPos.Y += lookY;
 
             spriteBatch.Draw(texture, drawPos, null, drawColor, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return false;
         }
 
         public override void AI()
@@ -323,6 +328,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
                     {
+                        //shake the screen for funny rumbling effect
+                        SpookyPlayer.ScreenShakeAmount = 3;
+
                         //spawn flies from the left
                         if (Main.rand.NextBool(13))
                         {

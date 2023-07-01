@@ -259,3 +259,8 @@ SpookySpiritPetBuff: {
 	DisplayName: Mini Spirit
 	Description: The mini spirit lingers around you
 }
+
+StickyEyeBuff: {
+	DisplayName: Glow In The Dark Eye
+	Description: May contain toxic chemicals
+}

@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SetDefaults()
         {
             NPC.lifeMax = 18000;
-            NPC.damage = 0;
+            NPC.damage = 45;
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 56;
@@ -110,6 +110,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 0;
             }
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            //TODO: daffodils hands will be able to hit the player if grabbing or punching
+            return false;
         }
 
         public override void AI()
