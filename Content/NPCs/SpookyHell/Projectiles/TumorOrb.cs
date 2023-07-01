@@ -15,8 +15,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.friendly = false;
-            Projectile.hostile = false;
+            Projectile.hostile = true;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 360;
             Projectile.aiStyle = -1;
@@ -104,7 +103,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 Projectile.tileCollide = true;
             }
-		} 
+		}
 
         public override void Kill(int timeLeft)
         {

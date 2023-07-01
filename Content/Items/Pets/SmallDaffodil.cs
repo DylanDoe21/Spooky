@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 26;
-			Item.height = 34;
+			Item.width = 22;
+			Item.height = 32;
 			Item.master = true;
 			Item.rare = ItemRarityID.Master;
 			Item.value = Item.buyPrice(gold: 5);

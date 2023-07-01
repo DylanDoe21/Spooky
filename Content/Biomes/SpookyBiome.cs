@@ -15,7 +15,7 @@ namespace Spooky.Content.Biomes
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyForestBGAlt>() : ModContent.GetInstance<SpookyForestBG>();
 
         //for whatever reason spooky mod underground backgrounds just break underground backgrounds
-        //this will be disabled until it magically gets fixed or something
+        //this will be disabled until it gets fixed or something
         //public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyUndergroundBackgroundStyleAlt>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 
         public override int Music

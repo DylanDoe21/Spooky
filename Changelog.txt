@@ -108,6 +108,6 @@ Other New Additions:
 ~BUGS AND OTHER FIXES~
 
 -Fixed the spooky scroll causing the player sprite direction to spaz out if your cursor was in the middle of your player
--Localized big bone's spawn message because I accidentally forgot to
+-Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
 
 

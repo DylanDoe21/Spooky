@@ -128,8 +128,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.TargetClosest(true);
 
             NPC.rotation = NPC.velocity.X * 0.04f;
-
-            int Damage = Main.expertMode ? 35 : 50;
 			
 			NPC.ai[0]++;  
 
@@ -186,7 +184,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, TumorSummon);
+                                NetMessage.SendData(MessageID.SyncNPC, number: TumorSummon);
                             }
                         }
 
@@ -208,7 +206,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {   
                                 int TumorOrb = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                0, 0, Main.rand.Next(Projectiles), Damage, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                                0, 0, Main.rand.Next(Projectiles), NPC.damage / 2, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
                                 Main.projectile[TumorOrb].ai[0] = 179;
                             }   
                         }
