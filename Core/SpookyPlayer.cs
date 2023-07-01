@@ -136,18 +136,20 @@ namespace Spooky.Core
 
         public override void ModifyScreenPosition()
         {
-            if (!Main.gameMenu && ModContent.GetInstance<SpookyConfig>().ScreenShakeEnabled)
+            if (!Main.gameMenu)
             {
-                if (ScreenShakeAmount >= 0)
+                float ExtraMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
+
+                if (ScreenShakeAmount * ExtraMultiplier >= 0)
                 {
                     ScreenShakeAmount -= 0.1f;
                 }
-                if (ScreenShakeAmount < 0)
+                if (ScreenShakeAmount * ExtraMultiplier < 0)
                 {
                     ScreenShakeAmount = 0;
                 }
                 
-                Main.screenPosition += new Vector2(ScreenShakeAmount * Main.rand.NextFloat(), ScreenShakeAmount * Main.rand.NextFloat());
+                Main.screenPosition += new Vector2((ScreenShakeAmount * ExtraMultiplier) * Main.rand.NextFloat(), (ScreenShakeAmount * ExtraMultiplier) * Main.rand.NextFloat());
             }
             else
             {

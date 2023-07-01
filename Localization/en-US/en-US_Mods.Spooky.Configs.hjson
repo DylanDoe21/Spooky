@@ -23,8 +23,14 @@ SpookyConfig: {
 			'''
 	}
 
-	ScreenShakeEnabled: {
-		Label: Screen Shaking Effect
-		Tooltip: Turn off to disable the screen shaking effect caused by various things in the mod
+	ScreenShakeIntensity: {
+		Label: Screen Shake Intensity Multiplier
+		Tooltip:
+			'''
+			Adjusts the intensity of the screen shaking effect caused by various things in the mod
+			The higher you set it, the more intense the screen shaking effect will be
+			The default value for this config is 1, which is the default screen shaking intensity
+			Turning this all the way down will disable the screen shake effect completely
+			'''
 	}
 }

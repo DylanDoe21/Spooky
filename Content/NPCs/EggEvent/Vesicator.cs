@@ -234,7 +234,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 400));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 300));
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
 

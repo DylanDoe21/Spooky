@@ -101,6 +101,7 @@ Other New Additions:
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 -Changed the sound effect for the skull smasher when it is ready to throw
 -Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
+-Added better player following AI for the fuzz bat pet
 
 
 

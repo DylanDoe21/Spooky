@@ -54,8 +54,8 @@ namespace Spooky.Content.Projectiles.Pets
             Vector2 vector3 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
             float horiPos = Main.player[Projectile.owner].position.X + (float)(Main.player[Projectile.owner].width / 2) - vector3.X;
             float vertiPos = Main.player[Projectile.owner].position.Y + (float)(Main.player[Projectile.owner].height / 2) - vector3.Y;
-            vertiPos += (float)Main.rand.Next(-8, 8);
-            horiPos += (float)Main.rand.Next(-8, 8);
+            vertiPos += (float)Main.rand.Next(-7, 7);
+            horiPos += (float)Main.rand.Next(-10, -5);
             horiPos += (float)(45 * -(float)player.direction);
             vertiPos -= 45f;
             float playerDistance = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));

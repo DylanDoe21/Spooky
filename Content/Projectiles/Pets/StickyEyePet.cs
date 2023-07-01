@@ -170,7 +170,7 @@ namespace Spooky.Content.Projectiles.Pets
                 if (Projectile.velocity.X != 0)
                 {
                     saveRotation = Projectile.rotation;
-                    Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.032f * (float)Projectile.direction;
+                    Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.045f * (float)Projectile.direction;
                 }
                 else
                 {

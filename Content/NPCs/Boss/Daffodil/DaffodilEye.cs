@@ -329,7 +329,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
                     {
                         //shake the screen for funny rumbling effect
-                        SpookyPlayer.ScreenShakeAmount = 3;
+                        SpookyPlayer.ScreenShakeAmount = 5;
 
                         //spawn flies from the left
                         if (Main.rand.NextBool(13))
