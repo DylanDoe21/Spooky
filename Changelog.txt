@@ -109,6 +109,8 @@ Other New Additions:
 -Changed the sound effect for the skull smasher when it is ready to throw
 -Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
 -Added better player following AI for the fuzz bat pet
+-Added pitch variance to various custom enemy sounds in the mod
+-Gator Gun now has a new ability, where it will sometimes vomit out bouncing meat giblets that explode on enemy hits
 
 
 

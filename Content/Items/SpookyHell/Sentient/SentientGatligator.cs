@@ -2,10 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
-using System.Text;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
@@ -42,13 +43,20 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 60f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
             Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(40));
+
+            if (Main.rand.NextBool(10))
+            {
+                SoundEngine.PlaySound(SoundID.Item171, player.Center);
+
+                type = ModContent.ProjectileType<SentientGatligatorGiblet>();
+            }
 
             Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X + Main.rand.Next(-1, 2),
             newVelocity.Y + Main.rand.Next(-1, 2), type, damage, knockback, player.whoAmI, 0f, 0f);

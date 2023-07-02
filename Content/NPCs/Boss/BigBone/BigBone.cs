@@ -52,8 +52,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneGrowl2", SoundType.Sound);
         public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/Catacomb/BigBoneGrowl3", SoundType.Sound);
         public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/Catacomb/BigBoneLaugh", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/Catacomb/BigBoneDeath", SoundType.Sound);
         public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneDeath2", SoundType.Sound);
         

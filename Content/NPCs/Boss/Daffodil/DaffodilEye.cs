@@ -405,20 +405,20 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         SpookyPlayer.ScreenShakeAmount = 5;
 
                         //spawn flies from the left
-                        if (Main.rand.NextBool(20))
+                        if (Main.rand.NextBool(18))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-30, 400), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-30, 420),
                             Main.rand.Next(5, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
 
                         //shoot flies from the right
-                        if (Main.rand.NextBool(20))
+                        if (Main.rand.NextBool(18))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-30, 400), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-30, 420), 
                             Main.rand.Next(-10, -5), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
                     }
@@ -438,6 +438,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //based on that one kirby boss attack
                 case 4:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_SkeletonSummoned with { Volume = SoundID.DD2_SkeletonSummoned.Volume * 80f }, NPC.Center);
+                    }
+
                     break;
                 }
 

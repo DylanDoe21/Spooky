@@ -16,7 +16,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
         
-        public static readonly SoundStyle AuraSound = new("Spooky/Content/Sounds/SpookyHell/AuraDebuff", SoundType.Sound);
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
         
         public static List<int> BuffableNPCs = new List<int>() 

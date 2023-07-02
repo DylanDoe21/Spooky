@@ -1243,6 +1243,7 @@ SentientGatligator: {
 	Tooltip:
 		'''
 		Fires bullets extremely wildly and inaccurately
+		Will sometimes vomit out meat giblets that explode when they hit enemies
 		33% chance to save ammo
 		'Half aligator, half gun, and has a mind of it's own'
 		'''

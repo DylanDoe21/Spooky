@@ -49,7 +49,7 @@ namespace Spooky.Content.Projectiles.Sentient
             return true;
         }
 
-        const int TrailLength = 5;
+        const int TrailLength = 6;
 
         private void ManageCaches()
         {
@@ -72,9 +72,9 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 3 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
             {
-                return Color.Red * factor.X;
+                return Color.Lerp(Color.Blue, Color.Red, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

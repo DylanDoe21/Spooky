@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/CapillaryScreech", SoundType.Sound);
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/CapillaryScreech", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
         {

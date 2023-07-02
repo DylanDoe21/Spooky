@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.GameContent.Drawing;
@@ -32,7 +31,7 @@ namespace Spooky.Content.Projectiles
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
-            Projectile.scale = 2f;
+            Projectile.scale = 1f;
         }
 
         public override void AI()
@@ -61,9 +60,9 @@ namespace Spooky.Content.Projectiles
 
         public override void CutTiles()
         {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
-            float num2 = 60f * Projectile.scale;
+            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 35f * Projectile.scale;
+            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 35f * Projectile.scale;
+            float num2 = 35f * Projectile.scale;
             Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
         }
 
@@ -74,7 +73,7 @@ namespace Spooky.Content.Projectiles
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float coneLength2 = 94f * Projectile.scale;
+            float coneLength2 = 55f * Projectile.scale;
             float num3 = (float)Math.PI * 2f / 25f * Projectile.ai[0];
             float maximumAngle2 = (float)Math.PI / 4f;
             float num4 = Projectile.rotation + num3;
@@ -95,17 +94,17 @@ namespace Spooky.Content.Projectiles
         }
     }
 
-    public class BladeTongueSlash : SwordSlashBase
+    public class SentientKatanaSwingSlash : SwordSlashBase
     {
         public override string Texture => "Spooky/Content/Projectiles/SwordSlashBase";
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSlash(Projectile);
+            DrawSlash(Projectile, lightColor);
             return true;
         }
 
-        public void DrawSlash(Projectile proj)
+        public void DrawSlash(Projectile proj, Color lightColor)
         {
             Vector2 vector = proj.Center - Main.screenPosition;
             Asset<Texture2D> val = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
@@ -118,14 +117,17 @@ namespace Spooky.Content.Projectiles
             float num4 = 0.975f;
             float fromValue = Lighting.GetColor(proj.Center.ToTileCoordinates()).ToVector3().Length() / (float)Math.Sqrt(3.0);
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(199, 7, 49) * 0.4f * fromValue * num3, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(199, 7, 49) * 0.4f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(199, 7, 49) * 0.4f, proj.rotation, origin, num * 0.8f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(199, 7, 49) * 0.4f, proj.rotation, origin, num * num4 * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(112, 11, 176) * 0.6f * num3, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(112, 11, 176) * 0.5f * num3, proj.rotation + proj.ai[0] * -0.05f, origin, num * 0.8f * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(112, 11, 176) * 0.4f * num3, proj.rotation + proj.ai[0] * -0.1f, origin, num * 0.6f * 0.6f, effects, 0f);
-            
+            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(214, 17, 55) * 0.7f * fromValue * num3, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num * 0.7f, effects, 0f);
+            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(160, 52, 216) * 0.6f * fromValue * num3, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
+            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(87, 37, 197) * 0.5f * fromValue * num3, proj.rotation, origin, num * 0.5f, effects, 0f);
+            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(16, 52, 160) * 0.4f * fromValue * num3, proj.rotation, origin, num * num4 * 0.4f, effects, 0f);
+
+            /*
+            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.6f * num3, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
+            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.5f * num3, proj.rotation + proj.ai[0] * -0.05f, origin, num * 0.7f * 0.6f, effects, 0f);
+            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.4f * num3, proj.rotation + proj.ai[0] * -0.1f, origin, num * 0.6f * 0.6f, effects, 0f);
+            */
+
             for (float num5 = 0f; num5 < 8f; num5++)
             {
                 float num6 = proj.rotation + proj.ai[0] * num5 * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * proj.ai[0];
@@ -137,4 +139,3 @@ namespace Spooky.Content.Projectiles
         }
     }
 }
-*/
