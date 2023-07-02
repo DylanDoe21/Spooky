@@ -15,6 +15,7 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
+        //drop skull goop pet from any enemy while in the spooky furest during a blood moon
         public class SkullGoopPetCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)
@@ -41,6 +42,7 @@ namespace Spooky.Core
             }
         }
 
+        //drop from spooky spirit if it hasnt been defeated yet
         public class YellowCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
@@ -69,6 +71,7 @@ namespace Spooky.Core
             }
         }
 
+        //drop from daffodil if she hasnt been defeated yet
         public class RedCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
@@ -97,6 +100,7 @@ namespace Spooky.Core
             }
         }
 
+        //TODO: probably will change this because golem dropping the key is a bit lame
         public class OrangeCatacombKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
@@ -125,6 +129,7 @@ namespace Spooky.Core
             }
         }
 
+        //spooky forest chest key condition
         public class SpookyKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
@@ -153,6 +158,7 @@ namespace Spooky.Core
             }
         }
 
+        //valley of eyes chest key condition
         public class SpookyHellKeyCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info) 
@@ -181,6 +187,7 @@ namespace Spooky.Core
             }
         }
 
+        //drop after rot gourd is defeated (this exists just for the spooky crate chest items)
         public class PostRotGourdCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)
@@ -196,7 +203,6 @@ namespace Spooky.Core
                 return false;
             }
 
-            //this will never show up in ui
             public bool CanShowItemDropInUI()
             {
                 return false;
@@ -208,6 +214,7 @@ namespace Spooky.Core
             }
         }
 
+        //post spooky spirit condition (this exists just for the catacomb crate chest items)
         public class PostSpookySpiritCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)
@@ -223,7 +230,6 @@ namespace Spooky.Core
                 return false;
             }
 
-            //this will never show up in ui
             public bool CanShowItemDropInUI()
             {
                 return false;
@@ -235,6 +241,7 @@ namespace Spooky.Core
             }
         }
 
+        //drops after orro & boro have been defeated
         public class PostOrroboroCondition : IItemDropRuleCondition
         {
             private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.PostOrroboroCondition");
@@ -262,6 +269,10 @@ namespace Spooky.Core
                 return Description.Value;
             }
         }
+
+
+        //all the conditions below this point exist because with orro & boro, only the last worm alive should drop items
+        //item drop conditions was basically the only way i could get it working (at least that i could think of)
 
         //for orro's non expert drops
         public class ShouldOrroDropLoot : IItemDropRuleCondition

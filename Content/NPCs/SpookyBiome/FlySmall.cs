@@ -58,6 +58,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 {
                     return 6f;
                 }
+
+                if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
+                {
+                    return 4f;
+                }
             }
 
             return 0f;

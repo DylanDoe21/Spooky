@@ -332,7 +332,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         SpookyPlayer.ScreenShakeAmount = 5;
 
                         //spawn flies from the left
-                        if (Main.rand.NextBool(13))
+                        if (Main.rand.NextBool(15))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
@@ -341,7 +341,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         }
 
                         //shoot flies from the right
-                        if (Main.rand.NextBool(13))
+                        if (Main.rand.NextBool(15))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
