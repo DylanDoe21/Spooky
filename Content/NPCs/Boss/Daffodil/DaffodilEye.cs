@@ -30,6 +30,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SetStaticDefaults()
         {
+            Main.npcFrameCount[NPC.type] = 4;
+
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC",
@@ -85,7 +87,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.damage = 45;
             NPC.defense = 35;
             NPC.width = 58;
-            NPC.height = 56;
+            NPC.height = 58;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -128,7 +130,50 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             drawPos.X += lookX;
             drawPos.Y += lookY;
 
-            spriteBatch.Draw(texture, drawPos, null, drawColor, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+            if (NPC.frame.Y != 0)
+            {
+                spriteBatch.Draw(texture, drawPos, null, drawColor, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+            }
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            //frame number reminder
+            //0 = fully closed 
+            //1 = slightly open
+            //2 = open
+            //3 = wide open
+
+            //open eye
+            if (NPC.ai[0] == -1)
+            {
+                if (NPC.localAI[0] <= 30)
+                {
+                    NPC.frame.Y = frameHeight * 0;
+                }
+                if (NPC.localAI[0] <= 60 && NPC.localAI[0] > 30)
+                {
+                    NPC.frame.Y = frameHeight * 1;
+                }
+                if (NPC.localAI[0] <= 90 && NPC.localAI[0] > 60)
+                {
+                    NPC.frame.Y = frameHeight * 2;
+                }
+            }
+            //use wide open eye when shooting solar lasers
+            else if (NPC.ai[0] == 0 && NPC.localAI[0] >= 60 && NPC.localAI[0] <= 155)
+            {
+                NPC.frame.Y = frameHeight * 3;
+            }
+            else if (NPC.ai[0] == 3 && NPC.localAI[0] >= 120 && NPC.localAI[0] < 400)
+            {
+                NPC.frame.Y = frameHeight * 0;
+            }
+            //if none of the above is true, use the default open eye frame
+            else
+            {
+                NPC.frame.Y = frameHeight * 2;
+            }
         }
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
@@ -188,10 +233,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 360)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then I will give you the battle you want", true);
+                        CombatText.NewText(NPC.getRect(), Color.Gold, "......", true);
                     }
 
-                    if (NPC.localAI[0] >= 480)
+                    if (NPC.localAI[0] == 480)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's see if you're worthy!", true);
+                    }
+
+                    if (NPC.localAI[0] >= 600)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;
@@ -233,7 +283,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             ShootSpeed.Normalize();
                             ShootSpeed *= 25f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + Main.rand.Next(-5, 5), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + 10 + Main.rand.Next(-5, 5), 
                             ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0f, Main.myPlayer);
                         }
                     }
