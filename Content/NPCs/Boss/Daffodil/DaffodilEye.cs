@@ -405,21 +405,21 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         SpookyPlayer.ScreenShakeAmount = 5;
 
                         //spawn flies from the left
-                        if (Main.rand.NextBool(18))
+                        if (Main.rand.NextBool(17))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-30, 420),
-                            Main.rand.Next(5, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Main.rand.Next(7, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
 
                         //shoot flies from the right
-                        if (Main.rand.NextBool(18))
+                        if (Main.rand.NextBool(17))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-30, 420), 
-                            Main.rand.Next(-10, -5), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Main.rand.Next(-10, -7), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
                     }
 
