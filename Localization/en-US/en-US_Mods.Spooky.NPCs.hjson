@@ -29,7 +29,7 @@ DaffodilEye: {
 	DisplayName: Daffodil
 
 	BossChecklistIntegration: {
-		SpawnInfo: Throw a [i:Spooky/Brick] at it to wake it up.
+		SpawnInfo: Throw a [i:Spooky/Brick] to wake her up.
 		DespawnMessage: Daffodil has ended your catacomb exploration
 	}
 }

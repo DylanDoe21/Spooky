@@ -55,6 +55,13 @@ Localization File Split:
 
 
 
+Config Improvements:
+
+-Changed the color of the background, and the bars for each config option (To be honest I just wanted them to look nice, but this also should help each option to stand out more)
+-Screen shake config is no longer an option that you turn off, it is now a slider that allows you to edit the intensity of the effect to your liking (More info is provided in game)
+
+
+
 Other New Additions:
 
 -Added bungus, chunky fungus, and mushroom hoppers

@@ -221,31 +221,53 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] == 120)
+                    if (!Flags.downedDaffodil)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, "!!!!!!", true);
-                    }
+                        if (NPC.localAI[0] == 120)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "!!!!!!", true);
+                        }
 
-                    if (NPC.localAI[0] == 240)
-                    {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, "Just who do you think you are waking me?!", true);
-                    }
+                        if (NPC.localAI[0] == 240)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "Just who do you think you are waking me?!", true);
+                        }
 
-                    if (NPC.localAI[0] == 360)
-                    {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, "......", true);
-                    }
+                        if (NPC.localAI[0] == 360)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "......", true);
+                        }
 
-                    if (NPC.localAI[0] == 480)
-                    {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's see if you're worthy!", true);
-                    }
+                        if (NPC.localAI[0] == 480)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's see if you're worthy!", true);
+                        }
 
-                    if (NPC.localAI[0] >= 600)
+                        if (NPC.localAI[0] >= 600)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
                     {
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                        NPC.netUpdate = true;
+                        if (NPC.localAI[0] == 120)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "Really? Again?", true);
+                        }
+
+                        if (NPC.localAI[0] == 240)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's battle...", true);
+                        }
+
+                        if (NPC.localAI[0] >= 360)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                            NPC.netUpdate = true;
+                        }
                     }
 
                     break;
@@ -382,21 +404,21 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         SpookyPlayer.ScreenShakeAmount = 5;
 
                         //spawn flies from the left
-                        if (Main.rand.NextBool(15))
+                        if (Main.rand.NextBool(20))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(0, 400), 
-                            Main.rand.Next(8, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-30, 400), 
+                            Main.rand.Next(5, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
 
                         //shoot flies from the right
-                        if (Main.rand.NextBool(15))
+                        if (Main.rand.NextBool(20))
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(0, 400), 
-                            Main.rand.Next(-10, -8), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-30, 400), 
+                            Main.rand.Next(-10, -5), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
                     }
 
@@ -419,7 +441,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
 
                 //hand attack
-                //either swipe at the player or grab the player and pull them up, can be avoided by going under the outposts in the arena
+                //either punch the player, or grab the player (grabbing can be avoided by going hiding under the outposts in the arena)
                 case 5:
                 {
                     break;
