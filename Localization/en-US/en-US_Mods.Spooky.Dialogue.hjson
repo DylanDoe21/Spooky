@@ -79,3 +79,12 @@ LittleEye: {
 	Button1: Quest
 	Button2: Cauldron?
 }
+
+Daffodil: {
+	PreDefeat1: !!!!!!
+	PreDefeat2: Just who do you think you are waking me?!
+	PreDefeat3: ......
+	PreDefeat4: Fine, then let's see if you're worthy!
+	PostDefeat1: Really? Again?
+	PostDefeat2: Fine, then let's battle...
+}

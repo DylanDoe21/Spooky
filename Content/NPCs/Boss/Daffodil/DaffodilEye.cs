@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -225,22 +226,22 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "!!!!!!", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat1"), true);
                         }
 
                         if (NPC.localAI[0] == 240)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "Just who do you think you are waking me?!", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat2"), true);
                         }
 
                         if (NPC.localAI[0] == 360)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "......", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat3"), true);
                         }
 
                         if (NPC.localAI[0] == 480)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's see if you're worthy!", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat4"), true);
                         }
 
                         if (NPC.localAI[0] >= 600)
@@ -254,12 +255,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "Really? Again?", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeat1"), true);
                         }
 
                         if (NPC.localAI[0] == 240)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, "Fine, then let's battle...", true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeat2"), true);
                         }
 
                         if (NPC.localAI[0] >= 360)
