@@ -261,6 +261,6 @@ SpookySpiritPetBuff: {
 }
 
 StickyEyeBuff: {
-	DisplayName: Glow In The Dark Eye
+	DisplayName: Glow In The Dark Sticky Eye
 	Description: May contain toxic chemicals
 }

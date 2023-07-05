@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 5f;
+                return 2f;
             }
 
             return 0f;

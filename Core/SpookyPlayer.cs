@@ -136,10 +136,10 @@ namespace Spooky.Core
 
         public override void ModifyScreenPosition()
         {
-            if (!Main.gameMenu)
-            {
-                float ExtraMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
+            float ExtraMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
 
+            if (!Main.gameMenu && ExtraMultiplier > 0)
+            {
                 if (ScreenShakeAmount * ExtraMultiplier >= 0)
                 {
                     ScreenShakeAmount -= 0.1f;

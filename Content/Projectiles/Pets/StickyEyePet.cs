@@ -105,7 +105,7 @@ namespace Spooky.Content.Projectiles.Pets
 
                 if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 100f) || (playerDistance > 100f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
-                    Projectile.velocity.Y = -8f;
+                    Projectile.velocity.Y = -6f;
                 }
 
                 Projectile.velocity.Y += 0.35f;

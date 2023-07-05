@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
@@ -17,6 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         {
             Item.damage = 25;
 			Item.DamageType = DamageClass.Melee;
+            Item.noMelee = true;
 			Item.autoReuse = true;
             Item.width = 50;
             Item.height = 64;
@@ -30,9 +30,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.shoot = ModContent.ProjectileType<SentientKatanaSwingSlash>();
         }
 
+        /*
         public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
-			if (Main.rand.NextBool(5))
+			if (Main.rand.NextBool(3))
 			{
                 int[] Types = new int[] { DustID.RedTorch, DustID.BlueTorch, DustID.PurpleTorch };
 
@@ -42,6 +43,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 				Main.dust[dustEffect].velocity *= 0.25f;
 			}
 		}
+        */
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -49,13 +51,5 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			
             return false;
 		}
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            float divide = 1.5f;
-
-            Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y, 0, 0, 
-            ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Item.damage / (int)divide, Item.knockBack, player.whoAmI, 0f, 0f);
-        }
     }
 }

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -44,32 +45,39 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			{
 				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigBone>()) 
 				{
-					Vector2 rootPosition = Main.npc[k].Center;
+					Vector2 ParentCenter = Main.npc[k].Center;
 
-					Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), NPC.Center + new Vector2(-30 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(0, 0).RotatedBy(NPC.rotation) };
-					float bezierProgress = 0;
-					float bezierIncrement = 8;
+					Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain");
 
-					Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain").Value;
-					Vector2 textureCenter = new Vector2(8, 8);
+					Rectangle? chainSourceRectangle = null;
+					float chainHeightAdjustment = 0f;
 
-					float rotation;
+					Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+					Vector2 chainDrawPosition = NPC.Center;
+					Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+					Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+					float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
 
-					while (bezierProgress < 1)
+					if (chainSegmentLength == 0)
 					{
-						//draw stuff
-						Vector2 oldPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
+						chainSegmentLength = 10;
+					}
 
-						//increment progress
-						while ((oldPos - BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress)).Length() < bezierIncrement)
-						{
-							bezierProgress += 0.1f / BezierCurveUtil.BezierCurveDerivative(bezierPoints, bezierProgress).Length();
-						}
+					float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+					int chainCount = 0;
+					float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+		
+					while (chainLengthRemainingToDraw > 0f)
+					{
+						Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-						Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
-						rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
+						var chainTextureToDraw = chainTexture;
 
-						spriteBatch.Draw(texture, (oldPos + newPos) / 2 - Main.screenPosition, texture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+
+						chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+						chainCount++;
+						chainLengthRemainingToDraw -= chainSegmentLength;
 					}
 				}
 			}

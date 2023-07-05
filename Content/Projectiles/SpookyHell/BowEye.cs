@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public override void SetDefaults()
 		{
 			Projectile.width = 14;
-			Projectile.height = 14;
+			Projectile.height = 16;
             Projectile.DamageType = DamageClass.Ranged;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;

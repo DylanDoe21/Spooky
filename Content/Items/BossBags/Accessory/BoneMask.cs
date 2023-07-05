@@ -37,7 +37,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
             Item.damage = 80;
             Item.DamageType = DamageClass.Generic;
             Item.width = 34;
-            Item.height = 26;
+            Item.height = 22;
             Item.expert = true;
             Item.accessory = true;
             Item.hasVanityEffects = true;

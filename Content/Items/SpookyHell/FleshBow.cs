@@ -17,8 +17,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.noMelee = true;
 			Item.autoReuse = true;
 			Item.channel = true;
-			Item.width = 24;
-			Item.height = 66;
+			Item.width = 36;
+			Item.height = 60;
 			Item.useTime = 40;
 			Item.useAnimation = 40;
 			Item.knockBack = 2;

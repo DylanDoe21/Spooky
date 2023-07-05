@@ -17,6 +17,9 @@ namespace Spooky.Content.Projectiles.Catacomb
         public float Speed = 0.02f;
         public float TrailSize = 0;
 
+        float SaveKnockback;
+        bool SavedKnockback = false;
+
         private List<Vector2> cache;
         private Trail trail;
 
@@ -103,12 +106,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
             Vector2 Knockback = owner.Center - target.Center;
             Knockback.Normalize();
-            Knockback *= 12;
+            Knockback *= SaveKnockback * 2;
 
-            if (target.knockBackResist > 0)
-            {
-                target.velocity = -Knockback;
-            }
+            target.velocity = -Knockback * target.knockBackResist;
         }
 
         public override void AI()
@@ -130,6 +130,16 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.ai[0] = 1f;
                 Projectile.rotation -= owner.direction == 1 ? MathHelper.PiOver2 : 0f;
+            }
+
+            if (!SavedKnockback)
+            {
+                SaveKnockback = Projectile.knockBack;
+                SavedKnockback = true;
+            }
+            else
+            {
+                Projectile.knockBack = 0;
             }
 
             if (Main.mouseLeft)

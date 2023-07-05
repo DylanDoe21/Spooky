@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
             Item.noMelee = true;
-            Item.channel = true;
             Item.width = 50;
             Item.height = 56;
             Item.useTime = 25;

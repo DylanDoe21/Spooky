@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,7 +14,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
-using ReLogic.Content;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
@@ -212,6 +212,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 case 3: 
                 {
                     GoToPosition(300, 35);
+
+                    break;
+                }
+
+                case 4: 
+                {
+                    GoToPosition(130, 180);
 
                     break;
                 }

@@ -24,6 +24,8 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery").Value;
 
+            BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
+
             Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
             float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.65f : 8.55f;

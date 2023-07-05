@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useTime = 20;
 			Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 12;
+            Item.knockBack = 10;
 			Item.rare = ItemRarityID.Yellow;  
 			Item.value = Item.buyPrice(gold: 25);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;

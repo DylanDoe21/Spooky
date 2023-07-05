@@ -40,8 +40,8 @@ namespace Spooky.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             float num = Projectile.localAI[0] / Projectile.ai[1];
             float num2 = Projectile.ai[0];
-            float num3 = Projectile.velocity.ToRotation();
-            Projectile.rotation = (float)Math.PI * num2 * num + num3 + num2 * (float)Math.PI + player.fullRotation;
+            float Fade = Projectile.velocity.ToRotation();
+            Projectile.rotation = (float)Math.PI * num2 * num + Fade + num2 * (float)Math.PI + player.fullRotation;
             float num5 = 1f;
             float num6 = 1.2f;
 
@@ -74,9 +74,9 @@ namespace Spooky.Content.Projectiles
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float coneLength2 = 55f * Projectile.scale;
-            float num3 = (float)Math.PI * 2f / 25f * Projectile.ai[0];
+            float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
             float maximumAngle2 = (float)Math.PI / 4f;
-            float num4 = Projectile.rotation + num3;
+            float num4 = Projectile.rotation + Fade;
             if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, num4, maximumAngle2))
             {
                 return true;
@@ -91,51 +91,6 @@ namespace Spooky.Content.Projectiles
                 }
             }
             return false;
-        }
-    }
-
-    public class SentientKatanaSwingSlash : SwordSlashBase
-    {
-        public override string Texture => "Spooky/Content/Projectiles/SwordSlashBase";
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            DrawSlash(Projectile, lightColor);
-            return true;
-        }
-
-        public void DrawSlash(Projectile proj, Color lightColor)
-        {
-            Vector2 vector = proj.Center - Main.screenPosition;
-            Asset<Texture2D> val = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
-            Rectangle rectangle = val.Frame(1, 4);
-            Vector2 origin = rectangle.Size() / 2f;
-            float num = proj.scale * 1.1f;
-            SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
-            float num2 = proj.localAI[0] / proj.ai[1];
-            float num3 = Utils.Remap(num2, 0f, 0.6f, 0f, 1f) * Utils.Remap(num2, 0.6f, 1f, 1f, 0f);
-            float num4 = 0.975f;
-            float fromValue = Lighting.GetColor(proj.Center.ToTileCoordinates()).ToVector3().Length() / (float)Math.Sqrt(3.0);
-            fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(214, 17, 55) * 0.7f * fromValue * num3, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num * 0.7f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(160, 52, 216) * 0.6f * fromValue * num3, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(87, 37, 197) * 0.5f * fromValue * num3, proj.rotation, origin, num * 0.5f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, rectangle, new Color(16, 52, 160) * 0.4f * fromValue * num3, proj.rotation, origin, num * num4 * 0.4f, effects, 0f);
-
-            /*
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.6f * num3, proj.rotation + proj.ai[0] * 0.01f, origin, num * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.5f * num3, proj.rotation + proj.ai[0] * -0.05f, origin, num * 0.7f * 0.6f, effects, 0f);
-            Main.spriteBatch.Draw(val.Value, vector, val.Frame(1, 4, 0, 3), new Color(16, 65, 212) * 0.4f * num3, proj.rotation + proj.ai[0] * -0.1f, origin, num * 0.6f * 0.6f, effects, 0f);
-            */
-
-            for (float num5 = 0f; num5 < 8f; num5++)
-            {
-                float num6 = proj.rotation + proj.ai[0] * num5 * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * proj.ai[0];
-                Vector2 drawpos = vector + num6.ToRotationVector2() * (val.Value.Width * 0.5f - 6f) * num * 0.6f;
-                float num7 = num5 / 9f;
-            }
-
-            Vector2 drawpos2 = vector + (proj.rotation + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * proj.ai[0]).ToRotationVector2() * (val.Value.Width * 0.5f - 4f) * num * 0.6f;
         }
     }
 }

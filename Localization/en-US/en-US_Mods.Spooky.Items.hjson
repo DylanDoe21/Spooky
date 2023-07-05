@@ -683,7 +683,11 @@ FlySmallItem: {
 
 GourdBook: {
 	DisplayName: Jerry's Book of Stinkology
-	Tooltip: Casts a stream of stink that inflicts multiple negative effects
+	Tooltip:
+		'''
+		Casts a stream of stink that makes enemies stinky
+		Stinky enemies will take slightly more damage from this weapon
+		'''
 }
 
 GourdFlail: {
@@ -721,15 +725,6 @@ LeafBlower: {
 LittleSpiderItem: {
 	DisplayName: Little Spider
 	Tooltip: ""
-}
-
-MoldyPellet: {
-	DisplayName: Moldy Pellet
-	Tooltip:
-		'''
-		Used as ammo with the Stinky Slinger
-		Will linger on the ground and create flies
-		'''
 }
 
 MossyPebble: {

@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.aiStyle = -1;
 		}
 
-		public override bool NeedSaving()
+        public override bool NeedSaving()
         {
             return true;
         }

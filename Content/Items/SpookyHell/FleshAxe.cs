@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override int Length => 50;
 		public override int TopSize => 25;
-		public override float SwingDownSpeed => 13f;
+		public override float SwingDownSpeed => 12f;
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
         static bool hasHitEnemies = false;
@@ -23,9 +23,9 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 54;
-            Item.height = 50;
-            Item.useTime = 50;
-			Item.useAnimation = 50;
+            Item.height = 48;
+            Item.useTime = 42;
+			Item.useAnimation = 42;
 			Item.useStyle = SwingUseStyle;
 			Item.knockBack = 8;
             Item.rare = ItemRarityID.Green;
@@ -46,7 +46,7 @@ namespace Spooky.Content.Items.SpookyHell
             {
                 hasHitSomething = true;
 
-                SpookyPlayer.ScreenShakeAmount = 5;
+                SpookyPlayer.ScreenShakeAmount = 3;
 
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
             }
