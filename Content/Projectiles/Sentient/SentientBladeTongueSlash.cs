@@ -116,7 +116,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             target.velocity = -Knockback * target.knockBackResist;
 
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(8))
             {
                 target.AddBuff(BuffID.Confused, 180);
             }

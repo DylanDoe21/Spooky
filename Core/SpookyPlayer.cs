@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -424,6 +425,24 @@ namespace Spooky.Core
                 else
                 {
                     BoneWispTimer = 0;
+                }
+            }
+
+            //the baby
+            if (!Main.dayTime && Main.time >= 28998 && Main.time <= 28999 && !NPC.AnyNPCs(ModContent.NPCType<TheBaby>()))
+            {
+                if (Main.rand.NextBool(300))
+                {
+                    int type = ModContent.NPCType<TheBaby>();
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.SpawnOnPlayer(Player.whoAmI, type);
+                    }
+                    else 
+                    {
+                        NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: Player.whoAmI, number2: type);
+                    }
                 }
             }
         }

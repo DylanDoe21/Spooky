@@ -247,6 +247,8 @@ namespace Spooky.Content.NPCs.Catacomb
 			        AIType = NPCID.DungeonGuardian;
 
                     NPC.localAI[0] = 0;
+
+                    NPC.netUpdate = true;
                 }
             }
         }

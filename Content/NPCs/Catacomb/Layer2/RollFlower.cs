@@ -29,9 +29,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = Main.hardMode ? 200 : 60;
-            NPC.damage = Main.hardMode ? 60 : 30;
-            NPC.defense = Main.hardMode ? 22 : 15;
+            NPC.lifeMax = 180;
+            NPC.damage = 40;
+            NPC.defense = 22;
             NPC.width = 54;
 			NPC.height = 56;
             NPC.npcSlots = 1f;
