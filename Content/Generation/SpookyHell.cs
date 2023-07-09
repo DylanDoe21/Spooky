@@ -456,7 +456,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[NestX, NestY].HasTile || Main.tile[NestX, NestY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
-					Vector2 origin = new Vector2(NestX - 25, NestY - 8);
+					Vector2 origin = new Vector2(NestX, NestY - 16);
                     Generator.GenerateStructure("Content/Structures/OrroboroNest", origin.ToPoint16(), Mod);
                     placedNest = true;
 				}

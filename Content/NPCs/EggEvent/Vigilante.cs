@@ -6,10 +6,12 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Events;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Misc;
 
@@ -17,26 +19,31 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Vigilante : ModNPC
     {
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
+        public int SaveDirection;
+        public float SaveRotation;
 
-        public bool AfterImages = false;
+        int repeats = Main.rand.Next(2, 5);
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
+        Vector2 SaveLocation;
+        Vector2 SavePlayerLocation;
+
+        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
+        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/VigilanteCharge", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Position = new Vector2(25f, -20f),
-                PortraitPositionXOverride = 10f,
-                PortraitPositionYOverride = -10f
+                CustomTexturePath = "Spooky/Content/NPCs/EggEvent/VigilanteBestiary",
+                Position = new Vector2(12f, -12f),
+                PortraitPositionXOverride = 6f,
+                PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
@@ -55,11 +62,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 350;
-            NPC.damage = 60;
-            NPC.defense = 15;
-            NPC.width = 100;
-            NPC.height = 84;
+            NPC.lifeMax = 1000;
+            NPC.damage = 50;
+            NPC.defense = 10;
+            NPC.width = 92;
+            NPC.height = 118;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 5, 0);
@@ -82,14 +89,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			if (AfterImages) 
+			if (NPC.ai[0] == 1 && NPC.localAI[0] >= 140) 
 			{
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
 
 				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
 				{
-					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+					var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
 					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
 					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
@@ -103,29 +110,16 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/VigilanteGlow").Value;
 
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-        }
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()))
-            {
-                return 15f;
-            }
-
-            return 0f;
         }
 
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;
 
-            //flying
             if (NPC.frameCounter > 6)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -135,12 +129,11 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+        }
 
-            //charging frame
-            if (NPC.localAI[0] >= 420)
-            {
-                NPC.frame.Y = 4 * frameHeight;
-            }
+        public override bool CheckActive()
+        {
+            return !EggEventWorld.EggEventActive;
         }
 
         public override void AI()
@@ -148,87 +141,125 @@ namespace Spooky.Content.NPCs.EggEvent
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
             
-            NPC.spriteDirection = NPC.direction;
-
-            if (NPC.localAI[0] < 420)
+            if (NPC.ai[0] == 0 || (NPC.ai[0] == 1&& NPC.localAI[0] < 75))
             {
-                NPC.rotation = NPC.velocity.X * 0.04f;
-            }
-            else
-            {
-                NPC.rotation = 0f;
+                NPC.spriteDirection = NPC.direction;
             }
 
-            NPC.localAI[0]++;
+            //EoC rotation
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            if (NPC.localAI[0] < 390)
+            switch ((int)NPC.ai[0])
             {
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -45) 
+                //fly to different locations above the player
+                case 0:
                 {
-                    MoveSpeedX -= 2;
-                }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 45)
-                {
-                    MoveSpeedX += 2;
-                }
+                    NPC.localAI[0]++;
+                    
+                    if (NPC.localAI[1] < repeats)
+                    {
+                        if (NPC.localAI[0] == 5)
+                        {
+                            SaveLocation = new Vector2(player.Center.X + Main.rand.Next(-270, 270), player.Center.Y - Main.rand.Next(180, 220));
+                        }
 
-                NPC.velocity.X = MoveSpeedX * 0.1f;
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -45)
-                {
-                    MoveSpeedY -= 2;
-                }
-                else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 45)
-                {
-                    MoveSpeedY += 2;
-                }
+                        if (NPC.localAI[0] <= 120)
+                        {
+                            Vector2 GoTo = SaveLocation;
 
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
-            }
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(7, 12));
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
 
-            if (NPC.localAI[1] <= 1)
-            {
-                if (NPC.localAI[0] >= 390 && NPC.localAI[0] < 420)
-                {
-                    Vector2 GoTo = player.Center;
-                    GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
-                    GoTo.Y -= 20;
+                        if (NPC.localAI[0] >= 120)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1]++;
 
-                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
-                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                }
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
 
-                if (NPC.localAI[0] == 420)
-                {
-                    AfterImages = true;
+                        NPC.netUpdate = true;
+                    }
 
-                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-                    int ChargeSpeed = 20;
-
-                    Vector2 ChargeDirection = player.Center - NPC.Center;
-                    ChargeDirection.Normalize();
-                            
-                    ChargeDirection.X *= ChargeSpeed;
-                    ChargeDirection.Y *= ChargeSpeed / 1.5f;
-                    NPC.velocity.X = ChargeDirection.X;
-                    NPC.velocity.Y = ChargeDirection.Y;
+                    break;
                 }
 
-                if (NPC.localAI[0] == 460)
+                //shake, then charge at the player super quickly
+                case 1:
                 {
-                    NPC.localAI[0] = 390;
-                    NPC.localAI[1]++;
-                }
-            }
-            else
-            {
-                AfterImages = false;
+                    NPC.localAI[0]++;
 
-                NPC.localAI[0] = 0;
-                NPC.localAI[1] = 0;
+                    if (NPC.localAI[0] == 5)
+                    {
+                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+
+                        NPC.velocity *= 0;
+
+                        SaveLocation = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] > 5 && NPC.localAI[0] < 65)
+                    {
+                        NPC.Center = new Vector2(SaveLocation.X, SaveLocation.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-7, 7);
+                    }
+
+                    if (NPC.localAI[0] == 70)
+                    {
+                        SavePlayerLocation = player.Center;
+                    }
+
+                    //save rotation before charging 
+                    if (NPC.localAI[0] == 74)
+                    {
+                        SaveRotation = NPC.rotation;
+                        SaveDirection = NPC.direction;
+                    }
+
+                    //charge
+                    if (NPC.localAI[0] == 75)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                        Vector2 ChargeDirection = SavePlayerLocation - NPC.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection *= Main.rand.Next(45, 50);
+                        NPC.velocity = ChargeDirection;
+                    }
+
+                    if (NPC.localAI[0] >= 75)
+                    {   
+                        NPC.rotation = SaveRotation;
+                        NPC.spriteDirection = SaveDirection;
+                    }
+
+                    if (NPC.localAI[0] >= 85)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    if (NPC.localAI[0] >= 135)
+                    {   
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
             }
         }
 
@@ -248,7 +279,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 8; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/VigilanteGore" + numGores).Type);
                 }

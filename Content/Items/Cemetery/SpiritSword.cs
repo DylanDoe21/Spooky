@@ -16,6 +16,11 @@ namespace Spooky.Content.Items.Cemetery
 		public override bool CollideWithTiles => true;
         static bool hasHitSomething = false;
 
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritSlingshot>();
+        }
+
         public override void SetDefaults()
         {
             Item.damage = 28;

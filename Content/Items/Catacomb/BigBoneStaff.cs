@@ -13,6 +13,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetStaticDefaults()
 		{
 			Item.staff[Item.type] = true;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BigBoneScepter>();
 		}
 
 		public override void SetDefaults()

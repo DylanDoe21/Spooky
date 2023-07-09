@@ -53,10 +53,14 @@ BigBone: {
 	}
 }
 
+//bosses
 BigFlowerPot.DisplayName: Giant Flower Pot
 BigFlower.DisplayName: Solar Flower
 DefensiveFlower.DisplayName: Defensive Flower
 HealingFlower.DisplayName: Healing Flower
+DaffodilBody.DisplayName: ""
+DaffodilHandLeft.DisplayName: Daffodil
+DaffodilHandRight.DisplayName: Daffodil
 BoroBody.DisplayName: Boro
 BoroBodyConnect.DisplayName: Boro
 BoroBodyP1.DisplayName: Boro
@@ -68,24 +72,36 @@ OrroBodyP1.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 PhantomSkull.DisplayName: Phantom Skull
+TheEntity.DisplayName: The Entity
+TheBaby.DisplayName: The Baby
+//catacombs
 CatacombGuardian.DisplayName: Catacomb Guardian
+GiantPutty.DisplayName: Putty Cube
+RollingSkull1.DisplayName: Rolling Skull
+RollingSkull4.DisplayName: Rolling Skull
+RollingSkull3.DisplayName: Rolling Skull
+RollingSkull2.DisplayName: Rolling Skull
 FloatyFlower.DisplayName: Daisy
 FlowerSentry.DisplayName: Sunny
 HoppingFlower.DisplayName: Marigold
 PlantTrap.DisplayName: Toothy
 RollFlower.DisplayName: Flourence
+//cemetery
 Possesser.DisplayName: Possesser
 ChalupoBaby.DisplayName: Chalupo
 ChalupoBig.DisplayName: Chalupo
+FeralRat1.DisplayName: Feral Rat
+FeralRat2.DisplayName: Feral Rat
 Glooper1.DisplayName: Glooper
 Glooper2.DisplayName: Glooper
-Capillary.DisplayName: Capillary
+//egg event
 Crux.DisplayName: Crux
-Distended.DisplayName: Distended
-DistendedBrute.DisplayName: Distended Brute
+Glutinous.DisplayName: Glutinous
+GlutinousTongue.DisplayName: Glutinous Tongue
+Ventricle.DisplayName: Ventricle
 Vesicator.DisplayName: Vesicator
 Vigilante.DisplayName: Vigilante
-Visitant.DisplayName: Visitant
+//friendly
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
@@ -94,16 +110,22 @@ LittleEyeSleeping.DisplayName: Sleeping Eye
 PartySkeleton1.DisplayName: Party Skeleton
 PartySkeleton2.DisplayName: Party Skeleton
 PartySkeleton3.DisplayName: Party Skeleton
+//spooky biome
+Bungus.DisplayName: Bungus
 FluffBatBig1.DisplayName: Giant Fuzz Bat
 FluffBatBig2.DisplayName: Giant Fuzz Bat
 FluffBatSmall1.DisplayName: Fuzz Bat
 FluffBatSmall2.DisplayName: Fuzz Bat
 FlyBig.DisplayName: Giant Fly
 FlySmall.DisplayName: Fly
+HoppingCandyBasket.DisplayName: Hopping Candy Basket
 LittleSpider.DisplayName: Little Spider
+PuttyPumpkin.DisplayName: Putty Pumpkin
+PuttyPumpkinling.DisplayName: Putty Pumpkinling
 PuttySlime1.DisplayName: Putty Slime
 PuttySlime2.DisplayName: Putty Slime
 PuttySlime3.DisplayName: Putty Slime
+ShroomHopper.DisplayName: Shroom Hopper
 SpookyDance.DisplayName: Spooky Dance Ghost
 TinyGhost1.DisplayName: Tiny Ghost
 TinyGhost2.DisplayName: Tiny Ghost
@@ -113,6 +135,7 @@ ZomboidFungus.DisplayName: Zomboid
 ZomboidThorn.DisplayName: Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
 ZomboidWind.DisplayName: Zomboid
+//valley of eyes
 EyeBat.DisplayName: Bat n' Eye
 ManHole.DisplayName: Man Hole
 ManHoleBig.DisplayName: Man Hole
@@ -120,20 +143,3 @@ ManHoleEye.DisplayName: Stalking Eye
 MrHandy.DisplayName: Mr. Handy
 Tortumor.DisplayName: Tortumor
 TortumorGiant.DisplayName: Giant Tortumor
-TheEntity.DisplayName: The Entity
-DaffodilBody.DisplayName: ""
-DaffodilHandLeft.DisplayName: Daffodil
-DaffodilHandRight.DisplayName: Daffodil
-Bungus.DisplayName: Bungus
-FeralRat1.DisplayName: Feral Rat
-FeralRat2.DisplayName: Feral Rat
-RollingSkull1.DisplayName: Rolling Skull
-RollingSkull4.DisplayName: Rolling Skull
-RollingSkull3.DisplayName: Rolling Skull
-RollingSkull2.DisplayName: Rolling Skull
-GiantPutty.DisplayName: Putty Cube
-PuttyPumpkin.DisplayName: Putty Pumpkin
-PuttyPumpkinling.DisplayName: Putty Pumpkinling
-ShroomHopper.DisplayName: Shroom Hopper
-HoppingCandyBasket.DisplayName: Hopping Candy Basket
-TheBaby.DisplayName: The Baby

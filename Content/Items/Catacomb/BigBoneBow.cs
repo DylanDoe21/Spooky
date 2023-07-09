@@ -9,6 +9,11 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneBow : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BigBoneStaff>();
+        }
+
 		public override void SetDefaults()
 		{
 			Item.damage = 100;    

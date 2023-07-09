@@ -171,7 +171,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play sound when fully charged
                 if (Projectile.ai[0] == 120)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 35f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 100f }, Projectile.Center);
                 }
 
                 //play different sound when super charged

@@ -5,5 +5,6 @@ BigBoneSpawn: Big Bone has awoken!
 EggNoConcoction: You need a special concoction to destroy the egg
 EggEventBegin: The Egg Incursion has begun!
 EggEventOver: The giant egg has become fragile!
-EggEventBarProgress: "Progress: "
+EggEventBarProgress: "Current Wave: "
 EggEventBarDisplayName: Egg Incursion
+EggEventWaveComplete: Wave Complete!

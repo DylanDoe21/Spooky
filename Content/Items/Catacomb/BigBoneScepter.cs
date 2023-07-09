@@ -11,6 +11,11 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class BigBoneScepter : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BigBoneHammer>();
+        }
+
 		public override void SetDefaults()
 		{
 			Item.damage = 90; 

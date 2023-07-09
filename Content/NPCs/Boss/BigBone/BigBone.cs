@@ -1321,10 +1321,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         Vector2 Recoil = player.Center - NPC.Center;
                         Recoil.Normalize();
                                 
-                        Recoil.X *= -5;
-                        Recoil.Y *= -5;  
-                        NPC.velocity.X = Recoil.X;
-                        NPC.velocity.Y = Recoil.Y;
+                        Recoil *= -5; 
+                        NPC.velocity = Recoil;
 
                         SavePlayerPosition = player.Center;
                     }
@@ -1346,10 +1344,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
                                 
-                        ChargeDirection.X *= 45;
-                        ChargeDirection.Y *= 45;  
-                        NPC.velocity.X = ChargeDirection.X;
-                        NPC.velocity.Y = ChargeDirection.Y;
+                        ChargeDirection *= 45;
+                        NPC.velocity = ChargeDirection;
                     }
 
                     if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)

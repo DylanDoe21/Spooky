@@ -15,12 +15,12 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class VesicatorDeath : ModProjectile
     {
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/VesicatorExplosion", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/VesicatorExplosion", SoundType.Sound);
 
         public override void SetDefaults()
         {
-            Projectile.width = 130;
-            Projectile.height = 118;
+            Projectile.width = 136;
+            Projectile.height = 132;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
@@ -29,9 +29,9 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+            float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
-            float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+            float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
             Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
 
@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             newColor *= 1f;
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
             Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[0] / 35 + (Projectile.localAI[0] < 450 ? fade : fade2), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[0] / 35 + (Projectile.localAI[0] < 450 ? time : time2), SpriteEffects.None, 0);
 
             return true;
         }
@@ -94,15 +94,21 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             SpookyPlayer.ScreenShakeAmount = 15;
 
-            float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+            float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[0] + fade2)
+            for (int i = 0; i <= Main.maxPlayers; i++)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                if (Main.player[i].active && !Main.player[i].dead)
+                {
+                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.localAI[0] + time)
+                    {
+                        Main.player[i].Hurt(PlayerDeathReason.ByCustomReason(Main.player[i].name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                    }
+                }
             }
 
             //spawn vesicator gores
-            for (int numGores = 1; numGores <= 12; numGores++)
+            for (int numGores = 1; numGores <= 10; numGores++)
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {
@@ -117,19 +123,13 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 //chance to shoot them directly up
                 if (Main.rand.NextBool(2))
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 4),
-                        Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 4),
+                    Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
                 }
                 else
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14),
-                        Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14),
+                    Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
                 }
             }
 

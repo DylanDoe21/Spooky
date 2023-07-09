@@ -11,6 +11,11 @@ namespace Spooky.Content.Items.Cemetery
 {
     public class SpiritScroll : ModItem
     {
+		public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritSword>();
+        }
+
         public override void SetDefaults()
         {
             Item.damage = 15;

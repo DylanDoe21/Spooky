@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Core;
 using Spooky.Content.Events;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -44,7 +45,9 @@ namespace Spooky.Content.Items.BossSummon
 		{
 			SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, player.Center);
 
-			EggEventWorld.EggEventActive = true;
+			Flags.downedEggEvent = false;
+
+			//TODO: make this an item you right click the giant egg with
 			
 			return true;
 		}

@@ -12,11 +12,6 @@ namespace Spooky.Content.Biomes
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:EggEventTint", isActive, player.Center);
-        }
-
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/EggEventBiomeIcon";
         public override string MapBackground => BackgroundPath;

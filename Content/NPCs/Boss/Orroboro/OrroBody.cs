@@ -11,7 +11,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 {
     public class OrroBody : ModNPC
     {
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
+        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

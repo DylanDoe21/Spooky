@@ -17,41 +17,37 @@ namespace Spooky.Content.Events
 {
 	public class EggEventWorld : ModSystem
 	{
+		public static int Wave = 0;
+
 		public static bool EggEventActive;
-		public static float EggEventProgress = 0;
-		public static int EggEventTimer = 0;
+		public static bool hasSpawnedBiomass = false;
 
 		public override void OnWorldLoad()
 		{
+			Wave = 0;
 			EggEventActive = false;
-			EggEventProgress = 0;
-			EggEventTimer = 0;
+			hasSpawnedBiomass = false;
 		}
 
         public override void PostUpdateEverything()
 		{
-			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			//reset everything while the event is not ongoing
+			if (!EggEventActive)
 			{
-				EggEventTimer++;
-
-				//increase progress every second
-				if (EggEventTimer >= 60)
-				{
-					EggEventProgress += 1f;
-					EggEventTimer = 0;
-				}
+				Wave = 0;
+				hasSpawnedBiomass = false;
 			}
 
-			if (EggEventActive && Main.LocalPlayer.dead)
+			//end the event and reset everything if you die, or if you leave the valley of eyes
+			if (EggEventActive && (Main.LocalPlayer.dead || !Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>())))
 			{
+				Wave = 0;
+				hasSpawnedBiomass = false;
 				EggEventActive = false;
-				EggEventProgress = 0f;
-				EggEventTimer = 0;
 			}
 
-			float maxPoints = Flags.downedEggEvent ? 120f : 210f;
-
-			if (EggEventProgress >= maxPoints)
+			//end the event, reset everything, and set it to downed when completed
+			if (Wave > 11)
 			{
 				if (!Flags.downedEggEvent)
 				{
@@ -70,9 +66,9 @@ namespace Spooky.Content.Events
 					NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
 				}
 
+				Wave = 0;
+				hasSpawnedBiomass = false;
 				EggEventActive = false;
-				EggEventProgress = 0f;
-				EggEventTimer = 0;
 			}
 		}
 
@@ -95,7 +91,7 @@ namespace Spooky.Content.Events
 
 		public void DrawEventUI(SpriteBatch spriteBatch)
 		{
-			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) && Wave <= 11)
 			{
 				const float Scale = 0.875f;
 				const float Alpha = 0.5f;
@@ -114,13 +110,13 @@ namespace Spooky.Content.Events
 				Rectangle ProgressBackground = Utils.CenteredRectangle(new Vector2(Main.screenWidth - OffsetX - 100f, Main.screenHeight - OffsetY - 23f), new Vector2(width, height));
 				Utils.DrawInvBG(spriteBatch, ProgressBackground, new Color(95, 27, 43, 255) * 0.785f);
 
-				float divide = Flags.downedEggEvent ? 1.2f : 2.1f;
+				float divide = 0.12f;
 
-				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarProgress") + Math.Round(EggEventProgress / divide, 0, MidpointRounding.AwayFromZero) + "%";
+				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarProgress") + (Wave + 1);
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
-				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp(EggEventProgress / divide, 0f, 100f)), TextureAssets.ColorBar.Height());
+				var waveProgressAmount = new Rectangle(0, 0, (int)(TextureAssets.ColorBar.Width() * 0.01f * MathHelper.Clamp((Wave + 1) / divide, 0f, 100f)), TextureAssets.ColorBar.Height());
 				var offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * Scale)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * Scale)) * 0.5f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, null, ProgressBarColor1 * Alpha, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);
 				spriteBatch.Draw(TextureAssets.ColorBar.Value, waveProgressBar.Location.ToVector2() + offset, waveProgressAmount, ProgressBarColor2, 0f, new Vector2(0f), Scale, SpriteEffects.None, 0f);

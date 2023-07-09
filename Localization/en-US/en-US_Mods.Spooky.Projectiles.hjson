@@ -38,12 +38,9 @@ PhantomBomb.DisplayName: Skull Bomb
 PhantomExplosion.DisplayName: Phantom Explosion
 PhantomSeed.DisplayName: Phantom Seed
 PhantomSkullProj.DisplayName: Phantom Skull
-Biomass.DisplayName: Biomass
-BiomassGravity.DisplayName: Biomass
-BloodSplatter.DisplayName: Blood Splatter
-CapillaryAura.DisplayName: Capillary Aura
+VentricleBiomass.DisplayName: Biomass
+BloodSplatter.DisplayName: Blood
 CruxAura.DisplayName: Crux Aura
-EggEventShield.DisplayName: Egg Barrier
 VesicatorDeath.DisplayName: Vesicator
 WarlockSkull.DisplayName: Magic Skull
 SalivaBall.DisplayName: Toxic Spit
@@ -203,3 +200,7 @@ SwordSlashBase.DisplayName: Sword Slash Base
 SentientKatanaSwingSlash.DisplayName: Conscious Cutter
 StinkBlast.DisplayName: Stink Blast
 TonguebladeSlash.DisplayName: Tongueblade Slash
+EggEventHandler.DisplayName: Egg Barrier
+GiantBiomass.DisplayName: Biomass
+GiantBiomassVesicator.DisplayName: Biomass
+CruxBloodChunk.DisplayName: Blood Clump

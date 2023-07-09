@@ -37,7 +37,9 @@ namespace Spooky
 
                 Filters.Scene["Spooky:EyeValleyTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(112f, 11f, 176f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
-                Filters.Scene["Spooky:EggEventTint"] = new Filter(new SpookyScreenShader("FilterBloodMoon").UseColor(0.6f, -0.8f, -0.6f), EffectPriority.Medium);
+                Filters.Scene["Spooky:CatacombLayer1Tint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(92f, 124f, 53f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+
+                Filters.Scene["Spooky:CatacombLayer2Tint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(139f, 109f, 61f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:EntityEffect"] = new Filter(new SpookyScreenShader("FilterMoonLordShake").UseIntensity(0.5f), EffectPriority.VeryHigh);
             }

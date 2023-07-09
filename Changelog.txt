@@ -1,13 +1,14 @@
-Update v1.0 (The catacomb update)
+Update v1.0 (The first full release!)
 
--This update is also spooky mods first FULL release, meaning at this point the mod has enough content and polish to where it is no longer a small WIP mod 
-(Despite the existing multiplayer problems which we are still working on I promise)
+-This update is spooky mods first FULL release, which means at this point the mod has enough content and polishing that it is no longer a small WIP mod 
+(Despite some of the existing multiplayer problems which we are still working on I promise)
+
 
 
 ~NEW STUFF~
 
 
-Catacombs Changes:
+Catacombs Overhaul:
 
 -Every single room has been redone to look more unique, more detailed, and be more interesting to explore overall
 -Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh and new in different worlds
@@ -32,6 +33,15 @@ New Mini-Biome, The Mossy Mushroom Cave:
 
 -New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
 -Contains a few new exclusive enemies, and a new material which can be used to craft various new early game items
+
+
+Egg Incursion Rework:
+
+-The egg incursion has been reworked into an entirely new type of event that is far more unique and interesting than before
+-When started, the egg will still gain a shield around it, and it will now create a ring of darkness around it, only allowing you to travel a certain distance away from the egg
+-The event now consists of waves of enemies that are spawned by chunks of biomass shot out of the egg, there is a total of 12 waves that each have different sets and amounts of enemies
+-After you have completed the event once and defeated orro-boro for the first time, you can do the event again, but each wave will now have more enemies, making it more difficult
+-The event also now has completely reworked and redesigned versions of previous enemies, as well as some new enemies that replace old ones which have been removed
 
 
 Slingshot Sub-class:
@@ -82,12 +92,11 @@ Items:
 
 -All spooky mod boss masks now drop from that bosses treasure bag in expert mode to be consistent with vanilla
 -Buffed the use speed for the toilet paper and necromancy for dummies
--Buffes the creepy candle's magic damage bonus from 5% to 7%
+-Buffed the creepy candle's magic damage bonus from 5% to 7%
 -Increased the drop rate for the warlock's skull, warlock's cloak, and warlock's hood from zomboid warlocks
 -Renamed the rotten chunk to moldy chunk, because rotten chunks are already an item in terraria
 -Fixed moldy chunks stacking to 999 and not 9999
--Rotten gourd armor now requires old wood to craft along with the moldy chunks
--Buffed the amount of defense each piece of the rotten gourd armor gives
+-Rotten gourd armor now requires old wood to craft along with the moldy chunks, and buffed the amount of defense each piece of the armor gives
 -Increased harvester's scythe knockback quite a bit
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 -Changed the sound effect for the skull smasher when it is ready to throw
@@ -97,11 +106,14 @@ Items:
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
 -Gator gun now has a new ability, it will sometimes vomit out bouncing meat giblets that can slightly home on enemies, and explode on enemy hits
 -Conscious cutter and Tongueblade now have the 1.4.4 swing extension and visual effect
+-Old hunter's crossbow arrows now have a cool visual trail
+-Big bone's weapon drops can now be shimmered into its other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
+-Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
 
 
 Enemies & Bosses:
 
--Added pitch variance to various custom enemy sounds in the mod
+-Added pitch variance to various custom enemy and boss sounds in the mod
 -Lowered the orange spooky ghost critter spawnrate
 -Lowered the spawn rate of the gloopers in the cemetery
 -Nerfed giant tortumor contact damage from 65 to 40
@@ -118,7 +130,7 @@ Miscellaneous:
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
--Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary
+-Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary, visitant
 
 
 

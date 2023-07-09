@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
-using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Events;
@@ -120,7 +119,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 			for (int k = 0; k < Main.projectile.Length; k++)
 			{
-				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<EggEventShield>()) 
+				if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<EggEventHandler>())
 				{
 					return true;
 				}
@@ -133,7 +132,42 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 			//check if player has the concoction
 			Player player = Main.LocalPlayer;
-			if (player.HasItem(ModContent.ItemType<Concoction>())) 
+
+			if (player.HasItem(ModContent.ItemType<StrangeCyst>()))
+			{
+				int x = i;
+				int y = j;
+				while (Main.tile[x, y].TileType == Type) x--;
+				x++;
+				while (Main.tile[x, y].TileType == Type) y--;
+				y++;
+
+				SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, new Vector2(x * 16f + 65f, y * 16f + 100f));
+
+				//event start message
+				string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
+
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Main.NewText(text, 171, 64, 255);
+				}
+				else
+				{
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+				}
+
+				//set egg event to true, net update on multiplayer
+				EggEventWorld.EggEventActive = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+
+				//spawn event handler projectile
+				Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer);
+			}
+			else if (player.HasItem(ModContent.ItemType<Concoction>())) 
 			{
 				int x = i;
 				int y = j;
@@ -166,13 +200,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                         NetMessage.SendData(MessageID.WorldData);
                     }
 
-					//spawn shield projectile
-                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventShield>(), 0, 1, Main.myPlayer, 0, 0);
+					//spawn event handler projectile
+                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer);
 				}
 				else
 				{
+					//spawn orro-boro spawner to open the egg
 					Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 64, y * 16 + 70), 
-					x * 16 + 64, y * 16 + 70, 0, 0, ModContent.ProjectileType<OrroboroSpawn>(), 0, 1, Main.myPlayer, 0, 0);
+					x * 16 + 64, y * 16 + 70, 0, 0, ModContent.ProjectileType<OrroboroSpawn>(), 0, 0, Main.myPlayer);
 				}
 			}
             else

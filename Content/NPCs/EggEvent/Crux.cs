@@ -6,10 +6,12 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Events;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
@@ -18,14 +20,15 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Crux : ModNPC
     {
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
-
         int aura;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
-        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/SpookyHell/CruxScream", SoundType.Sound) { PitchVariance = 0.6f };
+        int repeats = Main.rand.Next(1, 4);
+
+        Vector2 SaveLocation;
+
+        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
+        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/CruxScream", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
         {
@@ -34,8 +37,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Position = new Vector2(0f, 5f),
-                PortraitPositionXOverride = 0f,
+                Position = new Vector2(12f, 5f),
+                PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = 0f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
@@ -44,20 +47,22 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 420;
-            NPC.damage = 60;
-            NPC.defense = 5;
-            NPC.width = 56;
-            NPC.height = 100;
+            NPC.lifeMax = 1000;
+            NPC.damage = 50;
+            NPC.defense = 15;
+            NPC.width = 116;
+            NPC.height = 130;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 5, 0);
@@ -88,18 +93,6 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()))
-            {
-                return 12f;
-            }
-
-            return 0f;
-        }
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;
@@ -115,6 +108,11 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
+        public override bool CheckActive()
+        {
+            return !EggEventWorld.EggEventActive;
+        }
+
         public override void AI()
 		{
             Player player = Main.player[NPC.target];
@@ -122,51 +120,105 @@ namespace Spooky.Content.NPCs.EggEvent
             
             NPC.spriteDirection = NPC.direction;
 
-            NPC.localAI[0]++;
-
-            if (NPC.localAI[0] < 300)
+            switch ((int)NPC.ai[0])
             {
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -25) 
+                //fly to random locations, shoot blood bolts
+                case 0:
                 {
-                    MoveSpeedX--;
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[1] < repeats)
+                    {
+                        if (NPC.localAI[0] == 5)
+                        {
+                            SaveLocation = new Vector2(player.Center.X + Main.rand.Next(-200, 200), player.Center.Y - 250);
+                        }
+
+                        //go to a random location
+                        if (NPC.localAI[0] > 50 && NPC.localAI[0] < 100)
+                        {	
+                            Vector2 GoTo = SaveLocation;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 12);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        //shoot blood bolts
+                        if (NPC.localAI[0] > 100 && NPC.localAI[0] < 135) 
+                        {
+                            if (Main.rand.NextBool(7))
+                            {
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed *= 12f;
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 50, ShootSpeed.X, 
+                                ShootSpeed.Y, ModContent.ProjectileType<CruxBloodChunk>(), NPC.damage / 5, 0, NPC.target);
+                            }
+
+                            NPC.velocity *= 0.2f;
+                        }
+
+                        if (NPC.localAI[0] > 165)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1]++;
+
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
                 }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 25)
+
+                //fly at the player, create debuff aura
+                case 1:
                 {
-                    MoveSpeedX++;
+                    NPC.localAI[0]++;
+
+                    Vector2 GoTo = player.Center;
+
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 2, 7);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                    //play sound, spawn aura
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+
+                        aura = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0, 
+                        ModContent.ProjectileType<CruxAura>(), 0, 1, NPC.target, 0, 0);
+                    }
+
+                    //make sure the aura is always on the center of the crux
+                    if (NPC.localAI[0] > 60)
+                    {
+                        NPC.velocity *= 0.99f;
+
+                        Main.projectile[aura].position = NPC.Center - new Vector2(Main.projectile[aura].width / 2, Main.projectile[aura].height / 2);
+                    }
+
+                    if (NPC.localAI[0] > 240)
+                    {
+                        NPC.velocity *= 0;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
                 }
-
-                NPC.velocity.X = MoveSpeedX * 0.1f;
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -25)
-                {
-                    MoveSpeedY--;
-                }
-                else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 25)
-                {
-                    MoveSpeedY++;
-                }
-
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
-            }
-
-            if (NPC.localAI[0] == 300)
-            {
-                NPC.velocity *= 0;
-
-                SoundEngine.PlaySound(ScreamSound, NPC.Center);
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    aura = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 0, 
-                    ModContent.ProjectileType<CruxAura>(), 0, 1, NPC.target, 0, 0);
-                }
-            }
-
-            if (NPC.localAI[0] == 460)
-            {
-                NPC.localAI[0] = 0;
             }
         }
 
@@ -174,6 +226,13 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 300));
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
+        }
+        
+        public override bool CheckDead() 
+		{
+            Main.projectile[aura].Kill();
+
+            return true;
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -186,9 +245,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (NPC.life <= 0) 
             {
-                Main.projectile[aura].Kill();
-
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CruxGore" + numGores).Type);
                 }

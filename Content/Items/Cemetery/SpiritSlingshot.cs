@@ -12,6 +12,11 @@ namespace Spooky.Content.Items.Cemetery
 {
     public class SpiritSlingshot : ModItem
     {
+		public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritHandStaff>();
+        }
+
         public override void SetDefaults()
         {
             Item.damage = 25;

@@ -16,16 +16,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
         
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
-        
-        public static List<int> BuffableNPCs = new List<int>() 
-        {
-            ModContent.NPCType<Distended>(),
-            ModContent.NPCType<DistendedBrute>(),
-            ModContent.NPCType<Vesicator>(),
-            ModContent.NPCType<Vigilante>(),
-            ModContent.NPCType<Visitant>()
-        };
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath2", SoundType.Sound);
 
         public override void SetDefaults()
         {
@@ -42,8 +33,9 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             if (Projectile.localAI[0] >= 60)
             {
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-                float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+                float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+
+                float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
                 Color glowColor = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Purple);
 
@@ -55,7 +47,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 newColor *= 1f;
                 Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 35 + (Projectile.localAI[1] < 250 ? fade : fade2), SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 35 + (Projectile.localAI[1] < 250 ? time : time2), SpriteEffects.None, 0);
             }
 
             return true;
@@ -90,24 +82,22 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+            float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + fade2)
+            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
             {
                 Main.LocalPlayer.AddBuff(BuffID.WitheredArmor, 300);
                 Main.LocalPlayer.AddBuff(BuffID.WitheredWeapon, 300);
             }
 
-            //buff enemies
-            for (int i = 0; i < Main.maxNPCs; i++)
+            for (int i = 0; i <= Main.maxPlayers; i++)
             {
-                NPC buffTarget = Main.npc[i];
-                if (buffTarget.active)
+                if (Main.player[i].active && !Main.player[i].dead)
                 {
-                    if (BuffableNPCs.Contains(buffTarget.type) && Vector2.Distance(Projectile.Center, buffTarget.Center) < Projectile.localAI[1] + fade2 && 
-                    buffTarget.type != ModContent.NPCType<Capillary>() && buffTarget.type != ModContent.NPCType<Crux>())
+                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.localAI[1] + time)
                     {
-                        buffTarget.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 300);
+                        Main.player[i].AddBuff(BuffID.WitheredArmor, 300);
+                        Main.player[i].AddBuff(BuffID.WitheredWeapon, 300);
                     }
                 }
             }

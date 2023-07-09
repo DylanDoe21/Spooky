@@ -11,9 +11,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ElGourdoProj : ModProjectile
     {
+        int ScaleTimerLimit = 10;
         float RotateSpeed = 0.2f;
         float ScaleAmount = 0.05f;
-        int ScaleTimerLimit = 10;
 
         public override void SetStaticDefaults()
         {

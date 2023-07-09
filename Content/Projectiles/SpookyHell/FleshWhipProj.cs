@@ -31,7 +31,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
-			if (Main.rand.NextBool(15))
+			if (Main.rand.NextBool(10))
 			{
 				if (!target.HasBuff(ModContent.BuffType<FleshWhipCooldown>()))
 				{

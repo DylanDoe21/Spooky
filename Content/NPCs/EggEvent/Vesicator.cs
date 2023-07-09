@@ -20,17 +20,13 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Vesicator : ModNPC
     {
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
-
         float addedStretch = 0f;
 		float stretchRecoil = 0f;
 
-        public bool AfterImages = false;
-
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SpookyHell/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound1 = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath", SoundType.Sound);
-        public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
+        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
+        public static readonly SoundStyle DeathSound1 = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
+        public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/EggEvent/EnemyDeath2", SoundType.Sound);
+        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/VesicatorScream", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
         {
@@ -56,14 +52,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 2200;
-            NPC.damage = 60;
+            NPC.lifeMax = 4000;
+            NPC.damage = 50;
             NPC.defense = 20;
-            NPC.width = 138;
-            NPC.height = 126;
+            NPC.width = 152;
+            NPC.height = 142;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 5, 0);
+            NPC.value = Item.buyPrice(0, 2, 0, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = HitSound;
@@ -113,41 +109,25 @@ namespace Spooky.Content.NPCs.EggEvent
             return false;
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            int minPointsToSpawn = Flags.downedEggEvent ? 0 : 90;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && 
-            EggEventWorld.EggEventProgress >= minPointsToSpawn && !NPC.AnyNPCs(ModContent.NPCType<Vesicator>()))
-            {
-                return 10f;
-            }
-
-            return 0f;
-        }
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;
 
             //flying
-            if (NPC.frameCounter > 6)
+            if (NPC.frameCounter > 7)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0.0;
             }
-            if (NPC.frame.Y >= frameHeight * 4)
+            if (NPC.frame.Y >= frameHeight * 5)
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+        }
 
-            //charging frame
-            if (NPC.localAI[0] >= 420)
-            {
-                NPC.frame.Y = 4 * frameHeight;
-            }
+        public override bool CheckActive()
+        {
+            return !EggEventWorld.EggEventActive;
         }
 
         public override void AI()
@@ -169,66 +149,71 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			addedStretch = -stretchRecoil;
 
-            if (NPC.localAI[0] < 420)
+            NPC.rotation = NPC.velocity.X * 0.04f;
+
+            switch ((int)NPC.ai[0])
             {
-                NPC.rotation = NPC.velocity.X * 0.04f;
-            }
-            else
-            {
-                NPC.rotation = 0f;
-            }
-
-            NPC.localAI[0]++;
-
-            if (NPC.localAI[0] < 390)
-            {
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -50) 
+                //fly above the player
+                case 0:
                 {
-                    MoveSpeedX -= 3;
-                }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 50)
-                {
-                    MoveSpeedX += 3;
-                }
+                    NPC.localAI[0]++;
 
-                NPC.velocity.X = MoveSpeedX * 0.1f;
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y - 220f && MoveSpeedY >= -35)
-                {
-                    MoveSpeedY--;
-                }
-                else if (NPC.Center.Y <= player.Center.Y - 220f && MoveSpeedY <= 35)
-                {
-                    MoveSpeedY++;
-                }
-
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
-            }
-
-            if (NPC.localAI[0] == 420 || NPC.localAI[0] == 450 || NPC.localAI[0] == 480)
-            {
-                NPC.velocity *= 0.82f;
-
-                stretchRecoil = 0.5f;
-
-                SoundEngine.PlaySound(DeathSound1, NPC.Center);
-
-                int NumProjectiles = Main.rand.Next(2, 3);
-                for (int i = 0; i < NumProjectiles; i++)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (NPC.localAI[0] <= 300)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 45, Main.rand.Next(-2, 2), Main.rand.Next(2, 5), 
-                        ModContent.ProjectileType<BiomassGravity>(), NPC.damage / 2, 1, NPC.target, 0, 0);
-                    }
-                }
-            }
+                        Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 350);
 
-            if (NPC.localAI[0] >= 500)
-            {
-                NPC.localAI[0] = 0;
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(7, 12));
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] > 300)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //spit out giant biomass chunk
+                case 1:
+                {
+                    NPC.localAI[0]++;
+
+                    NPC.velocity *= 0.82f;
+
+                    if (NPC.localAI[0] == 50)
+                    {
+                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+                    }
+
+                    //do squishing animation before spitting
+                    if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
+                    {
+                        stretchRecoil = 0.5f;
+
+                        SoundEngine.PlaySound(DeathSound1, NPC.Center);
+                    }
+
+                    //spit out giant biomass
+                    if (NPC.localAI[0] == 120)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 55, Main.rand.Next(-2, 2), 
+                        Main.rand.Next(2, 5), ModContent.ProjectileType<GiantBiomassVesicator>(), NPC.damage / 3, 0, NPC.target, Main.rand.Next(0, 2));
+                    }
+
+                    if (NPC.localAI[0] > 160)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
             }
         }
 
@@ -242,8 +227,8 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 2), -3, 
-                ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 1, NPC.target, 0, 0);
+                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, NPC.velocity.X, 
+                NPC.velocity.Y, ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 0, NPC.target, 0, 0);
             }
         }
     }

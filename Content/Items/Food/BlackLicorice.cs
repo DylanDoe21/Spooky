@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Food
 			};
 		}
 
-		public override void SetDefaults() 
+        public override void SetDefaults() 
         {
 			Item.DefaultToFood(28, 28, BuffID.Weak, 3600);
 			Item.value = Item.buyPrice(silver: 1);

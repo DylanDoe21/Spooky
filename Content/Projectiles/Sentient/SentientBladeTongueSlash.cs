@@ -114,7 +114,10 @@ namespace Spooky.Content.Projectiles.Sentient
             Knockback.Normalize();
             Knockback *= SaveKnockback * 2;
 
-            target.velocity = -Knockback * target.knockBackResist;
+            if (target.knockBackResist > 0)
+            {
+                target.velocity = -Knockback * target.knockBackResist;
+            }
 
             if (Main.rand.NextBool(8))
             {

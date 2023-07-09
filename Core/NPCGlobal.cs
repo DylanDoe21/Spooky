@@ -57,10 +57,11 @@ namespace Spooky.Core
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			//increase spawn rate during the egg event
+			//remove spawnrates during the egg event
 			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
             {
-				spawnRate /= 3; //lower spawnRate value = higher enemy spawn rate
+				spawnRate = 0;
+				maxSpawns = 0;
 			}
 		}
 

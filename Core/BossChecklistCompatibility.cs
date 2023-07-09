@@ -86,7 +86,7 @@ namespace Spooky.Core
 			*/
 
 			//Rot gourd
-			var GourdPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+			var RotGourdPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
 				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -107,7 +107,7 @@ namespace Spooky.Core
 					ModContent.ItemType<RotGourdRelicItem>(), ModContent.ItemType<RottenGourd>(), ModContent.ItemType<RotGourdBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.RotGourd.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.RotGourd.BossChecklistIntegration.DespawnMessage").Value,
-					["customPortrait"] = GourdPortrait,
+					["customPortrait"] = RotGourdPortrait,
 				}
 			);
 
@@ -194,8 +194,11 @@ namespace Spooky.Core
 			//Egg incursion
 			List<int> EggEventEnemies = new List<int>()
 			{
-				ModContent.NPCType<Capillary>(), ModContent.NPCType<Crux>(), ModContent.NPCType<Distended>(), ModContent.NPCType<DistendedBrute>(), 
-				ModContent.NPCType<Vesicator>(), ModContent.NPCType<Vigilante>(), ModContent.NPCType<Visitant>()
+				ModContent.NPCType<Crux>(), 
+				ModContent.NPCType<Glutinous>(), 
+				ModContent.NPCType<Ventricle>(),
+				ModContent.NPCType<Vesicator>(), 
+				ModContent.NPCType<Vigilante>(), 
 			};
 
 			var EggEventPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>

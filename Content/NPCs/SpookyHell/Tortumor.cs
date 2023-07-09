@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/TumorScreech1", SoundType.Sound);
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound);
 
 		public override void SetStaticDefaults()
         {
