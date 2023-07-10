@@ -25,8 +25,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         Vector2 SavePlayerPosition;
 
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound);
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
         public override void SetStaticDefaults()

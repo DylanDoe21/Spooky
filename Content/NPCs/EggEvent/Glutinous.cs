@@ -141,7 +141,7 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DistendedGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/GlutinousGore" + numGores).Type);
                 }
             }
         }

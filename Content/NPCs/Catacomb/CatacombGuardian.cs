@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.Catacomb
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit2;
+            NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 11;
 			AIType = NPCID.DungeonGuardian;

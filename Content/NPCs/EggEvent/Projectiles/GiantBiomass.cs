@@ -159,15 +159,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            //spawn gores
-            for (int numGores = 1; numGores <= 5; numGores++)
-            {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, -2)), ModContent.Find<ModGore>("Spooky/BiomassGore" + numGores).Type);
-                }
-            }
-
             //spawn blood explosion clouds
             for (int numExplosion = 0; numExplosion < 8; numExplosion++)
             {
