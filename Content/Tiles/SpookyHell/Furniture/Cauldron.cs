@@ -160,6 +160,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
 			AddTransformation(ItemID.ImpStaff, ModContent.ItemType<SentientImpStaff>());
 			AddTransformation(ItemID.HoundiusShootius, ModContent.ItemType<SentientShootius>());
+
+			//fishing rod
+			AddTransformation(ItemID.BloodFishingRod, ModContent.ItemType<SentientChumCaster>());
         }
 
         public override void AddRecipes()

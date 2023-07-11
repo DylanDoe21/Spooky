@@ -73,9 +73,9 @@ LittleEye: {
 	Default5: My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.
 	Default6: The alchemy I do down here is not really science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
 	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
+	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any ol' fishing rod in it.
 	EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, 'Bloody red, you'll be dead, purplish blue, cripple you!'
-	EggEvent: You're trying to start conversation, right now? You might wanna take care of the literal abominations trying to attack you.
-	OrroBoro: Hey there's a giant serpent chasing you. Maybe go worry about that?
+	OrroBoro: Hey there's two giant serpents chasing you right now. Maybe go worry about that?
 	Button1: Quest
 	Button2: Cauldron?
 }

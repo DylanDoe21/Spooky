@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Sentient;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
@@ -51,6 +53,13 @@ namespace Spooky.Content.Biomes
                         Green *= 0.5f;
                         Blue *= 0.5f;
                     }
+
+                    if (tile.LiquidAmount > 0)
+                    {
+                        Red *= 0.1f;
+                        Green *= 0.1f;
+                        Blue *= 0.1f;
+                    }
                 }
 
                 //set each light color value
@@ -69,6 +78,8 @@ namespace Spooky.Content.Biomes
             }
         }
 
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<BloodWaterStyle>();
+
         public override void SpecialVisuals(Player player, bool isActive)
         {
             player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", isActive, player.Center);
@@ -79,6 +90,14 @@ namespace Spooky.Content.Biomes
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void OnInBiome(Player player)
+        {
+            if (player.wet)
+            { 
+                player.velocity *= 0.95f;
+            }
+        }
 
         public override bool IsBiomeActive(Player player)
         {

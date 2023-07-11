@@ -100,7 +100,7 @@ namespace Spooky.Core
 
 		public override void ModifyShop(NPCShop shop)
 		{
-			//merchant sells mossy pebbles for the slingshots
+			//add mossy pebbles to the merchant shop so you can get them easily
 			if (shop.NpcType == NPCID.Merchant)
 			{
 				shop.Add<MossyPebble>();
@@ -121,7 +121,7 @@ namespace Spooky.Core
 			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
 			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
 
-			//give all of orro & boro segments resistance to piercing projectiles
+			//give all orro & boro segments resistance to piercing projectiles
             if (OrroBoroSegments.Contains(npc.type))
 			{
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
@@ -175,7 +175,7 @@ namespace Spooky.Core
 			//inflict enemies with gourd decay while wearing the rotten gourd armor
 			if (player.GetModPlayer<SpookyPlayer>().GourdSet && item.DamageType == DamageClass.Melee)
 			{
-				if (Main.rand.NextBool(12))
+				if (Main.rand.NextBool(8))
 				{
 					npc.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
 				}

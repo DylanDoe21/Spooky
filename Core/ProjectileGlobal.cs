@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -17,7 +18,7 @@ namespace Spooky.Core
             //creepy candle makes magic projectiles inflict on fire
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(5))
                 {
                     target.AddBuff(BuffID.OnFire, 120);
                 }
@@ -26,7 +27,7 @@ namespace Spooky.Core
 
         public override bool PreAI(Projectile projectile)
 		{
-            //disable gravestones in the catacombs to prevent graveyards forming there
+            //disable gravestones in the catacombs to prevent graveyards from forming there
             int[] Gravestones = new int[] {ProjectileID.Tombstone, ProjectileID.GraveMarker, ProjectileID.CrossGraveMarker,
             ProjectileID.Headstone, ProjectileID.Gravestone, ProjectileID.Obelisk, ProjectileID.RichGravestone1, ProjectileID.RichGravestone2,
             ProjectileID.RichGravestone3, ProjectileID.RichGravestone4, ProjectileID.RichGravestone5 };
@@ -40,9 +41,19 @@ namespace Spooky.Core
                 }
 			}
 
+            //convert spooky forest tiles into purity when sprayed with green solution
             if (projectile.type == ProjectileID.PureSpray)
             {
                 ConvertSpookyIntoPurity((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+
+            //dont allow fishing in the blood lake in the valley of eyes, unless you have the goblin shark rod
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+            {
+                if (projectile.aiStyle == ProjAIStyleID.Bobber && projectile.wet && projectile.type != ModContent.ProjectileType<SentientChumCasterBobber>())
+                {
+                    projectile.Kill();
+                }
             }
 
 			return base.PreAI(projectile);
@@ -50,6 +61,7 @@ namespace Spooky.Core
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
+            //make the world globe change the spooky forest backgrounds
             if (projectile.type == ProjectileID.WorldGlobe && (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()) || 
             Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiomeUg>())))
             {

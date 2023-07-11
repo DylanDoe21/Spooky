@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -6,11 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.Water
 {
-	public class CemeteryWaterStyle : ModWaterStyle
+	public class BloodWaterStyle : ModWaterStyle
 	{
-		public override int ChooseWaterfallStyle() => ModContent.Find<ModWaterfallStyle>("Spooky/CemeteryWaterfallStyle").Slot;
+		public override int ChooseWaterfallStyle() => ModContent.Find<ModWaterfallStyle>("Spooky/BloodWaterfallStyle").Slot;
 
-		public override int GetSplashDust() => 102;
+		public override int GetSplashDust() => DustID.Blood;
 
 		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/CemeteryWaterDroplet").Type;
 
@@ -31,6 +32,6 @@ namespace Spooky.Content.Tiles.Water
 			b = 1f;
 		}
 
-		public override Color BiomeHairColor() => Color.Teal;
+		public override Color BiomeHairColor() => Color.Red;
 	}
 }

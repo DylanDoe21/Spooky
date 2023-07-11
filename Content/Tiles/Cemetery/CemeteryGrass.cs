@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.Cemetery
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(70, 130, 93));
+            AddMapEntry(new Color(52, 102, 46));
 			RegisterItemDrop(ModContent.ItemType<CemeteryDirtItem>());
             DustType = ModContent.DustType<CemeteryGrassDust>();
             MineResist = 0.7f;
@@ -44,7 +44,7 @@ namespace Spooky.Content.Tiles.Cemetery
                     Above.TileType = (ushort)ModContent.TileType<CemeteryWeeds>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(12) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server) 
                     {

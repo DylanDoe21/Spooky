@@ -76,20 +76,13 @@ namespace Spooky.Content.Generation
                     //place dirt blocks
                     if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                        tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
                     }
 
                     //place dirt blocks where walls exist to prevent unwanted craters or caves
-                    if (tile.WallType > 0 && !tile.HasTile)
+                    if (tile.WallType > 0)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
-                    }
-
-                    //fill in any single empty tiles
-                    if (!tile.HasTile && tileUp.HasTile && tileDown.HasTile && tileLeft.HasTile && tileRight.HasTile)
-                    {
-                        tile.ClearEverything();
-                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                        tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
                     }
                 }
 
@@ -153,17 +146,6 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>(), false);
                     }
-
-                    //place bushes
-                    if (tile.TileType == ModContent.TileType<CemeteryDirt>() || tile.TileType == ModContent.TileType<CemeteryGrass>())
-                    {
-                        if (WorldGen.genRand.NextBool(12))
-                        {
-                            ushort[] Bushes = new ushort[] { (ushort)ModContent.TileType<CemeteryBush1>(), (ushort)ModContent.TileType<CemeteryBush2>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Bushes));
-                        }
-                    }
                 }
             }
         }
@@ -192,58 +174,6 @@ namespace Spooky.Content.Generation
             int XStart = Catacombs.PositionX;
             int XMiddle = XStart + (BiomeWidth / 2);
 
-            //first hut
-            bool placedHut1 = false;
-            int hut1Attempts = 0;
-            while (!placedHut1 && hut1Attempts++ < 100000 && Main.maxTilesX >= 6400)
-            {
-                int HutX = XMiddle - 175;
-                int HutY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
-				{
-					HutY++;
-				}
-                if (!Main.tile[HutX, HutY].HasTile || Main.tile[HutX, HutY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                ClearAreaAboveStructure(HutX, HutY - 20);
-                PlaceBlocksBelowStructure(HutX, HutY + 3, 25);
-
-                Vector2 origin = new Vector2(HutX - 14, HutY - 15);
-                Generator.GenerateStructure("Content/Structures/CemeteryHut1", origin.ToPoint16(), Mod);
-
-                placedHut1 = true;
-            }
-
-            //first burial pit
-            bool placedHole1 = false;
-            int hole1Attempts = 0;
-            while (!placedHole1 && hole1Attempts++ < 100000)
-            {
-                int HoleX = XMiddle - 100;
-                int HoleY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
-				{
-					HoleY++;
-				}
-                if (!Main.tile[HoleX, HoleY].HasTile || Main.tile[HoleX, HoleY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                ClearAreaAboveStructure(HoleX, HoleY - 27);
-                PlaceBlocksBelowStructure(HoleX, HoleY - 2, 30);
-
-                Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
-                Generator.GenerateStructure("Content/Structures/CemeteryHole1", origin.ToPoint16(), Mod);
-
-                placedHole1 = true;
-            }
-
             //crypt
             bool placedCrypt = false;
             int cryptAttempts = 0;
@@ -270,84 +200,6 @@ namespace Spooky.Content.Generation
                 Catacombs.EntranceY = CryptY - 37;
 
                 placedCrypt = true;
-            }
-
-            //fishing lake
-            bool placedlake = false;
-            int lakeAttempts = 0;
-            while (!placedlake && lakeAttempts++ < 100000)
-            {
-                int LakeX = XMiddle + 75;
-                int LakeY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(LakeX, LakeY) && LakeY <= Main.worldSurface)
-				{
-					LakeY++;
-				}
-                if (!Main.tile[LakeX, LakeY].HasTile || Main.tile[LakeX, LakeY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                ClearAreaAboveStructure(LakeX, LakeY - 23);
-                PlaceBlocksBelowStructure(LakeX, LakeY, 22);
-
-                Vector2 origin = new Vector2(LakeX - 19, LakeY - 16);
-                Generator.GenerateStructure("Content/Structures/CemeteryLake", origin.ToPoint16(), Mod);
-
-                placedlake = true;
-            }
-
-            //second burial pit
-            bool placedHole2 = false;
-            int hole2Attempts = 0;
-            while (!placedHole2 && hole2Attempts++ < 100000 && Main.maxTilesX >= 6400)
-            {
-                int HoleX = XMiddle + 135;
-                int HoleY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HoleX, HoleY) && HoleY <= Main.worldSurface)
-                {
-                    HoleY++;
-				}
-                if (!Main.tile[HoleX, HoleY].HasTile || Main.tile[HoleX, HoleY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                ClearAreaAboveStructure(HoleX, HoleY - 27);
-                PlaceBlocksBelowStructure(HoleX, HoleY - 2, 30);
-
-                Vector2 origin = new Vector2(HoleX - 22, HoleY - 22);
-                Generator.GenerateStructure("Content/Structures/CemeteryHole2", origin.ToPoint16(), Mod);
-
-                placedHole2 = true;
-            }
-
-            //second hut
-            bool placedHut2 = false;
-            int hut2Attempts = 0;
-            while (!placedHut2 && hut2Attempts++ < 100000 && Main.maxTilesX >= 6400)
-            {
-                int HutX = XMiddle + 185;
-                int HutY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HutX, HutY) && HutY <= Main.worldSurface)
-				{
-					HutY++;
-				}
-                if (!Main.tile[HutX, HutY].HasTile || Main.tile[HutX, HutY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                ClearAreaAboveStructure(HutX, HutY - 16);
-                PlaceBlocksBelowStructure(HutX, HutY + 3, 10);
-
-                Vector2 origin = new Vector2(HutX - 16, HutY - 11);
-                Generator.GenerateStructure("Content/Structures/CemeteryHut2", origin.ToPoint16(), Mod);
-
-                placedHut2 = true;
             }
         }
 

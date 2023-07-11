@@ -63,18 +63,18 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 		//special settings for the tree tops
 		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
 		{
-			topTextureFrameWidth = 92;
-            topTextureFrameHeight = 82;
+			topTextureFrameWidth = 22;
+            topTextureFrameHeight = 64;
 		}
 
 		public override int TreeLeaf()
 		{
-			return ModContent.GoreType<LeafTeal>();
+			return -1;
         }
 
 		public override bool Shake(int x, int y, ref bool createLeaves)
 		{
-			createLeaves = true;
+			createLeaves = false;
 
 			return false;
 		}

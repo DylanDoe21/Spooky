@@ -16,6 +16,8 @@ using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
+using Spooky.Content.Projectiles.SpookyHell;
+using Iced.Intel;
 
 namespace Spooky.Content.Generation
 {
@@ -382,7 +384,7 @@ namespace Spooky.Content.Generation
             int pillar1Attempts = 0;
             while (!placedPillar1 && pillar1Attempts++ < 100000)
             {
-                int PillarX = StartPosition + 95;
+                int PillarX = StartPosition + 150;
                 int PillarY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
@@ -435,7 +437,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
-					Vector2 origin = new Vector2(PillarX - 15, PillarY - 38);
+					Vector2 origin = new Vector2(PillarX - 15, PillarY - 40);
                     Generator.GenerateStructure("Content/Structures/FleshPillar-2", origin.ToPoint16(), Mod);
                     placedPillar2 = true;
 				}
@@ -488,7 +490,7 @@ namespace Spooky.Content.Generation
             int shrineAttempts = 0;
             while (!placedShrine && shrineAttempts++ < 100000)
             {
-                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
                 int ShrineY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(ShrineX, ShrineY) && ShrineY <= Main.maxTilesY)
@@ -504,12 +506,33 @@ namespace Spooky.Content.Generation
 				}
             }
 
+            //place blood lake
+            bool placedLake = false;
+            int lakeAttempts = 0;
+            while (!placedLake && lakeAttempts++ < 100000)
+            {
+                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
+                int LakeY = Main.maxTilesY - 160;
+
+                while (!WorldGen.SolidTile(LakeX, LakeY) && LakeY <= Main.maxTilesY)
+                {
+                    LakeY++;
+                }
+
+                if (Main.tile[LakeX, LakeY].HasTile || Main.tile[LakeX, LakeY].WallType == ModContent.WallType<SpookyMushWall>())
+				{
+					Vector2 origin = new Vector2(LakeX - 47, LakeY - 7);
+                    Generator.GenerateStructure("Content/Structures/BloodLake", origin.ToPoint16(), Mod);
+                    placedLake = true;
+				}
+            }
+
             //place fourth flesh pillar
             bool placedPillar4 = false;
             int pillar4Attempts = 0;
             while (!placedPillar4 && pillar4Attempts++ < 100000)
             {
-                int PillarX = BiomeEdge - 95;
+                int PillarX = BiomeEdge - 150;
                 int PillarY = Main.maxTilesY - 160;
 
                 while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
@@ -578,6 +601,6 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
             tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
             tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
-		}
+        }
     }
 }

@@ -18,9 +18,8 @@ namespace Spooky.Content.Events
 	public class EggEventWorld : ModSystem
 	{
 		public static int Wave = 0;
-
 		public static bool EggEventActive;
-		public static bool hasSpawnedBiomass = false;
+		public static bool hasSpawnedBiomass;
 
 		public override void OnWorldLoad()
 		{
@@ -31,13 +30,6 @@ namespace Spooky.Content.Events
 
         public override void PostUpdateEverything()
 		{
-			//reset everything while the event is not ongoing
-			if (!EggEventActive)
-			{
-				Wave = 0;
-				hasSpawnedBiomass = false;
-			}
-
 			//end the event and reset everything if you die, or if you leave the valley of eyes
 			if (EggEventActive && (Main.LocalPlayer.dead || !Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>())))
 			{

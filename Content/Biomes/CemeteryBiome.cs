@@ -32,7 +32,7 @@ namespace Spooky.Content.Biomes
             }
         }
         
-        public override ModWaterStyle WaterStyle => ModContent.GetInstance<CemeteryWaterStyle>();
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
@@ -54,7 +54,7 @@ namespace Spooky.Content.Biomes
 
             if (!player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
-                Main.GraveyardVisualIntensity = 0.42f;
+                Main.GraveyardVisualIntensity = 0.25f;
             }
 
             if (Main.rand.NextBool(800))

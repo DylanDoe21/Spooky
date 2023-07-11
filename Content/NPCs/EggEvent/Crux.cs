@@ -230,7 +230,7 @@ namespace Spooky.Content.NPCs.EggEvent
         
         public override bool CheckDead() 
 		{
-            Main.projectile[aura].Kill();
+            //Main.projectile[aura].Kill();
 
             return true;
         }

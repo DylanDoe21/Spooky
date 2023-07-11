@@ -83,6 +83,26 @@ namespace Spooky.Core
                 return;
             }
 
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+            {
+                float Intensity = ModContent.GetInstance<TileCount>().cemeteryTiles;
+                Intensity = Math.Min(Intensity, 1f);
+                int sunR = backgroundColor.R;
+                int sunG = backgroundColor.G;
+                int sunB = backgroundColor.B;
+                sunR -= (int)(100f * Intensity * (backgroundColor.R / 255f));
+                sunG -= (int)(50f * Intensity * (backgroundColor.G / 255f));
+                sunB -= (int)(100f * Intensity * (backgroundColor.B / 255f));
+                sunR = Utils.Clamp(sunR, 15, 255);
+                sunG = Utils.Clamp(sunG, 15, 255);
+                sunB = Utils.Clamp(sunB, 15, 255);
+                backgroundColor.R = (byte)sunR;
+                backgroundColor.G = (byte)sunG;
+                backgroundColor.B = (byte)sunB;
+
+                return;
+            }
+
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
                 float Intensity = ModContent.GetInstance<TileCount>().raveyardTiles;

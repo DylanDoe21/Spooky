@@ -36,7 +36,7 @@ OrroboroEmbryo: {
 	DisplayName: Undying Embryo
 	Tooltip:
 		'''
-		Upon death, you will be revived, and given massive life regeneration and defense for a short time
+		Upon death you will be revived, and given massive life regeneration and defense for a short time
 		The revive ability has a ten minute cooldown before it can activate again
 		During the cooldown, you gain 8% increased damage and critical strike chance
 		'''
@@ -1222,6 +1222,17 @@ SentientChik: {
 		'''
 }
 
+SentientChumCaster: {
+	DisplayName: Goblin Shark Rod
+	Tooltip:
+		'''
+		Fish with two bobbers at once
+		Able to catch fish in the lake of blood in the Valley of Eyes
+		'It snarls at you'
+
+		'''
+}
+
 SentientClingerStaff: {
 	DisplayName: Moocher Staff
 	Tooltip:
@@ -1462,23 +1473,8 @@ CatacombBrickItem: {
 	Tooltip: ""
 }
 
-CatacombBrickMossItem: {
-	DisplayName: Mossy Catacomb Bricks
-	Tooltip: ""
-}
-
 CatacombTilesItem: {
 	DisplayName: Catacomb Tiles
-	Tooltip: ""
-}
-
-CatacombChestItem: {
-	DisplayName: Tomb Chest
-	Tooltip: ""
-}
-
-CemeteryBrickItem: {
-	DisplayName: Crypt Brick
 	Tooltip: ""
 }
 
@@ -1894,7 +1890,7 @@ EyeSeed: {
 }
 
 ValleyStoneItem: {
-	DisplayName: Valley Stone
+	DisplayName: Valley Bone
 	Tooltip: ""
 }
 
@@ -1966,4 +1962,9 @@ CatacombBrickWall1Item: {
 CatacombBrickWall2Item: {
 	DisplayName: Lower Catacomb Brick Wall
 	Tooltip: ""
+}
+
+SpookyMushLakeWallItem: {
+	Tooltip: ""
+	DisplayName: Spooky Mush Lake Wall Item
 }

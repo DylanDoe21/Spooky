@@ -18,9 +18,6 @@ namespace Spooky.Content.Events
 {
     public class EggEventHandler : ModProjectile
     {
-        int EnemySpawnCooldown = 0;
-        int SaveNumStars = 0;
-
         bool SpawnedEnemies = false;
         bool EventEnemiesExist = true;
 
@@ -32,7 +29,8 @@ namespace Spooky.Content.Events
             Projectile.height = 16;
             Projectile.tileCollide = false;
             Projectile.aiStyle = -1;
-            Projectile.timeLeft = 2; 
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 20; 
             Projectile.alpha = 255;
         }
 
@@ -70,7 +68,7 @@ namespace Spooky.Content.Events
                     CombatText.NewText(Projectile.getRect(), Color.Magenta, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventWaveComplete"), true);
                 }
 
-                EnemySpawnCooldown = 300;
+                Projectile.ai[1] = 300;
                 EggEventWorld.Wave++;
                 SpawnedEnemies = false;
                 EggEventWorld.hasSpawnedBiomass = false;
@@ -620,15 +618,6 @@ namespace Spooky.Content.Events
                 }
             }
 
-            if (SaveNumStars == 0)
-            {
-                SaveNumStars = Main.numStars;
-            }
-
-            Main.shimmerAlpha = 0.5f;
-            Main.shimmerDarken = 0f;
-            Main.numStars = 0;
-
             Projectile.ai[0]++;
 
             //spawn dust particles that get sucked towards this projectile, which is technically the egg
@@ -659,7 +648,7 @@ namespace Spooky.Content.Events
             //egg event enemy spawning stuff
             if (EggEventWorld.EggEventActive)
             {
-                Projectile.timeLeft = 5;
+                Projectile.timeLeft = 20;
 
                 if (NPC.AnyNPCs(ModContent.NPCType<Crux>()) || NPC.AnyNPCs(ModContent.NPCType<Glutinous>()) || NPC.AnyNPCs(ModContent.NPCType<Ventricle>()) ||
                 NPC.AnyNPCs(ModContent.NPCType<Vesicator>()) || NPC.AnyNPCs(ModContent.NPCType<Vigilante>()))
@@ -671,21 +660,21 @@ namespace Spooky.Content.Events
                     EventEnemiesExist = false;
                 }
 
-                if (EnemySpawnCooldown > 0)
+                //cooldown before switching to the next wave
+                if (Projectile.ai[1] > 0)
                 {
-                    EnemySpawnCooldown--;
+                    Projectile.ai[1]--;
                 }
+                
+                SwitchToNextWave();
 
-                if (EnemySpawnCooldown <= 0)
+                if (Projectile.ai[1] <= 0)
                 {
                     SpawnEnemies();
-                    SwitchToNextWave();
                 }
             }
             else
             {
-                Main.numStars = SaveNumStars;
-
                 Projectile.Kill();
             }
         }

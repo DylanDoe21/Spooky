@@ -7,6 +7,7 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Cemetery
 {
+	[LegacyName("CemeteryBrick")]
 	public class CemeteryStone : ModTile
 	{
 		public override void SetStaticDefaults()
@@ -17,7 +18,7 @@ namespace Spooky.Content.Tiles.Cemetery
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(56, 56, 64));
+            AddMapEntry(new Color(47, 59, 55));
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MineResist = 0.85f;

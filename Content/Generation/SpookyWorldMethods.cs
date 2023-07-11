@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Generation
 {

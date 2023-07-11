@@ -1,11 +1,3 @@
-CatacombChest.MapEntry: Tomb Chest
-CatacombChest2.MapEntry: Tomb Chest
-CatacombChest3.MapEntry: Tomb Chest
-CatacombChest4.MapEntry: Tomb Chest
-CatacombChest5.MapEntry: Tomb Chest
-CatacombChest6.MapEntry: Tomb Chest
-CatacombChest7.MapEntry: Tomb Chest
-
 HalloweenChest: {
 	MapEntry0: Old Wood Chest
 	MapEntry1: Locked Old Wood Chest
@@ -101,6 +93,7 @@ BoroTrophy.MapEntry: Trophy
 MocoTrophy.MapEntry: Trophy
 OrroTrophy.MapEntry: Trophy
 RotGourdTrophy.MapEntry: Trophy
+SpookySpiritTrophy.MapEntry: Trophy
 CatacombAltar.MapEntry: Catacomb Altar
 Coffin1.MapEntry: Coffin1
 Coffin2.MapEntry: Coffin2
@@ -112,6 +105,5 @@ SkullStick3.MapEntry: Skull Stick3
 SkullCandle3.MapEntry: Skull Candle3
 SkullCandle2.MapEntry: Skull Candle2
 SkullCandle1.MapEntry: Skull Candle1
-SpookyForestBanners.MapEntry: Spooky Forest Banners
+SpookyForestBanners.MapEntry: Banner
 BigFlower.MapEntry: Big Flower
-SpookySpiritTrophy.MapEntry: Spooky Spirit Trophy

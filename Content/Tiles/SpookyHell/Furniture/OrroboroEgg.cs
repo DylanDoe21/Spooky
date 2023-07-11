@@ -165,7 +165,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				}
 
 				//spawn event handler projectile
-				Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer);
+				Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer, 0, 300);
 			}
 			else if (player.HasItem(ModContent.ItemType<Concoction>())) 
 			{
@@ -201,7 +201,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                     }
 
 					//spawn event handler projectile
-                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer);
+                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer, 0, 300);
 				}
 				else
 				{

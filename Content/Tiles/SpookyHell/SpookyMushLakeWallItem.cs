@@ -1,11 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.Cemetery
+namespace Spooky.Content.Tiles.SpookyHell
 {
-    public class CemeteryBrickItem : ModItem
+    public class SpookyMushLakeWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -23,15 +22,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<CemeteryBrick>();
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<CemeteryStoneItem>(), 2)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+			Item.createWall = ModContent.WallType<SpookyMushLakeWall>();
         }
     }
 }
