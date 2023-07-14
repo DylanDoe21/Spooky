@@ -17,6 +17,7 @@ using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 using StructureHelper;
 
@@ -39,6 +40,9 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom3 = false;
         public static bool placedLootRoom4 = false;
         public static bool placedMoyaiRoom = false;
+
+        public static bool placedSpookyChest = false;
+        public static bool placedEyeChest = false;
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -661,7 +665,7 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
             int XEdge = XStart + Cemetery.BiomeWidth;
 
-            //all of this code just kills plants and vines that are not on valid tiles, after everything in the catacombs generates
+            //kill plants and vines that are not on valid tiles
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
             {
                 for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 100; Y++)

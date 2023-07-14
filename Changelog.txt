@@ -89,6 +89,8 @@ Localization File Split:
 
 Items:
 
+-Renamed loose soil to swamp soil
+-Renamed rocky soil to swamp rock
 -All spooky mod boss masks now drop from that bosses treasure bag in expert mode to be consistent with vanilla
 -Buffed the use speed for the toilet paper and necromancy for dummies
 -Buffed the creepy candle's magic damage bonus from 5% to 7%
@@ -110,8 +112,7 @@ Items:
 -Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
 -Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Pumpkin Head -> Chestmail -> Greaves -> back to Pumpkin Head
 -Simplified the tooltip description for the undying embryo
--Renamed loose soil to swamp soil
--Renamed rocky soil to swamp rock
+-Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
 
 
 Enemies & Bosses:
@@ -134,6 +135,7 @@ Miscellaneous:
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
 -Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary, visitant
+-Eye valley grass can now grow the ambient eye stalks and tentacles naturally
 
 
 

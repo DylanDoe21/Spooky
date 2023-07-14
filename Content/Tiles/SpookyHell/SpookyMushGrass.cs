@@ -55,6 +55,41 @@ namespace Spooky.Content.Tiles.SpookyHell
 
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
+                //eye stalks
+                if (Main.rand.Next(35) == 0)
+                {
+                    ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<TallEyeStalk1>(), 
+                    (ushort)ModContent.TileType<TallEyeStalk2>(), (ushort)ModContent.TileType<TallEyeStalk3>() };
+
+                    ushort newObject = Main.rand.Next(EyeStalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //eye flowers
+                if (Main.rand.Next(45) == 0)
+                {
+                    ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), (ushort)ModContent.TileType<EyeFlower2>() };
+
+                    ushort newObject = Main.rand.Next(EyeFlowers);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //tentacles
+                if (Main.rand.Next(65) == 0)
+                {
+                    ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<Tentacle1>(), (ushort)ModContent.TileType<Tentacle2>(), 
+                    (ushort)ModContent.TileType<Tentacle3>(), (ushort)ModContent.TileType<Tentacle4>() };
+
+                    ushort newObject = Main.rand.Next(EyeStalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
                 //exposed nerve
                 if (Main.hardMode && Main.rand.Next(1000) == 0)
                 {

@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
-                new Rectangle(330 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 28), Color.White, 
+                new Rectangle(530 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 28), Color.White, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 
@@ -72,9 +72,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			{
 				Projectile.ai[1] += 15;
 
-				if (Projectile.ai[1] > 330)
+				if (Projectile.ai[1] > 530)
 				{
-					Projectile.ai[1] = 330;
+					Projectile.ai[1] = 530;
 
 					Projectile.ai[0]++;
 				}
