@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 42;
             Item.mana = 50;
 			Item.DamageType = DamageClass.Summon;
             Item.sentry = true;

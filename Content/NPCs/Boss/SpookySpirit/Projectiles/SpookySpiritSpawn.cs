@@ -14,6 +14,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
+        public static readonly SoundStyle SpawnSound = new("Spooky/Content/Sounds/SpookySpiritSpawn", SoundType.Sound);
+
         public override void SetDefaults()
         {
             Projectile.width = 2;
@@ -48,6 +50,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             if (Projectile.ai[0] == 1)
             {
                 SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
+                SoundEngine.PlaySound(SpawnSound, Projectile.Center);
             }
 
             if (Projectile.ai[0] >= 85)

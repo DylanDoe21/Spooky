@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.Cemetery
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(29, 55, 48));
+            AddMapEntry(new Color(12, 62, 6));
             DustType = DustID.Grass;
             HitSound = SoundID.Grass;
         }

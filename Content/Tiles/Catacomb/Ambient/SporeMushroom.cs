@@ -14,6 +14,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
     {
         public override void SetStaticDefaults()
         {
+            Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileSolid[Type] = false;
@@ -25,6 +26,13 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             AddMapEntry(new Color(31, 85, 37));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			r = 0.08f;
+			g = 0.2f;
+			b = 0.0f;
         }
 
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)

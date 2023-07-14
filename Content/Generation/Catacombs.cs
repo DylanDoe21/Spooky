@@ -14,6 +14,8 @@ using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
+using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 using StructureHelper;
@@ -653,87 +655,6 @@ namespace Spooky.Content.Generation
             }
         }
 
-        /*
-        //TODO: probably polish this up a bit once the catacomb generation is done, or possibly change the way the chests generate completely
-        
-        bool placedChest = false;
-        bool placedChest2 = false;
-
-        private void PlaceCatacombAmbience(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int XStart = PositionX;
-            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
-            int XEdge = XStart + Cemetery.BiomeWidth;
-
-            int layer1Width = Main.maxTilesX >= 8400 ? 200 : 150;
-            int layer1Depth = Main.maxTilesY >= 2400 ? (Main.maxTilesY >= 1800 ? 145 : 100) : 190;
-            
-            //place spooky biome chest
-            for (int X = XMiddle - layer1Width; X <= XMiddle; X++)
-            {
-                for (int Y = (int)Main.worldSurface + 20; Y <= (int)Main.worldSurface + 250; Y++)
-                {
-                    if ((Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrick>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombTiles>()) &&
-                    !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y - 1].HasTile && 
-                    !Main.tile[X, Y - 2].HasTile && !Main.tile[X - 1, Y - 2].HasTile)
-                    {
-                        if (WorldGen.genRand.NextBool(350) && !placedChest)
-                        {    
-                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<SpookyBiomeChest>(), true, 1);
-                        }
-                    }
-
-                    //if the spooky biome chest has been placed, do not place it again
-                    if (Main.tile[X - 1, Y - 2].TileType == ModContent.TileType<SpookyBiomeChest>())
-                    {
-                        placedChest = true;
-                    }
-
-                    //if the chest didnt place, try again
-                    if (X >= XMiddle && Y >= (int)Main.worldSurface + 249 && !placedChest)
-                    {
-                        X = XMiddle - 165;
-                        Y = (int)Main.worldSurface + 20;
-                    }
-                }
-            }
-
-            //place eye biome chest
-            for (int X = XMiddle; X <= XMiddle + layer1Width; X++)
-            {
-                for (int Y = (int)Main.worldSurface + 20; Y <= (int)Main.worldSurface + 250; Y++)
-                {
-                    if ((Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrick>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombBrickMoss>() ||
-                    Main.tile[X, Y].TileType == ModContent.TileType<CatacombTiles>()) &&
-                    !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y - 1].HasTile && 
-                    !Main.tile[X, Y - 2].HasTile && !Main.tile[X - 1, Y - 2].HasTile)
-                    {
-                        if (WorldGen.genRand.NextBool(350) && !placedChest2)
-                        {    
-                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<SpookyHellChest>(), true, 1);
-                        }
-                    }
-
-                    //if the eye biome chest has been placed, do not place it again
-                    if (Main.tile[X - 1, Y - 2].TileType == ModContent.TileType<SpookyHellChest>())
-                    {
-                        placedChest2 = true;
-                    }
-
-                    //if the chest didnt place, try again
-                    if (X >= XMiddle + 164 && Y >= (int)Main.worldSurface + 249 && !placedChest2)
-                    {
-                        X = XMiddle;
-                        Y = (int)Main.worldSurface + 20;
-                    }
-                }
-            }
-        }
-        */
-
         private void KillVinesAndPlants(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = PositionX;
@@ -750,13 +671,13 @@ namespace Spooky.Content.Generation
                     Tile tileBelow = Main.tile[X, Y + 1];
 
                     //kill vines if the tile above it is not valid
-                    if (tile.TileType == ModContent.TileType<CatacombVines>() && tileAbove.TileType != ModContent.TileType<CatacombGrass>() && tileAbove.TileType != ModContent.TileType<CatacombVines>())
+                    if (tile.TileType == ModContent.TileType<CemeteryVines>() && tileAbove.TileType != ModContent.TileType<CemeteryGrass>() && tileAbove.TileType != ModContent.TileType<CemeteryVines>())
                     {
                         WorldGen.KillTile(X, Y);
                     }
 
                     //kill any remaining weeds that are not on catacomb grass blocks
-                    if ((tile.TileType == ModContent.TileType<CatacombWeeds>() || tile.TileType == ModContent.TileType<SporeMushroom>()) && tileBelow.TileType != ModContent.TileType<CatacombGrass>())
+                    if ((tile.TileType == ModContent.TileType<CatacombWeeds>() || tile.TileType == ModContent.TileType<SporeMushroom>()) && tileBelow.TileType != ModContent.TileType<CemeteryGrass>())
                     {
                         WorldGen.KillTile(X, Y);
                     }
@@ -779,7 +700,7 @@ namespace Spooky.Content.Generation
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
-                int newTempleX = GenVars.JungleX < (Main.maxTilesX / 2) ? GenVars.JungleX + 200 : GenVars.JungleX - 200;
+                int newTempleX = GenVars.JungleX < (Main.maxTilesX / 2) ? GenVars.JungleX + 250 : GenVars.JungleX - 250;
 
                 WorldGen.makeTemple(newTempleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
             });

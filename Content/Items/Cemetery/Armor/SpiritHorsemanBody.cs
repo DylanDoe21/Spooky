@@ -7,6 +7,11 @@ namespace Spooky.Content.Items.Cemetery.Armor
 	[AutoloadEquip(EquipType.Body)]
 	public class SpiritHorsemanBody : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritHorsemanLegs>();
+        }
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 5;

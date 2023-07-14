@@ -230,7 +230,10 @@ namespace Spooky.Content.NPCs.EggEvent
         
         public override bool CheckDead() 
 		{
-            //Main.projectile[aura].Kill();
+            if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>())
+            {
+                Main.projectile[aura].Kill();
+            }
 
             return true;
         }

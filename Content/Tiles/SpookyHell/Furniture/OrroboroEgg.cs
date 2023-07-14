@@ -133,7 +133,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			//check if player has the concoction
 			Player player = Main.LocalPlayer;
 
-			if (player.HasItem(ModContent.ItemType<StrangeCyst>()))
+			if (player.ConsumeItem(ModContent.ItemType<StrangeCyst>()))
 			{
 				int x = i;
 				int y = j;

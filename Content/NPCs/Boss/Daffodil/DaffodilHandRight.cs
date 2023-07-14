@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             else if (Parent.ai[0] == 3)
             {
                 NPC.frame.Y = frameHeight * 1;
-            }  
+            }
             else
             {
                 NPC.frame.Y = frameHeight * 0;

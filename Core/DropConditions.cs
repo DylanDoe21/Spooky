@@ -15,14 +15,14 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
-        //drop skull goop pet from any enemy while in the spooky furest during a blood moon
+        //drop skull goop pet from any enemy while in the swampy cemetery during a blood moon
         public class SkullGoopPetCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)
             {
                 if (!info.IsInSimulation) 
                 {
-                    if (Main.bloodMoon && info.player.InModBiome<SpookyBiome>())
+                    if (Main.bloodMoon && info.player.InModBiome<CemeteryBiome>())
                     {
                         return true;
                     }

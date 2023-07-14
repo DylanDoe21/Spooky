@@ -129,7 +129,7 @@ RottenSeed: {
 
 StrangeCyst: {
 	DisplayName: Strange Cyst
-	Tooltip: Begins the egg incursion event when used in the valley of eyes
+	Tooltip: Begins the egg incursion event when used at the giant egg
 }
 
 BigBoneBow: {
@@ -1227,7 +1227,7 @@ SentientChumCaster: {
 	Tooltip:
 		'''
 		Fish with two bobbers at once
-		Able to catch fish in the lake of blood in the Valley of Eyes
+		Able to catch fish from the blood lake in the Valley of Eyes
 		'It snarls at you'
 
 		'''
@@ -1479,17 +1479,17 @@ CatacombTilesItem: {
 }
 
 CemeteryDirtItem: {
-	DisplayName: Loose Soil
+	DisplayName: Swamp Soil
 	Tooltip: ""
 }
 
 CemeteryGrassSeeds: {
 	DisplayName: Cemetery Grass Seeds
-	Tooltip: Places grass on loose soil
+	Tooltip: Places grass on Swamp Soil
 }
 
 CemeteryStoneItem: {
-	DisplayName: Rocky Soil
+	DisplayName: Swamp Rock
 	Tooltip: ""
 }
 
@@ -1736,12 +1736,12 @@ SpookyDirtItem: {
 
 SpookySeedsGreen: {
 	DisplayName: Green Spooky Seeds
-	Tooltip: Places grass on spooky dirt
+	Tooltip: Places grass on Spooky Dirt
 }
 
 SpookySeedsOrange: {
 	DisplayName: Orange Spooky Seeds
-	Tooltip: Places grass on spooky dirt
+	Tooltip: Places grass on Spooky Dirt
 }
 
 SpookyStoneItem: {
@@ -1921,11 +1921,6 @@ RotGourdTrophyItem: {
 
 SpookySpiritTrophyItem: {
 	DisplayName: Spooky Spirit Trophy
-	Tooltip: ""
-}
-
-CatacombGrassSeeds: {
-	DisplayName: Catacomb Grass Seeds
 	Tooltip: ""
 }
 

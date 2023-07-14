@@ -51,12 +51,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 Vector2 lineDirection = new Vector2(0, 16);
 
                 SoundEngine.PlaySound(BoneSnap, Projectile.position);
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 20, Vector2.Zero.X, Vector2.Zero.Y,
-                    ModContent.ProjectileType<FleshPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
-                }
+                
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 20, Vector2.Zero.X, Vector2.Zero.Y,
+                ModContent.ProjectileType<FleshPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
             }
             else if (Projectile.ai[0] >= 60)
             {

@@ -25,6 +25,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         Vector2 SavePlayerPosition;
 
+        public static readonly SoundStyle SeedSpawnSound = new("Spooky/Content/Sounds/Daffodil/SeedSpawn", SoundType.Sound);
         public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound);
         public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound);
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
@@ -36,9 +37,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC",
-                Position = new Vector2(1f, 0f),
+                Position = new Vector2(1f, 30f),
                 PortraitPositionXOverride = 2f,
-                PortraitPositionYOverride = 0f
+                PortraitPositionYOverride = 30f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
@@ -426,7 +427,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 480)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 0;
+                        NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
 
@@ -443,6 +444,27 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] == 60)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_SkeletonSummoned with { Volume = SoundID.DD2_SkeletonSummoned.Volume * 80f }, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
+                    {
+                        //shake the screen for funny rumbling effect
+                        SpookyPlayer.ScreenShakeAmount = 5;
+
+                        if (Main.rand.NextBool(15))
+                        {
+                            SoundEngine.PlaySound(SeedSpawnSound, NPC.Center);
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-700, 700), NPC.Center.Y - 50,
+                            0, 8, ModContent.ProjectileType<ThornPillarSeed>(), Damage, 0, NPC.target, 0, 0);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 500)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
                     }
 
                     break;

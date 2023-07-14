@@ -24,8 +24,6 @@ namespace Spooky.Content.Items.BossSummon
 			Item.width = 26;
 			Item.height = 34;
 			Item.consumable = true;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.maxStack = 9999;
 		}
@@ -40,17 +38,6 @@ namespace Spooky.Content.Items.BossSummon
 
             return false;
         }
-
-		public override bool? UseItem(Player player)
-		{
-			SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, player.Center);
-
-			Flags.downedEggEvent = false;
-
-			//TODO: make this an item you right click the giant egg with
-			
-			return true;
-		}
 
 		public override void AddRecipes()
         {

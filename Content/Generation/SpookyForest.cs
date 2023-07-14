@@ -37,7 +37,7 @@ namespace Spooky.Content.Generation
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
             //decide whether or not to use the alt background
-            if (Main.rand.NextBool(2))
+            if (WorldGen.genRand.NextBool(2))
             {
                 Flags.SpookyBackgroundAlt = true;
             }
@@ -575,7 +575,7 @@ namespace Spooky.Content.Generation
                     }
 
                     //place starter house
-                    Generator.GenerateStructure("Content/Structures/SpookyForestHouse", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
                     NPC.NewNPC(null, (x + 1) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
@@ -589,7 +589,7 @@ namespace Spooky.Content.Generation
 
         public void GenerateStarterHouseAgain(GenerationProgress progress, GameConfiguration configuration)
         {
-            Generator.GenerateStructure("Content/Structures/SpookyForestHouse", SaveHousePosition.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse", SaveHousePosition.ToPoint16(), Mod);
         }
 
         public void GenerateUndergroundCabins(GenerationProgress progress, GameConfiguration configuration)
@@ -610,27 +610,27 @@ namespace Spooky.Content.Generation
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin1 = new Vector2((x - (ChestDistance * 2)) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyForestCabin-1", origin1.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-1", origin1.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin2 = new Vector2(((x - ChestDistance) - 8) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyForestCabin-2", origin2.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-2", origin2.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin3 = new Vector2(x - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyForestCabin-3", origin3.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-3", origin3.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin4 = new Vector2((x + ChestDistance) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyForestCabin-4", origin4.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-4", origin4.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin5 = new Vector2((x + (ChestDistance * 2)) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
+            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
 
             //lock all spooky wood chests
             for (int X = PositionX - 500; X <= PositionX + 500; X++)

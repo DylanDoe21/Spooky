@@ -395,7 +395,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(PillarX - 16, PillarY - 32);
-                    Generator.GenerateStructure("Content/Structures/FleshPillar-1", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-1", origin.ToPoint16(), Mod);
                     placedPillar1 = true;
 				}
             }
@@ -416,7 +416,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[HouseX, HouseY].HasTile || Main.tile[HouseX, HouseY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(HouseX - 23, HouseY - 18);
-                    Generator.GenerateStructure("Content/Structures/LittleEyeHouse", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/LittleEyeHouse", origin.ToPoint16(), Mod);
                     NPC.NewNPC(null, (HouseX - 1) * 16, (HouseY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
                     placedHouse = true;
 				}
@@ -437,8 +437,8 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
-					Vector2 origin = new Vector2(PillarX - 15, PillarY - 40);
-                    Generator.GenerateStructure("Content/Structures/FleshPillar-2", origin.ToPoint16(), Mod);
+					Vector2 origin = new Vector2(PillarX - 15, PillarY - 38);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-2", origin.ToPoint16(), Mod);
                     placedPillar2 = true;
 				}
             }
@@ -459,7 +459,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[NestX, NestY].HasTile || Main.tile[NestX, NestY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(NestX, NestY - 16);
-                    Generator.GenerateStructure("Content/Structures/OrroboroNest", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/OrroboroNest", origin.ToPoint16(), Mod);
                     placedNest = true;
 				}
             }
@@ -480,7 +480,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(PillarX - 15, PillarY - 29);
-                    Generator.GenerateStructure("Content/Structures/FleshPillar-3", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-3", origin.ToPoint16(), Mod);
                     placedPillar3 = true;
 				}
             }
@@ -501,7 +501,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[ShrineX, ShrineY].HasTile || Main.tile[ShrineX, ShrineY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(ShrineX - 19, ShrineY - 18);
-                    Generator.GenerateStructure("Content/Structures/MocoShrine", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/MocoShrine", origin.ToPoint16(), Mod);
                     placedShrine = true;
 				}
             }
@@ -521,8 +521,8 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[LakeX, LakeY].HasTile || Main.tile[LakeX, LakeY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
-					Vector2 origin = new Vector2(LakeX - 47, LakeY - 7);
-                    Generator.GenerateStructure("Content/Structures/BloodLake", origin.ToPoint16(), Mod);
+					Vector2 origin = new Vector2(LakeX - 47, LakeY - 10);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/BloodLake", origin.ToPoint16(), Mod);
                     placedLake = true;
 				}
             }
@@ -543,7 +543,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
 				{
 					Vector2 origin = new Vector2(PillarX - 15, PillarY - 39);
-                    Generator.GenerateStructure("Content/Structures/FleshPillar-4", origin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-4", origin.ToPoint16(), Mod);
                     placedPillar4 = true;
 				}
             }

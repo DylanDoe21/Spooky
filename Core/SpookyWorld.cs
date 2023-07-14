@@ -83,7 +83,7 @@ namespace Spooky.Core
                 return;
             }
 
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && !Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
                 float Intensity = ModContent.GetInstance<TileCount>().cemeteryTiles;
                 Intensity = Math.Min(Intensity, 1f);
@@ -99,6 +99,19 @@ namespace Spooky.Core
                 backgroundColor.R = (byte)sunR;
                 backgroundColor.G = (byte)sunG;
                 backgroundColor.B = (byte)sunB;
+
+                int tileR = tileColor.R;
+                int tileG = tileColor.G;
+                int tileB = tileColor.B;
+                tileR -= (int)(100f * Intensity * (tileColor.R / 255f));
+                tileG -= (int)(50f * Intensity * (tileColor.G / 255f));
+                tileB -= (int)(100f * Intensity * (tileColor.B / 255f));
+                tileR = Utils.Clamp(tileR, 15, 255);
+                tileG = Utils.Clamp(tileG, 15, 255);
+                tileB = Utils.Clamp(tileB, 15, 255);
+                tileColor.R = (byte)tileR;
+                tileColor.G = (byte)tileG;
+                tileColor.B = (byte)tileB;
 
                 return;
             }
@@ -119,6 +132,19 @@ namespace Spooky.Core
                 backgroundColor.R = (byte)sunR;
                 backgroundColor.G = (byte)sunG;
                 backgroundColor.B = (byte)sunB;
+
+                int tileR = tileColor.R;
+                int tileG = tileColor.G;
+                int tileB = tileColor.B;
+                tileR -= (int)(100f * Intensity * (tileColor.R / 255f));
+                tileG -= (int)(100f * Intensity * (tileColor.G / 255f));
+                tileB -= (int)(100f * Intensity * (tileColor.B / 255f));
+                tileR = Utils.Clamp(tileR, 15, 255);
+                tileG = Utils.Clamp(tileG, 15, 255);
+                tileB = Utils.Clamp(tileB, 15, 255);
+                tileColor.R = (byte)tileR;
+                tileColor.G = (byte)tileG;
+                tileColor.B = (byte)tileB;
 
                 return;
             }

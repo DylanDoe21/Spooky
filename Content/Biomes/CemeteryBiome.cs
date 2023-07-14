@@ -21,7 +21,14 @@ namespace Spooky.Content.Biomes
 
                 if (!Main.bloodMoon)
                 {
-                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                    if (!Main.IsItStorming)
+                    {
+                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                    }
+                    else
+                    {
+                        music = MusicID.Monsoon;
+                    }
                 }
                 else
                 {
@@ -38,7 +45,7 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive, player.Center);
         }
 
         //bestiary stuff
@@ -52,10 +59,7 @@ namespace Spooky.Content.Biomes
             //graveyard visuals
             player.ZoneGraveyard = true;
 
-            if (!player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
-            {
-                Main.GraveyardVisualIntensity = 0.25f;
-            }
+            Main.GraveyardVisualIntensity = 0.25f;
 
             if (Main.rand.NextBool(800))
             {

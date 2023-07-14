@@ -184,7 +184,7 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-			//drop skull goop during a blood moon if you are in the spooky biome
+			//drop skull goop during a blood moon if you are in the swampy cemetery
 			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
 
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys

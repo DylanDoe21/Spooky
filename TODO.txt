@@ -1,10 +1,25 @@
-Catacomb overhaul:
+updated and more simple todo list:
 
--new enemies, and better versions of the old enemies
+The following have sprites, but need to be programmed:
+
+-finish daffodil's boss fight
+
+-finish blood moon fishing eye valley enemies
+
+-Add tacos catacomb enemies
+
+-Add new mushroom enemies
 
 
-Other stuff:
+The following needs both sprites and programming:
 
--have it so that the flower shot with right click directly sticks to an enemy for a duration, but it gives a MUCH higher damage bonus since you can only have one at a time
+-add new enemies for the swampy cemetery
 
--add new ghostly slingshot ability suggestion, where when it hits an enemy it teleports around them and charges a few times
+-add new enemies for the ambush rooms in both layer 1 and 2 of the catacombs
+
+-add new boss icons for rot gourd and daffodil
+
+-add daffodil's item drops, weapons, relic, mask, trophy, ect
+
+-add new catacomb weapons for magic and summon for the second layer
+

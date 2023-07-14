@@ -37,7 +37,7 @@ namespace Spooky.Content.Generation
 			}
 			else
 			{
-                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 120;
+                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 180;
             }
 
             int XStart = Catacombs.PositionX;
@@ -90,6 +90,34 @@ namespace Spooky.Content.Generation
                 for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
                 {
                     SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                }
+            }
+
+            //add tile dithering on the edges of the biome
+            for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
+            {
+                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
+                {
+                    if (WorldGen.genRand.NextBool(2))
+                    {
+                        Tile tile = Main.tile[X, Y];
+                        Tile tileUp = Main.tile[X, Y - 1];
+                        Tile tileDown = Main.tile[X, Y + 1];
+                        Tile tileLeft = Main.tile[X - 1, Y];
+                        Tile tileRight = Main.tile[X + 1, Y];
+
+                        //place dirt blocks
+                        if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
+                        {
+                            tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                        }
+
+                        //place dirt blocks where walls exist to prevent unwanted craters or caves
+                        if (tile.WallType > 0)
+                        {
+                            tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+                        }
+                    }
                 }
             }
 
@@ -173,13 +201,37 @@ namespace Spooky.Content.Generation
         {
             int XStart = Catacombs.PositionX;
             int XMiddle = XStart + (BiomeWidth / 2);
+            int XEdge = XStart + BiomeWidth;
 
-            //crypt
+            //first ruined house
+            bool placedHouse1 = false;
+            int house1Attempts = 0;
+            while (!placedHouse1 && house1Attempts++ < 100000)
+            {
+                int HouseX = (XStart + XMiddle) / 2;
+                int HouseY = Catacombs.PositionY - 55;
+
+                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.worldSurface)
+				{
+					HouseY++;
+				}
+                if (!Main.tile[HouseX, HouseY].HasTile || Main.tile[HouseX, HouseY].WallType == WallID.EbonstoneUnsafe)
+                {
+					continue;
+                }
+
+                Vector2 origin = new Vector2(HouseX - 14, HouseY - 20);
+                Generator.GenerateStructure("Content/Structures/Cemetery/RuinedHouse-1", origin.ToPoint16(), Mod);
+
+                placedHouse1 = true;
+            }
+
+            //catacomb entrance
             bool placedCrypt = false;
             int cryptAttempts = 0;
             while (!placedCrypt && cryptAttempts++ < 100000)
             {
-                int CryptX = XMiddle - 3;
+                int CryptX = XMiddle;
                 int CryptY = Catacombs.PositionY - 55;
 
                 while (!WorldGen.SolidTile(CryptX, CryptY) && CryptY <= Main.worldSurface)
@@ -191,63 +243,36 @@ namespace Spooky.Content.Generation
 					continue;
                 }
 
-                PlaceBlocksBelowStructure(CryptX, CryptY, 40);
-
-                Vector2 origin = new Vector2(CryptX - 28, CryptY - 37);
-                Generator.GenerateStructure("Content/Structures/CemeteryCrypt", origin.ToPoint16(), Mod);
+                Vector2 origin = new Vector2(CryptX - 38, CryptY - 32);
+                Generator.GenerateStructure("Content/Structures/Cemetery/CemeteryEntrance", origin.ToPoint16(), Mod);
 
                 //set the catacomb entrance position so it places the tunnel down to the catacombs properly
                 Catacombs.EntranceY = CryptY - 37;
 
                 placedCrypt = true;
             }
-        }
 
-        public static void ClearAreaAboveStructure(int x, int y)
-        {
-            //clear tiles above structures to prevent clumps of floating blocks
-            for (int i = x - 25; i <= x + 25; i++)
+            //first ruined house
+            bool placedHouse2 = false;
+            int house2Attempts = 0;
+            while (!placedHouse2 && house2Attempts++ < 100000)
             {
-                for (int j = y - 50; j <= y + 5; j++)
+                int HouseX = (XMiddle + XEdge) / 2;
+                int HouseY = Catacombs.PositionY - 55;
+
+                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.worldSurface)
+				{
+					HouseY++;
+				}
+                if (!Main.tile[HouseX, HouseY].HasTile)
                 {
-                    ShapeData circle = new ShapeData();
-                    GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                    WorldUtils.Gen(new Point(i, j), new Shapes.Circle(2), Actions.Chain(new GenAction[]
-                    {
-                        blotchMod.Output(circle)
-                    }));
-
-                    WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-                    {
-                        new Actions.ClearTile(), new Actions.ClearWall()
-                    }));
+					continue;
                 }
-            }
-        }
 
-        public static void PlaceBlocksBelowStructure(int x, int y, int width)
-        {
-            //place blocks below each structure incase of weird terrain
-            for (int i = x - width + 5; i <= x + width - 5; i += 2)
-            {
-                for (int j = y; j <= (int)Main.worldSurface - 20; j += 2)
-                {
-                    if (Main.tile[i, j].TileType != ModContent.TileType<CemeteryStone>())
-                    {
-                        ShapeData circle = new ShapeData();
-                        GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-                        WorldUtils.Gen(new Point(i, j), new Shapes.Circle(Main.rand.Next(1, 3)), Actions.Chain(new GenAction[]
-                        {
-                            blotchMod.Output(circle)
-                        }));
+                Vector2 origin = new Vector2(HouseX - 14, HouseY - 20);
+                Generator.GenerateStructure("Content/Structures/Cemetery/RuinedHouse-2", origin.ToPoint16(), Mod);
 
-                        WorldUtils.Gen(new Point(i, j), new ModShapes.All(circle), Actions.Chain(new GenAction[]
-                        {
-                            new Actions.ClearTile(), new Actions.ClearWall(),
-                            new Actions.PlaceTile((ushort)ModContent.TileType<CemeteryDirt>())
-                        }));
-                    }
-                }
+                placedHouse2 = true;
             }
         }
 

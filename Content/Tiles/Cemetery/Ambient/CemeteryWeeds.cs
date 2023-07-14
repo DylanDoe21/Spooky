@@ -22,7 +22,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(40, 100, 63));
+            AddMapEntry(new Color(32, 82, 26));
             DustType = ModContent.DustType<CemeteryGrassDust>();
             HitSound = SoundID.Grass;
         }

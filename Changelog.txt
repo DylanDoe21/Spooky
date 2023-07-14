@@ -37,10 +37,10 @@ New Mini-Biome, The Mossy Mushroom Cave:
 
 Egg Incursion Rework:
 
--The egg incursion has been reworked into an entirely new type of event that is far more unique and interesting than before
--When started, the egg will still gain a shield around it, and it will now create a ring of darkness around it, only allowing you to travel a certain distance away from the egg
+-The egg incursion has been reworked into an entirely new type of event that is more interesting and fun than before
+-When started, it will now create a ring of darkness around the egg, only allowing you to travel a certain distance away from the egg
 -The event now consists of waves of enemies that are spawned by chunks of biomass shot out of the egg, there is a total of 12 waves that each have different sets and amounts of enemies
--After you have completed the event once and defeated orro-boro for the first time, you can do the event again, but each wave will now have more enemies, making it more difficult
+-After you have completed the event once and defeated orro-boro for the first time, you can still rematch the event again but it will be much more difficult
 -The event also now has completely reworked and redesigned versions of previous enemies, as well as some new enemies that replace old ones which have been removed
 
 
@@ -67,7 +67,6 @@ Other New Additions:
 -Added the bustling glowshroom
 -Added the femur fracturer
 -Added the gilded armor set
--Added giant feral rats
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
 -Added support for the 1.4.4 version of boss checklist
@@ -102,13 +101,17 @@ Items:
 -Changed the sound effect for the skull smasher when it is ready to throw
 -Increased all orro & boro weapon sell prices because they were far too low
 -Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, now inflicts venom, pierces enemies, can no longer go through blocks, and has a cool new visual effect
--Nerfed gargoyle scepter base damage from 65 to 35, and the cursed fire balls shot by grug now inflict cursed flames
+-Nerfed gargoyle scepter base damage from 65 to 42, and the cursed fire balls shot by grug now inflict cursed flames
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
 -Gator gun now has a new ability, it will sometimes vomit out bouncing meat giblets that can slightly home on enemies, and explode on enemy hits
 -Conscious cutter and Tongueblade now have the 1.4.4 swing extension and visual effect
 -Old hunter's crossbow arrows now have a cool visual trail
 -Big bone's weapon drops can now be shimmered into its other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
 -Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
+-Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Pumpkin Head -> Chestmail -> Greaves -> back to Pumpkin Head
+-Simplified the tooltip description for the undying embryo
+-Renamed loose soil to swamp soil
+-Renamed rocky soil to swamp rock
 
 
 Enemies & Bosses:

@@ -518,7 +518,7 @@ namespace Spooky.Content.Events
                 }
 
                 //wave enemies: Glutinous x3, Vigilante x2, Ventricle x2, Crux x2, Vesicator x1
-                //post defeat: Glutinous x3, Vigilante x2, Crux x1
+                //post defeat: Glutinous x3, Vigilante x2, Ventricle x1, Crux x1
                 case 11:
                 {
                     if (!SpawnedEnemies)
@@ -572,21 +572,16 @@ namespace Spooky.Content.Events
                                 Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
+                            //Ventricle
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
+                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+
                             //Crux
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;
-                    }
-
-                    //funny event ending animation, only happens on first defeat
-                    if (EggEventWorld.hasSpawnedBiomass && !EventEnemiesExist)
-                    {
-                        if (!Flags.downedEggEvent)
-                        {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileID.DD2ElderWins, 0, 0);
-                        }
                     }
 
                     break;
