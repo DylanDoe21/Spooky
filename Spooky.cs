@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -13,6 +15,7 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky
 {
@@ -97,6 +100,11 @@ namespace Spooky
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
 					break;
                 }
+                case SpookyMessageType.SpawnSpookySpirit:
+                {
+                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<SpookySpirit>());
+                    break;
+                }
                 default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
@@ -109,5 +117,6 @@ namespace Spooky
     enum SpookyMessageType : byte
     {
         SpawnMoco,
+        SpawnSpookySpirit,
     }
 }

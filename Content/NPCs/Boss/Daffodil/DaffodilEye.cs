@@ -58,7 +58,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SendExtraAI(BinaryWriter writer)
         {
             //ints
-            //writer.Write(INT);
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
 
             //bools
             writer.Write(SpawnedHands);
@@ -72,7 +73,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //ints
-            //INT = reader.ReadInt32();
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
 
             //bools
             SpawnedHands = reader.ReadBoolean();
@@ -197,12 +199,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<DaffodilHandLeft>(), ai2: NPC.whoAmI);
                 NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<DaffodilHandRight>(), ai3: NPC.whoAmI);
                 
-                if (Main.netMode != NetmodeID.SinglePlayer)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[2]);
                     NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
                 }
 
+                NPC.netUpdate = true;
                 SpawnedHands = true;
             }
 
@@ -372,11 +375,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         int NumProjectiles = Main.rand.Next(3, 6);
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
-                                Main.rand.NextFloat(-5f, -2f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
-                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
+                            Main.rand.NextFloat(-5f, -2f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
                         }
                     }
 

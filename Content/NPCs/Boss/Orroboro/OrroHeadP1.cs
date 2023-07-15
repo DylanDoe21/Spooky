@@ -55,6 +55,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+
             //bools
             writer.Write(Chomp);
             writer.Write(OpenMouth);
@@ -69,6 +73,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+
             //bools
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
@@ -343,6 +351,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             SavePlayerPosition = player.Center;
                             NPC.velocity *= 0.95f;
+
+                            NPC.netUpdate = true;
                         }
 
                         //charge at the saved location
@@ -359,6 +369,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ChargeDirection.Y *= 28;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
+
+                            NPC.netUpdate = true;
                         }
 
                         //slow down after charging
@@ -368,6 +380,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Chomp = false;
 
                             NPC.velocity *= 0.2f;
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] > 470)

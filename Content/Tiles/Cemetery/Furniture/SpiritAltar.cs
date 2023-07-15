@@ -97,7 +97,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
                 y++;
 
                 Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16, y * 16),
-                x * 16 + 28, y * 16 + 20, 0, -1, ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 1, Main.myPlayer, 0, 0);
+                x * 16 + 28, y * 16 + 20, 0, -1, ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 0, Main.myPlayer);
             }
 
             return true;

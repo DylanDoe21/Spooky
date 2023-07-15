@@ -60,7 +60,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             }
 
             //spawn daffodil eye if awakened
-            if (NPC.ai[0] == 1 && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
+            if (NPC.ai[0] == 1)
             {
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DaffodilSpawn");
@@ -74,9 +74,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
 
-                int DaffodilEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>(), 0, -1);
+                int DaffodilEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>(), NPC.whoAmI, -1);
                 
-                if (Main.netMode != NetmodeID.SinglePlayer)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: DaffodilEye);
                 }

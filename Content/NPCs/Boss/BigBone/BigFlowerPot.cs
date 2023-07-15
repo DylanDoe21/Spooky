@@ -118,7 +118,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
                     
-                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
                     }

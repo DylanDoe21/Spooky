@@ -242,8 +242,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					ModContent.ProjectileType<RotFly>(), Damage, 0f, NPC.target, 0f, (float)NPC.whoAmI);
 				}
 
-                HasSpawnedFlies = true;
 				NPC.netUpdate = true;
+                HasSpawnedFlies = true;
             }
 
 			//despawn if all players are dead
@@ -271,6 +271,82 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				//attacks
 				switch ((int)NPC.ai[0])
 				{
+					//slam down spawn intro
+					case -1:
+					{
+						NPC.localAI[0]++;
+
+						NPC.velocity.X *= 0;
+
+						//charge down
+						if (NPC.localAI[0] == 20)
+						{
+							NPC.noGravity = true;
+
+							NPC.velocity.X *= 0;
+							NPC.velocity.Y = 35;
+						}
+
+						//set tile collide to true after jumping so you cant avoid them
+						if (NPC.localAI[0] >= 20)
+						{
+							if (NPC.position.Y >= player.Center.Y - 200)
+							{
+								NPC.noTileCollide = false;
+							}
+						}
+
+						//slam the ground
+						if (NPC.localAI[0] >= 20 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+						{
+							NPC.noGravity = false;
+
+							NPC.velocity.X *= 0;
+
+							SpookyPlayer.ScreenShakeAmount = 7;
+
+							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+							//push all nearby players in the air if they are on the ground
+							for (int i = 0; i < Main.maxPlayers; i++)
+							{
+								if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
+								{
+									Main.player[i].velocity.Y -= 8f;
+								}
+							}
+
+							//make cool dust effect when slamming the ground
+							for (int i = 0; i < 45; i++)
+							{                                                                                  
+								int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+								Main.dust[slamDust].noGravity = true;
+								Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+								Main.dust[slamDust].position.Y += 104;
+								Main.dust[slamDust].scale = 3f;
+								
+								if (Main.dust[slamDust].position != NPC.Center)
+								{
+									Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
+								}
+							}
+							
+							//complete the slam attack
+							NPC.localAI[1] = 1; 
+						}
+
+						//only loop attack if the jump has been completed
+						if (NPC.localAI[0] >= 20 && NPC.localAI[1] > 0)
+						{
+							NPC.localAI[0] = 0;
+							NPC.localAI[1] = 0;
+							NPC.ai[0]++;
+							NPC.netUpdate = true;
+						}
+
+						break;
+					}
+
 					//Jump 3 times towards the player
 					case 0:
 					{

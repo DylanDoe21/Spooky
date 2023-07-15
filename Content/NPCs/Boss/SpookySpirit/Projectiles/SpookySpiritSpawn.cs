@@ -51,14 +51,18 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
                 SoundEngine.PlaySound(SpawnSound, Projectile.Center);
+
+                Projectile.netUpdate = true;
             }
 
             if (Projectile.ai[0] >= 85)
             {
-                //spawn spooky spirit with message
                 int Spirit = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
-                
-                NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
+                }
 
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
@@ -82,6 +86,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                     Main.dust[dustGore].scale = 0.35f;
                     Main.dust[dustGore].noGravity = true;
                 }
+
+                Projectile.netUpdate = true;
 
                 Projectile.Kill();
             }
