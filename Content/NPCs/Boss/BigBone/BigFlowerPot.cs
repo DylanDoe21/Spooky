@@ -68,6 +68,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Main.dust[dirtDust].velocity = NPC.DirectionTo(Main.dust[dirtDust].position) * 2f;
                         }
                     }
+
+                    NPC.netUpdate = true;
                 }
 
                 if (NPC.ai[0] >= 60 && NPC.ai[0] < 180)
@@ -89,11 +91,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Main.dust[dirtDust].velocity = NPC.DirectionTo(Main.dust[dirtDust].position) * 2f;
                         }
                     }
+
+                    NPC.netUpdate = true;
                 }
 
                 if (NPC.ai[0] == 180)
                 {
                     NPC.Center = SaveNPCPosition;
+
+                    NPC.netUpdate = true;
                 }
 
                 if (NPC.ai[0] >= 240)

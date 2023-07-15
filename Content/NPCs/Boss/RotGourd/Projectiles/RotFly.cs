@@ -110,6 +110,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
                     if (Projectile.alpha >= 255)
                     {
+                        Projectile.netUpdate = true;
                         Projectile.Kill();
                     }
 
@@ -204,6 +205,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                                 return;
                             }
                         }
+
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -222,11 +225,15 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                         Main.player[Main.myPlayer].position.X - Projectile.position.X);
 
                         Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * Main.rand.Next(8, 12);
+
+                        Projectile.netUpdate = true;
                     }
 
                     if (Projectile.localAI[0] == 120)
                     {
                         Projectile.ai[0] = 0;
+
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -236,6 +243,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                 case 2:
                 {
                     Projectile.velocity *= 0.95f;
+
+                    Projectile.netUpdate = true;
 
                     break;
                 }
@@ -253,12 +262,16 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
                         Main.player[Main.myPlayer].position.X - Projectile.position.X);
 
                         Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * Main.rand.Next(12, 15);
+
+                        Projectile.netUpdate = true;
                     }
 
                     if (Projectile.localAI[0] >= 60)
                     {
                         Projectile.ai[0] = 0;
                         Projectile.localAI[1] = 2;
+
+                        Projectile.netUpdate = true;
                     }
 
                     break;

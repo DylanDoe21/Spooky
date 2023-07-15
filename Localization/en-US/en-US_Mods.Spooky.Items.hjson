@@ -1765,17 +1765,12 @@ EyeChestItem: {
 }
 
 SpookyHellChestItem: {
-	DisplayName: Eye Chest
+	DisplayName: Eye Valley Chest
 	Tooltip: ""
 }
 
 EyeBlockItem: {
 	DisplayName: Eye Block
-	Tooltip: ""
-}
-
-CauldronExampleOutput: {
-	DisplayName: Example cauldron output
 	Tooltip: ""
 }
 

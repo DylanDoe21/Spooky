@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 	{
 		Vector2 SavePlayerPosition;
 
+		public bool HasSpawnedFlies = false;
 		public bool FirstFlySpawned = false;
 		public bool SecondFlySpawned = false;
 		public bool ThirdFlySpawned = false;
@@ -59,6 +60,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
+			writer.Write(HasSpawnedFlies);
             writer.Write(FirstFlySpawned);
             writer.Write(SecondFlySpawned);
             writer.Write(ThirdFlySpawned);
@@ -72,6 +74,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
         public override void ReceiveExtraAI(BinaryReader reader)
         {
 			//bools
+			HasSpawnedFlies = reader.ReadBoolean();
             FirstFlySpawned = reader.ReadBoolean();
             SecondFlySpawned = reader.ReadBoolean();
             ThirdFlySpawned = reader.ReadBoolean();
@@ -201,14 +204,14 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			if (NPC.life < (NPC.lifeMax / 1.25f) && !FirstFlySpawned)
 			{
-				NPC.ai[1] = 0;
+				HasSpawnedFlies = false;
 				FirstFlySpawned = true;
 				NPC.netUpdate = true;
 			}
 
 			if (NPC.life < (NPC.lifeMax / 2) && !SecondFlySpawned)
 			{
-				NPC.ai[1] = 0;
+				HasSpawnedFlies = false;
 				SecondFlySpawned = true;
 				NPC.netUpdate = true;
 			}
@@ -219,7 +222,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				NPC.localAI[1] = 0;
 				NPC.localAI[2] = 0;
 				NPC.ai[0] = 6;
-				NPC.ai[1] = 0;
+				HasSpawnedFlies = false;
 				NPC.noGravity = false;
 				NPC.noTileCollide = false;
 				ThirdFlySpawned = true;
@@ -227,7 +230,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			}
 
 			//spawn swarm of flies when spawned
-            if (NPC.ai[1] <= 0)
+            if (!HasSpawnedFlies)
             {
 				int maxFlies = ThirdFlySpawned ? 20 : 12;
 
@@ -235,16 +238,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                 {
                     Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57f) * new Vector2(5f, 3f);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, vector.X, vector.Y, 
-                        ModContent.ProjectileType<RotFly>(), Damage, 0f, NPC.target, 0f, (float)NPC.whoAmI);
-					}
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, vector.X, vector.Y, 
+					ModContent.ProjectileType<RotFly>(), Damage, 0f, NPC.target, 0f, (float)NPC.whoAmI);
 				}
 
-                NPC.netUpdate = true;
-
-                NPC.ai[1] = 1;
+                HasSpawnedFlies = true;
+				NPC.netUpdate = true;
             }
 
 			//despawn if all players are dead
@@ -663,11 +662,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                         		{
 									float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
 
-									if (Main.netMode != NetmodeID.MultiplayerClient)
-									{
-										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
-										Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
-									}
+									Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
+									Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
 								}
 
 								//make cool dust effect when slamming the ground

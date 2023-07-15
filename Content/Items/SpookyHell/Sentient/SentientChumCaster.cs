@@ -33,13 +33,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int index = 0; index < 2; ++index)
-            {
-                float SpeedX = velocity.X + Main.rand.NextFloat(-3f, 3f);
-                float SpeedY = velocity.Y + Main.rand.NextFloat(-2.25f, 2.25f);
-                
-                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, 0, 0f, player.whoAmI);
-            }
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 1, velocity.Y, type, 0, 0f, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 1, velocity.Y, type, 0, 0f, player.whoAmI);
 
             return false;
         }
