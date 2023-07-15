@@ -145,5 +145,6 @@ Miscellaneous:
 -Fixed the spooky scroll causing the player sprite direction to spaz out if your cursor was in the middle of your player
 -Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
 -Fixed issue where spooky mod's custom tile drawing would draw horrible wrong if you are using retro or trippy lighting
+-Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own placeable item
 
 

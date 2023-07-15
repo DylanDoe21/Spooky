@@ -3,7 +3,7 @@ RotGourd: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.
-		DespawnMessage: Rot Gourd jumps into the distance
+		DespawnMessage: Rot Gourd hops into the distance
 	}
 }
 
@@ -29,8 +29,8 @@ DaffodilEye: {
 	DisplayName: Daffodil
 
 	BossChecklistIntegration: {
-		SpawnInfo: Throw a [i:Spooky/Brick] to wake her up.
-		DespawnMessage: Daffodil has ended your catacomb exploration
+		SpawnInfo: Throw a [i:Spooky/Brick] at her to wake her up.
+		DespawnMessage: Daffodil has ended your catacomb expedition
 	}
 }
 
@@ -40,7 +40,7 @@ OrroHead: {
 	BossChecklistIntegration: {
 		EntryName: Orro & Boro
 		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once.
-		DespawnMessage: Orro & Boro have consumed all players
+		DespawnMessage: Orro & Boro have protected their egg
 	}
 }
 
@@ -49,7 +49,7 @@ BigBone: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use [i:Spooky/Fertalizer] while standing nearby the giant flower pot in the catacombs.
-		DespawnMessage: Big bone has overgrown all players
+		DespawnMessage: All players have succumb to big bone's wrath
 	}
 }
 

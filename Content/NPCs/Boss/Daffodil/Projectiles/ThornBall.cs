@@ -88,6 +88,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
             if (Projectile.ai[1] >= 320)
 			{
+                SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+
                 Projectile.Kill();
             }
         }

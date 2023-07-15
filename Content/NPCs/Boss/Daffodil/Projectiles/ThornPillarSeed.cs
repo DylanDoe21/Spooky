@@ -70,23 +70,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                 ModContent.ProjectileType<ThornPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
             }
 
-            if (Projectile.ai[0] >= 90)
-			{
-                int MaxDusts = Main.rand.Next(5, 8);
-                for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
-                {
-                    Vector2 dustPos = (Vector2.One * new Vector2((float)Projectile.width / 3f, (float)Projectile.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + Projectile.Center;
-                    Vector2 velocity = dustPos - Projectile.Center;
-                    int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
-                    Main.dust[dustEffect].color = Color.Lime;
-                    Main.dust[dustEffect].scale = 0.05f;
-                    Main.dust[dustEffect].noGravity = true;
-                    Main.dust[dustEffect].noLight = false;
-                    Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
-                    Main.dust[dustEffect].fadeIn = 1.3f;
-                }
-            }
-
             if (Projectile.ai[0] >= 140)
 			{
                 SoundEngine.PlaySound(ThornSpawnSound, Projectile.Center);

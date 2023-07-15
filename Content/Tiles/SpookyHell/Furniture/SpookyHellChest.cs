@@ -52,11 +52,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             int style = TileObjectData.GetTileStyle(tile);
             if (style == 0)
             {
-                yield return new Item(ModContent.ItemType<EyeChestItem>());
+                yield return new Item(ModContent.ItemType<SpookyHellChestItem>());
             }
             if (style == 1)
             {
-                yield return new Item(ModContent.ItemType<EyeChestItem>());
+                yield return new Item(ModContent.ItemType<SpookyHellChestItem>());
             }
         }
 
@@ -246,8 +246,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Eye Chest";
-				if (player.cursorItemIconText == "Eye Chest") 
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Eye Valley Chest";
+				if (player.cursorItemIconText == "Eye Valley Chest") 
 				{
 					player.cursorItemIconID = ModContent.ItemType<SpookyHellChestItem>();
 

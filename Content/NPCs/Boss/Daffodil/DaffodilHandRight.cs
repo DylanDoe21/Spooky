@@ -218,7 +218,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case 4: 
                 {
-                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 300)
+                    if (Parent.localAI[0] >= 60 && Parent.localAI[0] < 300)
                     {
                         GoToPosition(300, -50);
                     }
