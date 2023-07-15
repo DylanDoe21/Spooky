@@ -408,11 +408,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             {
                                 SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
-                                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);	
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
                             }
                         }
 
@@ -572,11 +569,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                     float amount = NPC.direction == -1 ? NPC.localAI[2] - 7.2f / 2 : -(NPC.localAI[2] - 8.8f / 2);
                                     Vector2 ShootSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                        ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
-                                    }
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                                    ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
                                 }
 
                                 if (NPC.localAI[0] > 180)
@@ -693,11 +687,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             {
                                 float Spread = (float)Main.rand.Next(-1000, 1000) * 0.01f;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, Main.rand.Next(-15, -10), 
-                                    ModContent.ProjectileType<PhantomBomb>(), Damage, 1, Main.myPlayer, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, Main.rand.Next(-15, -10), 
+                                ModContent.ProjectileType<PhantomBomb>(), Damage, 1, Main.myPlayer, 0, 0);
                             }
                         }
 
@@ -801,11 +792,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         
                                 ShootSpeed = ShootSpeed * -5;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
-                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
                             }
                         }
                         //make spirit visible again after spin attack

@@ -57,11 +57,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             {
                 //spawn spooky spirit with message
                 int Spirit = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
-
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
-                }
+                
+                NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
 
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
