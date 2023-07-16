@@ -21,6 +21,9 @@ namespace Spooky
 {
 	public class Spooky : Mod
 	{
+        public static int SpookySpiritSpawnX;
+        public static int SpookySpiritSpawnY;
+
         private List<IAutoload> loadCache;
 
         public static Effect vignetteEffect;
@@ -102,7 +105,7 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnSpookySpirit:
                 {
-                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<SpookySpirit>());
+                    NPC.NewNPC(null, SpookySpiritSpawnX, SpookySpiritSpawnY, ModContent.NPCType<SpookySpirit>());
                     break;
                 }
                 default:

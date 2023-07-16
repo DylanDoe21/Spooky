@@ -45,6 +45,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             Projectile.velocity *= 1.03f;
 
+            Spooky.SpookySpiritSpawnX = (int)Projectile.Center.X;
+            Spooky.SpookySpiritSpawnY = (int)Projectile.Center.Y;
+
             Projectile.ai[0]++;
 
             if (Projectile.ai[0] == 1)
@@ -57,12 +60,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             if (Projectile.ai[0] >= 85)
             {
-                int Spirit = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
-                }
+                if (Main.netMode != NetmodeID.SinglePlayer) 
+				{
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
+					packet.Send();
+				}
+				else 
+				{
+					NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
+				}
 
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
