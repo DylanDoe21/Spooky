@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class BigFlower : ModNPC
 	{
-		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
 
 		public override void SetStaticDefaults()
 		{
@@ -27,8 +27,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			NPC.lifeMax = 5200;
             NPC.damage = 0;
             NPC.defense = 25;
-            NPC.width = 48;
-            NPC.height = 54;
+            NPC.width = 62;
+            NPC.height = 60;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noGravity = true;

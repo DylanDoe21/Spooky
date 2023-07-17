@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle SeedSpawnSound = new("Spooky/Content/Sounds/Daffodil/SeedSpawn", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound);
+        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
         public override void SetStaticDefaults()
@@ -205,8 +205,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
                 }
 
-                NPC.netUpdate = true;
                 SpawnedHands = true;
+                NPC.netUpdate = true;
             }
 
             if (player.dead)
@@ -372,7 +372,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                        int NumProjectiles = Main.rand.Next(3, 6);
+                        int NumProjectiles = Main.rand.Next(2, 5);
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
@@ -434,16 +434,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //seed drop
-                //drop seeds randomly around the arena that turn into short lived thorn pillars that form upward upon hitting the floor
-                //based on that one kirby boss attack
+                //drop seeds from the ceiling that spawn thorn pillars 
                 case 4:
                 {
                     NPC.localAI[0]++;
 
                     if (NPC.localAI[0] == 60)
                     {
-                        SoundEngine.PlaySound(SoundID.DD2_SkeletonSummoned with { Volume = SoundID.DD2_SkeletonSummoned.Volume * 80f }, NPC.Center);
+                        SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
                     }
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)

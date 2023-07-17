@@ -84,6 +84,11 @@ namespace Spooky.Content.Generation
                     {
                         tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
                     }
+
+                    if (tile.WallType > 0)
+                    {
+
+                    }
                 }
 
                 //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs

@@ -1,7 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
 
 using Spooky.Content.NPCs.Boss.RotGourd;
 
@@ -40,11 +43,22 @@ namespace Spooky.Content.Items.BossSummon
         {
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
-            int RotGourd = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y - 1000, ModContent.NPCType<RotGourd>());
+            int RotGourd = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y - 1000, ModContent.NPCType<RotGourd>(), player.whoAmI, -1);
 
-            Main.npc[RotGourd].ai[0] = -1;
-            Main.npc[RotGourd].netUpdate = true;
-            NetMessage.SendData(MessageID.SyncNPC, number: RotGourd);
+            //spawn message
+            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RotGourdSpawn");
+
+            if (Main.netMode != NetmodeID.SinglePlayer)
+            {
+                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+
+                Main.npc[RotGourd].netUpdate = true;
+                NetMessage.SendData(MessageID.SyncNPC, number: RotGourd);
+            }
+            else 
+            {
+                Main.NewText(text, 171, 64, 255);
+            }
             
             return true;
         }

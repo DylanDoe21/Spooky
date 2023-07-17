@@ -60,28 +60,23 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             if (Projectile.ai[0] >= 85)
             {
+                //spawn message
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
+
                 if (Main.netMode != NetmodeID.SinglePlayer) 
 				{
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+
 					ModPacket packet = Mod.GetPacket();
 					packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
 					packet.Send();
 				}
 				else 
 				{
+                    Main.NewText(text, 171, 64, 255);
+
 					NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
 				}
-
-                //spawn message
-                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
-
-                if (Main.netMode != NetmodeID.Server)
-                {
-                    Main.NewText(text, 171, 64, 255);
-                }
-                else
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                }
 
                 for (int numDusts = 0; numDusts < 30; numDusts++)
                 {

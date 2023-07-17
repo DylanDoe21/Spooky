@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			Projectile.hostile = true;
 			Projectile.tileCollide = false;
             Projectile.penetrate = 1;
-			Projectile.timeLeft = 30;
+			Projectile.timeLeft = 35;
             Projectile.alpha = 255;
 		}
 
@@ -87,20 +87,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
             {
                 ManageCaches();
                 ManageTrail();
-			}
-		}
-
-        public override void Kill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
-
-            for (int numDust = 0; numDust < 12; numDust++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dust].velocity.X *= Main.rand.NextFloat(-3f, 3f);
-                Main.dust[dust].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
-                Main.dust[dust].scale = Main.rand.NextFloat(0.5f, 1f);
-                Main.dust[dust].noGravity = true;
 			}
 		}
 	}

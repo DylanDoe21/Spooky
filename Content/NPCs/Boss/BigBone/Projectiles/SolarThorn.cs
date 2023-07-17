@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 { 
     public class SolarThorn : ModProjectile
     {
-		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/Catacomb/BigBoneMagic2", SoundType.Sound);
+		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
 
 		public override void SetDefaults()
 		{

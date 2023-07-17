@@ -40,7 +40,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                     if (Main.npc[k].Distance(Projectile.Center) <= 100f && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
                     {
                         SoundEngine.PlaySound(BonkSound, Projectile.Center);
+                        
                         Main.npc[k].ai[0] = 1;
+                        Main.npc[k].netUpdate = true;
+
                         Projectile.Kill();
                     }
                 }

@@ -17,6 +17,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.damage = 15;
             Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
+            Item.noUseGraphic = true;
 			Item.autoReuse = true;
             Item.noMelee = true;
             Item.width = 46;

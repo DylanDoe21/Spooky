@@ -126,6 +126,7 @@ Enemies & Bosses:
 -Made orro & boro's thorn pillars taller
 -Added a new visual effect for boro's acid breath attack
 -Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them, instead of only one
+-Added a new spawn intro for rot gourd when he is summoned
 
 
 Miscellaneous:
@@ -146,5 +147,7 @@ Miscellaneous:
 -Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
 -Fixed issue where spooky mod's custom tile drawing would draw horrible wrong if you are using retro or trippy lighting
 -Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own placeable item
+-Fixed rot gourd not spawning with flies correctly in multiplayer
+-Fixed spooky spirit vanishing when hit in multiplayer
 
 
