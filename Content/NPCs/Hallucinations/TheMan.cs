@@ -12,8 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.Hallucinations
 {
@@ -58,8 +58,8 @@ namespace Spooky.Content.NPCs.Hallucinations
             NPC.lifeMax = 250;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 130;
-            NPC.height = 140;
+            NPC.width = 90;
+            NPC.height = 142;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit9;
@@ -212,6 +212,16 @@ namespace Spooky.Content.NPCs.Hallucinations
 
                     if (NPC.Hitbox.Intersects(player.Hitbox))
                     {
+                        if (!Flags.encounteredMan)
+                        {
+                            Flags.encounteredMan = true;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
+                            }
+                        }
+                        
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
@@ -278,11 +288,6 @@ namespace Spooky.Content.NPCs.Hallucinations
             {
                 Teleport(player, attemptNum + 1);
             }
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowClump>(), 1));
         }
     }
 }

@@ -99,11 +99,6 @@ CottonSwab: {
 		'''
 }
 
-CowBell: {
-	DisplayName: Rusty Cowbell
-	Tooltip: Summons friendly shadow entities to fight with you
-}
-
 EMFReader: {
 	DisplayName: EMF Reader
 	Tooltip:
@@ -120,11 +115,6 @@ Fertilizer: {
 		A smelly bag of dirt and bones
 		Summons Big Bone when used when nearby the giant flower pot
 		'''
-}
-
-Horseshoe: {
-	DisplayName: Unlucky Horseshoe
-	Tooltip: ""
 }
 
 RottenSeed: {
@@ -273,6 +263,15 @@ SpiritHorsemanHead: {
 SpiritHorsemanLegs: {
 	DisplayName: Spirit Horseman's Greaves
 	Tooltip: 12% increased movement speed
+}
+
+Horseshoe: {
+	DisplayName: Unlucky Horseshoe
+	Tooltip:
+		'''
+		Throws a returning horseshow
+		'Hope it's not cursed!'
+		'''
 }
 
 SpiritHandStaff: {
@@ -607,7 +606,7 @@ OldWoodLegs: {
 }
 
 WizardGangsterBody: {
-	DisplayName: Gilded Shirt
+	DisplayName: Gilded Wizard Tunic
 	Tooltip: Increases your magic damage by 5
 }
 
@@ -622,13 +621,18 @@ WizardGangsterHead2: {
 }
 
 WizardGangsterLegs: {
-	DisplayName: Gilded Robe
+	DisplayName: Gilded Wizard Robe
 	Tooltip: Increases maximum mana by 20
 }
 
 BustlingGlowshroom: {
 	DisplayName: Bustling Glowshroom
 	Tooltip: Greatly increases life regeneration while standing still
+}
+
+CowBell: {
+	DisplayName: Rusty Cowbell
+	Tooltip: Summons friendly shadow entities to fight with you
 }
 
 Candy1: {

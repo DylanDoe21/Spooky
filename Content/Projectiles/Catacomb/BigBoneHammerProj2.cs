@@ -122,7 +122,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.ai[0] >= 30)
             {
-                //remove knockback here so the hammer doesnt fling enemies directly towards you when returning
+                //remove knockback here so the projectile doesnt fling enemies directly towards you when returning
                 Projectile.knockBack = 0;
 
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;

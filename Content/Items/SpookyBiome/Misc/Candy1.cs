@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 32;
-			Item.height = 16;
+			Item.width = 28;
+			Item.height = 36;
 			Item.maxStack = 1;
 		}
 
@@ -76,6 +76,26 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 			}
 
 			return true;
+		}
+	}
+
+	public class Candy2 : Candy1
+	{
+		public override bool OnPickup(Player player)
+		{
+			player.AddBuff(ModContent.BuffType<CandyBuff2>(), 600);
+
+			return false;
+		}
+	}
+
+	public class Candy3 : Candy1
+	{
+		public override bool OnPickup(Player player)
+		{
+			player.AddBuff(ModContent.BuffType<CandyBuff3>(), 600);
+
+			return false;
 		}
 	}
 }

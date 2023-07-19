@@ -29,6 +29,12 @@ New Boss, Daffodil:
 -She also has her own exclusive loot just as every other spooky mod boss does :)
 
 
+Swampy Cemetery Aesthetic:
+
+-The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
+-New structures have been added, and some worldgen modifications have been made to the biome
+
+
 New Mini-Biome, The Mossy Mushroom Cave:
 
 -New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
@@ -115,6 +121,7 @@ Items:
 -Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Pumpkin Head -> Chestmail -> Greaves -> back to Pumpkin Head
 -Simplified the tooltip description for the undying embryo
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
+-Removed the shadow cowbell and the shadow clump, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
 
 
 Enemies & Bosses:

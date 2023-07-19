@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.NPCs.Hallucinations
@@ -146,6 +147,16 @@ namespace Spooky.Content.NPCs.Hallucinations
 
                     if (maxFlies >= 1000)
                     {
+                        if (!Flags.encounteredHorse)
+                        {
+                            Flags.encounteredHorse = true;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
+                            }
+                        }
+
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;

@@ -28,7 +28,7 @@ namespace Spooky.Core
         public static bool EyeQuest5 = false;
         public static bool DailyQuest = false;
 
-        public static bool encounteredEntity = false;
+        public static bool encounteredMan = false;
         public static bool encounteredBaby = false;
         public static bool encounteredHorse = false;
         public static bool encounteredFlesh = false;
@@ -56,7 +56,7 @@ namespace Spooky.Core
             EyeQuest5 = false;
             DailyQuest = false;
 
-            encounteredEntity = false;
+            encounteredMan = false;
             encounteredBaby = false;
             encounteredHorse = false;
             encounteredFlesh = false;
@@ -85,7 +85,7 @@ namespace Spooky.Core
             if (EyeQuest5) tag["EyeQuest5"] = true;
             if (DailyQuest) tag["DailyQuest"] = true;
 
-            if (encounteredEntity) tag["encounteredEntity"] = true;
+            if (encounteredMan) tag["encounteredMan"] = true;
             if (encounteredBaby) tag["encounteredBaby"] = true;
             if (encounteredHorse) tag["encounteredHorse"] = true;
             if (encounteredFlesh) tag["encounteredFlesh"] = true;
@@ -114,7 +114,7 @@ namespace Spooky.Core
             EyeQuest5 = tag.ContainsKey("EyeQuest5");
             DailyQuest = tag.ContainsKey("DailyQuest");
 
-            encounteredEntity = tag.ContainsKey("encounteredEntity");
+            encounteredMan = tag.ContainsKey("encounteredMan");
             encounteredBaby = tag.ContainsKey("encounteredBaby");
             encounteredHorse = tag.ContainsKey("encounteredHorse");
             encounteredFlesh = tag.ContainsKey("encounteredFlesh");
@@ -149,7 +149,7 @@ namespace Spooky.Core
             writer.Write(questFlags);
 
             var encounterFlags = new BitsByte();
-            encounterFlags[0] = encounteredEntity;
+            encounterFlags[0] = encounteredMan;
             encounterFlags[1] = encounteredBaby;
             encounterFlags[2] = encounteredHorse;
             encounterFlags[3] = encounteredFlesh;
@@ -182,10 +182,10 @@ namespace Spooky.Core
             DailyQuest = questFlags[5];
 
             BitsByte encounterFlags = reader.ReadByte();
-            encounteredEntity = questFlags[0];
-            encounteredBaby = questFlags[1];
-            encounteredHorse = questFlags[2];
-            encounteredFlesh = questFlags[3];
+            encounteredMan = encounterFlags[0];
+            encounteredBaby = encounterFlags[1];
+            encounteredHorse = encounterFlags[2];
+            encounteredFlesh = encounterFlags[3];
         }
     }
 }
