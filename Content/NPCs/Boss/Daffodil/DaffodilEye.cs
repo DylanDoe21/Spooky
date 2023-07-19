@@ -468,16 +468,35 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //hand attack
-                //either punch the player, or grab the player (grabbing can be avoided by going hiding under the outposts in the arena)
-                case 5:
-                {
-                    break;
-                }
-
                 //solar beam
                 //shoot sweeping solar beams across the arena
                 //the only way to avoid this attack is by hiding under the outposts in the arena
+                case 5:
+                {
+                    /*
+                    if (NPC.localAI[0] >= 155 && NPC.localAI[0] <= 180 && NPC.localAI[2] <= 6)
+                    {
+                        NPC.localAI[2]++;
+
+                        SoundEngine.PlaySound(SoundID.DD2_GhastlyGlaiveImpactGhost with { Volume = SoundID.DD2_GhastlyGlaiveImpactGhost.Volume * 3.5f }, NPC.Center);
+
+                        float storeRotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);
+
+                        Vector2 projSpeed = new Vector2((float)((Math.Cos(storeRotation) * 10) * -1), (float)((Math.Sin(storeRotation) * 10) * -1));
+                        float rotation = MathHelper.ToRadians(5);
+                        float amount = NPC.direction == -1 ? NPC.localAI[2] - 7.2f / 2 : -(NPC.localAI[2] - 8.8f / 2);
+                        Vector2 ShootSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
+                    }
+                    */
+
+                    break;
+                }
+                
+                //hand attack
+                //either punch the player, or grab the player (grabbing can be avoided by going hiding under the outposts in the arena)
                 case 6:
                 {
                     break;

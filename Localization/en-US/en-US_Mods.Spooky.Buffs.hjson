@@ -61,9 +61,9 @@ EnsnaredDebuff: {
 	Description: Mods.Spooky.BuffDescription.EnsnaredDebuff
 }
 
-EntityDebuff: {
-	DisplayName: Looming Presence
-	Description: Escaping is not possible
+HallucinationDebuff: {
+	DisplayName: Hallucination
+	Description: Mods.Spooky.BuffDescription.HallucinationDebuff
 }
 
 FleshWhipCooldown: {

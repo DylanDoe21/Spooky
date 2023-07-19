@@ -28,6 +28,11 @@ namespace Spooky.Core
         public static bool EyeQuest5 = false;
         public static bool DailyQuest = false;
 
+        public static bool encounteredEntity = false;
+        public static bool encounteredBaby = false;
+        public static bool encounteredHorse = false;
+        public static bool encounteredFlesh = false;
+
         public override void ClearWorld()
         {
 			downedRotGourd = false;
@@ -50,6 +55,11 @@ namespace Spooky.Core
             EyeQuest4 = false;
             EyeQuest5 = false;
             DailyQuest = false;
+
+            encounteredEntity = false;
+            encounteredBaby = false;
+            encounteredHorse = false;
+            encounteredFlesh = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
@@ -74,6 +84,11 @@ namespace Spooky.Core
             if (EyeQuest4) tag["EyeQuest4"] = true;
             if (EyeQuest5) tag["EyeQuest5"] = true;
             if (DailyQuest) tag["DailyQuest"] = true;
+
+            if (encounteredEntity) tag["encounteredEntity"] = true;
+            if (encounteredBaby) tag["encounteredBaby"] = true;
+            if (encounteredHorse) tag["encounteredHorse"] = true;
+            if (encounteredFlesh) tag["encounteredFlesh"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -98,6 +113,11 @@ namespace Spooky.Core
             EyeQuest4 = tag.ContainsKey("EyeQuest4");
             EyeQuest5 = tag.ContainsKey("EyeQuest5");
             DailyQuest = tag.ContainsKey("DailyQuest");
+
+            encounteredEntity = tag.ContainsKey("encounteredEntity");
+            encounteredBaby = tag.ContainsKey("encounteredBaby");
+            encounteredHorse = tag.ContainsKey("encounteredHorse");
+            encounteredFlesh = tag.ContainsKey("encounteredFlesh");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -127,6 +147,13 @@ namespace Spooky.Core
             questFlags[4] = EyeQuest5;
             questFlags[5] = DailyQuest;
             writer.Write(questFlags);
+
+            var encounterFlags = new BitsByte();
+            encounterFlags[0] = encounteredEntity;
+            encounterFlags[1] = encounteredBaby;
+            encounterFlags[2] = encounteredHorse;
+            encounterFlags[3] = encounteredFlesh;
+            writer.Write(encounterFlags);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -153,6 +180,12 @@ namespace Spooky.Core
             EyeQuest4 = questFlags[3];
             EyeQuest5 = questFlags[4];
             DailyQuest = questFlags[5];
+
+            BitsByte encounterFlags = reader.ReadByte();
+            encounteredEntity = questFlags[0];
+            encounteredBaby = questFlags[1];
+            encounteredHorse = questFlags[2];
+            encounteredFlesh = questFlags[3];
         }
     }
 }

@@ -70,6 +70,8 @@ Other New Additions:
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
 -Added support for the 1.4.4 version of boss checklist
+-Added the baby
+-Added the horse
 
 
 Localization File Split:
@@ -127,6 +129,7 @@ Enemies & Bosses:
 -Added a new visual effect for boro's acid breath attack
 -Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them, instead of only one
 -Added a new spawn intro for rot gourd when he is summoned
+-Added new sound effects for the cowbell entity
 
 
 Miscellaneous:

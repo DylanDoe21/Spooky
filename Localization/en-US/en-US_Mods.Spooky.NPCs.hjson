@@ -72,8 +72,10 @@ OrroBodyP1.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 PhantomSkull.DisplayName: Phantom Skull
+//entities
 TheEntity.DisplayName: The Entity
 TheBaby.DisplayName: The Baby
+TheHorse.DisplayName: The Horse
 //catacombs
 CatacombGuardian.DisplayName: Catacomb Guardian
 GiantPutty.DisplayName: Putty Cube

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
 
-namespace Spooky.Content.NPCs
+namespace Spooky.Content.NPCs.Hallucinations
 {
     public class TheBaby : ModNPC
     {
@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/TheBabyBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/Hallucinations/TheBabyBestiary",
                 Position = new Vector2(34f, 0f),
                 PortraitPositionXOverride = 10f,
                 PortraitPositionYOverride = 0f
@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs
         public override void SetDefaults()
         {
             NPC.lifeMax = 250;
-            NPC.damage = 1;
+            NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 130;
             NPC.height = 140;
@@ -60,8 +60,6 @@ namespace Spooky.Content.NPCs
             NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
-            NPC.aiStyle = 10;
-			AIType = NPCID.CursedSkull;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -77,7 +75,8 @@ namespace Spooky.Content.NPCs
         {
             Player player = Main.player[NPC.target];
 
-            player.AddBuff(ModContent.BuffType<EntityDebuff>(), 2);
+            player.AddBuff(ModContent.BuffType<HallucinationDebuff>(), 2);
+            player.AddBuff(BuffID.Dazed, 2);
 
             NPC.spriteDirection = NPC.direction;
 
@@ -95,9 +94,14 @@ namespace Spooky.Content.NPCs
                 NPC.GivenName = nameString;
             }
 
+            Vector2 ChargeDirection = player.Center - NPC.Center;
+            ChargeDirection.Normalize();
+
+            ChargeDirection *= 35;
+            NPC.velocity = ChargeDirection;
+
             if (NPC.Hitbox.Intersects(player.Hitbox))
             {
-                player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.EntityDeath")), 9999999, 0, false);
                 player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                 NPC.immortal = false;
                 NPC.dontTakeDamage = false;

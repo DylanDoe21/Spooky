@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs.Debuff
 {
-	public class EntityDebuff : ModBuff
+	public class HallucinationDebuff : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{

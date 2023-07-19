@@ -208,76 +208,42 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
+            int StartPosY = Catacombs.PositionY - 55;
+
             //first ruined house
-            bool placedHouse1 = false;
-            int house1Attempts = 0;
-            while (!placedHouse1 && house1Attempts++ < 100000)
-            {
-                int HouseX = (XStart + XMiddle) / 2;
-                int HouseY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.worldSurface)
-				{
-					HouseY++;
-				}
-                if (!Main.tile[HouseX, HouseY].HasTile || Main.tile[HouseX, HouseY].WallType == WallID.EbonstoneUnsafe)
-                {
-					continue;
-                }
-
-                Vector2 origin = new Vector2(HouseX - 14, HouseY - 20);
-                Generator.GenerateStructure("Content/Structures/Cemetery/RuinedHouse-1", origin.ToPoint16(), Mod);
-
-                placedHouse1 = true;
-            }
+            GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
 
             //catacomb entrance
-            bool placedCrypt = false;
-            int cryptAttempts = 0;
-            while (!placedCrypt && cryptAttempts++ < 100000)
-            {
-                int CryptX = XMiddle;
-                int CryptY = Catacombs.PositionY - 55;
+            GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 32);
 
-                while (!WorldGen.SolidTile(CryptX, CryptY) && CryptY <= Main.worldSurface)
+            //second ruined house
+            GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
+        }
+
+        public void GenerateStructure(int startX, int startY, string StructureFile, int offsetX, int offsetY)
+        {
+            bool placed = false;
+            int attempts = 0;
+            while (!placed && attempts++ < 100000)
+            {
+                while (!WorldGen.SolidTile(startX, startY) && startY <= Main.worldSurface)
 				{
-					CryptY++;
+					startY++;
 				}
-                if (!Main.tile[CryptX, CryptY].HasTile || Main.tile[CryptX, CryptY].WallType == WallID.EbonstoneUnsafe)
+                if (!Main.tile[startX, startY].HasTile || Main.tile[startX, startY].WallType == WallID.EbonstoneUnsafe)
                 {
 					continue;
                 }
 
-                Vector2 origin = new Vector2(CryptX - 38, CryptY - 32);
-                Generator.GenerateStructure("Content/Structures/Cemetery/CemeteryEntrance", origin.ToPoint16(), Mod);
+                Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
 
-                //set the catacomb entrance position so it places the tunnel down to the catacombs properly
-                Catacombs.EntranceY = CryptY - 37;
-
-                placedCrypt = true;
-            }
-
-            //first ruined house
-            bool placedHouse2 = false;
-            int house2Attempts = 0;
-            while (!placedHouse2 && house2Attempts++ < 100000)
-            {
-                int HouseX = (XMiddle + XEdge) / 2;
-                int HouseY = Catacombs.PositionY - 55;
-
-                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.worldSurface)
-				{
-					HouseY++;
-				}
-                if (!Main.tile[HouseX, HouseY].HasTile)
+                if (StructureFile == "CemeteryEntrance")
                 {
-					continue;
+                    Catacombs.EntranceY = startY - 37;
                 }
 
-                Vector2 origin = new Vector2(HouseX - 14, HouseY - 20);
-                Generator.GenerateStructure("Content/Structures/Cemetery/RuinedHouse-2", origin.ToPoint16(), Mod);
-
-                placedHouse2 = true;
+                placed = true;
             }
         }
 

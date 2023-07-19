@@ -15,9 +15,10 @@ namespace Spooky.Content.Tiles.Water
 
 		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/CemeteryWaterDroplet").Type;
 
+		//just define a rain style, it will never actually be seen in game
 		public override Asset<Texture2D> GetRainTexture() 
 		{
-			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/CemeteryRain");
+			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyRain");
 		}
 		
 		public override byte GetRainVariant() 

@@ -76,7 +76,7 @@ namespace Spooky.Core
             }
 
             //disable spawns during the entity encounter
-            if (spawnInfo.Player.HasBuff(ModContent.BuffType<EntityDebuff>()))
+            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff>()))
 			{
 				pool.Clear();
 			}

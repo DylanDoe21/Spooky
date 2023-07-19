@@ -185,9 +185,9 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                 Texture2D topTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlowerTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(20, 58);
+                Vector2 treeOffset = new Vector2(30, 72);
 
-                DrawTreeTops(i - 1, j - 1, topTex, new Rectangle(64 * frame, 0, 62, 70), default, TileOffset.ToWorldCoordinates(), treeOffset);
+                DrawTreeTops(i - 1, j - 1, topTex, new Rectangle(76 * frame, 0, 74, 80), default, TileOffset.ToWorldCoordinates(), treeOffset);
             }
 
             return false;

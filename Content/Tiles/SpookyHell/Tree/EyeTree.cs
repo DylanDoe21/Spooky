@@ -239,7 +239,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
             Vector2 pos = TileCustomPosition(i, j);
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18 || Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
@@ -279,7 +279,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
             Vector2 pos = TileCustomPosition(i, j) - offset;
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 18 || Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
-using Spooky.Content.NPCs;
+using Spooky.Content.NPCs.Hallucinations;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -239,7 +239,7 @@ namespace Spooky.Core
             }
 
             //spawn homing seeds when hit while wearing the spirit amulet
-            if (SpiritAmulet && Main.rand.Next(2) == 0)
+            if (SpiritAmulet && Main.rand.NextBool())
             {
                 for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                 {

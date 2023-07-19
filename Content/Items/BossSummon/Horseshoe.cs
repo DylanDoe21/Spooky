@@ -7,10 +7,8 @@ using Spooky.Content.NPCs.Hallucinations;
 
 namespace Spooky.Content.Items.BossSummon
 {
-    public class CowBell : ModItem
+    public class Horseshoe : ModItem
     {
-        public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
-
         public override void SetStaticDefaults()
 		{
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
@@ -18,10 +16,9 @@ namespace Spooky.Content.Items.BossSummon
 
         public override void SetDefaults()
         {
-            Item.damage = 12;
-			Item.mana = 10;                        
-            Item.DamageType = DamageClass.Summon;
-			Item.noMelee = true;  
+            Item.damage = 12;                 
+            Item.DamageType = DamageClass.Melee;
+			Item.noMelee = true;
 			Item.autoReuse = true;                  
             Item.width = 20;
             Item.height = 28;
@@ -31,12 +28,12 @@ namespace Spooky.Content.Items.BossSummon
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Blue;   
             Item.value = Item.buyPrice(silver: 50);
-            Item.UseSound = CowBellSound;
+            Item.UseSound = SoundID.Item1;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (!NPC.AnyNPCs(ModContent.NPCType<TheEntity>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<TheHorse>()) && !Main.dayTime)
             {
                 return true;
             }
@@ -46,10 +43,7 @@ namespace Spooky.Content.Items.BossSummon
 		
         public override bool? UseItem(Player player)
         {
-            Main.dayTime = false;
-            Main.time = 0;
-
-            int type = ModContent.NPCType<TheEntity>();
+            int type = ModContent.NPCType<TheHorse>();
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

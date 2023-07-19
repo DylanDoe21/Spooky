@@ -379,174 +379,34 @@ namespace Spooky.Content.Generation
             //define the center of the biome
             int XMiddle = (StartPosition + BiomeEdge) / 2;
 
+            int StartPosY = Main.maxTilesY - 160;
+
             //place first flesh pillar
-            bool placedPillar1 = false;
-            int pillar1Attempts = 0;
-            while (!placedPillar1 && pillar1Attempts++ < 100000)
-            {
-                int PillarX = StartPosition + 150;
-                int PillarY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
-                {
-                    PillarY++;
-                }
-
-                if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(PillarX - 16, PillarY - 32);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-1", origin.ToPoint16(), Mod);
-                    placedPillar1 = true;
-				}
-            }
+            GenerateStructure(StartPosition + 150, StartPosY, "FleshPillar-1", 16, 32);
 
             ///place little eye's house
-            bool placedHouse = false;
-            int houseAttempts = 0;
-            while (!placedHouse && houseAttempts++ < 100000)
-            {
-                int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
-                int HouseY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(HouseX, HouseY) && HouseY <= Main.maxTilesY)
-                {
-                    HouseY++;
-                }
-
-                if (Main.tile[HouseX, HouseY].HasTile || Main.tile[HouseX, HouseY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(HouseX - 23, HouseY - 18);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/LittleEyeHouse", origin.ToPoint16(), Mod);
-                    NPC.NewNPC(null, (HouseX - 1) * 16, (HouseY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
-                    placedHouse = true;
-				}
-            }
+            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 23, 18);
 
             //place second flesh pillar
-            bool placedPillar2 = false;
-            int pillar2Attempts = 0;
-            while (!placedPillar2 && pillar2Attempts++ < 100000)
-            {
-                int PillarX = XMiddle - 150;
-                int PillarY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
-                {
-                    PillarY++;
-                }
-
-                if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(PillarX - 15, PillarY - 38);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-2", origin.ToPoint16(), Mod);
-                    placedPillar2 = true;
-				}
-            }
+            GenerateStructure(XMiddle - 150, StartPosY, "FleshPillar-2", 15, 38);
 
             //place orroboro nest
-            bool placedNest = false;
-            int nestAttempts = 0;
-            while (!placedNest && nestAttempts++ < 100000)
-            {
-                int NestX = XMiddle;
-                int NestY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(NestX, NestY) && NestY <= Main.maxTilesY)
-                {
-                    NestY++;
-                }
-
-                if (Main.tile[NestX, NestY].HasTile || Main.tile[NestX, NestY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(NestX, NestY - 16);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/OrroboroNest", origin.ToPoint16(), Mod);
-                    placedNest = true;
-				}
-            }
+            GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 6, 16);
 
             //place third flesh pillar
-            bool placedPillar3 = false;
-            int pillar3Attempts = 0;
-            while (!placedPillar3 && pillar3Attempts++ < 100000)
-            {
-                int PillarX = XMiddle + 150;
-                int PillarY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
-                {
-                    PillarY++;
-                }
-
-                if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(PillarX - 15, PillarY - 29);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-3", origin.ToPoint16(), Mod);
-                    placedPillar3 = true;
-				}
-            }
+            GenerateStructure(XMiddle + 150, StartPosY, "FleshPillar-3", 15, 29);
 
             //place moco shrine
-            bool placedShrine = false;
-            int shrineAttempts = 0;
-            while (!placedShrine && shrineAttempts++ < 100000)
-            {
-                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
-                int ShrineY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(ShrineX, ShrineY) && ShrineY <= Main.maxTilesY)
-                {
-                    ShrineY++;
-                }
-
-                if (Main.tile[ShrineX, ShrineY].HasTile || Main.tile[ShrineX, ShrineY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(ShrineX - 19, ShrineY - 18);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/MocoShrine", origin.ToPoint16(), Mod);
-                    placedShrine = true;
-				}
-            }
+            int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
+            GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
 
             //place blood lake
-            bool placedLake = false;
-            int lakeAttempts = 0;
-            while (!placedLake && lakeAttempts++ < 100000)
-            {
-                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
-                int LakeY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(LakeX, LakeY) && LakeY <= Main.maxTilesY)
-                {
-                    LakeY++;
-                }
-
-                if (Main.tile[LakeX, LakeY].HasTile || Main.tile[LakeX, LakeY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(LakeX - 47, LakeY - 10);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/BloodLake", origin.ToPoint16(), Mod);
-                    placedLake = true;
-				}
-            }
+            int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
+            GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 15);
 
             //place fourth flesh pillar
-            bool placedPillar4 = false;
-            int pillar4Attempts = 0;
-            while (!placedPillar4 && pillar4Attempts++ < 100000)
-            {
-                int PillarX = BiomeEdge - 150;
-                int PillarY = Main.maxTilesY - 160;
-
-                while (!WorldGen.SolidTile(PillarX, PillarY) && PillarY <= Main.maxTilesY)
-                {
-                    PillarY++;
-                }
-
-                if (Main.tile[PillarX, PillarY].HasTile || Main.tile[PillarX, PillarY].WallType == ModContent.WallType<SpookyMushWall>())
-				{
-					Vector2 origin = new Vector2(PillarX - 15, PillarY - 39);
-                    Generator.GenerateStructure("Content/Structures/SpookyHell/FleshPillar-4", origin.ToPoint16(), Mod);
-                    placedPillar4 = true;
-				}
-            }
+            GenerateStructure(BiomeEdge - 150, StartPosY, "FleshPillar-4", 15, 39);
 
             //lock all monster chests
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
@@ -576,6 +436,33 @@ namespace Spooky.Content.Generation
                         Main.tile[X + 1, Y + 1].TileFrameY = 18;
                     }
                 }
+            }
+        }
+
+        public void GenerateStructure(int startX, int startY, string StructureFile, int offsetX, int offsetY)
+        {
+            bool placed = false;
+            int attempts = 0;
+            while (!placed && attempts++ < 100000)
+            {
+                while (!WorldGen.SolidTile(startX, startY) && startY <= Main.maxTilesY)
+				{
+					startY++;
+				}
+                if (!Main.tile[startX, startY].HasTile)
+                {
+					continue;
+                }
+
+                Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                Generator.GenerateStructure("Content/Structures/SpookyHell/" + StructureFile, origin.ToPoint16(), Mod);
+
+                if (StructureFile == "LittleEyeHouse")
+                {
+                    NPC.NewNPC(null, (startX - 1) * 16, (startY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
+                }
+
+                placed = true;
             }
         }
 

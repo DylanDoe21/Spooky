@@ -1529,7 +1529,7 @@ EggEventBox: {
 }
 
 EntityBox: {
-	DisplayName: Music Box (Looming Presence)
+	DisplayName: Music Box (Hallucination)
 	Tooltip: ""
 }
 
@@ -1957,4 +1957,9 @@ CatacombBrickWall2Item: {
 SpookyMushLakeWallItem: {
 	Tooltip: ""
 	DisplayName: Spooky Mush Lake Wall Item
+}
+
+Horseshoe: {
+	DisplayName: Horseshoe
+	Tooltip: ""
 }

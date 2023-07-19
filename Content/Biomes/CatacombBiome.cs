@@ -23,11 +23,6 @@ namespace Spooky.Content.Biomes
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:CatacombLayer1Tint", isActive, player.Center);
-        }
-
         public override void OnInBiome(Player player)
         {
             //vignette effect
@@ -77,11 +72,6 @@ namespace Spooky.Content.Biomes
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs2");
 
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiome2Icon";
-
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:CatacombLayer2Tint", isActive, player.Center);
-        }
 
         public override bool IsBiomeActive(Player player)
         {
