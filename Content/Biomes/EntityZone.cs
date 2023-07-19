@@ -18,7 +18,7 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = NPC.AnyNPCs(ModContent.NPCType<TheEntity>()) || NPC.AnyNPCs(ModContent.NPCType<TheBaby>()) || NPC.AnyNPCs(ModContent.NPCType<TheHorse>());
+            bool BiomeCondition = NPC.AnyNPCs(ModContent.NPCType<TheMan>()) || NPC.AnyNPCs(ModContent.NPCType<TheBaby>()) || NPC.AnyNPCs(ModContent.NPCType<TheHorse>());
 
             return BiomeCondition;
         }

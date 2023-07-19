@@ -124,6 +124,7 @@ Enemies & Bosses:
 -Lowered the spawn rate of the gloopers in the cemetery
 -Nerfed giant tortumor contact damage from 65 to 40
 -Added new sprites for big bone's thorn attacks to make them look better
+-Added new color fading effect for big bone's phase transition forcefield
 -Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
 -Made orro & boro's thorn pillars taller
 -Added a new visual effect for boro's acid breath attack

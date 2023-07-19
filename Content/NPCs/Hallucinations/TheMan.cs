@@ -17,7 +17,7 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.Hallucinations
 {
-    public class TheEntity : ModNPC
+    public class TheMan : ModNPC
     {
         public static readonly SoundStyle BreathingSound = new("Spooky/Content/Sounds/EntityBreathing", SoundType.Sound);
         public static readonly SoundStyle ScreamingSound = new("Spooky/Content/Sounds/EntityScream", SoundType.Sound);
@@ -70,7 +70,7 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheEntity"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheMan"),
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
             });
         }
@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Hallucinations/TheEntityGlow").Value;
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Hallucinations/TheManGlow").Value;
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             spriteBatch.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.Hallucinations
                     NPC.localAI[0]++;
 
                     //loop 5 times
-                    if (NPC.localAI[1] < 5)
+                    if (NPC.localAI[1] < 4)
                     {
                         //teleport after a certain time or if the player goes too far
                         if (NPC.localAI[0] >= 450)
@@ -148,7 +148,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
                         if (NPC.Distance(player.Center) >= 2200f)
                         {
-                            NPC.Center = player.Center;
+                            Teleport(player, 0);
                         }
                     }
                     else

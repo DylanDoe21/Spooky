@@ -122,6 +122,11 @@ Fertilizer: {
 		'''
 }
 
+Horseshoe: {
+	DisplayName: Unlucky Horseshoe
+	Tooltip: ""
+}
+
 RottenSeed: {
 	DisplayName: Rotten Seed
 	Tooltip: Summons Rot Gourd when used in the spooky forest
@@ -1955,11 +1960,6 @@ CatacombBrickWall2Item: {
 }
 
 SpookyMushLakeWallItem: {
-	Tooltip: ""
 	DisplayName: Spooky Mush Lake Wall Item
-}
-
-Horseshoe: {
-	DisplayName: Horseshoe
 	Tooltip: ""
 }

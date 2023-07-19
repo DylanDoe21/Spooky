@@ -36,7 +36,7 @@ namespace Spooky.Content.Items.BossSummon
 
         public override bool CanUseItem(Player player)
         {
-            if (!NPC.AnyNPCs(ModContent.NPCType<TheEntity>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<TheMan>()))
             {
                 return true;
             }
@@ -49,7 +49,7 @@ namespace Spooky.Content.Items.BossSummon
             Main.dayTime = false;
             Main.time = 0;
 
-            int type = ModContent.NPCType<TheEntity>();
+            int type = ModContent.NPCType<TheMan>();
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
