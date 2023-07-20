@@ -171,7 +171,7 @@ OldWoodStaffBolt.DisplayName: Old Wood Staff Bolt
 Columbo.DisplayName: Columbo
 ColumboFinger.DisplayName: Columbo
 ShroomWhipProj.DisplayName: Shroom Whip
-ShroomWhipSpore.DisplayName: Shroom Whip Spore
+ShroomWhipSpore.DisplayName: Shroom Spore
 GhastlyOrbProj.DisplayName: Ghastly Orb
 ChlorophyllFlower.DisplayName: Chlorophyll Flower
 FleshPillarTelegraph.DisplayName: Telegraph
@@ -209,3 +209,6 @@ ThornPillarSeed.DisplayName: Thorn Pillar Seed
 ThornPillar.DisplayName: Thorn Pillar
 TheHorseFly.DisplayName: Horse Fly
 HorseshoeProj.DisplayName: Horseshoe Proj
+SolarDeathbeam.DisplayName: Solar Deathbeam
+SolarDeathbeamTelegraph.DisplayName: Telegraph
+ChungusSpore.DisplayName: Spore

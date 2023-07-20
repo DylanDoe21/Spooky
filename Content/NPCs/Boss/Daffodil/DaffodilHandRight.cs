@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilHandRight : ModNPC
     {
+        public bool GrabbingPlayer = false;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;

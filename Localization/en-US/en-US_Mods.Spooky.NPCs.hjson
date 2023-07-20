@@ -73,9 +73,10 @@ OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 PhantomSkull.DisplayName: Phantom Skull
 //hallucinations
-TheMan.DisplayName: The Man
 TheBaby.DisplayName: The Baby
+TheFlesh.DisplayName: The Flesh
 TheHorse.DisplayName: The Horse
+TheMan.DisplayName: The Man
 //catacombs
 CatacombGuardian.DisplayName: Catacomb Guardian
 GiantPutty.DisplayName: Putty Cube
@@ -114,6 +115,7 @@ PartySkeleton2.DisplayName: Party Skeleton
 PartySkeleton3.DisplayName: Party Skeleton
 //spooky biome
 Bungus.DisplayName: Bungus
+Chungus.DisplayName: Chunky Fungus
 FluffBatBig1.DisplayName: Giant Fuzz Bat
 FluffBatBig2.DisplayName: Giant Fuzz Bat
 FluffBatSmall1.DisplayName: Fuzz Bat

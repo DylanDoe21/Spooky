@@ -5,9 +5,9 @@ using Spooky.Content.NPCs.Hallucinations;
 
 namespace Spooky.Content.Biomes
 {
-    public class EntityZone : ModBiome
+    public class HallucinationZone : ModBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Hallucination");
+        public override int Music => NPC.AnyNPCs(ModContent.NPCType<TheFlesh>()) ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheFleshDialogue") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Hallucination");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -18,7 +18,8 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = NPC.AnyNPCs(ModContent.NPCType<TheMan>()) || NPC.AnyNPCs(ModContent.NPCType<TheBaby>()) || NPC.AnyNPCs(ModContent.NPCType<TheHorse>());
+            bool BiomeCondition = NPC.AnyNPCs(ModContent.NPCType<TheMan>()) || NPC.AnyNPCs(ModContent.NPCType<TheBaby>()) || 
+            NPC.AnyNPCs(ModContent.NPCType<TheHorse>()) || NPC.AnyNPCs(ModContent.NPCType<TheFlesh>());
 
             return BiomeCondition;
         }

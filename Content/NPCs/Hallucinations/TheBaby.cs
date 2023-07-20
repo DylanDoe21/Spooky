@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             Player player = Main.player[NPC.target];
 
-            player.AddBuff(ModContent.BuffType<HallucinationDebuff>(), 2);
+            player.AddBuff(ModContent.BuffType<HallucinationDebuff2>(), 2);
             player.AddBuff(BuffID.Dazed, 2);
 
             NPC.spriteDirection = NPC.direction;

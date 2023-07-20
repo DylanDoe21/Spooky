@@ -19,11 +19,35 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilHandLeft : ModNPC
     {
+        public bool GrabbingPlayer = false;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //bools
+            writer.Write(GrabbingPlayer);
+
+            //local ai
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //bools
+            GrabbingPlayer = reader.ReadBoolean();
+
+            //local ai
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()

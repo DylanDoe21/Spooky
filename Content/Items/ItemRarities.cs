@@ -12,6 +12,6 @@ namespace Spooky.Content.Items
 
     public class CursedRarity : ModRarity
     {
-        public override Color RarityColor => new Color(87, 69, 135);
+        public override Color RarityColor => Color.Black;
     }
 }

@@ -3,11 +3,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.NPCs.Boss.RotGourd;
-
-namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
+namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 {
-	public class MoldSpore : ModProjectile
+	public class ChungusSpore : ModProjectile
 	{
 		public override void SetDefaults()
 		{
@@ -24,7 +22,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
         {
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
-            Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.LightGray);
+            Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Blue);
 
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
@@ -58,11 +56,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 			Projectile.rotation = Projectile.velocity.X * 0.1f;
 
 			Projectile.ai[0]++;
-            if (Projectile.ai[0] < 180)
+            if (Projectile.ai[0] < 60)
             {
                 float goToX = (player.Center.X + Main.rand.Next(-15, 15)) - Projectile.Center.X;
                 float goToY = (player.Center.Y + Main.rand.Next(-15, 15)) - Projectile.Center.Y;
-                float speed = 0.05f;
+                float speed = 0.025f;
 
                 if (Projectile.velocity.X < goToX)
                 {

@@ -320,7 +320,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         break;
                     }
-                    //fly at player, get faster in phase 2
+
+                    //fly at player
                     case 0:
                     {
                         NPC.localAI[0]++;
@@ -456,15 +457,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             Vector2 Recoil = player.Center - NPC.Center;
                             Recoil.Normalize(); 
 
-                            Recoil.X *= -8;
-                            Recoil.Y *= -8;
-                            NPC.velocity.X = Recoil.X;
-                            NPC.velocity.Y = Recoil.Y;
+                            Recoil *= -8;
+                            NPC.velocity = Recoil;
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed.X *= 15f;
-                            ShootSpeed.Y *= 15f;
+                            ShootSpeed *= 15f;
 
                             int snotBall = Phase2 ? ModContent.ProjectileType<GiantSnot2>() : ModContent.ProjectileType<GiantSnot>();
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, snotBall, Damage, 1, NPC.target, 0, 0);

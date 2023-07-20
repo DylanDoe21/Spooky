@@ -30,31 +30,6 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-			//draw purple aura around any enemy with the egg event enemy buff
-			//this will never actually be applied on any enemy in game, besides the egg event enemies
-            if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
-            {
-				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
-
-				Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Purple);
-
-				var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-				for (int numEffect = 0; numEffect < 5; numEffect++)
-				{
-					Color newColor = color;
-					newColor = npc.GetAlpha(newColor);
-					newColor *= 1f;
-					Vector2 vector = new Vector2(npc.Center.X, npc.Center.Y) + (npc.rotation).ToRotationVector2() - Main.screenPosition + new Vector2(0, npc.gfxOffY + 2);
-					Main.EntitySpriteDraw(tex, vector, npc.frame, newColor, npc.rotation, npc.frame.Size() / 2f, npc.scale * 1.25f, effects, 0);
-				}
-			}
-
-			return true;
-        }
-
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			//remove spawnrates during the egg event
@@ -75,8 +50,9 @@ namespace Spooky.Core
                 pool.Clear();
             }
 
-            //disable spawns during the entity encounter
-            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff>()))
+            //disable spawns during a hallucination encounter
+            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
+			spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
 			{
 				pool.Clear();
 			}

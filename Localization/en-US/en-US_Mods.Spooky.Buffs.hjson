@@ -61,9 +61,24 @@ EnsnaredDebuff: {
 	Description: Mods.Spooky.BuffDescription.EnsnaredDebuff
 }
 
-HallucinationDebuff: {
-	DisplayName: Hallucination
-	Description: Mods.Spooky.BuffDescription.HallucinationDebuff
+HallucinationDebuff1: {
+	DisplayName: The Man
+	Description: There is no escape
+}
+
+HallucinationDebuff2: {
+	DisplayName: The Baby
+	Description: ...
+}
+
+HallucinationDebuff3: {
+	DisplayName: The Horse
+	Description: The horse is here...
+}
+
+HallucinationDebuff4: {
+	DisplayName: The Flesh
+	Description: You feel worthless
 }
 
 FleshWhipCooldown: {

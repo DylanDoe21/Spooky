@@ -17,10 +17,8 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.NPCs.Hallucinations
 {
-    public class TheHorse : ModNPC
+    public class TheFlesh : ModNPC
     {
-        public int maxFlies = 2;
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
@@ -39,14 +37,12 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -54,8 +50,8 @@ namespace Spooky.Content.NPCs.Hallucinations
             NPC.lifeMax = 250;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 106;
-            NPC.height = 90;
+            NPC.width = 118;
+            NPC.height = 66;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit9;
@@ -66,7 +62,7 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheHorse"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheFlesh"),
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
             });
         }
@@ -75,96 +71,40 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             Player player = Main.player[NPC.target];
 
-            player.AddBuff(ModContent.BuffType<HallucinationDebuff3>(), 2);
-            player.AddBuff(BuffID.Dazed, 2);
-
-            NPC.localAI[2]++;
+            NPC.localAI[1]++;
             //make npcs displayed name a random jumble of characters constantly
-            if (NPC.localAI[2] % 5 == 0)
+            if (NPC.localAI[1] % 5 == 0)
             {
                 const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+";
                 string nameString = new(Enumerable.Repeat(chars, 12).Select(s => s[Main.rand.Next(s.Length)]).ToArray());
                 NPC.GivenName = nameString;
             }
 
-            switch ((int)NPC.ai[0])
+            if (NPC.localAI[0] == 0)
             {
-                //teleport to the player immediately as soon as they get too far
-                case 0:
+                player.AddBuff(ModContent.BuffType<HallucinationDebuff4>(), 3420);
+
+                Teleport(player, 0);
+
+                NPC.localAI[0] = 1;
+            }
+
+            if (NPC.localAI[0] == 1 && !player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
+            {
+                if (!Flags.encounteredFlesh)
                 {
-                    if (NPC.Distance(player.Center) >= 1000f)
-                    {
-                        Teleport(player, 0);
-                        NPC.localAI[0]++;
-                    }
+                    Flags.encounteredFlesh = true;
 
-                    if (NPC.localAI[0] > 0)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
-                        NPC.netUpdate = true;
+                        NetMessage.SendData(MessageID.WorldData);
                     }
-
-                    break;
                 }
 
-                //spawn flies and repeat dialogue, then die when enough flies have been spawned
-                case 1:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[0] >= 120)
-                    {
-                        NPC.localAI[1]++;
-
-                        if (NPC.localAI[1] % 120 == 20 && maxFlies <= 1000)
-                        {
-                            CombatText.NewText(NPC.getRect(), Color.DarkGreen, Language.GetTextValue("Mods.Spooky.Dialogue.TheHorse.Hunger"), true);
-
-                            for (int k = 0; k < Main.projectile.Length; k++)
-                            {
-                                if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<TheHorseFly>()) 
-                                {
-                                    Main.projectile[k].Kill();
-                                }
-                            }
-
-                            for (int numFlies = 0; numFlies <= maxFlies; numFlies++)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<TheHorseFly>(), 1, 0, NPC.target);
-                            }
-
-                            maxFlies *= 2;
-
-                            NPC.netUpdate = true;
-                        }
-                    }
-
-                    if (NPC.Distance(player.Center) >= 750f)
-                    {
-                        Teleport(player, 0);
-                    }
-
-                    if (maxFlies >= 1000)
-                    {
-                        if (!Flags.encounteredHorse)
-                        {
-                            Flags.encounteredHorse = true;
-
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                NetMessage.SendData(MessageID.WorldData);
-                            }
-                        }
-
-                        player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
-                        NPC.immortal = false;
-                        NPC.dontTakeDamage = false;
-                        NPC.netUpdate = true;
-                    }
-
-                    break;
-                }
+                player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+                NPC.immortal = false;
+                NPC.dontTakeDamage = false;
+                NPC.netUpdate = true;
             }
         }
 

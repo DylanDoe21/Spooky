@@ -21,8 +21,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     [AutoloadBossHead]
     public class DaffodilEye : ModNPC
     {
+        public bool Phase2 = false;
         public bool SpawnedHands = false;
 
+        Vector2[] SavePoint = new Vector2[5];
         Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle SeedSpawnSound = new("Spooky/Content/Sounds/Daffodil/SeedSpawn", SoundType.Sound);
@@ -62,6 +64,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             writer.Write(SavePlayerPosition.Y);
 
             //bools
+            writer.Write(Phase2);
             writer.Write(SpawnedHands);
 
             //local ai
@@ -77,6 +80,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             SavePlayerPosition.Y = reader.ReadInt32();
 
             //bools
+            Phase2 = reader.ReadBoolean();
             SpawnedHands = reader.ReadBoolean();
 
             //local ai
@@ -221,6 +225,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                //phase transition
+                case -2:
+                {
+                    break;
+                }
+
                 //spawn intro dialogue
                 case -1:
                 {
@@ -410,7 +420,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-30, 420),
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-65, 420),
                             Main.rand.Next(7, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
 
@@ -419,7 +429,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-30, 420), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-65, 420),
                             Main.rand.Next(-10, -7), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
                     }
@@ -461,44 +471,42 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 500)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 0;
+                        NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
-
-                    break;
-                }
-
-                //solar beam
-                //shoot sweeping solar beams across the arena
-                //the only way to avoid this attack is by hiding under the outposts in the arena
-                case 5:
-                {
-                    /*
-                    if (NPC.localAI[0] >= 155 && NPC.localAI[0] <= 180 && NPC.localAI[2] <= 6)
-                    {
-                        NPC.localAI[2]++;
-
-                        SoundEngine.PlaySound(SoundID.DD2_GhastlyGlaiveImpactGhost with { Volume = SoundID.DD2_GhastlyGlaiveImpactGhost.Volume * 3.5f }, NPC.Center);
-
-                        float storeRotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);
-
-                        Vector2 projSpeed = new Vector2((float)((Math.Cos(storeRotation) * 10) * -1), (float)((Math.Sin(storeRotation) * 10) * -1));
-                        float rotation = MathHelper.ToRadians(5);
-                        float amount = NPC.direction == -1 ? NPC.localAI[2] - 7.2f / 2 : -(NPC.localAI[2] - 8.8f / 2);
-                        Vector2 ShootSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
-
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
-                    }
-                    */
 
                     break;
                 }
                 
                 //hand attack
                 //either punch the player, or grab the player (grabbing can be avoided by going hiding under the outposts in the arena)
-                case 6:
+                case 5:
                 {
+                    if (NPC.localAI[0] == 155)
+                    {
+                        SavePlayerPosition = new Vector2(player.Center.X, player.Center.Y + 10);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y, 0, 0, 
+                        ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
+                    }
+
+                    if (NPC.localAI[0] == 200)
+                    {
+                        SpookyPlayer.ScreenShakeAmount = 12;
+                        
+                        SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] >= 200 && NPC.localAI[0] <= 270)
+                    {
+                        Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 5f;
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y,
+                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarDeathbeam>(), Damage * 2, 0f, Main.myPlayer);
+                    }
+
                     break;
                 }
             }

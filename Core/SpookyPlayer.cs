@@ -453,6 +453,7 @@ namespace Spooky.Core
             bool inWater = !attempt.inLava && !attempt.inHoney;
             bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
             bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>();
+            bool inEyeValley = Player.InModBiome<SpookyHellBiome>();
 
             if (inWater && attempt.crate)
             {
@@ -480,6 +481,40 @@ namespace Spooky.Core
                         return;
                     }
                 }
+            }
+
+            int bobberIndex = -1;
+
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+				if (Main.projectile[i].active && Main.projectile[i].owner == Player.whoAmI && Main.projectile[i].bobber)
+                {
+					bobberIndex = i;
+                }
+            }
+
+            //TODO: implement all the blood moon fishing enemy stuff here
+			if (bobberIndex != -1)
+			{
+				Vector2 bobberPos = Main.projectile[bobberIndex].Center;
+
+				if (inEyeValley)
+				{
+                    /*
+                    if (Main.rand.NextBool(20))
+                    {
+                        int newNPC = NPC.NewNPC((int)bobberPos.X, (int)bobberPos.Y, ModContent.NPCType<Whatever>(), 0, 0, 0, 0, 0, Main.myPlayer);
+                        
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, newNPC);
+                        }
+
+                        caughtType = ItemID.None;
+                        return;
+                    }
+                    */
+				}
             }
         }
     }

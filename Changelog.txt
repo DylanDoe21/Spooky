@@ -19,7 +19,6 @@ Catacombs Overhaul:
 -Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
 -Added tons of new content such as new enemies for the first layer, new weapons obtained from both chests and enemies, and a new hardmode armor set
 -Added new ambush rooms, in which groups of enemies will lock and ambush you in a room, making the catacombs a lot more fun and interesting combat wise
--The swampy cemetery worldgen also now scales with world size, bigger worlds will have a bigger cemetery biome
 
 
 New Boss, Daffodil:
@@ -33,6 +32,7 @@ Swampy Cemetery Aesthetic:
 
 -The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
 -New structures have been added, and some worldgen modifications have been made to the biome
+-The swampy cemetery worldgen also now scales with world size, bigger worlds will have a bigger cemetery biome
 
 
 New Mini-Biome, The Mossy Mushroom Cave:
@@ -76,8 +76,7 @@ Other New Additions:
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
 -Added support for the 1.4.4 version of boss checklist
--Added the baby
--Added the horse
+-Added the baby, the horse, and the flesh
 
 
 Localization File Split:

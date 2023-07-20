@@ -98,9 +98,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 writer.Write(AttackPattern[i]);
             }
 
+            //save point for thorns
+            for (int i = 0; i <= SavePoint.Length; i++)
+            {
+                writer.Write(SavePoint[i].X);
+                writer.Write(SavePoint[i].Y);
+            }
+
             //ints
             writer.Write(ScaleTimerLimit);
             writer.Write(SaveDirection);
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+            writer.Write(SaveNPCPosition.X);
+            writer.Write(SaveNPCPosition.Y);
 
             //bools
             writer.Write(Phase2);
@@ -109,7 +120,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(ActuallyDead);
             writer.Write(DeathAnimation);
 
-            //local ai
+            //floats
+            writer.Write(SaveRotation);
+            writer.Write(ScaleAmount);
+            writer.Write(RealScaleAmount);
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -123,9 +137,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 AttackPattern[i] = reader.ReadInt32();
             }
 
+            //save point for thorns
+            for (int i = 0; i <= SavePoint.Length; i++)
+            {
+                SavePoint[i].X = reader.ReadInt32();
+                SavePoint[i].Y = reader.ReadInt32();
+            }
+
             //ints
             ScaleTimerLimit = reader.ReadInt32();
             SaveDirection = reader.ReadInt32();
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+            SaveNPCPosition.X = reader.ReadInt32();
+            SaveNPCPosition.Y = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();
@@ -134,7 +159,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             ActuallyDead = reader.ReadBoolean();
             DeathAnimation = reader.ReadBoolean();
 
-            //local ai
+            //floats
+            SaveRotation = reader.ReadSingle();
+            ScaleAmount = reader.ReadSingle();
+            RealScaleAmount = reader.ReadSingle();
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();

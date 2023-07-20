@@ -1,6 +1,4 @@
-TheMan: Always observing from his realm.
-TheBaby: It won't stop crying...
-TheHorse: Are you still hungry now?
+//bosses
 BigBone: The long lost brother of little bone who is trapped away in the catacombs due to his immense power. His floral magicks have taken over the catacombs, spreading strange plant life all throughout.
 Daffodil: A giant and lazy flower that spends most of her time sleeping. She is supposed to watch over the deep catcombs entrance, only letting those she deems worthy to continue further.
 Moco: The legendary flying schnoz, said to present itself when its beloved shrine is disturbed. Its fast mobility and nasty snot are not to be taken lightly.
@@ -8,6 +6,12 @@ OrroHead: A fast and calculated serpent that works together with Boro to defend 
 BoroHead: A blind and aggressive serpent that works together with Orro to defend it's territory. Old myths say that the valley of eyes is made from the left over flesh these serpents have torn off each other.
 RotGourd: This connected duo and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry acts as a turret, spitting nasty mold spores and bugs.
 SpookySpirit: A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
+//hallucinations
+TheBaby: It won't stop crying...
+TheFlesh: What a coward.
+TheHorse: Are you still hungry now?
+TheMan: Always observing from his realm.
+//catacombs
 CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
 GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are bigger, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
@@ -20,22 +24,27 @@ HoppingFlower: These blind and malicious marigold creatures hop around the catac
 PlantTrap: These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb.
 RollFlower: Flourence might be small and innocent looking, but their ability to roll and accelerate at uncanny speeds is not.
 ChalupoBig: These ghosts seem small and innocent at first, but when approached they will grow and begin to chase down their target.
+//cemetery
 FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in its path.
 Glooper1: Peaceful slimes that slide across the ground and walls. While they are not hostile, touching them may not be so pleasant.
 Glooper2: Friendly blobs of venomous goo that wander around the cemetery. Make sure not to accidentally step on them!
 Possesser: A ghost capable of possessing people, causing uncontrollable movement. Make sure to not let them near you.
+//egg event
 Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
 Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can use its unusually long tongue to attack at a distance.
 Vesicator: Absolutely vile chunks of biomatter that can somehow function on their own. They can vomit out and use biomatter to their advantage. Maybe the valley of eyes does know what it's doing?
 Vigilante: Ugly slabs of left over meat, turned into this creature by the valley of eyes. Despite its strange design, it can fly around and hunt its targets pretty efficiently.
 Ventricle: A chunk of beating flesh shaped into this hideous mass by the valley of eyes. It uses blood and gas stord in its body to shoot out explosive biomass.
+//town npcs
 LittleBone: A cute and friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange, sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 PartySkeleton1: Colorful skeletons revived by the power of the raveyard. They are eternally grateful to those who are able to start such a party.
 PartySkeleton2: Ancient tales say that these friendly undead party goers arise during a celebratory phenomenon that occurs in the cemetery.
 PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
+//spooky forest
 Bungus: Small humanoid mushroom creatures found deep underground in the spooky forest, hanging around areas infested with purple moss.
+Chungus: chunky and squishy mushrooms that hop around the mushroom moss fields underground. They welcome intruders by spitting damaging mushroom spores out of their mouth.
 FluffBatBig1: These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder.
 FluffBatBig2: Large winged balls of fuzz that fly around in the underground beneath the spooky forest. Don't let them bite you!
 FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and attack anyone they deem an intruder.
@@ -58,6 +67,7 @@ ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despit
 ZomboidThorn: Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared.
 ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.
 ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
+//eye valley
 EyeBat: These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions.
 ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit saliva to digest prey from afar.
 ManHoleBig: Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will detect and attack intruders, allowing the mouth to hunt prey much easier.

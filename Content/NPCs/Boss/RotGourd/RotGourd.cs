@@ -59,6 +59,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
+			//ints
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+
             //bools
 			writer.Write(HasSpawnedFlies);
             writer.Write(FirstFlySpawned);
@@ -73,6 +77,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+			//ints
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+
 			//bools
 			HasSpawnedFlies = reader.ReadBoolean();
             FirstFlySpawned = reader.ReadBoolean();

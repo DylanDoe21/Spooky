@@ -114,7 +114,7 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             Player player = Main.player[NPC.target];
 
-            player.AddBuff(ModContent.BuffType<HallucinationDebuff>(), 2);
+            player.AddBuff(ModContent.BuffType<HallucinationDebuff1>(), 2);
             player.AddBuff(BuffID.Dazed, 2);
 
             NPC.localAI[2]++;
@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
             switch ((int)NPC.ai[0])
             {
-                //teleport around the player, repeat 5 times
+                //teleport around the player, repeat 4 times
                 case 0:
                 {
                     NPC.localAI[0]++;
@@ -198,7 +198,7 @@ namespace Spooky.Content.NPCs.Hallucinations
                     break;
                 }
 
-                //Kill
+                //chase down the player constantly
                 case 2:
                 {
                     NPC.noGravity = true;
@@ -268,21 +268,11 @@ namespace Spooky.Content.NPCs.Hallucinations
                 }
             }
 
-            SoundEngine.PlaySound(SoundID.Item8, NPC.position);
-
             if (NPC.ai[2] != 0 && NPC.ai[3] != 0 && foundNewLoc)
             {
                 NPC.position.X = (float)((double)NPC.ai[2] * 16.0 - (double)(NPC.width / 2) + 8.0);
                 NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
                 NPC.netUpdate = true;
-
-                for (int i = 0; i < 20; i++)
-                {
-                    Dust dust = Main.dust[Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemDiamond)];
-                    dust.noGravity = true;
-                    dust.scale = 1f;
-                    dust.velocity *= 0.1f;
-                }
             }
             else if (attemptNum < 10)
             {

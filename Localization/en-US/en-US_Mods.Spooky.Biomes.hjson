@@ -1,3 +1,4 @@
+//honestly i dont know what any of these are for
 SpookyBiome: {
 	DisplayName: Spooky Forest
 	TownNPCDialogueName: the Spooky Forest
@@ -33,12 +34,12 @@ EggEventBiome: {
 	TownNPCDialogueName: the Egg Incursion
 }
 
-EntityZone: {
-	DisplayName: Entity Zone
-	TownNPCDialogueName: the Entity Zone
-}
-
 RaveyardBiome: {
 	DisplayName: Raveyard Biome
 	TownNPCDialogueName: the Raveyard
+}
+
+HallucinationZone: {
+	DisplayName: Hallucination Zone
+	TownNPCDialogueName: the Hallucination Zone
 }
