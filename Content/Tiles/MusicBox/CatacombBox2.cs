@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.MusicBox
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;
 			ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox;
-            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Catacombs2"), 
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CatacombLower"), 
             ModContent.ItemType<CatacombBox2>(), ModContent.TileType<CatacombBox2Tile>());
         }
 

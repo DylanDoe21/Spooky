@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.MusicBox
 {
-    public class SpookyBiomeBoxTile : ModTile
+    [LegacyName("SpookyBiomeBoxTile")]
+    public class SpookyBiomeDayBoxTile : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -32,7 +33,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<SpookyBiomeBox>();
+            player.cursorItemIconID = ModContent.ItemType<SpookyBiomeDayBox>();
         }
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)

@@ -5,14 +5,15 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.MusicBox
 {
-    public class SpookyHellBossBox : ModItem
+    [LegacyName("SpookyHellBossBox")]
+    public class OrroboroBox : ModItem
     {
         public override void SetStaticDefaults()
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;
 			ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox;
             MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro"), 
-            ModContent.ItemType<SpookyHellBossBox>(), ModContent.TileType<SpookyHellBossBoxTile>());
+            ModContent.ItemType<OrroboroBox>(), ModContent.TileType<OrroboroBoxTile>());
         }
 
         public override void SetDefaults()
@@ -29,7 +30,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 10);
-            Item.createTile = ModContent.TileType<SpookyHellBossBoxTile>();
+            Item.createTile = ModContent.TileType<OrroboroBoxTile>();
         }
     }
 }

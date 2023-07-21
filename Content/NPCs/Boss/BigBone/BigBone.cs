@@ -426,7 +426,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 100 / 3 : (Main.expertMode ? 70 / 2 : 50);
+            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 70 / 2 : 50;
 
             NPC.spriteDirection = NPC.direction;
 

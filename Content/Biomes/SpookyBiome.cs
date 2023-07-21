@@ -32,7 +32,7 @@ namespace Spooky.Content.Biomes
                 {
                     if (Main.dayTime)
                     {
-                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiome");
+                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
                     }
                     else
                     { 

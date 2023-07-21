@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.MusicBox
 {
-    public class SpookyHellBossBoxTile : ModTile
+    [LegacyName("SpookyHellBossBoxTile")]
+    public class OrroboroBoxTile : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -32,7 +33,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<SpookyHellBossBox>();
+            player.cursorItemIconID = ModContent.ItemType<OrroboroBox>();
         }
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)

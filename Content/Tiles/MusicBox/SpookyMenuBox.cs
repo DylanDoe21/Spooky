@@ -35,7 +35,7 @@ namespace Spooky.Content.Tiles.MusicBox
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyBiomeBox>())
+            .AddIngredient(ModContent.ItemType<SpookyBiomeDayBox>())
             .AddIngredient(ModContent.ItemType<SpookyBiomeNightBox>())
             .AddIngredient(ModContent.ItemType<SpookyBiomeUGBox>())
             .AddIngredient(ModContent.ItemType<SpookyBiomeRainBox>())

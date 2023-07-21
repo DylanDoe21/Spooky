@@ -262,7 +262,7 @@ namespace Spooky.Core
 					["spawnItems"] = ModContent.ItemType<Concoction>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<OrroTrophyItem>(), ModContent.ItemType<BoroTrophyItem>(), 
 					ModContent.ItemType<OrroMask>(), ModContent.ItemType<BoroMask>(), ModContent.ItemType<OrroboroRelicItem>(),
-					ModContent.ItemType<OrroboroEye>(), ModContent.ItemType<SpookyHellBossBox>() },
+					ModContent.ItemType<OrroboroEye>(), ModContent.ItemType<OrroboroBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = OrroboroPortrait,

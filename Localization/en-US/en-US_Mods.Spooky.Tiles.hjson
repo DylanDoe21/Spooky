@@ -34,11 +34,11 @@ EggEventBoxTile.MapEntry: Music Box
 EntityBoxTile.MapEntry: Music Box
 MocoBoxTile.MapEntry: Music Box
 RotGourdBoxTile.MapEntry: Music Box
-SpookyBiomeBoxTile.MapEntry: Music Box
+SpookyBiomeDayBoxTile.MapEntry: Music Box
 SpookyBiomeNightBoxTile.MapEntry: Music Box
 SpookyBiomeRainBoxTile.MapEntry: Music Box
 SpookyBiomeUGBoxTile.MapEntry: Music Box
-SpookyHellBossBoxTile.MapEntry: Music Box
+OrroboroBoxTile.MapEntry: Music Box
 SpookyHellBoxTile.MapEntry: Music Box
 SpookyMenuBoxTile.MapEntry: Music Box
 SpookySpiritBoxTile.MapEntry: Music Box

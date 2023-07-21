@@ -1519,12 +1519,12 @@ BigBoneBox: {
 
 CatacombBox: {
 	DisplayName: Music Box (Upper Catacomb)
-	Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
+	Tooltip: "'???' by Bananalizard"
 }
 
 CatacombBox2: {
 	DisplayName: Music Box (Lower Catacomb)
-	Tooltip: "'Lower Catacombs' by Bananalizard"
+	Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
 }
 
 CemeteryBox: {
@@ -1534,7 +1534,7 @@ CemeteryBox: {
 
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
-	Tooltip: "'Daffodil' by Bananalizard"
+	Tooltip: "'???' by Bananalizard"
 }
 
 EggEventBox: {
@@ -1557,7 +1557,7 @@ RotGourdBox: {
 	Tooltip: "'Funky Pumpkin' by Bananalizard"
 }
 
-SpookyBiomeBox: {
+SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
 	Tooltip: "'Dead Trees...' by Bananalizard"
 }
@@ -1577,7 +1577,7 @@ SpookyBiomeUGBox: {
 	Tooltip: "'Spooky Spelunking' by Bananalizard"
 }
 
-SpookyHellBossBox: {
+OrroboroBox: {
 	DisplayName: Music Box (Orro & Boro)
 	Tooltip: "'The All Is One' by Bananalizard"
 }
