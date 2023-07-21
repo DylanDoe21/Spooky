@@ -223,21 +223,6 @@ namespace Spooky.Content.NPCs.EggEvent
                     break;
                 }
             }
-            
-            //shoot biomass
-            if (NPC.localAI[0] == 420 || NPC.localAI[0] == 440 || NPC.localAI[0] == 460)
-            {
-                SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-
-                NPC.velocity *= 0f;
-
-                Vector2 ShootSpeed = player.Center - NPC.Center;
-                ShootSpeed.Normalize();
-                ShootSpeed *= 4.5f;
-                
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootSpeed, 
-                ModContent.ProjectileType<VentricleBiomass>(), NPC.damage / 2, 1, NPC.target, 0, 0);
-            }
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -30,7 +30,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             return false;
         }
 
-		public override bool PreAI()
+		public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -52,7 +52,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 player.itemRotation = Projectile.rotation;
 
-                Projectile.position = player.position + new Vector2(direction.X > 0 ? 12 : -18, 2);
+                Projectile.position = player.position + new Vector2(direction.X > 0 ? 8 : -18, 2);
                 player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<ScrollPumpkin>()] < 5)
@@ -89,8 +89,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 			player.heldProj = Projectile.whoAmI;
 			player.itemTime = 1;
 			player.itemAnimation = 1;
-
-			return true;
 		}
 	}
 }

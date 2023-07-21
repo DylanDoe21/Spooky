@@ -15,7 +15,6 @@ namespace Spooky.Content.Items.Catacomb
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-			Item.channel = true;
             Item.width = 82;           
 			Item.height = 76;
 			Item.useTime = 20;

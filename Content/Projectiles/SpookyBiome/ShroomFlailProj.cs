@@ -104,12 +104,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			{
 				Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
 				Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
-				SpriteEffects spriteEffects = SpriteEffects.None;
+				SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-				if (Projectile.spriteDirection == -1)
-				{
-					spriteEffects = SpriteEffects.FlipHorizontally;
-				}
 				for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
 				{
 					Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);

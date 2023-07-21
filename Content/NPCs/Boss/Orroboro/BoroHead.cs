@@ -70,6 +70,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+
             //bools
             writer.Write(Enraged);
             writer.Write(segmentsSpawned);
@@ -83,6 +87,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+
             //bools
             Enraged = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();

@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Position = new Vector2(28f, 35f),
+                Position = new Vector2(6f, 6f),
                 PortraitPositionXOverride = -5f,
                 PortraitPositionYOverride = 6f
             };

@@ -64,6 +64,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //ints
             writer.Write(MoveSpeedX);
             writer.Write(MoveSpeedY);
+            writer.Write(SaveNPCPosition.X);
+            writer.Write(SaveNPCPosition.Y);
 
             //bools
             writer.Write(Phase2);
@@ -83,6 +85,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //ints
             MoveSpeedX = reader.ReadInt32();
             MoveSpeedY = reader.ReadInt32();
+            SaveNPCPosition.X = reader.ReadInt32();
+            SaveNPCPosition.Y = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();

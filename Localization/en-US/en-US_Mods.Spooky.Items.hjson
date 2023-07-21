@@ -202,6 +202,15 @@ FemurFracture: {
 		'''
 }
 
+FlameIdol: {
+	DisplayName: Idol of Flame
+	Tooltip:
+		'''
+		Hold down to fire out spreads of powerful lingering fire all over the place
+		However, the flame idol will also ignite you while using it
+		'''
+}
+
 GlowBulb: {
 	DisplayName: Bulb Bomb
 	Tooltip:
@@ -267,11 +276,7 @@ SpiritHorsemanLegs: {
 
 Horseshoe: {
 	DisplayName: Unlucky Horseshoe
-	Tooltip:
-		'''
-		Throws a returning horseshow
-		'Hope it's not cursed!'
-		'''
+	Tooltip: Throws a returning horseshoe
 }
 
 SpiritHandStaff: {
@@ -606,7 +611,7 @@ OldWoodLegs: {
 }
 
 WizardGangsterBody: {
-	DisplayName: Gilded Wizard Tunic
+	DisplayName: Gilded Mage Tunic
 	Tooltip: Increases your magic damage by 5
 }
 
@@ -621,7 +626,7 @@ WizardGangsterHead2: {
 }
 
 WizardGangsterLegs: {
-	DisplayName: Gilded Wizard Robe
+	DisplayName: Gilded Mage Robe
 	Tooltip: Increases maximum mana by 20
 }
 

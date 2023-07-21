@@ -101,9 +101,14 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-1", origin.ToPoint16(), Mod);
                             placedLootRoom1 = true;
                         }
-                        else
+                        else 
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                        }
+
+                        if (X == XMiddle)
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/EntranceRoom", origin.ToPoint16(), Mod);
                         }
                     }
 
@@ -151,7 +156,7 @@ namespace Spooky.Content.Generation
                                 placedMoyaiRoom = true;
                             }
                             //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(15))
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                             }
@@ -181,7 +186,7 @@ namespace Spooky.Content.Generation
                                 placedMoyaiRoom = true;
                             }
                             //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(15))
+                            else if (WorldGen.genRand.NextBool(8))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                             }
@@ -203,7 +208,7 @@ namespace Spooky.Content.Generation
                             placedMoyaiRoom = true;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(15))
+                        else if (WorldGen.genRand.NextBool(8))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
@@ -224,7 +229,7 @@ namespace Spooky.Content.Generation
                             placedMoyaiRoom = true;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(15))
+                        else if (WorldGen.genRand.NextBool(8))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
@@ -293,7 +298,7 @@ namespace Spooky.Content.Generation
 
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //240 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
-            int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
+            int layer2Width = Main.maxTilesX >= 8400 ? 240 : 160; //(Main.maxTilesX >= 6400 ? 160 : 80);
 
             //sets the height for the catacombs second layer (how many rooms it has vertically)
             //350 = large worlds (6 rooms deep), 300 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)

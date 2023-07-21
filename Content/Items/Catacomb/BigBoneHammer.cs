@@ -39,18 +39,6 @@ namespace Spooky.Content.Items.Catacomb
 			return true;
 		}
 
-		public override bool CanUseItem(Player player)
-		{
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj>()] > 0 || 
-			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerSwung>()] > 0 ||
-			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj2>()] > 0) 
-			{
-				return false;
-			}
-
-			return true;
-		}
-
 		public override void UseAnimation(Player player)
 		{
 			if (player.altFunctionUse == 2)
@@ -63,6 +51,18 @@ namespace Spooky.Content.Items.Catacomb
                 Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
 				Item.shootSpeed = 65f;
 			}
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj>()] > 0 || 
+			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerSwung>()] > 0 ||
+			player.ownedProjectileCounts[ModContent.ProjectileType<BigBoneHammerProj2>()] > 0) 
+			{
+				return false;
+			}
+
+			return true;
 		}
     }
 }

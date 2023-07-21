@@ -38,12 +38,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 50;
-            NPC.damage = 10;
+            NPC.damage = 20;
             NPC.defense = 0;
             NPC.width = 64;
             NPC.height = 50;
-			NPC.knockBackResist = 0.5f;
-			NPC.value = Item.buyPrice(0, 0, 0, 25);
+			NPC.knockBackResist = 0.4f;
+			NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit1;

@@ -35,7 +35,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             return false;
         }
 
-		public override bool PreAI()
+		public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -144,8 +144,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 			player.heldProj = Projectile.whoAmI;
 			player.itemTime = 1;
 			player.itemAnimation = 1;
-
-			return true;
 		}
 	}
 }

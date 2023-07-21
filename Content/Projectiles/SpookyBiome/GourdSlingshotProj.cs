@@ -35,7 +35,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             return false;
         }
 
-		public override bool PreAI()
+		public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -146,8 +146,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			player.heldProj = Projectile.whoAmI;
 			player.itemTime = 1;
 			player.itemAnimation = 1;
-
-			return true;
 		}
 	}
 }

@@ -804,7 +804,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								GoTo.X += 0f;
 								GoTo.Y -= 500;
 
-								float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 8, 16);
+								float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 20);
 								NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 							}
 

@@ -37,6 +37,16 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             Projectile.ai[0]++;
+
+            if (Projectile.ai[0] < 5)
+            {
+                Projectile.tileCollide = false;
+            }
+            else
+            {
+                Projectile.tileCollide = true;
+            }
+
             if (Projectile.ai[0] >= 20)
             {
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;

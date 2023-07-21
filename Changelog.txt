@@ -31,14 +31,22 @@ New Boss, Daffodil:
 Swampy Cemetery Aesthetic:
 
 -The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
--New structures have been added, and some worldgen modifications have been made to the biome
--The swampy cemetery worldgen also now scales with world size, bigger worlds will have a bigger cemetery biome
+-New structures have been added, and some worldgen modifications have been made to make the biome more interesting looking
+-The swampy cemetery worldgen also now scales with world size, where bigger worlds will have a bigger cemetery biome
 
 
 New Mini-Biome, The Mossy Mushroom Cave:
 
--New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow mushrooms and mushroom trees
+-New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow spooky mushrooms and spooky mushroom trees
 -Contains a few new exclusive enemies, and a new material which can be used to craft various new early game items
+
+
+Slingshot Sub-class:
+
+-Slingshot weapons are now a ranger subclass in spooky mod (Sorta?)
+-They use mossy pebbles as ammo, which are crafted from mossy stone in the spooky forest, or can be purchased from the merchant
+-Like some vanilla ranged weapons, some slingshots can convert mossy pebbles into their own unique projectile
+-The slingshots will likely be expanded more in the future, but for right now there isn't many of them, with only 3 existing in prehardmode
 
 
 Egg Incursion Rework:
@@ -46,37 +54,34 @@ Egg Incursion Rework:
 -The egg incursion has been reworked into an entirely new type of event that is more interesting and fun than before
 -When started, it will now create a ring of darkness around the egg, only allowing you to travel a certain distance away from the egg
 -The event now consists of waves of enemies that are spawned by chunks of biomass shot out of the egg, there is a total of 12 waves that each have different sets and amounts of enemies
--After you have completed the event once and defeated orro-boro for the first time, you can still rematch the event again but it will be much more difficult
+-After you have completed the event once and defeated orro-boro for the first time, you can rematch the event again but it will be much more difficult
 -The event also now has completely reworked and redesigned versions of previous enemies, as well as some new enemies that replace old ones which have been removed
 
 
-Slingshot Sub-class:
+The Lake of Blood:
 
--Slingshot weapons are now a ranger subclass in spooky mod (Sorta)
--They use mossy pebbles as ammo, which are crafted from mossy stone in the spooky forest, or can be purchased from the merchant
--Like some vanilla ranged weapons, certain slingshots can convert mossy pebbles into their own unique projectile
--The slingshots will likely be expanded more in the future, but for right now there isn't many of them
+-IRON LUNG UPDATE
 
 
 Config Improvements:
 
--Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more)
--The screen shake config is no longer an option that you turn off, it is now a slider that allows you to edit the intensity of the effect to your liking (More info is provided in game)
+-Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more, and I personally think it looks nicer tbh)
+-The screen shaking effect config is no longer an option that you turn off, it is now a slider that allows you to edit the intensity of it to your liking (More info is provided in game)
 
 
 Other New Additions:
 
--Added bungus, chunky fungus, and mushroom hoppers
+-Added bungus, chunky fungus, and mushroom hopper
 -Added pumpkin putty, hopping candy basket (list all other spooky forest enemies here as they are finished)
 -Added old wood greatsword, reinforced old wood bow, old wood slingshot, old wood staff, fungal flail, and spore smacker
 -Added Rotty's wrath, Jerry's Book of Stinkology, Stinky Slinger, and Branch of Gourd
+-Added the gilded mage armor set
 -Added the bustling glowshroom
--Added the femur fracturer
--Added the gilded armor set
+-Added the femur fracturer and idol of flame
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
+-Added the unlucky horseshoe, baby rattle, and (whatever the flesh entity summon item will be)
 -Added support for the 1.4.4 version of boss checklist
--Added the baby, the horse, and the flesh
 
 
 Localization File Split:
@@ -94,7 +99,7 @@ Localization File Split:
 ~CHANGES TO EXISTING CONTENT~
 
 
-Items:
+Items & Weapons:
 
 -Renamed loose soil to swamp soil
 -Renamed rocky soil to swamp rock
@@ -102,25 +107,28 @@ Items:
 -Buffed the use speed for the toilet paper and necromancy for dummies
 -Buffed the creepy candle's magic damage bonus from 5% to 7%
 -Increased the drop rate for the warlock's skull, warlock's cloak, and warlock's hood from zomboid warlocks
--Renamed the rotten chunk to moldy chunk, because rotten chunks are already an item in terraria
--Fixed moldy chunks stacking to 999 and not 9999
--Rotten gourd armor now requires old wood to craft along with the moldy chunks, and buffed the amount of defense each piece of the armor gives
+-Renamed the rotten chunk to moldy chunk, because rotten chunks are already an item in terraria, and fixed them stacking to 999 and not 9999
+-Rotten gourd armor now requires old wood to craft along with the moldy chunks, and buffed the amount of defense each piece of the armor gives you
 -Increased harvester's scythe knockback quite a bit
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 -Changed the sound effect for the skull smasher when it is ready to throw
 -Increased all orro & boro weapon sell prices because they were far too low
 -Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, now inflicts venom, pierces enemies, can no longer go through blocks, and has a cool new visual effect
--Nerfed gargoyle scepter base damage from 65 to 42, and the cursed fire balls shot by grug now inflict cursed flames
+-Nerfed the gargoyle scepter's base damage from 65 to 42, but the cursed fire balls shot by grug now inflict cursed inferno onto enemies
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
--Gator gun now has a new ability, it will sometimes vomit out bouncing meat giblets that can slightly home on enemies, and explode on enemy hits
--Conscious cutter and Tongueblade now have the 1.4.4 swing extension and visual effect
+-Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies, and explode on enemy hits
+-Conscious cutter and Tongueblade now have new swing extension visual effects (like 1.4.4 swords do)
 -Old hunter's crossbow arrows now have a cool visual trail
--Big bone's weapon drops can now be shimmered into its other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
--Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
--Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Pumpkin Head -> Chestmail -> Greaves -> back to Pumpkin Head
 -Simplified the tooltip description for the undying embryo
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
 -Removed the shadow cowbell and the shadow clump, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
+
+
+Shimmer Transmutations:
+
+-Big bone's weapon drops can now be shimmered into its other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
+-Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
+-Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Head -> Chestmail -> Greaves -> back to Head
 
 
 Enemies & Bosses:
@@ -135,7 +143,7 @@ Enemies & Bosses:
 -Made orro & boro's thorn pillars taller
 -Added a new visual effect for boro's acid breath attack
 -Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them, instead of only one
--Added a new spawn intro for rot gourd when he is summoned
+-Added a new spawn intro for rot gourd when he is summoned, where he will fall from the sky and slam down where you summoned him from
 -Added new sound effects for the cowbell entity
 
 
@@ -155,8 +163,9 @@ Miscellaneous:
 
 -Fixed the spooky scroll causing the player sprite direction to spaz out if your cursor was in the middle of your player
 -Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
--Fixed issue where spooky mod's custom tile drawing would draw horrible wrong if you are using retro or trippy lighting
--Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own placeable item
+-Fixed issue where spooky mod's custom tile drawing would draw horribly wrong if you used retro or trippy lighting modes
+-Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own item
+-Fixed bug where you could switch items in your hotbar while using the skull smasher's right click ability
 -Fixed rot gourd not spawning with flies correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer
 

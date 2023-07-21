@@ -38,8 +38,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             Player player = Main.player[Projectile.owner];
 
-            player.statDefense += 1;
-
             Projectile.timeLeft = 500;
 
             Projectile.frameCounter++;

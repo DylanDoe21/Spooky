@@ -46,6 +46,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Projectile.ai[0]++;
 
+            if (Projectile.ai[0] < 5)
+            {
+                Projectile.tileCollide = false;
+            }
+            else
+            {
+                Projectile.tileCollide = true;
+            }
+
             //slow down
             if (Projectile.ai[0] >= 75)
             {
@@ -129,23 +138,19 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Main.dust[dustGore].noGravity = true;
 			}
 
-            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
-
-            int[] Type = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
+            int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
 
             for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
             {
-                Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
+                Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
+                Vector2 realSpeed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
                 Vector2 Position = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-50, 50));
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    int greekFire = Projectile.NewProjectile(Projectile.GetSource_Death(), Position, speed, 
-                    Main.rand.Next(Type), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
-                    Main.projectile[greekFire].DamageType = DamageClass.Melee;
-                    Main.projectile[greekFire].friendly = true;
-                    Main.projectile[greekFire].hostile = false;
-                }
+                int GreekFire = Projectile.NewProjectile(Projectile.GetSource_Death(), Position, realSpeed, 
+                Main.rand.Next(Types), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
+                Main.projectile[GreekFire].DamageType = DamageClass.Melee;
+                Main.projectile[GreekFire].friendly = true;
+                Main.projectile[GreekFire].hostile = false;
             }
 
             for (int numExplosion = 0; numExplosion < 15; numExplosion++)
