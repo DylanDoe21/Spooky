@@ -15,7 +15,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         public static readonly SoundStyle CalamityBellSound = new("Spooky/Content/Sounds/BrickBonkBell", SoundType.Sound) { PitchVariance = 0.6f };
 
         public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
-		public static bool CalamityMod(out Mod calamityMod) => ModLoader.TryGetMod("CalamityMod", out calamityMod);
 
         public override void SetDefaults()
         {

@@ -471,7 +471,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 500)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
+                        NPC.ai[0] = 0;
                         NPC.netUpdate = true;
                     }
 
@@ -479,7 +479,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
                 
                 //hand attack
-                //either punch the player, or grab the player (grabbing can be avoided by going hiding under the outposts in the arena)
+                //solar death beams (grabbing can be avoided by going hiding under the outposts in the arena)
+                //this is still WIP, it does not function yet
                 case 5:
                 {
                     if (NPC.localAI[0] == 155)

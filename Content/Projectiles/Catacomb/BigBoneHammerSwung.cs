@@ -217,10 +217,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.Kill();
             }
-
-            owner.heldProj = Projectile.whoAmI;
-			owner.itemTime = 1;
-			owner.itemAnimation = -1;
         }
 
         public void SetProjectilePosition(Player owner)
