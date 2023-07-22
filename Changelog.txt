@@ -165,7 +165,7 @@ Miscellaneous:
 -Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
 -Fixed issue where spooky mod's custom tile drawing would draw horribly wrong if you used retro or trippy lighting modes
 -Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own item
--Fixed bug where you could switch items in your hotbar while using the skull smasher's right click ability
+-Fixed the rotten gourd armor's set bonus not working
 -Fixed rot gourd not spawning with flies correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer
 

@@ -132,25 +132,25 @@ namespace Spooky.Content.NPCs.SpookyHell
                     }
 
                     //flies to players X position
-                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -40) 
+                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -65) 
                     {
-                        MoveSpeedX -= 3;
+                        MoveSpeedX--;
                     }
-                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 40)
+                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 65)
                     {
-                        MoveSpeedX += 3;
+                        MoveSpeedX++;
                     }
 
                     NPC.velocity.X = MoveSpeedX * 0.1f;
                     
                     //flies to players Y position
-                    if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -20)
+                    if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -30)
                     {
-                        MoveSpeedY--;
+                        MoveSpeedY -= 2;
                     }
-                    else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= 20)
+                    else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= 30)
                     {
-                        MoveSpeedY++;
+                        MoveSpeedY += 2;
                     }
 
                     NPC.velocity.Y = MoveSpeedY * 0.1f;

@@ -35,7 +35,7 @@ namespace Spooky.Content.Buffs.Debuff
                     npc.lifeRegen = 0;
                 }
 
-                npc.lifeRegen -= 10;
+                npc.lifeRegen -= 5;
 
 				if (npc.buffTime[buffIndex] < 1800 && npc.buffTime[buffIndex] > 5)
 				{

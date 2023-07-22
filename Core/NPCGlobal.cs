@@ -149,7 +149,7 @@ namespace Spooky.Core
 			}
 
 			//inflict enemies with gourd decay while wearing the rotten gourd armor
-			if (player.GetModPlayer<SpookyPlayer>().GourdSet && item.DamageType == DamageClass.Melee)
+			if (player.GetModPlayer<SpookyPlayer>().GourdSet && hit.DamageType == DamageClass.Melee)
 			{
 				if (Main.rand.NextBool(8))
 				{
