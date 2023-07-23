@@ -73,26 +73,27 @@ namespace Spooky.Content.Generation
                     Tile tileLeft = Main.tile[X - 1, Y];
                     Tile tileRight = Main.tile[X + 1, Y];
 
-                    //place dirt blocks
+                    //place cemetery dirt blocks on crimstone and ebonstone walls because they are annoying
+                    if (!tile.HasTile && (tile.WallType == WallID.EbonstoneUnsafe || tile.WallType == WallID.CrimstoneUnsafe))
+                    {
+                        WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<CemeteryDirt>());
+                    }
+
+                    //convert all tiles into cemetery dirt
                     if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
                     {
                         tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
                     }
 
-                    //place dirt blocks where walls exist to prevent unwanted craters or caves
+                    //reaplce walls with cemetery grass walls
                     if (tile.WallType > 0)
                     {
                         tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
                     }
-
-                    if (tile.WallType > 0)
-                    {
-
-                    }
                 }
 
-                //fill in right above the world surface to prevent weird holes that just get stopped by the catacombs
-                for (int FillY = (int)Main.worldSurface - 35; FillY <= Main.worldSurface; FillY++)
+                //place block clusters right above the world surface to prevent the cemetery from generating too low
+                for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY++)
                 {
                     SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }
@@ -117,7 +118,7 @@ namespace Spooky.Content.Generation
                             tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
                         }
 
-                        //place dirt blocks where walls exist to prevent unwanted craters or caves
+                        //reaplce walls with cemetery grass walls
                         if (tile.WallType > 0)
                         {
                             tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
@@ -210,16 +211,29 @@ namespace Spooky.Content.Generation
 
             int StartPosY = Catacombs.PositionY - 55;
 
+            //graveyards
+            GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-1", 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-2", 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-3", 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "Graveyard-4", 12, 8);
+
             //first ruined house
             GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
 
             //catacomb entrance
-            GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 32);
+            GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 25);
 
             //second ruined house
             GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
+
+            //graveyards
+            GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-5", 14, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-6", 12, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-3", 12, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-2", 12, 8);
         }
 
+        //method for finding a valid surface and placing the structure on it
         public void GenerateStructure(int startX, int startY, string StructureFile, int offsetX, int offsetY)
         {
             bool placed = false;
@@ -230,7 +244,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (!Main.tile[startX, startY].HasTile || Main.tile[startX, startY].WallType == WallID.EbonstoneUnsafe)
+                if (!Main.tile[startX, startY].HasTile)
                 {
 					continue;
                 }
@@ -238,6 +252,7 @@ namespace Spooky.Content.Generation
                 Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
                 Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
 
+                //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
                 if (StructureFile == "CemeteryEntrance")
                 {
                     Catacombs.EntranceY = startY - 37;

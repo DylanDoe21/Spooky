@@ -187,7 +187,7 @@ CrossCharm: {
 	Tooltip:
 		'''
 		Grants you a magic cross that reduces damage the next time you are hit
-		After being hit, the the cross will disappear and regenerate after ten seconds
+		After being hit, the cross will disappear and regenerate after ten seconds
 		'''
 }
 
@@ -1970,5 +1970,15 @@ CatacombBrickWall2Item: {
 
 SpookyMushLakeWallItem: {
 	DisplayName: Spooky Mush Lake Wall Item
+	Tooltip: ""
+}
+
+BoogerFish: {
+	DisplayName: Booger Fish
+	Tooltip: ""
+}
+
+OrroEel: {
+	DisplayName: Orro Eel
 	Tooltip: ""
 }

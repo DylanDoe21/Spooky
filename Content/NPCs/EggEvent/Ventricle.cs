@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.EggEvent
         int repeats = Main.rand.Next(2, 4);
 
         Vector2 SaveLocation;
-        Vector2 SavePlayerLocation;
+        Vector2 SavePlayerPosition;
         
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/EggEvent/VentricleBestiary",
+                Rotation = MathHelper.PiOver2,
                 Position = new Vector2(12f, 0f),
                 PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = -4f
@@ -46,12 +46,26 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(SaveLocation.X);
+            writer.Write(SaveLocation.Y);
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            SaveLocation.X = reader.ReadInt32();
+            SaveLocation.Y = reader.ReadInt32();
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }

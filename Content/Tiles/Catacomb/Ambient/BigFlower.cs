@@ -27,8 +27,8 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(31, 85, 37), name);
-            DustType = DustID.Slush;
-			HitSound = SoundID.Dig;
+            DustType = DustID.Grass;
+			HitSound = SoundID.Grass;
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

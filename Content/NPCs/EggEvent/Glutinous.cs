@@ -19,8 +19,6 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Glutinous : ModNPC  
     {
-        public int SaveDirection;
-
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
 
@@ -28,6 +26,14 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(6f, 6f),
+                PortraitPositionXOverride = 6f,
+                PortraitPositionYOverride = 6f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

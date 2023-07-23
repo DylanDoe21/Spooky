@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Hallucinations/TheBabyBestiary",
+                Rotation = MathHelper.PiOver2,
                 Position = new Vector2(34f, 0f),
                 PortraitPositionXOverride = 10f,
                 PortraitPositionYOverride = 0f

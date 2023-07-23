@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Catacomb/CatacombGuardianBestiary",
+                Rotation = MathHelper.PiOver2,
                 Position = new Vector2(34f, 0f),
                 PortraitPositionXOverride = 8f,
                 PortraitPositionYOverride = -8f
@@ -66,7 +66,7 @@ namespace Spooky.Content.NPCs.Catacomb
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 11;
 			AIType = NPCID.DungeonGuardian;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.CatacombBiome>().Type, ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -77,7 +77,8 @@ namespace Spooky.Content.NPCs.Catacomb
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CatacombGuardian"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

@@ -38,6 +38,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public float SaveRotation;
         public float ScaleAmount = 0f;
         public float RealScaleAmount = 0f;
+        
         public bool Phase2 = false;
         public bool Transition = false;
         public bool FlowersSpawned = false;
@@ -439,8 +440,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //despawn if all players are dead
             if (player.dead)
             {
-                NPC.ai[2]++;
-                if (NPC.ai[2] >= 60)
+                NPC.localAI[3]++;
+                if (NPC.localAI[3] >= 60)
                 {
                     for (int k = 0; k < Main.projectile.Length; k++)
                     {

@@ -26,12 +26,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     [AutoloadBossHead]
     public class OrroHead : ModNPC
     {
-        Vector2 SavePlayerPosition;
-        
+        private bool segmentsSpawned;
         public bool Enraged = false;
         public bool Chomp = false;
         public bool OpenMouth = false;
-        private bool segmentsSpawned;
+        
+        Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             writer.Write(OpenMouth);
             writer.Write(segmentsSpawned);
 
-            //local ai
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             OpenMouth = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
 
-            //local ai
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();

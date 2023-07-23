@@ -26,12 +26,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 	[AutoloadBossHead]
 	public class RotGourd : ModNPC
 	{
-		Vector2 SavePlayerPosition;
-
 		public bool HasSpawnedFlies = false;
 		public bool FirstFlySpawned = false;
 		public bool SecondFlySpawned = false;
 		public bool ThirdFlySpawned = false;
+
+		Vector2 SavePlayerPosition;
 
 		public override void SetStaticDefaults()
 		{
@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             writer.Write(SecondFlySpawned);
             writer.Write(ThirdFlySpawned);
 
-			//local ai
+			//floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             SecondFlySpawned = reader.ReadBoolean();
             ThirdFlySpawned = reader.ReadBoolean();
 
-			//local ai
+			//floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();

@@ -25,14 +25,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
     [AutoloadBossHead]
     public class Moco : ModNPC
     {
+        public int MoveSpeedX = 0;
+		public int MoveSpeedY = 0;
+
         public bool Phase2 = false;
         public bool Transition = false;
         public bool Sneezing = false;
         public bool SwitchedSides = false;
         public bool AfterImages = false;
-
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
 
         Vector2 SaveNPCPosition;
 
@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             writer.Write(SwitchedSides);
             writer.Write(AfterImages);
 
-            //local ai
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -95,7 +95,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             SwitchedSides = reader.ReadBoolean();
             AfterImages = reader.ReadBoolean();
 
-            //local ai
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -244,7 +244,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                 NPC.localAI[2]++;
 
-                if (NPC.localAI[2] >= 180)
+                if (NPC.localAI[2] >= 120)
                 {
                     NPC.active = false;
                 }
@@ -358,6 +358,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         if (NPC.localAI[0] >= 300)
                         {
+                            MoveSpeedX = 0;
+                            MoveSpeedY = 0;
+
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
                             NPC.netUpdate = true;
@@ -677,8 +680,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed.X *= 12f;
-                            ShootSpeed.Y *= 12f;
+                            ShootSpeed *= 12f;
 
                             float Spread = Main.rand.Next(-1, 1);
 

@@ -47,11 +47,12 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SendExtraAI(BinaryWriter writer)
         {
             //ints
+            writer.Write(aura);
             writer.Write(repeats);
             writer.Write(SavePlayerPosition.X);
             writer.Write(SavePlayerPosition.Y);
 
-            //local ai
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
@@ -59,11 +60,12 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //ints
+            aura = reader.ReadInt32();
             repeats = reader.ReadInt32();
             SavePlayerPosition.X = reader.ReadInt32();
             SavePlayerPosition.Y = reader.ReadInt32();
 
-            //local ai
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }

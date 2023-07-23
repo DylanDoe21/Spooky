@@ -59,6 +59,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //save point for solar beams
+            for (int i = 0; i <= SavePoint.Length; i++)
+            {
+                writer.Write(SavePoint[i].X);
+                writer.Write(SavePoint[i].Y);
+            }
+
             //ints
             writer.Write(SavePlayerPosition.X);
             writer.Write(SavePlayerPosition.Y);
@@ -67,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             writer.Write(Phase2);
             writer.Write(SpawnedHands);
 
-            //local ai
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -75,6 +82,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //save point for solar beams
+            for (int i = 0; i <= SavePoint.Length; i++)
+            {
+                SavePoint[i].X = reader.ReadInt32();
+                SavePoint[i].Y = reader.ReadInt32();
+            }
+
             //ints
             SavePlayerPosition.X = reader.ReadInt32();
             SavePlayerPosition.Y = reader.ReadInt32();
@@ -83,7 +97,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             Phase2 = reader.ReadBoolean();
             SpawnedHands = reader.ReadBoolean();
 
-            //local ai
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();

@@ -84,12 +84,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
-            {
-                Main.LocalPlayer.AddBuff(BuffID.WitheredArmor, 300);
-                Main.LocalPlayer.AddBuff(BuffID.WitheredWeapon, 300);
-            }
-
             for (int i = 0; i <= Main.maxPlayers; i++)
             {
                 if (Main.player[i].active && !Main.player[i].dead)

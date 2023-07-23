@@ -84,10 +84,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             if (player.active && !player.dead)
-            {
-                float distance = player.Distance(Projectile.Center);
-                
-                if (distance <= 500)
+            {   
+                if (player.Distance(Projectile.Center) <= 500)
                 {
                     player.AddBuff(ModContent.BuffType<SkullTotemBuff>(), 2);
                 }

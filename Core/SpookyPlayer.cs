@@ -11,12 +11,16 @@ using System.Collections.Generic;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.Fishing;
 using Spooky.Content.NPCs.Hallucinations;
+using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell.Tree;
 
 namespace Spooky.Core
 {
@@ -450,71 +454,75 @@ namespace Spooky.Core
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
             //fishing stuff for spooky mod crates
-            bool inWater = !attempt.inLava && !attempt.inHoney;
-            bool inSpookyBiome = Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>();
-            bool inCatacombArea = Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>();
-            bool inEyeValley = Player.InModBiome<SpookyHellBiome>();
-
-            if (inWater && attempt.crate)
+            if (!attempt.inLava && !attempt.inHoney && attempt.crate)
             {
                 if (!attempt.legendary && !attempt.veryrare && attempt.rare)
                 {
-                    if (inSpookyBiome)
+                    if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                     {
                         sonar.Text = "Spooky Crate";
                         sonar.Color = Color.Green;
                         sonar.Velocity = Vector2.Zero;
                         sonar.DurationInFrames = 300;
-
                         itemDrop = ModContent.ItemType<SpookyCrate>();
+
                         return;
                     }
 
-                    if (inCatacombArea)
+                    if (Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
                     {
                         sonar.Text = "Skull Crate";
                         sonar.Color = Color.Green;
                         sonar.Velocity = Vector2.Zero;
                         sonar.DurationInFrames = 300;
-
                         itemDrop = ModContent.ItemType<CatacombCrate>();
+
                         return;
                     }
                 }
             }
 
-            int bobberIndex = -1;
+            //do not allow alternate blood moon enemy catches if any of the enemies exist already
+            bool EnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>());
 
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            //alternate blood moon enemy catches
+            if (Player.InModBiome<SpookyHellBiome>() && !EnemiesExist)
             {
-				if (Main.projectile[i].active && Main.projectile[i].owner == Player.whoAmI && Main.projectile[i].bobber)
+                //misc stuff you can fish from the blood lake
+                int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
+                ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
+
+                if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.uncommon)
                 {
-					bobberIndex = i;
+                    itemDrop = ModContent.ItemType<BoogerFish>();
+
+                    return;
                 }
-            }
 
-            //TODO: implement all the blood moon fishing enemy stuff here
-			if (bobberIndex != -1)
-			{
-				Vector2 bobberPos = Main.projectile[bobberIndex].Center;
+                //peeper fish
+                if (Main.rand.NextBool(10))
+                {
+                    npcSpawn = ModContent.NPCType<ValleyFish>();
 
-				if (inEyeValley)
-				{
-                    /*
-                    if (Main.rand.NextBool(20))
-                    {
-                        int newNPC = NPC.NewNPC((int)bobberPos.X, (int)bobberPos.Y, ModContent.NPCType<Whatever>(), 0, 0, 0, 0, 0, Main.myPlayer);
-                        
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, newNPC);
-                        }
+                    return;
+                }
 
-                        caughtType = ItemID.None;
-                        return;
-                    }
-                    */
-				}
+                //clot squid
+                if (Main.rand.NextBool(15))
+                {
+                    npcSpawn = ModContent.NPCType<ValleySquid>();
+
+                    return;
+                }
+
+                //claret cephalopod
+                if (Flags.downedOrroboro && Main.rand.NextBool(20))
+                {
+                    npcSpawn = ModContent.NPCType<ValleyNautilus>();
+
+                    return;
+                }
             }
         }
     }

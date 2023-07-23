@@ -36,8 +36,8 @@ namespace Spooky.Core
                     return false;
                 }
 
-                //disable the use of buckets and sponges
-                int[] LiquidItems = { 205, 206, 207, 1128, 3031, 4820, 5302, 5364, 3032, 4872, 5303, 5304 };
+                //disable the use of buckets
+                int[] LiquidItems = { 205, 206, 207, 1128, 3031, 4820, 5302, 5364 };
 
                 if (LiquidItems.Contains(item.type))
                 {

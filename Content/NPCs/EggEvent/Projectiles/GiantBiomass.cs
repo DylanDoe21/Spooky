@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             //spawn vanilla blood dust
             for (int numDust = 0; numDust < 75; numDust++)
             {
-                int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 1f);
+                int newDust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Blood, 0f, 0f, 100, default, 1f);
                 Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
                 Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
                 Main.dust[newDust].scale *= Main.rand.NextFloat(1.8f, 2.5f);

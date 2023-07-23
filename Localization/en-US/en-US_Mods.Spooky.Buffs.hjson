@@ -97,7 +97,7 @@ FleshWhipDefense2: {
 }
 
 FlyCooldown: {
-	DisplayName: Fly Amulet Recharge
+	DisplayName: Fly Charm Recharge
 	Description: Your defensive flies cannot respawn
 }
 

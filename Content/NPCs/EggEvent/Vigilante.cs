@@ -19,13 +19,13 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Vigilante : ModNPC
     {
+        int repeats = Main.rand.Next(2, 5);
+
         public int SaveDirection;
         public float SaveRotation;
 
-        int repeats = Main.rand.Next(2, 5);
-
-        Vector2 SaveLocation;
-        Vector2 SavePlayerLocation;
+        Vector2 SavePosition;
+        Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/EggEvent/VigilanteBestiary",
+                Rotation = MathHelper.PiOver2,
                 Position = new Vector2(12f, -12f),
                 PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = 0f
@@ -50,12 +50,32 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(repeats);
+            writer.Write(SaveDirection);
+            writer.Write(SavePosition.X);
+            writer.Write(SavePosition.X);
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
+
+            //floats
+            writer.Write(SaveRotation);
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            repeats = reader.ReadInt32();
+            SaveDirection = reader.ReadInt32();
+            SavePosition.X = reader.ReadInt32();
+            SavePosition.X = reader.ReadInt32();
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
+
+            //floats
+            SaveRotation = reader.ReadSingle();
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }
@@ -163,12 +183,12 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         if (NPC.localAI[0] == 5)
                         {
-                            SaveLocation = new Vector2(player.Center.X + Main.rand.Next(-270, 270), player.Center.Y - Main.rand.Next(180, 220));
+                            SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-270, 270), player.Center.Y - Main.rand.Next(180, 220));
                         }
 
-                        if (NPC.localAI[0] <= 120)
+                        if (NPC.localAI[0] > 5 && NPC.localAI[0] <= 120)
                         {
-                            Vector2 GoTo = SaveLocation;
+                            Vector2 GoTo = SavePlayerPosition;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(7, 12));
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -205,18 +225,18 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         NPC.velocity *= 0;
 
-                        SaveLocation = NPC.Center;
+                        SavePosition = NPC.Center;
                     }
 
                     if (NPC.localAI[0] > 5 && NPC.localAI[0] < 65)
                     {
-                        NPC.Center = new Vector2(SaveLocation.X, SaveLocation.Y);
+                        NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-7, 7);
                     }
 
                     if (NPC.localAI[0] == 70)
                     {
-                        SavePlayerLocation = player.Center;
+                        SavePlayerPosition = player.Center;
                     }
 
                     //save rotation before charging 
@@ -231,7 +251,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                        Vector2 ChargeDirection = SavePlayerLocation - NPC.Center;
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
                                 
                         ChargeDirection *= Main.rand.Next(45, 50);

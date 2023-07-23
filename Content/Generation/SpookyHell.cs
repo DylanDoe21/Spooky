@@ -439,6 +439,7 @@ namespace Spooky.Content.Generation
             }
         }
 
+        //method for finding a valid surface and placing the structure on it
         public void GenerateStructure(int startX, int startY, string StructureFile, int offsetX, int offsetY)
         {
             bool placed = false;

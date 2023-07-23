@@ -84,7 +84,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             writer.Write(StopSpinning);
             writer.Write(Phase2);
 
-            //local ai
+            //floats
+            writer.Write(rotate);
+            writer.Write(SpinX);
+            writer.Write(SpinY);
+            writer.Write(alpha);
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -105,7 +109,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             StopSpinning = reader.ReadBoolean();
             Phase2 = reader.ReadBoolean();
 
-            //local ai
+            //floats
+            rotate = reader.ReadSingle();
+            SpinX = reader.ReadSingle();
+            SpinY = reader.ReadSingle();
+            alpha = reader.ReadSingle();
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -295,6 +303,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                         if (NPC.localAI[0] >= 300)
                         {
+                            MoveSpeedX = 0;
+                            MoveSpeedY = 0;
+
                             NPC.localAI[0] = 0;
                             NPC.ai[0]++;
                             NPC.netUpdate = true;

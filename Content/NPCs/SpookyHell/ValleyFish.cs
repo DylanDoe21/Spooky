@@ -6,11 +6,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
@@ -22,6 +19,14 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 7;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                SpriteDirection = 1
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -30,9 +35,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             writer.Write(MoveSpeedX);
             writer.Write(MoveSpeedY);
 
-            //local ai
+            //floats
             writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -41,21 +45,20 @@ namespace Spooky.Content.NPCs.SpookyHell
             MoveSpeedX = reader.ReadInt32();
             MoveSpeedY = reader.ReadInt32();
 
-            //local ai
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
         {
             NPC.lifeMax = 600;
-            NPC.damage = 45;
+            NPC.damage = 40;
             NPC.defense = 18;
             NPC.width = 38;
             NPC.height = 34;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 1, 0, 0);
+            NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit8;
@@ -71,6 +74,25 @@ namespace Spooky.Content.NPCs.SpookyHell
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ValleyFish"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
+		}
+        
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+			if (NPC.ai[0] == 1) 
+			{
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+
+				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+				{
+					var effects = NPC.velocity.X > 0f ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
+					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+				}
+			}
+            
+            return true;
 		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -103,7 +125,14 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
             
-            //NPC.spriteDirection = NPC.direction;
+            NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
+            
+            NPC.rotation = NPC.velocity.ToRotation();
+
+            if (NPC.spriteDirection == 1)
+            {
+                NPC.rotation += MathHelper.Pi;
+            }
 
             /*
             //EoC rotation
@@ -113,23 +142,12 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
             */
 
-            /*
-            //rotation to face where the npc is going
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            */
-
             switch ((int)NPC.ai[0])
             {
                 //fly to the player for a short time
                 case 0:
                 {
-                    NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
-                    NPC.rotation = NPC.velocity.ToRotation();
-
-                    if (NPC.spriteDirection == 1)
-                    {
-                        NPC.rotation += MathHelper.Pi;
-                    }
+                    NPC.localAI[0]++;
 
                     //flies to players X position
                     if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -65) 
@@ -155,12 +173,64 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     NPC.velocity.Y = MoveSpeedY * 0.1f;
 
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        MoveSpeedX = 0;
+                        MoveSpeedY = 0;
+
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
                 //go to a location and then charge at the player
                 case 1:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60)
+                    {
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += (NPC.Center.X < player.Center.X) ? -280 : 280;
+                        GoTo.Y -= 50;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 3, 8);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        NPC.velocity *= 0.2f;
+                    }
+
+                    if (NPC.localAI[0] == 70)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                        Vector2 ChargeDirection = player.Center - NPC.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection *= 35;
+                        NPC.velocity = ChargeDirection;
+                    }
+
+                    if (NPC.localAI[0] >= 80)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    if (NPC.localAI[0] >= 100)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
             }
