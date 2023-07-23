@@ -483,19 +483,19 @@ namespace Spooky.Core
             }
 
             //do not allow alternate blood moon enemy catches if any of the enemies exist already
-            bool EnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
+            bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
             NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>());
 
-            //misc stuff you can fish from the blood lake
-            //this is temporary for right now
-            int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
-            ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
-
-            itemDrop = Main.rand.Next(BloodLakeItems);
-
             //alternate blood moon enemy catches
-            if (Player.InModBiome<SpookyHellBiome>() && !EnemiesExist)
+            if (Player.InModBiome<SpookyHellBiome>())
             {
+                //misc stuff you can fish from the blood lake
+                //this is temporary for right now
+                int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
+                ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
+
+                itemDrop = Main.rand.Next(BloodLakeItems);
+
                 if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.rare)
                 {
                     itemDrop = ModContent.ItemType<BoogerFish>();
@@ -510,28 +510,31 @@ namespace Spooky.Core
                     return;
                 }
 
-                //peeper fish
-                if (Main.rand.NextBool(10))
+                if (!BloodFishingEnemiesExist)
                 {
-                    npcSpawn = ModContent.NPCType<ValleyFish>();
+                    //peeper fish
+                    if (Main.rand.NextBool(10))
+                    {
+                        npcSpawn = ModContent.NPCType<ValleyFish>();
 
-                    return;
-                }
+                        return;
+                    }
 
-                //clot squid
-                if (Main.rand.NextBool(20))
-                {
-                    npcSpawn = ModContent.NPCType<ValleySquid>();
+                    //clot squid
+                    if (Main.rand.NextBool(20))
+                    {
+                        npcSpawn = ModContent.NPCType<ValleySquid>();
 
-                    return;
-                }
+                        return;
+                    }
 
-                //claret cephalopod
-                if (Flags.downedOrroboro && Main.rand.NextBool(30))
-                {
-                    npcSpawn = ModContent.NPCType<ValleyNautilus>();
+                    //claret cephalopod
+                    if (Flags.downedOrroboro && Main.rand.NextBool(30))
+                    {
+                        npcSpawn = ModContent.NPCType<ValleyNautilus>();
 
-                    return;
+                        return;
+                    }
                 }
             }
         }
