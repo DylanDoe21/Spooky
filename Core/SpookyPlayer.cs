@@ -493,15 +493,22 @@ namespace Spooky.Core
                 int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
                 ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
 
-                if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.uncommon)
+                if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.rare)
                 {
                     itemDrop = ModContent.ItemType<BoogerFish>();
 
                     return;
                 }
 
+                if (attempt.questFish == ModContent.ItemType<OrroEel>() && attempt.rare)
+                {
+                    itemDrop = ModContent.ItemType<OrroEel>();
+
+                    return;
+                }
+
                 //peeper fish
-                if (Main.rand.NextBool(10))
+                if (Main.rand.NextBool(12))
                 {
                     npcSpawn = ModContent.NPCType<ValleyFish>();
 
@@ -509,7 +516,7 @@ namespace Spooky.Core
                 }
 
                 //clot squid
-                if (Main.rand.NextBool(15))
+                if (Main.rand.NextBool(20))
                 {
                     npcSpawn = ModContent.NPCType<ValleySquid>();
 
@@ -517,7 +524,7 @@ namespace Spooky.Core
                 }
 
                 //claret cephalopod
-                if (Flags.downedOrroboro && Main.rand.NextBool(20))
+                if (Flags.downedOrroboro && Main.rand.NextBool(30))
                 {
                     npcSpawn = ModContent.NPCType<ValleyNautilus>();
 

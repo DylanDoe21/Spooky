@@ -246,6 +246,12 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            //vampire frog staff
+            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 4));
+
+            //blood rain bow
+            npcLoot.Add(ItemDropRule.Common(ItemID.BloodRainBow, 4));
+
             //blood moon monolith
             npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 10));
 

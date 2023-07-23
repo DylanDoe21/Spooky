@@ -471,22 +471,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-7, 7);
                     }
-
-                    //if the player attempts to run too far away while spinning then move towards them, otherwise stay still
-                    if (NPC.localAI[0] > 100)
-                    {
-                        if (player.Distance(NPC.Center) > 550f)
-                        {
-                            Vector2 GoTo = player.Center;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 15);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-                        else
-                        {
-                            NPC.velocity *= 0.2f;
-                        }
-                    }
                     
                     //make spin speed accelerate and deaccelerate
                     if (NPC.localAI[0] > 100 && NPC.localAI[0] < 200)
@@ -509,6 +493,19 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (NPC.localAI[0] > 100 && NPC.localAI[0] < 350)
                     {
                         NPC.rotation += (1f * SpinMultiplier) * (float)NPC.direction;
+
+                        //if the player attempts to run too far away while spinning then move towards them, otherwise stay still
+                        if (player.Distance(NPC.Center) > 550f)
+                        {
+                            Vector2 GoTo = player.Center;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 8, 12);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+                        else
+                        {
+                            NPC.velocity *= 0.2f;
+                        }
 
                         if (Main.rand.NextBool((int)NPC.localAI[1]))
                         {

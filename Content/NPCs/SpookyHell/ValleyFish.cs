@@ -236,6 +236,18 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            //vampire frog staff
+            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 6));
+
+            //blood rain bow
+            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 6));
+
+            //chum buckets
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 4, 2, 3));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
