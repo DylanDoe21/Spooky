@@ -125,7 +125,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 25;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -217,7 +217,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 7;
+                        ShootSpeed *= 5.5f;
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
                         Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -247,16 +247,16 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //vampire frog staff
-            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 4));
+            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 3));
 
             //blood rain bow
-            npcLoot.Add(ItemDropRule.Common(ItemID.BloodRainBow, 4));
+            npcLoot.Add(ItemDropRule.Common(ItemID.BloodRainBow, 3));
 
             //blood moon monolith
             npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 10));
 
             //chum buckets
-            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 3, 2, 5));
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 2, 5));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

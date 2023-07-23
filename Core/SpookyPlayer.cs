@@ -486,13 +486,16 @@ namespace Spooky.Core
             bool EnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
             NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>());
 
+            //misc stuff you can fish from the blood lake
+            //this is temporary for right now
+            int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
+            ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
+
+            itemDrop = Main.rand.Next(BloodLakeItems);
+
             //alternate blood moon enemy catches
             if (Player.InModBiome<SpookyHellBiome>() && !EnemiesExist)
             {
-                //misc stuff you can fish from the blood lake
-                int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
-                ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
-
                 if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.rare)
                 {
                     itemDrop = ModContent.ItemType<BoogerFish>();
@@ -508,7 +511,7 @@ namespace Spooky.Core
                 }
 
                 //peeper fish
-                if (Main.rand.NextBool(12))
+                if (Main.rand.NextBool(10))
                 {
                     npcSpawn = ModContent.NPCType<ValleyFish>();
 
