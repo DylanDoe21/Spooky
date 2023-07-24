@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -65,6 +66,11 @@ namespace Spooky.Content.NPCs.SpookyHell
 			NPC.DeathSound = SoundID.NPCDeath22;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
+        }
+
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.9f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -133,14 +139,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             {
                 NPC.rotation += MathHelper.Pi;
             }
-
-            /*
-            //EoC rotation
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = player.Center.X - vector.X;
-            float RotateY = player.Center.Y - vector.Y;
-            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-            */
 
             switch ((int)NPC.ai[0])
             {
@@ -213,7 +211,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();
-                                
                         ChargeDirection *= 35;
                         NPC.velocity = ChargeDirection;
                     }

@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
@@ -33,6 +34,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -284,7 +286,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                     {
                         Vector2 Recoil = player.Center - NPC.Center;
                         Recoil.Normalize(); 
-
                         Recoil *= -2;
                         NPC.velocity = Recoil;
 
@@ -384,7 +385,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-                                    
                             ChargeDirection *= 55;
                             NPC.velocity = ChargeDirection;
 
@@ -444,6 +444,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 {
                     NPC.localAI[0]++;
 
+                    //go above the player
                     if (NPC.localAI[0] > 5 && NPC.localAI[0] < 75)
                     {
                         Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
@@ -472,7 +473,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.Center += Main.rand.NextVector2Square(-7, 7);
                     }
                     
-                    //make spin speed accelerate and deaccelerate
+                    //make spin speed accelerate and deaccelerate when needed
                     if (NPC.localAI[0] > 100 && NPC.localAI[0] < 200)
                     {
                         if (NPC.localAI[1] > 2)
@@ -527,7 +528,17 @@ namespace Spooky.Content.NPCs.SpookyHell
                         SpinMultiplier = 0f;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
-                        NPC.ai[0] = 1;
+
+                        //switch attacks depending on condition
+                        //do not switch to the squid summoning attack if any squid clones exist
+                        if (!NPC.AnyNPCs(ModContent.NPCType<ValleySquidClone>()))
+                        {
+                            NPC.ai[0]++;
+                        }
+                        else
+                        {
+                            NPC.ai[0] = 1;
+                        }
 
                         NPC.netUpdate = true;
                     }
@@ -540,6 +551,64 @@ namespace Spooky.Content.NPCs.SpookyHell
                 {
                     NPC.localAI[0]++;
 
+                    if (NPC.localAI[0] > 5 && NPC.localAI[0] < 75)
+                    {
+                        Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(8, 15));
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    //save npc center
+                    if (NPC.localAI[0] == 75)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item170, NPC.Center);
+
+                        NPC.velocity *= 0;
+
+                        SavePosition = NPC.Center;
+                    }
+
+                    //shake before summoning
+                    if (NPC.localAI[0] > 75 && NPC.localAI[0] < 100)
+                    {
+                        NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-7, 7);
+                    }
+
+                    if (NPC.localAI[0] == 100)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item95, NPC.Center);
+
+                        Vector2 Recoil = player.Center - NPC.Center;
+                        Recoil.Normalize(); 
+                        Recoil *= -7;
+                        NPC.velocity = Recoil;
+
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 3;
+
+                        for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Main.rand.Next(0, 5), 
+                            ShootSpeed.Y + Main.rand.Next(0, 5), ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
+                        }
+                    }
+                    
+                    if (NPC.localAI[0] > 100)
+                    {
+                        NPC.velocity *= 0.8f;
+                    }
+
+                    if (NPC.localAI[0] >= 250)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 1;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
             }
@@ -547,14 +616,14 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            //nautilus pet
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValleyNautilusShell>(), 5));
+
             //sentient heart
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SentientHeart>()));
 
             //material
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArteryPiece>(), 1, 7, 15));
-
-            //blood moon monolith
-            npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 2));
 
             //chum buckets
             npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 5, 10));

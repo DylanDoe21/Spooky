@@ -279,3 +279,8 @@ StickyEyeBuff: {
 	DisplayName: Glow In The Dark Sticky Eye
 	Description: May contain toxic chemicals
 }
+
+ValleyNautilusBuff: {
+	DisplayName: Baby Cephalopod
+	Description: A friendly little cephalopod follows you
+}

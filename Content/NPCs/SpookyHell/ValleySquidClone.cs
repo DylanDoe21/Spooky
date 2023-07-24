@@ -16,9 +16,10 @@ using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
-    public class ValleySquid : ModNPC
+    public class ValleySquidClone : ModNPC
     {
         Vector2 SavePosition;
+        Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
@@ -29,6 +30,9 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -36,6 +40,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             //ints
             writer.Write(SavePosition.X);
             writer.Write(SavePosition.X);
+            writer.Write(SavePlayerPosition.X);
+            writer.Write(SavePlayerPosition.Y);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -47,6 +53,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             //ints
             SavePosition.X = reader.ReadInt32();
             SavePosition.X = reader.ReadInt32();
+            SavePlayerPosition.X = reader.ReadInt32();
+            SavePlayerPosition.Y = reader.ReadInt32();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -55,35 +63,24 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 750;
-            NPC.damage = 35;
-            NPC.defense = 15;
+            NPC.lifeMax = 1500;
+            NPC.damage = 55;
+            NPC.defense = 20;
             NPC.width = 44;
             NPC.height = 70;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 75, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = HitSound;
 			NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.9f * bossAdjustment);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.85f * bossAdjustment);
         }
-
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ValleySquid"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
-			});
-		}
         
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -94,7 +91,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             {
                 var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                 Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-                Color color = NPC.GetAlpha(Color.Purple) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+                Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
                 spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
             }
             
@@ -131,7 +128,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 35 / 2 : 25;
+            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 45;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -163,9 +160,14 @@ namespace Spooky.Content.NPCs.SpookyHell
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] < 150)
+                    if (NPC.localAI[0] == 5)
                     {
-                        Vector2 GoTo = new Vector2(player.Center.X + Main.rand.Next(-200, 200), player.Center.Y - 200);
+                        SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - 250);
+                    }
+
+                    if (NPC.localAI[0] > 5 && NPC.localAI[0] < 150)
+                    {
+                        Vector2 GoTo = SavePlayerPosition;
 
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(8, 15));
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -207,8 +209,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.velocity *= 0.8f;
                     }
 
-                    //shoot out ink spit
-                    if (NPC.localAI[0] == 40 || NPC.localAI[0] == 60 || NPC.localAI[0] == 80)
+                    if (NPC.localAI[0] == 40)
                     {
                         SoundEngine.PlaySound(SoundID.Item171, NPC.Center);
 
@@ -219,7 +220,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 4f;
+                        ShootSpeed *= 5.5f;
 
                         float Spread = Main.rand.Next(-2, 3);
 
@@ -235,7 +236,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         ShootSpeed.Y + Spread, ModContent.ProjectileType<NautilusSpit1>(), Damage, 0, NPC.target, 0, 0);
                     }
 
-                    if (NPC.localAI[0] >= 120)
+                    if (NPC.localAI[0] >= 80)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;
@@ -246,21 +247,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                     break;
                 }
             }
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            //vampire frog staff
-            npcLoot.Add(ItemDropRule.Common(ItemID.VampireFrogStaff, 3));
-
-            //blood rain bow
-            npcLoot.Add(ItemDropRule.Common(ItemID.BloodRainBow, 3));
-
-            //blood moon monolith
-            npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 10));
-
-            //chum buckets
-            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 2, 5));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

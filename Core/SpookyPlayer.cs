@@ -72,6 +72,7 @@ namespace Spooky.Core
         public bool SkullEmojiPet = false;
         public bool SkullGoopPet = false;
         public bool GhostPet = false;
+        public bool ValleyNautilusPet = false;
         public bool RotGourdPet = false;
         public bool SpookySpiritPet = false;
         public bool StickyEyePet = false;
@@ -132,6 +133,7 @@ namespace Spooky.Core
             SkullEmojiPet = false;
             SkullGoopPet = false;
             GhostPet = false;
+            ValleyNautilusPet = false;
             RotGourdPet = false;
             SpookySpiritPet = false;
             StickyEyePet = false;
@@ -484,7 +486,7 @@ namespace Spooky.Core
 
             //do not allow alternate blood moon enemy catches if any of the enemies exist already
             bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>());
+            NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>());
 
             //alternate blood moon enemy catches
             if (Player.InModBiome<SpookyHellBiome>())
@@ -496,13 +498,16 @@ namespace Spooky.Core
 
                 itemDrop = Main.rand.Next(BloodLakeItems);
 
+                //do not allow any other npcs to be caught in the eye valley besides the enemies below
+                npcSpawn = NPCID.None;
+
+                //quest fishes
                 if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.rare)
                 {
                     itemDrop = ModContent.ItemType<BoogerFish>();
 
                     return;
                 }
-
                 if (attempt.questFish == ModContent.ItemType<OrroEel>() && attempt.rare)
                 {
                     itemDrop = ModContent.ItemType<OrroEel>();
@@ -513,21 +518,26 @@ namespace Spooky.Core
                 if (!BloodFishingEnemiesExist)
                 {
                     //peeper fish
-                    if (Main.rand.NextBool(10))
+                    if (Main.rand.NextBool(12))
                     {
                         npcSpawn = ModContent.NPCType<ValleyFish>();
 
                         return;
                     }
-
                     //clot squid
-                    if (Main.rand.NextBool(20))
+                    if (Main.rand.NextBool(15))
                     {
                         npcSpawn = ModContent.NPCType<ValleySquid>();
 
                         return;
                     }
+                    //aortic eel
+                    if (Main.hardMode && Main.rand.NextBool(20))
+                    {
+                        npcSpawn = ModContent.NPCType<ValleyEelHead>();
 
+                        return;
+                    }
                     //claret cephalopod
                     if (Flags.downedOrroboro && Main.rand.NextBool(30))
                     {

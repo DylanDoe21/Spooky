@@ -575,6 +575,11 @@ SuspiciousBrownie: {
 		'''
 }
 
+ValleyNautilusShell: {
+	DisplayName: Valley Nautilus Shell
+	Tooltip: Summons a baby claret cephalopod
+}
+
 YellowSpore: {
 	DisplayName: Yellow Spore
 	Tooltip: Summons a small mushroom hopper to provide light

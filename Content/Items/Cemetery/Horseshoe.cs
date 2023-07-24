@@ -35,9 +35,12 @@ namespace Spooky.Content.Items.Cemetery
 
         public override bool CanUseItem(Player player)
         {
-            if (!Flags.encounteredHorse && !NPC.AnyNPCs(ModContent.NPCType<TheHorse>()) && !Main.dayTime)
+            if (!Main.dayTime && !Flags.encounteredHorse)
             {
-                return true;
+                if (NPC.AnyNPCs(ModContent.NPCType<TheHorse>()))
+                {
+                    return false;
+                }
             }
 
             if (player.ownedProjectileCounts[Item.shoot] > 0)
