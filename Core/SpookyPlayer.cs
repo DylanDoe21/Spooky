@@ -455,28 +455,66 @@ namespace Spooky.Core
 
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
-            //fishing stuff for spooky mod crates
-            if (!attempt.inLava && !attempt.inHoney && attempt.crate)
+            if (!attempt.inLava && !attempt.inHoney)
             {
-                if (!attempt.legendary && !attempt.veryrare && attempt.rare)
+                //spooky forest catches
+                if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {
-                    if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
+                    //quest fishes
+                    if (attempt.questFish == ModContent.ItemType<GourdFish>() && attempt.rare)
                     {
-                        sonar.Text = "Spooky Crate";
-                        sonar.Color = Color.Green;
-                        sonar.Velocity = Vector2.Zero;
-                        sonar.DurationInFrames = 300;
-                        itemDrop = ModContent.ItemType<SpookyCrate>();
+                        itemDrop = ModContent.ItemType<GourdFish>();
+
+                        return;
+                    }
+                    if (attempt.questFish == ModContent.ItemType<ZomboidFish>() && attempt.rare)
+                    {
+                        itemDrop = ModContent.ItemType<ZomboidFish>();
 
                         return;
                     }
 
-                    if (Player.InModBiome<CemeteryBiome>() || Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
+                    //crate
+                    if (attempt.crate)
                     {
-                        sonar.Text = "Skull Crate";
-                        sonar.Color = Color.Green;
-                        sonar.Velocity = Vector2.Zero;
-                        sonar.DurationInFrames = 300;
+                        itemDrop = ModContent.ItemType<SpookyCrate>();
+
+                        return;
+                    }
+                }
+
+                if (Player.InModBiome<CemeteryBiome>())
+                {
+                    //quest fishes
+                    if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.rare)
+                    {
+                        itemDrop = ModContent.ItemType<SpookySpiritFish>();
+
+                        return;
+                    }
+
+                    //crate
+                    if (attempt.crate)
+                    {
+                        itemDrop = ModContent.ItemType<CatacombCrate>();
+
+                        return;
+                    }
+                }
+
+                if (Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
+                {
+                    //quest fishes
+                    if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.rare)
+                    {
+                        itemDrop = ModContent.ItemType<SpookySpiritFish>();
+
+                        return;
+                    }
+
+                    //crate
+                    if (attempt.crate)
+                    {
                         itemDrop = ModContent.ItemType<CatacombCrate>();
 
                         return;
@@ -484,21 +522,17 @@ namespace Spooky.Core
                 }
             }
 
-            //do not allow alternate blood moon enemy catches if any of the enemies exist already
-            bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>());
-
             //alternate blood moon enemy catches
             if (Player.InModBiome<SpookyHellBiome>())
             {
-                //misc stuff you can fish from the blood lake
-                //this is temporary for right now
+                //random blocks and junk normally fished out of the blood lake
                 int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
                 ModContent.ItemType<SpookyMushItem>(), ModContent.ItemType<ValleyStoneItem>(), ModContent.ItemType<EyeSeed>() };
 
                 itemDrop = Main.rand.Next(BloodLakeItems);
 
                 //do not allow any other npcs to be caught in the eye valley besides the enemies below
+                //this is to prevent any regular blood moon fishing enemies from being caught in the blood lake if a blood moon is happening
                 npcSpawn = NPCID.None;
 
                 //quest fishes
@@ -515,6 +549,11 @@ namespace Spooky.Core
                     return;
                 }
 
+                //do not allow alternate blood moon enemy catches if any of the enemies already exist in the world
+                bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || 
+                NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || 
+                NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyShark>());
+
                 if (!BloodFishingEnemiesExist)
                 {
                     //peeper fish
@@ -524,6 +563,7 @@ namespace Spooky.Core
 
                         return;
                     }
+
                     //clot squid
                     if (Main.rand.NextBool(15))
                     {
@@ -531,15 +571,17 @@ namespace Spooky.Core
 
                         return;
                     }
-                    //aortic eel
-                    if (Main.hardMode && Main.rand.NextBool(20))
+
+                    //aortic eel and hemostasis beast
+                    if (Main.hardMode && Main.rand.NextBool(18))
                     {
-                        npcSpawn = ModContent.NPCType<ValleyEelHead>();
+                        npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyEelHead>() : ModContent.NPCType<ValleyShark>();
 
                         return;
                     }
+                    
                     //claret cephalopod
-                    if (Flags.downedOrroboro && Main.rand.NextBool(30))
+                    if (Flags.downedOrroboro && Main.rand.NextBool(25))
                     {
                         npcSpawn = ModContent.NPCType<ValleyNautilus>();
 

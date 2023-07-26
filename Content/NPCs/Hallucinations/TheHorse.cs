@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
                         if (NPC.localAI[1] % 120 == 20 && maxFlies <= 1000)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.DarkGreen, Language.GetTextValue("Mods.Spooky.Dialogue.TheHorse.Hunger"), true);
+                            CombatText.NewText(NPC.getRect(), Color.DarkGreen, Language.GetTextValue("Mods.Spooky.Dialogue.TheHorse"), true);
 
                             for (int k = 0; k < Main.projectile.Length; k++)
                             {

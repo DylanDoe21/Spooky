@@ -3,7 +3,27 @@ BoogerFish: {
 	CatchLocation: Caught in the Valley of Eyes
 }
 
+GourdFish: {
+	Description: The other day, I swore I saw a derpy looking pumpkin in the water... but it had fins and was swimming! I need you to confirm that it's real, so get to it!
+	CatchLocation: Caught in the Spooky Forest
+}
+
+HibiscusFish: {
+	Description: In the plant infested catacombs, there is a rare fish that can grow off of plants and swim on its own! I think it would be great if you could go down there and get one for me.
+	CatchLocation: Caught in the Creepy catacombs
+}
+
 OrroEel: {
 	Description: Have you heard the rumors of those two giant serpents that constantly eat each other? Well I don't care about that, but what I do care about is the fact that there is a fish version of it that swims in blood, and I think you'd be the perfect person to get it for me!
 	CatchLocation: Caught in the Valley of Eyes
+}
+
+SpookySpiritFish: {
+	Description: The cemetery is said to have a lot of paranormal activity, and underwater is no exception. There is apparently a rare spirit fish that lurks in the waters there, and I'll reward you if you can show me one.
+	CatchLocation: Caught in the Swampy Cemetery
+}
+
+ZomboidFish: {
+	Description: Those stupid braindead zomboids that walk around in the spooky forest are really ugly. What's even uglier is the elusive zomboid fish, which I think you should find for me!
+	CatchLocation: Caught in the Spooky Forest
 }

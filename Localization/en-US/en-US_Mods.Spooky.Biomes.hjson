@@ -29,7 +29,7 @@ CemeteryBiome: {
 	TownNPCDialogueName: the Swampy Cemetery
 }
 
-EggEventBiome: {
+SpookyHellEventBiome: {
 	DisplayName: Egg Incursion
 	TownNPCDialogueName: the Egg Incursion
 }
@@ -42,4 +42,9 @@ RaveyardBiome: {
 HallucinationZone: {
 	DisplayName: Hallucination Zone
 	TownNPCDialogueName: the Hallucination Zone
+}
+
+SpookyHellLake: {
+	DisplayName: Lake of Blood
+	TownNPCDialogueName: the Lake of Blood
 }

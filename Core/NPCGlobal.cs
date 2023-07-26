@@ -33,7 +33,7 @@ namespace Spooky.Core
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			//remove spawnrates during the egg event
-			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<SpookyHellEventBiome>()))
             {
 				spawnRate = 0;
 				maxSpawns = 0;
@@ -58,7 +58,7 @@ namespace Spooky.Core
 			}
 
 			//remove all hell enemies from the spawn pool while in the eye valley
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) || spawnInfo.Player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				pool.Remove(NPCID.Hellbat);
 				pool.Remove(NPCID.Lavabat);

@@ -162,7 +162,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     if (NPC.localAI[0] == 5)
                     {
-                        SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - 250);
+                        SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - Main.rand.Next(250, 300));
                     }
 
                     if (NPC.localAI[0] > 5 && NPC.localAI[0] < 150)

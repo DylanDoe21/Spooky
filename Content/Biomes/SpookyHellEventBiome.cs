@@ -6,14 +6,14 @@ using Spooky.Content.Events;
 
 namespace Spooky.Content.Biomes
 {
-    public class EggEventBiome : ModBiome
+    public class SpookyHellEventBiome : ModBiome
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/EggEvent");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
         //bestiary stuff
-        public override string BestiaryIcon => "Spooky/Content/Biomes/EggEventBiomeIcon";
+        public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyHellEventBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;

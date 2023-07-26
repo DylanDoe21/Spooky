@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.HitSound = HitSound;
 			NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -111,7 +111,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ValleyNautilus"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellLake>().ModBiomeBestiaryInfoElement)
 			});
 		}
         
@@ -585,14 +586,14 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Recoil *= -7;
                         NPC.velocity = Recoil;
 
-                        Vector2 ShootSpeed = player.Center - NPC.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 3;
-
-                        for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
+                        for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Main.rand.Next(0, 5), 
-                            ShootSpeed.Y + Main.rand.Next(0, 5), ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= Main.rand.Next(3, 5);
+
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                            ShootSpeed.Y, ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
                         }
                     }
                     
@@ -616,14 +617,14 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //nautilus pet
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValleyNautilusShell>(), 5));
-
             //sentient heart
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SentientHeart>()));
 
             //material
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArteryPiece>(), 1, 7, 15));
+
+            //nautilus pet
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValleyNautilusShell>(), 5));
 
             //chum buckets
             npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 5, 10));

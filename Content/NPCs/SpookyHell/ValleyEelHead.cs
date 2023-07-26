@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.HitSound = HitSound;
             NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
+            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -99,7 +99,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ValleyEel"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellLake>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -204,7 +205,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //slow down
                     if (NPC.localAI[0] >= 12)
                     {
-                        NPC.velocity *= 0.9f;
+                        NPC.velocity *= 0.95f;
                     }
 
                     //go to attacks
@@ -266,7 +267,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         }
 
                         //curl towards the player
-                        if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 130)
+                        if (NPC.localAI[0] >= 65 && NPC.localAI[0] <= 130)
                         {
                             NPC.velocity *= 0.995f;
 
@@ -337,6 +338,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //charge at the player and save their position
                     if (NPC.localAI[0] == 60)
                     {
+                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
+
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize(); 
                         ChargeDirection *= 35;
@@ -345,7 +348,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     }
 
                     //curl towards the saved player location
-                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 280)
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 280)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                         while (angle > Math.PI)
@@ -372,10 +375,18 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.velocity *= 0.85f;
                     }
 
+                    //save player position
+                    if (NPC.localAI[0] == 290)
+                    {
+                        SavePlayerPosition = player.Center;
+                    }
+
                     //charge again while circling
                     if (NPC.localAI[0] == 300)
                     {
-                        Vector2 ChargeDirection = player.Center - NPC.Center;
+                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
+
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize(); 
                         ChargeDirection *= 45;
                         NPC.velocity = ChargeDirection;
@@ -659,7 +670,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
         }
 
-        /*
         public override bool CheckDead()
         {
             if (Main.netMode != NetmodeID.Server) 
@@ -672,7 +682,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             return true;
         }
-        */
         
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {

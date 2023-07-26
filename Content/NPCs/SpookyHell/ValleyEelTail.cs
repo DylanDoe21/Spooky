@@ -59,13 +59,11 @@ namespace Spooky.Content.NPCs.SpookyHell
             //kill segment if the head doesnt exist
 			if (!Main.npc[(int)NPC.ai[1]].active)
             {
-                /*
                 if (Main.netMode != NetmodeID.Server) 
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore2").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelTailGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelTailGore2").Type);
                 }
-                */
 
                 NPC.active = false;
             }

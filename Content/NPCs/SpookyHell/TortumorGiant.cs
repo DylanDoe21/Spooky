@@ -66,17 +66,19 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Player player = spawnInfo.Player;
 
-            if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.EggEventBiome>()) && 
-            !NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
+            if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellEventBiome>()))
             {
-                //spawn more often in hardmode
-                if (Main.hardMode)
+                if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
                 {
-                    return 5f;
-                }
-                else
-                {
-                    return 2f;
+                    //spawn more often in hardmode
+                    if (Main.hardMode)
+                    {
+                        return 5f;
+                    }
+                    else
+                    {
+                        return 2f;
+                    }
                 }
             }
             

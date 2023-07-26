@@ -151,7 +151,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     ShootSpeed.X *= Main.rand.NextFloat(1.5f, 2.5f);
 
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                    ShootSpeed.Y, ModContent.ProjectileType<ChungusSpore>(), NPC.damage / 3, 1, NPC.target);
+                    ShootSpeed.Y, ModContent.ProjectileType<ChungusSpore>(), NPC.damage / 5, 1, NPC.target);
                 }
 
                 NPC.localAI[1] = 0;

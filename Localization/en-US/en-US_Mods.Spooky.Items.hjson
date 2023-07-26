@@ -576,8 +576,8 @@ SuspiciousBrownie: {
 }
 
 ValleyNautilusShell: {
-	DisplayName: Valley Nautilus Shell
-	Tooltip: Summons a baby claret cephalopod
+	DisplayName: Claret Shell
+	Tooltip: Summons a baby cephalopod pet
 }
 
 YellowSpore: {
@@ -1979,11 +1979,31 @@ SpookyMushLakeWallItem: {
 }
 
 BoogerFish: {
-	DisplayName: Booger Fish
+	DisplayName: Schnoz Fish
 	Tooltip: ""
 }
 
 OrroEel: {
 	DisplayName: Orro Eel
+	Tooltip: ""
+}
+
+GourdFish: {
+	DisplayName: Moldy Gourd Fish
+	Tooltip: ""
+}
+
+HibiscusFish: {
+	DisplayName: Swimming Hibiscus
+	Tooltip: ""
+}
+
+SpookySpiritFish: {
+	DisplayName: Swimming Spirit
+	Tooltip: ""
+}
+
+ZomboidFish: {
+	DisplayName: Zomboid Fish
 	Tooltip: ""
 }
