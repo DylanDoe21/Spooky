@@ -82,6 +82,7 @@ Other New Additions:
 -Added a bunch of new pets and light pets
 -Added the unlucky horseshoe, baby rattle, and (whatever the flesh entity summon item will be)
 -Added support for the 1.4.4 version of boss checklist
+-Added support for Gabehaswon's music display mod
 
 
 Localization File Split:
