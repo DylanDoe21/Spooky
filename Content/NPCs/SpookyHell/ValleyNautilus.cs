@@ -586,15 +586,12 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Recoil *= -7;
                         NPC.velocity = Recoil;
 
-                        for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                        {
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= Main.rand.Next(3, 5);
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= Main.rand.Next(3, 5);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
-                        }
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                        ShootSpeed.Y, ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
                     }
                     
                     if (NPC.localAI[0] > 100)

@@ -42,6 +42,33 @@ namespace Spooky.Core
             }
         }
 
+        //underworld condition work around so eye valley enemies dont drop living fire blocks or the hel-fire
+        public class UnderworldDropCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation) 
+                {
+                    if (info.player.ZoneUnderworldHeight && !info.player.InModBiome<SpookyHellBiome>())
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         //drop from spooky spirit if it hasnt been defeated yet
         public class YellowCatacombKeyCondition : IItemDropRuleCondition
         {

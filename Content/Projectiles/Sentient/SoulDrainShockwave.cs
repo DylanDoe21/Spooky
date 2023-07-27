@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class SoulDrainShockwave : ModProjectile
     {
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/SpookyHell/EnemyDeath2", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath2", SoundType.Sound);
 
         public override void SetDefaults()
         {

@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.Hallucinations
     {
         public override void SetStaticDefaults()
         {
+            Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
 
@@ -65,6 +66,21 @@ namespace Spooky.Content.NPCs.Hallucinations
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TheFlesh"),
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
             });
+        }
+
+        public override void FindFrame(int frameHeight)
+        {   
+            NPC.frameCounter += 1;
+            //running animation
+            if (NPC.frameCounter > 6)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 12)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
         }
 
         public override void AI()

@@ -89,11 +89,15 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		{
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            int SpawnedNPC = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<ValleySquidClone>());
-
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            //spawn squids
+            for (int numEnemies = 1; numEnemies <= 2; numEnemies++)
             {
-                NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+                int SpawnedNPC = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<ValleySquidClone>());
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+                }
             }
 
             //spawn gores

@@ -556,34 +556,36 @@ namespace Spooky.Core
 
                 if (!BloodFishingEnemiesExist)
                 {
-                    //peeper fish
-                    if (Main.rand.NextBool(12))
+                    int ExtraChanceToFishEnemy = (Player.HeldItem.fishingPole + Player.fishingSkill) / 5;
+
+                    //claret cephalopod
+                    if (Flags.downedOrroboro && Main.rand.NextBool(25 - ExtraChanceToFishEnemy))
                     {
-                        npcSpawn = ModContent.NPCType<ValleyFish>();
+                        npcSpawn = ModContent.NPCType<ValleyNautilus>();
+
+                        return;
+                    }
+
+                    //aortic eel and hemostasis beast
+                    if (Main.hardMode && Main.rand.NextBool(20 - ExtraChanceToFishEnemy))
+                    {
+                        npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyEelHead>() : ModContent.NPCType<ValleyShark>();
 
                         return;
                     }
 
                     //clot squid
-                    if (Main.rand.NextBool(15))
+                    if (Main.rand.NextBool(18 - ExtraChanceToFishEnemy))
                     {
                         npcSpawn = ModContent.NPCType<ValleySquid>();
 
                         return;
                     }
 
-                    //aortic eel and hemostasis beast
-                    if (Main.hardMode && Main.rand.NextBool(18))
+                    //peeper fish
+                    if (Main.rand.NextBool(15 - ExtraChanceToFishEnemy))
                     {
-                        npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyEelHead>() : ModContent.NPCType<ValleyShark>();
-
-                        return;
-                    }
-                    
-                    //claret cephalopod
-                    if (Flags.downedOrroboro && Main.rand.NextBool(25))
-                    {
-                        npcSpawn = ModContent.NPCType<ValleyNautilus>();
+                        npcSpawn = ModContent.NPCType<ValleyFish>();
 
                         return;
                     }

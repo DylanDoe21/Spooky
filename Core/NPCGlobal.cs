@@ -25,6 +25,7 @@ using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.Projectiles.SpookyBiome;
+using static Spooky.Core.DropConditions;
 
 namespace Spooky.Core
 {
@@ -161,16 +162,26 @@ namespace Spooky.Core
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
 			//drop skull goop during a blood moon if you are in the swampy cemetery
-			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
+			globalLoot.Add(ItemDropRule.ByCondition(new SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
 
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
+            globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
+            globalLoot.Add(ItemDropRule.ByCondition(new SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 
             //make certain bosses drop the catacomb barrier keys
-			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.YellowCatacombKeyCondition(), ModContent.ItemType<CatacombKey1>(), 1));
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.RedCatacombKeyCondition(), ModContent.ItemType<CatacombKey2>(), 1));
-            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
+			globalLoot.Add(ItemDropRule.ByCondition(new YellowCatacombKeyCondition(), ModContent.ItemType<CatacombKey1>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new RedCatacombKeyCondition(), ModContent.ItemType<CatacombKey2>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
+
+			//eye valley enemies dont drop living flame blocks
+            globalLoot.RemoveWhere(
+            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
+            globalLoot.Add(ItemDropRule.ByCondition(new UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
+
+			//eye valley enemies dont drop hel-fire
+			globalLoot.RemoveWhere(
+            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
+            globalLoot.Add(ItemDropRule.ByCondition(new UnderworldDropCondition(), ItemID.HelFire, 400));
         }
     }
 }

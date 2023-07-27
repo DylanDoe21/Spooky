@@ -701,11 +701,7 @@ FlySmallItem: {
 
 GourdBook: {
 	DisplayName: Jerry's Book of Stinkology
-	Tooltip:
-		'''
-		Casts a stream of stink that makes enemies stinky
-		Stinky enemies will take slightly more damage from this weapon
-		'''
+	Tooltip: Casts a smelly blast that makes enemies stinky
 }
 
 GourdFlail: {
@@ -796,16 +792,6 @@ OldWoodSword: {
 RottenChunk: {
 	DisplayName: Moldy Chunk
 	Tooltip: "'It smells foul'"
-}
-
-ShadowClump: {
-	DisplayName: Shadow Clump
-	Tooltip: ""
-}
-
-ShadowCowBell: {
-	DisplayName: Shadow Cowbell
-	Tooltip: Summons actual friendly shadow creatures to fight with you
 }
 
 ShroomFlail: {

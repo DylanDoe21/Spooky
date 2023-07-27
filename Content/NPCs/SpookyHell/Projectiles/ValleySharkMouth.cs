@@ -95,7 +95,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 NPC.active = false;
             }
 
-            //set tongue to retract immediately when it hits the targetted player
+            //set mouth to retract immediately when it hits the targetted player
             if (NPC.Hitbox.Intersects(player.Hitbox))
             {
                 if (NPC.ai[1] == 0)
@@ -105,6 +105,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 }
             }
 
+            //if the mouth is grappled onto the player
             if (NPC.ai[1] == 1)
             {
                 player.Center = NPC.Center;
@@ -138,6 +139,14 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 if (NPC.Distance(Parent.Center) <= 30f)
                 {
+                    //if the mouth is grappled onto the player, then set the valley shark ai to immediately do its slam attack
+                    if (NPC.ai[1] == 1)
+                    {
+                        Parent.localAI[0] = 1;
+                        Parent.localAI[1] = 340;
+                        Parent.localAI[2] = 0;
+                    }
+
                     NPC.active = false;
                 }
             }
