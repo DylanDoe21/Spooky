@@ -59,7 +59,7 @@ The Lake of Blood and Alternate Blood Moon Fishing:
 Each enemy variant is as follows:
 -Wandering Eye Fish -> Peeper fish (Prehardmode)
 -Zombie Merman -> Flesh Merfolk (Prehardmode)
--Blood Squid -> Clot Squid (Prehardmode, and summoned by the claret cephalopod)
+-Blood Squid -> Clot Squid (Has 2 variants, one that can be fished up in prehardmode, and one summoned by the claret cephalopod)
 -Hemogoblin Shark -> Hemostasis Beast (Hardmode)
 -Blood Eel -> Aortic Eel (Hardmode)
 -Dreadnautilus -> Claret Cephalopod (Hardmode, post orro & boro)
@@ -90,6 +90,7 @@ Other New Additions:
 -Added the femur fracturer and idol of flame
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
+-Added a bunch of new spooky mod themed angler quest fishes
 -Added the unlucky horseshoe, baby rattle, and (whatever the flesh entity summon item will be)
 -Added support for the 1.4.4 version of boss checklist
 -Added support for Gabehaswon's music display mod
@@ -114,6 +115,7 @@ Items & Weapons:
 
 -Renamed loose soil to swamp soil
 -Renamed rocky soil to swamp rock
+-Living flesh platforms can now be crafted without a crafting station
 -All spooky mod boss masks now drop from their respective bosses treasure bag in expert mode to be consistent with vanilla
 -Buffed the use speed for the toilet paper and necromancy for dummies
 -Buffed the creepy candle's magic damage bonus from 5% to 7%

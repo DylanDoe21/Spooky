@@ -626,6 +626,9 @@ namespace Spooky.Content.NPCs.SpookyHell
             //nautilus pet
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValleyNautilusShell>(), 5));
 
+            //blood moon monolith
+            npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 2));
+
             //chum buckets
             npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 5, 10));
         }

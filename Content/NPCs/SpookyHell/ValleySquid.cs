@@ -257,9 +257,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             //blood rain bow
             npcLoot.Add(ItemDropRule.Common(ItemID.BloodRainBow, 3));
 
-            //blood moon monolith
-            npcLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 10));
-
             //chum buckets
             npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 2, 5));
         }

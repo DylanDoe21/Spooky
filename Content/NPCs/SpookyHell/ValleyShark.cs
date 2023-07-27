@@ -300,6 +300,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         //jump towards the player
                         if (NPC.localAI[1] == 350)
                         {
+                            NPC.noTileCollide = true;
+
                             SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
                             float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
@@ -318,6 +320,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         //charge down at the player
                         if (NPC.localAI[1] == 390)
                         {
+                            NPC.noTileCollide = false;
+
                             SoundEngine.PlaySound(SoundID.DD2_WyvernScream with { Pitch = SoundID.DD2_WyvernScream.Pitch - 0.5f }, NPC.Center);
 
                             NPC.noGravity = true;
@@ -404,6 +408,21 @@ namespace Spooky.Content.NPCs.SpookyHell
                     }
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            //haemorrhaxe
+            npcLoot.Add(ItemDropRule.Common(ItemID.BloodHamaxe, 3));
+
+            //blood thorn
+            npcLoot.Add(ItemDropRule.Common(ItemID.SharpTears, 3));
+
+            //sanguine staff
+            npcLoot.Add(ItemDropRule.Common(ItemID.SanguineStaff, 3));
+
+            //chum buckets
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 5, 10));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

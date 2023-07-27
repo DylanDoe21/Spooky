@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.Localization;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,10 +19,12 @@ namespace Spooky.Content.Events
 {
     public class EggEventHandler : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         bool SpawnedEnemies = false;
         bool EventEnemiesExist = true;
 
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/EggEvent/EggEventEnd", SoundType.Sound);
 
         public override void SetDefaults()
         {
@@ -66,6 +69,10 @@ namespace Spooky.Content.Events
                 if (EggEventWorld.Wave < 11)
                 {
                     CombatText.NewText(Projectile.getRect(), Color.Magenta, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventWaveComplete"), true);
+                }
+                else
+                {
+                    SoundEngine.PlaySound(EventEndSound, Projectile.Center);
                 }
 
                 Projectile.ai[1] = 300;

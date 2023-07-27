@@ -670,6 +670,21 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            //haemorrhaxe
+            npcLoot.Add(ItemDropRule.Common(ItemID.BloodHamaxe, 3));
+
+            //drippler crippler
+            npcLoot.Add(ItemDropRule.Common(ItemID.DripplerFlail, 3));
+
+            //sanguine staff
+            npcLoot.Add(ItemDropRule.Common(ItemID.SanguineStaff, 3));
+
+            //chum buckets
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChumBucket, 1, 5, 10));
+        }
+
         public override bool CheckDead()
         {
             if (Main.netMode != NetmodeID.Server) 
