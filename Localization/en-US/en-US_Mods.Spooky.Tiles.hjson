@@ -4,8 +4,8 @@ HalloweenChest: {
 }
 
 SpookyBiomeChest: {
-	MapEntry0: Spooky Forest Chest
-	MapEntry1: Locked Spooky Forest Chest
+	MapEntry0: Spooky Chest
+	MapEntry1: Locked Spooky Chest
 }
 
 EyeChest: {
@@ -14,8 +14,8 @@ EyeChest: {
 }
 
 SpookyHellChest: {
-	MapEntry0: Eye Valley Chest
-	MapEntry1: Locked Eye Valley Chest
+	MapEntry0: Eye Chest
+	MapEntry1: Locked Eye Chest
 }
 
 EyeDresser: {
