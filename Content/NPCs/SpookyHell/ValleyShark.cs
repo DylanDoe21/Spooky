@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -22,6 +23,9 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 11;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -51,7 +55,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.lifeMax = 6000;
             NPC.damage = 70;
             NPC.defense = 20;
-            NPC.width = 94;
+            NPC.width = 72;
 			NPC.height = 72;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
@@ -74,6 +78,25 @@ namespace Spooky.Content.NPCs.SpookyHell
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellLake>().ModBiomeBestiaryInfoElement)
 			});
+		}
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+			if (NPC.localAI[0] == 1 && NPC.localAI[1] >= 350 && NPC.localAI[2] == 0)
+			{
+                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+
+				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+				{
+					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(-10f, NPC.gfxOffY + 4);
+					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+				}
+			}
+            
+            return true;
 		}
         
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -112,13 +135,30 @@ namespace Spooky.Content.NPCs.SpookyHell
                 //mouth eject frames
                 if (NPC.localAI[0] == 0)
                 {
-                    if (NPC.localAI[1] > 300 && NPC.localAI[1] < 350)
+                    if (NPC.localAI[1] > 320 && NPC.localAI[1] < 350)
                     {
                         NPC.frame.Y = 0 * frameHeight;
                     }
                     if (NPC.localAI[1] >= 350)
                     {
                         NPC.frame.Y = 7 * frameHeight;
+                    }
+                }
+
+                //nose dive frames
+                if (NPC.localAI[0] == 1)
+                {
+                    if (NPC.localAI[1] >= 320 && NPC.localAI[1] < 350)
+                    {
+                        NPC.frame.Y = 0 * frameHeight;
+                    }
+                    if (NPC.localAI[1] >= 390 && NPC.localAI[2] == 0)
+                    {
+                        NPC.frame.Y = 10 * frameHeight;
+                    }
+                    if (NPC.localAI[2] > 0)
+                    {
+                        NPC.frame.Y = 0 * frameHeight;
                     }
                 }
             }
@@ -178,7 +218,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             NPC.localAI[1]++;
 
-                            if (NPC.localAI[1] <= 300)
+                            if (NPC.localAI[1] <= 320)
                             {
                                 NPC.aiStyle = 3;
                                 AIType = NPCID.PirateCorsair;
@@ -190,9 +230,9 @@ namespace Spooky.Content.NPCs.SpookyHell
                         }
 
                         //slow down before ejecting its mouth
-                        if (NPC.localAI[1] >= 300)
+                        if (NPC.localAI[1] >= 320)
                         {
-                            NPC.velocity.X *= 0;
+                            NPC.velocity.X *= 0.2f;
                         }
 
                         //shoot out mouth
@@ -219,7 +259,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         if (NPC.localAI[1] > 350 && !NPC.AnyNPCs(ModContent.NPCType<ValleySharkMouth>()))
                         {
                             NPC.localAI[1] = 0;
-                            //NPC.localAI[0]++;
+                            NPC.localAI[2] = 0;
+                            NPC.localAI[0]++;
 
                             NPC.netUpdate = true;
                         }
@@ -227,9 +268,138 @@ namespace Spooky.Content.NPCs.SpookyHell
                         break;
                     }
 
-                    //slow down, jump in the air, then slam down and create blood thorns out of the ground where it lands
+                    //slow down, jump in the air, then nose dive into the ground and create blood thorns on impact
                     case 1:
                     {
+                        if (!NPC.wet)
+                        {
+                            NPC.localAI[1]++;
+
+                            if (NPC.localAI[1] <= 300)
+                            {
+                                NPC.aiStyle = 3;
+                                AIType = NPCID.PirateCorsair;
+                            }
+                            else
+                            {
+                                NPC.aiStyle = -1;
+                            }
+                        }
+
+                        //slow down before jumping
+                        if (NPC.localAI[1] >= 320 && NPC.localAI[1] < 350)
+                        {
+                            NPC.velocity.X *= 0.35f;
+                        }
+
+                        //jumping velocity
+                        Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 500);
+
+                        Vector2 velocity = JumpTo - NPC.Center;
+
+                        //jump towards the player
+                        if (NPC.localAI[1] == 350)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                            float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
+                            velocity.Normalize();
+                            velocity.Y -= 0.18f;
+                            velocity.X *= 1.1f;
+                            NPC.velocity = velocity * speed * 1.1f;
+                        }
+
+                        //stop mid air
+                        if (NPC.localAI[1] >= 380 && NPC.localAI[1] < 390)
+                        {
+                            NPC.velocity *= 0.9f;
+                        }
+
+                        //charge down at the player
+                        if (NPC.localAI[1] == 390)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_WyvernScream with { Pitch = SoundID.DD2_WyvernScream.Pitch - 0.5f }, NPC.Center);
+
+                            NPC.noGravity = true;
+                            NPC.velocity.Y = 35;
+                        }
+
+                        //set tile collide to true once it gets to the players level to prevent cheesing
+                        if (NPC.localAI[1] > 390 && NPC.localAI[2] == 0)
+                        {	
+                            NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? 1 : -1;
+                
+                            NPC.rotation = NPC.velocity.ToRotation();
+
+                            if (NPC.spriteDirection == -1)
+                            {
+                                NPC.rotation += MathHelper.Pi;
+                            }
+                        }
+
+                        //slam the ground
+                        if (NPC.localAI[1] > 390 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+                        {
+                            NPC.noGravity = false;
+
+                            NPC.velocity *= 0;
+
+                            SpookyPlayer.ScreenShakeAmount = 8;
+
+                            SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+                            for (int j = 1; j <= 5; j++)
+                            {
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y + NPC.height / 4);
+                                    center.X += j * 45 * i; //45 is the distance between each one
+                                    int numtries = 0;
+                                    int x = (int)(center.X / 16);
+                                    int y = (int)(center.Y / 16);
+                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+                                    {
+                                        y++;
+                                        center.Y = y * 16;
+                                    }
+                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                                    {
+                                        numtries++;
+                                        y--;
+                                        center.Y = y * 16;
+                                    }
+
+                                    if (numtries >= 10)
+                                    {
+                                        break;
+                                    }
+
+                                    Vector2 lineDirection = new Vector2(Main.rand.Next(-15, 15), 16);
+
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 25, 0, 0, ModContent.ProjectileType<ValleySharkThorn>(), 
+                                    Damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                }
+                            }
+
+                            //complete the slam attack
+							NPC.localAI[2] = 1; 
+                            NPC.localAI[1] = 420;
+                        }
+
+                        //only loop attack if the slam attack has been completed
+                        if (NPC.localAI[2] > 0)
+                        {
+                            if (NPC.localAI[1] >= 500)
+                            {
+                                NPC.localAI[1] = 0;
+                                NPC.localAI[2] = 0;
+                                NPC.localAI[0] = 0;
+
+                                NPC.netUpdate = true;
+                            }
+                        }
+
                         break;
                     }
                 }

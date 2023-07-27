@@ -10,7 +10,7 @@ Update v1.0 (The first full release!)
 
 Catacombs Overhaul:
 
--Every single room has been redone to look more unique, more detailed, and be more interesting to explore overall
+-Every single room has been redone to look more unique, more detailed, and more interesting to explore overall
 -Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh and new in different worlds
 -The entirety of both layers have been redone to have new aesthetics and their own unique blocks so they dont look exactly the same anymore
 -The size of the catacombs now scales with world size, meaning bigger worlds will have bigger catacombs
@@ -25,28 +25,20 @@ New Boss, Daffodil:
 
 -She is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
 -Daffodil drops the red skull key now, meaning you must defeat her before you can enter the second layer
--She also has her own exclusive loot just as every other spooky mod boss does :)
+-She also has her own exclusive loot just as every other spooky mod boss does
 
 
-Swampy Cemetery Aesthetic:
+Swampy Cemetery:
 
 -The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
--New structures have been added, and some worldgen modifications have been made to make the biome more interesting looking
+-New structures have been added, and some worldgen modifications have been made to make the biome more nice looking
 -The swampy cemetery worldgen also now scales with world size, where bigger worlds will have a bigger cemetery biome
 
 
 New Mini-Biome, The Mossy Mushroom Cave:
 
--New mushroom themed mini biome found deep in the underground spooky forest, consists of glowing purple moss that can grow spooky mushrooms and spooky mushroom trees
--Contains a few new exclusive enemies, and a new material which can be used to craft various new early game items
-
-
-Slingshot Sub-class:
-
--Slingshot weapons are now a ranger subclass in spooky mod (Sorta?)
--They use mossy pebbles as ammo, which are crafted from mossy stone in the spooky forest, or can be purchased from the merchant
--Like some vanilla ranged weapons, some slingshots can convert mossy pebbles into their own unique projectile
--The slingshots will likely be expanded more in the future, but for right now there isn't many of them, with only 3 existing in prehardmode
+-New mushroom themed mini-biome found deep in the underground spooky forest, consists of glowing purple moss that can grow spooky mushrooms and spooky mushroom trees
+-Contains a few new exclusive enemies, and a new material which can be used to craft a few new early game items
 
 
 Egg Incursion Rework:
@@ -58,14 +50,32 @@ Egg Incursion Rework:
 -The event also now has completely reworked and redesigned versions of previous enemies, as well as some new enemies that replace old ones which have been removed
 
 
-The Lake of Blood:
+The Lake of Blood and Alternate Blood Moon Fishing:
 
--IRON LUNG UPDATE
+-A lake of blood has been added to the valley of eyes, which gives you an alternate way of fishing up blood moon enemies... with a twist of course
+-Each of the blood lake fishing enemies are stronger and more difficult versions of vanilla's blood moon fishing enemies, with higher stats and completely new AI
+-In return for the difficulty, each enemy has much higher drop rates for the blood moon fishing items, allowing you to farm them more quickly and easily
+
+Each enemy variant is as follows:
+-Wandering Eye Fish -> Peeper fish (Prehardmode)
+-Zombie Merman -> Flesh Merfolk (Prehardmode)
+-Blood Squid -> Clot Squid (Prehardmode, and summoned by the claret cephalopod)
+-Hemogoblin Shark -> Hemostasis Beast (Hardmode)
+-Blood Eel -> Aortic Eel (Hardmode)
+-Dreadnautilus -> Claret Cephalopod (Hardmode, post orro & boro)
+
+
+Slingshot Sub-class:
+
+-Slingshot weapons are now a ranger subclass in spooky mod (Sorta?)
+-They use mossy pebbles as ammo, which are crafted from mossy stone in the spooky forest, or can be purchased from the merchant
+-Like some vanilla ranged weapons, some slingshots can convert mossy pebbles into their own unique projectile
+-The slingshots will likely be expanded more in the future, but for right now there isn't many of them, with only 3 existing in prehardmode
 
 
 Config Improvements:
 
--Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more, and I personally think it looks nicer tbh)
+-Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more, and I personally think it looks nicer)
 -The screen shaking effect config is no longer an option that you turn off, it is now a slider that allows you to edit the intensity of it to your liking (More info is provided in game)
 
 
@@ -104,11 +114,11 @@ Items & Weapons:
 
 -Renamed loose soil to swamp soil
 -Renamed rocky soil to swamp rock
--All spooky mod boss masks now drop from that bosses treasure bag in expert mode to be consistent with vanilla
+-All spooky mod boss masks now drop from their respective bosses treasure bag in expert mode to be consistent with vanilla
 -Buffed the use speed for the toilet paper and necromancy for dummies
 -Buffed the creepy candle's magic damage bonus from 5% to 7%
 -Increased the drop rate for the warlock's skull, warlock's cloak, and warlock's hood from zomboid warlocks
--Renamed the rotten chunk to moldy chunk, because rotten chunks are already an item in terraria, and fixed them stacking to 999 and not 9999
+-Renamed the rotten chunk to moldy chunk because rotten chunks are already an item in terraria, and fixed them stacking to 999 and not 9999
 -Rotten gourd armor now requires old wood to craft along with the moldy chunks, and buffed the amount of defense each piece of the armor gives you
 -Increased harvester's scythe knockback quite a bit
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
@@ -117,24 +127,24 @@ Items & Weapons:
 -Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, now inflicts venom, pierces enemies, can no longer go through blocks, and has a cool new visual effect
 -Nerfed the gargoyle scepter's base damage from 65 to 42, but the cursed fire balls shot by grug now inflict cursed inferno onto enemies
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
--Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies, and explode on enemy hits
--Conscious cutter and Tongueblade now have new swing extension visual effects (like 1.4.4 swords do)
+-Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
+-Conscious cutter and Tongueblade now have new swing extension visual effects (like the 1.4.4 excalibur for example)
 -Old hunter's crossbow arrows now have a cool visual trail
 -Simplified the tooltip description for the undying embryo
+-Simplified the tooltip desctiption for sentient hearts
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
--Removed the shadow cowbell and the shadow clump, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
 
 
 Shimmer Transmutations:
 
--Big bone's weapon drops can now be shimmered into its other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
+-Big bone's weapon drops can now be shimmered into his other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
 -Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
 -Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Head -> Chestmail -> Greaves -> back to Head
 
 
-Enemies & Bosses:
+Enemy & Boss Changes:
 
--Added pitch variance to various custom enemy and boss sounds in the mod
+-Added pitch variance to many of the custom enemy and boss sounds in the mod
 -Lowered the orange spooky ghost critter spawnrate
 -Lowered the spawn rate of the gloopers in the cemetery
 -Nerfed giant tortumor contact damage from 65 to 40
@@ -154,20 +164,25 @@ Miscellaneous:
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
+-Eye valley grass can now grow ambient eye stalks and tentacles naturally
+
+
+Removals:
+
 -Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary, visitant
--Eye valley grass can now grow the ambient eye stalks and tentacles naturally
+-Removed the shadow cowbell and the shadow clump items, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
 
 
 
 
 ~BUGS AND OTHER FIXES~
 
--Fixed the spooky scroll causing the player sprite direction to spaz out if your cursor was in the middle of your player
--Fixed both regular tortumor and giant tortumor's orb projectiles not dealing any damage
--Fixed issue where spooky mod's custom tile drawing would draw horribly wrong if you used retro or trippy lighting modes
--Fixed bug where the eye valley biome chest was dropping a monster chest when broken, and not its own item
+-Fixed the spooky scroll causing the player to spaz out if your cursor was in the middle of your player
+-Fixed tortumor and giant tortumor orb projectiles not dealing any damage to players
+-Fixed issue where spooky mod's custom trees would draw horribly wrong if you used retro or trippy lighting modes
+-Fixed issue where the eye valley biome chest was dropping a monster chest when broken, and not its own item
 -Fixed the rotten gourd armor's set bonus not working
--Fixed rot gourd not spawning with flies correctly in multiplayer
+-Fixed rot gourd not spawning correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer
 
 

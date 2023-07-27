@@ -1344,8 +1344,8 @@ SentientHeart: {
 	DisplayName: Sentient Heart
 	Tooltip:
 		'''
-		A strange heart ripped from a strong monster, it is still beating on its own
-		When combined with certain weapons at the cauldron, it will bring them sentience
+		A strange heart ripped from a strong monster
+		Can bring out the sentient power of certain weapons
 		'''
 }
 
@@ -1361,6 +1361,11 @@ SpookyHellKey: {
 TortumorStaff: {
 	DisplayName: Gore Staff
 	Tooltip: Summons friendly tortumors that shoot blood globs at enemies
+}
+
+SpookyHellSolution: {
+	DisplayName: Eye Valley Solution
+	Tooltip: Spreads the Eye Valley on to underworld blocks
 }
 
 VinylAlley: {

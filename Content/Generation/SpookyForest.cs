@@ -705,8 +705,9 @@ namespace Spooky.Content.Generation
 
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == ModContent.TileType<HalloweenChest>() && Main.tile[chest.x, chest.y].TileFrameX == 36)
                 {
-                    for (int inventoryIndex = 0; inventoryIndex < 5; inventoryIndex++) 
+                    for (int inventoryIndex = 0; inventoryIndex < 5; inventoryIndex++)
                     {
+                        //the main item in each chest is already placed via structure helper, so it doesnt need to be added here
                         if (chest.item[inventoryIndex].type == ItemID.None) 
                         {
                             //iron or lead bars

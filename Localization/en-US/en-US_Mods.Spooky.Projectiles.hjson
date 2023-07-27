@@ -205,10 +205,10 @@ GiantBiomass.DisplayName: Biomass
 GiantBiomassVesicator.DisplayName: Biomass
 CruxBloodChunk.DisplayName: Blood Clump
 SentientChumCasterBobber.DisplayName: Sentient Bobber
-ThornPillarSeed.DisplayName: Thorn Pillar Seed
+ThornPillarSeed.DisplayName: Seed
 ThornPillar.DisplayName: Thorn Pillar
 TheHorseFly.DisplayName: Horse Fly
-HorseshoeProj.DisplayName: Horseshoe Proj
+HorseshoeProj.DisplayName: Unlucky Horseshoe
 SolarDeathbeam.DisplayName: Solar Deathbeam
 SolarDeathbeamTelegraph.DisplayName: Telegraph
 ChungusSpore.DisplayName: Spore
@@ -219,3 +219,5 @@ NautilusBubble1.DisplayName: Nautilus Bubble
 NautilusBubble2.DisplayName: Nautilus Bubble
 NautilusBiomass.DisplayName: Nautilus Biomass
 ValleyNautilusPet.DisplayName: Baby Cephalopod
+SpookyHellSolutionProj.DisplayName: Eye Valley Solution
+ValleySharkThorn.DisplayName: Blood Spike

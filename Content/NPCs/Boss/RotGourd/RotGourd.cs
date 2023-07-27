@@ -295,7 +295,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							NPC.velocity.Y = 35;
 						}
 
-						//set tile collide to true after jumping so you cant avoid them
+						//set tile collide to true once it gets to the players level to prevent cheesing
 						if (NPC.localAI[0] >= 20)
 						{
 							if (NPC.position.Y >= player.Center.Y - 200)
@@ -405,7 +405,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								NPC.velocity.Y = 16;
 							}
 
-							//set tile collide to true after jumping so you cant avoid them
+							//set tile collide to true once it gets to the players level to prevent cheesing
 							if (NPC.localAI[0] >= 125)
 							{	
 								if (NPC.position.Y >= player.Center.Y - 200)
@@ -556,7 +556,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							NPC.velocity.Y = 32;
 						}
 
-						//set tile collide to true after jumping
+						//set tile collide to true once it gets to the players level to prevent cheesing
 						if (NPC.localAI[0] >= 75)
 						{
 							if (NPC.position.Y >= player.Center.Y - 150)
@@ -832,7 +832,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								NPC.velocity.Y = 30;
 							}
 
-							//set tile collide to true after jumping so you cant avoid them
+							//set tile collide to true once it gets to the players level to prevent cheesing
 							if (NPC.localAI[0] >= 150)
 							{	
 								if (NPC.position.Y >= player.Center.Y - 150)
@@ -972,7 +972,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 								NPC.velocity.Y = 18;
 							}
 
-							//set tile collide to true after jumping so you cant avoid them
+							//set tile collide to true once it gets to the players level to prevent cheesing
 							if (NPC.localAI[0] >= 85)
 							{	
 								if (NPC.position.Y >= player.Center.Y - 200)

@@ -116,6 +116,7 @@ namespace Spooky.Content.NPCs.Friendly
 						AdviceSwitch--;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
 					}
+					
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//underground spooky forest chests
