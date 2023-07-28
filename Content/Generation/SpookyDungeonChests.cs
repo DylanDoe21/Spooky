@@ -19,12 +19,10 @@ namespace Spooky.Content.Generation
 {
     public class SpookyDungeonChests : ModSystem
     {
-        private void PlaceDungeonChests(GenerationProgress progress, GameConfiguration configuration)
+        private void PlaceSpookyChest(GenerationProgress progress, GameConfiguration configuration)
         {
-            bool placedChest1 = false;
-            bool placedChest2 = false;
+            bool placedChest = false;
 
-            //spooky forest chest
             for (int j = (int)Main.worldSurface + 200; j <= Main.maxTilesY - 200; j++)
             {
                 int i = 100;
@@ -58,19 +56,23 @@ namespace Spooky.Content.Generation
                     Tile tileUp = Main.tile[i, j - 1];
                     Tile tileRight = Main.tile[i + 1, j - 1];
 
-                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest1)
+                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest)
                     {
                         WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<SpookyBiomeChest>(), true, 1);
                     }
 
                     if (tileUp.TileType == ModContent.TileType<SpookyBiomeChest>())
                     {
-                        placedChest1 = true;
+                        placedChest = true;
                     }
                 }
             }
+        }
 
-            //eye valley chest
+        private void PlaceEyeChest(GenerationProgress progress, GameConfiguration configuration)
+        {
+            bool placedChest = false;
+            
             for (int j = (int)Main.worldSurface + 200; j <= Main.maxTilesY - 200; j++)
             {
                 int i = 100;
@@ -104,14 +106,14 @@ namespace Spooky.Content.Generation
                     Tile tileUp = Main.tile[i, j - 1];
                     Tile tileRight = Main.tile[i + 1, j - 1];
 
-                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest2)
+                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest)
                     {
                         WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<SpookyHellChest>(), true, 1);
                     }
 
                     if (tileUp.TileType == ModContent.TileType<SpookyHellChest>())
                     {
-                        placedChest2 = true;
+                        placedChest = true;
                     }
                 }
             }
@@ -125,7 +127,8 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceDungeonChests", PlaceDungeonChests));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceSpookyChest", PlaceSpookyChest));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("PlaceEyeChest", PlaceEyeChest));
         }
 
         //place items in chests
