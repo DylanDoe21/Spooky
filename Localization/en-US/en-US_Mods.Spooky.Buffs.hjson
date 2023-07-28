@@ -32,7 +32,7 @@ CatacombDebuff: {
 	DisplayName: Catacomb's Curse
 	Description:
 		'''
-		You cannot build, use tools, or use the rod of discord
+		You cannot place blocks, use tools, or use the rod of discord
 		Your vision is very limited
 		'''
 }

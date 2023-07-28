@@ -274,6 +274,15 @@ SpiritHorsemanLegs: {
 	Tooltip: 12% increased movement speed
 }
 
+CemeterySolution: {
+	DisplayName: Dark Green Solution
+	Tooltip:
+		'''
+		Used by the Clentaminator
+		Spreads the Swampy Cemetery
+		'''
+}
+
 Horseshoe: {
 	DisplayName: Unlucky Horseshoe
 	Tooltip: Throws a returning horseshoe
@@ -285,15 +294,6 @@ SpiritHandStaff: {
 		'''
 		Casts spooky hands out of nearby surfaces
 		Hands cannot be summoned if your cursor is too far from any surfaces
-		'''
-}
-
-CemeterySolution: {
-	DisplayName: Teal Solution
-	Tooltip:
-		'''
-		Used by the Clentaminator
-		Spreads the Swampy Cemetery
 		'''
 }
 
@@ -1350,8 +1350,8 @@ TortumorStaff: {
 }
 
 SpookyHellSolution: {
-	DisplayName: Eye Valley Solution
-	Tooltip: Spreads the Eye Valley on to underworld blocks
+	DisplayName: Red & Purple Solution
+	Tooltip: Spreads the Eye Valley onto underworld blocks
 }
 
 VinylAlley: {

@@ -77,13 +77,14 @@ TheBaby.DisplayName: The Baby
 TheFlesh.DisplayName: The Flesh
 TheHorse.DisplayName: The Horse
 TheMan.DisplayName: The Man
-//catacombs
+//catacombs layer 1
 CatacombGuardian.DisplayName: Catacomb Guardian
 GiantPutty.DisplayName: Putty Cube
 RollingSkull1.DisplayName: Rolling Skull
-RollingSkull4.DisplayName: Rolling Skull
-RollingSkull3.DisplayName: Rolling Skull
 RollingSkull2.DisplayName: Rolling Skull
+RollingSkull3.DisplayName: Rolling Skull
+RollingSkull4.DisplayName: Gilded Skull
+//catacombs layer 2
 FloatyFlower.DisplayName: Daisy
 FlowerSentry.DisplayName: Sunny
 HoppingFlower.DisplayName: Marigold
@@ -155,4 +156,4 @@ ValleyEelBody.DisplayName: Aortic Eel
 ValleyEelHead.DisplayName: Aortic Eel
 ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
-ValleySharkMouth.DisplayName: Valley Shark Mouth
+ValleySharkMouth.DisplayName: Hemostasis Beast
