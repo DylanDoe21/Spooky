@@ -132,6 +132,17 @@ namespace Spooky.Content.Items.Cemetery.Misc
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
+
+						//replace grass walls with cemetery grass walls
+                        int[] WallReplace = { WallID.GrassUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Flower, 
+                        WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
+
+						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
+                        {
+							Main.tile[k, l].WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+							WorldGen.SquareWallFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
 					}
 				}
 			}

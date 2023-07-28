@@ -120,7 +120,9 @@ namespace Spooky.Core
                         }
 
                         //replace spooky grass walls with grass walls
-                        if (Main.tile[k, l].WallType == ModContent.WallType<SpookyGrassWall>())
+                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
+
+                        if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.GrassUnsafe;
                             WorldGen.SquareWallFrame(k, l);

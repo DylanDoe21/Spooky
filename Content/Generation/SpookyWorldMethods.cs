@@ -93,9 +93,9 @@ namespace Spooky.Content.Generation
             }
 		}
 
-		//this is basically a heavily modified version of vanillas tile runner code specifically for the spooky forest biome's generation
-		public static void SpookyForestTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
-		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false, bool replaceWalls = true, bool limit = true)
+		//this is basically a heavily modified version of vanillas tile runner code
+		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
+		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false, bool replaceWalls = true, bool noTiles = false)
 		{
 			double num = strength;
 			float num2 = (float)steps;
@@ -139,7 +139,7 @@ namespace Spooky.Content.Generation
 						{
 							//do not generate or replace anything above the surface (basically to stop it from replacing blocks on floating islands)
 							float divide = 7.5f;
-							int heightLimit = limit ? (int)Main.worldSurface - (Main.maxTilesY / (int)divide) : 0;
+							int heightLimit = (int)Main.worldSurface - (Main.maxTilesY / (int)divide);
 
 							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud)
 							{
@@ -155,27 +155,30 @@ namespace Spooky.Content.Generation
 								63, 64, 65, 66, 67, 68, 192, 10, 11, 12, 14, 15, 16, 17, 18, 19, 26, 28, 31,
 								32, 33, 34, 42, 79, 86, 87, 88, 89, 90, 91, 92, 93, 100, 101, 104, 105, 374 };
 
-								if (!Main.tileDungeon[Main.tile[k, l].TileType])
+								if (!noTiles)
 								{
-									if (Kill.Contains(Main.tile[k, l].TileType))
+									if (!Main.tileDungeon[Main.tile[k, l].TileType])
 									{
-										WorldGen.KillTile(k, l);
-									}
+										if (Kill.Contains(Main.tile[k, l].TileType))
+										{
+											WorldGen.KillTile(k, l);
+										}
 
-									//replace tiles if it is not in the kill list
-									if (!Kill.Contains(Main.tile[k, l].TileType))
-									{
-										Main.tile[k, l].TileType = (ushort)tileType;
-									}
+										//replace tiles if it is not in the kill list
+										if (!Kill.Contains(Main.tile[k, l].TileType))
+										{
+											Main.tile[k, l].TileType = (ushort)tileType;
+										}
 
-									if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
-									{
-										WorldGen.PlaceTile(k, l, tileType);
-									}
+										if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
+										{
+											WorldGen.PlaceTile(k, l, tileType);
+										}
 
-                                    if (addTile)
-									{
-										Main.tile[k, l].TileType = (ushort)tileType;
+										if (addTile)
+										{
+											Main.tile[k, l].TileType = (ushort)tileType;
+										}
 									}
 								}
 

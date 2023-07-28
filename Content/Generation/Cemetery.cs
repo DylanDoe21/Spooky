@@ -246,6 +246,7 @@ namespace Spooky.Content.Generation
 				}
                 if (!Main.tile[startX, startY].HasTile)
                 {
+                    CheckForFloatingIslands(startX, startY);
 					continue;
                 }
 
@@ -260,6 +261,28 @@ namespace Spooky.Content.Generation
 
                 placed = true;
             }
+        }
+
+        public static bool CheckForFloatingIslands(int X, int Y)
+        {
+            int canPlace = 0;
+
+            for (int i = X - 20; i < X + 20; i++)
+            {
+                for (int j = Y - 20; j < Y + 20; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud))
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
