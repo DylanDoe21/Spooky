@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Misc
@@ -49,7 +50,7 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
         {
 			if (Projectile.owner == Main.myPlayer)
             {
-				Convert((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
+				TileConversionMethods.ConvertPurityIntoSpooky((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
 			}
 
 			if (Projectile.timeLeft > 133) 
@@ -96,65 +97,6 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 			}
 
 			Projectile.rotation += 0.3f * Projectile.direction;
-		}
-
-		private static void Convert(int i, int j, int size = 4) 
-        {
-			for (int k = i - size; k <= i + size; k++) 
-            {
-				for (int l = j - size; l <= j + size; l++) 
-                {
-					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
-                    {
-                        //replace normal grass with orange grass
-                        int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass };
-
-                        if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrass>();
-							WorldGen.SquareWallFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace corrupt biome grasses with green grass
-                        int[] GreenGrassReplace = { TileID.CorruptGrass, TileID.CrimsonGrass };
-
-                        if (GreenGrassReplace.Contains(Main.tile[k, l].TileType)) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
-							WorldGen.SquareWallFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace dirt blocks with spooky dirt
-						if (Main.tile[k, l].TileType == TileID.Dirt) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyDirt>();
-							WorldGen.SquareTileFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace stone blocks with spooky stone
-						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType]) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyStone>();
-							WorldGen.SquareTileFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace grass walls with spooky grass walls
-                        int[] WallReplace = { WallID.GrassUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Flower, 
-                        WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
-
-						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
-                        {
-							Main.tile[k, l].WallType = (ushort)ModContent.WallType<SpookyGrassWall>();
-							WorldGen.SquareWallFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-					}
-				}
-			}
 		}
 	}
 }

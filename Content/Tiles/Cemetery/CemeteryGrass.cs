@@ -18,9 +18,7 @@ namespace Spooky.Content.Tiles.Cemetery
 		public override void SetStaticDefaults()
 		{
             TileID.Sets.CanBeDugByShovel[Type] = true;
-            TileID.Sets.Conversion.Grass[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
-            TileID.Sets.JungleSpecial[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<CemeteryDirt>();
             Main.tileBrick[Type] = true;

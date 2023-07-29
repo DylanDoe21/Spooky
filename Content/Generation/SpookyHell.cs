@@ -17,7 +17,6 @@ using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
 using Spooky.Content.Projectiles.SpookyHell;
-using Iced.Intel;
 
 namespace Spooky.Content.Generation
 {

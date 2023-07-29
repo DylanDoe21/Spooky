@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Misc
@@ -49,7 +50,7 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         {
 			if (Projectile.owner == Main.myPlayer)
             {
-				Convert((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
+				TileConversionMethods.ConvertHellIntoEyeValley((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
 			}
 
 			if (Projectile.timeLeft > 133) 
@@ -97,34 +98,6 @@ namespace Spooky.Content.Items.SpookyHell.Misc
 			}
 
 			Projectile.rotation += 0.3f * Projectile.direction;
-		}
-
-		private static void Convert(int i, int j, int size = 4) 
-        {
-			for (int k = i - size; k <= i + size; k++) 
-            {
-				for (int l = j - size; l <= j + size; l++) 
-                {
-					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
-                    {
-						if (Main.tile[k, l].TileType == TileID.Ash) 
-                        {
-							if (!Main.tile[k - 1, l].HasTile || !Main.tile[k + 1, l].HasTile || !Main.tile[k, l - 1].HasTile || !Main.tile[k, l + 1].HasTile)
-							{
-								Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyMushGrass>();
-								WorldGen.SquareTileFrame(k, l);
-								NetMessage.SendTileSquare(-1, k, l, 1);
-							}
-							else
-							{
-								Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyMush>();
-								WorldGen.SquareTileFrame(k, l);
-								NetMessage.SendTileSquare(-1, k, l, 1);
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 }

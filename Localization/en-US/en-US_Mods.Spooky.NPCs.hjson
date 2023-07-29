@@ -79,6 +79,13 @@ TheHorse.DisplayName: The Horse
 TheMan.DisplayName: The Man
 //catacombs layer 1
 CatacombGuardian.DisplayName: Catacomb Guardian
+BoneWormFront1.DisplayName: Bone Worm
+BoneWormMiddle1.DisplayName: Bone Worm
+BoneWormTail1.DisplayName: Bone Worm
+BoneStacker1.DisplayName: Bone Stacker
+BoneStackerBase.DisplayName: Bone Stacker
+BoneStacker2.DisplayName: Bone Stacker
+BoneStacker3.DisplayName: Bone Stacker
 GiantPutty.DisplayName: Putty Cube
 RollingSkull1.DisplayName: Rolling Skull
 RollingSkull2.DisplayName: Rolling Skull

@@ -5,9 +5,8 @@ using System;
 using System.Linq;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Generation;
 using Spooky.Content.Projectiles.Sentient;
-using Spooky.Content.Tiles.Cemetery;
-using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
 {
@@ -41,10 +40,30 @@ namespace Spooky.Core
                 }
 			}
 
-            //convert spooky forest tiles into purity when sprayed with green solution
+            //convert spooky mod tiles with different clentaminator solutions
             if (projectile.type == ProjectileID.PureSpray)
             {
-                ConvertSpookyIntoPurity((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+                TileConversionMethods.ConvertSpookyIntoPurity((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+            if (projectile.type == ProjectileID.HallowSpray)
+            {
+                TileConversionMethods.ConvertSpookyIntoHallow((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+            if (projectile.type == ProjectileID.CorruptSpray)
+            {
+                TileConversionMethods.ConvertSpookyIntoCorruption((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+            if (projectile.type == ProjectileID.CrimsonSpray)
+            {
+                TileConversionMethods.ConvertSpookyIntoCrimson((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+            if (projectile.type == ProjectileID.SnowSpray)
+            {
+                TileConversionMethods.ConvertSpookyIntoSnow((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
+            }
+            if (projectile.type == ProjectileID.SandSpray)
+            {
+                TileConversionMethods.ConvertSpookyIntoDesert((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }
 
             //dont allow fishing in the blood lake in the valley of eyes, unless you have the goblin shark rod
@@ -78,59 +97,6 @@ namespace Spooky.Core
             }
 
             return true;
-        }
-
-        private static void ConvertSpookyIntoPurity(int i, int j, int size = 4)
-        {
-            for (int k = i - size; k <= i + size; k++)
-            {
-                for (int l = j - size; l <= j + size; l++)
-                {
-                    if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
-                    {
-
-                        //replace spooky grasses with regular grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
-
-                        if (GrassReplace.Contains(Main.tile[k, l].TileType))
-                        {
-                            Main.tile[k, l].TileType = TileID.Grass;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
-                        }
-
-                        //replace spooky dirt with dirt 
-                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
-
-                        if (DirtReplace.Contains(Main.tile[k, l].TileType))
-                        {
-                            Main.tile[k, l].TileType = TileID.Dirt;
-                            WorldGen.SquareTileFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
-                        }
-
-                        //replace spooky stone with stone
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
-                        if (StoneReplace.Contains(Main.tile[k, l].TileType))
-                        {
-                            Main.tile[k, l].TileType = TileID.Stone;
-                            WorldGen.SquareTileFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
-                        }
-
-                        //replace spooky grass walls with grass walls
-                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
-                        if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
-                        {
-                            Main.tile[k, l].WallType = WallID.GrassUnsafe;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.Catacomb.Ambient
 {
@@ -41,14 +42,32 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             }
         }
 
-        /*
+        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
+			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
+			int type = -1;
+
+			if (tileBelow.HasTile)
+            {
+				type = tileBelow.TileType;
+			}
+
+			if (type == ModContent.TileType<CemeteryGrass>()) 
+            {
+				return true;
+			}
+
+			WorldGen.KillTile(i, j);
+
+			return true;
+		}
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY) 
         {
             if (Main.rand.Next(35) == 0)
             {
-                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<SpookySeedsGreen>());
+                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<CemeteryGrassSeeds>());
             }
         }
-        */
     }
 }

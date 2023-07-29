@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery.Misc
@@ -49,7 +50,7 @@ namespace Spooky.Content.Items.Cemetery.Misc
         {
 			if (Projectile.owner == Main.myPlayer)
             {
-				Convert((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
+				TileConversionMethods.ConvertPurityIntoCemetery((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
 			}
 
 			if (Projectile.timeLeft > 133) 
@@ -97,55 +98,6 @@ namespace Spooky.Content.Items.Cemetery.Misc
 			}
 
 			Projectile.rotation += 0.3f * Projectile.direction;
-		}
-
-		private static void Convert(int i, int j, int size = 4) 
-        {
-			for (int k = i - size; k <= i + size; k++) 
-            {
-				for (int l = j - size; l <= j + size; l++) 
-                {
-					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
-                    {
-                        //replace grass with cemetery grass
-                        int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass, TileID.CorruptGrass, TileID.CrimsonGrass };
-
-                        if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
-							WorldGen.SquareWallFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace dirt blocks with spooky dirt
-						if (Main.tile[k, l].TileType == TileID.Dirt) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
-							WorldGen.SquareTileFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-                        //replace stone blocks with spooky stone
-						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType]) 
-                        {
-							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryStone>();
-							WorldGen.SquareTileFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-
-						//replace grass walls with cemetery grass walls
-                        int[] WallReplace = { WallID.GrassUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Flower, 
-                        WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
-
-						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
-                        {
-							Main.tile[k, l].WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
-							WorldGen.SquareWallFrame(k, l);
-							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
-					}
-				}
-			}
 		}
 	}
 }
