@@ -11,13 +11,20 @@ TheBaby: It won't stop crying...
 TheFlesh: What a coward.
 TheHorse: Are you still hungry now?
 TheMan: Always observing.
-//catacombs
+//catacombs layer 1
 CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
+BoneStackerBase: A slab of brick with a face on it. It carries many bone constructs on its back, creating a wall-like barrier that prevents intruders from exploring further.
+BoneStacker1: Constructs of bone that can stack on top of each other. When their base is gone, they can use small legs under their bone shell to walk on the ground.
+BoneStacker2: When the base of their stack is destroyed, They can sometimes free themselves and attack foes directly as a last resort.
+BoneStacker3: These bone slabs have a not so secret weapon, their thorns. When at a distance, they can fire them at their targets.
 GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are bigger, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
 RollingSkull2: No one knows how these skulls found their way into the catacombs. Despite being overgrown with plant life, they roll around and destroy things.
 RollingSkull3: Its destructive rolling ability combined with the sharp thorns growing on it makes this a nasty undead creature to encounter.
 RollingSkull4: Gilded skulls made out of pure gold, some say they were created to honor those who passed away and were buried in the catacombs.
+ZomboidNecromancer: These zomboids spend their time locked away in the catacombs learning necromancy, and are able to conjure temporary souls from the burials around them.
+ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
+//catacombs layer 2
 FloatyFlower: Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls.
 FlowerSentry: These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring.
 HoppingFlower: These blind and malicious marigold creatures hop around the catacombs, spitting deadly spores as a parting gift to any unwelcomed guests.

@@ -10,6 +10,7 @@ using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Generation
 {
+    //tile conversions for clentaminator solutions
     public class TileConversionMethods
     {
         //convert spooky mod blocks into purity when used with green or brown solution

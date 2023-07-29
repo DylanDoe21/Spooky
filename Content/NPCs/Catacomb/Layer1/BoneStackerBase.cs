@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class BoneStackerBase : ModNPC  
@@ -44,7 +46,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
 			{
-                return 30f;
+                return 10f;
             }
             
             return 0f;
@@ -56,7 +58,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
 
-            //Create the worm itself
+            //Create the stack of enemies
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!stackersSpawned)
@@ -79,7 +81,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             }
         }
 
-        /*
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             //dont run on multiplayer
@@ -90,12 +96,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneWorm1FrontGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerBaseGore" + numGores).Type);
                 }
             }
         }
-        */
     }
 }

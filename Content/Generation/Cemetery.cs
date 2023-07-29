@@ -20,7 +20,7 @@ namespace Spooky.Content.Generation
         public static int BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
 
         //place a giant dirt area for the graveyard to generate on
-        private void PlaceCemeteryArea(GenerationProgress progress, GameConfiguration configuration)
+        private void PlaceCemetery(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery").Value;
 
@@ -65,7 +65,7 @@ namespace Spooky.Content.Generation
             //place the terrain itself and replace blocks with cemetery blocks
             for (int X = XMiddle - (BiomeWidth / 2); X <= XMiddle + (BiomeWidth / 2); X++)
             {
-                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
+                for (int Y = Catacombs.PositionY - 100; Y <= Main.worldSurface; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
                     Tile tileUp = Main.tile[X, Y - 1];
@@ -194,7 +194,6 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
-                    //grow trees on cemetery grass
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<CemeteryGrass>())
                     {
                         WorldGen.GrowTree(X, Y - 1);
@@ -209,7 +208,7 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
-            int StartPosY = Catacombs.PositionY - 55;
+            int StartPosY = Catacombs.PositionY - 100;
 
             //graveyards
             GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-1", 12, 8);
@@ -296,7 +295,7 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("CemeteryTerrain", PlaceCemeteryArea));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("CemeteryTerrain", PlaceCemetery));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("CemeteryStructures", GenerateCemeteryStructures));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryGrass", SpreadCemeteryGrass));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("CemeteryTrees", GrowCemeteryTrees));

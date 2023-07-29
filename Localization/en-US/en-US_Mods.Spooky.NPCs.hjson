@@ -82,15 +82,20 @@ CatacombGuardian.DisplayName: Catacomb Guardian
 BoneWormFront1.DisplayName: Bone Worm
 BoneWormMiddle1.DisplayName: Bone Worm
 BoneWormTail1.DisplayName: Bone Worm
-BoneStacker1.DisplayName: Bone Stacker
-BoneStackerBase.DisplayName: Bone Stacker
-BoneStacker2.DisplayName: Bone Stacker
-BoneStacker3.DisplayName: Bone Stacker
-GiantPutty.DisplayName: Putty Cube
+BoneStackerBase.DisplayName: Catacomb Slab
+BoneStacker1.DisplayName: Bone Construct
+BoneStacker2.DisplayName: Bone Construct
+BoneStacker3.DisplayName: Bone Construct
+BoneStackerMoving1.DisplayName: Bone Construct
+BoneStackerMoving2.DisplayName: Bone Construct
+BoneStackerMoving3.DisplayName: Bone Construct
+GiantPutty.DisplayName: Cube of Putty
 RollingSkull1.DisplayName: Rolling Skull
 RollingSkull2.DisplayName: Rolling Skull
 RollingSkull3.DisplayName: Rolling Skull
 RollingSkull4.DisplayName: Gilded Skull
+ZomboidNecromancer.DisplayName: Zomboid Necromancer
+ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
 FloatyFlower.DisplayName: Daisy
 FlowerSentry.DisplayName: Sunny

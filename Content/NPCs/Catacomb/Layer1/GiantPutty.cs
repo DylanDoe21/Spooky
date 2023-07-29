@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Food;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
 	public class GiantPutty : ModNPC
@@ -30,7 +32,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 50;
-			NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.2f;
 			NPC.value = Item.buyPrice(0, 0, 2, 50);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
@@ -56,7 +58,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 2f;
+                return 10f;
             }
 
             return 0f;
@@ -112,6 +114,27 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 25; numDusts++)
+                {
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
+                    Main.dust[DustGore].color = Color.Teal;
+					Main.dust[DustGore].scale = 0.85f;
+                    Main.dust[DustGore].velocity *= 1.2f;
+
+                    if (Main.rand.NextBool(2))
+                    {
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                    }
+                }
+            }
+		}
     }
 }

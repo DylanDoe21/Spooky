@@ -15,6 +15,7 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky
@@ -23,6 +24,9 @@ namespace Spooky
 	{
         public static int SpookySpiritSpawnX;
         public static int SpookySpiritSpawnY;
+
+        public static int OrroboroSpawnX;
+        public static int OrroboroSpawnY;
 
         private List<IAutoload> loadCache;
 
@@ -94,14 +98,19 @@ namespace Spooky
 			SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
 			switch (messageType)
 			{
+                case SpookyMessageType.SpawnSpookySpirit:
+                {
+                    NPC.NewNPC(null, SpookySpiritSpawnX, SpookySpiritSpawnY, ModContent.NPCType<SpookySpirit>());
+                    break;
+                }
                 case SpookyMessageType.SpawnMoco:
                 {
                     NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
 					break;
                 }
-                case SpookyMessageType.SpawnSpookySpirit:
+                case SpookyMessageType.SpawnOrroboro:
                 {
-                    NPC.NewNPC(null, SpookySpiritSpawnX, SpookySpiritSpawnY, ModContent.NPCType<SpookySpirit>());
+                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>());
                     break;
                 }
                 default:
@@ -117,5 +126,6 @@ namespace Spooky
     {
         SpawnMoco,
         SpawnSpookySpirit,
+        SpawnOrroboro,
     }
 }

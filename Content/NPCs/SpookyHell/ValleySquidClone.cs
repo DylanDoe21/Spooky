@@ -37,12 +37,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(SavePosition.X);
-            writer.Write(SavePosition.X);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
-
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
@@ -50,12 +44,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            SavePosition.X = reader.ReadInt32();
-            SavePosition.X = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
-
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();

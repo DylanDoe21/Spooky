@@ -10,17 +10,14 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.NPCs.SpookyBiome.Projectiles;
-using Spooky.Content.Tiles.Banner.SpookyForest;
 
-namespace Spooky.Content.NPCs.SpookyBiome
+namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
-    public class ZomboidWarlock : ModNPC  
+    public class ZomboidNecromancer : ModNPC
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 9;
+            Main.npcFrameCount[NPC.type] = 7;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -45,19 +42,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<ZomboidWarlockBanner>();
-            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type, ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
-        }
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+		}
 
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidWarlock"),
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidNecromancer"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -65,14 +58,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             Player player = spawnInfo.Player;
 
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
+            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                if (((player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !Main.dayTime) ||
-                player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>())) && !NPC.AnyNPCs(ModContent.NPCType<ZomboidWarlock>()))
-                {
-                    return 2f;
-                }
+                return 8f;
             }
 
             return 0f;
@@ -91,23 +79,23 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;
                 }
-                if (NPC.frame.Y >= frameHeight * 5)
+                if (NPC.frame.Y >= frameHeight * 4)
                 {
                     NPC.frame.Y = 0 * frameHeight;
                 }
 
-                //jumping frame when falling/jumping
+                //frame when falling/jumping
                 if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
                 {
-                    NPC.frame.Y = 8 * frameHeight;
+                    NPC.frame.Y = 2 * frameHeight;
                 }
             }
             //use casting animation during casting ai
             if (NPC.localAI[0] > 420)
             {
-                if (NPC.frame.Y < frameHeight * 6)
+                if (NPC.frame.Y < frameHeight * 5)
                 {
-                    NPC.frame.Y = 5 * frameHeight;
+                    NPC.frame.Y = 4 * frameHeight;
                 }
 
                 if (NPC.frameCounter > 10)
@@ -115,9 +103,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0.0;
                 }
-                if (NPC.frame.Y >= frameHeight * 8)
+                if (NPC.frame.Y >= frameHeight * 7)
                 {
-                    NPC.frame.Y = 7 * frameHeight;
+                    NPC.frame.Y = 6 * frameHeight;
                 }
             }
         }
@@ -125,8 +113,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void AI()
 		{
             Player player = Main.player[NPC.target];
-
-            int Damage = Main.masterMode ? 30 / 3 : Main.expertMode ? 25 / 2 : 12;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -142,17 +128,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 NPC.aiStyle = 0;
 
-                if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500 || NPC.localAI[0] == 520)
+                if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500)
                 {
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
-
-                    Vector2 ShootSpeed = player.Center - NPC.Center;
-                    ShootSpeed.Normalize();
-                    ShootSpeed.X *= 4.5f;
-                    ShootSpeed.Y *= 4.5f;
-                    
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
-                    ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), Damage, 1, NPC.target, 0, 0);
                 }
             }
 
@@ -164,9 +142,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockHood>(), 5));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullWispStaff>(), 6));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarlockRobe>(), 6));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZomboidNecromancerHood>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
         }
 
@@ -180,9 +156,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 5; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidWarlockGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidNecromancerGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidNecromancerCloth" + numGores).Type);
                 }
             }
         }

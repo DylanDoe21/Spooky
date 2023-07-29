@@ -93,7 +93,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Vector2 realSpeed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
                         Vector2 Position = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
 
-                        int GreekFire = Projectile.NewProjectile(Projectile.GetSource_Death(), Position, realSpeed, 
+                        int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Position, realSpeed, 
                         Main.rand.Next(Types), Projectile.damage, 0f, Main.myPlayer, 0, 0);
                         Main.projectile[GreekFire].DamageType = DamageClass.Magic;
                         Main.projectile[GreekFire].friendly = true;

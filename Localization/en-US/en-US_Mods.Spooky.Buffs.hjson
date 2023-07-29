@@ -29,10 +29,10 @@ BoogerFrenzyCooldown: {
 }
 
 CatacombDebuff: {
-	DisplayName: Catacomb's Curse
+	DisplayName: Curse of the Catacombs
 	Description:
 		'''
-		You cannot place blocks, use tools, or use the rod of discord
+		You cannot place blocks or use various tools
 		Your vision is very limited
 		'''
 }

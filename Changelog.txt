@@ -31,7 +31,7 @@ New Boss, Daffodil:
 Swampy Cemetery:
 
 -The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
--New structures have been added, and some worldgen modifications have been made to make the biome more nice looking
+-New structures have been added, some worldgen modifications have been made to make the biome more nice looking, and new ambient tiles have been added to make it look nicer
 -The swampy cemetery worldgen also now scales with world size, where bigger worlds will have a bigger cemetery biome
 
 
@@ -55,6 +55,7 @@ The Lake of Blood and Alternate Blood Moon Fishing:
 -A lake of blood has been added to the valley of eyes, which gives you an alternate way of fishing up blood moon enemies... with a twist of course
 -Each of the blood lake fishing enemies are stronger and more difficult versions of vanilla's blood moon fishing enemies, with higher stats and completely new AI
 -In return for the difficulty, each enemy has much higher drop rates for the blood moon fishing items, allowing you to farm them more quickly and easily
+-However, you cannot fish in the lake of blood with just any fishing rod, you will need to make the goblin shark rod, which is a sentient version of the chum caster
 
 Each enemy variant is as follows:
 -Wandering Eye Fish -> Peeper fish (Prehardmode)
@@ -135,6 +136,7 @@ Items & Weapons:
 -Simplified the tooltip description for the undying embryo
 -Simplified the tooltip desctiption for sentient hearts
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
+-Spooky buster now has a slightly faster use time, meaning its wind up animation before swinging is shorter
 
 
 Shimmer Transmutations:
@@ -168,6 +170,7 @@ Miscellaneous:
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
 -Eye valley grass can now grow ambient eye stalks and tentacles naturally
+-The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests, instead of the catacombs
 
 
 Removals:
@@ -187,5 +190,6 @@ Removals:
 -Fixed the rotten gourd armor's set bonus not working
 -Fixed rot gourd not spawning correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer
+-Fixed many issues with orroboro in multiplayer
 
 

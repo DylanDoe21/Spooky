@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.Catacomb
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(12, 62, 6));
+            AddMapEntry(new Color(2, 42, 0));
             DustType = DustID.Grass;
             HitSound = SoundID.Grass;
         }

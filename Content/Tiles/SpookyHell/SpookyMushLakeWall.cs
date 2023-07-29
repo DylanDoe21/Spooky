@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                 Main.tile[i, j].LiquidAmount = byte.MaxValue;
                 WorldGen.SquareTileFrame(i, j);
 
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NetMessage.sendWater(i, j);
                 }
@@ -48,7 +48,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                 Main.tile[i, j - 1].LiquidAmount = byte.MaxValue;
                 WorldGen.SquareTileFrame(i, j - 1);
 
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NetMessage.sendWater(i, j - 1);
                 }

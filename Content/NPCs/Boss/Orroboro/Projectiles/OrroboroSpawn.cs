@@ -35,6 +35,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void AI()
         {
+            Spooky.OrroboroSpawnX = (int)Projectile.Center.X;
+            Spooky.OrroboroSpawnY = (int)Projectile.Center.Y;
+
             CrackTimer++;
 
             if (CrackTimer == 1)
@@ -67,26 +70,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             {
                 SoundEngine.PlaySound(EggCrackSound2, Projectile.Center);
 
-                //spawn orroboro with message
-                int Orroboro = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHeadP1>(), 0, -1);
-
-                //net update so it doesnt vanish on multiplayer
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: Orroboro);
-                }
-
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
 
-                if (Main.netMode != NetmodeID.Server)
-                {
-                    Main.NewText(text, 171, 64, 255);
-                }
-                else
-                {
+                if (Main.netMode != NetmodeID.SinglePlayer) 
+				{
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                }
+
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.SpawnOrroboro);
+					packet.Send();
+				}
+				else 
+				{
+                    Main.NewText(text, 171, 64, 255);
+
+					NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 65, ModContent.NPCType<OrroHeadP1>(), 0, -1);
+				}
 
                 //spawn egg gores to make it look like it broke
                 Vector2 Position = new((int)Projectile.Center.X, (int)Projectile.Center.Y + 65);

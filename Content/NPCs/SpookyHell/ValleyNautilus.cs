@@ -48,12 +48,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(SavePosition.X);
-            writer.Write(SavePosition.X);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
-
             //bools
             writer.Write(Charging);
 
@@ -66,12 +60,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            SavePosition.X = reader.ReadInt32();
-            SavePosition.X = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
-
             //bools
             Charging = reader.ReadBoolean();
 
@@ -257,6 +245,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (NPC.localAI[0] == 5)
                     {
                         SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - Main.rand.Next(150, 220));
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] > 5 && NPC.localAI[0] < 75)
@@ -273,6 +263,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         SoundEngine.PlaySound(SoundID.Item170, NPC.Center);
 
                         SavePosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake before firing projectiles
@@ -313,6 +305,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y + 20, ShootSpeed.X + Spread, 
                             ShootSpeed.Y + Spread, Main.rand.Next(Types), Damage, 0, NPC.target, 0, 0);
                         }
+
+                        NPC.netUpdate = true;
                     }
 
                     //stop moving

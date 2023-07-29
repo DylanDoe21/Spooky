@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 2f;
+                return 10f;
             }
 
             return 0f;
@@ -59,6 +59,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.spriteDirection = NPC.direction;
 
             NPC.rotation += 0.05f * (float)NPC.direction + (NPC.velocity.X / 40);
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
