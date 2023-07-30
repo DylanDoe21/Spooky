@@ -282,8 +282,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                         Recoil *= -2;
                         NPC.velocity = Recoil;
 
-                        float Spread = Main.rand.Next(-1, 1);
-
                         if (NPC.localAI[0] % 8 == 2)
                         {
                             SoundEngine.PlaySound(SoundID.Item171, NPC.Center);
@@ -299,6 +297,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                             {
                                 position += muzzleOffset;
                             }
+
+                            float Spread = Main.rand.Next(-1, 1);
 
                             int[] Types = new int[] { ModContent.ProjectileType<NautilusSpit1>(), ModContent.ProjectileType<NautilusSpit2>() };
 

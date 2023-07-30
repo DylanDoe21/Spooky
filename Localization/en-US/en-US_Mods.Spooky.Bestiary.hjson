@@ -22,7 +22,7 @@ RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushi
 RollingSkull2: No one knows how these skulls found their way into the catacombs. Despite being overgrown with plant life, they roll around and destroy things.
 RollingSkull3: Its destructive rolling ability combined with the sharp thorns growing on it makes this a nasty undead creature to encounter.
 RollingSkull4: Gilded skulls made out of pure gold, some say they were created to honor those who passed away and were buried in the catacombs.
-ZomboidNecromancer: These zomboids spend their time locked away in the catacombs learning necromancy, and are able to conjure temporary souls from the burials around them.
+ZomboidNecromancer: These zomboids spend their time locked away in the catacombs learning necromancy, and are able to conjure souls from the burials around them.
 ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
 //catacombs layer 2
 FloatyFlower: Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls.
@@ -86,3 +86,4 @@ ValleyNautilus: A powerful mutant nautilus that lurks in the blood lake. It can 
 ValleySquid: They can use their gas filled heads to float, and even fly out of blood. They can shoot out globs of bloody ink that slow down its prey.
 ValleyEel: Large eels covered in a thick membrane, allowing them to move quickly through both blood and air. They are fast and adept hunters, capable of confusing and out running almost anything.
 ValleyShark: These gross humanoid sharks are incredibly aggressive. They can shoot their jaw large distances out of their mouth, allowing them to catch prey from afar.
+ValleyMerman: Humanoid residents that live in the blood lake. They can swallow blood and meat from their surroundings and spit it back up as a harmful substance.

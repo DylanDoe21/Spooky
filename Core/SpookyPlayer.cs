@@ -532,7 +532,7 @@ namespace Spooky.Core
                 itemDrop = Main.rand.Next(BloodLakeItems);
 
                 //do not allow any other npcs to be caught in the eye valley besides the enemies below
-                //this is to prevent any regular blood moon fishing enemies from being caught in the blood lake if a blood moon is happening
+                //this is specifically to prevent any regular blood moon fishing enemies from being caught in the blood lake if a blood moon is happening
                 npcSpawn = NPCID.None;
 
                 //quest fishes
@@ -549,8 +549,8 @@ namespace Spooky.Core
                     return;
                 }
 
-                //do not allow alternate blood moon enemy catches if any of the enemies already exist in the world
-                bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || 
+                //do not allow blood lake enemy catches if any of the enemies already exist in the world
+                bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyMerman>()) || 
                 NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || 
                 NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyShark>());
 
@@ -582,10 +582,10 @@ namespace Spooky.Core
                         return;
                     }
 
-                    //peeper fish
+                    //peeper fish and flesh merfolk
                     if (Main.rand.NextBool(15 - ExtraChanceToFishEnemy))
                     {
-                        npcSpawn = ModContent.NPCType<ValleyFish>();
+                        npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyFish>() : ModContent.NPCType<ValleyMerman>();
 
                         return;
                     }

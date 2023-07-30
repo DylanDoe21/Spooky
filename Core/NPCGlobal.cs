@@ -1,15 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
-using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
@@ -24,23 +20,11 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
-using Spooky.Content.Projectiles.SpookyBiome;
-using static Spooky.Core.DropConditions;
 
 namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-		{
-			//remove spawnrates during the egg event
-			if (player.InModBiome(ModContent.GetInstance<SpookyHellEventBiome>()))
-            {
-				spawnRate = 0;
-				maxSpawns = 0;
-			}
-		}
-
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
             //disable all spawns when any spooky mod boss is alive
@@ -58,22 +42,28 @@ namespace Spooky.Core
 				pool.Clear();
 			}
 
-			//remove all hell enemies from the spawn pool while in the eye valley
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			//disable spawns during the egg incursion
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellEventBiome>()))
 			{
-				pool.Remove(NPCID.Hellbat);
-				pool.Remove(NPCID.Lavabat);
+				pool.Clear();
+			}
+
+			//remove vanilla hell enemies from the spawn pool in the eye valley
+            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			{ 
+                pool.Remove(NPCID.Hellbat);
+                pool.Remove(NPCID.Lavabat);
                 pool.Remove(NPCID.LavaSlime);
                 pool.Remove(NPCID.FireImp);
                 pool.Remove(NPCID.Demon);
                 pool.Remove(NPCID.VoodooDemon);
-				pool.Remove(NPCID.RedDevil);
+                pool.Remove(NPCID.RedDevil);
                 pool.Remove(NPCID.BoneSerpentHead);
                 pool.Remove(NPCID.BoneSerpentBody);
                 pool.Remove(NPCID.BoneSerpentTail);
                 pool.Remove(NPCID.DemonTaxCollector);
-			}
-		}
+            }
+        }
 
 		public override void ModifyShop(NPCShop shop)
 		{
@@ -88,6 +78,7 @@ namespace Spooky.Core
 			{
 				shop.Add<SpookySolution>();
 				shop.Add<CemeterySolution>();
+				shop.Add<SpookyHellSolution>();
 			}
 		}
 
@@ -162,26 +153,26 @@ namespace Spooky.Core
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
 			//drop skull goop during a blood moon if you are in the swampy cemetery
-			globalLoot.Add(ItemDropRule.ByCondition(new SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
 
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
-            globalLoot.Add(ItemDropRule.ByCondition(new SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
-            globalLoot.Add(ItemDropRule.ByCondition(new SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 
             //make certain bosses drop the catacomb barrier keys
-			globalLoot.Add(ItemDropRule.ByCondition(new YellowCatacombKeyCondition(), ModContent.ItemType<CatacombKey1>(), 1));
-            globalLoot.Add(ItemDropRule.ByCondition(new RedCatacombKeyCondition(), ModContent.ItemType<CatacombKey2>(), 1));
-            globalLoot.Add(ItemDropRule.ByCondition(new OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.YellowCatacombKeyCondition(), ModContent.ItemType<CatacombKey1>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.RedCatacombKeyCondition(), ModContent.ItemType<CatacombKey2>(), 1));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
 
-			//eye valley enemies dont drop living flame blocks
+			//eye valley enemies should not drop living flame blocks
             globalLoot.RemoveWhere(
             rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
-            globalLoot.Add(ItemDropRule.ByCondition(new UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
 
-			//eye valley enemies dont drop hel-fire
+			//eye valley enemies should not drop hel-fire yoyo
 			globalLoot.RemoveWhere(
-            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
-            globalLoot.Add(ItemDropRule.ByCondition(new UnderworldDropCondition(), ItemID.HelFire, 400));
+            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.HelFire);
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.HelFire, 400));
         }
     }
 }

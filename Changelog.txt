@@ -131,6 +131,7 @@ Items & Weapons:
 -Nerfed the gargoyle scepter's base damage from 65 to 42, but the cursed fire balls shot by grug now inflict cursed inferno onto enemies
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
 -Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
+-Uncanine now has a less annoying sound when it shoots teeth
 -Conscious cutter and Tongueblade now have new swing extension visual effects (like the 1.4.4 excalibur for example)
 -Old hunter's crossbow arrows now have a cool visual trail
 -Simplified the tooltip description for the undying embryo

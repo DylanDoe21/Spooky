@@ -49,7 +49,7 @@ namespace Spooky.Core
             {
                 if (!info.IsInSimulation) 
                 {
-                    if (info.player.ZoneUnderworldHeight && !info.player.InModBiome<SpookyHellBiome>())
+                    if (info.player.ZoneUnderworldHeight && Main.hardMode && !info.player.InModBiome<SpookyHellBiome>())
                     {
                         return true;
                     }

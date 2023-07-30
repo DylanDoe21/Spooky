@@ -401,7 +401,7 @@ WaasephiHead: {
 }
 
 WarlockHood: {
-	DisplayName: Warlock's Hood
+	DisplayName: Zomboid Warlock Hood
 	Tooltip: "'We love casting spells!'"
 }
 

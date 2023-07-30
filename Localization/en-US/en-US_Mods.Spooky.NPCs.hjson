@@ -83,12 +83,12 @@ BoneWormFront1.DisplayName: Bone Worm
 BoneWormMiddle1.DisplayName: Bone Worm
 BoneWormTail1.DisplayName: Bone Worm
 BoneStackerBase.DisplayName: Catacomb Slab
-BoneStacker1.DisplayName: Bone Construct
-BoneStacker2.DisplayName: Bone Construct
-BoneStacker3.DisplayName: Bone Construct
-BoneStackerMoving1.DisplayName: Bone Construct
-BoneStackerMoving2.DisplayName: Bone Construct
-BoneStackerMoving3.DisplayName: Bone Construct
+BoneStacker1.DisplayName: Bone Slab
+BoneStacker2.DisplayName: Bone Slab
+BoneStacker3.DisplayName: Bone Slab
+BoneStackerMoving1.DisplayName: Bone Slab
+BoneStackerMoving2.DisplayName: Bone Slab
+BoneStackerMoving3.DisplayName: Bone Slab
 GiantPutty.DisplayName: Cube of Putty
 RollingSkull1.DisplayName: Rolling Skull
 RollingSkull2.DisplayName: Rolling Skull
@@ -169,3 +169,4 @@ ValleyEelHead.DisplayName: Aortic Eel
 ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
 ValleySharkMouth.DisplayName: Hemostasis Beast
+ValleyMerman.DisplayName: Flesh Merman

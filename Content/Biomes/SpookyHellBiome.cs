@@ -93,8 +93,9 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
+            //water here is blood, so the player should move slower in it
             if (player.wet)
-            { 
+            {
                 player.velocity *= 0.95f;
             }
         }

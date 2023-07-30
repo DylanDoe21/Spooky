@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 if (NPC.frameCounter > 4)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 6)
                 {
@@ -173,7 +173,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 if (NPC.frameCounter > 4)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 11)
                 {

@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 150;
             NPC.damage = 22;
             NPC.defense = 5;
             NPC.width = 46;
@@ -60,7 +60,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                return 8f;
+                return 7f;
             }
 
             return 0f;
