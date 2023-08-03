@@ -21,8 +21,10 @@ using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
 {
+    //separate globalNPC for all of spooky mod's biome spawn pools so I can keep them more organized
     public class SpookyBiomeSpawns : GlobalNPC
     {
+		//remove spawn rates manually under certain conditions
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			//remove spawns if any spooky mod boss is alive
@@ -50,12 +52,15 @@ namespace Spooky.Core
 			}
 		}
 
-		//separate globalNPC for all of spooky mod's biome spawn pools so I can keep them more organized
 		//since vanilla enemies spawning is annoying, I just made every single biome clear the spawn pool and then manually add all of the enemies
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
-			//spooky forest surface spawns
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()))
+			//bool to check if no events are happening
+			bool NoOngoingEvents = !spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
+			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust);
+
+            //spooky forest surface spawns
+            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) && NoOngoingEvents)
 			{
 				pool.Clear();
 
@@ -84,11 +89,11 @@ namespace Spooky.Core
 				else
 				{
 					//critters
-					pool.Add(ModContent.NPCType<TinyGhost1>(), 2);
-					pool.Add(ModContent.NPCType<TinyGhost2>(), 2);
-					pool.Add(ModContent.NPCType<TinyGhostBoof>(), 1.5f);
-					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.5f);
-					pool.Add(ModContent.NPCType<SpookyDance>(), 0.5f);
+					pool.Add(ModContent.NPCType<TinyGhost1>(), 1);
+					pool.Add(ModContent.NPCType<TinyGhost2>(), 1);
+					pool.Add(ModContent.NPCType<TinyGhostBoof>(), 0.5f);
+					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.2f);
+					pool.Add(ModContent.NPCType<SpookyDance>(), 0.2f);
 
                     //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
@@ -123,7 +128,7 @@ namespace Spooky.Core
 
                 if (spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
                 {
-                    pool.Add(ModContent.NPCType<ShroomHopper>(), 4);
+                    pool.Add(ModContent.NPCType<ShroomHopper>(), 3);
                 }
 
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
@@ -149,7 +154,7 @@ namespace Spooky.Core
 			}
 
 			//cemetery spawns (will be done later as the enemies are added)
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && NoOngoingEvents)
 			{
 				pool.Clear();
 
