@@ -33,8 +33,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
-            NPC.damage = 22;
-            NPC.defense = 5;
+            NPC.damage = 20;
+            NPC.defense = 0;
             NPC.width = 46;
 			NPC.height = 56;
             NPC.npcSlots = 1f;
@@ -52,18 +52,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidNecromancer"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
-            {
-                return 7f;
-            }
-
-            return 0f;
         }
 
         public override void FindFrame(int frameHeight)
@@ -72,7 +60,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.frameCounter += 1;
 
             //use regular walking anim when in walking state
-            if (NPC.localAI[0] <= 420)
+            if (NPC.localAI[0] <= 300)
             {
                 if (NPC.frameCounter > 10)
                 {
@@ -91,7 +79,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
             }
             //use casting animation during casting ai
-            if (NPC.localAI[0] > 420)
+            if (NPC.localAI[0] > 300)
             {
                 if (NPC.frame.Y < frameHeight * 5)
                 {
@@ -105,7 +93,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
                 if (NPC.frame.Y >= frameHeight * 7)
                 {
-                    NPC.frame.Y = 6 * frameHeight;
+                    NPC.frame.Y = 5 * frameHeight;
                 }
             }
         }
@@ -116,25 +104,43 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.spriteDirection = NPC.direction;
 
-            NPC.localAI[0]++;
+            if (player.Distance(NPC.Center) <= 300f || NPC.localAI[0] >= 60)
+            {
+                NPC.localAI[0]++;
+            }
 
-            if (NPC.localAI[0] <= 420)
+            if (NPC.localAI[0] <= 300)
             {
                 NPC.aiStyle = 3;
                 AIType = NPCID.Crab;
             }
 
-            if (NPC.localAI[0] > 420)
+            if (NPC.localAI[0] > 300)
             {
                 NPC.aiStyle = 0;
 
-                if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500)
+                if (NPC.localAI[0] == 350 || NPC.localAI[0] == 400)
                 {
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
+
+                    for (int numDust = 0; numDust < 15; numDust++)
+                    {                                                                                  
+                        int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.HallowSpray, 0f, -2f, 0, default, 1.5f);
+                        Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                        Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                        Main.dust[DustGore].noGravity = true;
+                    }
+
+                    int Skull = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 50, ModContent.NPCType<ZomboidNecromancerSkull>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {  
+                        NetMessage.SendData(MessageID.SyncNPC, number: Skull);
+                    }
                 }
             }
 
-            if (NPC.localAI[0] >= 560)
+            if (NPC.localAI[0] >= 410)
             {
                 NPC.localAI[0] = 0;
             }

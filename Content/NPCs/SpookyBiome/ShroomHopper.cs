@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 7;
 			AIType = NPCID.Bunny;
+            NPC.catchItem = (short)ModContent.ItemType<ShroomHopperItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 
@@ -41,22 +42,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
-                {
-                    return 4f;
-                }
-            }
-
-            return 0f;
-        }
         
         public override void FindFrame(int frameHeight)
 		{

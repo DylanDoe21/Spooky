@@ -17,7 +17,7 @@ BoneStackerBase: A slab of brick with a face on it. It carries many bone constru
 BoneStacker1: Constructs of bone that can stack on top of each other. When their base is gone, they can use small legs under their bone shell to walk on the ground.
 BoneStacker2: When the base of their stack is destroyed, They can sometimes free themselves and attack foes directly as a last resort.
 BoneStacker3: These bone slabs have a not so secret weapon, their thorns. When at a distance, they can fire them at their targets.
-GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are bigger, and now have the ability to smell their targets.
+GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are larger than usual, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
 RollingSkull2: No one knows how these skulls found their way into the catacombs. Despite being overgrown with plant life, they roll around and destroy things.
 RollingSkull3: Its destructive rolling ability combined with the sharp thorns growing on it makes this a nasty undead creature to encounter.
@@ -29,14 +29,9 @@ FloatyFlower: Daisies are unique in that they have the ability to float by spinn
 FlowerSentry: These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring.
 HoppingFlower: These blind and malicious marigold creatures hop around the catacombs, spitting deadly spores as a parting gift to any unwelcomed guests.
 PlantTrap: These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb.
-RollFlower: Flourence might be small and innocent looking, but their ability to roll and accelerate at uncanny speeds is not.
-ChalupoBig: These ghosts seem small and innocent at first, but when approached they will grow and begin to chase down their target.
+RollFlower: Flourence might be small and innocent looking, but its ability to roll and accelerate at uncanny speeds is not.
 //cemetery
-FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
-FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in its path.
-Glooper1: Peaceful slimes that slide across the ground and walls. While they are not hostile, touching them may not be so pleasant.
-Glooper2: Friendly blobs of venomous goo that wander around the cemetery. Make sure not to accidentally step on them!
-Possesser: A ghost capable of possessing people, causing uncontrollable movement. Make sure to not let them near you.
+//Stuff goes here
 //egg event
 Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
 Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can use its unusually long tongue to attack at a distance.
@@ -51,25 +46,27 @@ PartySkeleton2: Ancient tales say that these friendly undead party goers arise d
 PartySkeleton3: Happy to finally party in the cemetery once more, they offer special drinks and other goods to whoever summoned them.
 //spooky forest
 Bungus: Small humanoid mushroom creatures found deep underground in the spooky forest, hanging around areas infested with purple moss.
-Chungus: chunky and squishy mushrooms that hop around the mushroom moss fields underground. They welcome intruders by spitting damaging mushroom spores out of their mouth.
-FluffBatBig1: These bigger, and more territorial fuzz bats fly around the underground spooky forest, swarming any intruder.
-FluffBatBig2: Large winged balls of fuzz that fly around in the underground beneath the spooky forest. Don't let them bite you!
-FluffBatSmall1: At night, strange bats covered in thick fluff will awaken and attack anyone they deem an intruder.
+Chungus: chunky and squishy mushrooms that hop around the mushroom moss fields underground. They welcome adventurers by spitting damaging mushroom spores out of their mouth.
+FluffBatBig1: Bigger fuzz bats that live in the damp underground spooky forest. They dislike their living space being intruded on.
+FluffBatBig2: Larger balls of fluff that fly around the underground spooky forest. These more aggressive relatives of cave bats will chase any intruder away from its home.
+FluffBatSmall1: At night, strange bats covered in a thick coat of fur will awaken and attack unsuspecting adventurers.
 FluffBatSmall2: Little balls of fuzz with wings. Despite how cute that sounds, they are actually very aggressive and territorial.
-FlyBig: Bigger and grosser flies that linger around in the spooky forest. Their wings look too small to allow flight, but they do anyways.
+FlyBig: Bigger and grosser flies. Their wings look too small to allow flight, but they do anyways.
 FlySmall: Gross and irritating flies that hover around the spooky forest.
 HoppingCandyBasket: Living candy baskets brought to life in the spooky forest. Defeating them may yeild some of the delicious candy they carry.
 LittleSpider: Despite being widely feared by humans, these peaceful arachnids wander around the damp underground spooky forest.
-PuttyPumpkin: Giant putty slimes that resemble jack-o'-lanterns. They have the ability to split into smaller slimes if in danger.
+PuttyPumpkin: Giant putty slimes that resemble jack-o'-lanterns. They have the ability to split into smaller slimes if in danger, which can easily overwhelm its foes.
 PuttyPumpkinling: Offspring created by putty pumpkins when they are in danger. These little things can quickly overwhelm anyone when they're in a large group.
-PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest, attempting to frighten anyone that comes across them.
-PuttySlime2: Slimes made out of spooky putty, brought to life by the spirit of halloween. They hop around the spooky forest mindlessly.
+PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest. They attempt to frighten anyone that comes across them, but are usually not successful.
+PuttySlime2: Slimes made out of spooky putty, brought to life by the spooky forest. They hop around the spooky forest mindlessly attempting to spook people.
 PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
 ShroomHopper: Small little bugs with a giant mushroom on their back, they peacefully hop around the purple moss covered areas where they live.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
-TinyGhost: Little mischevious ghosts that wander around during the night in the spooky forest.
+TinyGhost1: Little mischevious ghosts that wander around during the night in the spooky forest.
+TinyGhost2: Small nefarious apparitions that wander around and harass homeowners in the spooky forest.
 TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
 TinyGhostRare: It's a tiny ghost, but these ones are orange. These elusive ghosts may be on your side if you can catch one!
+TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do!
 ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despite being blind, they can still sniff out their target's location.
 ZomboidThorn: Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared.
 ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.

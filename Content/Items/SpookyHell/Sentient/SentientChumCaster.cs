@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 1, velocity.Y, type, 0, 0f, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 1, velocity.Y, type, 0, 0f, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 1, velocity.Y, type, 0, 0f, player.whoAmI, ai2: 1);
 
             return false;
         }

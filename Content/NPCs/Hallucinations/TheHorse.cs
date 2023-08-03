@@ -214,10 +214,5 @@ namespace Spooky.Content.NPCs.Hallucinations
                 Teleport(player, attemptNum + 1);
             }
         }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowClump>(), 1));
-        }
     }
 }

@@ -6,7 +6,6 @@ using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -42,22 +41,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()) && spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
-                {
-                    return 5f;
-                }
-            }
-
-            return 0f;
-        }
 
         public override void FindFrame(int frameHeight)
         {   

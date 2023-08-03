@@ -25,12 +25,12 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
             //disable all spawns when any spooky mod boss is alive
-            if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || 
-			NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) || 
-			NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
                 pool.Clear();
             }
@@ -47,22 +47,6 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 			}
-
-			//remove vanilla hell enemies from the spawn pool in the eye valley
-            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-			{ 
-                pool.Remove(NPCID.Hellbat);
-                pool.Remove(NPCID.Lavabat);
-                pool.Remove(NPCID.LavaSlime);
-                pool.Remove(NPCID.FireImp);
-                pool.Remove(NPCID.Demon);
-                pool.Remove(NPCID.VoodooDemon);
-                pool.Remove(NPCID.RedDevil);
-                pool.Remove(NPCID.BoneSerpentHead);
-                pool.Remove(NPCID.BoneSerpentBody);
-                pool.Remove(NPCID.BoneSerpentTail);
-                pool.Remove(NPCID.DemonTaxCollector);
-            }
         }
 
 		public override void ModifyShop(NPCShop shop)

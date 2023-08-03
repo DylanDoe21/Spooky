@@ -557,7 +557,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         break;
                     }
 
-                    //charge and shoot venom breath while orro drops venom spit
+                    //charge and shoot acid breath while orro drops venom spit
                     case 4:
                     {
                         NPC.localAI[0]++;
@@ -587,19 +587,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                 Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                                 ChargeDirection.Normalize();
-                                        
-                                ChargeDirection.X *= Enraged ? 35 : 28;
-                                ChargeDirection.Y *= Enraged ? 35 : 28; 
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
+                                ChargeDirection *= Enraged ? 35 : 28;
+                                NPC.velocity = ChargeDirection;
                             }
                             
                             if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
                             (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
                             {
-                                NPC.velocity *= 0.97f;
-
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X), NPC.Center.Y + (NPC.velocity.Y),
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
                                 NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
                                 ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
                             }

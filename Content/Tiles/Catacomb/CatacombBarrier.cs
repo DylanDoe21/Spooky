@@ -77,6 +77,43 @@ namespace Spooky.Content.Tiles.Catacomb
 		}
     }
 
+	public class CatacombBarrierAmbushRoom : CatacombBarrier
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			//TODO: add the conditions for this to activate when the ambush enemies are alive
+
+            Tile tile = Framing.GetTileSafely(i, j);
+
+			tile.Get<TileWallWireStateData>().IsActuated = true;
+
+			float time = Main.GameUpdateCount * 0.01f;
+
+			float intensity = 0.7f;
+			intensity *= (float)MathF.Sin(-j / 8f + time + i);
+			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity += 0.7f;
+
+			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+			if (!tile.Get<TileWallWireStateData>().IsActuated)
+			{
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
+			}
+			else
+			{
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * 0.1f);
+			}
+
+			return false;
+		}
+	}
+
 	public class CatacombBarrier2 : CatacombBarrier
 	{
 		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";

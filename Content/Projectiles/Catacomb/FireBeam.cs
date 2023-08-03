@@ -95,8 +95,15 @@ namespace Spooky.Content.Projectiles.Catacomb
                 ManageTrail();
 			}
 
+            Projectile.localAI[0]++;
+			if (Projectile.localAI[0] == 1)
+            {
+                Projectile.damage *= 5;
+            }
+
 			bool flag25 = false;
-			int target = 1; //Assumed better name - original variable name was literally "jim"
+			int target = 1;
+
 			for (int index1 = 0; index1 < 200; index1++)
 			{
 				if (Main.npc[index1].CanBeChasedBy(Projectile, false) && Collision.CanHit(Projectile.Center, 1, 1, Main.npc[index1].Center, 1, 1))
@@ -126,13 +133,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 				Projectile.velocity.X = (Projectile.velocity.X * (float)(num8 - 1) + num6) / (float)num8;
 				Projectile.velocity.Y = (Projectile.velocity.Y * (float)(num8 - 1) + num7) / (float)num8;
 			}
-
-			Projectile.localAI[0] += 1f;
-
-			if (Projectile.localAI[0] == 1f)
-            {
-                Projectile.damage *= 5;
-            }
 		}
 
 		public override void Kill(int timeLeft)

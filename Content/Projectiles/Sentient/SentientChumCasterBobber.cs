@@ -129,8 +129,14 @@ namespace Spooky.Content.Projectiles.Sentient
                     }
                 }
 
-                //This color decides the color of the fishing line.
                 Color lineColor = Lighting.GetColor((int)mountedCenter.X / 16, (int)mountedCenter.Y / 16, Color.Red);
+
+                //This color decides the color of the fishing line.
+                if (Projectile.ai[2] == 1)
+                {
+                    lineColor = Lighting.GetColor((int)mountedCenter.X / 16, (int)mountedCenter.Y / 16, Color.Blue);
+                }
+
                 float rotation = lineOrigin.ToRotation() - MathHelper.PiOver2;
 
                 Main.spriteBatch.Draw(fishingLineTexture, new Vector2(mountedCenter.X - Main.screenPosition.X + fishingLineTexture.Width * 0.5f, mountedCenter.Y - Main.screenPosition.Y + fishingLineTexture.Height * 0.5f), new Rectangle(0, 0, fishingLineTexture.Width, (int)height), lineColor, rotation, new Vector2(fishingLineTexture.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);

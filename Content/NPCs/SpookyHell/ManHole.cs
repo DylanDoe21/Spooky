@@ -47,18 +47,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 			});
 		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellEventBiome>()))
-			{
-                return 30f;
-            }
-            
-            return 0f;
-        }
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;

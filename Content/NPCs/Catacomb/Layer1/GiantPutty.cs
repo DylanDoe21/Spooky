@@ -27,12 +27,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 70;
-            NPC.damage = 10;
+            NPC.lifeMax = 75;
+            NPC.damage = 22;
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 50;
-			NPC.knockBackResist = 0.2f;
+			NPC.knockBackResist = 0.15f;
 			NPC.value = Item.buyPrice(0, 0, 2, 50);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
@@ -51,18 +51,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
-            {
-                return 10f;
-            }
-
-            return 0f;
-        }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

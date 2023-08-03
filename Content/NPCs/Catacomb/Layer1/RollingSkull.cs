@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
     {
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 55;
+            NPC.lifeMax = 100;
             NPC.damage = 25;
             NPC.defense = 5;
             NPC.width = 60;
@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
@@ -38,18 +38,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
-            {
-                return 10f;
-            }
-
-            return 0f;
-        }
         
         public override void AI()
 		{
@@ -76,7 +64,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGore" + numGores).Type);
                 }
@@ -105,9 +93,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 3; numGores <= 4; numGores++)
+                for (int numGores = 1; numGores <= 7; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullFlowerGore" + numGores).Type);
                 }
             }
         }
@@ -139,9 +127,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 5; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullThornGore" + numGores).Type);
                 }
             }
         }
@@ -151,8 +139,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
     {
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 75;
-            NPC.damage = 25;
+            NPC.lifeMax = 150;
+            NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 60;
 			NPC.height = 60;
@@ -162,7 +150,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 2, 0, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
@@ -198,9 +186,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 7; numGores <= 8; numGores++)
+                for (int numGores = 1; numGores <= 7; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGore" + numGores).Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGoldGore" + numGores).Type);
                 }
             }
         }

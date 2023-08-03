@@ -57,18 +57,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellEventBiome>()))
-			{
-                return 30f;
-            }
-            
-            return 0f;
-        }
-
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;

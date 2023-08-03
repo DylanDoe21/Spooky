@@ -217,7 +217,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //draw the tree tops
             if (Framing.GetTileSafely(i, j).TileFrameX == 36)
             {
-                Lighting.AddLight(new Vector2(i * 16, (j - 5) * 16), 0.45f, 0.25f, 0.45f);
+                Lighting.AddLight(new Vector2(i * 16, (j - 3) * 16), 0.45f, 0.25f, 0.45f);
 
                 Texture2D topTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTop").Value;
                 Texture2D capTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTopCap").Value;

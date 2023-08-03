@@ -51,18 +51,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			});
 		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
-            {
-                return 15f;
-            }
-
-            return 0f;
-        }
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1;

@@ -49,7 +49,6 @@ VinylTileThing4.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon
 SpookyHellPylon.MapEntry: Eye Valley Pylon
-GiantShroomSapling.MapEntry: Giant Shroom Sapling
 FlyBigJar.MapEntry: Big Fly Jar
 FlySmallJar.MapEntry: Fly Jar
 OldWoodBathtub.MapEntry: Bathtub
@@ -90,20 +89,10 @@ EyeSapling.MapEntry: Stalk Sapling
 EyeTree.MapEntry: Eye Stalk
 BigBoneTrophy.MapEntry: Trophy
 BoroTrophy.MapEntry: Trophy
+DaffodilTrophy.MapEntry: Trophy
 MocoTrophy.MapEntry: Trophy
 OrroTrophy.MapEntry: Trophy
 RotGourdTrophy.MapEntry: Trophy
 SpookySpiritTrophy.MapEntry: Trophy
-CatacombAltar.MapEntry: Catacomb Altar
-Coffin1.MapEntry: Coffin1
-Coffin2.MapEntry: Coffin2
-Coffin3.MapEntry: Coffin3
-SkullLamp.MapEntry: Skull Lamp
-SkullStick1.MapEntry: Skull Stick1
-SkullStick2.MapEntry: Skull Stick2
-SkullStick3.MapEntry: Skull Stick3
-SkullCandle3.MapEntry: Skull Candle3
-SkullCandle2.MapEntry: Skull Candle2
-SkullCandle1.MapEntry: Skull Candle1
 SpookyForestBanners.MapEntry: Banner
 BigFlower.MapEntry: Big Flower

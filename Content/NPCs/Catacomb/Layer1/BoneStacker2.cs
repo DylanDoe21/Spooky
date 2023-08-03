@@ -26,9 +26,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 50;
+            NPC.lifeMax = 40;
             NPC.damage = 20;
-            NPC.defense = 10;
+            NPC.defense = 5;
             NPC.width = 44;
 			NPC.height = 16;
             NPC.npcSlots = 1f;
@@ -103,13 +103,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 50;
+            NPC.lifeMax = 40;
             NPC.damage = 20;
-            NPC.defense = 10;
+            NPC.defense = 5;
             NPC.width = 44;
 			NPC.height = 16;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.8f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.DD2_SkeletonHurt;

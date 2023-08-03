@@ -220,9 +220,16 @@ namespace Spooky.Content.NPCs.Friendly
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome>()))
 			{
-				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb1"));
-				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb2"));
-				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Catacomb3"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer3"));
+			}
+
+			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+			{
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer3"));
 			}
 
 			if (Main.LocalPlayer.ZonePurity)

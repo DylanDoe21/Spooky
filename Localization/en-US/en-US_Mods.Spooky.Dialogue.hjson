@@ -1,5 +1,6 @@
 LittleBone: {
 	Awaken: Oh, you must be new around here! You can call me little bone, and I can offer advice on what stuff you can do next. Just stop by if you want to talk with me!
+	//advice
 	SpookyBiome: It seems you are still beginning your adventure. Just search around the spooky forest, there are a lot of different things you can find and make!
 	RotGourd: Now that you have some decent gear, I have heard stories that an old rotting gourd the size of a house once looked over this biome! Breaking the pumpkins that grow here might allow you to find him.
 	CemeteryBiome: If you go past the tropical jungle, there is a dark and foggy cemetery. You can probably search for some loot there!
@@ -11,8 +12,10 @@ LittleBone: {
 	OrroBoro: Now that you have defeated all of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create a special substance.
 	BigBone: Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.
 	NoAdvice: Sorry, I do not have any advice to offer right now.
+	//transport
 	Transport: Here, take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.
 	NoTransport: It looks like you already have my magical flower pot.
+	//default and biome dialogues
 	Default1: Why am I dancing, you ask? Because it's fun, You should try it sometime.
 	Default2: When is spooky season? It's always spooky season! Well, from my perspective anyway.
 	SpookyBiome1: Sometimes I like to talk to the other skull plants that pop up around here, but they don't seem to respond back.
@@ -22,12 +25,15 @@ LittleBone: {
 	SpookyHell2: This place gives me the creeps! Somehow I feel like I am being stalked even when nothing is nearby.
 	SpookyHell3: There is so many nasty organs and tentacles growing in this biome, it's grossing me out.
 	SpookyHell4: The creatures that live here are so much different than anywhere else, and how are some of them even alive?
-	Cemetery1: This place is really foggy and dreary, and I love it!
+	Cemetery1: This place is really foggy and spooky, I love it!
 	Cemetery2: Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.
 	Cemetery3: The cemetery is a strange area, where zombies and other undead monsters come to life. Be careful around here!
-	Catacomb1: This giant underground catacomb was once used as a burial to house the deceased, but it looks like something very strange has happened here.
-	Catacomb2: I wonder how there is so much plant life down here, with absolutely no sunlight. Perhaps something magical is keeping them alive?
-	Catacomb3: Something about this place is strange. These plant creatures seem weirdly familiar.
+	CatacombFirstLayer1: This giant underground catacomb was once used as a burial to house the deceased, but it looks like something very strange has happened here.
+	CatacombFirstLayer2: Theres a lot of weird undead things down here. There seems to be a lot of undead things in this world.
+	CatacombFirstLayer3: Something about this place is strange. The undead creatures here are very odd compared to everywhere else.
+	CatacombSecondLayer1: There seems to be an infestation of strange plants down here. Some of them are even sentient!
+	CatacombSecondLayer2: I wonder how there is so much plant life down here, with absolutely no sunlight.
+	CatacombSecondLayer3: Something about this place is strange. These plant creatures seem weirdly familiar.
 	Forest1: This forest is like the spooky forest... but where did all the spooky go?
 	Forest2: This is a nice area you've found! Very calm and peaceful.
 	Forest3: I like this place. This nice forest makes me feel at home, even outside of the spooky forest.
@@ -39,10 +45,11 @@ LittleBone: {
 	Jungle1: This is a really dense and humid forest. Very groovy!
 	Jungle2: Why is everything here so unfriendly? Even the plants here try to eat you!
 	Mushroom1: This place looks really nice, but why are you looking at me like that?
-	Mushroom2: I have heard of such strange places before, but I never thought you would actually bring me to one!
+	Mushroom2: I have heard of such strange places before, but I never thought you would actually find one!
 	Dungeon: This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?
 	Shimmer1: This is the most pretty lake I have ever seen!
 	Shimmer2: What a mystical and sparkly lake, I wonder what would happen when you jump in it?
+	//buttons
 	Button1: Advice
 	Button2: Transport
 }

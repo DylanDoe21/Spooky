@@ -349,7 +349,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //raise hands up, then shoot chlorophyll blasts from them (code this attack is handled in each hands ai)
+                //raise hands up, then shoot chlorophyll blasts from them (code for this attack is handled in each hand's ai)
                 case 1:
                 {
                     NPC.localAI[0]++;

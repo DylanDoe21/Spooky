@@ -53,18 +53,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ManHoleBig"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellEventBiome>()))
-			{
-                return 20f;
-            }
-            
-            return 0f;
         }
 
         public override void FindFrame(int frameHeight)

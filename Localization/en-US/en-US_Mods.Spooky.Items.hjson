@@ -340,6 +340,11 @@ BoroMask: {
 	Tooltip: ""
 }
 
+DaffodilMask: {
+	DisplayName: Daffodil Mask
+	Tooltip: ""
+}
+
 DylanDoeHead: {
 	DisplayName: DylanDoe's Mask
 	Tooltip: "'Great for impersonating spooky mod devs!'"
@@ -401,17 +406,17 @@ WaasephiHead: {
 }
 
 WarlockHood: {
-	DisplayName: Zomboid Warlock Hood
+	DisplayName: Warlock Hood
 	Tooltip: "'We love casting spells!'"
 }
 
 ZomboidNecromancerHood: {
-	DisplayName: Zomboid Necromancer Hood
+	DisplayName: Necromancer Hood
 	Tooltip: "'Sponsored by the shadow government!'"
 }
 
 ZomboidPyromancerHood: {
-	DisplayName: Zomboid Pyromancer Hood
+	DisplayName: Pyromancer Hood
 	Tooltip: "'Leagalize nuclear bombs!'"
 }
 
@@ -475,7 +480,7 @@ GoofyPretzel: {
 	Tooltip:
 		'''
 		Minor improvements to all stats
-		'It looks disturbed, hope its not alive'
+		'It looks disturbed, hope it isn't alive'
 		'''
 }
 
@@ -751,6 +756,11 @@ LittleSpiderItem: {
 	Tooltip: ""
 }
 
+ShroomHopperItem: {
+	DisplayName: Shroom Hopper
+	Tooltip: ""
+}
+
 MossyPebble: {
 	DisplayName: Mossy Pebble
 	Tooltip: Used as ammo with slingshots
@@ -861,6 +871,11 @@ SpookySolution: {
 
 TinyGhostItem: {
 	DisplayName: Tiny Ghost
+	Tooltip: ""
+}
+
+TinyMushroomItem: {
+	DisplayName: Tiny Mushroom Item
 	Tooltip: ""
 }
 
@@ -1223,7 +1238,7 @@ SentientBloodRainBow: {
 	DisplayName: Uncanine
 	Tooltip:
 		'''
-		Shoots piercing teeth that fly upward, and then fall back down towards your cursor
+		Shoots teeth that fly upward, and then fall back down towards your cursor
 		'It looks severely brain damaged'
 		'''
 }
@@ -1233,7 +1248,7 @@ SentientChik: {
 	Tooltip:
 		'''
 		Cries out crystal tears
-		'Don't worry, it isn't actually sad'
+		'It isn't actually sad'
 		'''
 }
 
@@ -1635,6 +1650,11 @@ BigBoneRelicItem: {
 	Tooltip: ""
 }
 
+DaffodilRelicItem: {
+	DisplayName: Daffodil Relic
+	Tooltip: ""
+}
+
 MocoRelicItem: {
 	DisplayName: Moco Relic
 	Tooltip: ""
@@ -1916,6 +1936,11 @@ BigBoneTrophyItem: {
 
 BoroTrophyItem: {
 	DisplayName: Boro Trophy
+	Tooltip: ""
+}
+
+DaffodilTrophyItem: {
+	DisplayName: Daffodil Trophy
 	Tooltip: ""
 }
 

@@ -79,9 +79,11 @@ TheHorse.DisplayName: The Horse
 TheMan.DisplayName: The Man
 //catacombs layer 1
 CatacombGuardian.DisplayName: Catacomb Guardian
-BoneWormFront1.DisplayName: Bone Worm
-BoneWormMiddle1.DisplayName: Bone Worm
-BoneWormTail1.DisplayName: Bone Worm
+Skeletoid1.DisplayName: Skeletoid
+Skeletoid2.DisplayName: Skeletoid
+Skeletoid3.DisplayName: Skeletoid
+Skeletoid4.DisplayName: Skeletoid
+SkeletoidBig.DisplayName: Big John
 BoneStackerBase.DisplayName: Catacomb Slab
 BoneStacker1.DisplayName: Bone Slab
 BoneStacker2.DisplayName: Bone Slab
@@ -95,6 +97,7 @@ RollingSkull2.DisplayName: Rolling Skull
 RollingSkull3.DisplayName: Rolling Skull
 RollingSkull4.DisplayName: Gilded Skull
 ZomboidNecromancer.DisplayName: Zomboid Necromancer
+ZomboidNecromancerSkull.DisplayName: Soul Skull
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
 FloatyFlower.DisplayName: Daisy
@@ -103,13 +106,7 @@ HoppingFlower.DisplayName: Marigold
 PlantTrap.DisplayName: Toothy
 RollFlower.DisplayName: Flourence
 //cemetery
-Possesser.DisplayName: Possesser
-ChalupoBaby.DisplayName: Chalupo
-ChalupoBig.DisplayName: Chalupo
-FeralRat1.DisplayName: Feral Rat
-FeralRat2.DisplayName: Feral Rat
-Glooper1.DisplayName: Glooper
-Glooper2.DisplayName: Glooper
+//Stuff goes here
 //egg event
 Crux.DisplayName: Crux
 Glutinous.DisplayName: Glutinous
@@ -148,6 +145,7 @@ TinyGhost1.DisplayName: Tiny Ghost
 TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
+TinyMushroom.DisplayName: Tiny Mushroom
 ZomboidFungus.DisplayName: Zomboid
 ZomboidThorn.DisplayName: Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock

@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech2", SoundType.Sound);
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech2", SoundType.Sound) { PitchVariance = 0.6f };
 
 		public override void SetStaticDefaults()
         {
@@ -60,29 +60,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
-        }
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellEventBiome>()))
-            {
-                if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
-                {
-                    //spawn more often in hardmode
-                    if (Main.hardMode)
-                    {
-                        return 5f;
-                    }
-                    else
-                    {
-                        return 2f;
-                    }
-                }
-            }
-            
-            return 0f;
         }
 
         public override void FindFrame(int frameHeight)

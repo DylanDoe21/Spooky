@@ -38,12 +38,14 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -87,9 +89,11 @@ namespace Spooky.Content.NPCs.Hallucinations
         {
             Player player = Main.player[NPC.target];
 
-            NPC.localAI[1]++;
+            player.AddBuff(ModContent.BuffType<HallucinationDebuff4>(), 2);
+
+            NPC.localAI[2]++;
             //make npcs displayed name a random jumble of characters constantly
-            if (NPC.localAI[1] % 5 == 0)
+            if (NPC.localAI[2] % 5 == 0)
             {
                 const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+";
                 string nameString = new(Enumerable.Repeat(chars, 12).Select(s => s[Main.rand.Next(s.Length)]).ToArray());
@@ -98,29 +102,32 @@ namespace Spooky.Content.NPCs.Hallucinations
 
             if (NPC.localAI[0] == 0)
             {
-                player.AddBuff(ModContent.BuffType<HallucinationDebuff4>(), 3420);
-
                 Teleport(player, 0);
 
                 NPC.localAI[0] = 1;
             }
 
-            if (NPC.localAI[0] == 1 && !player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
+            if (NPC.localAI[0] == 1)
             {
-                if (!Flags.encounteredFlesh)
+                NPC.localAI[1]++;
+
+                if (NPC.localAI[1] >= 3420)
                 {
-                    Flags.encounteredFlesh = true;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (!Flags.encounteredFlesh)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
-                    }
-                }
+                        Flags.encounteredFlesh = true;
 
-                player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
-                NPC.immortal = false;
-                NPC.dontTakeDamage = false;
-                NPC.netUpdate = true;
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+
+                    player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+                    NPC.immortal = false;
+                    NPC.dontTakeDamage = false;
+                    NPC.netUpdate = true;
+                }
             }
         }
 
@@ -169,11 +176,6 @@ namespace Spooky.Content.NPCs.Hallucinations
             {
                 Teleport(player, attemptNum + 1);
             }
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowClump>(), 1));
         }
     }
 }

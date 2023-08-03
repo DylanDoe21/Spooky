@@ -97,17 +97,6 @@ Other New Additions:
 -Added support for Gabehaswon's music display mod
 
 
-Localization File Split:
-
--This only applies to people who are either currently translating or want to translate the mod
--Essentially, all of the mods localization has been split up into different files for organization purposes
--Due to the way tmod gets localization, each file is named "en-US_Mods.Spooky.FileName" where en-US is the language, and FileName is the name of each specific localization file
--This means that you need to change the language infront of the file's name, like russian for example, you'd do "ru-RU_Mods.Spooky.FileName"
--Also theres a lot of new content in the mod so if you're already localizing the mod currently, you can use what you've done but you will need to put it in the correct localization file
--Hopefully the way I have organized things makes it easier for anyone trying to translate to mod, and feel free to let me know if you have questions or find any issues
-
-
-
 
 ~CHANGES TO EXISTING CONTENT~
 
@@ -131,7 +120,8 @@ Items & Weapons:
 -Nerfed the gargoyle scepter's base damage from 65 to 42, but the cursed fire balls shot by grug now inflict cursed inferno onto enemies
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
 -Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
--Uncanine now has a less annoying sound when it shoots teeth
+-Buffed the uncanine's damage, it now has a less annoying sound when used, its teeth now have a new after image visual effect, and the teeth can no longer pierce enemies
+-Buffed damage for the conscious cutter, licker, sentient shootius, and necronomicon
 -Conscious cutter and Tongueblade now have new swing extension visual effects (like the 1.4.4 excalibur for example)
 -Old hunter's crossbow arrows now have a cool visual trail
 -Simplified the tooltip description for the undying embryo
@@ -157,11 +147,11 @@ Enemy & Boss Changes:
 -Added new color fading effect for big bone's phase transition forcefield
 -Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
 -Made orro & boro's thorn pillars taller
--Added a new visual effect for boro's acid breath attack
--Moco, orro, and boro will now drop one sentient heart for each active player in the world the first time you defeat them, instead of only one
+-Moco, and orro/boro will now drop one sentient heart for each active player in the world the first time you defeat them, instead of only one
 -Added a new spawn intro for rot gourd when he is summoned, where he will fall from the sky and slam down where you summoned him from
 -Added new sound effects for the cowbell entity
--Valley of eyes enemies will no longer drop living fire blocks or the hel-fire yoyo
+-Valley of eyes enemies will no longer drop living fire blocks or the hel-fire yoyo in hardmode
+-Small fuzz bats will no longer spawn in the underground spooky forest, and increased the spawnrate of giant fuzz bats in the underground spooky forest
 
 
 Miscellaneous:
@@ -171,7 +161,7 @@ Miscellaneous:
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
 -Eye valley grass can now grow ambient eye stalks and tentacles naturally
--The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests, instead of the catacombs
+-The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests
 
 
 Removals:
@@ -188,7 +178,10 @@ Removals:
 -Fixed tortumor and giant tortumor orb projectiles not dealing any damage to players
 -Fixed issue where spooky mod's custom trees would draw horribly wrong if you used retro or trippy lighting modes
 -Fixed issue where the eye valley biome chest was dropping a monster chest when broken, and not its own item
+-Fixed catacomb enemies being able to spawn outside of the catacombs itself
+-Fixed enemies spawning in the spooky forest and swampy cemetery if you are in a town
 -Fixed the rotten gourd armor's set bonus not working
+-Fixed spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
 -Fixed rot gourd not spawning correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer
 -Fixed many issues with orroboro in multiplayer

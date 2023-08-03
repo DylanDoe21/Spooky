@@ -11,13 +11,14 @@ using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
+    //TODO: make this npc never despawn if the targetted player is in the catacombs
     public class BoneStackerBase : ModNPC  
     {
         private bool stackersSpawned;
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 120;
+            NPC.lifeMax = 80;
             NPC.damage = 20;
             NPC.defense = 10;
             NPC.width = 44;
@@ -26,7 +27,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
             NPC.aiStyle = 0;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type }; 
         }
@@ -39,18 +40,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
-			{
-                return 10f;
-            }
-            
-            return 0f;
-        }
 
         public override void AI()
 		{
@@ -79,6 +68,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                     NPC.netUpdate = true;
                 }
             }
+        }
+
+        public override bool CheckActive()
+        {
+            return false;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

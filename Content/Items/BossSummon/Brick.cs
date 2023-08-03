@@ -31,5 +31,15 @@ namespace Spooky.Content.Items.BossSummon
             Item.shoot = ModContent.ProjectileType<BrickProj>();
 			Item.shootSpeed = 12f;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.ClayBlock, 15)
+            .AddIngredient(ItemID.SoulofNight, 2)
+			.AddIngredient(ItemID.SoulofLight, 2)
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
     }
 }

@@ -45,22 +45,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
-                {
-                    return 8f;
-                }
-            }
-
-            return 0f;
-        }
         
         public override void FindFrame(int frameHeight)
 		{
@@ -83,22 +67,5 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             NPC.spriteDirection = NPC.direction;
         }
-
-        public override void HitEffect(NPC.HitInfo hit) 
-        {
-			if (NPC.life <= 0) 
-            {
-                for (int numDusts = 0; numDusts < 10; numDusts++)
-                {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Asphalt, 0f, 0f, 100, default, 1f);
-
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
-            }
-		}
 	}
 }

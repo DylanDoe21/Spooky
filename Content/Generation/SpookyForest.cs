@@ -161,7 +161,8 @@ namespace Spooky.Content.Generation
             }
 
             //generate patches of vanilla glowing mushroom biomes, then convert them to spooky forest blocks
-            int mushroomDepth = (int)Main.worldSurface + Main.maxTilesY / 9;
+            int extraMushroomDepth = Main.maxTilesX >= 8400 ? 100 : (Main.maxTilesX >= 6400 ? 45 : 0);
+            int mushroomDepth = ((int)Main.worldSurface + Main.maxTilesY / 9) + extraMushroomDepth;
 
             WorldGen.ShroomPatch(PositionX, mushroomDepth - 10);
             WorldGen.ShroomPatch(PositionX - 50, mushroomDepth);

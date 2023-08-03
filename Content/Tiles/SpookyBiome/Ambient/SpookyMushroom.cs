@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 				type = tileBelow.TileType;
 			}
 
-			if (type == ModContent.TileType<MushroomMoss>()) 
+			if (type == ModContent.TileType<SpookyStone>() || type == ModContent.TileType<MushroomMoss>()) 
             {
 				return true;
 			}

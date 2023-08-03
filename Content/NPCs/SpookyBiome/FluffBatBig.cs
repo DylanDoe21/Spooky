@@ -55,22 +55,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiomeUg>()))
-                {
-                    return 3f;
-                }
-            }
-
-            return 0f;
-        }
-
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
