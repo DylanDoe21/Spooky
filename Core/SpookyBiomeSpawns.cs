@@ -16,6 +16,33 @@ namespace Spooky.Core
 {
     public class SpookyBiomeSpawns : GlobalNPC
     {
+		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+		{
+			//remove spawns if any spooky mod boss is alive
+			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
+            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            {
+				spawnRate = 0;
+				maxSpawns = 0;
+			}
+
+			//remove spawns during the egg event
+			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+            {
+				spawnRate = 0;
+				maxSpawns = 0;
+			}
+
+			//disable spawns during a hallucination encounter
+            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
+			spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
+			{
+				spawnRate = 0;
+				maxSpawns = 0;
+			}
+		}
+
 		//separate globalNPC for all of spooky mod's biome spawn pools so I can keep them more organized
 		//since vanilla enemies spawning is annoying, I just made every single biome clear the spawn pool and then manually add all of the enemies
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)

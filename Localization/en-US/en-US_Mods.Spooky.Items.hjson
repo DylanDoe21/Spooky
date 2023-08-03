@@ -417,7 +417,7 @@ ZomboidNecromancerHood: {
 
 ZomboidPyromancerHood: {
 	DisplayName: Pyromancer Hood
-	Tooltip: "'Leagalize nuclear bombs!'"
+	Tooltip: "'Legalize nuclear bombs!'"
 }
 
 BlackLicorice: {
@@ -2025,7 +2025,7 @@ HibiscusFish: {
 }
 
 SpookySpiritFish: {
-	DisplayName: Swimming Spirit
+	DisplayName: Spirit Cod
 	Tooltip: ""
 }
 

@@ -1117,8 +1117,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             float Spread = (float)Main.rand.Next(-1200, 1200) * 0.01f;
 
+                            int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
+
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
-                            Main.rand.Next(-5, -2), ModContent.ProjectileType<LingerFlame>(), Damage, 1, Main.myPlayer, 0, 0);
+                            Main.rand.Next(-5, -2), Main.rand.Next(Types), Damage, 1, Main.myPlayer, 0, 0);
                         }
                     }
 

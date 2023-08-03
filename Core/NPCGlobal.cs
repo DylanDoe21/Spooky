@@ -25,30 +25,6 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-		{
-            //disable all spawns when any spooky mod boss is alive
-            if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
-            {
-                pool.Clear();
-            }
-
-            //disable spawns during a hallucination encounter
-            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
-			spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
-			{
-				pool.Clear();
-			}
-
-			//disable spawns during the egg incursion
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellEventBiome>()))
-			{
-				pool.Clear();
-			}
-        }
-
 		public override void ModifyShop(NPCShop shop)
 		{
 			//add mossy pebbles to the merchant shop so you can get them easily
@@ -73,7 +49,7 @@ namespace Spooky.Core
 			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
 			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
 
-			//give all orro & boro segments resistance to piercing projectiles
+			//give all orro & boro segments resistance to piercing projectiles because terraria worm moment
             if (OrroBoroSegments.Contains(npc.type))
 			{
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
@@ -151,11 +127,13 @@ namespace Spooky.Core
 			//eye valley enemies should not drop living flame blocks
             globalLoot.RemoveWhere(
             rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
+			//re-add living fire blocks dropping with a custom condition that excludes the valley of eyes
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
 
 			//eye valley enemies should not drop hel-fire yoyo
 			globalLoot.RemoveWhere(
             rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.HelFire);
+			//re-add the hel-fire dropping with a custom condition that excludes the valley of eyes
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.HelFire, 400));
         }
     }

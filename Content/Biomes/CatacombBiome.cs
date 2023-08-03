@@ -8,6 +8,7 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 { 
