@@ -4,6 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Boss.RotGourd;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.SpookyBiome;
@@ -28,15 +35,15 @@ namespace Spooky.Core
 			}
 
 			//remove spawns during the egg event
-			if (player.InModBiome(ModContent.GetInstance<EggEventBiome>()))
+			if (player.InModBiome(ModContent.GetInstance<SpookyHellEventBiome>()))
             {
 				spawnRate = 0;
 				maxSpawns = 0;
 			}
 
 			//disable spawns during a hallucination encounter
-            if (spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
-			spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || spawnInfo.Player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
+            if (player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
+			player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
 			{
 				spawnRate = 0;
 				maxSpawns = 0;

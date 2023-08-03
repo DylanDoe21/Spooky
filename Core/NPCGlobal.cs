@@ -3,9 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using System.Linq;
-using System.Collections.Generic;
 
-using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
@@ -14,12 +12,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.NPCs.Boss.BigBone;
-using Spooky.Content.NPCs.Boss.Daffodil;
-using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.Boss.RotGourd;
-using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Core
 {
