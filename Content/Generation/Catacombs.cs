@@ -107,6 +107,7 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
                         }
 
+                        //place entrance room in the top row in the center
                         if (X == XMiddle)
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/EntranceRoom", origin.ToPoint16(), Mod);
@@ -204,7 +205,7 @@ namespace Spooky.Content.Generation
                                 numAmbushRooms++;
                             }
                             //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(8))
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                             }
@@ -232,7 +233,7 @@ namespace Spooky.Content.Generation
                             numAmbushRooms++;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(8))
+                        else if (WorldGen.genRand.NextBool(10))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
@@ -259,7 +260,7 @@ namespace Spooky.Content.Generation
                             numAmbushRooms++;
                         }
                         //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(8))
+                        else if (WorldGen.genRand.NextBool(10))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4), origin.ToPoint16(), Mod);
                         }
@@ -393,6 +394,12 @@ namespace Spooky.Content.Generation
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
                             }
+                        }
+
+                        //place entrance room in the top row in the center
+                        if (X == XMiddle)
+                        {
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/EntranceRoom", origin.ToPoint16(), Mod);
                         }
                     }
 

@@ -3,15 +3,18 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
+using Spooky.Core;
+using Terraria.Audio;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class RollingSkull1 : ModNPC  
     {
+        bool hasCollidedWithWall = false;
+
         public override void SetDefaults()
 		{
             NPC.lifeMax = 100;
@@ -47,6 +50,41 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.spriteDirection = NPC.direction;
 
             NPC.rotation += 0.05f * (float)NPC.direction + (NPC.velocity.X / 40);
+
+            //only run screenshake code if the player is close enough
+            if (player.Distance(NPC.Center) < 250f)
+            {
+                //shake the screen if the skull is rolling at maximum speed
+                if ((NPC.velocity.X >= 6 || NPC.velocity.X <= -6) && player.velocity.Y == 0 && Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
+                {
+                    hasCollidedWithWall = false;
+
+                    SpookyPlayer.ScreenShakeAmount = 3;
+                }
+
+                //collide with walls and play a sound
+                if (!hasCollidedWithWall && (NPC.oldVelocity.X >= 5 || NPC.oldVelocity.X <= -5) && NPC.collideX)
+                {   
+                    SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.35f }, NPC.Center);
+
+                    SpookyPlayer.ScreenShakeAmount = 10;
+
+                    //set timer to slow down the npc after hitting a wall
+                    NPC.localAI[0] = 60;
+
+                    //set velocity to zero
+                    NPC.velocity *= 0;
+
+                    hasCollidedWithWall = true;
+                }
+            }
+
+            if (NPC.localAI[0] > 0)
+            {
+                NPC.localAI[0]--;
+
+                NPC.velocity.X *= 0.2f;
+            }
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

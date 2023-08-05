@@ -56,11 +56,11 @@ namespace Spooky.Core
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//bool to check if no events are happening
-			bool NoOngoingEvents = !spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
+			bool NoEventsHappening = !spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
 			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust);
 
             //spooky forest surface spawns
-            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) && NoOngoingEvents)
+            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) && NoEventsHappening)
 			{
 				pool.Clear();
 
@@ -154,7 +154,7 @@ namespace Spooky.Core
 			}
 
 			//cemetery spawns (will be done later as the enemies are added)
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && NoOngoingEvents)
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && NoEventsHappening)
 			{
 				pool.Clear();
 

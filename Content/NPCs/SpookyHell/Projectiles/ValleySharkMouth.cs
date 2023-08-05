@@ -10,6 +10,12 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
 	public class ValleySharkMouth : ModNPC
 	{
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+        }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 250;

@@ -492,36 +492,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
                 
-                //hand attack
-                //solar death beams (grabbing can be avoided by going hiding under the outposts in the arena)
-                //this is still WIP, it does not function yet
+                //Save positions, then shoot solar deathrays at them
                 case 5:
                 {
-                    if (NPC.localAI[0] == 155)
-                    {
-                        SavePlayerPosition = new Vector2(player.Center.X, player.Center.Y + 10);
+                    break;
+                }
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y, 0, 0, 
-                        ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
-                    }
-
-                    if (NPC.localAI[0] == 200)
-                    {
-                        SpookyPlayer.ScreenShakeAmount = 12;
-                        
-                        SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
-                    }
-
-                    if (NPC.localAI[0] >= 200 && NPC.localAI[0] <= 270)
-                    {
-                        Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 5f;
-
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y,
-                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarDeathbeam>(), Damage * 2, 0f, Main.myPlayer);
-                    }
-
+                //fire constant deathray at the player that follows them, unable to go through blocks
+                case 6:
+                {
                     break;
                 }
             }

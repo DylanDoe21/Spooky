@@ -47,8 +47,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 			{                                                                                  
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-12, 12) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-12, 12) * .05f - 1.5f;
+				Main.dust[dust].position.X += Main.rand.Next(-12, 12) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-12, 12) * 0.05f - 1.5f;
                 
 				if (Main.dust[dust].position != Projectile.Center)
                 {
