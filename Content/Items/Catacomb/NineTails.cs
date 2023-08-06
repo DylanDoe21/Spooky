@@ -31,6 +31,11 @@ namespace Spooky.Content.Items.Catacomb
 			Item.shootSpeed = 4f;
 		}
 
+		public override bool MeleePrefix() 
+		{
+			return true;
+		}
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)

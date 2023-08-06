@@ -1,4 +1,3 @@
-//honestly i dont know what any of these are for
 SpookyBiome: {
 	DisplayName: Spooky Forest
 	TownNPCDialogueName: the Spooky Forest
@@ -9,9 +8,9 @@ SpookyBiomeUg: {
 	TownNPCDialogueName: the Underground Spooky Forest
 }
 
-SpookyHellBiome: {
-	DisplayName: Valley of Eyes
-	TownNPCDialogueName: the Valley of Eyes
+CemeteryBiome: {
+	DisplayName: Swampy Cemetery
+	TownNPCDialogueName: the Swampy Cemetery
 }
 
 CatacombBiome: {
@@ -24,14 +23,19 @@ CatacombBiome2: {
 	TownNPCDialogueName: the Lower Catacombs
 }
 
-CemeteryBiome: {
-	DisplayName: Swampy Cemetery
-	TownNPCDialogueName: the Swampy Cemetery
+SpookyHellBiome: {
+	DisplayName: Valley of Eyes
+	TownNPCDialogueName: the Valley of Eyes
 }
 
 SpookyHellEventBiome: {
 	DisplayName: Egg Incursion
 	TownNPCDialogueName: the Egg Incursion
+}
+
+SpookyHellLake: {
+	DisplayName: Lake of Blood
+	TownNPCDialogueName: the Lake of Blood
 }
 
 RaveyardBiome: {
@@ -42,9 +46,4 @@ RaveyardBiome: {
 HallucinationZone: {
 	DisplayName: Hallucination Zone
 	TownNPCDialogueName: the Hallucination Zone
-}
-
-SpookyHellLake: {
-	DisplayName: Lake of Blood
-	TownNPCDialogueName: the Lake of Blood
 }

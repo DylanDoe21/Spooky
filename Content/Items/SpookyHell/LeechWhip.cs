@@ -28,6 +28,11 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.shootSpeed = 3.5f;
 		}
 
+		public override bool MeleePrefix() 
+		{
+			return true;
+		}
+
 		public override void AddRecipes()
         {
             CreateRecipe()

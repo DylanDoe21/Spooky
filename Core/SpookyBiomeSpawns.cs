@@ -13,6 +13,7 @@ using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
+using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
@@ -161,6 +162,13 @@ namespace Spooky.Core
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
+					pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
+					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
+
+					if (!Main.dayTime)
+					{
+						pool.Add(ModContent.NPCType<Possessor>(), 2);
+					}
                 }
 			}
 

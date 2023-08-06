@@ -181,6 +181,7 @@ Removals:
 -Fixed catacomb enemies being able to spawn outside of the catacombs itself
 -Fixed enemies spawning in the spooky forest and swampy cemetery if you are in a town
 -Fixed the rotten gourd armor's set bonus not working
+-Fixed spooky mod whips being unable to get melee weapon reforgements
 -Fixed spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
 -Fixed rot gourd not spawning correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer

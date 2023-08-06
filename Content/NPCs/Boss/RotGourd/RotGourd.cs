@@ -1059,24 +1059,19 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RotGourdGore" + numGores).Type);
+					if (Main.netMode != NetmodeID.Server) 
+                    {
+                    	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RotGourdGore" + numGores).Type);
+					}
                 }
 
 				for (int numDusts = 0; numDusts < 45; numDusts++)
 				{
-					int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.DesertWater2, 0f, 0f, 100, default, 2f);
-					Main.dust[DustGore].color = Color.MediumPurple;
-					Main.dust[DustGore].scale = 0.8f;
+					int DustGore = Dust.NewDust(NPC.Center, NPC.width, NPC.height, DustID.DesertWater2, 0f, 0f, 100, default, 1.5f);
 					Main.dust[DustGore].velocity *= 1.2f;
 
 					if (Main.rand.NextBool(2))

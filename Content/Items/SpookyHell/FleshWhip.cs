@@ -26,5 +26,10 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.shoot = ModContent.ProjectileType<FleshWhipProj>();
 			Item.shootSpeed = 2f;
         }
+
+		public override bool MeleePrefix() 
+		{
+			return true;
+		}
     }
 }

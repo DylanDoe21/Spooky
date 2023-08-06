@@ -237,11 +237,43 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
             }
 
+            if (NPC.life <= (NPC.lifeMax / 2) && !Phase2)
+            {
+                //NPC.ai[0] = -2;
+                //Phase2 = true;
+            }
+
             switch ((int)NPC.ai[0])
             {
                 //phase transition
                 case -2:
                 {
+                    if (!Flags.downedDaffodil)
+                    {
+                        if (NPC.localAI[0] == 60)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition1"), true);
+                        }
+
+                        //spawn permanent thorn pillars that cover the whole arena
+                        if (NPC.localAI[0] == 120)
+                        {
+
+                        }
+
+                        if (NPC.localAI[0] == 240)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition2"), true);
+                        }
+
+                        if (NPC.localAI[0] >= 600)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+
                     break;
                 }
 
@@ -396,7 +428,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                        int NumProjectiles = Main.rand.Next(2, 5);
+                        int NumProjectiles = Main.rand.Next(3, 6);
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
@@ -473,7 +505,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         //shake the screen for funny rumbling effect
                         SpookyPlayer.ScreenShakeAmount = 5;
 
-                        if (Main.rand.NextBool(15))
+                        if (NPC.localAI[0] % 10 == 2)
                         {
                             SoundEngine.PlaySound(SeedSpawnSound, NPC.Center);
 
@@ -485,7 +517,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 500)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 0;
+                        NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
 
@@ -495,6 +527,49 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //Save positions, then shoot solar deathrays at them
                 case 5:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 120)
+                    {
+                        for (int savePoints = 0; savePoints < SavePoint.Length; savePoints++)
+                        {
+                            int positionX = (int)player.Center.X + Main.rand.Next(-450, 450);
+                            int positionY = (int)player.Center.Y + Main.rand.Next(-200, 100);
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY, 0, 0, 
+                            ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
+
+                            SavePoint[savePoints] = new Vector2(positionX, positionY);
+                        }
+                    }
+
+                    if (NPC.localAI[0] == 160)
+                    {
+                        SpookyPlayer.ScreenShakeAmount = 12;
+                                    
+                        SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] >= 160 && NPC.localAI[0] <= 240)
+                    {
+                        for (int i = 0; i < SavePoint.Length; i++)
+                        {
+                            Vector2 ShootSpeed = NPC.Center - SavePoint[i];
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= -75f;
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + 10 + Main.rand.Next(-5, 5),
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarDeathbeam>(), Damage + 30, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 280)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 

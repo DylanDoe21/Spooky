@@ -153,6 +153,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                case -2: 
+                {
+                    GoToPosition(130, 180);
+
+                    break;
+                }
+
                 case -1: 
                 {
                     GoToPosition(130, 180);
@@ -220,7 +227,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case 4: 
                 {
-                    if (Parent.localAI[0] >= 60 && Parent.localAI[0] < 300)
+                    if (Parent.localAI[0] < 300)
                     {
                         GoToPosition(300, -50);
                     }
@@ -228,6 +235,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         GoToPosition(130, 180);
                     }
+
+                    break;
+                }
+
+                case 5: 
+                {
+                    GoToPosition(130, 180);
 
                     break;
                 }

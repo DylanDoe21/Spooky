@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class SkeletoidBig : ModNPC
@@ -70,24 +72,29 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.spriteDirection = NPC.direction;
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FemurFracture>(), 50));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBigGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBigGore" + numGores).Type);
+                    }
                 }
 
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBigCloth" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBigCloth" + numGores).Type);
+                    }
                 }
             }
         }

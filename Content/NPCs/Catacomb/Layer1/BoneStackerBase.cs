@@ -11,7 +11,6 @@ using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
-    //TODO: make this npc never despawn if the targetted player is in the catacombs
     public class BoneStackerBase : ModNPC  
     {
         private bool stackersSpawned;
@@ -82,17 +81,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerBaseGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerBaseGore" + numGores).Type);
+                    }
                 }
             }
         }

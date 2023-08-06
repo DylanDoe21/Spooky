@@ -106,7 +106,11 @@ HoppingFlower.DisplayName: Marigold
 PlantTrap.DisplayName: Toothy
 RollFlower.DisplayName: Flourence
 //cemetery
-//Stuff goes here
+Possessor.DisplayName: Possessor
+PossessorEvil.DisplayName: Possessor
+ZomboidCasket.DisplayName: Zomboid Casket
+ZomboidGremlin.DisplayName: Zombino
+MistGhost.DisplayName: Mist Ghost
 //egg event
 Crux.DisplayName: Crux
 Glutinous.DisplayName: Glutinous
@@ -148,8 +152,8 @@ TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
 ZomboidFungus.DisplayName: Zomboid
 ZomboidThorn.DisplayName: Zomboid
-ZomboidWarlock.DisplayName: Zomboid Warlock
 ZomboidWind.DisplayName: Zomboid
+ZomboidWarlock.DisplayName: Zomboid Warlock
 //valley of eyes
 EyeBat.DisplayName: Bat n' Eye
 ManHole.DisplayName: Man Hole

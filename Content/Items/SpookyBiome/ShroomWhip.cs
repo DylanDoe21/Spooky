@@ -29,6 +29,11 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.shootSpeed = 2f;
         }
 
+        public override bool MeleePrefix() 
+		{
+			return true;
+		}
+
 		public override void AddRecipes()
         {
             CreateRecipe()

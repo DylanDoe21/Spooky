@@ -22,7 +22,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			Projectile.width = 12;
 			Projectile.height = 12;
 			Projectile.hostile = true;
-			Projectile.tileCollide = true;
+			Projectile.tileCollide = false;
             Projectile.penetrate = 1;
 			Projectile.timeLeft = 35;
             Projectile.alpha = 255;

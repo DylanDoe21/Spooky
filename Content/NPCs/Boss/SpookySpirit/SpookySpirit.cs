@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
@@ -914,6 +915,22 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpookySpiritTrophyItem>(), 10));
 
             npcLoot.Add(notExpertRule);
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numDusts = 0; numDusts < 30; numDusts++)
+                {
+                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+                    Main.dust[dustGore].color = Color.BlueViolet;
+                    Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
+                    Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
+                    Main.dust[dustGore].scale = 0.35f;
+                    Main.dust[dustGore].noGravity = true;
+                }
+            }
         }
 
         public override void OnKill()

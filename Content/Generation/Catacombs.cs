@@ -165,7 +165,7 @@ namespace Spooky.Content.Generation
                             //place ambush rooms sometimes
                             else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom", origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                                 numAmbushRooms++;
                             }
                             //place trap rooms sometimes
@@ -201,7 +201,7 @@ namespace Spooky.Content.Generation
                             //place ambush rooms sometimes
                             else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom", origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                                 numAmbushRooms++;
                             }
                             //place trap rooms sometimes
@@ -229,7 +229,7 @@ namespace Spooky.Content.Generation
                         //place ambush rooms sometimes
                         else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom", origin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             numAmbushRooms++;
                         }
                         //place trap rooms sometimes
@@ -256,7 +256,7 @@ namespace Spooky.Content.Generation
                         //place ambush rooms sometimes
                         else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom", origin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             numAmbushRooms++;
                         }
                         //place trap rooms sometimes
@@ -763,13 +763,13 @@ namespace Spooky.Content.Generation
             int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
             tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
             {
-                //copy pasted and slightly modified shimmer generation code from terraria itself
+                //copy-pasted and slightly modified shimmer generation code from terraria itself
                 int RandomY1 = (int)(Main.worldSurface + Main.rockLayer) / 2 + 100;
                 int RandomY2 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
 
-                if (RandomY2 > Main.maxTilesY - 330 - 100 - 30)
+                if (RandomY2 > Main.maxTilesY - 200)
                 {
-                    RandomY2 = Main.maxTilesY - 330 - 100 - 30;
+                    RandomY2 = Main.maxTilesY - 200;
                 }
                 if (RandomY2 <= RandomY1)
                 {
@@ -780,7 +780,7 @@ namespace Spooky.Content.Generation
                 int ShimmerY = WorldGen.genRand.Next(RandomY1, RandomY2);
 
                 int ShimmerXAnniversary = (int)Main.worldSurface + 150;
-                int ShimmerYAnniversary = (int)(Main.rockLayer + Main.worldSurface + 200.0) / 2;
+                int ShimmerYAnniversary = (int)(Main.rockLayer + Main.worldSurface + 200) / 2;
 
                 if (ShimmerYAnniversary <= ShimmerXAnniversary)
                 {
@@ -794,16 +794,15 @@ namespace Spooky.Content.Generation
 
                 while (!WorldGen.ShimmerMakeBiome(ShimmerX, ShimmerY))
                 {
+                    //this changes the shimmer position to be closer to the edge of the world
                     ShimmerX = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
                     ShimmerY = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, RandomY2);
                 }
 
                 GenVars.shimmerPosition = new Vector2D((double)ShimmerX, (double)ShimmerY);
 
-                int num710 = 200;
-
                 //add the shimmer as a protected structure so nothing attempts to generate over it
-                GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - num710 / 2, ShimmerY - num710 / 2, num710, num710));
+                GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - 200 / 2, ShimmerY - 200 / 2, 200, 200));
             });
         }
     }

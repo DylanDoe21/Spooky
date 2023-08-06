@@ -94,6 +94,8 @@ Daffodil: {
 	PreDefeat4: Fine, then let's see if you're worthy!
 	PostDefeat1: Really? Again?
 	PostDefeat2: Fine, then let's battle...
+	PhaseTransition1: Alright then, I see how it is...
+	PhaseTransition2: Now let's see if you're worthy now!
 }
 
 TheHorse: How hungry?

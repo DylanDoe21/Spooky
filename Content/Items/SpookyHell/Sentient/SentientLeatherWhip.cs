@@ -30,5 +30,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.shoot = ModContent.ProjectileType<SentientLeatherWhipProj>();
 			Item.shootSpeed = 2f;
         }
+
+		public override bool MeleePrefix() 
+		{
+			return true;
+		}
     }
 }
