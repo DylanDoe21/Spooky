@@ -108,7 +108,10 @@ namespace Spooky.Content.Projectiles.Catacomb
             Knockback.Normalize();
             Knockback *= SaveKnockback * 2;
 
-            target.velocity = -Knockback * target.knockBackResist;
+            if (target.knockBackResist > 0f)
+            {
+                target.velocity = -Knockback * target.knockBackResist;
+            }
         }
 
         public override void AI()

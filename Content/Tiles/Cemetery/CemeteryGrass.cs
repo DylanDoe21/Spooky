@@ -8,6 +8,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery.Ambient;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 
 namespace Spooky.Content.Tiles.Cemetery
 {
@@ -69,6 +70,12 @@ namespace Spooky.Content.Tiles.Cemetery
                         {
                             NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                         }
+                    }
+
+                    if (Main.rand.NextBool(35))
+                    {
+                        WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), true);
+                        NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), 0, 0, -1, -1);
                     }
                 }
                 else

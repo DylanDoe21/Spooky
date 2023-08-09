@@ -154,20 +154,35 @@ namespace Spooky.Core
                 }
 			}
 
-			//cemetery spawns (will be done later as the enemies are added)
+			//cemetery spawns
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && NoEventsHappening)
 			{
 				pool.Clear();
 
+				//critters
+				pool.Add(ModContent.NPCType<TinyRat1>(), 2);
+				pool.Add(ModContent.NPCType<TinyRat2>(), 2);
+
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
 					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
+					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 1);
+
+					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
+					{
+						pool.Add(ModContent.NPCType<ZomboidCasket>(), 1);
+					}
 
 					if (!Main.dayTime)
 					{
 						pool.Add(ModContent.NPCType<Possessor>(), 2);
+
+						if (Main.bloodMoon)
+						{	
+							pool.Add(ModContent.NPCType<FeralRat1>(), 2);
+							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
+						}
 					}
                 }
 			}

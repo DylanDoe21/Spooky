@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -11,62 +12,49 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
-    public class PossessorEvil : ModNPC
-    {
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
-
-        public override void SetStaticDefaults()
-        {
-            Main.npcFrameCount[NPC.type] = 4;
-        }
+	public class BloatGhostBig : ModNPC
+	{
+		public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 2;
+		}
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(MoveSpeedX);
-            writer.Write(MoveSpeedY);
-
-            //floats
             writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            MoveSpeedX = reader.ReadInt32();
-            MoveSpeedY = reader.ReadInt32();
-
-            //floats
             NPC.localAI[0] = reader.ReadSingle();
         }
 
-        public override void SetDefaults()
-        {
-            NPC.lifeMax = 60;
-            NPC.damage = 25;
-            NPC.defense = 5;
-            NPC.width = 52;
-			NPC.height = 36;
+		public override void SetDefaults()
+		{
+            NPC.lifeMax = 120;
+            NPC.damage = 20;
+			NPC.defense = 0;
+			NPC.width = 82;
+			NPC.height = 66;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit54;
-            NPC.DeathSound = SoundID.NPCDeath52;
-            NPC.aiStyle = -1;
+			NPC.HitSound = SoundID.NPCHit54;
+            NPC.DeathSound = SoundID.NPCDeath6;
+			NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
-        }
+		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-            int associatedNPCType = ModContent.NPCType<Possessor>();
-            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: false);
+            int associatedNPCType = ModContent.NPCType<BloatGhostSmall>();
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Possessor"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BloatGhost"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -82,7 +70,7 @@ namespace Spooky.Content.NPCs.Cemetery
 
             for (int numEffect = 0; numEffect < 4; numEffect++)
             {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Purple, numEffect));
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
@@ -93,61 +81,45 @@ namespace Spooky.Content.NPCs.Cemetery
             
             return true;
 		}
-
+        
         public override void FindFrame(int frameHeight)
-        {
-            NPC.frameCounter += 1;
-
-            if (NPC.frameCounter > 5)
+		{
+			NPC.frameCounter += 1;
+            if (NPC.frameCounter > 7)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0.0;
             }
-            if (NPC.frame.Y >= frameHeight * 4)
+            if (NPC.frame.Y >= frameHeight * 2)
             {
-                NPC.frame.Y = 0 * frameHeight;
+                NPC.frame.Y = 0;
             }
-        }
+		}
 
         public override void AI()
 		{
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
-            
-            NPC.spriteDirection = NPC.direction;
-            NPC.rotation = NPC.velocity.X * 0.05f;
+    
+            NPC.velocity *= 0;
 
-            NPC.localAI[0]++;
-
-            if (NPC.localAI[0] <= 40)
+            if (player.Distance(NPC.Center) >= 600f)
             {
-                NPC.velocity *= 0;
-            }
-            else
-            {
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -30) 
-                {
-                    MoveSpeedX--;
-                }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 30)
-                {
-                    MoveSpeedX++;
-                }
+                NPC.localAI[0]++;
 
-                NPC.velocity.X = MoveSpeedX * 0.1f;
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -25)
+                if (NPC.localAI[0] > 20)
                 {
-                    MoveSpeedY--;
-                }
-                else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= 25)
-                {
-                    MoveSpeedY++;
-                }
+                    SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
 
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
+                    int SmallGhost = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BloatGhostSmall>());
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: SmallGhost);
+                    }
+
+                    NPC.active = false;
+                }
             }
         }
 
@@ -155,16 +127,16 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             if (NPC.life <= 0) 
             {
-                for (int numDusts = 0; numDusts < 15; numDusts++)
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
                     int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
-                    Main.dust[dustGore].color = Color.BlueViolet;
+                    Main.dust[dustGore].color = Color.Red;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-                    Main.dust[dustGore].scale = 0.1f;
+                    Main.dust[dustGore].scale = 0.2f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }
         }
-    }
+	}
 }

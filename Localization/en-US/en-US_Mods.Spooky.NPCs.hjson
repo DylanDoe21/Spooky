@@ -106,11 +106,19 @@ HoppingFlower.DisplayName: Marigold
 PlantTrap.DisplayName: Toothy
 RollFlower.DisplayName: Flourence
 //cemetery
+BloatGhostBig.DisplayName: Bloated Ghost
+BloatGhostSmall.DisplayName: Ghost
 Possessor.DisplayName: Possessor
 PossessorEvil.DisplayName: Possessor
 ZomboidCasket.DisplayName: Zomboid Casket
 ZomboidGremlin.DisplayName: Zombino
 MistGhost.DisplayName: Mist Ghost
+FeralRat1.DisplayName: Feral Rat
+FeralRat2.DisplayName: Feral Rat
+TinyRat1.DisplayName: Tiny Rat
+TinyRat2.DisplayName: Tiny Rat
+SadGhostBig.DisplayName: Sad Ghost
+SadGhostSmall.DisplayName: Sad Ghost
 //egg event
 Crux.DisplayName: Crux
 Glutinous.DisplayName: Glutinous

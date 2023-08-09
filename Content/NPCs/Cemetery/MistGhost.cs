@@ -49,7 +49,8 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit54;
             NPC.DeathSound = SoundID.NPCDeath52;
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
@@ -78,7 +79,7 @@ namespace Spooky.Content.NPCs.Cemetery
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
                 newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 2 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
+                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(-1, NPC.gfxOffY + 3) * numEffect;
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
             }
             
@@ -102,35 +103,8 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
-            
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
-
-            //flies to players X position
-            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -30) 
-            {
-                MoveSpeedX--;
-            }
-            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 30)
-            {
-                MoveSpeedX++;
-            }
-
-            NPC.velocity.X = MoveSpeedX * 0.1f;
-            
-            //flies to players Y position
-            if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -30)
-            {
-                MoveSpeedY -= 5;
-            }
-            else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= 30)
-            {
-                MoveSpeedY += 5;
-            }
-
-            NPC.velocity.Y = MoveSpeedY * 0.1f;
         }
 
         public override void HitEffect(NPC.HitInfo hit)
@@ -139,7 +113,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
                     Main.dust[dustGore].color = Color.OrangeRed;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);

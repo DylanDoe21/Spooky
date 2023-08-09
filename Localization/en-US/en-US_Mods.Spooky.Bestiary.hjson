@@ -36,10 +36,13 @@ HoppingFlower: These blind and malicious marigold creatures hop around the catac
 PlantTrap: These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb.
 RollFlower: Flourence might be small and innocent looking, but its ability to roll and accelerate at uncanny speeds is not.
 //cemetery
+BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups are approached.
 Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
 ZomboidCasket: A moving casket with legs on the bottom. Contains a wonderful surprise for anyone who dares to destroy it!
 ZomboidGremlin: Small little zomboids that are unusually hostile. They will chase any target down despite their comically small size.
 MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
+FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
+FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in its path.
 //egg event
 Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
 Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can use its unusually long tongue to attack at a distance.
