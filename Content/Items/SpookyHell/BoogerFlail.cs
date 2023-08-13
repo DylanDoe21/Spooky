@@ -11,6 +11,11 @@ namespace Spooky.Content.Items.SpookyHell
 {
     public class BoogerFlail : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BoogerBlaster>();
+        }
+
 		public override void SetDefaults() 
         {
 			Item.damage = 40;

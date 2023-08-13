@@ -433,24 +433,6 @@ namespace Spooky.Core
                     BoneWispTimer = 0;
                 }
             }
-
-            //the baby
-            if (!Main.dayTime && Main.time >= 28998 && Main.time <= 28999 && !NPC.AnyNPCs(ModContent.NPCType<TheBaby>()))
-            {
-                if (Main.rand.NextBool(300))
-                {
-                    int type = ModContent.NPCType<TheBaby>();
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NPC.SpawnOnPlayer(Player.whoAmI, type);
-                    }
-                    else 
-                    {
-                        NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: Player.whoAmI, number2: type);
-                    }
-                }
-            }
         }
 
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)

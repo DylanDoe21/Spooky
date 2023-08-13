@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using System.Linq;
 using System.Collections.Generic;
@@ -160,14 +161,20 @@ namespace Spooky.Core
 				pool.Clear();
 
 				//critters
-				pool.Add(ModContent.NPCType<TinyRat1>(), 2);
-				pool.Add(ModContent.NPCType<TinyRat2>(), 2);
+				//dont spawn rats during blood moons because of the feral rats
+				if (!Main.bloodMoon)
+				{
+					pool.Add(ModContent.NPCType<TinyRat1>(), 2);
+					pool.Add(ModContent.NPCType<TinyRat2>(), 2);
+				}
 
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
 					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
 					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 1);
+					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
+					pool.Add(ModContent.NPCType<SadGhostBig>(), 1);
 
 					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
 					{
@@ -180,8 +187,8 @@ namespace Spooky.Core
 
 						if (Main.bloodMoon)
 						{	
-							pool.Add(ModContent.NPCType<FeralRat1>(), 2);
-							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
+							pool.Add(ModContent.NPCType<FeralRat1>(), 1);
+							pool.Add(ModContent.NPCType<FeralRat2>(), 1);
 						}
 					}
                 }
@@ -198,6 +205,11 @@ namespace Spooky.Core
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
+					//critters
+					pool.Add(NPCID.Maggot, 3);
+					pool.Add(ModContent.NPCType<FlySmall>(), 2);
+					pool.Add(ModContent.NPCType<FlyBig>(), 2);
+
 					pool.Add(ModContent.NPCType<Skeletoid1>(), 5);
 					pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
 					pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
@@ -225,16 +237,7 @@ namespace Spooky.Core
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
-					pool.Add(ModContent.NPCType<FloatyFlower>(), 5);
-					pool.Add(ModContent.NPCType<HoppingFlower>(), 5);
-					pool.Add(ModContent.NPCType<RollFlower>(), 4);
-					pool.Add(ModContent.NPCType<PlantTrap>(), 3);
-
-					//do not spawn flower sentries if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<FlowerSentry>()))
-					{
-						pool.Add(ModContent.NPCType<FlowerSentry>(), 1);
-					}
+					pool.Add(ModContent.NPCType<Daisy1>(), 3);
 				}
 			}
 

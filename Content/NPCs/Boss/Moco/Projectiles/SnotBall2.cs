@@ -136,18 +136,18 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
             ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer, 0f, 0f);
 
-            for (int numDust = 0; numDust < 20; numDust++)
-            {                                                                                  
-                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default(Color), 1.5f);
-                Main.dust[DustGore].noGravity = true;
-                Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+            for (int numDusts = 0; numDusts < 20; numDusts++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
                 
-                if (Main.dust[DustGore].position != Projectile.Center)
+				if (Main.dust[newDust].position != Projectile.Center)
                 {
-                    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
+				    Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
                 }
-            }
+			}
 		}
     }
 }

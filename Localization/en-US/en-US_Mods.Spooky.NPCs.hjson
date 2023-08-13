@@ -100,11 +100,9 @@ ZomboidNecromancer.DisplayName: Zomboid Necromancer
 ZomboidNecromancerSkull.DisplayName: Soul Skull
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
-FloatyFlower.DisplayName: Daisy
-FlowerSentry.DisplayName: Sunny
-HoppingFlower.DisplayName: Marigold
-PlantTrap.DisplayName: Toothy
-RollFlower.DisplayName: Flourence
+Daisy1.DisplayName: Daisy
+Daisy2.DisplayName: Daisy
+Toothy.DisplayName: Toothy
 //cemetery
 BloatGhostBig.DisplayName: Bloated Ghost
 BloatGhostSmall.DisplayName: Ghost
@@ -180,3 +178,4 @@ ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
 ValleySharkMouth.DisplayName: Hemostasis Beast
 ValleyMerman.DisplayName: Flesh Merman
+Marigold1.DisplayName: Marigold1

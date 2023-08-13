@@ -111,5 +111,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
 			return false;
 		}
+
+        public override void Kill(int timeLeft)
+        {
+            for (int numDust = 0; numDust < 10; numDust++)
+            {                                                                                  
+                int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -166,38 +167,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 		}
 
-		public override bool CheckDead() 
-		{
-            if (Main.netMode != NetmodeID.Server) 
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
-                {
-					if (Main.rand.NextBool(2))
-					{
-                    	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlowerGore1").Type);
-					}
-					else
-					{
-						Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BigFlowerGore2").Type);
-					}
-                }
-            }
-
-			for (int numDust = 0; numDust < 25; numDust++)
-            {
-                int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 2, NPC.height / 2, DustID.Grass, 0f, 0f, 100, default, 2f);
-
-                Main.dust[DustGore].velocity *= 3f;
-                Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.NextBool(2))
-                {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                }
-            }
-
-            return true;
+				for (int numDusts = 0; numDusts < 35; numDusts++)
+				{                                                                                  
+					int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.25f);
+					Main.dust[dustGore].color = Color.OrangeRed;
+					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
+					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
+					Main.dust[dustGore].noGravity = true;
+				}
+			}
 		}
 
 		//Loot and stuff

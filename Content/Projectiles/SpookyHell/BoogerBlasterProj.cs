@@ -37,7 +37,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return false;
         }
 
-		public override bool PreAI()
+		public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -187,8 +187,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			player.heldProj = Projectile.whoAmI;
 			player.itemTime = 1;
 			player.itemAnimation = 1;
-
-			return true;
 		}
 	}
 }

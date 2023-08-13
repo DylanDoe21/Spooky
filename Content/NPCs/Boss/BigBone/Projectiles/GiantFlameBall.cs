@@ -199,12 +199,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
             //flame dusts
-            for (int numDust = 0; numDust < 50; numDust++)
+            for (int numDusts = 0; numDusts < 50; numDusts++)
 			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(2f, 3f));
                 Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 8f);
                 Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 8f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(2f, 3f);
                 Main.dust[dustGore].noGravity = true;
 			}
 
@@ -225,13 +224,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //inferno blast
-            Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-                ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-            }
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
+            ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
         }
     }
 }

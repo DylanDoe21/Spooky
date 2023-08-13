@@ -20,6 +20,13 @@ EyeArmor:
 	Summons a tiny floating eye to protect you
 	The eye does not take up any minion slots
 	'''
+FlowerArmor:
+	'''
+	Significantly increases your life regeneration
+	Enemies are less likely to target you
+	Double tap DOWN to summon a large amount of pollen to attack your enemies
+	This ability has a thirty second cooldown when used
+	'''
 GoreArmor:
 	'''
 	Grants you a protective aura that will block one attack

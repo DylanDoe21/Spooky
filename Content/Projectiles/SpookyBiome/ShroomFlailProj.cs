@@ -98,20 +98,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				chainCount++;
 				chainLengthRemainingToDraw -= chainSegmentLength;
 			}
+			
+			Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
+			Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
+			SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-			// Add a motion trail when moving forward, like most flails do (don't add trail if already hit a tile)
-			if (CurrentAIState == AIState.LaunchingForward)
+			for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
 			{
-				Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
-				Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
-				SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-
-				for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
-				{
-					Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-					Color color = Projectile.GetAlpha(Color.Blue * 0.35f) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-					Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
-				}
+				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Color color = Projectile.GetAlpha(Color.Blue * 0.35f) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+				Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
 			}
 
 			return true;

@@ -573,9 +573,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             if (Main.rand.NextBool(2))
                             {
-                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.05f + (NPC.localAI[0] / 450));
                                 Main.dust[dustEffect].color = Color.Orange;
-                                Main.dust[dustEffect].scale = 0.05f + (NPC.localAI[0] / 450);
                                 Main.dust[dustEffect].noGravity = true;
                                 Main.dust[dustEffect].noLight = false;
                                 Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * (-18f + -NPC.localAI[0] / 10);
@@ -626,27 +625,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //flame dusts
                         for (int numDust = 0; numDust < 50; numDust++)
                         {                                                                                  
-                            int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+                            int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(3f, 5f));
                             Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-20f, 20f);
                             Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-10f, 10f);
-                            Main.dust[dustGore].scale = Main.rand.NextFloat(3f, 5f);
                             Main.dust[dustGore].noGravity = true;
                         }
 
                         //explosion smoke
                         for (int numExplosion = 0; numExplosion < 25; numExplosion++)
                         {
-                            int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<SmokeEffect>(), 
+                            int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 
                             0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.8f, 1.2f));
-
                             Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
                             Main.dust[DustGore].noGravity = true;
-
-                            if (Main.rand.NextBool(2))
-                            {
-                                Main.dust[DustGore].scale = 0.5f;
-                                Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                            }
                         }
 
                         //kill big bone
@@ -900,9 +891,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                     SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
                                 }
 
-                                for (int i = 0; i < SavePoint.Length; i++)
+                                for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
                                 {
-                                    Vector2 Direction = NPC.Center - SavePoint[i];
+                                    Vector2 Direction = NPC.Center - SavePoint[numPoints];
                                     Direction.Normalize();
 
                                     Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
@@ -1276,9 +1267,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
                             Main.dust[dustEffect].color = Phase2 ? Color.OrangeRed : Color.Red;
-                            Main.dust[dustEffect].scale = 0.1f;
                             Main.dust[dustEffect].noGravity = true;
                             Main.dust[dustEffect].noLight = false;
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
@@ -1334,9 +1324,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
                             Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
                             Main.dust[dustEffect].color = Color.Yellow;
-                            Main.dust[dustEffect].scale = 0.1f;
                             Main.dust[dustEffect].noGravity = true;
                             Main.dust[dustEffect].noLight = false;
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);

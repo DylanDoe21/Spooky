@@ -189,14 +189,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
         
-        	for (int i = 0; i < 25; i++)
+        	for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[newDust].noGravity = true;
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                
-				if (Main.dust[newDust].position != Projectile.Center)
+                Main.dust[newDust].noGravity = true;
+
+                if (Main.dust[newDust].position != Projectile.Center)
 				{
 					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
 				}

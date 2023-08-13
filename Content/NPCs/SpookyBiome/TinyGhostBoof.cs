@@ -5,7 +5,6 @@ using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpookyBiome.Misc;
-using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -32,8 +31,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.aiStyle = 64;
 			AIType = NPCID.Firefly;
             NPC.catchItem = (short)ModContent.ItemType<TinyGhostItem>();
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<TinyGhostBoofBanner>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiome>().Type };
 		}
 
@@ -75,8 +72,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
-                    Main.dust[GhostDust].scale = 0.5f;
+                    int GhostDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
                     Main.dust[GhostDust].velocity *= 1.2f;
                     Main.dust[GhostDust].noGravity = true;
 

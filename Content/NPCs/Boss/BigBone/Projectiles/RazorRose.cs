@@ -125,8 +125,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                     Projectile.ai[0] = 0;
                 }
             }
-            
-            //Projectile.velocity *= 1.00f;
         }
     }
 }

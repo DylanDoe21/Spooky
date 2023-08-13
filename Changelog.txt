@@ -3,6 +3,7 @@ Update v1.0 (The first full release!)
 -This update is spooky mods first FULL release, which means at this point the mod has enough content and polishing that it is no longer a small WIP mod 
 (Despite some of the existing multiplayer problems which we are still working on I promise)
 
+-Before anyone asks, YOU WILL NEED A NEW WORLD!!!! This update completely overhauls the catacombs and adds new generation to literally every single biome in the mod
 
 
 ~NEW STUFF~
@@ -182,6 +183,7 @@ Removals:
 -Fixed enemies spawning in the spooky forest and swampy cemetery if you are in a town
 -Fixed the rotten gourd armor's set bonus not working
 -Fixed spooky mod whips being unable to get melee weapon reforgements
+-Fixed issue where the gargoyle scepter could be used with left click if grug is active
 -Fixed spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
 -Fixed rot gourd not spawning correctly in multiplayer
 -Fixed spooky spirit vanishing when hit in multiplayer

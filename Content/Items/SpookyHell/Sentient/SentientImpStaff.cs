@@ -26,7 +26,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.damage = 42;
             Item.mana = 50;
 			Item.DamageType = DamageClass.Summon;
-            Item.sentry = true;
 			Item.autoReuse = true;
             Item.width = 58;
             Item.height = 56;
@@ -41,6 +40,16 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.shoot = ModContent.ProjectileType<Grug>();
             Item.shootSpeed = 12f;
         }
+
+        public override bool CanUseItem(Player player)
+		{
+			if (player.ownedProjectileCounts[Item.shoot] > 0 && player.altFunctionUse != 2) 
+			{
+				return false;
+			}
+
+			return true;
+		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

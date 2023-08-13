@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,7 +27,8 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(39, 39, 49));
+			LocalizedText name = CreateMapEntryName();
+			AddMapEntry(new Color(244, 84, 16), name);
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
         }
@@ -40,9 +42,9 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/MysteriousTombstoneOutline").Value;
 
 			float glowspeed = Main.GameUpdateCount * 0.02f;
-			float glowbrightness = (float)MathF.Sin(j / 15f - glowspeed);
+			float glowbrightness = (float)MathF.Sin(j / 10f - glowspeed);
 
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Fuchsia * glowbrightness);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * glowbrightness);
         }
     }
 }

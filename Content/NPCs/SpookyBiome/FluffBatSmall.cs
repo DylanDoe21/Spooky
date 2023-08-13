@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
-using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -40,8 +39,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.aiStyle = 14;
 			AIType = NPCID.GiantBat;
             AnimationType = NPCID.GiantBat;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<FluffBatSmallBanner>();
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
         }
 

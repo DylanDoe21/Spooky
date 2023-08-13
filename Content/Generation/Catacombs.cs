@@ -30,7 +30,7 @@ namespace Spooky.Content.Generation
         int numAmbushRooms = 0;
 
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
@@ -43,7 +43,7 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom4 = false;
         public static bool placedMoyaiRoom = false;
 
-        Vector2[] Layer2TrapRoomPoints = new Vector2[6];
+        Vector2[] Layer2LootRooms = new Vector2[4];
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -51,7 +51,6 @@ namespace Spooky.Content.Generation
 
             int XStart = PositionX;
             int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
-            int XEdge = XStart + Cemetery.BiomeWidth;
 
             //LAYER 1
 
@@ -278,7 +277,7 @@ namespace Spooky.Content.Generation
                 for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
                     //actual hallway positions
-                    Vector2 horizontalHallOrigin = new Vector2(X + 17, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
+                    Vector2 horizontalHallOrigin = new Vector2(X + 17, WorldGen.genRand.NextBool() ? Y + 3 : Y - 14);
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
@@ -291,7 +290,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool(2))
+                        if (WorldGen.genRand.NextBool())
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
@@ -379,9 +378,9 @@ namespace Spooky.Content.Generation
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         //do not place the first loot room in the middle where the entrance is either
-                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
                             placedLootRoom1 = true;
                         }
                         else
@@ -407,9 +406,9 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 42)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
                             placedLootRoom2 = true;
                         }
                         else
@@ -429,9 +428,9 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 84)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[2] = new Vector2(origin.X, origin.Y);
                             placedLootRoom3 = true;
                         }
                         else
@@ -451,9 +450,9 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 126)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-4", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[3] = new Vector2(origin.X, origin.Y);
                             placedLootRoom4 = true;
                         }
                         else
@@ -503,7 +502,7 @@ namespace Spooky.Content.Generation
                 for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     //actual hallway positions
-                    Vector2 horizontalHallOrigin = new Vector2(X + 34, WorldGen.genRand.NextBool(2) ? Y + 3 : Y - 14);
+                    Vector2 horizontalHallOrigin = new Vector2(X + 34, WorldGen.genRand.NextBool() ? Y + 3 : Y - 14);
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
@@ -516,7 +515,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool(2))
+                        if (WorldGen.genRand.NextBool())
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
@@ -530,6 +529,34 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
                     }
+                }
+            }
+
+            //place loot rooms for the second layer
+            for (int numPoints = 0; numPoints < Layer2LootRooms.Length; numPoints++)
+            {
+                Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-" + (numPoints + 1), Layer2LootRooms[numPoints].ToPoint16(), Mod);
+
+                Vector2 horizontalHallOriginLeft = new Vector2(Layer2LootRooms[numPoints].X - 11, Layer2LootRooms[numPoints].Y + 21);
+                Vector2 horizontalHallOriginRight = new Vector2(Layer2LootRooms[numPoints].X + 69, Layer2LootRooms[numPoints].Y + 21);
+
+                //manually place hallways since the loot rooms here only have one entrance
+
+                //if the room is placed at the very left of the catacombs, place a horizontal hall on the right side
+                if (Layer2LootRooms[numPoints].X <= XMiddle - layer2Width - 35)
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOriginRight.ToPoint16(), Mod);
+                }
+                //if the room is placed at the very right of the catacombs, place a horizontal hall on the left side
+                if (Layer2LootRooms[numPoints].X >= XMiddle + layer2Width - 35)
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOriginLeft.ToPoint16(), Mod);
+                }
+                //otherwise place horizontal halls on both sides of the room
+                if (Layer2LootRooms[numPoints].X > XMiddle - layer2Width - 35 && Layer2LootRooms[numPoints].X < XMiddle + layer2Width - 35)
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOriginLeft.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOriginRight.ToPoint16(), Mod);
                 }
             }
 
@@ -661,7 +688,7 @@ namespace Spooky.Content.Generation
             //dig entrance to big bone's arena
             for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)
             {
-                //this determines how far down the big bone entrance is
+                //this determines how far down the big bone arena entrance is
                 int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesX >= 6400 ? 1 : 9);
 
                 for (int tunnelY = (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance; tunnelY <= BigBoneArenaY - 36; tunnelY++)
@@ -699,7 +726,6 @@ namespace Spooky.Content.Generation
         {
             int XStart = PositionX;
             int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
-            int XEdge = XStart + Cemetery.BiomeWidth;
 
             //kill plants and vines that are not on valid tiles
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
@@ -739,9 +765,44 @@ namespace Spooky.Content.Generation
             }
         }
 
+        private void GFBPaintColors(GenerationProgress progress, GameConfiguration configuration)
+        {
+            int XStart = PositionX;
+            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+
+            //kill plants and vines that are not on valid tiles
+            for (int X = XMiddle - 400; X <= XMiddle + 400; X++)
+            {
+                for (int Y = (int)Main.worldSurface - 35; Y <= Main.maxTilesY - 100; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+
+                    if (tile.TileType == ModContent.TileType<CatacombBrick1>())
+                    {
+                        WorldGen.paintTile(X, Y, PaintID.DeepGreenPaint);
+                    }
+
+                    if (tile.WallType == ModContent.WallType<CatacombBrickWall1>())
+                    {
+                        WorldGen.paintWall(X, Y, PaintID.DeepGreenPaint);
+                    }
+
+                    if (tile.TileType == ModContent.TileType<CatacombBrick2>())
+                    {
+                        WorldGen.paintTile(X, Y, PaintID.DeepPurplePaint);
+                    }
+
+                    if (tile.WallType == ModContent.WallType<CatacombBrickWall2>())
+                    {
+                        WorldGen.paintWall(X, Y, PaintID.DeepPurplePaint);
+                    }
+                }
+            }
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
 			if (GenIndex1 == -1)
 			{
 				return;
@@ -749,6 +810,11 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("KillVinesAndPlants", KillVinesAndPlants));
+
+            if (Main.drunkWorld)
+            {
+                tasks.Insert(GenIndex1 + 3, new PassLegacy("GBFStuff", GFBPaintColors));
+            }
 
             //re-locate the jungle temple deeper underground and further horizontally so it never gets generated over by the catacombs
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));

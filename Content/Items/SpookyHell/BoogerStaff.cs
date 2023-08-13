@@ -12,9 +12,10 @@ namespace Spooky.Content.Items.SpookyHell
 	public class BoogerStaff : ModItem
 	{
 		public override void SetStaticDefaults()
-		{
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BoogerFlail>();
 			Item.staff[Item.type] = true;
-		}
+        }
 
 		public override void SetDefaults()
 		{

@@ -113,11 +113,10 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.15f);
                     Main.dust[dustGore].color = Color.OrangeRed;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-                    Main.dust[dustGore].scale = 0.15f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }

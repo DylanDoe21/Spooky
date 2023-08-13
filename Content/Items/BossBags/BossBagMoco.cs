@@ -49,6 +49,7 @@ namespace Spooky.Content.Items.BossBags
 			{ 
 				ModContent.ItemType<BoogerFlail>(), 
 				ModContent.ItemType<BoogerBlaster>(), 
+				ModContent.ItemType<BoogerBook>(),
 				ModContent.ItemType<BoogerStaff>() 
 			};
 

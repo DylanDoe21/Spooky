@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.Banner.SpookyForest;
-
 namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttyPumpkin : ModNPC
@@ -38,8 +36,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.HoppinJack;
-			Banner = NPC.type;
-            BannerItem = ModContent.ItemType<PuttyPumpkinBanner>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 

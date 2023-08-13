@@ -206,19 +206,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
             //flame dusts
-            for (int numDust = 0; numDust < 50; numDust++)
+            for (int numDusts = 0; numDusts < 50; numDusts++)
 			{                                                                                  
-				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(2f, 3f));
                 Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 8f);
                 Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 8f);
-                Main.dust[dustGore].scale = Main.rand.NextFloat(2f, 3f);
                 Main.dust[dustGore].noGravity = true;
 			}
 
             //explosion smoke
             for (int numExplosion = 0; numExplosion < 15; numExplosion++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 
                 ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.8f, 1.2f));
 
                 Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
@@ -247,11 +246,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //inferno blast
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-                ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-            }
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
+            ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
         }
     }
 }

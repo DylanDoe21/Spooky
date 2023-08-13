@@ -1,16 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-
-using Spooky.Core;
-using Spooky.Content.Projectiles;
 
 namespace Spooky.Core
 {
@@ -175,7 +168,7 @@ namespace Spooky.Core
                 return false;
             }
 
-            return null;
+            return true;
         }
 
         public Vector2 GetHitboxCenter(Player player)
@@ -186,7 +179,7 @@ namespace Spooky.Core
         public Rectangle GetHitbox(Player player)
         {
             Vector2 hitboxDisplacement = GetHitboxCenter(player);
-            return new Rectangle((int)hitboxDisplacement.X - TopSize + 5, (int)hitboxDisplacement.Y - TopSize, TopSize + 5 * 2, TopSize * 2);
+            return new Rectangle((int)hitboxDisplacement.X - TopSize, (int)hitboxDisplacement.Y - TopSize, TopSize * 2, TopSize * 2);
         }
 
         public virtual void OnHitTiles(Player player) { }

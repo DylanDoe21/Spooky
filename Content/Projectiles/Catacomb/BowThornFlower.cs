@@ -65,7 +65,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
         
-        	for (int i = 0; i < 25; i++)
+        	for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, 0f, -2f, 0, default(Color), 1.5f);
 				Main.dust[newDust].noGravity = true;

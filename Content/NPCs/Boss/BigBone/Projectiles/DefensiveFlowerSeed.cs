@@ -56,17 +56,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			for (int numDust = 0; numDust < 20; numDust++)
+			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default(Color), 1.5f);
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, -2f, 0, default, 1.5f);
+				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[DustGore].noGravity = true;
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
-                {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
-                }
 			}
 
 			if (NPC.CountNPCS(ModContent.NPCType<DefensiveFlower>()) <= 12)

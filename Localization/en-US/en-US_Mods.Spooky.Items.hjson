@@ -127,6 +127,35 @@ StrangeCyst: {
 	Tooltip: Begins the egg incursion event when used at the giant egg
 }
 
+FlowerBody: {
+	DisplayName: Thorn Stem Chestplate
+	Tooltip:
+		'''
+		10% increased damage and critical strike chance
+		Attackers will take damage when they hit you
+		'''
+}
+
+FlowerHead: {
+	DisplayName: Flower Mask
+	Tooltip:
+		'''
+		15% reduced mana usage
+		Increases your max number of minions by 2
+		Increases your max number of sentries by 1
+		'''
+}
+
+FlowerLegs: {
+	DisplayName: Large Flower Pot
+	Tooltip:
+		'''
+		Grants immunity to knockback
+		Increases your damage reduction by 8%
+		Causes you to fall much faster when worn
+		'''
+}
+
 BigBoneBow: {
 	DisplayName: Flower Shot
 	Tooltip:
@@ -253,9 +282,9 @@ ThornStaff: {
 	DisplayName: Rod of Ensnaring
 	Tooltip:
 		'''
-		Casts a lump of thorns that can sometimes ensnare and poison enemies
-		Bosses cannot be ensared, but they will be poisoned for longer
+		Casts thorn clumps that will ensnare and poison non-boss enemies
 		Enemies cannot be ensnared again for fifteen seconds
+		Bosses will be poisoned for longer
 		'''
 }
 
@@ -790,6 +819,11 @@ OldWoodGreatsword: {
 	Tooltip: "'It's more of a club than a sword'"
 }
 
+OldWoodHammer: {
+	DisplayName: Old Wood Hammer
+	Tooltip: ""
+}
+
 OldWoodSlingshot: {
 	DisplayName: Old Wood Slingshot
 	Tooltip:
@@ -898,7 +932,7 @@ EyeBody: {
 	Tooltip:
 		'''
 		5% increased summon damage
-		Increases your max minions and sentries by 1
+		Increases your max number minions and sentries by 1
 		'''
 }
 
@@ -907,7 +941,7 @@ EyeHead: {
 	Tooltip:
 		'''
 		3% increased summon damage
-		Increases your max minions by 1
+		Increases your max number of minions by 1
 		'''
 }
 
@@ -969,6 +1003,11 @@ BoogerBlaster: {
 		Charge up to shoot nasty boogers that slow enemies on hit
 		The longer you charge it, the stronger and faster the boogers will become
 		'''
+}
+
+BoogerBook: {
+	DisplayName: Snot-Nosed Tome
+	Tooltip: Casts a controllable nose that rains down boogers when enemies are nearby
 }
 
 BoogerFlail: {
@@ -1411,96 +1450,6 @@ LittleBonePot: {
 LeechWhipGore: {
 	DisplayName: Gore Food
 	Tooltip: ""
-}
-
-PuttySlime1Banner: {
-	DisplayName: Putty Slime Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Green Putty Slime"
-}
-
-PuttySlime2Banner: {
-	DisplayName: Putty Slime Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Purple Putty Slime"
-}
-
-PuttySlime3Banner: {
-	DisplayName: Putty Slime Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Brown Putty Slime"
-}
-
-ZomboidBanner: {
-	DisplayName: Zomboid Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid"
-}
-
-ZomboidWarlockBanner: {
-	DisplayName: Zomboid Warlock Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Zomboid Warlock"
-}
-
-FluffBatSmallBanner: {
-	DisplayName: Fuzz Bat Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Fuzz Bat"
-}
-
-FluffBatGiantBanner: {
-	DisplayName: Giant Fuzz Bat Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fuzz Bat"
-}
-
-SpookyDanceBanner: {
-	DisplayName: Spooky Dance Ghost Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Spooky Dance Ghost"
-}
-
-TinyGhostBanner: {
-	DisplayName: Tiny Ghost Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Ghost"
-}
-
-TinyGhostBoofBanner: {
-	DisplayName: Tiny Boof Ghost Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Boof Ghost"
-}
-
-TinyGhostRareBanner: {
-	DisplayName: Tiny Orange Ghost Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Orange Ghost"
-}
-
-TinyMushroomBanner: {
-	DisplayName: Tiny Mushroom Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Tiny Mushroom"
-}
-
-FlyBigBanner: {
-	DisplayName: Giant Fly Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Giant Fly"
-}
-
-FlySmallBanner: {
-	DisplayName: Fly Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Fly"
-}
-
-LittleSpiderBanner: {
-	DisplayName: Little Spider Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Little Spider"
-}
-
-PuttyPumpkinBanner: {
-	DisplayName: Putty Pumpkin Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Putty Pumpkin"
-}
-
-CandleMonsterBanner: {
-	DisplayName: Candle Monster Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Candle Monster"
-}
-
-WitchBanner: {
-	DisplayName: Witch Banner
-	Tooltip: "{$CommonItemTooltip.BannerBonus}Witch"
 }
 
 CatacombBrickItem: {
@@ -1972,11 +1921,6 @@ CatacombBrick1Item: {
 CatacombBrick2Item: {
 	DisplayName: Lower Catacomb Brick
 	Tooltip: ""
-}
-
-CatacombBrick2GhostItem: {
-	DisplayName: Ghostly Lower Brick
-	Tooltip: Goes invisible when activated by wires
 }
 
 CatacombFlooringItem: {

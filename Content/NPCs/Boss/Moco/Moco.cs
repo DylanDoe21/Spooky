@@ -820,6 +820,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             { 
                 ModContent.ItemType<BoogerFlail>(), 
                 ModContent.ItemType<BoogerBlaster>(), 
+                ModContent.ItemType<BoogerBook>(),
                 ModContent.ItemType<BoogerStaff>()
             };
 

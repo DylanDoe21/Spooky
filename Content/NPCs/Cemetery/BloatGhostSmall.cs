@@ -61,9 +61,9 @@ namespace Spooky.Content.NPCs.Cemetery
 
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
-                newColor *= 1f; 
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
+                newColor *= 1f;
+                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
+                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.025f, effects, 0);
             }
             
             return true;
@@ -114,13 +114,16 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<BloatGhostBig>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numDusts = 0; numDusts < 15; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.1f);
                     Main.dust[dustGore].color = Color.White;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-                    Main.dust[dustGore].scale = 0.1f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }

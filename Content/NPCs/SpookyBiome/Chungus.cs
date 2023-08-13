@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
-			AIType = NPCID.HoppinJack;
+			AIType = NPCID.BlueSlime;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 

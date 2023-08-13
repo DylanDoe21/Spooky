@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
@@ -61,12 +62,10 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-            int associatedNPCType = ModContent.NPCType<Possessor>();
-            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: false);
-
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Possessor"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -107,6 +106,21 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            for (int numDusts = 0; numDusts < 15; numDusts++)
+            {
+                int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.1f);
+                Main.dust[dustGore].color = Color.BlueViolet;
+                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
+                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
+                Main.dust[dustGore].noGravity = true;
+            }
+            
+            target.AddBuff(ModContent.BuffType<Possessed>(), 600);
+            NPC.active = false;
         }
 
         public override void AI()
@@ -157,11 +171,10 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDusts = 0; numDusts < 15; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.1f);
                     Main.dust[dustGore].color = Color.BlueViolet;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-                    Main.dust[dustGore].scale = 0.1f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }

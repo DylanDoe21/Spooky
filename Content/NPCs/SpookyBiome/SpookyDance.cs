@@ -5,8 +5,6 @@ using Terraria.GameContent.Bestiary;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.Banner.SpookyForest;
-
 namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class SpookyDance : ModNPC  
@@ -29,8 +27,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
             AnimationType = NPCID.Ghost;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<SpookyDanceBanner>();
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpookyBiome>().Type };
         }
 
@@ -78,8 +74,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int GhostDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
-                    Main.dust[GhostDust].velocity *= 3f;
+                    int GhostDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemDiamond, 0f, 0f, 100, default, 2f);
+                    Main.dust[GhostDust].velocity *= 1.2f;
                     Main.dust[GhostDust].noGravity = true;
 
                     if (Main.rand.NextBool(2))

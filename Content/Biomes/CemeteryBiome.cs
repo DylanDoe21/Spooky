@@ -90,6 +90,8 @@ namespace Spooky.Content.Biomes
             player.ManageSpecialBiomeVisuals("Spooky:Raveyard", isActive, player.Center);
         }
 
+        public override string MapBackground => "Spooky/Content/Biomes/CemeteryBiome_Background";
+
         public override bool IsBiomeActive(Player player)
         {
             bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && ModContent.GetInstance<TileCount>().raveyardTiles >= 8;

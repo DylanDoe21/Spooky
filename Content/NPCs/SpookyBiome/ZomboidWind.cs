@@ -6,7 +6,6 @@ using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
-using Spooky.Content.Tiles.Banner.SpookyForest;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -31,8 +30,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 3;
 			AIType = NPCID.GoblinScout;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<ZomboidBanner>();
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
         }
 

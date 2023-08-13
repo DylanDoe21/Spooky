@@ -138,13 +138,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         {
 			if (NPC.life <= 0) 
             {
-				for (int numDust = 0; numDust < 50; numDust++)
+				for (int numDusts = 0; numDusts < 35; numDusts++)
 				{                                                                                  
-					int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+					int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.25f);
 					Main.dust[dustGore].color = Color.Red;
 					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
 					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-					Main.dust[dustGore].scale = 0.25f;
 					Main.dust[dustGore].noGravity = true;
 				}
 			}

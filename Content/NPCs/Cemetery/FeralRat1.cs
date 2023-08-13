@@ -86,17 +86,14 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatGore" + numGores).Type);
+                    }
                 }
             }
         }
@@ -116,17 +113,14 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatBrownGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FeralRatBrownGore" + numGores).Type);
+                    }
                 }
             }
         }

@@ -37,8 +37,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 				var realDamage = 20;
                 var scaledDamage = (int)player.GetTotalDamage<SummonDamageClass>().ApplyTo(20);
 
-				int smallEye = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.position.X + (float)(player.width / 2), 
-				player.position.Y + (float)(player.height / 2), 0f, 0f,ModContent.ProjectileType<EyeArmorMinion>(), scaledDamage, 0f, player.whoAmI, 0f, 0f);
+				int smallEye = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, 
+				player.position.Y, 0, 0 ,ModContent.ProjectileType<EyeArmorMinion>(), scaledDamage, 0, player.whoAmI);
 
 				Main.projectile[smallEye].originalDamage = realDamage;
 			}

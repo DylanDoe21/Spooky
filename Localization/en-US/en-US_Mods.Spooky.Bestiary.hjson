@@ -30,13 +30,11 @@ SkeletoidBig: Big john was once a very big and strong man who died at some point
 ZomboidNecromancer: These zomboids spend their time locked away in the catacombs learning necromancy, and are able to conjure souls from the burials around them.
 ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
 //catacombs layer 2
-FloatyFlower: Daisies are unique in that they have the ability to float by spinning their flower. Despite their bright colors, they are not actually that bright, constantly running and crashing into walls.
-FlowerSentry: These giant flowers watch over the catacombs, healing nearby allies to prevent unwanted guests from exploring.
-HoppingFlower: These blind and malicious marigold creatures hop around the catacombs, spitting deadly spores as a parting gift to any unwelcomed guests.
-PlantTrap: These things will trap anything in their mouth that moves above them, living or not. Probably not that useful considering they live in an abandoned catacomb.
-RollFlower: Flourence might be small and innocent looking, but its ability to roll and accelerate at uncanny speeds is not.
-//cemetery
-BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups are approached.
+Corpsey: Daisy1: Small flowers that have decided to learn how to run. They can also float by spinning their petals like a helicopter.
+Daisy2: Very violent flowers that will chase intruders through the catacombs. Their sharp petals can cut though lots of stuff, like your flesh!
+Flourence: Marigold1:
+Marigold2: Sunny:
+Toothy: BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups are approached.
 Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
 ZomboidCasket: A moving casket with legs on the bottom. Contains a wonderful surprise for anyone who dares to destroy it!
 ZomboidGremlin: Small little zomboids that are unusually hostile. They will chase any target down despite their comically small size.

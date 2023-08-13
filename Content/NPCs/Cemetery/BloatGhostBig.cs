@@ -49,9 +49,6 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-            int associatedNPCType = ModContent.NPCType<BloatGhostSmall>();
-            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BloatGhost"),
@@ -75,7 +72,7 @@ namespace Spooky.Content.NPCs.Cemetery
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
                 newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X - 2, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
+                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
             }
             
@@ -103,7 +100,7 @@ namespace Spooky.Content.NPCs.Cemetery
     
             NPC.velocity *= 0;
 
-            if (player.Distance(NPC.Center) >= 600f)
+            if (player.Distance(NPC.Center) >= 300f)
             {
                 NPC.localAI[0]++;
 
@@ -129,11 +126,10 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.2f);
                     Main.dust[dustGore].color = Color.Red;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 2f);
-                    Main.dust[dustGore].scale = 0.2f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }

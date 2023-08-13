@@ -237,10 +237,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
             }
 
+            //set to phase 2 transition when she reaches half health
             if (NPC.life <= (NPC.lifeMax / 2) && !Phase2)
             {
-                //NPC.ai[0] = -2;
-                //Phase2 = true;
+                NPC.ai[0] = -2;
+                Phase2 = true;
             }
 
             switch ((int)NPC.ai[0])
@@ -248,30 +249,29 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //phase transition
                 case -2:
                 {
-                    if (!Flags.downedDaffodil)
+                    NPC.localAI[0]++;
+                
+                    if (NPC.localAI[0] == 60)
                     {
-                        if (NPC.localAI[0] == 60)
-                        {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition1"), true);
-                        }
+                        CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition1"), true);
+                    }
 
-                        //spawn permanent thorn pillars that cover the whole arena
-                        if (NPC.localAI[0] == 120)
-                        {
+                    //spawn permanent thorn pillars that cover the whole arena
+                    if (NPC.localAI[0] == 120)
+                    {
 
-                        }
+                    }
 
-                        if (NPC.localAI[0] == 240)
-                        {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition2"), true);
-                        }
+                    if (NPC.localAI[0] == 240)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PhaseTransition2"), true);
+                    }
 
-                        if (NPC.localAI[0] >= 600)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
+                    if (NPC.localAI[0] >= 320)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
                     }
 
                     break;

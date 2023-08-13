@@ -42,7 +42,7 @@ namespace Spooky.Content.Tiles.Cemetery
             if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
                 //grow vines
-                if (Main.rand.Next(12) == 0) 
+                if (Main.rand.NextBool(12)) 
                 {
                     Below.TileType = (ushort)ModContent.TileType<CemeteryVines>();
                     Below.HasTile = true;
@@ -59,7 +59,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 if (Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>())
                 {
                     //grow weeds
-                    if (Main.rand.Next(5) == 0)
+                    if (Main.rand.NextBool(5))
                     {
                         Above.TileType = (ushort)ModContent.TileType<CemeteryWeeds>();
                         Above.HasTile = true;
@@ -72,7 +72,7 @@ namespace Spooky.Content.Tiles.Cemetery
                         }
                     }
 
-                    if (Main.rand.NextBool(35))
+                    if (Main.rand.NextBool(25))
                     {
                         WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), true);
                         NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), 0, 0, -1, -1);
@@ -81,7 +81,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 else
                 {
                     //grow weeds
-                    if (Main.rand.Next(12) == 0)
+                    if (Main.rand.NextBool(12))
                     {
                         Above.TileType = (ushort)ModContent.TileType<CatacombWeeds>();
                         Above.HasTile = true;
@@ -95,7 +95,7 @@ namespace Spooky.Content.Tiles.Cemetery
                     }
 
                     //grow mushrooms
-                    if (Main.rand.Next(25) == 0)
+                    if (Main.rand.NextBool(25))
                     {
                         Above.TileType = (ushort)ModContent.TileType<SporeMushroom>();
                         Above.HasTile = true;
@@ -112,7 +112,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 if (Main.tile[i, j].WallType == ModContent.WallType<CatacombBrickWall2>())
                 {
                     //grow giant flowers
-                    if (Main.rand.Next(10) == 0)
+                    if (Main.rand.NextBool(10))
                     {
                         GrowGiantFlower(i, j, ModContent.TileType<BigFlower>());
                     }

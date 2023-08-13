@@ -923,11 +923,10 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             {
                 for (int numDusts = 0; numDusts < 30; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.35f);
                     Main.dust[dustGore].color = Color.BlueViolet;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
-                    Main.dust[dustGore].scale = 0.35f;
                     Main.dust[dustGore].noGravity = true;
                 }
             }

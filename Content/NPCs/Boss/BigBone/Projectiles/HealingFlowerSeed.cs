@@ -58,10 +58,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-				Main.dust[DustGore].noGravity = true;
+				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[DustGore].noGravity = true;
                 
 				if (Main.dust[DustGore].position != Projectile.Center)
                 {

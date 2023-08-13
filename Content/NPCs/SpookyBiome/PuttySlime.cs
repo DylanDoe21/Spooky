@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.Banner.SpookyForest;
-
 namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttySlime1 : ModNPC
@@ -38,8 +36,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.BlueSlime;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<PuttySlime1Banner>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -134,26 +130,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
 
-        public override void SetDefaults()
-		{
-            NPC.lifeMax = 20;
-            NPC.damage = 10;
-            NPC.defense = 0;
-            NPC.width = 34;
-            NPC.height = 24;
-			NPC.knockBackResist = 0.5f;
-			NPC.value = Item.buyPrice(0, 0, 0, 25);
-            NPC.noGravity = false;
-            NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.Item177;
-			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 1;
-			AIType = NPCID.BlueSlime;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<PuttySlime2Banner>();
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
-		}
-
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -194,26 +170,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttySlime3"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
-		}
-
-        public override void SetDefaults()
-		{
-            NPC.lifeMax = 20;
-            NPC.damage = 10;
-            NPC.defense = 0;
-            NPC.width = 34;
-            NPC.height = 24;
-			NPC.knockBackResist = 0.5f;
-			NPC.value = Item.buyPrice(0, 0, 0, 25);
-            NPC.noGravity = false;
-            NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.Item177;
-			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 1;
-			AIType = NPCID.BlueSlime;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<PuttySlime3Banner>();
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
