@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 		{
             NPC.lifeMax = 160;
             NPC.damage = 45;
-            NPC.defense = 10;
+            NPC.defense = 12;
             NPC.width = 58;
 			NPC.height = 30;
             NPC.npcSlots = 1f;
@@ -161,5 +161,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DaisyRedGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

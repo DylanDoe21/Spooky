@@ -12,7 +12,6 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.Fishing;
-using Spooky.Content.NPCs.Hallucinations;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -21,6 +20,7 @@ using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
+using Spooky.Content.Items.BossBags.Accessory;
 
 namespace Spooky.Core
 {
@@ -39,6 +39,7 @@ namespace Spooky.Core
         public bool GourdSet = false;
         public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
+        public bool FlowerArmorSet = false;
         public bool GoreArmorSet = false;
 
         //accessories
@@ -100,6 +101,7 @@ namespace Spooky.Core
             GourdSet = false;
             HorsemanSet = false;
             EyeArmorSet = false;
+            FlowerArmorSet = false;
             GoreArmorSet = false;
 
             //accessories
@@ -195,7 +197,7 @@ namespace Spooky.Core
 
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
-                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.GemRuby, 0f, 0f, 100, default, 2f);
+                    int dustEffect = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemRuby, 0f, 0f, 100, default, 2f);
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
@@ -220,7 +222,7 @@ namespace Spooky.Core
 
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
-                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.GemRuby, 0f, 0f, 100, default, 2f);
+                    int dustEffect = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemRuby, 0f, 0f, 100, default, 2f);
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
@@ -251,7 +253,7 @@ namespace Spooky.Core
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(null, Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
+                        Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
                         Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 30, 1, Main.myPlayer, 0, 0);
                     }
                 }
@@ -264,7 +266,7 @@ namespace Spooky.Core
 
                 for (int numDust = 0; numDust < 20; numDust++)
                 {
-                    int dustEffect = Dust.NewDust(Player.Center, Player.width / 2, Player.height / 2, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
+                    int dustEffect = Dust.NewDust(Player.position, Player.width, Player.height, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
                     Main.dust[dustEffect].velocity *= 3f;
                     Main.dust[dustEffect].noGravity = true;
 
@@ -349,6 +351,7 @@ namespace Spooky.Core
                     if (FlySpawnTimer == 300)
                     {
                         Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
                         ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
 

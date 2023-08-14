@@ -128,10 +128,10 @@ StrangeCyst: {
 }
 
 FlowerBody: {
-	DisplayName: Thorn Stem Chestplate
+	DisplayName: Thorn Stem Shirt
 	Tooltip:
 		'''
-		10% increased damage and critical strike chance
+		18% increased damage and critical strike chance
 		Attackers will take damage when they hit you
 		'''
 }
@@ -151,7 +151,7 @@ FlowerLegs: {
 	Tooltip:
 		'''
 		Grants immunity to knockback
-		Increases your damage reduction by 8%
+		Reduces damage taken by 8%
 		Causes you to fall much faster when worn
 		'''
 }
@@ -1415,7 +1415,11 @@ TortumorStaff: {
 
 SpookyHellSolution: {
 	DisplayName: Red & Purple Solution
-	Tooltip: Spreads the Eye Valley onto underworld blocks
+	Tooltip:
+		'''
+		Used by the Clentaminator
+		Spreads the Eye Valley onto underworld blocks
+		'''
 }
 
 VinylAlley: {

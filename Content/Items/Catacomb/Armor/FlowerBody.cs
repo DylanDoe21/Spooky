@@ -19,9 +19,9 @@ namespace Spooky.Content.Items.Catacomb.Armor
 
 		public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.1f;
-			player.GetCritChance(DamageClass.Generic) += 10;
-			player.thorns += 1.2f;
+            player.GetDamage(DamageClass.Generic) += 0.18f;
+			player.GetCritChance(DamageClass.Generic) += 18;
+			player.thorns += 1.05f;
         }
     }
 }

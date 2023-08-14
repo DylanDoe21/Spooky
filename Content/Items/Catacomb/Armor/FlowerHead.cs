@@ -3,9 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb.Armor
 {
@@ -18,8 +21,8 @@ namespace Spooky.Content.Items.Catacomb.Armor
 		public override void SetDefaults() 
 		{
 			Item.defense = 8;
-			Item.width = 34;
-			Item.height = 34;
+			Item.width = 38;
+			Item.height = 38;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 1);
 		}
@@ -28,12 +31,13 @@ namespace Spooky.Content.Items.Catacomb.Armor
 		{
 			return body.type == ModContent.ItemType<FlowerBody>() && legs.type == ModContent.ItemType<FlowerLegs>();
 		}
-		
-		public override void UpdateArmorSet(Player player) 
+
+        public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.FlowerArmor");
-			player.lifeRegen += 5;
-			player.aggro -= 100;
+            player.GetModPlayer<SpookyPlayer>().FlowerArmorSet = true;
+            player.lifeRegen += 5;
+			player.aggro -= 120;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -41,6 +45,29 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			player.manaCost -= 0.15f;
 			player.maxMinions += 2;
 			player.maxTurrets += 1;
+        }
+
+        public override void Load()
+        {
+            On_Player.KeyDoubleTap += ActivateSetBonus;
+        }
+
+        private void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            if (keyDir == 0 && player.GetModPlayer<SpookyPlayer>().FlowerArmorSet && !player.HasBuff(ModContent.BuffType<FlowerArmorCooldown>()))
+            {
+				SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, player.Center);
+
+				for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+                {
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + Main.rand.Next(-30, 30), 
+					player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 35, 0f, Main.myPlayer, 0f, 0f);
+                }
+
+				player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);
+            }
+
+            orig(player, keyDir);
         }
     }
 }

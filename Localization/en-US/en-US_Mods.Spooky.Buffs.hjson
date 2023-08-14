@@ -68,7 +68,7 @@ HallucinationDebuff1: {
 
 HallucinationDebuff2: {
 	DisplayName: The Baby
-	Description: ...
+	Description: It is crying
 }
 
 HallucinationDebuff3: {
@@ -96,6 +96,11 @@ FleshWhipDefense2: {
 	Description: Mods.Spooky.BuffDescription.FleshWhipDefense2
 }
 
+FlowerArmorCooldown: {
+	DisplayName: Pollen Cooldown
+	Description: You cannot spawn any more pollen
+}
+
 FlyCooldown: {
 	DisplayName: Fly Charm Recharge
 	Description: Your defensive flies cannot respawn
@@ -113,7 +118,7 @@ GourdDecay: {
 
 Possessed: {
 	DisplayName: Possessed
-	Description: You are being controlled by a ghost!
+	Description: You are being controlled by an evil ghost!
 }
 
 LivingAxeBleed: {
