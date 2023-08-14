@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class FlowerArmorPollen : ModProjectile
@@ -29,6 +31,14 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.rotation += 0.25f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
+
+            if (Projectile.ai[0] % 12 == 2)
+            {
+                int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 10, Projectile.height / 10, 
+                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Gold * 0.5f, 0.2f);
+                Main.dust[DustEffect].velocity *= 0;
+                Main.dust[DustEffect].alpha = 100;
+            }
 
             if (Projectile.ai[0] == 1)
             {

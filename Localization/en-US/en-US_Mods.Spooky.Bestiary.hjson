@@ -40,6 +40,8 @@ ZomboidGremlin: Small little zomboids that are unusually hostile. They will chas
 MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
 FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in its path.
+SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend their time wandering the cemetery, and can use their emotions as a weapon.
+SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
 //egg event
 Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
 Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can use its unusually long tongue to attack at a distance.

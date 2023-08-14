@@ -58,10 +58,10 @@ namespace Spooky.Content.Items.Catacomb.Armor
             {
 				SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, player.Center);
 
-				for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+				for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
                 {
                     Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + Main.rand.Next(-30, 30), 
-					player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 35, 0f, Main.myPlayer, 0f, 0f);
+					player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 40, 2f, Main.myPlayer);
                 }
 
 				player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);

@@ -46,11 +46,11 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 			if (player.HasItem(ItemID.PlatinumCoin))
 			{
-				player.manaCost -= 0.15f;
+				player.manaCost -= 0.2f;
 			}
 			else
 			{
-				float bonusPerGold = 0.015f;
+				float bonusPerGold = 0.02f;
 				int numGoldCoins = player.CountItem(ItemID.GoldCoin, 10);
                 player.manaCost -= bonusPerGold * numGoldCoins;
 			}

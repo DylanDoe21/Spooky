@@ -1,12 +1,12 @@
 OldWoodArmor: 1 defense
 WizardGangsterArmor:
 	'''
-	Grants 1.5% increased magic damage for each gold coin you have
+	Grants 2% increased magic damage for each gold coin you have
 	This stops scaling after you have more than 10 gold coins
 	'''
 WizardGangsterArmor2:
 	'''
-	Grants 1.5% decreased mana usage for each gold coin you have
+	Grants 2% decreased mana usage for each gold coin you have
 	This stops scaling after you have more than 10 gold coins
 	'''
 GourdArmor:
