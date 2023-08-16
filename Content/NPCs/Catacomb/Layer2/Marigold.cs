@@ -11,7 +11,7 @@ using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
-    public class Marigold1 : ModNPC  
+    public class Marigold : ModNPC  
     {
         public override void SetStaticDefaults()
         {
@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HoppingFlower"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Marigold"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -78,9 +78,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 //set where the it should be jumping towards
                 Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 100);
 
-                if (Vector2.Distance(NPC.Center, player.Center) >= 300)
+                if (NPC.Distance(player.Center) >= 300)
                 {
-                    JumpTo = new(player.Center.X, NPC.Center.Y - 60);
+                    JumpTo = new(player.Center.X, NPC.Center.Y - 75);
                 }
 
                 //set velocity and speed
@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //loop ai
             if (NPC.ai[0] >= 100)
             {
-                NPC.ai[0] = 0;
+                NPC.ai[0] = Main.rand.Next(0, 45);
             }
         }
 
@@ -118,11 +118,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MarigoldGore" + numGores).Type);
+                    }
+                }
+
+                //separate flower petals
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingFlowerGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MarigoldGore4").Type);
                     }
                 }
             }

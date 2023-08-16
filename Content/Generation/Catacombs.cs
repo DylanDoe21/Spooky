@@ -20,6 +20,8 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 using StructureHelper;
+using Terraria.DataStructures;
+using Terraria.GameContent.Tile_Entities;
 
 namespace Spooky.Content.Generation
 {
@@ -30,7 +32,7 @@ namespace Spooky.Content.Generation
         int numAmbushRooms = 0;
 
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
@@ -161,12 +163,6 @@ namespace Spooky.Content.Generation
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
                                 placedMoyaiRoom = true;
                             }
-                            //place ambush rooms sometimes
-                            else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
-                            {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
-                                numAmbushRooms++;
-                            }
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(10))
                             {
@@ -197,12 +193,6 @@ namespace Spooky.Content.Generation
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
                                 placedMoyaiRoom = true;
                             }
-                            //place ambush rooms sometimes
-                            else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
-                            {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
-                                numAmbushRooms++;
-                            }
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(10))
                             {
@@ -225,12 +215,6 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
                             placedMoyaiRoom = true;
                         }
-                        //place ambush rooms sometimes
-                        else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
-                        {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
-                            numAmbushRooms++;
-                        }
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(10))
                         {
@@ -251,12 +235,6 @@ namespace Spooky.Content.Generation
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
                             placedMoyaiRoom = true;
-                        }
-                        //place ambush rooms sometimes
-                        else if (WorldGen.genRand.NextBool(7) && numAmbushRooms < 3)
-                        {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/AmbushRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
-                            numAmbushRooms++;
                         }
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(10))
@@ -735,6 +713,21 @@ namespace Spooky.Content.Generation
                     Tile tile = Main.tile[X, Y];
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
+
+                    if (tile.TileType == TileID.LogicSensor)
+                    {
+                        if (tile.TileFrameY == 36)
+                        {
+                            WorldGen.KillTile(X, Y);
+                            WorldGen.PlaceLogicTiles(X, Y, TileID.LogicSensor, 2);
+                        }
+
+                        if (tile.TileFrameY == 72)
+                        {
+                            WorldGen.KillTile(X, Y);
+                            WorldGen.PlaceLogicTiles(X, Y, TileID.LogicSensor, 4);
+                        }
+                    }
 
                     //place grass walls in layer one
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))

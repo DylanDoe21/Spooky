@@ -17,9 +17,8 @@ Catacombs Overhaul:
 -The size of the catacombs now scales with world size, meaning bigger worlds will have bigger catacombs
 -Big bone's boss arena has been redone completely to give you far more room during his fight
 -Added a new arena between the first and second layer of the catacombs that you fight a new boss in
--Revamped all of the old catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
+-Revamped all of the existing catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
 -Added tons of new content such as new enemies for the first layer, new weapons obtained from both chests and enemies, and a new hardmode armor set
--Added new ambush rooms, in which groups of enemies will lock and ambush you in a room, making the catacombs a lot more fun and interesting combat wise
 
 
 New Boss, Daffodil:
@@ -34,6 +33,7 @@ Swampy Cemetery:
 -The swampy cemetery biome has recieved a brand new aesthetic as the previous one was very underdeveloped and lacking in character like the other biomes
 -New structures have been added, some worldgen modifications have been made to make the biome more nice looking, and new ambient tiles have been added to make it look nicer
 -The swampy cemetery worldgen also now scales with world size, where bigger worlds will have a bigger cemetery biome
+-Added new mysterious tombstones, which you may notice popping up around the biome, beaking them may yield rewards but may result in danger as well
 
 
 New Mini-Biome, The Mossy Mushroom Cave:
@@ -162,7 +162,7 @@ Miscellaneous:
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
 -Eye valley grass can now grow ambient eye stalks and tentacles naturally
--The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests
+-The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests instead of the catacombs
 
 
 Removals:
@@ -175,18 +175,21 @@ Removals:
 
 ~BUGS AND OTHER FIXES~
 
--Fixed the spooky scroll causing the player to spaz out if your cursor was in the middle of your player
--Fixed tortumor and giant tortumor orb projectiles not dealing any damage to players
--Fixed issue where spooky mod's custom trees would draw horribly wrong if you used retro or trippy lighting modes
--Fixed issue where the eye valley biome chest was dropping a monster chest when broken, and not its own item
--Fixed catacomb enemies being able to spawn outside of the catacombs itself
--Fixed enemies spawning in the spooky forest and swampy cemetery if you are in a town
--Fixed the rotten gourd armor's set bonus not working
--Fixed spooky mod whips being unable to get melee weapon reforgements
--Fixed issue where the gargoyle scepter could be used with left click if grug is active
--Fixed spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
--Fixed rot gourd not spawning correctly in multiplayer
--Fixed spooky spirit vanishing when hit in multiplayer
--Fixed many issues with orroboro in multiplayer
+Fixed all of the following bugs and issues:
+-Spooky scroll causing the player to spaz out if your cursor was in the middle of your player
+-Tortumor and giant tortumor orb projectiles not dealing any damage to players
+-spooky mod's custom trees drawing horribly offset with retro or trippy lighting modes
+-The eye valley biome chest dropping a monster chest when broken, and not its own item
+-Catacomb enemies being able to spawn outside of the catacombs itself
+-Enemies being able to spawn in the spooky forest and swampy cemetery biomes if you are in a town
+-Rotten gourd armor's set bonus not working
+-Spooky mod whips being unable to get certain weapon reforgements that vanilla whips can have (such as legendary)
+-Gargoyle scepter could be used with left click if grug is active
+-Spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
+
+Multiplayer fixes:
+-Rot gourd not spawning correctly
+-Spooky spirit vanishing when hit
+-Fixed many issues with orroboro
 
 

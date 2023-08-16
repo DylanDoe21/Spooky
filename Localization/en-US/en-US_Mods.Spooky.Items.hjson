@@ -278,6 +278,25 @@ OldRifle: {
 	Tooltip: Shoots out rusty bullets that split on impact
 }
 
+RustyRing: {
+	DisplayName: Rusted Ring
+	Tooltip:
+		'''
+		Increases your maximum life by 20
+		Increases your life regeneration while in any dungeon
+		'''
+}
+
+SkullAmulet: {
+	DisplayName: Skull Necklace
+	Tooltip:
+		'''
+		While worn, you will absorb the souls of enemies you kill 
+		After twenty souls are absorbed, you will enter a frenzy for ten seconds
+		During this frenzy you gain increases to various stats
+		'''
+}
+
 ThornStaff: {
 	DisplayName: Rod of Ensnaring
 	Tooltip:

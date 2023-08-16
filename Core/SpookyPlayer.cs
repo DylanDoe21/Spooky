@@ -20,15 +20,17 @@ using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Generation;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace Spooky.Core
 {
     public class SpookyPlayer : ModPlayer
     {
-        //misc timers
+        //misc stuff
         public static float ScreenShakeAmount = 0;
         public int FlySpawnTimer = 0;
+        public int SkullFrenzyCharge = 0;
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
@@ -46,6 +48,7 @@ namespace Spooky.Core
         public bool BustlingGlowshroom = false;
         public bool CandyBag = false;
         public bool MagicCandle = false;
+        public bool SkullAmulet = false;
         public bool CrossCharmShield = false;
 
         //expert accessories
@@ -108,6 +111,7 @@ namespace Spooky.Core
             BustlingGlowshroom = false;
             CandyBag = false;
             MagicCandle = false;
+            SkullAmulet = false;
             CrossCharmShield = false;
 
             //expert accessories
@@ -313,8 +317,31 @@ namespace Spooky.Core
                 BustlingHealTimer = 0;
             }
 
-            //bogger frenzy stuff
-            //when the charge is high enough, grant the player the booger frenzy
+            //grant the player the skull frenzy when they absorb enough souls
+            if (SkullFrenzyCharge >= 20)
+            {
+                Player.AddBuff(ModContent.BuffType<SkullFrenzyBuff>(), 600);
+
+                SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Volume = SoundID.DD2_DarkMageSummonSkeleton.Volume * 3.5f }, Player.Center);
+
+                for (int numDust = 0; numDust < 45; numDust++)
+                {
+                    int newDust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.KryptonMoss, 0f, 0f, 100, default, 1.5f);
+                    Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
+                    Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
+                    Main.dust[newDust].noGravity = true;
+
+                    if (Main.rand.NextBool(2))
+                    {
+                        Main.dust[newDust].scale = 0.5f;
+                        Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
+                }
+
+                SkullFrenzyCharge = 0;
+            }
+
+            //when the booger charge is high enough, grant the player the booger frenzy
             if (MocoBoogerCharge >= 15)
             {
                 BoogerFrenzyTime++;

@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.Cemetery
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
                 newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
+                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
                 Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.025f, effects, 0);
             }
             
@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.Cemetery
     
             NPC.rotation = NPC.velocity.X * 0.05f;
 
-            if (player.Distance(NPC.Center) <= 200f)
+            if (player.Distance(NPC.Center) <= 150f)
             {
                 NPC.localAI[0]++;
 

@@ -71,7 +71,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
-                    Main.rand.Next(10, 18), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Main.rand.Next(15, 22), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
 
                 player.heldProj = Projectile.whoAmI;

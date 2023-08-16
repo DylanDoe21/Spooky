@@ -885,8 +885,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<SpookySpiritRelicItem>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SpiritLamp>(), 4));
 
-            var godSlayerVanity = ItemDropRule.Common(ModContent.ItemType<SpiritSlingshot>());
-
             //weapon drops
             int[] MainItem = new int[] 
             { 

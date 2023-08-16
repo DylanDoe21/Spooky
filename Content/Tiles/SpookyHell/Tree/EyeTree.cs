@@ -191,8 +191,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 //spawn gores out of the tree
                 for (int numGores = 0; numGores <= Main.rand.Next(8, 15); numGores++)
                 {
-                    Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
-                    new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(3)).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
+                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(3)).Type);
+                    }
                 }
             }
 
@@ -200,8 +203,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             {
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
 
-                Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
-                new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
+                    new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
+                }
             }
         }
 

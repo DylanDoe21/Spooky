@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             NPC.lifeMax = 40;
             NPC.damage = 20;
-            NPC.defense = 5;
+            NPC.defense = 10;
             NPC.width = 44;
 			NPC.height = 16;
             NPC.npcSlots = 1f;
@@ -57,10 +57,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
                 else
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    for (int numGores = 1; numGores <= 2; numGores++)
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerGore1").Type);
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerGore2").Type);
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoneStackerGore" + numGores).Type);
+                        }
                     }
                 }
 
@@ -105,7 +107,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             NPC.lifeMax = 40;
             NPC.damage = 20;
-            NPC.defense = 5;
+            NPC.defense = 10;
             NPC.width = 44;
 			NPC.height = 16;
             NPC.npcSlots = 1f;

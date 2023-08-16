@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 4)
                 {
@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 7)
                 {
@@ -109,17 +109,17 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 NPC.localAI[0]++;
             }
 
-            if (NPC.localAI[0] <= 300)
+            if (NPC.localAI[0] <= 240)
             {
                 NPC.aiStyle = 3;
                 AIType = NPCID.Crab;
             }
 
-            if (NPC.localAI[0] > 300)
+            if (NPC.localAI[0] > 240)
             {
                 NPC.aiStyle = 0;
 
-                if (NPC.localAI[0] == 350 || NPC.localAI[0] == 400)
+                if (NPC.localAI[0] == 290 || NPC.localAI[0] == 340)
                 {
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
@@ -140,7 +140,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
             }
 
-            if (NPC.localAI[0] >= 410)
+            if (NPC.localAI[0] >= 360)
             {
                 NPC.localAI[0] = 0;
             }

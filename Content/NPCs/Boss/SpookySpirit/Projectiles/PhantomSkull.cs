@@ -57,17 +57,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 				NPC.alpha -= 5;
 			}
 
-            NPC.ai[2] += 0f; //wave
-            NPC.ai[1] += 2f; //speed it spins at
-            int distance = 165 + (int)(Math.Sin(NPC.ai[2] / 60) * 30);
+            NPC.ai[1] += 2f;
+            int distance = 165;
             double rad = NPC.ai[1] * (Math.PI / 180);
             NPC.position.X = parent.Center.X - (int)(Math.Cos(rad) * distance) - NPC.width / 2;
             NPC.position.Y = parent.Center.Y - (int)(Math.Sin(rad) * distance) - NPC.height / 2;
 
             //shoot itself as a projectile
-            NPC.ai[3]++;
+            NPC.ai[2]++;
 
-            if (NPC.ai[3] >= 45)
+            if (NPC.ai[2] >= 45)
             {
                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
                 float rotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);

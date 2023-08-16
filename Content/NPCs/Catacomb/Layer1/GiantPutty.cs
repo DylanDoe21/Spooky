@@ -111,7 +111,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             {
                 for (int numDusts = 0; numDusts < 25; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.TintableDust, 0f, 0f, 100, default, 2f);
                     Main.dust[DustGore].color = Color.Teal;
 					Main.dust[DustGore].scale = 0.85f;
                     Main.dust[DustGore].velocity *= 1.2f;

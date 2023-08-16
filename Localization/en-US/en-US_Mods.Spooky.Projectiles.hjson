@@ -220,7 +220,10 @@ NautilusBubble2.DisplayName: Nautilus Bubble
 NautilusBiomass.DisplayName: Nautilus Biomass
 ValleyNautilusPet.DisplayName: Baby Cephalopod
 ValleySharkThorn.DisplayName: Blood Spike
-BoneStackerThorn.DisplayName: Thorn
 ControllableNose.DisplayName: Controllable Nose
 ControllableNoseBooger.DisplayName: Booger
-FlowerArmorPollen.DisplayName: Flower Armor Pollen
+FlowerArmorPollen.DisplayName: Pollen
+SkullAmuletSoul.DisplayName: Soul
+ThornPillarBarrierFloor.DisplayName: Thorn Barrier
+ThornPillarBarrierSide.DisplayName: Thorn Barrier
+TakeCoverTelegraph.DisplayName: Telegraph

@@ -12,6 +12,7 @@ using System.Linq;
 
 using Spooky.Core;
 using Spooky.Effects;
+using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -24,7 +25,7 @@ namespace Spooky.Content.Events
         bool SpawnedEnemies = false;
         bool EventEnemiesExist = true;
 
-        public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/EggEvent/EggEventEnd", SoundType.Sound);
+        public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/EggEvent/EggEventEnd", SoundType.Sound) { Volume = 2f };
 
         public override void SetDefaults()
         {
@@ -44,7 +45,7 @@ namespace Spooky.Content.Events
 
             var center = Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             float intensity = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
-            DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/Noise").Value, center,
+            DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/EggShieldNoise").Value, center,
             new Rectangle(0, 0, 500, 420), Color.Indigo, 0, new Vector2(250f, 250f), Projectile.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
 
             GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
@@ -609,7 +610,7 @@ namespace Spooky.Content.Events
                 if (Main.player[i].active && !Main.player[i].dead)
                 {
                     float distance = Main.player[i].Distance(new Vector2(Projectile.Center.X, Projectile.Center.Y - 85));
-                    if (distance > 1600)
+                    if (distance > 1600 && Main.player[i].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
                     {
                         Vector2 movement = new Vector2(Projectile.Center.X, Projectile.Center.Y - 85) - Main.player[i].Center;
                         float difference = movement.Length() - 600;
@@ -647,7 +648,7 @@ namespace Spooky.Content.Events
                 Projectile.ai[0] = 2;
             }
 
-            //egg event enemy spawning stuff
+            //egg event enemy spawning and wave handling
             if (EggEventWorld.EggEventActive)
             {
                 Projectile.timeLeft = 20;

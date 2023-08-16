@@ -74,12 +74,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
 
-                int DaffodilEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>());
-                Main.npc[DaffodilEye].ai[0] = -1;
+                NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>(), ai1: NPC.whoAmI);
+                Main.npc[(int)NPC.ai[1]].ai[0] = -1;
                 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NetMessage.SendData(MessageID.SyncNPC, number: DaffodilEye);
+                    NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
                 }
 
                 NPC.ai[0] = 0;

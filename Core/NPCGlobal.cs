@@ -2,8 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.Xna.Framework;
 using System.Linq;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
@@ -13,6 +15,7 @@ using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Core
 {
@@ -71,7 +74,18 @@ namespace Spooky.Core
 					}
 				}
 			}
-		}
+
+            if (npc.life <= 0)
+            {
+                if (Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().SkullAmulet && !Main.player[projectile.owner].HasBuff(ModContent.BuffType<SkullFrenzyBuff>()))
+                {
+                    if (!npc.friendly && !hit.InstantKill)
+                    {
+                        Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.player[projectile.owner].whoAmI);
+                    }
+                }
+            }
+        }
 
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
@@ -101,6 +115,17 @@ namespace Spooky.Core
 					npc.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
 				}
 			}
+
+			if (npc.life <= 0)
+			{
+                if (player.GetModPlayer<SpookyPlayer>().SkullAmulet && !player.HasBuff(ModContent.BuffType<SkullFrenzyBuff>()))
+                {
+					if (!npc.friendly && !hit.InstantKill)
+					{
+						Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, player.whoAmI);
+					}
+                }
+            }
 		}
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 

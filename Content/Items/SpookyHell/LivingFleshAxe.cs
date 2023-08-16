@@ -65,7 +65,7 @@ namespace Spooky.Content.Items.SpookyHell
                 hasHitEnemies = true;
 
                 Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, Item.knockBack, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, 0, Main.myPlayer);
             }
 
             if (target.life <= target.lifeMax * 0.5)

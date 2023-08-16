@@ -78,12 +78,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			for (int numDust = 0; numDust < 20; numDust++)
+			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                                  
 				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0f, -2f, 0, default, 1.5f);
-				Main.dust[DustGore].noGravity = true;
 				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[DustGore].noGravity = true;
                 
 				if (Main.dust[DustGore].position != Projectile.Center)
                 {

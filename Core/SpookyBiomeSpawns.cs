@@ -79,7 +79,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<PuttySlime1>(), 6);
 						pool.Add(ModContent.NPCType<PuttySlime2>(), 6);
 						pool.Add(ModContent.NPCType<PuttySlime3>(), 6);
-						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 2);
+						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 
                         if (Main.hardMode)
                         {
@@ -164,17 +164,17 @@ namespace Spooky.Core
 				//dont spawn rats during blood moons because of the feral rats
 				if (!Main.bloodMoon)
 				{
-					pool.Add(ModContent.NPCType<TinyRat1>(), 2);
-					pool.Add(ModContent.NPCType<TinyRat2>(), 2);
+					pool.Add(ModContent.NPCType<TinyRat1>(), 1);
+					pool.Add(ModContent.NPCType<TinyRat2>(), 1);
 				}
 
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
-					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 1);
-					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
-					pool.Add(ModContent.NPCType<SadGhostBig>(), 1);
+					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 4);
+					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 3);
+					pool.Add(ModContent.NPCType<SadGhostSmall>(), 4);
+					pool.Add(ModContent.NPCType<SadGhostBig>(), 2);
 
 					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
 					{
@@ -183,12 +183,12 @@ namespace Spooky.Core
 
 					if (!Main.dayTime)
 					{
-						pool.Add(ModContent.NPCType<Possessor>(), 2);
+						pool.Add(ModContent.NPCType<Possessor>(), 3);
 
 						if (Main.bloodMoon)
 						{	
-							pool.Add(ModContent.NPCType<FeralRat1>(), 1);
-							pool.Add(ModContent.NPCType<FeralRat2>(), 1);
+							pool.Add(ModContent.NPCType<FeralRat1>(), 2);
+							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
 						}
 					}
                 }

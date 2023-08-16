@@ -163,12 +163,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 25; i++)
+			for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[dust].noGravity = true;
 
 				if (Main.dust[dust].position != Projectile.Center)
 				{

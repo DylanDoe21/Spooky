@@ -37,7 +37,6 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.FlowerArmor");
             player.GetModPlayer<SpookyPlayer>().FlowerArmorSet = true;
             player.lifeRegen += 5;
-			player.aggro -= 120;
 		}
 
 		public override void UpdateEquip(Player player)

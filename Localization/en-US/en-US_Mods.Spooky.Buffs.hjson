@@ -23,6 +23,34 @@ CandyBuff3: {
 	Description: Slightly increased whip range
 }
 
+EmbryoRevival: {
+	DisplayName: Embryotic Revival
+	Description:
+		'''
+		The embyro has saved you from death
+		Majorly increases defense and life regeneration
+		'''
+}
+
+FlyBuff: {
+	DisplayName: Fly Swarm
+	Description: The swarm of flies is protecting you
+}
+
+GoreAuraBuff: {
+	DisplayName: Gore Monger Aura
+	Description: Your aura is protecting you
+}
+
+SkullFrenzyBuff: {
+	DisplayName: Necromantic Frenzy
+	Description:
+		'''
+		The power of necromancy flows through you
+		Increasd damage, critical strike chance, knockback, and movement speed
+		'''
+}
+
 BoogerFrenzyCooldown: {
 	DisplayName: Booger Frenzy Cooldown
 	Description: Your booger frenzy is recharging
@@ -129,30 +157,6 @@ LivingAxeBleed: {
 ThornMark: {
 	DisplayName: Thorn Mark
 	Description: Mods.Spooky.BuffDescription.ThornMark
-}
-
-EggEventEnemyBuff: {
-	DisplayName: Capillary buff
-	Description: Mods.Spooky.BuffDescription.EggEventEnemyBuff
-}
-
-EmbryoRevival: {
-	DisplayName: Embryotic Revival
-	Description:
-		'''
-		The embyro has saved you from death
-		Majorly increases defense and life regeneration
-		'''
-}
-
-FlyBuff: {
-	DisplayName: Fly Swarm
-	Description: The swarm of flies is protecting you
-}
-
-GoreAuraBuff: {
-	DisplayName: Gore Monger Aura
-	Description: Your aura is protecting you
 }
 
 BrainyBuff: {

@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		{
             NPC.lifeMax = 100;
             NPC.damage = 25;
-            NPC.defense = 5;
+            NPC.defense = 10;
             NPC.width = 60;
 			NPC.height = 60;
             NPC.npcSlots = 1f;
@@ -109,6 +109,24 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
     public class RollingSkull2 : RollingSkull1  
     {
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 130;
+            NPC.damage = 20;
+            NPC.defense = 12;
+            NPC.width = 60;
+			NPC.height = 60;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 0.5f;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.value = Item.buyPrice(0, 0, 2, 0);
+            NPC.HitSound = SoundID.DD2_SkeletonHurt;
+			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
+            NPC.aiStyle = 26;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+        }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -135,6 +153,24 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
     public class RollingSkull3 : RollingSkull1  
     {
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 80;
+            NPC.damage = 35;
+            NPC.defense = 5;
+            NPC.width = 60;
+			NPC.height = 60;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 0.5f;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.value = Item.buyPrice(0, 0, 2, 0);
+            NPC.HitSound = SoundID.DD2_SkeletonHurt;
+			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
+            NPC.aiStyle = 26;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
+        }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 

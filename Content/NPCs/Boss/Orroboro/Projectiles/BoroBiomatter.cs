@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         {
             if (Projectile.ai[0] >= 20)
             {
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
                 float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 Color newColor = glowColor;
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
-                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 37 + (Projectile.localAI[1] < 135 ? fade : fade2), SpriteEffects.None, 0);
             }
@@ -150,9 +150,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
 
             //spawn blood explosion clouds
-            for (int numExplosion = 0; numExplosion < 3; numExplosion++)
+            for (int numExplosion = 0; numExplosion < 4; numExplosion++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 
                 ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
                 Main.dust[DustGore].noGravity = true;
 

@@ -149,9 +149,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
 
             //spawn blood explosion clouds
-            for (int numExplosion = 0; numExplosion < 3; numExplosion++)
+            for (int numExplosion = 0; numExplosion < 4; numExplosion++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
+                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 
                 ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
                 Main.dust[DustGore].noGravity = true;
 

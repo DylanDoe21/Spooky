@@ -13,6 +13,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
@@ -100,6 +101,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 1;
             }
+            else if (Parent.ai[0] == -2 && Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
             else if (Parent.ai[0] == 2 && Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
             {
                 NPC.frame.Y = frameHeight * 1;
@@ -124,8 +129,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-            Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
+            Player player = Main.player[Parent.target];
 
             int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
 
@@ -153,9 +157,47 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                case -4:
+                {
+                    GoToPosition(0, 0);
+
+                    break;
+                }
+
+                case -3: 
+                {
+                    break;
+                }
+
                 case -2: 
                 {
-                    GoToPosition(130, 180);
+                    if (Parent.localAI[0] <= 60 || Parent.localAI[0] >= 240)
+                    {
+                        GoToPosition(130, 180);
+                    }
+
+                    if (Parent.localAI[0] > 60 && Parent.localAI[0] <= 180)
+                    {
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.12f);
+                            Main.dust[dustEffect].color = Color.Green;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
+
+                        SpookyPlayer.ScreenShakeAmount = 5;
+                    }
+
+                    if (Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
+                    {
+                        GoToPosition(240, 25);
+                    }
 
                     break;
                 }
@@ -240,6 +282,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
 
                 case 5: 
+                {
+                    GoToPosition(130, 180);
+
+                    break;
+                }
+
+                case 6: 
                 {
                     GoToPosition(130, 180);
 

@@ -48,7 +48,7 @@ BigBone: {
 	DisplayName: Big Bone
 
 	BossChecklistIntegration: {
-		SpawnInfo: Use [i:Spooky/Fertalizer] while standing nearby the giant flower pot in the catacombs.
+		SpawnInfo: Use [i:Spooky/Fertilizer] while standing nearby the giant flower pot in the catacombs.
 		DespawnMessage: All players have succumb to big bone's wrath
 	}
 }
@@ -102,6 +102,9 @@ ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
 Daisy1.DisplayName: Daisy
 Daisy2.DisplayName: Daisy
+Marigold.DisplayName: Marigold
+MarigoldSpit.DisplayName: Marigold
+Sunny.DisplayName: Sunny
 Toothy.DisplayName: Toothy
 //cemetery
 BloatGhostBig.DisplayName: Bloated Ghost
@@ -178,4 +181,3 @@ ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
 ValleySharkMouth.DisplayName: Hemostasis Beast
 ValleyMerman.DisplayName: Flesh Merman
-Marigold1.DisplayName: Marigold1
