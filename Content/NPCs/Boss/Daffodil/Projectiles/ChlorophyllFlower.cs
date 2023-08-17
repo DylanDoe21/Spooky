@@ -88,7 +88,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+            Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0f);
 
             if (!Main.dedServ)
             {

@@ -27,6 +27,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     {
         public bool Phase2 = false;
         public bool SpawnedHands = false;
+        public bool ActuallyDead = false;
+        public bool DeathAnimation = false;
 
         Vector2[] SavePoint = new Vector2[5];
         Vector2 SavePlayerPosition;
@@ -77,6 +79,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //bools
             writer.Write(Phase2);
             writer.Write(SpawnedHands);
+            writer.Write(ActuallyDead);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -100,6 +103,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //bools
             Phase2 = reader.ReadBoolean();
             SpawnedHands = reader.ReadBoolean();
+            ActuallyDead = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -187,6 +191,34 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     NPC.frame.Y = frameHeight * 2;
                 }
             }
+            else if (NPC.ai[0] == -2)
+            {
+                NPC.frame.Y = frameHeight * 2;
+            }
+            //close eye at the end of the ending dialogue
+            else if (NPC.ai[0] == -3)
+            {
+                if (NPC.localAI[2] >= 450)
+                {
+                    NPC.frame.Y = frameHeight * 1;
+                }
+                else
+                {
+                    NPC.frame.Y = frameHeight * 2;
+                }
+            }
+            //close eye when despawning
+            else if (NPC.ai[0] == -4)
+            {
+                if (NPC.localAI[1] >= 90)
+                {
+                    NPC.frame.Y = frameHeight * 1;
+                }
+                else
+                {
+                    NPC.frame.Y = frameHeight * 2;
+                }
+            }
             else if (NPC.ai[0] == 0 && NPC.localAI[0] >= 60 && NPC.localAI[0] <= 155)
             {
                 NPC.frame.Y = frameHeight * 3;
@@ -217,6 +249,24 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return false;
+        }
+
+        public override bool CheckDead()
+        {
+            //death animation
+            if (!ActuallyDead)
+            {
+                NPC.ai[0] = -3;
+                NPC.immortal = true;
+                NPC.dontTakeDamage = true;
+                NPC.life = 1;
+
+                NPC.netUpdate = true;
+
+                return false;
+            }
+
+            return true;
         }
 
         public override void AI()
@@ -283,10 +333,60 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 //ending dialogue and death animation, dialogue only happens on first defeat (not implemented yet)
                 case -3: 
                 {
+                    NPC.localAI[2]++;
+
+                    //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
+                    if (NPC.localAI[2] <= 5)
+                    {
+                        for (int k = 0; k < Main.projectile.Length; k++)
+                        {
+                            if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                            {
+                                Main.projectile[k].Kill();
+                            }
+                        }
+                    }
+
+                    //ending dialogue
+                    if (!Flags.downedDaffodil)
+                    {
+                        if (NPC.localAI[2] == 120)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro1"), true);
+                        }
+
+                        if (NPC.localAI[2] == 240)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro2"), true);
+                        }
+                    }
+                    else
+                    {
+                        if (NPC.localAI[2] == 120)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro1"), true);
+                        }
+
+                        if (NPC.localAI[2] == 240)
+                        {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro2"), true);
+                        }
+                    }
+
+                    //kill daffodil
+                    if (NPC.localAI[2] >= 360)
+                    {
+                        ActuallyDead = true;
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
+                        NPC.netUpdate = true;
+                        player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+                    }
+
                     break;
                 }
 
-                //phase transition
+                //phase two transition, arena spikes
                 case -2:
                 {
                     NPC.localAI[0]++;
@@ -296,8 +396,20 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         NPC.immortal = true;
                         NPC.dontTakeDamage = true;
                     }
+
+                    //kill every single hostile projectile to prevent unfair hits or deaths during the transition
+                    if (NPC.localAI[0] <= 5)
+                    {
+                        for (int k = 0; k < Main.projectile.Length; k++)
+                        {
+                            if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                            {
+                                Main.projectile[k].Kill();
+                            }
+                        }
+                    }
                 
-                    if (NPC.localAI[0] == 60)
+                    if (NPC.localAI[0] == 90)
                     {
                         if (!Flags.downedDaffodil)
                         {
@@ -310,24 +422,24 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     }
 
                     //spawn permanent thorn pillars that cover the whole arena
-                    if (NPC.localAI[0] == 120)
+                    if (NPC.localAI[0] == 200)
                     {
                         //spawn pillars on the walls
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 680, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 680, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 685, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
                         //spawn pillars on the floor
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 385, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(32, 0).ToRotation(), -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 389, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 391, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(-32, 0).ToRotation(), -16 * 60);
                     }
 
-                    if (NPC.localAI[0] == 320)
+                    if (NPC.localAI[0] == 360)
                     {
                         if (!Flags.downedDaffodil)
                         {
@@ -339,7 +451,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         }
                     }
 
-                    if (NPC.localAI[0] >= 380)
+                    if (NPC.localAI[0] >= 480)
                     {
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
@@ -367,22 +479,22 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat1"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro1"), true);
                         }
 
                         if (NPC.localAI[0] == 240)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat2"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro2"), true);
                         }
 
                         if (NPC.localAI[0] == 360)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat3"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro3"), true);
                         }
 
                         if (NPC.localAI[0] == 480)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeat4"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro4"), true);
                         }
 
                         if (NPC.localAI[0] >= 600)
@@ -399,12 +511,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeat1"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro1"), true);
                         }
 
                         if (NPC.localAI[0] == 240)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeat2"), true);
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro2"), true);
                         }
 
                         if (NPC.localAI[0] >= 360)
@@ -450,7 +562,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed *= Phase2 ? 30f : 25f;
+                            ShootSpeed *= 25f;
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + 10 + Main.rand.Next(-5, 5), 
                             ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0f, Main.myPlayer);

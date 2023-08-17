@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 1;
             }
-            else if (Parent.ai[0] == -2 && Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
+            else if (Parent.ai[0] == -2 && Parent.localAI[0] > 180 && Parent.localAI[0] <= 300)
             {
                 NPC.frame.Y = frameHeight * 1;
             }
@@ -166,18 +166,22 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case -3: 
                 {
+                    GoToPosition(0, 0);
+
                     break;
                 }
 
                 case -2: 
                 {
-                    if (Parent.localAI[0] <= 60 || Parent.localAI[0] >= 240)
+                    if (Parent.localAI[0] <= 180 || Parent.localAI[0] >= 360)
                     {
                         GoToPosition(130, 180);
                     }
 
-                    if (Parent.localAI[0] > 60 && Parent.localAI[0] <= 180)
+                    if (Parent.localAI[0] > 180 && Parent.localAI[0] <= 300)
                     {
+                        SpookyPlayer.ScreenShakeAmount = 5;
+
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
@@ -190,11 +194,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
                             Main.dust[dustEffect].fadeIn = 1.3f;
                         }
-
-                        SpookyPlayer.ScreenShakeAmount = 5;
                     }
 
-                    if (Parent.localAI[0] > 60 && Parent.localAI[0] <= 240)
+                    if (Parent.localAI[0] > 180 && Parent.localAI[0] <= 360)
                     {
                         GoToPosition(240, 25);
                     }
