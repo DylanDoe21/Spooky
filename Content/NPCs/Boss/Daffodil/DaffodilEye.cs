@@ -731,7 +731,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 450, NPC.Center.Y + 350, 
                         0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 450, NPC.Center.Y + 350, 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 465, NPC.Center.Y + 350, 
                         0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
                     }
 
