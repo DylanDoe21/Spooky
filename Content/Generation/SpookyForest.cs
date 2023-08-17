@@ -527,9 +527,9 @@ namespace Spooky.Content.Generation
                     //kill any minecart track within the mushroom area because they are fucking annoying
                     if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>())
                     {
-                        for (int checkX = mushroomX - 10; checkX <= mushroomX + 10; checkX++)
+                        for (int checkX = mushroomX - 5; checkX <= mushroomX + 5; checkX++)
                         {
-                            for (int checkY = mushroomY - 10; checkY <= mushroomY + 10; checkY++)
+                            for (int checkY = mushroomY - 5; checkY <= mushroomY + 5; checkY++)
                             {
                                 if (Main.tile[checkX, checkY].TileType == TileID.MinecartTrack)
                                 {

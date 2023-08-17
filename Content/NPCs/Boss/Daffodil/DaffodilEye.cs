@@ -323,7 +323,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 385, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(32, 0).ToRotation(), -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 390, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 389, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
                         Damage + 20, 0, Main.myPlayer, new Vector2(-32, 0).ToRotation(), -16 * 60);
                     }
 
