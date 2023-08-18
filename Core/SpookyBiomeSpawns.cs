@@ -206,7 +206,7 @@ namespace Spooky.Core
 				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					//critters
-					pool.Add(NPCID.Maggot, 3);
+					pool.Add(NPCID.Maggot, 2);
 					pool.Add(ModContent.NPCType<FlySmall>(), 2);
 					pool.Add(ModContent.NPCType<FlyBig>(), 2);
 
@@ -238,6 +238,16 @@ namespace Spooky.Core
 				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					pool.Add(ModContent.NPCType<Daisy1>(), 3);
+					pool.Add(ModContent.NPCType<Daisy2>(), 3);
+					pool.Add(ModContent.NPCType<Marigold>(), 3);
+					pool.Add(ModContent.NPCType<MarigoldSpit>(), 2);
+					pool.Add(ModContent.NPCType<Toothy>(), 2);
+
+					//do not spawn sunny if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<Sunny>()))
+					{
+						pool.Add(ModContent.NPCType<Sunny>(), 1);
+					}
 				}
 			}
 

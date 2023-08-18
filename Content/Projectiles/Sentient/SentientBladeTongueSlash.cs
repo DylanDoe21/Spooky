@@ -126,7 +126,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             for (int numDusts = 0; numDusts < 30; numDusts++)
 			{
-                int dustGore = Dust.NewDust(target.Center, target.width / 2, target.height / 2, 103, 0f, -2f, 0, default, 1.5f);
+                int dustGore = Dust.NewDust(target.position, target.width, target.height, 103, 0f, -2f, 0, default, 1.5f);
                 Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
                 Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-10f, 10f);
                 Main.dust[dustGore].noGravity = true;

@@ -11,8 +11,7 @@ using Spooky.Core;
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class SoulSkullMinion : ModProjectile
-    {   
-        int shootTimer = 0;
+    {
         int charge = 0;
 
         public override void SetStaticDefaults()
@@ -121,10 +120,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public void Shoot(NPC target)
         {
-            shootTimer++;
-            if (shootTimer == 60)
+            Projectile.localAI[0]++;
+            if (Projectile.localAI[0] == 60)
             {
-                if (charge < 5)
+                if (Projectile.localAI[1] < 5)
                 {
                     SoundEngine.PlaySound(SoundID.Zombie53, Projectile.Center);
 
@@ -148,14 +147,14 @@ namespace Spooky.Content.Projectiles.Catacomb
                     Projectile.velocity.X = ChargeDirection.X;
                     Projectile.velocity.Y = ChargeDirection.Y;
 
-                    charge = 0;
+                    Projectile.localAI[1] = 0;
                 }
             }
 
-            if (shootTimer >= 60)
+            if (Projectile.localAI[0] >= 60)
             {
-                shootTimer = 0;
-                charge++;
+                Projectile.localAI[0] = 0;
+                Projectile.localAI[1]++;
             }
         }
 
@@ -169,9 +168,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[dust].noGravity = true;
 
 				if (Main.dust[dust].position != Projectile.Center)
                 {

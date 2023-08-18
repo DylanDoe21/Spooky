@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.NPCs.Cemetery.Projectiles;
+using Spooky.Content.Tiles.Cemetery;
+
 namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
     public class MysteriousTombstone : ModTile
@@ -45,6 +48,69 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			float glowbrightness = (float)MathF.Sin(j / 10f - glowspeed);
 
 			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * glowbrightness);
+        }
+
+		int itemType;
+		int minAmount;
+		int maxAmount;
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Player player = Main.LocalPlayer;
+
+			//spawn a mist ghost sometimes
+            if (Main.rand.NextBool(4))
+            {
+				int x = i;
+                int y = j;
+                while (Main.tile[x, y].TileType == Type) x--;
+                x++;
+                while (Main.tile[x, y].TileType == Type) y--;
+                y++;
+
+                int SpawnX = x * 16;
+                int SpawnY = y * 16;
+
+				Projectile.NewProjectile(new EntitySource_TileInteraction(player, x * 16, y * 16), 
+                SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MistGhostSpawn>(), 0, 0, Main.myPlayer);
+            }
+			//otherwise drop random stuff
+			else
+			{
+				switch (Main.rand.Next(5))
+				{
+					//cobwebs
+					case 0:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Cobweb, Main.rand.Next(10, 21));
+						break;
+					}
+					//torches
+					case 1:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Torch, Main.rand.Next(3, 9));
+						break;
+					}
+					//swampy stone
+					case 2:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(2, 7));
+						break;
+					}
+					//maggots
+					case 3:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Maggot, Main.rand.Next(1, 4));
+						break;
+					}
+					//bullets
+					case 4:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.MusketBall, Main.rand.Next(5, 26));
+						break;
+					}
+				}
+			}
         }
     }
 }

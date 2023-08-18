@@ -108,7 +108,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void Kill(int timeLeft)
         {
-            for (int numDust = 0; numDust < 10; numDust++)
+            for (int numDusts = 0; numDusts < 10; numDusts++)
             {
                 int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity *= 1.5f;

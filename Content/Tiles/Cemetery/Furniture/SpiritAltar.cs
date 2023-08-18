@@ -99,7 +99,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
                 int SpawnX = x * 16 + 28;
                 int SpawnY = y * 16 + 20;
 
-                Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16, y * 16), 
+                Projectile.NewProjectile(new EntitySource_TileInteraction(player, x * 16, y * 16), 
                 SpawnX, SpawnY, 0, -1, ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 0, Main.myPlayer);
             }
 

@@ -123,19 +123,21 @@ Items & Weapons:
 -Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
 -Buffed the uncanine's damage, it now has a less annoying sound when used, its teeth now have a new after image visual effect, and the teeth can no longer pierce enemies
 -Buffed damage for the conscious cutter, licker, sentient shootius, and necronomicon
--Conscious cutter and Tongueblade now have new swing extension visual effects (like the 1.4.4 excalibur for example)
--Old hunter's crossbow arrows now have a cool visual trail
+-Conscious cutter and Tongueblade now have new swing extensions like some swords in 1.4.4
+-Old hunter's crossbow arrows now have a new visual trail
 -Simplified the tooltip description for the undying embryo
 -Simplified the tooltip desctiption for sentient hearts
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
 -Spooky buster now has a slightly faster use time, meaning its wind up animation before swinging is shorter
+-Completely reworked the sneeze scepter's minion behavior
 
 
 Shimmer Transmutations:
 
--Big bone's weapon drops can now be shimmered into his other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
 -Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
 -Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Head -> Chestmail -> Greaves -> back to Head
+-Moco's weapon drops can now be shimmered into its other drops, as follows: Snot Ball -> Booger Blaster -> Snot-Nosed Tome -> Sneeze Scepter -> goes back to Snot Ball
+-Big bone's weapon drops can now be shimmered into his other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
 
 
 Enemy & Boss Changes:
@@ -163,6 +165,7 @@ Miscellaneous:
 -Added better player following AI for the fuzz bat pet
 -Eye valley grass can now grow ambient eye stalks and tentacles naturally
 -The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests instead of the catacombs
+-Added a new waving leaf effect on the spooky forest and swampy cemetery grass walls
 
 
 Removals:
@@ -175,19 +178,24 @@ Removals:
 
 ~BUGS AND OTHER FIXES~
 
+
 Fixed all of the following bugs and issues:
+
 -Spooky scroll causing the player to spaz out if your cursor was in the middle of your player
 -Tortumor and giant tortumor orb projectiles not dealing any damage to players
 -spooky mod's custom trees drawing horribly offset with retro or trippy lighting modes
 -The eye valley biome chest dropping a monster chest when broken, and not its own item
 -Catacomb enemies being able to spawn outside of the catacombs itself
 -Enemies being able to spawn in the spooky forest and swampy cemetery biomes if you are in a town
--Rotten gourd armor's set bonus not working
+-Vanilla enemies sometimes spawning in any of spooky mod's biomes
+-Rotten gourd armor set bonus not working
 -Spooky mod whips being unable to get certain weapon reforgements that vanilla whips can have (such as legendary)
--Gargoyle scepter could be used with left click if grug is active
--Spooky mod's underground backgrounds not working correctly (this was due to a tmodloader bug that got fixed)
+-Gargoyle scepter could still be used with left click if grug is active
+-Spooky mod's underground backgrounds breaking (this was due to a tmodloader bug that got fixed in the 1.4.4 stable release)
 
-Multiplayer fixes:
+
+Fixed all of the following multiplayer issues:
+
 -Rot gourd not spawning correctly
 -Spooky spirit vanishing when hit
 -Fixed many issues with orroboro

@@ -56,6 +56,11 @@ BossBagBigBone: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
+BossBagDaffodil: {
+	DisplayName: Treasure Bag (Daffodil)
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
 BossBagMoco: {
 	DisplayName: Treasure Bag (Moco)
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -218,6 +223,16 @@ CrossCharm: {
 		Grants you a magic cross that reduces damage the next time you are hit
 		After being hit, the cross will disappear and regenerate after ten seconds
 		'''
+}
+
+DaffodilBlade: {
+	DisplayName: Thorn Dagger
+	Tooltip: A quick dagger that can sometimes poison enemies
+}
+
+DaffodilRod: {
+	DisplayName: Sunflower Rod
+	Tooltip: Casts flowers that can home on enemies and bounce off surfaces
 }
 
 FemurFracture: {
@@ -612,7 +627,11 @@ SkullSeed: {
 
 SmallDaffodil: {
 	DisplayName: Daffodil Sprout
-	Tooltip: Summons Cornelious
+	Tooltip:
+		'''
+		Summons Cornelious
+		'Her bestie is now yours'
+		'''
 }
 
 SpiritLamp: {
@@ -825,7 +844,7 @@ NecromancyTome: {
 
 OldMossBow: {
 	DisplayName: Reinforced Old Wood Bow
-	Tooltip: ""
+	Tooltip: Deals even more damage when used with Old Wood Arrows
 }
 
 OldWoodBow: {
@@ -1036,7 +1055,7 @@ BoogerFlail: {
 
 BoogerStaff: {
 	DisplayName: Sneeze Scepter
-	Tooltip: Summons flying noses that drop lingering boogers down on enemies
+	Tooltip: Summons fast flying noses that sneeze on enemies
 }
 
 EyeFlail: {

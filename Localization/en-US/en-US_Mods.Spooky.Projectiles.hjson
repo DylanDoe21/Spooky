@@ -140,11 +140,11 @@ DecayDebuffFly.DisplayName: Decay Debuff Fly
 BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
 BrainJarProj.DisplayName: Brainy in a Jar
 CauldronDummy.DisplayName: Cauldron Dummy
-SentientKatanaSlash.DisplayName: Sentient Katana Slash
-SentientKatanaSlashSpawner.DisplayName: Sentient Katana Slash
-CursedFlamePillar.DisplayName: Cursed Flame Pillar
+SentientKatanaSlash.DisplayName: Conscious Slash
+SentientKatanaSlashSpawner.DisplayName: Conscious Slash
+CursedFlamePillar.DisplayName: Cursed Pillar
 SentientChikProj.DisplayName: Pendeloque
-SentientChikTear.DisplayName: Pendeloque Tear
+SentientChikTear.DisplayName: Crystal Tear
 ToxicBubble.DisplayName: Toxic Bubble
 ToxicBubblePurple.DisplayName: Toxic Bubble
 ToxicBubbleBlue.DisplayName: Toxic Bubble
@@ -159,7 +159,7 @@ BloodTooth.DisplayName: Blood Tooth
 DrainedSoulHealth.DisplayName: Health Soul
 DrainedSoulMana.DisplayName: Mana Soul
 SoulDrainShockwave.DisplayName: Soul Shockwave
-SentientBladeTongueProj.DisplayName: Sentient Blade Tongue
+SentientBladeTongueProj.DisplayName: Tongueblade
 IchorCloud.DisplayName: Ichor Cloud
 SentientSkull.DisplayName: Chomping Skull
 SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
@@ -167,17 +167,17 @@ BrickProj.DisplayName: Brick
 OldWoodSlingshotProj.DisplayName: Old Wood Slingshot
 MossyPebbleProj.DisplayName: Mossy Pebble
 OldWoodStaffProj.DisplayName: Old Wood Staff
-OldWoodStaffBolt.DisplayName: Old Wood Staff Bolt
+OldWoodStaffBolt.DisplayName: Magic Bolt
 Columbo.DisplayName: Columbo
 ColumboFinger.DisplayName: Columbo
-ShroomWhipProj.DisplayName: Shroom Whip
+ShroomWhipProj.DisplayName: Spore Smacker
 ShroomWhipSpore.DisplayName: Shroom Spore
 GhastlyOrbProj.DisplayName: Ghastly Orb
 ChlorophyllFlower.DisplayName: Chlorophyll Flower
 FleshPillarTelegraph.DisplayName: Telegraph
 FleshPillar.DisplayName: Flesh Pillar
 GourdFlailProj.DisplayName: Rotty's Wrath
-GourdFlailFly.DisplayName: Rotty's Wrath Fly
+GourdFlailFly.DisplayName: Fly
 GourdSlingshotProj.DisplayName: Gourd Slingshot
 MoldyPelletProj.DisplayName: Moldy Pellet
 MoldPelletFly.DisplayName: Mold Fly
@@ -191,7 +191,7 @@ ShroomHopperPet.DisplayName: Shroom Hopper
 FlyPet.DisplayName: Cornelious
 FemurFractureSwung.DisplayName: Femur Fracturer
 FemurFractureProj.DisplayName: Femur Fracturer
-FemurFractureSkull.DisplayName: Fractured Skull
+FemurFractureSkull.DisplayName: Fracturer Skull
 VenomBreath.DisplayName: Venom Breath
 CatPet.DisplayName: Black Kitten
 StickyEyePet.DisplayName: Glow In The Dark Eye
@@ -199,7 +199,7 @@ SentientGatligatorGiblet.DisplayName: Meat Giblet
 SwordSlashBase.DisplayName: Sword Slash Base
 SentientKatanaSwingSlash.DisplayName: Conscious Cutter
 StinkBlast.DisplayName: Stink Blast
-TonguebladeSlash.DisplayName: Tongueblade Slash
+TonguebladeSlash.DisplayName: Tongueblade
 EggEventHandler.DisplayName: Egg Barrier
 GiantBiomass.DisplayName: Biomass
 GiantBiomassVesicator.DisplayName: Biomass
@@ -212,7 +212,7 @@ HorseshoeProj.DisplayName: Unlucky Horseshoe
 SolarDeathbeam.DisplayName: Solar Deathbeam
 SolarDeathbeamTelegraph.DisplayName: Telegraph
 ChungusSpore.DisplayName: Spore
-FlameIdolProj.DisplayName: Flame Idol Proj
+FlameIdolProj.DisplayName: Flame Idol
 NautilusSpit1.DisplayName: Bloody Ink
 NautilusSpit2.DisplayName: Bloody Ink
 NautilusBubble1.DisplayName: Nautilus Bubble
@@ -227,3 +227,7 @@ SkullAmuletSoul.DisplayName: Soul
 ThornPillarBarrierFloor.DisplayName: Thorn Barrier
 ThornPillarBarrierSide.DisplayName: Thorn Barrier
 TakeCoverTelegraph.DisplayName: Telegraph
+DaffodilBladeSlash.DisplayName: Thorn Dagger
+DaffodilRodFlower.DisplayName: Sunflower Bolt
+MistGhostSpawn.DisplayName: Mist Ghost Spawner
+NoseMinionBooger.DisplayName: Nose Minion Booger

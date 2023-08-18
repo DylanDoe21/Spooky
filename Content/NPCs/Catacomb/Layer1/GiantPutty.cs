@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
@@ -101,7 +102,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 2, 5));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustyRing>(), 20));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
@@ -111,9 +113,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             {
                 for (int numDusts = 0; numDusts < 25; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.TintableDust, 0f, 0f, 100, default, 2f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.TintableDust, 0f, 0f, 100, default, 0.85f);
                     Main.dust[DustGore].color = Color.Teal;
-					Main.dust[DustGore].scale = 0.85f;
                     Main.dust[DustGore].velocity *= 1.2f;
 
                     if (Main.rand.NextBool(2))

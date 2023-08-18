@@ -211,10 +211,10 @@ namespace Spooky.Content.Generation
             int StartPosY = Catacombs.PositionY - 100;
 
             //graveyards
-            GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-1", 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-2", 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-3", 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "Graveyard-4", 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
 
             //first ruined house
             GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
@@ -226,10 +226,10 @@ namespace Spooky.Content.Generation
             GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
 
             //graveyards
-            GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-5", 14, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-6", 12, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-3", 12, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-2", 12, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 14, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
         }
 
         //method for finding a valid surface and placing the structure on it

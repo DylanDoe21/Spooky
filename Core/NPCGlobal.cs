@@ -130,9 +130,6 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-			//drop skull goop during a blood moon if you are in the swampy cemetery
-			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SkullGoopPetCondition(), ModContent.ItemType<DissolvedBone>(), 100));
-
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
@@ -143,14 +140,12 @@ namespace Spooky.Core
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.OrangeCatacombKeyCondition(), ModContent.ItemType<CatacombKey3>(), 1));
 
 			//eye valley enemies should not drop living flame blocks
-            globalLoot.RemoveWhere(
-            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
+            globalLoot.RemoveWhere(rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.LivingFireBlock);
 			//re-add living fire blocks dropping with a custom condition that excludes the valley of eyes
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
 
 			//eye valley enemies should not drop hel-fire yoyo
-			globalLoot.RemoveWhere(
-            rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.HelFire);
+			globalLoot.RemoveWhere(rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.HelFire);
 			//re-add the hel-fire dropping with a custom condition that excludes the valley of eyes
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.HelFire, 400));
         }

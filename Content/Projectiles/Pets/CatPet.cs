@@ -191,8 +191,8 @@ namespace Spooky.Content.Projectiles.Pets
                 float num16 = 0.5f;
                 Projectile.tileCollide = false;
                 Vector2 vector3 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
-                float horiPos = Main.player[Projectile.owner].position.X + (float)(Main.player[Projectile.owner].width / 2) - vector3.X;
-                float vertiPos = Main.player[Projectile.owner].position.Y + (float)(Main.player[Projectile.owner].height / 2) - vector3.Y;
+                float horiPos = player.position.X + (float)(player.width / 2) - vector3.X;
+                float vertiPos = player.position.Y + (float)(player.height / 2) - vector3.Y;
                 vertiPos += (float)Main.rand.Next(-10, 21);
                 horiPos += (float)Main.rand.Next(-10, 21);
                 horiPos += (float)(60 * -(float)player.direction);
@@ -287,11 +287,11 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
 
-                if (Projectile.Center.X < Main.player[Projectile.owner].Center.X)
+                if (Projectile.Center.X < player.Center.X)
                 {
                     Projectile.spriteDirection = -1;
                 }
-                else if (Projectile.Center.X > Main.player[Projectile.owner].Center.X)
+                else if (Projectile.Center.X > player.Center.X)
                 {
                     Projectile.spriteDirection = 1;
                 }

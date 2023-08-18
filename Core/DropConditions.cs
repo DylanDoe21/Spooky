@@ -15,33 +15,6 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
-        //drop skull goop pet from any enemy while in the swampy cemetery during a blood moon
-        public class SkullGoopPetCondition : IItemDropRuleCondition
-        {
-            public bool CanDrop(DropAttemptInfo info)
-            {
-                if (!info.IsInSimulation) 
-                {
-                    if (Main.bloodMoon && info.player.InModBiome<CemeteryBiome>())
-                    {
-                        return true;
-                    }
-                }
-                
-                return false;
-            }
-
-            public bool CanShowItemDropInUI() 
-            {
-                return false;
-            }
-
-            public string GetConditionDescription() 
-            {
-                return null;
-            }
-        }
-
         //underworld condition work around so eye valley enemies dont drop living fire blocks or the hel-fire
         public class UnderworldDropCondition : IItemDropRuleCondition
         {

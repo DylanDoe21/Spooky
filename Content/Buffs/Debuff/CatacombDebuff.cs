@@ -11,5 +11,10 @@ namespace Spooky.Content.Buffs.Debuff
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            //player.blockRange = 4;
+        }
     }
 }

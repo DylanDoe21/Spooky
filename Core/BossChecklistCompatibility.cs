@@ -185,7 +185,7 @@ namespace Spooky.Core
 				{
 					["spawnItems"] = ModContent.ItemType<Brick>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<DaffodilTrophyItem>(), ModContent.ItemType<DaffodilMask>(), 
-					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<DaffodilBox>() },
+					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<SmallDaffodil>(), ModContent.ItemType<DaffodilBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = DaffodilPortrait,

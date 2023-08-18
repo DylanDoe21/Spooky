@@ -74,12 +74,12 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 
-            for (int numDust = 0; numDust < 35; numDust++)
+            for (int numDusts = 0; numDusts < 35; numDusts++)
 			{                                                                                  
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dust].noGravity = true;
                 Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
                 Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+                Main.dust[dust].noGravity = true;
             }
 		}
     }

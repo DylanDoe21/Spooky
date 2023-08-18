@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.Food;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
@@ -79,7 +80,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
             }
             //use casting animation during casting ai
-            if (NPC.localAI[0] > 300)
+            if (NPC.localAI[0] > 240)
             {
                 if (NPC.frame.Y < frameHeight * 5)
                 {
@@ -148,6 +149,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullAmulet>(), 30));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZomboidNecromancerHood>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
         }

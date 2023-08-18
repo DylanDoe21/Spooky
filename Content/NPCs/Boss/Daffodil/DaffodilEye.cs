@@ -15,7 +15,10 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
@@ -119,6 +122,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.width = 58;
             NPC.height = 58;
             NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = false;
@@ -788,8 +792,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         for (int savePoints = 0; savePoints < SavePoint.Length; savePoints++)
                         {
-                            int positionX = (int)player.Center.X + Main.rand.Next(-200, 200);
-                            int positionY = (int)player.Center.Y + Main.rand.Next(-200, 100);
+                            int positionX = (int)player.Center.X + Main.rand.Next(-300, 300);
+                            int positionY = (int)player.Center.Y + Main.rand.Next(-300, 100);
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY, 0, 0, 
                             ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
@@ -836,10 +840,20 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
 			//treasure bag
-            //npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagDaffodil>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagDaffodil>()));
             
 			//master relic and pet
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DaffodilRelicItem>()));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallDaffodil>(), 4));
+
+            //weapon drops
+            int[] MainItem = new int[] 
+			{ 
+				ModContent.ItemType<DaffodilBlade>(), 
+				ModContent.ItemType<DaffodilRod>()
+			};
+
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DaffodilMask>(), 7));

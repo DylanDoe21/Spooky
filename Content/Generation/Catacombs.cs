@@ -31,8 +31,8 @@ namespace Spooky.Content.Generation
         int switchRoom = 0;
         int numAmbushRooms = 0;
 
-        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);

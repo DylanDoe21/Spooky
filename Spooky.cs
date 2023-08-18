@@ -15,11 +15,15 @@ using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
+using Spooky.Content.NPCs.Cemetery;
 
 namespace Spooky
 {
 	public class Spooky : Mod
 	{
+        public static int MistGhostSpawnX;
+        public static int MistGhostSpawnY;
+
         public static int SpookySpiritSpawnX;
         public static int SpookySpiritSpawnY;
 
@@ -96,6 +100,11 @@ namespace Spooky
 			SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
 			switch (messageType)
 			{
+                case SpookyMessageType.SpawnMistGhost:
+                {
+                    NPC.NewNPC(null, MistGhostSpawnX, MistGhostSpawnY, ModContent.NPCType<MistGhost>());
+                    break;
+                }
                 case SpookyMessageType.SpawnSpookySpirit:
                 {
                     NPC.NewNPC(null, SpookySpiritSpawnX, SpookySpiritSpawnY, ModContent.NPCType<SpookySpirit>());
@@ -111,6 +120,7 @@ namespace Spooky
                     NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>());
                     break;
                 }
+                //should never occur I think?
                 default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
@@ -122,8 +132,9 @@ namespace Spooky
 
     enum SpookyMessageType : byte
     {
-        SpawnMoco,
+        SpawnMistGhost,
         SpawnSpookySpirit,
+        SpawnMoco,
         SpawnOrroboro,
     }
 }

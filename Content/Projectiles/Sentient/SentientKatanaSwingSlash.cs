@@ -58,7 +58,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
             Rectangle rectangle = Texture.Frame(1, 4);
             Vector2 origin = rectangle.Size() / 2f;
-            float num = proj.scale * 0.6f;
+            float num = proj.scale * 0.65f;
             SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
             float num2 = proj.localAI[0] / proj.ai[1];
             float Fade = Utils.Remap(num2, 0f, 0.6f, 0f, 1f) * Utils.Remap(num2, 0.6f, 1f, 1f, 0f);
@@ -67,10 +67,10 @@ namespace Spooky.Content.Projectiles.Sentient
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.55f, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num * 1.2f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Purple * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1.1f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Indigo * Fade * 0.45f, proj.rotation, origin, num * 1f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Blue * Fade * 0.4f, proj.rotation, origin, num * num4 * 0.9f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.55f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1.2f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Purple * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Indigo * Fade * 0.45f, proj.rotation, origin, num * 0.8f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Blue * Fade * 0.4f, proj.rotation, origin, num * num4 * 0.6f, effects, 0f);
 
             /*
             //these are the additional lines drawn on top of each slash texture

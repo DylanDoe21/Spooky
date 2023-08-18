@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 2;
             Projectile.minionSlots = 2;
             Projectile.penetrate = -1;
         }
@@ -104,7 +104,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.velocity *= 0;
             Projectile.frame = 1;
             
-            SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.3f }, Projectile.position);
+            SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.3f }, Projectile.Center);
 
             for (int numGores = 1; numGores <= 6; numGores++)
             {
@@ -251,13 +251,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Projectile.velocity *= 0.2f;
 
-                float Speed = 25f;
-				Vector2 vector = new(Projectile.position.X + 2 + (Projectile.width / 2), Projectile.position.Y - 23 + (Projectile.height / 2));
-				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
-				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
-
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, 
-                ModContent.ProjectileType<GrugFireball>(), Projectile.damage / 2, 0f, Main.myPlayer, 0f, 0f);
+                Vector2 ShootSpeed = target.Center - Projectile.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed *= 25f;
+                        
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<GrugFireball>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, 0f);
             }
 
             //go to the side of the target to prepare for dashing

@@ -12,26 +12,30 @@ namespace Spooky.Core
     {
         public override void Load()
 		{
-            On_Player.CheckForGoodTeleportationSpot += DontTeleport;
+            On_Player.CheckForGoodTeleportationSpot += DontAllowTeleportation;
         }
 
         public bool IsProtected(int x, int y)
         {
-            if (!Main.gameMenu || Main.dedServ) //shouldnt trigger while generating the world from the menu
+            if (!Main.gameMenu || Main.dedServ)
             {
                 Tile tile = Framing.GetTileSafely(x, y);
 
                 if (tile.WallType == ModContent.WallType<CatacombBrickWall1>())
+                {
                     return true;
+                }
 
                 if (tile.WallType == ModContent.WallType<CatacombBrickWall2>())
+                {
                     return true;
+                }
             }
 
             return false;
         }
 
-        private Vector2 DontTeleport(On_Player.orig_CheckForGoodTeleportationSpot orig, Player self, ref bool canSpawn, int teleportStartX, int teleportRangeX, int teleportStartY, int teleportRangeY, Player.RandomTeleportationAttemptSettings settings)
+        private Vector2 DontAllowTeleportation(On_Player.orig_CheckForGoodTeleportationSpot orig, Player self, ref bool canSpawn, int teleportStartX, int teleportRangeX, int teleportStartY, int teleportRangeY, Player.RandomTeleportationAttemptSettings settings)
         {
             Vector2 result = orig(self, ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
 
@@ -41,6 +45,7 @@ namespace Spooky.Core
                 settings.attemptsBeforeGivingUp--;
                 result = self.CheckForGoodTeleportationSpot(ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
             }
+            
             return result;
         }
 

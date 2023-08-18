@@ -88,7 +88,7 @@ LittleEye: {
 }
 
 Daffodil: {
-	PreDefeatIntro1: !!!!!!
+	PreDefeatIntro1: HUH!!!!!!
 	PreDefeatIntro2: Just who do you think you are waking me?!
 	PreDefeatIntro3: ......
 	PreDefeatIntro4: Fine, then let's see if you're worthy!
@@ -99,9 +99,9 @@ Daffodil: {
 	PostDefeatPhaseTransition1: So you're just as good as before huh...
 	PostDefeatPhaseTransition2: Then I am sure you can handle this!
 	PreDefeatOutro1: So, you really are powerful...
-	PreDefeatOutro2: Fine, then you may advance into the deeper catacombs.
+	PreDefeatOutro2: Fine, then you may advance into the deeper catacombs
 	PostDefeatOutro1: You are still powerful...
-	PostDefeatOutro2: Not sure why you keep waking me, but whatever.
+	PostDefeatOutro2: Not sure why you keep waking me, but whatever
 }
 
 TheHorse: How hungry?
