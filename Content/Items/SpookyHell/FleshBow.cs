@@ -56,9 +56,7 @@ namespace Spooky.Content.Items.SpookyHell
 			}
 			else
 			{
-				int[] Types = new int[] { ModContent.ProjectileType<FleshBowChunk1>(), ModContent.ProjectileType<FleshBowChunk2>() };
-
-				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Main.rand.Next(Types), damage, knockback, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<FleshBowChunk1>(), damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			
 			numUses++;

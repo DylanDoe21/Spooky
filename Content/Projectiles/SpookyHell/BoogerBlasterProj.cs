@@ -74,7 +74,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 Projectile.localAI[0] += 0.25f;
 
-                if (Projectile.localAI[0] == 15 || Projectile.localAI[0] == 30)
+                if (Projectile.localAI[0] == 10 || Projectile.localAI[0] == 20)
                 {
                     SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
 
