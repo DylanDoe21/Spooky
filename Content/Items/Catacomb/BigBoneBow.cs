@@ -41,15 +41,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool AltFunctionUse(Player player)
 		{
-			for (int i = 0; i < 1000; i++)
-			{
-				if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<BowThornFlower>())
-				{
-					return false;
-				}
-			}
-
-			return true;
+			return player.ownedProjectileCounts[ModContent.ProjectileType<BowThornFlower>()] < 1;
 		}
 
 		public override bool CanUseItem(Player player)

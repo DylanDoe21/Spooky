@@ -458,6 +458,11 @@ OrroMask: {
 	Tooltip: ""
 }
 
+PelusaHead: {
+	DisplayName: Pelusa's Head
+	Tooltip: "'Great for impersonating spooky mod devs!'"
+}
+
 RotGourdMask: {
 	DisplayName: Rot Gourd Mask
 	Tooltip: ""
@@ -1287,8 +1292,8 @@ LivingFleshWhip: {
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
-		Lashes out two long range whips at once
-		Hitting enemies may lower their defense massively for a short time
+		Quickly lashes out two different flesh whips
+		Hitting enemies may massively lower their defense for a short time
 		'''
 }
 

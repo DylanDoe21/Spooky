@@ -125,10 +125,6 @@ LeechWhipProj.DisplayName: Leecher
 NerveWhipProj.DisplayName: Exposed Nerve
 NoseMinion.DisplayName: Nose Fly
 ScyclerProj.DisplayName: Scycler
-LivingBowChunk1.DisplayName: Blood Clot
-LivingBowChunk2.DisplayName: Blood Clot
-LivingFleshWhipProj1.DisplayName: Living Eye Lasher
-LivingFleshWhipProj2.DisplayName: Living Eye Lasher
 TortumorMinion.DisplayName: Tortumor
 TortumorMinionOrb1.DisplayName: Tumor Orb
 TortumorMinionOrb2.DisplayName: Tumor Orb
@@ -230,3 +226,8 @@ DaffodilRodFlower.DisplayName: Sunflower Bolt
 MistGhostSpawn.DisplayName: Mist Ghost Spawner
 NoseMinionBooger.DisplayName: Booger
 SmellyCloud.DisplayName: Rancid Spore
+OldHunterMelee.DisplayName: Old Hunter Melee
+LivingFleshWhipProjBlue.DisplayName: Living Eye Lasher
+LivingFleshWhipProjRed.DisplayName: Living Eye Lasher
+FleshBowChunk1.DisplayName: Bloot Clot
+FleshBowChunk2.DisplayName: Blood Clot

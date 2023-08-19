@@ -51,8 +51,7 @@ namespace Spooky.Core
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MocoNose && Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) &&
-            !Main.LocalPlayer.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+            if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) && !player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
             {
                 int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.35f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
                 Main.projectile[newProjectile].DamageType = item.DamageType;
@@ -65,8 +64,15 @@ namespace Spooky.Core
 		{
 			if (item.type == ItemID.GoodieBag)
 			{
-				int[] DevMasks = new int[] { ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(), ModContent.ItemType<KrakenHead>(), 
-                ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>(), ModContent.ItemType<HatHead>(), ModContent.ItemType<SeasaltHead>() };
+				int[] DevMasks = new int[] { 
+                ModContent.ItemType<BananalizardHead>(), 
+                ModContent.ItemType<DylanDoeHead>(), 
+                ModContent.ItemType<KrakenHead>(), 
+                ModContent.ItemType<TacoHead>(), 
+                ModContent.ItemType<WaasephiHead>(), 
+                ModContent.ItemType<HatHead>(), 
+                ModContent.ItemType<SeasaltHead>(),
+                ModContent.ItemType<PelusaHead>() };
 
                 itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
 			}

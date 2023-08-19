@@ -64,7 +64,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (player.channel)
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 30;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
@@ -75,10 +75,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.localAI[0] += 0.25f;
 
                 //charges
-                //charge = 1, shoot one small booger
-                //charge = 2, shoot a few small boogers
-                //charge = 3, shoot one big booger
-                if (Projectile.localAI[0] == 2 || Projectile.localAI[0] == 15 || Projectile.localAI[0] == 28)
+                if (Projectile.localAI[0] == 15 || Projectile.localAI[0] == 30)
                 {
                     SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
                     
@@ -96,23 +93,18 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 //change frame
                 switch (Charge)
-                {
+                {  
                     case 0:
                     {
                         Projectile.frame = 0;
                         break;
-                    }   
-                    case 1:
-                    {
-                        Projectile.frame = 0;
-                        break;
                     }
-                    case 2:
+                    case 1:
                     {
                         Projectile.frame = 1;
                         break;
                     }
-                    case 3:
+                    case 2:
                     {
                         Projectile.frame = 2;
                         break;
@@ -123,6 +115,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
+                    Projectile.alpha = 255;
+
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
 
@@ -130,19 +124,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     switch (Charge)
 				    {
-                        //no charge, do nothing
-                        case 0:
-                        {
-                            break;
-                        }   
-
                         //shoot one small booger
-                        case 1:
+                        case 0:
                         {
                             SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
 
-                            ShootSpeed.X *= 12;
-                            ShootSpeed.Y *= 12;	
+                            ShootSpeed *= 12;
 
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                             ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -151,7 +138,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         }
 
                         //shoot spread of 3 small boogers
-                        case 2:
+                        case 1:
                         {
                             SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
 
@@ -166,12 +153,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         }
 
                         //shoot big booger that deals double damage
-                        case 3:
+                        case 2:
                         {
                             SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
 
-                            ShootSpeed.X *= 22;
-                            ShootSpeed.Y *= 22;	
+                            ShootSpeed *= 22;
 
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                             ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);

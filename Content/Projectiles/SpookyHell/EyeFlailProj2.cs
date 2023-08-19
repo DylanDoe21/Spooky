@@ -186,7 +186,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     shouldOwnerHitCheck = true;
                     if (Projectile.owner == Main.myPlayer) 
                     {
-                        Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-50, 50), Main.MouseWorld.Y + Main.rand.Next(-50, 50))).SafeNormalize(Vector2.UnitX * player.direction);
+                        Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-75, 75), Main.MouseWorld.Y + Main.rand.Next(-75, 75))).SafeNormalize(Vector2.UnitX * player.direction);
                         player.ChangeDir((unitVectorTowardsMouse.X > 0f) ? 1 : (-1));
 
                         if (!player.channel) // If the player releases then change to moving forward mode

@@ -12,23 +12,25 @@ namespace Spooky.Content.Items.SpookyHell
 {
     public class LivingFleshWhip : ModItem
     {
+        int numUses = 0;
+
         public override void SetDefaults()
         {
             Item.damage = 35;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
-			Item.width = 52;
-            Item.height = 50;
-			Item.useTime = 20;
-			Item.useAnimation = 40;
+			Item.width = 50;
+            Item.height = 66;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 3f;
+			Item.shootSpeed = 5f;
         }
 
         public override bool MeleePrefix() 
@@ -37,12 +39,24 @@ namespace Spooky.Content.Items.SpookyHell
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y,
-            ModContent.ProjectileType<LivingFleshWhipProj1>(), damage, knockback, player.whoAmI, 0f, 0f);
+        {
+            numUses++;
 
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y,
-            ModContent.ProjectileType<LivingFleshWhipProj2>(), damage, knockback, player.whoAmI, 0f, 0f);
+            if (numUses > 1)
+            {
+                numUses = 0;
+            }
+
+            if (numUses == 0)
+            {
+                type = ModContent.ProjectileType<LivingFleshWhipProjRed>();
+            }
+            else
+            {   
+                type = ModContent.ProjectileType<LivingFleshWhipProjBlue>();
+            }
+
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 			
 			return false;
         }

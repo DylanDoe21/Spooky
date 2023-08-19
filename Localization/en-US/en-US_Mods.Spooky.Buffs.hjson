@@ -194,6 +194,11 @@ NoseMinionBuff: {
 	Description: The nose buzzes around you
 }
 
+OldHunterBuff: {
+	DisplayName: Old Hunter Souls
+	Description: The souls of the hunters will protect you
+}
+
 PumpkinHeadBuff: {
 	DisplayName: Pumpkin Head
 	Description: Your head is now fighting with you!

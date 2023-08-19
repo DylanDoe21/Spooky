@@ -5,20 +5,22 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
     public class LivingFleshBow : ModItem
     {
-        public override void SetDefaults()
+		int numUses = 0;
+        
+		public override void SetDefaults()
         {
 			Item.damage = 80;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true;
-			Item.channel = true;
-			Item.width = 32;
+			Item.width = 44;
 			Item.height = 90;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
@@ -28,79 +30,46 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item17;
-			Item.shoot = ProjectileID.WoodenArrowFriendly;
+			Item.shoot = ModContent.ProjectileType<Blank>();
 			Item.useAmmo = AmmoID.Arrow;
-			Item.shootSpeed = 20f;
+			Item.shootSpeed = 15f;
 		}
 
-        int numUses = 0;
-
-		public override void HoldItem(Player player)
+		public override Vector2? HoldoutOffset()
 		{
-			if (player == Main.LocalPlayer)
-			{
-				if (!player.channel || player.itemAnimation > Item.useTime)
-				{
-					player.itemTime = 0;
-					player.itemAnimation = 0;
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						NetMessage.SendData(MessageID.ShotAnimationAndSound, -1, -1, null, player.whoAmI);
-					}
-
-					return;
-				}
-
-				if (player.itemAnimation > 0)
-				{
-					player.ChangeDir(player.DirectionTo(Main.MouseWorld).X > 0 ? 1 : -1);
-
-					player.itemRotation = MathHelper.WrapAngle(player.AngleTo(Main.MouseWorld) - ((player.direction < 0) ? MathHelper.Pi : 0)) - player.fullRotation;
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						NetMessage.SendData(MessageID.SyncPlayer, -1, -1, null, player.whoAmI);
-					}
-				}
-
-				if (player.itemAnimation == 1)
-				{
-					Vector2 shootDir = Vector2.UnitX.RotatedBy(player.AngleTo(Main.MouseWorld));
-
-                    if (numUses >= 20)
-                    {
-						for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
-						{
-							Projectile.NewProjectile(Item.GetSource_FromThis(), player.MountedCenter + (shootDir * 20),
-							(Item.shootSpeed / 2) * player.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles),
-							ModContent.ProjectileType<BowEye>(), Item.damage, Item.knockBack, player.whoAmI);
-						}
-
-						numUses = 0;
-                    }
-                    else
-                    {
-                        int[] Types = new int[] { ModContent.ProjectileType<LivingBowChunk1>(), ModContent.ProjectileType<LivingBowChunk2>() };
-
-                        Projectile.NewProjectile(Item.GetSource_FromThis(), player.MountedCenter + (shootDir * 20), 
-					    shootDir * Item.shootSpeed, Main.rand.Next(Types), Item.damage, Item.knockBack, player.whoAmI);
-                    }
-                    
-					numUses++;
-				}
-			}
+			return new Vector2(-5, 0);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+
+            if (numUses >= 20)
+			{
+				for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
+				{
+					Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center,
+					Item.shootSpeed * player.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles),
+					ModContent.ProjectileType<BowEye>(), Item.damage, Item.knockBack, player.whoAmI);
+				}
+
+				numUses = 0;
+			}
+			else
+			{
+				int[] Types = new int[] { ModContent.ProjectileType<FleshBowChunk1>(), ModContent.ProjectileType<FleshBowChunk2>() };
+
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Main.rand.Next(Types), damage, knockback, player.whoAmI, 0f, 0f);
+			}
+			
+			numUses++;
+			
 			return false;
         }
-
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(2, 0);
-		}
 
 		public override void AddRecipes()
         {

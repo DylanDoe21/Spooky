@@ -1,13 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.UI.Chat;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles;
-using Terraria.GameContent;
-using Terraria.Audio;
+using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb
 {
@@ -31,8 +34,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item66; 
-			Item.shoot = ModContent.ProjectileType<Blank>();
-			Item.shootSpeed = 0f;
+            Item.buffType = ModContent.BuffType<OldHunterBuff>();
+			Item.shoot = ModContent.ProjectileType<OldHunterMelee>();
 		}
 
         public override Vector2? HoldoutOffset()
@@ -44,6 +47,21 @@ namespace Spooky.Content.Items.Catacomb
         {
             return true;
         }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            position = Main.MouseWorld;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+            player.AddBuff(Item.buffType, 2);
+
+			var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+			projectile.originalDamage = Item.damage;
+
+			return false;
+		}
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
@@ -58,11 +76,6 @@ namespace Spooky.Content.Items.Catacomb
                     Color.Turquoise, 0f, Vector2.Zero, new Vector2(Main.inventoryScale * 0.8f), -1f, Main.inventoryScale * 0.8f);
                 }
             }
-        }
-
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            position = Main.MouseWorld;
         }
 
         public override bool CanUseItem(Player player)
@@ -82,7 +95,7 @@ namespace Spooky.Content.Items.Catacomb
                     case 1:
                     {
                         SummonDisplay = "Warrior";
-                        Item.shoot = ModContent.ProjectileType<Blank>();
+                        Item.shoot = ModContent.ProjectileType<OldHunterMelee>();
                         break;
                     }
                     case 2:

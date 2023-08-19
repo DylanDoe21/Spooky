@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class LivingBowChunk1 : ModProjectile
+    public class FleshBowChunk1 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -69,7 +69,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         }
     }
 
-    public class LivingBowChunk2 : LivingBowChunk1
+    public class FleshBowChunk2 : FleshBowChunk1
     {
     }
 }

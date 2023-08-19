@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
             Item.height = 42;
             Item.expert = true;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 25);
         }
        
