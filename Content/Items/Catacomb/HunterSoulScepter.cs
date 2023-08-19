@@ -54,8 +54,8 @@ namespace Spooky.Content.Items.Catacomb
 
                 if (otherItem == Item)
                 {
-                    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, position + new Vector2(0f, 15f) * Main.inventoryScale,
-                    Color.Turquoise, 0f, Vector2.Zero, new Vector2(Main.inventoryScale), -1f, Main.inventoryScale);
+                    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, position + new Vector2(-30f, 5f) * Main.inventoryScale * 0.8f,
+                    Color.Turquoise, 0f, Vector2.Zero, new Vector2(Main.inventoryScale * 0.8f), -1f, Main.inventoryScale * 0.8f);
                 }
             }
         }

@@ -288,7 +288,7 @@ HunterSoulScepter: {
 	Tooltip:
 		'''
 		Summons the ghosts of old hunters to fight with you
-		Each old hunter is a different class, with their own abilities
+		Each old hunter is a different class, each with their own abilities
 		Right click to switch between each of the different classes
 		'''
 }
