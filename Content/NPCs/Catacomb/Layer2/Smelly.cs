@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
