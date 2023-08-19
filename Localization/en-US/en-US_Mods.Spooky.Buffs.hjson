@@ -154,6 +154,11 @@ LivingAxeBleed: {
 	Description: Mods.Spooky.BuffDescription.LivingAxeBleed
 }
 
+SadDebuff: {
+	DisplayName: Sad
+	Description: 10% decreased damage, and you move slower
+}
+
 ThornMark: {
 	DisplayName: Thorn Mark
 	Description: Mods.Spooky.BuffDescription.ThornMark

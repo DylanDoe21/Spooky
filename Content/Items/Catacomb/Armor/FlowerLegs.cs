@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Content.Items.Catacomb.Misc;
+
 namespace Spooky.Content.Items.Catacomb.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
@@ -42,6 +44,15 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			{
                 SoundEngine.PlaySound(SoundID.NPCDeath43, player.Center);
             }
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 12)
+			.AddIngredient(ItemID.ClayBlock, 50)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

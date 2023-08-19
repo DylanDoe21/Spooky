@@ -89,7 +89,7 @@ Other New Additions:
 -Added Rotty's wrath, Jerry's Book of Stinkology, Stinky Slinger, and Branch of Gourd
 -Added the gilded mage armor set
 -Added the bustling glowshroom
--Added the femur fracturer and idol of flame
+-Added the femur fracturer, idol of flame, rusty ring, and skull amulet
 -Added a mask and trophy for spooky spirit
 -Added a bunch of new pets and light pets
 -Added a bunch of new spooky mod themed angler quest fishes
@@ -130,6 +130,11 @@ Items & Weapons:
 -Strange cyst is no longer a usable item, you now have to right click the giant egg with it in your inventory to start the egg incursion
 -Spooky buster now has a slightly faster use time, meaning its wind up animation before swinging is shorter
 -Completely reworked the sneeze scepter's minion behavior
+-Zomboid warlock's skull minions have a new visual aura and visual trail
+-All items that are either dropped directly, or crafted from things dropped by orro & boro now use the correct rarity color for their tier
+-The cotton swab and acidic concoction now have crafting recipes since little eye only gives you one of each, preventing players from being locked out of content if you loose them
+-Chained eyes will no longer shoot one farther than the other, it now just shoots out two eye flails normally that both deal the same damage
+-Scycler now has a small after image effect on it's projectile
 
 
 Shimmer Transmutations:
@@ -198,6 +203,7 @@ Fixed all of the following multiplayer issues:
 
 -Rot gourd not spawning correctly
 -Spooky spirit vanishing when hit
--Fixed many issues with orroboro
+-Orro-boro spawning with no segments and vanishing when hit
+-Little bone and little eye not being woken up properly when interacted with
 
 

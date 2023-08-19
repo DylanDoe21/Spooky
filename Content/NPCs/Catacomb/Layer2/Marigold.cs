@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
@@ -16,6 +17,17 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused, 
+                    BuffID.Poisoned, 
+                    BuffID.Venom
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
         
         public override void SetDefaults()
@@ -118,6 +130,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
+                for (int numDust = 0; numDust < 12; numDust++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

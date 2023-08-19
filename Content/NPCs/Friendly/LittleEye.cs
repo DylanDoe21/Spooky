@@ -113,7 +113,7 @@ namespace Spooky.Content.NPCs.Friendly
             {
 				if (!Flags.EyeQuest1)
 				{
-					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask1>()))
+					if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<Flask1>()))
 					{
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Rewards");
 
@@ -127,7 +127,7 @@ namespace Spooky.Content.NPCs.Friendly
 				}
 				if (Flags.EyeQuest1 && !Flags.EyeQuest2)
 				{
-					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask2>()))
+					if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<Flask2>()))
 					{
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Rewards");
 
@@ -149,7 +149,7 @@ namespace Spooky.Content.NPCs.Friendly
 				}
 				if (Flags.EyeQuest2 && !Flags.EyeQuest3)
 				{
-					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask3>()))
+					if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<Flask3>()))
 					{
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Rewards");
 
@@ -163,7 +163,7 @@ namespace Spooky.Content.NPCs.Friendly
 				}
 				if (Flags.EyeQuest3 && !Flags.EyeQuest4)
 				{
-					if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<Flask4>()))
+					if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<Flask4>()))
 					{
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Rewards");
 
@@ -177,7 +177,7 @@ namespace Spooky.Content.NPCs.Friendly
 				}
 				if (Flags.EyeQuest4 && !Flags.EyeQuest5)
                 {
-					if (Main.LocalPlayer.ConsumeItem(ItemID.SoulofSight) && Main.LocalPlayer.ConsumeItem(ItemID.SoulofMight) && Main.LocalPlayer.ConsumeItem(ItemID.SoulofFright))
+					if (Main.player[Main.myPlayer].ConsumeItem(ItemID.SoulofSight) && Main.player[Main.myPlayer].ConsumeItem(ItemID.SoulofMight) && Main.player[Main.myPlayer].ConsumeItem(ItemID.SoulofFright))
 					{
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest5Rewards");
 
@@ -203,7 +203,7 @@ namespace Spooky.Content.NPCs.Friendly
 						//flask of night
 						if (ChosenQuestForToday == 0)
 						{
-							if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FlaskMisc1>()))
+							if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc1>()))
 							{
 								Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
 
@@ -226,7 +226,7 @@ namespace Spooky.Content.NPCs.Friendly
 						//flask of light
 						if (ChosenQuestForToday == 1)
 						{
-                            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FlaskMisc2>()))
+                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc2>()))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
 
@@ -241,7 +241,7 @@ namespace Spooky.Content.NPCs.Friendly
 						//spooky flask
 						if (ChosenQuestForToday == 2)
 						{
-                            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FlaskMisc3>()))
+                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc3>()))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
 
@@ -256,7 +256,7 @@ namespace Spooky.Content.NPCs.Friendly
 						//aquatic flask
 						if (ChosenQuestForToday == 3)
 						{
-                            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FlaskMisc4>()))
+                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc4>()))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
 
@@ -271,7 +271,7 @@ namespace Spooky.Content.NPCs.Friendly
 						//sandstorm flask
 						if (ChosenQuestForToday == 4)
 						{
-                            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<FlaskMisc5>()))
+                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc5>()))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
 
@@ -319,7 +319,7 @@ namespace Spooky.Content.NPCs.Friendly
 				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default8"),
 			};
 
-			if (Main.LocalPlayer.HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && !Flags.downedEggEvent)
+			if (Main.player[Main.myPlayer].HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && !Flags.downedEggEvent)
             {
 				return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.EggEventAdvice");
 			}
@@ -428,51 +428,51 @@ namespace Spooky.Content.NPCs.Friendly
 			int[] Potions2 = new int[] { ItemID.BattlePotion, ItemID.CalmingPotion, ItemID.TitanPotion, ItemID.EndurancePotion };
 			int[] Potions3 = new int[] { ItemID.LuckPotion, ItemID.ManaRegenerationPotion, ItemID.SummoningPotion, ItemID.ThornsPotion };
 
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(1, 3));
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(1, 3));
-			Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions3), Main.rand.Next(1, 3));
+			Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(1, 3));
+			Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(1, 3));
+			Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions3), Main.rand.Next(1, 3));
 
 			//second quest
 			if (Flags.EyeQuest1 && !Flags.EyeQuest2)
 			{
-				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<LittleEyeHat>());
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<LittleEyeHat>());
 			}
 			//third quest
 			if (Flags.EyeQuest2 && !Flags.EyeQuest3)
 			{
-				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<CottonSwab>());
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<CottonSwab>());
 			}
 			//fourth quest
 			if (Flags.EyeQuest3 && !Flags.EyeQuest4)
 			{
-				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SpookyHellPylonItem>());
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SpookyHellPylonItem>());
 			}
 			//final quest
 			if (Flags.EyeQuest4 && !Flags.EyeQuest5)
 			{
-				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<Concoction>());
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<Concoction>());
 			}
 
             //monster chest food
             if (!Flags.EyeQuest4)
             {
-                Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<ChestFood>());
+                Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<ChestFood>());
             }
 
 			//drop sentient hearts after each random quest
 			if (Flags.EyeQuest5)
 			{
-                Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SentientHeart>());
+                Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SentientHeart>());
             }
 
 			//columbo pet item
 			if (Main.rand.NextBool(50))
 			{
-				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SuspiciousBrownie>());
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SuspiciousBrownie>());
 			}
 
             //money
-            Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
+            Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

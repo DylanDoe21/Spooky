@@ -155,7 +155,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 {
                     if (player.Distance(NPC.Center) <= 150f || NPC.localAI[1] >= 60)
                     {
-                        NPC.localAI[1]++;
+                        if (!NPC.HasBuff(BuffID.Confused))
+                        {
+                            NPC.localAI[1]++;
+                        }
+                        else
+                        {
+                            NPC.localAI[1] = 0;
+                        }
                     }
 
                     if (NPC.localAI[1] < 60)

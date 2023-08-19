@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpookyHell
             Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
-			Item.rare = ItemRarityID.LightRed;
+			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 20); 
             Item.UseSound = SoundID.DD2_BetsysWrathShot;
             Item.shoot = ModContent.ProjectileType<Leech>();  

@@ -108,17 +108,21 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             NPC.rotation = NPC.velocity.X * 0.04f;
 
-			NPC.ai[0]++;  
+            if (!NPC.HasBuff(BuffID.Confused))
+            {
+			    NPC.ai[0]++;  
+            }
+            else
+            {
+                NPC.ai[0] = 0;
+            }
 
-            //dust spawning for when big tumor summons this
+            //dust spawning for when big tumor summons this enemy
             if (NPC.ai[0] == -1)
             {
-                for (int numDust = 0; numDust < 20; numDust++)
+                for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                    NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
-
-                    Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, Main.rand.NextFloat(1f, 2f));
                     Main.dust[DustGore].velocity *= 3f;
                     Main.dust[DustGore].noGravity = true;
 
@@ -133,6 +137,11 @@ namespace Spooky.Content.NPCs.SpookyHell
             if (NPC.ai[0] <= 420)
             {
                 int MaxSpeed = 25;
+
+                if (NPC.HasBuff(BuffID.Confused))
+                {
+                    MaxSpeed = -25;
+                }
 
                 //flies to players X position
                 if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 8) 
@@ -170,12 +179,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                 if (NPC.ai[0] == 495)
                 {
-                    for (int numDust = 0; numDust < 20; numDust++)
+                    for (int numDusts = 0; numDusts < 20; numDusts++)
                     {
-                        int DustGore = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 
-                        NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
-
-                        Main.dust[DustGore].scale *= Main.rand.NextFloat(1f, 2f);
+                        int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, Main.rand.NextFloat(1f, 2f));
                         Main.dust[DustGore].velocity *= 3f;
                         Main.dust[DustGore].noGravity = true;
 
@@ -230,9 +236,9 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGore" + numGores).Type);
                 }
 
-                for (int numDust = 0; numDust < 25; numDust++)
+                for (int numDusts = 0; numDusts < 25; numDusts++)
                 {
-                    int newDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                    int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, 2f);
                     Main.dust[newDust].velocity.X *= Main.rand.Next(-8, 8);
                     Main.dust[newDust].velocity.Y *= Main.rand.Next(-8, 8);
                     Main.dust[newDust].noGravity = true;

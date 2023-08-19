@@ -20,7 +20,7 @@ Moco: {
 	DisplayName: Moco
 
 	BossChecklistIntegration: {
-		SpawnInfo: Right click the nose statue in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory. The cotton swab is given to you after completing 3 of little eye's quests.
+		SpawnInfo: Right click the nose statue in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory. The cotton swab is given to you after completing 3 of little eye's quests, or can be crafted.
 		DespawnMessage: Moco has sneezed on all players
 	}
 }
@@ -102,8 +102,10 @@ ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
 Daisy1.DisplayName: Daisy
 Daisy2.DisplayName: Daisy
+Flourence.DisplayName: Flourence
 Marigold.DisplayName: Marigold
 MarigoldSpit.DisplayName: Marigold
+Smelly.DisplayName: Smelly
 Sunny.DisplayName: Sunny
 Toothy.DisplayName: Toothy
 //cemetery

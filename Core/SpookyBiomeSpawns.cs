@@ -239,8 +239,10 @@ namespace Spooky.Core
 				{
 					pool.Add(ModContent.NPCType<Daisy1>(), 3);
 					pool.Add(ModContent.NPCType<Daisy2>(), 3);
+					pool.Add(ModContent.NPCType<Flourence>(), 2);
 					pool.Add(ModContent.NPCType<Marigold>(), 3);
 					pool.Add(ModContent.NPCType<MarigoldSpit>(), 2);
+					pool.Add(ModContent.NPCType<Smelly>(), 2);
 					pool.Add(ModContent.NPCType<Toothy>(), 2);
 
 					//do not spawn sunny if one already exists

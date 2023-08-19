@@ -94,28 +94,32 @@ namespace Spooky.Content.NPCs.SpookyHell
 			NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.04f;
 
-            NPC.localAI[0]++;
-            if (NPC.localAI[0] >= 360 && NPC.localAI[0] < 420)
+            if (!NPC.HasBuff(BuffID.Confused))
             {
-                NPC.velocity *= 0.95f;
-            }
+                NPC.localAI[0]++;
+                
+                if (NPC.localAI[0] >= 360 && NPC.localAI[0] < 420)
+                {
+                    NPC.velocity *= 0.95f;
+                }
 
-            if (NPC.localAI[0] == 420)
-            {
-                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+                if (NPC.localAI[0] == 420)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                Vector2 ChargeDirection = player.Center - NPC.Center;
-                ChargeDirection.Normalize();
-                        
-                ChargeDirection.X *= 12;
-                ChargeDirection.Y *= 12;  
-                NPC.velocity.X = ChargeDirection.X;
-                NPC.velocity.Y = ChargeDirection.Y;
-            }
+                    Vector2 ChargeDirection = player.Center - NPC.Center;
+                    ChargeDirection.Normalize();
+                            
+                    ChargeDirection.X *= 12;
+                    ChargeDirection.Y *= 12;  
+                    NPC.velocity.X = ChargeDirection.X;
+                    NPC.velocity.Y = ChargeDirection.Y;
+                }
 
-            if (NPC.localAI[0] >= 480)
-            {
-                NPC.localAI[0] = 0;
+                if (NPC.localAI[0] >= 480)
+                {
+                    NPC.localAI[0] = 0;
+                }
             }
         }
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb.Armor
@@ -60,13 +61,21 @@ namespace Spooky.Content.Items.Catacomb.Armor
 				for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
                 {
                     Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + Main.rand.Next(-30, 30), 
-					player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 40, 2f, Main.myPlayer);
+					player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 55, 2f, Main.myPlayer);
                 }
 
 				player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);
             }
 
             orig(player, keyDir);
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 20)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

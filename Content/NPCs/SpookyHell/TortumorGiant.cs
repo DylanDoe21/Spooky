@@ -108,11 +108,23 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             NPC.rotation = NPC.velocity.X * 0.04f;
 			
-			NPC.ai[0]++;  
+			if (!NPC.HasBuff(BuffID.Confused))
+            {
+			    NPC.ai[0]++;  
+            }
+            else
+            {
+                NPC.ai[0] = 0;
+            } 
 
             if (NPC.ai[0] <= 480)
             {
                 int MaxSpeed = 30;
+
+                if (NPC.HasBuff(BuffID.Confused))
+                {
+                    MaxSpeed = -30;
+                }
 
                 //flies to players X position
                 if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 8) 
@@ -187,7 +199,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                                 int TumorOrb = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
                                 0, 0, Main.rand.Next(Projectiles), NPC.damage / 2, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
                                 Main.projectile[TumorOrb].ai[0] = 179;
-                            }   
+                            }
                         }
                     }
                 }
@@ -222,9 +234,9 @@ namespace Spooky.Content.NPCs.SpookyHell
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGiantGore" + numGores).Type);
                 }
 
-                for (int numDust = 0; numDust < 45; numDust++)
+                for (int numDusts = 0; numDusts < 45; numDusts++)
                 {
-                    int newDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
+                    int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, 2f);
                     Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
                     Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
                     Main.dust[newDust].noGravity = true;

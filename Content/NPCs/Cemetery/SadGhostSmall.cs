@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Cemetery
@@ -85,6 +86,11 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(ModContent.BuffType<SadDebuff>(), 300);
         }
 
         public override void AI()

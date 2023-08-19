@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyHell
             Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.LightPurple;
            	Item.value = Item.buyPrice(gold: 20);
             Item.UseSound = SoundID.Item10;
             Item.shoot = ModContent.ProjectileType<EyeFlailProj>();
@@ -37,6 +37,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI / 16f), 
             ModContent.ProjectileType<EyeFlailProj>(), damage, knockback, player.whoAmI);
+            
             Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI / 16f), 
             ModContent.ProjectileType<EyeFlailProj2>(), damage, knockback, player.whoAmI);
 

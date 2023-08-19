@@ -1,7 +1,9 @@
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
+
+using Spooky.Content.Items.Catacomb.Misc;
 
 namespace Spooky.Content.Items.Catacomb.Armor
 {
@@ -22,6 +24,14 @@ namespace Spooky.Content.Items.Catacomb.Armor
             player.GetDamage(DamageClass.Generic) += 0.18f;
 			player.GetCritChance(DamageClass.Generic) += 18;
 			player.thorns += 1.05f;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 35)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

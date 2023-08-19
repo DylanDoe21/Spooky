@@ -42,13 +42,33 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override string GetChat()
 		{
-			NPC.Transform(ModContent.NPCType<LittleBone>());
             return Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Awaken");
 		}
 
         public override void AI()
+		{
+			if (Main.netMode != NetmodeID.MultiplayerClient) 
+			{
+				NPC.homeless = false;
+				NPC.homeTileX = -1;
+				NPC.homeTileY = -1;
+				NPC.netUpdate = true;
+			}
+
+            foreach (var player in Main.player)
+            {
+                if (!player.active) continue;
+                if (player.talkNPC == NPC.whoAmI)
+                {
+                    Rescue();
+                    return;
+                }
+            }
+        }
+
+        public void Rescue()
         {
-            NPC.homeless = true;
+            NPC.Transform(ModContent.NPCType<LittleBone>());
         }
     }
 }

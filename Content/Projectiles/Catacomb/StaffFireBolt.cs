@@ -42,7 +42,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
             effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value); //trails texture image
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["repeats"].SetValue(5); //this is how many times the trail is drawn
 
             trail?.Render(effect);
 

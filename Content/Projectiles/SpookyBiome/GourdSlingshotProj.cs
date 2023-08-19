@@ -131,7 +131,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             {
                                 SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
                                 ShootSpeed *= 12;
-                                extraDamage = 5;
+                                extraDamage = 10;
 
                                 break;
                             }

@@ -3,10 +3,10 @@ CemeterySolutionProj.DisplayName: Cemetery Spray
 SpookyHellSolutionProj.DisplayName: Eye Valley Spray
 BigBoneThorn.DisplayName: Thorn Vine
 BigBoneThornTelegraph.DisplayName: Telegraph
-BoneWisp.DisplayName: Bone Wisp
+BoneWisp.DisplayName: Skull Wisp
 BouncingFlower.DisplayName: Flower
 DefensiveFlowerSeed.DisplayName: Flower Seed
-FlamingWisp.DisplayName: Flame Wisp
+FlamingWisp.DisplayName: Flaming Skull Wisp
 FlowerSpore.DisplayName: Flower Spore
 GiantFlameBall.DisplayName: Flame Blast
 HealingFlowerSeed.DisplayName: Flower Seed
@@ -48,7 +48,6 @@ TumorOrb1.DisplayName: Flesh Orb
 TumorOrb2.DisplayName: Flesh Orb
 TumorOrb3.DisplayName: Flesh Orb
 Blank.DisplayName: Blank
-BigBoneHammerHit.DisplayName: Skull Smasher
 BigBoneHammerProj.DisplayName: Skull Smasher
 BigBoneHammerProj2.DisplayName: Skull Smasher
 BoneMaskWisp.DisplayName: Skull Wisp
@@ -64,15 +63,15 @@ GlowBulbThorn.DisplayName: Bulb Thorn
 GraveCrossbowArrow.DisplayName: Crossbow Arrow
 GraveCrossbowProj.DisplayName: Grave Crossbow
 NineTailsProj.DisplayName: Nine Tails Proj
-OldRifleBullet.DisplayName: Old Bullet
-OldRifleBullet2.DisplayName: Old Bullet
-SkullTotem.DisplayName: Soul Totem
+OldRifleBullet.DisplayName: Rusty Bullet
+OldRifleBullet2.DisplayName: Rusty Bullet
+SkullTotem.DisplayName: Skull Totem
 SoulBolt.DisplayName: Soul Bolt
 SoulSkullBolt.DisplayName: Soul Bolt
 SoulSkullMinion.DisplayName: Soul Skull
 StaffFireBolt.DisplayName: Solar Bolt
 ThornStaffBall.DisplayName: Thorn Ball
-AmuletSeed.DisplayName: Amulet Seed
+AmuletSeed.DisplayName: Spirit Bolt
 PumpkinHead.DisplayName: Pumpkin Head
 PumpkinHeadBolt.DisplayName: Spooky Bolt
 ScrollPumpkin.DisplayName: Magic Pumpkin
@@ -114,32 +113,31 @@ ControllableEye.DisplayName: Magic Eye
 ControllableEyeBig.DisplayName: Magic Eye
 ControllableEyeBigExplosion.DisplayName: Eye Explosion
 EyeArmorMinion.DisplayName: Eye Minion
-EyeFlailProj.DisplayName: Eye Flail
-EyeFlailProj2.DisplayName: Eye Flail
+EyeFlailProj.DisplayName: Chained Eye
+EyeFlailProj2.DisplayName: Chained Eye
 EyeRocket.DisplayName: Eye Rocket
 EyeRocketLauncherProj.DisplayName: I.C.U
 FleshAxeHit.DisplayName: Flesh Mincer
 FleshAxeHitLiving.DisplayName: Living Flesh Mincer
-FleshWhipProj.DisplayName: Flesh Whip Proj
+FleshWhipProj.DisplayName: Eye Lasher
 Leech.DisplayName: Leech
-LeechWhipProj.DisplayName: Leech Whip Proj
-NerveWhipProj.DisplayName: Nerve Whip Proj
-NoseMinion.DisplayName: Nose Minion
-NoseMinionSnot.DisplayName: Snot Pile
+LeechWhipProj.DisplayName: Leecher
+NerveWhipProj.DisplayName: Exposed Nerve
+NoseMinion.DisplayName: Nose Fly
 ScyclerProj.DisplayName: Scycler
-LivingBowChunk1.DisplayName: Organic Chunk
-LivingBowChunk2.DisplayName: Organic Chunk
-LivingFleshWhipProj1.DisplayName: Living Flesh Whip Proj1
-LivingFleshWhipProj2.DisplayName: Living Flesh Whip Proj2
+LivingBowChunk1.DisplayName: Blood Clot
+LivingBowChunk2.DisplayName: Blood Clot
+LivingFleshWhipProj1.DisplayName: Living Eye Lasher
+LivingFleshWhipProj2.DisplayName: Living Eye Lasher
 TortumorMinion.DisplayName: Tortumor
 TortumorMinionOrb1.DisplayName: Tumor Orb
 TortumorMinionOrb2.DisplayName: Tumor Orb
-CauldronTransformProj.DisplayName: Cauldron Transform Proj
-OrroboroSpawn.DisplayName: Orroboro Spawn
+CauldronTransformProj.DisplayName: Cauldron Transform
+OrroboroSpawn.DisplayName: Orroboro Spawner
 DecayDebuffFly.DisplayName: Decay Debuff Fly
-BigBoneHammerSwung.DisplayName: Big Bone Hammer Swung
-BrainJarProj.DisplayName: Brainy in a Jar
-CauldronDummy.DisplayName: Cauldron Dummy
+BigBoneHammerSwung.DisplayName: Skull Smasher
+BrainJarProj.DisplayName: Brainy Jar
+CauldronDummy.DisplayName: Cauldron
 SentientKatanaSlash.DisplayName: Conscious Slash
 SentientKatanaSlashSpawner.DisplayName: Conscious Slash
 CursedFlamePillar.DisplayName: Cursed Pillar
@@ -163,7 +161,7 @@ SentientBladeTongueProj.DisplayName: Tongueblade
 IchorCloud.DisplayName: Ichor Cloud
 SentientSkull.DisplayName: Chomping Skull
 SpookySpiritSpawn.DisplayName: Spooky Spirit Spawner
-BrickProj.DisplayName: Brick
+BrickProj.DisplayName: Heavy Brick
 OldWoodSlingshotProj.DisplayName: Old Wood Slingshot
 MossyPebbleProj.DisplayName: Mossy Pebble
 OldWoodStaffProj.DisplayName: Old Wood Staff
@@ -230,4 +228,5 @@ TakeCoverTelegraph.DisplayName: Telegraph
 DaffodilBladeSlash.DisplayName: Thorn Dagger
 DaffodilRodFlower.DisplayName: Sunflower Bolt
 MistGhostSpawn.DisplayName: Mist Ghost Spawner
-NoseMinionBooger.DisplayName: Nose Minion Booger
+NoseMinionBooger.DisplayName: Booger
+SmellyCloud.DisplayName: Rancid Spore

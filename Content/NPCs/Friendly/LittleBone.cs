@@ -98,13 +98,13 @@ namespace Spooky.Content.NPCs.Friendly
 			if (firstButton) 
             {
 				//spooky biome
-				if (!NPC.downedBoss1 && Main.LocalPlayer.statDefense < 10)
+				if (!NPC.downedBoss1 && Main.player[Main.myPlayer].statDefense < 10)
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//rot gourd and cemetery biome
-				else if ((NPC.downedBoss1 || Main.LocalPlayer.statDefense >= 10) && !Flags.downedRotGourd)
+				else if ((NPC.downedBoss1 || Main.player[Main.myPlayer].statDefense >= 10) && !Flags.downedRotGourd)
 				{
 					if (AdviceSwitch == 0)
 					{
@@ -173,7 +173,7 @@ namespace Spooky.Content.NPCs.Friendly
             }
 			else
 			{
-				if (!Main.LocalPlayer.HasItem(ModContent.ItemType<LittleBonePot>()))
+				if (!Main.player[Main.myPlayer].HasItem(ModContent.ItemType<LittleBonePot>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Transport");
 					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBonePot>(), 1);
@@ -196,14 +196,14 @@ namespace Spooky.Content.NPCs.Friendly
 				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default2"),
 			};
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()))
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()))
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome3"));
 			}
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell2"));
@@ -211,65 +211,65 @@ namespace Spooky.Content.NPCs.Friendly
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyHell4"));
 			}
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CemeteryBiome>()))
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Cemetery3"));
 			}
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome>()))
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome>()))
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombFirstLayer3"));
 			}
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome2>()))
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer3"));
 			}
 
-			if (Main.LocalPlayer.ZonePurity)
+			if (Main.player[Main.myPlayer].ZonePurity)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest3"));
             }
 
-			if (Main.LocalPlayer.ZoneSnow)
+			if (Main.player[Main.myPlayer].ZoneSnow)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Snow1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Snow2"));
             }
 
-			if (Main.LocalPlayer.ZoneDesert)
+			if (Main.player[Main.myPlayer].ZoneDesert)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Desert3"));
             }
 
-			if (Main.LocalPlayer.ZoneJungle)
+			if (Main.player[Main.myPlayer].ZoneJungle)
 			{
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Jungle1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Jungle2"));
 			}
 
-			if (Main.LocalPlayer.ZoneGlowshroom)
+			if (Main.player[Main.myPlayer].ZoneGlowshroom)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Mushroom1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Mushroom2"));
             }
 
-			if (Main.LocalPlayer.ZoneDungeon)
+			if (Main.player[Main.myPlayer].ZoneDungeon)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Dungeon"));
 			}
 
-			if (Main.LocalPlayer.ZoneShimmer)
+			if (Main.player[Main.myPlayer].ZoneShimmer)
 			{
                 Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Shimmer1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Shimmer2"));

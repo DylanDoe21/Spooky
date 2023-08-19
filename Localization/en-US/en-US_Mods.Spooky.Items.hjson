@@ -161,6 +161,26 @@ FlowerLegs: {
 		'''
 }
 
+CatacombKey1: {
+	DisplayName: Yellow Skull Key
+	Tooltip: Use to destroy the yellow barrier, allowing access into the catacombs
+}
+
+CatacombKey2: {
+	DisplayName: Red Skull Key
+	Tooltip: Use to destroy the red barrier, allowing further access into the catacombs
+}
+
+CatacombKey3: {
+	DisplayName: Orange Skull Key
+	Tooltip: Use to destroy the orange barrier, allowing access into the catacombs arena
+}
+
+PlantChunk: {
+	DisplayName: Plant Chunk
+	Tooltip: A piece of living plant matter
+}
+
 BigBoneBow: {
 	DisplayName: Flower Shot
 	Tooltip:
@@ -199,21 +219,6 @@ BigBoneStaff: {
 		Left click to cast a large spread of fire balls that bounce off of tiles
 		Right click to unleash a high damage fire beam that targets enemies
 		'''
-}
-
-CatacombKey1: {
-	DisplayName: Yellow Skull Key
-	Tooltip: Use to destroy the yellow barrier, allowing access into the catacombs
-}
-
-CatacombKey2: {
-	DisplayName: Red Skull Key
-	Tooltip: Use to destroy the red barrier, allowing further access into the catacombs
-}
-
-CatacombKey3: {
-	DisplayName: Orange Skull Key
-	Tooltip: Use to destroy the orange barrier, allowing access into the catacombs arena
 }
 
 CrossCharm: {
@@ -275,6 +280,16 @@ HarvesterScythe: {
 		'''
 		Hitting enemies will unleash a soul that lingers around you
 		After you have ten souls, they will fly away and home in on nearby enemies
+		'''
+}
+
+HunterSoulScepter: {
+	DisplayName: Hunter Soul Scepter
+	Tooltip:
+		'''
+		Summons the ghosts of old hunters to fight with you
+		Each old hunter is a different class, with their own abilities
+		Right click to switch between each of the different classes
 		'''
 }
 
@@ -947,7 +962,7 @@ TinyGhostItem: {
 }
 
 TinyMushroomItem: {
-	DisplayName: Tiny Mushroom Item
+	DisplayName: Tiny Mushroom
 	Tooltip: ""
 }
 
@@ -1060,12 +1075,7 @@ BoogerStaff: {
 
 EyeFlail: {
 	DisplayName: Chained Eyes
-	Tooltip:
-		'''
-		Shoots out two long range eye flails
-		The smaller eye flail travels further but deals less damage
-		The bigger eye flail travels less far but deals more damage
-		'''
+	Tooltip: Shoots out two long range eye flails
 }
 
 EyeRocketLauncher: {
@@ -1652,7 +1662,7 @@ MocoRelicItem: {
 }
 
 OrroboroRelicItem: {
-	DisplayName: Orro-Boro Relic
+	DisplayName: Orro & Boro Relic
 	Tooltip: ""
 }
 

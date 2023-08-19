@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			Item.defense = 10;
 			Item.width = 30;
 			Item.height = 26;
-			Item.rare = ItemRarityID.LightRed;
+			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 2);
 		}
 

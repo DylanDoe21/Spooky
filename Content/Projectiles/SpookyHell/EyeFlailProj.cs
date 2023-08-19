@@ -147,11 +147,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 12;
-			float launchSpeed = 22f; 
-			float maxLaunchLength = 820f;
+			int launchTimeLimit = 15;
+			float launchSpeed = 25f; 
+			float maxLaunchLength = 800f;
 			float retractAcceleration = 3f; 
-			float maxRetractSpeed = 20f; 
+			float maxRetractSpeed = 20f;
 			float forcedRetractAcceleration = 20f; 
 			float maxForcedRetractSpeed = 15f; 
 			float unusedRetractAcceleration = 1f;
@@ -183,7 +183,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     shouldOwnerHitCheck = true;
                     if (Projectile.owner == Main.myPlayer) 
                     {
-                        Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(Main.MouseWorld).SafeNormalize(Vector2.UnitX * player.direction);
+                        Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-50, 50), Main.MouseWorld.Y + Main.rand.Next(-50, 50))).SafeNormalize(Vector2.UnitX * player.direction);
                         player.ChangeDir((unitVectorTowardsMouse.X > 0f) ? 1 : (-1));
 
                         if (!player.channel) // If the player releases then change to moving forward mode
@@ -470,22 +470,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CollisionCounter += 1f;
 			}
 
-			/*
-			// If in the Launched state, spawn sparks
-			if (CurrentAIState == AIState.LaunchingForward) 
-            {
-				CurrentAIState = AIState.Ricochet;
-				Projectile.localNPCHitCooldown = defaultLocalNPCHitCooldown;
-				Projectile.netUpdate = true;
-				Point scanAreaStart = Projectile.TopLeft.ToTileCoordinates();
-				Point scanAreaEnd = Projectile.BottomRight.ToTileCoordinates();
-				impactIntensity = 2;
-				Projectile.CreateImpactExplosion(2, Projectile.Center, ref scanAreaStart, ref scanAreaEnd, Projectile.width, out bool causedShockwaves);
-				Projectile.CreateImpactExplosion2_FlailTileCollision(Projectile.Center, causedShockwaves, velocity);
-				Projectile.position -= velocity;
-			}
-			*/
-
 			// Here the tiles spawn dust indicating they've been hit
 			if (impactIntensity > 0) 
             {
@@ -504,10 +488,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
 			}
-
-			// tModLoader currently does not provide the wetVelocity parameter, this code should make the flail bounce back faster when colliding with tiles underwater.
-			//if (Projectile.wet)
-			//	wetVelocity = Projectile.velocity;
 
 			return false;
 		}
@@ -537,19 +517,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			// Regular collision logic happens otherwise.
 			return base.Colliding(projHitbox, targetHitbox);
 		}
-
-		/*
-		public override void ModifyDamageScaling(ref float damageScale)
-		{
-			// Flails do 20% more damage while spinning
-			if (CurrentAIState == AIState.Spinning)
-				damageScale *= 1.2f;
-
-			// Flails do 100% more damage while launched or retracting. This is the damage the item tooltip for flails aim to match, as this is the most common mode of attack. This is why the item has ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
-			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Retracting)
-				damageScale *= 2f;
-		}
-		*/
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
         {

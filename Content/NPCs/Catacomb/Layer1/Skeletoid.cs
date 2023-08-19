@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
@@ -15,6 +16,21 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 6;
+
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] 
+                {
+                    BuffID.Confused, 
+                    BuffID.Poisoned, 
+                    BuffID.Venom,
+                    BuffID.OnFire,
+                    BuffID.OnFire3,
+                    BuffID.Frostburn,
+                    BuffID.Frostburn2
+                }
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
         
         public override void SetDefaults()
