@@ -1680,11 +1680,6 @@ SpookySpiritRelicItem: {
 	Tooltip: ""
 }
 
-GiantShroomSeed: {
-	DisplayName: Giant Shroom Spore
-	Tooltip: Plants giant shroom saplings on spooky grass and mossy stone
-}
-
 HalloweenChestItem: {
 	DisplayName: Old Wood Chest
 	Tooltip: ""
@@ -1772,6 +1767,11 @@ OldWoodWorkBenchItem: {
 SpookyCrate: {
 	DisplayName: Spooky Wood Crate
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+MushroomMossSeeds: {
+	DisplayName: Mushroom Moss Seeds
+	Tooltip: Plants mushroom moss on Mossy Stone
 }
 
 SpookyDirtItem: {
@@ -1924,6 +1924,11 @@ SpookyMushItem: {
 	Tooltip: ""
 }
 
+SpookyMushGrassSeeds: {
+	DisplayName: Flesh Grass Seeds
+	Tooltip: Plants flesh grass on Spooky Mush
+}
+
 EyeSeed: {
 	DisplayName: Eye Stalk Seed
 	Tooltip: Plants eye stalk saplings
@@ -2006,30 +2011,30 @@ SpookyMushLakeWallItem: {
 
 BoogerFish: {
 	DisplayName: Schnoz Fish
-	Tooltip: ""
+	Tooltip: "'Caught in Valley of Eyes'"
 }
 
 OrroEel: {
 	DisplayName: Orro Eel
-	Tooltip: ""
+	Tooltip: "'Caught in Valley of Eyes'"
 }
 
 GourdFish: {
 	DisplayName: Moldy Gourd Fish
-	Tooltip: ""
+	Tooltip: "'Caught in Spooky Forest'"
 }
 
 HibiscusFish: {
 	DisplayName: Swimming Hibiscus
-	Tooltip: ""
+	Tooltip: "'Caught in Creepy Catacombs'"
 }
 
 SpookySpiritFish: {
 	DisplayName: Spirit Cod
-	Tooltip: ""
+	Tooltip: "'Caught in Swampy Cemetery'"
 }
 
 ZomboidFish: {
 	DisplayName: Zomboid Fish
-	Tooltip: ""
+	Tooltip: "'Caught in Spooky Forest'"
 }

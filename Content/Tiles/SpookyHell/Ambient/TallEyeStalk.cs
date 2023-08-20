@@ -39,6 +39,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 
 			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 		}
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        {
+            if (Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<SpookyMushGrassSeeds>());
+            }
+        }
     }
 
 	public class TallEyeStalk2 : TallEyeStalk1
