@@ -30,43 +30,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.WhipSettings.RangeMultiplier = 0.9f;
 		}
 
-		/*
-		public override void AI() 
-		{
-			Player owner = Main.player[Projectile.owner];
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-
-			float swingTime = owner.itemAnimationMax * Projectile.MaxUpdates;
-
-			if (Timer >= swingTime || owner.itemAnimation <= 0) 
-			{
-				Projectile.Kill();
-				return;
-			}
-
-			float swingProgress = Timer / swingTime;
-
-			if (Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true) * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true) > 0.5f && !Main.rand.NextBool(3))
-			{
-				List<Vector2> points = Projectile.WhipPointsForCollision;
-				points.Clear();
-				Projectile.FillWhipControlPoints(Projectile, points);
-				int pointIndex = Main.rand.Next(points.Count - 10, points.Count);
-				Rectangle spawnArea = Utils.CenteredRectangle(points[pointIndex], new Vector2(30f, 30f));
-
-				Dust dust = Dust.NewDustDirect(spawnArea.TopLeft(), spawnArea.Width, spawnArea.Height, 41, 0f, 0f, 100, Color.White);
-				dust.position = points[pointIndex];
-				dust.fadeIn = 0.3f;
-				Vector2 spinningpoint = points[pointIndex] - points[pointIndex - 1];
-				dust.noGravity = true;
-				dust.velocity *= 0.5f;
-
-				dust.velocity += spinningpoint.RotatedBy(owner.direction * ((float)Math.PI / 2f));
-				dust.velocity *= 0.5f;
-			}
-		}
-		*/
-
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			Player owner = Main.player[Projectile.owner];
@@ -93,9 +56,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			for (int i = 0; i < list.Count - 1; i++) 
             {
-				//14 is the width of the whole whip, 16 is the height for the tips hotbox
-				Rectangle frame = new(0, 0, 14, 18);
-				Vector2 origin = new(5, 8);
+				Rectangle frame = new Rectangle(0, 0, 14, 18);
+				Vector2 origin = new Vector2(7, 7);
 				float scale = 1;
 
 				//tip of the whip
@@ -118,8 +80,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				//the held part of the whip
 				else if (i > 0) 
 				{
-					frame.Y = 26;
-					frame.Height = 16;
+					frame.Y = 0;
+					frame.Height = 28;
 				}
 
 				Vector2 element = list[i];

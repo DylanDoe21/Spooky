@@ -59,24 +59,27 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 		}
 
-		public override bool PreDraw(ref Color lightColor) 
+		public override bool PreDraw(ref Color lightColor)
         {
-			List<Vector2> list = new();
-			Projectile.FillWhipControlPoints(Projectile, list);
+            List<Vector2> list = new();
+            Projectile.FillWhipControlPoints(Projectile, list);
 
-			Main.instance.LoadProjectile(Type);
-			Texture2D texture = TextureAssets.Projectile[Type].Value;
+            //DrawLine(list);
 
-			Vector2 pos = list[0];
+            SpriteEffects flip = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			for (int i = 0; i < list.Count - 1; i++) 
+            Main.instance.LoadProjectile(Type);
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
+
+            Vector2 pos = list[0];
+
+            for (int i = 0; i < list.Count - 1; i++)
             {
-				//14 is the width of the whole whip, 18 is the height for the tips hotbox
-				Rectangle frame = new(0, 0, 20, 20);
-				Vector2 origin = new(5, 8);
-				float scale = 1;
+                Rectangle frame = new Rectangle(0, 0, 20, 22);
+                Vector2 origin = new Vector2(10, 10);
+                float scale = 1;
 
-				//tip of the whip
+                //tip of the whip
 				if (i == list.Count - 2) 
 				{
 					frame.Y = 82;
@@ -100,18 +103,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					frame.Height = 24;
 				}
 
-				Vector2 element = list[i];
-				Vector2 diff = list[i + 1] - element;
+                Vector2 element = list[i];
+                Vector2 diff = list[i + 1] - element;
 
-				float rotation = diff.ToRotation() - MathHelper.PiOver2; //This projectile's sprite faces down, so PiOver2 is used to correct rotation.
-				Color color = Lighting.GetColor(element.ToTileCoordinates());
+                float rotation = diff.ToRotation() - MathHelper.PiOver2; // This projectile's sprite faces down, so PiOver2 is used to correct rotation.
+                Color color = Lighting.GetColor(element.ToTileCoordinates());
 
-				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, flip, 0);
 
-				pos += diff;
-			}
-
-			return false;
-		}
+                pos += diff;
+            }
+            return false;
+        }
 	}
 }

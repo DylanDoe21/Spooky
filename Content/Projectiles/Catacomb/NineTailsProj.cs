@@ -41,9 +41,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			for (int i = 0; i < list.Count - 1; i++) 
             {
-				//14 is the width of the whole whip, 18 is the height for the tips hotbox
-				Rectangle frame = new(0, 0, 14, 18);
-				Vector2 origin = new(5, 8);
+				Rectangle frame = new Rectangle(0, 0, 14, 18);
+				Vector2 origin = new Vector2(7, 7);
 				float scale = 1;
 
 				//tip of the whip

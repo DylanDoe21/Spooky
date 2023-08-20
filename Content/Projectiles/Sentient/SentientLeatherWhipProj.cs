@@ -119,9 +119,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
 			for (int i = 0; i < list.Count - 1; i++) 
 			{
-				//14 is the width of the whole whip, 18 is the height for the tips hotbox
-				Rectangle frame = new Rectangle(0, 0, 14, 18);
-				Vector2 origin = new Vector2(3, 5);
+				Rectangle frame = new Rectangle(0, 0, 14, 20);
+				Vector2 origin = new Vector2(7, 7);
 
 				//scale the whip down as it retracts, and scale it up as it is swung out
 				Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
@@ -158,7 +157,7 @@ namespace Spooky.Content.Projectiles.Sentient
 				float rotation = diff.ToRotation() - MathHelper.PiOver2; //This projectile's sprite faces down, so PiOver2 is used to correct rotation.
 				Color color = Lighting.GetColor(element.ToTileCoordinates());
 
-				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, new Vector2(origin.X, origin.Y - 5), scale, flip, 0);
+				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, flip, 0);
 
 				pos += diff;
 			}
