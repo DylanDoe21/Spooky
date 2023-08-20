@@ -144,6 +144,11 @@ namespace Spooky.Core
 			//re-add living fire blocks dropping with a custom condition that excludes the valley of eyes
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.LivingFireBlock, 50, 20, 50));
 
+			//eye valley enemies should not drop cascade yoyo
+			globalLoot.RemoveWhere(rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.Cascade);
+			//re-add the cascade dropping with a custom condition that excludes the valley of eyes
+            globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldCascadeDropCondition(), ItemID.Cascade, 400));
+
 			//eye valley enemies should not drop hel-fire yoyo
 			globalLoot.RemoveWhere(rule => rule is ItemDropWithConditionRule drop && drop.itemId == ItemID.HelFire);
 			//re-add the hel-fire dropping with a custom condition that excludes the valley of eyes

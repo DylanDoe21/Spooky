@@ -42,6 +42,32 @@ namespace Spooky.Core
             }
         }
 
+        public class UnderworldCascadeDropCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation) 
+                {
+                    if (info.player.ZoneUnderworldHeight && !info.player.InModBiome<SpookyHellBiome>() && NPC.downedBoss3 && !Main.hardMode)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         //drop from spooky spirit if it hasnt been defeated yet
         public class YellowCatacombKeyCondition : IItemDropRuleCondition
         {

@@ -267,7 +267,8 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
             
-            direction.Y += 70f;
+            direction.X += 50f;
+            direction.Y -= 70f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 9f)
             {
