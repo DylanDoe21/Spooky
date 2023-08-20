@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			
 			if (numHits < 5)
 			{
-				Projectile.damage = (int)(damageDone * 1.15f);
+				Projectile.damage = (int)(damageDone * 2f);
 			}
 		}
 

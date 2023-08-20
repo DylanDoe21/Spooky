@@ -1311,8 +1311,7 @@ NerveWhip: {
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
-		Deals more damage the more enemies it hits
-		Damage scaling caps after five enemies are hit
+		Deals more damage the more enemies it hits, caps after five enemies
 		'''
 }
 
