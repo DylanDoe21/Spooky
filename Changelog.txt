@@ -53,10 +53,10 @@ Egg Incursion Rework:
 
 The Lake of Blood and Alternate Blood Moon Fishing:
 
--A lake of blood has been added to the valley of eyes, which gives you an alternate way of fishing up blood moon enemies... with a twist of course
--Each of the blood lake fishing enemies are stronger and more difficult versions of vanilla's blood moon fishing enemies, with higher stats and completely new AI
+-A lake of blood has been added to the valley of eyes, which gives you an alternate way of fishing up blood moon enemies, but with a twist of course
+-Each of the blood lake fishing enemies are stronger and more difficult versions of vanilla's blood moon fishing enemies, with somewhat higher stats and completely new AI
 -In return for the difficulty, each enemy has much higher drop rates for the blood moon fishing items, allowing you to farm them more quickly and easily
--However, you cannot fish in the lake of blood with just any fishing rod, you will need to make the goblin shark rod, which is a sentient version of the chum caster
+-However, you cannot fish in the lake of blood with just any fishing rod, you will need to make the goblin shark rod, which requires a sentient heart and the chum caster fishing pole
 
 Each enemy variant is as follows:
 -Wandering Eye Fish -> Peeper fish (Prehardmode)
@@ -64,36 +64,22 @@ Each enemy variant is as follows:
 -Blood Squid -> Clot Squid (Has 2 variants, one that can be fished up in prehardmode, and one summoned by the claret cephalopod)
 -Hemogoblin Shark -> Hemostasis Beast (Hardmode)
 -Blood Eel -> Aortic Eel (Hardmode)
--Dreadnautilus -> Claret Cephalopod (Hardmode, post orro & boro)
-
-
-Slingshot Sub-class:
-
--Slingshot weapons are now a ranger subclass in spooky mod (Sorta?)
--They use mossy pebbles as ammo, which are crafted from mossy stone in the spooky forest, or can be purchased from the merchant
--Like some vanilla ranged weapons, some slingshots can convert mossy pebbles into their own unique projectile
--The slingshots will likely be expanded more in the future, but for right now there isn't many of them, with only 3 existing in prehardmode
+-Dreadnautilus -> Claret Cephalopod (post orro & boro)
 
 
 Config Improvements:
 
 -Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more, and I personally think it looks nicer)
--The screen shaking effect config is no longer an option that you turn off, it is now a slider that allows you to edit the intensity of it to your liking (More info is provided in game)
+-The screen shaking effect config is no longer an on and off option, it is now a slider that allows you to edit the intensity of it to your liking (More info is provided in game)
 
 
 Other New Additions:
 
--Added bungus, chunky fungus, and mushroom hopper
--Added pumpkin putty, hopping candy basket (list all other spooky forest enemies here as they are finished)
--Added old wood greatsword, reinforced old wood bow, old wood slingshot, old wood staff, fungal flail, and spore smacker
--Added Rotty's wrath, Jerry's Book of Stinkology, Stinky Slinger, and Branch of Gourd
--Added the gilded mage armor set
--Added the bustling glowshroom
--Added the femur fracturer, idol of flame, rusty ring, and skull amulet
+-Added tons of new enemies, critters, items, weapons, armors, but you'll have to play the mod to find all these :)
 -Added a mask and trophy for spooky spirit
--Added new sprites for the eye chest weapons and eye chest weapon upgrades
--Added a bunch of new pets and light pets
--Added a bunch of new spooky mod themed angler quest fishes
+-Added new sprites for the eye chest weapons and their upgrades
+-Added a various new pets and light pets
+-Added a bunch of new spooky mod angler quest fishes
 -Added the unlucky horseshoe, baby rattle, and (whatever the flesh entity summon item will be)
 -Added support for the 1.4.4 version of boss checklist
 -Added support for Gabehaswon's music display mod
@@ -111,9 +97,9 @@ Items & Weapons:
 -All spooky mod boss masks now drop from their respective bosses treasure bag in expert mode to be consistent with vanilla
 -Buffed the use speed for the toilet paper and necromancy for dummies
 -Buffed the creepy candle's magic damage bonus from 5% to 7%
--Increased the drop rate for the warlock's skull, warlock's cloak, and warlock's hood from zomboid warlocks
--Renamed the rotten chunk to moldy chunk because rotten chunks are already an item in terraria, and fixed them stacking to 999 and not 9999
--Rotten gourd armor now requires old wood to craft along with the moldy chunks, and buffed the amount of defense each piece of the armor gives you
+-Increased the drop rate for all of the zomboid warlock's drops
+-Renamed the rotten chunk to moldy chunk because rotten chunks are already an item in terraria
+-Rotten gourd armor now requires old wood to craft along with moldy chunks, and buffed the amount of defense each piece of the armor gives you
 -Increased harvester's scythe knockback quite a bit
 -The harvester's scythe now spawns souls when you hit enemies instead of needing to kill them, and you now need 10 souls in order for them to attack enemies
 -Changed the sound effect for the skull smasher when it is ready to throw
@@ -121,9 +107,9 @@ Items & Weapons:
 -Renamed the acid blaster to venom gasser, nerfed its base damage from 50 to 30, now inflicts venom, pierces enemies, can no longer go through blocks, and has a cool new visual effect
 -Nerfed the gargoyle scepter's base damage from 65 to 42, but the cursed fire balls shot by grug now inflict cursed inferno onto enemies
 -The ichor clouds shot by the tongueblade now inflict ichor for a short time, have a cooler visual effect, can no longer go through blocks, and play a less annoying sound when shot
--Gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
+-The gator gun now has a new ability where it will sometimes vomit out bouncing meat giblets that can slightly home on enemies and explode on enemy hits
 -Buffed the uncanine's damage, it now has a less annoying sound when used, its teeth now have a new after image visual effect, and the teeth can no longer pierce enemies
--Buffed damage for the conscious cutter, licker, sentient shootius, and necronomicon
+-Buffed the base damage for the conscious cutter, licker, sentient shootius, and necronomicon
 -Conscious cutter and Tongueblade now have new swing extensions like some swords in 1.4.4
 -Old hunter's crossbow arrows now have a new visual trail
 -Simplified the tooltip description for the undying embryo
@@ -137,30 +123,32 @@ Items & Weapons:
 -Chained eyes will no longer shoot one farther than the other, it now just shoots out two eye flails normally that both deal the same damage
 -Scycler now has a small after image effect on it's projectile
 -Living eye lasher no longer shoots two whips at once, but it now swings much faster and alternates between the two whips
+-Eye lasher and living eye lasher now have a longer cooldown period before they can reduce an enemies defense again
+-Reduced the screen shaking intensity when the living flesh mincer strikes the ground, removed its bleed ability, and it has a new ability where it flings up eyes when striking the ground
 
 
 Shimmer Transmutations:
 
--Spooky spirit's weapon drops can now be shimmered into its other drops, as follows: Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
--Spirit horseman's armor pieces can now be shimmered into the other pieces, as follows: Head -> Chestmail -> Greaves -> back to Head
--Moco's weapon drops can now be shimmered into its other drops, as follows: Snot Ball -> Booger Blaster -> Snot-Nosed Tome -> Sneeze Scepter -> goes back to Snot Ball
--Big bone's weapon drops can now be shimmered into his other drops, as follows: Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
+(The -> is meant to show one item turning into another)
+
+-Spooky Buster -> Ghostly Slingshot -> Rod of Hands -> Spooky Scroll -> goes back to Spooky Buster
+-Spirit Horseman's Pumpkin -> Spirit Horseman's Chestmail -> Spirit Horseman's Greaves -> back to Spirit Horseman's Pumpkin
+-Snot Ball -> Booger Blaster -> Snot-Nosed Tome -> Sneeze Scepter -> goes back to Snot Ball
+-Skull Smasher -> Flower Shot -> Flame Orb Staff -> Skull Totem Scepter -> goes back to Skull Smasher
 
 
 Enemy & Boss Changes:
 
 -Added pitch variance to many of the custom enemy and boss sounds in the mod
 -Lowered the orange spooky ghost critter spawnrate
--Lowered the spawn rate of the gloopers in the cemetery
 -Nerfed giant tortumor contact damage from 65 to 40
--Added new sprites for big bone's thorn attacks to make them look better
+-Added new sprites for big bone's thorn attack projectiles
 -Added new color effect for big bone's phase transition forcefield, it will now fade between yellow and orange
 -Defeating big bone will now automatically unlock the catacomb guardian's bestiary entry
 -Made orro & boro's thorn pillars taller
--Moco and orro-boro will now drop one sentient heart for each active player in the world on the first defeat instead of only one
+-Moco and orro-boro will now drop one sentient heart for each active player in the world on the first defeat, instead of only one
 -Added a new spawn intro for rot gourd when he is summoned, where he will fall from the sky and slam down where you summoned him from
 -Added new sound effects for the cowbell entity
--Valley of eyes enemies will no longer drop living fire blocks or the hel-fire yoyo in hardmode
 -Small fuzz bats will no longer spawn in the underground spooky forest, and increased the spawnrate of giant fuzz bats in the underground spooky forest
 -Various enemies in the mod have been given debuff immunities (There are far too many to list here)
 
@@ -173,7 +161,7 @@ Miscellaneous:
 -Added better player following AI for the fuzz bat pet
 -Eye valley grass can now grow ambient eye stalks and tentacles naturally
 -The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests instead of the catacombs
--Added a new waving leaf effect on the spooky forest and swampy cemetery grass walls
+-Added a new waving leaf visual effect on the spooky forest and swampy cemetery grass walls
 
 
 Removals:
@@ -190,17 +178,21 @@ Removals:
 Fixed all of the following bugs and issues:
 
 -Spooky scroll causing the player to spaz out if your cursor was in the middle of your player
--Tortumor and giant tortumor orb projectiles not dealing any damage to players
+-Tortumor and giant tortumor projectiles not dealing any damage to players
 -spooky mod's custom trees drawing horribly offset with retro or trippy lighting modes
 -The eye valley biome chest dropping a monster chest when broken, and not its own item
 -Catacomb enemies being able to spawn outside of the catacombs itself
 -Enemies being able to spawn in the spooky forest and swampy cemetery biomes if you are in a town
 -Vanilla enemies sometimes spawning in any of spooky mod's biomes
 -Rotten gourd armor set bonus not working
--Spooky mod whips being unable to get certain weapon reforgements that vanilla whips can have (such as legendary)
+-Spooky mod whips being unable to get certain melee weapon reforgments
+-Spooky mod whips being strangely offset from the player's hand when used
 -Gargoyle scepter could still be used with left click if grug is active
 -Spooky mod's underground backgrounds breaking (this was due to a tmodloader bug that got fixed in the 1.4.4 stable release)
 -Seer and living seer consuming an arrow when used but not shooting a projectile on the first use
+-Harvester's scythe, flesh mincer, and living flesh mincer knocking enemies toward you instead of away from you
+-Valley of eyes enemies dropping living fire blocks and the hel-fire yoyo in hardmode
+-Moldy chunks stacking to 999 and not 9999
 
 
 Fixed all of the following multiplayer issues:

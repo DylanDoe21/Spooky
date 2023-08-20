@@ -37,12 +37,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				{
 					SoundEngine.PlaySound(SoundID.Item131, target.Center);
 
-					for (int numDust = 0; numDust < 25; numDust++)
+					for (int numDusts = 0; numDusts < 25; numDusts++)
 					{
-						int dust = Dust.NewDust(new Vector2(target.Center.X, target.Center.Y), 
-						target.width / 2, target.height / 2, DustID.Blood, 0f, 0f, 100, default, 2f);
-
-						Main.dust[dust].scale *= Main.rand.NextFloat(1f, 2f);
+						int dust = Dust.NewDust(target.position, target.width, target.height, DustID.Blood, 0f, 0f, 100, default, 2f * Main.rand.NextFloat(1f, 2f));
 						Main.dust[dust].velocity *= 5f;
 						Main.dust[dust].noGravity = true;
 							
@@ -54,7 +51,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					}
 
 					target.AddBuff(ModContent.BuffType<FleshWhipDefense2>(), 240);
-					target.AddBuff(ModContent.BuffType<FleshWhipCooldown>(), 900);
+					target.AddBuff(ModContent.BuffType<FleshWhipCooldown>(), 1200);
 				}
 			}
 		}

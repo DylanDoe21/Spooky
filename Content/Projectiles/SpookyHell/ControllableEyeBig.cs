@@ -93,7 +93,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile other = Main.projectile[k];
                 if (k != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
                 {
-                    const float pushAway = 0.35f;
+                    const float pushAway = 0.45f;
                     if (Projectile.position.X < other.position.X)
                     {
                         Projectile.velocity.X -= pushAway;
@@ -120,12 +120,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
 
-                for (int numDust = 0; numDust < 15; numDust++)
+                for (int numDusts = 0; numDusts < 15; numDusts++)
                 {                                                                                  
-                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch, 0f, -2f, 0, default, 1.5f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch, 0f, -2f, 0, default, Main.rand.NextFloat(1f, 2f));
                     Main.dust[dust].velocity.X *= Main.rand.NextFloat(-18f, 18f);
                     Main.dust[dust].velocity.Y *= Main.rand.NextFloat(-18f, 18f);
-                    Main.dust[dust].scale = Main.rand.NextFloat(1f, 2f);
                     Main.dust[dust].noGravity = true;
                 }
 
@@ -134,9 +133,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
             else
             {
-                for (int numDust = 0; numDust < 10; numDust++)
+                for (int numDusts = 0; numDusts < 10; numDusts++)
                 {
-                    int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
                     Main.dust[dust].velocity *= 1.5f;
                     Main.dust[dust].noGravity = true;
 

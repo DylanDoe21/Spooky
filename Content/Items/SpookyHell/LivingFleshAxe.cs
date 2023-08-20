@@ -17,10 +17,9 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override int Length => 90;
 		public override int TopSize => 35;
-		public override float SwingDownSpeed => 15f;
+		public override float SwingDownSpeed => 12f;
 		public override bool CollideWithTiles => true;
-        static bool hasHitSomething = false;
-        static bool hasHitEnemies = false;
+        static bool hasHitGround = false;
 
         public override void SetDefaults()
         {
@@ -42,40 +41,37 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void UseAnimation(Player player)
         {
-            hasHitSomething = false;
-            hasHitEnemies = false;
+            hasHitGround = false;
         }
 
         public override void OnHitTiles(Player player)
         {
-            if (!hasHitSomething)
+            if (!hasHitGround)
             {
-                hasHitSomething = true;
+                hasHitGround = true;
 
-                SpookyPlayer.ScreenShakeAmount = 8;
+                SpookyPlayer.ScreenShakeAmount = 5;
 
+                //play both sounds on top of each other because its cool
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath21, player.Center);
+
+                for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + (player.direction == 1 ? 120 + (Item.scale * 2) : -120 + (-Item.scale * 2)), 
+                        player.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-15, -10), ModContent.ProjectileType<LivingFleshAxeEye>(), Item.damage, 2f, Main.myPlayer);
+                    }
+                }
             }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!hasHitEnemies)
-            {
-                hasHitEnemies = true;
-
-                Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center.X, target.Center.Y, 0, 0,
-                ModContent.ProjectileType<FleshAxeHitLiving>(), Item.damage, 0, Main.myPlayer);
-            }
-
             if (target.life <= target.lifeMax * 0.5)
             {
                 target.takenDamageMultiplier = 1.65f;
-            }
-
-            if (hit.Crit)
-            {
-                target.AddBuff(ModContent.BuffType<LivingAxeBleed>(), 180);
             }
         }
 

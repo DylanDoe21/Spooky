@@ -214,7 +214,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
 					pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
 					pool.Add(ModContent.NPCType<Skeletoid4>(), 5);
-					pool.Add(ModContent.NPCType<SkeletoidBig>(), 2);
+					pool.Add(ModContent.NPCType<SkeletoidBig>(), 3);
 					pool.Add(ModContent.NPCType<RollingSkull1>(), 5);
 					pool.Add(ModContent.NPCType<RollingSkull2>(), 5);
 					pool.Add(ModContent.NPCType<RollingSkull3>(), 5);

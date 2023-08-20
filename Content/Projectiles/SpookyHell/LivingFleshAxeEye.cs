@@ -1,13 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class ControllableEye : ModProjectile
+    public class LivingFleshAxeEye : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -18,8 +19,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void SetDefaults()
         {
             Projectile.width = 14;
-			Projectile.height = 16;
-            Projectile.DamageType = DamageClass.Magic;
+			Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
@@ -37,17 +38,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Red) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color color = Projectile.GetAlpha(Color.Lerp(Color.Red, Color.Blue, oldPos / (float)Projectile.oldPos.Length)) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            return Projectile.ai[0] > 0;
         }
 
         public override void AI()
@@ -56,53 +52,21 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-            if (player.channel && Projectile.ai[0] == 0) 
-            {
-                Projectile.timeLeft = 200;
-
-                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 25;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+            if (Projectile.velocity.Y < 0)
+            {   
+                Projectile.tileCollide = false;
             }
             else
             {
-                Projectile.ai[0]++;
-
-                if (Projectile.ai[0] == 1)
-                {
-                    Projectile.damage *= 2;
-                }
-
-                if (Projectile.ai[0] >= 25)
-                {
-                    Projectile.velocity.X = Projectile.velocity.X * 0.97f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
-                }
+                Projectile.tileCollide = true;
             }
 
-            //prevent Projectiles clumping together
-            for (int k = 0; k < Main.projectile.Length; k++)
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] > 30)
             {
-                Projectile other = Main.projectile[k];
-                if (k != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-                {
-                    const float pushAway = 0.45f;
-                    if (Projectile.position.X < other.position.X)
-                    {
-                        Projectile.velocity.X -= pushAway;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X += pushAway;
-                    }
-                    if (Projectile.position.Y < other.position.Y)
-                    {
-                        Projectile.velocity.Y -= pushAway;
-                    }
-                    else
-                    {
-                        Projectile.velocity.Y += pushAway;
-                    }
-                }
+                Projectile.velocity.X = Projectile.velocity.X * 0.97f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
             }
         }
 

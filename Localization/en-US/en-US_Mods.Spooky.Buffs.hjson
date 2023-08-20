@@ -149,11 +149,6 @@ Possessed: {
 	Description: You are being controlled by an evil ghost!
 }
 
-LivingAxeBleed: {
-	DisplayName: Bleeding
-	Description: Mods.Spooky.BuffDescription.LivingAxeBleed
-}
-
 SadDebuff: {
 	DisplayName: Sad
 	Description: 10% decreased damage, and you move slower

@@ -116,9 +116,7 @@ EyeArmorMinion.DisplayName: Eye Minion
 EyeFlailProj.DisplayName: Chained Eye
 EyeFlailProj2.DisplayName: Chained Eye
 EyeRocket.DisplayName: Eye Rocket
-EyeRocketLauncherProj.DisplayName: I.C.U
-FleshAxeHit.DisplayName: Flesh Mincer
-FleshAxeHitLiving.DisplayName: Living Flesh Mincer
+EyeRocketLauncherProj.DisplayName: I.C.U=
 FleshWhipProj.DisplayName: Eye Lasher
 Leech.DisplayName: Leech
 LeechWhipProj.DisplayName: Leecher
@@ -226,8 +224,10 @@ DaffodilRodFlower.DisplayName: Sunflower Bolt
 MistGhostSpawn.DisplayName: Mist Ghost Spawner
 NoseMinionBooger.DisplayName: Booger
 SmellyCloud.DisplayName: Rancid Spore
-OldHunterMelee.DisplayName: Old Hunter Melee
+OldHunterMelee.DisplayName: Warrior Spirit
+OldHunterRanged.DisplayName: Shotgunner Spirit
 LivingFleshWhipProjBlue.DisplayName: Living Eye Lasher
 LivingFleshWhipProjRed.DisplayName: Living Eye Lasher
 FleshBowChunk1.DisplayName: Bloot Clot
 FleshBowChunk2.DisplayName: Blood Clot
+LivingFleshAxeEye.DisplayName: Eye

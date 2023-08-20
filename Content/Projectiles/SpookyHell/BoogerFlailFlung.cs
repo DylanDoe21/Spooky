@@ -49,12 +49,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
+                    Projectile.velocity.X = -oldVelocity.X * 0.65f;
                 }
                 if (Projectile.velocity.Y != oldVelocity.Y)
                 {
                     Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.65f;
                 }
 			}
 
@@ -65,12 +65,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
 
-            for (int numDust = 0; numDust < 35; numDust++)
+            for (int numDusts = 0; numDusts < 35; numDusts++)
 			{                                                                                  
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
                 Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
                 Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+                Main.dust[dust].noGravity = true;
             }
 		}
     }

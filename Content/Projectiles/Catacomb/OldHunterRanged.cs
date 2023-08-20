@@ -10,24 +10,24 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
-    public class OldHunterMelee : ModProjectile
+    public class OldHunterRanged : ModProjectile
     {
         int saveDirection = 0;
 
-        bool Charging = false;
+        bool Shooting = false;
         bool isAttacking = false;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 11;
+            Main.projFrames[Projectile.type] = 7;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
         
         public override void SetDefaults()
         {
-			Projectile.width = 62;
-            Projectile.height = 66;
+			Projectile.width = 68;
+            Projectile.height = 50;
             Projectile.DamageType = DamageClass.Summon;
 			Projectile.minion = true;
             Projectile.friendly = true;
@@ -41,12 +41,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool? CanDamage()
         {
-            return Charging;
+            return false;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Charging)
+            if (Shooting)
             {
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
@@ -136,25 +136,25 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //flying animation with sword held up
-            if (!Charging)
+            if (!Shooting)
             {
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
-                    if (Projectile.frame >= 8)
+                    if (Projectile.frame >= 4)
                     {
-                        Projectile.frame = 5;
+                        Projectile.frame = 0;
                     }
                 }
             }
-            //slashing animation
+            //shooting animation
             else
             {
-                if (Projectile.frame < 7)
+                if (Projectile.frame < 5)
                 {
-                    Projectile.frame = 7;
+                    Projectile.frame = 4;
                 }
 
                 Projectile.frameCounter++;
@@ -162,20 +162,22 @@ namespace Spooky.Content.Projectiles.Catacomb
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
-                    if (Projectile.frame >= 11)
+                    if (Projectile.frame >= 7)
                     {
-                        Projectile.frame = 10;
+                        Projectile.frame = 0;
+                        Shooting = false;
                     }
                 }
             }
 
             Projectile.ai[1]++;
 
-            //go to the side of the target to prepare for dashing
+            //go to the upper side of the target to prepare for shooting
             if (Projectile.ai[1] < 60)
             {
                 Vector2 GoTo = target.Center;
-                GoTo.X += (Projectile.Center.X < target.Center.X) ? -150 : 150;
+                GoTo.X += (Projectile.Center.X < target.Center.X) ? 150 : -150;
+                GoTo.Y -= 50;
 
                 float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 6, 20);
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
@@ -184,27 +186,11 @@ namespace Spooky.Content.Projectiles.Catacomb
             //dash at the target
             if (Projectile.ai[1] == 60)
             {
-                Charging = true;
+                Shooting = true;
+
+                Projectile.velocity *= 0;
 
                 saveDirection = Projectile.spriteDirection;
-
-                //set frame to charging immediately 
-                Projectile.frame = 5;
-                
-                Vector2 ChargeDirection = target.Center - Projectile.Center;
-                ChargeDirection.Normalize();
-                        
-                ChargeDirection.X *= 20;
-                ChargeDirection.Y *= 5;
-                Projectile.velocity.X = ChargeDirection.X;
-                Projectile.velocity.Y = ChargeDirection.Y;
-            }
-
-            //slow down at the end of the charge
-            if (Projectile.ai[1] >= 80)
-            {
-                Charging = false;
-                Projectile.velocity *= 0.7f;
             }
 
             //loop ai
@@ -240,7 +226,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             ///reset attacking ai stuff
-            Charging = false;
+            Shooting = false;
             Projectile.ai[1] = 0;
 
             //movement stuff
@@ -267,7 +253,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
             
-            direction.Y += 70f;
+            direction.Y -= 70f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 9f)
             {
