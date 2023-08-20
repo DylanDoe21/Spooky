@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 if (Projectile.localAI[0] >= 30)
                 {
-                    player.statMana -= 5;
+                    player.statMana -= 12;
 
                     SoundEngine.PlaySound(SoundID.DD2_EtherianPortalSpawnEnemy with { Volume = SoundID.DD2_EtherianPortalSpawnEnemy.Volume * 2.5f }, Projectile.Center);
 

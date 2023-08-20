@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
-            if (player.channel)
+            if (player.channel && player.statMana > 0)
             {
                 Projectile.timeLeft = 2;
 
@@ -68,6 +68,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 if (Projectile.ai[0] % 20 == 2)
                 {
+                    player.statMana -= 5;
+
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 

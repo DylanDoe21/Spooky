@@ -125,6 +125,7 @@ Items & Weapons:
 -Living eye lasher no longer shoots two whips at once, but it now swings much faster and alternates between the two whips
 -Eye lasher and living eye lasher now have a longer cooldown period before they can reduce an enemies defense again
 -Reduced the screen shaking intensity when the living flesh mincer strikes the ground, removed its bleed ability, and it has a new ability where it flings up eyes when striking the ground
+-Spooky scroll now uses 12 mana instead of 5
 
 
 Shimmer Transmutations:

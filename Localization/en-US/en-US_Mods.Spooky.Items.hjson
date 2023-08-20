@@ -321,7 +321,7 @@ SkullAmulet: {
 	DisplayName: Skull Necklace
 	Tooltip:
 		'''
-		While worn, you will absorb the souls of enemies you kill 
+		Allows you to absorb the souls of enemies you kill 
 		After twenty souls are absorbed, you will enter a frenzy for ten seconds
 		During this frenzy you gain increases to various stats
 		'''

@@ -41,7 +41,7 @@ namespace Spooky.Core
                 return null;
             }
         }
-
+    
         public class UnderworldCascadeDropCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)

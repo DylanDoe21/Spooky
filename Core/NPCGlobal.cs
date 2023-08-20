@@ -75,16 +75,13 @@ namespace Spooky.Core
 				}
 			}
 
-            if (npc.life <= 0)
-            {
-                if (Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().SkullAmulet && !Main.player[projectile.owner].HasBuff(ModContent.BuffType<SkullFrenzyBuff>()))
-                {
-                    if (!npc.friendly && !hit.InstantKill)
-                    {
-                        Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.player[projectile.owner].whoAmI);
-                    }
-                }
-            }
+			if (Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().SkullAmulet && !Main.player[projectile.owner].HasBuff(ModContent.BuffType<SkullFrenzyBuff>()))
+			{
+				if (!npc.friendly && npc.life <= 0)
+				{
+					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.player[projectile.owner].whoAmI);
+				}
+			}
         }
 
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
