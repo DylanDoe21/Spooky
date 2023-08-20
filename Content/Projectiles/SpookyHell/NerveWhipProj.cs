@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			for (int i = 0; i < list.Count - 1; i++) 
             {
 				Rectangle frame = new Rectangle(0, 0, 14, 18);
-				Vector2 origin = new Vector2(5, 8);
+				Vector2 origin = new Vector2(7, 7);
 				float scale = 1;
 
 				//tip of the whip
