@@ -102,7 +102,6 @@ ZombiePart2.DisplayName: Zombie Piece
 ZombiePart3.DisplayName: Zombie Piece
 BlasterBoogerBig.DisplayName: Snot Ball
 BlasterBoogerSmall.DisplayName: Snot Ball
-BloodyTear.DisplayName: Bloody Tear
 BoogerBlasterProj.DisplayName: Booger Blaster
 BoogerFlailFlung.DisplayName: Snot Ball
 BoogerFlailProj.DisplayName: Snot Ball
@@ -116,7 +115,7 @@ EyeArmorMinion.DisplayName: Eye Minion
 EyeFlailProj.DisplayName: Chained Eye
 EyeFlailProj2.DisplayName: Chained Eye
 EyeRocket.DisplayName: Eye Rocket
-EyeRocketLauncherProj.DisplayName: I.C.U=
+EyeRocketLauncherProj.DisplayName: I.C.U
 FleshWhipProj.DisplayName: Eye Lasher
 Leech.DisplayName: Leech
 LeechWhipProj.DisplayName: Leecher
