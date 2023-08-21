@@ -168,6 +168,11 @@ namespace Spooky.Core
                 return false;
             }
 
+            if (target.townNPC)
+            {
+                return false;
+            }
+
             return true;
         }
 

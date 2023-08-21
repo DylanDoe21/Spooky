@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
-			if (player.channel && player.statMana > 0)
+			if (player.channel && player.statMana > 12)
             {
                 Projectile.timeLeft = 2;
 

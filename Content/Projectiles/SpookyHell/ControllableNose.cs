@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
-            if (player.channel && player.statMana > 0)
+            if (player.channel && player.statMana > 5)
             {
                 Projectile.timeLeft = 2;
 

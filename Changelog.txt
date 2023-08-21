@@ -193,6 +193,7 @@ Fixed all of the following bugs and issues:
 -Seer and living seer consuming an arrow when used but not shooting a projectile on the first use
 -Harvester's scythe, flesh mincer, and living flesh mincer knocking enemies toward you instead of away from you
 -Valley of eyes enemies dropping living fire blocks and the hel-fire yoyo in hardmode
+-Spooky mod's heavy melee weapons being able to hurt town npcs
 -Moldy chunks stacking to 999 and not 9999
 
 
