@@ -107,7 +107,7 @@ namespace Spooky.Content.Items.Catacomb
                     case 3:
                     {
                         SummonDisplay = "Mage";
-                        Item.shoot = ModContent.ProjectileType<Blank>();
+                        Item.shoot = ModContent.ProjectileType<OldHunterMage>();
                         break;
                     }
                     case 4:

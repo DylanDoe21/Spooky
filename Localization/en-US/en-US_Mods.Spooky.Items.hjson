@@ -1652,6 +1652,11 @@ MocoBox: {
 	Tooltip: "'And Yet The Snot-Nosed Bug Remains' by Bananalizard"
 }
 
+PandoraEventBox: {
+	DisplayName: "Music Box (Pandora's Box)"
+	Tooltip: "'Pandora's Box' by Ennway"
+}
+
 RotGourdBox: {
 	DisplayName: Music Box (Rot Gourd)
 	Tooltip: "'Funky Pumpkin' by Bananalizard"

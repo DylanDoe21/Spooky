@@ -17,7 +17,8 @@ namespace Spooky.Content.Buffs.Minion
 		{
 			//TODO: add the other old hunter minions here as they are added
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<OldHunterMelee>()] > 0 ||
-			player.ownedProjectileCounts[ModContent.ProjectileType<OldHunterRanged>()] > 0) 
+			player.ownedProjectileCounts[ModContent.ProjectileType<OldHunterRanged>()] > 0 ||
+			player.ownedProjectileCounts[ModContent.ProjectileType<OldHunterMage>()] > 0) 
 			{
 				player.GetModPlayer<SpookyPlayer>().OldHunter = true;
 			}

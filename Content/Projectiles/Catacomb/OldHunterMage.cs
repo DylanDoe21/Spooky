@@ -10,24 +10,24 @@ using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
-    public class OldHunterRanged : ModProjectile
+    public class OldHunterMage : ModProjectile
     {
         int saveDirection = 0;
 
-        bool Shooting = false;
+        bool Casting = false;
         bool isAttacking = false;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 7;
+            Main.projFrames[Projectile.type] = 11;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
         
         public override void SetDefaults()
         {
-			Projectile.width = 64;
-            Projectile.height = 50;
+			Projectile.width = 42;
+            Projectile.height = 58;
             Projectile.DamageType = DamageClass.Summon;
 			Projectile.minion = true;
             Projectile.friendly = true;
@@ -47,7 +47,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Shooting)
+            if (Casting)
             {
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
@@ -152,7 +152,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             isAttacking = true;
 
-            if (Projectile.ai[1] < 60)
+            if (Projectile.ai[1] < 180)
             {
                 Projectile.spriteDirection = target.Center.X > Projectile.Center.X ? -1 : 1;
             }
@@ -162,9 +162,10 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //flying animation with sword held up
-            if (!Shooting)
+            if (!Casting)
             {
                 Projectile.frameCounter++;
+
                 if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frameCounter = 0;
@@ -175,7 +176,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     }
                 }
             }
-            //shooting animation
+            //Casting animation
             else
             {
                 if (Projectile.frame < 5)
@@ -188,63 +189,58 @@ namespace Spooky.Content.Projectiles.Catacomb
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
-                    if (Projectile.frame >= 7)
+                    if (Projectile.frame >= 11)
                     {
-                        Projectile.frame = 0;
-                        Shooting = false;
+                        Projectile.frame = 4;
+                        Casting = false;
                     }
                 }
             }
 
             Projectile.ai[1]++;
 
-            //go to the upper side of the target to prepare for shooting
-            if (Projectile.ai[1] < 60)
+            //go to the upper side of the target to prepare for casting
+            if (Projectile.ai[1] < 75)
             {
                 Vector2 GoTo = target.Center;
-                GoTo.X += (Projectile.Center.X < target.Center.X) ? -200 : 200;
-                GoTo.Y -= 50;
+                GoTo.X += (Projectile.Center.X < target.Center.X) ? -150 : 150;
+                GoTo.Y -= 75;
 
                 float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 6, 20);
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
             }
 
-            //dash at the target
-            if (Projectile.ai[1] == 60)
+            if (Projectile.ai[1] >= 75)
             {
-                Shooting = true;
+                Projectile.velocity *= 0.95f;
+            }
+
+            //start animation
+            if (Projectile.ai[1] == 120)
+            {
+                Casting = true;
 
                 Projectile.velocity *= 0;
 
                 saveDirection = Projectile.spriteDirection;
+            }
 
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+            //cast at the target
+            if (Projectile.ai[1] == 135)
+            {
+                for (int numProjectiles = 0; numProjectiles < 4; numProjectiles++)
                 {
-                    SoundEngine.PlaySound(SoundID.Item36, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
 
-                    Vector2 Recoil = target.Center - Projectile.Center;
-                    Recoil.Normalize(); 
-                    Recoil *= -8;
-                    Projectile.velocity = Recoil;
-
-                    Vector2 ShootSpeed = target.Center - Projectile.Center;
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 18f;
-
-                    int offset = saveDirection == 1 ? -55 : 55;
+                    int offset = saveDirection == 1 ? -20 : 20;
                             
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 15, ShootSpeed.X + Main.rand.Next(-3, 4), 
-                    ShootSpeed.Y + Main.rand.Next(-3, 5), ModContent.ProjectileType<OldHunterRangedBullet>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 20, Main.rand.Next(-3, 4), 
+                    Main.rand.Next(-6, -4), ModContent.ProjectileType<OldHunterMagicBolt>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, 0f);
                 }
             }
 
-            if (Projectile.ai[1] > 60)
-            {
-                Projectile.velocity *= 0.9f;
-            }
-
             //loop ai
-            if (Projectile.ai[1] >= 85)
+            if (Projectile.ai[1] >= 240)
             {
                 Projectile.ai[1] = 0;
             }
@@ -276,7 +272,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             ///reset attacking ai stuff
-            Shooting = false;
+            Casting = false;
             Projectile.ai[1] = 0;
 
             //movement stuff
@@ -303,8 +299,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
             
-            direction.X -= 50f;
-            direction.Y -= 20f;
+            direction.Y -= 75f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 9f)
             {

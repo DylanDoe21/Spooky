@@ -229,7 +229,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     break;
                 }
 
-                //fly after the player for a bit
+                //fly toward the player for a bit
                 case 1:
                 {
                     NPC.localAI[0]++;
@@ -324,12 +324,13 @@ namespace Spooky.Content.NPCs.SpookyHell
                     break;
                 }
 
+                //fly toward the player again
                 case 3:
                 {
                     goto case 1;
                 }
 
-                //go to the side of the player, charge towards them, then attempt to circle them, then charge again
+                //go to the top of the player offscreen, circle the player, then charge after a few seconds
                 case 4:
                 {
                     NPC.localAI[0]++;
@@ -344,7 +345,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
-                    //charge at the player and save their position
+                    //charge at the player
                     if (NPC.localAI[0] == 60)
                     {
                         SoundEngine.PlaySound(GrowlSound, NPC.Center);
@@ -356,7 +357,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    //curl towards the saved player location
+                    //curl towards the player's location
                     if (NPC.localAI[0] > 60 && NPC.localAI[0] < 280)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
@@ -390,7 +391,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         SavePlayerPosition = player.Center;
                     }
 
-                    //charge again while circling
+                    //charge again after circling
                     if (NPC.localAI[0] == 300)
                     {
                         SoundEngine.PlaySound(GrowlSound, NPC.Center);
