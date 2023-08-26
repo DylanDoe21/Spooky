@@ -21,7 +21,6 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Generation;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace Spooky.Core
 {
@@ -73,6 +72,7 @@ namespace Spooky.Core
         public bool CatPet = false;
         public bool FlyPet = false;
         public bool FuzzBatPet = false;
+        public bool PandoraBeanPet = false;
         public bool ShroomHopperPet = false;
         public bool SkullEmojiPet = false;
         public bool SkullGoopPet = false;
@@ -137,6 +137,7 @@ namespace Spooky.Core
             CatPet = false;
             FlyPet = false;
             FuzzBatPet = false;
+            PandoraBeanPet = false;
             ShroomHopperPet = false;
             SkullEmojiPet = false;
             SkullGoopPet = false;

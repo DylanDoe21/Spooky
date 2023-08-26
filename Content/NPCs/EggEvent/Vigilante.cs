@@ -12,7 +12,6 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Events;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Misc;
 
@@ -120,7 +119,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			if (NPC.ai[0] == 1 && NPC.localAI[0] >= 140) 
+			if (NPC.ai[0] == 1 && NPC.localAI[0] >= 75) 
 			{
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
@@ -302,17 +301,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/VigilanteGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/VigilanteGore" + numGores).Type);
+                    }
                 }
             }
         }

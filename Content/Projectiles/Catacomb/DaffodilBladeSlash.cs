@@ -68,8 +68,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(74, 184, 3) * Fade * 0.7f, proj.rotation, origin, num * 0.9f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(165, 91, 2) * Fade * 0.65f, proj.rotation, origin, num * num4 * 0.7f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(140, 184, 0) * Fade * 0.65f, proj.rotation, origin, num * 0.85f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(165, 91, 2) * Fade * 0.6f, proj.rotation, origin, num * num4 * 0.7f, effects, 0f);
             Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(229, 26, 0) * Fade * 0.5f, proj.rotation, origin, num * num4 * 0.5f, effects, 0f);
 
             for (float num5 = 0f; num5 < 8f; num5++)

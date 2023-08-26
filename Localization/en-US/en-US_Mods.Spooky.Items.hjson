@@ -11,7 +11,7 @@ FlyCharm: {
 	DisplayName: Charm of the Flies
 	Tooltip:
 		'''
-		Summons a swarm of flies around you over time, up to ten total
+		Summons a swarm of flies around you over time, up to 10 total
 		Each active fly will give you one extra point of defense
 		When you get hit, the flies will die and respawn after thirty seconds
 		'''
@@ -22,14 +22,14 @@ MocoNose: {
 	Tooltip:
 		'''
 		Hitting enemies will sometimes drop globs of snot you can pick up
-		After picking up fifteen snot globs, using weapons will shoot snot for a short period
-		Enemies will stop dropping snot for thirty seconds after this effect is triggered
+		After picking up 15 snot globs, using weapons will shoot snot for a short period
+		Enemies will stop dropping snot for 30 seconds after this effect is triggered
 		'''
 }
 
 MocoNoseBooger: {
 	DisplayName: Snot
-	Tooltip: ""
+	Tooltip: Eww...
 }
 
 OrroboroEmbryo: {
@@ -37,7 +37,7 @@ OrroboroEmbryo: {
 	Tooltip:
 		'''
 		Upon death you will be revived and given massive life regeneration and defense
-		This revive ability has a ten minute cooldown before it can activate again
+		This revive ability has a 10 minute cooldown before it can activate again
 		During the cooldown, you gain 8% increased damage and critical strike chance
 		'''
 }
@@ -83,13 +83,14 @@ BossBagSpookySpirit: {
 
 Brick: {
 	DisplayName: Heavy Brick
-	Tooltip: Can be thrown at giant creatures to wake them up
+	Tooltip: Can be thrown at lazy things to wake them up
 }
 
 Concoction: {
 	DisplayName: Acidic Concoction
 	Tooltip:
 		'''
+		Not consumable
 		A very corrosive substance, made from the most vile ingredients
 		Right click the giant egg with this in your inventory to corrode it
 		'''
@@ -99,6 +100,7 @@ CottonSwab: {
 	DisplayName: Cotton Swab
 	Tooltip:
 		'''
+		Not consumable
 		A peculiarly large cotton swab
 		Summons Moco when used at the giant nose shrine
 		'''
@@ -108,6 +110,7 @@ EMFReader: {
 	DisplayName: EMF Reader
 	Tooltip:
 		'''
+		Not consumable
 		Used to find paranormal entities
 		Summons Spooky Spirit when used at the cursed statue at night
 		'''
@@ -136,7 +139,7 @@ FlowerBody: {
 	DisplayName: Thorn Stem Shirt
 	Tooltip:
 		'''
-		18% increased damage and critical strike chance
+		15% increased damage and critical strike chance
 		Attackers will take damage when they hit you
 		'''
 }
@@ -163,22 +166,27 @@ FlowerLegs: {
 
 CatacombKey1: {
 	DisplayName: Yellow Skull Key
-	Tooltip: Use to destroy the yellow barrier, allowing access into the catacombs
+	Tooltip: Use to destroy the yellow catcombs barrier
 }
 
 CatacombKey2: {
 	DisplayName: Red Skull Key
-	Tooltip: Use to destroy the red barrier, allowing further access into the catacombs
+	Tooltip: Use to destroy the red catcombs barrier
 }
 
 CatacombKey3: {
 	DisplayName: Orange Skull Key
-	Tooltip: Use to destroy the orange barrier, allowing access into the catacombs arena
+	Tooltip: Use to destroy the orange catacombs barrier
 }
 
 PlantChunk: {
 	DisplayName: Plant Chunk
 	Tooltip: A piece of living plant matter
+}
+
+BabyRattle: {
+	DisplayName: Baby Rattle
+	Tooltip: ""
 }
 
 BigBoneBow: {
@@ -216,8 +224,8 @@ BigBoneStaff: {
 	DisplayName: Flame Orb Staff
 	Tooltip:
 		'''
-		Left click to cast a large spread of fire balls that bounce off of tiles
-		Right click to unleash a high damage fire beam that targets enemies
+		Left click to cast a large spread of fire bolts that bounce off of tiles
+		Right click to unleash a high damage fire beam that homes on enemies
 		'''
 }
 
@@ -226,7 +234,7 @@ CrossCharm: {
 	Tooltip:
 		'''
 		Grants you a magic cross that reduces damage the next time you are hit
-		After being hit, the cross will disappear and regenerate after ten seconds
+		After being hit, the cross will disappear and regenerate after 10 seconds
 		'''
 }
 
@@ -235,9 +243,27 @@ DaffodilBlade: {
 	Tooltip: A quick dagger that can sometimes poison enemies
 }
 
+DaffodilBow: {
+	DisplayName: Fly Shot
+	Tooltip:
+		'''
+		Hold down to charge the bow and shoot out flies
+		The longer you charge it, the more flies it shoots
+		'''
+}
+
 DaffodilRod: {
 	DisplayName: Sunflower Rod
 	Tooltip: Casts flowers that can home on enemies and bounce off surfaces
+}
+
+DaffodilStaff: {
+	DisplayName: Plant Puncher Staff
+	Tooltip:
+		'''
+		Summons a plant hand to punch nearby enemies
+		It will only take one minion slot, but only one can be active at a time
+		'''
 }
 
 FemurFracture: {
@@ -271,7 +297,11 @@ GlowBulb: {
 
 GraveCrossbow: {
 	DisplayName: Old Hunter's Crossbow
-	Tooltip: Charge the crossbow to shoot a high velocity piercing arrow
+	Tooltip:
+		'''
+		Charge the crossbow to shoot a high velocity piercing arrow
+		The longer you charge it, the more the arrow's speed and damage increases
+		'''
 }
 
 HarvesterScythe: {
@@ -279,7 +309,7 @@ HarvesterScythe: {
 	Tooltip:
 		'''
 		Hitting enemies will unleash a soul that lingers around you
-		After you have ten souls, they will fly away and home in on nearby enemies
+		After you have 10 souls, they will fly away and home in on nearby enemies
 		'''
 }
 
@@ -288,7 +318,7 @@ HunterSoulScepter: {
 	Tooltip:
 		'''
 		Summons the ghosts of old hunters to fight with you
-		Each old hunter is a different class, each with their own abilities
+		Each old hunter has a different class, each with their own abilities
 		Right click to switch between each of the different classes
 		'''
 }
@@ -308,6 +338,51 @@ OldRifle: {
 	Tooltip: Shoots out rusty bullets that split on impact
 }
 
+PandoraChalice: {
+	DisplayName: Unholy Grail
+	Tooltip:
+		'''
+		Consuming healing potions will summon blobs of ectoplasm around you
+		These ectoplasm blobs will fling themselves at the closest enemy after a few seconds
+		The damage of these blobs scales based on the type of healing potion
+		'Don't drive after this!'
+		'''
+}
+
+PandoraCross: {
+	DisplayName: The Cross
+	Tooltip:
+		'''
+		Press the Accessory Hotkey to release powerful sound around you for 5 seconds
+		The sound will deal damage to surrounding enemies, but will also damage you
+		This ability has a 40 second cooldown before it can be used again
+		'Heart-crushing Bass'
+		'''
+}
+
+PandoraCuffs: {
+	DisplayName: Samson's Cuffs
+	Tooltip:
+		'''
+		Reduces your damage and movement speed by 10%
+		Every 20 seconds, a chain will attach itself to a nearby enemy for 5 seconds
+		Enemies attached to the chain will take 50% more damage
+		The cuff will also prioritize bosses over normal enemies
+		'Suffering builds character'
+		'''
+}
+
+PandoraRosary: {
+	DisplayName: Ghastly Rosary
+	Tooltip:
+		'''
+		You will spawn ghost hands around you every 10 seconds, up to 6 total
+		When you are damaged, the hands will chase and attempt to touch you
+		Upon touching you, the hands will heal some of your health
+		'Spooky sundays'
+		'''
+}
+
 RustyRing: {
 	DisplayName: Rusted Ring
 	Tooltip:
@@ -318,11 +393,11 @@ RustyRing: {
 }
 
 SkullAmulet: {
-	DisplayName: Skull Necklace
+	DisplayName: Skull Amulet
 	Tooltip:
 		'''
 		Allows you to absorb the souls of enemies you kill 
-		After twenty souls are absorbed, you will enter a frenzy for ten seconds
+		After 20 souls are absorbed, you will enter a frenzy for 10 seconds
 		During this frenzy you gain increases to various stats
 		'''
 }
@@ -332,7 +407,7 @@ ThornStaff: {
 	Tooltip:
 		'''
 		Casts thorn clumps that will ensnare and poison non-boss enemies
-		Enemies cannot be ensnared again for fifteen seconds
+		Enemies cannot be ensnared again for 15 seconds
 		Bosses will be poisoned for longer
 		'''
 }
@@ -380,7 +455,7 @@ SpiritScroll: {
 	Tooltip:
 		'''
 		Conjures pumpkin heads that will charge at nearby enemies
-		They do not take up minion slots, but you cannot have more than five at once
+		They do not take up minion slots, but you cannot have more than 5 at once
 		'''
 }
 
@@ -396,11 +471,6 @@ SpiritSlingshot: {
 SpiritSword: {
 	DisplayName: Spooky Buster
 	Tooltip: Launches explosive skulls upon striking the ground or enemies
-}
-
-SpookyPlasma: {
-	DisplayName: Spooky Plasma
-	Tooltip: A piece of the creepy spirit
 }
 
 BananalizardHead: {
@@ -622,6 +692,11 @@ OrroboroEye: {
 		'''
 }
 
+PandoraBean: {
+	DisplayName: Ghastly Bean
+	Tooltip: Summons Von Anguston VI, heir to the throne of the king bean
+}
+
 RottenGourd: {
 	DisplayName: Rotten Gourd
 	Tooltip:
@@ -689,12 +764,12 @@ YellowSpore: {
 
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
-	Tooltip: 3% increased melee critical strike chance
+	Tooltip: 5% increased melee damage
 }
 
 GourdHead: {
 	DisplayName: Rotten Gourd Head
-	Tooltip: 2% increased melee damage
+	Tooltip: 5% increased melee critical strike chance
 }
 
 GourdLegs: {
@@ -724,12 +799,12 @@ WizardGangsterBody: {
 
 WizardGangsterHead: {
 	DisplayName: Gilded Wizard Hat
-	Tooltip: 3% increased magic damage
+	Tooltip: 5% increased magic critical strike chance
 }
 
 WizardGangsterHead2: {
 	DisplayName: Gilded Magician Hat
-	Tooltip: 3% increased magic critical strike chance
+	Tooltip: 5% increased magic damage
 }
 
 WizardGangsterLegs: {
@@ -986,7 +1061,7 @@ WarlockRobe: {
 }
 
 EyeBody: {
-	DisplayName: Eye Chestpiece
+	DisplayName: Living Flesh Chestmail
 	Tooltip:
 		'''
 		5% increased summon damage
@@ -995,7 +1070,7 @@ EyeBody: {
 }
 
 EyeHead: {
-	DisplayName: Eye Mask
+	DisplayName: Living Flesh Mask
 	Tooltip:
 		'''
 		3% increased summon damage
@@ -1004,7 +1079,7 @@ EyeHead: {
 }
 
 EyeLegs: {
-	DisplayName: Eye Leggings
+	DisplayName: Living Flesh Leggings
 	Tooltip: 5% increased movement speed
 }
 
@@ -1060,12 +1135,13 @@ BoogerBlaster: {
 		'''
 		Charge up to shoot nasty boogers that slow enemies on hit
 		The longer you charge it, the stronger and faster the boogers will become
+		Can be charged up to 3 times total
 		'''
 }
 
 BoogerBook: {
 	DisplayName: Snot-Nosed Tome
-	Tooltip: Casts a controllable nose that rains down boogers when enemies are nearby
+	Tooltip: Casts a controllable nose that constantly sneezes boogers below it
 }
 
 BoogerFlail: {
@@ -1080,12 +1156,12 @@ BoogerStaff: {
 
 EyeFlail: {
 	DisplayName: Chained Eyes
-	Tooltip: Shoots out two long range eye flails
+	Tooltip: Weild two long range eye flails
 }
 
 EyeRocketLauncher: {
 	DisplayName: I.C.U
-	Tooltip: Hold down to shoot explosive eye missles that track enemies
+	Tooltip: Hold down to shoot explosive eye missles that home on enemies
 }
 
 LeechStaff: {
@@ -1133,7 +1209,6 @@ ChestFood: {
 	DisplayName: Chest Monster Food
 	Tooltip:
 		'''
-		A strange and delicious piece of meat that seems to be alive
 		Opens one monster chest in the eye valley
 		'A chest monster's favorite delicacy'
 		'''
@@ -1227,7 +1302,7 @@ FlaskMisc5: {
 
 FleshAxe: {
 	DisplayName: Flesh Mincer
-	Tooltip: Deals more damage to enemies with low health
+	Tooltip: Deals more damage to enemies at low health
 }
 
 FleshBow: {
@@ -1235,7 +1310,7 @@ FleshBow: {
 	Tooltip:
 		'''
 		Converts arrows into clots of blood
-		Every tenth shot will fire out a homing eye
+		Every 10th shot will fire out a homing eye
 		'''
 }
 
@@ -1244,8 +1319,8 @@ FleshStaff: {
 	Tooltip:
 		'''
 		Casts eyes that follow your cursor while holding left click
-		Release left click to fling existing eyes, dealing double their original damage
-		Only up to five eyes can be active at once
+		Release left click to fling the eyes, dealing double their original damage
+		Only up to 5 eyes can be active at once
 		'''
 }
 
@@ -1272,7 +1347,7 @@ LivingFleshBow: {
 	Tooltip:
 		'''
 		Converts arrows into clots of blood
-		Every twentieth shot will fire multiple homing eyes
+		Every 20th shot will fire multiple homing eyes
 		'''
 }
 
@@ -1283,7 +1358,7 @@ LivingFleshStaff: {
 		Summon eyes that follow your cursor while holding down left click
 		Release left click to fling the eyes, dealing double their original damage
 		Releasing left click with maximum eyes active will explode them, dealing massive damage
-		Only up to eight eyes can be active at once
+		Only up to 8 eyes can be active at once
 		'''
 }
 
@@ -1311,7 +1386,7 @@ NerveWhip: {
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
-		Deals more damage the more enemies it hits, caps after five enemies
+		Deals more damage the more enemies it hits, caps after 5 enemies are hit
 		'''
 }
 
@@ -1339,7 +1414,7 @@ SentientChik: {
 	Tooltip:
 		'''
 		Cries out crystal tears
-		'It isn't actually sad'
+		'Hope it isn't actually sad'
 		'''
 }
 
@@ -1350,7 +1425,6 @@ SentientChumCaster: {
 		Fish with two bobbers at once
 		Able to catch fish from the blood lake in the Valley of Eyes
 		'It snarls at you'
-
 		'''
 }
 
@@ -1371,7 +1445,7 @@ SentientGatligator: {
 		Fires bullets extremely wildly and inaccurately
 		Will sometimes vomit out meat giblets that explode when they hit enemies
 		33% chance to save ammo
-		'Half aligator, half gun, and has a mind of it's own'
+		'Half aligator, half gun, and has a mind of its own'
 		'''
 }
 
@@ -1409,7 +1483,7 @@ SentientLifeDrain: {
 	Tooltip:
 		'''
 		Siphons souls from enemies near your cursor, which can heal your life or mana
-		After absorbing twenty souls, the staff will unleash a powerful aura
+		After absorbing 20 souls, the staff will unleash a powerful aura
 		'It looks like it has something malicious to say'
 		'''
 }

@@ -47,8 +47,10 @@ namespace Spooky.Content.Items.BossBags
             //weapon drops
             int[] MainItem = new int[] 
 			{ 
-				ModContent.ItemType<DaffodilBlade>(), 
-				ModContent.ItemType<DaffodilRod>() 
+				ModContent.ItemType<DaffodilBlade>(),
+                ModContent.ItemType<DaffodilBow>(), 
+				ModContent.ItemType<DaffodilRod>(),
+                ModContent.ItemType<DaffodilStaff>()
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));

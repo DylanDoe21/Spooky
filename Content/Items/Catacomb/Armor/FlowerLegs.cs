@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 		{
 			Item.defense = 15;
 			Item.width = 24;
-			Item.height = 16;
+			Item.height = 18;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 1);
 		}

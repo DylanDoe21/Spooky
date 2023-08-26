@@ -66,17 +66,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
-			if (NPC.life <= 0) 
+            if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlyBigGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlyBigGore" + numGores).Type);
+                    }
                 }
             }
         }

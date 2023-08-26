@@ -16,7 +16,7 @@ namespace Spooky.Content.Projectiles.Pets
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 9;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -153,7 +153,7 @@ namespace Spooky.Content.Projectiles.Pets
                 //falling frame
                 else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
                 {
-                    Projectile.frame = 7;
+                    Projectile.frame = 8;
                     Projectile.frameCounter = 0;
                 }
                 //moving animation
@@ -166,9 +166,9 @@ namespace Spooky.Content.Projectiles.Pets
                         Projectile.frameCounter = 0;
                     }
                 
-                    if (Projectile.frame >= 8)
+                    if (Projectile.frame >= 9)
                     {
-                        Projectile.frame = 4;
+                        Projectile.frame = 5;
                     }
 
                     if (Projectile.frame <= 4)

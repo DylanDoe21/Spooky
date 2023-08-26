@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone;
@@ -85,7 +86,7 @@ namespace Spooky.Core
 			LunarEvent = LunaticCultist + 0.01f;
 			*/
 
-			//Rot gourd
+			//Rot Gourd
 			var RotGourdPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
 				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC").Value;
@@ -192,8 +193,51 @@ namespace Spooky.Core
 				}
 			);
 
+			
+			//Pandora's Box
+			List<int> PandoraBoxEnemies = new List<int>()
+			{
+				/*
+				ModContent.NPCType<Crux>(), 
+				ModContent.NPCType<Glutinous>(), 
+				ModContent.NPCType<Ventricle>(),
+				ModContent.NPCType<Vesicator>(), 
+				ModContent.NPCType<Vigilante>(), 
+				*/
+			};
 
-			//Egg incursion
+			var PandoraBoxPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
+			{
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/PandoraBox/PandoraBoxBC").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			List<string> PandoraBoxIcon = new List<string>()
+			{
+				"Spooky/Content/NPCs/PandoraBox/PandoraBoxIcon"
+			};
+
+			bossChecklistMod.Call(
+				"LogEvent", 
+				Mod,
+				"PandoraBox",
+				8.02f,
+				() => Flags.downedPandoraBox,
+				PandoraBoxEnemies,
+				new Dictionary<string, object>()
+				{
+                    ["collectibles"] = new List<int>() { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(),
+                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), ModContent.ItemType<PandoraBean>() },
+                    ["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.EntryName").Value,
+					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.SpawnInfo").Value,
+					["overrideHeadTextures"] = PandoraBoxIcon,
+					["customPortrait"] = PandoraBoxPortrait,
+				}
+			);
+
+
+			//Egg Incursion
 			List<int> EggEventEnemies = new List<int>()
 			{
 				ModContent.NPCType<Crux>(), 
@@ -205,14 +249,14 @@ namespace Spooky.Core
 
 			var EggEventPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
 			{
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/Events/EggEventBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/EggEventBC").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
 
 			List<string> EggEventIcon = new List<string>()
 			{
-				"Spooky/Content/Events/EggEventIcon"
+				"Spooky/Content/Items/BossSummon/StrangeCyst"
 			};
 
 			List<int> EggEventItems = new List<int>()
@@ -237,7 +281,7 @@ namespace Spooky.Core
 					["customPortrait"] = EggEventPortrait,
 				}
 			);
-
+			
 
 			//Orro & Boro
 			List<int> Orroboro = new List<int>() 

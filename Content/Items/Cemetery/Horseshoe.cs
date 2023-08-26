@@ -26,8 +26,9 @@ namespace Spooky.Content.Items.Cemetery
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
-            Item.rare = ModContent.RarityType<CursedRarity>();
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
+            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<HorseshoeProj>();
             Item.shootSpeed = 25f;
@@ -35,14 +36,9 @@ namespace Spooky.Content.Items.Cemetery
 
         public override bool CanUseItem(Player player)
         {
-            if (!Main.dayTime && !Flags.encounteredHorse && !NPC.AnyNPCs(ModContent.NPCType<TheHorse>()))
+            if (!Flags.encounteredHorse && !NPC.AnyNPCs(ModContent.NPCType<TheHorse>()))
             {
                 return true;
-            }
-
-            if (NPC.AnyNPCs(ModContent.NPCType<TheHorse>()))
-            {
-                return false;
             }
 
             if (player.ownedProjectileCounts[Item.shoot] > 0)

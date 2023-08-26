@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Events;
+using Spooky.Content.NPCs.EggEvent;
 
 namespace Spooky.Content.Biomes
 {

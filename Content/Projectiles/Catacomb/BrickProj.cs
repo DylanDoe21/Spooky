@@ -18,8 +18,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 24;
+            Projectile.width = 44;
+            Projectile.height = 22;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;

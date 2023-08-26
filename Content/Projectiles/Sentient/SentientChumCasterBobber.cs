@@ -131,7 +131,6 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Color lineColor = Lighting.GetColor((int)mountedCenter.X / 16, (int)mountedCenter.Y / 16, Color.Red);
 
-                //This color decides the color of the fishing line.
                 if (Projectile.ai[2] == 1)
                 {
                     lineColor = Lighting.GetColor((int)mountedCenter.X / 16, (int)mountedCenter.Y / 16, Color.Blue);

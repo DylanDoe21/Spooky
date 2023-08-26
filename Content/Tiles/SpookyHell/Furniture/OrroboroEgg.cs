@@ -13,7 +13,7 @@ using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
-using Spooky.Content.Events;
+using Spooky.Content.NPCs.EggEvent;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
@@ -98,7 +98,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		{
 			Player player = Main.LocalPlayer;
 			player.cursorItemIconEnabled = true;
-			player.cursorItemIconID = ModContent.ItemType<Concoction>();
+			player.cursorItemIconID = player.HasItem(ModContent.ItemType<StrangeCyst>()) ? ModContent.ItemType<StrangeCyst>() : ModContent.ItemType<Concoction>();
 			player.cursorItemIconText = "";
 		}
 

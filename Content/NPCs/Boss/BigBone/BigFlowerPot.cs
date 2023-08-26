@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 92;

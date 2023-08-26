@@ -12,6 +12,7 @@ using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
+    [LegacyName("ShadowCowbell")]
     public class CowBell : ModItem
     {
         public static readonly SoundStyle CowBellSound = new("Spooky/Content/Sounds/CowBell", SoundType.Sound);
@@ -29,7 +30,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
-            Item.rare = ModContent.RarityType<CursedRarity>();
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = CowBellSound;
             Item.buffType = ModContent.BuffType<EntityMinionBuff>();
@@ -44,6 +45,25 @@ namespace Spooky.Content.Items.SpookyBiome
             }
 
             return false;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            if (!Flags.encounteredMan)
+            {
+                int type = ModContent.NPCType<TheMan>();
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.SpawnOnPlayer(player.whoAmI, type);
+                }
+                else 
+                {
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
+                }
+            }
+
+            return true;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
@@ -63,28 +83,6 @@ namespace Spooky.Content.Items.SpookyBiome
 
 			return false;
 		}
-		
-        public override bool? UseItem(Player player)
-        {
-            if (!Flags.encounteredMan)
-            {
-                Main.dayTime = false;
-                Main.time = 0;
-
-                int type = ModContent.NPCType<TheMan>();
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    NPC.SpawnOnPlayer(player.whoAmI, type);
-                }
-                else 
-                {
-                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
-                }
-            }
-
-            return true;
-        }
 
         public override void AddRecipes()
         {

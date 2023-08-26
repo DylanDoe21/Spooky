@@ -153,9 +153,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
             }
 
-            NPC.ai[0] = Parent.ai[0];
-
-            switch ((int)NPC.ai[0])
+            switch ((int)Parent.ai[0])
             {
                 case -4:
                 {

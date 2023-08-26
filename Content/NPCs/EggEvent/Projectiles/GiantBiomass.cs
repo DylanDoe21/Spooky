@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Events;
 using Spooky.Content.NPCs.EggEvent;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
@@ -30,7 +29,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = 78;
-            Projectile.height = 72;
+            Projectile.height = 74;
             Projectile.friendly = false;
             Projectile.hostile = false;
             Projectile.tileCollide = false;

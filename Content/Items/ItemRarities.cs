@@ -9,9 +9,4 @@ namespace Spooky.Content.Items
     {
         public override Color RarityColor => Color.Lerp(new Color(48, 120, 255), new Color(255, 0, 0), (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f);
     }
-
-    public class CursedRarity : ModRarity
-    {
-        public override Color RarityColor => new Color(102, 85, 102);
-    }
 }

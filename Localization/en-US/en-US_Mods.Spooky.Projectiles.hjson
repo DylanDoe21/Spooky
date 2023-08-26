@@ -225,8 +225,15 @@ NoseMinionBooger.DisplayName: Booger
 SmellyCloud.DisplayName: Rancid Spore
 OldHunterMelee.DisplayName: Warrior Spirit
 OldHunterRanged.DisplayName: Shotgunner Spirit
+OldHunterRangedBullet.DisplayName: Ghost Bullet
 LivingFleshWhipProjBlue.DisplayName: Living Eye Lasher
 LivingFleshWhipProjRed.DisplayName: Living Eye Lasher
 FleshBowChunk1.DisplayName: Bloot Clot
 FleshBowChunk2.DisplayName: Blood Clot
 LivingFleshAxeEye.DisplayName: Eye
+PandoraBeanPet.DisplayName: Von Anguston VI heir to the throne of the king bean
+PandoraEnemySpawn.DisplayName: Pandora's Box Enemy Spawner
+PandoraEnemySpawnChester.DisplayName: Pandora's Box Enemy Spawner
+StitchBolt.DisplayName: Ghast Bolt
+BobbertExplosion.DisplayName: Bobbert
+PandoraLootSpawner.DisplayName: Pandora's Loot Spawner

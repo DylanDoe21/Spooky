@@ -24,7 +24,7 @@ FlowerArmor:
 	'''
 	Significantly increases your life regeneration
 	Double tap DOWN to summon a large amount of pollen to attack your enemies
-	This ability has a thirty second cooldown when used
+	This ability has a 30 second cooldown before it can be used again
 	'''
 GoreArmor:
 	'''

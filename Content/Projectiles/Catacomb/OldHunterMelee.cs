@@ -35,7 +35,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
-            Projectile.minionSlots = 2;
+            Projectile.minionSlots = 1;
             Projectile.penetrate = -1;
         }
 
@@ -119,6 +119,32 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (!isAttacking)
             {
                 IdleAI(player);
+            }
+
+            //prevent Projectiles clumping together
+            for (int k = 0; k < Main.projectile.Length; k++)
+            {
+                Projectile other = Main.projectile[k];
+                if (k != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                {
+                    const float pushAway = 0.45f;
+                    if (Projectile.position.X < other.position.X)
+                    {
+                        Projectile.velocity.X -= pushAway;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X += pushAway;
+                    }
+                    if (Projectile.position.Y < other.position.Y)
+                    {
+                        Projectile.velocity.Y -= pushAway;
+                    }
+                    else
+                    {
+                        Projectile.velocity.Y += pushAway;
+                    }
+                }
             }
 		}
 
@@ -268,7 +294,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
             
             direction.X += 50f;
-            direction.Y -= 70f;
+            direction.Y -= 20f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 9f)
             {

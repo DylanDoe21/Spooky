@@ -72,26 +72,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
+            if (NPC.life <= 0) 
             {
-				return;
-			}
-
-			if (NPC.life <= 0) 
-            {
-                for (int numDusts = 0; numDusts < 5; numDusts++)
+                if (Main.netMode != NetmodeID.Server) 
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Asphalt, 0f, 0f, 100, default, 1f);
-
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ShroomHopperGore").Type);
                 }
-
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ShroomHopperGore").Type);
             }
         }
 	}

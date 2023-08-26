@@ -23,6 +23,11 @@ CatacombBiome2: {
 	TownNPCDialogueName: the Lower Catacombs
 }
 
+PandoraBoxBiome: {
+	DisplayName: Pandora's Box
+	TownNPCDialogueName: Pandora's Box
+}
+
 SpookyHellBiome: {
 	DisplayName: Valley of Eyes
 	TownNPCDialogueName: the Valley of Eyes

@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Events;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
@@ -16,6 +15,7 @@ using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Flask;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.Tiles.Pylon;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -339,7 +339,7 @@ namespace Spooky.Content.NPCs.Friendly
 
             NPC.spriteDirection = NPC.direction;
 
-            NPC.velocity.X *= 0;
+            NPC.velocity *= 0;
 			NPC.homeless = true;
 
             if (Quest1Timer > 0)

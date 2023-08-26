@@ -16,7 +16,7 @@ using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
-namespace Spooky.Content.Events
+namespace Spooky.Content.NPCs.EggEvent
 {
     public class EggEventHandler : ModProjectile
     {
@@ -80,6 +80,11 @@ namespace Spooky.Content.Events
                 EggEventWorld.Wave++;
                 SpawnedEnemies = false;
                 EggEventWorld.hasSpawnedBiomass = false;
+
+                if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
             }
         }
 
@@ -594,6 +599,11 @@ namespace Spooky.Content.Events
 
                     break;
                 }
+            }
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.WorldData);
             }
         }
 

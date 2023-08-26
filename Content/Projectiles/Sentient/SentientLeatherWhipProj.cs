@@ -119,7 +119,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
 			for (int i = 0; i < list.Count - 1; i++) 
 			{
-				Rectangle frame = new Rectangle(0, 0, 14, 20);
+				Rectangle frame = new Rectangle(0, 0, 14, 14);
 				Vector2 origin = new Vector2(7, 7);
 
 				//scale the whip down as it retracts, and scale it up as it is swung out

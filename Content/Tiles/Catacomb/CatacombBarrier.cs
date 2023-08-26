@@ -9,6 +9,7 @@ using System;
 using Spooky.Core;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -175,6 +176,61 @@ namespace Spooky.Content.Tiles.Catacomb
 			{
 				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
 				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * 0.1f);
+			}
+
+			return false;
+		}
+	}
+
+	public class CatacombBarrierPandora : CatacombBarrier2
+	{
+		public override void SetStaticDefaults()
+		{
+			TileID.Sets.DrawsWalls[Type] = true;
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+			Main.tileBrick[Type] = true;
+			Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
+			Main.tileSolid[Type] = true;
+			Main.tileBlockLight[Type] = true;
+			AddMapEntry(Color.Cyan);
+			MinPick = 999999;
+			HitSound = SoundID.Dig;
+			DustType = -1;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+            Tile tile = Framing.GetTileSafely(i, j);
+
+			if (PandoraBoxWorld.PandoraEventActive)
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = false;
+			}
+			else
+			{
+				tile.Get<TileWallWireStateData>().IsActuated = true;
+			}
+
+			float time = Main.GameUpdateCount * 0.01f;
+
+			float intensity = 0.7f;
+			intensity *= (float)MathF.Sin(-j / 8f + time + i);
+			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity += 0.7f;
+
+			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+			if (!tile.Get<TileWallWireStateData>().IsActuated)
+			{
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Cyan * intensity);
+			}
+			else
+			{
+				spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Cyan * 0.1f);
 			}
 
 			return false;

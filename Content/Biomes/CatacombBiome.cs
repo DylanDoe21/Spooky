@@ -7,6 +7,7 @@ using Spooky.Effects;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Water;
 
@@ -29,7 +30,7 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             //vignette effect
-            if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !Flags.downedBigBone)
+            if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !PandoraBoxWorld.PandoraEventActive && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
                 vignettePlayer.SetVignette(0f, 450f, 1f, Color.Black, player.Center);

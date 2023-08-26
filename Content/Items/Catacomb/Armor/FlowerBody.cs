@@ -13,16 +13,16 @@ namespace Spooky.Content.Items.Catacomb.Armor
         public override void SetDefaults() 
 		{
 			Item.defense = 12;
-			Item.width = 28;
-			Item.height = 20;
+			Item.width = 30;
+			Item.height = 22;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 1);
 		}
 
 		public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.18f;
-			player.GetCritChance(DamageClass.Generic) += 18;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
+			player.GetCritChance(DamageClass.Generic) += 15;
 			player.thorns += 1.05f;
         }
 

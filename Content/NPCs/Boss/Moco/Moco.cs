@@ -858,7 +858,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 {
                     if (Main.player[numPlayer].active)
                     {
-                        Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                        {
+                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                        }
                     }
                 }
             }

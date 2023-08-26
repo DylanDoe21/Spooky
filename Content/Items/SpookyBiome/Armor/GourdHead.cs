@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Melee) += 2;
+			player.GetCritChance(DamageClass.Melee) += 5;
 		}
 
 		public override void AddRecipes()

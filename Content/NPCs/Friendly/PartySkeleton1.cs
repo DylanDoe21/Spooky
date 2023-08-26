@@ -15,8 +15,10 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.ActsLikeTownNPC[Type] = true;
             Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.ActsLikeTownNPC[Type] = true;
+            NPCID.Sets.ShimmerTownTransform[Type] = false;
+            NPCID.Sets.NoTownNPCHappiness[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

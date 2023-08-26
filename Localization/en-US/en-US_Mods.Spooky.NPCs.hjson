@@ -53,7 +53,7 @@ BigBone: {
 	}
 }
 
-//bosses
+//boss stuff
 BigFlowerPot.DisplayName: Giant Flower Pot
 BigFlower.DisplayName: Solar Flower
 DefensiveFlower.DisplayName: Defensive Flower
@@ -108,6 +108,16 @@ MarigoldSpit.DisplayName: Marigold
 Smelly.DisplayName: Smelly
 Sunny.DisplayName: Sunny
 Toothy.DisplayName: Toothy
+//pandora's box
+PandoraBox.DisplayName: Pandora's Box
+Bobbert.DisplayName: Bobbert
+Chester.DisplayName: Chester
+ChesterClub.DisplayName: Chester
+ChesterShield.DisplayName: Chester
+Sheldon.DisplayName: Sheldon
+SheldonShield.DisplayName: Sheldon
+Stitch.DisplayName: Stitch
+StitchWand.DisplayName: Stitch
 //cemetery
 BloatGhostBig.DisplayName: Bloated Ghost
 BloatGhostSmall.DisplayName: Ghost

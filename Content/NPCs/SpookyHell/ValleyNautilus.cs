@@ -592,9 +592,18 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= Main.rand.Next(3, 5);
+                        ShootSpeed.X *= Main.rand.Next(3, 5);
+                        ShootSpeed.Y *= Main.rand.Next(3, 5);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+                        Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                        if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        {
+                            position += muzzleOffset;
+                        }
+
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
                         ShootSpeed.Y, ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
                     }
                     
@@ -636,17 +645,14 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
-			if (NPC.life <= 0) 
+            if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 10; numGores++)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyNautilusGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyNautilusGore" + numGores).Type);
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ namespace Spooky.Core
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
         public static bool downedDaffodil = false;
+        public static bool downedPandoraBox = false;
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
@@ -39,6 +40,7 @@ namespace Spooky.Core
             downedSpookySpirit = false;
             downedMoco = false;
             downedDaffodil = false;
+            downedPandoraBox = false;
             downedEggEvent = false;
             downedOrroboro = false;
             downedBigBone = false;
@@ -68,6 +70,7 @@ namespace Spooky.Core
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
             if (downedMoco) tag["downedMoco"] = true;
             if (downedDaffodil) tag["downedDaffodil"] = true;
+            if (downedPandoraBox) tag["downedPandoraBox"] = true;
             if (downedEggEvent) tag["downedEggEvent"] = true;
             if (downedOrroboro) tag["downedOrroboro"] = true;
             if (downedBigBone) tag["downedBigBone"] = true;
@@ -97,6 +100,7 @@ namespace Spooky.Core
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
             downedMoco = tag.ContainsKey("downedMoco");
             downedDaffodil = tag.ContainsKey("downedDaffodil");
+            downedPandoraBox = tag.ContainsKey("downedPandoraBox");
             downedEggEvent = tag.ContainsKey("downedEggEvent");
             downedOrroboro = tag.ContainsKey("downedOrroboro");
             downedBigBone = tag.ContainsKey("downedBigBone");
@@ -122,15 +126,16 @@ namespace Spooky.Core
 
         public override void NetSend(BinaryWriter writer)
         {
-            var flags = new BitsByte();
-            flags[0] = downedRotGourd;
-            flags[1] = downedSpookySpirit;
-            flags[2] = downedMoco;
-            flags[3] = downedDaffodil;
-            flags[4] = downedEggEvent;
-            flags[5] = downedOrroboro;
-            flags[6] = downedBigBone;
-            writer.Write(flags);
+            var downedFlags = new BitsByte();
+            downedFlags[0] = downedRotGourd;
+            downedFlags[1] = downedSpookySpirit;
+            downedFlags[2] = downedMoco;
+            downedFlags[3] = downedDaffodil;
+            downedFlags[4] = downedPandoraBox;
+            downedFlags[5] = downedEggEvent;
+            downedFlags[6] = downedOrroboro;
+            downedFlags[7] = downedBigBone;
+            writer.Write(downedFlags);
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
@@ -158,14 +163,15 @@ namespace Spooky.Core
 
         public override void NetReceive(BinaryReader reader)
         {
-            BitsByte flags = reader.ReadByte();
-            downedRotGourd = flags[0];
-            downedSpookySpirit = flags[1];
-            downedMoco = flags[2];
-            downedDaffodil = flags[3];
-            downedEggEvent = flags[4];
-            downedOrroboro = flags[5];
-            downedBigBone = flags[6];
+            BitsByte downedFlags = reader.ReadByte();
+            downedRotGourd = downedFlags[0];
+            downedSpookySpirit = downedFlags[1];
+            downedMoco = downedFlags[2];
+            downedDaffodil = downedFlags[3];
+            downedPandoraBox = downedFlags[4];
+            downedEggEvent = downedFlags[5];
+            downedOrroboro = downedFlags[6];
+            downedBigBone = downedFlags[7];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];

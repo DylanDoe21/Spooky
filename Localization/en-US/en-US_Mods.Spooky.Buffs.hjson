@@ -264,6 +264,11 @@ OrroboroMountBuff: {
 	Description: The eye worm will help you travel
 }
 
+PandoraBeanBuff: {
+	DisplayName: Von Anguston VI
+	Description: Ancient royalty is following you
+}
+
 RotGourdPetBuff: {
 	DisplayName: Tiny Rot Gourd
 	Description: Smelly, but cute

@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         
         public override void SetDefaults()
         {
-			Projectile.width = 68;
+			Projectile.width = 64;
             Projectile.height = 50;
             Projectile.DamageType = DamageClass.Summon;
 			Projectile.minion = true;
@@ -35,12 +35,13 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
-            Projectile.minionSlots = 2;
+            Projectile.minionSlots = 1;
             Projectile.penetrate = -1;
         }
 
         public override bool? CanDamage()
         {
+            //the old hunter ranger doesnt need to deal contact damage
             return false;
         }
 
@@ -104,7 +105,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
 
                 NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 750f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 750f)
                 {
                     AttackingAI(NPC);
 
@@ -120,6 +121,31 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 IdleAI(player);
             }
+
+            for (int num = 0; num < Main.projectile.Length; num++)
+			{
+				Projectile other = Main.projectile[num];
+				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+				{
+					const float pushAway = 0.08f;
+					if (Projectile.position.X < other.position.X)
+					{
+						Projectile.velocity.X -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.X += pushAway;
+					}
+					if (Projectile.position.Y < other.position.Y)
+					{
+						Projectile.velocity.Y -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.Y += pushAway;
+					}
+				}
+			}
 		}
 
         public void AttackingAI(NPC target)
@@ -176,7 +202,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (Projectile.ai[1] < 60)
             {
                 Vector2 GoTo = target.Center;
-                GoTo.X += (Projectile.Center.X < target.Center.X) ? 150 : -150;
+                GoTo.X += (Projectile.Center.X < target.Center.X) ? -200 : 200;
                 GoTo.Y -= 50;
 
                 float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 6, 20);
@@ -191,6 +217,30 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.velocity *= 0;
 
                 saveDirection = Projectile.spriteDirection;
+
+                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                {
+                    SoundEngine.PlaySound(SoundID.Item36, Projectile.Center);
+
+                    Vector2 Recoil = target.Center - Projectile.Center;
+                    Recoil.Normalize(); 
+                    Recoil *= -8;
+                    Projectile.velocity = Recoil;
+
+                    Vector2 ShootSpeed = target.Center - Projectile.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 18f;
+
+                    int offset = Projectile.spriteDirection == -1 ? -45 : 45;
+                            
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y, ShootSpeed.X + Main.rand.Next(-3, 4), 
+                    ShootSpeed.Y + Main.rand.Next(-3, 5), ModContent.ProjectileType<OldHunterRangedBullet>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+                }
+            }
+
+            if (Projectile.ai[1] > 60)
+            {
+                Projectile.velocity *= 0.9f;
             }
 
             //loop ai
@@ -253,7 +303,8 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
             
-            direction.Y -= 70f;
+            direction.X -= 50f;
+            direction.Y -= 20f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 9f)
             {

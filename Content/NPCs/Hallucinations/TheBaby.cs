@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.NPCs.Hallucinations
@@ -94,18 +95,33 @@ namespace Spooky.Content.NPCs.Hallucinations
                 NPC.GivenName = nameString;
             }
 
-            Vector2 ChargeDirection = player.Center - NPC.Center;
-            ChargeDirection.Normalize();
+            NPC.localAI[0]++;
 
-            ChargeDirection *= 35;
-            NPC.velocity = ChargeDirection;
-
-            if (NPC.Hitbox.Intersects(player.Hitbox))
+            if (NPC.localAI[0] >= 500)
             {
-                player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
-                NPC.immortal = false;
-                NPC.dontTakeDamage = false;
-                NPC.netUpdate = true;
+                Vector2 ChargeDirection = player.Center - NPC.Center;
+                ChargeDirection.Normalize();
+
+                ChargeDirection *= 35;
+                NPC.velocity = ChargeDirection;
+
+                if (NPC.Hitbox.Intersects(player.Hitbox))
+                {
+                    if (!Flags.encounteredBaby)
+                    {
+                        Flags.encounteredBaby = true;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+
+                    player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+                    NPC.immortal = false;
+                    NPC.dontTakeDamage = false;
+                    NPC.netUpdate = true;
+                }
             }
         }
     }

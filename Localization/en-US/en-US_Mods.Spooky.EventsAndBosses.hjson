@@ -9,3 +9,5 @@ EggEventOver: The giant egg has become fragile!
 EggEventBarProgress: "Current Wave: "
 EggEventBarDisplayName: Egg Incursion
 EggEventWaveComplete: Wave Complete!
+PandoraBoxBarDisplayName: Pandora's Box
+PandoraBoxBarProgress: "Current Wave: "

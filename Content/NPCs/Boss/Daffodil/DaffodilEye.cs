@@ -849,8 +849,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //weapon drops
             int[] MainItem = new int[] 
 			{ 
-				ModContent.ItemType<DaffodilBlade>(), 
-				ModContent.ItemType<DaffodilRod>()
+				ModContent.ItemType<DaffodilBlade>(),
+                ModContent.ItemType<DaffodilBow>(), 
+				ModContent.ItemType<DaffodilRod>(),
+                ModContent.ItemType<DaffodilStaff>()
 			};
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));

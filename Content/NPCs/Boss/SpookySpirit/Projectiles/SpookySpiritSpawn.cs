@@ -36,11 +36,10 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             //make a trail of dust
             Vector2 dustPosition = Projectile.Center;
             dustPosition -= Projectile.velocity * 0.25f;
-            int dust = Dust.NewDust(dustPosition, 1, 1, ModContent.DustType<GlowyDust>(), 0f, 0f, 0, default, 1f);
+            int dust = Dust.NewDust(dustPosition, 1, 1, ModContent.DustType<GlowyDust>(), 0f, 0f, 0, default, 0.25f);
             Main.dust[dust].color = Color.BlueViolet;
             Main.dust[dust].noGravity = true;
             Main.dust[dust].position = dustPosition;
-            Main.dust[dust].scale = 0.25f;
             Main.dust[dust].velocity *= 0.2f;
 
             Projectile.velocity *= 1.03f;

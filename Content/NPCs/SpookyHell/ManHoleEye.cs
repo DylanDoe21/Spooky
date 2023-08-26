@@ -34,10 +34,12 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             //only draw if the parent is active
-            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>())
+            if (Parent.active && Parent.type == ModContent.NPCType<ManHoleBig>())
             {
-                Vector2 rootPosition = Main.npc[(int)NPC.ai[3]].Center;
+                Vector2 rootPosition = Parent.Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), NPC.Center + new Vector2(-30 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(-12 * NPC.direction, 0).RotatedBy(NPC.rotation) };
                 float bezierProgress = 0;
@@ -81,7 +83,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+            Player player = Main.player[Parent.target];
 
             //rotation
             Vector2 vector = new(NPC.Center.X, NPC.Center.Y);
@@ -89,7 +92,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            if (Main.npc[(int)NPC.ai[3]].active && Main.npc[(int)NPC.ai[3]].type == ModContent.NPCType<ManHoleBig>())
+            if (Parent.active && Parent.type == ModContent.NPCType<ManHoleBig>())
             {
                 //attack player if nearby
                 if (NPC.Distance(player.Center) <= 500f) 
@@ -147,13 +150,15 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public void GoAboveParent()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             //move above parent npc
-            float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
-            float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - 200) - NPC.Center.Y;
+            float goToX = Parent.Center.X - NPC.Center.X;
+            float goToY = (Parent.Center.Y - 200) - NPC.Center.Y;
 
             float speed;
 
-            if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
+            if (Vector2.Distance(NPC.Center, Parent.Center) >= 400f)
             {
                 speed = 0.8f;
             }

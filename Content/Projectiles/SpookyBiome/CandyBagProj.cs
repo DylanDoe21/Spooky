@@ -57,11 +57,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 player.AddBuff(ModContent.BuffType<CandyBagBuff>(), 2, false);
             }
 
-            if (!player.GetModPlayer<SpookyPlayer>().CandyBag)
-            {
-                Projectile.Kill();
-            }
-
             Projectile.localAI[0]++;
             
             //movement

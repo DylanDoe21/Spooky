@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery;
@@ -34,9 +35,9 @@ namespace Spooky.Content.Generation
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 
+        public static int EntranceY = 0;
         public static int PositionX = 0;
         public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
-        public static int EntranceY = 0;
 
         public static bool PlacedFirstBarrier = false;
         public static bool placedLootRoom1 = false;
@@ -45,7 +46,8 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom4 = false;
         public static bool placedMoyaiRoom = false;
 
-        Vector2[] Layer2LootRooms = new Vector2[4];
+        Vector2[] Layer2LootRooms = new Vector2[2];
+        Vector2 PandoraRoomPosition;
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -358,7 +360,7 @@ namespace Spooky.Content.Generation
                         //do not place the first loot room in the middle where the entrance is either
                         if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1", origin.ToPoint16(), Mod);
                             placedLootRoom1 = true;
                         }
                         else
@@ -386,7 +388,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom2 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", origin.ToPoint16(), Mod);
                             placedLootRoom2 = true;
                         }
                         else
@@ -406,10 +408,14 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 84)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[2] = new Vector2(origin.X, origin.Y);
+                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
                             placedLootRoom3 = true;
+                        }
+                        else if (X == XMiddle)
+                        {
+                            PandoraRoomPosition = new Vector2(origin.X, origin.Y);
                         }
                         else
                         {
@@ -430,7 +436,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom4 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[3] = new Vector2(origin.X, origin.Y);
+                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
                             placedLootRoom4 = true;
                         }
                         else
@@ -513,7 +519,7 @@ namespace Spooky.Content.Generation
             //place loot rooms for the second layer
             for (int numPoints = 0; numPoints < Layer2LootRooms.Length; numPoints++)
             {
-                Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-" + (numPoints + 1), Layer2LootRooms[numPoints].ToPoint16(), Mod);
+                Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-" + (numPoints + 3), Layer2LootRooms[numPoints].ToPoint16(), Mod);
 
                 Vector2 horizontalHallOriginLeft = new Vector2(Layer2LootRooms[numPoints].X - 11, Layer2LootRooms[numPoints].Y + 21);
                 Vector2 horizontalHallOriginRight = new Vector2(Layer2LootRooms[numPoints].X + 69, Layer2LootRooms[numPoints].Y + 21);
@@ -600,7 +606,8 @@ namespace Spooky.Content.Generation
             Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena", DaffodilArenaOrigin.ToPoint16(), Mod);
 
             //spawn daffodil itself in the arena
-            NPC.NewNPC(null, (XMiddle - 1) * 16, (DaffodilArenaY) * 16, ModContent.NPCType<DaffodilBody>());
+            int Daffodil = NPC.NewNPC(null, (XMiddle - 1) * 16, DaffodilArenaY * 16, ModContent.NPCType<DaffodilBody>());
+            Main.npc[Daffodil].position.X += 2;
 
             //place tunnels leading into the daffodil arena from the two rooms on the sides of it
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -655,13 +662,24 @@ namespace Spooky.Content.Generation
             }
 
 
+            //pandora's box arena
+            Generator.GenerateStructure("Content/Structures/CatacombLayer2/PandoraRoom", PandoraRoomPosition.ToPoint16(), Mod);
+
+            int layer2StartThing = (int)Main.worldSurface + layer1Depth + 118;
+            int PandoraBoxSpawnY = layer2StartThing + 84;
+
+            int PandoraBox = NPC.NewNPC(null, XMiddle * 16, PandoraBoxSpawnY * 16, ModContent.NPCType<PandoraBox>());
+            Main.npc[PandoraBox].position.X += 7;
+
+
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
 
             Generator.GenerateStructure("Content/Structures/CatacombLayer2/BigBoneArena", BigBoneArenaOrigin.ToPoint16(), Mod);
 
             //spawn giant flower pot in the big bone arena
-            NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY) * 16, ModContent.NPCType<BigFlowerPot>());
+            int FlowerPot = NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY) * 16, ModContent.NPCType<BigFlowerPot>());
+            Main.npc[FlowerPot].position.X -= 6;
 
             //dig entrance to big bone's arena
             for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)

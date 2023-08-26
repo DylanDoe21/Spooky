@@ -109,6 +109,12 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.MusketBall, Main.rand.Next(5, 26));
 						break;
 					}
+					//goodie bag
+					case 5:
+					{
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.GoodieBag, Main.rand.Next(1, 3));
+						break;
+					}
 				}
 			}
         }
