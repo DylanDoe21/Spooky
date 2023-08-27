@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class DaffodilBowProj : ModProjectile
 	{
+        float SaveRotation;
+
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
 		public override void SetStaticDefaults()
@@ -69,7 +71,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + new Vector2(-20, -12);
+				Projectile.position = player.position + new Vector2(-21, -12);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -96,12 +98,12 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.alpha = 255;
-
-                    Projectile.position = player.position + new Vector2(-20, -12);
+                    Projectile.position = player.position + new Vector2(-21, -12);
 
                     if (Projectile.timeLeft >= 19)
                     {
+                        SaveRotation = Projectile.rotation;
+
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
@@ -148,6 +150,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                             ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<DaffodilBowFly>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                         }
                     }
+
+                    Projectile.frame = 0;
+                    Projectile.rotation = SaveRotation;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 }
 			}
 

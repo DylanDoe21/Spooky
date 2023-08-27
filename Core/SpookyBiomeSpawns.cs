@@ -15,6 +15,7 @@ using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
+using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
@@ -34,6 +35,12 @@ namespace Spooky.Core
             NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
             NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
+				spawnRate = 0;
+				maxSpawns = 0;
+			}
+
+			if (PandoraBoxWorld.PandoraEventActive)
+			{
 				spawnRate = 0;
 				maxSpawns = 0;
 			}

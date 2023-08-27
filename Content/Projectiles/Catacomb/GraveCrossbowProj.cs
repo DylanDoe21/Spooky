@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class GraveCrossbowProj : ModProjectile
 	{
+        float SaveRotation;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 3;
@@ -95,12 +97,12 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.alpha = 255;
-
                     Projectile.position = player.position + new Vector2(-23, -25);
 
                     if (Projectile.timeLeft >= 29)
                     {
+                        SaveRotation = Projectile.rotation;
+
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
@@ -138,6 +140,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
+
+                    Projectile.frame = 0;
+                    Projectile.rotation = SaveRotation;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 }
 			}
 

@@ -261,8 +261,8 @@ DaffodilStaff: {
 	DisplayName: Plant Puncher Staff
 	Tooltip:
 		'''
-		Summons a plant hand to punch nearby enemies
-		It will only take one minion slot, but only one can be active at once
+		Summons a powerful plant hand to punch nearby enemies
+		It only requires one minion slot, but only one can be active at once
 		'''
 }
 

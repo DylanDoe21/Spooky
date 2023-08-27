@@ -7,6 +7,7 @@ using Terraria.GameContent.ItemDropRules;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -128,6 +129,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 5, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 

@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
 	public class SpiritSlingshotProj : ModProjectile
 	{
+        float SaveRotation;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 3;
@@ -93,12 +95,12 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.alpha = 255;
-
                     Projectile.position = player.position + new Vector2(-7, -2);
 
                     if (Projectile.timeLeft >= 24)
                     {
+                        SaveRotation = Projectile.rotation;
+
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
@@ -140,6 +142,10 @@ namespace Spooky.Content.Projectiles.Cemetery
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<GhastlyOrbProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
+
+                    Projectile.frame = 0;
+                    Projectile.rotation = SaveRotation;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
 				}
 			}
 

@@ -7,6 +7,9 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
     public class Flourence : ModNPC  
@@ -77,6 +80,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 5, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

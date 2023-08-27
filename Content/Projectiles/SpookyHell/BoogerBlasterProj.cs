@@ -9,6 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	public class BoogerBlasterProj : ModProjectile
 	{
         int Charge = 0;
+        float SaveRotation;
 
 		public override void SetStaticDefaults()
 		{
@@ -99,12 +100,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.alpha = 255;
-
                     Projectile.position = player.position + new Vector2(-23, -42);
 
                     if (Projectile.timeLeft >= 29)
                     {
+                        SaveRotation = Projectile.rotation;
+
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
@@ -143,7 +144,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                                 break;
                             }
 
-                            //shoot big booger that deals double damage
+                            //shoot big booger that deals triple damage
                             case 2:
                             {
                                 SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
@@ -157,6 +158,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
                             }
                         }
                     }
+
+                    Projectile.frame = 0;
+                    Projectile.rotation = SaveRotation;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 }
 			}
 

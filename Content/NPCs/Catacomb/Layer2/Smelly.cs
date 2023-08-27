@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Catacomb.Layer2.Projectiles;
 
@@ -101,6 +102,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 5, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 

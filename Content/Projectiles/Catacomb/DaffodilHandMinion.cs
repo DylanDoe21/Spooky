@@ -66,7 +66,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Rectangle? chainSourceRectangle = null;
 
 			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
-			Vector2 chainDrawPosition = new Vector2(Projectile.Center.X + (Projectile.spriteDirection == -1 ? -3 : 2), Projectile.Center.Y + 5);
+			Vector2 chainDrawPosition = new Vector2(Projectile.Center.X + (Projectile.spriteDirection == -1 ? -3 : 3), Projectile.Center.Y + 5);
 			Vector2 vectorFromProjectileToPlayer = player.Center.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 			Vector2 unitVectorFromProjectileToPlayer = vectorFromProjectileToPlayer.SafeNormalize(Vector2.Zero);
 			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height());
@@ -195,11 +195,16 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.ai[0] = 0;
 
             Vector2 GoTo = player.Center;
-            GoTo.X += player.direction == -1 ? -10 : 10;
+            GoTo.X += player.direction == -1 ? 10 : -10;
             GoTo.Y -= 80;
 
-            float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 5, 10);
+            float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 8, 15);
             Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+
+            if (Vector2.Distance(player.Center, Projectile.Center) > 450f)
+            {
+                Projectile.position = player.Center;
+            }
         }
     }
 }
