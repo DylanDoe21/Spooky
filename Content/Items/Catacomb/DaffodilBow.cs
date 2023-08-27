@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb
@@ -12,7 +13,7 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 35;     
+			Item.damage = 45;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = false;
@@ -27,6 +28,24 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item5;
+			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.useAmmo = AmmoID.Arrow;
+			Item.shootSpeed = 0f;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilBowProj>()] < 1;
+		}
+		
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilBowProj>()] < 1)
+            {
+				Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<DaffodilBowProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			}
+
+			return false;
 		}
 	}
 }

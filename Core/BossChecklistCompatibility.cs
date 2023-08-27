@@ -228,7 +228,8 @@ namespace Spooky.Core
 				new Dictionary<string, object>()
 				{
                     ["collectibles"] = new List<int>() { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(),
-                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), ModContent.ItemType<PandoraBean>() },
+                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), 
+					ModContent.ItemType<PandoraBean>(), ModContent.ItemType<PandoraEventBox>() },
                     ["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.EntryName").Value,
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.SpawnInfo").Value,
 					["overrideHeadTextures"] = PandoraBoxIcon,

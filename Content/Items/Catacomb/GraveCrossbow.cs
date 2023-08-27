@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override void SetDefaults()
 		{
 			Item.damage = 45;
-			Item.crit = 25;
+			Item.crit = 15;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = false;

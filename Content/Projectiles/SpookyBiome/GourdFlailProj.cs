@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		public override void SetDefaults() 
         {
 			Projectile.width = 36;
-			Projectile.height = 46;
+			Projectile.height = 36;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true; 
 			Projectile.netImportant = true; 

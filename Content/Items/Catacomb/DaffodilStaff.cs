@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb
@@ -12,7 +13,7 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 40;
+			Item.damage = 60;
 			Item.mana = 15;       
 			Item.DamageType = DamageClass.Summon;
 			Item.autoReuse = true;  
@@ -26,6 +27,28 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Grass;
+			Item.buffType = ModContent.BuffType<DaffodilHandBuff>();
+			Item.shoot = ModContent.ProjectileType<DaffodilHandMinion>();
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.ownedProjectileCounts[Item.shoot] > 0 && player.altFunctionUse != 2) 
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+            player.AddBuff(Item.buffType, 2);
+
+			var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+			projectile.originalDamage = Item.damage;
+
+			return false;
 		}
 	}
 }

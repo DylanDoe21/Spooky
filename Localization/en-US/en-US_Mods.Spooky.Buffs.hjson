@@ -169,6 +169,11 @@ CandyBagBuff: {
 	Description: The magic candy bag flies above you
 }
 
+DaffodilHandBuff: {
+	DisplayName: Plant Hand
+	Description: The plant hand will punch your foes!
+}
+
 EntityMinionBuff: {
 	DisplayName: Little Entity
 	Description: The baby entity will fight with you

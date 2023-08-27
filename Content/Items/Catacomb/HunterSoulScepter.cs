@@ -83,7 +83,7 @@ namespace Spooky.Content.Items.Catacomb
             if (player.altFunctionUse == 2)
             {
                 SummonMode++;
-                if (SummonMode > 4)
+                if (SummonMode > 3)
                 {
                     SummonMode = 1;
                 }
@@ -108,12 +108,6 @@ namespace Spooky.Content.Items.Catacomb
                     {
                         SummonDisplay = "Mage";
                         Item.shoot = ModContent.ProjectileType<OldHunterMage>();
-                        break;
-                    }
-                    case 4:
-                    {
-                        SummonDisplay = "Support";
-                        Item.shoot = ModContent.ProjectileType<Blank>();
                         break;
                     }
                 }

@@ -226,6 +226,8 @@ SmellyCloud.DisplayName: Rancid Spore
 OldHunterMelee.DisplayName: Warrior Spirit
 OldHunterRanged.DisplayName: Shotgunner Spirit
 OldHunterRangedBullet.DisplayName: Ghost Bullet
+OldHunterMage.DisplayName: Mage Spirit
+OldHunterMagicBolt.DisplayName: Spirit Bolt
 LivingFleshWhipProjBlue.DisplayName: Living Eye Lasher
 LivingFleshWhipProjRed.DisplayName: Living Eye Lasher
 FleshBowChunk1.DisplayName: Bloot Clot
@@ -237,5 +239,6 @@ PandoraEnemySpawnChester.DisplayName: Pandora's Box Enemy Spawner
 StitchBolt.DisplayName: Ghast Bolt
 BobbertExplosion.DisplayName: Bobbert
 PandoraLootSpawner.DisplayName: Pandora's Loot Spawner
-OldHunterMage.DisplayName: Old Hunter Mage
-OldHunterMagicBolt.DisplayName: Old Hunter Magic Bolt
+DaffodilBowProj.DisplayName: Fly Shot
+DaffodilBowFly.DisplayName: Fly
+DaffodilHandMinion.DisplayName: Plant Hand

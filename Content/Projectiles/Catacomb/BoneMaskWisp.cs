@@ -110,14 +110,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private int HomeOnTarget()
         {
-            const bool homingCanAimAtWetEnemies = true;
             const float homingMaximumRangeInPixels = 800;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC target = Main.npc[i];
-                if (target.CanBeChasedBy(Projectile) && (!target.wet || homingCanAimAtWetEnemies))
+                if (target.CanBeChasedBy(Projectile))
                 {
                     float distance = Projectile.Distance(target.Center);
                     if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))

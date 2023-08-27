@@ -280,7 +280,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void AI()
 		{
-			NPC.velocity *= 0;
+			NPC.velocity.X *= 0;
 			NPC.homeless = true;
 		}
 

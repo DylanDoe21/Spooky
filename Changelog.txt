@@ -74,6 +74,13 @@ Each blood moon fishing enemy variant, and when it can be fished up is as follow
 -Dreadnautilus -> Claret Cephalopod (Post Orro-Boro)
 
 
+New Music:
+
+-"Tomb Crawlin'" By Bananalizard, plays in the first layer of the catacombs
+-"Daffodil" By Bananlizard, plays during daffodils's fight (This theme is currently an unfinished placeholder, something else will likely be made in the future)
+-"Pandora's Box" by Ennway, plays during the pandora's box ambush
+
+
 Config Improvements:
 
 -Changed the color of the background, and the bars for each config option (This should hopefully help each option to stand out more, and I personally think it looks nicer)

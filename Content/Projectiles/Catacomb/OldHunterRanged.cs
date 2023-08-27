@@ -203,7 +203,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Vector2 GoTo = target.Center;
                 GoTo.X += (Projectile.Center.X < target.Center.X) ? -200 : 200;
-                GoTo.Y -= 50;
+                GoTo.Y -= 20;
 
                 float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 6, 20);
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
@@ -231,10 +231,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                     ShootSpeed.Normalize();
                     ShootSpeed *= 18f;
 
-                    int offset = saveDirection == 1 ? -55 : 55;
+                    int offset = saveDirection == 1 ? -50 : 50;
                             
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 15, ShootSpeed.X + Main.rand.Next(-3, 4), 
-                    ShootSpeed.Y + Main.rand.Next(-3, 5), ModContent.ProjectileType<OldHunterRangedBullet>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 10, ShootSpeed.X + Main.rand.Next(-3, 4), 
+                    ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<OldHunterRangedBullet>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
                 }
             }
 

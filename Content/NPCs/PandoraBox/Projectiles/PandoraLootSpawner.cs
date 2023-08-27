@@ -29,15 +29,6 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 
         public override void AI()
         {
-            //make a trail of dust
-            Vector2 dustPosition = Projectile.Center;
-            dustPosition -= Projectile.velocity * 0.25f;
-            int dust = Dust.NewDust(dustPosition, 1, 1, ModContent.DustType<GlowyDust>(), 0f, 0f, 0, default, 0.05f);
-            Main.dust[dust].color = Color.Cyan;
-            Main.dust[dust].noGravity = true;
-            Main.dust[dust].position = dustPosition;
-            Main.dust[dust].velocity *= 0.2f;
-
             Projectile.scale = 1f * (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly * 25));
 
             Projectile.ai[0]++;

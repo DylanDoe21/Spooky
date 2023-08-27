@@ -98,7 +98,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (foundTarget != -1)
                 {
                     NPC target = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 18;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                     Projectile.tileCollide = false;
                 }
@@ -107,7 +107,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 800;
+            const float homingMaximumRangeInPixels = 500;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

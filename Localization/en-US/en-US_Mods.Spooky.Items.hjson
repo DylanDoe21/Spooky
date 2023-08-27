@@ -262,7 +262,7 @@ DaffodilStaff: {
 	Tooltip:
 		'''
 		Summons a plant hand to punch nearby enemies
-		It will only take one minion slot, but only one can be active at a time
+		It will only take one minion slot, but only one can be active at once
 		'''
 }
 
@@ -318,8 +318,8 @@ HunterSoulScepter: {
 	Tooltip:
 		'''
 		Summons the ghosts of old hunters to fight with you
-		Each old hunter has a different class, each with their own abilities
-		Right click to switch between each of the different classes
+		There are 3 different types of old hunters, a warrior, a shotgunner, and a mage
+		Right click to switch between each of the different types
 		'''
 }
 
@@ -1653,7 +1653,7 @@ MocoBox: {
 }
 
 PandoraEventBox: {
-	DisplayName: "Music Box (Pandora's Box)"
+	DisplayName: Music Box (Pandora's Box)
 	Tooltip: "'Pandora's Box' by Ennway"
 }
 
