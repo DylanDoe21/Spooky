@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetStaticDefaults()
 		{
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 4;
 		}
 
 		public override void SetDefaults()
@@ -141,7 +141,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 
-                    Projectile.frame = 0;
+                    Projectile.frame = 3;
                     Projectile.rotation = SaveRotation;
                     player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 }

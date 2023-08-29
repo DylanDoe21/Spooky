@@ -157,7 +157,7 @@ namespace Spooky.Core
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<CrossCooldown>());
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield;
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -166,7 +166,10 @@ namespace Spooky.Core
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.MountedCenter.X, drawInfo.drawPlayer.MountedCenter.Y - 45) - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.AwayFromZero));
+
+            Main.EntitySpriteDraw(tex, roundedPos - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 
@@ -177,7 +180,7 @@ namespace Spooky.Core
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return !drawInfo.drawPlayer.HasBuff<GoreAuraCooldown>() && drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().GoreArmorSet;
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().GoreArmorSet;
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -198,7 +201,35 @@ namespace Spooky.Core
                 realColor = color * 0.25f;
             }
 
-            Main.EntitySpriteDraw(tex, new Vector2(drawInfo.drawPlayer.MountedCenter.X - 1, drawInfo.drawPlayer.MountedCenter.Y) - Main.screenPosition, null, realColor, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y, MidpointRounding.AwayFromZero));
+
+            Main.EntitySpriteDraw(tex, roundedPos - Main.screenPosition, null, realColor, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
+        }
+    }
+
+    //daffodil hairpin ring drawing
+    public class DaffodilHairpinDrae : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().DaffodilHairpin;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/BossBags/Accessory/DaffodilHairpinDraw").Value;
+            Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
+
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y, MidpointRounding.AwayFromZero));
+
+
+            Main.EntitySpriteDraw(tex, roundedPos - Main.screenPosition, null, color, 0, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0);
         }
     }
 }

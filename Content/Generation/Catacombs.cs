@@ -882,5 +882,36 @@ namespace Spooky.Content.Generation
                 GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - 200 / 2, ShimmerY - 200 / 2, 200, 200));
             });
         }
+
+        //place items in chests
+        public override void PostWorldGen()
+		{
+            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if(chest == null) 
+                {
+					continue;
+				}
+
+				Tile chestTile = Main.tile[chest.x, chest.y];
+
+                //place stuff in pumpkin chests
+                if (chestTile.TileType == TileID.Containers && chestTile.TileFrameX == 45 * 36) 
+                {
+                    int[] Potions = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+
+                    chest.item[1].SetDefaults(ModContent.ItemType<CandleItem>());
+                    chest.item[1].stack = WorldGen.genRand.Next(5, 12);
+                }
+
+                //place stuff in bone chests
+                if (chestTile.TileType == TileID.Containers && chestTile.TileFrameX == 41 * 36) 
+                {
+
+                }
+            }
+        }
     }
 }

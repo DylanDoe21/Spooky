@@ -33,6 +33,7 @@ namespace Spooky.Core
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
+        public int SoundSpawnTimer = 0;
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
 
@@ -54,6 +55,7 @@ namespace Spooky.Core
         public bool FlyAmulet = false;
         public bool SpiritAmulet = false;
         public bool MocoNose = false;
+        public bool DaffodilHairpin = false;
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
 
@@ -120,6 +122,7 @@ namespace Spooky.Core
             FlyAmulet = false;
             SpiritAmulet = false;
             MocoNose = false;
+            DaffodilHairpin = false;
             OrroboroEmbyro = false;
             BoneMask = false;
 
@@ -197,8 +200,14 @@ namespace Spooky.Core
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
+            //give daffodil hairpin cooldown
+            if (DaffodilHairpin)
+            {
+                Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 1800);
+            }
+
             //gore armor set aura protection
-            if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
+            if (GoreArmorSet)
             {
                 modifiers.SetMaxDamage(1);
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
@@ -223,7 +232,7 @@ namespace Spooky.Core
         {
             //gore armor set aura protection
             //copied from above because getting hit by npcs and projectiles are handled separately by tmodloader now
-            if (GoreArmorSet && Player.HasBuff(ModContent.BuffType<GoreAuraBuff>()))
+            if (GoreArmorSet)
             {
                 modifiers.SetMaxDamage(1);
                 Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
@@ -390,12 +399,6 @@ namespace Spooky.Core
                         FlySpawnTimer = 0;
                     }
                 }
-            }
-
-            //increase endurance while you have the cross charm equipped
-            if (CrossCharmShield && !Player.HasBuff(ModContent.BuffType<CrossCooldown>()))
-            {
-                Player.endurance += 0.15f;
             }
 
             //bone mask wisp spawning

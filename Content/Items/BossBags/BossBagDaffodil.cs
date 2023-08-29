@@ -59,7 +59,7 @@ namespace Spooky.Content.Items.BossBags
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<DaffodilMask>(), 7));
 
             //expert item
-            //itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoNose>(), 1));
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<DaffodilHairpin>(), 1));
 
             //money
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<DaffodilEye>()));

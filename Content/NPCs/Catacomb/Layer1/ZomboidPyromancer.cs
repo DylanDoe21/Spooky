@@ -124,6 +124,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             }
             else
             {
+                //on fire animation
                 if (NPC.frame.Y < frameHeight * 8)
                 {
                     NPC.frame.Y = 7 * frameHeight;

@@ -234,8 +234,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     int offset = saveDirection == 1 ? -20 : 20;
                             
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 20, Main.rand.Next(-3, 4), 
-                    Main.rand.Next(-6, -4), ModContent.ProjectileType<OldHunterMagicBolt>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 20, Main.rand.Next(-2, 3), 
+                    Main.rand.Next(-2, -1), ModContent.ProjectileType<OldHunterMagicBolt>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
                 }
             }
 

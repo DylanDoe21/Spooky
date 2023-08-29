@@ -75,7 +75,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
 
                 NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>(), ai1: NPC.whoAmI);
-                Main.npc[(int)NPC.ai[1]].ai[0] = -1;
+
+                if (Main.rand.NextBool(20) && Flags.downedDaffodil)
+                {
+                    Main.npc[(int)NPC.ai[1]].ai[0] = -5;
+                }
+                else
+                {
+                    Main.npc[(int)NPC.ai[1]].ai[0] = -1;
+                }
                 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

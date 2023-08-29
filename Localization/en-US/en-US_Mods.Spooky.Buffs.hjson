@@ -23,6 +23,11 @@ CandyBuff3: {
 	Description: Slightly increased whip range
 }
 
+DaffodilHairpinCooldown: {
+	DisplayName: Thorn Petal Cooldown
+	Description: Your petal ring is regrowing
+}
+
 EmbryoRevival: {
 	DisplayName: Embryotic Revival
 	Description:
@@ -35,11 +40,6 @@ EmbryoRevival: {
 FlyBuff: {
 	DisplayName: Fly Swarm
 	Description: The swarm of flies is protecting you
-}
-
-GoreAuraBuff: {
-	DisplayName: Gore Monger Aura
-	Description: Your aura is protecting you
 }
 
 SkullFrenzyBuff: {
@@ -66,8 +66,8 @@ CatacombDebuff: {
 }
 
 CrossCooldown: {
-	DisplayName: Cross Barrier Cooldown
-	Description: Your barrier is recharging
+	DisplayName: Cross Charm Cooldown
+	Description: Your cross protection is recharging
 }
 
 EmbryoCooldown: {
@@ -142,6 +142,11 @@ GoreAuraCooldown: {
 GourdDecay: {
 	DisplayName: Rotting
 	Description: Mods.Spooky.BuffDescription.GourdDecay
+}
+
+PandoraCrossCooldown: {
+	DisplayName: Cross Bass Cooldown
+	Description: You cannot use the cross sound ability
 }
 
 Possessed: {

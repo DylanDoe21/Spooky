@@ -134,25 +134,32 @@ namespace Spooky.Content.Generation
         //place items in chests
         public override void PostWorldGen()
 		{
-            for (int chestIndex = 0; chestIndex < 1000; chestIndex++) 
+            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
             {
-				Chest chest = Main.chest[chestIndex]; 
+				Chest chest = Main.chest[chestIndex];
+
+                if (chest == null) 
+                {
+					continue;
+				}
+
+                Tile chestTile = Main.tile[chest.x, chest.y];
 
                 //spooky biome chest items
-				if (chest != null && (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyBiomeChest>() || 
-                Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyHellChest>()))
+				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || 
+                chestTile.TileType == ModContent.TileType<SpookyHellChest>()))
                 {
                     int[] Potions = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
                     //spooky biome chest main item
-                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyBiomeChest>())
+                    if (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>())
                     {
                         chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
                         chest.item[0].stack = 1;
                     }
 
                     //eye biome chest main item
-                    if (Main.tile[chest.x, chest.y].TileType == ModContent.TileType<SpookyHellChest>())
+                    if (chestTile.TileType == ModContent.TileType<SpookyHellChest>())
                     {
                         chest.item[0].SetDefaults(ModContent.ItemType<BrainJar>());
                         chest.item[0].stack = 1;

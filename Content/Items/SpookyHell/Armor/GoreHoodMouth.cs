@@ -30,12 +30,11 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmor");
-			player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
-
+			
 			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
             {
-				player.AddBuff(ModContent.BuffType<GoreAuraBuff>(), 1);
-            }
+				player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
+			}
 		}
 
 		public override void ArmorSetShadows(Player player)

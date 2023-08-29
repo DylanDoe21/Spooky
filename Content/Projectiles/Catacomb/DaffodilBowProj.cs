@@ -71,7 +71,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = player.position + new Vector2(-21, -12);
+				Projectile.position = new Vector2(player.Center.X - 1 - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -98,7 +98,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = player.position + new Vector2(-21, -12);
+                    Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
 
                     if (Projectile.timeLeft >= 19)
                     {
@@ -110,7 +110,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
 
-                        int extraDamage = 0;
                         int MaxProjectiles = 1;
 
                         switch (Projectile.frame)
@@ -120,7 +119,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                                 SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.66f }, Projectile.Center);
                                 SoundEngine.PlaySound(FlySound, Projectile.Center);
                                 ShootSpeed *= 10;
-                                extraDamage = -15;
 
                                 break;
                             }
@@ -130,7 +128,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                                 SoundEngine.PlaySound(FlySound, Projectile.Center);
                                 MaxProjectiles = 3;
                                 ShootSpeed *= 13;
-                                extraDamage = -8;
                                 break;
                             }
                             case 2:
@@ -139,7 +136,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                                 SoundEngine.PlaySound(FlySound, Projectile.Center);
                                 MaxProjectiles = 6;
                                 ShootSpeed *= 16;
-                                extraDamage = 0;
                                 break;
                             }
                         }
@@ -147,7 +143,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X + Main.rand.Next(-5, 6), 
-                            ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<DaffodilBowFly>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
+                            ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<DaffodilBowFly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                     }
 

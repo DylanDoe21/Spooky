@@ -155,6 +155,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)Parent.ai[0])
             {
+                case -5: 
+                {
+                    GoToPosition(0, 0);
+
+                    break;
+                }
+
                 case -4:
                 {
                     GoToPosition(0, 0);

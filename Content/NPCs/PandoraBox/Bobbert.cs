@@ -140,7 +140,16 @@ namespace Spooky.Content.NPCs.PandoraBox
                 NPC.frame.Y = 0 * frameHeight;
             }
         }
-        
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+
+            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage / 2, 0, Main.myPlayer);
+
+            NPC.active = false;
+        }
+
         public override void AI()
 		{
 			Player player = Main.player[NPC.target];
@@ -148,10 +157,44 @@ namespace Spooky.Content.NPCs.PandoraBox
 
             NPC.rotation = NPC.velocity.X * 0.04f;
 
-            Vector2 GoTo = new Vector2(player.Center.X + Main.rand.Next(-200, 200), player.Center.Y + Main.rand.Next(-200, 200));
+            float goToX = player.Center.X - NPC.Center.X;
+            float goToY = player.Center.Y - NPC.Center.Y;
+            float speed = 0.32f;
 
-            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 2, 4);
-            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+            if (NPC.velocity.X < goToX)
+            {
+                NPC.velocity.X = NPC.velocity.X + speed;
+                if (NPC.velocity.X < 0f && goToX > 0f)
+                {
+                    NPC.velocity.X = NPC.velocity.X + speed;
+                }
+            }
+            else if (NPC.velocity.X > goToX)
+            {
+                NPC.velocity.X = NPC.velocity.X - speed;
+                if (NPC.velocity.X > 0f && goToX < 0f)
+                {
+                    NPC.velocity.X = NPC.velocity.X - speed;
+                }
+            }
+            if (NPC.velocity.Y < goToY)
+            {
+                NPC.velocity.Y = NPC.velocity.Y + speed;
+                if (NPC.velocity.Y < 0f && goToY > 0f)
+                {
+                    NPC.velocity.Y = NPC.velocity.Y + speed;
+                    return;
+                }
+            }
+            else if (NPC.velocity.Y > goToY)
+            {
+                NPC.velocity.Y = NPC.velocity.Y - speed;
+                if (NPC.velocity.Y > 0f && goToY < 0f)
+                {
+                    NPC.velocity.Y = NPC.velocity.Y - speed;
+                    return;
+                }
+            }
 
             for (int num = 0; num < Main.maxNPCs; num++)
 			{

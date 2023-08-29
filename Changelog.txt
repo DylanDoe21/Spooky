@@ -188,6 +188,7 @@ Removals:
 
 -Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary, visitant, glooper, and chalupo
 -Removed the shadow cowbell and the shadow clump items, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
+-Removed the buffs for the cross charm protection and gore monger armor aura since there is literally a visible icon on your player that shows when the ability is active
 
 
 
@@ -212,6 +213,7 @@ Fixed all of the following bugs and issues:
 -Harvester's scythe, flesh mincer, and living flesh mincer knocking enemies toward you instead of away from you
 -Valley of eyes enemies dropping living fire blocks, hel-fire, and cascade
 -Spooky mod's heavy melee weapons being able to hurt town npcs
+-Snotty schnoz allowing you to fire boogers from whips, summon weapons, and items that do not shoot projectiles
 -Moldy chunks stacking to 999 and not 9999
 
 

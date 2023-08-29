@@ -11,6 +11,8 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
+using Mono.Cecil;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace Spooky.Core
 {
@@ -53,8 +55,12 @@ namespace Spooky.Core
         {
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) && !player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
             {
-                int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.35f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
-                Main.projectile[newProjectile].DamageType = item.DamageType;
+                //whips and summon weapons should not shoot out a booger, as well as items that do not shoot projectiles
+                if (item.DamageType != DamageClass.SummonMeleeSpeed && item.DamageType != DamageClass.Summon && item.shoot > 0 && item.shootSpeed > 0)
+                {
+                    int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.5f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
+                    Main.projectile[newProjectile].DamageType = item.DamageType;
+                }
             }
 
             return true;

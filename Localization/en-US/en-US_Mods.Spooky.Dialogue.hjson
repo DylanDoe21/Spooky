@@ -102,6 +102,7 @@ Daffodil: {
 	PreDefeatOutro2: Fine, then you may advance into the deeper catacombs
 	PostDefeatOutro1: You are still powerful...
 	PostDefeatOutro2: Not sure why you keep waking me, but whatever
+	BackToSleep: Nah...
 }
 
 TheHorse: How hungry?

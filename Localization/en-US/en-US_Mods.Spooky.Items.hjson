@@ -7,6 +7,15 @@ BoneMask: {
 		'''
 }
 
+DaffodilHairpin: {
+	DisplayName: Flower Hairpin
+	Tooltip:
+		'''
+		Grants you a petal ring that deals massive damage to enemies when they touch you
+		The ring goes away when an enemy hits you, and it will grow back after 30 seconds
+		'''
+}
+
 FlyCharm: {
 	DisplayName: Charm of the Flies
 	Tooltip:

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.Catacomb
 {
@@ -19,7 +20,11 @@ namespace Spooky.Content.Items.Catacomb
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<SpookyPlayer>().CrossCharmShield = true;
+            if (!player.HasBuff(ModContent.BuffType<CrossCooldown>()))
+            {
+                player.endurance += 0.35f;
+                player.GetModPlayer<SpookyPlayer>().CrossCharmShield = true;
+            }
         }
     }
 }

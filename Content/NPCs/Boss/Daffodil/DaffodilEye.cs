@@ -223,6 +223,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     NPC.frame.Y = frameHeight * 2;
                 }
             }
+            //slightly open eye 
+            else if (NPC.ai[0] == -5)
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
             else if (NPC.ai[0] == 0 && NPC.localAI[0] >= 60 && NPC.localAI[0] <= 155)
             {
                 NPC.frame.Y = frameHeight * 3;
@@ -321,6 +326,30 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
+                //go back to sleep
+                case -5:
+                {   
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 1)
+                    {
+                        NPC.immortal = true;
+                        NPC.dontTakeDamage = true;
+                    }
+
+                    if (NPC.localAI[0] == 150)
+                    {
+                        CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.BackToSleep"), true);
+                    }
+
+                    if (NPC.localAI[0] >= 260)
+                    {
+                        NPC.active = false;
+                    }
+
+                    break;
+                }
+
                 //despawning
                 case -4:
                 {

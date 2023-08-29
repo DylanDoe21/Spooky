@@ -86,7 +86,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 20)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.3f;
             }
 
             int foundTarget = HomeOnTarget();
@@ -121,17 +121,15 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            Projectile.ai[0] = 0;
-
             if (Projectile.velocity.X != oldVelocity.X)
             {
                 Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X * 0.5f;
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
             }
             if (Projectile.velocity.Y != oldVelocity.Y)
             {
                 Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y * 0.5f;
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
             }
 
 			return false;

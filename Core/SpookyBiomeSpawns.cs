@@ -15,7 +15,6 @@ using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
-using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
@@ -39,7 +38,8 @@ namespace Spooky.Core
 				maxSpawns = 0;
 			}
 
-			if (PandoraBoxWorld.PandoraEventActive)
+			//remove spawns during the pandora's box event
+			if (player.InModBiome(ModContent.GetInstance<PandoraBoxBiome>()))
 			{
 				spawnRate = 0;
 				maxSpawns = 0;
