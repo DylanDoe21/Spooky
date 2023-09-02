@@ -71,7 +71,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = new Vector2(player.Center.X - 1 - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
+				Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -98,7 +98,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
+                    Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
                     if (Projectile.timeLeft >= 19)
                     {

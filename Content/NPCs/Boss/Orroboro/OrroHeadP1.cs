@@ -302,7 +302,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity.Y = -30;
                         }
                             
-                        if (NPC.localAI[0] > 30)
+                        if (NPC.localAI[0] > 25)
                         {
                             OpenMouth = false;
 

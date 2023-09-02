@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 70;
+            NPC.lifeMax = 90;
             NPC.damage = 25;
             NPC.defense = 0;
             NPC.width = 70;

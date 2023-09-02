@@ -7,6 +7,7 @@ using Terraria.Localization;
 using Terraria.IO;
 using ReLogic.Utilities;
 using Microsoft.Xna.Framework;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -21,8 +22,6 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 using StructureHelper;
-using Terraria.DataStructures;
-using Terraria.GameContent.Tile_Entities;
 
 namespace Spooky.Content.Generation
 {
@@ -302,7 +301,7 @@ namespace Spooky.Content.Generation
 
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //240 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
-            int layer2Width = Main.maxTilesX >= 8400 ? 240 : 160; //(Main.maxTilesX >= 6400 ? 160 : 80);
+            int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
 
             //sets the height for the catacombs second layer (how many rooms it has vertically)
             //350 = large worlds (6 rooms deep), 300 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)
@@ -499,7 +498,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool())
+                        if (WorldGen.genRand.NextBool() || (Main.maxTilesX < 6400 && Main.maxTilesY < 1800))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
@@ -731,21 +730,6 @@ namespace Spooky.Content.Generation
                     Tile tile = Main.tile[X, Y];
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
-
-                    if (tile.TileType == TileID.LogicSensor)
-                    {
-                        if (tile.TileFrameY == 36)
-                        {
-                            WorldGen.KillTile(X, Y);
-                            WorldGen.PlaceLogicTiles(X, Y, TileID.LogicSensor, 2);
-                        }
-
-                        if (tile.TileFrameY == 72)
-                        {
-                            WorldGen.KillTile(X, Y);
-                            WorldGen.PlaceLogicTiles(X, Y, TileID.LogicSensor, 4);
-                        }
-                    }
 
                     //place grass walls in layer one
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))

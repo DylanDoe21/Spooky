@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -12,6 +14,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class EyeRocket : ModProjectile
     {
+        private List<Vector2> cache;
+        private Trail trail;
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
@@ -43,19 +48,56 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
             }
 
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            //draw prim trail
+            Main.spriteBatch.End();
+            Effect effect = ShaderLoader.GlowyTrail;
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Red) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
-            }
+            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
+            Matrix view = Main.GameViewMatrix.ZoomMatrix;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+
+            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/EnergyTrail").Value); //trails texture image
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
+            effect.Parameters["repeats"].SetValue(5); //this is how many times the trail is drawn
+
+            trail?.Render(effect);
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
             return true;
+        }
+
+        const int TrailLength = 6;
+
+        private void ManageCaches()
+        {
+            if (cache == null)
+            {
+                cache = new List<Vector2>();
+                for (int i = 0; i < TrailLength; i++)
+                {
+                    cache.Add(Projectile.Center);
+                }
+            }
+
+            cache.Add(Projectile.Center);
+
+            while (cache.Count > TrailLength)
+            {
+                cache.RemoveAt(0);
+            }
+        }
+
+		private void ManageTrail()
+        {
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            {
+                return Color.Lerp(Color.Red, Color.Gray, factor.X) * factor.X;
+            });
+
+            trail.Positions = cache.ToArray();
+            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 		
         public override void AI()
@@ -66,6 +108,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
             if (Projectile.spriteDirection == -1)
             {
                 Projectile.rotation += MathHelper.Pi;
+            }
+
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
             }
 
             int foundTarget = HomeOnTarget();

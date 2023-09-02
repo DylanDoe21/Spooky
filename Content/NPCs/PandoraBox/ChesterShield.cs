@@ -140,6 +140,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                 case 3:
                 {   
                     NPC.rotation = 0;
+                    NPC.spriteDirection = Parent.spriteDirection;
+                    
                     GoToPosition(-45, -50);
 
                     break;

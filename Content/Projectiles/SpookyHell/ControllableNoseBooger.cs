@@ -65,7 +65,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 8;
+                Projectile.alpha -= 20;
             }
 		}
 

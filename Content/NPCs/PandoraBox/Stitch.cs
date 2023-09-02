@@ -63,7 +63,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 180;
+            NPC.lifeMax = 320;
             NPC.damage = 50;
             NPC.defense = 12;
             NPC.width = 28;
@@ -169,6 +169,11 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+        }
+
+        public override bool CheckActive()
+        {
+            return !PandoraBoxWorld.PandoraEventActive;
         }
 
         public override void AI()

@@ -82,6 +82,12 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void AI()
         {
+            if (!Main.dedServ)
+            {
+                ManageCaches();
+                ManageTrail();
+            }
+
             Projectile.rotation += 0.2f * (float)Projectile.direction;
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
@@ -94,12 +100,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             else
             {
                 Projectile.tileCollide = false;
-            }
-
-            if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
-            {
-                ManageCaches();
-                ManageTrail();
             }
         }
 

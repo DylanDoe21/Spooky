@@ -169,23 +169,23 @@ namespace Spooky.Content.NPCs.Hallucinations
 
                     if (NPC.localAI[0] == 60)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.White, "5", true);
+                        CombatText.NewText(NPC.getRect(), Color.White, Language.GetTextValue("Mods.Spooky.Dialogue.TheMan.Five"), true);
                     }
                     if (NPC.localAI[0] == 120)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.White, "4", true);
+                        CombatText.NewText(NPC.getRect(), Color.White, Language.GetTextValue("Mods.Spooky.Dialogue.TheMan.Four"), true);
                     }
                     if (NPC.localAI[0] == 180)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.White, "3", true);
+                        CombatText.NewText(NPC.getRect(), Color.White, Language.GetTextValue("Mods.Spooky.Dialogue.TheMan.Three"), true);
                     }
                     if (NPC.localAI[0] == 240)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.White, "2", true);
+                        CombatText.NewText(NPC.getRect(), Color.White, Language.GetTextValue("Mods.Spooky.Dialogue.TheMan.Two"), true);
                     }
                     if (NPC.localAI[0] == 300)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.White, "1", true);
+                        CombatText.NewText(NPC.getRect(), Color.White, Language.GetTextValue("Mods.Spooky.Dialogue.TheMan.One"), true);
                     }
                     if (NPC.localAI[0] == 360)
                     {

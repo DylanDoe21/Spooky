@@ -22,7 +22,6 @@ namespace Spooky.Content.NPCs.EggEvent
     {
         int repeats = Main.rand.Next(2, 4);
 
-        Vector2 SaveLocation;
         Vector2 SavePlayerPosition;
         
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
@@ -55,12 +54,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(SaveLocation.X);
-            writer.Write(SaveLocation.Y);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
-
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
@@ -68,12 +61,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            SaveLocation.X = reader.ReadInt32();
-            SaveLocation.Y = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
-
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
@@ -166,12 +153,12 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         if (NPC.localAI[0] == 30 || NPC.localAI[0] == 60 || NPC.localAI[0] == 90)
                         {
-                            SaveLocation = new Vector2(player.Center.X + Main.rand.Next(-100, 100), player.Center.Y - Main.rand.Next(-50, 50));
+                            SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-100, 100), player.Center.Y - Main.rand.Next(-50, 50));
                         }
 
                         if (NPC.localAI[0] <= 120)
                         {
-                            Vector2 GoTo = SaveLocation;
+                            Vector2 GoTo = SavePlayerPosition;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(3, 6));
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);

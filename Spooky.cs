@@ -35,8 +35,12 @@ namespace Spooky
         public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
+        public static ModKeybind AccessoryHotkey { get; private set; }
+
         public override void Load()
         {
+            AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
+
             if (!Main.dedServ)
             {
                 Filters.Scene["Spooky:Cemetery"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
@@ -82,6 +86,8 @@ namespace Spooky
 
         public override void Unload()
         {
+            AccessoryHotkey = null;
+
             HellBGManager.Unload();
 
             if (loadCache != null)

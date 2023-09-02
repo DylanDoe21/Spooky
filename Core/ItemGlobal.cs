@@ -48,7 +48,35 @@ namespace Spooky.Core
                 }
             }
 
-            return true;
+            return base.CanUseItem(item, player);
+        }
+
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (player.GetModPlayer<SpookyPlayer>().PandoraChalice)
+            {
+                if (item.type == ItemID.LesserManaPotion)
+                {
+
+                }
+
+                if (item.type == ItemID.ManaPotion)
+                {
+
+                }
+
+                if (item.type == ItemID.GreaterManaPotion)
+                {
+
+                }
+
+                if (item.type == ItemID.SuperManaPotion)
+                {
+
+                }
+            }
+
+            return base.UseItem(item, player);
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -63,7 +91,7 @@ namespace Spooky.Core
                 }
             }
 
-            return true;
+            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
@@ -73,12 +101,12 @@ namespace Spooky.Core
 				int[] DevMasks = new int[] { 
                 ModContent.ItemType<BananalizardHead>(), 
                 ModContent.ItemType<DylanDoeHead>(), 
-                ModContent.ItemType<KrakenHead>(), 
-                ModContent.ItemType<TacoHead>(), 
-                ModContent.ItemType<WaasephiHead>(), 
                 ModContent.ItemType<HatHead>(), 
-                ModContent.ItemType<SeasaltHead>(),
-                ModContent.ItemType<PelusaHead>() };
+                ModContent.ItemType<KrakenHead>(),
+                ModContent.ItemType<PelusaHead>(),
+                ModContent.ItemType<SeasaltHead>(), 
+                ModContent.ItemType<TacoHead>(), 
+                ModContent.ItemType<WaasephiHead>() };
 
                 itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
 			}

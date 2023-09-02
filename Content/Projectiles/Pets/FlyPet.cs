@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Pets
             }
 
             Projectile.frameCounter++;
-            if (Projectile.frameCounter > 3)
+            if (Projectile.frameCounter > 2)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
@@ -66,9 +66,9 @@ namespace Spooky.Content.Projectiles.Pets
             Vector2 vector3 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
             float horiPos = player.position.X + (float)(player.width / 2) - vector3.X;
             float vertiPos = player.position.Y + (float)(player.height / 2) - vector3.Y;
-            vertiPos += (float)Main.rand.Next(-10, 15);
-            horiPos += (float)Main.rand.Next(-10, 15);
-            horiPos += (float)(60 * -(float)player.direction);
+            vertiPos += (float)Main.rand.Next(-5, 8);
+            horiPos += (float)Main.rand.Next(-5, 8);
+            horiPos += (float)(45 * -(float)player.direction);
             vertiPos -= 60f;
             float playerDistance = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
             float num21 = 18f;

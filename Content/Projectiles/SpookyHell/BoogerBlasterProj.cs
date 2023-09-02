@@ -9,6 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 	public class BoogerBlasterProj : ModProjectile
 	{
         int Charge = 0;
+        int SaveDirection;
         float SaveRotation;
 
 		public override void SetStaticDefaults()
@@ -70,7 +71,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - 5 - Projectile.height / 2);
+				Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 				player.velocity.X *= 0.99f;
 
                 Projectile.localAI[0] += 0.25f;
@@ -100,10 +101,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - 5 - Projectile.height / 2);
+                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
                     if (Projectile.timeLeft >= 29)
                     {
+                        SaveDirection = Projectile.spriteDirection;
                         SaveRotation = Projectile.rotation;
 
                         //set ai[2] to 1 so it cannot shoot again
@@ -160,6 +162,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     }
 
                     Projectile.frame = 0;
+                    Projectile.spriteDirection = SaveDirection;
                     Projectile.rotation = SaveRotation;
                     player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 }

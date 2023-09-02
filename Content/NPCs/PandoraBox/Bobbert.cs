@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 200;
             NPC.damage = 35;
             NPC.defense = 0;
             NPC.width = 40;
@@ -141,6 +141,11 @@ namespace Spooky.Content.NPCs.PandoraBox
             }
         }
 
+        public override bool CheckActive()
+        {
+            return !PandoraBoxWorld.PandoraEventActive;
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
@@ -159,7 +164,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
             float goToX = player.Center.X - NPC.Center.X;
             float goToY = player.Center.Y - NPC.Center.Y;
-            float speed = 0.32f;
+            float speed = 0.08f;
 
             if (NPC.velocity.X < goToX)
             {

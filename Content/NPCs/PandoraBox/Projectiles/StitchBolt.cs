@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 6 * factor, factor =>
             {
-                return Color.Lerp(Color.Blue, Color.Cyan, factor.X) * factor.X;
+                return Color.Lerp(Color.White, Color.Cyan, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

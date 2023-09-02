@@ -8,6 +8,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class OldWoodSlingshotProj : ModProjectile
 	{
+        int SaveDirection;
         float SaveRotation;
 
 		public override void SetStaticDefaults()
@@ -17,7 +18,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 24;
+            Projectile.width = 32;
             Projectile.height = 24;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
@@ -69,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
 
-                Projectile.position = player.position + new Vector2(-2, 0);
+                Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 4 - Projectile.height / 2);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -95,10 +96,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = player.position + new Vector2(-2, 0);
+                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 4 - Projectile.height / 2);
 
                     if (Projectile.timeLeft >= 24)
                     {
+                        SaveDirection = Projectile.spriteDirection;
                         SaveRotation = Projectile.rotation;
 
                         //set ai[2] to 1 so it cannot shoot again
@@ -144,8 +146,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     }
 
                     Projectile.frame = 0;
+                    Projectile.spriteDirection = SaveDirection;
                     Projectile.rotation = SaveRotation;
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
 			}
 

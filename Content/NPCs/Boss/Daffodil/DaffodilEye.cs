@@ -549,10 +549,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                         if (NPC.localAI[0] == 240)
                         {
+                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro3"), true);
+                        }
+
+                        if (NPC.localAI[0] == 360)
+                        {
                             CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro2"), true);
                         }
 
-                        if (NPC.localAI[0] >= 360)
+                        if (NPC.localAI[0] >= 420)
                         {
                             NPC.immortal = false;
                             NPC.dontTakeDamage = false;

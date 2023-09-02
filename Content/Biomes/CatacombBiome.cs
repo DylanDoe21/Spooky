@@ -10,6 +10,7 @@ using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Water;
+using Terraria.DataStructures;
 
 namespace Spooky.Content.Biomes
 { 
@@ -40,19 +41,6 @@ namespace Spooky.Content.Biomes
             {
                 player.AddBuff(ModContent.BuffType<CatacombDebuff>(), 2);
             }
-
-            //spawn a catacomb guardian if you enter too early
-            int PlayerX = (int)player.Center.X / 16;
-            int PlayerY = (int)player.Center.Y / 16;
-
-            /*
-            if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()) &&
-            ((Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall1>() && !Flags.CatacombKey1) ||
-            (Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() && !Flags.CatacombKey2)))
-            {
-                NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<CatacombGuardian>());
-            }
-            */
 
             //graveyard visuals
             player.ZoneGraveyard = true;

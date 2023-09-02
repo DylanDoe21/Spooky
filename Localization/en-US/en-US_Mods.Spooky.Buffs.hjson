@@ -149,6 +149,11 @@ PandoraCrossCooldown: {
 	Description: You cannot use the cross sound ability
 }
 
+PandoraHandCooldown: {
+	DisplayName: Rosary Hand Cooldown
+	Description: Your rosary hands cannot spawn
+}
+
 Possessed: {
 	DisplayName: Possessed
 	Description: You are being controlled by an evil ghost!
@@ -207,6 +212,11 @@ OldHunterBuff: {
 PumpkinHeadBuff: {
 	DisplayName: Pumpkin Head
 	Description: Your head is now fighting with you!
+}
+
+RotGourdMinionBuff: {
+	DisplayName: Gourd Goober
+	Description: The small gourd will crush enemies
 }
 
 SkullWispBuff: {

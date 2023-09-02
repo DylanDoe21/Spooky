@@ -92,8 +92,8 @@ Daffodil: {
 	PreDefeatIntro2: Just who do you think you are waking me?!
 	PreDefeatIntro3: ......
 	PreDefeatIntro4: Fine, then let's see if you're worthy!
-	PostDefeatIntro1: Really? Again?
-	PostDefeatIntro2: Fine, then let's battle...
+	PostDefeatIntro1: Ugh, why do you keep waking me?
+	PostDefeatIntro2: Fine, then let's battle again...
 	PreDefeatPhaseTransition1: Alright then, I see how it is...
 	PreDefeatPhaseTransition2: Let's see if you're worthy now!
 	PostDefeatPhaseTransition1: So you're just as good as before huh...
@@ -103,6 +103,14 @@ Daffodil: {
 	PostDefeatOutro1: You are still powerful...
 	PostDefeatOutro2: Not sure why you keep waking me, but whatever
 	BackToSleep: Nah...
+}
+
+TheMan: {
+	One: One
+	Two: Two
+	Three: Three
+	Four: Four
+	Five: Five
 }
 
 TheHorse: How hungry?

@@ -402,7 +402,7 @@ namespace Spooky.Content.Generation
 
             //place blood lake
             int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
-            GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 15);
+            GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 20);
 
             //place fourth flesh pillar
             GenerateStructure(BiomeEdge - 150, StartPosY, "FleshPillar-4", 15, 39);

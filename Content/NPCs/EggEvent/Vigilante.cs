@@ -64,8 +64,6 @@ namespace Spooky.Content.NPCs.EggEvent
             writer.Write(SaveDirection);
             writer.Write(SavePosition.X);
             writer.Write(SavePosition.X);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
 
             //floats
             writer.Write(SaveRotation);
@@ -80,8 +78,6 @@ namespace Spooky.Content.NPCs.EggEvent
             SaveDirection = reader.ReadInt32();
             SavePosition.X = reader.ReadInt32();
             SavePosition.X = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
 
             //floats
             SaveRotation = reader.ReadSingle();

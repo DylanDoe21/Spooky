@@ -14,6 +14,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Projectile.width = 66;
             Projectile.height = 64;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
@@ -51,7 +52,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
 
-            if (Projectile.ai[0] < 450)
+            if (Projectile.ai[0] < 350)
             {
                 Projectile.ai[0] += 50;
             }
@@ -77,7 +78,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     //push all enemies away from you
                     Vector2 Knockback = Projectile.Center - npc.Center;
                     Knockback.Normalize();
-                    Knockback *= 15;
+                    Knockback *= 6;
 
                     if (npc.knockBackResist > 0)
                     {

@@ -58,8 +58,6 @@ namespace Spooky.Content.NPCs.EggEvent
             //ints
             writer.Write(aura);
             writer.Write(repeats);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -71,8 +69,6 @@ namespace Spooky.Content.NPCs.EggEvent
             //ints
             aura = reader.ReadInt32();
             repeats = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();

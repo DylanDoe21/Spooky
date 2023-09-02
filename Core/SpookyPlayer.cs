@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +21,7 @@ using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.Generation;
+using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 
 namespace Spooky.Core
 {
@@ -33,7 +34,8 @@ namespace Spooky.Core
         public int MocoBoogerCharge = 0;
         public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
-        public int SoundSpawnTimer = 0;
+        public int CrossSoundTimer = 0;
+        public int RosaryHandTimer = 0;
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
 
@@ -50,6 +52,10 @@ namespace Spooky.Core
         public bool MagicCandle = false;
         public bool SkullAmulet = false;
         public bool CrossCharmShield = false;
+        public bool PandoraChalice = false;
+        public bool PandoraCross = false;
+        public bool PandoraCuffs = false;
+        public bool PandoraRosary = false;
 
         //expert accessories
         public bool FlyAmulet = false;
@@ -62,6 +68,7 @@ namespace Spooky.Core
         //minions
         public bool SkullWisp = false;
         public bool EntityMinion = false;
+        public bool RotGourdMinion = false;
         public bool TumorMinion = false;
         public bool NoseMinion = false;
         public bool Grug = false;
@@ -93,6 +100,8 @@ namespace Spooky.Core
 		internal new static void Unload() => ItemGlowMask.Clear();
 		public static void AddGlowMask(int itemType, string texturePath) => ItemGlowMask[itemType] = ModContent.Request<Texture2D>(texturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
+        public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound);
+
         public override void OnEnterWorld()
         {
             //un-hide the sun if you enter the world with the spooky mod menu enabled
@@ -117,6 +126,10 @@ namespace Spooky.Core
             MagicCandle = false;
             SkullAmulet = false;
             CrossCharmShield = false;
+            PandoraChalice = false;
+            PandoraCross = false;
+            PandoraCuffs = false;
+            PandoraRosary = false;
 
             //expert accessories
             FlyAmulet = false;
@@ -129,6 +142,7 @@ namespace Spooky.Core
             //minions
             SkullWisp = false;
             EntityMinion = false;
+            RotGourdMinion = false;
             TumorMinion = false;
             NoseMinion = false;
             Grug = false;
@@ -178,6 +192,23 @@ namespace Spooky.Core
             }
         }
 
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            //do not allow hotkeys to do anything if you are dead
+            if (Player.dead)
+            {
+                return;
+            }
+
+            if (Spooky.AccessoryHotkey.JustPressed && PandoraCross && Main.myPlayer == Player.whoAmI)
+            {
+                SoundEngine.PlaySound(CrossBassSound, Player.Center);
+
+                CrossSoundTimer = 300;
+                Player.AddBuff(ModContent.BuffType<PandoraCrossCooldown>(), 2400);
+            }
+        }
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             bool ShouldRevive = true;
@@ -203,7 +234,7 @@ namespace Spooky.Core
             //give daffodil hairpin cooldown
             if (DaffodilHairpin)
             {
-                Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 1800);
+                Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 3600);
             }
 
             //gore armor set aura protection
@@ -295,11 +326,25 @@ namespace Spooky.Core
                     }
                 }
             }
+
+            //activate pandora rosary hands healing AI
+            if (PandoraRosary && !Player.HasBuff(ModContent.BuffType<PandoraHandCooldown>()))
+            {
+                Player.AddBuff(ModContent.BuffType<PandoraHandCooldown>(), 720);
+
+                for (int i = 0; i <= Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].type == ModContent.ProjectileType<PandoraRosaryHand>())
+                    {
+                        Main.projectile[i].ai[0] = 1;
+                    }
+                }
+            }
         }
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
-            //hide the player's head while wearing full horseman armor
+            //hide the player's head while wearing the full horseman armor set
             if (HorsemanSet)
             {
                 PlayerDrawLayers.Head.Hide();
@@ -329,6 +374,32 @@ namespace Spooky.Core
             {
                 //reset the time if you move at all
                 BustlingHealTimer = 0;
+            }
+
+            //spawn flies while wearing the fly amulet
+            if (FlyAmulet)
+            {
+                //add the fly buff if the player has any flies around them
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
+                {
+                    Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
+                }
+
+                //spawn flies
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
+                {
+                    FlySpawnTimer++;
+
+                    if (FlySpawnTimer == 300)
+                    {
+                        Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+
+                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
+                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
+
+                        FlySpawnTimer = 0;
+                    }
+                }
             }
 
             //grant the player the skull frenzy when they absorb enough souls
@@ -375,37 +446,44 @@ namespace Spooky.Core
                 }
             }
 
-            //spawn flies while wearing the fly amulet
-            if (FlyAmulet)
+            //spawn cross sound bass projectile after pressing the hotkey
+            if (CrossSoundTimer > 0)
             {
-                //add the fly buff if the player has any flies around them
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
+                CrossSoundTimer--;
+
+                if (CrossSoundTimer % 12 == 2)
                 {
-                    Player.AddBuff(ModContent.BuffType<FlyBuff>(), 2);
-                }
+                    //the damage for this projectile should always be the same regardless of difficulty
+                    int Damage = Main.masterMode ? 30 / 4 : Main.expertMode ? 30 / 3 : 30;
 
-                //spawn flies
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] < 10)
-                {
-                    FlySpawnTimer++;
-
-                    if (FlySpawnTimer == 300)
-                    {
-                        Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
-
-                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
-                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
-
-                        FlySpawnTimer = 0;
-                    }
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
+                    ModContent.ProjectileType<PandoraCrossSound>(), Damage, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
 
-            //bone mask wisp spawning
+            //spawn pandora rosary hands that circle the player
+            if (PandoraRosary && !Player.HasBuff(ModContent.BuffType<PandoraHandCooldown>()) && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraRosaryHand>()] < 5)
+            {
+                RosaryHandTimer++;
+
+                if (RosaryHandTimer >= 325)
+                {
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
+                    ModContent.ProjectileType<PandoraRosaryHand>(), 0, 0f, Main.myPlayer, 0f, Main.rand.Next(0, 360));
+
+                    RosaryHandTimer = 0;
+                }
+            }
+            else
+            {
+                RosaryHandTimer = 0;
+            }
+
+            //bone mask wisp spawning while running
             if (BoneMask)
             {
                 //all of these calculations are just copied from vanilla's stopwatch
-                //too lazy to change all the num things for now
+                //too lazy to change all the num things tbh
                 Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
                 if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)

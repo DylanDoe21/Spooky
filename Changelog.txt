@@ -1,9 +1,9 @@
 Update v1.0 (The first full release!)
 
 -This update is spooky mods first FULL release, which means at this point the mod has enough content and polishing that it is no longer a small WIP mod 
-(Despite some of the existing multiplayer problems which we are still working on I promise)
+(Despite some of the existing problems and bugs which we are still working on I promise)
 
--Before anyone asks, YOU WILL NEED A NEW WORLD!!!! This update completely overhauls the catacombs and adds new generation to literally every single biome in the mod
+-Before anyone asks, YOU WILL NEED A NEW WORLD!!!! This update completely overhauls the catacombs and adds new generation to every single biome in the mod!
 
 
 ~NEW STUFF~
@@ -11,28 +11,30 @@ Update v1.0 (The first full release!)
 
 Catacombs Overhaul:
 
--Every single room has been redone to look more unique, more detailed, and more interesting to explore overall
+-The entirety of the catacombs has been redone to be more interesting to explore overall, and have new things to do in it
 -Many more variants of rooms have been added, as well as many changes to the catacombs generation to keep things fresh and new in different worlds
--The entirety of both layers have been redone to have new aesthetics and their own unique blocks so they dont look exactly the same anymore
--The size of the catacombs now scales with world size, meaning bigger worlds will have bigger catacombs
--Big bone's boss arena has been redone completely to give you far more room during his fight
--Added a new arena between the first and second layer of the catacombs that you fight a new boss in
--Revamped all of the existing catacomb enemies with new sprites, some new AI, and moved them to be exclusive to the second layer
--Added tons of new content such as new enemies for the first layer, new weapons obtained from both chests and enemies, and a new hardmode armor set
+-The entirety of both catacomb layers have been redone to have new aesthetics and their own unique blocks so they dont look exactly the same anymore
+-The size of the catacombs now scales with world size, meaning bigger worlds will have larger catacombs
+-Big bone's boss arena has been redone completely so it not only looks better, but also to give you more room to dodge and move around during his fight
+-Added a new arena between the first and second layer of the catacombs that you fight a new boss in, more information about this below
+-Added a new mini-event to the second layer of the catacombs, pandoras box, more information about this below
+-Revamped all of the existing catacomb enemies with new sprites and some improvements to their AI, and they are now exclusive to the second layer
+-Added a bunch of new enemies that spawn in the first layer of the catacombs, as well as a few new enemies for the second layer too
+-Added tons of new content to the catacombs such as new chest loot, new enemy drops, a brand new early hardmode armor set, and much more
 
 
 New Boss, Daffodil:
 
--She is an early hardmode queen slime tier boss fought in a small arena between the first and second layer of the catacombs
+-She is an early hardmode (Queen slime tier) boss fought in a small arena between the first and second layer of the catacombs
 -Daffodil drops the red skull key now, meaning you must defeat her before you can enter the second layer
 -She also has her own exclusive loot just as every other spooky mod boss does
 
 
 New Encounter, Pandora's Box:
 
--The long awaited feature has been added, that strange ghostly chest from the catacombs in older versions of the mod has made a comeback, but this time it actually does stuff!
+-This long awaited feature has been added, that strange ghostly chest from the catacombs in older versions of the mod has made a comeback, but this time it actually does stuff!
 -The pandora's box is now a mini encounter, where when interacted with, pandora's box will begin a ghoulish ambush with its own enemies, and a mini boss at the end
--Once completed, you will be rewarded with one of four unique accessories, which can also be combined much later on in the game
+-Once completed, you will be rewarded with one of four unique accessories, which can also be combined together much later on in the game
 
 
 Swampy Cemetery Overhaul:
@@ -41,6 +43,7 @@ Swampy Cemetery Overhaul:
 -New structures have been added, some worldgen modifications have been made to make the biome more nice looking, and new ambient tiles have been added
 -The swampy cemetery worldgen also now scales with world size, so bigger worlds will have a bigger cemetery biome
 -Added new mysterious tombstones, which you may notice with their orange outline, beaking them will yield rewards but may result in danger as well
+-Also added a bunch of completely new enemies to the swampy cemetery that will make the biome more fun and a bit chaotic at times
 
 
 New Mini-Biome, The Mossy Mushroom Cave:
@@ -89,15 +92,16 @@ Config Improvements:
 
 Other New Additions:
 
--Added tons of new enemies, critters, items, weapons, armors, but you'll have to play the mod to find all these :)
+-Added tons of new enemies, critters, items, weapons, armors, but you'll have to play the update to find all these :)
 -Added a mask and trophy for spooky spirit
 -Added new sprites for the eye valley chest weapons and their upgrades
 -Added a various new pets and light pets
 -Added a bunch of new spooky mod angler quest fishes
--Added the unlucky horseshoe, baby rattle, and screaming face
 -Added pelusa's developer vanity mask
+-Added seeds for the valley of eyes grass blocks
 -Added support for the 1.4.4 version of boss checklist
 -Added support for Gabehaswon's music display mod
+
 
 
 
@@ -179,7 +183,7 @@ Miscellaneous:
 -The vanilla eerie theme will now play in the spooky forest and swampy cemetery during blood moons
 -Resprited the spooky forest and swampy cemetery backgrounds to make them look better
 -Added better player following AI for the fuzz bat pet
--Eye valley grass can now grow ambient eye stalks and tentacles naturally
+-Eye valley grass can now naturally grow ambient eye stalks and tentacles
 -The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests instead of the catacombs
 -Added a new waving leaf visual effect on the spooky forest and swampy cemetery grass walls
 
@@ -214,6 +218,7 @@ Fixed all of the following bugs and issues:
 -Valley of eyes enemies dropping living fire blocks, hel-fire, and cascade
 -Spooky mod's heavy melee weapons being able to hurt town npcs
 -Snotty schnoz allowing you to fire boogers from whips, summon weapons, and items that do not shoot projectiles
+-Various issue with holdout items, such as them being incorrectly offset from the player's hand when on mounts
 -Moldy chunks stacking to 999 and not 9999
 
 
@@ -221,7 +226,7 @@ Fixed all of the following multiplayer issues:
 
 -Rot gourd not spawning correctly
 -Spooky spirit vanishing when hit
--Orro-boro spawning with no segments and vanishing when hit
+-Orro-boro spawning with no segments and vanishing when hit (Hopefully)
 -Big bone straight up not working in multiplayer (Hopefully)
 -Little bone and little eye not being woken up properly when interacted with
 
