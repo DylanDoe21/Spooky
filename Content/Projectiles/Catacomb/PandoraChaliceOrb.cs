@@ -71,7 +71,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 float goToX = player.Center.X - Projectile.Center.X;
                 float goToY = player.Center.Y - Projectile.Center.Y;
-                float speed = 0.35f;
+                float speed = 0.15f;
                 
                 if (Projectile.velocity.X < goToX)
                 {

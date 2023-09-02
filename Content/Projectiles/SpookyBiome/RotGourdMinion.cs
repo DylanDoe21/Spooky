@@ -143,11 +143,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
             isAttacking = true;
 
-            if (Projectile.velocity.Y == 0)
+            Projectile.velocity.Y += 0.35f;
+
+            if (Projectile.velocity.Y == 0.35f)
             {
                 JumpTo(target, null);
             }
 
+            //slam down while above the current target
             if (Projectile.ai[0] == 0 && Projectile.position.X <= target.Center.X + 3 && Projectile.Center.X >= target.Center.X - 3)
 		    {
                 Projectile.velocity.X *= 0;
@@ -156,7 +159,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.ai[0] = 1;
             }
 
-            //slam the ground
+            //slam down on the ground
             if (Projectile.ai[0] == 1 && Projectile.velocity.Y <= 0.1f)
             {
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
