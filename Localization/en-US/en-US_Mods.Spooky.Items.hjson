@@ -915,7 +915,7 @@ GourdSlingshot: {
 
 GourdStaff: {
 	DisplayName: Branch of Gourd
-	Tooltip: Summons a gourd goober to fight with you
+	Tooltip: Summons gourd goobers that will slam on enemies
 }
 
 LeafBlower: {

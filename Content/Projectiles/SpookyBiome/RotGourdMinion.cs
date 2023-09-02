@@ -128,14 +128,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public void JumpTo(NPC target, Player player)
         {
-            Vector2 JumpTo = target == null ? new Vector2(player.Center.X, player.Center.Y - 200) : new Vector2(target.Center.X, target.Center.Y - 200);
+            Vector2 JumpTo = target == null ? new Vector2(player.Center.X, player.Center.Y - 100) : new Vector2(target.Center.X, target.Center.Y - 200);
 
             Vector2 velocity = JumpTo - Projectile.Center;
 
             float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
             velocity.Normalize();
             velocity.Y -= 0.18f;
-            velocity.X *= 0.98f;
+            velocity.X *= target == null ? 0.8f : 1.1f;
             Projectile.velocity = velocity * speed * 1.1f;
         }
 
@@ -143,32 +143,56 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
             isAttacking = true;
 
+            playerFlying = false;
+
+            Projectile.tileCollide = true;
+
             Projectile.velocity.Y += 0.35f;
 
             if (Projectile.velocity.Y == 0.35f)
             {
-                JumpTo(target, null);
-            }
-
-            //slam down while above the current target
-            if (Projectile.ai[0] == 0 && Projectile.position.X <= target.Center.X + 3 && Projectile.Center.X >= target.Center.X - 3)
-		    {
                 Projectile.velocity.X *= 0;
-                Projectile.velocity.Y = 16;
-
-                Projectile.ai[0] = 1;
             }
 
-            //slam down on the ground
-            if (Projectile.ai[0] == 1 && Projectile.velocity.Y <= 0.1f)
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] >= 0)
             {
-                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
+                if (Projectile.velocity.Y == 0.35f)
+                {
+                    JumpTo(target, null);
+                }
 
-                Projectile.velocity.X *= 0;
+                //slam down while above the current target
+                if (Projectile.ai[1] == 0 && Projectile.position.X <= target.Center.X + 8 && Projectile.Center.X >= target.Center.X - 8)
+                {
+                    Projectile.velocity.X *= 0;
+                    Projectile.velocity.Y = 16;
 
-                SpookyPlayer.ScreenShakeAmount = 5;
+                    Projectile.ai[1] = 1;
+                }
 
-                Projectile.ai[0] = 0;
+                //slam down on the ground
+                if (Projectile.ai[1] == 1 && Projectile.velocity.Y <= 0.1f)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
+
+                    Projectile.velocity.X *= 0;
+
+                    SpookyPlayer.ScreenShakeAmount = 2;
+
+                    Projectile.ai[1] = 0;
+                    Projectile.ai[0] = -40;
+                }
+            }
+
+            if (Projectile.Center.X < target.Center.X)
+            {
+                Projectile.spriteDirection = 1;
+            }
+            else
+            {
+                Projectile.spriteDirection = -1;
             }
         }
 
@@ -208,7 +232,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 {
                     Projectile.spriteDirection = 1;
                 }
-                else if (Projectile.Center.X > player.Center.X)
+                else
                 {
                     Projectile.spriteDirection = -1;
                 }
@@ -319,7 +343,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 {
                     Projectile.spriteDirection = 1;
                 }
-                else if (Projectile.Center.X > player.Center.X)
+                else
                 {
                     Projectile.spriteDirection = -1;
                 }

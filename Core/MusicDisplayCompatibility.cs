@@ -29,7 +29,7 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/CatacombUpper", Language.GetTextValue("Mods.Spooky.MusicDisplay.UpperCatacombs"), "BananaLizard");
             AddMusic("Content/Sounds/Music/Daffodil", Language.GetTextValue("Mods.Spooky.MusicDisplay.Daffodil"), "BananaLizard");
             AddMusic("Content/Sounds/Music/CatacombLower", Language.GetTextValue("Mods.Spooky.MusicDisplay.LowerCatacombs"), "BananaLizard");
-            AddMusic("Content/Sounds/Music/PandoraBox", Language.GetTextValue("Mods.Spooky.MusicDisplay.PandoraBox"), "Ennway");
+            AddMusic("Content/Sounds/Music/PandoraBox", Language.GetTextValue("Mods.Spooky.MusicDisplay.PandoraBox"), "ENNWAY");
             AddMusic("Content/Sounds/Music/BigBone", Language.GetTextValue("Mods.Spooky.MusicDisplay.BigBone"), "BananaLizard");
 
             //eye valley

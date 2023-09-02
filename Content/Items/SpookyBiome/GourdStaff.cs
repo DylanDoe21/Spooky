@@ -23,14 +23,13 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.height = 56;
             Item.useTime = 28;
             Item.useAnimation = 28;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.knockBack = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.Item78;
             Item.buffType = ModContent.BuffType<RotGourdMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<RotGourdMinion>();
-            Item.shootSpeed = 8f;
+            Item.shootSpeed = 5f;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
