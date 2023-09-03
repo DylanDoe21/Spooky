@@ -219,6 +219,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod's heavy melee weapons being able to hurt town npcs
 -Snotty schnoz allowing you to fire boogers from whips, summon weapons, and items that do not shoot projectiles
 -Various issue with holdout items, such as them being incorrectly offset from the player's hand when on mounts
+-Various armor sets and accessories that increase summon damage not increasing whip damage
 -Moldy chunks stacking to 999 and not 9999
 
 
