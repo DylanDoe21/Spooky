@@ -13,6 +13,8 @@ using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
+using Microsoft.CodeAnalysis;
+using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Core
 {
@@ -57,7 +59,8 @@ namespace Spooky.Core
             {
                 if (item.type == ItemID.LesserManaPotion)
                 {
-
+                    //Projectile.NewProjectile(player.GetSource_ItemUse(item), player.Center, Vector2.Zero, 
+                    //ModContent.ProjectileType<PandoraChaliceOrb>(), 40, 0, player.whoAmI);
                 }
 
                 if (item.type == ItemID.ManaPotion)
