@@ -47,8 +47,10 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.GetDamage(DamageClass.Magic) += 0.20f;
 			player.GetDamage(DamageClass.Summon) += 0.20f;
+			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.20f;
 			player.GetCritChance(DamageClass.Magic) += 10;
 			player.GetCritChance(DamageClass.Summon) += 10;
+			player.GetCritChance(DamageClass.SummonMeleeSpeed) += 10;
 			player.manaCost -= 0.10f;
 			player.maxMinions += 3;
 			player.aggro += 75;

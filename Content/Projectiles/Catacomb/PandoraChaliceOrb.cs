@@ -1,24 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class PandoraChaliceOrb : ModProjectile
     {
-        public override void SetStaticDefaults()
-		{
-            Main.projFrames[Projectile.type] = 2;
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -65,7 +57,9 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.Kill();
             }
 
-            if (Projectile.ai[0] == 0)
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] < 300)
             {
                 Projectile.timeLeft = 300;
 
@@ -107,21 +101,68 @@ namespace Spooky.Content.Projectiles.Catacomb
                         return;
                     }
                 }
-
-                if (Projectile.Hitbox.Intersects(player.Hitbox))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
-
-                    player.statLife += 15;
-                    player.HealEffect(15, true);
-
-                    Projectile.Kill();
-                }
             }
             else
             {
-
+                int foundTarget = HomeOnTarget();
+                if (foundTarget != -1)
+                {
+                    NPC target = Main.npc[foundTarget];
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                    Projectile.tileCollide = false;
+                }
+                else
+                {
+                    Projectile.tileCollide = true;
+                }
             }
+
+            for (int num = 0; num < Main.projectile.Length; num++)
+			{
+				Projectile other = Main.projectile[num];
+				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+				{
+					const float pushAway = 0.08f;
+					if (Projectile.position.X < other.position.X)
+					{
+						Projectile.velocity.X -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.X += pushAway;
+					}
+					if (Projectile.position.Y < other.position.Y)
+					{
+						Projectile.velocity.Y -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.Y += pushAway;
+					}
+				}
+			}
+        }
+
+        private int HomeOnTarget()
+        {
+            const float homingMaximumRangeInPixels = 350;
+
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile))
+                {
+                    float distance = Projectile.Distance(target.Center);
+                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
+                    {
+                        selectedTarget = i;
+                    }
+                }
+            }
+
+            return selectedTarget;
         }
 
         public override void Kill(int timeLeft)

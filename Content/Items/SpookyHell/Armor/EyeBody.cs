@@ -21,6 +21,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateEquip(Player player) 
 		{
 			player.GetDamage(DamageClass.Summon) += 0.05f;
+			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.05f;
 			player.maxMinions += 1;
 			player.maxTurrets += 1;
 		}

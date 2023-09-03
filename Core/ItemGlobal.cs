@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Linq;
@@ -11,10 +10,6 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
-using Mono.Cecil;
-using static Terraria.ModLoader.PlayerDrawLayer;
-using Microsoft.CodeAnalysis;
-using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Core
 {
@@ -51,35 +46,6 @@ namespace Spooky.Core
             }
 
             return base.CanUseItem(item, player);
-        }
-
-        public override bool? UseItem(Item item, Player player)
-        {
-            if (player.GetModPlayer<SpookyPlayer>().PandoraChalice)
-            {
-                if (item.type == ItemID.LesserManaPotion)
-                {
-                    //Projectile.NewProjectile(player.GetSource_ItemUse(item), player.Center, Vector2.Zero, 
-                    //ModContent.ProjectileType<PandoraChaliceOrb>(), 40, 0, player.whoAmI);
-                }
-
-                if (item.type == ItemID.ManaPotion)
-                {
-
-                }
-
-                if (item.type == ItemID.GreaterManaPotion)
-                {
-
-                }
-
-                if (item.type == ItemID.SuperManaPotion)
-                {
-
-                }
-            }
-
-            return base.UseItem(item, player);
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
