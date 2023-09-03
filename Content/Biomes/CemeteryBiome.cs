@@ -38,6 +38,8 @@ namespace Spooky.Content.Biomes
                 return music;
             }
         }
+
+        public override int BiomeTorchItemType => ItemID.GreenTorch;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        

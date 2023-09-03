@@ -884,10 +884,15 @@ namespace Spooky.Content.Generation
                 //place stuff in pumpkin chests
                 if (chestTile.TileType == TileID.Containers && chestTile.TileFrameX == 45 * 36) 
                 {
-                    int[] Potions = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+                    //potions
+                    int[] Potions1 = new int[] { ItemID.FeatherfallPotion, ItemID.NightOwlPotion, ItemID.WaterWalkingPotion,
+                    ItemID.ArcheryPotion, ItemID.PotionOfReturn, ItemID.SwiftnessPotion };
 
-                    chest.item[1].SetDefaults(ModContent.ItemType<CandleItem>());
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 12);
+                    //more potions
+                    int[] Potions2 = new int[] { ItemID.IronskinPotion, ItemID.RegenerationPotion, ItemID.HunterPotion,
+                    ItemID.InvisibilityPotion, ItemID.RagePotion, ItemID.WrathPotion };
+
+                    //torch ItemID.BoneTorch
                 }
 
                 //place stuff in bone chests

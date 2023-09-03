@@ -172,6 +172,7 @@ Enemy & Boss Changes:
 -Made orro-boro's thorn pillars taller
 -Moco and orro-boro will now drop one sentient heart for each active player in the world on the first defeat, instead of only one
 -Added a new spawn intro for rot gourd when he is summoned, where he will fall from the sky and slam down where you summoned him from
+-Rot gourd now drops more moldy chunks
 -Added new sound effects for the cowbell entity
 -Small fuzz bats will no longer spawn in the underground spooky forest, and increased the spawnrate of giant fuzz bats in the underground spooky forest
 -Various enemies in the mod have been given debuff immunities (There are far too many to list here lol)

@@ -1099,7 +1099,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
 			//material
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 18));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 20));
 
 			//drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));

@@ -51,6 +51,8 @@ namespace Spooky.Content.Biomes
             }
         }
 
+        public override int BiomeTorchItemType => ItemID.OrangeTorch;
+
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;

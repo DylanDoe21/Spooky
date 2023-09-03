@@ -14,6 +14,8 @@ namespace Spooky.Content.Biomes
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
 
+        public override int BiomeTorchItemType => ItemID.RedTorch;
+
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override void Load()
