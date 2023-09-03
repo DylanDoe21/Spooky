@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
 		public override int Length => 45;
 		public override int TopSize => 20;
 		public override float SwingDownSpeed => 13.5f;
-		public override bool CollideWithTiles => false;
+		public override bool CollideWithTiles => true;
 		static bool hasHitGround = false;
 
 		public override void SetDefaults()

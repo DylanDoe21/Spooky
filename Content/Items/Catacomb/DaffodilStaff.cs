@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb
@@ -50,5 +51,13 @@ namespace Spooky.Content.Items.Catacomb
 
 			return false;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 22)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

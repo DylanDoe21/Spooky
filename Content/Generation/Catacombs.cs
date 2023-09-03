@@ -387,7 +387,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom2 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
                             placedLootRoom2 = true;
                         }
                         else
@@ -409,7 +409,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", origin.ToPoint16(), Mod);
                             placedLootRoom3 = true;
                         }
                         else if (X == XMiddle)
@@ -518,7 +518,14 @@ namespace Spooky.Content.Generation
             //place loot rooms for the second layer
             for (int numPoints = 0; numPoints < Layer2LootRooms.Length; numPoints++)
             {
-                Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-" + (numPoints + 3), Layer2LootRooms[numPoints].ToPoint16(), Mod);
+                if (numPoints == 0)
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", Layer2LootRooms[numPoints].ToPoint16(), Mod);
+                }
+                else
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-4", Layer2LootRooms[numPoints].ToPoint16(), Mod);
+                }
 
                 Vector2 horizontalHallOriginLeft = new Vector2(Layer2LootRooms[numPoints].X - 11, Layer2LootRooms[numPoints].Y + 21);
                 Vector2 horizontalHallOriginRight = new Vector2(Layer2LootRooms[numPoints].X + 69, Layer2LootRooms[numPoints].Y + 21);
@@ -881,24 +888,142 @@ namespace Spooky.Content.Generation
 
 				Tile chestTile = Main.tile[chest.x, chest.y];
 
-                //place stuff in pumpkin chests
-                if (chestTile.TileType == TileID.Containers && chestTile.TileFrameX == 45 * 36) 
+                //place loot in the first layer chests
+                if (chestTile.TileType == TileID.Containers && chestTile.WallType == ModContent.WallType<CatacombBrickWall1>())
                 {
-                    //potions
-                    int[] Potions1 = new int[] { ItemID.FeatherfallPotion, ItemID.NightOwlPotion, ItemID.WaterWalkingPotion,
-                    ItemID.ArcheryPotion, ItemID.PotionOfReturn, ItemID.SwiftnessPotion };
+                    //place stuff in barrels
+                    if (chestTile.TileFrameX == 5 * 36) 
+                    {
+                        int[] RareItem = new int[] { ItemID.WaterBolt, ItemID.BoneSword, ItemID.BonePickaxe };
 
-                    //more potions
-                    int[] Potions2 = new int[] { ItemID.IronskinPotion, ItemID.RegenerationPotion, ItemID.HunterPotion,
-                    ItemID.InvisibilityPotion, ItemID.RagePotion, ItemID.WrathPotion };
+                        int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
 
-                    //torch ItemID.BoneTorch
+                        if (WorldGen.genRand.NextBool(10))
+                        {
+                            chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
+                        }
+                        else if (WorldGen.genRand.NextBool(5))
+                        {
+                            chest.item[0].SetDefaults(ItemID.GoodieBag);
+                            chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+                        }
+                        else
+                        {
+                            chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
+                            chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+                        }
+
+                        chest.item[1].SetDefaults(ItemID.SilverCoin);
+                        chest.item[1].stack = WorldGen.genRand.Next(2, 16);
+                    }
+
+                    //place stuff in pumpkin chests, do not put stuff in the trapped chest
+                    if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ItemID.GasTrap) 
+                    {
+                        //potions
+                        int[] Potions1 = new int[] { ItemID.FeatherfallPotion, ItemID.NightOwlPotion, ItemID.WaterWalkingPotion,
+                        ItemID.ArcheryPotion, ItemID.PotionOfReturn, ItemID.SwiftnessPotion };
+
+                        //more potions
+                        int[] Potions2 = new int[] { ItemID.IronskinPotion, ItemID.RegenerationPotion, ItemID.HunterPotion,
+                        ItemID.InvisibilityPotion, ItemID.RagePotion, ItemID.WrathPotion };
+
+                        //ammos
+                        int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
+
+                        //demonite or crimtane bar depending on crimson or corruption worlds
+                        int Bars = !WorldGen.crimson ? ItemID.DemoniteBar : ItemID.CrimtaneBar;
+
+                        //bars
+                        chest.item[1].SetDefaults(Bars);
+                        chest.item[1].stack = WorldGen.genRand.Next(5, 11);
+                        //spike balls
+                        chest.item[2].SetDefaults(ItemID.SpikyBall);
+                        chest.item[2].stack = WorldGen.genRand.Next(12, 19);
+                        //potions
+                        chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
+                        chest.item[3].stack = WorldGen.genRand.Next(1, 3);
+                        //even more potions
+                        chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
+                        chest.item[4].stack = WorldGen.genRand.Next(1, 3);
+                        //ammo
+                        chest.item[5].SetDefaults(WorldGen.genRand.Next(Ammo));
+                        chest.item[5].stack = WorldGen.genRand.Next(20, 41);
+                        //goodie bags
+                        chest.item[6].SetDefaults(ItemID.GoodieBag);
+                        chest.item[6].stack = WorldGen.genRand.Next(1, 3);
+                        //gold coins
+                        chest.item[7].SetDefaults(ItemID.GoldCoin);
+                        chest.item[7].stack = WorldGen.genRand.Next(1, 6);
+                    }
                 }
 
-                //place stuff in bone chests
-                if (chestTile.TileType == TileID.Containers && chestTile.TileFrameX == 41 * 36) 
+                //place loot in the second layer chests
+                if (chestTile.TileType == TileID.Containers && chestTile.WallType == ModContent.WallType<CatacombBrickWall2>())
                 {
+                    //place stuff in pumpkin chests
+                    if (chestTile.TileFrameX == 45 * 36)
+                    {
+                        //potions
+                        int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
 
+                        //more potions
+                        int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
+
+                        //recorvery potions
+                        int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
+
+                        //ammos
+                        int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.JestersArrow };
+
+                        //bars
+                        int[] Bars = new int[] { ItemID.CobaltBar, ItemID.PalladiumBar, ItemID.MythrilBar, ItemID.OrichalcumBar };
+
+                        //bars
+                        chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+                        chest.item[1].stack = WorldGen.genRand.Next(5, 13);
+                        //potions
+                        chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
+                        chest.item[2].stack = WorldGen.genRand.Next(1, 3);
+                        //even more potions
+                        chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
+                        chest.item[3].stack = WorldGen.genRand.Next(1, 3);
+                        //ammo
+                        chest.item[4].SetDefaults(WorldGen.genRand.Next(Ammo));
+                        chest.item[4].stack = WorldGen.genRand.Next(20, 41);
+                        //recovery potions
+                        chest.item[5].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+                        chest.item[5].stack = WorldGen.genRand.Next(2, 6);
+                        //goodie bags
+                        chest.item[6].SetDefaults(ItemID.GoodieBag);
+                        chest.item[6].stack = WorldGen.genRand.Next(1, 3);
+                        //gold coins
+                        chest.item[7].SetDefaults(ItemID.GoldCoin);
+                        chest.item[7].stack = WorldGen.genRand.Next(1, 6);
+                    }
+
+                    //place stuff in bone chests
+                    if (chestTile.TileFrameX == 41 * 36) 
+                    {
+                        //recorvery potions
+                        int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
+
+                        //ammos
+                        int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.JestersArrow };
+
+                        //bars
+                        int[] Bars = new int[] { ItemID.CobaltBar, ItemID.PalladiumBar };
+
+                        //bars
+                        chest.item[0].SetDefaults(WorldGen.genRand.Next(Bars));
+                        chest.item[0].stack = WorldGen.genRand.Next(5, 11);
+                        //recovery potions
+                        chest.item[1].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+                        chest.item[1].stack = WorldGen.genRand.Next(1, 4);
+                        //ammos
+                        chest.item[2].SetDefaults(WorldGen.genRand.Next(Ammo));
+                        chest.item[2].stack = WorldGen.genRand.Next(8, 16);
+                    }
                 }
             }
         }

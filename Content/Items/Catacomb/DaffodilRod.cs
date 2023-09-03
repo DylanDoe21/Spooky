@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.Catacomb
@@ -29,5 +30,14 @@ namespace Spooky.Content.Items.Catacomb
 			Item.shoot = ModContent.ProjectileType<DaffodilRodFlower>();
 			Item.shootSpeed = 10f;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 18)
+			.AddIngredient(ItemID.Daybloom, 2)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

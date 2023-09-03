@@ -14,6 +14,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class GourdFlailProj : ModProjectile
 	{
+		private int FlySpawnDelay = 0;
+
 		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyBiome/GourdFlailChain";
 
 		public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
@@ -213,7 +215,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Projectile.velocity = Vector2.Zero;
                     Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
 
-					if (SpinningStateTimer % 60 == 20)
+					//delay before flies can be spawned
+					FlySpawnDelay++;
+
+					if (SpinningStateTimer % 60 == 20 && FlySpawnDelay >= 80)
 					{
                         if (Main.myPlayer == Projectile.owner && player.ownedProjectileCounts[ModContent.ProjectileType<GourdFlailFly>()] < 10)
                         {

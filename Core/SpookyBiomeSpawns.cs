@@ -12,6 +12,7 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
+using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
@@ -59,9 +60,16 @@ namespace Spooky.Core
 				spawnRate = 0;
 				maxSpawns = 0;
 			}
+
+			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) ||
+			(player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			{
+				spawnRate = 10;
+                maxSpawns = 10;
+			}
 		}
 
-		//since vanilla enemies spawning is annoying, I just made every single biome clear the spawn pool and then manually add all of the enemies
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//bool to check if no events are happening
@@ -212,24 +220,34 @@ namespace Spooky.Core
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
-					//critters
-					pool.Add(NPCID.Maggot, 2);
-					pool.Add(ModContent.NPCType<FlySmall>(), 2);
-					pool.Add(ModContent.NPCType<FlyBig>(), 2);
+					if (Flags.CatacombKey1)
+					{
+						//critters
+						pool.Add(NPCID.Maggot, 2);
+						pool.Add(ModContent.NPCType<FlySmall>(), 2);
+						pool.Add(ModContent.NPCType<FlyBig>(), 2);
 
-					pool.Add(ModContent.NPCType<Skeletoid1>(), 5);
-					pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
-					pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
-					pool.Add(ModContent.NPCType<Skeletoid4>(), 5);
-					pool.Add(ModContent.NPCType<SkeletoidBig>(), 3);
-					pool.Add(ModContent.NPCType<RollingSkull1>(), 5);
-					pool.Add(ModContent.NPCType<RollingSkull2>(), 5);
-					pool.Add(ModContent.NPCType<RollingSkull3>(), 5);
-					pool.Add(ModContent.NPCType<RollingSkull4>(), 1);
-					pool.Add(ModContent.NPCType<GiantPutty>(), 5);
-					pool.Add(ModContent.NPCType<BoneStackerBase>(), 4);
-					pool.Add(ModContent.NPCType<ZomboidNecromancer>(), 3);
-					pool.Add(ModContent.NPCType<ZomboidPyromancer>(), 3);
+						pool.Add(ModContent.NPCType<Skeletoid1>(), 5);
+						pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
+						pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
+						pool.Add(ModContent.NPCType<Skeletoid4>(), 5);
+						pool.Add(ModContent.NPCType<SkeletoidBig>(), 3);
+						pool.Add(ModContent.NPCType<RollingSkull1>(), 5);
+						pool.Add(ModContent.NPCType<RollingSkull2>(), 5);
+						pool.Add(ModContent.NPCType<RollingSkull3>(), 5);
+						pool.Add(ModContent.NPCType<RollingSkull4>(), 1);
+						pool.Add(ModContent.NPCType<GiantPutty>(), 5);
+						pool.Add(ModContent.NPCType<BoneStackerBase>(), 4);
+						pool.Add(ModContent.NPCType<ZomboidNecromancer>(), 3);
+						pool.Add(ModContent.NPCType<ZomboidPyromancer>(), 3);
+					}
+					else
+					{
+						if (!NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()))
+						{
+							pool.Add(ModContent.NPCType<CatacombGuardian>(), 2);
+						}
+					}
 				}
 			}
 
@@ -244,18 +262,28 @@ namespace Spooky.Core
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
-					pool.Add(ModContent.NPCType<Daisy1>(), 3);
-					pool.Add(ModContent.NPCType<Daisy2>(), 3);
-					pool.Add(ModContent.NPCType<Flourence>(), 2);
-					pool.Add(ModContent.NPCType<Marigold>(), 3);
-					pool.Add(ModContent.NPCType<MarigoldSpit>(), 2);
-					pool.Add(ModContent.NPCType<Smelly>(), 2);
-					pool.Add(ModContent.NPCType<Toothy>(), 2);
-
-					//do not spawn sunny if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<Sunny>()))
+					if (Flags.CatacombKey2)
 					{
-						pool.Add(ModContent.NPCType<Sunny>(), 1);
+						pool.Add(ModContent.NPCType<Daisy1>(), 3);
+						pool.Add(ModContent.NPCType<Daisy2>(), 3);
+						pool.Add(ModContent.NPCType<Flourence>(), 2);
+						pool.Add(ModContent.NPCType<Marigold>(), 3);
+						pool.Add(ModContent.NPCType<MarigoldSpit>(), 2);
+						pool.Add(ModContent.NPCType<Smelly>(), 2);
+						pool.Add(ModContent.NPCType<Toothy>(), 2);
+
+						//do not spawn sunny if one already exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<Sunny>()))
+						{
+							pool.Add(ModContent.NPCType<Sunny>(), 1);
+						}
+					}
+					else
+					{
+						if (!NPC.AnyNPCs(ModContent.NPCType<CatacombGuardian>()))
+						{
+							pool.Add(ModContent.NPCType<CatacombGuardian>(), 2);
+						}
 					}
 				}
 			}

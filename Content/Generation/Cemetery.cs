@@ -210,26 +210,42 @@ namespace Spooky.Content.Generation
 
             int StartPosY = Catacombs.PositionY - 100;
 
-            //graveyards
-            GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
+            //structures
+            if (Main.maxTilesX >= 6400)
+            {
+                GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
 
-            //first ruined house
-            GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
+                //first ruined house
+                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
 
-            //catacomb entrance
-            GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 25);
+                //catacomb entrance
+                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 22);
 
-            //second ruined house
-            GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
+                //second ruined house
+                GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
 
-            //graveyards
-            GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 14, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                //graveyards
+                GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 14, 8);
+                GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+                GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            }
+            else
+            {
+                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "FishingLake", 15, 11);
+
+                //first ruined house
+                GenerateStructure((XStart + XMiddle) / 2 - 40, StartPosY, "RuinedHouse-1", 14, 20);
+
+                //catacomb entrance
+                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 22);
+
+                //second ruined house
+                GenerateStructure((XMiddle + XEdge) / 2 + 40, StartPosY, "RuinedHouse-2", 14, 20);
+            }
         }
 
         //method for finding a valid surface and placing the structure on it
@@ -257,7 +273,7 @@ namespace Spooky.Content.Generation
                 //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
                 if (StructureFile == "CemeteryEntrance")
                 {
-                    Catacombs.EntranceY = startY - 37;
+                    Catacombs.EntranceY = startY - 27;
                 }
 
                 placed = true;

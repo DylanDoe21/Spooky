@@ -899,8 +899,8 @@ GourdFlail: {
 	DisplayName: Rotty's Wrath
 	Tooltip:
 		'''
-		Swinging the flail around you will build up flies
-		Releasing the flail will launch them 
+		Spawns flies around you after being swung for a bit
+		Releasing the flail will launch the flies
 		'''
 }
 

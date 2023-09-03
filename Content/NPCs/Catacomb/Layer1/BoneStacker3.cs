@@ -157,6 +157,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(BuffID.Bleeding, 600);
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 

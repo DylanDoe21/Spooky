@@ -16,7 +16,7 @@ CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will fa
 BoneStackerBase: A slab of brick with a face on it. It carries many bone slabs on its back, creating a wall-like barrier that prevents intruders from exploring further.
 BoneStacker1: Slabs of bone that can stack on top of each other. When their base is gone, they can use small legs under their bone shell to walk on the ground.
 BoneStacker2: When the base of their stack is destroyed, They can sometimes free themselves and attack foes directly as a last resort.
-BoneStacker3: These bone slabs have a not so secret weapon, their thorns. When at a distance, they can fire them at their targets.
+BoneStacker3: These bone slabs have a not so secret weapon, their thorns. Their thorns are sharp, and can cause bleeding.
 GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are larger than usual, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
 RollingSkull2: No one knows how these skulls found their way into the catacombs. They can steamroll just about anything, and are capable of chasing intruders at high speeds.
