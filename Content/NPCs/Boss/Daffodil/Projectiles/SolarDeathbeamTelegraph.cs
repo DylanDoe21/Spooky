@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 45;
+            Projectile.timeLeft = 200;
         }
        
         public override Color? GetAlpha(Color lightColor)

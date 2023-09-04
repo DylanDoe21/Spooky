@@ -122,7 +122,17 @@ namespace Spooky.Content.NPCs.Friendly
 				//underground spooky forest chests
 				else if (Flags.downedRotGourd && !NPC.downedBoss2)
 				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiomeChests");
+					if (AdviceSwitch == 0)
+					{
+						AdviceSwitch++;
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiomeChests");
+					}
+					else if (AdviceSwitch == 1)
+					{
+						AdviceSwitch--;
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
+					}
+
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//spooky spirit
@@ -194,6 +204,10 @@ namespace Spooky.Content.NPCs.Friendly
 			{
 				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default1"),
 				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default2"),
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default3"),
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default4"),
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default5"),
+				Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Default6"),
 			};
 
 			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()))
@@ -232,7 +246,9 @@ namespace Spooky.Content.NPCs.Friendly
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer3"));
 			}
 
-			if (Main.player[Main.myPlayer].ZonePurity)
+            int PlayerY = (int)Main.player[Main.myPlayer].Center.Y / 16;
+
+			if (Main.player[Main.myPlayer].ZonePurity && PlayerY <= (int)Main.worldSurface)
             {
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Forest2"));
@@ -275,7 +291,19 @@ namespace Spooky.Content.NPCs.Friendly
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Shimmer2"));
             }
 
-			return Main.rand.Next(Dialogue);
+            if (Main.player[Main.myPlayer].ZoneCorrupt)
+            {
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Corruption1"));
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Corruption2"));
+            }
+
+            if (Main.player[Main.myPlayer].ZoneCrimson)
+            {
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Crimson1"));
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Crimson2"));
+            }
+
+            return Main.rand.Next(Dialogue);
 		}
 
 		public override void AI()

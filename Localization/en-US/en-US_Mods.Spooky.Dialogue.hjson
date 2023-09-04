@@ -15,12 +15,17 @@ LittleBone: {
 	//transport
 	Transport: Here, take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.
 	NoTransport: It looks like you already have my magical flower pot.
-	//default and biome dialogues
+	//default
 	Default1: Why am I dancing, you ask? Because it's fun, You should try it sometime.
 	Default2: When is spooky season? It's always spooky season! Well, from my perspective anyway.
+	Default3: Wow, you look like you're in the halloween spirit!
+	Default4: It's fun going on adventures, too bad I can't move in this flower pot.
+	Default5: Being a plant isn't so bad, at least I can enjoy the scenery!
+	Default6: I don't know who built that house I fell asleep in before, but it was rather cozy.
+	//biomes
 	SpookyBiome1: Sometimes I like to talk to the other skull plants that pop up around here, but they don't seem to respond back.
 	SpookyBiome2: The spooky forest is such a wonderful place to live! Well, aside from those weird zomboids at night.
-	SpookyBiome3: I have heard rumors of secret loot found underneath this forest, but the key to open those chests has been lost ages ago.
+	SpookyBiome3: Apparently underneath this place is a large cavern filled with strange mushrooms, sounds like it'd be fun to explore!
 	SpookyHell1: You know, for a place that exists in the underworld, it is oddly cold here.
 	SpookyHell2: This place gives me the creeps! Somehow I feel like I am being stalked even when nothing is nearby.
 	SpookyHell3: There is so many nasty organs and tentacles growing in this biome, it's grossing me out.
@@ -49,6 +54,10 @@ LittleBone: {
 	Dungeon: This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?
 	Shimmer1: This is the most pretty lake I have ever seen!
 	Shimmer2: What a mystical and sparkly lake, I wonder what would happen when you jump in it?
+	Corruption1: This place is kind of cool, too bad I keep hearing that this place is evil and corrupts anything it touches.
+	Corruption2: The creatures here are so gross, I hate looking at them!
+	Crimson1: EW EW EW EW EW!!! What kind of wretched place is this?!
+	Crimson2: Oh my goodness, how could such a horrible thing exist in this land? This is too spooky, even for me.
 	//buttons
 	Button1: Advice
 	Button2: Transport
