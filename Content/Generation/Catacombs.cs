@@ -889,7 +889,7 @@ namespace Spooky.Content.Generation
 				Tile chestTile = Main.tile[chest.x, chest.y];
 
                 //place loot in the first layer chests
-                if (chestTile.TileType == TileID.Containers && chestTile.WallType == ModContent.WallType<CatacombBrickWall1>())
+                if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>()))
                 {
                     //place stuff in barrels
                     if (chestTile.TileFrameX == 5 * 36) 
@@ -959,7 +959,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //place loot in the second layer chests
-                if (chestTile.TileType == TileID.Containers && chestTile.WallType == ModContent.WallType<CatacombBrickWall2>())
+                if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall2>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall2>()))
                 {
                     //place stuff in pumpkin chests
                     if (chestTile.TileFrameX == 45 * 36)
@@ -971,17 +971,17 @@ namespace Spooky.Content.Generation
                         int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
 
                         //recorvery potions
-                        int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
+                        int[] RecoveryPotions = new int[] { ItemID.GreaterHealingPotion, ItemID.GreaterManaPotion };
 
                         //ammos
-                        int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.JestersArrow };
+                        int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.HellfireArrow };
 
                         //bars
                         int[] Bars = new int[] { ItemID.CobaltBar, ItemID.PalladiumBar, ItemID.MythrilBar, ItemID.OrichalcumBar };
 
                         //bars
                         chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                        chest.item[1].stack = WorldGen.genRand.Next(5, 13);
+                        chest.item[1].stack = WorldGen.genRand.Next(5, 16);
                         //potions
                         chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
                         chest.item[2].stack = WorldGen.genRand.Next(1, 3);
@@ -993,7 +993,7 @@ namespace Spooky.Content.Generation
                         chest.item[4].stack = WorldGen.genRand.Next(20, 41);
                         //recovery potions
                         chest.item[5].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-                        chest.item[5].stack = WorldGen.genRand.Next(2, 6);
+                        chest.item[5].stack = WorldGen.genRand.Next(3, 7);
                         //goodie bags
                         chest.item[6].SetDefaults(ItemID.GoodieBag);
                         chest.item[6].stack = WorldGen.genRand.Next(1, 3);

@@ -15,7 +15,124 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
-        //underworld condition work around so eye valley enemies dont drop living fire blocks or the hel-fire
+        //stuff for entity drops
+        //spooky forest chest key condition
+        public class SpookyForestEntityCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (npc.value > 0 && info.player.InModBiome<SpookyBiome>() && !Flags.encounteredMan)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
+        //cemetery condition
+        public class SwampyCemeteryEntityCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (npc.value > 0 && info.player.InModBiome<CemeteryBiome>() && !Flags.encounteredHorse)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
+        //catacomb condition
+        public class CatacombEntityCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (npc.value > 0 && (info.player.InModBiome<CatacombBiome>() || info.player.InModBiome<CatacombBiome2>()) && !Flags.encounteredBaby)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
+        //eye valley condition
+        public class EyeValleyEntityCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (npc.value > 0 && info.player.InModBiome<SpookyHellBiome>() && !Flags.encounteredFlesh)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
+        //underworld condition workaround so eye valley enemies dont drop living fire blocks or the hel-fire
         public class UnderworldDropCondition : IItemDropRuleCondition
         {
             public bool CanDrop(DropAttemptInfo info)

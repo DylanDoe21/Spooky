@@ -22,6 +22,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
             Item.channel = true;
+            Item.useTurn = true;
             Item.width = 46;
             Item.height = 48;
             Item.useTime = 35;

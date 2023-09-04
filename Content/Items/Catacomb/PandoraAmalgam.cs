@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Items.Catacomb
 {
     public class PandoraAmalgam : ModItem
@@ -13,6 +15,14 @@ namespace Spooky.Content.Items.Catacomb
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;  
             Item.value = Item.buyPrice(gold: 50);
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        { 
+            player.GetModPlayer<SpookyPlayer>().PandoraChalice = true;
+            player.GetModPlayer<SpookyPlayer>().PandoraCross = true;
+            player.GetModPlayer<SpookyPlayer>().PandoraCuffs = true;
+            player.GetModPlayer<SpookyPlayer>().PandoraRosary = true;
         }
 
         public override void AddRecipes()

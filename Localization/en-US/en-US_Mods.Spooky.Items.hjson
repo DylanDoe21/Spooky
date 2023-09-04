@@ -90,6 +90,11 @@ BossBagSpookySpirit: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
+BabyRattle: {
+	DisplayName: Baby Rattle
+	Tooltip: An unusually large baby rattle
+}
+
 Brick: {
 	DisplayName: Heavy Brick
 	Tooltip: Can be thrown at lazy things to wake them up
@@ -115,6 +120,16 @@ CottonSwab: {
 		'''
 }
 
+CowBell: {
+	DisplayName: Rusty Cowbell
+	Tooltip: An ancient cowbell, with a mysterious origin
+}
+
+CreepyFace: {
+	DisplayName: Screeching Face
+	Tooltip: It whispers discouraging phrases to you
+}
+
 EMFReader: {
 	DisplayName: EMF Reader
 	Tooltip:
@@ -132,6 +147,11 @@ Fertilizer: {
 		A smelly bag of dirt and bones
 		Summons Big Bone when used when nearby the giant flower pot
 		'''
+}
+
+Horseshoe: {
+	DisplayName: Old Horseshoe
+	Tooltip: You can hear the clopping noises
 }
 
 RottenSeed: {
@@ -191,11 +211,6 @@ CatacombKey3: {
 PlantChunk: {
 	DisplayName: Plant Chunk
 	Tooltip: A piece of living plant matter
-}
-
-BabyRattle: {
-	DisplayName: Baby Rattle
-	Tooltip: ""
 }
 
 BigBoneBow: {
@@ -279,7 +294,7 @@ FemurFracture: {
 	DisplayName: Femur Fracturer
 	Tooltip:
 		'''
-		Holding down will swing the hammer, then release to throw it when charged
+		Hold down to swing the hammer, then release to throw it when charged
 		Hold down for even longer to super charge the hammer
 		When super charged, throwing it will leave behind homing skulls
 		'The perfect weapon to fracture your foes bones!'
@@ -448,11 +463,6 @@ CemeterySolution: {
 		Used by the Clentaminator
 		Spreads the Swampy Cemetery
 		'''
-}
-
-Horseshoe: {
-	DisplayName: Unlucky Horseshoe
-	Tooltip: Throws a returning horseshoe
 }
 
 SpiritHandStaff: {
@@ -829,11 +839,6 @@ WizardGangsterLegs: {
 BustlingGlowshroom: {
 	DisplayName: Bustling Glowshroom
 	Tooltip: Greatly increases life regeneration while standing still
-}
-
-CowBell: {
-	DisplayName: Rusty Cowbell
-	Tooltip: Summons friendly shadow entities to fight with you
 }
 
 Candy1: {

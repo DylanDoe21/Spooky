@@ -24,11 +24,8 @@ namespace Spooky.Content.Items.Catacomb
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-        { 
-            if (!player.HasBuff(ModContent.BuffType<PandoraCrossCooldown>()))
-            {
-                player.GetModPlayer<SpookyPlayer>().PandoraCross = true;
-            }
+        {
+            player.GetModPlayer<SpookyPlayer>().PandoraCross = true;
         }
     }
 }

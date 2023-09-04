@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 20);
+			Item.value = Item.buyPrice(gold: 15);
 			Item.shoot = ModContent.ProjectileType<Blank>();
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shootSpeed = 0f;
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.Catacomb
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<PlantChunk>(), 18)
-			.AddIngredient(ModContent.ItemType<FlyBigItem>(), 3)
+			.AddIngredient(ModContent.ItemType<FlyBigItem>(), 5)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

@@ -200,7 +200,7 @@ namespace Spooky.Core
                 return;
             }
 
-            if (Spooky.AccessoryHotkey.JustPressed && PandoraCross && Main.myPlayer == Player.whoAmI)
+            if (Spooky.AccessoryHotkey.JustPressed && PandoraCross && Main.myPlayer == Player.whoAmI && !Player.HasBuff(ModContent.BuffType<PandoraCrossCooldown>()))
             {
                 SoundEngine.PlaySound(CrossBassSound, Player.Center);
 

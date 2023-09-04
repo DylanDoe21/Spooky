@@ -388,7 +388,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro1"), true);
                         }
 
-                        if (NPC.localAI[2] == 240)
+                        if (NPC.localAI[2] == 260)
                         {
                             CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro2"), true);
                         }
@@ -400,14 +400,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro1"), true);
                         }
 
-                        if (NPC.localAI[2] == 240)
+                        if (NPC.localAI[2] == 260)
                         {
                             CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro2"), true);
                         }
                     }
 
                     //kill daffodil
-                    if (NPC.localAI[2] >= 360)
+                    if (NPC.localAI[2] >= 400)
                     {
                         ActuallyDead = true;
                         NPC.immortal = false;

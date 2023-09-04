@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 using Spooky.Core;
 using Spooky.Content.NPCs.Hallucinations;
  
-namespace Spooky.Content.Items.Catacomb
+namespace Spooky.Content.Items.BossSummon
 {
 	public class BabyRattle : SwingWeaponBase
 	{
-		public override int Length => 45;
+		public override int Length => 30;
 		public override int TopSize => 20;
 		public override float SwingDownSpeed => 13.5f;
 		public override bool CollideWithTiles => true;

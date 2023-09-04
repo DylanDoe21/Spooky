@@ -10,7 +10,7 @@ using Spooky.Content.Buffs.Minion;
 using Spooky.Content.NPCs.Hallucinations;
 using Spooky.Content.Projectiles.SpookyBiome;
 
-namespace Spooky.Content.Items.SpookyBiome
+namespace Spooky.Content.Items.BossSummon
 {
     [LegacyName("ShadowCowbell")]
     public class CowBell : ModItem
@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
         public override void SetDefaults()
         {
-            Item.damage = 12;
+            Item.damage = 10;
 			Item.mana = 10;                        
             Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;  
@@ -83,13 +83,5 @@ namespace Spooky.Content.Items.SpookyBiome
 
 			return false;
 		}
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
     }
 }

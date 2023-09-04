@@ -9,13 +9,13 @@ using Spooky.Core;
 using Spooky.Content.NPCs.Hallucinations;
 using Spooky.Content.Projectiles.Cemetery;
 
-namespace Spooky.Content.Items.Cemetery
+namespace Spooky.Content.Items.BossSummon
 {
     public class Horseshoe : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 15;
+            Item.damage = 18;
             Item.DamageType = DamageClass.Melee;
             Item.autoReuse = true;
 			Item.noMelee = true;
@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Cemetery
             Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 5);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<HorseshoeProj>();

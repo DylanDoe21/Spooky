@@ -17,8 +17,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.damage = 50;
 			Item.mana = 15;       
 			Item.DamageType = DamageClass.Summon;
-			Item.autoReuse = true;  
-			Item.noMelee = true;  
+			Item.autoReuse = true;
+			Item.noMelee = true;
 			Item.width = 44;           
 			Item.height = 42;         
 			Item.useTime = 32;         
@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 20);
+			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Grass;
 			Item.buffType = ModContent.BuffType<DaffodilHandBuff>();
 			Item.shoot = ModContent.ProjectileType<DaffodilHandMinion>();

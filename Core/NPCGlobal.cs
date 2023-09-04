@@ -7,6 +7,7 @@ using System.Linq;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery.Misc;
@@ -127,6 +128,12 @@ namespace Spooky.Core
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
+			//entity drops
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyForestEntityCondition(), ModContent.ItemType<CowBell>(), 450));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SwampyCemeteryEntityCondition(), ModContent.ItemType<Horseshoe>(), 450));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CatacombEntityCondition(), ModContent.ItemType<BabyRattle>(), 450));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.EyeValleyEntityCondition(), ModContent.ItemType<CreepyFace>(), 450));
+
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));

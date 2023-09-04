@@ -1,8 +1,7 @@
 Update v1.0 (The first full release!)
 
--This update is spooky mods first FULL release, which means at this point the mod has enough content and polishing that it is no longer a small WIP mod 
-(Despite some of the existing problems and bugs which we are still working on I promise)
-
+-This update is spooky mod's first FULL release, which means at this point the mod has enough content and polish that it is no longer just a small WIP mod 
+-While this update primarily focuses on overhauling the catacombs, all of the different biomes in the mod have gotten a bunch of new stuff too
 -Before anyone asks, YOU WILL NEED A NEW WORLD!!!! This update completely overhauls the catacombs and adds new generation to every single biome in the mod!
 
 
