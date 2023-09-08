@@ -303,6 +303,12 @@ namespace Spooky.Content.NPCs.Friendly
                 Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Crimson2"));
             }
 
+            if (Main.player[Main.myPlayer].ZoneHallow)
+            {
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Hallow1"));
+                Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Hallow2"));
+            }
+
             return Main.rand.Next(Dialogue);
 		}
 
@@ -310,6 +316,9 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			NPC.velocity.X *= 0;
 			NPC.homeless = true;
+
+			NPC.immortal = true;
+			NPC.dontTakeDamage = true;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

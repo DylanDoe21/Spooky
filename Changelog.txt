@@ -1,7 +1,7 @@
 Update v1.0 (The first full release!)
 
 -This update is spooky mod's first FULL release, which means at this point the mod has enough content and polish that it is no longer just a small WIP mod 
--While this update primarily focuses on overhauling the catacombs, all of the different biomes in the mod have gotten a bunch of new stuff too
+-While this update primarily focuses on overhauling the catacombs, lots more content has been added to fill areas of the game that spooky mod was lacking in
 -Before anyone asks, YOU WILL NEED A NEW WORLD!!!! This update completely overhauls the catacombs and adds new generation to every single biome in the mod!
 
 
@@ -34,6 +34,7 @@ New Encounter, Pandora's Box:
 -This long awaited feature has been added, that strange ghostly chest from the catacombs in older versions of the mod has made a comeback, but this time it actually does stuff!
 -The pandora's box is now a mini encounter, where when interacted with, pandora's box will begin a ghoulish ambush with its own enemies, and a mini boss at the end
 -Once completed, you will be rewarded with one of four unique accessories, which can also be combined together much later on in the game
+-Each accessory can also be shimmered into one another, to reduce grinding
 
 
 Swampy Cemetery Overhaul:
@@ -220,6 +221,7 @@ Fixed all of the following bugs and issues:
 -Snotty schnoz allowing you to fire boogers from whips, summon weapons, and items that do not shoot projectiles
 -Various issue with holdout items, such as them being incorrectly offset from the player's hand when on mounts
 -Various armor sets and accessories that increase summon damage not increasing whip damage
+-Gore staff tortumor minion targetting friendly critters
 -Moldy chunks stacking to 999 and not 9999
 
 

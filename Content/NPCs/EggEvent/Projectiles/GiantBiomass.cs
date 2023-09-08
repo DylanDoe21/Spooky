@@ -32,12 +32,15 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             Projectile.hostile = false;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 2000;
+            Projectile.alpha = 255;
             Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
-            Projectile.rotation += RotateSpeed * Projectile.direction; 
+            Projectile.rotation += RotateSpeed * Projectile.direction;
+
+            Projectile.alpha -= 3;
 
             Projectile.ai[0]++;
 
@@ -154,7 +157,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void Kill(int timeLeft)
 		{
-            EggEventWorld.hasSpawnedBiomass = true;
+            if (!EggEventWorld.hasSpawnedBiomass)
+            {
+                EggEventWorld.hasSpawnedBiomass = true;
+            }
 
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 

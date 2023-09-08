@@ -364,7 +364,14 @@ OldRifle: {
 
 PandoraAmalgam: {
 	DisplayName: Amalghoul
-	Tooltip: Grants the effects of every pandora's box accessory
+	Tooltip:
+		'''
+		Grants the effects of every pandora's box accessory
+		Spawns blobs of ectoplasm when you restore mana that deal more damage the more you restore
+		Press the Accessory hotkey to release sound that damages you and enemies
+		You will spawn hands every few seconds that will home in on you and heal you when hit
+		Occasionally fire out a cuff at a nearby enemy, enemies attatched to it will take more damage
+		'''
 }
 
 PandoraChalice: {
@@ -957,8 +964,13 @@ NecromancyTome: {
 }
 
 OldMossBow: {
-	DisplayName: Reinforced Old Wood Bow
+	DisplayName: Old Moss Bow
 	Tooltip: Deals even more damage when used with Old Wood Arrows
+}
+
+OldWoodArrow: {
+	DisplayName: Old Wood Arrow
+	Tooltip: May sometimes stick to enemies on hit
 }
 
 OldWoodBow: {
@@ -1473,7 +1485,7 @@ SentientImpStaff: {
 	Tooltip:
 		'''
 		Summons Grug the gargoyle to fight with you
-		Only one Grug can exist, and he requires two minion slots to summon
+		Only one can exist, and he requires two minion slots to summon
 		'He's actually a gargoyle, not a grugoyle'
 		'''
 }
@@ -1520,7 +1532,7 @@ SentientSkullBook: {
 	DisplayName: Necronomicon
 	Tooltip:
 		'''
-		Casts out fast magic skulls that will bite and stick to enemies
+		Casts out fast magic skulls that will bite onto enemies
 		'Nom nom nom!'
 		'''
 }
@@ -1659,11 +1671,6 @@ DaffodilBox: {
 EggEventBox: {
 	DisplayName: Music Box (Egg Incursion)
 	Tooltip: "'The Evolution of Evil' by Rockwizard5"
-}
-
-EntityBox: {
-	DisplayName: Music Box (Hallucination)
-	Tooltip: ""
 }
 
 MocoBox: {

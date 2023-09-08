@@ -57,7 +57,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.penetrate = -1;	
 			Projectile.localNPCHitCooldown = 10;
-			Projectile.scale = 0.8f;
 		}
 
 		// PreDraw is used to draw a chain and trail before the projectile is drawn normally.
@@ -206,13 +205,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 
-                    offsetFromPlayer.Y *= 1f;
+                    offsetFromPlayer.Y *= 1.2f;
                     if (offsetFromPlayer.Y * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.Y *= 1f;
                     }
 
-					offsetFromPlayer.X *= 1f;
+					offsetFromPlayer.X *= 1.2f;
                     if (offsetFromPlayer.X * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.X *= 1f;
@@ -221,8 +220,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     Projectile.Center = mountedCenter + offsetFromPlayer * 30f;
                     Projectile.velocity = Vector2.Zero;
                     Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
-
-                    break;
 
                     break;
                 }

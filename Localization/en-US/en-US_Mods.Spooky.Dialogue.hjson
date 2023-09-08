@@ -21,7 +21,7 @@ LittleBone: {
 	Default3: Wow, you look like you're in the halloween spirit!
 	Default4: It's fun going on adventures, too bad I can't move in this flower pot.
 	Default5: Being a plant isn't so bad, at least I can enjoy the scenery!
-	Default6: I don't know who built that house I fell asleep in before, but it was rather cozy.
+	Default6: ...
 	//biomes
 	SpookyBiome1: Sometimes I like to talk to the other skull plants that pop up around here, but they don't seem to respond back.
 	SpookyBiome2: The spooky forest is such a wonderful place to live! Well, aside from those weird zomboids at night.
@@ -33,8 +33,8 @@ LittleBone: {
 	Cemetery1: This place is really foggy and spooky, I love it!
 	Cemetery2: Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.
 	Cemetery3: The cemetery is a strange area, where zombies and other undead monsters come to life. Be careful around here!
-	CatacombFirstLayer1: This giant underground catacomb was once used as a burial to house the deceased, but it looks like something very strange has happened here.
-	CatacombFirstLayer2: Theres a lot of weird undead things down here. There seems to be a lot of undead things in this world.
+	CatacombFirstLayer1: Theres an awful lot of plants down here for an underground catacomb that has no sunlight...
+	CatacombFirstLayer2: Careful, I have heard rumors of explorers getting crushed by giant rolling skulls!
 	CatacombFirstLayer3: Something about this place is strange. The undead creatures here are very odd compared to everywhere else.
 	CatacombSecondLayer1: There seems to be an infestation of strange plants down here. Some of them are even sentient!
 	CatacombSecondLayer2: I wonder how there is so much plant life down here, with absolutely no sunlight.
@@ -54,10 +54,12 @@ LittleBone: {
 	Dungeon: This dungeon is so spooky! I wonder if those other skeletons in the distance are coming to us to spread halloween cheer?
 	Shimmer1: This is the most pretty lake I have ever seen!
 	Shimmer2: What a mystical and sparkly lake, I wonder what would happen when you jump in it?
-	Corruption1: This place is kind of cool, too bad I keep hearing that this place is evil and corrupts anything it touches.
+	Corruption1: This place is kind of cool, too bad I keep hearing that it's evil and corrupts anything it touches.
 	Corruption2: The creatures here are so gross, I hate looking at them!
 	Crimson1: EW EW EW EW EW!!! What kind of wretched place is this?!
 	Crimson2: Oh my goodness, how could such a horrible thing exist in this land? This is too spooky, even for me.
+	Hallow1: Whoa, this place is so sparkly and bright! I don't think this was here before, was it?
+	Hallow2: For an area that looks very nice and peaceful, there sure are a lot of deadly faries in it!
 	//buttons
 	Button1: Advice
 	Button2: Transport
@@ -97,7 +99,7 @@ LittleEye: {
 }
 
 Daffodil: {
-	PreDefeatIntro1: HUH!!!!!!
+	PreDefeatIntro1: !!!!!!
 	PreDefeatIntro2: Just who do you think you are waking me?!
 	PreDefeatIntro3: ......
 	PreDefeatIntro4: Fine, then let's see if you're worthy!

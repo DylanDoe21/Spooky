@@ -8,12 +8,10 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 
 using Spooky.Core;
 using Spooky.Effects;
 using Spooky.Content.Biomes;
-using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
@@ -101,24 +99,24 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
                         {
                             //Vigilante
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
 
                             //Ventricle
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         SpawnedEnemies = true;
@@ -136,15 +134,15 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //after defeating the event once, spawn some extra enemies
@@ -153,8 +151,9 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Ventricle
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                             }
                         }
 
@@ -173,28 +172,28 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
 
                         //Ventricle
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
                         {
                             //Vigilante
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
 
                             //Crux
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;
@@ -212,30 +211,30 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Ventricle
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
                         {
                             //Crux
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;
@@ -251,15 +250,15 @@ namespace Spooky.Content.NPCs.EggEvent
                     if (!SpawnedEnemies)
                     {
                         //Vigilante
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
+                        for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Crux
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
@@ -267,13 +266,14 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Glutinous
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                             }
                             
                             //Crux
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;
@@ -291,27 +291,27 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Crux
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
                         {   
                             //Vesicator
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
                         }
 
                         SpawnedEnemies = true;
@@ -329,20 +329,20 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Ventricle
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         //Crux
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
@@ -350,8 +350,9 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Vigilante
                             for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
                         }
 
@@ -370,13 +371,13 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vesicator
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
@@ -384,8 +385,9 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Ventricle
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                             }
                         }
 
@@ -404,15 +406,15 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Crux
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         //after defeating the event once, spawn some extra enemies
@@ -421,17 +423,18 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Vigilante
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Ventricle
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
 
                             //Vesicator
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
                         }
 
                         SpawnedEnemies = true;
@@ -449,34 +452,34 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Ventricle
                         for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         //Crux
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
                         {   
                             //Vigilante
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
 
                             //Vesicator
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
                         }
 
                         SpawnedEnemies = true;
@@ -494,20 +497,20 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Ventricle
                         for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         //Vesicator
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
@@ -515,13 +518,14 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Glutinous
                             for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Crux
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;
@@ -539,34 +543,34 @@ namespace Spooky.Content.NPCs.EggEvent
                         //Glutinous
                         for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                         }
 
                         //Vigilante
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                         }
 
                         //Ventricle
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                         }
 
                         //Crux
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         //Vesicator
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                        Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                        Main.rand.NextFloat(-8f, 8f),Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 4);
 
                         //after defeating the event once, spawn some extra enemies
                         if (Flags.downedEggEvent)
@@ -574,24 +578,26 @@ namespace Spooky.Content.NPCs.EggEvent
                             //Glutinous
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                             }
 
                             //Vigilante
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                                Main.rand.NextFloat(-8f, 8f), 
+Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Ventricle
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
 
                             //Crux
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-8f, 8f),
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
+                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 3);
                         }
 
                         SpawnedEnemies = true;

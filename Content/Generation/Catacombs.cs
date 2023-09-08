@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
@@ -767,41 +768,6 @@ namespace Spooky.Content.Generation
             }
         }
 
-        private void GFBPaintColors(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int XStart = PositionX;
-            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
-
-            //kill plants and vines that are not on valid tiles
-            for (int X = XMiddle - 400; X <= XMiddle + 400; X++)
-            {
-                for (int Y = (int)Main.worldSurface - 35; Y <= Main.maxTilesY - 100; Y++)
-                {
-                    Tile tile = Main.tile[X, Y];
-
-                    if (tile.TileType == ModContent.TileType<CatacombBrick1>())
-                    {
-                        WorldGen.paintTile(X, Y, PaintID.DeepGreenPaint);
-                    }
-
-                    if (tile.WallType == ModContent.WallType<CatacombBrickWall1>())
-                    {
-                        WorldGen.paintWall(X, Y, PaintID.DeepGreenPaint);
-                    }
-
-                    if (tile.TileType == ModContent.TileType<CatacombBrick2>())
-                    {
-                        WorldGen.paintTile(X, Y, PaintID.DeepPurplePaint);
-                    }
-
-                    if (tile.WallType == ModContent.WallType<CatacombBrickWall2>())
-                    {
-                        WorldGen.paintWall(X, Y, PaintID.DeepPurplePaint);
-                    }
-                }
-            }
-        }
-
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
@@ -812,11 +778,6 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("KillVinesAndPlants", KillVinesAndPlants));
-
-            if (Main.drunkWorld)
-            {
-                tasks.Insert(GenIndex1 + 3, new PassLegacy("GBFStuff", GFBPaintColors));
-            }
 
             //re-locate the jungle temple deeper underground and further horizontally so it never gets generated over by the catacombs
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
@@ -962,7 +923,7 @@ namespace Spooky.Content.Generation
                 if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall2>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall2>()))
                 {
                     //place stuff in pumpkin chests
-                    if (chestTile.TileFrameX == 45 * 36)
+                    if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ModContent.ItemType<Fertilizer>())
                     {
                         //potions
                         int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };

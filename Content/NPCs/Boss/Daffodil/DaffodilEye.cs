@@ -829,7 +829,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             int positionX = (int)player.Center.X + Main.rand.Next(-300, 300);
                             int positionY = (int)player.Center.Y + Main.rand.Next(-300, 100);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY, 0, 0, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY + 5, 0, 0, 
                             ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
 
                             SavePoint[savePoints] = new Vector2(positionX, positionY);

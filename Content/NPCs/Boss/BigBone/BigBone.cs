@@ -332,6 +332,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1").Value;
 
+            //draw different glowmask colors based on the current attack being used
             if (!Phase2)
             {
                 if (NPC.ai[0] == 0 || NPC.ai[0] == 7)
@@ -355,6 +356,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
             }
 
+            //in phase 2 only use the orange glow
             if (Phase2)
             {
                 tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3").Value;
@@ -362,6 +364,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             var effects = SpriteEffects.None;
 
+            //while charging, use the saved direction and not the actual npc direction
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -378,8 +381,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //draw big bone's antler glowmask
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
 
-            //draw solar forcefield
-            if (NPC.ai[0] == -1 && NPC.CountNPCS(ModContent.NPCType<BigFlower>()) > 0)
+            //draw solar forcefield during his phase transition
+            if (NPC.ai[0] == -1 && NPC.AnyNPCs(ModContent.NPCType<BigFlower>()))
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
@@ -401,7 +404,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override bool CheckDead()
         {
-            //death animation
+            //death animation stuff
             if (!ActuallyDead)
             {
                 SoundEngine.PlaySound(DeathSound, NPC.Center);
@@ -555,7 +558,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SaveNPCPosition = NPC.Center;
                     }
 
-                    //shake, and cause a circle of dusts around big bone that become bigger over time
+                    //shake, and cause a circle of dusts around big bone that becomes bigger over time
                     if (NPC.localAI[0] >= 60)
                     {
                         int Shake = (int)NPC.localAI[0] / 10;
@@ -606,7 +609,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.localAI[1] = 0;
                     }
 
-                    //kill big bone, spawn gores, ect
+                    //kill big bone and spawn gores
                     if (NPC.localAI[0] >= 360)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
@@ -695,7 +698,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[2] >= 560)
                     {
-                        //if theres only 3 flowers left, shoot a homing fire ball at the end of the attack
+                        //if theres 3 or less flowers left, shoot a homing fire ball at the end of the attack
                         if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 3)
 			            {
                             SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
@@ -1194,17 +1197,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             //recoil
                             Vector2 Recoil = player.Center - NPC.Center;
                             Recoil.Normalize();
-                                    
-                            Recoil.X *= -20;
-                            Recoil.Y *= -20;
-                            NPC.velocity.X = Recoil.X;
-                            NPC.velocity.Y = Recoil.Y;
+                            Recoil *= -20;
+                            NPC.velocity = Recoil;
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= 4.5f;
-                            ShootSpeed.Y *= 4.5f;
+                            ShootSpeed *= 4.5f;
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -1305,7 +1303,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //stay still, then charge and crash into the wall
+                //stay still, then charge and crash into a wall
                 case 7:
                 {
                     NPC.localAI[0]++;
@@ -1365,7 +1363,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //charge
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
-                                
                         ChargeDirection *= 45;
                         NPC.velocity = ChargeDirection;
                     }

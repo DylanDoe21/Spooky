@@ -33,7 +33,8 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.velocity *= 0;
+			player.velocity.X *= 0;
+			player.velocity.Y += 0.35f;
 			Lighting.GlobalBrightness = 0f;
 		}
 	}

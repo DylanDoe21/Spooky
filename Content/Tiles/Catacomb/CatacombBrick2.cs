@@ -18,6 +18,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			AddMapEntry(new Color(87, 52, 37));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
+			MinPick = 999999;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
@@ -26,7 +27,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			frameYOffset = j % 2 * 270; //270 is the height of each individual sheet
         }
 
-        /*
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
         {
 			return false;
@@ -36,6 +36,5 @@ namespace Spooky.Content.Tiles.Catacomb
         {
 			return false;
         }
-		*/
     }
 }

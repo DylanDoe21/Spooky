@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] >= 500)
+            if (NPC.localAI[0] >= 3600)
             {
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();

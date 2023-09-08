@@ -16,7 +16,6 @@ namespace Spooky.Content.Tiles.Catacomb
             DustType = DustID.Stone;
         }
 
-        /*
         public override bool CanExplode(int i, int j)
 		{
 			return false;
@@ -26,6 +25,5 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             fail = true;
         }
-        */
     }
 }

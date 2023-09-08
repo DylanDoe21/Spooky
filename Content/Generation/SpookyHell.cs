@@ -67,6 +67,7 @@ namespace Spooky.Content.Generation
             float flatness = 50;
             int offset = Main.maxTilesY - 130;
 
+            //genrate a random wave
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 double BiomeHeight = peakheight / rand1 * Math.Sin((float)X / flatness * rand1 + rand1);
@@ -78,6 +79,7 @@ namespace Spooky.Content.Generation
                 terrainContour[X] = (int)BiomeHeight;
             }
 
+            //place the randomized wave of blocks, with walls behind them
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
@@ -90,7 +92,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of blocks along the edge of the biome so it doesnt look weird
+            //place clumps of blocks along the edges of the biome so it doesnt look weird
             for (int X = StartPosition - 50; X <= StartPosition; X++)
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
@@ -124,7 +126,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of eye blocks
+            //place clumps of eye blocks throughout the biome
             for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -178,7 +180,6 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 155; Y < Main.maxTilesY - 120; Y++)
                 {
-                    //place 
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
                     {
                         if (WorldGen.genRand.NextBool(20))

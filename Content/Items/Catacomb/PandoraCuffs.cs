@@ -23,7 +23,9 @@ namespace Spooky.Content.Items.Catacomb
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-        { 
+        {
+            player.moveSpeed -= 0.10f;
+            player.GetDamage(DamageClass.Generic) -= 0.10f;
             player.GetModPlayer<SpookyPlayer>().PandoraCuffs = true;
         }
     }

@@ -149,7 +149,11 @@ namespace Spooky.Content.Generation
 				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || 
                 chestTile.TileType == ModContent.TileType<SpookyHellChest>()))
                 {
-                    int[] Potions = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+                    //potions
+                    int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
+
+                    //more potions
+                    int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
 
                     //spooky biome chest main item
                     if (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>())
@@ -165,21 +169,18 @@ namespace Spooky.Content.Generation
                         chest.item[0].stack = 1;
                     }
 
-                    //candles
-                    chest.item[1].SetDefaults(ModContent.ItemType<CandleItem>());
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 12);
                     //potions
-                    chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions));
-                    chest.item[2].stack = WorldGen.genRand.Next(5, 8);
-                    //healing potions
+                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Potions1));
+                    chest.item[1].stack = WorldGen.genRand.Next(1, 3);
+                    //even more potions
+                    chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions2));
+                    chest.item[2].stack = WorldGen.genRand.Next(1, 3);
+                    //recovery potions
                     chest.item[3].SetDefaults(ItemID.GreaterHealingPotion);
-                    chest.item[3].stack = WorldGen.genRand.Next(12, 20);
-                    //mana potions
-                    chest.item[4].SetDefaults(ItemID.GreaterManaPotion);
-                    chest.item[4].stack = WorldGen.genRand.Next(12, 20);
+                    chest.item[3].stack = WorldGen.genRand.Next(5, 11);
                     //gold coins
-                    chest.item[5].SetDefaults(ItemID.GoldCoin);
-                    chest.item[5].stack = WorldGen.genRand.Next(10, 15);
+                    chest.item[4].SetDefaults(ItemID.GoldCoin);
+                    chest.item[4].stack = WorldGen.genRand.Next(5, 16);
                 }
             }
         }

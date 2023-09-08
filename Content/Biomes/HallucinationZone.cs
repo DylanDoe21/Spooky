@@ -7,7 +7,28 @@ namespace Spooky.Content.Biomes
 {
     public class HallucinationZone : ModBiome
     {
-        public override int Music => NPC.AnyNPCs(ModContent.NPCType<TheFlesh>()) ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheFleshDialogue") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Hallucination");
+        public override int Music
+        {
+            get
+            {
+                int music = Main.curMusic;
+
+                if (NPC.AnyNPCs(ModContent.NPCType<TheFlesh>()))
+                {
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheFleshDialogue");
+                }
+                else if (NPC.AnyNPCs(ModContent.NPCType<TheBaby>()))
+                {
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheBabyAmbience");
+                }
+                else
+                {
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheEntity");
+                }
+
+                return music;
+            }
+        }
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

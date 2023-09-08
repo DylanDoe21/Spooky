@@ -23,7 +23,7 @@ namespace Spooky.Core
 
                 //disable tools, block placement, and the rod of discord
                 if (item.pick > 0 || item.hammer > 0 || item.axe > 0 || (item.createTile > 0 && !Torches.Contains(item.type)) || 
-                item.type == ItemID.RodofDiscord || item.type == ItemID.Clentaminator || item.type == ItemID.Clentaminator2)
+                item.type is ItemID.RodofDiscord or ItemID.Clentaminator or ItemID.Clentaminator2)
                 {
                     return false;
                 }

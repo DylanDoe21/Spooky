@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void AI()
 		{
             NPC Parent = Main.npc[(int)NPC.ai[3]];
-            Player player = Main.player[Parent.target];
+            Player player = Main.player[NPC.target];
 
             //rotation
             Vector2 vector = new(NPC.Center.X, NPC.Center.Y);

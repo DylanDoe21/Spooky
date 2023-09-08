@@ -55,7 +55,8 @@ namespace Spooky.Content.Items.Catacomb
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<PlantChunk>(), 22)
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 18)
+			.AddIngredient(ItemID.Stinger, 5)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

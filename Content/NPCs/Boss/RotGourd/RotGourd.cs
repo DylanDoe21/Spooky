@@ -257,47 +257,164 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//despawn if all players are dead
             if (player.dead)
             {
-                NPC.ai[2]++;
-
-				//play sound
-				if (NPC.ai[2] == 60)
-				{
-					NPC.noTileCollide = false;
-					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-				}
-
-				//jump up super high, then despawn
-                if (NPC.ai[2] >= 60)
-                {
-                    NPC.velocity.Y = -40;
-					NPC.EncourageDespawn(10);
-                }
+                NPC.ai[0] = -2;
             }
-			//use normal attacks
-			else
+
+			//attacks
+			switch ((int)NPC.ai[0])
 			{
-				//attacks
-				switch ((int)NPC.ai[0])
+				//despawning
+				case -2:
 				{
-					//slam down spawn intro
-					case -1:
+					NPC.ai[2]++;
+
+					//play sound
+					if (NPC.ai[2] == 60)
 					{
-						NPC.localAI[0]++;
+						NPC.noTileCollide = false;
+						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+					}
+
+					//jump up super high, then despawn
+					if (NPC.ai[2] >= 60)
+					{
+						NPC.velocity.Y = -40;
+						NPC.EncourageDespawn(10);
+					}
+
+					break;
+				}
+				
+				//slam down spawn intro
+				case -1:
+				{
+					NPC.localAI[0]++;
+
+					NPC.velocity.X *= 0;
+
+					//charge down
+					if (NPC.localAI[0] == 20)
+					{
+						NPC.noGravity = true;
+
+						NPC.velocity.X *= 0;
+						NPC.velocity.Y = 35;
+					}
+
+					//set tile collide to true once it gets to the players level to prevent cheesing
+					if (NPC.localAI[0] >= 20)
+					{
+						if (NPC.position.Y >= player.Center.Y - 200)
+						{
+							NPC.noTileCollide = false;
+						}
+					}
+
+					//slam the ground
+					if (NPC.localAI[0] >= 20 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+					{
+						NPC.noGravity = false;
 
 						NPC.velocity.X *= 0;
 
-						//charge down
-						if (NPC.localAI[0] == 20)
+						SpookyPlayer.ScreenShakeAmount = 7;
+
+						SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+						//push all nearby players in the air if they are on the ground
+						for (int i = 0; i < Main.maxPlayers; i++)
+						{
+							if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
+							{
+								Main.player[i].velocity.Y -= 8f;
+							}
+						}
+
+						//make cool dust effect when slamming the ground
+						for (int i = 0; i < 45; i++)
+						{                                                                                  
+							int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+							Main.dust[slamDust].noGravity = true;
+							Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+							Main.dust[slamDust].position.Y += 104;
+							Main.dust[slamDust].scale = 3f;
+							
+							if (Main.dust[slamDust].position != NPC.Center)
+							{
+								Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
+							}
+						}
+						
+						//complete the slam attack
+						NPC.localAI[1] = 1; 
+					}
+
+					//only loop attack if the jump has been completed
+					if (NPC.localAI[0] >= 20 && NPC.localAI[1] > 0)
+					{
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//Jump 3 times towards the player
+				case 0:
+				{
+					NPC.localAI[0]++;
+								
+					if (NPC.localAI[1] < 3)
+					{
+						//jumping velocity
+						Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 500);
+
+						Vector2 velocity = JumpTo - NPC.Center;
+
+						//actual jumping
+						if (NPC.localAI[0] == 60)
+						{
+							SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+							float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
+							velocity.Normalize();
+							velocity.Y -= 0.18f;
+							velocity.X *= 1.2f;
+							NPC.velocity = velocity * speed * 1.1f;
+						}
+
+						//set tile collide to false so he can jump through blocks
+						if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 115)
+						{
+							NPC.noTileCollide = true;
+						}
+
+						//slam down instantly if above the player
+						if (NPC.localAI[0] > 70 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 3 && NPC.Center.X >= player.Center.X - 3)
+						{
+							NPC.localAI[0] = 115;
+						}
+
+						if (NPC.localAI[0] == 115)
+						{
+							NPC.velocity.X *= 0;
+						}
+
+						//slam down
+						if (NPC.localAI[0] == 125)
 						{
 							NPC.noGravity = true;
 
 							NPC.velocity.X *= 0;
-							NPC.velocity.Y = 35;
+							NPC.velocity.Y = 16;
 						}
 
 						//set tile collide to true once it gets to the players level to prevent cheesing
-						if (NPC.localAI[0] >= 20)
-						{
+						if (NPC.localAI[0] >= 125)
+						{	
 							if (NPC.position.Y >= player.Center.Y - 200)
 							{
 								NPC.noTileCollide = false;
@@ -305,13 +422,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						}
 
 						//slam the ground
-						if (NPC.localAI[0] >= 20 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+						if (NPC.localAI[0] >= 125 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
 						{
 							NPC.noGravity = false;
 
 							NPC.velocity.X *= 0;
 
-							SpookyPlayer.ScreenShakeAmount = 7;
+							SpookyPlayer.ScreenShakeAmount = 5;
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -325,7 +442,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 
 							//make cool dust effect when slamming the ground
-							for (int i = 0; i < 45; i++)
+							for (int numDusts = 0; numDusts < 45; numDusts++)
 							{                                                                                  
 								int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 								Main.dust[slamDust].noGravity = true;
@@ -340,215 +457,275 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 							
 							//complete the slam attack
-							NPC.localAI[1] = 1; 
+							NPC.localAI[2] = 1; 
 						}
 
 						//only loop attack if the jump has been completed
-						if (NPC.localAI[0] >= 20 && NPC.localAI[1] > 0)
+						if (NPC.localAI[0] >= 140 && NPC.localAI[2] > 0)
 						{
 							NPC.localAI[0] = 0;
-							NPC.localAI[1] = 0;
-							NPC.ai[0]++;
+							NPC.localAI[2] = 0;
+							NPC.localAI[1]++;
+
 							NPC.netUpdate = true;
 						}
-
-						break;
 					}
-
-					//Jump 3 times towards the player
-					case 0:
+					else
 					{
-						NPC.localAI[0]++;
-									
-						if (NPC.localAI[1] < 3)
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.localAI[2] = 0;
+						
+						//set to mold spore attack when below 75% hp, otherwise go to big slam
+						if (NPC.life <= (NPC.lifeMax / 1.25f))
 						{
-							//jumping velocity
-							Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 500);
-
-							Vector2 velocity = JumpTo - NPC.Center;
-
-							//actual jumping
-							if (NPC.localAI[0] == 60)
-							{
-								SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-								float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
-								velocity.Normalize();
-								velocity.Y -= 0.18f;
-								velocity.X *= 1.2f;
-								NPC.velocity = velocity * speed * 1.1f;
-							}
-
-							//set no tile collide to true so he can jump through blocks
-							if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 115)
-							{
-								NPC.noTileCollide = true;
-							}
-
-							//slam down instantly if above the player
-							if (NPC.localAI[0] > 70 && NPC.localAI[0] < 110 && NPC.position.X <= player.Center.X + 3 && NPC.Center.X >= player.Center.X - 3)
-							{
-								NPC.localAI[0] = 115;
-							}
-
-							if (NPC.localAI[0] == 115)
-							{
-								NPC.velocity.X *= 0;
-							}
-
-							//charge down
-							if (NPC.localAI[0] == 125)
-							{
-								NPC.noGravity = true;
-
-								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 16;
-							}
-
-							//set tile collide to true once it gets to the players level to prevent cheesing
-							if (NPC.localAI[0] >= 125)
-							{	
-								if (NPC.position.Y >= player.Center.Y - 200)
-								{
-									NPC.noTileCollide = false;
-								}
-							}
-
-							//slam the ground
-							if (NPC.localAI[0] >= 125 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
-							{
-								NPC.noGravity = false;
-
-								NPC.velocity.X *= 0;
-
-								SpookyPlayer.ScreenShakeAmount = 5;
-
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
-
-								//push all nearby players in the air if they are on the ground
-								for (int i = 0; i < Main.maxPlayers; i++)
-								{
-									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
-									{
-										Main.player[i].velocity.Y -= 8f;
-									}
-								}
-
-								//make cool dust effect when slamming the ground
-								for (int i = 0; i < 45; i++)
-								{                                                                                  
-									int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-									Main.dust[slamDust].noGravity = true;
-									Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-									Main.dust[slamDust].position.Y += 104;
-									Main.dust[slamDust].scale = 3f;
-									
-									if (Main.dust[slamDust].position != NPC.Center)
-									{
-										Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
-									}
-								}
-								
-								//complete the slam attack
-								NPC.localAI[2] = 1; 
-							}
-
-							//only loop attack if the jump has been completed
-							if (NPC.localAI[0] >= 140 && NPC.localAI[2] > 0)
-							{
-								NPC.localAI[0] = 0;
-								NPC.localAI[2] = 0;
-								NPC.localAI[1]++;
-								NPC.netUpdate = true;
-							}
+							NPC.ai[0]++;
 						}
 						else
 						{
-							NPC.localAI[0] = 0;
-							NPC.localAI[1] = 0;
-							NPC.localAI[2] = 0;
+							NPC.ai[0] = 2;
+						}
+
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//jerry spits lingering mold spores, only use when below 75% hp
+				case 1:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 120)
+					{
+						Vector2 ShootSpeed = player.Center - NPC.Center;
+						ShootSpeed.Normalize();
+						ShootSpeed.X *= Main.rand.NextFloat(2f, 4f);
+						ShootSpeed.Y *= Main.rand.NextFloat(2f, 4f);
+
+						if (Main.rand.NextBool(4))
+						{
+							SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
+
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X + Main.rand.Next(-3, 3), 
+							ShootSpeed.Y + Main.rand.Next(-3, 3), ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
+						}
+					}
+
+					if (NPC.localAI[0] >= 240)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//jump up really high, then slam back down above the player
+				case 2:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] == 20)
+					{
+						NPC.noTileCollide = true;
+
+						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+					}
+								
+					if (NPC.localAI[0] >= 20 && NPC.localAI[0] <= 50)
+					{
+						NPC.velocity.Y = -40;
+					}
+
+					if (NPC.localAI[0] == 70)
+					{
+						NPC.position.X = player.Center.X - 40;
+						NPC.position.Y = player.Center.Y - 1200;
+
+						for (int k = 0; k < Main.maxProjectiles; k++)
+						{
+							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
+							{
+								Main.projectile[k].Center = NPC.Center;
+							}
+						}
+
+						NPC.velocity *= 0;
+					}
+
+					if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 80)
+					{
+						NPC.noGravity = true;
+
+						NPC.velocity.X *= 0;
+						NPC.velocity.Y = 32;
+					}
+
+					//set tile collide to true once it gets to the players level to prevent cheesing
+					if (NPC.localAI[0] >= 75)
+					{
+						if (NPC.position.Y >= player.Center.Y - 150)
+						{
+							NPC.noTileCollide = false;
+						}
+					}
+
+					//slam the ground
+					if (NPC.localAI[0] >= 75 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+					{
+						NPC.noGravity = false;
+
+						SpookyPlayer.ScreenShakeAmount = 10;
+
+						SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+						//push all nearby players in the air if they are on the ground
+						for (int i = 0; i < Main.maxPlayers; i++)
+						{
+							if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
+							{
+								Main.player[i].velocity.Y -= 12f;
+							}
+						}
+
+						//make cool dust effect when slamming the ground
+						for (int numDusts = 0; numDusts < 65; numDusts++)
+						{                                                                                  
+							int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+							Main.dust[slamDust].noGravity = true;
+							Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+							Main.dust[slamDust].position.Y += 104;
+							Main.dust[slamDust].scale = 3f;
 							
-							//set to mold spore attack when below 75% hp, otherwise go to big slam
-							if (NPC.life <= (NPC.lifeMax / 1.25f))
+							if (Main.dust[slamDust].position != NPC.Center)
 							{
-								NPC.ai[0]++;
+								Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
 							}
-							else
-							{
-								NPC.ai[0] = 2;
-							}
-
-							NPC.netUpdate = true;
 						}
-
-						break;
+						
+						//complete the slam attack
+						NPC.localAI[1] = 1; 
 					}
 
-					//jerry spits lingering mold spores, only use when below 75% hp
-					case 1:
+					if (NPC.localAI[0] > 80 && NPC.localAI[1] > 0)
 					{
-						NPC.localAI[0]++;
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.ai[0]++;
 
-						if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 120)
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//jump across the player, then release flies mid air and then fall and slow down
+				case 3:
+				{
+					NPC.localAI[0]++;
+
+					Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? -400 : 400), player.Center.Y - 1000);
+					Vector2 velocity = JumpTo - NPC.Center;
+
+					//actual jumping
+					if (NPC.localAI[0] == 80)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+						float speed = MathHelper.Clamp(velocity.Length() / 36, 6, 18);
+						velocity.Normalize();
+						velocity.Y -= 0.25f;
+						velocity.X *= 1.2f;
+						NPC.velocity = velocity * speed * 1.1f;
+					}
+
+					//change fly ai to charging
+					for (int k = 0; k < Main.maxProjectiles; k++)
+					{
+						if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 						{
-							Vector2 ShootSpeed = player.Center - NPC.Center;
-							ShootSpeed.Normalize();
-							ShootSpeed.X *= Main.rand.NextFloat(2f, 4f);
-							ShootSpeed.Y *= Main.rand.NextFloat(2f, 4f);
-
-							if (Main.rand.NextBool(4))
+							if ((NPC.localAI[0] >= 90 && NPC.localAI[0] < 160 && Main.rand.NextBool(50)) || NPC.localAI[0] == 160)
 							{
-								SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
+								Main.projectile[k].ai[0] = 1;
+							}
+						}
+					}
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X + Main.rand.Next(-3, 3), 
-								ShootSpeed.Y + Main.rand.Next(-3, 3), ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
+					//set tile collide to false so he can jump through blocks
+					if (NPC.localAI[0] >= 80 && NPC.localAI[0] <= 160)
+					{
+						NPC.noTileCollide = true;
+					}
+
+					if (NPC.localAI[0] > 160)
+					{
+						NPC.noTileCollide = false;
+						NPC.velocity.X *= 0.95f;
+
+						if (NPC.velocity.Y == 0)
+						{
+							NPC.velocity.X *= 0.5f;
+						}
+					}
+
+					if (NPC.localAI[0] >= 250)
+					{
+						for (int k = 0; k < Main.maxProjectiles; k++)
+						{
+							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
+							{
+								Main.projectile[k].localAI[0] = 0;
+								Main.projectile[k].ai[0] = 0;
 							}
 						}
 
-						if (NPC.localAI[0] >= 240)
+						NPC.localAI[0] = 0;
+
+						//set to mega slam attack when below 50% hp,other wise reset attack pattern
+						if (NPC.life <= ((NPC.lifeMax / 2)))
 						{
-							NPC.localAI[0] = 0;
 							NPC.ai[0]++;
-							NPC.netUpdate = true;
+						}
+						else
+						{
+							NPC.ai[0] = 0;
 						}
 
-						break;
+						NPC.netUpdate = true;
 					}
 
-					//jump up really high, then slam back down above the player
-					case 2:
-					{
-						NPC.localAI[0]++;
+					break;
+				}
 
-						if (NPC.localAI[0] == 20)
+				//just use normal jump attack after flies
+				case 4:
+				{
+					goto case 0;
+				}
+
+				//jump in place, sending multiple spreads of dirt debris everywhere
+				case 5:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[1] < 3)
+					{
+						if (NPC.localAI[0] == 2)
+						{
+							SavePlayerPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
+						}
+
+						if (NPC.localAI[0] == 60)
 						{
 							NPC.noTileCollide = true;
 
-							SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-						}
-									
-						if (NPC.localAI[0] >= 20 && NPC.localAI[0] <= 50)
-						{
 							NPC.velocity.Y = -40;
 						}
 
-						if (NPC.localAI[0] == 70)
-						{
-							NPC.position.X = player.Center.X - 40;
-							NPC.position.Y = player.Center.Y - 1200;
-
-							for (int k = 0; k < Main.maxProjectiles; k++)
-							{
-								if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-								{
-									Main.projectile[k].Center = NPC.Center;
-								}
-							}
-
-							NPC.velocity *= 0;
-						}
-
-						if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 80)
+						if (NPC.localAI[0] >= 80 && NPC.localAI[0] <= 90)
 						{
 							NPC.noGravity = true;
 
@@ -556,9 +733,121 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							NPC.velocity.Y = 32;
 						}
 
-						//set tile collide to true once it gets to the players level to prevent cheesing
-						if (NPC.localAI[0] >= 75)
+						if (NPC.localAI[0] >= 90)
 						{
+							if (NPC.position.Y >= SavePlayerPosition.Y)
+							{
+								NPC.noTileCollide = false;
+							}
+						}
+
+						//slam the ground
+						if (NPC.localAI[0] >= 90 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+						{
+							NPC.noGravity = false;
+
+							SpookyPlayer.ScreenShakeAmount = 10;
+
+							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+							int NumProjectiles = Main.rand.Next(10, 15);
+							for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
+							{
+								float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
+
+								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
+								Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
+							}
+
+							//make cool dust effect when slamming the ground
+							for (int numDusts = 0; numDusts < 65; numDusts++)
+							{                                                                                  
+								int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+								Main.dust[slamDust].noGravity = true;
+								Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+								Main.dust[slamDust].position.Y += 104;
+								Main.dust[slamDust].scale = 3f;
+								
+								if (Main.dust[slamDust].position != NPC.Center)
+								{
+									Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
+								}
+							}
+							
+							//complete the slam attack
+							NPC.localAI[2] = 1; 
+						}
+
+						if (NPC.localAI[2] >= 1)
+						{
+							NPC.localAI[0] = 50;
+							NPC.localAI[2] = 0;
+							NPC.localAI[1]++;
+
+							NPC.netUpdate = true;
+						}
+					}
+					else
+					{
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.localAI[2] = 0;
+						NPC.ai[0] = 0;
+
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//get flies to carry him, drop him on you
+				case 6:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[1] < 3)
+					{
+						if (NPC.localAI[0] >= 65 && NPC.localAI[0] < 140)
+						{
+							NPC.noTileCollide = true;
+
+							NPC.direction = Math.Sign(player.Center.X - NPC.Center.X);	
+							Vector2 GoTo = player.Center;
+							NPC.spriteDirection = NPC.direction;
+							GoTo.X += 0f;
+							GoTo.Y -= 500;
+
+							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 20);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+						}
+
+						if (NPC.localAI[0] == 140)
+						{
+							NPC.velocity.X *= 0;
+						}
+
+						//attempt to crush the player
+						if (NPC.localAI[0] == 150)
+						{
+							SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+							
+							NPC.noGravity = true;
+
+							for (int k = 0; k < Main.maxProjectiles; k++)
+							{
+								if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
+								{
+									Main.projectile[k].ai[0] = 2;
+								}
+							}
+
+							NPC.velocity.X *= 0;
+							NPC.velocity.Y = 30;
+						}
+
+						//set tile collide to true once it gets to the players level to prevent cheesing
+						if (NPC.localAI[0] >= 150)
+						{	
 							if (NPC.position.Y >= player.Center.Y - 150)
 							{
 								NPC.noTileCollide = false;
@@ -566,11 +855,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						}
 
 						//slam the ground
-						if (NPC.localAI[0] >= 75 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+						if (NPC.localAI[0] >= 150 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
 						{
 							NPC.noGravity = false;
 
-							SpookyPlayer.ScreenShakeAmount = 10;
+							NPC.velocity.X *= 0;
+
+							SpookyPlayer.ScreenShakeAmount = 5;
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -579,12 +870,12 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							{
 								if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
 								{
-									Main.player[i].velocity.Y -= 12f;
+									Main.player[i].velocity.Y -= 8f;
 								}
 							}
 
 							//make cool dust effect when slamming the ground
-							for (int i = 0; i < 65; i++)
+							for (int numDusts = 0; numDusts < 45; numDusts++)
 							{                                                                                  
 								int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 								Main.dust[slamDust].noGravity = true;
@@ -599,310 +890,172 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 							
 							//complete the slam attack
-							NPC.localAI[1] = 1; 
+							NPC.localAI[2] = 1;
 						}
 
-						if (NPC.localAI[0] > 80 && NPC.localAI[1] > 0)
+						if (NPC.localAI[0] >= 150 && NPC.localAI[2] == 1)
 						{
-							NPC.localAI[0] = 0;
-							NPC.localAI[1] = 0;
-							NPC.ai[0]++;
-							NPC.netUpdate = true;
-						}
-
-						break;
-					}
-
-					//jump across the player, then release flies mid air and then fall and slow down
-                    case 3:
-                    {
-                        NPC.localAI[0]++;
-
-                        Vector2 JumpTo = new Vector2(player.Center.X + (NPC.Center.X > player.Center.X ? -400 : 400), player.Center.Y - 1000);
-						Vector2 velocity = JumpTo - NPC.Center;
-
-                        //actual jumping
-                        if (NPC.localAI[0] == 80)
-                        {
-							SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-                            float speed = MathHelper.Clamp(velocity.Length() / 36, 6, 18);
-                            velocity.Normalize();
-                            velocity.Y -= 0.25f;
-                            velocity.X *= 1.2f;
-                            NPC.velocity = velocity * speed * 1.1f;
-                        }
-
-						//change fly ai to charging
-						for (int k = 0; k < Main.maxProjectiles; k++)
-						{
-							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-							{
-								if ((NPC.localAI[0] >= 90 && NPC.localAI[0] < 160 && Main.rand.NextBool(50)) || NPC.localAI[0] == 160)
-								{
-									Main.projectile[k].ai[0] = 1;
-								}
-							}
-						}
-
-						//set no tile collide to true so he can jump through blocks
-                        if (NPC.localAI[0] >= 80 && NPC.localAI[0] <= 160)
-                        {
-                            NPC.noTileCollide = true;
-                        }
-
-                        if (NPC.localAI[0] > 160)
-                        {
-                            NPC.noTileCollide = false;
-                            NPC.velocity.X *= 0.95f;
-
-							if (NPC.velocity.Y == 0)
-							{
-								NPC.velocity.X *= 0.5f;
-							}
-                        }
-
-                        if (NPC.localAI[0] >= 250)
-                        {
-                            for (int k = 0; k < Main.maxProjectiles; k++)
+							for (int k = 0; k < Main.maxProjectiles; k++)
 							{
 								if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 								{
-									Main.projectile[k].localAI[0] = 0;
 									Main.projectile[k].ai[0] = 0;
 								}
 							}
 
 							NPC.localAI[0] = 0;
-
-							//set to mega slam attack when below 50% hp,other wise reset attack pattern
-							if (NPC.life <= ((NPC.lifeMax / 2)))
-							{
-								NPC.ai[0]++;
-							}
-							else
-							{
-								NPC.ai[0] = 0;
-							}
+							NPC.localAI[2] = 0;
+							NPC.localAI[1]++;
 
 							NPC.netUpdate = true;
-                        }
-
-                        break;
-                    }
-
-					//just use normal jump attack after flies
-					case 4:
+						}
+					}
+					else
 					{
-						goto case 0;
+						for (int k = 0; k < Main.maxProjectiles; k++)
+						{
+							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
+							{
+								Main.projectile[k].localAI[0] = 0;
+								Main.projectile[k].ai[0] = 0;
+							}
+						}
+
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.localAI[2] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
 					}
 
-					//jump in place, sending multiple spreads of dirt debris everywhere
-					case 5:
-					{
-						NPC.localAI[0]++;
+					break;
+				}
 
-						if (NPC.localAI[1] < 3)
+				//make flies go above player and then charge
+				case 7:
+				{
+					NPC.localAI[0]++;
+					
+					//change fly ai to charging
+					for (int k = 0; k < Main.maxProjectiles; k++)
+					{
+						if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 						{
 							if (NPC.localAI[0] == 2)
 							{
-								SavePlayerPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
+								Main.projectile[k].localAI[1] = 1;
 							}
 
-							if (NPC.localAI[0] == 60)
+							if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 145 && Main.rand.NextBool(35)|| NPC.localAI[0] == 145)
 							{
-								NPC.noTileCollide = true;
-
-								NPC.velocity.Y = -40;
-							}
-
-							if (NPC.localAI[0] >= 80 && NPC.localAI[0] <= 90)
-							{
-								NPC.noGravity = true;
-
-								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 32;
-							}
-
-							if (NPC.localAI[0] >= 90)
-							{
-								if (NPC.position.Y >= SavePlayerPosition.Y)
-								{
-									NPC.noTileCollide = false;
-								}
-							}
-
-							//slam the ground
-							if (NPC.localAI[0] >= 90 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
-							{
-								NPC.noGravity = false;
-
-								SpookyPlayer.ScreenShakeAmount = 10;
-
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
-
-								int NumProjectiles = Main.rand.Next(10, 15);
-								for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
-                        		{
-									float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
-
-									Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
-									Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
-								}
-
-								//make cool dust effect when slamming the ground
-								for (int i = 0; i < 65; i++)
-								{                                                                                  
-									int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-									Main.dust[slamDust].noGravity = true;
-									Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-									Main.dust[slamDust].position.Y += 104;
-									Main.dust[slamDust].scale = 3f;
-									
-									if (Main.dust[slamDust].position != NPC.Center)
-									{
-										Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
-									}
-								}
-								
-								//complete the slam attack
-								NPC.localAI[2] = 1; 
-							}
-
-							if (NPC.localAI[2] >= 1)
-							{
-								NPC.localAI[0] = 50;
-								NPC.localAI[2] = 0;
-								NPC.localAI[1]++;
+								Main.projectile[k].ai[0] = 3;
 							}
 						}
-						else
-						{
-							NPC.localAI[0] = 0;
-							NPC.localAI[1] = 0;
-							NPC.localAI[2] = 0;
-							NPC.ai[0] = 0;
-						}
-
-						break;
 					}
 
-					//get flies to carry him, drop him on you
-					case 6:
+					if (NPC.localAI[1] < 2)
 					{
-						NPC.localAI[0]++;
+						Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
 
-						if (NPC.localAI[1] < 3)
+						Vector2 velocity = JumpTo - NPC.Center;
+
+						//actual jumping
+						if (NPC.localAI[0] == 30)
 						{
-							if (NPC.localAI[0] >= 65 && NPC.localAI[0] < 140)
+							SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+							float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
+							velocity.Normalize();
+							velocity.Y -= 0.18f;
+							velocity.X *= 1.2f;
+							NPC.velocity = velocity * speed * 1.1f;
+						}
+
+						//set tile collide to false so he can jump through blocks
+						if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 85)
+						{
+							NPC.noTileCollide = true;
+						}
+
+						//charge down
+						if (NPC.localAI[0] == 85)
+						{
+							NPC.noGravity = true;
+
+							NPC.velocity.X *= 0;
+							NPC.velocity.Y = 18;
+						}
+
+						//set tile collide to true once it gets to the players level to prevent cheesing
+						if (NPC.localAI[0] >= 85)
+						{	
+							if (NPC.position.Y >= player.Center.Y - 200)
 							{
-								NPC.noTileCollide = true;
-
-								NPC.direction = Math.Sign(player.Center.X - NPC.Center.X);	
-								Vector2 GoTo = player.Center;
-								NPC.spriteDirection = NPC.direction;
-								GoTo.X += 0f;
-								GoTo.Y -= 500;
-
-								float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 20);
-								NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-							}
-
-							if (NPC.localAI[0] == 140)
-							{
-								NPC.velocity.X *= 0;
-							}
-
-							//attempt to crush the player
-							if (NPC.localAI[0] == 150)
-							{
-								SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-								
-								NPC.noGravity = true;
-
-								for (int k = 0; k < Main.maxProjectiles; k++)
-								{
-									if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-									{
-										Main.projectile[k].ai[0] = 2;
-									}
-								}
-
-								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 30;
-							}
-
-							//set tile collide to true once it gets to the players level to prevent cheesing
-							if (NPC.localAI[0] >= 150)
-							{	
-								if (NPC.position.Y >= player.Center.Y - 150)
-								{
-									NPC.noTileCollide = false;
-								}
-							}
-
-							//slam the ground
-							if (NPC.localAI[0] >= 150 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
-							{
-								NPC.noGravity = false;
-
-								NPC.velocity.X *= 0;
-
-								SpookyPlayer.ScreenShakeAmount = 5;
-
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
-
-								//push all nearby players in the air if they are on the ground
-								for (int i = 0; i < Main.maxPlayers; i++)
-								{
-									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
-									{
-										Main.player[i].velocity.Y -= 8f;
-									}
-								}
-
-								//make cool dust effect when slamming the ground
-								for (int i = 0; i < 45; i++)
-								{                                                                                  
-									int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-									Main.dust[slamDust].noGravity = true;
-									Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-									Main.dust[slamDust].position.Y += 104;
-									Main.dust[slamDust].scale = 3f;
-									
-									if (Main.dust[slamDust].position != NPC.Center)
-									{
-										Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
-									}
-								}
-								
-								//complete the slam attack
-								NPC.localAI[2] = 1;
-							}
-
-							if (NPC.localAI[0] >= 150 && NPC.localAI[2] == 1)
-							{
-								for (int k = 0; k < Main.maxProjectiles; k++)
-								{
-									if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-									{
-										Main.projectile[k].ai[0] = 0;
-									}
-								}
-
-								NPC.localAI[0] = 0;
-								NPC.localAI[2] = 0;
-								NPC.localAI[1]++;
-								NPC.netUpdate = true;
+								NPC.noTileCollide = false;
 							}
 						}
-						else
+
+						//slam the ground
+						if (NPC.localAI[0] >= 85 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+						{
+							NPC.noGravity = false;
+
+							NPC.velocity.X *= 0;
+
+							SpookyPlayer.ScreenShakeAmount = 5;
+
+							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+
+							//push all nearby players in the air if they are on the ground
+							for (int i = 0; i < Main.maxPlayers; i++)
+							{
+								if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
+								{
+									Main.player[i].velocity.Y -= 8f;
+								}
+							}
+
+							//make cool dust effect when slamming the ground
+							for (int numDusts = 0; numDusts < 45; numDusts++)
+							{                                                                             
+								int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
+								Main.dust[slamDust].noGravity = true;
+								Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
+								Main.dust[slamDust].position.Y += 104;
+								Main.dust[slamDust].scale = 3f;
+								
+								if (Main.dust[slamDust].position != NPC.Center)
+								{
+									Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
+								}
+							}
+							
+							//complete the slam attack
+							NPC.localAI[2] = 1; 
+						}
+
+						//only loop attack if the jump has been completed
+						if (NPC.localAI[0] >= 140 && NPC.localAI[2] > 0)
+						{
+							NPC.localAI[0] = 3;
+							NPC.localAI[2] = 0;
+							NPC.localAI[1]++;
+
+							NPC.netUpdate = true;
+						}
+					}
+					else
+					{
+						//reset everything
+						if (NPC.localAI[0] >= 20)
 						{
 							for (int k = 0; k < Main.maxProjectiles; k++)
 							{
 								if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
 								{
 									Main.projectile[k].localAI[0] = 0;
+									Main.projectile[k].localAI[1] = 0;
 									Main.projectile[k].ai[0] = 0;
 								}
 							}
@@ -910,149 +1063,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							NPC.localAI[0] = 0;
 							NPC.localAI[1] = 0;
 							NPC.localAI[2] = 0;
-							NPC.ai[0]++;
+							NPC.ai[0] = 6;
+
 							NPC.netUpdate = true;
 						}
-
-						break;
 					}
 
-					//make flies go above player and then charge
-					case 7:
-					{
-						NPC.localAI[0]++;
-						
-						//change fly ai to charging
-						for (int k = 0; k < Main.maxProjectiles; k++)
-						{
-							if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-							{
-								if (NPC.localAI[0] == 2)
-								{
-									Main.projectile[k].localAI[1] = 1;
-								}
-
-								if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 145 && Main.rand.NextBool(35)|| NPC.localAI[0] == 145)
-								{
-									Main.projectile[k].ai[0] = 3;
-								}
-							}
-						}
-
-						if (NPC.localAI[1] < 2)
-						{
-							Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 400);
-
-							Vector2 velocity = JumpTo - NPC.Center;
-
-							//actual jumping
-							if (NPC.localAI[0] == 30)
-							{
-								SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-								float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 20);
-								velocity.Normalize();
-								velocity.Y -= 0.18f;
-								velocity.X *= 1.2f;
-								NPC.velocity = velocity * speed * 1.1f;
-							}
-
-							//set no tile collide to true so he can jump through blocks
-							if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 85)
-							{
-								NPC.noTileCollide = true;
-							}
-
-							//charge down
-							if (NPC.localAI[0] == 85)
-							{
-								NPC.noGravity = true;
-
-								NPC.velocity.X *= 0;
-								NPC.velocity.Y = 18;
-							}
-
-							//set tile collide to true once it gets to the players level to prevent cheesing
-							if (NPC.localAI[0] >= 85)
-							{	
-								if (NPC.position.Y >= player.Center.Y - 200)
-								{
-									NPC.noTileCollide = false;
-								}
-							}
-
-							//slam the ground
-							if (NPC.localAI[0] >= 85 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
-							{
-								NPC.noGravity = false;
-
-								NPC.velocity.X *= 0;
-
-								SpookyPlayer.ScreenShakeAmount = 5;
-
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
-
-								//push all nearby players in the air if they are on the ground
-								for (int i = 0; i < Main.maxPlayers; i++)
-								{
-									if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
-									{
-										Main.player[i].velocity.Y -= 8f;
-									}
-								}
-
-								//make cool dust effect when slamming the ground
-								for (int i = 0; i < 45; i++)
-								{                                                                                  
-									int slamDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 5, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-									Main.dust[slamDust].noGravity = true;
-									Main.dust[slamDust].position.X -= Main.rand.Next(-50, 51) * .05f - 1.5f;
-									Main.dust[slamDust].position.Y += 104;
-									Main.dust[slamDust].scale = 3f;
-									
-									if (Main.dust[slamDust].position != NPC.Center)
-									{
-										Main.dust[slamDust].velocity = NPC.DirectionTo(Main.dust[slamDust].position) * 2f;
-									}
-								}
-								
-								//complete the slam attack
-								NPC.localAI[2] = 1; 
-							}
-
-							//only loop attack if the jump has been completed
-							if (NPC.localAI[0] >= 140 && NPC.localAI[2] > 0)
-							{
-								NPC.localAI[0] = 3;
-								NPC.localAI[2] = 0;
-								NPC.localAI[1]++;
-								NPC.netUpdate = true;
-							}
-						}
-						else
-						{
-							//reset everything
-							if (NPC.localAI[0] >= 20)
-							{
-								for (int k = 0; k < Main.maxProjectiles; k++)
-								{
-									if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<RotFly>()) 
-									{
-										Main.projectile[k].localAI[0] = 0;
-										Main.projectile[k].localAI[1] = 0;
-										Main.projectile[k].ai[0] = 0;
-									}
-								}
-
-								NPC.localAI[0] = 0;
-								NPC.localAI[1] = 0;
-								NPC.localAI[2] = 0;
-								NPC.ai[0] = 6;
-							}
-						}
-
-						break;
-					}
+					break;
 				}
 			}
 		}

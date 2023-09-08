@@ -157,6 +157,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            //angry phase transition
             if (NPC.ai[0] == -1 && (NPC.localAI[0] > 120 && NPC.localAI[0] < 240))
             {
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
@@ -173,6 +174,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 				Color.Red, NPC.rotation, drawOrigin2, NPC.scale, SpriteEffects.None, 0);
             }
 
+            //eye glow textures
             Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow").Value;
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -183,6 +185,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void FindFrame(int frameHeight)
         {
+            //side facing animations
             if (NPC.ai[0] <= 2 && NPC.ai[0] >= 0)
             {
                 //normal animation
@@ -204,7 +207,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
             }
 
-            //front facing anim
+            //front facing animations
             if (NPC.ai[0] >= 3 || NPC.ai[0] == -1)
             {
                 //normal animation
@@ -236,7 +239,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             NPC.spriteDirection = NPC.direction;
 
-            //despawn if all players are dead or not in the biome
+            //despawn if all players are dead
             if (player.dead)
             {
                 AfterImages = true;

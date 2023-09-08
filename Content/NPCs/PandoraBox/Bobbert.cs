@@ -63,7 +63,7 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
 			for (int k = 0; k < Main.maxNPCs; k++)
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<PandoraBox>()) 
+				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<PandoraBox>() && NPC.Distance(Main.npc[k].Center) <= 750f) 
 				{
 					Vector2 ParentCenter = Main.npc[k].Center;
 

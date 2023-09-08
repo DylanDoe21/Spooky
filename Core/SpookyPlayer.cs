@@ -21,7 +21,6 @@ using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 
 namespace Spooky.Core
 {
@@ -35,6 +34,7 @@ namespace Spooky.Core
         public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
         public int CrossSoundTimer = 0;
+        public int PandoraCuffTimer = 0;
         public int RosaryHandTimer = 0;
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
@@ -100,7 +100,8 @@ namespace Spooky.Core
 		internal new static void Unload() => ItemGlowMask.Clear();
 		public static void AddGlowMask(int itemType, string texturePath) => ItemGlowMask[itemType] = ModContent.Request<Texture2D>(texturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
-        public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound);
+        //sounds
+        public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
 
         public override void OnEnterWorld()
         {
@@ -469,6 +470,36 @@ namespace Spooky.Core
                     ModContent.ProjectileType<PandoraCrossSound>(), Damage, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
+
+            /*
+            if (PandoraCuffs && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraCuffProj>()] < 1)
+            {
+                PandoraCuffTimer++;
+
+                if (PandoraCuffTimer == 1200)
+                {
+                    for (int i = 0; i <= Main.maxNPCs; i++)
+                    {
+                        NPC NPC = Main.npc[i];
+
+                        if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+                        {
+                            //spawn proj here, also prioritize bosses
+                            if (NPC.boss)
+                            {
+                                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
+                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, NPC.whoAmI);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
+                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, NPC.whoAmI);
+                            }
+                        }
+                    }
+                }
+            }
+            */
 
             //spawn pandora rosary hands that circle the player
             if (PandoraRosary && !Player.HasBuff(ModContent.BuffType<PandoraHandCooldown>()) && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraRosaryHand>()] < 5)

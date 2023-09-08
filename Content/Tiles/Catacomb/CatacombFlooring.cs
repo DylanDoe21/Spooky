@@ -19,18 +19,12 @@ namespace Spooky.Content.Tiles.Catacomb
 			AddMapEntry(new Color(101, 90, 79));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
+			MinPick = 999999;
 		}
-
-        /*
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
-        {
-			return false;
-        }
 
         public override bool CanExplode(int i, int j)
         {
 			return false;
         }
-		*/
     }
 }
