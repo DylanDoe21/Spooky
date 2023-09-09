@@ -223,12 +223,15 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         NPC.velocity *= 0.99f;
 
-                        Main.projectile[aura].position = NPC.Center - new Vector2(Main.projectile[aura].width / 2, Main.projectile[aura].height / 2);
+                        if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>() && aura != 0)
+                        {
+                            Main.projectile[aura].position = NPC.Center - new Vector2(Main.projectile[aura].width / 2, Main.projectile[aura].height / 2);
+                        }
                     }
 
                     if (NPC.localAI[0] > 240)
                     {
-                        aura = -1;
+                        aura = 0;
 
                         NPC.velocity *= 0;
 
@@ -252,7 +255,7 @@ namespace Spooky.Content.NPCs.EggEvent
         
         public override bool CheckDead() 
 		{
-            if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>())
+            if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>() && aura != 0)
             {
                 Main.projectile[aura].Kill();
             }

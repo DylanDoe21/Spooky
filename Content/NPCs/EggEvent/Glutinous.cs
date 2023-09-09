@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 2), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 
@@ -114,6 +114,12 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
+
+            //sptting frame
+            if (NPC.localAI[0] > 300)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
         }
 
         public override bool CheckActive()
@@ -128,13 +134,24 @@ namespace Spooky.Content.NPCs.EggEvent
 
             NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 250)
+            if (player.Distance(NPC.Center) <= 300 || NPC.localAI[0] >= 150)
             {
                 NPC.localAI[0]++;
 
-                if (NPC.localAI[0] == 200)
+                if (NPC.localAI[0] == 300)
                 {
-                    
+                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 7f;
+
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 25, 
+                    ShootSpeed.X, ShootSpeed.Y, ProjectileID.BloodShot, NPC.damage / 4, 0, NPC.target);
+                }
+
+                if (NPC.localAI[0] >= 350)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.netUpdate = true;
                 }
             }
         }

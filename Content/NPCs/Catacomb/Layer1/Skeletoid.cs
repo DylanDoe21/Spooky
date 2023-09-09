@@ -196,8 +196,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= 4.5f;
-                    ShootSpeed.Y *= 4.5f;
+                    ShootSpeed *= 4.5f;
                     
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 25, ShootSpeed.X, 
                     ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0, NPC.target, 0, 0);

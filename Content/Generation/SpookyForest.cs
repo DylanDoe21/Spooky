@@ -49,7 +49,7 @@ namespace Spooky.Content.Generation
             {
                 PositionX = Main.maxTilesX / 2;
             }
-            //otherwise place it nearby the dungeon
+            //otherwise place it in front of the dungeon
             else
             {
                 //left side dungeon
