@@ -152,8 +152,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                             }
                         }
 
@@ -267,8 +266,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                             }
                             
                             //Crux
@@ -351,8 +349,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
                         }
 
@@ -362,7 +359,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                     break;
                 }
 
-                //wave enemies: Glutinous x5, Vesicator x1, 6 enemies total
+                //wave enemies: Glutinous x5, Vesicator x1
                 //post defeat: Ventricle x2
                 case 7:
                 {
@@ -386,8 +383,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 2);
                             }
                         }
 
@@ -424,8 +420,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Ventricle
@@ -519,8 +514,7 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Crux
@@ -579,16 +573,14 @@ Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 0);
                             }
 
                             //Vigilante
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (int)(Projectile.Center.X + Main.rand.Next(-900, 900)), (int)(Projectile.Center.Y + Main.rand.Next(100, 150)), 
-                                Main.rand.NextFloat(-8f, 8f), 
-Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
+                                Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, 1);
                             }
 
                             //Ventricle

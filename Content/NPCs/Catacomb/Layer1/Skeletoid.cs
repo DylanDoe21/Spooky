@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class Skeletoid1 : ModNPC
@@ -103,6 +105,16 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
     public class Skeletoid2 : Skeletoid1
     {
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+        }
+
         public override void SetDefaults()
 		{
             NPC.lifeMax = 90;
@@ -127,6 +139,75 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Skeletoid2"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            //running animation
+            NPC.frameCounter += 1;
+
+            if (NPC.frameCounter > 4)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 6)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+
+            //frame when falling/jumping
+            if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
+            {
+                NPC.frame.Y = 4 * frameHeight;
+            }
+
+            if (NPC.localAI[0] > 300)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+        }
+
+        public override void AI()
+		{
+            Player player = Main.player[NPC.target];
+
+            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 30 / 2 : 20;
+
+            NPC.spriteDirection = NPC.direction;
+
+            NPC.localAI[0]++;
+
+            if (NPC.localAI[0] <= 300)
+            {
+                NPC.aiStyle = 3;
+                AIType = NPCID.DesertGhoul;
+            }
+
+            if (NPC.localAI[0] > 300)
+            {
+                NPC.aiStyle = 0;
+
+                NPC.velocity.Y += 0.35f;
+
+                if (NPC.localAI[0] == 340)
+                {
+                    SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
+
+                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed.X *= 4.5f;
+                    ShootSpeed.Y *= 4.5f;
+                    
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 25, ShootSpeed.X, 
+                    ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0, NPC.target, 0, 0);
+                }
+            }
+
+            if (NPC.localAI[0] >= 370)
+            {
+                NPC.localAI[0] = 0;
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

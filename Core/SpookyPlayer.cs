@@ -55,6 +55,7 @@ namespace Spooky.Core
         public bool PandoraChalice = false;
         public bool PandoraCross = false;
         public bool PandoraCuffs = false;
+        public bool HasSpawnedCuffs = false;
         public bool PandoraRosary = false;
 
         //expert accessories
@@ -405,7 +406,7 @@ namespace Spooky.Core
                         Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
-                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer, 0f, 0f);
+                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer);
 
                         FlySpawnTimer = 0;
                     }
@@ -471,35 +472,43 @@ namespace Spooky.Core
                 }
             }
 
-            /*
             if (PandoraCuffs && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraCuffProj>()] < 1)
             {
-                PandoraCuffTimer++;
-
-                if (PandoraCuffTimer == 1200)
+                for (int i = 0; i <= Main.maxNPCs; i++)
                 {
-                    for (int i = 0; i <= Main.maxNPCs; i++)
-                    {
-                        NPC NPC = Main.npc[i];
+                    NPC NPC = Main.npc[i];
 
-                        if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+                    {
+                        PandoraCuffTimer++;
+
+                        if (PandoraCuffTimer == 900)
                         {
-                            //spawn proj here, also prioritize bosses
+                            //prioritize bosses over normal enemies
                             if (NPC.boss)
                             {
                                 Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
-                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, NPC.whoAmI);
+                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
+                                
+                                break;
                             }
                             else
                             {
                                 Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
-                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, NPC.whoAmI);
+                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
+
+                                break;
                             }
+
+                            PandoraCuffTimer = 0;
                         }
+                    }
+                    else
+                    {
+                        PandoraCuffTimer = 0;
                     }
                 }
             }
-            */
 
             //spawn pandora rosary hands that circle the player
             if (PandoraRosary && !Player.HasBuff(ModContent.BuffType<PandoraHandCooldown>()) && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraRosaryHand>()] < 5)

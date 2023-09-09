@@ -78,8 +78,8 @@ namespace Spooky.Content.NPCs.PandoraBox
 
 					Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
 					Vector2 chainDrawPosition = NPC.Center;
-					Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
-					Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+					Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+					Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
 					float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
 
 					if (chainSegmentLength == 0)
@@ -87,9 +87,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 						chainSegmentLength = 10;
 					}
 
-					float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+					float chainRotation = unitVectorToParent.ToRotation() + MathHelper.PiOver2;
 					int chainCount = 0;
-					float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+					float chainLengthRemainingToDraw = vectorToParent.Length() + chainSegmentLength / 2f;
 		
 					while (chainLengthRemainingToDraw > 0f)
 					{
@@ -99,7 +99,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
 						Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
-						chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+						chainDrawPosition += unitVectorToParent * chainSegmentLength;
 						chainCount++;
 						chainLengthRemainingToDraw -= chainSegmentLength;
 					}

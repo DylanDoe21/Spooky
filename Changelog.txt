@@ -175,6 +175,7 @@ Enemy & Boss Changes:
 -Added new sound effects for the cowbell entity
 -Small fuzz bats will no longer spawn in the underground spooky forest, and increased the spawnrate of giant fuzz bats in the underground spooky forest
 -Various enemies in the mod have been given debuff immunities (There are far too many to list here lol)
+-Added AI tweaks to many enemies in the mod so that they work correctly while inflicted with the confused debuff
 
 
 Miscellaneous:

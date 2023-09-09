@@ -401,7 +401,7 @@ PandoraCuffs: {
 	Tooltip:
 		'''
 		Reduces your damage and movement speed by 10%
-		Every 20 seconds, a chain will attach itself to a nearby enemy for 5 seconds
+		Every 15 seconds, a chain will attach itself to a nearby enemy for 5 seconds
 		Enemies attached to the chain will take 50% more damage
 		The chain will also prioritize bosses over normal enemies
 		'Suffering builds character'

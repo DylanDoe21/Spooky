@@ -21,12 +21,8 @@ namespace Spooky.Core
             {
                 Tile tile = Framing.GetTileSafely(x, y);
 
-                if (tile.WallType == ModContent.WallType<CatacombBrickWall1>())
-                {
-                    return true;
-                }
-
-                if (tile.WallType == ModContent.WallType<CatacombBrickWall2>())
+                if (tile.WallType == ModContent.WallType<CatacombBrickWall1>() || tile.WallType == ModContent.WallType<CatacombBrickWall2>() ||
+                tile.WallType == ModContent.WallType<CatacombGrassWall1>() || tile.WallType == ModContent.WallType<CatacombGrassWall2>())
                 {
                     return true;
                 }
@@ -39,7 +35,6 @@ namespace Spooky.Core
         {
             Vector2 result = orig(self, ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
 
-            //If invalid spot, recurse untill a valid one is found
             if (IsProtected((int)result.X, (int)result.Y))
             {
                 settings.attemptsBeforeGivingUp--;

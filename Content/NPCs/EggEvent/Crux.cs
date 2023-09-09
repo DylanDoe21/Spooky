@@ -228,6 +228,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (NPC.localAI[0] > 240)
                     {
+                        aura = -1;
+
                         NPC.velocity *= 0;
 
                         NPC.localAI[0] = 0;

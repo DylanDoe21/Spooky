@@ -131,7 +131,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     ShootSpeed.X *= 4.5f;
                     ShootSpeed.Y *= 4.5f;
                     
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X - 25, NPC.Center.Y, ShootSpeed.X, 
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 20, ShootSpeed.X, 
                     ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), Damage, 1, NPC.target, 0, 0);
                 }
             }

@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using ReLogic.Content;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -12,78 +13,81 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public bool IsStickingToTarget = false;
 
-        //TODO: find a cool metal clinking sound for when it attaches to an enemy
-        //public static readonly SoundStyle BiteSound = new("Spooky/Content/Sounds/Bite", SoundType.Sound) { PitchVariance = 0.7f };
-
         public override void SetDefaults()
         {
-			Projectile.width = 36;
-            Projectile.height = 42;     
-			Projectile.friendly = true;                              			  		
-            Projectile.tileCollide = true;
+			Projectile.width = 26;
+            Projectile.height = 22;     
+			Projectile.friendly = true; 
+            Projectile.tileCollide = false;                             			  		
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;                 					
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 300;
 		}
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (!IsStickingToTarget)
+            Vector2 ParentCenter = Main.player[Projectile.owner].Center;
+
+            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Catacomb/PandoraCuffProjChain");
+
+            Rectangle? chainSourceRectangle = null;
+            float chainHeightAdjustment = 0f;
+
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainDrawPosition = Projectile.Center;
+            Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+            Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+
+            if (chainSegmentLength == 0)
             {
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                chainSegmentLength = 10;
+            }
 
-                Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.DeepPink);
+            float chainRotation = unitVectorToParent.ToRotation() + MathHelper.PiOver2;
+            int chainCount = 0;
+            float chainLengthRemainingToDraw = vectorToParent.Length() + chainSegmentLength / 2f;
 
-                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            while (chainLengthRemainingToDraw > 0f)
+            {
+                Color chainDrawColor = Color.Cyan * 0.5f;
 
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+                var chainTextureToDraw = chainTexture;
 
-                for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-                {
-                    Color newColor = color;
-                    newColor = Projectile.GetAlpha(newColor);
-                    newColor *= 1f;
+                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
-                    var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                    Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                    Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale + (fade / 2), effects, 0);
-                }
+                chainDrawPosition += unitVectorToParent * chainSegmentLength;
+                chainCount++;
+                chainLengthRemainingToDraw -= chainSegmentLength;
             }
 
             return true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void AI()
         {
-            if (!IsStickingToTarget && target.type == (int)Projectile.ai[0])
+            Player player = Main.player[Projectile.owner];
+
+            NPC target = Main.npc[(int)Projectile.ai[0]];
+
+            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            if (!IsStickingToTarget && Projectile.Hitbox.Intersects(target.Hitbox))
             {
-                Projectile.ai[1] = target.whoAmI;
-                Projectile.velocity = (target.Center - Projectile.Center) * 0.75f;
+                Projectile.velocity *= 0;
                 IsStickingToTarget = true;
                 Projectile.netUpdate = true;
             }
-        }
-		
-		public override void AI()
-        {
-            Projectile.timeLeft = 30;
 
             if (IsStickingToTarget) 
             {
-				Projectile.ignoreWater = true;
-                Projectile.tileCollide = false;
-
-                int npcTarget = (int)Projectile.ai[1];
-                if (npcTarget < 0 || npcTarget >= 200) 
+                if (target.active && !target.dontTakeDamage) 
                 {
-                    Projectile.Kill();
-                }
-                else if (Main.npc[npcTarget].active && !Main.npc[npcTarget].dontTakeDamage) 
-                {
-                    Projectile.Center = Main.npc[npcTarget].Center - Projectile.velocity * 2f;
-                    Projectile.gfxOffY = Main.npc[npcTarget].gfxOffY;
+                    Projectile.Center = target.Center;
+                    target.takenDamageMultiplier = 2f;
                 }
                 else 
                 {
@@ -92,25 +96,23 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 			else 
             {
-                Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 6)
-                {
-                    Projectile.frameCounter = 0;
-                    Projectile.frame++;
-                    if (Projectile.frame >= 4)
-                    {
-                        Projectile.frame = 0;
-                    }
-                }
+                Projectile.timeLeft = 300;
 
-				Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
-                Projectile.rotation = Projectile.velocity.ToRotation();
-
-                if (Projectile.spriteDirection == -1)
-                {
-                    Projectile.rotation += MathHelper.Pi;
-                }
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 			}
 		}
+
+        public override void Kill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.Unlock, Projectile.Center);
+
+            for (int numDusts = 0; numDusts < 25; numDusts++)
+			{                                                                                  
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Platinum, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+			}
+        }
     }
 }
