@@ -21,6 +21,7 @@ using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
+using Spooky.Content.Items.BossBags.Accessory;
 
 namespace Spooky.Core
 {
@@ -217,6 +218,43 @@ namespace Spooky.Core
             {
                 Projectile.NewProjectile(Player.GetSource_ItemUse(item), Player.Center, Vector2.Zero,
                 ModContent.ProjectileType<PandoraChaliceOrb>(), healValue / 2, 0, Player.whoAmI);
+            }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            //snotty schnoz booger item dropping on hit
+            if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+            {
+                if (Main.rand.NextBool(25))
+                {
+                    int itemType = ModContent.ItemType<MocoNoseBooger>();
+                    int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
+                    Main.item[newItem].noGrabDelay = 0;
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+                }
+            }
+
+            //skull amulet soul spawning
+            if (SkullAmulet && target.life <= 0 && !target.friendly)
+            {
+                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
+            }
+        }
+
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            //inflict enemies with gourd decay while wearing the rotten gourd armor
+            if (GourdSet && hit.DamageType == DamageClass.Melee)
+            {
+                if (Main.rand.NextBool(8))
+                {
+                    target.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
+                }
             }
         }
 
