@@ -413,6 +413,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         NPC.immortal = true;
                         NPC.dontTakeDamage = true;
+
+                        NPC.netUpdate = true;
                     }
 
                     //kill every single hostile projectile to prevent unfair hits or deaths during the transition

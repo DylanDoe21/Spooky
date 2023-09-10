@@ -99,6 +99,15 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place more blocks in the middle of the cemetery to prevent the entrance from placing too low
+            for (int X = XMiddle - 30; X <= XMiddle + 30; X++)
+            {
+                for (int Y = (int)Main.worldSurface - 65; Y <= Main.worldSurface; Y++)
+                {
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                }
+            }
+
             //add tile dithering on the edges of the biome
             for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
             {

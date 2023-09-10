@@ -65,8 +65,7 @@ namespace Spooky.Core
 			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) ||
 			(player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
 			{
-				spawnRate /= 10;
-                maxSpawns = 10;
+				spawnRate /= 2;
 			}
 		}
 

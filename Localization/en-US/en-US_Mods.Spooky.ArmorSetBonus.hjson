@@ -29,5 +29,5 @@ FlowerArmor:
 GoreArmor:
 	'''
 	Grants you a protective aura that will block one attack
-	When you get hit the aura will vanish, and it will regenerate after one minute
+	When you get hit the aura will vanish and regenerate again after one minute
 	'''

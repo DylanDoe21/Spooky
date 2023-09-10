@@ -82,11 +82,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     Main.npc[(int)NPC.ai[1]].ai[0] = -1;
                 }
-                
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
-                }
+
+                NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
+
+                NPC.netUpdate = true;
 
                 NPC.ai[0] = 0;
 

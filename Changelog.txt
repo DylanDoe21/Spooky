@@ -142,7 +142,7 @@ Items & Weapons:
 -All items that are either dropped directly from orro-boro or crafted from things dropped by orro-boro now use the correct rarity color for their tier
 -The cotton swab and acidic concoction now have crafting recipes since little eye only gives you one of each, preventing players from being soft-locked if you loose them
 -Chained eyes no longer shoots one flail farther than the other, it now just shoots out two eye flails normally that both deal the same damage
--Scycler now has a a new after image effect on its projectile
+-Scycler now throws discs at a faster rate, the discs themselves are faster, and they have a a new after image effect
 -Living eye lasher no longer shoots two whips at once, but it now swings much faster and alternates between the two different whips
 -Eye lasher and living eye lasher now have a longer cooldown period before they can reduce an enemies defense again
 -Living flesh mincer striking the ground now has less intense screen shake, removed its bleed ability, and it now has a new ability where it flings up eyes when striking the ground

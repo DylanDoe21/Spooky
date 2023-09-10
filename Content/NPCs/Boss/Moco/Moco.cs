@@ -43,10 +43,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
         
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
             {

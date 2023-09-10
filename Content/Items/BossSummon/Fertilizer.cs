@@ -63,6 +63,7 @@ namespace Spooky.Content.Items.BossSummon
                     if (Main.npc[k].Distance(player.Center) <= 320f) 
                     {
                         Main.npc[k].ai[1] = 1;
+                        Main.npc[k].netUpdate = true;
                     }
                 }
             }

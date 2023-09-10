@@ -94,25 +94,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void SendExtraAI(BinaryWriter writer)
         {
             //attack pattern
-            for (int i = 0; i <= AttackPattern.Length; i++)
-            {
-                writer.Write(AttackPattern[i]);
-            }
-
-            //save point for thorns
-            for (int i = 0; i <= SavePoint.Length; i++)
-            {
-                writer.Write(SavePoint[i].X);
-                writer.Write(SavePoint[i].Y);
-            }
+            writer.Write(AttackPattern[0]);
+            writer.Write(AttackPattern[1]);
+            writer.Write(AttackPattern[2]);
+            writer.Write(AttackPattern[3]);
+            writer.Write(AttackPattern[4]);
+            writer.Write(AttackPattern[5]);
+            writer.Write(SpecialAttack[0]);
+            writer.Write(SpecialAttack[1]);
 
             //ints
             writer.Write(ScaleTimerLimit);
             writer.Write(SaveDirection);
             writer.Write(SavePlayerPosition.X);
             writer.Write(SavePlayerPosition.Y);
-            writer.Write(SaveNPCPosition.X);
-            writer.Write(SaveNPCPosition.Y);
 
             //bools
             writer.Write(Phase2);
@@ -133,25 +128,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //attack pattern
-            for (int i = 0; i <= AttackPattern.Length; i++)
-            {
-                AttackPattern[i] = reader.ReadInt32();
-            }
-
-            //save point for thorns
-            for (int i = 0; i <= SavePoint.Length; i++)
-            {
-                SavePoint[i].X = reader.ReadInt32();
-                SavePoint[i].Y = reader.ReadInt32();
-            }
+            AttackPattern[0] = reader.ReadInt32();
+            AttackPattern[1] = reader.ReadInt32();
+            AttackPattern[2] = reader.ReadInt32();
+            AttackPattern[3] = reader.ReadInt32();
+            AttackPattern[4] = reader.ReadInt32();
+            AttackPattern[5] = reader.ReadInt32();
+            SpecialAttack[0] = reader.ReadInt32();
+            SpecialAttack[1] = reader.ReadInt32();
 
             //ints
             ScaleTimerLimit = reader.ReadInt32();
             SaveDirection = reader.ReadInt32();
             SavePlayerPosition.X = reader.ReadInt32();
             SavePlayerPosition.Y = reader.ReadInt32();
-            SaveNPCPosition.X = reader.ReadInt32();
-            SaveNPCPosition.Y = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();
