@@ -231,7 +231,9 @@ Fixed all of the following multiplayer issues:
 -Rot gourd not spawning correctly
 -Spooky spirit vanishing when hit
 -Orro-boro spawning with no segments and vanishing when hit (Hopefully)
--Big bone straight up not working in multiplayer (Hopefully)
 -Little bone and little eye not being woken up properly when interacted with
+-Moco randomly turning invisible when shooting projectiles
+-Sentient items vanishing and not dropping an item after the crafting animation is done
+(Please also keep in mind that I may not have fixed every multiplayer issue, so if you encounter any PLEASE report them!)
 
 

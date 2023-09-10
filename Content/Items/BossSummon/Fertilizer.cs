@@ -44,7 +44,7 @@ namespace Spooky.Content.Items.BossSummon
                 }
             }
 
-            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>())) //&& player.InModBiome(ModContent.GetInstance<Content.Biomes.CatacombBiome>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && player.InModBiome(ModContent.GetInstance<Content.Biomes.CatacombBiome2>()))
             {
                 return true;
             }

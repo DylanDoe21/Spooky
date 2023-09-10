@@ -31,7 +31,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public bool Phase2 = false;
         public bool SpawnedHands = false;
         public bool ActuallyDead = false;
-        public bool DeathAnimation = false;
 
         Vector2[] SavePoint = new Vector2[5];
         Vector2 SavePlayerPosition;
@@ -68,13 +67,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //save point for solar beams
-            for (int i = 0; i <= SavePoint.Length; i++)
-            {
-                writer.Write(SavePoint[i].X);
-                writer.Write(SavePoint[i].Y);
-            }
-
             //ints
             writer.Write(SavePlayerPosition.X);
             writer.Write(SavePlayerPosition.Y);
@@ -92,13 +84,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //save point for solar beams
-            for (int i = 0; i <= SavePoint.Length; i++)
-            {
-                SavePoint[i].X = reader.ReadInt32();
-                SavePoint[i].Y = reader.ReadInt32();
-            }
-
             //ints
             SavePlayerPosition.X = reader.ReadInt32();
             SavePlayerPosition.Y = reader.ReadInt32();

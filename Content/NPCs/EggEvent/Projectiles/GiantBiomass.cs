@@ -158,9 +158,14 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         public override void Kill(int timeLeft)
 		{
             if (!EggEventWorld.hasSpawnedBiomass)
-            {
-                EggEventWorld.hasSpawnedBiomass = true;
-            }
+			{
+				EggEventWorld.hasSpawnedBiomass = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
 
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 

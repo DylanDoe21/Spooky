@@ -33,9 +33,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.friendly = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-            TownNPCStayingHomeless = true;
-            NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath5;
             NPC.aiStyle = -1;
         }
 

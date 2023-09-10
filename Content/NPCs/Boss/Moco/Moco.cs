@@ -43,6 +43,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
@@ -64,8 +65,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //ints
             writer.Write(MoveSpeedX);
             writer.Write(MoveSpeedY);
-            writer.Write(SaveNPCPosition.X);
-            writer.Write(SaveNPCPosition.Y);
 
             //bools
             writer.Write(Phase2);
@@ -85,8 +84,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //ints
             MoveSpeedX = reader.ReadInt32();
             MoveSpeedY = reader.ReadInt32();
-            SaveNPCPosition.X = reader.ReadInt32();
-            SaveNPCPosition.Y = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();

@@ -296,7 +296,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 				if (timer >= 220)
 				{
-					Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, outputItemID);
+					int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Center, outputItemID);
+
+					if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+					{
+						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+					}
+
 					Projectile.Kill();
 					return;
 				}

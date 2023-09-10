@@ -215,6 +215,8 @@ namespace Spooky.Content.NPCs.EggEvent
                         
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center. Y + 50, ShootSpeed.X, 
                         ShootSpeed.Y, ModContent.ProjectileType<VentricleBiomass>(), NPC.damage / 2, 1, NPC.target, 0, 0);
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] >= 60)

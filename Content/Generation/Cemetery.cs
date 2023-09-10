@@ -259,11 +259,8 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (!Main.tile[startX, startY].HasTile)
+                if (!Main.tile[startX, startY].HasTile || !NoFloatingIsland(startX, startY))
                 {
-                    //do not allow any structure to be placed on floating islands
-                    CheckForFloatingIslands(startX, startY);
-
 					continue;
                 }
 
@@ -281,7 +278,7 @@ namespace Spooky.Content.Generation
         }
 
         //check the area around the given position for cloud blocks, to prevent structures from placing on floating islands
-        public static bool CheckForFloatingIslands(int X, int Y)
+        public static bool NoFloatingIsland(int X, int Y)
         {
             int canPlace = 0;
 

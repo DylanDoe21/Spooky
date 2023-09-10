@@ -118,7 +118,9 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnMoco:
                 {
-                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
+                    int type = ModContent.NPCType<Moco>();
+                    NPC.SpawnOnPlayer(whoAmI, type);
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: whoAmI, number2: type);
 					break;
                 }
                 case SpookyMessageType.SpawnOrroboro:

@@ -22,21 +22,19 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 18000;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 530;
             NPC.height = 270;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.friendly = true;
-			NPC.immortal = true;
-			NPC.dontTakeDamage = true;
-            NPC.lavaImmune = true;
-            NPC.noGravity = true;
+            NPC.immortal = true;
             NPC.noTileCollide = true;
-            NPC.netAlways = true;
+            NPC.dontTakeDamage = true;
+            NPC.noGravity = true;
             NPC.behindTiles = true;
-            TownNPCStayingHomeless = true;
             NPC.aiStyle = -1;
 		}
 
@@ -85,7 +83,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     Main.npc[(int)NPC.ai[1]].ai[0] = -1;
                 }
                 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.SinglePlayer)
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);
                 }

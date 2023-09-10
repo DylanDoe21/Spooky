@@ -47,6 +47,8 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Main.npc[k].ai[0] = 1;
                         Main.npc[k].netUpdate = true;
 
+                        Projectile.netUpdate = true;
+
                         Projectile.Kill();
                     }
                 }

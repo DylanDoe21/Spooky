@@ -400,7 +400,10 @@ namespace Spooky.Content.NPCs.PandoraBox
                         EventEnemiesExist = true;
                         EndingAnimation = false;
 
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
+                        }
 
                         if (Main.netMode == NetmodeID.Server)
                         {

@@ -101,7 +101,15 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 
         public override void Kill(int timeLeft)
 		{
-            PandoraBoxWorld.SpawnedEnemySpawners = true;
+            if (!PandoraBoxWorld.SpawnedEnemySpawners)
+			{
+				PandoraBoxWorld.SpawnedEnemySpawners = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
         }
     }
 }
