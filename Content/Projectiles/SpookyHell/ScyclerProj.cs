@@ -54,12 +54,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.ai[0] <= 30)
             {
-                Vector2 ReturnSpeed = Main.MouseWorld - Projectile.Center;
-                ReturnSpeed.Normalize();
-
-                ReturnSpeed *= 25;
-
-                Projectile.velocity = ReturnSpeed;
+                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed *= 35;
+                Projectile.velocity = ShootSpeed;
 
                 if (Projectile.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5)))
                 {
@@ -70,9 +68,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Vector2 ReturnSpeed = player.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
-
-                ReturnSpeed *= 25;
-
+                ReturnSpeed *= 35;
                 Projectile.velocity = ReturnSpeed;
 
                 if (Projectile.Hitbox.Intersects(player.Hitbox))

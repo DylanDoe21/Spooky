@@ -142,9 +142,11 @@ namespace Spooky.Content.NPCs.EggEvent
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed *= 7f;
+                    ShootSpeed *= 12f;
 
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 25, 
+                    int Offset = NPC.direction == -1 ? -25 : 25;
+
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Offset, NPC.Center.Y - 15, 
                     ShootSpeed.X, ShootSpeed.Y, ProjectileID.BloodShot, NPC.damage / 4, 0, NPC.target);
                 }
 
