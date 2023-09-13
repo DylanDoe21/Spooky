@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.HitSound = SoundID.NPCHit7;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
-            Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Daffodil");
+            Music = MusicID.Boss5; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Daffodil");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
         }
 

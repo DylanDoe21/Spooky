@@ -67,10 +67,10 @@ namespace Spooky.Content.Projectiles.Sentient
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1.2f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Purple * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Indigo * Fade * 0.5f, proj.rotation, origin, num * 0.8f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Blue * Fade * 0.5f, proj.rotation, origin, num * num4 * 0.6f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Blue * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1.2f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.5f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Blue * Fade * 0.5f, proj.rotation, origin, num * 0.8f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.5f, proj.rotation, origin, num * num4 * 0.6f, effects, 0f);
 
             /*
             //these are the additional lines drawn on top of each slash texture

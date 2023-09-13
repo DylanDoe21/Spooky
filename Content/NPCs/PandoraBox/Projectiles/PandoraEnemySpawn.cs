@@ -12,6 +12,8 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
+        int EnemyType;
+
         public override void SetDefaults()
         {
             Projectile.width = 10;
@@ -45,12 +47,7 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
                     //Bobbert
                     case 0:
                     {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
+                        EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
 
                         break;
                     }
@@ -58,12 +55,7 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
                     //Stitch
                     case 1:
                     {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
+                        EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
 
                         break;
                     }
@@ -71,12 +63,7 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
                     //Sheldon
                     case 2:
                     {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
+                        EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
                         
                         break;
                     }
@@ -84,16 +71,13 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
                     //Chester
                     case 3:
                     {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Chester>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
+                        EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Chester>());
                         
                         break;
                     }
                 }
+
+                NetMessage.SendData(MessageID.SyncNPC, number: EnemyType);
 
                 Projectile.Kill();
             }

@@ -1,7 +1,4 @@
 Known issues:
 
--Eye valley variants of the dreadnautilus and blood squid are very buggy, seemds to be due to save positions being sent and recieved
--Orro and boro segments are also kind of jittery, and boro has teleported when using its flame thrower attack
 -Egg event enemies randomly deciding to vanish on hit, but its inconsistent
 -Vesicator biomass spawning two enemies at once
--Big bone still vanishes on hit

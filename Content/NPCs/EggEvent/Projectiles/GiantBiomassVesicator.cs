@@ -15,6 +15,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class GiantBiomassVesicator : ModProjectile
     {
+        int EnemyType;
+
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath3", SoundType.Sound);
 
         public override void SetDefaults()
@@ -179,10 +181,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 int SpawnedNPC = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.Next(SpawnableEnemies));
 
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
-                }
+                NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
             }
 
             //explode with aura if it is mean to

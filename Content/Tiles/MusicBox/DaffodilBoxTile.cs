@@ -1,3 +1,4 @@
+/*
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -66,3 +67,4 @@ namespace Spooky.Content.Tiles.MusicBox
         }
     }
 }
+*/

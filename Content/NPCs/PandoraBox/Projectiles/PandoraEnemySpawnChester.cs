@@ -54,31 +54,26 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
                         //Stitch
                         case 0:
                         {
-                            EnemyType = ModContent.NPCType<Stitch>();
+                            EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
+
                             break;
                         }
 
                         //Sheldon
                         case 1:
                         {
-                            EnemyType = ModContent.NPCType<Sheldon>();
+                            EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
+
                             break;
                         }
                     }
                 }
                 else
                 {
-                    EnemyType = ModContent.NPCType<Bobbert>();
+                    EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
                 }
 
-                int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, EnemyType);
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                }
-
-                PandoraBoxWorld.SpawnedEnemySpawners = true;
+                NetMessage.SendData(MessageID.SyncNPC, number: EnemyType);
 
                 Projectile.Kill();
             }
