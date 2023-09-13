@@ -186,7 +186,7 @@ namespace Spooky.Core
 				{
 					["spawnItems"] = ModContent.ItemType<Brick>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<DaffodilTrophyItem>(), ModContent.ItemType<DaffodilMask>(), 
-					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<SmallDaffodil>(), ModContent.ItemType<DaffodilBox>() },
+					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<SmallDaffodil>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = DaffodilPortrait,
@@ -228,8 +228,7 @@ namespace Spooky.Core
 				new Dictionary<string, object>()
 				{
                     ["collectibles"] = new List<int>() { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(),
-                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), 
-					ModContent.ItemType<PandoraBean>(), ModContent.ItemType<PandoraEventBox>() },
+                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), ModContent.ItemType<PandoraBean>() },
                     ["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.EntryName").Value,
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.SpawnInfo").Value,
 					["overrideHeadTextures"] = PandoraBoxIcon,
