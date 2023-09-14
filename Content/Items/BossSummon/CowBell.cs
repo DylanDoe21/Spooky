@@ -83,5 +83,13 @@ namespace Spooky.Content.Items.BossSummon
 
 			return false;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

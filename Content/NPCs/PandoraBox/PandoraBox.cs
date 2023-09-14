@@ -86,14 +86,12 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override string GetChat()
 		{
-            //TODO: localize this
-            return "It's a strange box with a weird aura emnating from it. Will you open it?";
+            return Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Dialogue");
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-            //TODO: localize this
-			button = "Open";
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Button");
 		}
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)

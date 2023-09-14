@@ -116,6 +116,11 @@ Daffodil: {
 	BackToSleep: Nah...
 }
 
+PandoraBox: {
+	Button: Open
+	Dialogue: It's a strange box with a weird aura emnating from it. Will you open it?
+}
+
 TheMan: {
 	One: One
 	Two: Two

@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Spooky.Core;
 using Spooky.Content.NPCs.Hallucinations;
 using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Biomes;
+using Spooky.Content.Tiles.Pylon;
 
 namespace Spooky.Content.Items.BossSummon
 {
@@ -77,5 +79,14 @@ namespace Spooky.Content.Items.BossSummon
 
 			return false;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
+            .AddTile(TileID.Anvils)
+            .AddCondition(CemeteryCondition.InCemeteryBiome)
+            .Register();
+        }
     }
 }

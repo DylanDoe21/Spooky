@@ -471,6 +471,12 @@ namespace Spooky.Content.NPCs.Friendly
 				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<SuspiciousBrownie>());
 			}
 
+			//flesh entity item
+			if (Main.rand.NextBool(50))
+			{
+				Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<CreepyFace>());
+			}
+
             //money
             Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ItemID.GoldCoin, 5);
 		}
