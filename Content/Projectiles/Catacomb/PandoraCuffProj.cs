@@ -87,7 +87,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (target.active && !target.dontTakeDamage) 
                 {
                     Projectile.Center = target.Center;
-                    target.takenDamageMultiplier = 2f;
+                    target.takenDamageMultiplier = 1.5f;
                 }
                 else 
                 {

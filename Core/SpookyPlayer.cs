@@ -537,8 +537,6 @@ namespace Spooky.Core
 
                                 break;
                             }
-
-                            PandoraCuffTimer = 0;
                         }
                     }
                     else
@@ -546,6 +544,10 @@ namespace Spooky.Core
                         PandoraCuffTimer = 0;
                     }
                 }
+            }
+            else
+            {
+                PandoraCuffTimer = 0;
             }
 
             //spawn pandora rosary hands that circle the player
