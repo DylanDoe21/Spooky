@@ -54,7 +54,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<CreepyCandle>(),
 				ModContent.ItemType<CandyBag>()
 			};
-            itemLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostRotGourdCondition(), Main.rand.Next(spookyChestDrops)));
+
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, spookyChestDrops));
 
             //rarely drop one of the vinyl discs
             int[] vinylDiscs = new int[] 

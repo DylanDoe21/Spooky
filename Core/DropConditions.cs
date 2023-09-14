@@ -330,60 +330,6 @@ namespace Spooky.Core
             }
         }
 
-        //drop after rot gourd is defeated (this exists just for the spooky crate chest items)
-        public class PostRotGourdCondition : IItemDropRuleCondition
-        {
-            public bool CanDrop(DropAttemptInfo info)
-            {
-                if (!info.IsInSimulation)
-                {
-                    if (Flags.downedRotGourd)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            public bool CanShowItemDropInUI()
-            {
-                return false;
-            }
-
-            public string GetConditionDescription()
-            {
-                return null;
-            }
-        }
-
-        //post spooky spirit condition (this exists just for the catacomb crate chest items)
-        public class PostSpookySpiritCondition : IItemDropRuleCondition
-        {
-            public bool CanDrop(DropAttemptInfo info)
-            {
-                if (!info.IsInSimulation)
-                {
-                    if (Flags.downedSpookySpirit)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            public bool CanShowItemDropInUI()
-            {
-                return false;
-            }
-
-            public string GetConditionDescription()
-            {
-                return null;
-            }
-        }
-
         //drops after orro & boro have been defeated
         public class PostOrroboroCondition : IItemDropRuleCondition
         {

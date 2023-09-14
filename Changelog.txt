@@ -185,6 +185,7 @@ Miscellaneous:
 -Eye valley grass can now naturally grow ambient eye stalks and tentacles
 -The spooky mod hardmode biome chests now generate in the dungeon like vanilla biome chests instead of the catacombs
 -Added a new waving leaf visual effect on the spooky forest and swampy cemetery grass walls
+-Mossy stone can now be used to craft furnaces
 
 
 Removals:
@@ -218,8 +219,9 @@ Fixed all of the following bugs and issues:
 -Valley of eyes enemies dropping living fire blocks, hel-fire, and cascade
 -Spooky mod's heavy melee weapons being able to hurt town npcs
 -Snotty schnoz allowing you to fire boogers from whips, summon weapons, and items that do not shoot projectiles
--Various issue with holdout items, such as them being incorrectly offset from the player's hand when on mounts
+-Various issues with holdout items, such as them being incorrectly offset from the player's hand when on mounts
 -Various armor sets and accessories that increase summon damage not increasing whip damage
+-Spooky mod biome crates dropping the same weapon over and over instead of randomly choosing one from the "list" of items it is meant to drop
 -Gore staff tortumor minion targetting friendly critters
 -Moldy chunks stacking to 999 and not 9999
 

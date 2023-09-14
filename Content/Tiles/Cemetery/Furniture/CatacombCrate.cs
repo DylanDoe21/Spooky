@@ -52,10 +52,11 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 				ModContent.ItemType<ThornStaff>(),
 				ModContent.ItemType<NineTails>()
 			};
-            itemLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostSpookySpiritCondition(), Main.rand.Next(catacombChestDrops)));
 
-			//drop vanilla ores
-			IItemDropRule[] oreTypes = new IItemDropRule[] 
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, catacombChestDrops));
+
+            //drop vanilla ores
+            IItemDropRule[] oreTypes = new IItemDropRule[] 
 			{
 				ItemDropRule.Common(ItemID.CopperOre, 1, 8, 15),
 				ItemDropRule.Common(ItemID.TinOre, 1, 8, 15),
