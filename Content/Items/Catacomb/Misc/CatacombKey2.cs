@@ -17,8 +17,8 @@ namespace Spooky.Content.Items.Catacomb.Misc
 			Item.height = 34;
             Item.consumable = true;
 			Item.noUseGraphic = true;
-            Item.useTime = 45;
-            Item.useAnimation = 45;
+            Item.useTime = 5;
+            Item.useAnimation = 5;
             Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.rare = ItemRarityID.Quest;
             Item.maxStack = 1;
