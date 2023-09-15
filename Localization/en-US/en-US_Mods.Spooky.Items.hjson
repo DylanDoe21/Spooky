@@ -1623,6 +1623,16 @@ CatacombTilesItem: {
 	Tooltip: ""
 }
 
+CatacombCrate: {
+	DisplayName: Bone Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CatacombCrate2: {
+	DisplayName: Skull Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
 CemeteryDirtItem: {
 	DisplayName: Swamp Soil
 	Tooltip: ""
@@ -1636,11 +1646,6 @@ CemeteryGrassSeeds: {
 CemeteryStoneItem: {
 	DisplayName: Swamp Rock
 	Tooltip: ""
-}
-
-CatacombCrate: {
-	DisplayName: Skull Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
 BigBoneBox: {

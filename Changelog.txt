@@ -98,6 +98,7 @@ Other New Additions:
 -Added a bunch of new spooky mod angler quest fishes
 -Added pelusa's developer vanity mask
 -Added seeds for the valley of eyes grass blocks
+-Added a hardmode catacomb crate that drops the hardmode catacomb items, replaces the prehardmode one in hardmode, but can be shimmered
 -Added support for the 1.4.4 version of boss checklist
 -Added support for Gabehaswon's music display mod
 
@@ -232,10 +233,12 @@ Fixed all of the following multiplayer issues:
 
 -Rot gourd not spawning correctly
 -Spooky spirit vanishing when hit
--Orro-boro spawning with no segments and vanishing when hit (Hopefully)
--Little bone and little eye not being woken up properly when interacted with
+-Big bone vanishing when hit
+-Orro-boro spawning with no segments and vanishing when hit
 -Moco randomly turning invisible when shooting projectiles
 -Sentient items vanishing and not dropping an item after the crafting animation is done
+-Little bone and little eye not being woken up properly when interacted with
+-Little bone not dropping his flower pot when you click his transport button
 (Please also keep in mind that I may not have fixed every multiplayer issue, so if you encounter any PLEASE report them!)
 
 

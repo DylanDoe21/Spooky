@@ -186,8 +186,7 @@ namespace Spooky.Content.NPCs.Friendly
 				if (!Main.player[Main.myPlayer].HasItem(ModContent.ItemType<LittleBonePot>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.Transport");
-					Item.NewItem(NPC.GetSource_FromThis(), NPC.Center, ModContent.ItemType<LittleBonePot>(), 1);
-					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
+					Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<LittleBonePot>());
 				}
 				else
 				{

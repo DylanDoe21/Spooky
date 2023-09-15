@@ -17,7 +17,7 @@ using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
-using Spooky.Content.Tiles.Cemetery.Furniture;
+using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
@@ -681,9 +681,9 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool(2) && attempt.crate && Flags.downedSpookySpirit)
+                    if (Main.rand.NextBool() && attempt.crate && Flags.downedSpookySpirit)
                     {
-                        itemDrop = ModContent.ItemType<CatacombCrate>();
+                        itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
 
                         return;
                     }
@@ -700,9 +700,9 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool(2) && attempt.crate && Flags.downedSpookySpirit)
+                    if (Main.rand.NextBool() && attempt.crate && Flags.downedSpookySpirit)
                     {
-                        itemDrop = ModContent.ItemType<CatacombCrate>();
+                        itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
 
                         return;
                     }

@@ -281,6 +281,20 @@ namespace Spooky.Content.Generation
                 {
                     Catacombs.EntranceY = startY - 27;
                 }
+                else
+                {
+                    //place blocks below structure to prevent them from floating
+                    for (int fillX = (int)origin.X + 5; fillX <= (int)origin.X + 15; fillX += 2)
+                    {
+                        for (int fillY = startY + 5; fillY <= (int)Main.worldSurface - 35; fillY += 2)
+                        {
+                            if (Main.tile[fillX, fillY].WallType < 0 && !Main.tile[fillX, fillY].HasTile)
+                            {
+                                SpookyWorldMethods.PlaceCircle(fillX, fillY, WorldGen.genRand.NextBool(5) ? ModContent.TileType<CemeteryStone>() : ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                            }
+                        }
+                    }
+                }
 
                 placed = true;
             }

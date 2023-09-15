@@ -7,9 +7,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spooky.Content.Tiles.Cemetery.Furniture
+namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
-	public class CatacombCrateTile : ModTile
+	public class CatacombCrate2Tile : ModTile
     {
 		public override void SetStaticDefaults()
 		{
