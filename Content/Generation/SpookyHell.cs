@@ -382,31 +382,46 @@ namespace Spooky.Content.Generation
             int StartPosY = Main.maxTilesY - 160;
 
             //place first flesh pillar
-            GenerateStructure(StartPosition + 150, StartPosY, "FleshPillar-1", 16, 32);
+            GenerateStructure(StartPosition + 135, StartPosY, "FleshPillar-1", 16, 32);
 
             ///place little eye's house
             int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 23, 18);
 
             //place second flesh pillar
-            GenerateStructure(XMiddle - 150, StartPosY, "FleshPillar-2", 15, 38);
+            GenerateStructure(XMiddle - 135, StartPosY, "FleshPillar-2", 15, 38);
 
             //place orroboro nest
             GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 6, 16);
 
             //place third flesh pillar
-            GenerateStructure(XMiddle + 150, StartPosY, "FleshPillar-3", 15, 29);
+            GenerateStructure(XMiddle + 135, StartPosY, "FleshPillar-3", 15, 29);
 
-            //place moco shrine
-            int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
-            GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
+            //anything bigger than small worlds
+            if (Main.maxTilesX >= 6400)
+            {
+                //place moco shrine
+                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
+                GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
 
-            //place blood lake
-            int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
-            GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 30);
+                //place blood lake
+                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
+                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 30);
+            }
+            //small worlds
+            else
+            {
+                //place moco shrine
+                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 15 : (XMiddle + BiomeEdge) / 2 - 5;
+                GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
+
+                //place blood lake
+                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? XMiddle - 360 : XMiddle + 360;
+                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 30);
+            }
 
             //place fourth flesh pillar
-            GenerateStructure(BiomeEdge - 150, StartPosY, "FleshPillar-4", 15, 39);
+            GenerateStructure(BiomeEdge - 135, StartPosY, "FleshPillar-4", 15, 39);
 
             //lock all monster chests
             for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)

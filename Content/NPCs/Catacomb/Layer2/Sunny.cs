@@ -15,14 +15,15 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
     public class Sunny : ModNPC  
     {
-        /*
         public static List<int> BuffableNPCs = new List<int>() 
         {
-            ModContent.NPCType<FloatyFlower>(),
-            ModContent.NPCType<HoppingFlower>(),
-            ModContent.NPCType<RollFlower>()
+            ModContent.NPCType<Daisy1>(),
+            ModContent.NPCType<Daisy2>(),
+            ModContent.NPCType<Flourence>(),
+            ModContent.NPCType<Marigold>(),
+            ModContent.NPCType<MarigoldSpit>(),
+            ModContent.NPCType<Smelly>()
         };
-        */
 
         public override void SetStaticDefaults()
         {
@@ -86,7 +87,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-            /*
             float maxDist = 600;
             int maxHealing = 5;
             int numHealing = 0;
@@ -109,11 +109,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
                         for (int numDust = 0; numDust < 3; numDust++)
                         {
-                            int magicDust = Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, ModContent.DustType<GlowyDust>());
+                            int magicDust = Dust.NewDust(NPC.Center + (other.Center - NPC.Center) * Main.rand.NextFloat() - new Vector2(4, 4), 0, 0, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.12f);
                             Main.dust[magicDust].color = Color.Yellow;
-                            Main.dust[magicDust].velocity.X *= Main.rand.NextFloat(-1.05f, 1.05f);
-                            Main.dust[magicDust].velocity.Y *= Main.rand.NextFloat(-1.05f, 1.05f);
-                            Main.dust[magicDust].scale = 0.12f;
+                            Main.dust[magicDust].velocity *= 0;
                             Main.dust[magicDust].noGravity = true;
                         }
                     }
@@ -124,7 +122,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     }
                 }
             }
-            */
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

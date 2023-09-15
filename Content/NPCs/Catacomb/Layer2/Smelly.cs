@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] >= 180 && NPC.ai[0] % 12 == 2)
+            if (NPC.ai[0] >= 180 && NPC.ai[0] % 12 == 2 && player.Distance(NPC.Center) <= 150f)
             {
                 SoundEngine.PlaySound(SoundID.Item171, NPC.Center);
 

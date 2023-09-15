@@ -392,11 +392,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         if (NPC.localAI[0] > 30 && NPC.localAI[0] < 210)
                         {   
                             //flies to players X position
-                            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -5) 
+                            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -10) 
                             {
                                 MoveSpeedX -= 2;
                             }
-                            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 5)
+                            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 10)
                             {
                                 MoveSpeedX += 2;
                             }
@@ -404,11 +404,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             NPC.velocity.X = MoveSpeedX * 0.1f;
                             
                             //flies to players Y position
-                            if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -5)
+                            if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -10)
                             {
                                 MoveSpeedY--;
                             }
-                            else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 5)
+                            else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 10)
                             {
                                 MoveSpeedY++;
                             }

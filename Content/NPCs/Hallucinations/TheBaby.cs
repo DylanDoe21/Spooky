@@ -95,9 +95,14 @@ namespace Spooky.Content.NPCs.Hallucinations
                 NPC.GivenName = nameString;
             }
 
+            if (NPC.Distance(player.Center) >= 750f)
+            {
+                Teleport(player, 0);
+            }
+
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] >= 3600)
+            if (NPC.localAI[0] >= 6200)
             {
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();
@@ -122,6 +127,53 @@ namespace Spooky.Content.NPCs.Hallucinations
                     NPC.dontTakeDamage = false;
                     NPC.netUpdate = true;
                 }
+            }
+        }
+
+        //teleport code from vanilla caster ai, it sucks and i will probably redo it at some point
+        private void Teleport(Player player, int attemptNum)
+        {
+            int playerTileX = (int)player.position.X / 16;
+            int playerTileY = (int)player.position.Y / 16;
+            int npcTileX = (int)NPC.position.X / 16;
+            int npcTileY = (int)NPC.position.Y / 16;
+            int maxTileDist = 20;
+            bool foundNewLoc = false;
+            int targetX = Main.rand.Next(playerTileX - maxTileDist, playerTileX + maxTileDist);
+
+            for (int targetY = Main.rand.Next(playerTileY - maxTileDist, playerTileY + maxTileDist); targetY < playerTileY + maxTileDist; ++targetY)
+            {
+                if ((targetY < playerTileY - 4 || targetY > playerTileY + 4 ||
+                (targetX < playerTileX - 4 || targetX > playerTileX + 4)) &&
+                (targetY < npcTileY - 1 || targetY > npcTileY + 1 ||
+                (targetX < npcTileX - 1 || targetX > npcTileX + 1)) &&
+                Main.tile[targetX, targetY].HasUnactuatedTile)
+                {
+                    bool flag2 = true;
+                    if (Main.tile[targetX, targetY - 1].LiquidType == LiquidID.Lava)
+                    {
+                        flag2 = false;
+                    }
+
+                    if (flag2 && Main.tileSolid[(int)Main.tile[targetX, targetY].TileType] && !Collision.SolidTiles(targetX - 1, targetX + 1, targetY - 4, targetY - 1))
+                    {
+                        NPC.ai[2] = (float)targetX;
+                        NPC.ai[3] = (float)targetY;
+                        foundNewLoc = true;
+                        break;
+                    }
+                }
+            }
+
+            if (NPC.ai[2] != 0 && NPC.ai[3] != 0 && foundNewLoc)
+            {
+                NPC.position.X = (float)((double)NPC.ai[2] * 16.0 - (double)(NPC.width / 2) + 8.0);
+                NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
+                NPC.netUpdate = true;
+            }
+            else if (attemptNum < 10)
+            {
+                Teleport(player, attemptNum + 1);
             }
         }
     }

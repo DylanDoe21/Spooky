@@ -842,7 +842,7 @@ namespace Spooky.Content.Generation
             {
 				Chest chest = Main.chest[chestIndex];
 
-				if(chest == null) 
+				if (chest == null)
                 {
 					continue;
 				}

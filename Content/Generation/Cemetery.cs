@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 using StructureHelper;
 
@@ -33,11 +34,11 @@ namespace Spooky.Content.Generation
             //place biome based on the opposite side of the dungeon
             if (GenVars.dungeonSide == -1)
 			{
-                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 120;
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 100;
 			}
 			else
 			{
-                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 180;
+                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 160;
             }
 
             int XStart = Catacombs.PositionX;
@@ -225,13 +226,15 @@ namespace Spooky.Content.Generation
                 GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
                 GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
                 GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
 
                 //first ruined house
                 GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
 
+                //lake
+                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
+
                 //catacomb entrance
-                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 22);
+                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);
 
                 //second ruined house
                 GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse-2", 14, 20);
@@ -244,13 +247,15 @@ namespace Spooky.Content.Generation
             }
             else
             {
-                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "FishingLake", 15, 11);
 
                 //first ruined house
                 GenerateStructure((XStart + XMiddle) / 2 - 40, StartPosY, "RuinedHouse-1", 14, 20);
 
+                //lake
+                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "FishingLake", 15, 11);
+
                 //catacomb entrance
-                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 22);
+                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);
 
                 //second ruined house
                 GenerateStructure((XMiddle + XEdge) / 2 + 40, StartPosY, "RuinedHouse-2", 14, 20);
@@ -335,6 +340,51 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex1 + 2, new PassLegacy("CemeteryStructures", GenerateCemeteryStructures));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryGrass", SpreadCemeteryGrass));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("CemeteryTrees", GrowCemeteryTrees));
+        }
+
+        public override void PostWorldGen()
+		{
+            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if (chest == null) 
+                {
+					continue;
+				}
+
+				Tile chestTile = Main.tile[chest.x, chest.y];
+
+                if (chestTile.TileType == ModContent.TileType<HalloweenChest>() && chestTile.TileFrameX == 0)
+                {
+                    int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
+                    int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+                    int[] Misc = new int[] { ItemID.PumpkinSeed, ItemID.Cobweb };
+
+                    if (chest.item[0].type == ItemID.None)
+                    {
+                        //goodie bags
+                        chest.item[0].SetDefaults(ItemID.GoodieBag);
+                        chest.item[0].stack = WorldGen.genRand.Next(1, 2);
+                    }
+
+                    //iron or lead bars
+                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+                    chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+                    //light sources
+                    chest.item[2].SetDefaults(ItemID.GreenTorch);
+                    chest.item[2].stack = WorldGen.genRand.Next(3, 8);
+                    //potions
+                    chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
+                    chest.item[3].stack = WorldGen.genRand.Next(2, 3);
+                    //pumpkin seeds or cobwebs
+                    chest.item[4].SetDefaults(WorldGen.genRand.Next(Misc));
+                    chest.item[4].stack = WorldGen.genRand.Next(5, 10);
+                    //coins
+                    chest.item[5].SetDefaults(ItemID.GoldCoin);
+                    chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+                }
+            }
         }
     }
 }

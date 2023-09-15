@@ -662,7 +662,7 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool(2) && attempt.crate && Flags.downedRotGourd)
+                    if (Main.rand.NextBool(3) && attempt.crate && Flags.downedRotGourd)
                     {
                         itemDrop = ModContent.ItemType<SpookyCrate>();
 
@@ -681,7 +681,7 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool() && attempt.crate && Flags.downedSpookySpirit)
+                    if (Main.rand.NextBool(5) && attempt.crate && Flags.downedSpookySpirit)
                     {
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
 
@@ -700,7 +700,7 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool() && attempt.crate && Flags.downedSpookySpirit)
+                    if (Main.rand.NextBool(5) && attempt.crate && Flags.downedSpookySpirit)
                     {
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
 

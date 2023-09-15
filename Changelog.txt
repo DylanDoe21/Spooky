@@ -195,7 +195,7 @@ Removals:
 -Removed the following enemies from the mod: haunted skull, distended, distended brute, capillary, visitant, glooper, and chalupo
 -Removed the shadow cowbell and the shadow clump items, the rusty cowbell will now function like the shadow cowbell did after you encounter and get jumpscared by the entity
 -Removed the buffs for the cross charm protection and gore monger aura since there is already a visible icon on your player that shows when the ability is active
--Removed the spooky giant mushroom saplings, as they can now naturally grow on mushroom moss grass like vanilla glowing mushroom trees do
+-Removed the spooky giant mushroom saplings, as they can now naturally grow on mushroom moss grass like glowing mushroom trees do
 -Removed the entity encounter music box
 
 
