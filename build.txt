@@ -1,6 +1,6 @@
 displayName = [c/FFA01C:Spooky Mod]
 author = DylanDoe21 and the Spooky Team
-version = 1.0
+version = 1.0.1
 
 buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, *.piskel, Unused\*
 hideResources = true

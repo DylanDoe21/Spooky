@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public override void SetDefaults()
         {
             NPC.lifeMax = 4200;
-            NPC.damage = 40;
+            NPC.damage = 35;
             NPC.defense = 12;
             NPC.width = 130;
             NPC.height = 112;
@@ -527,7 +527,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                             SoundEngine.PlaySound(SneezeSound2, NPC.Center);
 
-                            int MaxProjectiles = Phase2 ? 15 : 8;
+                            int MaxProjectiles = Phase2 ? 10 : 7;
 
                             for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
                             {

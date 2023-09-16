@@ -36,6 +36,14 @@ namespace Spooky.Core
                     return false;
                 }
 
+                //disable the use of any wire items
+                int[] WireTools = { 509, 850, 851, 3612, 3625, 3611, 510 };
+
+                if (WireTools.Contains(item.type))
+                {
+                    return false;
+                }
+
                 //disable the use of buckets
                 int[] LiquidItems = { 205, 206, 207, 1128, 3031, 4820, 5302, 5364 };
 

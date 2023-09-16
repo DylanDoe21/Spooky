@@ -27,11 +27,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			frameYOffset = j % 2 * 270; //270 is the height of each individual sheet
         }
 
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
-        {
-			return false;
-        }
-
         public override bool CanExplode(int i, int j)
         {
 			return false;

@@ -23,7 +23,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 10)
-            .AddTile(TileID.WorkBenches)
             .Register();
         }
 	}

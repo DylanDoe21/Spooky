@@ -273,7 +273,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (!Main.tile[startX, startY].HasTile || !NoFloatingIsland(startX, startY))
+                if (!Main.tile[startX, startY].HasTile && !NoFloatingIsland(startX, startY))
                 {
 					continue;
                 }
@@ -284,7 +284,7 @@ namespace Spooky.Content.Generation
                 //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
                 if (StructureFile == "CemeteryEntrance")
                 {
-                    Catacombs.EntranceY = startY - 27;
+                    Catacombs.EntranceY = startY - 33;
                 }
                 else
                 {

@@ -406,7 +406,7 @@ namespace Spooky.Content.Generation
 
                 //place blood lake
                 int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
-                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 30);
+                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 25);
             }
             //small worlds
             else
@@ -417,7 +417,7 @@ namespace Spooky.Content.Generation
 
                 //place blood lake
                 int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? XMiddle - 360 : XMiddle + 360;
-                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 30);
+                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 25);
             }
 
             //place fourth flesh pillar

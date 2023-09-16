@@ -118,7 +118,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 				}
 
 				NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(Projectile.Center, NPC.Center) <= 400f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(player.Center, NPC.Center) <= 400f)
                 {
 					AttackingAI(NPC);
 

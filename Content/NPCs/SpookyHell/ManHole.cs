@@ -81,10 +81,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void AI()
         {
-            NPC.TargetClosest(true);
-
-            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 55 / 2 : 35;
-
             NPC.ai[0]++;
             if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)
             {
@@ -97,7 +93,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, -10,
-                        ModContent.ProjectileType<SalivaBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                        ModContent.ProjectileType<SalivaBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
                     }
                 }
             }
