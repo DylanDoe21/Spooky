@@ -122,7 +122,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1") 
-						+ $"\n[i:{ItemID.Daybloom}]x5, [i:{ItemID.Blinkroot}]x5, [i:{ItemID.Moonglow}]x5, [i:{ItemID.PurificationPowder}]x10, [i:{ItemID.SuspiciousLookingEye}]x1, [i:{ItemID.Bottle}]x1";;
+						+ $"\n[i:{ItemID.Daybloom}]x5 + [i:{ItemID.Blinkroot}]x5 + [i:{ItemID.Moonglow}]x5 + [i:{ItemID.PurificationPowder}]x10 + [i:{ItemID.SuspiciousLookingEye}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask1>()}]";;
 					}
 				}
 				if (Flags.EyeQuest1 && !Flags.EyeQuest2)
@@ -138,12 +138,12 @@ namespace Spooky.Content.NPCs.Friendly
 						if (!WorldGen.crimson)
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5, [i:{ItemID.GlowingMushroom}]x12, [i:{ItemID.RottenChunk}]x20, [i:{ItemID.IceBlock}]x10 [i:{ItemID.WormFood}]x1, [i:{ItemID.Bottle}]x1";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.RottenChunk}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.WormFood}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 						else
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5, [i:{ItemID.GlowingMushroom}]x12, [i:{ItemID.Vertebrae}]x20, [i:{ItemID.IceBlock}]x10 [i:{ItemID.BloodySpine}]x1, [i:{ItemID.Bottle}]x1";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.Vertebrae}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.BloodySpine}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 					}
 				}
@@ -158,7 +158,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3")
-						+ $"\n[i:{ItemID.HoneyBlock}]x35, [i:{ItemID.Pumpkin}]x35, [i:{ItemID.Sluggy}]x5, [i:{ItemID.Cobweb}]x15, [i:{ItemID.Abeemination}]x1, [i:{ItemID.Bottle}]x1";
+						+ $"\n[i:{ItemID.HoneyBlock}]x35 + [i:{ItemID.Pumpkin}]x35 + [i:{ItemID.Sluggy}]x5 + [i:{ItemID.Cobweb}]x15 + [i:{ItemID.Abeemination}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask3>()}]";
 					}
 				}
 				if (Flags.EyeQuest3 && !Flags.EyeQuest4)
@@ -172,7 +172,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4")
-						+ $"\n[i:{ItemID.Fireblossom}]x5, [i:{ItemID.Deathweed}]x5, [i:{ItemID.Ruby}]x12, [i:{ItemID.AshBlock}]x35, [i:{ItemID.DeerThing}]x1, [i:{ItemID.Bottle}]x1";
+						+ $"\n[i:{ItemID.Fireblossom}]x5 + [i:{ItemID.Deathweed}]x5 + [i:{ItemID.Ruby}]x12 + [i:{ItemID.AshBlock}]x35 + [i:{ItemID.DeerThing}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask4>()}]";
 					}
 				}
 				if (Flags.EyeQuest4 && !Flags.EyeQuest5)
@@ -185,18 +185,11 @@ namespace Spooky.Content.NPCs.Friendly
 					}
 					else
                     {
-						if (!Main.hardMode)
-						{
-							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest5NotHardmode");
-						}
-						else
-						{
-							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest5Hardmode")
-							+ $"\n[i:{ItemID.SoulofSight}]x1 [i:{ItemID.SoulofMight}]x1 [i:{ItemID.SoulofFright}]x1";
-						}
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest5")
+						+ $"\n[i:{ItemID.SoulofSight}]x1 [i:{ItemID.SoulofMight}]x1 [i:{ItemID.SoulofFright}]x1";
 					}
 				}
-				if (Flags.EyeQuest5)
+				if (Flags.EyeQuest5 && Flags.downedOrroboro)
 				{
                     if (!Flags.DailyQuest)
                     {
@@ -424,9 +417,14 @@ namespace Spooky.Content.NPCs.Friendly
 		private void QuestRewards()
 		{
 			//different potions
-			int[] Potions1 = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion, ItemID.ArcheryPotion };
-			int[] Potions2 = new int[] { ItemID.BattlePotion, ItemID.CalmingPotion, ItemID.TitanPotion, ItemID.EndurancePotion };
-			int[] Potions3 = new int[] { ItemID.LuckPotion, ItemID.ManaRegenerationPotion, ItemID.SummoningPotion, ItemID.ThornsPotion };
+			int[] Potions1 = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion, ItemID.AmmoReservationPotion,
+			ItemID.ArcheryPotion, ItemID.FeatherfallPotion, ItemID.WaterWalkingPotion, ItemID.InvisibilityPotion };
+
+			int[] Potions2 = new int[] { ItemID.BattlePotion, ItemID.CalmingPotion, ItemID.TitanPotion, ItemID.CratePotion,
+			ItemID.EndurancePotion, ItemID.PotionOfReturn, ItemID.SwiftnessPotion, ItemID.RagePotion, ItemID.LifeforcePotion };
+
+			int[] Potions3 = new int[] { ItemID.LuckPotion, ItemID.ManaRegenerationPotion, ItemID.SummoningPotion, 
+			ItemID.ThornsPotion, ItemID.IronskinPotion, ItemID.HunterPotion, ItemID.WrathPotion, ItemID.InfernoPotion };
 
 			Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions1), Main.rand.Next(1, 3));
 			Main.player[Main.myPlayer].QuickSpawnItem(NPC.GetSource_GiftOrReward(), Main.rand.Next(Potions2), Main.rand.Next(1, 3));

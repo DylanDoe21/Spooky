@@ -75,8 +75,7 @@ LittleEye: {
 	Quest3Rewards: Good work! I've heard that this giant cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
 	Quest4: So, now that you only have one last substance to make for me, I've got a special reward for you if you can bring me it. As usual you'll need some materials to make it.
 	Quest4Rewards: Alright, that was the final flask I need! As a reward, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient so I can cook up a special concoction for you.
-	Quest5NotHardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. But, I don't know if you can get them yet.
-	Quest5Hardmode: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
+	Quest5: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
 	Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
 	RandomQuest: If you want, I can bring you more of those sentient hearts... if you can craft this flask for me. You'll need these materials to make the one I need right now.
 	RandomQuestReward: Thanks, here take these silly little rewards.

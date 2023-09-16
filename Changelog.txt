@@ -1,9 +1,4 @@
--Fixed issue where the tunnel connecting the catacomb and cemetery had blocks inside of it
--Fixed issue where cemetery structures were spawning on floating islands (I HOPE PLEASEEEE)
--Nerfed tortumor and giant tortumor projectile damage
--Nerfed the amount of booger piles moco shoots in his spread in both phase 1 and 2
--Buffed the sneeze scepter base damage
--Fixed lower catacomb bricks not acutating correctly
--Catacombs curse debuff now disables wire placing and wire breaking items
--Fixed various minions in spooky mod being able to target enemies that are too far from the player
-
+-Little eyes quests now show the actual flask recipe and the flask you need to craft, instead of just showing the materials
+-Added many more vanilla potions to little eye's quest reward loot pool
+-Added a crafting recipe for the acidic concoction incase you loose it, or dont feel like doing little eyes quests
+-Fixed issue where little eye's sentient heart quests were available before defeating orro-boro
