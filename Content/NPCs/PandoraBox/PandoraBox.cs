@@ -340,6 +340,8 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             Player player = Main.player[NPC.target];
 
+            Spooky.PandoraPosition = new Vector2(NPC.Center.X, NPC.Center.Y);
+
             if (PandoraBoxWorld.PandoraEventActive)
             {
                 if (NPC.AnyNPCs(ModContent.NPCType<Bobbert>()) || NPC.AnyNPCs(ModContent.NPCType<Stitch>()) || 

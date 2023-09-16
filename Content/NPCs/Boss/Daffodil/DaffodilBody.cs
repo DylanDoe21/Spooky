@@ -45,6 +45,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void AI()
         {
+            Spooky.DaffodilPosition = new Vector2(NPC.Center.X, NPC.Center.Y);
+
             //sleepy particles
             if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
             {

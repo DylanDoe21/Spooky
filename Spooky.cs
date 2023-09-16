@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -21,6 +22,10 @@ namespace Spooky
 {
 	public class Spooky : Mod
 	{
+        public static Vector2 DaffodilPosition;
+        public static Vector2 PandoraPosition;
+        public static Vector2 FlowerPotPosition;
+
         public static int MistGhostSpawnX;
         public static int MistGhostSpawnY;
 

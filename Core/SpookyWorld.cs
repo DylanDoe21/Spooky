@@ -1,10 +1,14 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky.Core
 {
@@ -19,6 +23,33 @@ namespace Spooky.Core
 
         public override void PostUpdateTime()
         {
+            //spawn daffodil if she despawns for any reason
+            if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()))
+            {
+                int Daffodil = NPC.NewNPC(null, (int)Spooky.DaffodilPosition.X, (int)Spooky.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
+                Main.npc[Daffodil].position.Y += Main.npc[Daffodil].height / 2;
+
+                NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+            }
+
+            //spawn pandoras box if it despawns for any reason
+            if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()))
+            {
+                int PandoraBox = NPC.NewNPC(null, (int)Spooky.PandoraPosition.X, (int)Spooky.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
+                Main.npc[PandoraBox].position.Y += Main.npc[PandoraBox].height / 2;
+
+                NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+            }
+
+            //spawn big bone pot if it despawns for any reason
+            if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()))
+            {
+                int FlowerPot = NPC.NewNPC(null, (int)Spooky.FlowerPotPosition.X, (int)Spooky.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
+                Main.npc[FlowerPot].position.Y += Main.npc[FlowerPot].height / 2;
+
+                NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+            }
+
             //store whatever vanilla halloween is set to before setting it based on the config
             if (!initializeHalloween)
             {

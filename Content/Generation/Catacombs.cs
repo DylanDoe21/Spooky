@@ -678,7 +678,6 @@ namespace Spooky.Content.Generation
             int PandoraBox = NPC.NewNPC(null, XMiddle * 16, PandoraBoxSpawnY * 16, ModContent.NPCType<PandoraBox>());
             Main.npc[PandoraBox].position.X += 7;
 
-
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
 

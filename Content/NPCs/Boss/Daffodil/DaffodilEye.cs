@@ -446,17 +446,17 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         //spawn pillars on the walls
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 680, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
-                        Damage + 20, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
+                        Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 685, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
-                        Damage + 20, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
+                        Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
                         //spawn pillars on the floor
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 385, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
-                        Damage + 20, 0, Main.myPlayer, new Vector2(32, 0).ToRotation(), -16 * 60);
+                        Damage, 0, Main.myPlayer, new Vector2(32, 0).ToRotation(), -16 * 60);
 
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 391, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
-                        Damage + 20, 0, Main.myPlayer, new Vector2(-32, 0).ToRotation(), -16 * 60);
+                        Damage, 0, Main.myPlayer, new Vector2(-32, 0).ToRotation(), -16 * 60);
                     }
 
                     if (NPC.localAI[0] == 360)

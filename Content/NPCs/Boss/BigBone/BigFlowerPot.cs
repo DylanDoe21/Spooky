@@ -43,6 +43,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void AI()
         {
+            Spooky.FlowerPotPosition = new Vector2(NPC.Center.X, NPC.Center.Y);
+
             if (NPC.ai[1] == 1)
             {
                 NPC.ai[0]++;
