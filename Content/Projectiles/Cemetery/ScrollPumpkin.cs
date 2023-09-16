@@ -110,15 +110,15 @@ namespace Spooky.Content.Projectiles.Cemetery
 			for (int i = 0; i < 200; i++)
             {
 				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-				if (Target != null && Target.CanBeChasedBy(this, false))
-				{
+                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 450f)
+                {
 					AttackingAI(Target);
 
 					break;
 				}
 
 				NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && Vector2.Distance(player.Center, NPC.Center) <= 400f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
                 {
 					AttackingAI(NPC);
 
