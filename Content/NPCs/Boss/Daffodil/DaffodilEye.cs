@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.width = 58;
             NPC.height = 58;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 5, 0, 0);
+            NPC.value = Item.buyPrice(0, 6, 0, 0);
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = false;

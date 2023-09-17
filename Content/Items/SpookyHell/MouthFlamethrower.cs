@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 30;      
+			Item.damage = 42;      
 			Item.mana = 2;  
 			Item.DamageType = DamageClass.Magic;  
 			Item.autoReuse = true;       
