@@ -212,23 +212,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//despawn if the player dies
             if (player.dead)
             {
-                NPC.ai[2]++;
-
-				//play sound
-				if (NPC.ai[2] == 60)
-				{
-					NPC.noTileCollide = false;
-					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-				}
-
-				//jump up super high, then despawn
-				if (NPC.ai[2] >= 60)
-				{
-					NPC.velocity.Y = -40;
-					NPC.EncourageDespawn(10);
-				}
-
-				return;
+                NPC.ai[0] = -2;
             }
 
 			if (NPC.life < (NPC.lifeMax / 1.25f) && !FirstFlySpawned)
@@ -284,6 +268,28 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//attacks
 			switch ((int)NPC.ai[0])
 			{	
+				//despawning
+				case -2:
+				{
+					NPC.ai[2]++;
+
+					//play sound
+					if (NPC.ai[2] == 60)
+					{
+						NPC.noTileCollide = false;
+						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+					}
+
+					//jump up super high, then despawn
+					if (NPC.ai[2] >= 60)
+					{
+						NPC.velocity.Y = -40;
+						NPC.EncourageDespawn(10);
+					}
+
+					break;
+				}
+
 				//slam down spawn intro
 				case -1:
 				{

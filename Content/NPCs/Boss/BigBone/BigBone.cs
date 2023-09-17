@@ -123,7 +123,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
-            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -158,7 +157,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
-            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -432,32 +430,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            //despawn if the player dies or leaves the biome
+            //despawn if all players are dead
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
             {
-                NPC.localAI[3]++;
-                if (NPC.localAI[3] >= 60)
+                NPC.ai[0] = -3;
+            }
+            else
+            {
+                //set ai based on current state
+                if (Transition)
                 {
-                    for (int k = 0; k < Main.projectile.Length; k++)
-                    {
-                        if (Main.projectile[k].active && Main.projectile[k].hostile) 
-                        {
-                            Main.projectile[k].Kill();
-                        }
-                    }
-
-                    for (int k = 0; k < Main.maxNPCs; k++)
-                    {
-                        if (Main.npc[k].type == ModContent.NPCType<HealingFlower>() || Main.npc[k].type == ModContent.NPCType<DefensiveFlower>() || Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
-                        {
-                            Main.npc[k].active = false;
-                        }
-                    }
-
-                    NPC.active = false;
+                    NPC.ai[0] = -1;
                 }
-
-                return;
+                if (DeathAnimation)
+                {
+                    NPC.ai[0] = -2;
+                }
+                if (!Transition && !DeathAnimation)
+                {
+                    NPC.ai[0] = AttackPattern[(int)NPC.ai[1]];
+                }
             }
 
             //immediately vanish if not attached to its flower pot
@@ -517,22 +509,33 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 Transition = true;
             }
 
-            //set ai based on current state
-            if (Transition)
-            {
-                NPC.ai[0] = -1;
-            }
-            if (DeathAnimation)
-            {
-                NPC.ai[0] = -2;
-            }
-            if (!Transition && !DeathAnimation)
-            {
-                NPC.ai[0] = AttackPattern[(int)NPC.ai[1]];
-            }
-
             switch ((int)NPC.ai[0])
             {
+                //despawning
+                case -3:
+                {
+                    GoAboveFlowerPot(100);
+                    NPC.EncourageDespawn(10);
+
+                    for (int k = 0; k < Main.projectile.Length; k++)
+                    {
+                        if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                        {
+                            Main.projectile[k].Kill();
+                        }
+                    }
+
+                    for (int k = 0; k < Main.maxNPCs; k++)
+                    {
+                        if (Main.npc[k].type == ModContent.NPCType<HealingFlower>() || Main.npc[k].type == ModContent.NPCType<DefensiveFlower>() || Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
+                        {
+                            Main.npc[k].active = false;
+                        }
+                    }
+
+                    break;
+                }
+
                 //death animation
                 case -2:
                 {
@@ -1525,7 +1528,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             if (!Flags.downedBigBone)
             {
-                string text = "The curse of the catacombs has been lifted!";
+                string text = Language.GetTextValue("Mods.Spooky.Dialogue.BigBone.BigBoneDefeat");
 
                 if (Main.netMode != NetmodeID.Server)
                 {

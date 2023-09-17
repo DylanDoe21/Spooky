@@ -138,12 +138,12 @@ namespace Spooky.Content.NPCs.Friendly
 						if (!WorldGen.crimson)
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.RottenChunk}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.RottenChunk}]x20 + [i:{ItemID.IceBlock}]x10 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 						else
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.Vertebrae}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.Vertebrae}]x20 + [i:{ItemID.IceBlock}]x10 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 					}
 				}

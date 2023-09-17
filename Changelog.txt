@@ -11,3 +11,5 @@
 -Fungal flail now spins around you a bit faster, and launches out a bit further
 -Increased the spore smacker's use speed a little bit
 -Moco now flees and despawns if you leave the eye valley
+-Daffodil and big bone now properly despawn if you leave their respective catacomb layers
+-Fixed big bone not despawning at all if all players are dead

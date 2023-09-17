@@ -239,11 +239,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //despawn if the player dies or leaves the biome
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
-                AfterImages = true;
-                NPC.velocity.Y = -25;
-                NPC.EncourageDespawn(10);
-
-                return;
+                NPC.ai[0] = -2;
             }
 
             //set to transition
@@ -255,6 +251,17 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             switch ((int)NPC.ai[0])
             {
+                //despawning
+                case -2:
+                {
+                    AfterImages = true;
+                    NPC.velocity.Y = -25;
+                    NPC.EncourageDespawn(10);
+
+                    break;
+                }
+
+                //phase 2 transition
                 case -1:
                 {
                     NPC.velocity *= 0;

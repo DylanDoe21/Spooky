@@ -204,22 +204,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //despawn if the player dies or leaves the biome
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
-                NPC.localAI[3]++;
-                if (NPC.localAI[3] >= 45)
-                {
-                    NPC.velocity.Y = 35;
-                }
-
-                if (NPC.localAI[3] >= 120)
-                {
-                    NPC.active = false;
-                }
-
-                return;
-            }
-            else
-            {
-                NPC.localAI[3] = 0;
+                NPC.ai[0] = -1;
             }
 
             //Make the worm itself
@@ -255,6 +240,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //attacks
             switch ((int)NPC.ai[0])
             {
+                //despawning
+                case -1:
+                {
+                    NPC.localAI[3]++;
+                    if (NPC.localAI[3] >= 45)
+                    {
+                        NPC.velocity.Y = 35;
+                    }
+
+                    if (NPC.localAI[3] >= 120)
+                    {
+                        NPC.active = false;
+                    }
+
+                    break;
+                }
+
                 //charge from the sides while orro chases
                 case 0:
                 {

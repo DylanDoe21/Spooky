@@ -259,16 +259,22 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //despawn if the player dies or its day time
             if (player.dead || Main.dayTime)
             {
-                NPC.velocity.X *= 0;
-				NPC.velocity.Y = -12;
-                NPC.EncourageDespawn(10);
-
-                return;
+                NPC.ai[0] = -1;
 			}
 
             //attacks
             switch ((int)NPC.ai[0])
             {
+                //despawning
+                case -1:
+                {
+                    NPC.velocity.X *= 0;
+                    NPC.velocity.Y = -12;
+                    NPC.EncourageDespawn(10);
+
+                    break;
+                }
+
                 //fly at the player for a bit
                 case 0:
                 {
