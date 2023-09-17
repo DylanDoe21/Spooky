@@ -132,8 +132,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 12; 
-			float launchSpeed = 16f;
-			float maxLaunchLength = 500f;
+			float launchSpeed = 17f;
+			float maxLaunchLength = 525f;
 			float retractAcceleration = 2.5f;
 			float maxRetractSpeed = 20f; 
 			float forcedRetractAcceleration = 20f;
@@ -181,7 +181,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         }
                     }
 
-                    SpinningStateTimer += 0.75f;
+                    SpinningStateTimer += 0.85f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 

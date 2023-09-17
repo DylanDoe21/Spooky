@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.Deathweed, 5)
             .AddIngredient(ItemID.Ruby, 12)
             .AddIngredient(ItemID.AshBlock, 35)
-            .AddIngredient(ItemID.DeerThing, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
         }

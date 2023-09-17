@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<PlantChunk>(), 35)
+            .AddIngredient(ModContent.ItemType<PlantChunk>(), 25)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

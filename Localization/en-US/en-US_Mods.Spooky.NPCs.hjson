@@ -39,7 +39,7 @@ OrroHead: {
 
 	BossChecklistIntegration: {
 		EntryName: Orro & Boro
-		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once.
+		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once. The concoction is given to you after completing all of little eye's quests, or can be crafted.
 		DespawnMessage: Orro & Boro have protected their egg
 	}
 }
@@ -49,7 +49,7 @@ BigBone: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use [i:Spooky/Fertilizer] while standing nearby the giant flower pot in the catacombs.
-		DespawnMessage: All players have succumb to big bone's wrath
+		DespawnMessage: All players have succumbed to big bone's wrath
 	}
 }
 

@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 if (Main.rand.NextBool(20) && Flags.downedDaffodil)
                 {
-                    Main.npc[(int)NPC.ai[1]].ai[0] = -5;
+                    Main.npc[(int)NPC.ai[1]].ai[0] = -4;
                 }
                 else
                 {

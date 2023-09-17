@@ -122,7 +122,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1") 
-						+ $"\n[i:{ItemID.Daybloom}]x5 + [i:{ItemID.Blinkroot}]x5 + [i:{ItemID.Moonglow}]x5 + [i:{ItemID.PurificationPowder}]x10 + [i:{ItemID.SuspiciousLookingEye}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask1>()}]";;
+						+ $"\n[i:{ItemID.Daybloom}]x5 + [i:{ItemID.Blinkroot}]x5 + [i:{ItemID.Moonglow}]x5 + [i:{ItemID.PurificationPowder}]x10 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask1>()}]";
 					}
 				}
 				if (Flags.EyeQuest1 && !Flags.EyeQuest2)
@@ -138,12 +138,12 @@ namespace Spooky.Content.NPCs.Friendly
 						if (!WorldGen.crimson)
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.RottenChunk}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.WormFood}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.RottenChunk}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 						else
 						{
 							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2")
-							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.Vertebrae}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.BloodySpine}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
+							+ $"\n[i:{ItemID.Shiverthorn}]x5 + [i:{ItemID.GlowingMushroom}]x12 + [i:{ItemID.Vertebrae}]x20 + [i:{ItemID.IceBlock}] + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask2>()}]";
 						}
 					}
 				}
@@ -158,7 +158,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3")
-						+ $"\n[i:{ItemID.HoneyBlock}]x35 + [i:{ItemID.Pumpkin}]x35 + [i:{ItemID.Sluggy}]x5 + [i:{ItemID.Cobweb}]x15 + [i:{ItemID.Abeemination}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask3>()}]";
+						+ $"\n[i:{ItemID.HoneyBlock}]x35 + [i:{ItemID.Pumpkin}]x35 + [i:{ItemID.Sluggy}]x5 + [i:{ItemID.Cobweb}]x15 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask3>()}]";
 					}
 				}
 				if (Flags.EyeQuest3 && !Flags.EyeQuest4)
@@ -172,7 +172,7 @@ namespace Spooky.Content.NPCs.Friendly
 					else
                     {
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4")
-						+ $"\n[i:{ItemID.Fireblossom}]x5 + [i:{ItemID.Deathweed}]x5 + [i:{ItemID.Ruby}]x12 + [i:{ItemID.AshBlock}]x35 + [i:{ItemID.DeerThing}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask4>()}]";
+						+ $"\n[i:{ItemID.Fireblossom}]x5 + [i:{ItemID.Deathweed}]x5 + [i:{ItemID.Ruby}]x12 + [i:{ItemID.AshBlock}]x35 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<Flask4>()}]";
 					}
 				}
 				if (Flags.EyeQuest4 && !Flags.EyeQuest5)
@@ -193,89 +193,106 @@ namespace Spooky.Content.NPCs.Friendly
 				{
                     if (!Flags.DailyQuest)
                     {
-						//flask of night
-						if (ChosenQuestForToday == 0)
+						switch (ChosenQuestForToday)
 						{
-							if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc1>()))
+							//flask of night
+							case 0:
 							{
-								Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
-
-								RandomQuestTimer++;
-							}
-							else
-							{
-								if (!WorldGen.crimson)
+								if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc1>()))
 								{
-									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-									+ $"\n[i:{ItemID.SoulofNight}]x10 [i:{ItemID.CursedFlame}]x15 [i:{ItemID.Bottle}]x1";
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
+
+									RandomQuestTimer++;
 								}
 								else
 								{
-                                    Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-                                    + $"\n[i:{ItemID.SoulofNight}]x10 [i:{ItemID.Ichor}]x15 [i:{ItemID.Bottle}]x1";
-                                }
-                            }
+									if (!WorldGen.crimson)
+									{
+										Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+										+ $"\n[i:{ItemID.SoulofNight}]x10 + [i:{ItemID.CursedFlame}]x15 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc1>()}]";
+									}
+									else
+									{
+										Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+										+ $"\n[i:{ItemID.SoulofNight}]x10 + [i:{ItemID.Ichor}]x15 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc1>()}]";
+									}
+								}
+
+								break;
+							}
+
+							//flask of light
+							case 1:
+							{
+								if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc2>()))
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
+
+									RandomQuestTimer++;
+								}
+								else
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+									+ $"\n[i:{ItemID.SoulofLight}]x10 + [i:{ItemID.CrystalShard}]x15 + [i:{ItemID.UnicornHorn}]x3 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc2>()}]";
+								}
+
+								break;
+							}
+
+							//spooky flask
+							case 2:
+							{
+								if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc3>()))
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
+
+									RandomQuestTimer++;
+								}
+								else
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+									+ $"\n[i:{ItemID.Pumpkin}]x35 + [i:{ItemID.Hay}]x25 + [i:{ItemID.RottenEgg}]x5 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc3>()}]";
+								}
+
+								break;
+							}
+
+							//aquatic flask
+							case 3:
+							{
+								if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc4>()))
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
+
+									RandomQuestTimer++;
+								}
+								else
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+									+ $"\n[i:{ItemID.SharkFin}]x5 + [i:{ItemID.Coral}]x15 + [i:{ItemID.Glowstick}]x20 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc4>()}]";
+								}
+
+								break;
+							}
+
+							//sandstorm flask
+							case 4:
+							{
+								if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc5>()))
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
+
+									RandomQuestTimer++;
+								}
+								else
+								{
+									Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
+									+ $"\n[i:{ItemID.SandBlock}]x35 + [i:{ItemID.FossilOre}]x15 + [i:{ItemID.AncientBattleArmorMaterial}]x1 + [i:{ItemID.Bottle}]x1 = [i:{ModContent.ItemType<FlaskMisc5>()}]";
+								}
+
+								break;
+							}
 						}
-						//flask of light
-						if (ChosenQuestForToday == 1)
-						{
-                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc2>()))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
-
-                                RandomQuestTimer++;
-                            }
-                            else
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-                                + $"\n[i:{ItemID.SoulofLight}]x10 [i:{ItemID.CrystalShard}]x15 [i:{ItemID.UnicornHorn}]x3 [i:{ItemID.Bottle}]x1";
-                            }
-                        }
-						//spooky flask
-						if (ChosenQuestForToday == 2)
-						{
-                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc3>()))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
-
-                                RandomQuestTimer++;
-                            }
-                            else
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-                                + $"\n[i:{ItemID.Pumpkin}]x35 [i:{ItemID.Hay}]x25 [i:{ItemID.RottenEgg}]x5 [i:{ItemID.Bottle}]x1";
-                            }
-                        }
-						//aquatic flask
-						if (ChosenQuestForToday == 3)
-						{
-                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc4>()))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
-
-                                RandomQuestTimer++;
-                            }
-                            else
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-                                + $"\n[i:{ItemID.SharkFin}]x5 [i:{ItemID.Coral}]x15 [i:{ItemID.Glowstick}]x20 [i:{ItemID.Bottle}]x1";
-                            }
-                        }
-						//sandstorm flask
-						if (ChosenQuestForToday == 4)
-						{
-                            if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<FlaskMisc5>()))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuestReward");
-
-                                RandomQuestTimer++;
-                            }
-                            else
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.RandomQuest")
-                                + $"\n[i:{ItemID.SandBlock}]x35 [i:{ItemID.FossilOre}]x15 [i:{ItemID.AncientBattleArmorMaterial}]x1 [i:{ItemID.Bottle}]x1";
-                            }
-                        }
 					}
 					//no quest available
 					else
@@ -289,6 +306,18 @@ namespace Spooky.Content.NPCs.Friendly
 
 						Main.npcChatText = Main.rand.Next(Dialogue);
 					}
+				}
+
+				if (Flags.EyeQuest5 && !Flags.downedOrroboro)
+				{
+					List<string> Dialogue = new List<string>
+					{
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.NoQuests1"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.NoQuests2"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.NoQuests3"),
+					};
+
+					Main.npcChatText = Main.rand.Next(Dialogue);
 				}
 			}
 			//upgrade button

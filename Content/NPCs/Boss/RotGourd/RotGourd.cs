@@ -202,13 +202,34 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void AI()
 		{
-			Player player = Main.player[NPC.target];
 			NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 35 / 3 : Main.expertMode ? 25 / 2 : 20;
 
-			NPC.spriteDirection = NPC.direction;
 			NPC.rotation = NPC.velocity.X * 0.02f;
+
+			//despawn if the player dies
+            if (player.dead)
+            {
+                NPC.ai[2]++;
+
+				//play sound
+				if (NPC.ai[2] == 60)
+				{
+					NPC.noTileCollide = false;
+					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+				}
+
+				//jump up super high, then despawn
+				if (NPC.ai[2] >= 60)
+				{
+					NPC.velocity.Y = -40;
+					NPC.EncourageDespawn(10);
+				}
+
+				return;
+            }
 
 			if (NPC.life < (NPC.lifeMax / 1.25f) && !FirstFlySpawned)
 			{
@@ -262,29 +283,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			//attacks
 			switch ((int)NPC.ai[0])
-			{
-				//despawning
-				case -2:
-				{
-					NPC.ai[2]++;
-
-					//play sound
-					if (NPC.ai[2] == 60)
-					{
-						NPC.noTileCollide = false;
-						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-					}
-
-					//jump up super high, then despawn
-					if (NPC.ai[2] >= 60)
-					{
-						NPC.velocity.Y = -40;
-						NPC.EncourageDespawn(10);
-					}
-
-					break;
-				}
-				
+			{	
 				//slam down spawn intro
 				case -1:
 				{

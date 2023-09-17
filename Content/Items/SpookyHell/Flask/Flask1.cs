@@ -23,7 +23,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.Blinkroot, 5)
             .AddIngredient(ItemID.Moonglow, 5)
             .AddIngredient(ItemID.PurificationPowder, 10)
-            .AddIngredient(ItemID.SuspiciousLookingEye, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
         }

@@ -22,10 +22,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.noUseGraphic = false;
             Item.width = 92;
             Item.height = 86;
-            Item.useTime = 35;
-			Item.useAnimation = 35;
+            Item.useTime = 28;
+			Item.useAnimation = 28;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 7;
+			Item.knockBack = 5;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.Item1;

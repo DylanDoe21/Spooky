@@ -196,8 +196,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     NPC.frame.Y = frameHeight * 2;
                 }
             }
-            //close eye when despawning
+            //slightly open eye during the joke awakening
             else if (NPC.ai[0] == -4)
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
+            //close eye when despawning
+            else if (NPC.ai[0] == -5)
             {
                 if (NPC.localAI[1] >= 90)
                 {
@@ -207,11 +212,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     NPC.frame.Y = frameHeight * 2;
                 }
-            }
-            //slightly open eye 
-            else if (NPC.ai[0] == -5)
-            {
-                NPC.frame.Y = frameHeight * 1;
             }
             else if (NPC.ai[0] == 0 && NPC.localAI[0] >= 60 && NPC.localAI[0] <= 155)
             {
@@ -267,12 +267,18 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             NPC Parent = Main.npc[(int)NPC.ai[1]];
             
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 35;
 
             Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
+
+            //despawn if the player dies or leaves the biome
+            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
+            {
+                NPC.ai[0] = -5;
+            }
 
             if (!SpawnedHands)
             {
@@ -295,12 +301,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 NPC.active = false;
             }
 
-            //despawn if the player is dead or they leave the catacombs
-            if (player.dead)
-            {
-                NPC.ai[0] = -4;
-            }
-
             //set to phase 2 transition when she reaches half health
             if (NPC.life <= (NPC.lifeMax / 2) && !Phase2)
             {
@@ -311,8 +311,21 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
-                //go back to sleep
+                //despawning
                 case -5:
+                {
+                    NPC.localAI[1]++;
+                    
+                    if (NPC.localAI[1] == 120)
+                    {
+                        NPC.active = false;
+                    }
+
+                    break;
+                }
+
+                //go back to sleep
+                case -4:
                 {   
                     NPC.localAI[0]++;
 
@@ -328,19 +341,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     }
 
                     if (NPC.localAI[0] >= 260)
-                    {
-                        NPC.active = false;
-                    }
-
-                    break;
-                }
-
-                //despawning
-                case -4:
-                {
-                    NPC.localAI[1]++;
-                    
-                    if (NPC.localAI[1] == 120)
                     {
                         NPC.active = false;
                     }

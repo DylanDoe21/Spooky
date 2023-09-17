@@ -18,8 +18,8 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.noUseGraphic = true;
 			Item.width = 32;
             Item.height = 42;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.White;

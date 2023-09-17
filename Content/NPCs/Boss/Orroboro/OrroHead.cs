@@ -206,8 +206,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 40;
 
@@ -215,19 +215,21 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             Enraged = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 
-            //despawn if all players are dead or not in the biome
+            //despawn if the player dies or leaves the biome
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
                 NPC.localAI[3]++;
-                if (NPC.localAI[3] >= 75)
+                if (NPC.localAI[3] >= 45)
                 {
                     NPC.velocity.Y = 35;
                 }
 
-                if (NPC.localAI[3] >= 240)
+                if (NPC.localAI[3] >= 120)
                 {
                     NPC.active = false;
                 }
+
+                return;
             }
             else
             {
@@ -275,196 +277,104 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
             }
 
-            if (NPC.localAI[3] < 75)
+            //attacks
+            switch ((int)NPC.ai[0])
             {
-                //attacks
-                switch ((int)NPC.ai[0])
+                //chase the player while chomping
+                case 0:
                 {
-                    //chase the player while chomping
-                    case 0:
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[1] < 3)
                     {
-                        NPC.localAI[0]++;
+                        Chomp = true;
 
-                        if (NPC.localAI[1] < 3)
+                        float speed = Enraged ? 13f : 10f;
+                        float acceleration = Enraged ? 0.16f : 0.18f;
+                        ChaseMovement(player, speed, acceleration);
+
+                        if (NPC.localAI[0] >= 145)
                         {
-                            Chomp = true;
-
-                            float speed = Enraged ? 13f : 10f;
-                            float acceleration = Enraged ? 0.16f : 0.18f;
-                            ChaseMovement(player, speed, acceleration);
-
-                            if (NPC.localAI[0] >= 145)
-                            {
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            Chomp = false;
-
                             NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.ai[0]++;
+                            NPC.localAI[1]++;
                             NPC.netUpdate = true;
                         }
+                    }
+                    else
+                    {
+                        Chomp = false;
 
-                        break;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
                     }
 
-                    //charge from the top/bottom while boro dashes
-                    case 1:
+                    break;
+                }
+
+                //charge from the top/bottom while boro dashes
+                case 1:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[1] < 3)
                     {
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[1] < 3)
+                        int positionTime = Enraged ? 50 : 60;
+                        if (NPC.localAI[0] < positionTime)
                         {
-                            int positionTime = Enraged ? 50 : 60;
-                            if (NPC.localAI[0] < positionTime)
-                            {
-                                Vector2 GoTo = player.Center;
-                                GoTo.X += 0;
-                                GoTo.Y += (NPC.Center.Y < player.Center.Y) ? -750 : 750;
-
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                            }
-
-                            if (NPC.localAI[0] == positionTime)
-                            {
-                                NPC.velocity *= 0;
-
-                                NPC.position.X = player.Center.X - 40;
-                                NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
-
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250,
-                                0, 0, ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
-                            }
-
-                            int chargeTime = Enraged ? 65 : 75;
-                            if (NPC.localAI[0] == chargeTime)
-                            {
-                                OpenMouth = true;
-
-                                SoundEngine.PlaySound(HissSound1, NPC.Center);
-
-                                Vector2 ChargeDirection = player.Center - NPC.Center;
-                                ChargeDirection.Normalize();
-
-                                ChargeDirection.X *= 0;
-                                ChargeDirection.Y *= Enraged ? 45 : 40;
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
-                            }
-
-                            int stopTime = Enraged ? 80 : 90;
-                            if (NPC.localAI[0] > stopTime)
-                            {
-                                NPC.velocity *= 0.98f;
-                            }
-
-                            int extraTime = Enraged ? 15 : 45;
-                            if (NPC.localAI[0] >= stopTime + extraTime)
-                            {
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            if (NPC.localAI[0] >= 60)
-                            {
-                                OpenMouth = false;
-
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0;
-                                NPC.ai[0]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-
-                        break;
-                    }
-
-                    //go to players side, charge and then curve and spit biomass in sync with boro
-                    case 2:
-                    {
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[0] < 75)
-                        {
-                            //this is slightly offset so its even with the other worm in game
                             Vector2 GoTo = player.Center;
-                            GoTo.X -= 1250;
-                            GoTo.Y += 0;
+                            GoTo.X += 0;
+                            GoTo.Y += (NPC.Center.Y < player.Center.Y) ? -750 : 750;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        //set exact position right before so the curling up is always even
-                        if (NPC.localAI[0] == 75)
+                        if (NPC.localAI[0] == positionTime)
                         {
                             NPC.velocity *= 0;
 
-                            //this is slightly offset so its even with the other worm in game
-                            NPC.position.X = player.Center.X - 1250;
-                            NPC.position.Y = player.Center.Y + 0;
+                            NPC.position.X = player.Center.X - 40;
+                            NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
-                            ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X, (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 250 : player.Center.Y + 250,
+                            0, 0, ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
                         }
 
-                        if (NPC.localAI[0] == 90)
+                        int chargeTime = Enraged ? 65 : 75;
+                        if (NPC.localAI[0] == chargeTime)
                         {
                             OpenMouth = true;
 
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
-                            NPC.velocity.X = Enraged ? 48 : 42;
-                            NPC.velocity.Y *= 0;
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+
+                            ChargeDirection.X *= 0;
+                            ChargeDirection.Y *= Enraged ? 45 : 40;
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
                         }
 
-                        if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)
+                        int stopTime = Enraged ? 80 : 90;
+                        if (NPC.localAI[0] > stopTime)
                         {
-                            double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
-                            while (angle > Math.PI)
-                            {
-                                angle -= 2.0 * Math.PI;
-                            }
-                            while (angle < -Math.PI)
-                            {
-                                angle += 2.0 * Math.PI;
-                            }
-
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 32;
-
-                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
-
-                            if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
-                            {
-                                Vector2 ShootSpeed = player.Center - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed.X *= Enraged ? 4.5f : 3f;
-                                ShootSpeed.Y *= Enraged ? 4.5f : 3f;
-
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                    ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer, 0, 0);
-                                }
-                            }
+                            NPC.velocity *= 0.98f;
                         }
 
-                        if (NPC.localAI[0] == 170)
+                        int extraTime = Enraged ? 15 : 45;
+                        if (NPC.localAI[0] >= stopTime + extraTime)
                         {
-                            NPC.velocity *= 0.25f;
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1]++;
+                            NPC.netUpdate = true;
                         }
-
-                        if (NPC.localAI[0] > 270)
+                    }
+                    else
+                    {
+                        if (NPC.localAI[0] >= 60)
                         {
                             OpenMouth = false;
 
@@ -473,262 +383,351 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.ai[0]++;
                             NPC.netUpdate = true;
                         }
-
-                        break;
                     }
 
-                    //spit acid bolt spreads and charge while boro summons tentacle pillars
-                    case 3:
+                    break;
+                }
+
+                //go to players side, charge and then curve and spit biomass in sync with boro
+                case 2:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 75)
                     {
-                        NPC.localAI[0]++;
+                        //this is slightly offset so its even with the other worm in game
+                        Vector2 GoTo = player.Center;
+                        GoTo.X -= 1250;
+                        GoTo.Y += 0;
 
-                        int repeats = Enraged ? 2 : 3;
-                        if (NPC.localAI[1] < repeats)
-                        {
-                            //use chase movement
-                            ChaseMovement(player, 8.5f, 0.18f);
-
-                            //Shoot toxic spit when nearby the player
-                            if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 200)
-                            {
-                                NPC.velocity *= 0.95f;
-
-                                if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180 || Enraged && NPC.localAI[0] == 200)
-                                {
-                                    OpenMouth = true;
-                                        
-                                    SoundEngine.PlaySound(SpitSound, NPC.Center);
-
-                                    int MaxProjectiles = Main.rand.Next(1, 3);
-
-                                    float speed = Enraged ? 4.8f : 4.2f;
-
-                                    for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
-                                    {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        {
-                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                            speed * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (NPC.localAI[0] == 200)
-                            {
-                                SavePlayerPosition = player.Center;
-                            }
-
-                            if (NPC.localAI[0] == 210)
-                            {
-                                SoundEngine.PlaySound(HissSound2, NPC.Center);
-
-                                Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
-                                ChargeDirection.Normalize();
-                                        
-                                ChargeDirection.X *= 25;
-                                ChargeDirection.Y *= 25;
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
-                            }
-
-                            if (NPC.localAI[0] == 230)
-                            {
-                                OpenMouth = false;
-
-                                NPC.velocity *= 0.65f;
-                            }
-
-                            if (NPC.localAI[0] >= 260)
-                            {
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            if (NPC.localAI[0] > 60)
-                            {
-                                OpenMouth = false;
-
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0;
-                                NPC.ai[0]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-
-                        break;
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
-                    //fly above player and drop projectiles down while boro uses acid breath
-                    case 4:
+                    //set exact position right before so the curling up is always even
+                    if (NPC.localAI[0] == 75)
                     {
-                        NPC.localAI[0]++;
+                        NPC.velocity *= 0;
 
-                        if (NPC.localAI[1] < 3)
+                        //this is slightly offset so its even with the other worm in game
+                        NPC.position.X = player.Center.X - 1250;
+                        NPC.position.Y = player.Center.Y + 0;
+
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
+                        ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
+                    }
+
+                    if (NPC.localAI[0] == 90)
+                    {
+                        OpenMouth = true;
+
+                        SoundEngine.PlaySound(HissSound1, NPC.Center);
+
+                        NPC.velocity.X = Enraged ? 48 : 42;
+                        NPC.velocity.Y *= 0;
+                    }
+
+                    if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)
+                    {
+                        double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
+                        while (angle > Math.PI)
                         {
-                            Vector2 GoTo = player.Center;
-                            GoTo.Y -= 750;
+                            angle -= 2.0 * Math.PI;
+                        }
+                        while (angle < -Math.PI)
+                        {
+                            angle += 2.0 * Math.PI;
+                        }
 
-                            //go from side to side
-                            if (NPC.localAI[0] < 138)
+                        NPC.localAI[1] = Math.Sign(angle);
+                        NPC.velocity = Vector2.Normalize(NPC.velocity) * 32;
+
+                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
+
+                        if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
+                        {
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= Enraged ? 4.5f : 3f;
+                            ShootSpeed.Y *= Enraged ? 4.5f : 3f;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                GoTo.X += -750;
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
+                                ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer, 0, 0);
                             }
-                            if (NPC.localAI[0] > 138)
-                            {
-                                GoTo.X += 750;
-                            }
+                        }
+                    }
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    if (NPC.localAI[0] == 170)
+                    {
+                        NPC.velocity *= 0.25f;
+                    }
 
-                            if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
+                    if (NPC.localAI[0] > 270)
+                    {
+                        OpenMouth = false;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //spit acid bolt spreads and charge while boro summons tentacle pillars
+                case 3:
+                {
+                    NPC.localAI[0]++;
+
+                    int repeats = Enraged ? 2 : 3;
+                    if (NPC.localAI[1] < repeats)
+                    {
+                        //use chase movement
+                        ChaseMovement(player, 8.5f, 0.18f);
+
+                        //Shoot toxic spit when nearby the player
+                        if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 200)
+                        {
+                            NPC.velocity *= 0.95f;
+
+                            if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180 || Enraged && NPC.localAI[0] == 200)
                             {
+                                OpenMouth = true;
+                                    
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
-                                //if enraged shoot spreads of fangs downward
-                                if (Enraged)
-                                {
-                                    Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y + 50);
+                                int MaxProjectiles = Main.rand.Next(1, 3);
 
-                                    for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
-                                    {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        {
-                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
-                                            4.5f * NPC.DirectionTo(position).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                            ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
-                                        }
-                                    }
-                                }
-                                else
+                                float speed = Enraged ? 4.8f : 4.2f;
+
+                                for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 5,
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                        speed * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
                                     }
                                 }
                             }
-
-                            if (NPC.localAI[0] >= 275)
-                            {
-                                NPC.velocity *= 0.25f;
-                                NPC.localAI[0] = 20;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            if (NPC.localAI[0] <= 60)
-                            {
-                                Vector2 GoTo = player.Center;
-                                GoTo.Y -= 750;
-
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                            }
-                            if (NPC.localAI[0] > 60)
-                            {
-                                NPC.velocity *= 0.25f;
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0;
-                                NPC.ai[0]++;
-                                NPC.netUpdate = true;
-                            }
                         }
 
-                        break;
-                    }
-
-                    //circle and chase other worm
-                    case 5:
-                    {
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[0] < 119)
+                        if (NPC.localAI[0] == 200)
                         {
-                            Vector2 GoTo = player.Center;
-                            GoTo.X -= 1000;
-                            GoTo.Y += 750;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            SavePlayerPosition = player.Center;
                         }
 
-                        //set exact position right before so it is even
-                        if (NPC.localAI[0] == 119)
+                        if (NPC.localAI[0] == 210)
                         {
-                            NPC.velocity *= 0;
+                            SoundEngine.PlaySound(HissSound2, NPC.Center);
 
-                            NPC.position.X = player.Center.X - 1000;
-                            NPC.position.Y = player.Center.Y + 750;
-                        }
-
-                        if (NPC.localAI[0] == 120)
-                        {
-                            SoundEngine.PlaySound(HissSound1, NPC.Center);
-
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-
-                            ChargeDirection.X *= Enraged ? 45 : 40;
-                            ChargeDirection.Y *= 0;
+                                    
+                            ChargeDirection.X *= 25;
+                            ChargeDirection.Y *= 25;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
-                        if (NPC.localAI[0] >= 151 && NPC.localAI[0] <= 500)
+                        if (NPC.localAI[0] == 230)
                         {
-                            if (NPC.localAI[0] >= 250 && NPC.localAI[0] <= 380)
-                            {
-                                int frequency = Enraged ? 5 : 8;
+                            OpenMouth = false;
 
-                                if (NPC.localAI[0] % 20 == frequency)
-                                {
-                                    Vector2 ShootSpeed = player.Center - NPC.Center;
-                                    ShootSpeed.Normalize();
-                                    ShootSpeed.X *= Enraged ? 3f : 2f;
-                                    ShootSpeed.Y *= Enraged ? 3f : 2f;
-
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
-                                    }
-                                }
-
-                                NPC.localAI[2] += 0.025f;
-                            }
-
-                            double angle = NPC.velocity.ToRotation();
-
-                            //always subtract angle so it goes in a set circle
-                            angle -= 3.5 * Math.PI;
-
-                            NPC.localAI[1] = Math.Sign(angle);
-                            NPC.velocity = Vector2.Normalize(NPC.velocity) * 50;
-
-                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(3.5f + NPC.localAI[2]) * NPC.localAI[1]);
+                            NPC.velocity *= 0.65f;
                         }
 
-                        if (NPC.localAI[0] >= 500)
+                        if (NPC.localAI[0] >= 260)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        if (NPC.localAI[0] > 60)
+                        {
+                            OpenMouth = false;
+
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.ai[0]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+
+                    break;
+                }
+
+                //fly above player and drop projectiles down while boro uses acid breath
+                case 4:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[1] < 3)
+                    {
+                        Vector2 GoTo = player.Center;
+                        GoTo.Y -= 750;
+
+                        //go from side to side
+                        if (NPC.localAI[0] < 138)
+                        {
+                            GoTo.X += -750;
+                        }
+                        if (NPC.localAI[0] > 138)
+                        {
+                            GoTo.X += 750;
+                        }
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                        if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
+                        {
+                            SoundEngine.PlaySound(SpitSound, NPC.Center);
+
+                            //if enraged shoot spreads of fangs downward
+                            if (Enraged)
+                            {
+                                Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y + 50);
+
+                                for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
+                                {
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                        4.5f * NPC.DirectionTo(position).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0, 5,
+                                    ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                }
+                            }
+                        }
+
+                        if (NPC.localAI[0] >= 275)
+                        {
+                            NPC.velocity *= 0.25f;
+                            NPC.localAI[0] = 20;
+                            NPC.localAI[1]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        if (NPC.localAI[0] <= 60)
+                        {
+                            Vector2 GoTo = player.Center;
+                            GoTo.Y -= 750;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+                        if (NPC.localAI[0] > 60)
                         {
                             NPC.velocity *= 0.25f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
-                            NPC.localAI[2] = 0;
-                            NPC.ai[0] = 0;
+                            NPC.ai[0]++;
                             NPC.netUpdate = true;
                         }
-
-                        break;
                     }
+
+                    break;
+                }
+
+                //circle and chase other worm
+                case 5:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 119)
+                    {
+                        Vector2 GoTo = player.Center;
+                        GoTo.X -= 1000;
+                        GoTo.Y += 750;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    //set exact position right before so it is even
+                    if (NPC.localAI[0] == 119)
+                    {
+                        NPC.velocity *= 0;
+
+                        NPC.position.X = player.Center.X - 1000;
+                        NPC.position.Y = player.Center.Y + 750;
+                    }
+
+                    if (NPC.localAI[0] == 120)
+                    {
+                        SoundEngine.PlaySound(HissSound1, NPC.Center);
+
+                        Vector2 ChargeDirection = player.Center - NPC.Center;
+                        ChargeDirection.Normalize();
+
+                        ChargeDirection.X *= Enraged ? 45 : 40;
+                        ChargeDirection.Y *= 0;
+                        NPC.velocity.X = ChargeDirection.X;
+                        NPC.velocity.Y = ChargeDirection.Y;
+                    }
+
+                    if (NPC.localAI[0] >= 151 && NPC.localAI[0] <= 500)
+                    {
+                        if (NPC.localAI[0] >= 250 && NPC.localAI[0] <= 380)
+                        {
+                            int frequency = Enraged ? 5 : 8;
+
+                            if (NPC.localAI[0] % 20 == frequency)
+                            {
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed.X *= Enraged ? 3f : 2f;
+                                ShootSpeed.Y *= Enraged ? 3f : 2f;
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
+                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                                }
+                            }
+
+                            NPC.localAI[2] += 0.025f;
+                        }
+
+                        double angle = NPC.velocity.ToRotation();
+
+                        //always subtract angle so it goes in a set circle
+                        angle -= 3.5 * Math.PI;
+
+                        NPC.localAI[1] = Math.Sign(angle);
+                        NPC.velocity = Vector2.Normalize(NPC.velocity) * 50;
+
+                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(3.5f + NPC.localAI[2]) * NPC.localAI[1]);
+                    }
+
+                    if (NPC.localAI[0] >= 500)
+                    {
+                        NPC.velocity *= 0.25f;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
                 }
             }
         }

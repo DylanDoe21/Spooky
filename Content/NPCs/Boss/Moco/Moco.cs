@@ -229,25 +229,21 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void AI()
         {   
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 30;
 
             NPC.spriteDirection = NPC.direction;
 
-            //despawn if all players are dead
-            if (player.dead)
+            //despawn if the player dies or leaves the biome
+            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
                 AfterImages = true;
                 NPC.velocity.Y = -25;
+                NPC.EncourageDespawn(10);
 
-                NPC.localAI[2]++;
-
-                if (NPC.localAI[2] >= 120)
-                {
-                    NPC.active = false;
-                }
+                return;
             }
 
             //set to transition
@@ -257,384 +253,127 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 NPC.localAI[0] = 0;
             }
 
-            if (!player.dead)
+            switch ((int)NPC.ai[0])
             {
-                switch ((int)NPC.ai[0])
+                case -1:
                 {
-                    case -1:
-                    {
-                        NPC.velocity *= 0;
-                        NPC.rotation = 0;
+                    NPC.velocity *= 0;
+                    NPC.rotation = 0;
 
-                        AfterImages = false;
+                    AfterImages = false;
+                    Sneezing = false;
+                    Transition = true;
+                    NPC.immortal = true;
+                    NPC.dontTakeDamage = true;
+                    NPC.noGravity = true;
+
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] == 120)
+                    {
+                        SoundEngine.PlaySound(AngrySound, NPC.Center);
+                    }
+
+                    if (NPC.localAI[0] > 120 && NPC.localAI[0] < 240)
+                    {
+                        Sneezing = true;
+
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-8, 8);
+
+                        int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                        Main.gore[Steam1].velocity.X *= 2f;
+                        Main.gore[Steam1].velocity.Y *= -2f;
+                        Main.gore[Steam1].alpha = 125;
+
+                        int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
+                        Main.gore[Steam2].velocity.X *= -2f;
+                        Main.gore[Steam2].velocity.Y *= -2f;
+                        Main.gore[Steam2].alpha = 125;
+                    }
+
+                    if (NPC.localAI[0] == 250)
+                    {
                         Sneezing = false;
-                        Transition = true;
-                        NPC.immortal = true;
-                        NPC.dontTakeDamage = true;
-                        NPC.noGravity = true;
-
-                        NPC.localAI[0]++;
-
-                        if (NPC.localAI[0] == 60)
-                        {
-                            SaveNPCPosition = NPC.Center;
-                        }
-
-                        if (NPC.localAI[0] == 120)
-                        {
-                            SoundEngine.PlaySound(AngrySound, NPC.Center);
-                        }
-
-                        if (NPC.localAI[0] > 120 && NPC.localAI[0] < 240)
-                        {
-                            Sneezing = true;
-
-                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                            NPC.Center += Main.rand.NextVector2Square(-8, 8);
-
-                            int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X + 5, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
-                            Main.gore[Steam1].velocity.X *= 2f;
-                            Main.gore[Steam1].velocity.Y *= -2f;
-                            Main.gore[Steam1].alpha = 125;
-
-                            int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 50, NPC.Center.Y + 35), default, Main.rand.Next(61, 64), 1f);
-                            Main.gore[Steam2].velocity.X *= -2f;
-                            Main.gore[Steam2].velocity.Y *= -2f;
-                            Main.gore[Steam2].alpha = 125;
-                        }
-
-                        if (NPC.localAI[0] == 250)
-                        {
-                            Sneezing = false;
-                        }
-
-                        if (NPC.localAI[0] >= 280)
-                        {
-                            Phase2 = true;
-                            Transition = false;
-                            NPC.immortal = false;
-                            NPC.dontTakeDamage = false;
-
-                            NPC.ai[0] = 0;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
                     }
 
-                    //fly at player
-                    case 0:
+                    if (NPC.localAI[0] >= 280)
                     {
-                        NPC.localAI[0]++;
+                        Phase2 = true;
+                        Transition = false;
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
 
-                        NPC.rotation = NPC.velocity.X * 0.04f;
+                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
 
-                        //flies to players X position
-                        if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -70) 
-                        {
-                            MoveSpeedX -= 2;
-                        }
-                        else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 70)
-                        {
-                            MoveSpeedX += 2;
-                        }
-
-                        NPC.velocity.X = MoveSpeedX * 0.1f;
-                        
-                        //flies to players Y position
-                        if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -40)
-                        {
-                            MoveSpeedY--;
-                        }
-                        else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 40)
-                        {
-                            MoveSpeedY++;
-                        }
-
-                        NPC.velocity.Y = MoveSpeedY * 0.1f;
-
-                        if (NPC.localAI[0] >= 300)
-                        {
-                            MoveSpeedX = 0;
-                            MoveSpeedY = 0;
-
-                            NPC.localAI[0] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
+                        NPC.netUpdate = true;
                     }
 
-                    //zip to the players side, then charge towards them really fast
-                    case 1:
+                    break;
+                }
+
+                //fly at player
+                case 0:
+                {
+                    NPC.localAI[0]++;
+
+                    NPC.rotation = NPC.velocity.X * 0.04f;
+
+                    //flies to players X position
+                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -70) 
                     {
-                        NPC.localAI[0]++;
-
-                        NPC.rotation = NPC.velocity.X * 0.04f;
-
-                        int numCharges = Phase2 ? 2 : 1;
-
-                        if (NPC.localAI[1] < numCharges)
-                        {
-                            if (NPC.localAI[0] < 40) 
-                            {	
-                                Vector2 GoTo = player.Center;
-                                GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
-                                GoTo.Y -= 20;
-
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                            }
-
-                            if (NPC.localAI[0] == 40)
-                            {
-                                NPC.velocity *= 0f;
-                            }
-
-                            if (NPC.localAI[0] == 45)
-                            {
-                                AfterImages = true;
-
-                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-                                int ChargeSpeed = Phase2 ? 23 : 22;
-
-                                Vector2 ChargeDirection = player.Center - NPC.Center;
-                                ChargeDirection.Normalize();
-                                        
-                                ChargeDirection.X *= ChargeSpeed;
-                                ChargeDirection.Y *= ChargeSpeed / 1.5f;
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
-                            }
-
-                            if (NPC.localAI[0] >= 75)
-                            {
-                                AfterImages = false;
-                                NPC.localAI[0] = 20;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            AfterImages = false;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
+                        MoveSpeedX -= 2;
+                    }
+                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 70)
+                    {
+                        MoveSpeedX += 2;
                     }
 
-                    //shoot giant snot glob
-                    case 2:
+                    NPC.velocity.X = MoveSpeedX * 0.1f;
+                    
+                    //flies to players Y position
+                    if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -40)
                     {
-                        NPC.localAI[0]++;
-
-                        NPC.velocity *= 0.9f;
-
-                        Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                        float RotateX = player.Center.X - vector.X;
-                        float RotateY = player.Center.Y - vector.Y;
-                        NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-
-                        if (NPC.localAI[0] == 60)
-                        {
-                            SaveNPCPosition = NPC.Center;
-                        }
-
-                        if (NPC.localAI[0] > 60 && NPC.localAI[0] < 100) 
-                        {
-                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
-                        }
-
-                        if (NPC.localAI[0] == 100)
-                        {
-                            Sneezing = true;
-
-                            SoundEngine.PlaySound(SneezeSound1, NPC.Center);
-
-                            Vector2 Recoil = player.Center - NPC.Center;
-                            Recoil.Normalize(); 
-
-                            Recoil *= -8;
-                            NPC.velocity = Recoil;
-
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 15f;
-
-                            int snotBall = Phase2 ? ModContent.ProjectileType<GiantSnot2>() : ModContent.ProjectileType<GiantSnot>();
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, snotBall, Damage, 1, NPC.target, 0, 0);
-                        }
-
-                        if (NPC.localAI[0] >= 120)
-                        {
-                            Sneezing = false;
-                        }
-
-                        if (NPC.localAI[0] >= 170)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
+                        MoveSpeedY--;
+                    }
+                    else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 40)
+                    {
+                        MoveSpeedY++;
                     }
 
-                    //zip above the player and shoot lingering snot globs down
-                    case 3:
+                    NPC.velocity.Y = MoveSpeedY * 0.1f;
+
+                    if (NPC.localAI[0] >= 300)
                     {
-                        NPC.localAI[0]++;
+                        MoveSpeedX = 0;
+                        MoveSpeedY = 0;
 
-                        NPC.rotation = NPC.velocity.X * 0.04f;
-
-                        if (NPC.localAI[0] < 65) 
-                        {	
-                            Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
-                            GoTo.Y -= 350;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-
-                        if (NPC.localAI[0] == 65)
-                        {
-                            SaveNPCPosition = NPC.Center;
-
-                            NPC.velocity *= 0f;
-                        }
-
-                        if (NPC.localAI[0] > 65 && NPC.localAI[0] < 100) 
-                        {
-                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
-                        }
-
-                        if (NPC.localAI[0] == 100 || NPC.localAI[0] == 120 || NPC.localAI[0] == 140) 
-                        {
-                            Sneezing = true;
-                            NPC.noGravity = false;
-
-                            SoundEngine.PlaySound(SneezeSound2, NPC.Center);
-
-                            int MaxProjectiles = Phase2 ? 10 : 7;
-
-                            for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
-                            {
-                                //recoil upward
-                                NPC.velocity.X = 0;
-                                NPC.velocity.Y = -6;
-                                
-                                float Spread = Main.rand.Next(-15, 15);
-                                
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
-                                Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall2>(), Damage, 1, NPC.target, 0, 0);
-                            }
-                        }
-
-                        if (NPC.localAI[0] >= 160)
-                        {
-                            Sneezing = false;
-                            NPC.noGravity = true;
-                        }
-
-                        if (NPC.localAI[0] >= 220)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-                        
-                        break;
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
                     }
 
-                    //go above player and charge down, repeat 3 times in phase 2
-                    case 4:
+                    break;
+                }
+
+                //zip to the players side, then charge towards them really fast
+                case 1:
+                {
+                    NPC.localAI[0]++;
+
+                    NPC.rotation = NPC.velocity.X * 0.04f;
+
+                    int numCharges = Phase2 ? 2 : 1;
+
+                    if (NPC.localAI[1] < numCharges)
                     {
-                        NPC.localAI[0]++;
-
-                        int numCharges = Phase2 ? 3 : 1;
-
-                        if (NPC.localAI[1] < numCharges)
-                        {
-                            if (NPC.localAI[0] < 45) 
-                            {	
-                                Vector2 GoTo = player.Center;
-                                GoTo.X += 0;
-                                GoTo.Y -= 420;
-
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                            }
-
-                            if (NPC.localAI[0] == 45)
-                            {
-                                NPC.velocity *= 0f;
-                            }
-
-                            if (NPC.localAI[0] == 55)
-                            {
-                                AfterImages = true;
-
-                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-                                int ChargeSpeed = Phase2 ? 30 : 25;
-
-                                Vector2 ChargeDirection = player.Center - NPC.Center;
-                                ChargeDirection.Normalize();
-                                        
-                                ChargeDirection.X *= ChargeSpeed / 1.5f;
-                                ChargeDirection.Y *= ChargeSpeed;
-                                NPC.velocity.X = ChargeDirection.X;
-                                NPC.velocity.Y = ChargeDirection.Y;
-                            }
-
-                            if (NPC.localAI[0] >= 55)
-                            {
-                                NPC.rotation = NPC.velocity.ToRotation() + MathHelper.PiOver2;
-			                    NPC.rotation += 0f * (float)NPC.direction;
-                            }
-                            else
-                            {
-                                NPC.rotation = NPC.velocity.X * 0.04f;
-                            }
-
-                            if (NPC.localAI[0] >= 85)
-                            {
-                                AfterImages = false;
-                                NPC.velocity *= 0.98f;
-                                NPC.localAI[0] = 45;
-                                NPC.localAI[1]++;
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            AfterImages = false;
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.ai[0]++;
-                            NPC.netUpdate = true;
-                        }
-                        
-                        break;
-                    }
-
-                    //go close to the player and shoot a stream of snot balls
-                    case 5:
-                    {
-                        NPC.localAI[0]++;
-
                         if (NPC.localAI[0] < 40) 
                         {	
                             Vector2 GoTo = player.Center;
@@ -645,160 +384,414 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        if (NPC.localAI[0] < 40)
-                        {
-                            NPC.rotation = NPC.velocity.X * 0.04f;
-                        }
-                        else
-                        {
-                            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                            float RotateX = player.Center.X - vector.X;
-                            float RotateY = player.Center.Y - vector.Y;
-                            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-                        }
-
-                        if (NPC.localAI[0] == 40) 
+                        if (NPC.localAI[0] == 40)
                         {
                             NPC.velocity *= 0f;
                         }
 
-                        //use attack for longer in phase 2
-                        int MaxTime = Phase2 ? 300 : 200;
-
-                        if (NPC.localAI[0] == 60)
+                        if (NPC.localAI[0] == 45)
                         {
-                            SaveNPCPosition = NPC.Center;
+                            AfterImages = true;
+
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                            int ChargeSpeed = Phase2 ? 23 : 22;
+
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= ChargeSpeed;
+                            ChargeDirection.Y *= ChargeSpeed / 1.5f;
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
                         }
 
-                        if (NPC.localAI[0] > 60 && NPC.localAI[0] < MaxTime)
+                        if (NPC.localAI[0] >= 75)
                         {
-                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
-                        }
-
-                        if (NPC.localAI[0] > 100 && NPC.localAI[0] < MaxTime) 
-                        {
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 12f;
-
-                            float Spread = Main.rand.Next(-1, 1);
-
-                            if (NPC.localAI[0] % 8 == 2)
-                            {
-                                Sneezing = true;
-
-                                SoundEngine.PlaySound(SneezeSound1, NPC.Center);
-
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
-                                ShootSpeed.Y + Spread, ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
-                            }
-                        }
-
-                        if (NPC.localAI[0] > MaxTime + 10)
-                        {
-                            Sneezing = false;
-                        }
-
-                        if (NPC.localAI[0] >= MaxTime + 60)
-                        {
-                            NPC.localAI[0] = 0;
-                            
-                            if (!Phase2)
-                            {
-                                NPC.ai[0] = 0;
-                            }
-                            else
-                            {
-                                NPC.ai[0]++;
-                            }
-
+                            AfterImages = false;
+                            NPC.localAI[0] = 20;
+                            NPC.localAI[1]++;
                             NPC.netUpdate = true;
                         }
-
-                        break;
+                    }
+                    else
+                    {
+                        AfterImages = false;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
                     }
 
-                    //in phase 2, shoot a spread sideways and fly offscreen, then come back on the other side
-                    case 6:
+                    break;
+                }
+
+                //shoot giant snot glob
+                case 2:
+                {
+                    NPC.localAI[0]++;
+
+                    NPC.velocity *= 0.9f;
+
+                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                    float RotateX = player.Center.X - vector.X;
+                    float RotateY = player.Center.Y - vector.Y;
+                    NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+                    if (NPC.localAI[0] == 60)
                     {
-                        NPC.localAI[0]++;
+                        SaveNPCPosition = NPC.Center;
+                    }
 
-                        if (NPC.localAI[0] < 60) 
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 100) 
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] == 100)
+                    {
+                        Sneezing = true;
+
+                        SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+                        Vector2 Recoil = player.Center - NPC.Center;
+                        Recoil.Normalize(); 
+
+                        Recoil *= -8;
+                        NPC.velocity = Recoil;
+
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 15f;
+
+                        int snotBall = Phase2 ? ModContent.ProjectileType<GiantSnot2>() : ModContent.ProjectileType<GiantSnot>();
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, snotBall, Damage, 1, NPC.target, 0, 0);
+                    }
+
+                    if (NPC.localAI[0] >= 120)
+                    {
+                        Sneezing = false;
+                    }
+
+                    if (NPC.localAI[0] >= 170)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //zip above the player and shoot lingering snot globs down
+                case 3:
+                {
+                    NPC.localAI[0]++;
+
+                    NPC.rotation = NPC.velocity.X * 0.04f;
+
+                    if (NPC.localAI[0] < 65) 
+                    {	
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += 0;
+                        GoTo.Y -= 350;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 65)
+                    {
+                        SaveNPCPosition = NPC.Center;
+
+                        NPC.velocity *= 0f;
+                    }
+
+                    if (NPC.localAI[0] > 65 && NPC.localAI[0] < 100) 
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] == 100 || NPC.localAI[0] == 120 || NPC.localAI[0] == 140) 
+                    {
+                        Sneezing = true;
+                        NPC.noGravity = false;
+
+                        SoundEngine.PlaySound(SneezeSound2, NPC.Center);
+
+                        int MaxProjectiles = Phase2 ? 10 : 7;
+
+                        for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
+                        {
+                            //recoil upward
+                            NPC.velocity.X = 0;
+                            NPC.velocity.Y = -6;
+                            
+                            float Spread = Main.rand.Next(-15, 15);
+                            
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 35, 0 + Spread, 
+                            Main.rand.Next(2, 4), ModContent.ProjectileType<SnotBall2>(), Damage, 1, NPC.target, 0, 0);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 160)
+                    {
+                        Sneezing = false;
+                        NPC.noGravity = true;
+                    }
+
+                    if (NPC.localAI[0] >= 220)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+                    
+                    break;
+                }
+
+                //go above player and charge down, repeat 3 times in phase 2
+                case 4:
+                {
+                    NPC.localAI[0]++;
+
+                    int numCharges = Phase2 ? 3 : 1;
+
+                    if (NPC.localAI[1] < numCharges)
+                    {
+                        if (NPC.localAI[0] < 45) 
                         {	
-                            NPC.rotation = NPC.velocity.X * 0.04f;
-
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
-                            GoTo.Y += 0;
+                            GoTo.X += 0;
+                            GoTo.Y -= 420;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        if (NPC.localAI[0] == 60) 
+                        if (NPC.localAI[0] == 45)
                         {
-                            SaveNPCPosition = NPC.Center;
-
-                            NPC.velocity *= 0;
+                            NPC.velocity *= 0f;
                         }
 
-                        if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
-                        {
-                            NPC.rotation = (NPC.Center.X < player.Center.X) ? 80 : -80;
-
-                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                            NPC.Center += Main.rand.NextVector2Square(-5, 5);
-                        }
-
-                        if (NPC.localAI[0] == 90)
+                        if (NPC.localAI[0] == 55)
                         {
                             AfterImages = true;
 
-                            SoundEngine.PlaySound(SneezeSound3, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
-                            NPC.velocity.X = (NPC.Center.X < player.Center.X) ? -25 : 25;
-                            NPC.velocity.Y *= 0;
+                            int ChargeSpeed = Phase2 ? 30 : 25;
 
-                            int ShootTowards = (NPC.Center.X < player.Center.X) ? 100 : -100;
-
-                            for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
-                                ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
-                            }
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= ChargeSpeed / 1.5f;
+                            ChargeDirection.Y *= ChargeSpeed;
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
                         }
 
-                        if (NPC.localAI[0] >= 90)
+                        if (NPC.localAI[0] >= 55)
+                        {
+                            NPC.rotation = NPC.velocity.ToRotation() + MathHelper.PiOver2;
+                            NPC.rotation += 0f * (float)NPC.direction;
+                        }
+                        else
+                        {
+                            NPC.rotation = NPC.velocity.X * 0.04f;
+                        }
+
+                        if (NPC.localAI[0] >= 85)
+                        {
+                            AfterImages = false;
+                            NPC.velocity *= 0.98f;
+                            NPC.localAI[0] = 45;
+                            NPC.localAI[1]++;
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        AfterImages = false;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+                    
+                    break;
+                }
+
+                //go close to the player and shoot a stream of snot balls
+                case 5:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 40) 
+                    {	
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
+                        GoTo.Y -= 20;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] < 40)
+                    {
+                        NPC.rotation = NPC.velocity.X * 0.04f;
+                    }
+                    else
+                    {
+                        Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                        float RotateX = player.Center.X - vector.X;
+                        float RotateY = player.Center.Y - vector.Y;
+                        NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    }
+
+                    if (NPC.localAI[0] == 40) 
+                    {
+                        NPC.velocity *= 0f;
+                    }
+
+                    //use attack for longer in phase 2
+                    int MaxTime = Phase2 ? 300 : 200;
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < MaxTime)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] > 100 && NPC.localAI[0] < MaxTime) 
+                    {
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 12f;
+
+                        float Spread = Main.rand.Next(-1, 1);
+
+                        if (NPC.localAI[0] % 8 == 2)
                         {
                             Sneezing = true;
 
-                            NPC.rotation = (NPC.velocity.X < 0) ? 80 : -80;
+                            SoundEngine.PlaySound(SneezeSound1, NPC.Center);
 
-                            if (NPC.Distance(player.Center) >= 1400f && !SwitchedSides) 
-                            {
-                                NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X + 2000 : player.Center.X - 2000;
-                                SwitchedSides = true;
-                            }
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X + Spread, 
+                            ShootSpeed.Y + Spread, ModContent.ProjectileType<SnotBall>(), Damage, 1, NPC.target, 0, 0);
                         }
-
-                        if (NPC.localAI[0] >= 160)
-                        {
-                            NPC.velocity *= 0.98f;
-                        }
-
-                        if (NPC.localAI[0] >= 230)
-                        {
-                            SwitchedSides = false;
-                            AfterImages = false;
-                            Sneezing = false;
-                            NPC.localAI[0] = 0;
-                            NPC.ai[0] = 0;
-                            NPC.netUpdate = true;
-                        }
-
-                        break;
                     }
+
+                    if (NPC.localAI[0] > MaxTime + 10)
+                    {
+                        Sneezing = false;
+                    }
+
+                    if (NPC.localAI[0] >= MaxTime + 60)
+                    {
+                        NPC.localAI[0] = 0;
+                        
+                        if (!Phase2)
+                        {
+                            NPC.ai[0] = 0;
+                        }
+                        else
+                        {
+                            NPC.ai[0]++;
+                        }
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //in phase 2, shoot a spread sideways and fly offscreen, then come back on the other side
+                case 6:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60) 
+                    {	
+                        NPC.rotation = NPC.velocity.X * 0.04f;
+
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += (NPC.Center.X < player.Center.X) ? -550 : 550;
+                        GoTo.Y += 0;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 60) 
+                    {
+                        SaveNPCPosition = NPC.Center;
+
+                        NPC.velocity *= 0;
+                    }
+
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+                    {
+                        NPC.rotation = (NPC.Center.X < player.Center.X) ? 80 : -80;
+
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] == 90)
+                    {
+                        AfterImages = true;
+
+                        SoundEngine.PlaySound(SneezeSound3, NPC.Center);
+
+                        NPC.velocity.X = (NPC.Center.X < player.Center.X) ? -25 : 25;
+                        NPC.velocity.Y *= 0;
+
+                        int ShootTowards = (NPC.Center.X < player.Center.X) ? 100 : -100;
+
+                        for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 10f * NPC.DirectionTo(new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y)).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                            ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 90)
+                    {
+                        Sneezing = true;
+
+                        NPC.rotation = (NPC.velocity.X < 0) ? 80 : -80;
+
+                        if (NPC.Distance(player.Center) >= 1400f && !SwitchedSides) 
+                        {
+                            NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X + 2000 : player.Center.X - 2000;
+                            SwitchedSides = true;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 160)
+                    {
+                        NPC.velocity *= 0.98f;
+                    }
+
+                    if (NPC.localAI[0] >= 230)
+                    {
+                        SwitchedSides = false;
+                        AfterImages = false;
+                        Sneezing = false;
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
                 }
             }
 		}

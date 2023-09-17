@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.Pumpkin, 35)
             .AddIngredient(ItemID.Sluggy, 5)
             .AddIngredient(ItemID.Cobweb, 15)
-            .AddIngredient(ItemID.Abeemination, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
         }

@@ -123,6 +123,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -157,6 +158,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -417,8 +419,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 70 / 2 : 50;
 
@@ -430,8 +432,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            //despawn if all players are dead
-            if (player.dead)
+            //despawn if the player dies or leaves the biome
+            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
             {
                 NPC.localAI[3]++;
                 if (NPC.localAI[3] >= 60)
@@ -444,8 +446,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
+                    for (int k = 0; k < Main.maxNPCs; k++)
+                    {
+                        if (Main.npc[k].type == ModContent.NPCType<HealingFlower>() || Main.npc[k].type == ModContent.NPCType<DefensiveFlower>() || Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
+                        {
+                            Main.npc[k].active = false;
+                        }
+                    }
+
                     NPC.active = false;
                 }
+
+                return;
             }
 
             //immediately vanish if not attached to its flower pot

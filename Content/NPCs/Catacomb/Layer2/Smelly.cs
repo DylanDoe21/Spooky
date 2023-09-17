@@ -61,6 +61,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void FindFrame(int frameHeight)
         {
+            Player player = Main.player[NPC.target];
+
             NPC.frameCounter += 1;
 
             if (NPC.frameCounter > 8)
@@ -73,7 +75,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 NPC.frame.Y = 0 * frameHeight;
             }
 
-            if (NPC.ai[0] >= 180)
+            //mouth open when shooting stinky spores
+            if (NPC.ai[0] >= 180 && player.Distance(NPC.Center) <= 250f)
             {
                 NPC.frame.Y = 4 * frameHeight;
             }
@@ -86,7 +89,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] >= 180 && NPC.ai[0] % 12 == 2 && player.Distance(NPC.Center) <= 150f)
+            if (NPC.ai[0] >= 180 && NPC.ai[0] % 12 == 2 && player.Distance(NPC.Center) <= 250f)
             {
                 SoundEngine.PlaySound(SoundID.Item171, NPC.Center);
 

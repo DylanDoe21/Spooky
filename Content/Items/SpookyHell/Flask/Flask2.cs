@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.GlowingMushroom, 12)
             .AddIngredient(ItemID.RottenChunk, 20)
             .AddIngredient(ItemID.IceBlock, 10)
-            .AddIngredient(ItemID.WormFood, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
 
@@ -30,7 +29,6 @@ namespace Spooky.Content.Items.SpookyHell.Flask
             .AddIngredient(ItemID.GlowingMushroom, 12)
             .AddIngredient(ItemID.Vertebrae, 20)
             .AddIngredient(ItemID.IceBlock, 10)
-            .AddIngredient(ItemID.BloodySpine, 1)
             .AddIngredient(ItemID.Bottle, 1)
             .Register();
         }
