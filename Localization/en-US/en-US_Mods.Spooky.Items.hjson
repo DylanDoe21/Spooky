@@ -501,7 +501,7 @@ SpiritSlingshot: {
 
 SpiritSword: {
 	DisplayName: Spooky Buster
-	Tooltip: Launches explosive skulls upon striking the ground or enemies
+	Tooltip: Launches an explosive skull on enemy hits
 }
 
 BananalizardHead: {
@@ -1369,7 +1369,7 @@ LivingFleshAxe: {
 	Tooltip:
 		'''
 		Deals far more damage to enemies below half health
-		Striking the ground will fling up a bunch of eyes
+		Striking enemies will fling a bunch of eyes upward
 		'''
 }
 

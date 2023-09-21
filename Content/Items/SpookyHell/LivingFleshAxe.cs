@@ -6,74 +6,39 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
-    public class LivingFleshAxe : SwingWeaponBase
+    public class LivingFleshAxe : ModItem
     {
-        public override int Length => 85;
-		public override int TopSize => 36;
-		public override float SwingDownSpeed => 12f;
-		public override bool CollideWithTiles => true;
-        static bool hasHitGround = false;
-
         public override void SetDefaults()
         {
-            Item.damage = 110;
+            Item.damage = 65;
             Item.crit = 10;
 			Item.DamageType = DamageClass.Melee;
+            Item.noMelee = true;
 			Item.autoReuse = true;
             Item.width = 80;
             Item.height = 80;
-            Item.useTime = 45;
-			Item.useAnimation = 45;
-			Item.useStyle = SwingUseStyle;
-			Item.knockBack = 12;
+            Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 9;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
-            Item.scale = 1.25f;
+            Item.shoot = ModContent.ProjectileType<LivingFleshAxeSlash>();
+            Item.scale = 1.2f;
         }
 
-        public override void UseAnimation(Player player)
-        {
-            hasHitGround = false;
-        }
-
-        public override void OnHitTiles(Player player)
-        {
-            if (!hasHitGround)
-            {
-                hasHitGround = true;
-
-                SpookyPlayer.ScreenShakeAmount = 5;
-
-                //play both sounds on top of each other because its cool
-                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
-                SoundEngine.PlaySound(SoundID.NPCDeath21, player.Center);
-
-                for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + (player.direction == 1 ? 120 + (Item.scale * 2) : -120 + (-Item.scale * 2)), 
-                        player.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-15, -10), ModContent.ProjectileType<LivingFleshAxeEye>(), Item.damage, 2f, Main.myPlayer);
-                    }
-                }
-            }
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (target.life <= target.lifeMax * 0.5)
-            {
-                target.takenDamageMultiplier = 1.65f;
-            }
-        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<LivingFleshAxeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
+			
+            return false;
+		}
 
         public override void AddRecipes()
         {

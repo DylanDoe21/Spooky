@@ -141,7 +141,8 @@ namespace Spooky.Content.Generation
 							float divide = 7.5f;
 							int heightLimit = (int)Main.worldSurface - (Main.maxTilesY / (int)divide);
 
-							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud)
+							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud && 
+							!Main.tileDungeon[Main.tile[k, l].TileType] && !Main.wallDungeon[Main.tile[k, l].WallType])
 							{
 								//I think this checks if the tile is air?
 								if (tileType < 0)
@@ -172,6 +173,7 @@ namespace Spooky.Content.Generation
 
 										if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
 										{
+											Main.tile[k, l].WallType = (ushort)wallType;
 											WorldGen.PlaceTile(k, l, tileType);
 										}
 
@@ -182,41 +184,38 @@ namespace Spooky.Content.Generation
 									}
 								}
 
-								if (!Main.wallDungeon[Main.tile[k, l].WallType])
+								//replace all walls
+								if (Main.tile[k, l].WallType > 0 && replaceWalls)
 								{
-									//replace all walls
-									if (Main.tile[k, l].WallType > 0 && replaceWalls)
-									{
-										Main.tile[k, l].WallType = (ushort)wallType;
-									}
+									Main.tile[k, l].WallType = (ushort)wallType;
+								}
 
-									//place walls below each block
-									if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
-									{
-										Main.tile[k, l + 6].WallType = (ushort)wallType;
-									}
+								//place walls below each block
+								if (Main.tile[k, l].HasTile && Main.tile[k - 1, l].HasTile && Main.tile[k + 1, l].HasTile && placeWalls)
+								{
+									Main.tile[k, l + 6].WallType = (ushort)wallType;
+								}
 
-									//place walls
-									if (SpookyWalls)
+								//place walls
+								if (SpookyWalls)
+								{
+									//this loop is for placing walls in the underground part of the spooky biome
+									for (int WallY = (int)Main.worldSurface; WallY < l; WallY++)
 									{
-										//this loop is for placing walls in the underground part of the spooky biome
-										for (int WallY = (int)Main.worldSurface; WallY < l; WallY++)
+										if (placeWalls)
 										{
-											if (placeWalls)
-											{
-												Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
-											}
+											Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
 										}
+									}
 
-										//randomized wall placement so the underground and surface walls transition nicely
-										for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 15; WallY++)
+									//randomized wall placement so the underground and surface walls transition nicely
+									for (int WallY = (int)Main.worldSurface; WallY < Main.worldSurface + 15; WallY++)
+									{
+										if (placeWalls)
 										{
-											if (placeWalls)
+											if (WorldGen.genRand.NextBool(2))
 											{
-												if (WorldGen.genRand.NextBool(2))
-												{
-													Main.tile[k, WallY].WallType = (ushort)wallType;
-												}
+												Main.tile[k, WallY].WallType = (ushort)wallType;
 											}
 										}
 									}

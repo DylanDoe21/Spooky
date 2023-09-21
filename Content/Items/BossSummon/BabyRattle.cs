@@ -9,14 +9,8 @@ using Spooky.Content.NPCs.Hallucinations;
  
 namespace Spooky.Content.Items.BossSummon
 {
-	public class BabyRattle : SwingWeaponBase
+	public class BabyRattle : ModItem
 	{
-		public override int Length => 30;
-		public override int TopSize => 20;
-		public override float SwingDownSpeed => 13.5f;
-		public override bool CollideWithTiles => true;
-		static bool hasHitGround = false;
-
 		public override void SetDefaults()
 		{
 			Item.damage = 32;
@@ -27,7 +21,7 @@ namespace Spooky.Content.Items.BossSummon
 			Item.height = 60;         
 			Item.useTime = 35;
 			Item.useAnimation = 35;
-			Item.useStyle = SwingUseStyle;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 7;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
@@ -67,23 +61,6 @@ namespace Spooky.Content.Items.BossSummon
             }
 
             return true;
-        }
-
-		public override void UseAnimation(Player player)
-		{
-			hasHitGround = false;
-		}
-
-		public override void OnHitTiles(Player player)
-        {
-            if (!hasHitGround)
-            {
-                hasHitGround = true;
-
-                SpookyPlayer.ScreenShakeAmount = 3;
-
-                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, player.Center);
-            }
         }
 	}
 }

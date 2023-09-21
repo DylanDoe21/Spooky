@@ -80,6 +80,11 @@ namespace Spooky.Content.Projectiles.Cemetery
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+			return false;
+        }
+
         public override void AI()
         {
             if (!Main.dedServ)

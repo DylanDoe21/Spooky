@@ -152,7 +152,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
                 {
                     TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
                     new Point16(-12, 12), 15f, Main.rand.Next(25, 50), 0, false, true);
@@ -625,9 +625,9 @@ namespace Spooky.Content.Generation
             Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
 
             //lock all spooky wood chests
-            for (int X = PositionX - 500; X <= PositionX + 500; X++)
+            for (int X = 100; X <= Main.maxTilesX - 100; X++)
 			{
-                for (int Y = PositionY - 100; Y <= Main.maxTilesY - 100; Y++)
+                for (int Y = 0; Y <= Main.maxTilesY - 100; Y++)
 				{
                     //check for the top left frame of the chest
                     if (Main.tile[X, Y].TileType == ModContent.TileType<HalloweenChest>() && //top left

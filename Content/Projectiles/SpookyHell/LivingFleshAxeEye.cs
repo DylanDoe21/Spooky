@@ -46,6 +46,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+			return Projectile.velocity.Y > 0;
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

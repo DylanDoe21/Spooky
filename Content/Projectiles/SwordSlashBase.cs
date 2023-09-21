@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 4;
+            Main.projFrames[Type] = 2;
         }
 
         public override void SetDefaults()
