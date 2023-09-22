@@ -696,7 +696,7 @@ namespace Spooky.Content.Generation
 
 				Tile chestTile = Main.tile[chest.x, chest.y];
 
-                if (chestTile.TileType == ModContent.TileType<HalloweenChest>() && chestTile.TileFrameX == 36)
+                if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete)) 
                 {
                     int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
                     int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
