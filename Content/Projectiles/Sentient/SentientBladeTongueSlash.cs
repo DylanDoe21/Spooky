@@ -68,10 +68,10 @@ namespace Spooky.Content.Projectiles.Sentient
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.4f, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num * 1.2f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.35f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.4f, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.35f, proj.rotation + proj.ai[0] * 0.01f, origin, num * 1.2f, effects, 0f);
             Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.3f, proj.rotation, origin, num * 0.8f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.25f, proj.rotation, origin, num * num4 * 1f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Fade * 0.25f, proj.rotation, origin, num * num4 * 1.2f, effects, 0f);
         }
 
         public override bool PreAI()

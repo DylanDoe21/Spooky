@@ -1,0 +1,26 @@
+-Fixed issue where spooky forest worldgen would crash sometimes with the spooky forest at spawn config turned off
+
+-Removed spooky mod's heavy melee weapon mechanic, and changed all of the existing items that used it, as follows:
+
+Old Wood Greatsword: 
+-Now swings normally, has high knockback
+
+Spooky Buster: 
+-Swings normally and and has a large melee swing extension visual effect
+-Now only creates skulls on enemy hits as the weapon cannot strike the ground anymore
+-Creates only one skull on enemy hits, the skull itself no longer damages enemies, and only the explosion it creates will damage enemies
+
+Harvester's Scythe:
+-Ability is the same, but now swings normally and has a melee swing extension visual effect
+
+Flesh Mincer:
+-Ability is the same, but now swings normally
+-Has a new swing visual, but the swing visual does not actually increase the weapons range
+
+Living Flesh Mincer:
+-Has a new swing visual, but the swing visual does not actually increase the weapons range
+-Now only creates eyes on enemy hits as the weapon cannot strike the ground anymore
+-Reduced the amount of eyes it can create on enemy hits
+
+Conscious Cutter:
+-Not a heavy melee item, but its visual effect no longer extends the range of the blade, and it has been changed to look cooler
