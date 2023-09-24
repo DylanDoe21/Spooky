@@ -356,8 +356,8 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void AI()
 		{
+			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
 
             NPC.spriteDirection = NPC.direction;
 

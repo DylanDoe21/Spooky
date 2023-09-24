@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 30;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
             Item.width = 74;
@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 5;
+			Item.knockBack = 6;
             Item.rare = ItemRarityID.White;
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;

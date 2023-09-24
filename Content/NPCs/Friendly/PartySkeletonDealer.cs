@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -9,36 +10,22 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Friendly
 {
-    public class PartySkeleton1 : ModNPC  
+    public class PartySkeletonDealer : ModNPC  
     {
-        bool hasDrink = false;
-
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 6;
+            Main.npcFrameCount[NPC.type] = 9;
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
-        }
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
 		{
             NPC.lifeMax = 200;
             NPC.defense = 5;
-            NPC.width = 20;
-			NPC.height = 80;
+            NPC.width = 34;
+			NPC.height = 46;
             NPC.friendly = true;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.75f;
@@ -57,58 +44,30 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton1"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeletonDealer"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            if (hasDrink)
-            {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/PartySkeleton1Cup").Value;
-
-                var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-            }
-        }
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                if (player.InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
-                {
-                    return 12f;
-                }
-            }
-
-            return 0f;
-        }
-
         public override void FindFrame(int frameHeight)
         {   
             NPC.frameCounter += 1;
-            //running animation
+
+            //walking  animation
             if (NPC.frameCounter > 6)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0.0;
             }
-            if (NPC.frame.Y >= frameHeight * 6)
+            if (NPC.frame.Y >= frameHeight * 9)
             {
                 NPC.frame.Y = 1 * frameHeight;
             }
 
-            //jumping frame
+            //jumping/falling frame
             if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0 || NPC.velocity == Vector2.Zero)
             {
-                NPC.frame.Y = 1 * frameHeight;
+                NPC.frame.Y = 2 * frameHeight;
             }
 
             //still frame
@@ -120,19 +79,41 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "";
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.ShopButton");
+		}
+
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+        {
+            if (firstButton)
+            {
+                shopName = Language.GetTextValue("LegacyInterface.28");
+            }
 		}
 
         public override string GetChat()
 		{
 			List<string> Dialogue = new List<string>
 			{
-                "So, you are the one who started this wild party? I must thank you for your effort, I have not partied this hard in centuries!",
-				"You look like you haven't seen such a phenomenon before. I must say, you look a lot smaller than past humans.",
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue1"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue2"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue3"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue4"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue5"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue6"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue7"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue8"),
 			};
 
 			return Main.rand.Next(Dialogue);
 		}
+
+        public override void AddShops()
+        {
+            var npcShop = new NPCShop(Type)
+                .Add<Items.Food.BlackLicorice>(Condition.Hardmode);
+
+            npcShop.Register();
+        }
         
         public override void AI()
 		{
@@ -140,18 +121,9 @@ namespace Spooky.Content.NPCs.Friendly
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] == 1)
-            {
-                string[] names = { "Boney", "Tony", "Jeff" };
-                NPC.GivenName = Main.rand.Next(names);
+            NPC.GivenName = Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Name");
 
-                if (Main.rand.NextBool(12))
-                {
-                    hasDrink = true;
-                }
-            }
-
-            if (!Main.LocalPlayer.InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
+            if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
             {
                 NPC.alpha += 5;
 

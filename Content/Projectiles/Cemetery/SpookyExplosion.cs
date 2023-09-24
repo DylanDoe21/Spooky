@@ -19,6 +19,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
 			Projectile.alpha = 100;
         }

@@ -97,6 +97,40 @@ LittleEye: {
 	Button2: Cauldron?
 }
 
+PartySkeleton: {
+	Dialogue1: Bro I'm dead.
+	Dialogue2: Dance till you drop dead!
+	Dialogue3: WOOOOOOO!!!
+	Dialogue4: This party's killer!
+	Dialogue5: I forgot my car keys I can't get back home, please help.
+	Dialogue6: I'm the life of the party.
+	Dialogue7: Tibia honest I'm getting very tired of skeleton puns.
+	Dialogue8: When the beat drops, I'm going to die.
+	Dialogue9: What are you doing? You should be partying! Not talking silly!
+	Dialogue10: Aaaaaaaaaaaugh...
+	Dialogue11: I drank too much and now I can taste the colors!
+	Dialogue12: Always nice to take a break from guarding those catacombs.
+	Dialogue13: We should form an union for better catacomb guarding wages!
+	Dialogue14: I'd stay clear from that guy in the black sweater. He gives me the creeps.
+	Dialogue15: I thought the guy in the sweater would sell me some sweet zaza. Now I'm seeing shadow people.
+	Dialogue16: I'mz A Normalz Zskeleton, Nothing to zee herez.
+	Dialogue17: I LOVE PARTYING!! GRAAAAAH!!!!!
+	Dialogue18: Where's the music? Aren't parties supposed to have m-oh right I don't have ears I'm dead as hell.
+}
+
+PartySkeletonDealer: {
+	Name: Suspicious Skeleton
+	ShopButton: Contraband
+	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
+	Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
+	Dialogue3: Ey kid! Yer too slow! Just sold someone a big golden ring earlier. Haven't heard from em in a minute though.
+	Dialogue4: Ya know, that flavour enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
+	Dialogue5: Sorry kid, I ain't got much to give ya right now. You've gotta beat up some big fellas before Tony can get his hands on the good shit you see what I'm sayin?
+	Dialogue6: Yer asking me if I've tried the stuff? My brother in christ, I'm not stupid enough to. You are. Now buy more of my stuff.
+	Dialogue7: The sweater? I won it at the arcade My brother Tony got that Policus or whathever the hell the machine's called. Some men in black gave it to me for free!
+	Dialogue8: You've ever played the clarinet? No? No need to learn when the clarinet plays itself ey?
+}
+
 Daffodil: {
 	PreDefeatIntro1: !!!!!!
 	PreDefeatIntro2: Just who do you think you are waking me?!

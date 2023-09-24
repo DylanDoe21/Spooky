@@ -55,6 +55,9 @@ namespace Spooky.Content.Generation
                 //left side dungeon
                 if (GenVars.dungeonSide == -1)
                 {
+                    PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
+
+                    /*
                     //decide the biome position based on how far to the right the dungeon generates
                     if (GenVars.dungeonX > (Main.maxTilesX / 10))
                     {
@@ -64,10 +67,14 @@ namespace Spooky.Content.Generation
                     {
                         PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
                     }
+                    */
                 }
                 //right side dungeon
                 else
                 {
+                    PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
+
+                    /*
                     //decide the biome position based on how far to the left the dungeon generates
                     if (GenVars.dungeonX < Main.maxTilesX - (Main.maxTilesX / 10))
                     {
@@ -77,6 +84,7 @@ namespace Spooky.Content.Generation
                     {
                         PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
                     }
+                    */
                 }
             }
 

@@ -25,15 +25,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void CutTiles()
         {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 42f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 42f * Projectile.scale;
-            float num2 = 42f * Projectile.scale;
+            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 36f * Projectile.scale;
+            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 36f * Projectile.scale;
+            float num2 = 36f * Projectile.scale;
             Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float coneLength2 = 52f * Projectile.scale;
+            float coneLength2 = 50f * Projectile.scale;
             float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
             float maximumAngle2 = (float)Math.PI / 4f;
             float num4 = Projectile.rotation + Fade;
@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Vector2 vector = proj.Center - Main.screenPosition;
             Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
-            Rectangle rectangle = Texture.Frame(1, 4);
+            Rectangle rectangle = Texture.Frame(1, 2);
             Vector2 origin = rectangle.Size() / 2f;
             float num = proj.scale * 0.75f;
             SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);

@@ -30,15 +30,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void CutTiles()
         {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 30f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 30f * Projectile.scale;
-            float num2 = 30f * Projectile.scale;
+            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 40f * Projectile.scale;
+            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 40f * Projectile.scale;
+            float num2 = 40f * Projectile.scale;
             Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float coneLength2 = 38f * Projectile.scale;
+            float coneLength2 = 50f * Projectile.scale;
             float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
             float maximumAngle2 = (float)Math.PI / 4f;
             float num4 = Projectile.rotation + Fade;
@@ -64,27 +64,26 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashSpecial");
 			Rectangle rectangle = Texture.Frame(1, 2);
 			Vector2 origin = rectangle.Size() / 2f;
-			float num = Projectile.scale * 0.75f;
 			SpriteEffects effects = (SpriteEffects)((!(Projectile.ai[0] >= 0f)) ? 2 : 0);
 			float num2 = Projectile.localAI[0] / Projectile.ai[1];
 			float num3 = Utils.Remap(num2, 0f, 0.6f, 0f, 1f) * Utils.Remap(num2, 0.6f, 1f, 1f, 0f);
 			float amount = num3;
 			Color color = Color.Lerp(Color.Brown, Color.Teal, amount);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation, origin, 0.8f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation, origin, 0.6f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.6f * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.5f * num3, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, 0.8f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.4f * num3, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, 0.6f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1.3f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation, origin, 1f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation, origin, 0.7f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.6f * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1.3f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.5f * num3, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, 1f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.4f * num3, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, 0.7f, effects, 0f);
 			
             for (float num5 = 0f; num5 < 8f; num5 += 1f) 
             {
 				float num6 = Projectile.rotation + Projectile.ai[0] * num5 * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0];
-				Vector2 drawpos = vector + num6.ToRotationVector2() * ((float)Texture.Width() * 0.5f - 6f);
+				Vector2 drawpos = vector + num6.ToRotationVector2() * ((float)Texture.Width() * 0.5f - 6f) * 1.35f;
 				float num7 = num5 / 9f;
 				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.White, Color.White, num2, 0f, 0.5f, 0.5f, 1f, num6, new Vector2(0f, Utils.Remap(num2, 0f, 1f, 3f, 0f)) * 1.5f, Vector2.One * 1.5f);
             
-                Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)Texture.Width() * 0.5f - 4f);
+                Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)Texture.Width() * 0.5f - 4f) * 1.35f;
 			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.White, Color.White, num2, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(num2, 0f, 1f, 4f, 1f)) * 1.5f, Vector2.One * 1.5f);
             }
         }
@@ -145,7 +144,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulBolt>()] < 10)
                 {
                     Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, 0, 0,
-                    ModContent.ProjectileType<SoulBolt>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                    ModContent.ProjectileType<SoulBolt>(), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
                 }
             }
         }

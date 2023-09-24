@@ -157,7 +157,7 @@ namespace Spooky.Core
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield;
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().CrossCharmShield && !drawInfo.drawPlayer.dead;
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)

@@ -147,6 +147,9 @@ LittleEyeSleeping.DisplayName: Sleeping Eye
 PartySkeleton1.DisplayName: Party Skeleton
 PartySkeleton2.DisplayName: Party Skeleton
 PartySkeleton3.DisplayName: Party Skeleton
+PartySkeleton4.DisplayName: Party Skeleton
+PartySkeleton5.DisplayName: Party Skeleton
+PartySkeleton6.DisplayName: Party Skeleton
 //spooky biome
 Bungus.DisplayName: Bungus
 Chungus.DisplayName: Chunky Fungus
@@ -192,3 +195,4 @@ ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
 ValleySharkMouth.DisplayName: Hemostasis Beast
 ValleyMerman.DisplayName: Flesh Merman
+PartySkeletonDealer.DisplayName: Party Skeleton Dealer

@@ -12,7 +12,7 @@ namespace Spooky.Content.Tiles.Water
 
 		public override int GetSplashDust() => 52;
 
-		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/CemeteryWaterDroplet").Type;
+		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/SpookyWaterDroplet").Type;
 
 		public override Asset<Texture2D> GetRainTexture() 
 		{

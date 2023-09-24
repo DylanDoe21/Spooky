@@ -16,6 +16,7 @@ using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
@@ -206,6 +207,19 @@ namespace Spooky.Core
 						}
 					}
                 }
+			}
+
+			//raveyard skeleton spawns
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<RaveyardBiome>()) && NoEventsHappening)
+			{
+				pool.Clear();
+
+				pool.Add(ModContent.NPCType<PartySkeleton1>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton2>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton3>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton4>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton5>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton6>(), 10);
 			}
 
 			//catacomb first layer spawns

@@ -47,7 +47,7 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
         }
 
         //bestiary stuff
@@ -63,7 +63,7 @@ namespace Spooky.Content.Biomes
 
             Main.GraveyardVisualIntensity = 0.25f;
 
-            if (Main.rand.NextBool(800))
+            if (Main.rand.NextBool(800) && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
                 Main.NewLightning();
             }
@@ -73,31 +73,6 @@ namespace Spooky.Content.Biomes
         public override bool IsBiomeActive(Player player)
         {
             bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500; //was 500
-            bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
-
-            return BiomeCondition && SurfaceCondition;
-        }
-    }
-
-    public class RaveyardBiome : ModBiome
-    {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
-        
-        public override ModWaterStyle WaterStyle => ModContent.GetInstance<LeanWaterStyle>();
-
-        public override SceneEffectPriority Priority => SceneEffectPriority.Event;
-
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", isActive, player.Center);
-        }
-
-        public override string MapBackground => "Spooky/Content/Biomes/CemeteryBiome_Background";
-
-        public override bool IsBiomeActive(Player player)
-        {
-            bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && ModContent.GetInstance<TileCount>().raveyardTiles >= 8;
-
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;

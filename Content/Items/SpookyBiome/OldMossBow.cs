@@ -13,6 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome
         {
             Item.damage = 10;
             Item.DamageType = DamageClass.Ranged;
+            Item.noMelee = true;
             Item.autoReuse = false;
             Item.width = 26;
             Item.height = 72;
