@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
+using Terraria.GameContent.UI;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -51,6 +53,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
+            TownNPCStayingHomeless = true;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
@@ -61,7 +64,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton1"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
@@ -222,23 +225,33 @@ namespace Spooky.Content.NPCs.Friendly
                 Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue16"),
                 Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue17"),
                 Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue18"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue19"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue20"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue21"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue22"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue23"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue24"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue25"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue26"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue27"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue28"),
 			};
 
 			return Main.rand.Next(Dialogue);
 		}
-        
+
         public override void AI()
-		{
-			NPC.spriteDirection = NPC.direction;
+        {
+            NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;
 
             if (NPC.localAI[0] == 1)
             {
                 //select a random name for the skeleton when it spawns
-                string[] names = { "Boney", "Tony", "Jeff", "McRib", "Clemmence", "Hans Flabberghast", "Carlcium", "Ribert", "Nigel", 
-                "Morton", "Jeremy", "Gustavo", "Notorious B.O.N.E", "Patrice", "Patrique", "Wanda", "Señor Hernandez", "John Jr", 
-                "Fortunado", "Quandale", "Normal Skeleton", "Bongo", "Ongo", "Pete Griffith", "Tario" };
+                string[] names = { "Boney", "Tony", "Jeff", "McRib", "Clemmence", "Hans Flabberghast", "Carlcium", "Ribert", "Nigel",
+                "Morton", "Jeremy", "Gustavo", "Notorious B.O.N.E", "Patrice", "Patrique", "Wanda", "Señor Hernandez", "John Jr",
+                "Fortunado", "Quandale", "Normal Skeleton", "Bongo", "Ongo", "Pete Griffith", "Tario", "Clavicle" };
                 NPC.GivenName = Main.rand.Next(names);
 
                 //choose pants
@@ -268,6 +281,33 @@ namespace Spooky.Content.NPCs.Friendly
                 }
             }
 
+            if (Main.rand.NextBool(1500))
+            {
+                switch (Main.rand.Next(4))
+                {
+                    case 0:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.PartyBalloons, new WorldUIAnchor(NPC), 200);
+                        break;
+                    }
+                    case 1:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.PartyCake, new WorldUIAnchor(NPC), 200);
+                        break;
+                    }
+                    case 2:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.PartyHats, new WorldUIAnchor(NPC), 200);
+                        break;
+                    }
+                    case 3:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.PartyPresent, new WorldUIAnchor(NPC), 200);
+                        break;
+                    }
+                }
+            }
+
             if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
             {
                 NPC.alpha += 5;
@@ -289,21 +329,85 @@ namespace Spooky.Content.NPCs.Friendly
 
     public class PartySkeleton2 : PartySkeleton1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton2"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
     }
 
     public class PartySkeleton3 : PartySkeleton1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton3"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
     }
 
     public class PartySkeleton4 : PartySkeleton1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton4"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
     }
 
     public class PartySkeleton5 : PartySkeleton1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton5"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
     }
 
     public class PartySkeleton6 : PartySkeleton1  
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton6"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
+    }
+
+    public class PartySkeleton7 : PartySkeleton1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton7"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
+    }
+
+    public class PartySkeleton8 : PartySkeleton1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton8"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+            });
+        }
     }
 }

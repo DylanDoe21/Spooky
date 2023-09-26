@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Cemetery.Projectiles;
 using Spooky.Content.Tiles.Cemetery;
 
@@ -45,9 +46,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/MysteriousTombstoneOutline").Value;
 
 			float glowspeed = Main.GameUpdateCount * 0.02f;
-			float glowbrightness = (float)MathF.Sin(j / 10f - glowspeed);
+			float glowbrightness = Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()) ? 1f : (float)MathF.Sin(j / 10f - glowspeed);
 
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * glowbrightness);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), 
+			(Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()) ? Main.DiscoColor : Color.OrangeRed) * glowbrightness);
         }
 
 		int itemType;

@@ -220,6 +220,13 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<PartySkeleton4>(), 10);
 				pool.Add(ModContent.NPCType<PartySkeleton5>(), 10);
 				pool.Add(ModContent.NPCType<PartySkeleton6>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton7>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton8>(), 10);
+
+				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
+				{
+					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 2);
+				}
 			}
 
 			//catacomb first layer spawns

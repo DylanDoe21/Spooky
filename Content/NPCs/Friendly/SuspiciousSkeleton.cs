@@ -8,9 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using Spooky.Content.Items.Cemetery;
+
 namespace Spooky.Content.NPCs.Friendly
 {
-    public class PartySkeletonDealer : ModNPC  
+    public class SuspiciousSkeleton : ModNPC  
     {
         public override void SetStaticDefaults()
         {
@@ -32,6 +35,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
+            TownNPCStayingHomeless = true;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
@@ -44,7 +48,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeletonDealer"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SuspiciousSkeleton"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -79,7 +83,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.ShopButton");
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.ShopButton");
 		}
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -94,14 +98,15 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			List<string> Dialogue = new List<string>
 			{
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue1"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue2"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue3"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue4"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue5"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue6"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue7"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Dialogue8"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue1"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue2"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue3"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue4"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue5"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue6"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue7"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue8"),
+                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue9"),
 			};
 
 			return Main.rand.Next(Dialogue);
@@ -109,8 +114,28 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void AddShops()
         {
+            Condition RotGourdDowned = new Condition("Mods.Spooky.Conditions.RotGourdDowned", () => Flags.downedRotGourd);
+            Condition SpookySpiritDowned = new Condition("Mods.Spooky.Conditions.SpookySpiritDowned", () => Flags.downedSpookySpirit);
+            Condition MocoDowned = new Condition("Mods.Spooky.Conditions.MocoDowned", () => Flags.downedMoco);
+            Condition DaffodilDowned = new Condition("Mods.Spooky.Conditions.DaffodilDowned", () => Flags.downedDaffodil);
+            Condition OrroboroDowned = new Condition("Mods.Spooky.Conditions.OrroboroDowned", () => Flags.downedOrroboro);
+            Condition BigBoneDowned = new Condition("Mods.Spooky.Conditions.BigBoneDowned", () => Flags.downedBigBone);
+
             var npcShop = new NPCShop(Type)
-                .Add<Items.Food.BlackLicorice>(Condition.Hardmode);
+            //analog horror
+            .Add<MandelaCatalogueTV>(RotGourdDowned)
+            .Add<GeminiEntertainmentGame>(SpookySpiritDowned)
+            .Add<Local58Telescope>(MocoDowned)
+            .Add<CarnisFlavorEnhancer>(DaffodilDowned)
+            .Add<BackroomsCorpse>(OrroboroDowned)
+            .Add<MonumentMythosPyramid>(BigBoneDowned)
+            //creepypasta
+            .Add<PolybiusArcadeGame>(RotGourdDowned)
+            .Add<RedMistClarinet>(SpookySpiritDowned)
+            .Add<SmileDogPicture>(MocoDowned)
+            .Add<RedGodzillaCartridge>(DaffodilDowned)
+            .Add<SlendermanPage>(OrroboroDowned)
+            .Add<HerobrineAltar>(BigBoneDowned);
 
             npcShop.Register();
         }
@@ -120,8 +145,6 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;
-
-            NPC.GivenName = Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeletonDealer.Name");
 
             if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
             {

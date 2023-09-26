@@ -110,16 +110,25 @@ PartySkeleton: {
 	Dialogue10: Aaaaaaaaaaaugh...
 	Dialogue11: I drank too much and now I can taste the colors!
 	Dialogue12: Always nice to take a break from guarding those catacombs.
-	Dialogue13: We should form an union for better catacomb guarding wages!
+	Dialogue13: We should form a union for better catacomb guarding wages!
 	Dialogue14: I'd stay clear from that guy in the black sweater. He gives me the creeps.
 	Dialogue15: I thought the guy in the sweater would sell me some sweet zaza. Now I'm seeing shadow people.
 	Dialogue16: I'mz A Normalz Zskeleton, Nothing to zee herez.
 	Dialogue17: I LOVE PARTYING!! GRAAAAAH!!!!!
-	Dialogue18: Where's the music? Aren't parties supposed to have m-oh right I don't have ears I'm dead as hell.
+	Dialogue18: Where's the music? Aren't parties supposed to have mu- oh right, I don't have ears I'm dead as hell.
+	Dialogue19: It's not a party without some necromancy.
+	Dialogue20: Crazy party huh? It's nice to be able to do something that isn't laying still under the ground.
+	Dialogue21: So tired of the catacomb skeletons bragging about being able to live down there. Can they party like this? Didn't think so.
+	Dialogue22: Hmm, you aren't from around here? Well you look pretty stressed, you should stick around! These parties don't happen all that often.
+	Dialogue23: Some guy just ran up to me and shouted CURSE OF RAH. What the hell does that mean?
+	Dialogue24: Ever wonder how skeletons get drunk? Don't, you wouldn't be able to handle the answer.
+	Dialogue25: I've been waiting for my favorite video game to come out... before I even became a skeleton.
+	Dialogue26: What do you mean you can see us now? We've been here the entire time.
+	Dialogue27: Where do those giant light beams even come from? I dunno either, but it's such a vibe!
+	Dialogue28: I'm the soul of this party. Being the life of the party? Pathetic!
 }
 
-PartySkeletonDealer: {
-	Name: Suspicious Skeleton
+SuspiciousSkeleton: {
 	ShopButton: Contraband
 	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
 	Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
@@ -129,6 +138,7 @@ PartySkeletonDealer: {
 	Dialogue6: Yer asking me if I've tried the stuff? My brother in christ, I'm not stupid enough to. You are. Now buy more of my stuff.
 	Dialogue7: The sweater? I won it at the arcade My brother Tony got that Policus or whathever the hell the machine's called. Some men in black gave it to me for free!
 	Dialogue8: You've ever played the clarinet? No? No need to learn when the clarinet plays itself ey?
+	Dialogue9: Ey you want contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
 }
 
 Daffodil: {

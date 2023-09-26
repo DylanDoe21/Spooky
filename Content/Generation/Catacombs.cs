@@ -722,12 +722,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-        }
-
-        private void KillVinesAndPlants(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int XStart = PositionX;
-            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
 
             //kill plants and vines that are not on valid tiles
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
@@ -745,13 +739,6 @@ namespace Spooky.Content.Generation
                         ModContent.WallType<CatacombGrassWall1>(), ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, false, true, true);
                     }
 
-                    //place grass walls in layer two
-                    if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
-                    {
-                        SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
-                        ModContent.WallType<CatacombGrassWall2>(), ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, false, true, true);
-                    }
-
                     //kill vines if the tile above it is not valid
                     if (tile.TileType == ModContent.TileType<CemeteryVines>() && tileAbove.TileType != ModContent.TileType<CemeteryGrass>() && tileAbove.TileType != ModContent.TileType<CemeteryVines>())
                     {
@@ -762,6 +749,19 @@ namespace Spooky.Content.Generation
                     if ((tile.TileType == ModContent.TileType<CatacombWeeds>() || tile.TileType == ModContent.TileType<SporeMushroom>()) && tileBelow.TileType != ModContent.TileType<CemeteryGrass>())
                     {
                         WorldGen.KillTile(X, Y);
+                    }
+                }
+
+                //separate loop so the second layer grass walls dont place too high up
+                for (int Y = DaffodilArenaY + 50; Y <= Main.maxTilesY - 100; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+
+                    //place grass walls in layer two
+                    if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
+                    {
+                        SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
+                        ModContent.WallType<CatacombGrassWall2>(), ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, false, true, true);
                     }
                 }
             }
@@ -776,7 +776,6 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("KillVinesAndPlants", KillVinesAndPlants));
 
             //re-locate the jungle temple deeper underground and further horizontally so it never gets generated over by the catacombs
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
