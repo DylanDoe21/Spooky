@@ -1,1 +1,2 @@
 -Fixed old moss bow dealing contact damage to enemies
+-Harvester's scythe now has way more swing range

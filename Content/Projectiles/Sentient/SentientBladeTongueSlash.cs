@@ -93,7 +93,7 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             Player player = Main.player[Projectile.owner];
 
-            Projectile.damage = (int)(damageDone * 0.85f);
+            Projectile.damage = (int)(damageDone * 0.75f);
 
             //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
             Vector2 Knockback = player.Center - target.Center;

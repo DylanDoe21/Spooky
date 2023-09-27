@@ -10,7 +10,6 @@ namespace Spooky.Core
 {
 	public class TileCount : ModSystem
 	{
-		public int raveyardTiles;
 		public int cemeteryTiles;
 		public int spookyTiles;
 		public int spookyHellTiles;
@@ -18,7 +17,6 @@ namespace Spooky.Core
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{
-			raveyardTiles = tileCounts[TileID.DiscoBall];
 			cemeteryTiles = tileCounts[ModContent.TileType<CemeteryDirt>()] + tileCounts[ModContent.TileType<CemeteryGrass>()] + tileCounts[ModContent.TileType<CemeteryStone>()];
 			spookyTiles = tileCounts[ModContent.TileType<SpookyDirt>()] + tileCounts[ModContent.TileType<SpookyDirt2>()] + tileCounts[ModContent.TileType<SpookyGrass>()] + tileCounts[ModContent.TileType<SpookyGrassGreen>()] + tileCounts[ModContent.TileType<SpookyStone>()];
 			spookyHellTiles = tileCounts[ModContent.TileType<SpookyMush>()] + tileCounts[ModContent.TileType<SpookyMushGrass>()] + tileCounts[ModContent.TileType<EyeBlock>()];

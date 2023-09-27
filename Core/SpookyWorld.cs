@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.Chat;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -17,6 +19,8 @@ namespace Spooky.Core
         public bool initializeHalloween;
         public bool storedHalloween;
         public bool storedHalloweenForToday;
+
+        public static bool RaveyardHappening;
 
         public static bool DaySwitched;
         private static bool LastTime;
@@ -90,10 +94,34 @@ namespace Spooky.Core
                 LittleEye.ChosenQuestForToday = Main.rand.Next(5);
                 Flags.DailyQuest = false;
             }
+
+            //chance to activate raveyard each night
+            if (DaySwitched && !Main.dayTime && Main.rand.NextBool(20))
+            {
+                RaveyardHappening = true;
+
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
+
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText(text, 171, 64, 255);
+                }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                }
+            }
+
+            //if a raveyard is happening, end it during the day
+            if (Main.dayTime && RaveyardHappening)
+            {
+                RaveyardHappening = false;
+            }
         }
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
+            //spooky forest ambient lighting
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
             {
                 float Intensity = ModContent.GetInstance<TileCount>().spookyTiles / 200f;

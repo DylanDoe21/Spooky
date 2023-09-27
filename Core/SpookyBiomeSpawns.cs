@@ -68,6 +68,12 @@ namespace Spooky.Core
 			{
 				spawnRate /= 2;
 			}
+
+			//drastically increase spawns during the raveyard
+			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
+            {
+				spawnRate /= 10;
+			}
 		}
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)

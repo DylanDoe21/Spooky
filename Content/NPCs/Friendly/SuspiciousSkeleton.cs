@@ -96,20 +96,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			List<string> Dialogue = new List<string>
-			{
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue1"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue2"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue3"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue4"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue5"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue6"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue7"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue8"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue9"),
-			};
-
-			return Main.rand.Next(Dialogue);
+			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 10));
 		}
 
         public override void AddShops()

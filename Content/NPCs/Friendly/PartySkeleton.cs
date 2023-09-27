@@ -17,6 +17,7 @@ namespace Spooky.Content.NPCs.Friendly
         int shirtStyle = 0;
         int shirtLogoStyle = 0;
         int pantsStyle = 0;
+        int dialogueStyle = 0;
 
         bool hasShirt = false;
         bool shirtLogo = false;
@@ -34,11 +35,13 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -205,39 +208,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			List<string> Dialogue = new List<string>
-			{
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue1"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue2"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue3"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue4"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue5"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue6"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue7"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue8"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue9"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue10"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue11"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue12"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue13"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue14"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue15"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue16"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue17"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue18"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue19"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue20"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue21"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue22"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue23"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue24"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue25"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue26"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue27"),
-                Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue28"),
-			};
-
-			return Main.rand.Next(Dialogue);
+			return Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue" + dialogueStyle.ToString());
 		}
 
         public override void AI()
@@ -248,6 +219,9 @@ namespace Spooky.Content.NPCs.Friendly
 
             if (NPC.localAI[0] == 1)
             {
+                //select the dialogue this npc should use
+                dialogueStyle = Main.rand.Next(1, 29);
+
                 //select a random name for the skeleton when it spawns
                 string[] names = { "Boney", "Tony", "Jeff", "McRib", "Clemmence", "Hans Flabberghast", "Carlcium", "Ribert", "Nigel",
                 "Morton", "Jeremy", "Gustavo", "Notorious B.O.N.E", "Patrice", "Patrique", "Wanda", "Señor Hernandez", "John Jr",

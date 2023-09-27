@@ -94,7 +94,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                     PillarPosition = (PillarPosition - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
                     if (rectangle.Contains((int)PillarPosition.X, (int)PillarPosition.Y))
                     {
-                        float num9 = Depth.X * 500f;
+                        float realDepth = Depth.X * 500f;
 
                         float Rotation = Main.GlobalTimeWrappedHourly * 0.1f;
 
@@ -108,7 +108,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                         Texture2D BeamTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
 
                         spriteBatch.Draw(BeamTexture, PillarPosition + new Vector2(0, 600), null, Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.75f * scale * opacity, 
-                        i % 2 == 0 ? MathF.Sin(-Rotation) : MathF.Sin(Rotation), new Vector2(0, BeamTexture.Height), new Vector2(num9 / 70f, num9 / 45f), SpriteEffects.None, 0f);
+                        i % 2 == 0 ? MathF.Sin(-Rotation) : MathF.Sin(Rotation), new Vector2(0, BeamTexture.Height), new Vector2(realDepth / 70f, realDepth / 45f), SpriteEffects.None, 0f);
                     }
                 }
             }
@@ -134,7 +134,8 @@ namespace Spooky.Content.Backgrounds.Cemetery
             {
                 //draw giant beams in the background
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
-                Rectangle rectangle = new Rectangle(-1000, -950, 4000, 4000);
+                Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
+                
                 for (int i = minBGPillarDepth + 1; i < maxBGPillarDepth; i++)
                 {
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);

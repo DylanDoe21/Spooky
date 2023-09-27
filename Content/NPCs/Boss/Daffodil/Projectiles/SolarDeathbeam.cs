@@ -19,8 +19,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 12;
-			Projectile.height = 12;
+			Projectile.width = 30;
+			Projectile.height = 30;
 			Projectile.hostile = true;
 			Projectile.tileCollide = false;
             Projectile.penetrate = 1;

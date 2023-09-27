@@ -654,7 +654,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
-                            Main.rand.NextFloat(-5f, -2f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
+                            Main.rand.NextFloat(-7f, -3f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
                         }
                     }
 
@@ -688,8 +688,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-65, 420),
-                            Main.rand.Next(7, 10), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-100, 450),
+                            Main.rand.Next(7, 11), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
 
                         //shoot flies from the right
@@ -697,8 +697,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-65, 420),
-                            Main.rand.Next(-10, -7), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-100, 450),
+                            Main.rand.Next(-10, -6), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
                         }
                     }
 
@@ -815,6 +815,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             int positionX = (int)player.Center.X + Main.rand.Next(-300, 300);
                             int positionY = (int)player.Center.Y + Main.rand.Next(-300, 100);
+
+                            if (savePoints == 0)
+                            {
+                                positionX = (int)player.Center.X;
+                                positionY = (int)player.Center.Y;
+                            }
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY + 5, 0, 0, 
                             ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
