@@ -134,13 +134,15 @@ namespace Spooky.Content.Backgrounds.Cemetery
             {
                 //draw giant beams in the background
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
-                Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
+                Rectangle rectangle = new Rectangle(-1000, -2000, 4000, 4000);
                 
                 for (int i = minBGPillarDepth + 1; i < maxBGPillarDepth; i++)
                 {
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
-                    if (rectangle.Contains((int)position.X, (int)position.Y))
+                    
+                    //only draw beams if they are on screen and they arent too high up
+                    if (rectangle.Contains((int)position.X, (int)position.Y) && position.Y > -775)
                     {
                         float PillarIntensity = (float)Math.Sin(backgroundPillar[i].AlphaFrequency * Main.GlobalTimeWrappedHourly + backgroundPillar[i].SinOffset) * backgroundPillar[i].AlphaAmplitude + backgroundPillar[i].AlphaAmplitude;
                         PillarIntensity = MathHelper.Clamp(PillarIntensity, 0f, 1f);
@@ -164,11 +166,11 @@ namespace Spooky.Content.Backgrounds.Cemetery
                         Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
                         Texture2D BeamTextureBottom = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam2").Value;
 
-                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1700), null, 
+                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1550), null, 
                         i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.3f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
                         i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * PillarIntensity, SpriteEffects.None, 0f);
 
-                        spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1700), null, 
+                        spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1550), null, 
                         i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.3f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
                         i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureBottom.Width / 2, 0), (Depth.X * 0.5f + 0.5f) * PillarIntensity, SpriteEffects.None, 0f);
                     }
@@ -213,8 +215,10 @@ namespace Spooky.Content.Backgrounds.Cemetery
 
             int amount = 120;
             int amountMult = 10;
-            backgroundPillar = new BackgroundPillar[amount * amountMult];
             int currentPillar = 0;
+
+            backgroundPillar = new BackgroundPillar[amount * amountMult];
+
             for (int i = 0; i < amount; i++)
             {
                 float XAmount = (float)i / (float)amount;

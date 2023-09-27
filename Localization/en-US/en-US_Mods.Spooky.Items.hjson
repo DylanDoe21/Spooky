@@ -2276,3 +2276,8 @@ SmileDogPicture: {
 		'That dog is messed up'
 		'''
 }
+
+RaveStarter: {
+	DisplayName: Rave Starter
+	Tooltip: Test Item
+}
