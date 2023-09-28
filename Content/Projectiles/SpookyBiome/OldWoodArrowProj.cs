@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             for (int numGores = 1; numGores <= 2; numGores++)
             {

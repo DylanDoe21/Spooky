@@ -220,14 +220,14 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				pool.Add(ModContent.NPCType<PartySkeleton1>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton2>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton3>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton4>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton5>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton6>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton7>(), 10);
-				pool.Add(ModContent.NPCType<PartySkeleton8>(), 10);
+				pool.Add(ModContent.NPCType<PartySkeleton1>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton2>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton3>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton4>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton5>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton6>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
+				pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 				{

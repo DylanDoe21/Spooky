@@ -48,16 +48,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused, 
-                    BuffID.Poisoned, 
-                    BuffID.OnFire
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

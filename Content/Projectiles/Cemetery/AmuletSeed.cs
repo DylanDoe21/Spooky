@@ -163,7 +163,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             return selectedTarget;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             for (int numDust = 0; numDust < 15; numDust++)
             {

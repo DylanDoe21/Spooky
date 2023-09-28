@@ -22,14 +22,7 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             Main.npcFrameCount[NPC.type] = 4;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

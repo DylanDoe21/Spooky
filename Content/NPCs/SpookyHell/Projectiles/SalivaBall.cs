@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;	
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int numDust = 0; numDust < 20; numDust++)
 			{                                                                                  

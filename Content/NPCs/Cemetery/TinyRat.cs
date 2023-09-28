@@ -28,7 +28,6 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 66;
 			AIType = NPCID.Buggy;
-            //NPC.catchItem = (short)ModContent.ItemType<TinyRatGrayItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
 		}
 

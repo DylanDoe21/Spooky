@@ -179,7 +179,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.NPCDeath39, Projectile.Center);
         

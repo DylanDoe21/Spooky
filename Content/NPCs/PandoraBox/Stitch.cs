@@ -27,14 +27,9 @@ namespace Spooky.Content.NPCs.PandoraBox
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused,
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

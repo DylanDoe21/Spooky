@@ -138,7 +138,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             return selectedTarget;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
         	for (int numDusts = 0; numDusts < 8; numDusts++)
 			{

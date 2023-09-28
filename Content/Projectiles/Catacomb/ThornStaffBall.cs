@@ -64,7 +64,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.rotation += 0.25f * (float)Projectile.direction;
         }
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
 

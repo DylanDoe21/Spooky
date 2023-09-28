@@ -53,16 +53,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused, 
-                    BuffID.Poisoned,
-                    BuffID.Venom
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

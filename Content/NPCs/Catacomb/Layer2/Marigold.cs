@@ -19,16 +19,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             Main.npcFrameCount[NPC.type] = 3;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused, 
-                    BuffID.Poisoned, 
-                    BuffID.Venom
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
         }
         
         public override void SetDefaults()

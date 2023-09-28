@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             Player player = Main.player[Parent.target];
 
             //kill the shield if the parent does not exist
-            if (!Parent.active || Parent.type != ModContent.NPCType<Chester>())
+            if (!Parent.active || Parent.life <= 0 || Parent.type != ModContent.NPCType<Chester>())
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {

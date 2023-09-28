@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             }
 		}
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath19, Projectile.Center);
 

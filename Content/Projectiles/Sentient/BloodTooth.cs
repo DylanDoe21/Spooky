@@ -99,7 +99,7 @@ namespace Spooky.Content.Projectiles.Sentient
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             for (int numDust = 0; numDust < 12; numDust++)
 			{                                                                                  

@@ -31,14 +31,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused,
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

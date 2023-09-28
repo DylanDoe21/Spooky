@@ -79,7 +79,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{	
 			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
 

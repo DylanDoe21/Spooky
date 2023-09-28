@@ -108,7 +108,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 

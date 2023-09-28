@@ -131,7 +131,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             }
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
             ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer, 0f, 0f);

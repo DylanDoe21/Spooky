@@ -308,7 +308,7 @@ namespace Spooky.Content.Projectiles.Pets
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ColumboFinger>(), 0, 0f, Main.myPlayer);
         }

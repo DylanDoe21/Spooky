@@ -89,7 +89,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
         }
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int numDust = 0; numDust < 10; numDust++)
 			{

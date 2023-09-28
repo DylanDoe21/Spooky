@@ -61,7 +61,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return false;
 		}
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);
 

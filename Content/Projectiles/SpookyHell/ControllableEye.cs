@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int numDusts = 0; numDusts < 10; numDusts++)
             {

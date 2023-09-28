@@ -155,7 +155,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             if (!EggEventWorld.hasSpawnedBiomass)
 			{

@@ -24,7 +24,7 @@ namespace Spooky.Content.Projectiles.Sentient
 			Projectile.rotation += 0.3f * (float)Projectile.direction;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 

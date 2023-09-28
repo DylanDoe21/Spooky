@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 

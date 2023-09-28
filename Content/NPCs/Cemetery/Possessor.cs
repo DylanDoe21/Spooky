@@ -20,15 +20,8 @@ namespace Spooky.Content.NPCs.Cemetery
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] 
-                {
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-		}
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+        }
 
 		public override void SetDefaults()
 		{

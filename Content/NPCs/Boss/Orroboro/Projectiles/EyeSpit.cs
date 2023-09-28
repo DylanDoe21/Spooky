@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                                  

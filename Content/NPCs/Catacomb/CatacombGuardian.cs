@@ -39,6 +39,8 @@ namespace Spooky.Content.NPCs.Catacomb
                 PortraitPositionYOverride = -8f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
