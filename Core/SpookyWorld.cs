@@ -116,6 +116,17 @@ namespace Spooky.Core
             if (Main.dayTime && RaveyardHappening)
             {
                 RaveyardHappening = false;
+
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
+
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText(text, 171, 64, 255);
+                }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                }
             }
         }
 

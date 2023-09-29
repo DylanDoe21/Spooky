@@ -231,7 +231,7 @@ namespace Spooky.Core
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 				{
-					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 2);
+					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 3);
 				}
 			}
 

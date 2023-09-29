@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.Water
 
 		public override Asset<Texture2D> GetRainTexture() 
 		{
-			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/CemeteryRain");
+			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/LeanRain");
 		}
 		
 		public override byte GetRainVariant() 
