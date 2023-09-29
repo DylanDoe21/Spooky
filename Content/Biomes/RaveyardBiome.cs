@@ -11,7 +11,7 @@ namespace Spooky.Content.Biomes
 {
     public class RaveyardBiome : ModBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard");
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<LeanWaterStyle>();
 

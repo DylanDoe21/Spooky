@@ -623,36 +623,6 @@ namespace Spooky.Content.Generation
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin5 = new Vector2((x + (ChestDistance * 2)) - 10, y - 6);
             Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
-
-            //lock all spooky wood chests
-            for (int X = 100; X <= Main.maxTilesX - 100; X++)
-			{
-                for (int Y = 0; Y <= Main.maxTilesY - 100; Y++)
-				{
-                    //check for the top left frame of the chest
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<HalloweenChest>() && //top left
-                    Main.tile[X + 1, Y].TileType == ModContent.TileType<HalloweenChest>() && //top right
-                    Main.tile[X, Y + 1].TileType == ModContent.TileType<HalloweenChest>() && //bottom left
-                    Main.tile[X + 1, Y + 1].TileType == ModContent.TileType<HalloweenChest>()) //bottom right
-                    {
-                        //top left
-                        Main.tile[X, Y].TileFrameX = 36;
-                        Main.tile[X, Y].TileFrameY = 0;
-
-                        //top right
-                        Main.tile[X + 1, Y].TileFrameX = 18 + 36;
-                        Main.tile[X + 1, Y].TileFrameY = 0;
-
-                        //bottom left
-                        Main.tile[X, Y + 1].TileFrameX = 36;
-                        Main.tile[X, Y + 1].TileFrameY = 18;
-
-                        //bottom right
-                        Main.tile[X + 1, Y + 1].TileFrameX = 18 + 36;
-                        Main.tile[X + 1, Y + 1].TileFrameY = 18;
-                    }
-                }
-            }
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
@@ -696,7 +666,7 @@ namespace Spooky.Content.Generation
 
 				Tile chestTile = Main.tile[chest.x, chest.y];
 
-                if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete)) 
+                if (chestTile.TileType == ModContent.TileType<HalloweenChest>())
                 {
                     int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
                     int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };

@@ -1109,9 +1109,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//master relic and pet
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<RotGourdRelicItem>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<RottenGourd>(), 4));
-            
-			//spooky key
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookyChestKey>()));
 
 			//material
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 20));

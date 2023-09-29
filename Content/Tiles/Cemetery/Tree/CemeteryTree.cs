@@ -1,12 +1,11 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using ReLogic.Content;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Gores.Misc;
-using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Tiles.Cemetery.Tree
@@ -72,11 +71,16 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 			return ModContent.GoreType<LeafTeal>();
         }
 
-		public override bool Shake(int x, int y, ref bool createLeaves)
-		{
-			createLeaves = false;
+        public override int CreateDust()
+        {
+            return DustID.WoodFurniture;
+        }
 
-			return false;
-		}
-	}
+        public override bool Shake(int x, int y, ref bool createLeaves)
+        {
+            createLeaves = true;
+
+            return false;
+        }
+    }
 }

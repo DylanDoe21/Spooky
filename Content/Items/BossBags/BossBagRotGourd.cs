@@ -44,9 +44,6 @@ namespace Spooky.Content.Items.BossBags
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            //spooky key
-            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookyChestKey>(), 1));
-
             //material
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<RottenChunk>(), 1, 20, 35));
 

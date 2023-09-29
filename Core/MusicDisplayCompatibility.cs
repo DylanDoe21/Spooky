@@ -23,6 +23,7 @@ namespace Spooky.Core
 
             //cemetery
             AddMusic("Content/Sounds/Music/Cemetery", Language.GetTextValue("Mods.Spooky.MusicDisplay.SwampyCemetery"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/Raveyard", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard"), "LuxCapacitor");
             AddMusic("Content/Sounds/Music/SpookySpirit", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookySpirit"), "BananaLizard");
 
             //catacombs

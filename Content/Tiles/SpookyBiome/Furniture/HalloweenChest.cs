@@ -181,7 +181,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			{
 				if (isLocked) 
 				{
-					int key = ModContent.ItemType<SpookyChestKey>();
+					int key = ModContent.ItemType<HalloweenChestItem>();
 					if (player.HasItem(key) && Chest.Unlock(left, top)) 
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient) 
@@ -249,7 +249,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 					if (Main.tile[left, top].TileFrameX / 36 == 1) 
 					{
-						player.cursorItemIconID = ModContent.ItemType<SpookyChestKey>();
+						player.cursorItemIconID = ModContent.ItemType<HalloweenChestItem>();
 					}
 
 					player.cursorItemIconText = "";

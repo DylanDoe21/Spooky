@@ -92,6 +92,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                     Vector2 Depth = new Vector2(1f / lightPillar[i].Depth, 0.8f / lightPillar[i].Depth);
                     Vector2 PillarPosition = lightPillar[i].Position;
                     PillarPosition = (PillarPosition - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
+                    
                     if (rectangle.Contains((int)PillarPosition.X, (int)PillarPosition.Y))
                     {
                         float realDepth = Depth.X * 500f;

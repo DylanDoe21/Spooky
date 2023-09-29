@@ -1044,15 +1044,6 @@ SpookyBiomeKey: {
 		'''
 }
 
-SpookyChestKey: {
-	DisplayName: Old Wood Key
-	Tooltip:
-		'''
-		Opens locked chests in the underground spooky forest
-		'It's covered in nasty pumpkin guts'
-		'''
-}
-
 SpookyGlowshroom: {
 	DisplayName: Spooky Glowshroom
 	Tooltip: "'Filled with arcane energies'"
@@ -1686,6 +1677,11 @@ MocoBox: {
 PandoraEventBox: {
 	DisplayName: Music Box (Pandora's Box)
 	Tooltip: "'Pandora's Box' by Ennway"
+}
+
+RaveyardBox: {
+	DisplayName: Music Box (Raveyard)
+	Tooltip: "'Raveyard' by LuxCapacitor"
 }
 
 RotGourdBox: {

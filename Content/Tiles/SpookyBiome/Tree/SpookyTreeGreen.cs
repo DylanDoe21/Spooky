@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using ReLogic.Content;
@@ -73,11 +74,16 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 			return ModContent.GoreType<LeafGreen>();
 		}
 
+        public override int CreateDust()
+        {
+			return DustID.WoodFurniture;
+        }
+
         public override bool Shake(int x, int y, ref bool createLeaves)
 		{
 			createLeaves = true;
 
-			if (Main.rand.Next(15) == 0)
+			if (Main.rand.NextBool(15))
 			{
 				Item.NewItem(WorldGen.GetItemSource_FromTreeShake(x, y), new Vector2(x, y) * 16, ModContent.ItemType<CaramelApple>());
 			}
