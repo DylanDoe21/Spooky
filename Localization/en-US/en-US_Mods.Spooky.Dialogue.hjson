@@ -141,6 +141,12 @@ SuspiciousSkeleton: {
 	Dialogue9: Ey you want contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
 }
 
+DumbZombie: {
+	Dialogue1: Uurrgghh...
+	Dialogue2: Gurhhh?
+	Dialogue3: Huurgg?!
+}
+
 Daffodil: {
 	PreDefeatIntro1: !!!!!!
 	PreDefeatIntro2: Just who do you think you are waking me?!

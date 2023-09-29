@@ -43,8 +43,8 @@ namespace Spooky.Content.NPCs.Friendly
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCProfile = new Profiles.StackedNPCProfile(
-                new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)),
-                new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex)
+			new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)),
+			new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex)
             );
         }
 
@@ -74,6 +74,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
             NPC.aiStyle = 7;
+			TownNPCStayingHomeless = true;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
 		}
 
@@ -362,7 +363,6 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.spriteDirection = NPC.direction;
 
             NPC.velocity.X *= 0;
-			NPC.homeless = true;
 
             if (Quest1Timer > 0)
 			{

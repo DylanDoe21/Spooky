@@ -139,6 +139,7 @@ Ventricle.DisplayName: Ventricle
 Vesicator.DisplayName: Vesicator
 Vigilante.DisplayName: Vigilante
 //friendly
+DumbZombie.DisplayName: Dumb Zombie
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
