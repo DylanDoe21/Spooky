@@ -21,6 +21,8 @@ namespace Spooky.Core
         public bool storedHalloweenForToday;
 
         public static bool RaveyardHappening;
+        public static bool RaveyardGuardsHostile;
+        public int RaveyardGuardAggressionTimer;
 
         public static bool DaySwitched;
         private static bool LastTime;

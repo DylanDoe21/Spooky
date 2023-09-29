@@ -1518,7 +1518,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             if (!Flags.downedBigBone)
             {
-                string text = Language.GetTextValue("Mods.Spooky.Dialogue.BigBone.BigBoneDefeat");
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.BigBoneDefeat");
 
                 if (Main.netMode != NetmodeID.Server)
                 {
