@@ -38,8 +38,13 @@ namespace Spooky.Content.NPCs.PandoraBox
 				PandoraEventActive = false;
 			}
 
+			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+			{
+				PandoraEventActive = false;
+			}
+
 			//end the event, reset everything, and set it to downed when completed
-			if (Wave > 4 || !Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+			if (Wave > 4)
 			{
 				if (!Flags.downedPandoraBox)
 				{
