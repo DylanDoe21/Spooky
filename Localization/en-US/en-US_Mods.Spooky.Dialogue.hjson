@@ -128,6 +128,12 @@ PartySkeleton: {
 	Dialogue28: I'm the real soul of this party. Being the life of the party? Pathetic!
 }
 
+SkeletonBouncer: {
+	Dialogue1: You must be new around here. I don't wanna see you getting into any trouble, these parties take a lot of time and effort to set up.
+	Dialogue2: Move along, go have fun and party. Just don't go bothering anyone.
+	Dialogue3: ...
+}
+
 SuspiciousSkeleton: {
 	ShopButton: Contraband
 	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.

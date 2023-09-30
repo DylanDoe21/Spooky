@@ -4,14 +4,14 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.Cemetery
+namespace Spooky.Content.Items.Cemetery.Contraband
 {
-    public class HerobrineAltar : ModItem
+    public class PolybiusArcadeGame : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 36;
-            Item.height = 36;
+            Item.width = 30;
+            Item.height = 48;
             Item.accessory = true;
             Item.rare = ItemRarityID.Gray;  
             //Item.value = Item.buyPrice(gold: 20);
@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Cemetery
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<SpookyPlayer>().HerobrineAltar = true;
+            //player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame = true;
         }
     }
 }

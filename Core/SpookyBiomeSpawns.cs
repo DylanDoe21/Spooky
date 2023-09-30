@@ -72,7 +72,7 @@ namespace Spooky.Core
 			//drastically increase spawns during the raveyard
 			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
-				spawnRate /= 10;
+				spawnRate /= 5;
 			}
 		}
 
@@ -228,6 +228,7 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<PartySkeleton6>(), 5);
 				pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
 				pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
+				pool.Add(ModContent.NPCType<SkeletonBouncer>(), 2);
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<DumbZombie>()))
 				{

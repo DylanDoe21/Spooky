@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using Terraria.GameContent.UI;
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -210,6 +210,16 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			return Language.GetTextValue("Mods.Spooky.Dialogue.PartySkeleton.Dialogue" + dialogueStyle.ToString());
 		}
+
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+        }
 
         public override void AI()
         {

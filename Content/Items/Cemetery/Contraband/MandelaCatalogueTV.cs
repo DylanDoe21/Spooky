@@ -4,14 +4,14 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.Cemetery
+namespace Spooky.Content.Items.Cemetery.Contraband
 {
-    public class SmileDogPicture : ModItem
+    public class MandelaCatalogueTV : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 52;
-            Item.height = 48;
+            Item.width = 56;
+            Item.height = 44;
             Item.accessory = true;
             Item.rare = ItemRarityID.Gray;  
             //Item.value = Item.buyPrice(gold: 20);
@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Cemetery
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<SpookyPlayer>().SmileDogPicture = true;
+            //player.GetModPlayer<SpookyPlayer>().MandelaCatalogueTV = true;
         }
     }
 }

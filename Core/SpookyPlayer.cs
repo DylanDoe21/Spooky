@@ -39,6 +39,7 @@ namespace Spooky.Core
         public int RosaryHandTimer = 0;
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
+        public bool RaveyardGuardsHostile;
 
         //armors
         public bool GourdSet = false;
@@ -274,6 +275,8 @@ namespace Spooky.Core
                     ShouldRevive = false;
                 }
             }
+
+            RaveyardGuardsHostile = false;
 
             return ShouldRevive;
         }

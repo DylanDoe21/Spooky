@@ -9,7 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Cemetery;
+using Spooky.Content.Items.Cemetery.Contraband;
 
 namespace Spooky.Content.NPCs.Friendly
 {
