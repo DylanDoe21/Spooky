@@ -2274,12 +2274,12 @@ SmileDogPicture: {
 }
 
 PartyNailgun: {
-	DisplayName: MP-1 Party Nailgun
+	DisplayName: Spook-01 Necromantic Machine Pistol
 	Tooltip:
 		'''
+		The newest self-defense weapon in the necromancy weapons scene
 		Rapidly fires out bolts that completely ignore enemy defense
-		This gun does not use conventional ammo, but creates its own stored ammo instead
-		The gun's ammo regenerates naturally while not in use
+		Has its own special ammo stored inside of it that regenerates over time
 		'''
 }
 

@@ -434,7 +434,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 126)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom4 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
                         {
                             Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
                             placedLootRoom4 = true;

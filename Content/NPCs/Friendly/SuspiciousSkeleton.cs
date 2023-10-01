@@ -99,6 +99,22 @@ namespace Spooky.Content.NPCs.Friendly
 			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 10));
 		}
 
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()))
+            {
+                player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            }
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()))
+            {
+                Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            }
+        }
+
         public override void AddShops()
         {
             Condition RotGourdDowned = new Condition("Mods.Spooky.Conditions.RotGourdDowned", () => Flags.downedRotGourd);

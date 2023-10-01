@@ -213,12 +213,18 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()))
+            {
+                player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            }
         }
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()))
+            {
+                Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+            }
         }
 
         public override void AI()

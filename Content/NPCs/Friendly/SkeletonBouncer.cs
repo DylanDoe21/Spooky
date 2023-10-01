@@ -10,6 +10,7 @@ using System.IO;
 using System.Collections.Generic;
 using Spooky.Core;
 
+using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Projectiles.Cemetery;
 
@@ -44,7 +45,7 @@ namespace Spooky.Content.NPCs.Friendly
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 20000;
+            NPC.lifeMax = 10000;
             NPC.defense = 100;
             NPC.width = 42;
 			NPC.height = 56;
@@ -145,11 +146,14 @@ namespace Spooky.Content.NPCs.Friendly
         {
             NPC.spriteDirection = NPC.direction;
 
-            NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
             if (player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile)
             {
+                NPC.TargetClosest(true);
+
+                player.AddBuff(ModContent.BuffType<BouncerDeathmark>(), 2);
+
                 NPC.friendly = false;
 
                 NPC.spriteDirection = NPC.direction;
@@ -190,12 +194,12 @@ namespace Spooky.Content.NPCs.Friendly
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 8f;
+                        ShootSpeed *= 5f;
 
                         Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(10));
 
                         int bolt = Projectile.NewProjectile(NPC.GetSource_FromAI(), positonToShootFrom, newVelocity,
-                        ModContent.ProjectileType<PartyNailBolt>(), 25, 0, player.whoAmI, 0f, 0f);
+                        ModContent.ProjectileType<PartyNailBolt>(), player.statLifeMax / 2, 0, player.whoAmI, 0f, 0f);
 
                         Main.projectile[bolt].friendly = false;
                         Main.projectile[bolt].hostile = true;

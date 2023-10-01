@@ -56,6 +56,11 @@ BoogerFrenzyCooldown: {
 	Description: Your booger frenzy is recharging
 }
 
+BouncerDeathmark: {
+	DisplayName: Skeleton Bounce Deathmark
+	Description: Stop! You have violated the law!
+}
+
 CatacombDebuff: {
 	DisplayName: Curse of the Catacombs
 	Description:

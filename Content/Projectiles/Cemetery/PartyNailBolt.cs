@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PartyNailBolt : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private List<Vector2> cache;
         private Trail trail;
         
@@ -20,7 +22,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.width = 8;
             Projectile.height = 8;
-            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;
@@ -96,12 +98,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             target.immune[Projectile.owner] = 0;
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.immune = false;
-            target.immuneTime = 0;
-        }
-
         public override void AI()
         {
             if (!Main.dedServ)
@@ -109,11 +105,6 @@ namespace Spooky.Content.Projectiles.Cemetery
                 ManageCaches();
                 ManageTrail();
             }
-        }
-
-        public override void OnKill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
         }
     }
 }

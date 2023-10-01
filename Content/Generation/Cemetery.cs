@@ -247,7 +247,6 @@ namespace Spooky.Content.Generation
             }
             else
             {
-
                 //first ruined house
                 GenerateStructure((XStart + XMiddle) / 2 - 40, StartPosY, "RuinedHouse-1", 14, 20);
 
@@ -273,29 +272,27 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (!Main.tile[startX, startY].HasTile && !NoFloatingIsland(startX, startY))
+                if (Main.tile[startX, startY].HasTile && NoFloatingIsland(startX, startY))
                 {
-					continue;
-                }
+                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                    Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
 
-                Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
-
-                //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
-                if (StructureFile == "CemeteryEntrance")
-                {
-                    Catacombs.EntranceY = startY - 33;
-                }
-                else
-                {
-                    //place blocks below structure to prevent them from floating
-                    for (int fillX = (int)origin.X + 5; fillX <= (int)origin.X + 15; fillX += 2)
+                    //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
+                    if (StructureFile == "CemeteryEntrance")
                     {
-                        for (int fillY = startY + 5; fillY <= (int)Main.worldSurface - 35; fillY += 2)
+                        Catacombs.EntranceY = startY - 33;
+                    }
+                    else
+                    {
+                        //place blocks below structure to prevent them from floating
+                        for (int fillX = (int)origin.X + 5; fillX <= (int)origin.X + 15; fillX += 2)
                         {
-                            if (Main.tile[fillX, fillY].WallType < 0 && !Main.tile[fillX, fillY].HasTile)
+                            for (int fillY = startY + 5; fillY <= (int)Main.worldSurface - 35; fillY += 2)
                             {
-                                SpookyWorldMethods.PlaceCircle(fillX, fillY, WorldGen.genRand.NextBool(5) ? ModContent.TileType<CemeteryStone>() : ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                                if (Main.tile[fillX, fillY].WallType < 0 && !Main.tile[fillX, fillY].HasTile)
+                                {
+                                    SpookyWorldMethods.PlaceCircle(fillX, fillY, WorldGen.genRand.NextBool(5) ? ModContent.TileType<CemeteryStone>() : ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
+                                }
                             }
                         }
                     }
@@ -314,7 +311,7 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 20; j < Y + 20; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud))
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud || Main.tile[i, j].TileType == TileID.Sunplate))
                     {
                         canPlace++;
                         if (canPlace > 0)
