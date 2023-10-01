@@ -57,7 +57,7 @@ BoogerFrenzyCooldown: {
 }
 
 BouncerDeathmark: {
-	DisplayName: Skeleton Bounce Deathmark
+	DisplayName: Skeleton Bouncer Deathmark
 	Description: Stop! You have violated the law!
 }
 

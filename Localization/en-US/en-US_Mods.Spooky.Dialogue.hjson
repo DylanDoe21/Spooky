@@ -126,6 +126,7 @@ PartySkeleton: {
 	Dialogue26: What do you mean you can see us now? We've been here the entire time.
 	Dialogue27: Where do those giant light beams even come from? I dunno either, but it's such a vibe!
 	Dialogue28: I'm the real soul of this party. Being the life of the party? Pathetic!
+	Dialogue29: SHUT UP! my dad works for valve and will use your decomposing corpse for a model texture!
 }
 
 SkeletonBouncer: {
@@ -174,6 +175,15 @@ Daffodil: {
 PandoraBox: {
 	Button: Open
 	Dialogue: It's a strange box with a weird aura emnating from it. Will you open it?
+}
+
+SentientCap: {
+	Dialogue1: Hi Hi Hi Hi!
+	Dialogue2: NIGHTMARE NIGHTMARE NIGHTMARE
+	Dialogue3: I love sitting on your head
+	Dialogue4: I'm cappin!
+	Dialogue5: Isn't this so silly?
+	Dialogue6: Glurrrg...
 }
 
 TheMan: {

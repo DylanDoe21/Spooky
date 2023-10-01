@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 			Item.width = 26;
 			Item.height = 28;
 			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 3);
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 

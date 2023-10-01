@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 0;
 			Item.rare = ItemRarityID.Green;
-            Item.value = Item.buyPrice(gold: 2);
+            Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_GhastlyGlaivePierce;
 			Item.shoot = ModContent.ProjectileType<SpiritHand>();
 			Item.shootSpeed = 5f;

@@ -110,7 +110,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
                 else if (player.position.X > NPC.Center.X + 65 || player.position.X < NPC.Center.X - 65)
                 {
-                    if (player.position.Y < NPC.Center.Y - 25)
+                    if (player.position.Y < NPC.Center.Y - 40)
                     {
                         NPC.frame.Y = 10 * frameHeight;
                     }
@@ -182,7 +182,7 @@ namespace Spooky.Content.NPCs.Friendly
                         }
                         else if (player.position.X > NPC.Center.X + 65 || player.position.X < NPC.Center.X - 65)
                         {
-                            if (player.position.Y < NPC.Center.Y - 25)
+                            if (player.position.Y < NPC.Center.Y - 40)
                             {
                                 positonToShootFrom = new Vector2(NPC.Center.X + (NPC.direction == -1 ? -20 : 20), NPC.Center.Y - 15);
                             }

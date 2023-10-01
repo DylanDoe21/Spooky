@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameInput;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -47,6 +48,7 @@ namespace Spooky.Core
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
         public bool GoreArmorSet = false;
+        public bool SentientCap = false;
 
         //accessories
         public bool BustlingGlowshroom = false;
@@ -105,6 +107,9 @@ namespace Spooky.Core
 
         //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
+        public static readonly SoundStyle CapSound1 = new("Spooky/Content/Sounds/SentientCap1", SoundType.Sound);
+        public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
+        public static readonly SoundStyle CapSound3 = new("Spooky/Content/Sounds/SentientCap3", SoundType.Sound);
 
         public override void OnEnterWorld()
         {
@@ -123,6 +128,7 @@ namespace Spooky.Core
             EyeArmorSet = false;
             FlowerArmorSet = false;
             GoreArmorSet = false;
+            SentientCap = false;
 
             //accessories
             BustlingGlowshroom = false;
@@ -569,6 +575,30 @@ namespace Spooky.Core
             else
             {
                 RosaryHandTimer = 0;
+            }
+            
+            if (SentientCap && Main.rand.NextBool(1000))
+            {
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                    {
+                        SoundEngine.PlaySound(CapSound1, Player.Center);
+                        break;
+                    }
+                    case 1:
+                    {
+                        SoundEngine.PlaySound(CapSound2, Player.Center);
+                        break;
+                    }
+                    case 2:
+                    {
+                        SoundEngine.PlaySound(CapSound3, Player.Center);
+                        break;
+                    }
+                }
+
+                CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
 
             //bone mask wisp spawning while running

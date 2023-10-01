@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Cemetery.Contraband;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -138,7 +139,9 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<SmileDogPicture>(MocoDowned)
             .Add<RedGodzillaCartridge>(DaffodilDowned)
             .Add<SlendermanPage>(OrroboroDowned)
-            .Add<HerobrineAltar>(BigBoneDowned);
+            .Add<HerobrineAltar>(BigBoneDowned)
+            //random stuff
+            .Add<PartySkeletonSkull>();
 
             npcShop.Register();
         }
