@@ -40,6 +40,7 @@ namespace Spooky.Core
         public int RosaryHandTimer = 0;
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
+        public int GizaGlassHits = 0;
         public bool RaveyardGuardsHostile;
 
         //armors
@@ -61,6 +62,18 @@ namespace Spooky.Core
         public bool PandoraCuffs = false;
         public bool HasSpawnedCuffs = false;
         public bool PandoraRosary = false;
+        public bool BackroomsCorpse = false;
+        public bool CarnisFlavorEnhancer = false;
+        public bool GeminiEntertainmentGame = false;
+        public bool HerobrineAltar = false;
+        public bool Local58Telescope = false;
+        public bool MandelaCatalogueTV = false;
+        public bool MonumentMythosPyramid = false;
+        public bool PolybiusArcadeGame = false;
+        public bool RedGodzillaCartridge = false;
+        public bool RedMistClarinet = false;
+        public bool SlendermanPage = false;
+        public bool SmileDogPicture = false;
 
         //expert accessories
         public bool FlyAmulet = false;
@@ -140,6 +153,18 @@ namespace Spooky.Core
             PandoraCross = false;
             PandoraCuffs = false;
             PandoraRosary = false;
+            BackroomsCorpse = false;
+            CarnisFlavorEnhancer = false;
+            GeminiEntertainmentGame = false;
+            HerobrineAltar = false;
+            Local58Telescope = false;
+            MandelaCatalogueTV = false;
+            MonumentMythosPyramid = false;
+            PolybiusArcadeGame = false;
+            RedGodzillaCartridge = false;
+            RedMistClarinet = false;
+            SlendermanPage = false;
+            SmileDogPicture = false;
 
             //expert accessories
             FlyAmulet = false;
@@ -344,6 +369,19 @@ namespace Spooky.Core
 
         public override void OnHurt(Player.HurtInfo info)
         {
+            if (MonumentMythosPyramid)
+            {
+                if (GizaGlassHits < 3)
+                {
+                    GizaGlassHits++;
+                }
+
+                if (GizaGlassHits == 2)
+                {
+                    SoundEngine.PlaySound(SoundID.Tink, Player.Center);
+                }
+            }
+
             //add fly cooldown when hit and the player has flies
             if (FlyAmulet)
             {

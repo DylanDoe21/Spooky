@@ -244,6 +244,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         private void SetOwnerAnimation(Player owner)
         {
             owner.heldProj = Projectile.whoAmI;
+            owner.SetDummyItemTime(-10);
 
             float animationModifier = (float)owner.itemAnimation / owner.itemAnimationMax * 2f - 1f;
 

@@ -152,9 +152,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 			}
 
-			player.heldProj = Projectile.whoAmI;
-			player.itemTime = 1;
-			player.itemAnimation = 1;
-		}
+            player.heldProj = Projectile.whoAmI;
+            player.SetDummyItemTime(2);
+        }
 	}
 }

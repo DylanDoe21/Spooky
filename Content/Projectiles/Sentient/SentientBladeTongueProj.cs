@@ -101,9 +101,8 @@ namespace Spooky.Content.Projectiles.Sentient
 				Projectile.active = false;
 			}
 
-			player.heldProj = Projectile.whoAmI;
-			player.itemTime = 1;
-			player.itemAnimation = 1;
-		}
+            player.heldProj = Projectile.whoAmI;
+            player.SetDummyItemTime(2);
+        }
 	}
 }

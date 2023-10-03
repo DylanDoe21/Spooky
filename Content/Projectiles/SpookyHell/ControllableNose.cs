@@ -77,8 +77,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
 
                 player.heldProj = Projectile.whoAmI;
-                player.itemTime = 2; 
-                player.itemAnimation = 2;
+                player.SetDummyItemTime(2);
             }
         }
 	}

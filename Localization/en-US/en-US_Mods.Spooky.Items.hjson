@@ -2301,3 +2301,13 @@ RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip: Test Item
 }
+
+AnalogueHorrorTape: {
+	DisplayName: Analogue Horror Tape
+	Tooltip: ""
+}
+
+Creepypasta: {
+	DisplayName: Creepypasta
+	Tooltip: ""
+}

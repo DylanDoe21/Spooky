@@ -114,8 +114,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
 
-                        int extraDamage = 0;
-
                         switch (Projectile.frame)
                         {
                             //shoot one small booger
@@ -168,9 +166,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
 			}
 
-			player.heldProj = Projectile.whoAmI;
-			player.itemTime = 1;
-			player.itemAnimation = 1;
-		}
+            player.heldProj = Projectile.whoAmI;
+            player.SetDummyItemTime(2);
+        }
 	}
 }
