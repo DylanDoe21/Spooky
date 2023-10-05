@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Cemetery.Contraband;
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -127,20 +128,23 @@ namespace Spooky.Content.NPCs.Friendly
 
             var npcShop = new NPCShop(Type)
             //analog horror
-            .Add<MandelaCatalogueTV>(RotGourdDowned)
-            .Add<GeminiEntertainmentGame>(SpookySpiritDowned)
-            .Add<Local58Telescope>(MocoDowned)
-            .Add<CarnisFlavorEnhancer>(DaffodilDowned)
-            .Add<BackroomsCorpse>(OrroboroDowned)
+            .Add<GeminiEntertainmentGame>(RotGourdDowned)
+            .Add<MandelaCatalogueTV>(SpookySpiritDowned)
+            .Add<CarnisFlavorEnhancer>(MocoDowned)
+            .Add<BackroomsCorpse>(DaffodilDowned)
+            .Add<Local58Telescope>(OrroboroDowned)
             .Add<MonumentMythosPyramid>(BigBoneDowned)
             //creepypasta
             .Add<PolybiusArcadeGame>(RotGourdDowned)
-            .Add<RedMistClarinet>(SpookySpiritDowned)
-            .Add<SmileDogPicture>(MocoDowned)
-            .Add<RedGodzillaCartridge>(DaffodilDowned)
-            .Add<SlendermanPage>(OrroboroDowned)
+            .Add<SmileDogPicture>(SpookySpiritDowned)
+            .Add<RedMistClarinet>(MocoDowned)
+            .Add<SlendermanPage>(DaffodilDowned)
+            .Add<RedGodzillaCartridge>(OrroboroDowned)
             .Add<HerobrineAltar>(BigBoneDowned)
             //random stuff
+            .Add<PetscopTool1>()
+            .Add<PetscopTool2>()
+            .Add<PetscopTool3>()
             .Add<PartySkeletonSkull>();
 
             npcShop.Register();

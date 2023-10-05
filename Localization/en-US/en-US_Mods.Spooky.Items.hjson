@@ -2311,3 +2311,18 @@ Creepypasta: {
 	DisplayName: Creepypasta
 	Tooltip: ""
 }
+
+PetscopTool1: {
+	DisplayName: Red Tool
+	Tooltip: Summons the guardian
+}
+
+PetscopTool2: {
+	DisplayName: Green Tool
+	Tooltip: Summons marvin
+}
+
+PetscopTool3: {
+	DisplayName: Pink tool
+	Tooltip: Summons tiara
+}

@@ -328,3 +328,18 @@ ValleyNautilusBuff: {
 	DisplayName: Baby Cephalopod
 	Description: A friendly little cephalopod follows you
 }
+
+PetscopBuff: {
+	DisplayName: Guardian
+	Description: The newmaker
+}
+
+PetscopMarvinBuff: {
+	DisplayName: Marvin
+	Description: Marvin picks up tool
+}
+
+PetscopTiaraBuff: {
+	DisplayName: Petscop Tiara Buff
+	Description: Tiara plays bad music too
+}
