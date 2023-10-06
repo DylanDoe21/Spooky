@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
@@ -10,11 +11,31 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.MusicBox;
 
 namespace Spooky.Core
 {
     public class ItemGlobal : GlobalItem
     {
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            if (Main.myPlayer != player.whoAmI)
+            {
+                return;
+            }
+
+            //manually handle daffodils music box if her intro themes are playing since music boxes cant be assigned more than one song
+            if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && 
+            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") ||
+            Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
+            {
+                SoundEngine.PlaySound(SoundID.Item166, player.Center);
+                item.ChangeItemType(ModContent.ItemType<DaffodilBox>());
+            }
+
+            base.UpdateAccessory(item, player, hideVisual);
+        }
+
         public override bool CanUseItem(Item item, Player player)
         {
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))

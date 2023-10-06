@@ -16,6 +16,7 @@ using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.EggEvent;
+using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
@@ -186,7 +187,7 @@ namespace Spooky.Core
 				{
 					["spawnItems"] = ModContent.ItemType<Brick>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<DaffodilTrophyItem>(), ModContent.ItemType<DaffodilMask>(), 
-					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<SmallDaffodil>() },
+					ModContent.ItemType<DaffodilRelicItem>(), ModContent.ItemType<SmallDaffodil>(), ModContent.ItemType<DaffodilBox>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.DaffodilEye.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = DaffodilPortrait,
@@ -197,13 +198,10 @@ namespace Spooky.Core
 			//Pandora's Box
 			List<int> PandoraBoxEnemies = new List<int>()
 			{
-				/*
-				ModContent.NPCType<Crux>(), 
-				ModContent.NPCType<Glutinous>(), 
-				ModContent.NPCType<Ventricle>(),
-				ModContent.NPCType<Vesicator>(), 
-				ModContent.NPCType<Vigilante>(), 
-				*/
+				ModContent.NPCType<Bobbert>(), 
+				ModContent.NPCType<Stitch>(), 
+				ModContent.NPCType<Sheldon>(),
+				ModContent.NPCType<Chester>(),
 			};
 
 			var PandoraBoxPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>

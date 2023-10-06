@@ -1863,7 +1863,7 @@ CatacombBox: {
 
 CatacombBox2: {
 	DisplayName: Music Box (Lower Catacomb)
-	Tooltip: "'Deep Dive to the Catacombs' by Bananalizard"
+	Tooltip: "'Deep Dive To The Catacombs' by Bananalizard"
 }
 
 CemeteryBox: {
@@ -1873,12 +1873,12 @@ CemeteryBox: {
 
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
-	Tooltip: "'???' by Bananalizard"
+	Tooltip: "'To A Floral Demise' by Bananalizard"
 }
 
 EggEventBox: {
 	DisplayName: Music Box (Egg Incursion)
-	Tooltip: "'The Evolution of Evil' by Rockwizard5"
+	Tooltip: "'The Evolution Of Evil' by Rockwizard5"
 }
 
 MocoBox: {
@@ -1908,7 +1908,7 @@ SpookyBiomeDayBox: {
 
 SpookyBiomeNightBox: {
 	DisplayName: Music Box (Spooky Forest Night)
-	Tooltip: "'...and Yellow Grass' by Bananalizard"
+	Tooltip: "'...And Yellow Grass' by Bananalizard"
 }
 
 SpookyBiomeRainBox: {
@@ -1933,7 +1933,7 @@ SpookyHellBox: {
 
 SpookyMenuBox: {
 	DisplayName: Music Box (Spooky Mod Menu)
-	Tooltip: "'Welcome to Spooky Mod' by Bananalizard"
+	Tooltip: "'Welcome To Spooky Mod' by Bananalizard"
 }
 
 SpookySpiritBox: {

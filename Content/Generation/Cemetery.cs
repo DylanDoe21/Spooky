@@ -117,10 +117,6 @@ namespace Spooky.Content.Generation
                     if (WorldGen.genRand.NextBool(2))
                     {
                         Tile tile = Main.tile[X, Y];
-                        Tile tileUp = Main.tile[X, Y - 1];
-                        Tile tileDown = Main.tile[X, Y + 1];
-                        Tile tileLeft = Main.tile[X - 1, Y];
-                        Tile tileRight = Main.tile[X + 1, Y];
 
                         //place dirt blocks
                         if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
@@ -305,19 +301,13 @@ namespace Spooky.Content.Generation
         //check the area around the given position for cloud blocks, to prevent structures from placing on floating islands
         public static bool NoFloatingIsland(int X, int Y)
         {
-            int canPlace = 0;
-
             for (int i = X - 20; i < X + 20; i++)
             {
                 for (int j = Y - 20; j < Y + 20; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud || Main.tile[i, j].TileType == TileID.Sunplate))
                     {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
