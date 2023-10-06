@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.Cemetery.Contraband
 {
@@ -19,11 +20,10 @@ namespace Spooky.Content.Items.Cemetery.Contraband
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid = true;
-
-            if (player.GetModPlayer<SpookyPlayer>().GizaGlassHits < 3)
+            if (!player.HasBuff(ModContent.BuffType<MonumentMythosCooldown>()))
             {
-                player.statDefense += 30;
+                player.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid = true;
+                player.statDefense += 40;
             }
         }
     }

@@ -149,6 +149,16 @@ GourdDecay: {
 	Description: Mods.Spooky.BuffDescription.GourdDecay
 }
 
+MonumentMythosCooldown: {
+	DisplayName: Freedom Containment Cooldown
+	Description: Your glass pyramid is regenerating
+}
+
+MonumentMythosShatter: {
+	DisplayName: Freedom Containment Shatter
+	Description: You will take 2x damage from all attacks
+}
+
 PandoraCrossCooldown: {
 	DisplayName: Cross Bass Cooldown
 	Description: You cannot use the cross sound ability
@@ -294,6 +304,21 @@ PandoraBeanBuff: {
 	Description: Ancient royalty is following you
 }
 
+PetscopBuff: {
+	DisplayName: Guardian
+	Description: The newmaker
+}
+
+PetscopMarvinBuff: {
+	DisplayName: Marvin
+	Description: Marvin picks up tool
+}
+
+PetscopTiaraBuff: {
+	DisplayName: Petscop Tiara Buff
+	Description: Tiara plays bad music too
+}
+
 RotGourdPetBuff: {
 	DisplayName: Tiny Rot Gourd
 	Description: Smelly, but cute
@@ -327,19 +352,4 @@ StickyEyeBuff: {
 ValleyNautilusBuff: {
 	DisplayName: Baby Cephalopod
 	Description: A friendly little cephalopod follows you
-}
-
-PetscopBuff: {
-	DisplayName: Guardian
-	Description: The newmaker
-}
-
-PetscopMarvinBuff: {
-	DisplayName: Marvin
-	Description: Marvin picks up tool
-}
-
-PetscopTiaraBuff: {
-	DisplayName: Petscop Tiara Buff
-	Description: Tiara plays bad music too
 }

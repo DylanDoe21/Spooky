@@ -262,9 +262,9 @@ namespace Spooky.Core
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //snotty schnoz booger item dropping on hit
-            if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+            if (MocoNose && MocoBoogerCharge < 15)
             {
-                if (Main.rand.NextBool(25))
+                if (!Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()) && Main.rand.NextBool(25))
                 {
                     int itemType = ModContent.ItemType<MocoNoseBooger>();
                     int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
@@ -351,7 +351,6 @@ namespace Spooky.Core
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             //gore armor set aura protection
-            //copied from above because getting hit by npcs and projectiles are handled separately by tmodloader now
             if (GoreArmorSet)
             {
                 modifiers.SetMaxDamage(1);
@@ -377,15 +376,30 @@ namespace Spooky.Core
         {
             if (MonumentMythosPyramid)
             {
-                if (GizaGlassHits < 3)
-                {
-                    GizaGlassHits++;
-                }
+                GizaGlassHits++;
 
-                if (GizaGlassHits == 2)
+                if (GizaGlassHits == 3)
                 {
-                    SoundEngine.PlaySound(SoundID.Tink, Player.Center);
+                    GizaGlassHits = 0;
+                    
+                    Player.AddBuff(ModContent.BuffType<MonumentMythosShatter>(), 300);
+                    Player.AddBuff(ModContent.BuffType<MonumentMythosCooldown>(), 7200);
+
+                    SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
+
+                    for (int numGores = 1; numGores <= 4; numGores++)
+                    {
+                        if (Main.netMode != NetmodeID.Server)
+                        {
+                            Gore.NewGore(Player.GetSource_OnHurt(info.DamageSource), Player.Center, Player.velocity, ModContent.Find<ModGore>("Spooky/GizaGlassGore" + numGores).Type);
+                        }
+                    }
                 }
+            }
+
+            if (Player.HasBuff(ModContent.BuffType<MonumentMythosShatter>()))
+            {
+                info.Damage *= 2;
             }
 
             //add fly cooldown when hit and the player has flies

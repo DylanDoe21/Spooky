@@ -142,10 +142,11 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<RedGodzillaCartridge>(OrroboroDowned)
             .Add<HerobrineAltar>(BigBoneDowned)
             //random stuff
-            .Add<PetscopTool1>()
-            .Add<PetscopTool2>()
-            .Add<PetscopTool3>()
-            .Add<PartySkeletonSkull>();
+            .Add(new Item(ModContent.ItemType<PetscopTool1>()) { shopCustomPrice = 100000 })
+            .Add(new Item(ModContent.ItemType<PetscopTool2>()) { shopCustomPrice = 100000 })
+            .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
+            .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 150000 })
+            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 });
 
             npcShop.Register();
         }

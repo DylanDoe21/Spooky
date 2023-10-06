@@ -30,7 +30,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			Item.width = 24;
 			Item.height = 18;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 1);
+			Item.value = Item.buyPrice(gold: 2);
 		}
 
         public override void UpdateEquip(Player player)
@@ -40,10 +40,12 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			player.noKnockback = true;
 			player.hermesStepSound.Style = WalkSound;
 
+			/*
 			if (player.oldVelocity.Y > 5f)
 			{
                 SoundEngine.PlaySound(SoundID.NPCDeath43, player.Center);
             }
+			*/
         }
 
 		public override void AddRecipes()

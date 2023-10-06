@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			Item.width = 38;
 			Item.height = 36;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 1);
+			Item.value = Item.buyPrice(gold: 2);
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 

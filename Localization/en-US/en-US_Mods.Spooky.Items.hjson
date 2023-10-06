@@ -463,12 +463,160 @@ SpiritHorsemanLegs: {
 	Tooltip: 12% increased movement speed
 }
 
+BackroomsCorpse: {
+	DisplayName: Severed Head
+	Tooltip:
+		'''
+		Spawns a floating head above you when worn that decays nearby enemies
+		Decay will rapidly drain enemies health, and won't effect enemies below half health
+		Deals less damage over time to bosses
+		'It's like portions of the body stopped decaying'
+		'''
+}
+
+CarnisFlavorEnhancer: {
+	DisplayName: Flavor Enhancer
+	Tooltip:
+		'''
+		While moving, you will create a trail of spores that can inflict random debuffs
+		if you have the Well Fed buff, the trail debuffs will become more potent and powerful
+		This also scales further based on the tier of Well Fed you have
+		'Required for every meal'
+		'''
+}
+
+GeminiEntertainmentGame: {
+	DisplayName: Lethal Omen
+	Tooltip:
+		'''
+		Spawns short lived nature's mockery around you on the ground occassionally
+		Nature's mockery will sap the life of enemies near it to heal you
+		'Go on, feed the woods'
+		'''
+}
+
+HerobrineAltar: {
+	DisplayName: Blocky Altar
+	Tooltip:
+		'''
+		Press the Accessory Hotkey to summon a powerful bolt of lighting at your cursor position
+		The lighting bolt will deal extremely massive damage to regular enemies
+		Bosses will take 10% of their maximum life as damage
+		'Removed Herobrine'
+		'''
+}
+
+Local58Telescope: {
+	DisplayName: Telescope
+	Tooltip:
+		'''
+		Spawns a large moon to orbit around you constantly
+		The moon can damage enemies and block some enemy projectiles
+		'His throne'
+		'''
+}
+
+MandelaCatalogueTV: {
+	DisplayName: Analog TV
+	Tooltip:
+		'''
+		Press the Accessory Hotkey to summon an alternate of yourself
+		The alternate will follow you for a short time, and enemies nearby it will be slowed
+		'You are not the real you'
+		'''
+}
+
+MonumentMythosPyramid: {
+	DisplayName: Freedom Containment Unit
+	Tooltip:
+		'''
+		While worn, you will be protected by a giza glass pyramid
+		This pyramid will drastically increase your defense for 3 hits, after which it will shatter
+		However, after it shatters you will take double damage from all attacks for 5 seconds
+		The giza glass pyramid will regenerate after 2 minutes
+		'She is only dormant now'
+		'''
+}
+
+PolybiusArcadeGame: {
+	DisplayName: Arcade Cabinet
+	Tooltip:
+		'''
+		Summons a swirling blue spiral that will follow your cursor
+		The spiral deals a decent amount of damage to enemies inside it
+		After hitting enemies 5 times, it will dissappear and regenerate after 20 seconds
+		'Classified information not to be meddled with'
+		'''
+}
+
+RedGodzillaCartridge: {
+	DisplayName: NES Cartridge
+	Tooltip:
+		'''
+		Upon damaging an enemy, there is a 5% chance to summon a large red beast
+		The red beast will deal a heavy amount of damage to the target 3 times
+		'King of monsters'
+		'''
+}
+
+RedMistClarinet: {
+	DisplayName: Red Mist
+	Tooltip:
+		'''
+		Critical hits will sometimes spawn an orbiting note that will chase enemies
+		There is a 3 second cooldown before you can spawn another note
+		'Your worst and last performance'
+		'''
+}
+
+SlendermanPage: {
+	DisplayName: The 8th Page
+	Tooltip:
+		'''
+		Spawns some black tentacles attached to you that will attack nearby enemies
+		Hitting enemies will rarely spawn pages you can pick up
+		Picking up these pages will temporarily buff your tentacles
+		'Don't look'
+		'''
+}
+
+SmileDogPicture: {
+	DisplayName: Dog Photo
+	Tooltip:
+		'''
+		A weird dog will follow you and maul nearby enemies
+		Every 3 minutes, the dog will target you instead
+		You must subdue the dog in order to make it friendly again
+		'That dog is messed up'
+		'''
+}
+
+AnalogueHorrorTape: {
+	DisplayName: Analogue Horror Tape
+	Tooltip: Grants the effects of every analog horror accessory
+}
+
+Creepypasta: {
+	DisplayName: Creepypasta
+	Tooltip: Grants the effects of every creepypasta accessory
+}
+
 CemeterySolution: {
 	DisplayName: Dark Green Solution
 	Tooltip:
 		'''
 		Used by the Clentaminator
 		Spreads the Swampy Cemetery
+		'''
+}
+
+PartyNailgun: {
+	DisplayName: Spook-02 Necromantic Machine Pistol
+	Tooltip:
+		'''
+		The newest self-defense weapon in the necromancy weapons scene
+		Rapidly fires out bolts that completely ignore enemy defense
+		Has its own special ammo stored inside of it that regenerates over time
 		'''
 }
 
@@ -579,6 +727,11 @@ SeasaltHead: {
 	Tooltip: "'Great for impersonating spooky mod devs!'"
 }
 
+SirenHead: {
+	DisplayName: Siren Head
+	Tooltip: "'Actual siren sounds not included'"
+}
+
 SpookySpiritMask: {
 	DisplayName: Spooky Spirit Mask
 	Tooltip: ""
@@ -607,6 +760,36 @@ ZomboidNecromancerHood: {
 ZomboidPyromancerHood: {
 	DisplayName: Pyromancer Hood
 	Tooltip: "'Legalize nuclear bombs!'"
+}
+
+BoogerFish: {
+	DisplayName: Schnoz Fish
+	Tooltip: "'Caught in Valley of Eyes'"
+}
+
+OrroEel: {
+	DisplayName: Orro Eel
+	Tooltip: "'Caught in Valley of Eyes'"
+}
+
+GourdFish: {
+	DisplayName: Moldy Gourd Fish
+	Tooltip: "'Caught in Spooky Forest'"
+}
+
+HibiscusFish: {
+	DisplayName: Swimming Hibiscus
+	Tooltip: "'Caught in Creepy Catacombs'"
+}
+
+SpookySpiritFish: {
+	DisplayName: Spirit Cod
+	Tooltip: "'Caught in Swampy Cemetery'"
+}
+
+ZomboidFish: {
+	DisplayName: Zomboid Fish
+	Tooltip: "'Caught in Spooky Forest'"
 }
 
 BlackLicorice: {
@@ -731,6 +914,21 @@ OrroboroEye: {
 PandoraBean: {
 	DisplayName: Ghastly Bean
 	Tooltip: Summons Von Anguston VI, heir to the throne of the king bean
+}
+
+PetscopTool1: {
+	DisplayName: Red Tool
+	Tooltip: Summons the Guardian
+}
+
+PetscopTool2: {
+	DisplayName: Green Tool
+	Tooltip: Summons Marvin
+}
+
+PetscopTool3: {
+	DisplayName: Pink tool
+	Tooltip: Summons Tiara
 }
 
 RottenGourd: {
@@ -2124,205 +2322,7 @@ CatacombBrickWall2Item: {
 	Tooltip: ""
 }
 
-SpookyMushLakeWallItem: {
-	DisplayName: Spooky Mush Lake Wall Item
-	Tooltip: ""
-}
-
-BoogerFish: {
-	DisplayName: Schnoz Fish
-	Tooltip: "'Caught in Valley of Eyes'"
-}
-
-OrroEel: {
-	DisplayName: Orro Eel
-	Tooltip: "'Caught in Valley of Eyes'"
-}
-
-GourdFish: {
-	DisplayName: Moldy Gourd Fish
-	Tooltip: "'Caught in Spooky Forest'"
-}
-
-HibiscusFish: {
-	DisplayName: Swimming Hibiscus
-	Tooltip: "'Caught in Creepy Catacombs'"
-}
-
-SpookySpiritFish: {
-	DisplayName: Spirit Cod
-	Tooltip: "'Caught in Swampy Cemetery'"
-}
-
-ZomboidFish: {
-	DisplayName: Zomboid Fish
-	Tooltip: "'Caught in Spooky Forest'"
-}
-
-BackroomsCorpse: {
-	DisplayName: Severed Head
-	Tooltip:
-		'''
-		Spawns a floating head above you when worn that decays nearby enemies
-		Decay will rapidly drain enemies health, and won't effect enemies below half health
-		Deals less damage over time to bosses
-		'It's like portions of the body stopped decaying'
-		'''
-}
-
-CarnisFlavorEnhancer: {
-	DisplayName: Flavor Enhancer
-	Tooltip:
-		'''
-		While moving, you will create a trail of spores that can inflict random debuffs
-		if you have the Well Fed buff, the trail debuffs will become more potent and powerful
-		This also scales further based on the tier of Well Fed you have
-		'Required for every meal'
-		'''
-}
-
-GeminiEntertainmentGame: {
-	DisplayName: Lethal Omen
-	Tooltip:
-		'''
-		Spawns short lived nature's mockery around you on the ground occassionally
-		Nature's mockery will sap the life of enemies near it to heal you
-		'Go on, feed the woods'
-		'''
-}
-
-HerobrineAltar: {
-	DisplayName: Blocky Altar
-	Tooltip:
-		'''
-		Press the Accessory Hotkey to summon a powerful bolt of lighting at your cursor position
-		The lighting bolt will deal extremely massive damage to regular enemies
-		Bosses will take 10% of their maximum life as damage
-		'Removed Herobrine'
-		'''
-}
-
-Local58Telescope: {
-	DisplayName: Telescope
-	Tooltip:
-		'''
-		Spawns a large moon to orbit around you constantly
-		The moon can damage enemies and block some enemy projectiles
-		'His throne'
-		'''
-}
-
-MandelaCatalogueTV: {
-	DisplayName: Analog TV
-	Tooltip:
-		'''
-		Press the Accessory Hotkey to summon an alternate of yourself
-		The alternate will follow you for a short time, and enemies nearby it will be slowed
-		'You are not the real you'
-		'''
-}
-
-MonumentMythosPyramid: {
-	DisplayName: Freedom Containment Unit
-	Tooltip:
-		'''
-		While worn, you will be protected by a giza glass pyramid
-		This pyramid will drastically increase your defense for 3 hits, after which it will shatter
-		However, the next hit you take after the pyramid shatters will deal double damage
-		The giza glass pyramid will regenerate after 2 minutes
-		'She is only dormant now'
-		'''
-}
-
-PolybiusArcadeGame: {
-	DisplayName: Polybius
-	Tooltip:
-		'''
-		Summons a swirling blue spiral that will follow your cursor
-		The spiral deals a decent amount of damage to enemies inside it
-		After hitting enemies 5 times, it will dissappear and regenerate after 20 seconds
-		'Classified information not to be meddled with'
-		'''
-}
-
-RedGodzillaCartridge: {
-	DisplayName: NES Cartridge
-	Tooltip:
-		'''
-		Upon damaging an enemy, there is a 5% chance to summon a large red beast
-		The red beast will deal a heavy amount of damage to the target 3 times
-		'King of monsters'
-		'''
-}
-
-RedMistClarinet: {
-	DisplayName: Red Mist
-	Tooltip:
-		'''
-		Critical hits will sometimes spawn an orbiting note that will chase enemies
-		There is a 3 second cooldown before you can spawn another note
-		'Your worst and last performance'
-		'''
-}
-
-SlendermanPage: {
-	DisplayName: The 8th Page
-	Tooltip:
-		'''
-		Spawns some black tentacles attached to you that will attack nearby enemies
-		Hitting enemies will rarely spawn pages you can pick up
-		Picking up these pages will temporarily buff your tentacles
-		'Don't look'
-		'''
-}
-
-SmileDogPicture: {
-	DisplayName: Dog Photo
-	Tooltip:
-		'''
-		A weird dog will follow you and maul nearby enemies
-		Every 3 minutes, the dog will target you instead
-		You must subdue the dog in order to make it friendly again
-		'That dog is messed up'
-		'''
-}
-
-PartyNailgun: {
-	DisplayName: Spook-02 Necromantic Machine Pistol
-	Tooltip:
-		'''
-		The newest self-defense weapon in the necromancy weapons scene
-		Rapidly fires out bolts that completely ignore enemy defense
-		Has its own special ammo stored inside of it that regenerates over time
-		'''
-}
-
 RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip: Test Item
-}
-
-AnalogueHorrorTape: {
-	DisplayName: Analogue Horror Tape
-	Tooltip: ""
-}
-
-Creepypasta: {
-	DisplayName: Creepypasta
-	Tooltip: ""
-}
-
-PetscopTool1: {
-	DisplayName: Red Tool
-	Tooltip: Summons the guardian
-}
-
-PetscopTool2: {
-	DisplayName: Green Tool
-	Tooltip: Summons marvin
-}
-
-PetscopTool3: {
-	DisplayName: Pink tool
-	Tooltip: Summons tiara
 }

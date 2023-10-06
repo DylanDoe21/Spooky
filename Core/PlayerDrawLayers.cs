@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Core
 {
     //helmet extension stuff
@@ -249,7 +251,7 @@ namespace Spooky.Core
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid && drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().GizaGlassHits < 3;
+            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid && !drawInfo.drawPlayer.HasBuff(ModContent.BuffType<MonumentMythosCooldown>());
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -264,10 +266,10 @@ namespace Spooky.Core
             Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
 
             Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
-            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y, MidpointRounding.AwayFromZero));
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 10, MidpointRounding.AwayFromZero));
 
-            drawInfo.DrawDataCache.Add(new DrawData(tex1, roundedPos - Main.screenPosition, null, color, 0, tex1.Size() / 2, 1f, SpriteEffects.None, 0));
-            drawInfo.DrawDataCache.Add(new DrawData(tex2, roundedPos - Main.screenPosition, null, color * 0.8f, 0, tex2.Size() / 2, 1f, SpriteEffects.None, 0));
+            drawInfo.DrawDataCache.Add(new DrawData(tex1, roundedPos - Main.screenPosition, null, color, 0, tex1.Size() / 2, 1.2f, SpriteEffects.None, 0));
+            drawInfo.DrawDataCache.Add(new DrawData(tex2, roundedPos - Main.screenPosition, null, color * 0.8f, 0, tex2.Size() / 2, 1.2f, SpriteEffects.None, 0));
         }
     }
 }

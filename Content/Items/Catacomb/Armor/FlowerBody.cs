@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 			Item.width = 30;
 			Item.height = 22;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 1);
+			Item.value = Item.buyPrice(gold: 2);
 		}
 
 		public override void UpdateEquip(Player player)

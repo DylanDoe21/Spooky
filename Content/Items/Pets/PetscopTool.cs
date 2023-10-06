@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 28;
-			Item.height = 66;
+			Item.width = 36;
+			Item.height = 36;
 			Item.shoot = ModContent.ProjectileType<PetscopPet>();
 			Item.buffType = ModContent.BuffType<PetscopBuff>();
 		}
@@ -30,8 +30,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 28;
-			Item.height = 66;
+			Item.width = 36;
+			Item.height = 36;
 			Item.shoot = ModContent.ProjectileType<PetscopMarvinPet>();
 			Item.buffType = ModContent.BuffType<PetscopMarvinBuff>();
 		}
@@ -48,8 +48,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 28;
-			Item.height = 66;
+			Item.width = 36;
+			Item.height = 36;
 			Item.shoot = ModContent.ProjectileType<PetscopTiaraPet>();
 			Item.buffType = ModContent.BuffType<PetscopTiaraBuff>();
 		}
