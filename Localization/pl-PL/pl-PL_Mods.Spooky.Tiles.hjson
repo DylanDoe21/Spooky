@@ -1,0 +1,99 @@
+HalloweenChest: {
+	// MapEntry0: Old Wood Chest
+	// MapEntry1: Locked Old Wood Chest
+}
+
+SpookyBiomeChest: {
+	// MapEntry0: Spooky Chest
+	// MapEntry1: Locked Spooky Chest
+}
+
+EyeChest: {
+	// MapEntry0: Monster Chest
+	// MapEntry1: Sleeping Monster Chest
+}
+
+SpookyHellChest: {
+	// MapEntry0: Eye Chest
+	// MapEntry1: Locked Eye Chest
+}
+
+EyeDresser: {
+	// ContainerName: Living Flesh Dresser
+	// MapEntry: Dresser
+}
+
+// SpiritAltar.MapEntry: Spirit Altar
+// CemeterySapling.MapEntry: Sapling
+// BigBoneBoxTile.MapEntry: Music Box
+// CatacombBoxTile.MapEntry: Music Box
+// CatacombBox2Tile.MapEntry: Music Box
+// CemeteryBoxTile.MapEntry: Music Box
+// DaffodilBoxTile.MapEntry: Music Box
+// EggEventBoxTile.MapEntry: Music Box
+// MocoBoxTile.MapEntry: Music Box
+// PandoraEventBoxTile.MapEntry: Music Box
+// RaveyardBoxTile.MapEntry: Music Box
+// RotGourdBoxTile.MapEntry: Music Box
+// SpookyBiomeDayBoxTile.MapEntry: Music Box
+// SpookyBiomeNightBoxTile.MapEntry: Music Box
+// SpookyBiomeRainBoxTile.MapEntry: Music Box
+// SpookyBiomeUGBoxTile.MapEntry: Music Box
+// OrroboroBoxTile.MapEntry: Music Box
+// SpookyHellBoxTile.MapEntry: Music Box
+// SpookyMenuBoxTile.MapEntry: Music Box
+// SpookySpiritBoxTile.MapEntry: Music Box
+// VinylTileThing.MapEntry: Music Box
+// VinylTileThing2.MapEntry: Music Box
+// VinylTileThing3.MapEntry: Music Box
+// VinylTileThing4.MapEntry: Music Box
+// CemeteryPylon.MapEntry: Swampy Cemetery Pylon
+// SpookyBiomePylon.MapEntry: Spooky Forest Pylon
+// SpookyHellPylon.MapEntry: Eye Valley Pylon
+// FlyBigJar.MapEntry: Big Fly Jar
+// FlySmallJar.MapEntry: Fly Jar
+// OldWoodBathtub.MapEntry: Bathtub
+// OldWoodBed.MapEntry: Bed
+// OldWoodBookcase.MapEntry: Bookcase
+// OldWoodCandle.MapEntry: Candle
+// OldWoodChair.MapEntry: Chair
+// OldWoodDoorClosed.MapEntry: Door
+// OldWoodDoorOpen.MapEntry: Door
+// OldWoodOrgan.MapEntry: Organ
+// OldWoodSofa.MapEntry: Sofa
+// OldWoodTable.MapEntry: Table
+// OldWoodWorkBench.MapEntry: Work Bench
+// GiantShroom.MapEntry: Giant Shroom
+// SpookySapling.MapEntry: Sapling
+// SpookySaplingGreen.MapEntry: Sapling
+// EyeChest_Sleeping.MapEntry: Sleeping Monster Chest
+// SpookyHellChest_Locked.MapEntry: Locked Eye Chest
+// Cauldron.MapEntry: Creepy Cauldron
+// EyeBathtub.MapEntry: Bathtub
+// EyeBed.MapEntry: Bed
+// EyeBookcase.MapEntry: Bookcase
+// EyeCandelabra.MapEntry: Candelabra
+// EyeCandle.MapEntry: Candle
+// EyeChair.MapEntry: Chair
+// EyeChandelier.MapEntry: Chandelier
+// EyeClock.MapEntry: Clock
+// EyeDoorClosed.MapEntry: Door
+// EyeDoorOpen.MapEntry: Door
+// EyeLamp.MapEntry: Lamp
+// EyeLantern.MapEntry: Lantern
+// EyePiano.MapEntry: Piano
+// EyeSink.MapEntry: Sink
+// EyeSofa.MapEntry: Sofa
+// EyeTable.MapEntry: Table
+// EyeWorkBench.MapEntry: Work Bench
+// EyeSapling.MapEntry: Stalk Sapling
+// EyeTree.MapEntry: Eye Stalk
+// BigBoneTrophy.MapEntry: Trophy
+// BoroTrophy.MapEntry: Trophy
+// DaffodilTrophy.MapEntry: Trophy
+// MocoTrophy.MapEntry: Trophy
+// OrroTrophy.MapEntry: Trophy
+// RotGourdTrophy.MapEntry: Trophy
+// SpookySpiritTrophy.MapEntry: Trophy
+// BigFlower.MapEntry: Big Flower
+// MysteriousTombstone.MapEntry: Mysterious Tombstone

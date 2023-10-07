@@ -24,7 +24,7 @@ namespace Spooky.Core
                 return;
             }
 
-            //manually handle daffodils music box if her intro themes are playing since music boxes cant be assigned more than one song
+            //manually handle daffodils music box recording if her intro themes are playing, since music boxes cant be assigned more than one song
             if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && 
             (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") ||
             Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
@@ -38,6 +38,7 @@ namespace Spooky.Core
 
         public override bool CanUseItem(Item item, Player player)
         {
+            //disable a bunch of tools and other utility items while in the catacombs
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
                 int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
@@ -94,17 +95,13 @@ namespace Spooky.Core
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
+            //1 in 30 chance to drop a random dev mask out of goodie bags
 			if (item.type == ItemID.GoodieBag)
 			{
 				int[] DevMasks = new int[] { 
-                ModContent.ItemType<BananalizardHead>(), 
-                ModContent.ItemType<DylanDoeHead>(), 
-                ModContent.ItemType<HatHead>(), 
-                ModContent.ItemType<KrakenHead>(),
-                ModContent.ItemType<PelusaHead>(),
-                ModContent.ItemType<SeasaltHead>(), 
-                ModContent.ItemType<TacoHead>(), 
-                ModContent.ItemType<WaasephiHead>() };
+                ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(), ModContent.ItemType<HatHead>(), 
+                ModContent.ItemType<KrakenHead>(), ModContent.ItemType<PelusaHead>(), ModContent.ItemType<SeasaltHead>(), 
+                ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>() };
 
                 itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
 			}

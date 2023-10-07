@@ -1,0 +1,118 @@
+//bosses
+BigBone: Zagubiony brat małej kostki, który jest uwięziony w katakumbach przez jego ogromną siłę. Jego kwiatowa magia zajęła całe katakumby, szerząc dziwne rośline wszędzie.
+Daffodil: Gigantyczny i leniwy kwiat który spędza większość czasu śpiąc. Powinna czuwać nad głębokim wejściem katakumbów, tylko wpuszczając tych których sądzi za wartych do dalszej eksploracji.
+Moco: Legendarny latający nochal, który reprezentuje siebie gdy jego ukochana kaplica jest naruszona. Jego duża mobilność i ochydne smarki nie powinny być traktowane lekko.
+OrroHead: Szybki i wyrachowany wąż, które współpracuję z Boro aby chronić swoję terytorium. Te węże ciągle rosną, konsumując siebie w nieskończonmy cyklu.
+BoroHead: Ślepy i agresywny wąż, który współpracuję z Orro aby chronić swoję terytorium. Stare mity mówią, że dolina oczu jest zrobiona z pozostałego mięcha tych wężów, które z siebie odgryzły.
+RotGourd: To połączone duo i ich małe przyjazne muszki nie lubią najeźdzców ich ziemii. Rotty będzie agresywnie skakał, podczas gdy Jeremiasz będzie zachowywał się jak działko, plując ochydnymi zarodnikami pleśni i robalami.
+SpookySpirit: A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery. Gigantyczny, złośliwy duch. Przez bycie za mocnym, zostawił gigantyczną dynię która kiedyś opętał i zajął bagienne cmentarzysko.
+//hallucinations
+TheBaby: To nieprzestaje płaczeć...
+TheFlesh: Ale tchórz.
+TheHorse: Dalej jesteś głodny?
+TheMan: Zawsze obserwuje.
+//catacombs layer 1
+CatacombGuardian: Każdy głupiec próbujący wejść do katakumb. bez pozwolenia zmierzy się z gniewem ochrońcy katakumb.
+BoneStackerBase: Płyta cegieł z twarzą na niej. Nosi wiele kostnych płytek na jego plecach, tworząc ścianną barierę która nie pozwala intruzom dalej eksplorować.
+BoneStacker1: Płyta kości, które mogą na sobie leżeć. Gdy ich podstawa zniknie, mogą używać małych nózek pod swoimi kostnymi skorupami aby chodzić na ziemii.
+BoneStacker2: Gdy ich podstawa jest zniszczona, mogą czasami siebie uwolnić i atakować wrogów jako ostatni wysiłek.
+BoneStacker3: Te kostne płyty mają nie aż tak sekretną broń, czyli ich ciernie. Są ostre i mogą powodować krwawienie.
+GiantPutty: Gigantyczne kostki slime'u które chodzą przez katakumby. Te lepkie slime'y są większe niż zazwyczaj i teraz mają zdolność wywęszenia ich celów.
+RollingSkull1: Olbrzymie czachy które bezmyślnie toczą się w katakumbach, miażdżąc i niszcząc wszystko w ich ścieżce.
+RollingSkull2: Nikt nie wie jak te czaszki dostały się do katakumbów. Mogą zwałkować praktycznie wszystko i są zdolne do ścigania intruzów w dużej prędkośći.
+RollingSkull3: Te głośne impakty i dreszcze prawie jak trzęsienia ziemii, które doświadczają niektórzy odkrywcy w katakumbach są powodane przez nieumarłe czaszki walące o ściany w dużych prędkościach.
+RollingSkull4: Pozłacane czaszki stworzone z czystego złota, niektórzy mówią, że zostały stworzone w honorze tych, którzy umarli i zostali pochowani w katakumbach.
+Skeletoid1: Te zombiaki były nieumarłe na tak długo, że zmieniły się w nieumarłe szkielety. Dalej chodzą po katakumbach jak gdyby był to normalny dzień.
+Skeletoid2: Szkielety mogą używać roślin które nadrastają w nich dla swojej korzyści. Mogą używach kwiatów na ich twarzach do wystrzelenia wiązek energii.
+Skeletoid3: Szkielety czasami mają poczucie mody. Tym wyrosły winorośle w unikatowe włosy, ale to prawdopodobnie tylko taka faza.
+Skeletoid4: Te szkielety posiadają defensywną barierę zrobioną z cierni i winorośli, robiąc z nich groźnych przeciwników jeżeli zajdą cię z pleców. Walka na blisko jest odradzana.
+SkeletoidBig: Duży Jan kiedyś był bardzo dużym i silnym mężczyznom, który kiedyś zgninął. Ale pomimo tego, dalej jest Dużym Janem do dzisiaj. Dobrze dla niego, jest spoko kolesiem.
+ZomboidNecromancer: Te zombiaki spędziły większość czasu zamknięte w katakumbach ucząc się nekromancji i są wstanie czarować duszę z grobowców wokół nich.
+ZomboidPyromancer: Czasami, nawet najbardziej zdedykowani magicy zombiaków nie więdzą jak używać magii prawidłowo. Patrząc na ich wypalone płaszcze, to nie był pierwszy raz gdy ich czary wybuchły im na twarzy.
+//catacombs layer 2
+Daisy1: Małe kwiaty, które zdecydowały się nauczyć biegania. Mogą również lewitować przez kręcenie ich płatków jak helikopter.
+Daisy2: Bardzo brutalne kwiaty, którę gonią intruzów przez katakumby. Ich ostre płatki mogą przeciąć wiele rzeczy, na przykład twoje ciało! Nie brzmi przyjemnie.
+Flourence: Rozumna roślina, która może szybko i cicho ślizgać się, pozwalając jej na zasadzke na intruzów w ciemności dolnych katakumbów.
+Marigold: Jakimś cudem, te kwiaty wyrosły w starych butach i teraz nie mogą z nich wyjść. Skakają wokół katakumbów jako jedyny ich sposób transportu.
+MarigoldSpit: Duże aksamitki, które posiadają nibyustny otwór w ich kwiacie, pozwalając im na plucie szkodliwych zarodników w intruzy.
+Smelly: Ich nazwa nie jest żartem, te trupie kwiaty mogą ziać cuchnącymymi i toksycznymi zarodnikami z ich nibyustnych otworów, które mogą zatruć każdego kto je wdechnie.
+Sunny: Duże słoneczniki, które stały się rozumne przez nadmiar magii roślin w katakumbach. Mogą tworzyć magiczne nasienia, które tworzą więcej ich przyjaciół.
+Toothy: Bezgłośnie siedzące na ziemii, będą cierpliwie czekać na nierozsądnych odkrywców aby na nich nadepnęli. Ich ostre zęby i mocny uścisk są zabójcze, więc uważaj na nie!
+//pandora's box
+PandoraBox: Tajemnicza skrzynka wypełniona duszami tych, którzy zostali do niej przywiązani. Ci, którzy ukończą próbę będą nagrodzeni skarbem.
+Bobbert: Malutkie duszki które pulsują. Nie zbliżaj się, ponieważ mają bardzo eksplozywną reakcję po porażce! (Jak typowy gracz.)
+Stitch: Psotliwe duchy uwięzione w puszcze pandory. Używają swoich delikatnych patyków do rzycania zaklęć na przeciwników.
+Sheldon: Duża formacja w kszałcie kleksa z dusz z tarczą, która chroni ich od niektórych pocisków. Uważaj na ich szarżę!
+Chester: Najsilniejsza dusza w puszce pandory, posiada niezwykłą, potężną maczugę i reflektywną tarczę do chronienia siebie.
+//cemetery
+TinyRat1: Małe gryzonie, które żyją w cmentarzysku, pędzą dalej cicho.
+TinyRat2: Te gryzonie są małe i słodkie, ale kto wie kiedy ostatnio się myły?
+BloatGhost: Bardzo łatwe do wystraszenia duchy, które puchną gdy ktoś się za bardzo zbliży. Potrafią być ryzykowne w dużych grupach, gdy są spotkane oczy w oczy.
+Possessor: Te złe duchy wędrują po cmentarzysku w nocy, złośliwie prześladując każdy cel, który chcą opętać.
+ZomboidCasket: Ruszający się trumna z nogami na dole. Posiada wspaniałą niespodziankę dla tych, którzy mają jaja ją rozwalić!
+ZomboidGremlin: Małe zombiaki, które są zadziwiająco agresywne. Będą gonić każdy cel pomimo ich komicznie karłowatego rozmiaru.
+MistGhost: Czasami rabowanie grobów ma zabójcze rezultaty. Nie inaczej jest z tymi duchami, które nie lubią plądrowania ich grobów i zaatakują każdego, który nawet spróbuję cokolwiek zrobić z ich leżyskiem.
+FeralRat1: Podczas krwawych księżyców, normalnie chowające się szczury chodzące po cmentarzysku zamieniają się w ochydne potwory, które gonią wszystko co zobaczą.
+FeralRat2: Kolosalne rozwścieczone gryzonie, które szybko pędzą po cmentarzysku podczas krwawych księżyców, atakując wszystko w ich drodze.
+SadGhostBig: Większe duchy, które są ciągle smutne. Może po prostu potrzebują przytulasa? Tak czy siak, większość czasu chodzą po cmentarzysku i mogą użych swoich emocji jako broń.
+SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby. Smutne duchy, które płaczą wokół cmentarzyska, zadając smutność wszystkim wokół. Napewno też potrzebują przytulasa.
+//egg event
+Crux: Dziwna kreatura, która wydaję się być zdeformowaną wersją tych gacków pokrytymi gałkami. Nie mogą tak samo dobrze polować z powodu braku oczu, więc używa magicznych zdolności aby atakować wrogów.
+Glutinous: Biednie złączona razem kreatura zrobiona z biomasy. Jest tylko zdolna do pełzania na ziemii powoli, czasami może rzygać swoją krwią. Jakim cudem to powstało?!
+Vesicator: Absolutnie podłe kawałki biomasy, które nauczyły się jakoś samo funkcjonować. Mogą wymiotować i używać biomasę dla swoich korzyści. Może dolina oczu wie co robi?
+Vigilante: Przebrzydłe pozostałości mięcha, stworzone w ten stwór przez dolinę oczu. Pomimo dziwnej konstrukcji, może latać i polować na swoje ofiary dosyć efektywnie.
+Ventricle: Kawałek bijącego mięcha przekształcone w tą ochydną masę przez dolinę oczu. Używa krwi i gazu przechowywane w jego ciele aby wystrzeliwać eksplozywną biomasę.
+//friendly npcs
+// DumbZombie: A zomboid that got lost. It does not know how to read. Or think.
+LittleBone: Słodka i przyjazna czaskoroślinna kreatura, która spędza czas w swojej doniczce. Lubi dawać porady przechodniom.
+LittleEye: Dziwna, rozumna łodyga oka z kozackim kapeluszem czarodzieja. Nieźle doświadczony alchemik, który woli używać swoich zdolności do psotania z innymi, ale potrafi być czasami przydatny.
+PartySkeleton1: Colorful skeletons revived by the power of the raveyard. They are eternally grateful to those who are able to start such a party. Kolorowe szkielety odrodzonę przez siłę Cmentańca. Są nieskończenie wdzięczne tym, którzy są wstanie zacząć takie imprezy.
+PartySkeleton2: Starożytne opowieści mówią, że te przyjazne nieumarłe imprezowicze budzą się podczas uroczystego fenomenu który zachodzi w cmentarzysku.
+PartySkeleton3: Zadowolone, że mogą spowrotem bawić się w cmentarzysku raz jeszcze, oferują specjalne napoje i inne dobra dla tych, którzy ich wezwali.
+// PartySkeleton4: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+// PartySkeleton5: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+// PartySkeleton6: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+// PartySkeleton7: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+// PartySkeleton8: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+// SkeletonBouncer: Security that participates in the raveyard and makes sure nothing gets out of hand. They carry a super-weapon that allows them to gun down anyone in seconds.
+// SuspiciousSkeleton: A weird skeleton that hangs around during wild parties. Sells extremely weird contraband to any idiot willing to buy it.
+//spooky forest
+Bungus: Małe humanoidalne grzybne kreature znalezione głeboko w upiornym lesie, spędzające czas wokół miejsc zakażonych fioletowym mchem.
+Chungus: Masywne i mięciutkie grzyby które skaczą wokół grzybnych mchowych obszarów pod ziemią. Witają poszukiwaczy przygód plując im w mordę szkodliwymi zarodnikami.
+FluffBatBig1: Większe puszyste gacki, które żyją w wilgotnych podziemiach upiornego lasu. Nie lubią gdy ich przestrzeń jest naruszona.
+FluffBatBig2: Większe kulki puszystości, które latają wokół podziemii upiornego lasu. Te bardziej agresywne spokrewnieńce nietoperzy jaskiniowych będą gonić każdego intruza z ich domu.
+FluffBatSmall1: W nocy, dziwne nietoperze pokryte grubym płaszczem futra przebudzą się i zaatakują niczego nie podejrzewających podróżników.
+FluffBatSmall2: Małe kulki puszystości ze skrzydłami. Pomimo tego, jak słodko to brzmi, są bardzo agresywne i terytorialne.
+FlyBig: Większe i brzydsze muchy. Ich skrzydła są za małe dla lotu, ale tak czy siak skurwysyny latają.
+FlySmall: Ochydne i irytujące mochy które latają wokół upiornego lasu.
+HoppingCandyBasket: Żyjące kosze cukierek sprowadzone do życia przez upiorny las. Pokonanie ich może wynagrodzić parę przepysznych cukierków, które noszą ze sobą.
+LittleSpider: Pomimo posiadania strachu wobec ludzi, te przyjazne pajęczaki chodzą wokół wilgotnych podziemii upiornego lasu.
+PuttyPumpkin: Gigantyczne lepkie slime'y, które wyglądają jak dyniowe latarnie. Posiadają zdolność do dzielenia się w miejsze slime'y jeżeli są w zagrożeniu, przez co mogą łatwo przytłoczyć swoich wrogów.
+PuttyPumpkinling: Potomstwo stworzone przez lepkie slime'y z upiornymi twarzami tworzone podczas zagrożenia. Te małe cośki mogą szybko obezwładnić każdego gdy są w dużej grupie.
+PuttySlime1: Małe krople niemądrych slime'ów z upiornymi twarzami, które skakają wokół upiornego lasu. Próbują wystraszyć każdego kogo spotkają, ale zazwyczaj im nie wychodzi.
+PuttySlime2: Slime'y stworzone z upiornych kleksów, sprowadzone do życia przez upiorny las. Skaczą wokół upiornego lasu bezmyślnie próbując przestraszyć wszystko, co mogą.
+PuttySlime3: Dziwne żyjące kleksy z głupawego slime'u. Kleksy, z których są stworzone, pozwalają im na większe skoki, niż inne slime'y.
+ShroomHopper: Małe robaki z gigantycznymi grzybami na plecach, pokojowo skaczą wokół fioletowego mchu pokrytego w miejscach, gdzie żyją.
+SpookyDance: Upiorny Miesiąc trwa cały rok! Tak przynajmniej myślą te szczęśliwe duchy!
+TinyGhost1: Małe upierdliwe duchy chodzące podczas nocy w upiornym lesie.
+TinyGhost2: Nikczemne zjawy, które chodzą wszędzie i nękają inne byty w upiornym lesie.
+TinyGhostBoof: Bardziej luksusowy i dobrze wychowany duch który ma symptom palacza. Oczywiście może przestać kiedy chce.
+TinyGhostRare: To malutkie duszki, ale te są pomarańczowe. Te nieuchwytne duchy mogą być po twojej stronie, jeżeli je złapiesz!
+TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do! Kto wiedział, że grzyby w upiornym lesie mogą się poruszać? Teraz już wiesz!
+ZomboidFungus: Zombiaki, które zostały zarośnięte dziwnym grzybem. Pomimo ślepoty, mogą dalej wywąchać lokację przeciwnika.
+ZomboidThorn: Pokryte cierniami, łażące potwory, które wstają w nocy. Mogą być bezmózgie, ale nie powinieneś z nimi walczyć bez przygotowania się.
+ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes. Te nie tak bezmózgie zombiaki są wystarczająco mądre, aby nauczyć się użytku magii, pozwalając im rzucać zaklęcia na przeciwników.
+ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine. Zombiak, który został przebity przez duży metalowy dzwonek wiatrowy, jednak dalej chodzi i żyje jak by nic mu się nie stało.
+//eye valley
+EyeBat: Te latające abominacje szybko się uczą i są szybkimi łowcami. Mają oczy wokół ich ciała, przez co mogą widzieć we wszystkie strony.
+ManHole: Te okropne usta tworzą się na ziemii doliny oczu i mogą być bardzo niebezpieczne dla niewiedzących eksplorerów. Mogą również pluć ślinę, aby przedwcześnie trawić ofiarę z daleka.
+ManHoleBig: Rzadko, niektóre ludzkie dziury mogą mieć symbiotyczne relacje. Oko, które żyje w środku może detektować intruzów, pozwalając ustom szybciej i łatwiej łowić.
+MrHandy: Dosyć energetyczna żyjąca ręka, która agresywnie będzie skakała do swojego celu. Może wyglądać śmiesznie z daleka, dopóki nie przyjdzie za blisko.
+Tortumor: Ochydne amalgamy mięcha urodzone w dolinie oczu. Mogą latać i atakować przez używanie kawałków siebie jako pocisków.
+TortumorGiant: Jeżeli regularne tumory nie były wystarczająco szpetne, to te zmutowane kawałki mięcha mogą tworzyć mniejsze klony siebie.
+ValleyFish: Mała mięsista ryba często spotykana w krwawych jeziorach. Pomimo rozmiaru, jest szybka i może być zabójcza dla nieprzygotowanych.
+ValleyNautilus: Potężny mutant, który czai się w krwawych jeziorach. Używa swojej krwi i tlenu w korpusie komorowym by lewitować i wyrzucać różne niebezpieczne pociski.
+ValleySquid: Mogą używać gaz przechowywany w ich głowach aby lewitować, a nawet latać krwią. Mogą strzelać kule krwawego atramentu, który spowalnia wrogów.
+ValleyEel: Duże węgorze pokryte grubą membraną, pozwalającą im na szybki ruch przez krew i powietrze. Są szybkimi i mądrymi łowcami, potrafiące mylić i prześcigać prawie wszystko.
+ValleyShark: Te ochydne humanoidalne rekiny są niesamowicie agresywne. Mogą strzelać ze swojej szczęki z dalekich dystansów, pozwalając im łapać ofiary z daleka.
+ValleyMerman: Humanoidalne rybiaste creature, które żyją w krwawym jeziorze. Mogą połykać krew i biomasę, aby ją spowrotem wypluć jako groźną substancję.

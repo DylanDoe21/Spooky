@@ -342,18 +342,11 @@ namespace Spooky.Content.Generation
 
 				Tile chestTile = Main.tile[chest.x, chest.y];
 
-                if (chestTile.TileType == ModContent.TileType<HalloweenChest>() && chestTile.TileFrameX == 0)
+                if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete))
                 {
                     int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
                     int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
                     int[] Misc = new int[] { ItemID.PumpkinSeed, ItemID.Cobweb };
-
-                    if (chest.item[0].type == ItemID.None)
-                    {
-                        //goodie bags
-                        chest.item[0].SetDefaults(ItemID.GoodieBag);
-                        chest.item[0].stack = WorldGen.genRand.Next(1, 2);
-                    }
 
                     //iron or lead bars
                     chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));

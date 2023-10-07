@@ -1,0 +1,202 @@
+RotGourd: {
+	// DisplayName: Rot Gourd
+
+	BossChecklistIntegration: {
+		// SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.
+		// DespawnMessage: Rot Gourd hops into the distance
+	}
+}
+
+SpookySpirit: {
+	// DisplayName: Spooky Spirit
+
+	BossChecklistIntegration: {
+		// SpawnInfo: Right click the cursed statue in the swampy cemetery at night while you have an [i:Spooky/EMFReader] in your inventory.
+		// DespawnMessage: Spooky Spirit has haunted all players
+	}
+}
+
+Moco: {
+	// DisplayName: Moco
+
+	BossChecklistIntegration: {
+		// SpawnInfo: Right click the nose statue in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory. The cotton swab is given to you after completing 3 of little eye's quests, or can be crafted.
+		// DespawnMessage: Moco has sneezed on all players
+	}
+}
+
+DaffodilEye: {
+	// DisplayName: Daffodil
+
+	BossChecklistIntegration: {
+		// SpawnInfo: Throw a [i:Spooky/Brick] at her to wake her up.
+		// DespawnMessage: Daffodil has ended your catacomb expedition
+	}
+}
+
+OrroHead: {
+	// DisplayName: Orro
+
+	BossChecklistIntegration: {
+		// EntryName: Orro & Boro
+		// SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once. The concoction is given to you after completing all of little eye's quests, or can be crafted.
+		// DespawnMessage: Orro & Boro have protected their egg
+	}
+}
+
+BigBone: {
+	// DisplayName: Big Bone
+
+	BossChecklistIntegration: {
+		// SpawnInfo: Use [i:Spooky/Fertilizer] while standing nearby the giant flower pot in the catacombs.
+		// DespawnMessage: All players have succumbed to big bone's wrath
+	}
+}
+
+//boss stuff
+// BigFlowerPot.DisplayName: Giant Flower Pot
+// BigFlower.DisplayName: Solar Flower
+// DefensiveFlower.DisplayName: Defensive Flower
+// HealingFlower.DisplayName: Healing Flower
+// DaffodilBody.DisplayName: ""
+// DaffodilHandLeft.DisplayName: Daffodil
+// DaffodilHandRight.DisplayName: Daffodil
+// BoroBody.DisplayName: Boro
+// BoroBodyConnect.DisplayName: Boro
+// BoroBodyP1.DisplayName: Boro
+// BoroHead.DisplayName: Boro
+// BoroTail.DisplayName: Boro
+// BoroTailP1.DisplayName: Boro
+// OrroBody.DisplayName: Orro
+// OrroBodyP1.DisplayName: Orro
+// OrroHeadP1.DisplayName: Orro
+// OrroTail.DisplayName: Orro
+// PhantomSkull.DisplayName: Phantom Skull
+//hallucinations
+// TheBaby.DisplayName: The Baby
+// TheFlesh.DisplayName: The Flesh
+// TheHorse.DisplayName: The Horse
+// TheMan.DisplayName: The Man
+//catacombs layer 1
+// CatacombGuardian.DisplayName: Catacomb Guardian
+// Skeletoid1.DisplayName: Skeletoid
+// Skeletoid2.DisplayName: Skeletoid
+// Skeletoid3.DisplayName: Skeletoid
+// Skeletoid4.DisplayName: Skeletoid
+// SkeletoidBig.DisplayName: Big John
+// BoneStackerBase.DisplayName: Catacomb Slab
+// BoneStacker1.DisplayName: Bone Slab
+// BoneStacker2.DisplayName: Bone Slab
+// BoneStacker3.DisplayName: Bone Slab
+// BoneStackerMoving1.DisplayName: Bone Slab
+// BoneStackerMoving2.DisplayName: Bone Slab
+// BoneStackerMoving3.DisplayName: Bone Slab
+// GiantPutty.DisplayName: Cube of Putty
+// RollingSkull1.DisplayName: Rolling Skull
+// RollingSkull2.DisplayName: Rolling Skull
+// RollingSkull3.DisplayName: Rolling Skull
+// RollingSkull4.DisplayName: Gilded Skull
+// ZomboidNecromancer.DisplayName: Zomboid Necromancer
+// ZomboidNecromancerSkull.DisplayName: Soul Skull
+// ZomboidPyromancer.DisplayName: Zomboid Pyromancer
+//catacombs layer 2
+// Daisy1.DisplayName: Daisy
+// Daisy2.DisplayName: Daisy
+// Flourence.DisplayName: Flourence
+// Marigold.DisplayName: Marigold
+// MarigoldSpit.DisplayName: Marigold
+// Smelly.DisplayName: Smelly
+// Sunny.DisplayName: Sunny
+// Toothy.DisplayName: Toothy
+//pandora's box
+// PandoraBox.DisplayName: Pandora's Box
+// Bobbert.DisplayName: Bobbert
+// Chester.DisplayName: Chester
+// ChesterClub.DisplayName: Chester
+// ChesterShield.DisplayName: Chester
+// Sheldon.DisplayName: Sheldon
+// SheldonShield.DisplayName: Sheldon
+// Stitch.DisplayName: Stitch
+// StitchWand.DisplayName: Stitch
+//cemetery
+// BloatGhostBig.DisplayName: Bloated Ghost
+// BloatGhostSmall.DisplayName: Ghost
+// Possessor.DisplayName: Possessor
+// PossessorEvil.DisplayName: Possessor
+// ZomboidCasket.DisplayName: Zomboid Casket
+// ZomboidGremlin.DisplayName: Zombino
+// MistGhost.DisplayName: Mist Ghost
+// FeralRat1.DisplayName: Feral Rat
+// FeralRat2.DisplayName: Feral Rat
+// TinyRat1.DisplayName: Tiny Rat
+// TinyRat2.DisplayName: Tiny Rat
+// SadGhostBig.DisplayName: Sad Ghost
+// SadGhostSmall.DisplayName: Sad Ghost
+//egg event
+// Crux.DisplayName: Crux
+// Glutinous.DisplayName: Glutinous
+// Ventricle.DisplayName: Ventricle
+// Vesicator.DisplayName: Vesicator
+// Vigilante.DisplayName: Vigilante
+//friendly
+// DumbZombie.DisplayName: Dumb Zombie
+// LittleBone.DisplayName: Little Bone
+// LittleBonePotTransform.DisplayName: Little Bone
+// LittleBoneSleeping.DisplayName: Sleeping Plant
+// LittleEye.DisplayName: Little Eye
+// LittleEyeSleeping.DisplayName: Sleeping Eye
+// PartySkeleton1.DisplayName: Party Skeleton
+// PartySkeleton2.DisplayName: Party Skeleton
+// PartySkeleton3.DisplayName: Party Skeleton
+// PartySkeleton4.DisplayName: Party Skeleton
+// PartySkeleton5.DisplayName: Party Skeleton
+// PartySkeleton6.DisplayName: Party Skeleton
+// PartySkeleton7.DisplayName: Party Skeleton
+// PartySkeleton8.DisplayName: Party Skeleton
+// SuspiciousSkeleton.DisplayName: Suspicious Skeleton
+//spooky biome
+// Bungus.DisplayName: Bungus
+// Chungus.DisplayName: Chunky Fungus
+// FluffBatBig1.DisplayName: Giant Fuzz Bat
+// FluffBatBig2.DisplayName: Giant Fuzz Bat
+// FluffBatSmall1.DisplayName: Fuzz Bat
+// FluffBatSmall2.DisplayName: Fuzz Bat
+// FlyBig.DisplayName: Giant Fly
+// FlySmall.DisplayName: Fly
+// HoppingCandyBasket.DisplayName: Hopping Candy Basket
+// LittleSpider.DisplayName: Little Spider
+// PuttyPumpkin.DisplayName: Putty Pumpkin
+// PuttyPumpkinling.DisplayName: Putty Pumpkinling
+// PuttySlime1.DisplayName: Putty Slime
+// PuttySlime2.DisplayName: Putty Slime
+// PuttySlime3.DisplayName: Putty Slime
+// ShroomHopper.DisplayName: Shroom Hopper
+// SpookyDance.DisplayName: Spooky Dance Ghost
+// TinyGhost1.DisplayName: Tiny Ghost
+// TinyGhost2.DisplayName: Tiny Ghost
+// TinyGhostBoof.DisplayName: Tiny Ghost
+// TinyGhostRare.DisplayName: Spooky Ghost
+// TinyMushroom.DisplayName: Tiny Mushroom
+// ZomboidFungus.DisplayName: Zomboid
+// ZomboidThorn.DisplayName: Zomboid
+// ZomboidWind.DisplayName: Zomboid
+// ZomboidWarlock.DisplayName: Zomboid Warlock
+//valley of eyes
+// EyeBat.DisplayName: Bat n' Eye
+// ManHole.DisplayName: Man Hole
+// ManHoleBig.DisplayName: Man Hole
+// ManHoleEye.DisplayName: Stalking Eye
+// MrHandy.DisplayName: Mr. Handy
+// Tortumor.DisplayName: Tortumor
+// TortumorGiant.DisplayName: Giant Tortumor
+// ValleyFish.DisplayName: Peeper Fish
+// ValleyNautilus.DisplayName: Claret Cephalopod
+// ValleySquid.DisplayName: Clot Squid
+// ValleySquidClone.DisplayName: Clot Squid
+// ValleyEelBody.DisplayName: Aortic Eel
+// ValleyEelHead.DisplayName: Aortic Eel
+// ValleyEelTail.DisplayName: Aortic Eel
+// ValleyShark.DisplayName: Hemostasis Beast
+// ValleySharkMouth.DisplayName: Hemostasis Beast
+// ValleyMerman.DisplayName: Flesh Merman
+// SkeletonBouncer.DisplayName: Skeleton Bouncer

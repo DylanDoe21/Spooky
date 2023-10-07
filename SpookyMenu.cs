@@ -1,13 +1,22 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace Spooky.Core
+namespace Spooky
 {
     internal class SpookyMenu : ModMenu
     {
+        private bool HasClicked;
+
+        private float Intensity;
+
+        private Vector2 logoCenter = Vector2.Zero;
+
         public override string DisplayName => "Spooky Mod";
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyMenu");
@@ -19,6 +28,8 @@ namespace Spooky.Core
         public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blank");
         
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
+
+        public static readonly SoundStyle LogoClickSound = new("Spooky/Content/Sounds/MenuLogoClick", SoundType.Sound);
 
         public override void OnDeselected()
         {
@@ -62,7 +73,33 @@ namespace Spooky.Core
 
             spriteBatch.Draw(texture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-            return true;
+            //outlines for each boss
+            Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/SpookyMenuOutlines").Value;
+            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * Intensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+
+            //draw the actual menu logo
+            logoCenter = logoDrawCenter;
+            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, logoRotation, Utils.Size(Logo) / 2f, new Vector2(1f + Intensity, 1f - Intensity), SpriteEffects.None, 0);
+
+            return false;
+        }
+
+        public override void Update(bool isOnTitleScreen)
+        {
+            Intensity *= 0.95f;
+            if (Main.mouseLeft && !HasClicked && Math.Abs(Main.MouseScreen.X - logoCenter.X) < 300f && Math.Abs(Main.MouseScreen.Y - logoCenter.Y) < 70f)
+            {
+                Intensity = 1f;
+
+                if (Math.Abs(Intensity) < 0.1f)
+                {
+                    Intensity = Math.Sign(Intensity) * 0.1f;
+                }
+
+                SoundEngine.PlaySound(LogoClickSound, null);
+            }
+
+            HasClicked = Main.mouseLeft;
         }
     }
 }

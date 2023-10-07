@@ -1,0 +1,54 @@
+SpookyBiome: {
+	// DisplayName: Spooky Forest
+	// TownNPCDialogueName: the Spooky Forest
+}
+
+SpookyBiomeUg: {
+	// DisplayName: Spooky Underground
+	// TownNPCDialogueName: the Underground Spooky Forest
+}
+
+CemeteryBiome: {
+	// DisplayName: Swampy Cemetery
+	// TownNPCDialogueName: the Swampy Cemetery
+}
+
+CatacombBiome: {
+	// DisplayName: Creepy Catacombs
+	// TownNPCDialogueName: the Creepy Catacombs
+}
+
+CatacombBiome2: {
+	// DisplayName: Lower Catacombs
+	// TownNPCDialogueName: the Lower Catacombs
+}
+
+PandoraBoxBiome: {
+	// DisplayName: Pandora's Box
+	// TownNPCDialogueName: Pandora's Box
+}
+
+SpookyHellBiome: {
+	// DisplayName: Valley of Eyes
+	// TownNPCDialogueName: the Valley of Eyes
+}
+
+SpookyHellEventBiome: {
+	// DisplayName: Egg Incursion
+	// TownNPCDialogueName: the Egg Incursion
+}
+
+SpookyHellLake: {
+	// DisplayName: Lake of Blood
+	// TownNPCDialogueName: the Lake of Blood
+}
+
+RaveyardBiome: {
+	// DisplayName: Raveyard Biome
+	// TownNPCDialogueName: the Raveyard
+}
+
+HallucinationZone: {
+	// DisplayName: Hallucination Zone
+	// TownNPCDialogueName: the Hallucination Zone
+}

@@ -107,7 +107,7 @@ namespace Spooky.Core
                 {
                     NPC npc = info.npc;
 
-                    if (!Flags.downedSpookySpirit && npc.type == ModContent.NPCType<SpookySpirit>())
+                    if (!Flags.CatacombKey1 && npc.type == ModContent.NPCType<SpookySpirit>())
                     {
                         return true;
                     }
@@ -136,7 +136,7 @@ namespace Spooky.Core
                 {
                     NPC npc = info.npc;
 
-                    if (!Flags.downedDaffodil && npc.type == ModContent.NPCType<DaffodilEye>())
+                    if (!Flags.CatacombKey2 && npc.type == ModContent.NPCType<DaffodilEye>())
                     {
                         return true;
                     }
@@ -165,7 +165,7 @@ namespace Spooky.Core
                 {
                     NPC npc = info.npc;
 
-                    if (!NPC.downedGolemBoss && npc.type == NPCID.Golem)
+                    if (!Flags.CatacombKey3 && npc.type == NPCID.Golem)
                     {
                         return true;
                     }

@@ -47,7 +47,7 @@ SkullFrenzyBuff: {
 	Description:
 		'''
 		The power of necromancy flows through you
-		Increasd damage, critical strike chance, knockback, and movement speed
+		Increased damage, critical strike chance, knockback, and movement speed
 		'''
 }
 
@@ -79,7 +79,7 @@ EmbryoCooldown: {
 	DisplayName: Embryotic Shatter
 	Description:
 		'''
-		The embyro's revival must recharge
+		The embryo's revival must recharge
 		Increases all damage and critical strike chance by 8%
 		'''
 }

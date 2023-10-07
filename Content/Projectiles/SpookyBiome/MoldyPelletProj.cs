@@ -19,11 +19,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.penetrate = 1;
         }
 
-        public override bool? CanHitNPC(NPC target)
-        {
-            return Projectile.ai[0] < 75;
-        }
-
         public override void AI()
         {
 			Projectile.rotation += Projectile.velocity.X * 0.2f;
@@ -31,39 +26,22 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 25)
             {
-                Projectile.velocity.X = Projectile.velocity.X * 0.97f;
-
-                if (Projectile.velocity.Y > 0 || Projectile.velocity.Y < 0)
-                {
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
-                }
-            }
-
-            if (Projectile.ai[0] >= 75)
-            {
-                if (Main.rand.NextBool(35))
-				{
-					if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 2), 
-                        Main.rand.Next(-3, -1), ModContent.ProjectileType<MoldPelletFly>(), Projectile.damage / 2, 0f, Main.myPlayer);
-					}
-				}
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
             }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            if (Projectile.velocity.X != oldVelocity.X)
+            for (int numProjectile = 0; numProjectile < 3; numProjectile++)
             {
-                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X * 0.1f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 2), 
+                    Main.rand.Next(-3, -1), ModContent.ProjectileType<MoldPelletFly>(), Projectile.damage / 2, 0f, Main.myPlayer);
+                }
             }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y * 0.1f;
-            }
+
+            Projectile.Kill();
 
 			return false;
 		}

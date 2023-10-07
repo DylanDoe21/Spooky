@@ -1,12 +1,13 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
@@ -46,6 +47,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             DustType = DustID.WoodFurniture;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AdjTiles = new int[] { TileID.OpenDoor };
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<OldWoodDoorItem>());
         }
 
         public override bool Slope(int i, int j) 

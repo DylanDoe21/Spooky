@@ -52,6 +52,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                 opacity -= 0.1f;
             }
         }
+
         public override Color OnTileColor(Color inColor)
         {
             return Main.DiscoColor * 0.5f * opacity;
