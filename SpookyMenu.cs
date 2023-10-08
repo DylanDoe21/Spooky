@@ -29,7 +29,8 @@ namespace Spooky
         
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
 
-        public static readonly SoundStyle LogoClickSound = new("Spooky/Content/Sounds/MenuLogoClick", SoundType.Sound);
+        public static readonly SoundStyle LogoClickSound1 = new("Spooky/Content/Sounds/MenuLogoClick1", SoundType.Sound);
+        public static readonly SoundStyle LogoClickSound2 = new("Spooky/Content/Sounds/MenuLogoClick2", SoundType.Sound);
 
         public override void OnDeselected()
         {
@@ -79,7 +80,7 @@ namespace Spooky
 
             //draw the actual menu logo
             logoCenter = logoDrawCenter;
-            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, logoRotation, Utils.Size(Logo) / 2f, new Vector2(1f + Intensity, 1f - Intensity), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, 0, Utils.Size(Logo) / 2f, new Vector2(1f + Intensity, 1f - Intensity), SpriteEffects.None, 0);
 
             return false;
         }
@@ -87,7 +88,7 @@ namespace Spooky
         public override void Update(bool isOnTitleScreen)
         {
             Intensity *= 0.95f;
-            if (Main.mouseLeft && !HasClicked && Math.Abs(Main.MouseScreen.X - logoCenter.X) < 300f && Math.Abs(Main.MouseScreen.Y - logoCenter.Y) < 70f)
+            if (Main.mouseLeft && !HasClicked && Intensity <= 0.1f && Math.Abs(Main.MouseScreen.X - logoCenter.X) < 300f && Math.Abs(Main.MouseScreen.Y - logoCenter.Y) < 70f)
             {
                 Intensity = 1f;
 
@@ -96,7 +97,8 @@ namespace Spooky
                     Intensity = Math.Sign(Intensity) * 0.1f;
                 }
 
-                SoundEngine.PlaySound(LogoClickSound, null);
+                SoundEngine.PlaySound(LogoClickSound1, null);
+                SoundEngine.PlaySound(LogoClickSound2, null);
             }
 
             HasClicked = Main.mouseLeft;

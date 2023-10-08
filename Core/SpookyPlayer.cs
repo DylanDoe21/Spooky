@@ -248,6 +248,12 @@ namespace Spooky.Core
                 CrossSoundTimer = 300;
                 Player.AddBuff(ModContent.BuffType<PandoraCrossCooldown>(), 2400);
             }
+
+            if (Spooky.AccessoryHotkey.JustPressed && MandelaCatalogueTV && Main.myPlayer == Player.whoAmI && !Player.HasBuff(ModContent.BuffType<AlternateCooldown>()))
+            {
+                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Alternate>(), 0, 0f, Player.whoAmI, 0f, 0f);
+                Player.AddBuff(ModContent.BuffType<AlternateCooldown>(), 3600);
+            }
         }
 
         public override void GetHealMana(Item item, bool quickHeal, ref int healValue)

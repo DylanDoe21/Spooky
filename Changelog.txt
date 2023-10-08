@@ -1,2 +1,10 @@
--Fixed old moss bow dealing contact damage to enemies
--Harvester's scythe now has way more swing range
+~NEW STUFF~
+
+
+Raveyard Overhaul:
+
+-The secret raveyard event that has existed in the mod for a while has been overhauled into a more fun event
+-Instead of being activated with disco balls, it now just has a 1 in 20 chance to occur at the beginning of each night (similarly to blood moons)
+-There are no enemies during this event, but it is filled with friendly skeletons that you can talk to
+-It now has revamped visuals, with cool light beams swaying back and forth in the background
+-A new suspicious skeleton who sells weird items can be found here, he sells new accessories after the defeat of each spooky mod boss and other stuff

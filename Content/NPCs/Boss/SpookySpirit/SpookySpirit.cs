@@ -118,7 +118,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public override void SetDefaults()
         {
             NPC.lifeMax = 3500;
-            NPC.damage = 40;
+            NPC.damage = 32;
             NPC.defense = 15;
             NPC.width = 116;
             NPC.height = 112;

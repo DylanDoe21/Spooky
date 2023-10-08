@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery.Contraband
 {
@@ -13,13 +14,19 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             Item.width = 40;
             Item.height = 52;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Gray;
-            //Item.value = Item.buyPrice(gold: 20);
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(gold: 20);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<SpookyPlayer>().BackroomsCorpse = true;
+
+            bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BackroomsCorpseHead>()] <= 0;
+			if (NotSpawned && player.whoAmI == Main.myPlayer)
+			{
+				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<BackroomsCorpseHead>(), 0, 0f, player.whoAmI, 0f, 0f);
+			}
         }
     }
 }

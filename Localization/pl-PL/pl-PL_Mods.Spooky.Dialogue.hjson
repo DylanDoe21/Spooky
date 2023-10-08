@@ -9,7 +9,7 @@ LittleBone: {
 	// CatacombLayer1: Now that you have access into the catacombs, you should explore it. I've heard there is a lot of lost loot down there! You can find it below one of the buildings in that foggy cemetery past the jungle.
 	// EyeValley: Down in the underworld underneath the jungle, you can find a really creepy biome filled with eyes! I do not like it there because it feels like I am being watched, but you look strong enough to explore it.
 	// CatacombLayer2: Now that you have defeated the flesh wall, you should return to the catacombs. Apparently if you can wake up and defeat the guardian of the deep catacombs, she will allow you to explore further.
-	// OrroBoro: Now that you have defeated all of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who reisdes in the creepy eye place who can create a special substance.
+	// OrroBoro: Now that you have defeated all of those giant robots, you can probably return to the creepy eye valley. Apparently there is a skilled alchemist who resides in the creepy eye place who can create a special substance.
 	// BigBone: Since you have access into the catacombs arena, you can finally confront the one causing all the chaos down there.
 	// NoAdvice: Sorry, I do not have any advice to offer right now.
 	//transport
@@ -137,15 +137,15 @@ SkeletonBouncer: {
 
 SuspiciousSkeleton: {
 	// ShopButton: Contraband
-	// Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
-	// Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
-	// Dialogue3: Ey kid! Yer too slow! Just sold someone a big golden ring earlier. Haven't heard from em in a minute though.
-	// Dialogue4: Ya know, that flavour enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
-	// Dialogue5: Sorry kid, I ain't got much to give ya right now. You've gotta beat up some big fellas before Tony can get his hands on the good shit you see what I'm sayin?
-	// Dialogue6: Yer asking me if I've tried the stuff? My brother in christ, I'm not stupid enough to. You are. Now buy more of my stuff.
-	// Dialogue7: The sweater? I won it at the arcade, my brother Tony got that policus or whathever the hell the machine's called. Some men in black gave it to me for free!
+	// Dialogue1: You want some of my nightmare fuel? Hits the spot just right.
+	// Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys you've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
+	// Dialogue3: Hey kid! You're too slow! Just sold someone a big golden ring earlier. Haven't heard from them in a minute though.
+	// Dialogue4: You know, that flavour enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
+	// Dialogue5: Sorry kid, I ain't got much to give ya right now. You've gotta beat up some big monsters before I'm able to get a new supply of contraband.
+	// Dialogue6: You asking me if I've tried the stuff? No, I'm not stupid enough to. You are. Now buy more of my stuff.
+	// Dialogue7: The sweater? I won it at the arcade, where I played this weird machine. Some men in black gave it to me for free!
 	// Dialogue8: You've ever played the clarinet? No? No need to learn when the clarinet plays itself ey?
-	// Dialogue9: Ey you want contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
+	// Dialogue9: You want some weird contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
 }
 
 DumbZombie: {

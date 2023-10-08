@@ -468,7 +468,7 @@ BackroomsCorpse: {
 	Tooltip:
 		'''
 		Spawns a floating head above you when worn that decays nearby enemies
-		Decay will rapidly drain enemies health, and won't effect enemies below half health
+		Decay will rapidly drain enemies health, but won't effect enemies below half health
 		Deals less damage over time to bosses
 		'It's like portions of the body stopped decaying'
 		'''
@@ -522,6 +522,7 @@ MandelaCatalogueTV: {
 		'''
 		Press the Accessory Hotkey to summon an alternate of yourself
 		The alternate will follow you for a short time, and enemies nearby it will be slowed
+		You cannot summon your alternate again for one minute
 		'You are not the real you'
 		'''
 }
@@ -1719,6 +1720,17 @@ SentientLifeDrain: {
 		Siphons souls from enemies near your cursor, which can heal your life or mana
 		After absorbing 20 souls, the staff will unleash a powerful aura
 		'It looks like it has something malicious to say'
+		'''
+}
+
+SentientPaladinHammer: {
+	DisplayName: Dave & Mike
+	Tooltip:
+		'''
+		Throws a hammer that will track the nearest enemy
+		After reaching its target, the hammer will strike it 3 times before returning to you
+		Prioritizes bosses over normal enemies
+		'They won't shut up'
 		'''
 }
 

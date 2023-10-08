@@ -152,7 +152,10 @@ namespace Spooky.Content.NPCs.Friendly
             {
                 NPC.TargetClosest(true);
 
-                player.AddBuff(ModContent.BuffType<BouncerDeathmark>(), 2);
+                if (!player.dead)
+                {
+                    player.AddBuff(ModContent.BuffType<BouncerDeathmark>(), 2);
+                }
 
                 NPC.friendly = false;
 

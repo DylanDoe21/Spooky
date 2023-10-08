@@ -17,7 +17,7 @@ Currently the mod has:
 
 Just a warning:
 -This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods how you like, but just be aware of potential issues!
--It is also highly recommended to play with medium or large worlds while playing this mod, but small worlds will still work
+-It is also highly recommended to play with medium or large worlds while playing this mod, while small worlds will still work it may not be ideal for a playthrough especially with multiple people
 
 
 [h1]Developers[/h1]
@@ -28,13 +28,14 @@ Thanks to Renk, Graydee, and Lemmy for their help with coding
 Thanks to Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Pelusa for contributing awesome sprites
 Thanks to Bananalizard for composing the mod's amazing OST, and Rockwizard5 for composing the egg incursion theme
 Thanks to Hat in a River for making a bunch of awesome concept art, as well as a lot of other art (such as the new menu background used for this update!)
+Thanks to Angel for helping out with testing and balancing
 Thanks to Jim2OUK for building some of the cool structures you'll find in the mod
 
-And of course, thanks to everyone else who has supported the mod or shown interest in any way!
+And of course, thanks to everyone who has supported the mod or shown interest in any way!
 
 [h1]Other Stuff[/h1]
 
-If you have questions, feedback, or just want to hangout, we now have a discord server: [h1][url=https://discord.gg/FFp7FwNBxu] Click here to join! [/url][/h1]
+If you have questions, feedback, or just want to hangout, we have a discord server: [h1][url=https://discord.gg/FFp7FwNBxu] Click here to join! [/url][/h1]
 
 Since the spooky mod now has an official discord server, and discord is generally a better place to communicate, our terraria forums page will very likely not be updated much (Unless I really feel like it)
 

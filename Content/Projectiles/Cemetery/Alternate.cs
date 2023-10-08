@@ -5,59 +5,46 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Core;
-using Spooky.Content.Buffs.Minion;
-using Spooky.Content.Items.SpookyBiome.Misc;
-
-namespace Spooky.Content.Projectiles.SpookyBiome
+namespace Spooky.Content.Projectiles.Cemetery
 {
-    public class CandyBagProj : ModProjectile
+    public class Alternate : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 4;
-            Main.projPet[Projectile.type] = true;
+            Main.projFrames[Projectile.type] = 3;
         }
         
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 28;
+            Projectile.width = 28;
+            Projectile.height = 52;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 16)
+            if (Projectile.frameCounter >= 5)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 3)
                 {
                     Projectile.frame = 0;
                 }
             }
 
             Player player = Main.player[Projectile.owner];
-            
-            if (player.dead)
-            {
-                player.GetModPlayer<SpookyPlayer>().CandyBag = false;
-            }
 
-            if (player.GetModPlayer<SpookyPlayer>().CandyBag)
+            if (Projectile.timeLeft <= 255)
             {
-                Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<CandyBagBuff>(), 2);
+                Projectile.alpha++;
             }
-
-            Projectile.localAI[0]++;
             
             //movement
             if (Projectile.localAI[0] < 1200)
@@ -87,7 +74,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     }
                 }
                 
-                direction.X += (20 + num * 40) * player.direction;
+                direction.X -= (20 + num * 40) * player.direction;
                 direction.Y -= 70f;
                 float distanceTo = direction.Length();
                 if (distanceTo > 10f && speed < 9f)
@@ -125,27 +112,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            //slow down
-            if (Projectile.localAI[0] >= 1000)
-            {
-                Projectile.velocity *= 0.98f;
-            }
-
-            //drop candy
-            if (Projectile.localAI[0] >= 1200)
-            {
-                SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
-
-                int[] Candies = new int[] { ModContent.ItemType<Candy1>(), ModContent.ItemType<Candy2>(), ModContent.ItemType<Candy3>() };
-                int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, Main.rand.Next(Candies));
-                Main.item[newItem].noGrabDelay = 0;
-
-                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+            for (int k = 0; k < Main.maxNPCs; k++)
+			{
+				if (Main.npc[k].active && Main.npc[k].Distance(Projectile.Center) <= 250f)
                 {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    if (!Main.npc[k].boss && Main.npc[k].type != NPCID.EaterofWorldsHead && Main.npc[k].type != NPCID.EaterofWorldsBody && Main.npc[k].type != NPCID.EaterofWorldsTail)
+                    {
+                        Main.npc[k].velocity *= 0.97f;
+                    }
                 }
-                
-                Projectile.localAI[0] = 0;
             }
         }
     }
