@@ -1,9 +1,0 @@
-PandoraBox: {
-	// EntryName: Pandora's Box
-	// SpawnInfo: Open the mysterious pandora's box in the catacombs
-}
-
-EggEvent: {
-	// EntryName: Egg Incursion
-	// SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, or a [i:Spooky/StrangeCyst] if you have completed the event already.
-}
