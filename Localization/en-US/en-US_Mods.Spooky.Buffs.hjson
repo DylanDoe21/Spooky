@@ -179,11 +179,6 @@ BrainyBuff: {
 	Description: Brainy suspiciously follows you
 }
 
-CandyBagBuff: {
-	DisplayName: Bag O' Treats
-	Description: The magic candy bag flies above you
-}
-
 DaffodilHandBuff: {
 	DisplayName: Plant Hand
 	Description: The plant hand will punch your foes!
@@ -349,11 +344,6 @@ AlternateCooldown: {
 	Description: You cannot spawn your alternate
 }
 
-BackroomsCorpseBuff: {
-	DisplayName: Decapitated Head
-	Description: The decayed head floats around you
-}
-
 BackroomsDecay: {
 	DisplayName: Backrooms Decay
 	Description: Mods.Spooky.Buffs.BackroomsDecay.Description
@@ -370,6 +360,6 @@ MonumentMythosShatter: {
 }
 
 PolybiusCooldown: {
-	DisplayName: Polybius Cooldown
-	Description: Mods.Spooky.Buffs.PolybiusCooldown.Description
+	DisplayName: Mysterious Spiral Cooldown
+	Description: Your arcade cabinet spiral is regenerating
 }
