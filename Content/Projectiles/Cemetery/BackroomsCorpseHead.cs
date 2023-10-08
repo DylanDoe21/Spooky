@@ -55,7 +55,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             if (player.GetModPlayer<SpookyPlayer>().BackroomsCorpse)
             {
                 Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<BackroomsCorpseBuff>(), 2);
             }
 
             Projectile.spriteDirection = -player.direction;

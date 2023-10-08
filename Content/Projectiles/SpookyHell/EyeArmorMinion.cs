@@ -62,22 +62,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-            SpookyPlayer modPlayer = player.GetModPlayer<SpookyPlayer>();
 
 			Projectile.damage = 35;
             
             if (player.dead)
             {
-                modPlayer.EyeArmorSet = false;
+                player.GetModPlayer<SpookyPlayer>().EyeArmorSet = false;
             }
 
-            if (modPlayer.EyeArmorSet)
+            if (player.GetModPlayer<SpookyPlayer>().EyeArmorSet)
             {
                 Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<EyeArmorMinionBuff>(), 1, false);
             }
 
-            if (!modPlayer.EyeArmorSet)
+            if (!player.GetModPlayer<SpookyPlayer>().EyeArmorSet)
             {
                 Projectile.Kill();
             }
@@ -85,7 +83,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void OnKill(int timeLeft)
 		{
-			for (int numDust = 0; numDust < 20; numDust++)
+			for (int numDusts = 0; numDusts < 20; numDusts++)
             {
                 int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity *= 1.5f;

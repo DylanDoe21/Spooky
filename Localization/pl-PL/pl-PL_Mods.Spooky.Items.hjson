@@ -467,8 +467,8 @@ BackroomsCorpse: {
 	// DisplayName: Severed Head
 	/* Tooltip:
 		'''
-		Spawns a floating head above you when worn that decays nearby enemies
-		Decay will rapidly drain enemies health, and won't effect enemies below half health
+		Spawns a floating head above you that decays nearby enemies
+		Decay will rapidly drain enemies health, but won't effect enemies below half health
 		Deals less damage over time to bosses
 		'It's like portions of the body stopped decaying'
 		''' */
@@ -528,7 +528,7 @@ MandelaCatalogueTV: {
 }
 
 MonumentMythosPyramid: {
-	// DisplayName: Freedom Containment Unit
+	// DisplayName: Glass Pyramid
 	/* Tooltip:
 		'''
 		While worn, you will be protected by a giza glass pyramid

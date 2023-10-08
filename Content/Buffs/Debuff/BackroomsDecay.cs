@@ -24,14 +24,7 @@ namespace Spooky.Content.Buffs.Debuff
 						npc.lifeRegen = 0;
 					}
 
-					if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
-					{
-						npc.lifeRegen -= 20;
-					}
-					else
-					{
-						npc.lifeRegen -= 10;
-					}
+					npc.lifeRegen -= 30;
 				}
 			}
 		}

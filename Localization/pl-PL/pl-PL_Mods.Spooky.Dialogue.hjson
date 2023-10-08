@@ -28,7 +28,7 @@ LittleBone: {
 	// SpookyBiome3: Apparently underneath this place is a large cavern filled with strange mushrooms, sounds like it'd be fun to explore!
 	// SpookyHell1: You know, for a place that exists in the underworld, it is oddly cold here.
 	// SpookyHell2: This place gives me the creeps! Somehow I feel like I am being stalked even when nothing is nearby.
-	// SpookyHell3: There is so many nasty organs and tentacles growing in this biome, it's grossing me out.
+	// SpookyHell3: There are so many nasty organs and tentacles growing in this biome, it's grossing me out.
 	// SpookyHell4: The creatures that live here are so much different than anywhere else, and how are some of them even alive?
 	// Cemetery1: This place is really foggy and spooky, I love it!
 	// Cemetery2: Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.
@@ -141,10 +141,10 @@ SuspiciousSkeleton: {
 	// Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys you've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
 	// Dialogue3: Hey kid! You're too slow! Just sold someone a big golden ring earlier. Haven't heard from them in a minute though.
 	// Dialogue4: You know, that flavour enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
-	// Dialogue5: Sorry kid, I ain't got much to give ya right now. You've gotta beat up some big monsters before I'm able to get a new supply of contraband.
+	// Dialogue5: Sorry kid, I ain't got much to give you right now. You've gotta beat up some big monsters before I'm able to get a new supply of contraband.
 	// Dialogue6: You asking me if I've tried the stuff? No, I'm not stupid enough to. You are. Now buy more of my stuff.
-	// Dialogue7: The sweater? I won it at the arcade, where I played this weird machine. Some men in black gave it to me for free!
-	// Dialogue8: You've ever played the clarinet? No? No need to learn when the clarinet plays itself ey?
+	// Dialogue7: The sweater? I won it at the arcade, where I played this weird arcade machine. Some men in black gave it to me for free!
+	// Dialogue8: You've ever played the clarinet? No? No need to learn when the clarinet plays itself right?
 	// Dialogue9: You want some weird contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
 }
 

@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
@@ -54,7 +53,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             if (player.GetModPlayer<SpookyPlayer>().CandyBag)
             {
                 Projectile.timeLeft = 2;
-                player.AddBuff(ModContent.BuffType<CandyBagBuff>(), 2);
             }
 
             Projectile.localAI[0]++;

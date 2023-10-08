@@ -344,6 +344,21 @@ ValleyNautilusBuff: {
 	// Description: A friendly little cephalopod follows you
 }
 
+AlternateCooldown: {
+	// DisplayName: Alternate Cooldown
+	// Description: You cannot spawn your alternate
+}
+
+BackroomsCorpseBuff: {
+	// DisplayName: Decapitated Head
+	// Description: The decayed head floats around you
+}
+
+BackroomsDecay: {
+	// DisplayName: Backrooms Decay
+	// Description: Mods.Spooky.Buffs.BackroomsDecay.Description
+}
+
 MonumentMythosCooldown: {
 	// DisplayName: Freedom Containment Cooldown
 	// Description: Your glass pyramid is regenerating
@@ -351,20 +366,10 @@ MonumentMythosCooldown: {
 
 MonumentMythosShatter: {
 	// DisplayName: Freedom Containment Shatter
-	// Description: You will take 2x damage from all attacks
+	// Description: You take 2x damage from all attacks
 }
 
-AlternateCooldown: {
-	// DisplayName: Alternate Cooldown
-	// Description: You cannot spawn your alternate
-}
-
-BackroomsCorpseBuff: {
-	// DisplayName: Backrooms Corpse Buff
-	// Description: Mods.Spooky.Buffs.BackroomsCorpseBuff.Description
-}
-
-BackroomsDecay: {
-	// DisplayName: Backrooms Decay
-	// Description: Mods.Spooky.Buffs.BackroomsDecay.Description
+PolybiusCooldown: {
+	// DisplayName: Polybius Cooldown
+	// Description: Mods.Spooky.Buffs.PolybiusCooldown.Description
 }
