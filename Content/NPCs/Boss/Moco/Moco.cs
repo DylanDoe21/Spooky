@@ -860,6 +860,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 
             NPC.SetEventFlagCleared(ref Flags.downedMoco, -1);
+
+            MenuSaveSystem.hasDefeatedMoco = Flags.downedMoco;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

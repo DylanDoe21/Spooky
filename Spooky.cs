@@ -35,6 +35,8 @@ namespace Spooky
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
+        public static string MenuBoolSaveFilePath => $"{Main.SavePath}/SpookyMenuStuff";
+
         private List<IAutoload> loadCache;
 
         public static Effect vignetteEffect;

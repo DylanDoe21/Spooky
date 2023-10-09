@@ -921,6 +921,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref Flags.downedDaffodil, -1);
+
+            MenuSaveSystem.hasDefeatedDaffodil = Flags.downedDaffodil;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

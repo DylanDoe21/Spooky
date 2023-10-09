@@ -767,6 +767,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 }
 
                 NPC.SetEventFlagCleared(ref Flags.downedOrroboro, -1);
+
+                MenuSaveSystem.hasDefeatedOrroboro = Flags.downedOrroboro;
             }
         }
 
