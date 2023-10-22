@@ -35,8 +35,6 @@ namespace Spooky
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
-        public static string MenuBoolSaveFilePath => $"{Main.SavePath}/SpookyMenuStuff";
-
         private List<IAutoload> loadCache;
 
         public static Effect vignetteEffect;
@@ -70,7 +68,8 @@ namespace Spooky
 				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
             }
 
-            //hell background loading
+            //custom background loading
+            UndergroundBGManager.Load();
             HellBGManager.Load();
 
             //IAutoload stuff
@@ -95,6 +94,7 @@ namespace Spooky
         {
             AccessoryHotkey = null;
 
+            UndergroundBGManager.Unload();
             HellBGManager.Unload();
 
             if (loadCache != null)

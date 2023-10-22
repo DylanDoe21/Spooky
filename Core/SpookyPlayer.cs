@@ -48,7 +48,8 @@ namespace Spooky.Core
         public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
-        public bool GoreArmorSet = false;
+        public bool GoreArmorEye = false;
+        public bool GoreArmorMouth = false;
         public bool SentientCap = false;
 
         //accessories
@@ -96,10 +97,14 @@ namespace Spooky.Core
         public bool Brainy = false;
 
         //pets
+        public bool BatPet = false;
         public bool ColumboPet = false;
         public bool CatPet = false;
         public bool FlyPet = false;
         public bool FuzzBatPet = false;
+        public bool GhostPet = false;
+        public bool GooSlimePet = false;
+        public bool GuineaPigPet = false;
         public bool PandoraBeanPet = false;
         public bool PetscopPet = false;
         public bool PetscopMarvinPet = false;
@@ -107,7 +112,6 @@ namespace Spooky.Core
         public bool ShroomHopperPet = false;
         public bool SkullEmojiPet = false;
         public bool SkullGoopPet = false;
-        public bool GhostPet = false;
         public bool ValleyNautilusPet = false;
         public bool RotGourdPet = false;
         public bool SpookySpiritPet = false;
@@ -143,7 +147,8 @@ namespace Spooky.Core
             HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
-            GoreArmorSet = false;
+            GoreArmorEye = false;
+            GoreArmorMouth = false;
             SentientCap = false;
 
             //accessories
@@ -190,10 +195,14 @@ namespace Spooky.Core
             Brainy = false;
 
             //pets
+            BatPet = false;
             ColumboPet = false;
             CatPet = false;
             FlyPet = false;
             FuzzBatPet = false;
+            GhostPet = false;
+            GooSlimePet = false;
+            GuineaPigPet = false;
             PandoraBeanPet = false;
             PetscopPet = false;
             PetscopMarvinPet = false;
@@ -201,7 +210,6 @@ namespace Spooky.Core
             ShroomHopperPet = false;
             SkullEmojiPet = false;
             SkullGoopPet = false;
-            GhostPet = false;
             ValleyNautilusPet = false;
             RotGourdPet = false;
             SpookySpiritPet = false;
@@ -330,51 +338,6 @@ namespace Spooky.Core
             if (DaffodilHairpin)
             {
                 Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 3600);
-            }
-
-            //gore armor set aura protection
-            if (GoreArmorSet)
-            {
-                modifiers.SetMaxDamage(1);
-                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
-                SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
-
-                for (int numDust = 0; numDust < 20; numDust++)
-                {
-                    int dustEffect = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemRuby, 0f, 0f, 100, default, 2f);
-                    Main.dust[dustEffect].velocity *= 3f;
-                    Main.dust[dustEffect].noGravity = true;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[dustEffect].scale = 0.5f;
-                        Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
-            }
-        }
-
-        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
-        {
-            //gore armor set aura protection
-            if (GoreArmorSet)
-            {
-                modifiers.SetMaxDamage(1);
-                Player.AddBuff(ModContent.BuffType<GoreAuraCooldown>(), 3600);
-                SoundEngine.PlaySound(SoundID.AbigailSummon, Player.Center);
-
-                for (int numDust = 0; numDust < 20; numDust++)
-                {
-                    int dustEffect = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemRuby, 0f, 0f, 100, default, 2f);
-                    Main.dust[dustEffect].velocity *= 3f;
-                    Main.dust[dustEffect].noGravity = true;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[dustEffect].scale = 0.5f;
-                        Main.dust[dustEffect].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
             }
         }
 

@@ -13,6 +13,11 @@ CemeteryBiome: {
 	TownNPCDialogueName: the Swampy Cemetery
 }
 
+RaveyardBiome: {
+	DisplayName: Raveyard Biome
+	TownNPCDialogueName: the Raveyard
+}
+
 CatacombBiome: {
 	DisplayName: Creepy Catacombs
 	TownNPCDialogueName: the Creepy Catacombs
@@ -43,9 +48,9 @@ SpookyHellLake: {
 	TownNPCDialogueName: the Lake of Blood
 }
 
-RaveyardBiome: {
-	DisplayName: Raveyard Biome
-	TownNPCDialogueName: the Raveyard
+SpiderCaveBiome: {
+	DisplayName: Spider Grotto
+	TownNPCDialogueName: the Spider Grotto
 }
 
 HallucinationZone: {

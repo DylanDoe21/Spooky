@@ -2,11 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Buffs;
-using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
@@ -15,11 +15,11 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 10;
-			Item.width = 30;
-			Item.height = 26;
+			Item.defense = 8;
+			Item.width = 34;
+			Item.height = 30;
 			Item.rare = ItemRarityID.LightPurple;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 4);
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 
@@ -29,13 +29,27 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmor");
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.GoreArmorOrro");
 
-			if (!player.HasBuff(ModContent.BuffType<GoreAuraCooldown>()))
-            {
-				player.GetModPlayer<SpookyPlayer>().GoreArmorSet = true;
+			player.GetModPlayer<SpookyPlayer>().GoreArmorEye = true;
+
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniOrroHead>()] <= 0)
+			{
+				SpawnWorm(ModContent.ProjectileType<MiniOrroHead>(), ModContent.ProjectileType<MiniOrroBody>(), ModContent.ProjectileType<MiniOrroTail>(),
+				new Vector2(player.Center.X, player.Center.Y - 50), player, 70, 0);
 			}
 		}
+
+        public static void SpawnWorm(int head, int body, int tail, Vector2 spawnPos, Player player, int damage, float knockback)
+        {
+            Projectile.NewProjectile(null, spawnPos, player.DirectionTo(Main.MouseWorld) * 3, head, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(null, spawnPos, Vector2.Zero * 3, tail, damage, knockback, player.whoAmI);
+
+            for (var i = 0; i < 5; i++)
+            {
+                Projectile.NewProjectile(null, spawnPos, Vector2.Zero * 3, body, damage, knockback, player.whoAmI);
+            }
+        }
 
 		public override void ArmorSetShadows(Player player)
 		{
@@ -48,9 +62,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 			player.GetDamage(DamageClass.Magic) += 0.20f;
 			player.GetDamage(DamageClass.Summon) += 0.20f;
 			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.20f;
-			player.GetCritChance(DamageClass.Magic) += 10;
-			player.GetCritChance(DamageClass.Summon) += 10;
-			player.GetCritChance(DamageClass.SummonMeleeSpeed) += 10;
 			player.manaCost -= 0.10f;
 			player.maxMinions += 3;
 			player.aggro += 75;

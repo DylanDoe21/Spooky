@@ -116,7 +116,6 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyGhost2>(), 1);
 					pool.Add(ModContent.NPCType<TinyGhostBoof>(), 0.5f);
 					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.2f);
-					pool.Add(ModContent.NPCType<SpookyDance>(), 0.2f);
 
                     //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
@@ -229,6 +228,7 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
 				pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
 				pool.Add(ModContent.NPCType<SkeletonBouncer>(), 2);
+				pool.Add(ModContent.NPCType<SpookyDance>(), 0.2f);
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 				{
@@ -343,7 +343,7 @@ namespace Spooky.Core
 
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZombie>()))
 			{
-				pool.Add(ModContent.NPCType<DumbZombie>(), 0.1f);
+				pool.Add(ModContent.NPCType<DumbZombie>(), 0.01f);
 			}
         }
     }

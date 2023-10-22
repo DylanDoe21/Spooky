@@ -7,16 +7,15 @@ using Spooky.Content.Buffs.Pets;
 
 namespace Spooky.Content.Items.Pets
 {
-	[LegacyName("FuzzBatWing")]
-	public class FuzzBatBlood : ModItem
+	public class GooDish : ModItem
 	{
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 14;
-			Item.height = 28;
-			Item.shoot = ModContent.ProjectileType<FuzzBatPet>();
-			Item.buffType = ModContent.BuffType<FuzzBatPetBuff>();
+			Item.width = 26;
+			Item.height = 26;
+			Item.shoot = ModContent.ProjectileType<GooSlime>();
+			Item.buffType = ModContent.BuffType<GooSlimeBuff>();
 		}
 
         public override bool? UseItem(Player player)

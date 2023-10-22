@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using System;
 
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;
 
@@ -14,6 +15,7 @@ namespace Spooky.Core
 		public int spookyTiles;
 		public int spookyHellTiles;
 		public int glowshroomTiles;
+		public int spiderCaveTiles;
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{
@@ -21,6 +23,7 @@ namespace Spooky.Core
 			spookyTiles = tileCounts[ModContent.TileType<SpookyDirt>()] + tileCounts[ModContent.TileType<SpookyDirt2>()] + tileCounts[ModContent.TileType<SpookyGrass>()] + tileCounts[ModContent.TileType<SpookyGrassGreen>()] + tileCounts[ModContent.TileType<SpookyStone>()];
 			spookyHellTiles = tileCounts[ModContent.TileType<SpookyMush>()] + tileCounts[ModContent.TileType<SpookyMushGrass>()] + tileCounts[ModContent.TileType<EyeBlock>()];
 			glowshroomTiles = tileCounts[ModContent.TileType<MushroomMoss>()];
+			spiderCaveTiles = tileCounts[ModContent.TileType<DampSoil>()];
 		}
 	}
 }

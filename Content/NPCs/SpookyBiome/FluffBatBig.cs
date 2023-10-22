@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBatBlood>(), 20));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBatWing>(), 20));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VampireGummy>(), 100));
         }
 

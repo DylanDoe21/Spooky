@@ -518,24 +518,9 @@ namespace Spooky.Content.Generation
                     //also get rid of any liquids
                     if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && Main.tile[mushroomX, mushroomY - 1].LiquidAmount > 0)
                     {
-                        for (int checkY = mushroomY - 1; checkY >= mushroomY - 12; checkY--)
+                        for (int checkY = mushroomY; checkY >= mushroomY - 12; checkY--)
                         {
                             Main.tile[mushroomX, checkY].LiquidAmount = 0;
-                        }
-                    }
-
-                    //kill any minecart track within the mushroom area because they are fucking annoying
-                    if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>())
-                    {
-                        for (int checkX = mushroomX - 5; checkX <= mushroomX + 5; checkX++)
-                        {
-                            for (int checkY = mushroomY - 5; checkY <= mushroomY + 5; checkY++)
-                            {
-                                if (Main.tile[checkX, checkY].TileType == TileID.MinecartTrack)
-                                {
-                                    WorldGen.KillTile(checkX, checkY);
-                                }
-                            }
                         }
                     }
                 }

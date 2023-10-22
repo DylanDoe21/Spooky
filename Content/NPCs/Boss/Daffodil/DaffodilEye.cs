@@ -28,13 +28,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     [AutoloadBossHead]
     public class DaffodilEye : ModNPC
     {
-        private int musicTimer = 0;
 
         public bool Phase2 = false;
         public bool SpawnedHands = false;
         public bool ActuallyDead = false;
-
-        int MusicTimer = 0;
 
         Vector2[] SavePoint = new Vector2[5];
         Vector2 SavePlayerPosition;
@@ -268,31 +265,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             if (!Flags.downedDaffodil)
             {
-                musicTimer++;
-
-                //8220 = 2:17, the exact length of the intro theme
-                if (musicTimer <= 8220)
-                {
-                    Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1");
-                }
-                else
-                {
-                    Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Daffodil");
-                }
+                Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1");
             }
             else
             {
-                musicTimer++;
-
-                //8100 = 2:15, the exact length of the rematch intro theme
-                if (musicTimer <= 8100)
-                {
-                    Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2");
-                }
-                else
-                {
-                    Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Daffodil");
-                }
+                Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2");
             }
 
             int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 35;

@@ -19,6 +19,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		{
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            TileID.Sets.GeneralPlacementTiles[Type] = false;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyStone>();
             Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;

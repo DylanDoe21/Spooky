@@ -127,14 +127,14 @@ namespace Spooky.Content.Projectiles.Catacomb
                             {
                                 SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 15;
-                                extraDamage = -8;
+                                extraDamage = 0;
                                 break;
                             }
                             case 2:
                             {
                                 SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot, Projectile.Center);
                                 ShootSpeed *= 25;
-                                extraDamage = 0;
+                                extraDamage = 25;
                                 break;
                             }
                         }

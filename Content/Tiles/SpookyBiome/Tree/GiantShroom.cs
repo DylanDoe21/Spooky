@@ -63,7 +63,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             }
 
             int height = WorldGen.genRand.Next(minSize, maxSize);
-            for (int k = 1; k < height; ++k)
+            for (int k = 1; k < height; k++)
             {
                 if (SolidTile(i, j - k))
                 {

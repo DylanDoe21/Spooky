@@ -30,6 +30,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.width = 20;
 			Projectile.height = 28;
 			Projectile.DamageType = DamageClass.Summon;
+			Projectile.localNPCHitCooldown = 60;
+            Projectile.usesLocalNPCImmunity = true;
 			Projectile.minion = true;
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;

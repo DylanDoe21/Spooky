@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame = true;
 
             bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PolybiusSwirl>()] <= 0;
-			if (NotSpawned && player.whoAmI == Main.myPlayer && !player.HasBuff(ModContent.BuffType<PolybiusCooldown>()))
+			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{
 				Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<PolybiusSwirl>(), 25, 0f, player.whoAmI, 0f, 0f);
 			}

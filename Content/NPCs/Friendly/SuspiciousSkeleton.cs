@@ -126,6 +126,8 @@ namespace Spooky.Content.NPCs.Friendly
             Condition OrroboroDowned = new Condition("Mods.Spooky.Conditions.OrroboroDowned", () => Flags.downedOrroboro);
             Condition BigBoneDowned = new Condition("Mods.Spooky.Conditions.BigBoneDowned", () => Flags.downedBigBone);
 
+            Condition MainMenuCompleted = new Condition("Mods.Spooky.Conditions.BigBoneDowned", () => Flags.downedBigBone);
+
             var npcShop = new NPCShop(Type)
             //analog horror
             .Add<GeminiEntertainmentGame>(RotGourdDowned)

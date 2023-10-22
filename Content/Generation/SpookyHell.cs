@@ -92,7 +92,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of blocks along the edges of the biome so it doesnt look weird
+            //place clumps of blocks along the edges of the biome so it transitions nicely
             for (int X = StartPosition - 50; X <= StartPosition; X++)
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
@@ -114,7 +114,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place ceiling across the top of the biome
+            //place ceiling of blocks across the top of the biome
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 192; Y++)
@@ -184,7 +184,7 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.NextBool(20))
                         {
-                            PlaceTree(X, Y, ModContent.TileType<EyeTree>());
+                            CanPlaceTree(X, Y, ModContent.TileType<EyeTree>());
                         }
                     }
 
@@ -193,14 +193,14 @@ namespace Spooky.Content.Generation
                         if (WorldGen.genRand.NextBool(10) && Main.tile[X, Y - 1].WallType <= 0 &&
                         !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                         {
-                            PlaceTree(X, Y, ModContent.TileType<EyeTree>());
+                            CanPlaceTree(X, Y, ModContent.TileType<EyeTree>());
                         }
                     }
                 }
             }
         }
 
-        public static bool PlaceTree(int X, int Y, int tileType)
+        public static bool CanPlaceTree(int X, int Y, int tileType)
         {
             int minDistance = 5;
             int treeNearby = 0;

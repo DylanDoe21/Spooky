@@ -11,11 +11,11 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 12;
-			Item.width = 26;
+			Item.defense = 10;
+			Item.width = 30;
 			Item.height = 16;
 			Item.rare = ItemRarityID.LightPurple;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 3);
 		}
 
 		public override void UpdateEquip(Player player) 

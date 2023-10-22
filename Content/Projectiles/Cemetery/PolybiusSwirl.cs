@@ -23,20 +23,32 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
-            Projectile.penetrate = 5;
-            Projectile.alpha = 100;
+            Projectile.penetrate = -1;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/PolybiusSwirlBack").Value;
 
+            Color color = new Color(lightColor.R, lightColor.G, lightColor.B, -Projectile.alpha);
+
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + drawOrigin + new Vector2(-69, Projectile.gfxOffY - 69);
 
-            Main.EntitySpriteDraw(tex, vector, null, lightColor * 0.65f, -Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex, vector, null, color, -Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return true;
+        }
+
+        public override bool? CanDamage()
+        {
+			return Projectile.alpha < 255;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.alpha += 51;
+            Projectile.ai[0] = 0;
         }
 
         public override void AI()
@@ -53,13 +65,17 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 Projectile.Kill();
             }
-		}
 
-        public override void OnKill(int timeLeft)
-		{
-            Player player = Main.player[Projectile.owner];
+            if (Projectile.alpha > 0)
+            {
+                Projectile.ai[0]++;
 
-            player.AddBuff(ModContent.BuffType<PolybiusCooldown>(), 1200);
+                if (Projectile.ai[0] >= 180)
+                {
+                    Projectile.alpha -= 51;
+                    Projectile.ai[0] = 0;
+                }
+            }
         }
     }
 }

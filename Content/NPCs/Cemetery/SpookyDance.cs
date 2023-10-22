@@ -5,7 +5,7 @@ using Terraria.GameContent.Bestiary;
 using System;
 using System.Collections.Generic;
 
-namespace Spooky.Content.NPCs.SpookyBiome
+namespace Spooky.Content.NPCs.Cemetery
 {
     public class SpookyDance : ModNPC  
     {
@@ -38,23 +38,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-			if (!spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-            !(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust))
-            {
-                //spawn on the surface during the day, or underground
-                if (player.InModBiome(ModContent.GetInstance<Biomes.SpookyBiome>()) && !NPC.AnyNPCs(ModContent.NPCType<SpookyDance>()))
-                {
-                    return 1f;
-                }
-            }
-
-            return 0f;
-        }
 
         public override void AI()
         {

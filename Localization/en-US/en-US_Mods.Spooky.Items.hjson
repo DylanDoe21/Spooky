@@ -866,6 +866,11 @@ VampireGummy: {
 		'''
 }
 
+BatBlood: {
+	DisplayName: Bat Blood
+	Tooltip: Summons a creepy bat
+}
+
 CatEyes: {
 	DisplayName: Evil Eyes
 	Tooltip: Summons a pet black kitten
@@ -880,18 +885,19 @@ DissolvedBone: {
 		'''
 }
 
-FuzzBatBlood: {
-	DisplayName: Fuzz Bat Blood
-	Tooltip:
-		'''
-		Summons a pet fuzz bat
-		'Is this fuzz bat blood or human blood?'
-		'''
+FuzzBatWing: {
+	DisplayName: Fuzz Bat Wing
+	Tooltip: Summons a pet fuzz bat
 }
 
 GhostPetItem: {
 	DisplayName: Spooky Ghost
 	Tooltip: Summons a little ghost to provide light
+}
+
+GooDish: {
+	DisplayName: Gooey Petri Dish
+	Tooltip: Summons a friendly goo slime
 }
 
 MocoTissue: {
@@ -901,6 +907,11 @@ MocoTissue: {
 		Summons a baby moco pet
 		'The most unsanitary tissue known to mankind'
 		'''
+}
+
+OrangeCabbage: {
+	DisplayName: Orange Cabbage
+	Tooltip: Summons a spooky little guinea pig
 }
 
 OrroboroEye: {
@@ -1310,38 +1321,37 @@ EyeLegs: {
 }
 
 GoreBody: {
-	DisplayName: Gore Monger's Chestmail
+	DisplayName: Gore Chestplate
 	Tooltip:
 		'''
-		8% increased damage and critical strike chance
+		10% increased damaged
+		12% increased critical strike chance
 		Enemies are more likely to target you
 		'''
 }
 
 GoreHoodEye: {
-	DisplayName: Gore Monger's Seer Hood
+	DisplayName: Gore Mask
 	Tooltip:
 		'''
 		20% increased magic and summon damage
-		10% increased magic and summon critical strike chance
-		10% reduced mana usage and increases your max minions by 3
+		10% reduced mana usage and increases your max minions by 2
 		Enemies are more likely to target you
 		'''
 }
 
 GoreHoodMouth: {
-	DisplayName: Gore Monger's Brutal Hood
+	DisplayName: Gore Hood
 	Tooltip:
 		'''
 		20% increased melee and ranged damage
-		10% increased melee and ranged critical strike chance
-		12% increased melee speed and 20% chance to save ammo
+		12% increased melee speed and 10% chance to save ammo
 		Enemies are more likely to target you
 		'''
 }
 
 GoreLegs: {
-	DisplayName: Gore Monger's Robe
+	DisplayName: Gore Robe
 	Tooltip:
 		'''
 		20% increased movement speed
@@ -1720,17 +1730,6 @@ SentientLifeDrain: {
 		Siphons souls from enemies near your cursor, which can heal your life or mana
 		After absorbing 20 souls, the staff will unleash a powerful aura
 		'It looks like it has something malicious to say'
-		'''
-}
-
-SentientPaladinHammer: {
-	DisplayName: Dave & Mike
-	Tooltip:
-		'''
-		Throws a hammer that will track the nearest enemy
-		After reaching its target, the hammer will strike it 3 times before returning to you
-		Prioritizes bosses over normal enemies
-		'They won't shut up'
 		'''
 }
 
@@ -2331,6 +2330,16 @@ CatacombBrickWall1Item: {
 
 CatacombBrickWall2Item: {
 	DisplayName: Lower Catacomb Brick Wall
+	Tooltip: ""
+}
+
+DampSoilItem: {
+	DisplayName: Damp Soil
+	Tooltip: ""
+}
+
+WebBlockItem: {
+	DisplayName: Spider Web
 	Tooltip: ""
 }
 

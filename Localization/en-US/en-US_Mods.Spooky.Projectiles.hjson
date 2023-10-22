@@ -62,7 +62,7 @@ GlowBulbProj.DisplayName: Glow Bulb
 GlowBulbThorn.DisplayName: Bulb Thorn
 GraveCrossbowArrow.DisplayName: Crossbow Arrow
 GraveCrossbowProj.DisplayName: Grave Crossbow
-NineTailsProj.DisplayName: Nine Tails Proj
+NineTailsProj.DisplayName: Nine Tails
 OldRifleBullet.DisplayName: Rusty Bullet
 OldRifleBullet2.DisplayName: Rusty Bullet
 SkullTotem.DisplayName: Skull Totem
@@ -260,3 +260,13 @@ PetscopTiaraPet.DisplayName: Tiara
 Alternate.DisplayName: Alternate
 BackroomsCorpseHead.DisplayName: Decayed Head
 PolybiusSwirl.DisplayName: Polybius Swirl
+GuineaPig.DisplayName: Guinea Pig
+GooSlime.DisplayName: Goo Slime
+Bat.DisplayName: Creepy Bat
+FoodEnhancerSpore.DisplayName: Food Enhancer Spore
+MiniBoroBody.DisplayName: Mini-Boro
+MiniBoroHead.DisplayName: Mini-Boro
+MiniBoroTail.DisplayName: Mini-Boro
+MiniOrroBody.DisplayName: Mini Orro Body
+MiniOrroHead.DisplayName: Mini Orro Head
+MiniOrroTail.DisplayName: Mini Orro Tail

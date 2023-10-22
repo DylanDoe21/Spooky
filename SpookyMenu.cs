@@ -53,6 +53,7 @@ namespace Spooky
             logoDrawCenter -= new Vector2(0, 0);
             logoScale = 0.8f;
 
+            //draw the menu background
             Texture2D texture = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenu").Value;
 
             Vector2 drawOffset = Vector2.Zero;
@@ -74,10 +75,6 @@ namespace Spooky
             }
 
             spriteBatch.Draw(texture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-
-            //outlines for each boss
-            Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines").Value;
-            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * Intensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             if (MenuSaveSystem.hasDefeatedRotGourd)
             {
@@ -114,6 +111,10 @@ namespace Spooky
                 Texture2D bigBoneTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockBigBone").Value;
                 spriteBatch.Draw(bigBoneTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
+
+            //outlines for each boss
+            Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines").Value;
+            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * Intensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             //draw the actual menu logo
             logoCenter = logoDrawCenter;

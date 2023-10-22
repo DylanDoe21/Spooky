@@ -26,8 +26,5 @@ FlowerArmor:
 	Double tap DOWN to summon a large amount of pollen to attack your enemies
 	This ability has a 30 second cooldown before it can be used again
 	'''
-GoreArmor:
-	'''
-	Grants you a protective aura that will block one attack
-	When you get hit the aura will vanish and regenerate again after one minute
-	'''
+GoreArmorOrro: Summons a baby orro to fight with you!
+GoreArmorBoro: Summons a baby boro to fight with you!

@@ -359,7 +359,17 @@ MonumentMythosShatter: {
 	Description: You take 2x damage from all attacks
 }
 
-PolybiusCooldown: {
-	DisplayName: Mysterious Spiral Cooldown
-	Description: Your arcade cabinet spiral is regenerating
+GuineaPigBuff: {
+	DisplayName: Spooky Guinea Pig
+	Description: A magical little guinea pig
+}
+
+GooSlimeBuff: {
+	DisplayName: Goo Slime
+	Description: A gooey little sludge blob
+}
+
+BatBuff: {
+	DisplayName: Creepy Bat
+	Description: It likes to drink blood
 }

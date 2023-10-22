@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Microsoft.Xna.Framework;
 using System.IO;
 
 namespace Spooky.Core
@@ -36,7 +37,7 @@ namespace Spooky.Core
 
         public override void ClearWorld()
         {
-			downedRotGourd = false;
+            downedRotGourd = false;
             downedSpookySpirit = false;
             downedMoco = false;
             downedDaffodil = false;
@@ -96,7 +97,7 @@ namespace Spooky.Core
 
         public override void LoadWorldData(TagCompound tag) 
         {
-			downedRotGourd = tag.ContainsKey("downedRotGourd");
+            downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
             downedMoco = tag.ContainsKey("downedMoco");
             downedDaffodil = tag.ContainsKey("downedDaffodil");
@@ -192,6 +193,19 @@ namespace Spooky.Core
             encounteredBaby = encounterFlags[1];
             encounteredHorse = encounterFlags[2];
             encounteredFlesh = encounterFlags[3];
+        }
+
+        private void WriteRectangle(BinaryWriter writer, Rectangle rect)
+        {
+            writer.Write(rect.X);
+            writer.Write(rect.Y);
+            writer.Write(rect.Width);
+            writer.Write(rect.Height);
+        }
+
+        private Rectangle ReadRectangle(BinaryReader reader)
+        {
+            return new Rectangle(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
         }
     }
 }

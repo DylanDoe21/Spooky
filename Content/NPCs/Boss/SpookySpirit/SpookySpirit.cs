@@ -44,6 +44,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 		public float SpinX = 0;
 		public float SpinY = 0;
         public float alpha;
+
+        public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritCharge", SoundType.Sound);
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritDeath", SoundType.Sound);
         
         public override void SetStaticDefaults()
         {
@@ -130,7 +133,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             NPC.boss = true;
             NPC.netAlways = true;
             NPC.HitSound = SoundID.NPCHit54;
-            NPC.DeathSound = SoundID.NPCDeath52;
+            NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookySpirit");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
@@ -341,7 +344,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         //actual dash attack
                         if (NPC.localAI[0] == 75)
                         {
-                            SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.Center);
+                            SoundEngine.PlaySound(ChargeSound, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
@@ -837,7 +840,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     {
                         SaveDirection = NPC.direction;
 
-                        SoundEngine.PlaySound(SoundID.NPCDeath51, NPC.Center);
+                        SoundEngine.PlaySound(ChargeSound, NPC.Center);
 
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();

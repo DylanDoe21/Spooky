@@ -80,7 +80,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			for (int i = 0; i < 200; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-				NPC NPC = Main.npc[i];
                 if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type])
                 {
                     Shoot(Target);
@@ -92,6 +91,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					isAttacking = false;
 				}
 
+                NPC NPC = Main.npc[i];
                 if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 500f)
                 {
                     Shoot(NPC);

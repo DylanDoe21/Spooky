@@ -59,7 +59,7 @@ LittleBone: {
 	Crimson1: EW EW EW EW EW!!! What kind of wretched place is this?!
 	Crimson2: Oh my goodness, how could such a horrible thing exist in this land? This is too spooky, even for me.
 	Hallow1: Whoa, this place is so sparkly and bright! I don't think this was here before, was it?
-	Hallow2: For an area that looks very nice and peaceful, there sure are a lot of deadly faries in it!
+	Hallow2: For an area that looks very nice and peaceful, there sure are a lot of deadly fairies in it!
 	//buttons
 	Button1: Advice
 	Button2: Transport
@@ -174,7 +174,7 @@ Daffodil: {
 
 PandoraBox: {
 	Button: Open
-	Dialogue: It's a strange box with a weird aura emnating from it. Will you open it?
+	Dialogue: It's a strange box with a weird aura emanating from it. Will you open it?
 }
 
 SentientCap: {
