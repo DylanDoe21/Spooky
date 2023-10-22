@@ -736,7 +736,7 @@ namespace Spooky.Content.Generation
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(8, 15), 1, ModContent.TileType<CatacombBrick1>(),
-                        ModContent.WallType<CatacombGrassWall1>(), ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, false, true, true);
+                        ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, true, true);
                     }
 
                     //kill vines if the tile above it is not valid
@@ -761,7 +761,7 @@ namespace Spooky.Content.Generation
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
-                        ModContent.WallType<CatacombGrassWall2>(), ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, false, true, true);
+                        ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, true, true);
                     }
                 }
             }

@@ -85,6 +85,7 @@ namespace Spooky.Content.Generation
                         if (percent > blurPercent && Y >= origin.Y)
                         {
                             WorldGen.TileRunner(X, Y + 30, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), TileID.Stone, true, 0f, 0f, true, true);
+                            //SpookyWorldMethods.ModifiedTileRunner(X, Y + 30, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), TileID.Stone, 0, true, 0f, 0f, true, false, true, false);
                         }
                     }
                 }
@@ -123,7 +124,7 @@ namespace Spooky.Content.Generation
                         float cavePerlinValueWalls = SpookyWorldMethods.PerlinNoise2D(X / 800f, Y / 900f, 5, cavePerlinSeedWalls) + 0.5f + horizontalOffsetNoiseWalls;
                         float cavePerlinValue2Walls = SpookyWorldMethods.PerlinNoise2D(X / 800f, Y / 900f, 5, unchecked(cavePerlinSeedWalls - 1)) + 0.5f;
                         float caveNoiseMapWalls = (cavePerlinValueWalls + cavePerlinValue2Walls) * 0.5f;
-                        float caveCreationThresholdWalls = horizontalOffsetNoiseWalls * 3.5f + 0.235f;
+                        float caveCreationThresholdWalls = horizontalOffsetNoiseWalls * 8.5f + 0.235f;
 
                         if (caveNoiseMapWalls * caveNoiseMapWalls > caveCreationThresholdWalls)
                         {
@@ -200,6 +201,13 @@ namespace Spooky.Content.Generation
                         {
                             WorldGen.KillTile(X, Y);
                         }
+
+                        //delete random single floating walls
+                        if (Main.tile[X, Y - 1].WallType <= 0 && Main.tile[X, Y + 1].WallType <= 0 &&
+                        Main.tile[X - 1, Y].WallType <= 0 && Main.tile[X + 1, Y].WallType <= 0)
+                        {
+                            WorldGen.KillWall(X, Y);
+                        }
                     }
                 }
             }
@@ -235,7 +243,7 @@ namespace Spooky.Content.Generation
         //worldgenning tasks
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {  
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Cactus, Palm Trees, & Coral"));
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Oasis"));
             if (GenIndex1 == -1) 
             {
                 return;

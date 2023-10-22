@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Generation
 {
@@ -160,8 +161,8 @@ namespace Spooky.Content.Generation
 		}
 
 		//this is basically a heavily modified version of vanillas tile runner code (dreadful)
-		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, int wallType2, bool addTile = false, 
-		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool SpookyWalls = false, bool replaceWalls = true, bool noTiles = false)
+		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, bool addTile = false, 
+		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool replaceWalls = true, bool noTiles = false)
 		{
 			double num = strength;
 			float num2 = (float)steps;
@@ -263,14 +264,14 @@ namespace Spooky.Content.Generation
 								}
 
 								//place walls
-								if (SpookyWalls)
+								if (wallType == ModContent.WallType<SpookyGrassWall>())
 								{
 									//this loop is for placing walls in the underground part of the spooky biome
 									for (int WallY = (int)Main.worldSurface; WallY < l; WallY++)
 									{
 										if (placeWalls)
 										{
-											Main.tile[k, WallY + 6].WallType = (ushort)wallType2;
+											Main.tile[k, WallY + 6].WallType = 0;
 										}
 									}
 

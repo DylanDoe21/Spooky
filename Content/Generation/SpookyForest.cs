@@ -94,7 +94,7 @@ namespace Spooky.Content.Generation
                 for (int cutOff = 0; cutOff < Main.maxTilesX / 28; cutOff += 50)
                 {
                     SpookyWorldMethods.ModifiedTileRunner(PositionX, PositionY + Y + cutOff, (double)Size + Y / 2, 1, 
-                    ModContent.TileType<SpookyDirt>(), ModContent.WallType<SpookyGrassWall>(), 0, true, 0f, 0f, true, true, true, true, false);
+                    ModContent.TileType<SpookyDirt>(), ModContent.WallType<SpookyGrassWall>(), true, 0f, 0f, true, true, true, false);
                 }
             }
 

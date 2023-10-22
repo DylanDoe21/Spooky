@@ -127,12 +127,12 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     }
                     case 1:
                     {
-                        zero.Y += 20f;
+                        zero.Y += 30f;
                         break;
                     }
                     case 2:
                     {
-                        zero.Y -= 20f;
+                        zero.Y += 35f;
                         break;
                     }
                     case 3:
