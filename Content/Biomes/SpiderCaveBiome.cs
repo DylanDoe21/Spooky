@@ -119,10 +119,10 @@ namespace Spooky.Content.Biomes
         public override bool IsBiomeActive(Player player)
         {
             int PlayerY = (int)player.Center.Y / 16;
-            int WorldSizeExtraDepth = Main.maxTilesY >= 2400 ? 400 : (Main.maxTilesY >= 1800 ? 200 : 80);
+            int BiomeDepthThreshold = (Main.maxTilesY / 2) - (Main.maxTilesY / 18);
 
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1800;
-            bool UndergroundCondition = PlayerY > (Main.maxTilesY / 2) + WorldSizeExtraDepth && PlayerY < (Main.maxTilesY - 200);
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 500;
+            bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;
         }

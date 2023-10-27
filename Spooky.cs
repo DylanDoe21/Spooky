@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -17,6 +18,7 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
+using Terraria.GameContent.Drawing;
 
 namespace Spooky
 {

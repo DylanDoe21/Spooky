@@ -15,7 +15,7 @@ namespace Spooky.Content.Tiles.SpiderCave
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(77, 64, 26));
-            DustType = ModContent.DustType<SpookyGrassDust>();
+            DustType = ModContent.DustType<DampGrassDust>();
             HitSound = SoundID.Grass;
         }
         

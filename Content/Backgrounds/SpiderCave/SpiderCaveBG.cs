@@ -18,7 +18,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             return Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>());
         }
 
-        public override Color DrawColor => new Color(100, 100, 100);
+        public override Color DrawColor => new Color(80, 60, 20);
     }
 
     internal class UndergroundBGManager
@@ -29,7 +29,9 @@ namespace Spooky.Content.Backgrounds.SpookyHell
         public static void Load()
         {
             if (Main.dedServ)
+            {
                 return;
+            }
 
             CurrentBGID = -1;
             UndergroundBGs = new UndergroundBGType[0];
@@ -102,10 +104,10 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             }
 
             Vector2 vector = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
-            float num = (1f) * 0.5f * 200f;
+            float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
             int bg0Height = ModContent.Request<Texture2D>(currentBG.TexturePath + "0").Height();
             bg0Height += bg0Height >> 1;
-            float Scale = 1.2f;
+            float Scale = 0.95f;
             
             for (int Layers = 3; Layers >= 0; Layers--)
             {
@@ -122,7 +124,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                 {
                     case 0:
                     {
-                        zero.Y -= 10f;
+                        zero.Y += 165f;
                         break;
                     }
                     case 1:
@@ -149,14 +151,37 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                 int num6 = (int)((vector.X * vector3.X - vector2.X + zero.X - (Main.screenWidth >> 1)) / num5);
 
                 for (int j = num6 - 2; j < num6 + 4 + (int)(Main.screenWidth / num5); j++)
-                {
-                    Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), (Main.maxTilesY - 585) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
+                {   
+                    Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
+                    
                     var frame = rectangle;
                     var clr = currentBG.DrawColor * transparency;
 
                     if (currentBG.PreDraw(BGTexture, ref drawPosition, ref frame, ref clr, Scale, Layers))
                     {
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+
+                        if (Layers == 2 && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+                        {
+                            float time = Main.GameUpdateCount * 0.01f;
+
+                            float intensity1 = 0.7f;
+                            intensity1 *= (float)MathF.Sin(-drawPosition.Y / 8f + time);
+
+                            float intensity2 = 0.7f;
+                            intensity2 *= (float)MathF.Cos(-drawPosition.Y / 8f + time);
+
+                            float intensity3 = 0.7f;
+                            intensity3 *= (float)MathF.Sin(-drawPosition.Y / 8f + time);
+
+                            Texture2D EyesTexture1 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes1").Value;
+                            Texture2D EyesTexture2 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes2").Value;
+                            Texture2D EyesTexture3 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes3").Value;
+
+                            Main.spriteBatch.Draw(EyesTexture1, drawPosition, frame, Color.Red * intensity1, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity3, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                        }
                     }
                 }
             }

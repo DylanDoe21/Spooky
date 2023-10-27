@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Biomes;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Cemetery.Ambient
 {
@@ -19,7 +19,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			AddMapEntry(new Color(31, 85, 37));
-			DustType = DustID.Grass;
+			DustType = ModContent.DustType<CemeteryGrassDust>();
 			HitSound = SoundID.Grass;
 		}
 

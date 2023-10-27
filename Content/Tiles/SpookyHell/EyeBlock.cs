@@ -44,9 +44,9 @@ namespace Spooky.Content.Tiles.SpookyHell
 
             if (!Main.gamePaused && Main.instance.IsActive && !Above.HasTile && isPlayerNear)
             {
-                if (Main.rand.Next(550) == 0)
+                if (Main.rand.NextBool(550))
                 {
-                    int newDust = Dust.NewDust(new Vector2((i - 2) * 16, (j - 1) * 16), 5, 5, ModContent.DustType<SpookyHellParticle>());
+                    int newDust = Dust.NewDust(new Vector2((i) * 16, (j - 1) * 16), 5, 5, ModContent.DustType<SpookyHellParticle>());
 
                     Main.dust[newDust].velocity.Y += 0.09f;
                 }

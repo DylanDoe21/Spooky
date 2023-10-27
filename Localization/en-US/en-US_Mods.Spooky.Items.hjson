@@ -2347,3 +2347,13 @@ RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip: Test Item
 }
+
+SpiderWoodItem: {
+	DisplayName: Petrified Wood
+	Tooltip: ""
+}
+
+SpiderWoodWallItem: {
+	DisplayName: Petrified Wood Wall
+	Tooltip: ""
+}

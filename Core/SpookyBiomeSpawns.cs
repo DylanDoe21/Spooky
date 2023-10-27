@@ -341,9 +341,9 @@ namespace Spooky.Core
                 }
             }
 
-			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZombie>()))
+			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()))
 			{
-				pool.Add(ModContent.NPCType<DumbZombie>(), 0.01f);
+				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.005f);
 			}
         }
     }

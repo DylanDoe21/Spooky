@@ -389,7 +389,6 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVines>());
                         }
                     }
-
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVines>())
                     {
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVines>());
@@ -403,7 +402,6 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyVinesGreen>());
                         }
                     }
-
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyVinesGreen>())
                     {
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
@@ -417,7 +415,6 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<SpookyFungusVines>());
                         }
                     }
-
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyFungusVines>())
                     {
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyFungusVines>());

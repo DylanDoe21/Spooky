@@ -9,8 +9,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Cemetery;
-using Spooky.Content.Tiles.Cemetery.Ambient;
-using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 using StructureHelper;
 
@@ -69,10 +67,6 @@ namespace Spooky.Content.Generation
                 for (int Y = Catacombs.PositionY - 100; Y <= Main.worldSurface; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
-                    Tile tileUp = Main.tile[X, Y - 1];
-                    Tile tileDown = Main.tile[X, Y + 1];
-                    Tile tileLeft = Main.tile[X - 1, Y];
-                    Tile tileRight = Main.tile[X + 1, Y];
 
                     //place cemetery dirt blocks on crimstone and ebonstone walls because they are annoying
                     if (!tile.HasTile && (tile.WallType == WallID.EbonstoneUnsafe || tile.WallType == WallID.CrimstoneUnsafe))
@@ -94,16 +88,16 @@ namespace Spooky.Content.Generation
                 }
 
                 //place block clusters right above the world surface to prevent the cemetery from generating too low
-                for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY++)
+                for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 2)
                 {
                     SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }
             }
 
             //place more blocks in the middle of the cemetery to prevent the entrance from placing too low
-            for (int X = XMiddle - 30; X <= XMiddle + 30; X++)
+            for (int X = XMiddle - 30; X <= XMiddle + 30; X += 2)
             {
-                for (int Y = (int)Main.worldSurface - 65; Y <= Main.worldSurface; Y++)
+                for (int Y = (int)Main.worldSurface - 65; Y <= Main.worldSurface; Y += 2)
                 {
                     SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), WorldGen.genRand.Next(2, 3), true, true);
                 }
@@ -150,47 +144,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        private void SpreadCemeteryGrass(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
-
-            //spread grass on all cemetery dirt tiles
-            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
-            {
-                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
-                {
-                    Tile tile = Main.tile[X, Y];
-                    Tile up = Main.tile[X, Y - 1];
-                    Tile down = Main.tile[X, Y + 1];
-                    Tile left = Main.tile[X - 1, Y];
-                    Tile right = Main.tile[X + 1, Y];
-
-                    //convert grass blocks that are covered up back into dirt
-                    if (tile.TileType == ModContent.TileType<CemeteryGrass>() && up.HasTile && down.HasTile && left.HasTile && right.HasTile)
-                    {
-                        tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
-                    }
-
-                    //convert grass
-                    if (tile.TileType == ModContent.TileType<CemeteryDirt>() && ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
-                    {
-                        tile.TileType = (ushort)ModContent.TileType<CemeteryGrass>();
-                    }
- 
-                    //extra spread grass just in case
-                    if (tile.TileType == ModContent.TileType<CemeteryDirt>() &&
-                    (up.TileType == ModContent.TileType<CemeteryGrass>() || down.TileType == ModContent.TileType<CemeteryGrass>() ||
-                    left.TileType == ModContent.TileType<CemeteryGrass>() || right.TileType == ModContent.TileType<CemeteryGrass>()))
-                    {
-                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>(), false);
-                    }
-                }
-            }
-        }
-
-        private void GrowCemeteryTrees(GenerationProgress progress, GameConfiguration configuration)
+        private void CemeteryGrassAndTrees(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = Catacombs.PositionX;
             int XMiddle = XStart + (BiomeWidth / 2);
@@ -200,6 +154,8 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
+                    WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>());
+
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<CemeteryGrass>())
                     {
                         WorldGen.GrowTree(X, Y - 1);
@@ -325,8 +281,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("CemeteryTerrain", PlaceCemetery));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("CemeteryStructures", GenerateCemeteryStructures));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryGrass", SpreadCemeteryGrass));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("CemeteryTrees", GrowCemeteryTrees));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryTrees", CemeteryGrassAndTrees));
         }
 
         public override void PostWorldGen()

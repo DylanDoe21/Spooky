@@ -12,7 +12,7 @@ using Terraria.GameContent.UI;
 
 namespace Spooky.Content.NPCs.Friendly
 {
-    public class DumbZombie : ModNPC  
+    public class DumbZomboid : ModNPC  
     {
         public override void SetStaticDefaults()
         {

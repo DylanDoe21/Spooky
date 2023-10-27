@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Reflection;
 
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Pylon;
