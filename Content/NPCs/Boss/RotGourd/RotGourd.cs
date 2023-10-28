@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC",
                 Position = new Vector2(20f, 20f),
-                PortraitPositionXOverride = 0f,
+                PortraitPositionXOverride = -10f,
                 PortraitPositionYOverride = 12f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);

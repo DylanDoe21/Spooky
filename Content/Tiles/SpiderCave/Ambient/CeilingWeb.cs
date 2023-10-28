@@ -12,6 +12,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 	{
 		public override void SetStaticDefaults()
 		{
+			Main.tileSolid[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
@@ -19,6 +20,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
+			TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = -2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(224, 211, 172));

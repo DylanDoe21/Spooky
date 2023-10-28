@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
-			Item.width = 38;
+			Item.width = 40;
 			Item.height = 48;
 			Item.useTime = 40;
 			Item.useAnimation = 40;

@@ -21,7 +21,12 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
-            int BiomeCenterX = (Main.maxTilesX / 2) + WorldGen.genRand.Next(-200, 200);
+            //get the center of the desert biome
+            int DesertMiddle = (GenVars.desertHiveLeft + GenVars.desertHiveRight) / 2;
+
+            int JungleMiddle = GenVars.jungleOriginX;
+
+            int BiomeCenterX = (DesertMiddle + JungleMiddle) / 2;
 
             int BiomeSize = Main.maxTilesY >= 2400 ? WorldGen.genRand.Next(300, 350) : (Main.maxTilesY >= 1800 ? WorldGen.genRand.Next(250, 300) : 140);
 
@@ -193,22 +198,13 @@ namespace Spooky.Content.Generation
                             ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
 
                             WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(CeilingWebs));
-                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(CeilingWebs));
                         }
 
                         //place ambient tiles that can spawn on stone and grass
                         if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == TileID.Stone)
                         {
-                            //large hanging webs
-                            if (WorldGen.genRand.NextBool(6))
-                            {
-                                ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
-
-                                WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(CeilingWebs));
-                            }
-
                             //large hanging roots
-                            if (WorldGen.genRand.NextBool(4))
+                            if (WorldGen.genRand.NextBool())
                             {
                                 ushort[] HangingRoots = new ushort[] { (ushort)ModContent.TileType<HangingRoots1>(), (ushort)ModContent.TileType<HangingRoots2>(), 
                                 (ushort)ModContent.TileType<HangingRoots3>(), (ushort)ModContent.TileType<HangingRoots4>() };

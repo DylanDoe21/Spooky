@@ -8,3 +8,22 @@ Raveyard Overhaul:
 -There are no enemies during this event, but it is filled with friendly skeletons that you can talk to
 -It now has revamped visuals, with cool light beams swaying back and forth in the background
 -A new suspicious skeleton who sells weird items can be found here, he sells new accessories after the defeat of each spooky mod boss and other stuff
+
+
+New Biome, The Spider Grotto:
+
+-A large underground cave that was once a village has been overtaken by strange spiders and other bugs (TODO: write better description as stuff is added)
+
+
+
+
+~CHANGES TO EXISTING CONTENT~
+
+
+
+
+~BUGS AND OTHER FIXES~
+
+
+-Fixed issue where you could switch to other items while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
+-Fixed the chat messages for the catacomb barrier keys not being localized (they are in the dialogue localization file)

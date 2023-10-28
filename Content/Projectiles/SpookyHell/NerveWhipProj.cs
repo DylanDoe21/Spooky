@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
 			Projectile.DefaultToWhip();
 
-			Projectile.WhipSettings.Segments = 32;
+			Projectile.WhipSettings.Segments = 30;
 			Projectile.WhipSettings.RangeMultiplier = 0.99f;
 		}
 
@@ -51,30 +51,33 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
 				Rectangle frame = new Rectangle(0, 0, 14, 18);
 				Vector2 origin = new Vector2(7, 7);
-				float scale = 1;
+				
+				Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
+				float t = Projectile.ai[0] / timeToFlyOut;
+				float scale = MathHelper.Lerp(0.75f, 1.2f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
 
 				//tip of the whip
 				if (i == list.Count - 2) 
 				{
-					frame.Y = 74;
-					frame.Height = 18;
+					frame.Y = 50;
+					frame.Height = 32;
 				}
 				//loop between the two middle segments
 				else if (i % 2 == 0) 
 				{
-					frame.Y = 58;
-					frame.Height = 16;
+					frame.Y = 32;
+					frame.Height = 18;
 				}
 				else if (i % 1 == 0) 
 				{
-					frame.Y = 42;
-					frame.Height = 16;
+					frame.Y = 16;
+					frame.Height = 18;
 				}
 				//the held part of the whip
 				else if (i > 0) 
 				{
 					frame.Y = 0;
-					frame.Height = 28;
+					frame.Height = 16;
 				}
 
 				Vector2 element = list[i];

@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class CatacombKey3Proj : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/Items/Catacomb/Misc/CatacombKey3";
+
         Vector2 SaveProjectilePosition;
 
 		public override void SetStaticDefaults()
@@ -23,8 +25,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 20;                   			 
-            Projectile.height = 34;  
+			Projectile.width = 16;                   			 
+            Projectile.height = 28;
             Projectile.friendly = true;       
 			Projectile.hostile = false;                                 			  		
             Projectile.tileCollide = false;
@@ -100,16 +102,16 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[DustGore].velocity *= 5f;
-                Main.dust[DustGore].noGravity = false;
+                Main.dust[DustGore].noGravity = true;
             }
 
-			string text = "The orange barrier has been opened!";
+			string text = Language.GetTextValue("Mods.Spooky.Dialogue.CatacombKeys.Key3");
 
 			if (Main.netMode != NetmodeID.Server)
 			{
 				Main.NewText(text, Color.Orange);
 			}
-			else
+			else if (Main.netMode == NetmodeID.Server)
 			{
 				ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), Color.Orange);
 			}
@@ -122,12 +124,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 				{
 					NetMessage.SendData(MessageID.WorldData);
 				}
-			}
-
-			if (Main.netMode != NetmodeID.Server)
-			{
-				Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/KeyOrangeGore1").Type);
-				Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(0, 0), ModContent.Find<ModGore>("Spooky/KeyOrangeGore2").Type);
 			}
 		}
     }

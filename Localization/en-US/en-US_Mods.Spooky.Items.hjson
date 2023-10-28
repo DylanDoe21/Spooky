@@ -194,18 +194,18 @@ FlowerLegs: {
 }
 
 CatacombKey1: {
-	DisplayName: Yellow Skull Key
-	Tooltip: Use to destroy the yellow catcombs barrier
+	DisplayName: Yellow Barrier Key
+	Tooltip: Use to open the yellow catcombs barrier
 }
 
 CatacombKey2: {
-	DisplayName: Red Skull Key
-	Tooltip: Use to destroy the red catcombs barrier
+	DisplayName: Red Barrier Key
+	Tooltip: Use to open the red catcombs barrier
 }
 
 CatacombKey3: {
-	DisplayName: Orange Skull Key
-	Tooltip: Use to destroy the orange catacombs barrier
+	DisplayName: Orange Barrier Key
+	Tooltip: Use to open the orange catacombs barrier
 }
 
 PlantChunk: {
@@ -2255,7 +2255,7 @@ SpookyMushItem: {
 
 SpookyMushGrassSeeds: {
 	DisplayName: Flesh Grass Seeds
-	Tooltip: Plants flesh grass on Spooky Mush
+	Tooltip: Plants flesh grass on Organic Mush
 }
 
 EyeSeed: {

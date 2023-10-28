@@ -47,7 +47,7 @@ namespace Spooky.Content.Biomes
 
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
             {
-                bool tileBlock = tile.HasTile && Main.tileBlockLight[tile.TileType] && !(tile.Slope != SlopeType.Solid || tile.IsHalfBlock);
+                bool tileBlock = tile.HasTile && Main.tileBlockLight[tile.TileType] && !(tile.Slope != SlopeType.Solid || tile.IsHalfBlock || !WorldGen.SolidTile(x, y));
                 bool wallBlock = Main.wallLight[tile.WallType];
                 bool lit = Main.tileLighted[tile.TileType];
 

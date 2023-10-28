@@ -8,8 +8,8 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
     {
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 30;
+            Item.width = 18;
+            Item.height = 32;
             Item.maxStack = 9999;
             Item.rare = ItemRarityID.Yellow;
         }

@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.Catacomb.Misc
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 20;
-			Item.height = 34;
+			Item.width = 14;
+			Item.height = 24;
             Item.consumable = true;
 			Item.noUseGraphic = true;
             Item.useTime = 5;
@@ -68,14 +68,14 @@ namespace Spooky.Content.Items.Catacomb.Misc
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(155, 155, 155, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, Color.Red, rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			for (float i = 0f; i < 1f; i += 0.34f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 
-				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(155, 155, 155, 50), rotation, frameOrigin, scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, Color.Red, rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			return true;

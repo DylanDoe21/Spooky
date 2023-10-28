@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
@@ -38,6 +39,22 @@ namespace Spooky.Content.Tiles.Catacomb
 		public override bool CanExplode(int i, int j)
 		{
 			return false;
+		}
+
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = !Flags.CatacombKey1;
+			player.cursorItemIconID = ModContent.ItemType<CatacombKey1>();
+			player.cursorItemIconText = "";
+		}
+
+		public override void MouseOverFar(int i, int j)
+		{
+			MouseOver(i, j);
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = false;
+			player.cursorItemIconID = 0;
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -97,6 +114,14 @@ namespace Spooky.Content.Tiles.Catacomb
 			DustType = -1;
 		}
 
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = !Flags.CatacombKey2;
+			player.cursorItemIconID = ModContent.ItemType<CatacombKey2>();
+			player.cursorItemIconText = "";
+		}
+
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
             Tile tile = Framing.GetTileSafely(i, j);
@@ -144,6 +169,13 @@ namespace Spooky.Content.Tiles.Catacomb
 
 	public class CatacombBarrier2Daffodil : CatacombBarrier2
 	{
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = false;
+			player.cursorItemIconText = "";
+		}
+
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
             Tile tile = Framing.GetTileSafely(i, j);
@@ -197,6 +229,13 @@ namespace Spooky.Content.Tiles.Catacomb
 			MinPick = 999999;
 			HitSound = SoundID.Dig;
 			DustType = -1;
+		}
+
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = false;
+			player.cursorItemIconText = "";
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -254,6 +293,14 @@ namespace Spooky.Content.Tiles.Catacomb
 			MinPick = 999999;
 			HitSound = SoundID.Dig;
 			DustType = -1;
+		}
+
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.cursorItemIconEnabled = !Flags.CatacombKey3;
+			player.cursorItemIconID = ModContent.ItemType<CatacombKey3>();
+			player.cursorItemIconText = "";
 		}
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)

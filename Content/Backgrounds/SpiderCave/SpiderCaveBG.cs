@@ -151,7 +151,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                 int num6 = (int)((vector.X * vector3.X - vector2.X + zero.X - (Main.screenWidth >> 1)) / num5);
 
                 for (int j = num6 - 2; j < num6 + 4 + (int)(Main.screenWidth / num5); j++)
-                {   
+                {
                     Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
                     
                     var frame = rectangle;

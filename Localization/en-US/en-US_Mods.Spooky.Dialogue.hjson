@@ -195,3 +195,9 @@ TheMan: {
 }
 
 TheHorse: How hungry?
+
+CatacombKeys: {
+	Key1: The yellow barrier has been opened!
+	Key2: The red barrier has been opened!
+	Key3: The orange barrier has been opened!
+}
