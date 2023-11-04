@@ -12,6 +12,7 @@ using Spooky.Core;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Cemetery.Contraband;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.Vinyl;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -148,7 +149,11 @@ namespace Spooky.Content.NPCs.Friendly
             .Add(new Item(ModContent.ItemType<PetscopTool2>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 150000 })
-            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 });
+            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 })
+            .Add(new Item(ModContent.ItemType<VinylSleepy>()) { shopCustomPrice = 200000 })
+            .Add(new Item(ModContent.ItemType<VinylAlley>()) { shopCustomPrice = 200000 })
+            .Add(new Item(ModContent.ItemType<VinylLazy>()) { shopCustomPrice = 200000 })
+            .Add(new Item(ModContent.ItemType<VinylMysterious>()) { shopCustomPrice = 200000 });
 
             npcShop.Register();
         }

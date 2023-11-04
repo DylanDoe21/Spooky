@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class AmuletSeed : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/Boss/SpookySpirit/Projectiles/PhantomSeed";
+
 		private List<Vector2> cache;
         private Trail trail;
 

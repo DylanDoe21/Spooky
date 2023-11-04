@@ -9,8 +9,8 @@ namespace Spooky.Content.Items.Costume
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 26;
-			Item.height = 26;
+			Item.width = 32;
+			Item.height = 18;
 			Item.vanity = true;
 			Item.rare = ItemRarityID.Blue;
 		}

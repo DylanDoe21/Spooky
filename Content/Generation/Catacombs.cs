@@ -499,7 +499,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool() || (Main.maxTilesX < 6400 && Main.maxTilesY < 1800))
+                        if (X != XMiddle && Y != (int)Main.worldSurface + layer1Depth + 118 + 126)
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }

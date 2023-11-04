@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class BlasterBoogerBig : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/Boss/Moco/Projectiles/GiantSnot";
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 6;

@@ -9,6 +9,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class GlowBulbProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/Catacomb/GlowBulb";
+
         public override void SetDefaults()
         {
             Projectile.width = 36;

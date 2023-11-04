@@ -6,7 +6,6 @@ using Terraria.GameContent.Creative;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Items.Vinyl;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
@@ -56,16 +55,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, spookyChestDrops));
-
-            //rarely drop one of the vinyl discs
-            int[] vinylDiscs = new int[] 
-			{
-				ModContent.ItemType<VinylAlley>(),
-				ModContent.ItemType<VinylLazy>(),
-				ModContent.ItemType<VinylMysterious>(),
-				ModContent.ItemType<VinylSleepy>()
-			};
-			itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(45, vinylDiscs));
 
 			//drop vanilla ores
 			IItemDropRule[] oreTypes = new IItemDropRule[] 

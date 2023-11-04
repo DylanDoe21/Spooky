@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class BigBoneHammerProj2 : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/Catacomb/BigBoneHammer";
+
         private List<Vector2> cache;
         private Trail trail;
 

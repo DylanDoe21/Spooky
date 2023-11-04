@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(210, 203, 200));
+            AddMapEntry(new Color(215, 208, 187));
 			HitSound = SoundID.NPCHit11;
             DustType = DustID.Web;
 			MineResist = 0.65f;

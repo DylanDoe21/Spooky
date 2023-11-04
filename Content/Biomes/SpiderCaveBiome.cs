@@ -17,7 +17,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<SpiderCaveUndergroundBG>();
 
-        public override int Music => MusicID.JungleUnderground;
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
@@ -121,7 +121,7 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
             int BiomeDepthThreshold = (Main.maxTilesY / 2) - (Main.maxTilesY / 18);
 
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 500;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1000;
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

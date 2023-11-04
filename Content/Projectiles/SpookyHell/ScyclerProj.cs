@@ -9,6 +9,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class ScyclerProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyHell/Scycler";
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;

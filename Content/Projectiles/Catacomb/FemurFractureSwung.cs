@@ -14,6 +14,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class FemurFractureSwung : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Catacomb/FemurFractureProj";
+
         public float Speed = 0.02f;
         public float TrailSize = 0;
 

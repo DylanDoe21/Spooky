@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
@@ -341,9 +342,32 @@ namespace Spooky.Core
                 }
             }
 
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+			{
+				pool.Clear();
+
+				//critters
+				pool.Add(ModContent.NPCType<Ant1>(), 2);
+				pool.Add(ModContent.NPCType<Ant2>(), 2);
+				pool.Add(ModContent.NPCType<Cockroach>(), 1);
+				pool.Add(ModContent.NPCType<Inchworm1>(), 2);
+				pool.Add(ModContent.NPCType<Inchworm2>(), 2);
+				pool.Add(ModContent.NPCType<Inchworm3>(), 1);
+				pool.Add(ModContent.NPCType<Mosquito1>(), 1);
+				pool.Add(ModContent.NPCType<Mosquito2>(), 1);
+				pool.Add(ModContent.NPCType<Mosquito3>(), 1);
+				pool.Add(ModContent.NPCType<Moth1>(), 1);
+				pool.Add(ModContent.NPCType<Moth2>(), 1);
+
+				pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
+				pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
+				pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
+			}
+
+			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()))
 			{
-				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.005f);
+				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.001f);
 			}
         }
     }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Tree;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Generation
 {
@@ -21,18 +22,16 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
-            //get the center of the desert biome
-            int DesertMiddle = (GenVars.desertHiveLeft + GenVars.desertHiveRight) / 2;
+            //get the center of the snow biome
+            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
 
-            int JungleMiddle = GenVars.jungleOriginX;
-
-            int BiomeCenterX = (DesertMiddle + JungleMiddle) / 2;
+            int BiomeCenterX = (SnowMiddle + (Main.maxTilesX / 2)) / 2;
 
             int BiomeSize = Main.maxTilesY >= 2400 ? WorldGen.genRand.Next(300, 350) : (Main.maxTilesY >= 1800 ? WorldGen.genRand.Next(250, 300) : 140);
 
             int ExtraHeight = WorldGen.genRand.Next(20, 55);
 
-            GenerateSpiderBiome(BiomeCenterX, (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight, BiomeSize);
+            GenerateSpiderBiome(BiomeCenterX + (BiomeCenterX < (Main.maxTilesX / 2) ? -(Main.maxTilesX / 25) : (Main.maxTilesX / 25)), (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight, BiomeSize);
         }
 
         public static void GenerateSpiderBiome(int startPosX, int startPosY, int Size)
@@ -137,7 +136,7 @@ namespace Spooky.Content.Generation
                         //occasionally place large chunks of stone blocks
                         if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
                         {
-                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), TileID.Stone, false, 0f, 0f, true, true);
+                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpiderLimestone>(), false, 0f, 0f, true, true);
                         }
 
                         //place mounds of web blocks on the floor
@@ -177,6 +176,23 @@ namespace Spooky.Content.Generation
                             WorldGen.KillTile(X, Y);
                         }
 
+                        //clean tiles that are sticking out (aka tiles only attached to one tile on one side)
+                        bool OnlyRight = !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile;
+                        bool OnlyLeft = !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X + 1, Y].HasTile;
+                        bool OnlyDown = !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile;
+                        bool OnlyUp = !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile;
+
+                        if (OnlyRight || OnlyLeft || OnlyDown || OnlyUp)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
+
+                        //kill random single floating tiles
+                        if (!Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
+
                         //kill random single floating walls
                         if (Main.tile[X, Y - 1].WallType <= 0 && Main.tile[X, Y + 1].WallType <= 0 && Main.tile[X - 1, Y].WallType <= 0 && Main.tile[X + 1, Y].WallType <= 0)
                         {
@@ -193,15 +209,35 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
+                        {
+                            //check if tiles around this block have grass
+                            bool TopLeft = Main.tile[X - 1, Y - 1].TileType == ModContent.TileType<DampGrass>();
+                            bool TopRight = Main.tile[X + 1, Y - 1].TileType == ModContent.TileType<DampGrass>();
+                            bool BottomLeft = Main.tile[X - 1, Y + 1].TileType == ModContent.TileType<DampGrass>();
+                            bool BottomRight = Main.tile[X + 1, Y + 1].TileType == ModContent.TileType<DampGrass>();
+                            bool Left = Main.tile[X - 1, Y].TileType == ModContent.TileType<DampGrass>();
+                            bool Right = Main.tile[X + 1, Y].TileType == ModContent.TileType<DampGrass>();
+                            bool Top = Main.tile[X, Y - 1].TileType == ModContent.TileType<DampGrass>();
+                            bool Bottom = Main.tile[X, Y + 1].TileType == ModContent.TileType<DampGrass>();
+
+                            if (!TopLeft && !TopRight && !BottomLeft && !BottomRight && !Left && !Right && !Top && !Bottom)
+                            {
+                                WorldGen.PlaceWall(X, Y, (ushort)ModContent.WallType<SpiderRootWall>());
+                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<SpiderRootWall>();
+                            }
+                        }
+
                         if (Main.tile[X, Y].TileType == ModContent.TileType<WebBlock>())
                         {
                             ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
 
                             WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(CeilingWebs));
+                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(CeilingWebs));
                         }
 
                         //place ambient tiles that can spawn on stone and grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == TileID.Stone)
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpiderLimestone>())
                         {
                             //large hanging roots
                             if (WorldGen.genRand.NextBool())
@@ -210,6 +246,7 @@ namespace Spooky.Content.Generation
                                 (ushort)ModContent.TileType<HangingRoots3>(), (ushort)ModContent.TileType<HangingRoots4>() };
 
                                 WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingRoots));
+                                WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingRoots));
                             }
                             
                             //light roots on the ground
@@ -236,7 +273,7 @@ namespace Spooky.Content.Generation
                         {
                             if (WorldGen.genRand.NextBool(3) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                             {
-                                CanGrowPetrifiedTree(X, Y, ModContent.TileType<SpiderTree>(), 6, 22);
+                                CanGrowGiantRoot(X, Y, ModContent.TileType<GiantRoot>(), 6, 12);
                             }
 
                             //mushrooms
@@ -283,7 +320,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        public static bool CanGrowPetrifiedTree(int X, int Y, int tileType, int minSize, int maxSize)
+        public static bool CanGrowGiantRoot(int X, int Y, int tileType, int minSize, int maxSize)
         {
             int canPlace = 0;
 
@@ -303,24 +340,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //make sure the area is large enough for it to place both horizontally and vertically
-            for (int i = X - 2; i < X + 2; i++)
-            {
-                for (int j = Y - 12; j < Y - 2; j++)
-                {
-                    //only check for solid blocks, ambient objects dont matter
-                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
-                    {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            SpiderTree.Grow(X, Y - 1, minSize, maxSize, false);
+            GiantRoot.Grow(X, Y + 1, minSize, maxSize);
 
             return true;
         }

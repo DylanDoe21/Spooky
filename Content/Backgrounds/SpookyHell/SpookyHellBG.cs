@@ -183,6 +183,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
     {
         public int ID;
         public float Transparency;
+        
         void IAutoload.Load()
         {
             if (Main.dedServ)

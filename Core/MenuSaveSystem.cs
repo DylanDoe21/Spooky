@@ -40,7 +40,7 @@ namespace Spooky.Core
                 //TODO: turn this into localized text
                 var pathWriter = File.CreateText(DefaultFilePath);
                 pathWriter.WriteLine("Spooky mod's custom menu screen has blackened versions of the each boss on it" +
-                "\nEach time a boss is defeated in game, a file with that bosses name will be created in this folder (If it doesn't exist already)" +
+                "\nEach time a spooky mod boss is defeated in game, a blank file with that bosses name will be created in this folder (If it doesn't exist already)" +
                 "\nSpooky mod itself will check if these files exist, and if they do, then that respective boss will become un-blackened on the menu screen" +
                 "\nDeleting any of the files in here will re-blacken that respective boss, but you must reload the mod in game for this to take effect");
                 pathWriter.Close();

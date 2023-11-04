@@ -10,11 +10,10 @@ using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-	// Example Advanced Flail is a complete adaption of Ball O' Hurt projectile. The code has been rewritten a bit to make it easier to follow. Compare this code against the decompiled Terraria code for an example of adapting vanilla code. A few comments and extra code snippets show features from other vanilla flails as well.
-	// Example Advanced Flail shows a plethora of advanced AI and collision topics.
-	// See ExampleFlail for a simpler but less customizable flail projectile example.
 	public class EyeFlailProj2 : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/Projectiles/SpookyHell/EyeFlailProj";
+
 		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyHell/EyeFlailChain"; // The folder path to the flail chain sprite
 		
 		private enum AIState

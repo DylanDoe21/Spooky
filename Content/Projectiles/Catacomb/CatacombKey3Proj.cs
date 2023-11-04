@@ -100,7 +100,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
 			for (int numDust = 0; numDust < 20; numDust++)
             {
-                int DustGore = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
+                int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[DustGore].velocity *= 5f;
                 Main.dust[DustGore].noGravity = true;
             }

@@ -153,6 +153,7 @@ PartySkeleton5.DisplayName: Party Skeleton
 PartySkeleton6.DisplayName: Party Skeleton
 PartySkeleton7.DisplayName: Party Skeleton
 PartySkeleton8.DisplayName: Party Skeleton
+SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
 //spooky biome
 Bungus.DisplayName: Bungus
@@ -199,4 +200,18 @@ ValleyEelTail.DisplayName: Aortic Eel
 ValleyShark.DisplayName: Hemostasis Beast
 ValleySharkMouth.DisplayName: Hemostasis Beast
 ValleyMerman.DisplayName: Flesh Merman
-SkeletonBouncer.DisplayName: Skeleton Bouncer
+//spider cave
+Ant1.DisplayName: Ant
+Ant2.DisplayName: Ant
+Cockroach.DisplayName: Cockroach
+Inchworm1.DisplayName: Inchworm
+Inchworm2.DisplayName: Inchworm
+Inchworm3.DisplayName: Inchworm
+Mosquito1.DisplayName: Mosquito
+Mosquito2.DisplayName: Mosquito
+Mosquito3.DisplayName: Mosquito
+Moth1.DisplayName: Moth
+Moth2.DisplayName: Moth
+DaddyLongLegs.DisplayName: Daddy Long Legs
+JumpingSpider1.DisplayName: Jumping Spider
+JumpingSpider2.DisplayName: Jumping Spider

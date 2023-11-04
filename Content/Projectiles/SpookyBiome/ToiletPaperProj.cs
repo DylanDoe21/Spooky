@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ToiletPaperProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyBiome/ToiletPaper";
+
         public override void SetDefaults()
         {
             Projectile.width = 28;

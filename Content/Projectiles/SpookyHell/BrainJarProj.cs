@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class BrainJarProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyHell/BrainJar";
+
         public override void SetDefaults()
         {
             Projectile.width = 22;

@@ -1254,7 +1254,7 @@ SpookyBiomeKey: {
 	DisplayName: Spooky Forest Key
 	Tooltip:
 		'''
-		Unlocks a spooky chest in the catacombs
+		Unlocks a spooky chest in the dungeon
 		Cannot be used until plantera has been defeated
 		'''
 }
@@ -1774,7 +1774,7 @@ SpookyHellKey: {
 	DisplayName: Eye Valley Key
 	Tooltip:
 		'''
-		Unlocks an eye chest in the catacombs
+		Unlocks an eye chest in the dungeon
 		Cannot be used until plantera has been defeated
 		'''
 }
@@ -2123,6 +2123,11 @@ SpookyStoneItem: {
 	Tooltip: ""
 }
 
+SpookyStoneBricksItem: {
+	DisplayName: Mossy Stone Brick
+	Tooltip: ""
+}
+
 SpookyWoodItem: {
 	DisplayName: Old Wood
 	Tooltip: ""
@@ -2304,32 +2309,52 @@ SpookySpiritTrophyItem: {
 }
 
 CatacombBrick1Item: {
-	DisplayName: Upper Catacomb Brick
+	DisplayName: Scary Gray Catacomb Brick
 	Tooltip: ""
 }
 
 CatacombBrick2Item: {
-	DisplayName: Lower Catacomb Brick
+	DisplayName: Scary Brown Catacomb Brick
+	Tooltip: ""
+}
+
+CatacombBrickWall1Item: {
+	DisplayName: Scary Gray Catacomb Wall
+	Tooltip: ""
+}
+
+CatacombBrickWall2Item: {
+	DisplayName: Scary Brown Catacomb Wall
+	Tooltip: ""
+}
+
+CatacombBrick1SafeItem: {
+	DisplayName: Gray Catacomb Brick
+	Tooltip: ""
+}
+
+CatacombBrick2SafeItem: {
+	DisplayName: Brown Catacomb Brick
+	Tooltip: ""
+}
+
+CatacombBrickWall1SafeItem: {
+	DisplayName: Gray Catacomb Brick Wall
+	Tooltip: ""
+}
+
+CatacombBrickWall2SafeItem: {
+	DisplayName: Brown Catacomb Brick Wall
 	Tooltip: ""
 }
 
 CatacombFlooringItem: {
-	DisplayName: Catacomb Flooring Brick
+	DisplayName: Catacomb Floor Brick
 	Tooltip: ""
 }
 
 GildedBrickItem: {
 	DisplayName: Gilded Brick
-	Tooltip: ""
-}
-
-CatacombBrickWall1Item: {
-	DisplayName: Upper Catacomb Brick Wall
-	Tooltip: ""
-}
-
-CatacombBrickWall2Item: {
-	DisplayName: Lower Catacomb Brick Wall
 	Tooltip: ""
 }
 
@@ -2339,7 +2364,7 @@ DampSoilItem: {
 }
 
 WebBlockItem: {
-	DisplayName: Spider Web
+	DisplayName: Spider Web Block
 	Tooltip: ""
 }
 
@@ -2355,5 +2380,10 @@ SpiderWoodItem: {
 
 SpiderWoodWallItem: {
 	DisplayName: Petrified Wood Wall
+	Tooltip: ""
+}
+
+SpiderLimestoneItem: {
+	DisplayName: Limestone
 	Tooltip: ""
 }

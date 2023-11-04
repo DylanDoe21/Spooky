@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			TileObjectData.newTile.Origin = new Point16(2, 2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(178, 152, 116));
+			AddMapEntry(new Color(181, 176, 160));
             DustType = DustID.Web;
 		}
     }

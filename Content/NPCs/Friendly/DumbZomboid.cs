@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.friendly = true;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.75f;
-            NPC.HitSound = SoundID.NPCHit2;
+            NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
             TownNPCStayingHomeless = true;

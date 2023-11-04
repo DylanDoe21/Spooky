@@ -105,8 +105,6 @@ namespace Spooky.Content.Backgrounds.SpookyHell
 
             Vector2 vector = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
             float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
-            int bg0Height = ModContent.Request<Texture2D>(currentBG.TexturePath + "0").Height();
-            bg0Height += bg0Height >> 1;
             float Scale = 0.95f;
             
             for (int Layers = 3; Layers >= 0; Layers--)
@@ -166,13 +164,10 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                             float time = Main.GameUpdateCount * 0.01f;
 
                             float intensity1 = 0.7f;
-                            intensity1 *= (float)MathF.Sin(-drawPosition.Y / 8f + time);
+                            intensity1 *= (float)MathF.Sin(8f + time);
 
                             float intensity2 = 0.7f;
-                            intensity2 *= (float)MathF.Cos(-drawPosition.Y / 8f + time);
-
-                            float intensity3 = 0.7f;
-                            intensity3 *= (float)MathF.Sin(-drawPosition.Y / 8f + time);
+                            intensity2 *= (float)MathF.Cos(8f + time);
 
                             Texture2D EyesTexture1 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes1").Value;
                             Texture2D EyesTexture2 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes2").Value;
@@ -180,7 +175,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
 
                             Main.spriteBatch.Draw(EyesTexture1, drawPosition, frame, Color.Red * intensity1, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                             Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity3, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity1, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                         }
                     }
                 }
@@ -200,6 +195,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
     {
         public int ID;
         public float Transparency;
+        
         void IAutoload.Load()
         {
             if (Main.dedServ)

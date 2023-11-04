@@ -7,6 +7,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class OldWoodStaffProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyBiome/OldWoodStaff";
+
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;

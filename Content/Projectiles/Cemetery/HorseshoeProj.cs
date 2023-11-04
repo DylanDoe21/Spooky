@@ -14,6 +14,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class HorseshoeProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/BossSummon/Horseshoe";
+
         public override void SetDefaults()
         {
             Projectile.width = 26;
