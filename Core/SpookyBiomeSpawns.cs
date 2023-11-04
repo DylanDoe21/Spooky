@@ -361,7 +361,7 @@ namespace Spooky.Core
 
 				pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
 				pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-				pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
+				pool.Add(ModContent.NPCType<JumpingSpider2>(), 1);
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

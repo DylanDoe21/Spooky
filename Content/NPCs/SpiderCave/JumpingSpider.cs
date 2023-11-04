@@ -98,17 +98,19 @@ namespace Spooky.Content.NPCs.SpiderCave
             if (NPC.localAI[0] == 0)
             {
                 NPC.aiStyle = 66;
-			    AIType = NPCID.Buggy;
+			    AIType = NPCID.TruffleWorm;
 
                 if (NPC.Distance(player.Center) <= 200f)
                 {
+                    //set ai to 75 so it jumps immediately
+                    NPC.ai[0] = 75;
                     NPC.localAI[0]++;
                 }
             }
             else
             {
                 NPC.rotation = NPC.velocity.Y * 0.05f;
-                //jumping ai
+                
                 NPC.ai[0]++;
 
                 if (NPC.ai[0] >= 75)
@@ -163,5 +165,10 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(BuffID.Poisoned, 300);
+        }
     }
 }

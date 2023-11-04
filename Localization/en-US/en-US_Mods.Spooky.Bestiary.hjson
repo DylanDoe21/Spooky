@@ -117,11 +117,17 @@ ValleyEel: Large eels covered in a thick membrane, allowing them to move quickly
 ValleyShark: These gross humanoid sharks are incredibly aggressive. They can shoot their jaw large distances out of their mouth, allowing them to catch prey from afar.
 ValleyMerman: Humanoid fish-like creatures that reside in the blood lake. They can swallow blood and biomass and spit it back up as a harmful substance.
 //spider cave
-Inchworm1: Little worms that crawl around in the damp spider infested cave.
-Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders.
-Inchworm3: These inchworms have adapted to have a more hostile appearance, making spiders less likely to target them.
-Cockroach: Disgusting and hard to get rid of pests. At least they don't usually wander too far out of the caverns where they live.
 Ant1: Common insects found in the damp spider infested caves. They are decent at blending into the environment.
 Ant2: Uncommon ants with a bright red color rather than brown. They look a bit angry.
-Moth1: Cute fuzzy moths can be seen flying around. One of the only friendly looking creatures in the spider infested cave.
-Moth2: These rarer moths have brown fur, tricking predators into thinking they are part of the terrain.
+Cockroach: Disgusting and hard to get rid of pests. At least they don't usually wander too far out of the caverns where they live.
+DaddyLongLegs: Their long hind legs allow them to run at high speeds. They can also spit web at their prey from their mouth.
+Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
+Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
+Inchworm3: These inchworms miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
+JumpingSpider1: These spiders have somewhat poor eyesight, only being able to see things nearby them. They become aggressive to anyone that gets too close.
+JumpingSpider2: Rarer jumping spiders with dark gray fur, allowing them to blend into the darkness of the caves. Their fangs are coated in a poisonous venom.
+Mosquito1: Annoying disease spreading pests.
+Mosquito2: This mosquito's body is a bit bloated from the blood it has fed on.
+Mosquito3: An extremely gluttonous mosquito who's body has blown up like a balloon.
+Moth1: Cute fuzzy moths that can be seen flying around the grotto. Probably one of the only friendly looking creatures that live there.
+Moth2: These rarer moths have brown fur, which tricks predators into thinking they are part of the terrain.

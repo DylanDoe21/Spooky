@@ -62,9 +62,25 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class Mosquito2 : Mosquito1
 	{
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Mosquito2"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
     }
 
     public class Mosquito3 : Mosquito1
 	{
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Mosquito3"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
     }
 }
