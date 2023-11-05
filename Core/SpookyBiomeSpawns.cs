@@ -347,11 +347,11 @@ namespace Spooky.Core
 				pool.Clear();
 
 				//critters
-				pool.Add(ModContent.NPCType<Ant1>(), 2);
-				pool.Add(ModContent.NPCType<Ant2>(), 2);
+				pool.Add(ModContent.NPCType<Ant1>(), 1);
+				pool.Add(ModContent.NPCType<Ant2>(), 1);
 				pool.Add(ModContent.NPCType<Cockroach>(), 1);
-				pool.Add(ModContent.NPCType<Inchworm1>(), 2);
-				pool.Add(ModContent.NPCType<Inchworm2>(), 2);
+				pool.Add(ModContent.NPCType<Inchworm1>(), 1);
+				pool.Add(ModContent.NPCType<Inchworm2>(), 1);
 				pool.Add(ModContent.NPCType<Inchworm3>(), 1);
 				pool.Add(ModContent.NPCType<Mosquito1>(), 1);
 				pool.Add(ModContent.NPCType<Mosquito2>(), 1);
@@ -362,6 +362,26 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
 				pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
 				pool.Add(ModContent.NPCType<JumpingSpider2>(), 1);
+				pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
+
+				/*
+				//Spawns for later so i dont have to write them as i go
+				pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
+				pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
+				pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+				pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+
+				if (NPC.downedMechBoss1)
+				{
+					pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
+					pool.Add(ModContent.NPCType<WhipSpider>(), 1);
+					pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
+					pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
+					pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
+					pool.Add(ModContent.NPCType<TrapdoorSpider1>(), 1);
+					pool.Add(ModContent.NPCType<TrapdoorSpider2>(), 1);
+				}
+				*/
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

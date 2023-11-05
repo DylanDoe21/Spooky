@@ -3,16 +3,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Core
 {
-    public class ShaderLoader : IAutoload
+    public static class ShaderLoader
     {
         public static Effect GlowyTrail;
 
-        public void Load()
+        public static void Load()
         {
             GlowyTrail = ModContent.Request<Effect>("Spooky/Effects/GlowyTrail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         }
 
-        public void Unload()
+        public static void Unload()
         {
             GlowyTrail = null;
         }

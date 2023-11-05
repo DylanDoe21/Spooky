@@ -121,7 +121,7 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
             int BiomeDepthThreshold = (Main.maxTilesY / 2) - (Main.maxTilesY / 18);
 
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1000;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1800;
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

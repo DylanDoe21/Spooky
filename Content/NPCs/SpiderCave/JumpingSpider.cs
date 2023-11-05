@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 50;
+            NPC.lifeMax = 60;
             NPC.damage = 20;
 			NPC.defense = 5;
 			NPC.width = 46;
@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             if (NPC.localAI[0] == 0)
             {
                 NPC.aiStyle = 66;
-			    AIType = NPCID.TruffleWorm;
+			    AIType = NPCID.Worm;
 
                 if (NPC.Distance(player.Center) <= 200f)
                 {
@@ -153,10 +153,33 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
             }
         }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(BuffID.Poisoned, 300);
+        }
 	}
 
     public class JumpingSpider2 : JumpingSpider1
 	{
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 50;
+            NPC.damage = 32;
+			NPC.defense = 0;
+			NPC.width = 46;
+			NPC.height = 34;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 0.5f;
+            NPC.value = Item.buyPrice(0, 0, 1, 0);
+            NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.noGravity = false;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+		}
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -168,6 +191,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
+            target.AddBuff(BuffID.Dazed, 120);
             target.AddBuff(BuffID.Poisoned, 300);
         }
     }

@@ -22,7 +22,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(181, 176, 160));
-            HitSound = SoundID.Dig;
+            HitSound = SoundID.NPCHit11;
+            DustType = DustID.Web;
         }
     }
 

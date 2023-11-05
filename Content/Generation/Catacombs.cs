@@ -311,11 +311,13 @@ namespace Spooky.Content.Generation
             //randomize room pattern
             RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => Main.rand.Next()).ToArray();
 
+            int layer2Start = (int)Main.worldSurface + layer1Depth + 118;
+
             //again, place a circle of bricks where each catacomb room will be
             //since the rooms in layer 2 are wider, place two circles side by side
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+                for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
                     SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
@@ -337,7 +339,7 @@ namespace Spooky.Content.Generation
             //place the actual rooms
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+                for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     chosenRoom = RoomPatternLayer2[switchRoom];
 
@@ -350,8 +352,6 @@ namespace Spooky.Content.Generation
 
                     //origin offset for each room so it places at the center
                     Vector2 origin = new Vector2(X - 35, Y - 18);
-
-                    int layer2Start = (int)Main.worldSurface + layer1Depth + 118;
 
                     //first row
                     if (Y == layer2Start)
@@ -483,7 +483,7 @@ namespace Spooky.Content.Generation
             //place hallways
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = (int)Main.worldSurface + layer1Depth + 118; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+                for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     //actual hallway positions
                     Vector2 horizontalHallOrigin = new Vector2(X + 34, WorldGen.genRand.NextBool() ? Y + 3 : Y - 14);
@@ -498,8 +498,8 @@ namespace Spooky.Content.Generation
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5), horizontalHallOrigin.ToPoint16(), Mod);
                         }
 
-                        //place a vertical hall randomly under any room
-                        if (X != XMiddle && Y != (int)Main.worldSurface + layer1Depth + 118 + 126)
+                        //place a vertical hall randomly under any room except for the pandoras box room
+                        if (X != XMiddle || (Y != layer2Start + 84 && Y != layer2Start + 42))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }

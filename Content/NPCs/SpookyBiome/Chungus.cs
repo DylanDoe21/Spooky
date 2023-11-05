@@ -131,7 +131,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed.X *= Main.rand.NextFloat(1.5f, 2.5f);
-                    ShootSpeed.X *= Main.rand.NextFloat(1.5f, 2.5f);
+                    ShootSpeed.Y *= Main.rand.NextFloat(1.5f, 2.5f);
 
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
                     ShootSpeed.Y, ModContent.ProjectileType<ChungusSpore>(), NPC.damage / 5, 1, NPC.target);

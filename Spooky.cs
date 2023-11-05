@@ -37,8 +37,6 @@ namespace Spooky
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
-        private List<IAutoload> loadCache;
-
         public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
@@ -70,44 +68,17 @@ namespace Spooky
 				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
             }
 
-            //custom background loading
-            UndergroundBGManager.Load();
-            HellBGManager.Load();
+            SpiderCaveBG.Load();
+            SpookyHellBG.Load();
 
-            //IAutoload stuff
-            loadCache = new List<IAutoload>();
-
-            foreach (Type type in Code.GetTypes())
-            {
-                if (!type.IsAbstract && type.GetInterfaces().Contains(typeof(IAutoload)))
-                {
-                    var instance = Activator.CreateInstance(type);
-                    loadCache.Add(instance as IAutoload);
-                }
-            }
-
-            for (int k = 0; k < loadCache.Count; k++)
-            {
-                loadCache[k].Load();
-            }
+            ShaderLoader.Load();
         }
 
         public override void Unload()
         {
             AccessoryHotkey = null;
 
-            UndergroundBGManager.Unload();
-            HellBGManager.Unload();
-
-            if (loadCache != null)
-            {
-                foreach (var loadable in loadCache)
-                {
-                    loadable.Unload();
-                }
-            }
-
-            loadCache = null;
+            ShaderLoader.Unload();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
