@@ -38,8 +38,8 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.behindTiles = true;
-            NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = SoundID.NPCHit29;
+			NPC.DeathSound = SoundID.NPCDeath32;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
         }
@@ -161,10 +161,15 @@ namespace Spooky.Content.NPCs.SpiderCave
                     ShootSpeed *= 8;
 
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                    ShootSpeed.Y, ProjectileID.WebSpit, NPC.damage / 5, 0, NPC.target);
+                    ShootSpeed.Y, ProjectileID.WebSpit, NPC.damage / 4, 0, NPC.target);
 
+                    //random delay before it can spit again
                     NPC.ai[0] = Main.rand.Next(0, 60);
                 }
+            }
+            else
+            {
+                NPC.active = false;
             }
         }
 

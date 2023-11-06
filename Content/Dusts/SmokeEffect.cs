@@ -10,7 +10,7 @@ namespace Spooky.Content.Dusts
         {
             dust.noGravity = true;
             dust.scale *= Main.rand.NextFloat(0.8f, 2f);
-            dust.frame = new Rectangle(0, Main.rand.Next(2) * 32, 32, 32);
+            dust.frame = new Rectangle(0, Main.rand.Next(3) * 32, 32, 32);
             dust.rotation = Main.rand.NextFloat(6.28f);
         }
 

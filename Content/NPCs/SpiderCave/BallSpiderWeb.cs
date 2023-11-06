@@ -8,8 +8,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 {
     public class BallSpiderWeb : ModNPC
     {
-        bool SpawnedSpider = false;
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.CantTakeLunchMoney[Type] = true;

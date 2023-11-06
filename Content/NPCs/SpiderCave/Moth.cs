@@ -62,6 +62,20 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.07f;
         }
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MothWhiteGore" + numGores).Type);
+                    }
+                }
+            }
+        }
 	}
 
     public class Moth2 : Moth1
@@ -74,5 +88,19 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MothBrownGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

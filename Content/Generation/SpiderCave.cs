@@ -86,8 +86,8 @@ namespace Spooky.Content.Generation
 
                         //generate perlin noise caves
                         float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 80f, Y / 80f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-                        float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 800f, Y / 900f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-                        float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 800f, Y / 900f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
+                        float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 1350f, Y / 900f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
+                        float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 1350f, Y / 900f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
                         float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
                         float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 
@@ -104,8 +104,8 @@ namespace Spooky.Content.Generation
                         //place walls in the biome using a different "seed" so it differs from the cave generation
                         //this creates a neat effect where walls worm their way through the caverns while leaving openings for the background to show through
                         float horizontalOffsetNoiseWalls = SpookyWorldMethods.PerlinNoise2D(X / 80f, Y / 80f, 5, unchecked(cavePerlinSeedWalls + 1)) * 0.01f;
-                        float cavePerlinValueWalls = SpookyWorldMethods.PerlinNoise2D(X / 500f, Y / 600f, 5, cavePerlinSeedWalls) + 0.5f + horizontalOffsetNoiseWalls;
-                        float cavePerlinValue2Walls = SpookyWorldMethods.PerlinNoise2D(X / 500f, Y / 600f, 5, unchecked(cavePerlinSeedWalls - 1)) + 0.5f;
+                        float cavePerlinValueWalls = SpookyWorldMethods.PerlinNoise2D(X / 1200f, Y / 600f, 5, cavePerlinSeedWalls) + 0.5f + horizontalOffsetNoiseWalls;
+                        float cavePerlinValue2Walls = SpookyWorldMethods.PerlinNoise2D(X / 1200f, Y / 600f, 5, unchecked(cavePerlinSeedWalls - 1)) + 0.5f;
                         float caveNoiseMapWalls = (cavePerlinValueWalls + cavePerlinValue2Walls) * 0.5f;
                         float caveCreationThresholdWalls = horizontalOffsetNoiseWalls * 3.5f + 0.235f;
 
@@ -169,12 +169,6 @@ namespace Spooky.Content.Generation
 
                         //remove any extra liquids that may still be in the biome
                         Main.tile[X, Y].LiquidAmount = 0;
-
-                        //kill random single floating tiles
-                        if (!Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
-                        {
-                            WorldGen.KillTile(X, Y);
-                        }
 
                         //clean tiles that are sticking out (aka tiles only attached to one tile on one side)
                         bool OnlyRight = !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile;

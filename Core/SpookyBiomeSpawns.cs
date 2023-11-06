@@ -29,10 +29,9 @@ namespace Spooky.Core
     //separate globalNPC for all of spooky mod's biome spawn pools so I can keep them more organized
     public class SpookyBiomeSpawns : GlobalNPC
     {
-		//remove spawn rates manually under certain conditions
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			//remove spawns if any spooky mod boss is alive
+			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
             NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
             NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
@@ -70,7 +69,7 @@ namespace Spooky.Core
 				spawnRate /= 2;
 			}
 
-			//drastically increase spawns during the raveyard
+			//drastically increase spawns during the raveyard so all the funny skeletons spawn
 			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
 				spawnRate /= 5;
@@ -359,17 +358,21 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<Moth1>(), 1);
 				pool.Add(ModContent.NPCType<Moth2>(), 1);
 
-				pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
-				pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-				pool.Add(ModContent.NPCType<JumpingSpider2>(), 1);
-				pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
+				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
+				{
+					pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
+					pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
+					pool.Add(ModContent.NPCType<JumpingSpider2>(), 1);
+					pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
+					pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+				}
 
 				/*
 				//Spawns for later so i dont have to write them as i go
 				pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
 				pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
 				pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
-				pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
 
 				if (NPC.downedMechBoss1)
 				{

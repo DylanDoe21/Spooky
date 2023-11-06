@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Dusts
 {
@@ -13,7 +14,9 @@ namespace Spooky.Content.Dusts
             dust.noLight = true;
             dust.alpha = 0;
             dust.fadeIn = 12f;
-            dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+            dust.scale *= Main.rand.NextFloat(0.5f, 0.8f);
+            dust.frame = new Rectangle(0, Main.rand.Next(3) * 18, 20, 20);
+            dust.rotation = Main.rand.NextFloat(6.28f);
         }
 
         public override bool Update(Dust dust)

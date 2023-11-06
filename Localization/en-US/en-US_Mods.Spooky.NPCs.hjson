@@ -212,6 +212,9 @@ Inchworm2.DisplayName: Inchworm
 Inchworm3.DisplayName: Inchworm
 JumpingSpider1.DisplayName: Jumping Spider
 JumpingSpider2.DisplayName: Jumping Spider
+LeafSpiderSleeping.DisplayName: Leaf
+LeafSpider.DisplayName: Leaf Spider
+LeafSpiderWeb.DisplayName: Leaf Spider Web
 Mosquito1.DisplayName: Mosquito
 Mosquito2.DisplayName: Mosquito
 Mosquito3.DisplayName: Mosquito

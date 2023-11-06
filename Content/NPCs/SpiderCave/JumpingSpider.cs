@@ -24,11 +24,9 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
-            NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.noGravity = false;
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.HitSound = SoundID.NPCHit33;
+			NPC.DeathSound = SoundID.NPCDeath16;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
@@ -172,11 +170,9 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
-            NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.noGravity = false;
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.HitSound = SoundID.NPCHit33;
+			NPC.DeathSound = SoundID.NPCDeath16;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 

@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
-            NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = SoundID.NPCHit29;
+			NPC.DeathSound = SoundID.NPCDeath38;
             NPC.aiStyle = 41;
             AIType = NPCID.Derpling;
             AnimationType = NPCID.Derpling;  

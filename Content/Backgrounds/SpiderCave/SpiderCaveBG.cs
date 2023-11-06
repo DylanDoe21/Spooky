@@ -47,6 +47,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             }
             else
             {
+                //make transparency immediately go down so it doesnt look weird
                 Transparency -= 1f;
 
                 if (Transparency < 0f)
@@ -76,25 +77,25 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     switch (Layers)
                     {
                         case 0:
-                            {
-                                zero.Y += 165f;
-                                break;
-                            }
+                        {
+                            zero.Y += 165f;
+                            break;
+                        }
                         case 1:
-                            {
-                                zero.Y += 30f;
-                                break;
-                            }
+                        {
+                            zero.Y += 30f;
+                            break;
+                        }
                         case 2:
-                            {
-                                zero.Y += 35f;
-                                break;
-                            }
+                        {
+                            zero.Y += 35f;
+                            break;
+                        }
                         case 3:
-                            {
-                                zero.Y -= 20f;
-                                break;
-                            }
+                        {
+                            zero.Y -= 20f;
+                            break;
+                        }
                     }
 
                     vector2 *= Scale;
