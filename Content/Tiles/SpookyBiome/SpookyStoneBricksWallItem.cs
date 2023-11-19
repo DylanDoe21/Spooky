@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
-    public class SpookyStoneBricksItem : ModItem
+    public class SpookyStoneBricksWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
@@ -18,23 +18,18 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
+			Item.useTime = 7;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpookyStoneBricks>();
+			Item.createWall = ModContent.WallType<SpookyStoneBricksWall>();
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyStoneBricksWallItem>(), 4)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<SpookyStoneBricksItem>(), 1)
             .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 2)
-            .AddTile(TileID.Furnaces)
             .Register();
         }
     }

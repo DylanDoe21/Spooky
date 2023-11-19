@@ -900,6 +900,11 @@ GooDish: {
 	Tooltip: Summons a friendly goo slime
 }
 
+InchwormApple: {
+	DisplayName: Bitten Apple
+	Tooltip: Summons a pet Inchworm
+}
+
 MocoTissue: {
 	DisplayName: Suspicious Looking Tissue
 	Tooltip:
@@ -1335,7 +1340,8 @@ GoreHoodEye: {
 	Tooltip:
 		'''
 		20% increased magic and summon damage
-		10% reduced mana usage and increases your max minions by 2
+		10% reduced mana usage 
+		Increases your max minions by 2
 		Enemies are more likely to target you
 		'''
 }
@@ -1345,7 +1351,8 @@ GoreHoodMouth: {
 	Tooltip:
 		'''
 		20% increased melee and ranged damage
-		12% increased melee speed and 10% chance to save ammo
+		12% increased melee speed 
+		10% chance to save ammo
 		Enemies are more likely to target you
 		'''
 }
@@ -2125,6 +2132,11 @@ SpookyStoneItem: {
 
 SpookyStoneBricksItem: {
 	DisplayName: Mossy Stone Brick
+	Tooltip: ""
+}
+
+SpookyStoneBricksWallItem: {
+	DisplayName: Mossy Stone Brick Wall
 	Tooltip: ""
 }
 

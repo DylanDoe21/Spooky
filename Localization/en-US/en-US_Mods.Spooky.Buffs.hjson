@@ -373,3 +373,8 @@ BatBuff: {
 	DisplayName: Creepy Bat
 	Description: It likes to drink blood
 }
+
+InchwormBuff: {
+	DisplayName: Pet Inchworm
+	Description: It wants your apple
+}

@@ -1,4 +1,4 @@
-PLEASE KEEP IN MIND: spooky mod's latest version and all future updates will ONLY be on the 1.4.4 version of tmodloader. The 1.4.3 version will NOT be updated or supported anymore.
+PLEASE KEEP IN MIND: spooky mod's latest version and all future updates will ONLY be on the 1.4.4 version of tmodloader. Any previous versions of spooky mod on tmodloader versions before 1.4.4 will NOT be updated or supported anymore.
 
 Spooky mod is a decently large mod that adds in new content with the general theme of halloween
 

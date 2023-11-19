@@ -283,7 +283,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place spider webs on walls
-                        if (WorldGen.genRand.NextBool(150) && Main.tile[X, Y].WallType == ModContent.WallType<DampGrassWall>() && !Main.tile[X, Y].HasTile)
+                        if (WorldGen.genRand.NextBool(200) && Main.tile[X, Y].WallType == ModContent.WallType<DampGrassWall>() && !Main.tile[X, Y].HasTile)
                         {
                             ushort[] WallWebs = new ushort[] { (ushort)ModContent.TileType<WallWeb1>(), (ushort)ModContent.TileType<WallWeb2>() };
 

@@ -66,5 +66,15 @@ namespace Spooky.Content.NPCs.SpiderCave
 				NPC.active = false;
 			}
         }
+
+		public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<LeafSpider>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+            }
+        }
     }
 }

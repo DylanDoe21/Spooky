@@ -1,4 +1,0 @@
-Known issues:
-
--Egg event enemies randomly deciding to vanish on hit, but its inconsistent
--Vesicator biomass spawning two enemies at once

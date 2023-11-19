@@ -1,10 +1,13 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
-namespace Spooky.Content.Tiles.SpookyBiome
+using Spooky.Content.Tiles.Cemetery;
+
+namespace Spooky.Content.Tiles.Catacomb.Safe
 {
-    public class SpookyStoneBricksItem : ModItem
+    public class CatacombBrick2SafeItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -22,18 +25,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpookyStoneBricks>();
+			Item.createTile = ModContent.TileType<CatacombBrick2Safe>();
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyStoneBricksWallItem>(), 4)
+            .AddIngredient(ModContent.ItemType<CatacombBrickWall2SafeItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
 
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 2)
+            .AddIngredient(ModContent.ItemType<CemeteryStoneItem>())
+            .AddIngredient(ItemID.MudBlock)
             .AddTile(TileID.Furnaces)
             .Register();
         }

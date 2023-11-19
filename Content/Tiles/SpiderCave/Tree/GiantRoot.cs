@@ -239,7 +239,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 Vector2 RootBottomOffset = new Vector2(32, -14);
 
                 //draw tree tops
-                DrawRootBottom(i - 1, j - 1, topsTex, new Rectangle(0, 0, 84, 72), TileOffset.ToWorldCoordinates(), RootBottomOffset);
+                DrawRootBottom(i - 1, j - 1, topsTex, new Rectangle(88 * frame, 0, 86, 82), TileOffset.ToWorldCoordinates(), RootBottomOffset);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRoot").Value;

@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,12 +14,15 @@ namespace Spooky.Content.Tiles.MusicBox
     {
         public override void SetStaticDefaults()
         {
+            Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.DrawYOffset = -2;
             TileObjectData.newTile.StyleLineSkip = 2;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
@@ -33,6 +37,16 @@ namespace Spooky.Content.Tiles.MusicBox
             player.noThrow = 2;
             player.cursorItemIconEnabled = true;
             player.cursorItemIconID = ModContent.ItemType<RaveyardBox>();
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+            if (Main.tile[i, j].TileFrameX == 36)
+            {
+                r = Main.DiscoColor.R / 450f;
+                g = Main.DiscoColor.G / 450f;
+                b = Main.DiscoColor.B / 450f;
+            }
         }
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)

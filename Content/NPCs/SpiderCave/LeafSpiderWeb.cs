@@ -92,7 +92,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC Parent = Main.npc[(int)NPC.ai[2]];
 
-            //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<LeafSpider>())
             {
                 switch ((int)NPC.ai[0])
@@ -114,6 +113,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                         NPC.velocity *= 0;
 
                         ParentGoTo(0, 150);
+
+                        if (Vector2.Distance(NPC.Center, Parent.Center) <= 200f)
+                        {
+                            Parent.velocity *= 0.95f;
+                        }
 
                         break;
                     }

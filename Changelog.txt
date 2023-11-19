@@ -15,9 +15,21 @@ New Biome, The Spider Grotto:
 -A large underground cave that was once a village has been overtaken by strange spiders and other bugs (TODO: write better description as stuff is added)
 
 
+New Menu Overhaul:
+
+-Spooky mods main menu style has been completely overhauled, with an amazing new art piece by Hat in a River
+-This new menu not only looks awesome, but has a few funny little features to go along with it
+-On the menu, you may notice blackened versions of each spooky mod boss. When you defeat each boss in game, it will be permanently unblackened on the menu!
+-Clicking the menu logo also plays a funny sound and makes the boss outlines flash
+
+
 
 
 ~CHANGES TO EXISTING CONTENT~
+
+
+-The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
+-Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 
 
 
@@ -26,4 +38,4 @@ New Biome, The Spider Grotto:
 
 
 -Fixed issue where you could switch to other items while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
--Fixed the chat messages for the catacomb barrier keys not being localized (they are in the dialogue localization file)
+-Fixed the chat messages for the catacomb barrier keys not being localized (they are now in the dialogue localization file)
