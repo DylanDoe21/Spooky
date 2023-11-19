@@ -2,15 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpiderCave;
-
 namespace Spooky.Content.Tiles.SpiderCave
 {
-    public class SpiderLimestoneItem : ModItem
+    public class RootWoodWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
@@ -20,11 +18,19 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
+			Item.useTime = 7;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpiderLimestone>();
+			Item.createWall = ModContent.WallType<RootWoodWall>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<RootWoodItem>())
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

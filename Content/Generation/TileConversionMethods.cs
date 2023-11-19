@@ -440,7 +440,7 @@ namespace Spooky.Content.Generation
                 {
 					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
                     {
-						if (Main.tile[k, l].TileType == TileID.Ash) 
+						if (Main.tile[k, l].TileType == TileID.Ash || Main.tile[k, l].TileType == TileID.AshGrass)
                         {
 							if (!Main.tile[k - 1, l].HasTile || !Main.tile[k + 1, l].HasTile || !Main.tile[k, l - 1].HasTile || !Main.tile[k, l + 1].HasTile)
 							{

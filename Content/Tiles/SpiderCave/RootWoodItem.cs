@@ -6,7 +6,7 @@ using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Tiles.SpiderCave
 {
-    public class SpiderWoodItem : ModItem
+    public class RootWoodItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -24,13 +24,13 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpiderWood>();
+			Item.createTile = ModContent.TileType<RootWood>();
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpiderWoodWallItem>(), 4)
+            .AddIngredient(ModContent.ItemType<RootWoodWallItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
 

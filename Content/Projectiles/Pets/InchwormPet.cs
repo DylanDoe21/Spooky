@@ -274,11 +274,11 @@ namespace Spooky.Content.Projectiles.Pets
 
                 if (Projectile.Center.X < player.Center.X)
                 {
-                    Projectile.spriteDirection = 1;
+                    Projectile.spriteDirection = -1;
                 }
                 else if (Projectile.Center.X > player.Center.X)
                 {
-                    Projectile.spriteDirection = -1;
+                    Projectile.spriteDirection = 1;
                 }
 
                 Projectile.frame = 0;

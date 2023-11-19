@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 {
                     case 0: 
                     {
-                        NPC.velocity.Y = -22;
+                        NPC.velocity.Y = -35;
 
                         if (Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
                         {

@@ -2380,22 +2380,22 @@ WebBlockItem: {
 	Tooltip: ""
 }
 
+SpiderStoneItem: {
+	DisplayName: Damp Mossy Stone
+	Tooltip: ""
+}
+
 RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip: Test Item
 }
 
-SpiderWoodItem: {
-	DisplayName: Petrified Wood
+RootWoodItem: {
+	DisplayName: Root Wood
 	Tooltip: ""
 }
 
-SpiderWoodWallItem: {
-	DisplayName: Petrified Wood Wall
-	Tooltip: ""
-}
-
-SpiderLimestoneItem: {
-	DisplayName: Limestone
+RootWoodWallItem: {
+	DisplayName: Root Wood Wall
 	Tooltip: ""
 }

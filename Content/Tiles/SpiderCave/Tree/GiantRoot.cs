@@ -37,7 +37,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             AddMapEntry(new Color(201, 175, 139), name);
             DustType = DustID.Web;
 			HitSound = SoundID.Dig;
-            //RegisterItemDrop(ModContent.ItemType<SpiderWoodItem>());
+            RegisterItemDrop(ModContent.ItemType<RootWoodItem>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -236,7 +236,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 RootBottomOffset = new Vector2(32, -14);
+                Vector2 RootBottomOffset = new Vector2(34, -14) + offset;
 
                 //draw tree tops
                 DrawRootBottom(i - 1, j - 1, topsTex, new Rectangle(88 * frame, 0, 86, 82), TileOffset.ToWorldCoordinates(), RootBottomOffset);

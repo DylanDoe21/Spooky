@@ -39,3 +39,4 @@ New Menu Overhaul:
 
 -Fixed issue where you could switch to other items while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
 -Fixed the chat messages for the catacomb barrier keys not being localized (they are now in the dialogue localization file)
+-Fixed red & purple solution not converting ash grass

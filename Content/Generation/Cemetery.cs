@@ -183,7 +183,7 @@ namespace Spooky.Content.Generation
                 GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse-1", 14, 20);
 
                 //lake
-                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 11);
+                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 5);
 
                 //catacomb entrance
                 GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);

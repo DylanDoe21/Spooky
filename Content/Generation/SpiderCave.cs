@@ -136,7 +136,7 @@ namespace Spooky.Content.Generation
                         //occasionally place large chunks of stone blocks
                         if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
                         {
-                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpiderLimestone>(), false, 0f, 0f, true, true);
+                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpiderStone>(), false, 0f, 0f, true, true);
                         }
 
                         //place mounds of web blocks on the floor
@@ -231,7 +231,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place ambient tiles that can spawn on stone and grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpiderLimestone>())
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>())
                         {
                             //large hanging roots
                             if (WorldGen.genRand.NextBool())

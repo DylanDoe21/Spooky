@@ -156,7 +156,7 @@ namespace Spooky.Content.Projectiles.Pets
                 else if (Projectile.velocity.X != 0)
                 {
                     Projectile.frameCounter++;
-                    if (Projectile.frameCounter > 4)
+                    if (Projectile.frameCounter > 3)
                     {
                         Projectile.frame++;
                         Projectile.frameCounter = 0;
@@ -281,11 +281,11 @@ namespace Spooky.Content.Projectiles.Pets
 
                 if (Projectile.Center.X < player.Center.X)
                 {
-                    Projectile.spriteDirection = 1;
+                    Projectile.spriteDirection = -1;
                 }
                 else if (Projectile.Center.X > player.Center.X)
                 {
-                    Projectile.spriteDirection = -1;
+                    Projectile.spriteDirection = 1;
                 }
 
                 Projectile.frame = 5;
