@@ -1021,7 +1021,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(200);
 
-                    if (NPC.localAI[0] >= 80 && NPC.localAI[0] <= 200)
+                    if (NPC.localAI[0] <= 80)
+                    {
+                        int MaxDusts = Main.rand.Next(2, 11);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
+                            Main.dust[dustEffect].color = Phase2 ? Color.OrangeRed : Color.Red;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240)
                     {
                         NPC.velocity *= 0.98f;
 
@@ -1049,7 +1065,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 200)
+                    if (NPC.localAI[0] >= 240)
                     {
                         if (Main.rand.NextBool(3))
                         {

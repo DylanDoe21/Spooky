@@ -192,6 +192,9 @@ namespace Spooky.Content.Generation
                         {
                             WorldGen.KillWall(X, Y);
                         }
+
+                        //clean up small floating clumps of tiles
+                        CleanOutSmallClumps();
                     }
                 }
             }
@@ -337,6 +340,65 @@ namespace Spooky.Content.Generation
             GiantRoot.Grow(X, Y + 1, minSize, maxSize);
 
             return true;
+        }
+
+        public static Tile ParanoidTileRetrieval(int x, int y)
+        {
+            if (!WorldGen.InWorld(x, y))
+                return new Tile();
+
+            return Main.tile[x, y];
+        }
+
+        //method to clean up small clumps of tiles (taken from the sulphur sea generation)
+        public static void CleanOutSmallClumps()
+        {
+            List<ushort> blockTypes = new()
+            {
+                (ushort)ModContent.TileType<DampGrass>(),
+                (ushort)ModContent.TileType<DampSoil>(),
+                (ushort)ModContent.TileType<SpiderStone>(),
+                (ushort)ModContent.TileType<WebBlock>(),
+            };
+            
+            void getAttachedPoints(int x, int y, List<Point> points)
+            {
+                Tile tile = ParanoidTileRetrieval(x, y);
+                Point point = new Point(x, y);
+                
+                if (!blockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > 75 || points.Contains(point))
+                {
+                    return;
+                }
+
+                points.Add(point);
+
+                getAttachedPoints(x + 1, y, points);
+                getAttachedPoints(x - 1, y, points);
+                getAttachedPoints(x, y + 1, points);
+                getAttachedPoints(x, y - 1, points);
+            }
+
+            for (int x = 20; x < Main.maxTilesX - 20; x++)
+            {
+                for (int y = 20; y < Main.maxTilesY - 20; y++)
+                {
+                    List<Point> chunkPoints = new();
+                    getAttachedPoints(x, y, chunkPoints);
+
+                    int cutoffLimit = 75;
+                    if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+                    {
+                        foreach (Point point in chunkPoints)
+                        {
+                            WorldUtils.Gen(point, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+                            {
+                                new Actions.ClearTile(true)
+                            }));
+                        }
+                    }
+                }
+            }
         }
 
         //method to make sure things only generate in the biome's circle

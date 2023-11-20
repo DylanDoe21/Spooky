@@ -7,12 +7,13 @@ Raveyard Overhaul:
 -Instead of being activated with disco balls, it now just has a 1 in 20 chance to occur at the beginning of each night (similarly to blood moons)
 -There are no enemies during this event, but it is filled with friendly skeletons that you can talk to
 -It now has revamped visuals, with cool light beams swaying back and forth in the background
--A new suspicious skeleton who sells weird items can be found here, he sells new accessories after the defeat of each spooky mod boss and other stuff
+-A new suspicious skeleton who sells weird items can be found here, he sells new accessories after the defeat of each spooky mod boss, and some other stuff
+-Do not commit any wrong-doings or you WILL be gunned down
 
 
 New Biome, The Spider Grotto:
 
--A large underground cave that was once a village has been overtaken by strange spiders and other bugs (TODO: write better description as stuff is added)
+-A large underground cave that has been taken over by weird spider-like creatures
 
 
 New Menu Overhaul:
@@ -30,6 +31,9 @@ New Menu Overhaul:
 
 -The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
 -Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
+-Buffed every weapon/acessory you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
+-Buffed the catacomb layer 2 enemy stats a bit
+-Big bone's red flower stream attack is now telegraphed before he starts using it
 
 
 
@@ -37,6 +41,9 @@ New Menu Overhaul:
 ~BUGS AND OTHER FIXES~
 
 
--Fixed issue where you could switch to other items while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
+-Fixed issue where you could switch to other items in your hotbar while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
 -Fixed the chat messages for the catacomb barrier keys not being localized (they are now in the dialogue localization file)
--Fixed red & purple solution not converting ash grass
+-Fixed red & purple solution not converting ash grass into eye valley grass
+
+
+
