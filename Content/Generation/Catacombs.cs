@@ -775,7 +775,7 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceCatacomb", PlaceCatacomb));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Creepy Catacombs", PlaceCatacomb));
 
             //re-locate the jungle temple deeper underground and further horizontally so it never gets generated over by the catacombs
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));

@@ -25,9 +25,10 @@ namespace Spooky.Content.Generation
         static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
         static int BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
-        //clear area for the biome to generate in
-        private void ClearArea(GenerationProgress progress, GameConfiguration configuration)
+        private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley").Value;
+
             //set these to their intended values again just to be safe
             StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
             BiomeEdge = StartPosition + (Main.maxTilesX / 5);
@@ -47,11 +48,6 @@ namespace Spooky.Content.Generation
                     WorldGen.KillWall(X, Y);
                 }
             }
-        }
-
-        private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
-        {
-            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley").Value;
 
             //generate the surface
             int width = BiomeEdge;
@@ -484,26 +480,18 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
 			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("ClearArea", ClearArea));
-
-            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
-			if (GenIndex2 == -1)
-			{
-				return;
-			}
-
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyHell", GenerateSpookyHell));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyHellStructures", GenerateStructures));
-            tasks.Insert(GenIndex2 + 3, new PassLegacy("SpookyHellGrass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyHellTrees", SpookyHellTrees));
-            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyHellPolish", SpookyHellPolish));
-            tasks.Insert(GenIndex2 + 6, new PassLegacy("SpookyHellAmbience", SpookyHellAmbience));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Structures", GenerateStructures));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }
 }

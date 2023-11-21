@@ -44,7 +44,7 @@ namespace Spooky.Core
 			}
 
 			/*
-			Boss Checklist weights for all vanilla bosses, mini bosses, and events (copied directly from their source code)
+			Boss Checklist weights for all vanilla bosses, mini-bosses, and events (copied directly from their source code)
 
 			KingSlime = 1f;
 			EyeOfCthulhu = 2f;

@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
             TownNPCStayingHomeless = true;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.RaveyardBiome>().Type };
         }
 
         public override bool CanChat() 
@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.Friendly
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SuspiciousSkeleton"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

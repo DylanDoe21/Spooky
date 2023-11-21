@@ -254,6 +254,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<FlySmall>(), 2);
 						pool.Add(ModContent.NPCType<FlyBig>(), 2);
 
+						//enemies
 						pool.Add(ModContent.NPCType<Skeletoid1>(), 5);
 						pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
 						pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
@@ -361,11 +362,18 @@ namespace Spooky.Core
 				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<DaddyLongLegs>(), 1);
+					pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
 					pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-					pool.Add(ModContent.NPCType<JumpingSpider2>(), 1);
+					pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
 					pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
 					pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+
+					if (NPC.downedMechBossAny)
+					{
+						pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
+						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
+						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 2);
+					}
 				}
 
 				/*
@@ -378,9 +386,6 @@ namespace Spooky.Core
 				{
 					pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
 					pool.Add(ModContent.NPCType<WhipSpider>(), 1);
-					pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
-					pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
-					pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
 					pool.Add(ModContent.NPCType<TrapdoorSpider1>(), 1);
 					pool.Add(ModContent.NPCType<TrapdoorSpider2>(), 1);
 				}

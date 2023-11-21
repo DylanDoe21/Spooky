@@ -206,7 +206,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                 switch ((int)NPC.localAI[0])
                 {
-                    //walk at the player, use mouth eject attack if the player gets within a certain rectangular distance
+                    //walk at the player
                     case 0:
                     {
                         if (!NPC.wet)
@@ -245,6 +245,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                             }
                         }
 
+                        //use the saved direction after shooting out its tongue
                         if (NPC.localAI[1] > 350)
                         {
                             NPC.direction = (int)NPC.localAI[2];

@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
             TownNPCStayingHomeless = true;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.RaveyardBiome>().Type };
         }
 
         public override bool CanChat() 
@@ -70,7 +70,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton1"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -181,7 +181,7 @@ namespace Spooky.Content.NPCs.Friendly
             if (NPC.frameCounter > 6)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 9)
             {
@@ -324,7 +324,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton2"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -336,7 +336,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton3"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -348,7 +348,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton4"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -360,7 +360,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton5"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -372,7 +372,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton6"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -384,7 +384,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton7"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }
@@ -396,7 +396,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PartySkeleton8"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.RaveyardBiome>().ModBiomeBestiaryInfoElement)
             });
         }
     }

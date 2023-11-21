@@ -15,15 +15,15 @@ namespace Spooky.Content.Biomes
 
                 if (NPC.AnyNPCs(ModContent.NPCType<TheFlesh>()))
                 {
-                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheFleshDialogue");
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Entity/TheFleshDialogue");
                 }
                 else if (NPC.AnyNPCs(ModContent.NPCType<TheBaby>()))
                 {
-                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheBabyAmbience");
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Entity/TheBabyAmbience");
                 }
                 else
                 {
-                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TheEntity");
+                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Entity/TheEntity");
                 }
 
                 return music;

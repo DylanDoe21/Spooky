@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             AddMapEntry(new Color(215, 208, 187));
 			HitSound = SoundID.NPCHit11;
             DustType = DustID.Web;
-			MineResist = 0.65f;
+			MineResist = 0.4f;
 		}
 
         public override bool HasWalkDust()

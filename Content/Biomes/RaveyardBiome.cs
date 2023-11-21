@@ -22,7 +22,11 @@ namespace Spooky.Content.Biomes
             player.ManageSpecialBiomeVisuals("Spooky:Raveyard", isActive, player.Center);
         }
 
-        public override string MapBackground => "Spooky/Content/Biomes/CemeteryBiome_Background";
+        //bestiary stuff
+        public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeIcon";
+        public override string MapBackground => BackgroundPath;
+		public override string BackgroundPath => base.BackgroundPath;
+		public override Color? BackgroundColor => base.BackgroundColor;
 
         public override bool IsBiomeActive(Player player)
         {

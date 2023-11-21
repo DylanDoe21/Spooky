@@ -1,7 +1,7 @@
 using Terraria;
-using Terraria.IO;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.IO;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
@@ -616,9 +616,9 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("SpookyForest", GenerateSpookyForest));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("SpookyHouse", GenerateStarterHouse));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Forest", GenerateSpookyForest));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Little Bone House", GenerateStarterHouse));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Spooky Forest Grass", SpreadSpookyGrass));
 
             //place house again because stupid ahh walls
             int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
@@ -627,11 +627,11 @@ namespace Spooky.Content.Generation
                 return;
             }
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("SpookyCabins", GenerateUndergroundCabins));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("SpookyGrass", SpreadSpookyGrass));
-            tasks.Insert(GenIndex2 + 3, new PassLegacy("MushroomClearAround", ClearStuffAroundMushroomMoss));
-            tasks.Insert(GenIndex2 + 4, new PassLegacy("SpookyTrees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 5, new PassLegacy("SpookyAmbience", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Forest Cabins", GenerateUndergroundCabins));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("Spooky Forest Grass Again", SpreadSpookyGrass));
+            tasks.Insert(GenIndex2 + 3, new PassLegacy("Glowshroom Cleanup", ClearStuffAroundMushroomMoss));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 5, new PassLegacy("Spooky Forest Ambient Tiles", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests

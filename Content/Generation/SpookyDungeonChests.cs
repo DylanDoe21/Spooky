@@ -127,8 +127,8 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("PlaceSpookyChest", PlaceSpookyChest));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("PlaceEyeChest", PlaceEyeChest));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Dungeon Chest", PlaceSpookyChest));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Dungeon Chest", PlaceEyeChest));
         }
 
         //place items in chests

@@ -279,9 +279,9 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("CemeteryTerrain", PlaceCemetery));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("CemeteryStructures", GenerateCemeteryStructures));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("CemeteryTrees", CemeteryGrassAndTrees));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Cemetery", PlaceCemetery));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Cemetery Structures", GenerateCemeteryStructures));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Cemetery Trees", CemeteryGrassAndTrees));
         }
 
         public override void PostWorldGen()

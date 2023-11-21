@@ -12,6 +12,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		public override void SetStaticDefaults()
 		{
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
             TileID.Sets.GeneralPlacementTiles[Type] = false;
             Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
