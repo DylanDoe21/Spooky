@@ -15,41 +15,23 @@ namespace Spooky.Content.NPCs.SpiderCave
 {
     public class TarantulaHawk1 : ModNPC
     {
-        int repeats = Main.rand.Next(1, 4);
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
-
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Position = new Vector2(12f, 5f),
-                PortraitPositionXOverride = 6f,
-                PortraitPositionYOverride = 0f
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(repeats);
-
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            repeats = reader.ReadInt32();
-
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -110,22 +92,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                     NPC.localAI[1]++;
 
-                    if (NPC.localAI[2] < repeats)
+                    if (NPC.localAI[1] > 300)
                     {
-                        if (NPC.localAI[1] > 165)
-                        {
-                            NPC.localAI[1] = 0;
-                            NPC.localAI[2]++;
-
-                            NPC.netUpdate = true;
-                        }
-                    }
-                    else
-                    {
+                        //do not charge at the player if they are too far or they are not within line of sight
                         if (Vector2.Distance(player.Center, NPC.Center) <= 250f)
                         {
                             NPC.localAI[1] = 0;
-                            NPC.localAI[2] = 0;
                             NPC.localAI[0]++;
 
                             NPC.netUpdate = true;

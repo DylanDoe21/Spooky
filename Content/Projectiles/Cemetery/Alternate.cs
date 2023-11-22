@@ -118,7 +118,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 {
                     if (!Main.npc[k].boss && Main.npc[k].type != NPCID.EaterofWorldsHead && Main.npc[k].type != NPCID.EaterofWorldsBody && Main.npc[k].type != NPCID.EaterofWorldsTail)
                     {
-                        Main.npc[k].velocity *= 0.97f;
+                        Main.npc[k].velocity *= 0.95f;
                     }
                 }
             }

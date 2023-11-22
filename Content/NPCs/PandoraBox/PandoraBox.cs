@@ -61,6 +61,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.townNPC = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            TownNPCStayingHomeless = true;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type, ModContent.GetInstance<Biomes.PandoraBoxBiome>().Type };
         }
 

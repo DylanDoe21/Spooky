@@ -24,7 +24,7 @@ namespace Spooky.Content.Buffs.Debuff
 						npc.lifeRegen = 0;
 					}
 
-					npc.lifeRegen -= 30;
+					npc.lifeRegen -= npc.boss ? 15 : 30;
 				}
 			}
 		}

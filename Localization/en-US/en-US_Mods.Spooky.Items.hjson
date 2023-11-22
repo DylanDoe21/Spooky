@@ -500,8 +500,9 @@ HerobrineAltar: {
 	Tooltip:
 		'''
 		Press the Accessory Hotkey to summon a powerful bolt of lighting at your cursor position
-		The lighting bolt will deal extremely massive damage to regular enemies
+		The lighting bolt will deal massive damage to regular enemies
 		Bosses will take 10% of their maximum life as damage
+		This ability has a 2 minute cooldown before it can be used again
 		'Removed Herobrine'
 		'''
 }
@@ -520,8 +521,8 @@ MandelaCatalogueTV: {
 	DisplayName: Analog TV
 	Tooltip:
 		'''
-		Press the Accessory Hotkey to summon an alternate of yourself
-		The alternate will follow you for a short time, and enemies nearby it will be slowed
+		Press the Accessory Hotkey to summon a temporary alternate
+		The alternate will follow you and cause nearby enemies to move slowly
 		You cannot summon your alternate again for one minute
 		'You are not the real you'
 		'''
@@ -533,7 +534,7 @@ MonumentMythosPyramid: {
 		'''
 		While worn, you will be protected by a giza glass pyramid
 		This pyramid will drastically increase your defense for 3 hits, after which it will shatter
-		However, after it shatters you will take double damage from all attacks for 5 seconds
+		After it shatters, you will take double damage from all attacks for 10 seconds
 		The giza glass pyramid will regenerate after 2 minutes
 		'She is only dormant now'
 		'''
@@ -543,9 +544,9 @@ PolybiusArcadeGame: {
 	DisplayName: Arcade Cabinet
 	Tooltip:
 		'''
-		Summons a swirling blue spiral that will follow your cursor
-		The spiral deals a decent amount of damage to enemies inside it
-		After hitting enemies 5 times, it will dissappear and regenerate after 20 seconds
+		Summons a damaging blue spiral on your cursor
+		Stores 5 charges and looses a charge upon hitting an enemy
+		Constantly regenerates charges if it hasn't hit an enemy
 		'Classified information not to be meddled with'
 		'''
 }
@@ -554,7 +555,7 @@ RedGodzillaCartridge: {
 	DisplayName: NES Cartridge
 	Tooltip:
 		'''
-		Upon damaging an enemy, there is a 5% chance to summon a large red beast
+		Upon damaging an enemy, there is a rare chance to summon a red apparition
 		The red beast will deal a heavy amount of damage to the target 3 times
 		'King of monsters'
 		'''
@@ -571,11 +572,11 @@ RedMistClarinet: {
 }
 
 SlendermanPage: {
-	DisplayName: The 8th Page
+	DisplayName: The Eighth Page
 	Tooltip:
 		'''
 		Spawns some black tentacles attached to you that will attack nearby enemies
-		Hitting enemies will rarely spawn pages you can pick up
+		Enemies killed by the tentacles will sometimes drop pages you can pick up
 		Picking up these pages will temporarily buff your tentacles
 		'Don't look'
 		'''
@@ -901,7 +902,7 @@ GooDish: {
 }
 
 InchwormApple: {
-	DisplayName: Bitten Apple
+	DisplayName: Old Apple
 	Tooltip: Summons a pet Inchworm
 }
 
@@ -1890,7 +1891,7 @@ CemeteryBox: {
 
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
-	Tooltip: "[c/FCA11B:To A Floral Demise] by Bananalizard"
+	Tooltip: "[c/A7CF17:To A Floral Demise] by Bananalizard"
 }
 
 EggEventBox: {
@@ -1915,7 +1916,7 @@ PandoraEventBox: {
 
 RaveyardBox: {
 	DisplayName: Music Box (Raveyard)
-	Tooltip: 
+	Tooltip:
 		'''
 		Cycles through both raveyard songs
 		[c/E39428:Raveyard] by LuxCapacitor
@@ -2401,5 +2402,10 @@ RootWoodItem: {
 
 RootWoodWallItem: {
 	DisplayName: Root Block Wall
+	Tooltip: ""
+}
+
+SlendermanBuffPage: {
+	DisplayName: Slenderman Buff Page
 	Tooltip: ""
 }

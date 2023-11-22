@@ -4,11 +4,11 @@ Spooky mod is a decently large mod that adds in new content with the general the
 
 Currently the mod has:
 
--Four new biomes/areas to explore: the Spooky Forest, Swampy Cemetery, Creepy Catacombs, and the Valley of Eyes
+-Five new biomes/areas to explore: The Spooky Forest, Swampy Cemetery, Creepy Catacombs, Valley of Eyes, and The Spider Grotto
 
 -Six brand new bosses, and two new events (all with boss checklist support!)
 
--Tons of other usual mod content such as weapons, armor sets, accessories, pets, and many other items
+-Tons of other usual content such as weapons, armor sets, accessories, pets, and many other items
 
 -Amazing new soundtracks for each biome and boss
 

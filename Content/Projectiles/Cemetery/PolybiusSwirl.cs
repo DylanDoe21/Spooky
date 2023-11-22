@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 Projectile.ai[0]++;
 
-                if (Projectile.ai[0] >= 180)
+                if (Projectile.ai[0] >= 85)
                 {
                     Projectile.alpha -= 51;
                     Projectile.ai[0] = 0;

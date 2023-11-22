@@ -8,7 +8,7 @@ Raveyard Overhaul:
 -There are no enemies during this event, but it is filled with friendly skeletons that you can talk to
 -It now has revamped visuals, with cool light beams swaying back and forth in the background
 -A new suspicious skeleton who sells weird items can be found here, he sells new accessories after the defeat of each spooky mod boss, and some other stuff
--Do not commit any wrong-doings or you WILL be gunned down
+-Do not commit any wrong-doings infront of the bouncers
 
 
 New Biome, The Spider Grotto:
@@ -24,6 +24,11 @@ New Menu Overhaul:
 -Clicking the menu logo also plays a funny sound and makes the boss outlines flash
 
 
+Other New Additions:
+
+-Added craftable "safe" versions of the catacomb bricks and walls you can build with, they can be shimmered into their unsafe variants after big bone is defeated
+
+
 
 
 ~CHANGES TO EXISTING CONTENT~
@@ -34,7 +39,10 @@ New Menu Overhaul:
 -Buffed every weapon/acessory you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
 -Buffed the catacomb layer 2 enemy stats a bit
 -Big bone's red flower stream attack is now telegraphed before he starts using it
+-Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly target you while the orange ones in phase 2 are now flung randomly
 -Added new custom sounds for spooky spirit's charging and death, made by rockwizard
+-Spooky spirit now correctly displays that it is nighttime only in it's bestiary entry
+-Spooky mod music boxes now display the song title in color to make it more noticable and cool
 
 
 
@@ -45,7 +53,7 @@ New Menu Overhaul:
 -Fixed issue where you could switch to other items in your hotbar while using spooky mod's holdout weapons (such as the slingshots and the old hunter's crossbow)
 -Fixed the chat messages for the catacomb barrier keys not being localized (they are now in the dialogue localization file)
 -Fixed red & purple solution not converting ash grass into eye valley grass
--Fixed samson's cuff accessory ability not working at all
+-Fixed samson's cuff ability not working at all
 
 
 

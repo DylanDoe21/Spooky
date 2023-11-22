@@ -41,6 +41,7 @@ namespace Spooky.Core
         public int BoneWispTimer = 0;
         public int BustlingHealTimer = 0;
         public int GizaGlassHits = 0;
+        public int SlendermanPageDelay = 0;
         public bool RaveyardGuardsHostile;
 
         //armors
@@ -243,6 +244,8 @@ namespace Spooky.Core
             }
         }
 
+        public static Vector2 PolarVector(float radius, float theta) => new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
+
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             //do not allow hotkeys to do anything if you are dead
@@ -251,18 +254,50 @@ namespace Spooky.Core
                 return;
             }
 
-            if (Spooky.AccessoryHotkey.JustPressed && PandoraCross && Main.myPlayer == Player.whoAmI && !Player.HasBuff(ModContent.BuffType<PandoraCrossCooldown>()))
+            if (Spooky.AccessoryHotkey.JustPressed && Main.myPlayer == Player.whoAmI)
             {
-                SoundEngine.PlaySound(CrossBassSound, Player.Center);
+                //create sound with the pandora cross
+                if (PandoraCross && !Player.HasBuff(ModContent.BuffType<PandoraCrossCooldown>()))
+                {
+                    SoundEngine.PlaySound(CrossBassSound, Player.Center);
 
-                CrossSoundTimer = 300;
-                Player.AddBuff(ModContent.BuffType<PandoraCrossCooldown>(), 2400);
-            }
+                    CrossSoundTimer = 300;
+                    Player.AddBuff(ModContent.BuffType<PandoraCrossCooldown>(), 2400);
+                }
 
-            if (Spooky.AccessoryHotkey.JustPressed && MandelaCatalogueTV && Main.myPlayer == Player.whoAmI && !Player.HasBuff(ModContent.BuffType<AlternateCooldown>()))
-            {
-                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Alternate>(), 0, 0f, Player.whoAmI, 0f, 0f);
-                Player.AddBuff(ModContent.BuffType<AlternateCooldown>(), 3600);
+                //spawn alternate with the analog tv
+                if (MandelaCatalogueTV && !Player.HasBuff(ModContent.BuffType<AlternateCooldown>()))
+                {
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Alternate>(), 0, 0f, Player.whoAmI, 0f, 0f);
+                    Player.AddBuff(ModContent.BuffType<AlternateCooldown>(), 3600);
+                }
+
+                //spawn lightning with the herobrine altar
+                if (HerobrineAltar && !Player.HasBuff(ModContent.BuffType<HerobrineAltarCooldown>()))
+                {
+                    SoundEngine.PlaySound(SoundID.Thunder with { Pitch = -0.5f }, Player.Center);
+
+                    SpookyPlayer.ScreenShakeAmount = 10;
+
+                    Vector2 ShootSpeed = new Vector2(Player.Center.X, Player.Center.Y - Main.screenHeight) - Main.MouseWorld;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= -100f;
+
+                    //each lighting bolt is set to deal 1 damage, the actual final damage is handled in the projectile itself
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
+                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation());
+
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
+                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
+                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
+                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
+
+                    Main.NewLightning();
+
+                    Player.AddBuff(ModContent.BuffType<HerobrineAltarCooldown>(), 7200);
+                }
             }
         }
 
@@ -353,7 +388,7 @@ namespace Spooky.Core
                 {
                     GizaGlassHits = 0;
                     
-                    Player.AddBuff(ModContent.BuffType<MonumentMythosShatter>(), 300);
+                    Player.AddBuff(ModContent.BuffType<MonumentMythosShatter>(), 600);
                     Player.AddBuff(ModContent.BuffType<MonumentMythosCooldown>(), 7200);
 
                     SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
@@ -626,50 +661,63 @@ namespace Spooky.Core
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
 
-            //bone mask wisp spawning while running
+            //decrease slenderman page delay
+            if (SlendermanPageDelay > 0)
+            {
+                SlendermanPageDelay--;
+            }
+
+            //all of these calculations are just copied from vanilla's stopwatch
+            //too lazy to change all the num things tbh
+            Vector2 SpeedVector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
+
+            if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
+            {
+                SpeedVector += Player.velocity;
+            }
+
+            Player.speedSlice[0] = SpeedVector.Length();
+
+            int num15 = (int)(1f + SpeedVector.Length() * 6f);
+            if (num15 > Player.speedSlice.Length)
+            {
+                num15 = Player.speedSlice.Length;
+            }
+
+            float num16 = 0f;
+            for (int num17 = num15 - 1; num17 > 0; num17--)
+            {
+                Player.speedSlice[num17] = Player.speedSlice[num17 - 1];
+            }
+
+            Player.speedSlice[0] = SpeedVector.Length();
+            for (int m = 0; m < Player.speedSlice.Length; m++)
+            {
+                if (m < num15)
+                {
+                    num16 += Player.speedSlice[m];
+                }
+                else
+                {
+                    Player.speedSlice[m] = num16 / (float)num15;
+                }
+            }
+
+            num16 /= num15;
+            int num18 = 42240;
+            int num19 = 216000;
+            float num20 = num16 * (float)num19 / (float)num18;
+
+            if (CarnisFlavorEnhancer)
+            {
+                if (num20 >= 10)
+                {
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<FoodEnhancerSpore>(), 0, 0f, Main.myPlayer, 0f, 0f);
+                }
+            }
+
             if (BoneMask)
             {
-                //all of these calculations are just copied from vanilla's stopwatch
-                //too lazy to change all the num things tbh
-                Vector2 vector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
-
-                if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
-                {
-                    vector += Player.velocity;
-                }
-
-                Player.speedSlice[0] = vector.Length();
-
-                int num15 = (int)(1f + vector.Length() * 6f);
-                if (num15 > Player.speedSlice.Length)
-                {
-                    num15 = Player.speedSlice.Length;
-                }
-
-                float num16 = 0f;
-                for (int num17 = num15 - 1; num17 > 0; num17--)
-                {
-                    Player.speedSlice[num17] = Player.speedSlice[num17 - 1];
-                }
-
-                Player.speedSlice[0] = vector.Length();
-                for (int m = 0; m < Player.speedSlice.Length; m++)
-                {
-                    if (m < num15)
-                    {
-                        num16 += Player.speedSlice[m];
-                    }
-                    else
-                    {
-                        Player.speedSlice[m] = num16 / (float)num15;
-                    }
-                }
-
-                num16 /= num15;
-                int num18 = 42240;
-                int num19 = 216000;
-                float num20 = num16 * (float)num19 / (float)num18;
-
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
                 if (num20 >= 20)
                 {

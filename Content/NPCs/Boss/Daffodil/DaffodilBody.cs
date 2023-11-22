@@ -35,6 +35,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.dontTakeDamage = true;
             NPC.noGravity = true;
             NPC.behindTiles = true;
+            TownNPCStayingHomeless = true;
             NPC.aiStyle = -1;
 		}
 

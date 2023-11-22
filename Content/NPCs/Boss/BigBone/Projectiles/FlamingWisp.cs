@@ -179,8 +179,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 Projectile.tileCollide = true;
                 
-                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 15;
+                Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+                Projectile.velocity = newVelocity;
             }
         }
 

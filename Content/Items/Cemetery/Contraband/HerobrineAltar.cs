@@ -13,13 +13,13 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             Item.width = 36;
             Item.height = 36;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Gray;  
-            //Item.value = Item.buyPrice(gold: 20);
+            Item.rare = ItemRarityID.Yellow;  
+            Item.value = Item.buyPrice(gold: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<SpookyPlayer>().HerobrineAltar = true;
+            player.GetModPlayer<SpookyPlayer>().HerobrineAltar = true;
         }
     }
 }

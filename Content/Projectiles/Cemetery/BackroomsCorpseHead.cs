@@ -121,10 +121,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			{
 				if (Main.npc[k].active && Main.npc[k].Distance(Projectile.Center) <= 275f)
                 {
-                    if (!Main.npc[k].boss && Main.npc[k].type != NPCID.EaterofWorldsHead && Main.npc[k].type != NPCID.EaterofWorldsBody && Main.npc[k].type != NPCID.EaterofWorldsTail)
-                    {
-                        Main.npc[k].AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
-                    }
+                    Main.npc[k].AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
                 }
             }
 		}

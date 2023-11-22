@@ -378,3 +378,13 @@ InchwormBuff: {
 	DisplayName: Pet Inchworm
 	Description: It wants your apple
 }
+
+SlendermanPageBuff: {
+	DisplayName: Slenderman Page Buff
+	Description: Your slenderman tentacles are empowered
+}
+
+HerobrineAltarCooldown: {
+	DisplayName: Blocky Altar Cooldown
+	Description: You cannot summon lightning
+}

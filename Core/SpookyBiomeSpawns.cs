@@ -370,9 +370,9 @@ namespace Spooky.Core
 
 					if (NPC.downedMechBossAny)
 					{
-						pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
-						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
-						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 2);
+						pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
+						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
+						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
 					}
 				}
 
