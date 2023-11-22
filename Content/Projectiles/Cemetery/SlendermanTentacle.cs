@@ -173,14 +173,10 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            bool initializedDamage = false;
-
             //deal extra damage while the player has the slenderman page buff
-            if (!initializedDamage && Main.player[Projectile.owner].HasBuff(ModContent.BuffType<SlendermanPageBuff>()))
+            if (Main.player[Projectile.owner].HasBuff(ModContent.BuffType<SlendermanPageBuff>()))
             {
-                modifiers.FinalDamage += Main.rand.Next(20, 40);
-
-                initializedDamage = true;
+                modifiers.FlatBonusDamage += Main.rand.Next(40, 80);
             }
         }
     }

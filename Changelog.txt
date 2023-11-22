@@ -42,6 +42,7 @@ Other New Additions:
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly target you while the orange ones in phase 2 are now flung randomly
 -Added new custom sounds for spooky spirit's charging and death, made by rockwizard
 -Spooky spirit now correctly displays that it is nighttime only in it's bestiary entry
+-Spirit amulet movement speed increase buffed from 15% to 20%
 -Spooky mod music boxes now display the song title in color to make it more noticable and cool
 
 

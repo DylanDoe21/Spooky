@@ -55,7 +55,7 @@ SpiritAmulet: {
 	DisplayName: Spirit Amulet
 	Tooltip:
 		'''
-		15% increased movement speed
+		20% increased movement speed
 		When hit, you will sometimes release homing spirit particles around you
 		'''
 }
@@ -1919,7 +1919,7 @@ RaveyardBox: {
 	Tooltip:
 		'''
 		Cycles through both raveyard songs
-		[c/E39428:Raveyard] by LuxCapacitor
+		[c/6FE4A5:Raveyard] by LuxCapacitor
 		[c/6FE4A5:Graveyard Without The G] by Bananalizard & Lurak
 		'''
 }
