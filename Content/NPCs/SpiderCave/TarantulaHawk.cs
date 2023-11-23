@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 600;
+            NPC.lifeMax = 400;
             NPC.damage = 45;
             NPC.defense = 15;
             NPC.width = 66;
@@ -164,6 +164,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
             }
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarantulaHawkBrownGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TarantulaHawk2 : TarantulaHawk1
@@ -176,6 +190,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarantulaHawkOrangeGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TarantulaHawk3 : TarantulaHawk1
@@ -187,6 +215,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TarantulaHawk3"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarantulaHawkGrayGore" + numGores).Type);
+                    }
+                }
+            }
         }
     }
 }

@@ -156,6 +156,25 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             target.AddBuff(BuffID.Poisoned, 300);
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JumpingSpiderWhiteGore").Type);
+                }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JumpingSpiderWhiteLegGore").Type);
+                    }
+                }
+            }
+        }
 	}
 
     public class JumpingSpider2 : JumpingSpider1
@@ -189,6 +208,25 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             target.AddBuff(BuffID.Dazed, 120);
             target.AddBuff(BuffID.Poisoned, 300);
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JumpingSpiderGrayGore").Type);
+                }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JumpingSpiderGrayLegGore").Type);
+                    }
+                }
+            }
         }
     }
 }

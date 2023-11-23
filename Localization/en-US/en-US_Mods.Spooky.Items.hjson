@@ -1929,6 +1929,11 @@ RotGourdBox: {
 	Tooltip: "[c/D45037:Funky Pumpkin] by Bananalizard"
 }
 
+SpiderCaveBox: {
+	DisplayName: Music Box (Spider Grotto)
+	Tooltip: "[c/A88554:It's Just Spider Stuff] by Bananalizard"
+}
+
 SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
 	Tooltip: "[c/FFA43C:Dead Trees...] by Bananalizard"

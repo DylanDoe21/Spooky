@@ -48,11 +48,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
+            NPC.frameCounter++;
             if (NPC.frameCounter > 4)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 5)
             {

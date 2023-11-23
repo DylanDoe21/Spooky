@@ -17,7 +17,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<SpiderCaveUndergroundBG>();
 
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpiderCave");
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
@@ -40,7 +40,7 @@ namespace Spooky.Content.Biomes
 
             Tile tile = Framing.GetTileSafely(x, y);
 
-            if (!WorldGen.InWorld(x, y))
+            if (!WorldGen.InWorld(x, y) || !Main.BackgroundEnabled)
             {
                 return;
             }
@@ -78,7 +78,7 @@ namespace Spooky.Content.Biomes
 
         private void ForceDrawBlack(On_Main.orig_DrawBlack orig, Main self, bool force)
         {
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Main.BackgroundEnabled)
             {
                 orig(self, true);
             }
@@ -90,7 +90,7 @@ namespace Spooky.Content.Biomes
 
         private float NewThreshold(float orig)
         {
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Main.BackgroundEnabled)
             {
                 return 0.1f;
             }
@@ -102,16 +102,19 @@ namespace Spooky.Content.Biomes
 
         private void ChangeBlackThreshold(ILContext il)
         {
-            var c = new ILCursor(il);
-            c.TryGotoNext(n => n.MatchLdloc(6), n => n.MatchStloc(13)); //beginning of the loop, local 11 is a looping variable
-            c.Index++; //this is kinda goofy since I dont think you could actually ever write c# to compile to the resulting IL from emitting here.
-            c.Emit(OpCodes.Ldloc, 3); //pass the original value so we can set that instead if we dont want to change the threshold
-            c.EmitDelegate<Func<float, float>>(NewThreshold); //check if were in the biome to set, else set the original value
-            c.Emit(OpCodes.Stloc, 3); //num2 in vanilla, controls minimum threshold to turn a tile black
+            if (Main.BackgroundEnabled)
+            {
+                var c = new ILCursor(il);
+                c.TryGotoNext(n => n.MatchLdloc(6), n => n.MatchStloc(13)); //beginning of the loop, local 11 is a looping variable
+                c.Index++; //this is kinda goofy since I dont think you could actually ever write c# to compile to the resulting IL from emitting here.
+                c.Emit(OpCodes.Ldloc, 3); //pass the original value so we can set that instead if we dont want to change the threshold
+                c.EmitDelegate<Func<float, float>>(NewThreshold); //check if were in the biome to set, else set the original value
+                c.Emit(OpCodes.Stloc, 3); //num2 in vanilla, controls minimum threshold to turn a tile black
+            }
         }
 
         //bestiary stuff
-        public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeUgIcon";
+        public override string BestiaryIcon => "Spooky/Content/Biomes/SpiderCaveBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;

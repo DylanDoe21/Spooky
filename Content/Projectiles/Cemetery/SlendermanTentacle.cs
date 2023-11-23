@@ -16,7 +16,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         public override void SetDefaults()
         {
             Projectile.width = 10;
-            Projectile.height = 33;
+            Projectile.height = 44;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;

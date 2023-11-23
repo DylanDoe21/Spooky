@@ -177,11 +177,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
             if (NPC.ai[0] <= 2 && NPC.ai[0] >= 0)
             {
                 //normal animation
-                NPC.frameCounter += 1;
+                NPC.frameCounter++;
                 if (NPC.frameCounter > 3)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 4)
                 {
@@ -199,11 +199,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
             if (NPC.ai[0] >= 3 || NPC.ai[0] == -1)
             {
                 //normal animation
-                NPC.frameCounter += 1;
+                NPC.frameCounter++;
                 if (NPC.frameCounter > 3)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 9)
                 {

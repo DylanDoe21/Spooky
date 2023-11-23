@@ -149,7 +149,7 @@ namespace Spooky.Content.Projectiles.Pets
                 else if (Projectile.velocity.X != 0)
                 {
                     Projectile.frameCounter++;
-                    if (Projectile.frameCounter > 4)
+                    if (Projectile.frameCounter > 2)
                     {
                         Projectile.frame++;
                         Projectile.frameCounter = 0;

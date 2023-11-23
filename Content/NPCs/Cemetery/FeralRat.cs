@@ -53,13 +53,12 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void FindFrame(int frameHeight)
         {   
-            NPC.frameCounter += 1;
-
             //running animation
-            if (NPC.frameCounter > 6 - (NPC.velocity.X / 3))
+            NPC.frameCounter += 1;
+            if (NPC.frameCounter > 9 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 5)
             {

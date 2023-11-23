@@ -234,6 +234,14 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             if (NPC.life <= 0) 
             {
+                for (int numGores = 1; numGores <= 5; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BallSpiderGore" + numGores).Type);
+                    }
+                }
+
                 NPC Parent = Main.npc[(int)NPC.ai[2]];
 
                 Parent.active = false;

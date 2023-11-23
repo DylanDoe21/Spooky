@@ -244,8 +244,6 @@ namespace Spooky.Core
             }
         }
 
-        public static Vector2 PolarVector(float radius, float theta) => new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
-
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             //do not allow hotkeys to do anything if you are dead
@@ -254,6 +252,7 @@ namespace Spooky.Core
                 return;
             }
 
+            //handle everything when they accessory hotkey is pressed
             if (Spooky.AccessoryHotkey.JustPressed && Main.myPlayer == Player.whoAmI)
             {
                 //create sound with the pandora cross
@@ -345,28 +344,6 @@ namespace Spooky.Core
                     target.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
                 }
             }
-        }
-
-        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
-        {
-            bool ShouldRevive = true;
-
-            //embryo revive ability
-            if (Player.statLife <= 0)
-            {
-                if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
-                {
-                    SoundEngine.PlaySound(SoundID.Item103, Player.Center);
-                    Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
-                    Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
-                    Player.statLife = 1;
-                    ShouldRevive = false;
-                }
-            }
-
-            RaveyardGuardsHostile = false;
-
-            return ShouldRevive;
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
@@ -462,6 +439,28 @@ namespace Spooky.Core
                     }
                 }
             }
+        }
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            bool ShouldRevive = true;
+
+            //embryo revive ability
+            if (Player.statLife <= 0)
+            {
+                if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
+                {
+                    SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+                    Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
+                    Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
+                    Player.statLife = 1;
+                    ShouldRevive = false;
+                }
+            }
+
+            RaveyardGuardsHostile = false;
+
+            return ShouldRevive;
         }
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)

@@ -40,6 +40,9 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/Moco", Language.GetTextValue("Mods.Spooky.MusicDisplay.Moco"), "BananaLizard");
             AddMusic("Content/Sounds/Music/EggEvent", Language.GetTextValue("Mods.Spooky.MusicDisplay.EggEvent"), "Rockwizard5");
             AddMusic("Content/Sounds/Music/Orroboro", Language.GetTextValue("Mods.Spooky.MusicDisplay.Orroboro"), "BananaLizard");
+
+            //spider cave
+            AddMusic("Content/Sounds/Music/SpiderCave", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpiderCave"), "BananaLizard");
         }
     }
 }

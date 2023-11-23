@@ -37,13 +37,17 @@ Other New Additions:
 -The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
 -Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 -Buffed every weapon/acessory you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
--Buffed the catacomb layer 2 enemy stats a bit
 -Big bone's red flower stream attack is now telegraphed before he starts using it
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly target you while the orange ones in phase 2 are now flung randomly
 -Added new custom sounds for spooky spirit's charging and death, made by rockwizard
 -Spooky spirit now correctly displays that it is nighttime only in it's bestiary entry
 -Spirit amulet movement speed increase buffed from 15% to 20%
 -Spooky mod music boxes now display the song title in color to make it more noticable and cool
+-Feral rats animation speed now depends on their current movement speed instead of just playing at a constant speed
+-Buffed the catacomb layer 2 enemy stats a bit
+-Massively nerfed flourence's knockback resistance as it was way too high
+-Changed sunny's bestiary because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
+-The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
 
 
 

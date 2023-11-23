@@ -57,7 +57,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             }
 
             //dont bother running any of the background drawing if the transparency is zero (meaning the background isnt actually active)
-            if (Transparency > 0f)
+            if (Transparency > 0f && Main.BackgroundEnabled)
             {
                 Vector2 vector = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
                 float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;

@@ -3,7 +3,7 @@ BigBone: The long lost brother of little bone who is trapped away in the catacom
 Daffodil: A giant and lazy flower that spends most of her time sleeping. She is supposed to watch over the deep catacombs entrance, only letting those she deems worthy to continue further.
 Moco: The legendary flying schnoz, said to present itself when its beloved shrine is disturbed. Its fast mobility and nasty snot are not to be taken lightly.
 OrroHead: A fast and calculated serpent that works together with Boro to defend its territory. These serpents are growing constantly, and consume each other in an endless cycle.
-BoroHead: A blind and aggressive serpent that works together with Orro to defend its territory. Old myths say that the valley of eyes is made from the left over flesh these serpents have torn off each other.
+BoroHead: A blind and aggressive serpent that works together with Orro to defend its territory. Old myths say that the valley of eyes is made from the leftover flesh chunks these serpents have torn off each other.
 RotGourd: This connected duo and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry acts as a turret, spitting nasty mold spores and bugs.
 SpookySpirit: A giant, mischevious spirit. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
 //hallucinations
@@ -36,7 +36,7 @@ Flourence: A sentient plant that can slither quickly and quietly, allowing it to
 Marigold: Somehow, these flowers grew in an old shoe and are now stuck in it forever. They hop around the catacombs as it is their only form of travel.
 MarigoldSpit: Large marigolds that have a mouth-like opening in their flower, allowing them to spit harmful spores at intruders.
 Smelly: Its name is no joke, these corpse flowers can belch out stinky and toxic spores out of their mouth-like opening, which can poison those who inhale it.
-Sunny: Large sunflowers that have become sentient due to the excess plant magic in the catacombs. They can create magic seeds to spawn more of their plant friends.
+Sunny: Large sunflowers that have become sentient due to the excess plant magic in the catacombs. They can use this magic to heal their nearby allies.
 Toothy: Silently sitting on the ground, they will patiently await for foolish explorers to step on them. Its sharp teeth and strong grip are deadly, so watch out for these!
 //pandora's box
 PandoraBox: A mysterious chest filled with souls who have been bound to it. Those who can complete its trial are rewarded with its treasures.
@@ -125,8 +125,8 @@ DaddyLongLegs: Their long hind legs allow them to run at high speeds. They can a
 Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
 Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
 Inchworm3: These inchworms miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
-JumpingSpider1: Not unlike their insect relatives, these spiders primarily jump. Unlike them however, their bodies have evolved to facilitate jumping with extreme precision.
-JumpingSpider2: Rarely creating webs, these spiders have a more agressive and active lifestyle. These ones have a strong paralyzing venom that coats their fangs, making their bites deadly.
+JumpingSpider1: Their legs are small and they cannot walk very fast. However, they have evolved to facilitate jumping over long distances with extreme precision.
+JumpingSpider2: Rarely creating webs, these spiders have a more aggressive and active lifestyle. These ones have a strong paralyzing venom that coats their fangs, making their bites deadly.
 LeafSpider: These creatures are smart, and have learned to protect their fragile bodies with a large leaf as a disguise. When provoked, they can shoot a web to grapple themselves away from danger.
 Mosquito1: Annoying disease spreading pests.
 Mosquito2: This mosquito's body is a bit bloated from the blood it has fed on.
@@ -138,3 +138,5 @@ TinySpider2: If you feel a tickling sensation on your leg in the spider grotto, 
 TinySpider3: Mostly harmless, their small fragile bodies can be smushed easily.
 TinySpider4: In groups they become more powerful, which has lead to a very group oriented lifestyle.
 TinySpider5: Able to move fast, they can quickly bite their prey and retreat.
+TrapdoorSpider1: These juvenile spiders have very thin legs they can easily dig into the ground with, allowing them to disguise themselves and jump out at unsuspecting prey.
+TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. Their extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.

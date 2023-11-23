@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void SetDefaults()
         {
             NPC.lifeMax = 175;
-            NPC.damage = 50;
+            NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 43;
             NPC.height = 46;
@@ -85,28 +85,30 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             }
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-        {
-            Biting = true;
-
-            if (NPC.ai[0] != 1)
-            {
-                NPC.frame.Y = 4;
-                SoundEngine.PlaySound(ChompSound, NPC.Center);
-                NPC.ai[0] = 1;
-            }
-        }
-
         public override void AI()
         {
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
+            if (player.Hitbox.Intersects(NPC.Hitbox) && !Biting)
+            {
+                Biting = true;
+                NPC.frame.Y = 4;
+                SoundEngine.PlaySound(ChompSound, NPC.Center);
+            }
+
             if (Biting)
             {
                 player.Center = NPC.Center;
 
-                if (player.statLife <= 0)
+                if (player.lifeRegen > 0)
+                {
+                    player.lifeRegen = 0;
+                }
+
+                player.lifeRegen -= 20;
+
+                if (player.statLife <= 0 || player.dead)
                 {
                     Biting = false;
                 }

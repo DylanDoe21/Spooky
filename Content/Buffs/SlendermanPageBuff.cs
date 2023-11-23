@@ -15,8 +15,8 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			//set page delay so pages cant drop for another 30 seconds
-            player.GetModPlayer<SpookyPlayer>().SlendermanPageDelay = 1800;
+			//set page delay so pages cant drop for another 20 seconds
+            player.GetModPlayer<SpookyPlayer>().SlendermanPageDelay = 1200;
 		}
 	}
 }

@@ -292,6 +292,12 @@ namespace Spooky.Core
 				{
 					if (Flags.CatacombKey2)
 					{
+						//critters
+						pool.Add(NPCID.Maggot, 2);
+						pool.Add(ModContent.NPCType<FlySmall>(), 2);
+						pool.Add(ModContent.NPCType<FlyBig>(), 2);
+
+						//enemies
 						pool.Add(ModContent.NPCType<Daisy1>(), 3);
 						pool.Add(ModContent.NPCType<Daisy2>(), 3);
 						pool.Add(ModContent.NPCType<Flourence>(), 2);
@@ -330,15 +336,7 @@ namespace Spooky.Core
 				//do not spawn giant tortumors if one already exists
 				if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
                 {
-					//spawn more often in hardmode
-                    if (Main.hardMode)
-                    {
-                        pool.Add(ModContent.NPCType<TortumorGiant>(), 1);
-                    }
-                    else
-                    {
-                        pool.Add(ModContent.NPCType<TortumorGiant>(), 0.5f);
-                    }
+                    pool.Add(ModContent.NPCType<TortumorGiant>(), Main.hardMode ? 1 : 0.5f);
                 }
             }
 
@@ -373,6 +371,8 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
 						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
 						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
+						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 1);
+						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.5f);
 					}
 				}
 
