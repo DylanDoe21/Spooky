@@ -61,6 +61,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinySpiderBrownGore" + numGores).Type);
+                    }
+                }
+            }
+        }
 	}
 
     public class TinySpider2 : TinySpider1
@@ -73,6 +87,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinySpiderWhiteGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TinySpider3 : TinySpider1
@@ -85,6 +113,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinySpiderGrayGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TinySpider4 : TinySpider1
@@ -97,6 +139,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinySpiderLightBrownGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TinySpider5 : TinySpider1
@@ -109,5 +165,19 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinySpiderYellowGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

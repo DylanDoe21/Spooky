@@ -22,49 +22,57 @@ namespace Spooky.Content.Biomes
             {
                 int music = Main.curMusic;
 
-                if (Main.raining)
+                if (!Main.bloodMoon)
                 {
-                    music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
-                }
-                else
-                {
-                    if (Main.dayTime)
+                    //play normal theme if its not storming and the player isnt in a town
+                    if (!Main.raining && Main.LocalPlayer.townNPCs < 3f)
                     {
-                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
-                    }
-                    else
-                    { 
-                        if (!Main.bloodMoon)
+                        if (Main.dayTime)
                         {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
                         }
                         else
                         {
-                            music = MusicID.Eerie;
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
                         }
                     }
+                    //play town theme if the player is in a town
+                    else if (!Main.raining && Main.LocalPlayer.townNPCs >= 3f)
+                    {
+                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TownThemeTest");
+                    }
+                    //play monsoon theme during a storm
+                    else if (Main.raining)
+                    {
+                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
+                    }
+                }
+                //blood moon theme takes priority over everything
+                else
+                {
+                    music = MusicID.Eerie;
                 }
                 
                 return music;
             }
         }
+       
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override int BiomeTorchItemType => ItemID.OrangeTorch;
 
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
-       
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-        
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:HalloweenSky", isActive, player.Center);
-        }
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void SpecialVisuals(Player player, bool isActive)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:SpookyForestTint", isActive, player.Center);
+        }
 
         public override void OnInBiome(Player player)
         {

@@ -139,11 +139,6 @@ FlyCooldown: {
 	Description: Your defensive flies cannot respawn
 }
 
-GoreAuraCooldown: {
-	DisplayName: Gore Monger Aura Cooldown
-	Description: Your aura is recharging
-}
-
 GourdDecay: {
 	DisplayName: Rotting
 	Description: Mods.Spooky.BuffDescription.GourdDecay
@@ -387,4 +382,22 @@ SlendermanPageBuff: {
 HerobrineAltarCooldown: {
 	DisplayName: Blocky Altar Cooldown
 	Description: You cannot summon lightning
+}
+
+NightCrawlerStealth: {
+	DisplayName: Night Crawler Stealth
+	Description:
+		'''
+		Enemies will not target you
+		20% increased damage reduction
+		'''
+}
+
+CreepyCrawlerStealth: {
+	DisplayName: Creepy Crawler Stealth
+	Description:
+		'''
+		Enemies will not target you
+		12% increased damage reduction
+		'''
 }

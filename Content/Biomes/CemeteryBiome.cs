@@ -13,6 +13,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<CemeteryBG>();
 
+        //set the music to be consistent with vanilla's music priorities
         public override int Music
         {
             get
@@ -21,15 +22,23 @@ namespace Spooky.Content.Biomes
 
                 if (!Main.bloodMoon)
                 {
-                    if (!Main.IsItStorming)
+                    //play normal theme if its not storming and the player isnt in a town
+                    if (!Main.IsItStorming && Main.LocalPlayer.townNPCs < 3f)
                     {
                         music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
                     }
-                    else
+                    //play town theme if the player is in a town
+                    else if (!Main.IsItStorming && Main.LocalPlayer.townNPCs >= 3f)
+                    {
+                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TownThemeTest");
+                    }
+                    //play monsoon theme during a storm
+                    else if (Main.IsItStorming)
                     {
                         music = MusicID.Monsoon;
                     }
                 }
+                //blood moon theme takes priority over everything
                 else
                 {
                     music = MusicID.Eerie;
@@ -38,23 +47,23 @@ namespace Spooky.Content.Biomes
                 return music;
             }
         }
+       
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override int BiomeTorchItemType => ItemID.GreenTorch;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
-       
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:Cemetery", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
-        }
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CemeteryBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void SpecialVisuals(Player player, bool isActive)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:CemeterySky", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
+        }
 
         public override void OnInBiome(Player player)
         {

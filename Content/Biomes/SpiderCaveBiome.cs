@@ -18,23 +18,25 @@ namespace Spooky.Content.Biomes
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<SpiderCaveUndergroundBG>();
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpiderCave");
-        
-        public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+
+        public override int BiomeTorchItemType => ItemID.WhiteTorch;
+
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
 
         public override void Load()
         {
             IL_Main.DrawBlack += ChangeBlackThreshold;
             On_Main.DrawBlack += ForceDrawBlack;
-            On_TileLightScanner.GetTileLight += SpiderBiomeLighting;
+            On_TileLightScanner.GetTileLight += SpiderCaveLighting;
         }
 
         public static Rectangle ScreenTiles => new((int)Main.screenPosition.X / 16, (int)Main.screenPosition.Y / 16, Main.screenWidth / 16, Main.screenHeight / 16);
 
         private static float mult = 0.8f;
 
-        private void SpiderBiomeLighting(On_TileLightScanner.orig_GetTileLight orig, TileLightScanner self, int x, int y, out Vector3 outputColor)
+        private void SpiderCaveLighting(On_TileLightScanner.orig_GetTileLight orig, TileLightScanner self, int x, int y, out Vector3 outputColor)
         {
             orig(self, x, y, out outputColor);
 

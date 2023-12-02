@@ -193,12 +193,12 @@ namespace Spooky.Core
 				{
 					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 4);
 					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 3);
-					pool.Add(ModContent.NPCType<SadGhostSmall>(), 4);
+					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
 					pool.Add(ModContent.NPCType<SadGhostBig>(), 2);
 
 					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
 					{
-						pool.Add(ModContent.NPCType<ZomboidCasket>(), 1);
+						pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
 					}
 
 					if (!Main.dayTime)
@@ -372,7 +372,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
 						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
 						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 1);
-						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.5f);
+						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.8f);
 					}
 				}
 

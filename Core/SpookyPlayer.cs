@@ -14,6 +14,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.Fishing;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -22,7 +23,6 @@ using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.Items.BossBags.Accessory;
 
 namespace Spooky.Core
 {
@@ -30,6 +30,9 @@ namespace Spooky.Core
     {
         //misc stuff
         public static float ScreenShakeAmount = 0;
+        public float SpiderStealthAlpha = 0f;
+        public int CreepyCrawlerSpeedTimer = 0;
+        public int NightCrawlerSpeedTimer = 0;
         public int FlySpawnTimer = 0;
         public int SkullFrenzyCharge = 0;
         public int MocoBoogerCharge = 0;
@@ -46,9 +49,13 @@ namespace Spooky.Core
 
         //armors
         public bool GourdSet = false;
+        public bool CreepyCrawlerSet = false;
+        public bool CreepyCrawlerSpeed = false;
         public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
+        public bool NightCrawlerSet = false;
+        public bool NightCrawlerSpeed = false;
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
         public bool SentientCap = false;
@@ -135,7 +142,7 @@ namespace Spooky.Core
 
         public override void OnEnterWorld()
         {
-            //un-hide the sun if you enter the world with the spooky mod menu enabled
+            //un-hide the sun if you enter the world with the spooky mod menu enabled since it hides the sun offscreen
             if (ModContent.GetInstance<SpookyMenu>().IsSelected)
             {
                 Main.sunModY = 0;
@@ -146,9 +153,13 @@ namespace Spooky.Core
         {
             //armors
             GourdSet = false;
+            CreepyCrawlerSet = false;
+            CreepyCrawlerSpeed = false;
             HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
+            NightCrawlerSet = false;
+            NightCrawlerSpeed = false;
             GoreArmorEye = false;
             GoreArmorMouth = false;
             SentientCap = false;
@@ -298,6 +309,36 @@ namespace Spooky.Core
                     Player.AddBuff(ModContent.BuffType<HerobrineAltarCooldown>(), 7200);
                 }
             }
+
+            //handle everything when they armor bonus hotkey is pressed
+            if (Spooky.ArmorBonusHotkey.JustPressed && Main.myPlayer == Player.whoAmI)
+            {
+                //flower armor setbonus
+                if (FlowerArmorSet && !Player.HasBuff(ModContent.BuffType<FlowerArmorCooldown>()))
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, Player.Center);
+
+                    for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(null, Player.Center.X + Main.rand.Next(-30, 30), 
+                        Player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 55, 2f, Player.whoAmI);
+                    }
+
+                    Player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);
+                }
+
+                //spider stealth
+                if (CreepyCrawlerSet)
+                {
+                    Player.AddBuff(ModContent.BuffType<CreepyCrawlerStealth>(), 600);
+                }
+
+                //night stealth
+                if (NightCrawlerSet)
+                {
+                    Player.AddBuff(ModContent.BuffType<NightCrawlerStealth>(), 600);
+                }
+            }
         }
 
         public override void GetHealMana(Item item, bool quickHeal, ref int healValue)
@@ -357,6 +398,21 @@ namespace Spooky.Core
 
         public override void OnHurt(Player.HurtInfo info)
         {
+            //set maximum damage cap based on difficulties due to damage scaling
+            int damageToActivateSpeedBoost1 = Main.masterMode ? 80 : Main.expertMode ? 60 : 40;
+            int damageToActivateSpeedBoost2 = Main.masterMode ? 120 : Main.expertMode ? 90 : 50;
+
+            //give players the spider armor speed boosts when they get hit by a strong enough attack
+            if (CreepyCrawlerSpeed && info.Damage >= damageToActivateSpeedBoost1)
+            {
+                CreepyCrawlerSpeedTimer = 45;
+            }
+            if (NightCrawlerSpeed && info.Damage >= damageToActivateSpeedBoost2)
+            {
+                NightCrawlerSpeedTimer = 45;
+            }
+
+            //give the player monument mythos shatter and cooldown if they get hit 3 times
             if (MonumentMythosPyramid)
             {
                 GizaGlassHits++;
@@ -380,6 +436,7 @@ namespace Spooky.Core
                 }
             }
 
+            //player takes twice as much damage with the monument mythos shatter debuff
             if (Player.HasBuff(ModContent.BuffType<MonumentMythosShatter>()))
             {
                 info.Damage *= 2;
@@ -474,6 +531,16 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
+            //decrease spider armor speed boost timers
+            if (CreepyCrawlerSpeedTimer > 0)
+            {
+                CreepyCrawlerSpeedTimer--;
+            }
+            if (NightCrawlerSpeedTimer > 0)
+            {
+                NightCrawlerSpeedTimer--;
+            }
+
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
             //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
@@ -513,10 +580,10 @@ namespace Spooky.Core
 
                     if (FlySpawnTimer == 300)
                     {
-                        Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
+                        Vector2 randomVelocity = Vector2.UnitY.RotatedByRandom(1.5f) * new Vector2(5f, 3f);
 
-                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, vector.X, vector.Y,
-                        ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, randomVelocity.X, 
+                        randomVelocity.Y, ModContent.ProjectileType<SwarmFly>(), 0, 0f, Main.myPlayer);
 
                         FlySpawnTimer = 0;
                     }
@@ -742,6 +809,47 @@ namespace Spooky.Core
                 {
                     BoneWispTimer = 0;
                 }
+            }
+        }
+
+        public override void PostUpdateRunSpeeds()
+        {
+            if (CreepyCrawlerSpeedTimer > 0)
+            {
+                Player.maxRunSpeed += 5f;
+                Player.runAcceleration += 0.075f;
+            }
+
+            if (NightCrawlerSpeedTimer > 0)
+            {
+                Player.maxRunSpeed += 10f;
+                Player.runAcceleration += 0.085f;
+            }
+        }
+
+        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            if (Player.HasBuff(ModContent.BuffType<CreepyCrawlerStealth>()) || Player.HasBuff(ModContent.BuffType<NightCrawlerStealth>()))
+            {
+                if (SpiderStealthAlpha < 0.8f)
+                {
+                    SpiderStealthAlpha += 0.02f;
+                }
+            }
+            else
+            {
+                if (SpiderStealthAlpha > 0f)
+                {
+                    SpiderStealthAlpha -= 0.02f;
+                }
+            }
+
+            if (SpiderStealthAlpha > 0f)
+            {
+                r *= 1f - (SpiderStealthAlpha * 0.5f);
+                g *= 1f - (SpiderStealthAlpha * 0.5f);
+                b *= 1f - (SpiderStealthAlpha * 0.5f);
+                a *= 1f - (SpiderStealthAlpha * 0.5f);
             }
         }
 

@@ -15,6 +15,11 @@ namespace Spooky.Content.NPCs.SpiderCave
 {
     public class TarantulaHawk1 : ModNPC
     {
+        int EnemyBeingCarried = 0;
+
+        bool InitializedEnemy = false;
+        bool CarryingEnemy = true;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
@@ -22,14 +27,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }
@@ -62,8 +65,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
-
+            NPC.frameCounter++;
             if (NPC.frameCounter > 3)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -71,8 +73,24 @@ namespace Spooky.Content.NPCs.SpiderCave
             }
             if (NPC.frame.Y >= frameHeight * 4)
             {
-                NPC.frame.Y = 0;
+                NPC.frame.Y = 0 * frameHeight;
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (CarryingEnemy)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/TarantulaHawkEnemyCarry").Value;
+
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 20);
+
+                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+                spriteBatch.Draw(tex, drawPosition, new Rectangle(0, EnemyBeingCarried * NPC.frame.Height, NPC.frame.Width, NPC.frame.Height), drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0f);
+            }
+
+            return true;
         }
 
         public override void AI()
@@ -82,9 +100,15 @@ namespace Spooky.Content.NPCs.SpiderCave
             
             NPC.spriteDirection = NPC.direction;
 
+            if (!InitializedEnemy)
+            {
+                EnemyBeingCarried = Main.rand.Next(6);
+                InitializedEnemy = true;
+            }
+
             switch ((int)NPC.localAI[0])
             {
-                //fly to random locations, shoot blood bolts
+                //fly towards the player
                 case 0:
                 {
                     NPC.aiStyle = 5;
@@ -98,7 +122,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                         if (Vector2.Distance(player.Center, NPC.Center) <= 250f)
                         {
                             NPC.localAI[1] = 0;
-                            NPC.localAI[0]++;
+                            NPC.localAI[0] = CarryingEnemy ? 1 : 2;
 
                             NPC.netUpdate = true;
                         }
@@ -107,8 +131,84 @@ namespace Spooky.Content.NPCs.SpiderCave
                     break;
                 }
 
-                //charge at the player
+                //drop carried enemy on the player
                 case 1:
+                {
+                    NPC.aiStyle = -1;
+                    NPC.rotation = 0;
+
+                    NPC.localAI[1]++;
+
+                    //go above player
+                    if (NPC.localAI[1] <= 75)
+                    {
+                        Vector2 GoTo = player.Center;
+                        GoTo.Y -= 250;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+                    else
+                    {
+                        NPC.velocity *= 0.95f;
+                    }
+
+                    //drop the enemy and reset ai
+                    if (NPC.localAI[1] >= 100)
+                    {
+                        int DroppedEnemy = 0;
+
+                        switch (EnemyBeingCarried)
+                        {
+                            case 0:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider1>());
+                                break;
+                            }
+                            case 1:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider2>());
+                                break;
+                            }
+                            case 2:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver3>());
+                                break;
+                            }
+                            case 3:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver1>());
+                                break;
+                            }
+                            case 4:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver2>());
+                                break;
+                            }
+                            case 5:
+                            {   
+                                DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<TrapdoorSpider1>());
+                                break;
+                            }
+                        }
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {   
+                            NetMessage.SendData(MessageID.SyncNPC, number: DroppedEnemy);
+                        }
+
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[0] = 0;
+                        
+                        CarryingEnemy = false;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //charge at the player
+                case 2:
                 {
                     NPC.aiStyle = -1;
                     NPC.rotation = 0;

@@ -18,68 +18,53 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSlash(Projectile, lightColor);
+            Vector2 vector = Projectile.Center - Main.screenPosition;
+            Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
+            Rectangle rectangle = Texture.Frame(1, 2);
+            Vector2 origin = rectangle.Size() / 2f;
+            float Scale = Projectile.scale * 1.44f;
+            SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
+            float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
 
-            return true;
+            //these are the slash textures themselves
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(140, 184, 0) * Intensity * 0.65f, Projectile.rotation, origin, Scale * 0.85f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(165, 91, 2) * Intensity * 0.57f, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(229, 26, 0) * Intensity * 0.5f, Projectile.rotation, origin, Scale * 0.5f, effects, 0f);
+
+            return false;
         }
 
         public override void CutTiles()
         {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 36f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 36f * Projectile.scale;
-            float num2 = 36f * Projectile.scale;
-            Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
+            Vector2 VectorX = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 70f * Projectile.scale;
+            Vector2 VectorY = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 70f * Projectile.scale;
+            float Distance = 70f * Projectile.scale;
+            Utils.PlotTileLine(Projectile.Center + VectorX, Projectile.Center + VectorY, Distance, DelegateMethods.CutTiles);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float coneLength2 = 50f * Projectile.scale;
+            float Length = 95f * Projectile.scale;
             float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
-            float maximumAngle2 = (float)Math.PI / 4f;
-            float num4 = Projectile.rotation + Fade;
-            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, num4, maximumAngle2))
+            float MaxAngle = (float)Math.PI / 4f;
+            float ActualFade = Projectile.rotation + Fade;
+            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, Length, ActualFade, MaxAngle))
             {
                 return true;
             }
-            float num5 = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
-            if (num5 > 0f)
+
+            float AIRemap = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
+            if (AIRemap > 0f)
             {
-                float coneRotation2 = num4 - (float)Math.PI / 4f * Projectile.ai[0] * num5;
-                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, coneRotation2, maximumAngle2))
+                float Rotation = ActualFade - (float)Math.PI / 4f * Projectile.ai[0] * AIRemap;
+                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, Length, Rotation, MaxAngle))
                 {
                     return true;
                 }
             }
+            
             return false;
-        }
-
-        public void DrawSlash(Projectile proj, Color lightColor)
-        {
-            Vector2 vector = proj.Center - Main.screenPosition;
-            Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
-            Rectangle rectangle = Texture.Frame(1, 2);
-            Vector2 origin = rectangle.Size() / 2f;
-            float num = proj.scale * 0.75f;
-            SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
-            float num2 = proj.localAI[0] / proj.ai[1];
-            float Fade = Utils.Remap(num2, 0f, 0.6f, 0f, 1f) * Utils.Remap(num2, 0.6f, 1f, 1f, 0f);
-            float num4 = 0.975f;
-            float fromValue = Lighting.GetColor(proj.Center.ToTileCoordinates()).ToVector3().Length() / (float)Math.Sqrt(3.0);
-            fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
-
-            //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(140, 184, 0) * Fade * 0.65f, proj.rotation, origin, num * 0.85f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(165, 91, 2) * Fade * 0.6f, proj.rotation, origin, num * num4 * 0.7f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(229, 26, 0) * Fade * 0.5f, proj.rotation, origin, num * num4 * 0.5f, effects, 0f);
-
-            for (float num5 = 0f; num5 < 8f; num5++)
-            {
-                float num6 = proj.rotation + proj.ai[0] * num5 * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * proj.ai[0];
-                Vector2 drawpos = vector + num6.ToRotationVector2() * (Texture.Value.Width * 0.5f - 6f) * num * 0.6f;
-                float num7 = num5 / 9f;
-            }
-
-            Vector2 drawpos2 = vector + (proj.rotation + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * proj.ai[0]).ToRotationVector2() * (Texture.Value.Width * 0.5f - 4f) * num * 1.2f;
         }
 
         public override bool PreAI()

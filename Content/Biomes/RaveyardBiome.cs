@@ -12,14 +12,16 @@ namespace Spooky.Content.Biomes
     public class RaveyardBiome : ModBiome
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard");
-        
-        public override ModWaterStyle WaterStyle => ModContent.GetInstance<LeanWaterStyle>();
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
+        public override int BiomeTorchItemType => ItemID.RainbowTorch;
+
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<LeanWaterStyle>();
+
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:Raveyard", isActive, player.Center);
+            player.ManageSpecialBiomeVisuals("Spooky:RaveyardSky", isActive, player.Center);
         }
 
         //bestiary stuff

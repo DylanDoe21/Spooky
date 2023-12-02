@@ -114,6 +114,31 @@ namespace Spooky.Content.NPCs.SpiderCave
 			});
 		}
 
+        public override void FindFrame(int frameHeight)
+        {   
+            //running animation
+            NPC.frameCounter += 1;
+            if (NPC.frameCounter > 8 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0.0;
+            }
+            if (NPC.frame.Y >= frameHeight * 5)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+
+            //jumping frames
+            if (NPC.velocity.Y < 0)
+            {
+                NPC.frame.Y = 4 * frameHeight;
+            }
+            if (NPC.velocity.Y > 0)
+            {
+                NPC.frame.Y = 1 * frameHeight;
+            }
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 

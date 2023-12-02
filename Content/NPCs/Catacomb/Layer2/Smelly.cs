@@ -55,8 +55,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             Player player = Main.player[NPC.target];
 
-            NPC.frameCounter += 1;
-
+            NPC.frameCounter++;
             if (NPC.frameCounter > 8)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;

@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Cemetery
             Item.useTime = 40;
 			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 1;
+			Item.knockBack = 4;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
@@ -37,8 +37,9 @@ namespace Spooky.Content.Items.Cemetery
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SpiritSwordSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
-			
+			int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SpiritSwordSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
+			Main.projectile[Slash].scale *= Item.scale;
+
             return false;
 		}
     }

@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Cemetery
         public override void FindFrame(int frameHeight)
         {   
             //running animation
-            NPC.frameCounter += 1;
+            NPC.frameCounter++;
             if (NPC.frameCounter > 9 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -65,13 +65,11 @@ namespace Spooky.Content.NPCs.Cemetery
                 NPC.frame.Y = 0 * frameHeight;
             }
 
-            //jumping frame
+            //jumping frames
             if (NPC.velocity.Y < 0)
             {
                 NPC.frame.Y = 1 * frameHeight;
             }
-
-            //falling frame
             if (NPC.velocity.Y > 0)
             {
                 NPC.frame.Y = 2 * frameHeight;

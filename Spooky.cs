@@ -41,20 +41,22 @@ namespace Spooky
         public static Vignette vignetteShader;
 
         public static ModKeybind AccessoryHotkey { get; private set; }
+        public static ModKeybind ArmorBonusHotkey { get; private set; }
 
         public override void Load()
         {
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
+            ArmorBonusHotkey = KeybindLoader.RegisterKeybind(this, "ArmorBonusHotkey", "F");
 
             if (!Main.dedServ)
             {
-                Filters.Scene["Spooky:Cemetery"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
-                SkyManager.Instance["Spooky:Cemetery"] = new CemeterySky();
+                Filters.Scene["Spooky:CemeterySky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 135f, 35f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+                SkyManager.Instance["Spooky:CemeterySky"] = new CemeterySky();
 
-                Filters.Scene["Spooky:Raveyard"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
-                SkyManager.Instance["Spooky:Raveyard"] = new RaveyardSky();
+                Filters.Scene["Spooky:RaveyardSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
+                SkyManager.Instance["Spooky:RaveyardSky"] = new RaveyardSky();
 
-                Filters.Scene["Spooky:HalloweenSky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+                Filters.Scene["Spooky:SpookyForestTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(255f, 116f, 23f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
                 Filters.Scene["Spooky:EyeValleyTint"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(112f, 11f, 176f).UseOpacity(0.001f), EffectPriority.VeryHigh);
 
@@ -77,6 +79,7 @@ namespace Spooky
         public override void Unload()
         {
             AccessoryHotkey = null;
+            ArmorBonusHotkey = null;
 
             ShaderLoader.Unload();
         }

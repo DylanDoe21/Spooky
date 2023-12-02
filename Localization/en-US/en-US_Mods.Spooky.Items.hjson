@@ -582,6 +582,11 @@ SlendermanPage: {
 		'''
 }
 
+SlendermanBuffPage: {
+	DisplayName: Creepy Page
+	Tooltip: ""
+}
+
 SmileDogPicture: {
 	DisplayName: Dog Photo
 	Tooltip:
@@ -655,7 +660,7 @@ SpiritSword: {
 }
 
 BananalizardHead: {
-	DisplayName: Bananalizard's Mask
+	DisplayName: BananaLizard's Mask
 	Tooltip: "'Great for impersonating spooky mod devs!'"
 }
 
@@ -1012,6 +1017,60 @@ ValleyNautilusShell: {
 YellowSpore: {
 	DisplayName: Yellow Spore
 	Tooltip: Summons a small mushroom hopper to provide light
+}
+
+CreepyCrawlerBody: {
+	DisplayName: Creepy Crawler Scalemail
+	Tooltip:
+		'''
+		3% increased critical strike chance
+		Taking a large amount of damage will give you a short speed boost
+		'''
+}
+
+CreepyCrawlerHead: {
+	DisplayName: Creepy Crawler Hood
+	Tooltip:
+		'''
+		10% increased damage
+		Gives you night vision
+		'''
+}
+
+CreepyCrawlerLegs: {
+	DisplayName: Creepy Crawler Boots
+	Tooltip:
+		'''
+		15% increased movement speed
+		Increases your movement acceleration and jump height
+		'''
+}
+
+NightCrawlerBody: {
+	DisplayName: Night Crawler Scalemail
+	Tooltip:
+		'''
+		10% increased critical strike chance
+		Taking a large amount of damage will give you a short speed boost
+		'''
+}
+
+NightCrawlerHead: {
+	DisplayName: Night Crawler Hood
+	Tooltip:
+		'''
+		18% increased damage
+		Gives you night vision and dangersense
+		'''
+}
+
+NightCrawlerLegs: {
+	DisplayName: Night Crawler Boots
+	Tooltip:
+		'''
+		30% increased movement speed
+		Increases your movement acceleration and jump height
+		'''
 }
 
 GourdBody: {
@@ -1871,27 +1930,27 @@ CemeteryStoneItem: {
 
 BigBoneBox: {
 	DisplayName: Music Box (Big Bone)
-	Tooltip: "[c/D7D000:Doom Abloom] by Bananalizard"
+	Tooltip: "[c/D7D000:Doom Abloom] by BananaLizard"
 }
 
 CatacombBox: {
 	DisplayName: Music Box (Upper Catacomb)
-	Tooltip: "[c/4A86AE:Tomb Crawlin'] by Bananalizard"
+	Tooltip: "[c/4A86AE:Tomb Crawlin'] by BananaLizard"
 }
 
 CatacombBox2: {
 	DisplayName: Music Box (Lower Catacomb)
-	Tooltip: "[c/B35A27:Deep Dive To The Catacombs] by Bananalizard"
+	Tooltip: "[c/B35A27:Deep Dive To The Catacombs] by BananaLizard"
 }
 
 CemeteryBox: {
 	DisplayName: Music Box (Swampy Cemetery)
-	Tooltip: "[c/6E9E3B:A Boneyard Too Far] by Bananalizard"
+	Tooltip: "[c/6E9E3B:A Boneyard Too Far] by BananaLizard"
 }
 
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
-	Tooltip: "[c/A7CF17:To A Floral Demise] by Bananalizard"
+	Tooltip: "[c/A7CF17:To A Floral Demise] by BananaLizard"
 }
 
 EggEventBox: {
@@ -1901,12 +1960,12 @@ EggEventBox: {
 
 MocoBox: {
 	DisplayName: Music Box (Moco)
-	Tooltip: "[c/4DDE17:And Yet The Snot-Nosed Bug Remains] by Bananalizard"
+	Tooltip: "[c/4DDE17:And Yet The Snot-Nosed Bug Remains] by BananaLizard"
 }
 
 OrroboroBox: {
 	DisplayName: Music Box (Orro & Boro)
-	Tooltip: "[c/A17CFF:The All Is One] by Bananalizard"
+	Tooltip: "[c/A17CFF:The All Is One] by BananaLizard"
 }
 
 PandoraEventBox: {
@@ -1920,53 +1979,53 @@ RaveyardBox: {
 		'''
 		Cycles through both raveyard songs
 		[c/6FE4A5:Raveyard] by LuxCapacitor
-		[c/6FE4A5:Graveyard Without The G] by Bananalizard & Lurak
+		[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak
 		'''
 }
 
 RotGourdBox: {
 	DisplayName: Music Box (Rot Gourd)
-	Tooltip: "[c/D45037:Funky Pumpkin] by Bananalizard"
+	Tooltip: "[c/D45037:Funky Pumpkin] by BananaLizard"
 }
 
 SpiderCaveBox: {
 	DisplayName: Music Box (Spider Grotto)
-	Tooltip: "[c/A88554:It's Just Spider Stuff] by Bananalizard"
+	Tooltip: "[c/A88554:It's Just Spider Stuff] by BananaLizard"
 }
 
 SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
-	Tooltip: "[c/FFA43C:Dead Trees...] by Bananalizard"
+	Tooltip: "[c/FFA43C:Dead Trees...] by BananaLizard"
 }
 
 SpookyBiomeNightBox: {
 	DisplayName: Music Box (Spooky Forest Night)
-	Tooltip: "[c/FFA43C:...And Yellow Grass] by Bananalizard"
+	Tooltip: "[c/FFA43C:...And Yellow Grass] by BananaLizard"
 }
 
 SpookyBiomeRainBox: {
 	DisplayName: Music Box (Spooky Forest Rain)
-	Tooltip: "[c/D6AC76:Harvest Rainfall] by Bananalizard"
+	Tooltip: "[c/D6AC76:Harvest Rainfall] by BananaLizard"
 }
 
 SpookyBiomeUGBox: {
 	DisplayName: Music Box (Spooky Forest Underground)
-	Tooltip: "[c/549E58:Spooky Spelunking] by Bananalizard"
+	Tooltip: "[c/549E58:Spooky Spelunking] by BananaLizard"
 }
 
 SpookyHellBox: {
 	DisplayName: Music Box (Valley of Eyes)
-	Tooltip: "[c/E64565:Eyeballs] by Bananalizard"
+	Tooltip: "[c/E64565:Eyeballs] by BananaLizard"
 }
 
 SpookyMenuBox: {
 	DisplayName: Music Box (Spooky Mod Menu)
-	Tooltip: "[c/FFA43C:Welcome To Spooky Mod] by Bananalizard"
+	Tooltip: "[c/FFA43C:Welcome To Spooky Mod] by BananaLizard"
 }
 
 SpookySpiritBox: {
 	DisplayName: Music Box (Spooky Spirit)
-	Tooltip: "[c/B6ABFF:Groovy Geist] by Bananalizard"
+	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
 }
 
 CemeteryPylonItem: {
@@ -2410,7 +2469,17 @@ RootWoodWallItem: {
 	Tooltip: ""
 }
 
-SlendermanBuffPage: {
-	DisplayName: Slenderman Buff Page
+RootBody: {
+	DisplayName: Root Body Plate
+	Tooltip: Increases your ranged damage by 5
+}
+
+RootHead: {
+	DisplayName: Root Mask
+	Tooltip: 5% increased ranged critical strike chance
+}
+
+RootLegs: {
+	DisplayName: Root Garments
 	Tooltip: ""
 }

@@ -16,12 +16,12 @@ namespace Spooky.Content.Biomes
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomUndergroundBG>() : (Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyUndergroundBackgroundStyleAlt>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>());
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
+       
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
         public override int BiomeTorchItemType => ItemID.OrangeTorch;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
-       
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeUgIcon";

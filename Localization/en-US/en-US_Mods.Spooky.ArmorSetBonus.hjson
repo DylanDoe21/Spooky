@@ -14,6 +14,14 @@ GourdArmor:
 	Melee weapons may inflict decay, which damages enemies over time
 	After a while, decay will also lower their attack and defense
 	'''
+RootArmor: Your ranged projectiles have a chance to heal you
+CreepyCrawlerArmor:
+	'''
+	Press the Armor Bonus Hotkey to enter spider stealth for 10 seconds
+	Upon entering spider stealth you will briefly stun nearby enemies
+	While in spider stealth your damage reduction is increased by 12%
+	This ability has a 2 minute cooldown before you can use it again
+	'''
 SpiritHorsemanArmor: Your own head will now fight with you!
 EyeArmor:
 	'''
@@ -22,9 +30,16 @@ EyeArmor:
 	'''
 FlowerArmor:
 	'''
-	Significantly increases your life regeneration
-	Double tap DOWN to summon a large amount of pollen to attack your enemies
+	Greatly increases your life regeneration
+	Press the Armor Bonus Hotkey to summon a large amount of pollen to attack your enemies
 	This ability has a 30 second cooldown before it can be used again
+	'''
+NightCrawlerArmor:
+	'''
+	Press the Armor Bonus Hotkey to enter night stealth for 10 seconds
+	Upon entering night stealth you will stun nearby enemies and summon phantom spiders
+	While in night stealth your damage reduction is increased by 20%
+	This ability has a 2 minute cooldown before you can use it again
 	'''
 GoreArmorOrro: Summons a baby orro to fight with you!
 GoreArmorBoro: Summons a baby boro to fight with you!

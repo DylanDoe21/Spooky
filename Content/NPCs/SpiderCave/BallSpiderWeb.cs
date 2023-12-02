@@ -57,6 +57,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                 {
                     NPC.velocity *= 0;
 
+                    if (NPC.ai[1] < 40)
+                    {
+                        NPC.active = false;
+                    }
+
                     if (NPC.Distance(player.Center) <= 300f)
                     {
                         SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);

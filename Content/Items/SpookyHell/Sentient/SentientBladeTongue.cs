@@ -68,10 +68,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 		{
             if (player.altFunctionUse != 2)
 			{
-			    Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TonguebladeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
-            
+			    int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TonguebladeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
+                Main.projectile[Slash].scale *= Item.scale;
+
                 return false;
-            }   
+            }
 
             return true;
 		}

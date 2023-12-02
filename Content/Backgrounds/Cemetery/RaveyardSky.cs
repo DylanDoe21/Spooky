@@ -38,7 +38,6 @@ namespace Spooky.Content.Backgrounds.Cemetery
         private UnifiedRandom randomValue = new UnifiedRandom();
 
         private bool skyActive;
-
         private float opacity;
 
         public override void Update(GameTime gameTime)
@@ -132,9 +131,9 @@ namespace Spooky.Content.Backgrounds.Cemetery
                 maxBGPillarDepth = i;
             }
 
+            //draw giant beams in the background
             if (minBGPillarDepth != -1)
             {
-                //draw giant beams in the background
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
                 Rectangle rectangle = new Rectangle(-1000, -2000, 4000, 4000);
                 
@@ -144,7 +143,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
                     
                     //only draw beams if they are on screen and they arent too high up
-                    if (rectangle.Contains((int)position.X, (int)position.Y) && position.Y > -800)
+                    if (rectangle.Contains((int)position.X, (int)position.Y) && position.Y > -720)
                     {
                         float PillarIntensity = (float)Math.Sin(backgroundPillar[i].AlphaFrequency * Main.GlobalTimeWrappedHourly + backgroundPillar[i].SinOffset) * backgroundPillar[i].AlphaAmplitude + backgroundPillar[i].AlphaAmplitude;
                         PillarIntensity = MathHelper.Clamp(PillarIntensity, 0f, 1f);

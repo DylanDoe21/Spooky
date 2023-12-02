@@ -18,6 +18,12 @@ namespace Spooky.Content.Projectiles.Catacomb
         private List<Vector2> cache;
         private Trail trail;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 82;
@@ -47,6 +53,19 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Gold) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale * 1.2f, effects, 0);
+            }
+            
             return true;
         }
 
@@ -107,7 +126,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Player owner = Main.player[Projectile.owner];
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
-            Projectile.rotation += 0.5f * (float)Projectile.direction;
+            Projectile.rotation += 0.85f * (float)Projectile.direction;
 
             if (!Main.dedServ)
             {

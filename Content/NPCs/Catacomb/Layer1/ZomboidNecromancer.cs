@@ -57,9 +57,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
-
-            //use regular walking anim when in walking state
+            //use regular walking anim when walking
+            NPC.frameCounter++;
             if (NPC.localAI[0] <= 240)
             {
                 if (NPC.frameCounter > 10)

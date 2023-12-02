@@ -9,18 +9,18 @@ namespace Spooky.Content.Backgrounds.Cemetery
 {
     public class CemeterySky : CustomSky
     {
-        public bool Active;
-        public float Intensity;
+        public bool skyActive;
+        public float opacity;
 
         public override void Update(GameTime gameTime)
         {
-            if (Active)
+            if (skyActive && opacity < 1f)
             {
-                Intensity = Math.Min(1f, 0.01f + Intensity);
+                opacity += 0.01f;
             }
-            else
+            else if (!skyActive && opacity > 0f)
             {
-                Intensity = Math.Max(0f, Intensity - 0.01f);
+                opacity -= 0.1f;
             }
         }
 
@@ -32,35 +32,35 @@ namespace Spooky.Content.Backgrounds.Cemetery
             {
                 //Draw the sky box texture
                 spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), 
-                Main.ColorOfTheSkies * 0.95f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * this.Intensity));
+                Main.ColorOfTheSkies * 0.95f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
             }
 
             //deactivate the sky if in the menu
             if (Main.gameMenu || !Main.LocalPlayer.active)  
             {
-                Active = false;
+                skyActive = false;
             }
         }
 
         public override void Activate(Vector2 position, params object[] args)
         {
-            Intensity = 0.002f;
-            Active = true;
+            opacity = 0.002f;
+            skyActive = true;
         }
 
         public override void Deactivate(params object[] args)
         {
-            Active = false;
+            skyActive = false;
         }
 
         public override void Reset()
         {
-            Active = false;
+            skyActive = false;
         }
 
         public override bool IsActive()
         {
-            return Active || Intensity > 0.001f;
+            return skyActive || opacity > 0.001f;
         }
     }
 }

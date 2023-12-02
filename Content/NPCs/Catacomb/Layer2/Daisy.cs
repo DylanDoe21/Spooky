@@ -60,15 +60,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         
         public override void FindFrame(int frameHeight)
         {   
-            NPC.frameCounter += 1;
-
             //running animation
+            NPC.frameCounter++;
             if (NPC.velocity.Y <= 0)
             {
                 if (NPC.frameCounter > 5)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 4)
                 {

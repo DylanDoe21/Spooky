@@ -176,9 +176,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void OnKill(int timeLeft)
 		{
-			for (int numDust = 0; numDust < 20; numDust++)
+			for (int numDusts = 0; numDusts < 20; numDusts++)
             {
-                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DemonTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity *= 1.5f;
                 Main.dust[dust].noGravity = true;
             }

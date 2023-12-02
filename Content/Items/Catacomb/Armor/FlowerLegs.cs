@@ -38,14 +38,11 @@ namespace Spooky.Content.Items.Catacomb.Armor
             player.endurance += 0.08f;
             player.maxFallSpeed = 18f;
 			player.noKnockback = true;
-			player.hermesStepSound.Style = WalkSound;
+        }
 
-			/*
-			if (player.oldVelocity.Y > 5f)
-			{
-                SoundEngine.PlaySound(SoundID.NPCDeath43, player.Center);
-            }
-			*/
+		public override void EquipFrameEffects(Player player, EquipType type)
+        {
+			player.hermesStepSound.Style = WalkSound;
         }
 
 		public override void AddRecipes()

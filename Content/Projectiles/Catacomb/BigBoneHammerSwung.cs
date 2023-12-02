@@ -57,21 +57,24 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.frame = 1;
             }
 
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            if (Projectile.localAI[0] > 10)
+            {
+                Main.spriteBatch.End();
+                Effect effect = ShaderLoader.GlowyTrail;
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+                Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
+                Matrix view = Main.GameViewMatrix.ZoomMatrix;
+                Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/LightningTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+                effect.Parameters["transformMatrix"].SetValue(world * view * projection);
+                effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/LightningTrail").Value); //trails texture image
+                effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
+                effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
 
-            trail?.Render(effect);
+                trail?.Render(effect);
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            }
 
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
             int frameHeight = tex.Height / Main.projFrames[Projectile.type];

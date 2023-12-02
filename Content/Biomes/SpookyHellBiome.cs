@@ -15,9 +15,11 @@ namespace Spooky.Content.Biomes
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
 
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+
         public override int BiomeTorchItemType => ItemID.RedTorch;
 
-        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+        public override ModWaterStyle WaterStyle => ModContent.GetInstance<BloodWaterStyle>();
 
         public override void Load()
         {
@@ -81,22 +83,20 @@ namespace Spooky.Content.Biomes
             }
         }
 
-        public override ModWaterStyle WaterStyle => ModContent.GetInstance<BloodWaterStyle>();
-
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", isActive, player.Center);
-        }
-
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyHellBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
+        public override void SpecialVisuals(Player player, bool isActive)
+        {
+            player.ManageSpecialBiomeVisuals("Spooky:EyeValleyTint", isActive, player.Center);
+        }
+
         public override void OnInBiome(Player player)
         {
-            //water here is blood, so the player should move slower in it
+            //water in the eye valley is blood, so the player should move slower in it
             if (player.wet)
             {
                 player.velocity *= 0.95f;

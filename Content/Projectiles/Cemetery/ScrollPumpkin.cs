@@ -32,8 +32,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 120;
             Projectile.penetrate = -1;
+            Projectile.timeLeft = 120;
         }
 
         public override bool PreDraw(ref Color lightColor)

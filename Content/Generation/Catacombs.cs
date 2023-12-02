@@ -782,8 +782,9 @@ namespace Spooky.Content.Generation
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
                 int newTempleX = GenVars.JungleX < (Main.maxTilesX / 2) ? GenVars.JungleX + 250 : GenVars.JungleX - 250;
+                int newTempleY = Main.maxTilesY - (Main.maxTilesY / 2) + 75;
 
-                WorldGen.makeTemple(newTempleX, Main.maxTilesY - (Main.maxTilesY / 2) + 75);
+                WorldGen.makeTemple(newTempleX, newTempleY);
             });
 
             //re-locate the shimmer to be closer to the edge of the world so it also never gets generated over by the catacombs
@@ -936,7 +937,7 @@ namespace Spooky.Content.Generation
                         int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.HellfireArrow };
 
                         //bars
-                        int[] Bars = new int[] { ItemID.CobaltBar, ItemID.PalladiumBar, ItemID.MythrilBar, ItemID.OrichalcumBar };
+                        int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
 
                         //bars
                         chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));

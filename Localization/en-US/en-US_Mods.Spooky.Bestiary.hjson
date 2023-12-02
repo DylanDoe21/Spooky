@@ -67,13 +67,13 @@ DumbZombie: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A cute and friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange, sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 PartySkeleton1: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton2: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton3: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton4: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton5: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton6: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton7: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
-PartySkeleton8: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
+PartySkeleton2: Ancient skeletons that rise up during crazy parties. They look like they're close to overdosing.
+PartySkeleton3: Unlike most hostile skeletons, these ones are friendly to anyone and are great party guests.
+PartySkeleton4: Their wild personalities make them funny to be around. Sadly, they can't exist outside of the raveyard due to the lack of party magic.
+PartySkeleton5: Their neon coloration is a result of the party magic and likely whatever eldritch substances they consume during the party.
+PartySkeleton6: Once normal skeletons buried under the ground, the power of the raveyard allows them to celebrate, even if it's just one night.
+PartySkeleton7: They're so drunk, they can only speak by using strange human-like screams and vocalizations.
+PartySkeleton8: Despite being undead, some of these bright skeletons have a great sense of fashion, consisting of clothes they probably stole.
 SkeletonBouncer: Security that participates in the raveyard and makes sure nothing gets out of hand. They carry a super-weapon that allows them to gun down anyone in seconds.
 SuspiciousSkeleton: A weird skeleton that hangs around during wild parties. Sells extremely weird contraband to any idiot willing to buy it.
 //spooky forest
@@ -121,7 +121,7 @@ Ant1: Common insects found in the damp spider infested caves. They are decent at
 Ant2: Uncommon ants with a bright red color rather than brown. They look a bit angry.
 BallSpider: These rotund creature's stubby legs only allow for limited movement, but they are adept at weaving webs, allowing them to hang from ceilings and stalk prey.
 Cockroach: Disgusting and hard to get rid of pests. At least they don't usually wander too far out of the caverns where they live.
-DaddyLongLegs: Their long hind legs allow them to run at high speeds. They can also spit web at their prey from their mouth.
+DaddyLongLegs: Their long legs allow them to walk across the rough terrain in the grotto. They can also spit sticky web out of their mouth.
 Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
 Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
 Inchworm3: These inchworms miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
@@ -133,6 +133,9 @@ Mosquito2: This mosquito's body is a bit bloated from the blood it has fed on.
 Mosquito3: An extremely gluttonous mosquito who's body has blown up like a balloon.
 Moth1: Cute fuzzy moths that can be seen flying around the grotto. Probably one of the only friendly looking creatures that live there.
 Moth2: These rarer moths have brown fur, which tricks predators into thinking they are part of the terrain.
+TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
+TarantulaHawk2: Despite their appearance, they are actually helpful to their allies. Their strong legs can carry smaller spiders, which they will drop on their prey.
+TarantulaHawk3: They help carry their friends to their prey, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
 TinySpider1: Hard to spot, these spiders are incredibly weak, but are great at frightening people.
 TinySpider2: If you feel a tickling sensation on your leg in the spider grotto, its probably one of these preparing to bite you.
 TinySpider3: Mostly harmless, their small fragile bodies can be smushed easily.

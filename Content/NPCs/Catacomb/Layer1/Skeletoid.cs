@@ -54,12 +54,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void FindFrame(int frameHeight)
         {
             //running animation
-            NPC.frameCounter += 1;
-
+            NPC.frameCounter++;
             if (NPC.frameCounter > 4)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 6)
             {
@@ -134,12 +133,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void FindFrame(int frameHeight)
         {
             //running animation
-            NPC.frameCounter += 1;
-
+            NPC.frameCounter++;
             if (NPC.frameCounter > 4)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 6)
             {
@@ -152,6 +150,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 NPC.frame.Y = 4 * frameHeight;
             }
 
+            //shooting frame
             if (NPC.localAI[0] > 300)
             {
                 NPC.frame.Y = 0 * frameHeight;

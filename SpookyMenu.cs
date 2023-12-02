@@ -14,7 +14,7 @@ namespace Spooky
     {
         private bool HasClicked;
 
-        private float Intensity;
+        private float LogoSquishIntensity;
 
         private Vector2 logoCenter = Vector2.Zero;
 
@@ -50,7 +50,6 @@ namespace Spooky
             Main.time = 27000;
             Main.dayTime = true;
 
-            logoDrawCenter -= new Vector2(0, 0);
             logoScale = 0.8f;
 
             //draw the menu background
@@ -76,36 +75,32 @@ namespace Spooky
 
             spriteBatch.Draw(texture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
+            //draw the defeated bosses
             if (MenuSaveSystem.hasDefeatedRotGourd)
             {
                 Texture2D rotGourdTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockRotGourd").Value;
                 spriteBatch.Draw(rotGourdTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
-
             if (MenuSaveSystem.hasDefeatedSpookySpirit)
             {
                 Texture2D spookySpiritTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockSpookySpirit").Value;
                 spriteBatch.Draw(spookySpiritTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
-
             if (MenuSaveSystem.hasDefeatedMoco)
             {
                 Texture2D mocoTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockMoco").Value;
                 spriteBatch.Draw(mocoTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
-
             if (MenuSaveSystem.hasDefeatedDaffodil)
             {
                 Texture2D daffodilTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockDaffodil").Value;
                 spriteBatch.Draw(daffodilTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
-
             if (MenuSaveSystem.hasDefeatedOrroboro)
             {
                 Texture2D orroboroTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockOrroboro").Value;
                 spriteBatch.Draw(orroboroTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
-
             if (MenuSaveSystem.hasDefeatedBigBone)
             {
                 Texture2D bigBoneTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockBigBone").Value;
@@ -114,25 +109,25 @@ namespace Spooky
 
             //outlines for each boss
             Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines").Value;
-            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * Intensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * LogoSquishIntensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             //draw the actual menu logo
             logoCenter = logoDrawCenter;
-            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, 0, Utils.Size(Logo) / 2f, new Vector2(1f + Intensity, 1f - Intensity), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, logoRotation, Utils.Size(Logo) / 2f, new Vector2(1f + LogoSquishIntensity, 1f - LogoSquishIntensity), SpriteEffects.None, 0);
 
             return false;
         }
 
         public override void Update(bool isOnTitleScreen)
         {
-            Intensity *= 0.95f;
-            if (Main.mouseLeft && !HasClicked && Intensity <= 0.1f && Math.Abs(Main.MouseScreen.X - logoCenter.X) < 300f && Math.Abs(Main.MouseScreen.Y - logoCenter.Y) < 70f)
+            LogoSquishIntensity *= 0.9f;
+            if (Main.mouseLeft && !HasClicked && Math.Abs(Main.MouseScreen.X - logoCenter.X) < 300f && Math.Abs(Main.MouseScreen.Y - logoCenter.Y) < 70f)
             {
-                Intensity = 1f;
+                LogoSquishIntensity = 1f;
 
-                if (Math.Abs(Intensity) < 0.1f)
+                if (Math.Abs(LogoSquishIntensity) < 0.1f)
                 {
-                    Intensity = Math.Sign(Intensity) * 0.1f;
+                    LogoSquishIntensity = Math.Sign(LogoSquishIntensity) * 0.1f;
                 }
 
                 SoundEngine.PlaySound(LogoClickSound1, null);

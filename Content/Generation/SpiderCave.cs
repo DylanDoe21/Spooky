@@ -348,7 +348,7 @@ namespace Spooky.Content.Generation
                             }
                             
                             //light roots on the ground
-                            if (WorldGen.genRand.NextBool(10))
+                            if (WorldGen.genRand.NextBool(20))
                             {
                                 ushort[] LightRoots = new ushort[] { (ushort)ModContent.TileType<LightRoot1>(), (ushort)ModContent.TileType<LightRoot2>(), 
                                 (ushort)ModContent.TileType<LightRoot3>(), (ushort)ModContent.TileType<LightRoot4>() };
@@ -357,7 +357,7 @@ namespace Spooky.Content.Generation
                             }
 
                             //light root on the ceiling
-                            if (WorldGen.genRand.NextBool(10))
+                            if (WorldGen.genRand.NextBool(15))
                             {
                                 ushort[] LightRoots = new ushort[] { (ushort)ModContent.TileType<HangingLightRoot1>(), (ushort)ModContent.TileType<HangingLightRoot2>(), 
                                 (ushort)ModContent.TileType<HangingLightRoot3>(), (ushort)ModContent.TileType<HangingLightRoot4>() };
@@ -416,11 +416,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-        }
-
-        public static void GenerateSpiderBiome(int startPosX, int startPosY, Mod mod)
-        {
-            
         }
 
         //determine if a structure can be placed at a set position
@@ -482,7 +477,7 @@ namespace Spooky.Content.Generation
             Vector2 point = tile.ToWorldCoordinates();
             float distY = center.Y - point.Y;
 
-            //squish the circle vertically
+            //squish the circle vertically to create an oval shape
             point.Y -= distY * 2.5f;
 
             float distance1 = Vector2.Distance(point, focus1);

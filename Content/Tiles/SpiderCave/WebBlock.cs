@@ -48,7 +48,6 @@ namespace Spooky.Content.Tiles.SpiderCave
                 if (Main.rand.NextBool(320))
                 {
                     int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 5, 5, ModContent.DustType<CobwebParticle>());
-
                     Main.dust[newDust].velocity.Y += 0.09f;
                 }
             }

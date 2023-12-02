@@ -12,15 +12,12 @@ using Spooky.Content.Tiles.SpookyBiome;
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class WizardGangsterHead : ModItem, IExtendedHelmet
+	public class WizardGangsterHead : ModItem, IExtendedHelmet, IHelmetGlowmask
 	{
 		public string ExtensionTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Hat";
         public Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
 
-		public override void SetStaticDefaults()
-		{
-			SpookyPlayer.AddGlowMask(Item.type, "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow");
-		}
+		public string GlowmaskTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow";
 
 		public override void SetDefaults() 
 		{
@@ -61,11 +58,6 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			player.GetCritChance(DamageClass.Magic) += 5;
 		}
 
-		public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
-		{
-			glowMaskColor = Color.White;
-		}
-
 		public override void AddRecipes()
         {
             CreateRecipe()
@@ -75,12 +67,5 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
             .AddTile(TileID.Anvils)
             .Register();
         }
-	}
-
-	public class WizardGangsterHeadLayer : HelmetGlowmaskVanityLayer
-	{
-		protected override int ID => 0;
-		protected override EquipType Type => EquipType.Head;
-		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 	}
 }

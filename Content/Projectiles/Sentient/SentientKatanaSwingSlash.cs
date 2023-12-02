@@ -21,36 +21,6 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             DrawSlash(Projectile, lightColor);
 
-            return true;
-        }
-
-        public override void CutTiles()
-        {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 30f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 30f * Projectile.scale;
-            float num2 = 30f * Projectile.scale;
-            Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            float coneLength2 = 40f * Projectile.scale;
-            float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
-            float maximumAngle2 = (float)Math.PI / 4f;
-            float num4 = Projectile.rotation + Fade;
-            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, num4, maximumAngle2))
-            {
-                return true;
-            }
-            float num5 = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
-            if (num5 > 0f)
-            {
-                float coneRotation2 = num4 - (float)Math.PI / 4f * Projectile.ai[0] * num5;
-                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, coneRotation2, maximumAngle2))
-                {
-                    return true;
-                }
-            }
             return false;
         }
 
@@ -60,18 +30,54 @@ namespace Spooky.Content.Projectiles.Sentient
 			Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashCutter");
 			Rectangle rectangle = Texture.Frame(1, 2);
 			Vector2 origin = rectangle.Size() / 2f;
+            float Scale = proj.scale * 1.02f;
 			SpriteEffects effects = (SpriteEffects)((!(Projectile.ai[0] >= 0f)) ? 2 : 0);
-			float num2 = Projectile.localAI[0] / Projectile.ai[1];
-			float num3 = Utils.Remap(num2, 0f, 0.6f, 0f, 1f) * Utils.Remap(num2, 0.6f, 1f, 1f, 0f);
-			float amount = num3;
-			Color color = Color.Lerp(Color.Red, Color.Blue, amount);
-            Color color2 = Color.Lerp(Color.Blue, Color.Red, amount);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color2 * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1.1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color * num3, Projectile.rotation, origin, 0.9f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, color2 * num3, Projectile.rotation, origin, 0.7f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), color2 * 0.6f * num3, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, 1.1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), color * 0.5f * num3, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, 0.9f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), color2 * 0.4f * num3, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, 0.7f, effects, 0f);
+			float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
+			float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
+            Color SlashColor1 = Color.Lerp(Color.Blue, Color.Red, Intensity);
+			Color SlashColor2 = Color.Lerp(Color.Red, Color.Blue, Intensity);
+
+			//these are the slash textures themselves
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor2 * Intensity, Projectile.rotation, origin, Scale * 0.9f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
+			
+            //draw extra lines on top of each slash
+            Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor2 * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.9f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
+        }
+
+        public override void CutTiles()
+        {
+            Vector2 VectorX = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
+            Vector2 VectorY = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
+            float Distance = 60f * Projectile.scale;
+            Utils.PlotTileLine(Projectile.Center + VectorX, Projectile.Center + VectorY, Distance, DelegateMethods.CutTiles);
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            float Length = 85f * Projectile.scale;
+            float Fade = (float)Math.PI * 2f / 25f * Projectile.ai[0];
+            float MaxAngle = (float)Math.PI / 4f;
+            float ActualFade = Projectile.rotation + Fade;
+            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, Length, ActualFade, MaxAngle))
+            {
+                return true;
+            }
+
+            float AIRemap = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
+            if (AIRemap > 0f)
+            {
+                float Rotation = ActualFade - (float)Math.PI / 4f * Projectile.ai[0] * AIRemap;
+                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, Length, Rotation, MaxAngle))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         public override bool PreAI()

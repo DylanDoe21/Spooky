@@ -72,83 +72,60 @@ namespace Spooky.Core
         }
     }
 
-    //vanity glowmask layer for my dev mask because it has a flickering effect, wasnt sure how to do this with the other armor glowmask layer
-    public class DylanGlowmaskPlayer : ModPlayer
+    public interface IHelmetGlowmask
     {
-        internal static readonly Dictionary<int, Texture2D> ItemGlowMask = new Dictionary<int, Texture2D>();
+        string GlowmaskTexture { get; }
 
-		internal new static void Unload() => ItemGlowMask.Clear();
-		public static void AddGlowMask(int itemType, string texturePath) => ItemGlowMask[itemType] = ModContent.Request<Texture2D>(texturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+        string EquipSlotName(Player drawPlayer) => "";
+
+        Color GlowMaskColor => Color.White;
     }
 
-    public abstract class DylanGlowmaskVanityLayer : PlayerDrawLayer
-	{
-		protected abstract int ID { get; }
-		protected abstract EquipType Type { get; }
+    public class HelmetGlowmaskLayer : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
-		protected override void Draw(ref PlayerDrawSet drawInfo)
-		{
-			if (!drawInfo.drawPlayer.armor[ID].IsAir)
-			{
-				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count && !Main.dayTime &&
-				DylanGlowmaskPlayer.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))
-				{
-					for (int i = 0; i < 2; i++)
-					{
-						DrawHeadGlowMask(Type, textureLegs, drawInfo);
-					}
-				}
-			}
-		}
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead;
 
-		public static void DrawHeadGlowMask(EquipType type, Texture2D texture, PlayerDrawSet info)
-		{
-			float shakeX = Main.rand.Next(-1, 1);
-			float shakeY = Main.rand.Next(-1, 1);
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+            Item headItem = drawPlayer.armor[0];
 
-			Vector2 adjustedPosition = new Vector2((int)(info.Position.X - Main.screenPosition.X + shakeX) + 
-			((info.drawPlayer.width - info.drawPlayer.bodyFrame.Width) / 2), (int)(info.Position.Y - Main.screenPosition.Y + shakeY) + 
-			info.drawPlayer.height - info.drawPlayer.bodyFrame.Height + 4);
+            if (drawPlayer.armor[10].type > ItemID.None)
+                headItem = drawPlayer.armor[10];
 
-			DrawData drawData = new DrawData(texture, adjustedPosition + info.drawPlayer.headPosition + info.rotationOrigin, info.drawPlayer.bodyFrame, info.headGlowColor, info.drawPlayer.headRotation, info.rotationOrigin, 1f, info.playerEffect, 0)
-			{
+            if (ModContent.GetModItem(headItem.type) is IHelmetGlowmask glowmaskDrawer)
+            {
+                string equipSlotName = glowmaskDrawer.EquipSlotName(drawPlayer) != "" ? glowmaskDrawer.EquipSlotName(drawPlayer) : headItem.ModItem.Name;
+                int equipSlot = EquipLoader.GetEquipSlot(Mod, equipSlotName, EquipType.Head);
 
-			};
-			info.DrawDataCache.Add(drawData);
-		}
-	}
+                if (!drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
+                {
+                    int dyeShader = drawPlayer.dye?[0].dye ?? 0;
 
-    //armor glowmask layer for regular glowmasks
-    public abstract class HelmetGlowmaskVanityLayer : PlayerDrawLayer
-	{
-		protected abstract int ID { get; }
-		protected abstract EquipType Type { get; }
+                    Vector2 headDrawPosition = drawInfo.Position - Main.screenPosition;
 
-		protected override void Draw(ref PlayerDrawSet drawInfo)
-		{
-			if (!drawInfo.drawPlayer.armor[ID].IsAir)
-			{
-				if (drawInfo.drawPlayer.armor[ID].type >= ItemID.Count &&
-				SpookyPlayer.ItemGlowMask.TryGetValue(drawInfo.drawPlayer.armor[ID].type, out Texture2D textureLegs))
-				{
-					DrawHeadGlowMask(Type, textureLegs, drawInfo);
-				}
-			}
-		}
+                    headDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
 
-		public static void DrawHeadGlowMask(EquipType type, Texture2D texture, PlayerDrawSet info)
-		{
-			Vector2 adjustedPosition = new Vector2((int)(info.Position.X - Main.screenPosition.X) + 
-			((info.drawPlayer.width - info.drawPlayer.bodyFrame.Width) / 2), (int)(info.Position.Y - Main.screenPosition.Y) + 
-			info.drawPlayer.height - info.drawPlayer.bodyFrame.Height + 4);
+                    headDrawPosition = new Vector2((int)headDrawPosition.X, (int)headDrawPosition.Y);
 
-			DrawData drawData = new DrawData(texture, adjustedPosition + info.drawPlayer.headPosition + info.rotationOrigin, info.drawPlayer.bodyFrame, info.headGlowColor, info.drawPlayer.headRotation, info.rotationOrigin, 1f, info.playerEffect, 0)
-			{
+                    headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
 
-			};
-			info.DrawDataCache.Add(drawData);
-		}
-	}
+                    Texture2D glowmaskTexture = ModContent.Request<Texture2D>(glowmaskDrawer.GlowmaskTexture).Value;
+
+                    Rectangle frame = glowmaskTexture.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+
+                    DrawData pieceDrawData = new DrawData(glowmaskTexture, headDrawPosition, frame, glowmaskDrawer.GlowMaskColor, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
+                    {
+                        shader = dyeShader
+                    };
+
+                    drawInfo.DrawDataCache.Add(pieceDrawData);
+                }
+            }
+        }
+    }
 
     //cross charm drawing
     public class CrossCharmShield : PlayerDrawLayer
@@ -162,7 +139,10 @@ namespace Spooky.Core
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-
+            if (drawInfo.drawPlayer.dead)
+            {
+                return;
+            }
 
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/Catacomb/CrossCharmDraw").Value;
 
@@ -205,6 +185,7 @@ namespace Spooky.Core
         }
     }
 
+    //monument mythos pyramid drawing
     public class MonumentMythosPyramidDraw : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.BeetleBuff);

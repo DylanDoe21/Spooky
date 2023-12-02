@@ -54,6 +54,18 @@ namespace Spooky.Core
                 NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
             }
 
+            //for when day and night switch
+            if (Main.dayTime != LastTime)
+            {
+                DaySwitched = true;
+            }
+			else
+            {
+				DaySwitched = false;
+            }
+
+			LastTime = Main.dayTime;
+
             //store whatever vanilla halloween is set to before setting it based on the config
             if (!initializeHalloween)
             {
@@ -75,18 +87,6 @@ namespace Spooky.Core
                 Main.halloween = storedHalloween;
                 Main.forceHalloweenForToday = storedHalloweenForToday;
             }
-
-            //for when day and night switch
-            if (Main.dayTime != LastTime)
-            {
-                DaySwitched = true;
-            }
-			else
-            {
-				DaySwitched = false;
-            }
-
-			LastTime = Main.dayTime;
 
             //reset little eye quest
             if (DaySwitched)
@@ -143,6 +143,26 @@ namespace Spooky.Core
                 sunR -= (int)(20f * Intensity * (backgroundColor.R / 255f));
                 sunG -= (int)(60f * Intensity * (backgroundColor.G / 255f));
                 sunB -= (int)(100f * Intensity * (backgroundColor.B / 255f));
+                sunR = Utils.Clamp(sunR, 15, 255);
+                sunG = Utils.Clamp(sunG, 15, 255);
+                sunB = Utils.Clamp(sunB, 15, 255);
+                backgroundColor.R = (byte)sunR;
+                backgroundColor.G = (byte)sunG;
+                backgroundColor.B = (byte)sunB;
+
+                return;
+            }
+
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+            {
+                float Intensity = ModContent.GetInstance<TileCount>().cemeteryTiles / 200f;
+                Intensity = Math.Min(Intensity, 1f);
+                int sunR = backgroundColor.R;
+                int sunG = backgroundColor.G;
+                int sunB = backgroundColor.B;
+                sunR -= (int)(60f * Intensity * (backgroundColor.R / 255f));
+                sunG -= (int)(20f * Intensity * (backgroundColor.G / 255f));
+                sunB -= (int)(60f * Intensity * (backgroundColor.B / 255f));
                 sunR = Utils.Clamp(sunR, 15, 255);
                 sunG = Utils.Clamp(sunG, 15, 255);
                 sunB = Utils.Clamp(sunB, 15, 255);

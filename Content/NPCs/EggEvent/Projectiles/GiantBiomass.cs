@@ -27,7 +27,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = 78;
-            Projectile.height = 74;
+            Projectile.height = 70;
             Projectile.friendly = false;
             Projectile.hostile = false;
             Projectile.tileCollide = false;

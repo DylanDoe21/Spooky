@@ -84,5 +84,19 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.ai[1]++;
             }
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/LeafSpiderGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

@@ -483,7 +483,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 			    {
                     AttackPattern = AttackPattern.Append(Main.rand.Next(SpecialAttack)).ToArray();
                 }
-                //if his flowers do exist, only add his charging attack to the list to prevent more healing/immunity flowers from being spammed
+                //if his healing/immunity flowers do exist, then add his charging attack to the list to prevent more healing/immunity flowers from being spammed
                 else
                 {
                     AttackPattern = AttackPattern.Append(7).ToArray();
@@ -746,7 +746,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //shoot flowers that bounce around off walls
+                //shoot flower spreads that bounce around off walls
                 case 0:
                 {
                     NPC.localAI[0]++;
@@ -816,7 +816,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 195)
                     {
-                        int WispChance = Phase2 ? 5 : 3;
+                        int WispChance = Phase2 ? 3 : 5;
 
                         if (Main.rand.NextBool(WispChance))
                         {
