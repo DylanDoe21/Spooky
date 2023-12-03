@@ -1,0 +1,209 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+
+using Spooky.Core;
+
+namespace Spooky.Content.Projectiles.Sentient
+{
+    public class SentientPaladinsHammerProj : ModProjectile
+    {
+        public override string Texture => "Spooky/Content/Items/SpookyHell/Sentient/SentientPaladinsHammer";
+
+        bool isAttacking = false;
+        bool hasHitEnemy = false;
+
+        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/SentientPaladinsHammerHit", SoundType.Sound) { PitchVariance = 0.6f, Volume = 0.5f };
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 54;
+            Projectile.height = 54;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 2;
+            Projectile.penetrate = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Lime) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.5f;
+                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, effects, 0);
+            }
+            
+            return true;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.ai[0] == 1 && Projectile.ai[1] >= 20 && !hasHitEnemy;
+        }
+
+        public override bool? CanCutTiles()
+        {
+            return Projectile.ai[0] == 1 && Projectile.ai[1] >= 20 && !hasHitEnemy;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SpookyPlayer.ScreenShakeAmount = 4;
+            SoundEngine.PlaySound(HitSound, target.Center);
+            hasHitEnemy = true;
+        }
+
+        public override void AI()
+        {
+            Projectile.timeLeft = 2;
+
+            Player owner = Main.player[Projectile.owner];
+
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+            Projectile.rotation += 0.65f * (float)Projectile.direction;
+
+            Projectile.localAI[0]++;
+
+            //target an enemy
+            for (int i = 0; i < 200; i++)
+            {
+                NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                {
+                    //prioritize bosses
+                    if (NPC.boss)
+                    {
+                        AttackingAI(NPC, owner);
+                        break;
+                    }
+                    else
+                    {
+                        AttackingAI(NPC, owner);
+                        break;
+                    }
+                }
+                else
+                {
+                    isAttacking = false;
+                }
+            }
+
+            //if no enemy is being targeted, then return to the player
+            if (!isAttacking && Projectile.localAI[0] >= 15)
+            {
+                ReturnToPlayer(owner);
+            }
+        }
+
+        public void AttackingAI(NPC target, Player owner)
+        {
+            isAttacking = true;
+
+            switch ((int)Projectile.ai[0])
+            {
+                //chase the targeted npc
+                case 0:
+                {
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 150;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+
+                    //once the projectile reaches the target, begin charging at it
+                    if (Projectile.Hitbox.Intersects(target.Hitbox))
+                    {
+                        Projectile.ai[0]++;
+                    }
+
+                    break;
+                }
+
+                //charge at the enemy 3 times
+                case 1:
+                {
+                    if (Projectile.ai[2] < 3)
+                    {
+                        Projectile.ai[1]++;
+
+                        if (Projectile.ai[1] < 20)
+                        {
+                            Vector2 GoTo = target.Center;
+                            GoTo.Y -= 200;
+
+                            float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 12, 25);
+                            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        if (Projectile.ai[1] == 20)
+                        {
+                            Vector2 ChargeDirection = target.Center - Projectile.Center;
+                            ChargeDirection.Normalize();
+                            ChargeDirection *= 45;
+                            Projectile.velocity = ChargeDirection;
+                        }
+
+                        if (Projectile.ai[1] >= 35)
+                        {
+                            Projectile.velocity *= 0.3f;
+                        }
+
+                        if (Projectile.ai[1] >= 40)
+                        {
+                            hasHitEnemy = false;
+                            Projectile.ai[1] = 0;
+                            Projectile.ai[2]++;
+                        }
+                    }
+                    else
+                    {
+                        Projectile.ai[1] = 0;
+                        Projectile.ai[2] = 0;
+                        Projectile.ai[0]++;
+                    }
+
+                    break;
+                }
+
+                //go back to the player
+                case 2:
+                {
+                    ReturnToPlayer(owner);
+
+                    break;
+                }
+            }
+        }
+
+        public void ReturnToPlayer(Player owner)
+        {
+            Projectile.knockBack = 0;
+
+            Vector2 ReturnSpeed = owner.Center - Projectile.Center;
+            ReturnSpeed.Normalize();
+            ReturnSpeed *= 40;
+
+            Projectile.velocity = ReturnSpeed;
+
+            if (Projectile.Hitbox.Intersects(owner.Hitbox))
+            {
+                Projectile.Kill();
+            }
+        }
+    }
+}

@@ -16,9 +16,14 @@ namespace Spooky.Content.Projectiles
             Projectile.alpha = 255;
         }
 
-        public override void AI()
+        public override bool? CanHitNPC(NPC target)
         {
-            Projectile.damage = 0;
+            return false;
+        }
+
+        public override bool? CanCutTiles()
+        {
+            return false;
         }
     }
 }

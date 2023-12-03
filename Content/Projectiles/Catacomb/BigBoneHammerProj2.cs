@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             SpookyPlayer.ScreenShakeAmount = 8;
 
-            target.immune[Projectile.owner] = 1;
+            target.immune[Projectile.owner] = 2;
 
             SoundEngine.PlaySound(SoundID.Item62, target.Center);
 

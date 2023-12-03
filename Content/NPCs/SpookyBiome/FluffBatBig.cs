@@ -57,6 +57,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.spriteDirection = NPC.direction;
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            if (Main.rand.NextBool(10) && (Main.expertMode || Main.masterMode))
+            {
+                target.AddBuff(BuffID.Rabies, 2700);
+            }
+        }
+
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBatWing>(), 20));

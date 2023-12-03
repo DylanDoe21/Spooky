@@ -19,19 +19,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSlash(Projectile, lightColor);
-
-            return false;
-        }
-
-        public void DrawSlash(Projectile proj, Color lightColor)
-        {
             Vector2 vector = Projectile.Center - Main.screenPosition;
 			Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashCutter");
 			Rectangle rectangle = Texture.Frame(1, 2);
 			Vector2 origin = rectangle.Size() / 2f;
-            float Scale = proj.scale * 1.02f;
-			SpriteEffects effects = (SpriteEffects)((!(Projectile.ai[0] >= 0f)) ? 2 : 0);
+            float Scale = Projectile.scale * 1.02f;
+			SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
 			float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
 			float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
             Color SlashColor1 = Color.Lerp(Color.Blue, Color.Red, Intensity);
@@ -46,6 +39,8 @@ namespace Spooky.Content.Projectiles.Sentient
             Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
 			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor2 * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.9f, effects, 0f);
 			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
+
+            return false;
         }
 
         public override void CutTiles()

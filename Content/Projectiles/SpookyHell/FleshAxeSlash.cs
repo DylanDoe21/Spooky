@@ -23,27 +23,22 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSlash(Projectile, lightColor);
-
-            return false;
-        }
-
-        public void DrawSlash(Projectile proj, Color lightColor)
-        {
-            Vector2 vector = proj.Center - Main.screenPosition;
+            Vector2 vector = Projectile.Center - Main.screenPosition;
             Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashSpecial");
             Rectangle rectangle = Texture.Frame(1, 2);
             Vector2 origin = rectangle.Size() / 2f;
-            float Scale = proj.scale;
-            SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
-            float CurrentAI = proj.localAI[0] / proj.ai[1];
+            float Scale = Projectile.scale;
+            SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
             float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
 
             //this is the slash texture itself
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Crimson * Intensity * 0.75f, proj.rotation, origin, Scale, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Crimson * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
 
             //draw extra lines on top of the slash
-            Main.spriteBatch.Draw(Texture.Value, vector, Texture.Frame(1, 2, 0, 1), Color.Gray * Intensity * 0.75f, proj.rotation, origin, Scale, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, Texture.Frame(1, 2, 0, 1), Color.Gray * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
+
+            return false;
         }
 
         public override void CutTiles()

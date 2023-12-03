@@ -4,8 +4,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using ReLogic.Content;
+using System;
 
 namespace Spooky.Content.Backgrounds.Cemetery
 {
@@ -82,7 +82,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
             //draw giant beams behind the background
             if (minPillarDepth != -1)
             {
-                Vector2 ScreenPos = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
+                Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
                 Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
 
                 float scale = Math.Min(1f, (Main.screenPosition.Y - 1000f) / 1000f);
@@ -141,7 +141,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                 {
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
-                    
+
                     //only draw beams if they are on screen and they arent too high up
                     if (rectangle.Contains((int)position.X, (int)position.Y) && position.Y > -720)
                     {

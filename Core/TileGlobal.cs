@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Microsoft.Xna.Framework;
+using System.Reflection;
 
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Pylon;
@@ -14,17 +16,14 @@ namespace Spooky.Core
 {
     public class TileGlobal : GlobalTile
     {
-        public static bool LightingEssentialsActive() => ModLoader.TryGetMod("LightingEssentials", out _);
-
-        public override void Load()
-        {
-            On_Player.CheckForGoodTeleportationSpot += DontAllowTeleportation;
-        }
-
         public override void SetStaticDefaults()
         {
-            //set lighting to true for all the ambient grasses if lighting essentials is enabled
-            if (LightingEssentialsActive())
+            //set tileLighted to true for all ambient grasses in spooky mod
+            //using reflection, get the lighting essentials config and make sure the "Light Environment" option is turned on
+            var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
+            bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
+
+            if (LightEnvironmentOn)
             {
                 Main.tileLighted[ModContent.TileType<SpookyWeedsOrange>()] = true;
                 Main.tileLighted[ModContent.TileType<SpookyWeedsGreen>()] = true;
@@ -36,8 +35,12 @@ namespace Spooky.Core
 
         public override void ModifyLight(int i, int j, int type, ref float r, ref float g, ref float b)
         {
-            //add lighting to ambient grasses if lighting essentials is enabled
-            if (LightingEssentialsActive())
+            //add the actual lighting for all the ambient grasses in spooky mod
+            //like above, use reflection get the lighting essentials config and make sure the "Light Environment" option is turned on
+            var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
+            bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
+
+            if (LightEnvironmentOn)
             {
                 if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsOrange>())
                 {

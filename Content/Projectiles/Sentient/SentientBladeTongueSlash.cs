@@ -18,27 +18,22 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSlash(Projectile, lightColor);
-
-            return false;
-        }
-
-        public void DrawSlash(Projectile proj, Color lightColor)
-        {
-            Vector2 vector = proj.Center - Main.screenPosition;
+            Vector2 vector = Projectile.Center - Main.screenPosition;
             Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
             Rectangle rectangle = Texture.Frame(1, 2);
             Vector2 origin = rectangle.Size() / 2f;
-            float Scale = proj.scale * 1.75f;
-            SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
-            float CurrentAI = proj.localAI[0] / proj.ai[1];
+            float Scale = Projectile.scale * 1.75f;
+            SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
             float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.4f, proj.rotation + proj.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.35f, proj.rotation + proj.ai[0] * 0.01f, origin, Scale * 1.2f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.3f, proj.rotation, origin, Scale * 0.8f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.25f, proj.rotation, origin, Scale * 0.975f * 1.2f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.4f, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.35f, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.2f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.3f, Projectile.rotation, origin, Scale * 0.8f, effects, 0f);
+            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Red * Intensity * 0.25f, Projectile.rotation, origin, Scale * 0.975f * 1.2f, effects, 0f);
+
+            return false;
         }
 
         public override void CutTiles()

@@ -38,6 +38,7 @@ New Music:
 Other New Additions:
 
 -Added craftable "safe" versions of the catacomb bricks and walls you can build with, they can be shimmered into their unsafe variants after big bone is defeated
+-Added cross mod stuff with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 
 
 
@@ -68,6 +69,7 @@ Other New Additions:
 -Sunflower rod now has a special new use animation, and buffed its use speed
 -Sunflower rod projectiles now have a different after image effect as its previous one didnt look fitting
 -Skull smasher and femur fracturer thrown projectiles now have after images along with their existing trail effect
+-Giant fuzz bats can now inflict feral bite in expert mode and higher difficulties
 
 
 
@@ -83,6 +85,7 @@ Other New Additions:
 -Fixed issue where spooky mod armor glowmasks weren't affected by dyes
 -Fixed issue where spooky mod weapons that used the melee swing extension visual effect did not scale up or down if the weapon itself had a reforgement that made it smaller or bigger
 -Fixed some spooky mod melee swing extension visuals having slightly incorrectly sized hitboxes
+-Fixed issue where the skull smashers right click ability was dealing double the weapons base damage
 
 
 

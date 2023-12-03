@@ -41,7 +41,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.localAI[0] > 10)
+            if (Projectile.ai[0] > 10)
             {
                 Main.spriteBatch.End();
                 Effect effect = ShaderLoader.GlowyTrail;

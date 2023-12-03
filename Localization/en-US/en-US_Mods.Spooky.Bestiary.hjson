@@ -56,6 +56,7 @@ FeralRat1: During a blood moon, normally hidden rats wandering around the cemete
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in their path.
 SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend their time wandering the cemetery, and can use their emotions as a weapon.
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
+SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 //egg event
 Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
 Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can sometimes vomit out its own blood.
@@ -70,7 +71,7 @@ PartySkeleton1: Colorful and silly skeletons revived by the power of the raveyar
 PartySkeleton2: Ancient skeletons that rise up during crazy parties. They look like they're close to overdosing.
 PartySkeleton3: Unlike most hostile skeletons, these ones are friendly to anyone and are great party guests.
 PartySkeleton4: Their wild personalities make them funny to be around. Sadly, they can't exist outside of the raveyard due to the lack of party magic.
-PartySkeleton5: Their neon coloration is a result of the party magic and likely whatever eldritch substances they consume during the party.
+PartySkeleton5: Their neon coloration is a result of party magic and likely whatever eldritch substances they consume during the party.
 PartySkeleton6: Once normal skeletons buried under the ground, the power of the raveyard allows them to celebrate, even if it's just one night.
 PartySkeleton7: They're so drunk, they can only speak by using strange human-like screams and vocalizations.
 PartySkeleton8: Despite being undead, some of these bright skeletons have a great sense of fashion, consisting of clothes they probably stole.
@@ -93,7 +94,6 @@ PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky 
 PuttySlime2: Slimes made out of spooky putty, brought to life by the spooky forest. They hop around the spooky forest mindlessly attempting to spook people.
 PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
 ShroomHopper: Small bugs with a giant mushroom on their back, they peacefully hop around the purple moss covered areas where they live.
-SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 TinyGhost1: Little mischevious ghosts that wander around during the night in the spooky forest.
 TinyGhost2: Small nefarious apparitions that wander around and harass homeowners in the spooky forest.
 TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
@@ -134,12 +134,12 @@ Mosquito3: An extremely gluttonous mosquito who's body has blown up like a ballo
 Moth1: Cute fuzzy moths that can be seen flying around the grotto. Probably one of the only friendly looking creatures that live there.
 Moth2: These rarer moths have brown fur, which tricks predators into thinking they are part of the terrain.
 TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
-TarantulaHawk2: Despite their appearance, they are actually helpful to their allies. Their strong legs can carry smaller spiders, which they will drop on their prey.
-TarantulaHawk3: They help carry their friends to their prey, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
+TarantulaHawk2: They can carry smaller spiders to their prey with their strong legs, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
+TarantulaHawk3: These tarantula hawks have adapted to take on the appearance of a large fly, which allows them to approach their prey without being noticed.
 TinySpider1: Hard to spot, these spiders are incredibly weak, but are great at frightening people.
 TinySpider2: If you feel a tickling sensation on your leg in the spider grotto, its probably one of these preparing to bite you.
 TinySpider3: Mostly harmless, their small fragile bodies can be smushed easily.
 TinySpider4: In groups they become more powerful, which has lead to a very group oriented lifestyle.
 TinySpider5: Able to move fast, they can quickly bite their prey and retreat.
 TrapdoorSpider1: These juvenile spiders have very thin legs they can easily dig into the ground with, allowing them to disguise themselves and jump out at unsuspecting prey.
-TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. Their extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.
+TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. The extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.
