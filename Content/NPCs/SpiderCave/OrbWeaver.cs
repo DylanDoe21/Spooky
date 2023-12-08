@@ -111,6 +111,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
             }
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OrbWeaverWhiteGore" + numGores).Type);
+                    }
+                }
+            }
+        }
 	}
 
     public class OrbWeaver2 : OrbWeaver1
@@ -139,6 +153,20 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OrbWeaverYellowGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class OrbWeaver3 : OrbWeaver1
@@ -167,5 +195,61 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OrbWeaverBrownGore" + numGores).Type);
+                    }
+                }
+            }
+        }
+    }
+
+    public class OrbWeaverGiant : OrbWeaver1
+	{
+		public override void SetDefaults()
+		{
+            NPC.lifeMax = 1200;
+            NPC.damage = 55;
+			NPC.defense = 40;
+			NPC.width = 82;
+			NPC.height = 60;
+            NPC.npcSlots = 1f;
+            NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 0, 25, 0);
+            NPC.noGravity = false;
+			NPC.HitSound = SoundID.DD2_SkeletonHurt;
+			NPC.DeathSound = SoundID.NPCDeath32;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+		}
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrbWeaverGiant"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OrbWeaverGiantGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

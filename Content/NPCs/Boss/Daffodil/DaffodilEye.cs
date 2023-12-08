@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/DaffodilBestiary",
                 Position = new Vector2(1f, 30f),
                 PortraitPositionXOverride = 2f,
                 PortraitPositionYOverride = 30f

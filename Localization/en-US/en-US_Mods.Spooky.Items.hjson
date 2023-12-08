@@ -1157,7 +1157,7 @@ CreepyCandle: {
 	DisplayName: Creepy Candle
 	Tooltip:
 		'''
-		Increases magic damage by 7%
+		Increases magic damage by 10
 		Magic projectiles will sometimes ignite enemies
 		'''
 }
@@ -1783,9 +1783,9 @@ SentientKeybrand: {
 	DisplayName: Molar Mauler
 	Tooltip:
 		'''
-		Preform a combo of 2 swings, and then throw the mauler on the 3rd use
-		When thrown it will stick its teeth into enemies on hit, which will damage them
-		Deals more damage to enemies with lower health
+		Deals more damage to enemies at low health
+		Hitting enemies below half health may create blood explosions
+		Every 5th swing will throw the mauler, which can embed its teeth into enemies it hits
 		'Should be brought to a dentist regularly'
 		'''
 }
@@ -1814,8 +1814,8 @@ SentientPaladinsHammer: {
 	DisplayName: Dave & Mike
 	Tooltip:
 		'''
-		Throws a hammer that will chase the closest enemy and will prioritize bosses
-		Upon reaching the targetted enemy, it will strike it 3 times before returning to you
+		Throw a two-faced hammer that will chase a nearby enemy
+		Upon reaching the targeted enemy, it will strike it 3 times before returning to you
 		'They won't shut up'
 		'''
 }
@@ -2503,4 +2503,9 @@ RootHead: {
 RootLegs: {
 	DisplayName: Root Garments
 	Tooltip: ""
+}
+
+CemeteryKey: {
+	Tooltip: ""
+	DisplayName: Cemetery Key
 }

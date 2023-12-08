@@ -12,7 +12,7 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.maxMinions += 1;
+			player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
 		}
     }
 }

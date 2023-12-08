@@ -166,6 +166,10 @@ FlyBig.DisplayName: Giant Fly
 FlySmall.DisplayName: Fly
 HoppingCandyBasket.DisplayName: Hopping Candy Basket
 LittleSpider.DisplayName: Little Spider
+MonsterEye1.DisplayName: Monster Eye
+MonsterEye2.DisplayName: Monster Eye
+MonsterEye4.DisplayName: Monster Eye
+MonsterEye3.DisplayName: Monster Eye
 PuttyPumpkin.DisplayName: Putty Pumpkin
 PuttyPumpkinling.DisplayName: Putty Pumpkinling
 PuttySlime1.DisplayName: Putty Slime
@@ -223,6 +227,7 @@ Moth2.DisplayName: Moth
 OrbWeaver1.DisplayName: Orb Weaver
 OrbWeaver2.DisplayName: Orb Weaver
 OrbWeaver3.DisplayName: Orb Weaver
+OrbWeaverGiant.DisplayName: Giant Orb Weaver
 TarantulaHawk1.DisplayName: Tarantula Hawk
 TarantulaHawk2.DisplayName: Tarantula Hawk
 TarantulaHawk3.DisplayName: Tarantula Hawk

@@ -4,11 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
@@ -18,12 +14,15 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
-using Terraria.GameContent.Drawing;
 
 namespace Spooky
 {
 	public class Spooky : Mod
 	{
+        internal static Spooky Instance;
+        
+        internal Mod subworldLibrary = null;
+
         public static Vector2 DaffodilPosition;
         public static Vector2 PandoraPosition;
         public static Vector2 FlowerPotPosition;
@@ -45,6 +44,10 @@ namespace Spooky
 
         public override void Load()
         {
+            Instance = this;
+            
+            ModLoader.TryGetMod("SubworldLibrary", out subworldLibrary);
+
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
             ArmorBonusHotkey = KeybindLoader.RegisterKeybind(this, "ArmorBonusHotkey", "F");
 
@@ -78,6 +81,8 @@ namespace Spooky
 
         public override void Unload()
         {
+            subworldLibrary = null;
+
             AccessoryHotkey = null;
             ArmorBonusHotkey = null;
 

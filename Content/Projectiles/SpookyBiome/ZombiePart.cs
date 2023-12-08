@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.ai[0]++;
 			if (Projectile.ai[0] >= 30)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;  
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;  
                 Projectile.velocity.X = Projectile.velocity.X * 0.99f;   
             }
         }
@@ -44,7 +44,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			else
 			{
 				Projectile.ai[0] = 30;
-				SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
 				if (Projectile.velocity.X != oldVelocity.X)
                 {
@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			{
 				Projectile.ai[0] = 30;
 
-				SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
 				Projectile.velocity.X = -Projectile.velocity.X * 1.1f;
 				Projectile.velocity.Y = -Projectile.velocity.Y * 1.1f;
@@ -81,7 +81,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void OnKill(int timeLeft)
 		{	
-			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.NPCDeath9, Projectile.Center);
 
 			for (int numDust = 0; numDust < 25; numDust++)
 			{

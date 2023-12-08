@@ -25,33 +25,62 @@ namespace Spooky.Core
         public static bool DaySwitched;
         private static bool LastTime;
 
+        //check to make sure the player isnt in a subworld so that things like daffodil and pandoras box arent spawned in subworlds
+        public bool IsInSubworld()
+        {
+            if (Spooky.Instance.subworldLibrary == null)
+            {
+                return false;
+            }
+
+            foreach (Mod mod in ModLoader.Mods)
+            {
+                if (mod.Name.Equals(Spooky.Instance.subworldLibrary.Name))
+                {
+                    continue;
+                }
+
+                bool anySubworldForMod = (Spooky.Instance.subworldLibrary.Call("AnyActive", mod) as bool?) ?? false;
+
+                if (anySubworldForMod)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override void PostUpdateTime()
         {
-            //spawn daffodil if she despawns for any reason
-            if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()))
+            if (!IsInSubworld())
             {
-                int Daffodil = NPC.NewNPC(null, (int)Spooky.DaffodilPosition.X, (int)Spooky.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
-                Main.npc[Daffodil].position.Y += Main.npc[Daffodil].height / 2;
+                //spawn daffodil if she despawns for any reason
+                if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()))
+                {
+                    int Daffodil = NPC.NewNPC(null, (int)Spooky.DaffodilPosition.X, (int)Spooky.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
+                    Main.npc[Daffodil].position.Y += Main.npc[Daffodil].height / 2;
 
-                NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
-            }
+                    NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+                }
 
-            //spawn pandoras box if it despawns for any reason
-            if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()))
-            {
-                int PandoraBox = NPC.NewNPC(null, (int)Spooky.PandoraPosition.X, (int)Spooky.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
-                Main.npc[PandoraBox].position.Y += Main.npc[PandoraBox].height / 2;
+                //spawn pandoras box if it despawns for any reason
+                if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()))
+                {
+                    int PandoraBox = NPC.NewNPC(null, (int)Spooky.PandoraPosition.X, (int)Spooky.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
+                    Main.npc[PandoraBox].position.Y += Main.npc[PandoraBox].height / 2;
 
-                NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
-            }
+                    NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+                }
 
-            //spawn big bone pot if it despawns for any reason
-            if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()))
-            {
-                int FlowerPot = NPC.NewNPC(null, (int)Spooky.FlowerPotPosition.X, (int)Spooky.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
-                Main.npc[FlowerPot].position.Y += Main.npc[FlowerPot].height / 2;
+                //spawn big bone pot if it despawns for any reason
+                if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()))
+                {
+                    int FlowerPot = NPC.NewNPC(null, (int)Spooky.FlowerPotPosition.X, (int)Spooky.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
+                    Main.npc[FlowerPot].position.Y += Main.npc[FlowerPot].height / 2;
 
-                NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                    NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                }
             }
 
             //for when day and night switch

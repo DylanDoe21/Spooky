@@ -1,0 +1,292 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+
+namespace Spooky.Content.NPCs.SpookyBiome
+{
+	public class MonsterEye1 : ModNPC
+	{
+        float ExtraStretch;
+
+        public override void SetStaticDefaults()
+        {
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/MonsterEyeBestiary1",
+                Rotation = MathHelper.PiOver2 + 12,
+                PortraitPositionYOverride = -20f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+        }
+
+		public override void SetDefaults()
+		{
+            NPC.lifeMax = 50;
+            NPC.damage = 20;
+			NPC.defense = 0;
+			NPC.width = 42;
+			NPC.height = 42;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 1.2f;
+            NPC.value = Item.buyPrice(0, 0, 0, 50);
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+			NPC.HitSound = SoundID.Item177;
+			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.aiStyle = 66;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye1"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+
+			float stretch = NPC.velocity.Y * 0.025f;
+
+			stretch = Math.Abs(stretch);
+
+			//limit how much it can stretch
+			if (stretch > 0.5f)
+			{
+				stretch = 0.5f;
+			}
+
+			//limit how much it can squish
+			if (stretch < -0.5f)
+			{
+				stretch = -0.5f;
+			}
+
+			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+			
+			if (NPC.velocity.Y <= 0)
+			{
+				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
+			}
+			if (NPC.velocity.Y > 0)
+			{
+				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+			}
+
+			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+			Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
+
+			return false;
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            //face towards the player
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            NPC.spriteDirection = NPC.direction;
+
+            JumpTo(player, 250, Main.rand.Next(18, 26), 75, 0);
+        }
+
+        public void JumpTo(Player target, int JumpHeight, int JumpSpeed, int TimeBeforeNextJump, int DelayBeforeNextJump)
+        {
+            NPC.ai[0]++;
+
+            //set where the it should be jumping towards
+            Vector2 JumpTo = new(target.Center.X, NPC.Center.Y - JumpHeight);
+
+            //set velocity and speed
+            Vector2 velocity = JumpTo - NPC.Center;
+            velocity.Normalize();
+
+            float speed = MathHelper.Clamp(velocity.Length() / 36, 12, JumpSpeed);
+
+            NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+
+            //actual jumping
+            if (NPC.ai[0] >= TimeBeforeNextJump)
+            {
+                if (NPC.velocity.X == 0)
+                {
+                    if (NPC.velocity.Y == 0)
+                    {
+                        NPC.ai[1]++;
+
+                        if (NPC.ai[1] == 10)
+                        {
+                            if (target.Distance(NPC.Center) <= 450f)
+                            {
+                                SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
+                            }
+                            
+                            velocity.Y -= 0.25f;
+                        }
+                    }
+
+                    if (NPC.ai[1] > 10)
+                    {
+                        NPC.velocity = velocity * speed;
+                    }
+                }
+            }
+
+            //loop ai
+            if (NPC.ai[0] >= 100)
+            {
+                NPC.ai[0] = DelayBeforeNextJump;
+                NPC.ai[1] = 0;
+            }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemID.Lens, 3, 1, 1));
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                //todo: dust and blood explosion here
+            }
+        }
+	}
+
+    public class MonsterEye2 : MonsterEye1
+	{
+        public override void SetStaticDefaults()
+        {
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/MonsterEyeBestiary2",
+                PortraitPositionYOverride = -20f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye2"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            //face towards the player
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            NPC.spriteDirection = NPC.direction;
+
+            JumpTo(player, 450, Main.rand.Next(18, 23), 60, Main.rand.Next(30, 60));
+        }
+    }
+
+    public class MonsterEye3 : MonsterEye1
+	{
+        public override void SetStaticDefaults()
+        {
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/MonsterEyeBestiary3",
+                PortraitPositionYOverride = -20f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye3"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            //face towards the player
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            NPC.spriteDirection = NPC.direction;
+
+            JumpTo(player, 250, Main.rand.Next(15, 20), 0, 0);
+        }
+    }
+
+    public class MonsterEye4 : MonsterEye1
+	{
+        public override void SetStaticDefaults()
+        {
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/MonsterEyeBestiary4",
+                PortraitPositionYOverride = -20f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye4"),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            //face towards the player
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+            NPC.spriteDirection = NPC.direction;
+
+            JumpTo(player, 900, Main.rand.Next(25, 30), 60, Main.rand.Next(0, 60));
+        }
+    }
+}

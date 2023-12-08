@@ -423,13 +423,15 @@ namespace Spooky.Content.Generation
                     //place orange grass only on orange grass
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
                     {
-                        //pumpkins
+                        //gourds
                         if (WorldGen.genRand.NextBool(7))
                         {
-                            ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
-                            (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(), 
+                            (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
+                            (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>(), 
+                            (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Pumpkins));    
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
                         }
                     }
                 }

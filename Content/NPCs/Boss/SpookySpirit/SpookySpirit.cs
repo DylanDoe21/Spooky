@@ -56,7 +56,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritBC",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/SpookySpiritBestiary",
                 Position = new Vector2(30f, -10f),
                 PortraitPositionXOverride = 10f,
                 PortraitPositionYOverride = 0f

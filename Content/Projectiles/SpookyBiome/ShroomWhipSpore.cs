@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.width = 14;
             Projectile.height = 20;
             Projectile.DamageType = DamageClass.SummonMeleeSpeed;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 600;

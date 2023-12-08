@@ -120,9 +120,13 @@ namespace Spooky.Core
                     //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-                        pool.Add(ModContent.NPCType<FluffBatSmall1>(), 3);
-						pool.Add(ModContent.NPCType<FluffBatSmall2>(), 3);
-						pool.Add(ModContent.NPCType<ZomboidThorn>(), 5);
+						pool.Add(ModContent.NPCType<ZomboidThorn>(), 4);
+						pool.Add(ModContent.NPCType<MonsterEye1>(), 1);
+						pool.Add(ModContent.NPCType<MonsterEye2>(), 1);
+						pool.Add(ModContent.NPCType<MonsterEye3>(), 1);
+						pool.Add(ModContent.NPCType<MonsterEye4>(), 1);
+						pool.Add(ModContent.NPCType<FluffBatSmall1>(), 1);
+                    	pool.Add(ModContent.NPCType<FluffBatSmall2>(), 1);
 						
 						//spawn windchime zomboids during windy days
 						if (Main.WindyEnoughForKiteDrops)
@@ -156,8 +160,10 @@ namespace Spooky.Core
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-                    pool.Add(ModContent.NPCType<FluffBatBig1>(), 4);
-                    pool.Add(ModContent.NPCType<FluffBatBig2>(), 4);
+					pool.Add(ModContent.NPCType<FluffBatSmall1>(), 4);
+					pool.Add(ModContent.NPCType<FluffBatSmall2>(), 4);
+                    pool.Add(ModContent.NPCType<FluffBatBig1>(), 2);
+                    pool.Add(ModContent.NPCType<FluffBatBig2>(), 2);
                     pool.Add(ModContent.NPCType<ZomboidFungus>(), 5);
 
                     //do not spawn zomboid warlocks if one already exists

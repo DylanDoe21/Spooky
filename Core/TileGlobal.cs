@@ -16,65 +16,75 @@ namespace Spooky.Core
 {
     public class TileGlobal : GlobalTile
     {
+        public static bool LightingEssentialsActive() => ModLoader.TryGetMod("LightingEssentials", out _);
+
         public override void SetStaticDefaults()
         {
-            //set tileLighted to true for all ambient grasses in spooky mod
-            //using reflection, get the lighting essentials config and make sure the "Light Environment" option is turned on
-            var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
-            bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
-
-            if (LightEnvironmentOn)
+            //do not run any lighting essentials checking if the mod is not enabled
+            if (LightingEssentialsActive())
             {
-                Main.tileLighted[ModContent.TileType<SpookyWeedsOrange>()] = true;
-                Main.tileLighted[ModContent.TileType<SpookyWeedsGreen>()] = true;
-                Main.tileLighted[ModContent.TileType<CemeteryWeeds>()] = true;
-                Main.tileLighted[ModContent.TileType<CatacombWeeds>()] = true;
-                Main.tileLighted[ModContent.TileType<SpiderCaveWeeds>()] = true;
+                //set tileLighted to true for all ambient grasses in spooky mod
+                //using reflection, get the lighting essentials config and make sure the "Light Environment" option is turned on
+                var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
+                bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
+
+                if (LightEnvironmentOn)
+                {
+                    Main.tileLighted[ModContent.TileType<SpookyWeedsOrange>()] = true;
+                    Main.tileLighted[ModContent.TileType<SpookyWeedsGreen>()] = true;
+                    Main.tileLighted[ModContent.TileType<CemeteryWeeds>()] = true;
+                    Main.tileLighted[ModContent.TileType<CatacombWeeds>()] = true;
+                    Main.tileLighted[ModContent.TileType<SpiderCaveWeeds>()] = true;
+                }
             }
         }
 
         public override void ModifyLight(int i, int j, int type, ref float r, ref float g, ref float b)
         {
-            //add the actual lighting for all the ambient grasses in spooky mod
-            //like above, use reflection get the lighting essentials config and make sure the "Light Environment" option is turned on
-            var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
-            bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
-
-            if (LightEnvironmentOn)
+            //do not run any lighting essentials checking if the mod is not enabled
+            if (LightingEssentialsActive())
             {
-                if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsOrange>())
-                {
-                    r = 175f / 450f;
-                    g = 102f / 450f;
-                    b = 36f / 450f;
-                }
+                //add the actual lighting for all the ambient grasses in spooky mod
+                //like above, use reflection get the lighting essentials config and make sure the "Light Environment" option is turned on
+                var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
+                bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
 
-                if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsGreen>())
+                if (LightEnvironmentOn)
                 {
-                    r = 78f / 450f;
-                    g = 120f / 450f;
-                    b = 48f / 450f;
-                }
+                    if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsOrange>())
+                    {
+                        r = 175f / 450f;
+                        g = 102f / 450f;
+                        b = 36f / 450f;
+                    }
 
-                if (Main.tile[i, j].TileType == ModContent.TileType<CemeteryWeeds>())
-                {
-                    r = 38f / 420f;
-                    g = 77f / 420f;
-                    b = 53f / 420f;
-                }
+                    if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsGreen>())
+                    {
+                        r = 78f / 450f;
+                        g = 120f / 450f;
+                        b = 48f / 450f;
+                    }
 
-                if (Main.tile[i, j].TileType == ModContent.TileType<CatacombWeeds>())
-                {
-                    r = 56f / 450f;
-                    g = 109f / 450f;
-                    b = 62f / 450f;
-                }
+                    if (Main.tile[i, j].TileType == ModContent.TileType<CemeteryWeeds>())
+                    {
+                        r = 38f / 420f;
+                        g = 77f / 420f;
+                        b = 53f / 420f;
+                    }
 
-                if (Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveWeeds>())
-                {
-                    r = 120f / 450f;
-                    g = 100f / 450f;
-                    b = 24f / 450f;
+                    if (Main.tile[i, j].TileType == ModContent.TileType<CatacombWeeds>())
+                    {
+                        r = 56f / 450f;
+                        g = 109f / 450f;
+                        b = 62f / 450f;
+                    }
+
+                    if (Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveWeeds>())
+                    {
+                        r = 120f / 450f;
+                        g = 100f / 450f;
+                        b = 24f / 450f;
+                    }
                 }
             }
         }

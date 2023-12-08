@@ -81,7 +81,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 				const int OffsetX = 20;
 				const int OffsetY = 20;
 
-				Texture2D EventIcon = ModContent.Request<Texture2D>("Spooky/Content/NPCs/PandoraBox/PandoraBoxIcon", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				Texture2D EventIcon = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/PandoraBoxIcon", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				Color NameBoxColor = new Color(39, 45, 90);
 				Color ProgressBarColor1 = new Color(87, 60, 42);
 				Color ProgressBarColor2 = new Color(35, 165, 161);

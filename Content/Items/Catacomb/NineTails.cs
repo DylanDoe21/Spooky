@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb
@@ -27,7 +26,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<NineTailsProj>();
 			Item.shootSpeed = 4f;
 		}
 
@@ -65,7 +64,7 @@ namespace Spooky.Content.Items.Catacomb
                 Projectile.NewProjectile(source, randomPosition, newVelocity, ModContent.ProjectileType<NineTailsProj>(), damage, knockback, player.whoAmI, 0f, 0f);
             }
 
-            return true;
+            return false;
 		}
 	}
 }

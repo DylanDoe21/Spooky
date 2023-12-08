@@ -59,11 +59,6 @@ namespace Spooky.Content.Projectiles.Sentient
             return Projectile.ai[0] == 1 && Projectile.ai[1] >= 20 && !hasHitEnemy;
         }
 
-        public override bool? CanCutTiles()
-        {
-            return Projectile.ai[0] == 1 && Projectile.ai[1] >= 20 && !hasHitEnemy;
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SpookyPlayer.ScreenShakeAmount = 4;

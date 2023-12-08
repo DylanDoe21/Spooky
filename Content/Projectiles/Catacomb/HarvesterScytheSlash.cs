@@ -40,8 +40,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 			
             //draw extra lines on top of each slash
             Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.3f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 1f, effects, 0f);
+			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkGray * 0.2f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
 			
             //draw star sparkle and trail on top of the slashes
             for (float Repeats = 0f; Repeats < 8f; Repeats += 1f) 

@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/Orroboro/OrroBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/OrroBestiary",
                 Position = new Vector2(2f, -35f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -24f

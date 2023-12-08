@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyBiome.Misc;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
  
@@ -31,7 +30,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item17;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<GourdSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }

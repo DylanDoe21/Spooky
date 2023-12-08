@@ -47,7 +47,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             }
             else
             {
-                //make transparency immediately go down so it doesnt look weird
+                //make transparency immediately go down so it doesnt look weird, since vanilla underground backgrounds dont have the fade-in effect this background has
                 Transparency -= 1f;
 
                 if (Transparency < 0f)
@@ -57,6 +57,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
             }
 
             //dont bother running any of the background drawing if the transparency is zero (meaning the background isnt actually active)
+            //also do not run any of the background drawing if you have the vanilla background config option turned off
             if (Transparency > 0f && Main.BackgroundEnabled)
             {
                 Vector2 vector = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));

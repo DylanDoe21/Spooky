@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/RotGourdBestiary",
                 Position = new Vector2(20f, 20f),
                 PortraitPositionXOverride = -10f,
                 PortraitPositionYOverride = 12f

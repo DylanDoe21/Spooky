@@ -14,14 +14,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.DamageType = DamageClass.Magic;
             Projectile.width = 52;
             Projectile.height = 58;
-            Projectile.timeLeft = 90;
             Projectile.hide = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.ownerHitCheck = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 5;
             Projectile.timeLeft = 90;
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
@@ -73,8 +69,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 if (Projectile.alpha > 0)
                 {
                     Projectile.alpha -= 127;
+                    
                     if (Projectile.alpha < 0)
+                    {
                         Projectile.alpha = 0;
+                    }
                 }
 
                 if (Projectile.localAI[0] > 0f)

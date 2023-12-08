@@ -1,7 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
@@ -28,6 +31,20 @@ namespace Spooky.Content.Tiles.SpookyBiome
             DustType = ModContent.DustType<SpookyGrassDust>();
             MineResist = 0.7f;
 		}
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            if (Main.tile[i - 1, j].TileType == ModContent.TileType<SpookyGrassGreen>() || Main.tile[i + 1, j].TileType == ModContent.TileType<SpookyGrassGreen>() ||
+            Main.tile[i, j - 1].TileType == ModContent.TileType<SpookyGrassGreen>() || Main.tile[i, j + 1].TileType == ModContent.TileType<SpookyGrassGreen>())
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassBlend").Value;
+
+                Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+                spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+                new Rectangle(Main.tile[i, j].TileFrameX, Main.tile[i, j].TileFrameY, 16, 16), Lighting.GetColor(i, j));
+            }
+        }
 
         public override void RandomUpdate(int i, int j)
         {
@@ -68,10 +85,12 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 
                 if (Main.rand.Next(40) == 0)
                 {
-                    ushort[] Pumpkins = new ushort[] { (ushort)ModContent.TileType<SpookyPumpkin1>(), 
-                    (ushort)ModContent.TileType<SpookyPumpkin2>(), (ushort)ModContent.TileType<SpookyPumpkin3>() };
+                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(), 
+                    (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
+                    (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>(), 
+                    (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
 
-                    ushort newObject = Main.rand.Next(Pumpkins);
+                    ushort newObject = Main.rand.Next(Gourds);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
@@ -100,13 +119,13 @@ namespace Spooky.Content.Tiles.SpookyBiome
         {
             var tileList = new List<Point>();
 
-            for (int k = -1; k < 2; ++k)
+            for (int X = -1; X < 2; X++)
             {
-                for (int l = -1; l < 2; ++l)
+                for (int Y = -1; Y < 2; Y++)
                 {
-                    if (!(l == 0 && k == 0) && Framing.GetTileSafely(i + k, j + l).HasTile && Framing.GetTileSafely(i + k, j + l).TileType == type)
+                    if (!(X == 0 && Y == 0) && Framing.GetTileSafely(i + X, j + Y).HasTile && Framing.GetTileSafely(i + X, j + Y).TileType == type)
                     {
-                        tileList.Add(new Point(i + k, j + l));
+                        tileList.Add(new Point(i + X, j + Y));
                     }
                 }
             }

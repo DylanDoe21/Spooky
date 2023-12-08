@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/Boss/BigBone/BigBoneBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BigBoneBestiary",
                 Position = new Vector2(48f, -12f),
                 PortraitPositionXOverride = 12f,
                 PortraitPositionYOverride = -12f

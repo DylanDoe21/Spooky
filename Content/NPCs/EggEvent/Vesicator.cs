@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/EggEvent/VesicatorBestiary"
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/VesicatorBestiary"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 

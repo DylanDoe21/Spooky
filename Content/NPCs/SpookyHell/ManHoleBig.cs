@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/SpookyHell/ManHoleBigBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/ManHoleBigBestiary",
                 Position = new Vector2(0f, -15f)
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);

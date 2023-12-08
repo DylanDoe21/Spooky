@@ -90,7 +90,7 @@ namespace Spooky.Core
 			//Rot Gourd
 			var RotGourdPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/RotGourd/RotGourdBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/RotGourdBestiary").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -117,7 +117,7 @@ namespace Spooky.Core
 			//Spooky Spirit
 			var SpiritPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/SpookySpiritBestiary").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -144,7 +144,7 @@ namespace Spooky.Core
 			//Moco
 			var MocoPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/MocoBossChecklist").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -171,7 +171,7 @@ namespace Spooky.Core
 			//Daffodil
 			var DaffodilPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/DaffodilBestiary").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -206,14 +206,14 @@ namespace Spooky.Core
 
 			var PandoraBoxPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
 			{
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/PandoraBox/PandoraBoxBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/PandoraBoxBossChecklist").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
 
 			List<string> PandoraBoxIcon = new List<string>()
 			{
-				"Spooky/Content/NPCs/PandoraBox/PandoraBoxIcon"
+				"Spooky/Content/NPCs/NPCDisplayTextures/PandoraBoxIcon"
 			};
 
 			bossChecklistMod.Call(
@@ -247,7 +247,7 @@ namespace Spooky.Core
 
 			var EggEventPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
 			{
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/EggEventBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/EggEventBossChecklist").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -289,7 +289,7 @@ namespace Spooky.Core
 
 			var OrroboroPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/OrroboroBossChecklist").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};
@@ -317,7 +317,7 @@ namespace Spooky.Core
 			//Big Bone
 			var BigBonePortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
             {
-				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneBC").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/BigBoneBossChecklist").Value;
 				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
 				spriteBatch.Draw(texture, centered, color);
 			};

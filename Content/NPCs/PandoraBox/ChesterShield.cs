@@ -79,6 +79,14 @@ namespace Spooky.Content.NPCs.PandoraBox
             }
         }
 
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (projectile.penetrate != -1)
+            {
+                projectile.penetrate = 0;
+            }
+        }
+
         public override void AI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[1]];

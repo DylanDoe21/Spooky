@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/SpookyHell/ValleyEelBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/ValleyEelBestiary",
                 Position = new Vector2(70f, 0f),
                 PortraitPositionXOverride = 55f,
                 PortraitPositionYOverride = -3f
