@@ -64,6 +64,7 @@ namespace Spooky.Core
 
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
+			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CemeteryKeyCondition(), ModContent.ItemType<CemeteryKey>(), 2500));
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyHellKeyCondition(), ModContent.ItemType<SpookyHellKey>(), 2500));
 
             //make certain bosses drop the catacomb barrier keys

@@ -608,6 +608,15 @@ Creepypasta: {
 	Tooltip: Grants the effects of every creepypasta accessory
 }
 
+CemeteryKey: {
+	DisplayName: Cemetery Key
+	Tooltip:
+		'''
+		Unlocks a cemetery chest in the dungeon
+		Cannot be used until plantera has been defeated
+		'''
+}
+
 CemeterySolution: {
 	DisplayName: Dark Green Solution
 	Tooltip:
@@ -2503,9 +2512,4 @@ RootHead: {
 RootLegs: {
 	DisplayName: Root Garments
 	Tooltip: ""
-}
-
-CemeteryKey: {
-	Tooltip: ""
-	DisplayName: Cemetery Key
 }

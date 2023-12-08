@@ -214,6 +214,35 @@ namespace Spooky.Core
             }
         }
 
+        //swampy cemetery chest key condition
+        public class CemeteryKeyCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (Main.hardMode && npc.value > 0 && info.player.InModBiome<CemeteryBiome>())
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         //valley of eyes chest key condition
         public class SpookyHellKeyCondition : IItemDropRuleCondition
         {
