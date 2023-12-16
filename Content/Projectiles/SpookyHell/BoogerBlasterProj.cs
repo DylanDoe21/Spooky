@@ -105,6 +105,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     if (Projectile.timeLeft >= 29)
                     {
+                        SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+
                         SaveDirection = Projectile.spriteDirection;
                         SaveRotation = Projectile.rotation;
 
@@ -119,12 +121,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
                             //shoot one small booger
                             case 0:
                             {
-                                SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
-
                                 ShootSpeed *= 12;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                                 break;
                             }
@@ -132,12 +134,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
                             //shoot spread of 3 small boogers
                             case 1:
                             {
-                                SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+                                ShootSpeed *= 16;
+
+                                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
                                 for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-                                    16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset,
+                                    ShootSpeed * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                     ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                                 }
 
@@ -147,12 +151,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
                             //shoot big booger that deals triple damage
                             case 2:
                             {
-                                SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
-
                                 ShootSpeed *= 22;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+                                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
 
                                 break;
                             }

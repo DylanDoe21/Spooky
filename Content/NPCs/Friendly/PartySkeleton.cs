@@ -30,6 +30,12 @@ namespace Spooky.Content.NPCs.Friendly
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            {
+				Velocity = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -175,9 +181,8 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void FindFrame(int frameHeight)
         {   
-            NPC.frameCounter += 1;
-
-            //walking  animation
+            //walking animation
+            NPC.frameCounter++;
             if (NPC.frameCounter > 6)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;

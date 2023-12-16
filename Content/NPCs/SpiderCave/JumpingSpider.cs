@@ -5,6 +5,8 @@ using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
 	public class JumpingSpider1 : ModNPC
@@ -12,6 +14,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 8;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            {
+				Velocity = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
 		}
 
 		public override void SetDefaults()
@@ -98,7 +106,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 66;
 			    AIType = NPCID.Worm;
 
-                if (NPC.Distance(player.Center) <= 200f)
+                if (NPC.Distance(player.Center) <= 200f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
                 {
                     //set ai to 75 so it jumps immediately
                     NPC.ai[0] = 75;

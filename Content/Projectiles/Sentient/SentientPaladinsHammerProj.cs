@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
@@ -63,6 +64,20 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             SpookyPlayer.ScreenShakeAmount = 4;
             SoundEngine.PlaySound(HitSound, target.Center);
+
+            for (int numDusts = 0; numDusts < 10; numDusts++)
+			{                                                                                  
+				int newDust = Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<SentientPaladinsHammerStar>(), 0f, -2f, 0, default, 1f);
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
+                
+				if (Main.dust[newDust].position != target.Center)
+				{
+					Main.dust[newDust].velocity = target.DirectionTo(Main.dust[newDust].position) * 1.2f;
+				}
+			}
+
             hasHitEnemy = true;
         }
 

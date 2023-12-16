@@ -54,7 +54,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
 			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.Next(8) == 0) 
+                if (WorldGen.genRand.NextBool(8))
                 {
                     Below.TileType = (ushort)ModContent.TileType<SpookyVines>();
                     Below.HasTile = true;
@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
-                if (Main.rand.Next(15) == 0)
+                if (WorldGen.genRand.NextBool(15))
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyWeedsOrange>();
                     Above.HasTile = true;
@@ -83,7 +83,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     }
                 }
                 
-                if (Main.rand.Next(40) == 0)
+                if (WorldGen.genRand.NextBool(40))
                 {
                     ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(), 
                     (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),

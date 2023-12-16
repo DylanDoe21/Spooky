@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Projectiles.Sentient
 {
     public class ToxicBubbleBlue : ModProjectile
@@ -28,14 +30,14 @@ namespace Spooky.Content.Projectiles.Sentient
             if (foundTarget != -1)
             {
                 NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 15;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 22;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
         }
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 200;
+            const float homingMaximumRangeInPixels = 300;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -74,13 +76,19 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 
-            for (int numDusts = 0; numDusts < 35; numDusts++)
+            for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-                Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-                Main.dust[dust].noGravity = true;
-            }
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
+				Main.dust[newDust].color = Color.Blue;
+                Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 1.2f;
+				}
+			}
 		}
     }
 }

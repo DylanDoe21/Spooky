@@ -22,5 +22,17 @@ namespace Spooky.Content.Items.SpiderCave.Armor
             player.GetModPlayer<SpookyPlayer>().NightCrawlerSpeed = true;
             player.GetCritChance(DamageClass.Generic) += 10;
         }
+
+		/*
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ModContent.ItemType<CreepyCrawlerBody>())
+			.AddIngredient(ItemID.SoulofNight, 12)
+			.AddIngredient(ItemID.HallowedBar, 10)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
+		*/
     }
 }

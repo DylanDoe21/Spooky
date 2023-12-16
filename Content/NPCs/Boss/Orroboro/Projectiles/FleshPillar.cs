@@ -40,11 +40,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 		{
 			lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+			Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/FleshPillarGlow").Value;
 
 			if (Projectile.ai[1] > 0)
             {
 		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
                 new Rectangle(750 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 36), lightColor, 
+                Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
+
+				Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition, 
+                new Rectangle(750 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 36), Color.White, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }
 

@@ -66,10 +66,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (projectile.penetrate != -1)
-            {
-                projectile.penetrate = 0;
-            }
+            projectile.damage /= 2;
         }
 
         public override void AI()

@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 250;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 22;

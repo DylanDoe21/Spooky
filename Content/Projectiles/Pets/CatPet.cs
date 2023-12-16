@@ -16,23 +16,16 @@ namespace Spooky.Content.Projectiles.Pets
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 9;
+            Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 
-            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 7)
-            .WithOffset(-15f, 0f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
+            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 4)
+            .WithOffset(-15f, 0f).WithSpriteDirection(-1).WhenNotSelected(0, 0);
         }
-
-        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
-		{
-			DelegateMethods.CharacterPreview.Float(proj, walking);
-		}
 
         public override void SetDefaults()
         {
-            Projectile.width = 42;
+            Projectile.width = 34;
             Projectile.height = 24;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -153,7 +146,7 @@ namespace Spooky.Content.Projectiles.Pets
                 //falling frame
                 else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
                 {
-                    Projectile.frame = 8;
+                    Projectile.frame = 6;
                     Projectile.frameCounter = 0;
                 }
                 //moving animation
@@ -166,9 +159,9 @@ namespace Spooky.Content.Projectiles.Pets
                         Projectile.frameCounter = 0;
                     }
                 
-                    if (Projectile.frame >= 9)
+                    if (Projectile.frame >= 8)
                     {
-                        Projectile.frame = 5;
+                        Projectile.frame = 4;
                     }
 
                     if (Projectile.frame <= 4)

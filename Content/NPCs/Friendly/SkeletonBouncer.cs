@@ -31,15 +31,37 @@ namespace Spooky.Content.NPCs.Friendly
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            {
+				Velocity = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(NumAmmo);
+            writer.Write(AmmoRegenTimer);
+
+            //bools
+            writer.Write(IsShooting);
+
+            //floats
             writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            NumAmmo = reader.ReadInt32();
+            AmmoRegenTimer = reader.ReadInt32();
+
+            //bools
+            IsShooting = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
         }
         
@@ -75,13 +97,12 @@ namespace Spooky.Content.NPCs.Friendly
         {
             if (!IsShooting)
             {
-                NPC.frameCounter += 1;
-
-                //walking  animation
+                //walking animation
+                NPC.frameCounter++;
                 if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 9)
                 {

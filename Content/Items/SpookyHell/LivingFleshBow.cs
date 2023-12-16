@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
@@ -30,7 +29,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item17;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<FleshBowChunk1>();
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shootSpeed = 15f;
 		}

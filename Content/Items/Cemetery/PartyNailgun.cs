@@ -8,7 +8,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Cemetery;
  
 namespace Spooky.Content.Items.Cemetery
@@ -37,7 +36,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = ShootSound;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<PartyNailBolt>();
 			Item.shootSpeed = 12f;
 		}
 

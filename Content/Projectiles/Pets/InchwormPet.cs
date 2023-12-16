@@ -19,13 +19,8 @@ namespace Spooky.Content.Projectiles.Pets
             Main.projPet[Projectile.type] = true;
 
             ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, 4, 4)
-            .WithOffset(-5f, 0f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
+            .WithOffset(-10f, 0f).WithSpriteDirection(-1).WhenNotSelected(0, 0);
         }
-
-        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
-		{
-			DelegateMethods.CharacterPreview.Float(proj, walking);
-		}
 
         public override void SetDefaults()
         {

@@ -63,6 +63,7 @@ namespace Spooky.Content.Items.SpookyBiome
             float ai4 = Main.rand.NextFloat() * Item.shootSpeed * 0.75f * (float)player.direction;
             velocity = new Vector2(num82, num83);
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai4, 0.0f);
+            
             return false;
         }
 

@@ -24,13 +24,13 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.noMelee = true;
 			Item.width = 56;      
 			Item.height = 46;
-            Item.useTime = 15;
-			Item.useAnimation = 15;
+            Item.useTime = 12;
+			Item.useAnimation = 12;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 25);
-            Item.UseSound = SoundID.Item95;
+            Item.UseSound = SoundID.Item111;
             Item.shoot = ModContent.ProjectileType<ToxicBubble>();
             Item.shootSpeed = 12f;
         }

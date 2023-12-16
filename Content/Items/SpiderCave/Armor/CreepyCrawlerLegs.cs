@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.SpiderCave;
+
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
@@ -20,6 +22,23 @@ namespace Spooky.Content.Items.SpiderCave.Armor
             player.moveSpeed += 0.15f;
             player.runAcceleration += 0.05f;
             player.jumpBoost = true;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ItemID.Silk, 25)
+			.AddIngredient(ItemID.SilverBar, 16)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 70)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+			CreateRecipe()
+			.AddIngredient(ItemID.Silk, 25)
+			.AddIngredient(ItemID.TungstenBar, 16)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 70)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

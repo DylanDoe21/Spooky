@@ -244,6 +244,10 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<ValleySquid>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

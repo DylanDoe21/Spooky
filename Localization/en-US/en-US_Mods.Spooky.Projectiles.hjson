@@ -47,7 +47,6 @@ SalivaBall.DisplayName: Toxic Spit
 TumorOrb1.DisplayName: Flesh Orb
 TumorOrb2.DisplayName: Flesh Orb
 TumorOrb3.DisplayName: Flesh Orb
-Blank.DisplayName: Blank
 BigBoneHammerProj.DisplayName: Skull Smasher
 BigBoneHammerProj2.DisplayName: Skull Smasher
 BoneMaskWisp.DisplayName: Skull Wisp
@@ -275,5 +274,13 @@ SlendermanTentacle.DisplayName: Shadow Tentacle
 HerobrineLightning.DisplayName: Lightning
 DaffodilRodProj.DisplayName: Sunflower Rod
 SentientPaladinsHammerProj.DisplayName: Dave & Mike
-SentientKeybrandProj.DisplayName: Sentient Keybrand Proj
-SentientKeybrandSlash.DisplayName: Sentient Keybrand Slash
+ZomboidRootThorn.DisplayName: Root Spike
+ZomboidRootThornTelegraph.DisplayName: Thorn Telegraph
+ZomboidRootThornFire.DisplayName: Flaming Root Spike
+ZomboidRootThornTelegraphFire.DisplayName: Thorn Telegraph
+TelegraphRedLeft.DisplayName: Telegraph Red Left
+TelegraphRedDown.DisplayName: Telegraph Red Down
+TelegraphRedRight.DisplayName: Telegraph Red Right
+TelegraphRedUp.DisplayName: Telegraph Red Up
+GraveDiggerShovelProj.DisplayName: Grave Digger Shovel Proj
+WhipSpiderProj.DisplayName: Whip Spider Proj

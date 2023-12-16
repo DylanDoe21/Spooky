@@ -46,6 +46,7 @@ namespace Spooky.Core
         public int GizaGlassHits = 0;
         public int SlendermanPageDelay = 0;
         public bool RaveyardGuardsHostile;
+        public bool WhipSpiderAggression = false;
 
         //armors
         public bool GourdSet = false;
@@ -145,6 +146,9 @@ namespace Spooky.Core
 
         public override void ResetEffects()
         {
+            //misc 
+            WhipSpiderAggression = false;
+
             //armors
             GourdSet = false;
             CreepyCrawlerSet = false;

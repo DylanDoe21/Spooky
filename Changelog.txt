@@ -14,9 +14,9 @@ Raveyard Overhaul:
 New Biome, The Spider Grotto:
 
 -An underground mini-biome that has been taken over by weird spider-like creatures and bugs
--This biome also has its own completely unique background (the background will not show up if you have the terraria background config turned off)
--Like other biomes in the mod, this new biome has a bunch of new content, such as weapons, accessories, armors, and a bunch of new enemies and critters
--Also has more new content after you have defeated one mechanical boss
+-This biome has its own completely unique background (the background will not show up if you have the terraria background config turned off)
+-Like other biomes in the mod, this new biome has a bunch of new content such as weapons, accessories, armors, and a bunch of new enemies and critters
+-Also has more new enemies and content after you have defeated one mechanical boss
 -No new boss this time though :(
 
 
@@ -26,6 +26,7 @@ New Menu Overhaul:
 -This new menu not only looks awesome, but has a few funny little features to go along with it
 -On the menu, you may notice blackened versions of each spooky mod boss. When you defeat each spooky mod boss in game, that respective will become permanently un-blackened on the menu
 -Clicking the menu logo also plays a funny sound, makes the logo squish, and makes the boss outlines flash
+-Completing the menu will give you a little reward on any new worlds you create
 
 
 New Music:
@@ -40,7 +41,7 @@ Other New Additions:
 
 -Added craftable "safe" versions of the catacomb bricks and walls you can build with, they can be shimmered into their unsafe variants after big bone is defeated
 -Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
--Added monster eyes, a new enemy in the spooky forest at night. They are the spooky forest version of demon eyes, they will attack by jumping at you. They can sometimes drop lenses
+-Added multiple new spooky forest enemies to both prehardmode and hardmode
 -Added new colorful gourd tiles to the spooky forest
 
 
@@ -52,7 +53,7 @@ Other New Additions:
 -The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
 -Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 -Buffed most of the weapons/acessories you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
--Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
+//THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you while the orange ones in phase 2 are now flung around randomly
 -Added new custom sounds for spooky spirit's charging and death, made by Rockwizard5
 -Spooky spirit now correctly displays that it is nighttime only in it's bestiary entry
@@ -69,16 +70,22 @@ Other New Additions:
 -Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage like vanilla ones do
 -Changed the spooky mod melee visual weapons to look smoother when swinging
 -Buffed the spooky buster's knockback
--Sunflower rod now has a special new use animation, and buffed its use speed
--Sunflower rod projectiles now have a different after image effect as its previous one didnt look fitting
+-Sunflower rod now has a special new use animation, buffed its use speed, and its projectiles now have a different after image effect as its previous one didnt look fitting
 -Skull smasher and femur fracturer thrown projectiles now have after images along with their existing trail effect
--Giant fuzz bats can now inflict feral bite in expert mode and higher difficulties
+-Giant fuzz bats can now sometimes inflict feral bite in expert mode and higher difficulties
 -Necromancy for dummies projectiles now bounce very quickly and make a less annoying sound when they bounce off of surfaces and die
--Creepy candle now gives a flat increase of 10 magic damage instead of 7%
--Spore smacker mushroom spores now deal damage less rapidly
--Zomboid warlock's skull minions now deal damage less rapidly
+-Creepy candle now gives a flat increase of 10 magic damage instead of 7% increased magic damage
+-Spore smacker mushroom spores now deal damage less rapidly and use separate i-frames
+-Zomboid warlock's skull minions now deal damage less rapidly and use separate i-frames
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Nerfed old wood greatsword's base damage to 18
+-Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
+-Bubble belcher projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
+-Changed bubble belcher's use sound to be the same as the toxikarp's use sound
+-Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one
+-Orro & boro no longer draw behind tiles so you can see them coming a bit earlier
+-Resprited a bunch of grass blocks in each spooky mod biome
+-Fixed multiple npcs not being animated in the bestiary
 
 
 
@@ -100,6 +107,7 @@ Fixed all of the following bugs and issues:
 -Catacombs second layer sometimes generating with no vertical pathways
 -Daffodil's arena generating with layer 2 grass walls in it, which would cause daffodil to despawn during the fight
 -Daffodil, pandora's box, and big bone's flower pot spawning in subworlds
+-Pets on the character display screen being animated if you weren't hovering over that character, and bobbing up and down for some reason
 
 
 

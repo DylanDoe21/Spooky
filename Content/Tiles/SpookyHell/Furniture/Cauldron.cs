@@ -339,7 +339,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				{
 					Vector2 vel = Main.rand.NextVector2Circular(2, 4);
 					vel.Y = MathF.Abs(vel.Y) * -1;
-					Dust.NewDustPerfect(Projectile.Top + new Vector2(Main.rand.Next(-24, 24), 0), ModContent.DustType<CauldronBubble>(), vel, 0, Color.White, Main.rand.NextFloat(0.75f, 1.1f));
+					Dust NewDust = Dust.NewDustPerfect(Projectile.Top + new Vector2(Main.rand.Next(-24, 24), 0), ModContent.DustType<CauldronBubble>(), vel, 0, Color.White, Main.rand.NextFloat(0.75f, 1.1f));
+					NewDust.color = new Color(33, 220, 48);
+					NewDust.noGravity = false;
 				}
 			}
         }

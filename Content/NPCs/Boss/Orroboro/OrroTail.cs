@@ -38,7 +38,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.height = 55;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
-            NPC.behindTiles = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
             NPC.noGravity = true;

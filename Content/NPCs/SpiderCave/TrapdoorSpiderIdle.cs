@@ -5,6 +5,8 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
 	public class TrapdoorSpiderIdle1 : ModNPC
@@ -38,7 +40,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax)
+			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
             {
 				SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 
@@ -91,7 +93,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax)
+			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
             {
 				SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 

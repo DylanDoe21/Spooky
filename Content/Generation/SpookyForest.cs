@@ -433,6 +433,25 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
                         }
+
+                        /*
+                        //place weeds
+                        if (WorldGen.genRand.NextBool(15))
+                        {
+                            Tile Above = Framing.GetTileSafely(X, Y - 1);
+
+                            Above.TileType = (ushort)ModContent.TileType<SpookyWeedsOrange>();
+                            Above.HasTile = true;
+                            Above.TileFrameY = 0;
+                            Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
+                            WorldGen.SquareTileFrame(X, Y + 1, true);
+
+                            if (Main.netMode == NetmodeID.Server) 
+                            {
+                                NetMessage.SendTileSquare(-1, X, Y - 1, 3, TileChangeType.None);
+                            }
+                        }
+                        */
                     }
                 }
             }

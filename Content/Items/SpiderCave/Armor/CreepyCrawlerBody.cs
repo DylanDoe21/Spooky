@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
@@ -21,6 +22,23 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		{
             player.GetModPlayer<SpookyPlayer>().CreepyCrawlerSpeed = true;
             player.GetCritChance(DamageClass.Generic) += 3;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ItemID.Silk, 30)
+			.AddIngredient(ItemID.SilverBar, 22)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 80)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+			CreateRecipe()
+			.AddIngredient(ItemID.Silk, 30)
+			.AddIngredient(ItemID.TungstenBar, 22)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 80)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

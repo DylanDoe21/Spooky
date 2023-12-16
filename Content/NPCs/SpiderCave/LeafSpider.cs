@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = "Spooky/Content/NPCs/SpiderCave/LeafSpiderBestiary",
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/LeafSpiderBestiary",
                 Position = new Vector2(0f, -25f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -20f

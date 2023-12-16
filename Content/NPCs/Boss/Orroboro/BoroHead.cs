@@ -105,7 +105,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.behindTiles = true;
             NPC.netAlways = true;
             NPC.HitSound = HitSound;
             NPC.DeathSound = SoundID.Zombie38;
@@ -273,8 +272,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1200 : player.Center.X + 1200;
                             NPC.position.Y = player.Center.Y;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), (NPC.Center.X < player.Center.X) ? player.Center.X - 400 : player.Center.X + 400, 
-                            player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
+                            if (NPC.Center.X < player.Center.X)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 300, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 400, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 500, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 300, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 400, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 500, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                            }
                         }
 
                         int chargeTime = Enraged ? 65 : 75;
@@ -285,7 +294,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= Enraged ? 48 : 40;
+                            ChargeDirection.X *= Enraged ? 38 : 40;
                             ChargeDirection.Y *= 0;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
@@ -396,8 +405,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.position.X = player.Center.X + 1200;
                         NPC.position.Y = player.Center.Y + 0;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 550, player.Center.Y, 0, 0,
-                        ModContent.ProjectileType<TelegraphRed>(), 0, 0f, 0);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 450, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 550, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 650, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] == 90)

@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
     public class BallSpiderWeb : ModNPC
@@ -62,7 +64,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                         NPC.active = false;
                     }
 
-                    if (NPC.Distance(player.Center) <= 300f)
+                    if (NPC.Distance(player.Center) <= 300f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
                     {
                         SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 
@@ -81,11 +83,6 @@ namespace Spooky.Content.NPCs.SpiderCave
                     break;
                 }
             }
-        }
-
-        public override bool CheckActive()
-        {
-            return NPC.ai[0] >= 2;
         }
     }
 }

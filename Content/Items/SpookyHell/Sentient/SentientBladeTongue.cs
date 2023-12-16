@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
@@ -29,7 +28,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<Blank>();
+            Item.shoot = ModContent.ProjectileType<TonguebladeSlash>();
 			Item.shootSpeed = 0f;
         }
 
@@ -53,13 +52,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			if (player.altFunctionUse == 2)
 			{
                 Item.noUseGraphic = true;
-                Item.shoot = ModContent.ProjectileType<SentientBladeTongueProj>();
                 Item.shootSpeed = 0f;
             }
 			else
 			{
                 Item.noUseGraphic = false;
-                Item.shoot = ModContent.ProjectileType<Blank>();
 				Item.shootSpeed = 0f;
 			}
 		}
@@ -70,11 +67,13 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			{
 			    int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TonguebladeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
                 Main.projectile[Slash].scale *= Item.scale;
-
-                return false;
+            }
+            else
+            {
+                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SentientBladeTongueProj>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
             }
 
-            return true;
+            return false;
 		}
     }
 }

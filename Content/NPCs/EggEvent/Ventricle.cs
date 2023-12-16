@@ -12,7 +12,6 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -232,7 +231,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 300));
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
         }
 

@@ -10,14 +10,17 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
+using StructureHelper;
+
 namespace Spooky.Content.Generation
 {
-    public class SpookyDungeonChests : ModSystem
+    public class MiscGeneration : ModSystem
     {
         private void PlaceSpookyChest(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -119,6 +122,12 @@ namespace Spooky.Content.Generation
             }
         }
 
+        private void PlaceSecretPetShrine(GenerationProgress progress, GameConfiguration configuration)
+        {
+            Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2, Main.maxTilesY / 2 + 100);
+            Generator.GenerateStructure("Content/Structures/SecretPetShrine", structureOrigin.ToPoint16(), Mod);
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
@@ -129,6 +138,12 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Dungeon Chest", PlaceSpookyChest));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Dungeon Chest", PlaceEyeChest));
+
+            if (MenuSaveSystem.hasDefeatedRotGourd && MenuSaveSystem.hasDefeatedSpookySpirit && MenuSaveSystem.hasDefeatedMoco &&
+            MenuSaveSystem.hasDefeatedDaffodil && MenuSaveSystem.hasDefeatedOrroboro && MenuSaveSystem.hasDefeatedBigBone)
+            {
+                tasks.Insert(GenIndex1 + 3, new PassLegacy("Secret Pet Shrine", PlaceSecretPetShrine));
+            }
         }
 
         //place items in chests

@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Pets;
+
 namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class MonsterEye1 : ModNPC
@@ -106,7 +108,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, Main.rand.Next(18, 26), 75, 0);
+            JumpTo(player, 250, Main.rand.Next(15, 21), 75, 0);
         }
 
         public void JumpTo(Player target, int JumpHeight, int JumpSpeed, int TimeBeforeNextJump, int DelayBeforeNextJump)
@@ -162,6 +164,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Lens, 3, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 300));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -208,7 +211,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 450, Main.rand.Next(18, 23), 60, Main.rand.Next(30, 60));
+            JumpTo(player, 450, Main.rand.Next(15, 21), 60, Main.rand.Next(30, 60));
         }
     }
 
@@ -247,7 +250,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, Main.rand.Next(15, 20), 0, 0);
+            JumpTo(player, 250, Main.rand.Next(15, 21), 10, 10);
         }
     }
 
@@ -286,7 +289,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 900, Main.rand.Next(25, 30), 60, Main.rand.Next(0, 60));
+            JumpTo(player, 820, Main.rand.Next(15, 21), 60, Main.rand.Next(0, 60));
         }
     }
 }

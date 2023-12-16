@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.BossSummon
 		
         public override void SetDefaults()
         {
-            Item.width = 34;
+            Item.width = 36;
             Item.height = 34;
             Item.rare = ItemRarityID.White;
             Item.maxStack = 1;

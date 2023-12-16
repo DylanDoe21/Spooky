@@ -609,7 +609,7 @@ Creepypasta: {
 }
 
 CemeteryKey: {
-	DisplayName: Cemetery Key
+	DisplayName: Swampy Cemetery Key
 	Tooltip:
 		'''
 		Unlocks a cemetery chest in the dungeon
@@ -624,6 +624,11 @@ CemeterySolution: {
 		Used by the Clentaminator
 		Spreads the Swampy Cemetery
 		'''
+}
+
+GraveDiggerShovel: {
+	DisplayName: Cemetery Digger's Shovel
+	Tooltip: Throw a returning shovel to bash enemies with
 }
 
 PartyNailgun: {
@@ -1082,6 +1087,30 @@ NightCrawlerLegs: {
 		'''
 }
 
+RootBody: {
+	DisplayName: Root Body Plate
+	Tooltip: Increases your ranged damage by 5
+}
+
+RootHead: {
+	DisplayName: Root Mask
+	Tooltip: 5% increased ranged critical strike chance
+}
+
+RootLegs: {
+	DisplayName: Root Garments
+	Tooltip: ""
+}
+
+SpiderKey: {
+	DisplayName: Spider Grotto Key
+	Tooltip:
+		'''
+		Unlocks a spider chest in the dungeon
+		Cannot be used until plantera has been defeated
+		'''
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 5% increased melee damage
@@ -1132,11 +1161,6 @@ WizardGangsterLegs: {
 	Tooltip: Increases maximum mana by 20
 }
 
-BustlingGlowshroom: {
-	DisplayName: Bustling Glowshroom
-	Tooltip: Greatly increases life regeneration while standing still
-}
-
 Candy1: {
 	DisplayName: Candy
 	Tooltip: ""
@@ -1150,6 +1174,69 @@ Candy2: {
 Candy3: {
 	DisplayName: Candy
 	Tooltip: ""
+}
+
+FlyBigItem: {
+	DisplayName: Giant Fly
+	Tooltip: ""
+}
+
+FlySmallItem: {
+	DisplayName: Fly
+	Tooltip: ""
+}
+
+LittleSpiderItem: {
+	DisplayName: Little Spider
+	Tooltip: ""
+}
+
+RottenChunk: {
+	DisplayName: Moldy Chunk
+	Tooltip: "'It smells foul'"
+}
+
+ShroomHopperItem: {
+	DisplayName: Shroom Hopper
+	Tooltip: ""
+}
+
+SpookyBiomeKey: {
+	DisplayName: Spooky Forest Key
+	Tooltip:
+		'''
+		Unlocks a spooky chest in the dungeon
+		Cannot be used until plantera has been defeated
+		'''
+}
+
+SpookyGlowshroom: {
+	DisplayName: Spooky Glowshroom
+	Tooltip: "'Filled with arcane energies'"
+}
+
+SpookySolution: {
+	DisplayName: Orange Solution
+	Tooltip:
+		'''
+		Used by the Clentaminator
+		Spreads the Spooky Forest
+		'''
+}
+
+TinyGhostItem: {
+	DisplayName: Tiny Ghost
+	Tooltip: ""
+}
+
+TinyMushroomItem: {
+	DisplayName: Tiny Mushroom
+	Tooltip: ""
+}
+
+BustlingGlowshroom: {
+	DisplayName: Bustling Glowshroom
+	Tooltip: Greatly increases life regeneration while standing still
 }
 
 CandyBag: {
@@ -1179,16 +1266,6 @@ ElGourdo: {
 		After a few seconds, the bomb will explode, unleashing lingering greek fire
 		The bomb will automatically detonate when it hits an enemy
 		'''
-}
-
-FlyBigItem: {
-	DisplayName: Giant Fly
-	Tooltip: ""
-}
-
-FlySmallItem: {
-	DisplayName: Fly
-	Tooltip: ""
 }
 
 GourdBook: {
@@ -1226,16 +1303,6 @@ LeafBlower: {
 		Rapidly fires different colored autumn leaves
 		'It's like a leaf blower, but it creates more leaves!'
 		'''
-}
-
-LittleSpiderItem: {
-	DisplayName: Little Spider
-	Tooltip: ""
-}
-
-ShroomHopperItem: {
-	DisplayName: Shroom Hopper
-	Tooltip: ""
 }
 
 MossyPebble: {
@@ -1296,11 +1363,6 @@ OldWoodSword: {
 	Tooltip: ""
 }
 
-RottenChunk: {
-	DisplayName: Moldy Chunk
-	Tooltip: "'It smells foul'"
-}
-
 ShroomFlail: {
 	DisplayName: Fungal Flail
 	Tooltip: ""
@@ -1322,39 +1384,6 @@ SkullWispStaff: {
 		Summons skull wisps to fight with you
 		'Did you really need to take its arm off too?'
 		'''
-}
-
-SpookyBiomeKey: {
-	DisplayName: Spooky Forest Key
-	Tooltip:
-		'''
-		Unlocks a spooky chest in the dungeon
-		Cannot be used until plantera has been defeated
-		'''
-}
-
-SpookyGlowshroom: {
-	DisplayName: Spooky Glowshroom
-	Tooltip: "'Filled with arcane energies'"
-}
-
-SpookySolution: {
-	DisplayName: Orange Solution
-	Tooltip:
-		'''
-		Used by the Clentaminator
-		Spreads the Spooky Forest
-		'''
-}
-
-TinyGhostItem: {
-	DisplayName: Tiny Ghost
-	Tooltip: ""
-}
-
-TinyMushroomItem: {
-	DisplayName: Tiny Mushroom
-	Tooltip: ""
 }
 
 ToiletPaper: {
@@ -1434,101 +1463,6 @@ GoreLegs: {
 		5% increased critical strike chance
 		Enemies are more likely to target you
 		'''
-}
-
-ArteryPiece: {
-	DisplayName: Living Artery
-	Tooltip: Filled with strange blood
-}
-
-BoogerBlaster: {
-	DisplayName: Booger Blaster
-	Tooltip:
-		'''
-		Charge up to shoot nasty boogers that slow enemies on hit
-		The longer you charge it, the stronger and faster the boogers will become
-		Can be charged up to 3 times total
-		'''
-}
-
-BoogerBook: {
-	DisplayName: Snot-Nosed Tome
-	Tooltip: Casts a controllable nose that constantly sneezes boogers below it
-}
-
-BoogerFlail: {
-	DisplayName: Snot Ball
-	Tooltip: When launched, the booger will detach from the chain and bounce around
-}
-
-BoogerStaff: {
-	DisplayName: Sneeze Scepter
-	Tooltip: Summons fast flying noses that sneeze on enemies
-}
-
-EyeFlail: {
-	DisplayName: Chained Eyes
-	Tooltip: Weild two long range eye flails
-}
-
-EyeRocketLauncher: {
-	DisplayName: I.C.U
-	Tooltip: Hold down to shoot explosive eye missles that home on enemies
-}
-
-LeechStaff: {
-	DisplayName: Swarm Scepter
-	Tooltip:
-		'''
-		Casts leeches that will swarm nearby enemies at the cost of 10 life
-		Leeches cannot be summoned when below half health, and they do not take up minion slots
-		If you are below half health, leeches will sometimes heal you on enemy hits
-		'''
-}
-
-LeechWhip: {
-	DisplayName: Leecher
-	Tooltip:
-		'''
-		Your summons will focus struck enemies
-		Hitting enemies will sometimes rip meat chunks off of them
-		Picking up these meat chunks will heal a small amount of your health
-		'''
-}
-
-MouthFlamethrower: {
-	DisplayName: Venom Gasser
-	Tooltip: Spews out a stream of venomous gas breath
-}
-
-Scycler: {
-	DisplayName: Scycler
-	Tooltip: Throws discs that follow your cursor before returning to you
-}
-
-BrainJar: {
-	DisplayName: Brainy in a Jar
-	Tooltip:
-		'''
-		Summons brainy the brain to hover around you
-		Every minute, he will convulsate, causing all of your existing minions to explode
-		Each explosions damage will scale further based on each individual minion's damage
-		Brainy does not take up any minion slots
-		'''
-}
-
-ChestFood: {
-	DisplayName: Chest Monster Food
-	Tooltip:
-		'''
-		Opens one monster chest in the eye valley
-		'A chest monster's favorite delicacy'
-		'''
-}
-
-CreepyChunk: {
-	DisplayName: Monster Meat
-	Tooltip: "'Looks almost edible!'"
 }
 
 Flask1: {
@@ -1612,93 +1546,40 @@ FlaskMisc5: {
 		'''
 }
 
-FleshAxe: {
-	DisplayName: Flesh Mincer
-	Tooltip: Deals more damage to enemies at low health
+ArteryPiece: {
+	DisplayName: Living Artery
+	Tooltip: Filled with strange blood
 }
 
-FleshBow: {
-	DisplayName: Seer
+ChestFood: {
+	DisplayName: Chest Monster Food
 	Tooltip:
 		'''
-		Converts arrows into clots of blood
-		Every 10th shot will fire out a homing eye
-		'''
-}
-
-FleshStaff: {
-	DisplayName: Retina Staff
-	Tooltip:
-		'''
-		Casts eyes that follow your cursor while holding left click
-		Release left click to fling the eyes, dealing double their original damage
-		Only up to 5 eyes can be active at once
+		Opens one monster chest in the eye valley
+		'A chest monster's favorite delicacy'
 		'''
 }
 
-FleshWhip: {
-	DisplayName: Eye Lasher
+CreepyChunk: {
+	DisplayName: Monster Meat
+	Tooltip: "'Looks almost edible!'"
+}
+
+SpookyHellKey: {
+	DisplayName: Eye Valley Key
 	Tooltip:
 		'''
-		Your summons will focus struck enemies
-		Hitting enemies may lower their defense for a short time
+		Unlocks an eye chest in the dungeon
+		Cannot be used until plantera has been defeated
 		'''
 }
 
-LivingFleshAxe: {
-	DisplayName: Living Flesh Mincer
+SpookyHellSolution: {
+	DisplayName: Red & Purple Solution
 	Tooltip:
 		'''
-		Deals far more damage to enemies below half health
-		Striking enemies will fling a bunch of eyes upward
-		'''
-}
-
-LivingFleshBow: {
-	DisplayName: Living Seer
-	Tooltip:
-		'''
-		Converts arrows into clots of blood
-		Every 20th shot will fire multiple homing eyes
-		'''
-}
-
-LivingFleshStaff: {
-	DisplayName: Living Retina Staff
-	Tooltip:
-		'''
-		Summon eyes that follow your cursor while holding down left click
-		Release left click to fling the eyes, dealing double their original damage
-		Releasing left click with maximum eyes active will explode them, dealing massive damage
-		Only up to 8 eyes can be active at once
-		'''
-}
-
-LivingFleshWhip: {
-	DisplayName: Living Eye Lasher
-	Tooltip:
-		'''
-		Your summons will focus struck enemies
-		Quickly lashes out two different flesh whips with varying range
-		Hitting enemies may halve their defense for a short time
-		'''
-}
-
-MonsterBloodVial: {
-	DisplayName: Monster Blood
-	Tooltip:
-		'''
-		Massively increases life regeneration while not moving
-		While moving, you gain 5% increased critical strike chance
-		'''
-}
-
-NerveWhip: {
-	DisplayName: Exposed Nerve
-	Tooltip:
-		'''
-		Your summons will focus struck enemies
-		Deals more damage the more enemies it hits, caps after 5 enemies are hit
+		Used by the Clentaminator
+		Spreads the Eye Valley onto underworld blocks
 		'''
 }
 
@@ -1866,27 +1747,175 @@ SentientHeart: {
 		'''
 }
 
-SpookyHellKey: {
-	DisplayName: Eye Valley Key
+BoogerBlaster: {
+	DisplayName: Booger Blaster
 	Tooltip:
 		'''
-		Unlocks an eye chest in the dungeon
-		Cannot be used until plantera has been defeated
+		Charge up to shoot nasty boogers that slow enemies on hit
+		The longer you charge it, the stronger and faster the boogers will become
+		Can be charged up to 3 times total
+		'''
+}
+
+BoogerBook: {
+	DisplayName: Snot-Nosed Tome
+	Tooltip: Casts a controllable nose that constantly sneezes boogers below it
+}
+
+BoogerFlail: {
+	DisplayName: Snot Ball
+	Tooltip: When launched, the booger will detach from the chain and bounce around
+}
+
+BoogerStaff: {
+	DisplayName: Sneeze Scepter
+	Tooltip: Summons fast flying noses that sneeze on enemies
+}
+
+EyeFlail: {
+	DisplayName: Chained Eyes
+	Tooltip: Weild two long range eye flails
+}
+
+EyeRocketLauncher: {
+	DisplayName: I.C.U
+	Tooltip: Hold down to shoot explosive eye missles that home on enemies
+}
+
+LeechStaff: {
+	DisplayName: Swarm Scepter
+	Tooltip:
+		'''
+		Casts leeches that will swarm nearby enemies at the cost of 10 life
+		Leeches cannot be summoned when below half health, and they do not take up minion slots
+		If you are below half health, leeches will sometimes heal you on enemy hits
+		'''
+}
+
+LeechWhip: {
+	DisplayName: Leecher
+	Tooltip:
+		'''
+		Your summons will focus struck enemies
+		Hitting enemies will sometimes rip meat chunks off of them
+		Picking up these meat chunks will heal a small amount of your health
+		'''
+}
+
+MouthFlamethrower: {
+	DisplayName: Venom Gasser
+	Tooltip: Spews out a stream of venomous gas breath
+}
+
+Scycler: {
+	DisplayName: Scycler
+	Tooltip: Throws discs that follow your cursor before returning to you
+}
+
+BrainJar: {
+	DisplayName: Brainy in a Jar
+	Tooltip:
+		'''
+		Summons brainy the brain to hover around you
+		Every minute, he will convulsate, causing all of your existing minions to explode
+		Each explosions damage will scale further based on each individual minion's damage
+		Brainy does not take up any minion slots
+		'''
+}
+
+FleshAxe: {
+	DisplayName: Flesh Mincer
+	Tooltip: Deals more damage to enemies at low health
+}
+
+FleshBow: {
+	DisplayName: Seer
+	Tooltip:
+		'''
+		Converts arrows into clots of blood
+		Every 10th shot will fire out a homing eye
+		'''
+}
+
+FleshStaff: {
+	DisplayName: Retina Staff
+	Tooltip:
+		'''
+		Casts eyes that follow your cursor while holding left click
+		Release left click to fling the eyes, dealing double their original damage
+		Only up to 5 eyes can be active at once
+		'''
+}
+
+FleshWhip: {
+	DisplayName: Eye Lasher
+	Tooltip:
+		'''
+		Your summons will focus struck enemies
+		Hitting enemies may lower their defense for a short time
+		'''
+}
+
+LivingFleshAxe: {
+	DisplayName: Living Flesh Mincer
+	Tooltip:
+		'''
+		Deals far more damage to enemies below half health
+		Striking enemies will fling a bunch of eyes upward
+		'''
+}
+
+LivingFleshBow: {
+	DisplayName: Living Seer
+	Tooltip:
+		'''
+		Converts arrows into clots of blood
+		Every 20th shot will fire multiple homing eyes
+		'''
+}
+
+LivingFleshStaff: {
+	DisplayName: Living Retina Staff
+	Tooltip:
+		'''
+		Summon eyes that follow your cursor while holding down left click
+		Release left click to fling the eyes, dealing double their original damage
+		Releasing left click with maximum eyes active will explode them, dealing massive damage
+		Only up to 8 eyes can be active at once
+		'''
+}
+
+LivingFleshWhip: {
+	DisplayName: Living Eye Lasher
+	Tooltip:
+		'''
+		Your summons will focus struck enemies
+		Quickly lashes out two different flesh whips with varying range
+		Hitting enemies may halve their defense for a short time
+		'''
+}
+
+MonsterBloodVial: {
+	DisplayName: Monster Blood
+	Tooltip:
+		'''
+		Massively increases life regeneration while not moving
+		While moving, you gain 5% increased critical strike chance
+		'''
+}
+
+NerveWhip: {
+	DisplayName: Exposed Nerve
+	Tooltip:
+		'''
+		Your summons will focus struck enemies
+		Deals more damage the more enemies it hits, caps after 5 enemies are hit
 		'''
 }
 
 TortumorStaff: {
 	DisplayName: Gore Staff
 	Tooltip: Summons friendly tortumors that shoot blood globs at enemies
-}
-
-SpookyHellSolution: {
-	DisplayName: Red & Purple Solution
-	Tooltip:
-		'''
-		Used by the Clentaminator
-		Spreads the Eye Valley onto underworld blocks
-		'''
 }
 
 VinylAlley: {
@@ -2496,20 +2525,5 @@ RootWoodItem: {
 
 RootWoodWallItem: {
 	DisplayName: Root Block Wall
-	Tooltip: ""
-}
-
-RootBody: {
-	DisplayName: Root Body Plate
-	Tooltip: Increases your ranged damage by 5
-}
-
-RootHead: {
-	DisplayName: Root Mask
-	Tooltip: 5% increased ranged critical strike chance
-}
-
-RootLegs: {
-	DisplayName: Root Garments
 	Tooltip: ""
 }

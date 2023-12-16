@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
+using Spooky.Content.Tiles.SpiderCave.Mushrooms;
 
 namespace Spooky.Content.Tiles.SpiderCave
 {
@@ -63,6 +64,32 @@ namespace Spooky.Content.Tiles.SpiderCave
                     {
                         NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                     }
+                }
+
+                //mushrooms 
+                if (Main.rand.NextBool(18))
+                {
+                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(),
+                    (ushort)ModContent.TileType<MushroomGreen3>(), (ushort)ModContent.TileType<MushroomGreen4>(),
+                    (ushort)ModContent.TileType<MushroomOrange1>(), (ushort)ModContent.TileType<MushroomOrange2>(),
+                    (ushort)ModContent.TileType<MushroomOrange3>(), (ushort)ModContent.TileType<MushroomOrange4>() };
+
+                    ushort newObject = Main.rand.Next(Shrooms);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //giant mushrooms
+                if (Main.rand.NextBool(35))
+                {
+                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomGreen1>(), (ushort)ModContent.TileType<GiantShroomGreen2>(),
+                    (ushort)ModContent.TileType<GiantShroomOrange1>(), (ushort)ModContent.TileType<GiantShroomOrange2>() };
+
+                    ushort newObject = Main.rand.Next(Shrooms);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 			}
 

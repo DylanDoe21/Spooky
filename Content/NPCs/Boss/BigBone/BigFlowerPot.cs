@@ -81,7 +81,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {                                                                                  
                         int dirtDust = Dust.NewDust(new Vector2(NPC.Center.X + Main.rand.Next(-60, 10), NPC.Center.Y - 90), 
                         NPC.width / 2, NPC.height / 2, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-
                         Main.dust[dirtDust].noGravity = false;
                         Main.dust[dirtDust].velocity.Y *= Main.rand.Next(10, 20);
                         

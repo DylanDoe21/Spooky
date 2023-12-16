@@ -13,11 +13,8 @@ namespace Spooky.Content.Items.BossSummon
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 32;
-            Item.useTime = 45;
-            Item.useAnimation = 45;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.width = 30;
+            Item.height = 30;
         }
 
         public override void AddRecipes()

@@ -22,6 +22,7 @@ using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
@@ -102,9 +103,11 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<PuttySlime3>(), 6);
 						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 
+						//hardmode enemies
                         if (Main.hardMode)
                         {
-                            pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
+							pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
+                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
                         }
                     }
 				}
@@ -115,12 +118,13 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyGhost1>(), 1);
 					pool.Add(ModContent.NPCType<TinyGhost2>(), 1);
 					pool.Add(ModContent.NPCType<TinyGhostBoof>(), 0.5f);
-					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.2f);
+					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.1f);
 
                     //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
 						pool.Add(ModContent.NPCType<ZomboidThorn>(), 4);
+						pool.Add(ModContent.NPCType<ZomboidPumpkin>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye1>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye2>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye3>(), 1);
@@ -138,6 +142,12 @@ namespace Spooky.Core
 						if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidWarlock>()))
 						{
 							pool.Add(ModContent.NPCType<ZomboidWarlock>(), 1);
+						}
+
+						//hardmode enemies
+						if (Main.hardMode)
+						{
+							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 1);
 						}
 					}
 				}
@@ -247,8 +257,7 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), 
-				ModContent.TileType<CatacombFlooring>(), ModContent.TileType<CemeteryGrass>() };
+				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombFlooring>(), ModContent.TileType<CemeteryGrass>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
@@ -290,8 +299,7 @@ namespace Spooky.Core
 			{ 
                 pool.Clear();
 
-                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), 
-				ModContent.TileType<GildedBrick>(), ModContent.TileType<CemeteryGrass>() };
+                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<GildedBrick>(), ModContent.TileType<CemeteryGrass>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
@@ -350,52 +358,48 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				//critters
-				pool.Add(ModContent.NPCType<Ant1>(), 1);
-				pool.Add(ModContent.NPCType<Ant2>(), 1);
-				pool.Add(ModContent.NPCType<Cockroach>(), 1);
-				pool.Add(ModContent.NPCType<Inchworm1>(), 1);
-				pool.Add(ModContent.NPCType<Inchworm2>(), 1);
-				pool.Add(ModContent.NPCType<Inchworm3>(), 1);
-				pool.Add(ModContent.NPCType<Mosquito1>(), 1);
-				pool.Add(ModContent.NPCType<Mosquito2>(), 1);
-				pool.Add(ModContent.NPCType<Mosquito3>(), 1);
-				pool.Add(ModContent.NPCType<Moth1>(), 1);
-				pool.Add(ModContent.NPCType<Moth2>(), 1);
+				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<SpiderStone>() };
 
-				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
-				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
+				//do not allow catacomb enemies to spawn on non catacomb tiles
+				if (SpiderGrottoTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
-					pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
-					pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-					pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
-					pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
-					pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+					//critters
+					pool.Add(ModContent.NPCType<Ant1>(), 1);
+					pool.Add(ModContent.NPCType<Ant2>(), 1);
+					pool.Add(ModContent.NPCType<Cockroach>(), 1);
+					pool.Add(ModContent.NPCType<Inchworm1>(), 1);
+					pool.Add(ModContent.NPCType<Inchworm2>(), 1);
+					pool.Add(ModContent.NPCType<Inchworm3>(), 1);
+					pool.Add(ModContent.NPCType<Mosquito1>(), 1);
+					pool.Add(ModContent.NPCType<Mosquito2>(), 1);
+					pool.Add(ModContent.NPCType<Mosquito3>(), 1);
+					pool.Add(ModContent.NPCType<Moth1>(), 1);
+					pool.Add(ModContent.NPCType<Moth2>(), 1);
 
-					if (NPC.downedMechBossAny)
+					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-						pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
-						pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
-						pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
-						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 1);
-						pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.8f);
+						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 3);
+						pool.Add(ModContent.NPCType<JumpingSpider1>(), 3);
+						pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
+						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
+						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+						pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
+						pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
+						pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+
+						if (NPC.downedMechBossAny)
+						{
+							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
+							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
+							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
+							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 1);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.8f);
+							pool.Add(ModContent.NPCType<WhipSpider>(), 1);
+						}
 					}
 				}
-
-				/*
-				//Spawns for later so i dont have to write them as i go
-				pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
-				pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
-				pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
-
-				if (NPC.downedMechBoss1)
-				{
-					pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
-					pool.Add(ModContent.NPCType<WhipSpider>(), 1);
-					pool.Add(ModContent.NPCType<TrapdoorSpider1>(), 1);
-					pool.Add(ModContent.NPCType<TrapdoorSpider2>(), 1);
-				}
-				*/
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

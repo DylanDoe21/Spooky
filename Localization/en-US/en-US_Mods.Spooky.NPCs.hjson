@@ -183,6 +183,8 @@ TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
 ZomboidFungus.DisplayName: Zomboid
+ZomboidPumpkin.DisplayName: Root Zomboid
+ZomboidPumpkinFire.DisplayName: Flaming Root Zomboid
 ZomboidThorn.DisplayName: Zomboid
 ZomboidWind.DisplayName: Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
@@ -240,3 +242,7 @@ TrapdoorSpider1.DisplayName: Trapdoor Spider
 TrapdoorSpider2.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
+WhipSpider.DisplayName: Whip Spider
+ScarecrowShotgunner.DisplayName: Scarecrow Shotgunner
+CandleMonster.DisplayName: Candle Monster
+WhipSpiderTongue.DisplayName: Whip Spider Tongue

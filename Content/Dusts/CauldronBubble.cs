@@ -9,7 +9,6 @@ namespace Spooky.Content.Dusts
     {
         public override void OnSpawn(Dust dust)
         {
-            dust.noGravity = true;
             dust.noLight = false;
             dust.frame = new Rectangle(0, 0, 10, 10);
         }
@@ -21,9 +20,17 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
+            if (!dust.noGravity)
+            {
+                dust.velocity.Y += 0.05f;
+                dust.scale *= 0.99f;
+            }
+            else
+            {
+                dust.scale *= 0.95f;
+            }
+
             dust.position += dust.velocity;
-            dust.velocity.Y += 0.05f;
-            dust.scale *= 0.99f;
 
             if (dust.scale < 0.05f)
             {

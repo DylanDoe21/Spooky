@@ -30,7 +30,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.rare = ItemRarityID.White;
 			Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item17;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<OldWoodSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }

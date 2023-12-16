@@ -5,6 +5,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
@@ -41,6 +42,23 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		{
             player.GetDamage(DamageClass.Generic) += 0.1f;
 			player.nightVision = true;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ItemID.Silk, 20)
+			.AddIngredient(ItemID.SilverBar, 10)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+			CreateRecipe()
+			.AddIngredient(ItemID.Silk, 20)
+			.AddIngredient(ItemID.TungstenBar, 10)
+            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

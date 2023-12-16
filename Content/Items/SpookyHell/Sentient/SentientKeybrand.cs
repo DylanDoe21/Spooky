@@ -27,10 +27,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 30);
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<SentientKeybrandSlash>();
-            Item.shootSpeed = 10f;
+            //Item.shoot = ModContent.ProjectileType<SentientKeybrandSlash>();
+            //Item.shootSpeed = 10f;
         }
 
+        /*
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SentientKeybrandSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
@@ -38,5 +39,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
             return false;
 		}
+        */
     }
 }

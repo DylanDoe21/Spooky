@@ -106,7 +106,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
+            NPC.frameCounter++;
 
             if (!NPC.wet)
             {
@@ -206,7 +206,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                 switch ((int)NPC.localAI[0])
                 {
-                    //walk at the player
+                    //walk towards the player
                     case 0:
                     {
                         if (!NPC.wet)
@@ -227,7 +227,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         //slow down before ejecting its mouth
                         if (NPC.localAI[1] >= 320)
                         {
-                            NPC.velocity.X *= 0.2f;
+                            NPC.velocity.X *= 0.5f;
                         }
 
                         //shoot out mouth

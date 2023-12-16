@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item36;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<OldRifleBullet>();
 			Item.useAmmo = AmmoID.Bullet;
 			Item.shootSpeed = 12f;
 		}

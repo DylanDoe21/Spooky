@@ -60,29 +60,28 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void FindFrame(int frameHeight)
         {
-            //running animation
-            NPC.frameCounter += 1;
+            NPC.frameCounter++;
 
-            //use regular walking anim when in walking state
+            //walking animation
             if (NPC.localAI[0] <= 420)
             {
                 if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 5)
                 {
                     NPC.frame.Y = 0 * frameHeight;
                 }
 
-                //jumping frame when falling/jumping
+                //jumping/falling frame
                 if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
                 {
                     NPC.frame.Y = 8 * frameHeight;
                 }
             }
-            //use casting animation during casting ai
+            //casting animation
             if (NPC.localAI[0] > 420)
             {
                 if (NPC.frame.Y < frameHeight * 6)
@@ -93,7 +92,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0.0;
+                    NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 8)
                 {

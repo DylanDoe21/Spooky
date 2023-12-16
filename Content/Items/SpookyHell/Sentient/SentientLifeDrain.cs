@@ -6,7 +6,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
@@ -35,7 +34,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 45);
-            Item.shoot = ModContent.ProjectileType<Blank>();
+            Item.shoot = ModContent.ProjectileType<DrainedSoulHealth>();
             Item.shootSpeed = 0f;
         }
 

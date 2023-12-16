@@ -19,14 +19,9 @@ namespace Spooky.Content.Projectiles.Pets
             Main.projFrames[Projectile.type] = 10;
             Main.projPet[Projectile.type] = true;
 
-            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(1, 6, 4)
-            .WithOffset(-18f, 0f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
+            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(1, 6, 5)
+            .WithOffset(-15f, 0f).WithSpriteDirection(-1).WhenNotSelected(0, 0);
         }
-
-        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
-		{
-			DelegateMethods.CharacterPreview.Float(proj, walking);
-		}
 
         public override void SetDefaults()
         {
@@ -143,7 +138,7 @@ namespace Spooky.Content.Projectiles.Pets
                 //falling frame
                 else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
                 {
-                    Projectile.frame = 3;
+                    Projectile.frame = 6;
                     Projectile.frameCounter = 0;
                 }
                 //moving animation

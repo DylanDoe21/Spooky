@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 Vector2 vector = new Vector2(Projectile.Center.X - 1 + shakeX, Projectile.Center.Y + shakeY) + (numEffect / 4 * 6f + Projectile.rotation).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, Color.White, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(tex, vector, rectangle, Color.White * 0.5f, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
         }
 
@@ -93,8 +93,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Vector2 realSpeed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
                         Vector2 Position = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
 
-                        int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Position, realSpeed, 
-                        Main.rand.Next(Types), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                        int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Position, realSpeed, Main.rand.Next(Types), Projectile.damage, 0f, Main.myPlayer, 0, 0);
                         Main.projectile[GreekFire].DamageType = DamageClass.Magic;
                         Main.projectile[GreekFire].friendly = true;
                         Main.projectile[GreekFire].hostile = false;

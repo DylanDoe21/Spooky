@@ -33,42 +33,25 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         public override void AI()
         {
             Projectile.ai[0]++;
-            if (Projectile.ai[0] <= 20)
+            if (Projectile.ai[0] <= 60)
             {
-                if (Projectile.alpha <= 255) 
-                { 
-                    Projectile.alpha -= 12;
-
-                    if (Projectile.alpha <= 155)
-                    {
-                        Projectile.alpha = 155;
-                    }
-                }            
+                int dirtDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 4f);
+                Main.dust[dirtDust].noGravity = true;
+                Main.dust[dirtDust].velocity.Y *= Main.rand.Next(10, 25);
             }
-            else if (Projectile.ai[0] == 60)
+            if (Projectile.ai[0] == 40)
             {
                 Vector2 lineDirection = new Vector2(0, 16);
-
-                SoundEngine.PlaySound(BoneSnap, Projectile.position);
                 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 20, 0, 0,
                 ModContent.ProjectileType<FleshPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
             }
-            else if (Projectile.ai[0] >= 60)
+            if (Projectile.ai[0] >= 80)
             {
-                Projectile.alpha += 10;
+                SoundEngine.PlaySound(BoneSnap, Projectile.position);
 
-                if (Projectile.alpha >= 255) 
-                {
-                    Projectile.Kill();
-                }
+                Projectile.Kill();
             }
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {      
-            Main.EntitySpriteDraw((Texture2D)TextureAssets.MagicPixel, Projectile.position - new Vector2(3, 4000) - Main.screenPosition, null, new Color(255, 0, 0) * (1 - ((float)Projectile.alpha /255f)), Projectile.rotation, Vector2.Zero, new Vector2(6, 4), SpriteEffects.None, 0);
-            return false;
         }
     }
 }

@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery
@@ -34,7 +33,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.Item17;
-			Item.shoot = ModContent.ProjectileType<Blank>();
+			Item.shoot = ModContent.ProjectileType<SpiritSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }

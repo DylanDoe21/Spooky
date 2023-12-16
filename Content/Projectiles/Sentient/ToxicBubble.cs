@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Projectiles.Sentient
 {
     public class ToxicBubble : ModProjectile
@@ -55,13 +57,19 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 
-            for (int numDust = 0; numDust < 35; numDust++)
+            for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0f, -2f, 0, default, 1.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-                Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-            }
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
+                Main.dust[newDust].color = Color.Lime;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 1.2f;
+				}
+			}
 		}
     }
 }

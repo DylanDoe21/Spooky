@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
 	public class LeafSpiderSleeping : ModNPC
@@ -53,7 +55,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax)
+			if (NPC.Distance(player.Center) <= 200f || NPC.life < NPC.lifeMax || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
             {
 				int AwakeSpider = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<LeafSpider>());
 

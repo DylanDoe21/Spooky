@@ -4,8 +4,6 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
-//using Spooky.Content.Items.SpiderCave.Misc;
-
 namespace Spooky.Content.NPCs.SpiderCave
 {
 	public class Cockroach : ModNPC
@@ -13,8 +11,13 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 5;
-            //Main.npcCatchable[NPC.type] = true;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            {
+				Velocity = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
 		}
 
 		public override void SetDefaults()
@@ -30,7 +33,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 66;
 			AIType = NPCID.Buggy;
-            //NPC.catchItem = (short)ModContent.ItemType<TinyMushroomItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 

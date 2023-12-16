@@ -43,5 +43,17 @@ namespace Spooky.Content.Items.SpiderCave.Armor
             player.nightVision = true;
 			player.dangerSense = true;
         }
+
+		/*
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ModContent.ItemType<CreepyCrawlerHead>())
+			.AddIngredient(ItemID.SoulofNight, 8)
+			.AddIngredient(ItemID.HallowedBar, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
+		*/
 	}
 }

@@ -15,6 +15,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			Main.npcFrameCount[NPC.type] = 2;
             Main.npcCatchable[NPC.type] = true;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            {
+				Velocity = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
 		}
 
 		public override void SetDefaults()

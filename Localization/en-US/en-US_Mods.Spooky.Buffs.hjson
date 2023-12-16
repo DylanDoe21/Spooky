@@ -401,3 +401,8 @@ CreepyCrawlerStealth: {
 		12% increased damage reduction
 		'''
 }
+
+WhipSpiderAggression: {
+	DisplayName: Whip Spider Pheromones
+	Description: Spider grotto creatures are far more aggressive
+}

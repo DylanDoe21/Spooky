@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
+using Spooky.Content.Tiles.SpiderCave.Mushrooms;
 using Spooky.Content.Tiles.SpiderCave.Tree;
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -199,7 +200,7 @@ namespace Spooky.Content.Generation
                         {
                             if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
                             {
-                                switch (WorldGen.genRand.Next(9))
+                                switch (WorldGen.genRand.Next(11))
                                 {
                                     case 0:
                                     {
@@ -240,19 +241,31 @@ namespace Spooky.Content.Generation
                                     case 6:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 18, Y - 22);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge", structureOrigin.ToPoint16(), Mod);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsTall", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
                                     case 7:
+                                    {
+                                        Vector2 structureOrigin = new Vector2(X - 12, Y - 23);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 8:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 9, Y - 20);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/TowerSmall", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 8:
+                                    case 9:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 9, Y - 26);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/TowerLarge", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 10:
+                                    {
+                                        Vector2 structureOrigin = new Vector2(X - 10, Y - 15);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/SmallShrine", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
                                 }
@@ -266,7 +279,7 @@ namespace Spooky.Content.Generation
                         {
                             if (WorldGen.genRand.NextBool(40) && CanPlaceStructure(X, Y))
                             {
-                                switch (WorldGen.genRand.Next(2))
+                                switch (WorldGen.genRand.Next(3))
                                 {
                                     case 0:
                                     {
@@ -278,6 +291,12 @@ namespace Spooky.Content.Generation
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerLarge", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 2:
+                                    {
+                                        Vector2 structureOrigin = new Vector2(X - 10, Y - 5);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootRoom", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
                                 }
@@ -377,10 +396,19 @@ namespace Spooky.Content.Generation
                             //mushrooms
                             if (WorldGen.genRand.NextBool(5))
                             {
-                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue1>(), (ushort)ModContent.TileType<MushroomBlue2>(), 
-                                (ushort)ModContent.TileType<MushroomBlue3>(), (ushort)ModContent.TileType<MushroomBlue4>(), 
+                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(), 
+                                (ushort)ModContent.TileType<MushroomGreen3>(), (ushort)ModContent.TileType<MushroomGreen4>(), 
                                 (ushort)ModContent.TileType<MushroomOrange1>(), (ushort)ModContent.TileType<MushroomOrange2>(), 
                                 (ushort)ModContent.TileType<MushroomOrange3>(), (ushort)ModContent.TileType<MushroomOrange4>() };
+
+                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
+                            }
+
+                            //giant mushrooms
+                            if (WorldGen.genRand.NextBool(6))
+                            {
+                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomGreen1>(), (ushort)ModContent.TileType<GiantShroomGreen2>(), 
+                                (ushort)ModContent.TileType<GiantShroomOrange1>(), (ushort)ModContent.TileType<GiantShroomOrange2>() };
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
                             }
@@ -413,6 +441,47 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())
                     {
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<DampVines>());
+                    }
+                }
+            }
+        }
+
+        private void DeleteAnnoyingTraps(GenerationProgress progress, GameConfiguration configuration)
+        {
+            //biome position stuff
+            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+
+            int BiomeCenterX = (SnowMiddle + (Main.maxTilesX / 2)) / 2;
+
+            int startPosX = BiomeCenterX + (BiomeCenterX < (Main.maxTilesX / 2) ? -(Main.maxTilesX / 25) : (Main.maxTilesX / 25));
+            int startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - 30;
+
+            Point origin = new Point(startPosX, startPosY);
+            Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
+
+            float angle = MathHelper.Pi * 0.15f;
+            float otherAngle = MathHelper.PiOver2 - angle;
+
+            int biomeSize = 260 + (Main.maxTilesX / 180);
+            float actualSize = biomeSize * 16f;
+            float constant = actualSize * 2f / (float)Math.Sin(angle);
+
+            float biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
+            int verticalRadius = (int)(constant / 16f);
+
+            Vector2 biomeOffset = Vector2.UnitY * biomeSpacing;
+            Vector2 biomeTop = center - biomeOffset;
+            Vector2 biomeBottom = center + biomeOffset;
+
+            //first, place a large barrier of stone along where the bottom of the biome will be
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+                for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        WorldGen.KillWire(X, Y);
+                        Main.tile[X, Y].LiquidAmount = 0;
                     }
                 }
             }
@@ -497,6 +566,14 @@ namespace Spooky.Content.Generation
             }
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Spider Grotto", PlaceSpiderCave));
+
+            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Water Plants"));
+            if (GenIndex2 == -1)
+            {
+                return;
+            }
+
+            tasks.Insert(GenIndex2 + 1, new PassLegacy("Spider Grotto Trap Removal", DeleteAnnoyingTraps));
         }
     }
 }

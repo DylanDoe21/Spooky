@@ -112,7 +112,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.behindTiles = true;
             NPC.netAlways = true;
             NPC.HitSound = HitSound;
             NPC.DeathSound = SoundID.Zombie40;
@@ -407,8 +406,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.position.X = player.Center.X - 1250;
                         NPC.position.Y = player.Center.Y + 0;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0,
-                        ModContent.ProjectileType<TelegraphPurple>(), 0, 0f, 0);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 450, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 550, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 650, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] == 90)

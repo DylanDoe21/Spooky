@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
-    public class TelegraphRed : ModProjectile
+    public class TelegraphRedUp : ModProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 50;
-            Projectile.height = 46;
+            Projectile.width = 30;
+            Projectile.height = 38;
             Projectile.tileCollide = false;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
@@ -76,6 +76,38 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 Projectile.ai[1] = 0;
                 Projectile.scale = 1f;
             }
+        }
+    }
+
+    public class TelegraphRedDown : TelegraphRedUp
+    {
+    }
+
+    public class TelegraphRedLeft : TelegraphRedUp
+    {
+        public override void SetDefaults()
+        {
+            Projectile.width = 38;
+            Projectile.height = 30;
+            Projectile.tileCollide = false;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.alpha = 255;
+            Projectile.timeLeft = 25;  
+        }
+    }
+
+    public class TelegraphRedRight : TelegraphRedUp
+    {   
+        public override void SetDefaults()
+        {
+            Projectile.width = 38;
+            Projectile.height = 30;
+            Projectile.tileCollide = false;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.alpha = 255;
+            Projectile.timeLeft = 25;  
         }
     }
 }

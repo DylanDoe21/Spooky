@@ -21,5 +21,17 @@ namespace Spooky.Content.Items.SpiderCave.Armor
             player.runAcceleration += 0.05f;
             player.jumpBoost = true;
         }
+
+		/*
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ModContent.ItemType<CreepyCrawlerLegs>())
+			.AddIngredient(ItemID.SoulofNight, 10)
+			.AddIngredient(ItemID.HallowedBar, 8)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
+		*/
 	}
 }
