@@ -1,8 +1,3 @@
-BoogerFrenzyBuff: {
-	DisplayName: Booger Frenzy
-	Description: Your weapons have been blessed with boogers
-}
-
 BustlingGlowshroomHeal: {
 	DisplayName: Glowshroom Regeneration
 	Description: Your life regeneration is greatly increased
@@ -403,6 +398,11 @@ CreepyCrawlerStealth: {
 }
 
 WhipSpiderAggression: {
-	DisplayName: Whip Spider Pheromones
-	Description: Spider grotto creatures are far more aggressive
+	DisplayName: Spider Pheromones
+	Description: Spider grotto creatures are more aggressive
+}
+
+SpiderStealthCooldown: {
+	DisplayName: Spider Stealth Cooldown
+	Description: You cannot enter spider stealth
 }

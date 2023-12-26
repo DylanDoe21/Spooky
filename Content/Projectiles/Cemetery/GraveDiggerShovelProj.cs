@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.ai[0]++;
             
-            if (Projectile.ai[0] >= 8)
+            if (Projectile.ai[0] >= 30)
             {
                 Vector2 ReturnSpeed = owner.Center - Projectile.Center;
                 ReturnSpeed.Normalize();

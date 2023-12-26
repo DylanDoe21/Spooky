@@ -17,7 +17,6 @@ namespace Spooky.Content.Generation
 
         public override void AddRecipes()
         {
-
             Recipe furnaceRecipe = Recipe.Create(ItemID.Furnace);
             furnaceRecipe.AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 20);
             furnaceRecipe.AddRecipeGroup(RecipeGroupID.Wood, 4);

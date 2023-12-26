@@ -37,7 +37,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             Player player = Main.player[Projectile.owner];
 
-            Vector2 playerRelativePoint = player.RotatedRelativePoint(new Vector2(player.MountedCenter.X, player.MountedCenter.Y - 5), true);
+            Vector2 playerRelativePoint = player.RotatedRelativePoint(player.MountedCenter, true);
 
             Projectile.direction = player.direction;
             player.heldProj = Projectile.whoAmI;

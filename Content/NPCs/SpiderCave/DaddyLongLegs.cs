@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void FindFrame(int frameHeight)
         {   
             //running animation
-            NPC.frameCounter += 1;
+            NPC.frameCounter++;
             if (NPC.frameCounter > 5 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -56,10 +56,16 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.frame.Y = 0 * frameHeight;
             }
 
-            //jumping frames
-            if (NPC.velocity.Y < 0 || NPC.velocity.Y > 0)
+            //jumping frame
+            if (NPC.velocity.Y < 0)
             {
                 NPC.frame.Y = 4 * frameHeight;
+            }
+
+            //falling frame
+            if (NPC.velocity.Y > 0)
+            {
+                NPC.frame.Y = 6 * frameHeight;
             }
         }
 

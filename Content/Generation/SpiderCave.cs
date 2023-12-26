@@ -186,6 +186,47 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place clumps of vanilla ores
+            //spider grotto is deeper underground, so the tier 1 ore doesnt need to generate here
+
+            //determine which ores to place based on the opposite of what ores generate
+            ushort OppositeTier2Ore = WorldGen.SavedOreTiers.Iron == TileID.Iron ? TileID.Lead : TileID.Iron;
+            ushort OppositeTier3Ore = WorldGen.SavedOreTiers.Silver == TileID.Silver ? TileID.Tungsten : TileID.Silver;
+            ushort OppositeTier4Ore = WorldGen.SavedOreTiers.Gold == TileID.Gold ? TileID.Platinum : TileID.Gold;
+
+            for (int iron = 0; iron < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 7E-05); iron++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                {
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(4, 10), OppositeTier2Ore, false, 0f, 0f, false, true);
+                }
+            }
+
+            for (int silver = 0; silver < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 6E-05); silver++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                {
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier3Ore, false, 0f, 0f, false, true);
+                }
+            }
+
+            for (int gold = 0; gold < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 5E-05); gold++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                {
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier4Ore, false, 0f, 0f, false, true);
+                }
+            }
+
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
@@ -396,10 +437,10 @@ namespace Spooky.Content.Generation
                             //mushrooms
                             if (WorldGen.genRand.NextBool(5))
                             {
-                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(), 
-                                (ushort)ModContent.TileType<MushroomGreen3>(), (ushort)ModContent.TileType<MushroomGreen4>(), 
-                                (ushort)ModContent.TileType<MushroomOrange1>(), (ushort)ModContent.TileType<MushroomOrange2>(), 
-                                (ushort)ModContent.TileType<MushroomOrange3>(), (ushort)ModContent.TileType<MushroomOrange4>() };
+                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBrown1>(), (ushort)ModContent.TileType<MushroomBrown2>(), 
+                                (ushort)ModContent.TileType<MushroomBrown3>(), (ushort)ModContent.TileType<MushroomBrown4>(), 
+                                (ushort)ModContent.TileType<MushroomRed1>(), (ushort)ModContent.TileType<MushroomRed2>(), 
+                                (ushort)ModContent.TileType<MushroomRed3>(), (ushort)ModContent.TileType<MushroomRed4>() };
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
                             }

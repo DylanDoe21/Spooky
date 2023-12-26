@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             if (NPC.ai[0] < 400)
             {
-                NPC.frameCounter += 1;
+                NPC.frameCounter++;
                 if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -65,9 +65,9 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
                 if (NPC.frame.Y >= frameHeight * 4)
                 {
-                    NPC.frame.Y = 0;
+                    NPC.frame.Y = 0 * frameHeight;
                 }
-            }  
+            }
             else
             {
                 if (NPC.frame.Y < frameHeight * 5)
@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                     NPC.frame.Y = 4 * frameHeight;
                 }
 
-                NPC.frameCounter += 1;
+                NPC.frameCounter++;
                 if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;

@@ -120,6 +120,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return true;
 		}
 
+        public override bool? CanCutTiles()
+        {
+            return Projectile.alpha < 255;
+        }
+
 		public override void AI() 
         {
 			Player player = Main.player[Projectile.owner];
@@ -359,49 +364,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override bool OnTileCollide(Vector2 oldVelocity) 
         {
-			int impactIntensity = 0;
-			Vector2 velocity = Projectile.velocity;
-			float bounceFactor = 0.2f;
-
-			if (CurrentAIState == AIState.LaunchingForward)
-            {
-				bounceFactor = 0.4f;
-            }
-
-			if (oldVelocity.X != Projectile.velocity.X) 
-            {
-				if (Math.Abs(oldVelocity.X) > 4f)
-                {
-					impactIntensity = 1;
-                }
-
-				Projectile.velocity.X = (0f - oldVelocity.X) * bounceFactor;
-				CollisionCounter += 1f;
-			}
-
-			if (oldVelocity.Y != Projectile.velocity.Y) 
-            {
-				if (Math.Abs(oldVelocity.Y) > 4f)
-                {
-					impactIntensity = 1;
-                }
-
-				Projectile.velocity.Y = (0f - oldVelocity.Y) * bounceFactor;
-				CollisionCounter += 1f;
-			}
-
-			// Here the tiles spawn dust indicating they've been hit
-			if (impactIntensity > 0) 
-            {
-				Projectile.netUpdate = true;
-				for (int i = 0; i < impactIntensity; i++) 
-                {
-					Collision.HitTiles(Projectile.position, velocity, Projectile.width, Projectile.height);
-				}
-
-				SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
-			}
-
 			// Force retraction if stuck on tiles while retracting
 			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CollisionCounter >= 10f) 
             {
@@ -419,6 +381,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
 				return false;
             }
+			if (Projectile.alpha >= 255)
+			{
+				return false;
+			}
 
 			return base.CanDamage();
 		}

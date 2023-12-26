@@ -3,14 +3,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Chat;
+using Terraria.UI;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.PandoraBox;
+using Spooky.Content.UI;
 
 namespace Spooky.Core
 {
@@ -156,6 +159,19 @@ namespace Spooky.Core
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
+            }
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
+            if (mouseIndex != -1)
+            {
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Moco Nose UI", () =>
+                {
+                    MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
+                    return true;
+                }, InterfaceScaleType.None));
             }
         }
 

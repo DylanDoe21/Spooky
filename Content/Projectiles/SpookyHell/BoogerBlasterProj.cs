@@ -29,7 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.aiStyle = -1;
 		}
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
 			return false;
         }

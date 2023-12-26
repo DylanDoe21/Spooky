@@ -50,6 +50,16 @@ namespace Spooky.Content.Projectiles.Cemetery
             return true;
         }
 
+        public override bool? CanDamage()
+        {
+			return false;
+		}
+
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

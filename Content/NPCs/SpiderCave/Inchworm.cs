@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
                 if (NPC.frame.Y >= frameHeight * 4)
                 {
-                    NPC.frame.Y = 1 * frameHeight;
+                    NPC.frame.Y = 0 * frameHeight;
                 }
             }
             else

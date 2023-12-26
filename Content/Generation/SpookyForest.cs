@@ -190,6 +190,13 @@ namespace Spooky.Content.Generation
             }
 
             //place clumps of vanilla ores
+
+            //determine which ores to place based on the opposite of what ores generate
+            ushort OppositeTier1Ore = WorldGen.SavedOreTiers.Copper == TileID.Copper ? TileID.Tin : TileID.Copper;
+            ushort OppositeTier2Ore = WorldGen.SavedOreTiers.Iron == TileID.Iron ? TileID.Lead : TileID.Iron;
+            ushort OppositeTier3Ore = WorldGen.SavedOreTiers.Silver == TileID.Silver ? TileID.Tungsten : TileID.Silver;
+            ushort OppositeTier4Ore = WorldGen.SavedOreTiers.Gold == TileID.Gold ? TileID.Platinum : TileID.Gold;
+
             for (int copper = 0; copper < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 10E-05); copper++)
             {
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -197,7 +204,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(5, 12), WorldGen.genRand.Next(5, 12), TileID.Copper, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(5, 12), WorldGen.genRand.Next(5, 12), OppositeTier1Ore, false, 0f, 0f, false, true);
                 }
             }
 
@@ -208,7 +215,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(4, 10), TileID.Iron, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(4, 10), OppositeTier2Ore, false, 0f, 0f, false, true);
                 }
             }
 
@@ -219,7 +226,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), TileID.Silver, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier3Ore, false, 0f, 0f, false, true);
                 }
             }
 
@@ -230,7 +237,7 @@ namespace Spooky.Content.Generation
 
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), TileID.Gold, false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier4Ore, false, 0f, 0f, false, true);
                 }
             }
         }
@@ -433,25 +440,6 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
                         }
-
-                        /*
-                        //place weeds
-                        if (WorldGen.genRand.NextBool(15))
-                        {
-                            Tile Above = Framing.GetTileSafely(X, Y - 1);
-
-                            Above.TileType = (ushort)ModContent.TileType<SpookyWeedsOrange>();
-                            Above.HasTile = true;
-                            Above.TileFrameY = 0;
-                            Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
-                            WorldGen.SquareTileFrame(X, Y + 1, true);
-
-                            if (Main.netMode == NetmodeID.Server) 
-                            {
-                                NetMessage.SendTileSquare(-1, X, Y - 1, 3, TileChangeType.None);
-                            }
-                        }
-                        */
                     }
                 }
             }

@@ -12,8 +12,8 @@ namespace Spooky.Content.Items.Pets
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.Fish);
-			Item.width = 26;
-			Item.height = 28;
+			Item.width = 32;
+			Item.height = 34;
 			Item.shoot = ModContent.ProjectileType<StickyEyePet>();
 			Item.buffType = ModContent.BuffType<StickyEyeBuff>();
 		}

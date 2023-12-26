@@ -120,7 +120,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                 if (NPC.localAI[2] == 100 || NPC.localAI[2] == 120 || NPC.localAI[2] == 140)
                 {
-                    int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.direction == -1 ? -45 : 45), 
+                    int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (SaveDirection == -1 ? 45 : -45), 
                     (int)NPC.Center.Y, ModContent.NPCType<WhipSpiderTongue>(), ai3: NPC.whoAmI);
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)

@@ -36,10 +36,10 @@ namespace Spooky.Content.Projectiles.Catacomb
             return true;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
 			return false;
-        }
+		}
 
         public override bool? CanCutTiles()
         {

@@ -157,6 +157,7 @@ SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
 //spooky biome
 Bungus.DisplayName: Bungus
+CandleMonster.DisplayName: Candle Monster
 Chungus.DisplayName: Chunky Fungus
 FluffBatBig1.DisplayName: Giant Fuzz Bat
 FluffBatBig2.DisplayName: Giant Fuzz Bat
@@ -175,6 +176,7 @@ PuttyPumpkinling.DisplayName: Putty Pumpkinling
 PuttySlime1.DisplayName: Putty Slime
 PuttySlime2.DisplayName: Putty Slime
 PuttySlime3.DisplayName: Putty Slime
+ScarecrowShotgunner.DisplayName: Scarecrow Shotgunner
 ShroomHopper.DisplayName: Shroom Hopper
 SpookyDance.DisplayName: Spooky Dance Ghost
 TinyGhost1.DisplayName: Tiny Ghost
@@ -243,6 +245,4 @@ TrapdoorSpider2.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
-ScarecrowShotgunner.DisplayName: Scarecrow Shotgunner
-CandleMonster.DisplayName: Candle Monster
 WhipSpiderTongue.DisplayName: Whip Spider Tongue

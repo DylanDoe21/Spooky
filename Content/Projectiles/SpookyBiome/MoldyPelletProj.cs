@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 25)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
             }
         }
 

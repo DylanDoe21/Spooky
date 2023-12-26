@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.NPCs.Friendly
 {

@@ -20,10 +20,10 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.aiStyle = -1;
 		}
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
 			return false;
-        }
+		}
 
         public override bool? CanCutTiles()
         {

@@ -9,7 +9,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
 {
-    public class MushroomGreen1 : ModTile
+    public class MushroomBrown1 : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -33,15 +33,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
         }
     }
 
-    public class MushroomGreen2 : MushroomGreen1
+    public class MushroomBrown2 : MushroomBrown1
     {
     }
 
-    public class MushroomGreen3 : MushroomGreen1
+    public class MushroomBrown3 : MushroomBrown1
     {
     }
 
-    public class MushroomGreen4 : MushroomGreen1
+    public class MushroomBrown4 : MushroomBrown1
     {
     }
 }

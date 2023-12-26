@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<WhipSpider>())
             {
-                Vector2 ParentCenter = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -45 : 45), Parent.Center.Y);
+                Vector2 ParentCenter = new Vector2(Parent.Center.X, Parent.Center.Y);
 
                 Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/Projectiles/WhipSpiderTongueSegment");
 

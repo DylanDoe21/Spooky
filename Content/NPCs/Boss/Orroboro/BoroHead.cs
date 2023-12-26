@@ -270,19 +270,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity *= 0;
 
                             NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X - 1200 : player.Center.X + 1200;
-                            NPC.position.Y = player.Center.Y;
+                            NPC.position.Y = player.Center.Y - 30;
 
                             if (NPC.Center.X < player.Center.X)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 300, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 400, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X - 500, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 300, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 400, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 500, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
                             }
                             else
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 300, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 400, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 500, player.Center.Y + 20, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 300, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 400, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 500, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
                             }
                         }
 
@@ -403,11 +403,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         //this is slightly offset so its even with the other worm in game
                         NPC.position.X = player.Center.X + 1200;
-                        NPC.position.Y = player.Center.Y + 0;
+                        NPC.position.Y = player.Center.Y - 30;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 450, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 550, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center.X + 650, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 450, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 550, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 650, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] == 90)
@@ -444,7 +444,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                                 ModContent.ProjectileType<BoroBiomatter>(), Damage, 1, Main.myPlayer, 0, 0);  
                             }
                         }
@@ -521,7 +521,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y + 20, 0, 0, 
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, 
                                         ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                     }
                                 }
@@ -574,7 +574,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             Vector2 CenterPoint = player.Center;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), CenterPoint.X, CenterPoint.Y, 0, 0, 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), CenterPoint.X, CenterPoint.Y, 0, 0, 
                             ModContent.ProjectileType<AcidTarget>(), 0, 0f, 0);
                             
                             //use SavePlayerPosition to save where the telegraph was
@@ -596,7 +596,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
                         (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
                             NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
                             ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
                         }
@@ -675,7 +675,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                                     ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
                                 }
                             }

@@ -30,15 +30,17 @@ MocoNose: {
 	DisplayName: Snotty Schnoz
 	Tooltip:
 		'''
-		Hitting enemies will sometimes drop globs of snot you can pick up
-		After picking up 15 snot globs, using weapons will shoot snot for a short period
+		Gives you a snot bar that will fill up as you pick up snot globs
+		Snot globs will occassionaly drop when you damage enemies
+		Once the bar is full, using a weapon will fire out a giant spread of homing snot
 		Enemies will stop dropping snot for 30 seconds after this effect is triggered
+		The damage and speed of the homing snot depends on the weapon you use when shooting them
 		'''
 }
 
 MocoNoseBooger: {
 	DisplayName: Snot
-	Tooltip: Eww...
+	Tooltip: ""
 }
 
 OrroboroEmbryo: {
@@ -1111,6 +1113,21 @@ SpiderKey: {
 		'''
 }
 
+PheromoneWhip: {
+	DisplayName: Pheromone Whip
+	Tooltip:
+		'''
+		Your summons will focus struck enemies
+		Hitting enemies will spread pheromones onto them
+		Enemies inflicted with pheromones take more damage from spider related minions
+		'''
+}
+
+SphiderFlail: {
+	DisplayName: Swingable Sphider
+	Tooltip: Fires out slowing webs while swung
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 5% increased melee damage
@@ -2036,9 +2053,10 @@ RaveyardBox: {
 	DisplayName: Music Box (Raveyard)
 	Tooltip:
 		'''
+		Placeable on ceilings and provides rainbow party light when turned on
 		Cycles through both raveyard songs
-		[c/6FE4A5:Raveyard] by LuxCapacitor
 		[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak
+		[c/6FE4A5:Raveyard] by Luxcapacitor
 		'''
 }
 
@@ -2065,6 +2083,11 @@ SpookyBiomeNightBox: {
 SpookyBiomeRainBox: {
 	DisplayName: Music Box (Spooky Forest Rain)
 	Tooltip: "[c/D6AC76:Harvest Rainfall] by BananaLizard"
+}
+
+SpookyBiomeTownNightBox: {
+	DisplayName: Music Box (Spooky Forest Town Night)
+	Tooltip: "[c/AA19E3:Spooky Town Night] by BananaLizard"
 }
 
 SpookyBiomeUGBox: {
@@ -2449,33 +2472,23 @@ SpookySpiritTrophyItem: {
 }
 
 CatacombBrick1Item: {
-	DisplayName: Scary Gray Catacomb Brick
+	DisplayName: Gray Catacomb Brick
 	Tooltip: ""
 }
 
 CatacombBrick2Item: {
-	DisplayName: Scary Brown Catacomb Brick
+	DisplayName: Brown Catacomb Brick
 	Tooltip: ""
 }
 
 CatacombBrickWall1Item: {
 	DisplayName: Scary Gray Catacomb Wall
-	Tooltip: ""
+	Tooltip: Counts as an actual catacomb biome when placed underground
 }
 
 CatacombBrickWall2Item: {
 	DisplayName: Scary Brown Catacomb Wall
-	Tooltip: ""
-}
-
-CatacombBrick1SafeItem: {
-	DisplayName: Gray Catacomb Brick
-	Tooltip: ""
-}
-
-CatacombBrick2SafeItem: {
-	DisplayName: Brown Catacomb Brick
-	Tooltip: ""
+	Tooltip: Counts as an actual catacomb biome when placed underground
 }
 
 CatacombBrickWall1SafeItem: {
@@ -2526,4 +2539,9 @@ RootWoodItem: {
 RootWoodWallItem: {
 	DisplayName: Root Block Wall
 	Tooltip: ""
+}
+
+DampGrassSeeds: {
+	DisplayName: Damp Grass Seeds
+	Tooltip: Places grass on Damp Soil
 }

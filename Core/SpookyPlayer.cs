@@ -36,7 +36,6 @@ namespace Spooky.Core
         public int FlySpawnTimer = 0;
         public int SkullFrenzyCharge = 0;
         public int MocoBoogerCharge = 0;
-        public int BoogerFrenzyTime = 0;
         public int SoulDrainCharge = 0;
         public int CrossSoundTimer = 0;
         public int PandoraCuffTimer = 0;
@@ -45,6 +44,7 @@ namespace Spooky.Core
         public int BustlingHealTimer = 0;
         public int GizaGlassHits = 0;
         public int SlendermanPageDelay = 0;
+        public int CarnisSporeSpawnTimer = 0;
         public bool RaveyardGuardsHostile;
         public bool WhipSpiderAggression = false;
 
@@ -326,13 +326,13 @@ namespace Spooky.Core
                 }
 
                 //spider stealth
-                if (CreepyCrawlerSet)
+                if (CreepyCrawlerSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
                 {
                     Player.AddBuff(ModContent.BuffType<CreepyCrawlerStealth>(), 600);
                 }
 
                 //night stealth
-                if (NightCrawlerSet)
+                if (NightCrawlerSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
                 {
                     Player.AddBuff(ModContent.BuffType<NightCrawlerStealth>(), 600);
                 }
@@ -353,7 +353,7 @@ namespace Spooky.Core
             //snotty schnoz booger item dropping on hit
             if (MocoNose && MocoBoogerCharge < 15)
             {
-                if (!Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()) && Main.rand.NextBool(25))
+                if (!Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()) && Main.rand.NextBool(12))
                 {
                     int itemType = ModContent.ItemType<MocoNoseBooger>();
                     int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
@@ -417,12 +417,10 @@ namespace Spooky.Core
 
                 if (GizaGlassHits == 3)
                 {
-                    GizaGlassHits = 0;
+                    SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
                     
                     Player.AddBuff(ModContent.BuffType<MonumentMythosShatter>(), 600);
                     Player.AddBuff(ModContent.BuffType<MonumentMythosCooldown>(), 7200);
-
-                    SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
 
                     for (int numGores = 1; numGores <= 4; numGores++)
                     {
@@ -431,6 +429,8 @@ namespace Spooky.Core
                             Gore.NewGore(Player.GetSource_OnHurt(info.DamageSource), Player.Center, Player.velocity, ModContent.Find<ModGore>("Spooky/GizaGlassGore" + numGores).Type);
                         }
                     }
+
+                    GizaGlassHits = 0;
                 }
             }
 
@@ -457,7 +457,7 @@ namespace Spooky.Core
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
-                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 30, 1, Main.myPlayer, 0, 0);
+                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 30, 1, Main.myPlayer);
                     }
                 }
             }
@@ -612,26 +612,6 @@ namespace Spooky.Core
                 SkullFrenzyCharge = 0;
             }
 
-            //when the booger charge is high enough, grant the player the booger frenzy
-            if (MocoBoogerCharge >= 15)
-            {
-                BoogerFrenzyTime++;
-
-                //give the player the frenzy buff
-                if (BoogerFrenzyTime == 1)
-                {
-                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyBuff>(), 300);
-                }
-
-                //at the end of the frenzy, give the player the cooldown, then reset the charge and timer
-                if (BoogerFrenzyTime >= 300)
-                {
-                    Player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
-                    MocoBoogerCharge = 0;
-                    BoogerFrenzyTime = 0;
-                }
-            }
-
             //spawn cross sound bass projectile after pressing the hotkey
             if (CrossSoundTimer > 0)
             {
@@ -642,8 +622,7 @@ namespace Spooky.Core
                     //the damage for this projectile should always be the same regardless of difficulty
                     int Damage = Main.masterMode ? 30 / 4 : Main.expertMode ? 30 / 3 : 30;
 
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
-                    ModContent.ProjectileType<PandoraCrossSound>(), Damage, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<PandoraCrossSound>(), Damage, 0f, Main.myPlayer);
                 }
             }
 
@@ -662,15 +641,13 @@ namespace Spooky.Core
                             //prioritize bosses over normal enemies
                             if (NPC.boss)
                             {
-                                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
-                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
+                                Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
                                 
                                 break;
                             }
                             else
                             {
-                                Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0,
-                                ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
+                                Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<PandoraCuffProj>(), 0, 0f, Main.myPlayer, i);
 
                                 break;
                             }
@@ -774,9 +751,12 @@ namespace Spooky.Core
 
             if (CarnisFlavorEnhancer)
             {
-                if (num20 >= 10)
+                CarnisSporeSpawnTimer++;
+
+                if (num20 >= 10 && CarnisSporeSpawnTimer == 30)
                 {
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<FoodEnhancerSpore>(), 0, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<FoodEnhancerSpore>(), 0, 0f, Main.myPlayer);
+                    CarnisSporeSpawnTimer = 0;
                 }
             }
 
@@ -798,7 +778,7 @@ namespace Spooky.Core
                         int damage = 80 + ((int)num20 / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
-                        ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer, 0f, 0f);
+                        ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer);
 
                         BoneWispTimer = 0;
                     }

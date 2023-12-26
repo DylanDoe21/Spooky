@@ -29,7 +29,7 @@ namespace Spooky.Content.Tiles.Catacomb.Safe
         public override void AddRecipes()
         {
             CreateRecipe(4)
-            .AddIngredient(ModContent.ItemType<CatacombBrick1SafeItem>(), 1)
+            .AddIngredient(ModContent.ItemType<CatacombBrick1Item>())
             .AddTile(TileID.WorkBenches)
             .Register();
         }

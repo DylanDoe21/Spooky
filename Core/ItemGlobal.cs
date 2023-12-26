@@ -80,14 +80,15 @@ namespace Spooky.Core
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.HasBuff(ModContent.BuffType<BoogerFrenzyBuff>()) && !player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()))
+            if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
-                //whips and summon weapons should not shoot out a booger, as well as items that do not shoot projectiles
-                if (item.DamageType != DamageClass.SummonMeleeSpeed && item.DamageType != DamageClass.Summon && item.shoot > 0 && item.shootSpeed > 0)
+                for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
                 {
-                    int newProjectile = Projectile.NewProjectile(source, position, velocity * 1.5f, ModContent.ProjectileType<BlasterBoogerSmall>(), (int)knockback, player.whoAmI);
-                    Main.projectile[newProjectile].DamageType = item.DamageType;
+                    Projectile.NewProjectile(source, position, velocity * 2f + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
+                    ModContent.ProjectileType<MocoNoseSnot>(), damage + 40, (int)knockback, player.whoAmI);
                 }
+
+                player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
             }
 
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);

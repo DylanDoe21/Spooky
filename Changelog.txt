@@ -17,7 +17,6 @@ New Biome, The Spider Grotto:
 -This biome has its own completely unique background (the background will not show up if you have the terraria background config turned off)
 -Like other biomes in the mod, this new biome has a bunch of new content such as weapons, accessories, armors, and a bunch of new enemies and critters
 -Also has more new enemies and content after you have defeated one mechanical boss
--No new boss this time though :(
 
 
 New Menu Overhaul:
@@ -39,10 +38,10 @@ New Music:
 
 Other New Additions:
 
--Added craftable "safe" versions of the catacomb bricks and walls you can build with, they can be shimmered into their unsafe variants after big bone is defeated
--Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
+-Added craftable "safe" versions of the catacomb bricks and walls you can build with, the walls can be shimmered into their unsafe variants after big bone is defeated
 -Added multiple new spooky forest enemies to both prehardmode and hardmode
 -Added new colorful gourd tiles to the spooky forest
+-Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 
 
 
@@ -83,9 +82,15 @@ Other New Additions:
 -Bubble belcher projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
 -Changed bubble belcher's use sound to be the same as the toxikarp's use sound
 -Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one
--Orro & boro no longer draw behind tiles so you can see them coming a bit earlier
--Resprited a bunch of grass blocks in each spooky mod biome
--Fixed multiple npcs not being animated in the bestiary
+-Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
+-Resprited a bunch of grass and other blocks in each spooky mod biome
+-Fixed many spooky mod enemies not being animated in the bestiary
+-Increased chained eyes flail launching range and launch speed
+-Sticky eye pet now drops from the new monster eye enemy instead of egg incursion enemies, and it now looks like monster eyes as well
+-Spooky forest now generates with the opposite tier ore of what vanilla has (example, if the world spawns with gold ore then the spooky forest will have platinum ore)
+-Snotty schnoz now has a UI bar so you can see how much snot charge you have
+-Snotty schnoz no longer lets you shoot out snot globs for 5 seconds, instead it now shoots out a giant spread of boogers all at once and fully consumes all your booger charges
+-Increased the chance enemies have to drop snot when hit while you have the snotty schnoz equipped
 
 
 
@@ -108,6 +113,9 @@ Fixed all of the following bugs and issues:
 -Daffodil's arena generating with layer 2 grass walls in it, which would cause daffodil to despawn during the fight
 -Daffodil, pandora's box, and big bone's flower pot spawning in subworlds
 -Pets on the character display screen being animated if you weren't hovering over that character, and bobbing up and down for some reason
+-Spooky mod flails making tile collision sounds and dusts when they retracted to you if you are standing on the ground
+-Chained eyes causing the player to spaz out if your cursor was above, below, or in the middle of your player
+-Snot ball being able to damage enemies while returning to you after the snot ball itself is launched
 
 
 

@@ -61,7 +61,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			return true;
 		}
 
-        /*
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {
             Vector2 worldPosition = new Vector2(i, j).ToWorldCoordinates();
@@ -79,6 +78,5 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 				}
             }
         }
-        */
     }
 }

@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 if (NPC.velocity.X != 0)
                 {
-                    NPC.frameCounter += 1;
+                    NPC.frameCounter++;
                     if (NPC.frameCounter > 4)
                     {
                         NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -66,7 +66,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
                 else
                 {
-                    NPC.frame.Y = 0;
+                    NPC.frame.Y = 0 * frameHeight;
                 }
             }
             else

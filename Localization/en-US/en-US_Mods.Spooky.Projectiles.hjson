@@ -27,7 +27,6 @@ EyeSpit.DisplayName: Saliva Ball
 EyeSpit2.DisplayName: Saliva Ball
 OrroBiomatter.DisplayName: Biomass
 TelegraphPurple.DisplayName: Telegraph
-TelegraphRed.DisplayName: Telegraph
 DirtDebris.DisplayName: Dirt Debris
 MoldSpore.DisplayName: Mold Spore
 RotFly.DisplayName: Fly
@@ -282,5 +281,10 @@ TelegraphRedLeft.DisplayName: Telegraph Red Left
 TelegraphRedDown.DisplayName: Telegraph Red Down
 TelegraphRedRight.DisplayName: Telegraph Red Right
 TelegraphRedUp.DisplayName: Telegraph Red Up
-GraveDiggerShovelProj.DisplayName: Grave Digger Shovel Proj
-WhipSpiderProj.DisplayName: Whip Spider Proj
+GraveDiggerShovelProj.DisplayName: Grave Digger Shovel
+WhipSpiderProj.DisplayName: Whip Spider
+SphiderFlailProj.DisplayName: Sphider Flail
+SphiderFlailWeb.DisplayName: Web Ball
+PheremoneWhipProj.DisplayName: Pheremone Whip
+PheromoneWhipProj.DisplayName: Pheromone Whip
+MocoNoseSnot.DisplayName: Snot

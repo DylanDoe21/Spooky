@@ -69,12 +69,12 @@ namespace Spooky.Content.Tiles.SpiderCave
                 //mushrooms 
                 if (Main.rand.NextBool(18))
                 {
-                    ushort[] Shrooms = new ushort[] { (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(),
-                    (ushort)ModContent.TileType<MushroomGreen3>(), (ushort)ModContent.TileType<MushroomGreen4>(),
-                    (ushort)ModContent.TileType<MushroomOrange1>(), (ushort)ModContent.TileType<MushroomOrange2>(),
-                    (ushort)ModContent.TileType<MushroomOrange3>(), (ushort)ModContent.TileType<MushroomOrange4>() };
+                    ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBrown1>(), (ushort)ModContent.TileType<MushroomBrown2>(), 
+                    (ushort)ModContent.TileType<MushroomBrown3>(), (ushort)ModContent.TileType<MushroomBrown4>(), 
+                    (ushort)ModContent.TileType<MushroomRed1>(), (ushort)ModContent.TileType<MushroomRed2>(), 
+                    (ushort)ModContent.TileType<MushroomRed3>(), (ushort)ModContent.TileType<MushroomRed4>() };
 
-                    ushort newObject = Main.rand.Next(Shrooms);
+                    ushort newObject = Main.rand.Next(Mushrooms);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);

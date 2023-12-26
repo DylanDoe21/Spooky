@@ -2,6 +2,7 @@ using Terraria.ModLoader.Config;
 using System.ComponentModel;
 
 using Spooky.Core;
+using Spooky.Content.UI;
 
 namespace Spooky
 {

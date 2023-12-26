@@ -2,18 +2,24 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.NPCs.Friendly
+using Spooky.Content.NPCs.Friendly;
+
+namespace Spooky.Content.Items.SpookyBiome.Misc
 {
     public class LittleBonePot : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 1;
+        }
+
         public override void SetDefaults()
         {
-            Item.consumable = false; 
-            Item.noUseGraphic = true;
             Item.width = 30;
 			Item.height = 24;
 			Item.useTime = 35;
 			Item.useAnimation = 35;
+            Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Quest;
             Item.UseSound = SoundID.Item83;

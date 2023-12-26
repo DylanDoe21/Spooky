@@ -194,18 +194,5 @@ namespace Spooky.Core
             encounteredHorse = encounterFlags[2];
             encounteredFlesh = encounterFlags[3];
         }
-
-        private void WriteRectangle(BinaryWriter writer, Rectangle rect)
-        {
-            writer.Write(rect.X);
-            writer.Write(rect.Y);
-            writer.Write(rect.Width);
-            writer.Write(rect.Height);
-        }
-
-        private Rectangle ReadRectangle(BinaryReader reader)
-        {
-            return new Rectangle(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
-        }
     }
 }
