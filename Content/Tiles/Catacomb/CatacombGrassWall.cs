@@ -26,10 +26,11 @@ namespace Spooky.Content.Tiles.Catacomb
             //wall merges
             Texture2D mergeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/CatacombGrassWall1Merge").Value;
 
-            //down wall merge
+            //wall merges
             if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall1>() || Main.tile[i - 1, j].WallType == ModContent.WallType<CatacombBrickWall1>() ||
             Main.tile[i, j - 1].WallType == ModContent.WallType<CatacombBrickWall1>() || Main.tile[i + 1, j].WallType == ModContent.WallType<CatacombBrickWall1>())
             { 
+                //down wall merge
                 if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall1>())
                 {
                     spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
@@ -77,10 +78,11 @@ namespace Spooky.Content.Tiles.Catacomb
             //wall merges
             Texture2D mergeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/CatacombGrassWall2Merge").Value;
 
-            //down wall merge
+            //wall merges
             if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall2>() || Main.tile[i - 1, j].WallType == ModContent.WallType<CatacombBrickWall2>() ||
             Main.tile[i, j - 1].WallType == ModContent.WallType<CatacombBrickWall2>() || Main.tile[i + 1, j].WallType == ModContent.WallType<CatacombBrickWall2>())
-            { 
+            {
+                //down wall merge
                 if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall2>())
                 {
                     spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));

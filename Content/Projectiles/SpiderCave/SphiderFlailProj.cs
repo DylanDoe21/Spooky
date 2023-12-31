@@ -20,7 +20,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			LaunchingForward,
 			Retracting,
 			UnusedState,
-			ForcedRetracting
+			ForcedRetracting,
+			Ricochet,
+			Dropping
 		}
 
 		private AIState CurrentAIState 
@@ -152,6 +154,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			int defaultHitCooldown = 10;
 			int spinHitCooldown = 20; 
 			int movingHitCooldown = 20;
+			int ricochetTimeLimit = launchTimeLimit + 5;
 
 			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
 			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
@@ -164,6 +167,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
 			float launchRange = launchSpeed * launchTimeLimit;
+			float maxDroppedRange = launchRange + 80f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
 
 			switch (CurrentAIState) 
@@ -228,17 +232,30 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
                     shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
                     
-					if (shouldSwitchToRetracting)
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                        // This is where Drippler Crippler spawns its projectile
+                        /*
+                        if (Main.myPlayer == Projectile.owner)
+                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 928, Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                        */
+                        break;
+                    }
+
+                    if (shouldSwitchToRetracting)
                     {
                         CurrentAIState = AIState.Retracting;
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.3f;
+                        // This is also where Drippler Crippler spawns its projectile, see above code.
                     }
-
                     player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
                     Projectile.localNPCHitCooldown = movingHitCooldown;
-
                     break;
                 }
 				case AIState.Retracting: 
@@ -250,11 +267,19 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;
                     }
-
-					Projectile.velocity *= 0.98f;
-					Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
-					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                    }
+                    else 
+                    {
+                        Projectile.velocity *= 0.98f;
+                        Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
+                        player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+                    }
                     break;
                 }
 				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.
@@ -332,6 +357,40 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                     break;
                 }
+				case AIState.Ricochet:
+                {
+					if (StateTimer++ >= ricochetTimeLimit) 
+                    {
+						CurrentAIState = AIState.Dropping;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.localNPCHitCooldown = movingHitCooldown;
+						Projectile.velocity.Y += 0.6f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+					break;
+                }
+				case AIState.Dropping:
+                {
+					if (!player.controlUseItem || Projectile.Distance(mountedCenter) > maxDroppedRange) 
+                    {
+						CurrentAIState = AIState.ForcedRetracting;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.velocity.Y += 0.8f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+
+					break;
+                }
 			}
 
 			// This is where Flower Pow launches projectiles. Decompile Terraria to view that code.
@@ -340,7 +399,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
 
 			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
-
 			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			// If you have a ball shaped flail, you can use this simplified rotation code instead
@@ -366,8 +424,56 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override bool OnTileCollide(Vector2 oldVelocity) 
         {
+			int impactIntensity = 0;
+			Vector2 velocity = Projectile.velocity;
+			float bounceFactor = 0.2f;
+
+			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Ricochet)
+            {
+				bounceFactor = 0.4f;
+            }
+
+			if (CurrentAIState == AIState.Dropping)
+            {
+				bounceFactor = 0f;
+            }
+
+			if (oldVelocity.X != Projectile.velocity.X) 
+            {
+				if (Math.Abs(oldVelocity.X) > 4f)
+                {
+					impactIntensity = 1;
+                }
+
+				Projectile.velocity.X = (0f - oldVelocity.X) * bounceFactor;
+				CollisionCounter += 1f;
+			}
+
+			if (oldVelocity.Y != Projectile.velocity.Y) 
+            {
+				if (Math.Abs(oldVelocity.Y) > 4f)
+                {
+					impactIntensity = 1;
+                }
+
+				Projectile.velocity.Y = (0f - oldVelocity.Y) * bounceFactor;
+				CollisionCounter += 1f;
+			}
+
+			// Here the tiles spawn dust indicating they've been hit
+			if (impactIntensity > 0) 
+            {
+				Projectile.netUpdate = true;
+				for (int i = 0; i < impactIntensity; i++) 
+                {
+					Collision.HitTiles(Projectile.position, velocity, Projectile.width, Projectile.height);
+				}
+
+				SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+			}
+
 			// Force retraction if stuck on tiles while retracting
-			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CollisionCounter >= 10f) 
+			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CurrentAIState != AIState.Ricochet && CurrentAIState != AIState.Dropping && CollisionCounter >= 10f) 
             {
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
@@ -408,7 +514,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 			if (CurrentAIState == AIState.Spinning)
             {
-				modifiers.Knockback *= 0.25f;
+                modifiers.Knockback *= 0.25f;
+            }
+
+			if (CurrentAIState == AIState.Dropping)
+            {
+                modifiers.Knockback *= 0.5f;
             }
 		}
 	}

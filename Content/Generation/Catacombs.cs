@@ -941,7 +941,7 @@ namespace Spooky.Content.Generation
 
                         //bars
                         chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                        chest.item[1].stack = WorldGen.genRand.Next(5, 16);
+                        chest.item[1].stack = WorldGen.genRand.Next(10, 23);
                         //potions
                         chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
                         chest.item[2].stack = WorldGen.genRand.Next(1, 3);
@@ -966,17 +966,17 @@ namespace Spooky.Content.Generation
                     if (chestTile.TileFrameX == 41 * 36) 
                     {
                         //recorvery potions
-                        int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
+                        int[] RecoveryPotions = new int[] { ItemID.GreaterHealingPotion, ItemID.GreaterManaPotion };
 
                         //ammos
                         int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.JestersArrow };
 
                         //bars
-                        int[] Bars = new int[] { ItemID.CobaltBar, ItemID.PalladiumBar };
+                        int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
 
                         //bars
                         chest.item[0].SetDefaults(WorldGen.genRand.Next(Bars));
-                        chest.item[0].stack = WorldGen.genRand.Next(5, 11);
+                        chest.item[0].stack = WorldGen.genRand.Next(3, 11);
                         //recovery potions
                         chest.item[1].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
                         chest.item[1].stack = WorldGen.genRand.Next(1, 4);

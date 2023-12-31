@@ -49,7 +49,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
     public class CatacombBrickWallBigBoneBGItem : CatacombBrickWall2Item
     {
-        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall2";
+        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall2Item";
 
         public override void SetDefaults()
         {

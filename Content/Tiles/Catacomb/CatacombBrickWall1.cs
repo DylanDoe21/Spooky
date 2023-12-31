@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
-            Main.wallHouse[Type] = true;
+            Main.wallHouse[Type] = false;
             AddMapEntry(new Color(29, 24, 35));
             DustType = DustID.Stone;
         }
@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void KillWall(int i, int j, ref bool fail)
         {
-            fail = false;
+            fail = true;
         }
     }
 
@@ -34,8 +34,8 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            int width = 13;
-            int height = 8;
+            int width = 8;
+            int height = 6;
             int parallax = 10;
             Texture2D texture = ModContent.Request<Texture2D>(("Spooky/Content/Backgrounds/Catacomb/UpperCatacombBG"), (AssetRequestMode)2).Value;
             Vector2 zero = (Vector2)(Main.drawToScreen ? Vector2.Zero : new Vector2((float)Main.offScreenRange));
@@ -51,8 +51,8 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            int width = 13;
-            int height = 8;
+            int width = 8;
+            int height = 6;
             int parallax = 10;
             Texture2D texture = ModContent.Request<Texture2D>(("Spooky/Content/Backgrounds/Catacomb/UpperCatacombBG"), (AssetRequestMode)2).Value;
             Vector2 zero = (Vector2)(Main.drawToScreen ? Vector2.Zero : new Vector2((float)Main.offScreenRange));

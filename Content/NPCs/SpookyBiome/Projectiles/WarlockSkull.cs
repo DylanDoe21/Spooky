@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 		{
 			Projectile.width = 16;                   			 
             Projectile.height = 16;         
-			Projectile.hostile = true;                                 			  		
+			Projectile.hostile = true;
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
             Projectile.penetrate = 1;                  					

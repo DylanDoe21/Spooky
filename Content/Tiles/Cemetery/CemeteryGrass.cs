@@ -57,7 +57,9 @@ namespace Spooky.Content.Tiles.Cemetery
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 if (Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>() &&
-                Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>())
+                Main.tile[i, j].WallType != ModContent.WallType<CatacombGrassWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombGrassWall2>())
+                //Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWallBG1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWallDaffodilBG>() &&
+                //Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWallBG2>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWallBigBoneBG>())
                 {
                     //grow weeds
                     if (Main.rand.NextBool(5))
@@ -138,6 +140,40 @@ namespace Spooky.Content.Tiles.Cemetery
             }
         }
 
+        private List<Point> OpenAdjacents(int i, int j, int type)
+        {
+            var tileList = new List<Point>();
+
+            for (int k = -1; k < 2; ++k)
+            {
+                for (int l = -1; l < 2; ++l)
+                {
+                    if (!(l == 0 && k == 0) && Framing.GetTileSafely(i + k, j + l).HasTile && Framing.GetTileSafely(i + k, j + l).TileType == type)
+                    {
+                        tileList.Add(new Point(i + k, j + l));
+                    }
+                }
+            }
+
+            return tileList;
+        }
+
+        private bool HasOpening(int i, int j)
+        {
+            for (int k = -1; k < 2; k++)
+            {
+                for (int l = -1; l < 2; l++)
+                {
+                    if (!Framing.GetTileSafely(i + k, j + l).HasTile)
+                    {
+                        return true;
+                    }
+                }
+            }
+                    
+            return false;
+        }
+
         public static bool GrowGiantFlower(int X, int Y, int tileType)
         {
             int canPlace = 0;
@@ -178,40 +214,6 @@ namespace Spooky.Content.Tiles.Cemetery
             BigFlower.Grow(X, Y - 1, 3, 6);
 
             return true;
-        }
-
-        private List<Point> OpenAdjacents(int i, int j, int type)
-        {
-            var tileList = new List<Point>();
-
-            for (int k = -1; k < 2; ++k)
-            {
-                for (int l = -1; l < 2; ++l)
-                {
-                    if (!(l == 0 && k == 0) && Framing.GetTileSafely(i + k, j + l).HasTile && Framing.GetTileSafely(i + k, j + l).TileType == type)
-                    {
-                        tileList.Add(new Point(i + k, j + l));
-                    }
-                }
-            }
-
-            return tileList;
-        }
-
-        private bool HasOpening(int i, int j)
-        {
-            for (int k = -1; k < 2; k++)
-            {
-                for (int l = -1; l < 2; l++)
-                {
-                    if (!Framing.GetTileSafely(i + k, j + l).HasTile)
-                    {
-                        return true;
-                    }
-                }
-            }
-                    
-            return false;
         }
 	}
 }
