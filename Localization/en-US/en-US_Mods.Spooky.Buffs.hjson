@@ -46,8 +46,8 @@ SkullFrenzyBuff: {
 		'''
 }
 
-BoogerFrenzyCooldown: {
-	DisplayName: Booger Frenzy Cooldown
+SnottySchnozCooldown: {
+	DisplayName: Snotty Schnoz Cooldown
 	Description: Your booger frenzy is recharging
 }
 

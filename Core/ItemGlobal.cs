@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-using Spooky.Content.Buffs;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
@@ -17,6 +17,8 @@ namespace Spooky.Core
 {
     public class ItemGlobal : GlobalItem
     {
+        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Volume = 0.75f, Pitch = 0.9f };
+
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             if (Main.myPlayer != player.whoAmI)
@@ -78,17 +80,54 @@ namespace Spooky.Core
             return base.CanUseItem(item, player);
         }
 
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
+            {
+                if (item.shoot <= 0 && item.mountType <= 0 && item.damage > 0)
+                {
+                    SoundEngine.PlaySound(SneezeSound, player.Center);
+
+                    SpookyPlayer.ScreenShakeAmount = 8;
+
+                    float mouseXDist = (float)Main.mouseX + Main.screenPosition.X;
+                    float mouseYDist = (float)Main.mouseY + Main.screenPosition.Y;
+                
+                    Vector2 SnotVelocity = player.Center - new Vector2(mouseXDist, mouseYDist);
+                    SnotVelocity.Normalize();
+                    SnotVelocity *= -12;
+
+                    for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(null, player.Center, SnotVelocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
+                        ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 40, item.knockBack, player.whoAmI);
+                    }
+
+                    player.AddBuff(ModContent.BuffType<SnottySchnozCooldown>(), 1800);
+                }
+            }
+
+            return base.UseItem(item, player);
+        }
+
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
-                for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
+                if (item.damage > 0)
                 {
-                    Projectile.NewProjectile(source, position, velocity * 2f + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
-                    ModContent.ProjectileType<MocoNoseSnot>(), damage + 40, (int)knockback, player.whoAmI);
-                }
+                    SoundEngine.PlaySound(SneezeSound, player.Center);
 
-                player.AddBuff(ModContent.BuffType<BoogerFrenzyCooldown>(), 1800);
+                    SpookyPlayer.ScreenShakeAmount = 8;
+
+                    for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(null, player.Center, velocity * 2f + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
+                        ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 40, item.knockBack, player.whoAmI);
+                    }
+
+                    player.AddBuff(ModContent.BuffType<SnottySchnozCooldown>(), 1800);
+                }
             }
 
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);

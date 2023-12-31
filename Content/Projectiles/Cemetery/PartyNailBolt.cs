@@ -84,15 +84,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override bool? CanHitNPC(NPC target)
-        {
-            return target.type != ModContent.NPCType<PartySkeleton1>() && target.type != ModContent.NPCType<PartySkeleton2>() &&
-            target.type != ModContent.NPCType<PartySkeleton3>() && target.type != ModContent.NPCType<PartySkeleton4>() &&
-            target.type != ModContent.NPCType<PartySkeleton5>() && target.type != ModContent.NPCType<PartySkeleton6>() &&
-            target.type != ModContent.NPCType<PartySkeleton7>() && target.type != ModContent.NPCType<PartySkeleton8>() &&
-            target.type != ModContent.NPCType<SkeletonBouncer>() && target.type != ModContent.NPCType<SuspiciousSkeleton>();
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 0;

@@ -82,21 +82,14 @@ namespace Spooky.Content.Projectiles.Catacomb
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
+        public override bool? CanDamage()
+        {
+            return Projectile.ai[0] == 1;
+        }
+
         public override bool? CanCutTiles()
         {
             return false;
-        }
-
-        public override bool? CanHitNPC(NPC target)
-        {
-            if (Projectile.ai[0] == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         public override void AI()

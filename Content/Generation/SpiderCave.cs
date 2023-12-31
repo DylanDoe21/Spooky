@@ -7,11 +7,11 @@ using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
-using Spooky.Content.Tiles.SpiderCave.Mushrooms;
 using Spooky.Content.Tiles.SpiderCave.Tree;
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -241,7 +241,7 @@ namespace Spooky.Content.Generation
                         {
                             if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
                             {
-                                switch (WorldGen.genRand.Next(11))
+                                switch (WorldGen.genRand.Next(12))
                                 {
                                     case 0:
                                     {
@@ -263,47 +263,53 @@ namespace Spooky.Content.Generation
                                     }
                                     case 3:
                                     {
+                                        Vector2 structureOrigin = new Vector2(X - 21, Y - 28);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HouseGiant", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 4:
+                                    {
                                         Vector2 structureOrigin = new Vector2(X - 12, Y - 14);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/GraveSmall", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 4:
+                                    case 5:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 15, Y - 16);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/GraveLarge", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 5:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 15, Y - 25);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
                                     case 6:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 18, Y - 22);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsTall", structureOrigin.ToPoint16(), Mod);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsSmall", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
                                     case 7:
+                                    {
+                                        Vector2 structureOrigin = new Vector2(X - 15, Y - 25);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsMedium", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 8:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 12, Y - 23);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 8:
+                                    case 9:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 9, Y - 20);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/TowerSmall", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 9:
+                                    case 10:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 9, Y - 26);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/TowerLarge", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
-                                    case 10:
+                                    case 11:
                                     {
                                         Vector2 structureOrigin = new Vector2(X - 10, Y - 15);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/SmallShrine", structureOrigin.ToPoint16(), Mod);
@@ -320,7 +326,7 @@ namespace Spooky.Content.Generation
                         {
                             if (WorldGen.genRand.NextBool(40) && CanPlaceStructure(X, Y))
                             {
-                                switch (WorldGen.genRand.Next(3))
+                                switch (WorldGen.genRand.Next(5))
                                 {
                                     case 0:
                                     {
@@ -336,8 +342,20 @@ namespace Spooky.Content.Generation
                                     }
                                     case 2:
                                     {
+                                        Vector2 structureOrigin = new Vector2(X - 18, Y - 8);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerGiant", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 3:
+                                    {
                                         Vector2 structureOrigin = new Vector2(X - 10, Y - 5);
                                         Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootRoom", structureOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 4:
+                                    {
+                                        Vector2 structureOrigin = new Vector2(X - 16, Y - 6);
+                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootWeb", structureOrigin.ToPoint16(), Mod);
                                         break;
                                     }
                                 }
@@ -445,6 +463,7 @@ namespace Spooky.Content.Generation
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
                             }
 
+                            /*
                             //giant mushrooms
                             if (WorldGen.genRand.NextBool(6))
                             {
@@ -453,6 +472,7 @@ namespace Spooky.Content.Generation
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
                             }
+                            */
                         }
 
                         //place spider webs on walls
@@ -615,6 +635,29 @@ namespace Spooky.Content.Generation
             }
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("Spider Grotto Trap Removal", DeleteAnnoyingTraps));
+        }
+
+        public override void PostWorldGen()
+		{
+            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if (chest == null) 
+                {
+					continue;
+				}
+
+				Tile chestTile = Main.tile[chest.x, chest.y];
+
+                int[] MainItems = new int[] { ItemID.BandofRegeneration, ItemID.AnkletoftheWind, ItemID.HermesBoots, ItemID.CloudinaBottle, ItemID.Aglet, ItemID.LuckyHorseshoe };
+
+                if (chestTile.TileFrameX == 28 * 36 && MainItems.Contains(chest.item[0].type))
+                {
+                    chest.item[1].SetDefaults(ItemID.LunarBar);
+                    chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+                }
+            }
         }
     }
 }

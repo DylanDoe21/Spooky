@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             for (int i = 0; i < 200; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type])
+                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 750f)
                 {
                     AttackingAI(Target);
 
@@ -146,6 +146,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             playerFlying = false;
 
             Projectile.tileCollide = true;
+
+            Projectile.rotation = 0;
 
             Projectile.velocity.Y += 0.35f;
 

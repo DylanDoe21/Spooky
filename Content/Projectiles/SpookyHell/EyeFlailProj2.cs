@@ -392,24 +392,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.spriteDirection = Projectile.direction;
 			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
 
-			// This rotation code is unique to this flail, since the sprite isn't rotationally symmetric and has tip.
-			bool freeRotation = CurrentAIState == AIState.Ricochet || CurrentAIState == AIState.Dropping;
-			if (freeRotation) 
-            {
-				if (Projectile.velocity.Length() > 1f)
-                {
-					Projectile.rotation = Projectile.velocity.ToRotation() + Projectile.velocity.X * 0.1f; // skid
-                }
-				else
-                {
-					Projectile.rotation += Projectile.velocity.X * 0.1f; // roll
-                }
-			}
-			else 
-            {
-				Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
-				Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
-			}
+			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			// If you have a ball shaped flail, you can use this simplified rotation code instead
 			/*
@@ -470,22 +454,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CollisionCounter += 1f;
 			}
 
-			/*
-			// If in the Launched state, spawn sparks
-			if (CurrentAIState == AIState.LaunchingForward) 
-            {
-				CurrentAIState = AIState.Ricochet;
-				Projectile.localNPCHitCooldown = defaultLocalNPCHitCooldown;
-				Projectile.netUpdate = true;
-				Point scanAreaStart = Projectile.TopLeft.ToTileCoordinates();
-				Point scanAreaEnd = Projectile.BottomRight.ToTileCoordinates();
-				impactIntensity = 2;
-				Projectile.CreateImpactExplosion(2, Projectile.Center, ref scanAreaStart, ref scanAreaEnd, Projectile.width, out bool causedShockwaves);
-				Projectile.CreateImpactExplosion2_FlailTileCollision(Projectile.Center, causedShockwaves, velocity);
-				Projectile.position -= velocity;
-			}
-			*/
-
 			// Here the tiles spawn dust indicating they've been hit
 			if (impactIntensity > 0) 
             {
@@ -504,10 +472,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
 			}
-
-			// tModLoader currently does not provide the wetVelocity parameter, this code should make the flail bounce back faster when colliding with tiles underwater.
-			//if (Projectile.wet)
-			//	wetVelocity = Projectile.velocity;
 
 			return false;
 		}
@@ -538,32 +502,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			return base.Colliding(projHitbox, targetHitbox);
 		}
 
-        /*
-		public override void ModifyDamageScaling(ref float damageScale)
-		{
-			// Flails do 20% more damage while spinning
-			if (CurrentAIState == AIState.Spinning)
-				damageScale *= 1.2f;
-
-			// Flails do 100% more damage while launched or retracting. This is the damage the item tooltip for flails aim to match, as this is the most common mode of attack. This is why the item has ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
-			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Retracting)
-				damageScale *= 2f;
-		}
-		*/
-
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
         {
-            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
+			modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
 
-            if (CurrentAIState == AIState.Spinning)
+			if (CurrentAIState == AIState.Spinning)
             {
                 modifiers.Knockback *= 0.25f;
             }
 
-            if (CurrentAIState == AIState.Dropping)
+			if (CurrentAIState == AIState.Dropping)
             {
                 modifiers.Knockback *= 0.5f;
             }
-        }
+		}
     }
 }

@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			AddMapEntry(new Color(87, 52, 37));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
-			MinPick = int.MaxValue;
+			//MinPick = int.MaxValue;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)

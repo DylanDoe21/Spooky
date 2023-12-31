@@ -20,21 +20,24 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			LaunchingForward,
 			Retracting,
 			UnusedState,
-			ForcedRetracting
+			ForcedRetracting,
+			Ricochet,
+			Dropping
 		}
 
+		// These properties wrap the usual ai and localAI arrays for cleaner and easier to understand code.
 		private AIState CurrentAIState 
         {
 			get => (AIState)Projectile.ai[0];
 			set => Projectile.ai[0] = (float)value;
 		}
-
 		public ref float StateTimer => ref Projectile.ai[1];
 		public ref float CollisionCounter => ref Projectile.localAI[0];
 		public ref float SpinningStateTimer => ref Projectile.localAI[1];
 
 		public override void SetStaticDefaults() 
         {
+			// These lines facilitate the trail drawing
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
@@ -51,6 +54,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.localNPCHitCooldown = 10;
 		}
 
+		// PreDraw is used to draw a chain and trail before the projectile is drawn normally.
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
@@ -61,7 +65,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 			
 			Rectangle? chainSourceRectangle = null;
-			float chainHeightAdjustment = 0f;
+			// Drippler Crippler customizes sourceRectangle to cycle through sprite frames: sourceRectangle = asset.Frame(1, 6);
+			float chainHeightAdjustment = 0f; // Use this to adjust the chain overlap. 
 
 			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
 			Vector2 chainDrawPosition = Projectile.Center;
@@ -98,25 +103,33 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				chainCount++;
 				chainLengthRemainingToDraw -= chainSegmentLength;
 			}
-			
-			Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
-			Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
-			SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-			for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
+			// Add a motion trail when moving forward, like most flails do (don't add trail if already hit a tile)
+			if (CurrentAIState == AIState.LaunchingForward)
 			{
-				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-				Color color = Projectile.GetAlpha(Color.Blue * 0.35f) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-				Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
+				Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
+				Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
+				SpriteEffects spriteEffects = SpriteEffects.None;
+
+				if (Projectile.spriteDirection == -1)
+				{
+					spriteEffects = SpriteEffects.FlipHorizontally;
+				}
+				for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
+				{
+					Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+					Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+					Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
+				}
 			}
 
 			return true;
 		}
 
+		// This AI code was adapted from vanilla code: Terraria.Projectile.AI_015_Flails() 
 		public override void AI() 
         {
 			Player player = Main.player[Projectile.owner];
-
 			// Kill the projectile if the player dies or gets crowd controlled
 			if (!player.active || player.dead || player.noItems || player.CCed || Vector2.Distance(Projectile.Center, player.Center) > 900f) 
             {
@@ -131,19 +144,20 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 12; 
-			float launchSpeed = 17f;
-			float maxLaunchLength = 525f;
-			float retractAcceleration = 2.5f;
-			float maxRetractSpeed = 20f; 
-			float forcedRetractAcceleration = 20f;
-			float maxForcedRetractSpeed = 15f; 
+			int launchTimeLimit = 12;
+			float launchSpeed = 17f; 
+			float maxLaunchLength = 575f;
+			float retractAcceleration = 2f; 
+			float maxRetractSpeed = 25f;
+			float forcedRetractAcceleration = 25f; 
+			float maxForcedRetractSpeed = 20f; 
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
-			int defaultHitCooldown = 10;
+			int defaultHitCooldown = 10; 
 			int spinHitCooldown = 20; 
-			int movingHitCooldown = 20;
+			int movingHitCooldown = 20; 
+			int ricochetTimeLimit = launchTimeLimit + 5;
 
 			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
 			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
@@ -156,6 +170,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
 			float launchRange = launchSpeed * launchTimeLimit;
+			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
 
 			switch (CurrentAIState) 
@@ -181,11 +196,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         }
                     }
 
-                    SpinningStateTimer += 0.85f;
+                    SpinningStateTimer += 1f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 
-                    offsetFromPlayer.Y *= 1f;
+                    offsetFromPlayer.Y *= 0.9f;
                     if (offsetFromPlayer.Y * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.Y *= 1f;
@@ -197,7 +212,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         offsetFromPlayer.X *= 1f;
                     }
 
-                    Projectile.Center = mountedCenter + offsetFromPlayer * 22f;
+                    Projectile.Center = mountedCenter + offsetFromPlayer * 30f;
                     Projectile.velocity = Vector2.Zero;
                     Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
 
@@ -208,17 +223,30 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
                     shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
                     
-					if (shouldSwitchToRetracting)
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                        // This is where Drippler Crippler spawns its projectile
+                        /*
+                        if (Main.myPlayer == Projectile.owner)
+                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 928, Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                        */
+                        break;
+                    }
+
+                    if (shouldSwitchToRetracting)
                     {
                         CurrentAIState = AIState.Retracting;
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.3f;
+                        // This is also where Drippler Crippler spawns its projectile, see above code.
                     }
-
                     player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
                     Projectile.localNPCHitCooldown = movingHitCooldown;
-
                     break;
                 }
 				case AIState.Retracting: 
@@ -230,11 +258,19 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;
                     }
-
-					Projectile.velocity *= 0.98f;
-					Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
-					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                    }
+                    else 
+                    {
+                        Projectile.velocity *= 0.98f;
+                        Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
+                        player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+                    }
                     break;
                 }
 				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.
@@ -312,6 +348,40 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                     break;
                 }
+				case AIState.Ricochet:
+                {
+					if (StateTimer++ >= ricochetTimeLimit) 
+                    {
+						CurrentAIState = AIState.Dropping;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.localNPCHitCooldown = movingHitCooldown;
+						Projectile.velocity.Y += 0.6f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+					break;
+                }
+				case AIState.Dropping:
+                {
+					if (!player.controlUseItem || Projectile.Distance(mountedCenter) > maxDroppedRange) 
+                    {
+						CurrentAIState = AIState.ForcedRetracting;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.velocity.Y += 0.8f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+
+					break;
+                }
 			}
 
 			// This is where Flower Pow launches projectiles. Decompile Terraria to view that code.
@@ -320,7 +390,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
 
 			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
-
 			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			// If you have a ball shaped flail, you can use this simplified rotation code instead
@@ -350,9 +419,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Vector2 velocity = Projectile.velocity;
 			float bounceFactor = 0.2f;
 
-			if (CurrentAIState == AIState.LaunchingForward)
+			if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Ricochet)
             {
 				bounceFactor = 0.4f;
+            }
+
+			if (CurrentAIState == AIState.Dropping)
+            {
+				bounceFactor = 0f;
             }
 
 			if (oldVelocity.X != Projectile.velocity.X) 
@@ -390,7 +464,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 
 			// Force retraction if stuck on tiles while retracting
-			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CollisionCounter >= 10f) 
+			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CurrentAIState != AIState.Ricochet && CurrentAIState != AIState.Dropping && CollisionCounter >= 10f) 
             {
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
@@ -431,7 +505,12 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			if (CurrentAIState == AIState.Spinning)
             {
-				modifiers.Knockback *= 0.25f;
+                modifiers.Knockback *= 0.25f;
+            }
+
+			if (CurrentAIState == AIState.Dropping)
+            {
+                modifiers.Knockback *= 0.5f;
             }
 		}
 	}

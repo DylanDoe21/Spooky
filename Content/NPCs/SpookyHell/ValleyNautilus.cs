@@ -437,7 +437,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     break;
                 }
 
-                //spin around and fire explosive biomass all over the place
+                //spin around and fire explosive bubbles all over the place
                 case 3:
                 {
                     NPC.localAI[0]++;

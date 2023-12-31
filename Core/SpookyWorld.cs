@@ -28,7 +28,7 @@ namespace Spooky.Core
         public static bool DaySwitched;
         private static bool LastTime;
 
-        //check to make sure the player isnt in a subworld so that things like daffodil and pandoras box arent spawned in subworlds
+        //check to make sure the player isnt in a subworld so that things like daffodil arent spawned in subworlds
         public bool IsInSubworld()
         {
             if (Spooky.Instance.subworldLibrary == null)
@@ -164,7 +164,7 @@ namespace Spooky.Core
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
+            int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
             if (mouseIndex != -1)
             {
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Moco Nose UI", () =>

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
-using Spooky.Content.Tiles.SpiderCave.Mushrooms;
 
 namespace Spooky.Content.Tiles.SpiderCave
 {
@@ -80,6 +79,7 @@ namespace Spooky.Content.Tiles.SpiderCave
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
+                /*
                 //giant mushrooms
                 if (Main.rand.NextBool(35))
                 {
@@ -91,6 +91,7 @@ namespace Spooky.Content.Tiles.SpiderCave
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
+                */
 			}
 
             //spread grass

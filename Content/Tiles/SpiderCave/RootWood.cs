@@ -14,7 +14,8 @@ namespace Spooky.Content.Tiles.SpiderCave
 		public override void SetStaticDefaults()
 		{
 			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			Main.tileBrick[Type] = true;
+			TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
+            Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;

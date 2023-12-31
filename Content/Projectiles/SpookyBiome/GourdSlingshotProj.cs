@@ -28,9 +28,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.aiStyle = -1;
 		}
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
-			return false;
+            return false;
         }
 
         public override bool? CanCutTiles()

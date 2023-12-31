@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
 			return Projectile.velocity.Y > 0;
         }

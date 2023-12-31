@@ -56,7 +56,8 @@ namespace Spooky.Content.Tiles.Cemetery
 
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
-                if (Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>())
+                if (Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>() &&
+                Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>())
                 {
                     //grow weeds
                     if (Main.rand.NextBool(5))

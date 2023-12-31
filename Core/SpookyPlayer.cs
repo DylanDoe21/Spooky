@@ -353,7 +353,7 @@ namespace Spooky.Core
             //snotty schnoz booger item dropping on hit
             if (MocoNose && MocoBoogerCharge < 15)
             {
-                if (!Player.HasBuff(ModContent.BuffType<BoogerFrenzyCooldown>()) && Main.rand.NextBool(12))
+                if (!Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
                 {
                     int itemType = ModContent.ItemType<MocoNoseBooger>();
                     int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
@@ -753,9 +753,18 @@ namespace Spooky.Core
             {
                 CarnisSporeSpawnTimer++;
 
-                if (num20 >= 10 && CarnisSporeSpawnTimer == 30)
+                if (num20 >= 10)
                 {
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<FoodEnhancerSpore>(), 0, 0f, Main.myPlayer);
+                    CarnisSporeSpawnTimer++;
+
+                    if (CarnisSporeSpawnTimer >= 30)
+                    {
+                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<FoodEnhancerSpore>(), 0, 0f, Main.myPlayer);
+                        CarnisSporeSpawnTimer = 0;
+                    }
+                }
+                else
+                {
                     CarnisSporeSpawnTimer = 0;
                 }
             }

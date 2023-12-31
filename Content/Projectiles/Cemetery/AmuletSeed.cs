@@ -82,7 +82,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
             return Projectile.ai[0] > 80;
         }

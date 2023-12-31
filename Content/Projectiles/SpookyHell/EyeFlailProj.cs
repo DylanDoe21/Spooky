@@ -392,24 +392,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.spriteDirection = Projectile.direction;
 			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
 
-			// This rotation code is unique to this flail, since the sprite isn't rotationally symmetric and has tip.
-			bool freeRotation = CurrentAIState == AIState.Ricochet || CurrentAIState == AIState.Dropping;
-			if (freeRotation) 
-            {
-				if (Projectile.velocity.Length() > 1f)
-                {
-					Projectile.rotation = Projectile.velocity.ToRotation() + Projectile.velocity.X * 0.1f; // skid
-                }
-				else
-                {
-					Projectile.rotation += Projectile.velocity.X * 0.1f; // roll
-                }
-			}
-			else 
-            {
-				Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
-				Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
-			}
+			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			// If you have a ball shaped flail, you can use this simplified rotation code instead
 			/*

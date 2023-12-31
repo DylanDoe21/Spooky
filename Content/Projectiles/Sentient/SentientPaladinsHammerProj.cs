@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.Sentient
             return true;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
             return Projectile.ai[0] == 1 && Projectile.ai[1] >= 20 && !hasHitEnemy;
         }

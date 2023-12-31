@@ -523,13 +523,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         {
                             if (player.velocity.X != 0)
                             {
-                                NPC.position.X = (player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 650) - NPC.width / 2;
+                                NPC.position.X = (player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 550) - NPC.width / 2;
                                 NPC.position.Y = player.Center.Y - 350;
                             }
                             else
                             {
-                                NPC.position.X = player.Center.X - NPC.width / 2;
-                                NPC.position.Y = player.Center.Y - 450;
+                                NPC.position.X = Main.rand.NextBool() ? (player.Center.X + 550 - NPC.width / 2) : (player.Center.X - 550 - NPC.width / 2);
+                                NPC.position.Y = player.Center.Y - 350;
                             }
 
                             NPC.netUpdate = true;

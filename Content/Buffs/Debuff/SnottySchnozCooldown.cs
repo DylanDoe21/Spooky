@@ -5,7 +5,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Buffs.Debuff
 {
-	public class BoogerFrenzyCooldown : ModBuff
+	public class SnottySchnozCooldown : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{

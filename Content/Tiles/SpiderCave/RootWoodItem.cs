@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpiderCave;
-
 namespace Spooky.Content.Tiles.SpiderCave
 {
     public class RootWoodItem : ModItem

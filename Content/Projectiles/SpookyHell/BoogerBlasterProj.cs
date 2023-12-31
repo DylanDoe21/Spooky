@@ -125,8 +125,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, ShootSpeed, 
+                                ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                                 break;
                             }
@@ -140,7 +140,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset,
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
                                     ShootSpeed * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                     ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                                 }
@@ -155,8 +155,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, ShootSpeed, 
+                                ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
 
                                 break;
                             }

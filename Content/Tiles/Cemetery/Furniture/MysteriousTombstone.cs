@@ -60,8 +60,13 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 		{
 			Player player = Main.LocalPlayer;
 
+			//guaranteed goodie bags during a raveyard
+			if (player.InModBiome<RaveyardBiome>())
+			{
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.GoodieBag);
+			}
 			//spawn a mist ghost sometimes
-            if (Main.rand.NextBool(4))
+            else if (Main.rand.NextBool(4))
             {
 				int x = i;
                 int y = j;

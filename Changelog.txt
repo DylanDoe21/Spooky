@@ -38,10 +38,11 @@ New Music:
 
 Other New Additions:
 
--Added craftable "safe" versions of the catacomb bricks and walls you can build with, the walls can be shimmered into their unsafe variants after big bone is defeated
+-Added craftable "safe" versions of the catacomb bricks and walls you can build with
 -Added multiple new spooky forest enemies to both prehardmode and hardmode
 -Added new colorful gourd tiles to the spooky forest
 -Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
+-Added a bunch more pets
 
 
 
@@ -50,6 +51,7 @@ Other New Additions:
 
 
 -The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
+-Spooky forest now generates with the opposite tier ore of what vanilla has (example, if the world spawns with gold ore then the spooky forest will have platinum ore)
 -Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 -Buffed most of the weapons/acessories you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
 //THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
@@ -85,12 +87,13 @@ Other New Additions:
 -Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
 -Resprited a bunch of grass and other blocks in each spooky mod biome
 -Fixed many spooky mod enemies not being animated in the bestiary
--Increased chained eyes flail launching range and launch speed
 -Sticky eye pet now drops from the new monster eye enemy instead of egg incursion enemies, and it now looks like monster eyes as well
--Spooky forest now generates with the opposite tier ore of what vanilla has (example, if the world spawns with gold ore then the spooky forest will have platinum ore)
 -Snotty schnoz now has a UI bar so you can see how much snot charge you have
 -Snotty schnoz no longer lets you shoot out snot globs for 5 seconds, instead it now shoots out a giant spread of boogers all at once and fully consumes all your booger charges
 -Increased the chance enemies have to drop snot when hit while you have the snotty schnoz equipped
+-Increased chained eyes maximum launch range and launching speed
+-Chained eyes projectiles now use the correct rotation while they are dropped while you hold left click
+-Fungal flail and rotty's wrath will now drop and stay on the ground when you hold left click after launching them like vanilla flails do
 
 
 
@@ -106,16 +109,17 @@ Fixed all of the following bugs and issues:
 -Samson's cuff ability not working at all
 -Spooky mod armor glowmasks showing through items equipped in your vanity
 -Spooky mod armor glowmasks not being affected by dyes
--Spooky mod weapons that use the melee swing extension visual not scaling up or down if the weapon itself has a reforgement that made it smaller or bigger
+-Spooky mod weapons that use the melee swing extension visual not scaling up/down their physical and hitbox size if the weapon itself has a reforgement that made it smaller or bigger
 -Some spooky mod melee swing extensions having slightly incorrectly sized hitboxes
 -Skull smasher's right click ability was dealing double the weapons base damage
--Catacombs second layer sometimes generating with no vertical pathways
+-Catacombs second layer sometimes generating with no vertical pathways, and same for the first layer
 -Daffodil's arena generating with layer 2 grass walls in it, which would cause daffodil to despawn during the fight
 -Daffodil, pandora's box, and big bone's flower pot spawning in subworlds
 -Pets on the character display screen being animated if you weren't hovering over that character, and bobbing up and down for some reason
 -Spooky mod flails making tile collision sounds and dusts when they retracted to you if you are standing on the ground
 -Chained eyes causing the player to spaz out if your cursor was above, below, or in the middle of your player
 -Snot ball being able to damage enemies while returning to you after the snot ball itself is launched
+-Snotty schnoz's ability not working with weapons that don't shoot projectiles and a few other specific items
 
 
 

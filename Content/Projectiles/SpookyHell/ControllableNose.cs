@@ -30,9 +30,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return false;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool? CanDamage()
         {
-			return false;
+            return false;
         }
 
         public override bool? CanCutTiles()

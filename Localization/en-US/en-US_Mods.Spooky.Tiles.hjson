@@ -50,6 +50,7 @@ VinylTileThing2.MapEntry: Music Box
 VinylTileThing3.MapEntry: Music Box
 VinylTileThing4.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
+SpiderCavePylon.MapEntry: Spider Grotto Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon
 SpookyHellPylon.MapEntry: Eye Valley Pylon
 FlyBigJar.MapEntry: Big Fly Jar

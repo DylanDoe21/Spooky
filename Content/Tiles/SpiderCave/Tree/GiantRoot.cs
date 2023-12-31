@@ -64,9 +64,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             //if the root grows too low, set its height to be higher above the ground
             for (int k = 1; k < height; k++)
             {
-                if (SolidTile(i, j + k))
+                if (SolidTile(i, j + k + 3))
                 {
-                    height = k - 5;
+                    height = k - 1;
                     break;
                 }
             }
