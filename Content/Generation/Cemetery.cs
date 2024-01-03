@@ -301,23 +301,19 @@ namespace Spooky.Content.Generation
                 {
                     int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
                     int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
-                    int[] Misc = new int[] { ItemID.PumpkinSeed, ItemID.Cobweb };
 
                     //iron or lead bars
                     chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+                    chest.item[1].stack = WorldGen.genRand.Next(8, 15);
                     //light sources
                     chest.item[2].SetDefaults(ItemID.GreenTorch);
                     chest.item[2].stack = WorldGen.genRand.Next(3, 8);
                     //potions
                     chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-                    chest.item[3].stack = WorldGen.genRand.Next(2, 3);
-                    //pumpkin seeds or cobwebs
-                    chest.item[4].SetDefaults(WorldGen.genRand.Next(Misc));
-                    chest.item[4].stack = WorldGen.genRand.Next(5, 10);
+                    chest.item[3].stack = WorldGen.genRand.Next(3, 5);
                     //coins
-                    chest.item[5].SetDefaults(ItemID.GoldCoin);
-                    chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+                    chest.item[4].SetDefaults(ItemID.GoldCoin);
+                    chest.item[4].stack = WorldGen.genRand.Next(1, 2);
                 }
             }
         }

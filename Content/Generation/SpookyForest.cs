@@ -297,7 +297,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //grow giant mushrooms
-                for (int Y = (int)Main.worldSurface + 25; Y < Main.maxTilesY - 100; Y++)
+                for (int Y = (int)Main.worldSurface + 25; Y < Main.maxTilesY - 200; Y++)
                 {
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
@@ -319,48 +319,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-        }
-
-        public static bool GrowGiantMushroom(int X, int Y, int tileType, int minSize, int maxSize)
-        {
-            int canPlace = 0;
-
-            //do not allow giant mushrooms to place if another one is too close
-            for (int i = X - 5; i < X + 5; i++)
-            {
-                for (int j = Y - 5; j < Y + 5; j++)
-                {
-                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
-                    {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            //make sure the area is large enough for it to place in both horizontally and vertically
-            for (int i = X - 2; i < X + 2; i++)
-            {
-                for (int j = Y - 12; j < Y - 2; j++)
-                {
-                    //only check for solid blocks, ambient objects dont matter
-                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
-                    {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            GiantShroom.Grow(X, Y - 1, minSize, maxSize, false);
-
-            return true;
         }
 
         private void SpookyForestAmbience(GenerationProgress progress, GameConfiguration configuration)
@@ -616,6 +574,48 @@ namespace Spooky.Content.Generation
             Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
         }
 
+        public static bool GrowGiantMushroom(int X, int Y, int tileType, int minSize, int maxSize)
+        {
+            int canPlace = 0;
+
+            //do not allow giant mushrooms to place if another one is too close
+            for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //make sure the area is large enough for it to place in both horizontally and vertically
+            for (int i = X - 2; i < X + 2; i++)
+            {
+                for (int j = Y - 12; j < Y - 2; j++)
+                {
+                    //only check for solid blocks, ambient objects dont matter
+                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            GiantShroom.Grow(X, Y - 1, minSize, maxSize, false);
+
+            return true;
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome
@@ -662,7 +662,6 @@ namespace Spooky.Content.Generation
                     int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
                     int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
                     int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
-                    int[] Misc = new int[] { ItemID.PumpkinSeed, ItemID.Cobweb };
 
                     //iron or lead bars
                     chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
@@ -676,12 +675,9 @@ namespace Spooky.Content.Generation
                     //goodie bags
                     chest.item[4].SetDefaults(ItemID.GoodieBag);
                     chest.item[4].stack = WorldGen.genRand.Next(1, 2);
-                    //pumpkin seeds or cobwebs
-                    chest.item[5].SetDefaults(WorldGen.genRand.Next(Misc));
-                    chest.item[5].stack = WorldGen.genRand.Next(5, 10);
                     //coins
-                    chest.item[6].SetDefaults(ItemID.GoldCoin);
-                    chest.item[6].stack = WorldGen.genRand.Next(1, 2);
+                    chest.item[5].SetDefaults(ItemID.GoldCoin);
+                    chest.item[5].stack = WorldGen.genRand.Next(1, 2);
                 }
             }
         }

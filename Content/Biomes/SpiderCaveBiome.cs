@@ -32,8 +32,6 @@ namespace Spooky.Content.Biomes
             On_TileLightScanner.GetTileLight += SpiderCaveLighting;
         }
 
-        public static Rectangle ScreenTiles => new((int)Main.screenPosition.X / 16, (int)Main.screenPosition.Y / 16, Main.screenWidth / 16, Main.screenHeight / 16);
-
         private static float mult = 0.8f;
 
         private void SpiderCaveLighting(On_TileLightScanner.orig_GetTileLight orig, TileLightScanner self, int x, int y, out Vector3 outputColor)

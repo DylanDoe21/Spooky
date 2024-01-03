@@ -231,7 +231,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             Vector2 offset = (tile.TileFrameX == 0 || tile.TileFrameX == 18) ? new Vector2((xOff * 2) - (frameOff / 2), 0) : Vector2.Zero;
             Vector2 pos = TileCustomPosition(i, j);
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
+            if (tile.TileFrameX == 18)
             {
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom").Value;
                 int frame = tile.TileFrameY / 18;

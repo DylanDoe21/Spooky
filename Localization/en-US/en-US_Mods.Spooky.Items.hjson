@@ -1104,6 +1104,26 @@ RootLegs: {
 	Tooltip: ""
 }
 
+OldHunterHat: {
+	DisplayName: Old Hunter's Hat
+	Tooltip: A hat belonging to a once living hunter
+}
+
+OldHunterLegs: {
+	DisplayName: Old Hunter's Legs
+	Tooltip: Old tatterted pants with skeleton legs in them
+}
+
+OldHunterSkull: {
+	DisplayName: Old Hunter's Skull
+	Tooltip: A decaying skull of an ancient person
+}
+
+OldHunterTorso: {
+	DisplayName: Old Hunter's Torso
+	Tooltip: A shirt with an entire skeletal torso inside
+}
+
 SpiderKey: {
 	DisplayName: Spider Grotto Key
 	Tooltip:
@@ -2521,11 +2541,6 @@ DampSoilItem: {
 
 WebBlockItem: {
 	DisplayName: Spider Web Block
-	Tooltip: ""
-}
-
-SpiderStoneItem: {
-	DisplayName: Damp Stone
 	Tooltip: ""
 }
 

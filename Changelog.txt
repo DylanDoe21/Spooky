@@ -43,6 +43,7 @@ Other New Additions:
 -Added new colorful gourd tiles to the spooky forest
 -Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 -Added a bunch more pets
+-Added dumb zomboid
 
 
 
@@ -67,7 +68,6 @@ Other New Additions:
 -The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
 -The flower armor's setbonus is no longer activated by double taping down, it now has a dedicated armor bonus hotkey (This is also due to the addition of another new armor that uses it)
 -The flower armor's flower pot now only replaces the hermes boots running sound if it is visible on the player
--Chests in the second layer of the catacombs will now generate with adamantite/titanium bars instead of cobalt/palladium/mythril/orichalcum bars
 -Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage like vanilla ones do
 -Changed the spooky mod melee visual weapons to look smoother when swinging
 -Buffed the spooky buster's knockback
@@ -94,6 +94,10 @@ Other New Additions:
 -Increased chained eyes maximum launch range and launching speed
 -Chained eyes projectiles now use the correct rotation while they are dropped while you hold left click
 -Fungal flail and rotty's wrath will now drop and stay on the ground when you hold left click after launching them like vanilla flails do
+-Increased the amount of tungsten/iron bars and potions found in the cemetery house chests
+-Chests in the second layer of the catacombs will now generate with adamantite/titanium bars instead of cobalt/palladium/mythril/orichalcum bars
+-Removed cobwebs and pumpkin seeds from the cemetery house chest loot and the spooky forest underground cabin chest loot
+-Increased the chance of a giant glowshroom tree to grow on mushroom moss
 
 
 
@@ -120,6 +124,7 @@ Fixed all of the following bugs and issues:
 -Chained eyes causing the player to spaz out if your cursor was above, below, or in the middle of your player
 -Snot ball being able to damage enemies while returning to you after the snot ball itself is launched
 -Snotty schnoz's ability not working with weapons that don't shoot projectiles and a few other specific items
+-Spooky mod pylons spawning incorrectly colored dust particles and spawning them way too much
 
 
 

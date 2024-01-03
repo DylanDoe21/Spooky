@@ -129,7 +129,7 @@ namespace Spooky.Content.Generation
                         //occasionally place large chunks of stone blocks
                         if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
                         {
-                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpiderStone>(), false, 0f, 0f, true, true);
+                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpookyStone>(), false, 0f, 0f, true, true);
                         }
 
                         //place mounds of web blocks on the floor
@@ -199,7 +199,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(4, 10), OppositeTier2Ore, false, 0f, 0f, false, true);
                 }
@@ -210,7 +210,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier3Ore, false, 0f, 0f, false, true);
                 }
@@ -221,7 +221,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), OppositeTier4Ore, false, 0f, 0f, false, true);
                 }
@@ -413,7 +413,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place ambient tiles that can spawn on stone and grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpiderStone>())
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
                         {
                             //large hanging roots
                             if (WorldGen.genRand.NextBool())
@@ -452,27 +452,21 @@ namespace Spooky.Content.Generation
                                 CanGrowGiantRoot(X, Y, ModContent.TileType<GiantRoot>(), 6, 12);
                             }
 
+                            if (WorldGen.genRand.NextBool(3) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                            {
+                                CanGrowTallMushroom(X, Y, ModContent.TileType<TallMushroom>(), 1, 5);
+                            }
+
                             //mushrooms
                             if (WorldGen.genRand.NextBool(5))
                             {
-                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBrown1>(), (ushort)ModContent.TileType<MushroomBrown2>(), 
-                                (ushort)ModContent.TileType<MushroomBrown3>(), (ushort)ModContent.TileType<MushroomBrown4>(), 
+                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue1>(), (ushort)ModContent.TileType<MushroomBlue2>(), 
+                                (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(), 
                                 (ushort)ModContent.TileType<MushroomRed1>(), (ushort)ModContent.TileType<MushroomRed2>(), 
-                                (ushort)ModContent.TileType<MushroomRed3>(), (ushort)ModContent.TileType<MushroomRed4>() };
+                                (ushort)ModContent.TileType<MushroomYellow1>(), (ushort)ModContent.TileType<MushroomYellow2>() };
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
                             }
-
-                            /*
-                            //giant mushrooms
-                            if (WorldGen.genRand.NextBool(6))
-                            {
-                                ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<GiantShroomGreen1>(), (ushort)ModContent.TileType<GiantShroomGreen2>(), 
-                                (ushort)ModContent.TileType<GiantShroomOrange1>(), (ushort)ModContent.TileType<GiantShroomOrange2>() };
-
-                                WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
-                            }
-                            */
                         }
 
                         //place spider webs on walls
@@ -543,6 +537,11 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.KillWire(X, Y);
                         Main.tile[X, Y].LiquidAmount = 0;
+
+                        if (Main.tile[X, Y].TileType == TileID.PressurePlates || Main.tile[X, Y].TileType == TileID.Traps || Main.tile[X, Y].TileType == TileID.GeyserTrap)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
                     }
                 }
             }
@@ -597,6 +596,48 @@ namespace Spooky.Content.Generation
 
             //place the root itself if no other roots are found in the area
             GiantRoot.Grow(X, Y + 1, minSize, maxSize);
+
+            return true;
+        }
+
+        public static bool CanGrowTallMushroom(int X, int Y, int tileType, int minSize, int maxSize)
+        {
+            int canPlace = 0;
+
+            //do not allow giant flowers to place if another one is too close
+            for (int i = X - 10; i < X + 10; i++)
+            {
+                for (int j = Y - 10; j < Y + 10; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //make sure the area is large enough for it to place in both horizontally and vertically
+            for (int i = X - 2; i < X + 2; i++)
+            {
+                for (int j = Y - 12; j < Y - 2; j++)
+                {
+                    //only check for solid blocks, ambient objects dont matter
+                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            TallMushroom.Grow(X, Y - 1, minSize, maxSize);
 
             return true;
         }

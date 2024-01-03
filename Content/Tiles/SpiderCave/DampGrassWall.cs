@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.SpiderCave
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(77, 64, 26));
+            AddMapEntry(new Color(13, 55, 10));
             DustType = ModContent.DustType<DampGrassDust>();
             HitSound = SoundID.Grass;
         }

@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.width = 30;
             Projectile.height = 32;
             Projectile.DamageType = DamageClass.Summon;
-			Projectile.minion = true;
+            Projectile.minion = true;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -94,6 +94,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 
             return true;
+        }
+
+        public override bool? CanDamage()
+        {
+			return isAttacking;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

@@ -358,9 +358,9 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<SpiderStone>() };
+				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<SpookyStone>() };
 
-				//do not allow catacomb enemies to spawn on non catacomb tiles
+				//do not allow spider grotto enemies to spawn on non spider grotto tiles
 				if (SpiderGrottoTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					//critters

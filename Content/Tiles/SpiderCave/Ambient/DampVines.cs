@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileNoAttach[Type] = true;
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
-			AddMapEntry(new Color(88, 71, 17));
+			AddMapEntry(new Color(34, 78, 30));
 			DustType = ModContent.DustType<DampGrassDust>();
 			HitSound = SoundID.Grass;
 		}

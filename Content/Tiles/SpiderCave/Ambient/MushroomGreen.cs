@@ -9,7 +9,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
 {
-    public class MushroomRed1 : ModTile
+    public class MushroomGreen1 : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -21,19 +21,19 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(206, 0, 34));
+            AddMapEntry(new Color(120, 240, 78));
             HitSound = SoundID.Dig;
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.25f;
-            g = 0.03f;
-            b = 0.04f;
+			r = 0.1f;
+            g = 0.25f;
+            b = 0.02f;
         }
     }
 
-    public class MushroomRed2 : MushroomRed1
+    public class MushroomGreen2 : MushroomGreen1
     {
     }
 }
