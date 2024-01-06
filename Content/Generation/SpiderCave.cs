@@ -454,7 +454,7 @@ namespace Spooky.Content.Generation
 
                             if (WorldGen.genRand.NextBool(3) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                             {
-                                CanGrowTallMushroom(X, Y, ModContent.TileType<TallMushroom>(), 1, 5);
+                                CanGrowTallMushroom(X, Y, ModContent.TileType<TallMushroom>(), 2, 5);
                             }
 
                             //mushrooms

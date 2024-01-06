@@ -1104,6 +1104,21 @@ RootLegs: {
 	Tooltip: ""
 }
 
+InchwormBlackItem: {
+	DisplayName: Black Inchworm
+	Tooltip: ""
+}
+
+InchwormGreenItem: {
+	DisplayName: Green Inchworm
+	Tooltip: ""
+}
+
+InchwormOrangeItem: {
+	DisplayName: Orange Inchworm
+	Tooltip: ""
+}
+
 OldHunterHat: {
 	DisplayName: Old Hunter's Hat
 	Tooltip: A hat belonging to a once living hunter
@@ -1373,7 +1388,11 @@ OldWoodBow: {
 
 OldWoodGreatsword: {
 	DisplayName: Old Wood Greatsword
-	Tooltip: "'It's more of a club than a sword'"
+	Tooltip:
+		'''
+		Hitting enemies will knock all nearby enemies away from you
+		'It's more of a club than a sword'
+		'''
 }
 
 OldWoodHammer: {
@@ -2020,7 +2039,7 @@ CemeteryDirtItem: {
 
 CemeteryGrassSeeds: {
 	DisplayName: Cemetery Grass Seeds
-	Tooltip: Places grass on Swamp Soil
+	Tooltip: Plants grass on Swamp Soil
 }
 
 CemeteryStoneItem: {
@@ -2096,17 +2115,17 @@ SpiderCaveBox: {
 
 SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
-	Tooltip: "[c/FFA43C:Dead Trees...] by BananaLizard"
+	Tooltip: "[c/FFBF00:Dead Trees...] by BananaLizard"
 }
 
 SpookyBiomeNightBox: {
 	DisplayName: Music Box (Spooky Forest Night)
-	Tooltip: "[c/FFA43C:...And Yellow Grass] by BananaLizard"
+	Tooltip: "[c/FFBF00:...And Yellow Grass] by BananaLizard"
 }
 
 SpookyBiomeRainBox: {
 	DisplayName: Music Box (Spooky Forest Rain)
-	Tooltip: "[c/D6AC76:Harvest Rainfall] by BananaLizard"
+	Tooltip: "[c/FFBF00:Harvest Rainfall] by BananaLizard"
 }
 
 SpookyBiomeTownNightBox: {
@@ -2116,7 +2135,7 @@ SpookyBiomeTownNightBox: {
 
 SpookyBiomeUGBox: {
 	DisplayName: Music Box (Spooky Forest Underground)
-	Tooltip: "[c/549E58:Spooky Spelunking] by BananaLizard"
+	Tooltip: "[c/FFBF00:Spooky Spelunking] by BananaLizard"
 }
 
 SpookyHellBox: {
@@ -2126,7 +2145,7 @@ SpookyHellBox: {
 
 SpookyMenuBox: {
 	DisplayName: Music Box (Spooky Mod Menu)
-	Tooltip: "[c/FFA43C:Welcome To Spooky Mod] by BananaLizard"
+	Tooltip: "[c/FFBF00:Welcome To Spooky Mod] by BananaLizard"
 }
 
 SpookySpiritBox: {
@@ -2301,12 +2320,12 @@ SpookyDirtItem: {
 
 SpookySeedsGreen: {
 	DisplayName: Green Spooky Seeds
-	Tooltip: Places grass on Spooky Dirt
+	Tooltip: Plants green grass on Spooky Dirt
 }
 
 SpookySeedsOrange: {
 	DisplayName: Orange Spooky Seeds
-	Tooltip: Places grass on Spooky Dirt
+	Tooltip: Plants orange grass on Spooky Dirt
 }
 
 SpookyStoneItem: {
@@ -2561,7 +2580,7 @@ RootWoodWallItem: {
 
 DampGrassSeeds: {
 	DisplayName: Damp Grass Seeds
-	Tooltip: Places grass on Damp Soil
+	Tooltip: Plants grass on Damp Soil
 }
 
 //the following catacomb walls are for testing, they do not exist in normal gameplay

@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 		{
             if (firstButton)
             {
-                Main.CloseNPCChatOrSign();
+                Main.npcChatText = "";
                 SoundEngine.PlaySound(SoundID.Unlock, NPC.Center);
                 PandoraBoxWorld.PandoraEventActive = true;
                 NPC.ai[0] = 180;

@@ -53,37 +53,37 @@ namespace Spooky.Core
                 {
                     if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsOrange>())
                     {
-                        r = 175f / 450f;
-                        g = 102f / 450f;
-                        b = 36f / 450f;
+                        r = 175f / 400f;
+                        g = 102f / 400f;
+                        b = 36f / 400f;
                     }
 
                     if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsGreen>())
                     {
-                        r = 78f / 450f;
-                        g = 120f / 450f;
-                        b = 48f / 450f;
+                        r = 78f / 400f;
+                        g = 120f / 400f;
+                        b = 48f / 400f;
                     }
 
                     if (Main.tile[i, j].TileType == ModContent.TileType<CemeteryWeeds>())
                     {
-                        r = 38f / 420f;
-                        g = 77f / 420f;
-                        b = 53f / 420f;
+                        r = 38f / 400f;
+                        g = 77f / 400f;
+                        b = 53f / 400f;
                     }
 
                     if (Main.tile[i, j].TileType == ModContent.TileType<CatacombWeeds>())
                     {
-                        r = 56f / 450f;
-                        g = 109f / 450f;
-                        b = 62f / 450f;
+                        r = 56f / 400f;
+                        g = 109f / 400f;
+                        b = 62f / 400f;
                     }
 
                     if (Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveWeeds>())
                     {
-                        r = 120f / 450f;
-                        g = 100f / 450f;
-                        b = 24f / 450f;
+                        r = 70f / 400f;
+                        g = 120f / 400f;
+                        b = 40f / 400f;
                     }
                 }
             }

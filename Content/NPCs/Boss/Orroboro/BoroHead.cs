@@ -353,8 +353,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= (Enraged ? 32 : 23) + Main.rand.Next(-5, 5);
-                            ChargeDirection.Y *= (Enraged ? 32 : 23) + Main.rand.Next(-5, 5);
+                            ChargeDirection.X *= (Enraged ? 28 : 22) + Main.rand.Next(-5, 5);
+                            ChargeDirection.Y *= (Enraged ? 28 : 22) + Main.rand.Next(-5, 5);
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
@@ -673,10 +673,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 ShootSpeed.X *= Enraged ? 3f : 2f;
                                 ShootSpeed.Y *= Enraged ? 3f : 2f;
 
+                                int ProjectileType = Enraged ? ModContent.ProjectileType<BoroBiomatter>() : ModContent.ProjectileType<EyeSpit>();
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);  
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, ProjectileType, Damage, 1, Main.myPlayer, 0, 0);
                                 }
                             }
 

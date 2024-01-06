@@ -155,6 +155,30 @@ PartySkeleton7.DisplayName: Party Skeleton
 PartySkeleton8.DisplayName: Party Skeleton
 SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
+
+OldHunter: {
+	DisplayName: Old Hunter
+
+	TownNPCMood: {
+		Content: I am content.
+		NoHome: You know, I'd like a cozy place to live. Unless you just brought me back from the dead to watch me die again HAHA!
+		FarFromHome: I am too far from home.
+		LoveSpace: The amount of space here is nice, just like it was before!
+		DislikeCrowded: I dislike how crowded I am.
+		HateCrowded: I hate how crowded I am.
+		LoveBiome: I love {BiomeName}.
+		LikeBiome: I like {BiomeName}.
+		DislikeBiome: I dislike {BiomeName}.
+		HateBiome: I hate {BiomeName}.
+		LoveNPC: I love {NPCName}.
+		LikeNPC: I like {NPCName}.
+		DislikeNPC: I dislike {NPCName}.
+		HateNPC: I hate {NPCName}.
+		LikeNPC_Princess: I like {NPCName}.
+		Princess_LovesNPC: I like {NPCName}.
+	}
+}
+
 //spooky biome
 Bungus.DisplayName: Bungus
 CandleMonster.DisplayName: Candle Monster

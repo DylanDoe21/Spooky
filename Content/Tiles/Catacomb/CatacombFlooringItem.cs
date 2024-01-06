@@ -3,6 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
+using Spooky.Content.Tiles.Catacomb.Safe;
+using Spooky.Content.Tiles.Cemetery;
+
 namespace Spooky.Content.Tiles.Catacomb
 {
     public class CatacombFlooringItem : ModItem
@@ -23,7 +26,16 @@ namespace Spooky.Content.Tiles.Catacomb
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<CatacombFlooring>();
+			Item.createTile = ModContent.TileType<CatacombFlooringSafe>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<CatacombBrick1Item>())
+            .AddIngredient(ItemID.Cobweb, 2)
+            .AddTile(TileID.Furnaces)
+            .Register();
         }
     }
 }

@@ -84,7 +84,9 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void AI()
 		{
             NPC Parent = Main.npc[(int)NPC.ai[3]];
+            
             Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
 
             //rotation
             Vector2 vector = new(NPC.Center.X, NPC.Center.Y);
@@ -95,7 +97,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             if (Parent.active && Parent.type == ModContent.NPCType<ManHoleBig>())
             {
                 //attack player if nearby
-                if (NPC.Distance(player.Center) <= 500f) 
+                if (NPC.Distance(player.Center) <= 400f) 
                 {
                     NPC.ai[0]++;
 
@@ -107,11 +109,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
-                                    
-                            ChargeDirection.X *= 30;
-                            ChargeDirection.Y *= 20;
-                            NPC.velocity.X = ChargeDirection.X;
-                            NPC.velocity.Y = ChargeDirection.Y;
+                            ChargeDirection *= 15;
+                            NPC.velocity = ChargeDirection;
                         }
 
                         if (NPC.ai[0] > 195)

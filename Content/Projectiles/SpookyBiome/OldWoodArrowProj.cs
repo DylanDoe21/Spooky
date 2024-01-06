@@ -78,7 +78,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
 			return true;
 		}

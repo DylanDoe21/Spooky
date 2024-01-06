@@ -27,12 +27,28 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(EnemyBeingCarried);
+
+            //bools
+            writer.Write(InitializedEnemy);
+            writer.Write(CarryingEnemy);
+
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            EnemyBeingCarried = reader.ReadInt32();
+
+            //bools
+            InitializedEnemy = reader.ReadBoolean();
+            CarryingEnemy = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }
@@ -83,7 +99,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/TarantulaHawkEnemyCarry").Value;
 
-                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 20);
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + (EnemyBeingCarried == 5 ? 35 : 20));
 
                 var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 

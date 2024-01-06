@@ -135,7 +135,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 350f)
+            if (player.Distance(NPC.Center) <= 350f || NPC.localAI[0] >= 30)
             {
                 IsShooting = true;
 
@@ -145,13 +145,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 NPC.localAI[0]++;
 
-                //TODO: rework this to cock the gun 4 times, then shoot 4 times with a delay
-                if (NPC.localAI[0] == 30 || NPC.localAI[0] == 60 || NPC.localAI[0] == 80 || NPC.localAI[0] == 90)
+                //cock the shotgun 4 times
+                if (NPC.localAI[0] == 30 || NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
                 {
                     SoundEngine.PlaySound(ReloadSound, NPC.Center);
                 }
 
-                if (NPC.localAI[0] == 160 || NPC.localAI[0] == 170 || NPC.localAI[0] == 180 || NPC.localAI[0] == 190)
+                //shoot bullet spreads 4 times
+                if (NPC.localAI[0] == 180 || NPC.localAI[0] == 190 || NPC.localAI[0] == 200 || NPC.localAI[0] == 210)
                 {
                     SoundEngine.PlaySound(SoundID.Item38, NPC.Center);
 
@@ -185,7 +186,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     }
                 }
                 
-                if (NPC.localAI[0] >= 200)
+                if (NPC.localAI[0] >= 260)
                 {
                     NPC.localAI[0] = 0;
                     NPC.netUpdate = true;

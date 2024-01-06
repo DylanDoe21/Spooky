@@ -99,10 +99,10 @@ namespace Spooky.Content.Projectiles.Sentient
             }
 
             //fall down constantly
-            Projectile.velocity.Y += 0.5f;
-            if (Projectile.velocity.Y > 10f)
+            Projectile.velocity.Y += 0.65f;
+            if (Projectile.velocity.Y > 20f)
             {
-                Projectile.velocity.Y = 10f;
+                Projectile.velocity.Y = 20f;
             }
 
             //target an enemy

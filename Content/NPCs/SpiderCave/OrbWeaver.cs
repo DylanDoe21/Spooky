@@ -2,9 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
+
+using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
@@ -82,7 +85,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[2] == 0)
+            if (NPC.localAI[0] <= 250)
             {
                 NPC.aiStyle = 3;
 			    AIType = NPCID.Crab;
@@ -92,22 +95,51 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 0;
             }
 
-            if (NPC.localAI[0] >= 600 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
             {
-                if (NPC.localAI[2] == 0)
+                //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
+                if (NPC.localAI[1] == 0)
                 {
-                    //shoot spikes up here
+                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeRed>(), 8f);
 
-                    NPC.localAI[2] = 1;
+                    NPC.localAI[1] = 1;
                 }
+            }
 
-                //cooldown before the spikes grow back
-                NPC.localAI[1]++;
-                if (NPC.localAI[1] >= 75)
+            //cooldown before the spikes grow back
+            if (NPC.localAI[1] == 1)
+            {
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] >= 75)
                 {
                     NPC.localAI[0] = 0;
                     NPC.localAI[1] = 0;
                     NPC.localAI[2] = 0;
+                }
+            }
+        }
+
+        public void ShootSpikes(int Type, float Velocity)
+        {
+            SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+            for (int numProjectiles = -3; numProjectiles <= -1; numProjectiles++)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 20, NPC.Center.Y), 
+                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                    Type, NPC.damage / 4, 0f, Main.myPlayer);
+                }
+            }
+
+            for (int numProjectiles = 1; numProjectiles <= 3; numProjectiles++)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 20, NPC.Center.Y), 
+                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
+                    Type, NPC.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }
@@ -154,6 +186,49 @@ namespace Spooky.Content.NPCs.SpiderCave
 			});
 		}
 
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            NPC.spriteDirection = NPC.direction;
+
+            NPC.localAI[0]++;
+
+            if (NPC.localAI[0] <= 250)
+            {
+                NPC.aiStyle = 3;
+			    AIType = NPCID.Crab;
+            }
+            else
+            {
+                NPC.aiStyle = 0;
+            }
+
+            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            {
+                //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
+                if (NPC.localAI[1] == 0)
+                {
+                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeBlack>(), 10f);
+
+                    NPC.localAI[1] = 1;
+                }
+            }
+            
+            //cooldown before the spikes grow back
+            if (NPC.localAI[1] == 1)
+            {
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] >= 75)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
+                }
+            }
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
@@ -195,6 +270,49 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
+            NPC.TargetClosest(true);
+
+            NPC.spriteDirection = NPC.direction;
+
+            NPC.localAI[0]++;
+
+            if (NPC.localAI[0] <= 250)
+            {
+                NPC.aiStyle = 3;
+			    AIType = NPCID.Crab;
+            }
+            else
+            {
+                NPC.aiStyle = 0;
+            }
+
+            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            {
+                //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
+                if (NPC.localAI[1] == 0)
+                {
+                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeGreen>(), 7f);
+
+                    NPC.localAI[1] = 1;
+                }
+            }
+
+            //cooldown before the spikes grow back
+            if (NPC.localAI[1] == 1)
+            {
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] >= 75)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
+                }
+            }
+        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

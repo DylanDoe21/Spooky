@@ -83,6 +83,8 @@ namespace Spooky.Content.NPCs.EggEvent
 				{
 					NetMessage.SendData(MessageID.WorldData);
 				}
+
+                Projectile.netUpdate = true;
             }
         }
 
@@ -120,6 +122,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -157,6 +160,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -196,6 +200,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -237,6 +242,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -275,6 +281,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -313,6 +320,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -354,6 +362,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -388,6 +397,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -433,6 +443,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -478,6 +489,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -523,6 +535,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -593,6 +606,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         SpawnedEnemies = true;
+                        Projectile.netUpdate = true;
                     }
 
                     break;
@@ -654,6 +668,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
 
                 Projectile.ai[0] = 2;
+                Projectile.netUpdate = true;
             }
 
             //egg event enemy spawning and wave handling

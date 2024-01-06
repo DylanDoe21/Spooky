@@ -700,10 +700,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 ShootSpeed.X *= Enraged ? 3f : 2f;
                                 ShootSpeed.Y *= Enraged ? 3f : 2f;
 
+                                int ProjectileType = Enraged ? ModContent.ProjectileType<OrroBiomatter>() : ModContent.ProjectileType<EyeSpit>();
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                    ModContent.ProjectileType<EyeSpit>(), Damage, 1, Main.myPlayer, 0, 0);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, ProjectileType, Damage, 1, Main.myPlayer, 0, 0);
                                 }
                             }
 

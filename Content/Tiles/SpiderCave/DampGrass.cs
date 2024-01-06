@@ -85,7 +85,7 @@ namespace Spooky.Content.Tiles.SpiderCave
                 {
                     if (Main.rand.NextBool(10))
                     {
-                        Content.Generation.SpiderCave.CanGrowTallMushroom(i, j, ModContent.TileType<TallMushroom>(), 1, 5);
+                        Content.Generation.SpiderCave.CanGrowTallMushroom(i, j, ModContent.TileType<TallMushroom>(), 2, 5);
                     }
                 }
 			}

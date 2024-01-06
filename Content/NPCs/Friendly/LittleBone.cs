@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.Friendly
 						AdviceSwitch++;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.RotGourd");
 					}
-					else if (AdviceSwitch == 1)
+					else if (AdviceSwitch >= 1)
 					{
 						AdviceSwitch--;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.Friendly
 						AdviceSwitch++;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiomeChests");
 					}
-					else if (AdviceSwitch == 1)
+					else if (AdviceSwitch >= 1)
 					{
 						AdviceSwitch--;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
@@ -136,10 +136,20 @@ namespace Spooky.Content.NPCs.Friendly
 
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//spooky spirit
+				//spooky spirit/spider grotto
 				else if (NPC.downedBoss2 && !Flags.downedSpookySpirit)
 				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookySpirit");
+					if (AdviceSwitch == 0)
+					{
+						AdviceSwitch++;
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpiderGrotto");
+					}
+					else if (AdviceSwitch >= 1)
+					{
+						AdviceSwitch--;
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookySpirit");
+					}
+
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
 				//catacombs/valley of eyes
@@ -150,7 +160,7 @@ namespace Spooky.Content.NPCs.Friendly
 						AdviceSwitch++;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombLayer1");
 					}
-					else if (AdviceSwitch == 1)
+					else if (AdviceSwitch >= 1)
 					{
 						AdviceSwitch--;
 						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.EyeValley");
@@ -244,6 +254,13 @@ namespace Spooky.Content.NPCs.Friendly
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer1"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer2"));
 				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CatacombSecondLayer3"));
+			}
+
+			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+			{
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpiderGrotto1"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpiderGrotto2"));
+				Dialogue.Add(Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpiderGrotto3"));
 			}
 
             int PlayerY = (int)Main.player[Main.myPlayer].Center.Y / 16;

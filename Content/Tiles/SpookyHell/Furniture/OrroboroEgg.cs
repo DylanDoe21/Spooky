@@ -112,6 +112,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override bool RightClick(int i, int j)
 		{
+			int x = i;
+			int y = j;
+			while (Main.tile[x, y].TileType == Type) x--;
+			x++;
+			while (Main.tile[x, y].TileType == Type) y--;
+			y++;
+
 			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				return true;
@@ -133,15 +140,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			//check if player has the concoction
 			Player player = Main.LocalPlayer;
 
-			if (player.ConsumeItem(ModContent.ItemType<StrangeCyst>()))
+			if (player.ConsumeItem(ModContent.ItemType<StrangeCyst>()) || (player.HasItem(ModContent.ItemType<Concoction>()) && !Flags.downedEggEvent))
 			{
-				int x = i;
-				int y = j;
-				while (Main.tile[x, y].TileType == Type) x--;
-				x++;
-				while (Main.tile[x, y].TileType == Type) y--;
-				y++;
-
 				SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, new Vector2(x * 16f + 65f, y * 16f + 100f));
 
 				//event start message
@@ -167,48 +167,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				//spawn event handler projectile
 				Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer, 0, 300);
 			}
-			else if (player.HasItem(ModContent.ItemType<Concoction>())) 
+			else if (player.HasItem(ModContent.ItemType<Concoction>()) && Flags.downedEggEvent)
 			{
-				int x = i;
-				int y = j;
-				while (Main.tile[x, y].TileType == Type) x--;
-				x++;
-				while (Main.tile[x, y].TileType == Type) y--;
-				y++;
-
-				if (!Flags.downedEggEvent)
-				{
-                    SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, new Vector2(x * 16f + 65f, y * 16f + 100f));
-
-                    //event start message
-                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
-
-                    if (Main.netMode != NetmodeID.Server)
-                    {
-                        Main.NewText(text, 171, 64, 255);
-                    }
-                    else
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                    }
-
-                    //set egg event to true, net update on multiplayer
-                    EggEventWorld.EggEventActive = true;
-
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendData(MessageID.WorldData);
-                    }
-
-					//spawn event handler projectile
-                    Projectile.NewProjectile(null, x * 16f + 65f, y * 16f + 100f, 0, 0, ModContent.ProjectileType<EggEventHandler>(), 0, 0, Main.myPlayer, 0, 300);
-				}
-				else
-				{
-					//spawn orro-boro spawner to open the egg
-					Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 64, y * 16 + 70), 
-					x * 16 + 64, y * 16 + 70, 0, 0, ModContent.ProjectileType<OrroboroSpawn>(), 0, 0, Main.myPlayer);
-				}
+				//spawn orro-boro spawner to open the egg
+				Projectile.NewProjectile(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 64, y * 16 + 70), 
+				x * 16 + 64, y * 16 + 70, 0, 0, ModContent.ProjectileType<OrroboroSpawn>(), 0, 0, Main.myPlayer);
 			}
             else
             {

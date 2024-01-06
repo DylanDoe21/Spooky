@@ -199,16 +199,23 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.ai[0] = 0;
 
-            Vector2 GoTo = player.Center;
-            GoTo.X += player.direction == -1 ? 10 : -10;
-            GoTo.Y -= 80;
-
-            float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 8, 15);
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
-
-            if (Vector2.Distance(player.Center, Projectile.Center) > 450f)
+            if (Vector2.Distance(new Vector2(player.Center.X, player.Center.Y - 50), Projectile.Center) > 50f)
             {
-                Projectile.position = player.Center;
+                Vector2 GoTo = player.Center;
+                GoTo.X += player.direction == -1 ? 10 : -10;
+                GoTo.Y -= 80;
+
+                float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 8, 15);
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+
+                if (Vector2.Distance(new Vector2(player.Center.X, player.Center.Y - 50), Projectile.Center) > 450f)
+            {
+                    Projectile.position = player.Center;
+                }
+            }
+            else
+            {
+                Projectile.velocity *= 0.8f;
             }
         }
     }

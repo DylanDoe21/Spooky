@@ -76,15 +76,18 @@ Other New Additions:
 -Giant fuzz bats can now sometimes inflict feral bite in expert mode and higher difficulties
 -Necromancy for dummies projectiles now bounce very quickly and make a less annoying sound when they bounce off of surfaces and die
 -Creepy candle now gives a flat increase of 10 magic damage instead of 7% increased magic damage
--Spore smacker mushroom spores now deal damage less rapidly and use separate i-frames
--Zomboid warlock's skull minions now deal damage less rapidly and use separate i-frames
+-Spore smacker's mushroom spores now deal damage less rapidly and use separate immunity frames
+-Zomboid warlock's skull minions now deal damage less rapidly and use separate immunity frames
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Nerfed old wood greatsword's base damage to 18
+-Old wood greatsword no longer requires amethyst to craft
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
 -Bubble belcher projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
 -Changed bubble belcher's use sound to be the same as the toxikarp's use sound
 -Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one
 -Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
+-Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
+-Nerfed boro's charging speed during his short dash attack while orro charges from above/below
 -Resprited a bunch of grass and other blocks in each spooky mod biome
 -Fixed many spooky mod enemies not being animated in the bestiary
 -Sticky eye pet now drops from the new monster eye enemy instead of egg incursion enemies, and it now looks like monster eyes as well
@@ -97,7 +100,8 @@ Other New Additions:
 -Increased the amount of tungsten/iron bars and potions found in the cemetery house chests
 -Chests in the second layer of the catacombs will now generate with adamantite/titanium bars instead of cobalt/palladium/mythril/orichalcum bars
 -Removed cobwebs and pumpkin seeds from the cemetery house chest loot and the spooky forest underground cabin chest loot
--Increased the chance of a giant glowshroom tree to grow on mushroom moss
+-Increased the chance of a giant glowshroom tree to randomly grow on mushroom moss
+-Changed the necronomicon's use sound
 
 
 
@@ -125,6 +129,8 @@ Fixed all of the following bugs and issues:
 -Snot ball being able to damage enemies while returning to you after the snot ball itself is launched
 -Snotty schnoz's ability not working with weapons that don't shoot projectiles and a few other specific items
 -Spooky mod pylons spawning incorrectly colored dust particles and spawning them way too much
+-Plant puncher staff minion being jittery when the player is not moving
+-Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 
 
 

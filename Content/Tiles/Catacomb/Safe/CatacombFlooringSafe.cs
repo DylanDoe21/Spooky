@@ -3,11 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.Catacomb
+namespace Spooky.Content.Tiles.Catacomb.Safe
 {
-	[LegacyName("CatacombTiles")]
-	public class CatacombFlooring : ModTile
+	public class CatacombFlooringSafe : ModTile
 	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombFlooring";
+
 		public override void SetStaticDefaults()
 		{
 			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
@@ -19,12 +20,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			AddMapEntry(new Color(101, 90, 79));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
-			MinPick = int.MaxValue;
 		}
-
-        public override bool CanExplode(int i, int j)
-        {
-			return false;
-        }
     }
 }

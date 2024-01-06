@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave.Misc;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
 	public class Inchworm1 : ModNPC
@@ -11,6 +13,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 4;
+            Main.npcCatchable[NPC.type] = true;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
 
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
@@ -33,6 +36,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 66;
 			AIType = NPCID.Buggy;
+            NPC.catchItem = (short)ModContent.ItemType<InchwormGreenItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
@@ -88,6 +92,23 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class Inchworm2 : Inchworm1
 	{
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 5;
+            NPC.damage = 0;
+			NPC.defense = 0;
+			NPC.width = 28;
+			NPC.height = 18;
+            NPC.npcSlots = 1f;
+            NPC.noGravity = false;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.aiStyle = 66;
+			AIType = NPCID.Buggy;
+            NPC.catchItem = (short)ModContent.ItemType<InchwormOrangeItem>();
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+		}
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -114,6 +135,23 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class Inchworm3 : Inchworm1
 	{
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 5;
+            NPC.damage = 0;
+			NPC.defense = 0;
+			NPC.width = 28;
+			NPC.height = 18;
+            NPC.npcSlots = 1f;
+            NPC.noGravity = false;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.aiStyle = 66;
+			AIType = NPCID.Buggy;
+            NPC.catchItem = (short)ModContent.ItemType<InchwormBlackItem>();
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+		}
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 

@@ -405,7 +405,7 @@ namespace Spooky.Core
 			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()))
 			{
-				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.001f);
+				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.0005f);
 			}
         }
     }

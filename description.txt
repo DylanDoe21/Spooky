@@ -15,9 +15,9 @@ Currently the mod has:
 -And more to come in the future!
 
 
-Just a warning:
--This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with mods how you like, but just be aware of potential issues!
--It is also highly recommended to play with medium or large worlds while playing this mod, while small worlds will still work it may not be ideal for a playthrough especially with multiple people
+Some Warnings:
+-This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues!
+-It is also recommended to use medium or large worlds while playing this mod. Small worlds will still work but it may not be ideal for a playthrough, especially with multiple people or if you are using multiple mods with world generation
 
 
 [h1]Developers[/h1]
@@ -27,7 +27,7 @@ Massive thanks to all the people who have helped out the mod in some way, or are
 Thanks to Renk, Graydee, and Lemmy for their help with coding
 Thanks to Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Pelusa for contributing awesome sprites
 Thanks to Bananalizard for composing the mod's amazing OST, and Rockwizard5 for composing the egg incursion theme
-Thanks to Hat in a River for making a bunch of awesome concept art, as well as a lot of other art (such as the new menu background used for this update!)
+Thanks to Hat in a River for making a bunch of awesome concept art, as well as a lot of other art (such as the mod's new official menu background, and the little eye art on the steam workshop page!)
 Thanks to Angel for helping out with testing and balancing
 Thanks to Jim2OUK for building some of the cool structures you'll find in the mod
 

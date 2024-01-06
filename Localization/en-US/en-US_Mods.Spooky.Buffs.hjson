@@ -406,3 +406,8 @@ SpiderStealthCooldown: {
 	DisplayName: Spider Stealth Cooldown
 	Description: You cannot enter spider stealth
 }
+
+PheromoneWhipDebuff: {
+	DisplayName: Pheromone Whip Debuff
+	Description: ""
+}

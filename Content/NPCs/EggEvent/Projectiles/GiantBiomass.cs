@@ -82,75 +82,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.ai[0] >= 150)
             {
-                //spawn enemy depending on what ai[2] is set to
-                switch ((int)Projectile.ai[2])
-                {
-                    //Glutinous
-                    case 0:
-                    {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Glutinous>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
-
-                        break;
-                    }
-
-                    //Vigilante
-                    case 1:
-                    {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Vigilante>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
-
-                        break;
-                    }
-
-                    //Ventricle
-                    case 2:
-                    {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Ventricle>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
-
-                        break;
-                    }
-
-                    //Crux
-                    case 3:
-                    {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Crux>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
-
-                        break;
-                    }
-
-                    //Vesicator
-                    case 4:
-                    {
-                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Vesicator>());
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                        }
-
-                        break;
-                    }
-                }
-
                 Projectile.Kill();
             }
         }
@@ -198,6 +129,75 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 {
                     Main.dust[newDust].scale = 0.5f;
                     Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                }
+            }
+
+            //spawn enemy depending on what ai[2] is set to
+            switch ((int)Projectile.ai[2])
+            {
+                //Glutinous
+                case 0:
+                {
+                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Glutinous>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+
+                    break;
+                }
+
+                //Vigilante
+                case 1:
+                {
+                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Vigilante>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+
+                    break;
+                }
+
+                //Ventricle
+                case 2:
+                {
+                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Ventricle>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+
+                    break;
+                }
+
+                //Crux
+                case 3:
+                {
+                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Crux>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+
+                    break;
+                }
+
+                //Vesicator
+                case 4:
+                {
+                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Vesicator>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+
+                    break;
                 }
             }
 		}
