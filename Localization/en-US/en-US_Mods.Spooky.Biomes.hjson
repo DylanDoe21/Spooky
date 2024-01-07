@@ -1,31 +1,31 @@
 SpookyBiome: {
 	DisplayName: Spooky Forest
-	TownNPCDialogueName: The Spooky Forest
+	TownNPCDialogueName: Spooky Forest
 }
 
 SpookyBiomeUg: {
 	DisplayName: Spooky Underground
-	TownNPCDialogueName: The Underground Spooky Forest
+	TownNPCDialogueName: Underground Spooky Forest
 }
 
 CemeteryBiome: {
 	DisplayName: Swampy Cemetery
-	TownNPCDialogueName: The Swampy Cemetery
+	TownNPCDialogueName: Swampy Cemetery
 }
 
 RaveyardBiome: {
-	DisplayName: The Raveyard
-	TownNPCDialogueName: The Raveyard
+	DisplayName: Raveyard
+	TownNPCDialogueName: Raveyard
 }
 
 CatacombBiome: {
 	DisplayName: Creepy Catacombs
-	TownNPCDialogueName: The Creepy Catacombs
+	TownNPCDialogueName: Creepy Catacombs
 }
 
 CatacombBiome2: {
 	DisplayName: Lower Catacombs
-	TownNPCDialogueName: The Lower Catacombs
+	TownNPCDialogueName: Lower Catacombs
 }
 
 PandoraBoxBiome: {
@@ -35,22 +35,22 @@ PandoraBoxBiome: {
 
 SpookyHellBiome: {
 	DisplayName: Valley of Eyes
-	TownNPCDialogueName: The Valley of Eyes
+	TownNPCDialogueName: Valley of Eyes
 }
 
 SpookyHellEventBiome: {
 	DisplayName: Egg Incursion
-	TownNPCDialogueName: The Egg Incursion
+	TownNPCDialogueName: Egg Incursion
 }
 
 SpookyHellLake: {
 	DisplayName: Lake of Blood
-	TownNPCDialogueName: The Lake of Blood
+	TownNPCDialogueName: Lake of Blood
 }
 
 SpiderCaveBiome: {
 	DisplayName: Spider Grotto
-	TownNPCDialogueName: The Spider Grotto
+	TownNPCDialogueName: Spider Grotto
 }
 
 HallucinationZone: {

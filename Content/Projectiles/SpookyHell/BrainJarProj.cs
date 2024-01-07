@@ -45,8 +45,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             player.AddBuff(ModContent.BuffType<BrainyBuff>(), 2);
 
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-			0, 0, ModContent.ProjectileType<Brainy>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Brainy>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
 
             for (int numDust = 0; numDust < 35; numDust++)
 			{                                                                                  

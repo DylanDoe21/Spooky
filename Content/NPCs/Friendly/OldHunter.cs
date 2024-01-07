@@ -1,20 +1,10 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Personalities;
-using Terraria.GameContent.UI;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.Utilities;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
+using Terraria.Localization;
+using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 
@@ -27,32 +17,31 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults() 
         {
-			Main.npcFrameCount[Type] = 25; // The total amount of frames the NPC has
-			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs. This is the remaining frames after the walking frames.
-			NPCID.Sets.AttackFrameCount[Type] = 4; // The amount of frames in the attacking animation.
-			NPCID.Sets.DangerDetectRange[Type] = 700; // The amount of pixels away from the center of the NPC that it tries to attack enemies.
-			NPCID.Sets.AttackType[Type] = 0; // The type of attack the Town NPC performs. 0 = throwing, 1 = shooting, 2 = magic, 3 = melee
-			NPCID.Sets.AttackTime[Type] = 90; // The amount of time it takes for the NPC's attack animation to be over once it starts.
-			NPCID.Sets.AttackAverageChance[Type] = 30; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
-			NPCID.Sets.HatOffsetY[Type] = 4; // For when a party is active, the party hat spawns at a Y offset	.
+			Main.npcFrameCount[Type] = 25;
+			NPCID.Sets.ExtraFramesCount[Type] = 9;
+			NPCID.Sets.AttackFrameCount[Type] = 4;
+			NPCID.Sets.DangerDetectRange[Type] = 700;
+			NPCID.Sets.AttackType[Type] = 0;
+			NPCID.Sets.AttackTime[Type] = 90;
+			NPCID.Sets.AttackAverageChance[Type] = 30;
+			NPCID.Sets.HatOffsetY[Type] = 4;
 
-			// Influences how the NPC looks in the Bestiary
+			NPC.Happiness
+			.SetBiomeAffection<SpiderCaveBiome>(AffectionLevel.Love)
+			.SetBiomeAffection<CemeteryBiome>(AffectionLevel.Like)
+			.SetBiomeAffection<OceanBiome>(AffectionLevel.Dislike)
+			.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
+			.SetNPCAffection(NPCID.ArmsDealer, AffectionLevel.Love)
+			.SetNPCAffection(NPCID.Clothier, AffectionLevel.Like)
+			.SetNPCAffection(NPCID.Princess, AffectionLevel.Dislike)
+			.SetNPCAffection(NPCID.Nurse, AffectionLevel.Hate);
+
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() 
             {
 				Velocity = 1f,
 				Direction = 1
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
-			NPC.Happiness
-			.SetBiomeAffection<SpiderCaveBiome>(AffectionLevel.Love)
-			.SetBiomeAffection<CemeteryBiome>(AffectionLevel.Like)
-			.SetBiomeAffection<ForestBiome>(AffectionLevel.Dislike)
-			.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
-			.SetNPCAffection(NPCID.Pirate, AffectionLevel.Love)
-			.SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
-			.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike)
-			.SetNPCAffection(NPCID.Demolitionist, AffectionLevel.Hate);
 		}
 
 		public override void SetDefaults() 

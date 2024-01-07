@@ -163,19 +163,19 @@ OldHunter: {
 		Content: I am content.
 		NoHome: You know, I'd like a cozy place to live. Unless you just brought me back from the dead to watch me die again HAHA!
 		FarFromHome: I am too far from home.
-		LoveSpace: The amount of space here is nice, just like it was before!
+		LoveSpace: The amount of space here is real nice!
 		DislikeCrowded: I dislike how crowded I am.
 		HateCrowded: I hate how crowded I am.
-		LoveBiome: I love {BiomeName}.
-		LikeBiome: I like {BiomeName}.
-		DislikeBiome: I dislike {BiomeName}.
-		HateBiome: I hate {BiomeName}.
-		LoveNPC: I love {NPCName}.
-		LikeNPC: I like {NPCName}.
-		DislikeNPC: I dislike {NPCName}.
-		HateNPC: I hate {NPCName}.
-		LikeNPC_Princess: I like {NPCName}.
+		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite the ugly ass spiders wandering around!
+		LikeBiome: The {BiomeName} is really nice. It's nice to live in an area where many of my friends and ancestors lay.
+		DislikeBiome: Not really liking {BiomeName}, too peaceful and calm for me.
+		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land, I like me some action!
+		LoveNPC: "{NPCName} is awesome! Glad there's some hard-core dudes out there!"
+		LikeNPC: I like {NPCName}. Honestly I'm just glad I got someone old to talk with haha!
+		DislikeNPC: Who's {NPCName}? Seems way too hoity-toity to me.
+		HateNPC: "{NPCName} can screw off. Don't think I ever seen such a terrible attitude before!"
 		Princess_LovesNPC: I like {NPCName}.
+		LikeNPC_Princess: I like {NPCName}.
 	}
 }
 
@@ -270,3 +270,4 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider Tongue
+Witch.DisplayName: Witch

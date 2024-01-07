@@ -141,7 +141,9 @@ namespace Spooky.Content.Generation
                         //place smaller chunks of web blocks on the ceiling
                         if (WorldGen.genRand.NextBool(20) && Main.tile[X, Y].HasTile && !Main.tile[X, Y + 1].HasTile)
                         {
-                            SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<WebBlock>(), WorldGen.genRand.Next(1, 5), true, false);
+                            int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<WebBlock>() : TileID.LeafBlock;
+
+                            SpookyWorldMethods.PlaceCircle(X, Y, Type, WorldGen.genRand.Next(1, 5), true, false);
                         }
                     }
                 }

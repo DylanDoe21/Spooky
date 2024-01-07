@@ -21,17 +21,19 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
         public override void AI()
         {
-			Projectile.rotation += Projectile.velocity.X * 0.2f;
+			Projectile.rotation += Projectile.velocity.X * 0.08f;
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 25)
+            if (Projectile.ai[0] >= 20)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.65f;
             }
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        public override void OnKill(int timeLeft)
 		{
+            SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
+
             for (int numProjectile = 0; numProjectile < 3; numProjectile++)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -43,9 +45,12 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
                 }
             }
 
-            Projectile.Kill();
-
-			return false;
+            for (int numDust = 0; numDust < 20; numDust++)
+			{                                                                                  
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Glass, 0f, -2f, 0, default, 1f);
+				Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
+			}
 		}
     }
 }

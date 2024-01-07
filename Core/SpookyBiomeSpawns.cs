@@ -147,6 +147,7 @@ namespace Spooky.Core
 						//hardmode enemies
 						if (Main.hardMode)
 						{
+							pool.Add(ModContent.NPCType<Witch>(), 1);
 							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 1);
 						}
 					}
