@@ -25,14 +25,9 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
-            //biome position stuff
-            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
-
-            int BiomeCenterX = (SnowMiddle + (Main.maxTilesX / 2)) / 2;
-
             int ExtraHeight = WorldGen.genRand.Next(20, 55);
 
-            int startPosX = BiomeCenterX + (BiomeCenterX < (Main.maxTilesX / 2) ? -(Main.maxTilesX / 25) : (Main.maxTilesX / 25));
+            int startPosX = (Main.maxTilesX / 2) + WorldGen.genRand.Next(-(Main.maxTilesX / 25), (Main.maxTilesX / 25));
             int startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight;
 
             int cavePerlinSeed = WorldGen.genRand.Next();
@@ -68,6 +63,11 @@ namespace Spooky.Content.Generation
                         if (percent > blurPercent && Y >= origin.Y)
                         {
                             WorldGen.TileRunner(X, Y + 20, WorldGen.genRand.Next(18, 25), WorldGen.genRand.Next(18, 25), TileID.Stone, true, 0f, 0f, true, true);
+                        }
+
+                        if (percent > blurPercent && Y < origin.Y)
+                        {
+                            SpookyWorldMethods.PlaceCircle(X, Y - 15, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(2, 35), false, false);
                         }
                     }
                 }
@@ -123,7 +123,7 @@ namespace Spooky.Content.Generation
                         //place a thin layer of soil around the bottom edge of the biome, on top of the stone barrier
                         if (percent > blurPercent && Y >= origin.Y)
                         {
-                            SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<DampSoil>(), WorldGen.genRand.Next(3, 5), true, false);
+                            SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<DampSoil>(), 0, WorldGen.genRand.Next(3, 5), true, false);
                         }
 
                         //occasionally place large chunks of stone blocks
@@ -143,7 +143,7 @@ namespace Spooky.Content.Generation
                         {
                             int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<WebBlock>() : TileID.LeafBlock;
 
-                            SpookyWorldMethods.PlaceCircle(X, Y, Type, WorldGen.genRand.Next(1, 5), true, false);
+                            SpookyWorldMethods.PlaceCircle(X, Y, Type, 0, WorldGen.genRand.Next(1, 5), true, false);
                         }
                     }
                 }
@@ -387,25 +387,7 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
-                        {
-                            //check if tiles around this block have grass
-                            bool TopLeft = Main.tile[X - 1, Y - 1].TileType == ModContent.TileType<DampGrass>();
-                            bool TopRight = Main.tile[X + 1, Y - 1].TileType == ModContent.TileType<DampGrass>();
-                            bool BottomLeft = Main.tile[X - 1, Y + 1].TileType == ModContent.TileType<DampGrass>();
-                            bool BottomRight = Main.tile[X + 1, Y + 1].TileType == ModContent.TileType<DampGrass>();
-                            bool Left = Main.tile[X - 1, Y].TileType == ModContent.TileType<DampGrass>();
-                            bool Right = Main.tile[X + 1, Y].TileType == ModContent.TileType<DampGrass>();
-                            bool Top = Main.tile[X, Y - 1].TileType == ModContent.TileType<DampGrass>();
-                            bool Bottom = Main.tile[X, Y + 1].TileType == ModContent.TileType<DampGrass>();
-
-                            if (!TopLeft && !TopRight && !BottomLeft && !BottomRight && !Left && !Right && !Top && !Bottom)
-                            {
-                                WorldGen.PlaceWall(X, Y, (ushort)ModContent.WallType<SpiderRootWall>());
-                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<SpiderRootWall>();
-                            }
-                        }
-
+                        //place ceiling webs
                         if (Main.tile[X, Y].TileType == ModContent.TileType<WebBlock>())
                         {
                             ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
@@ -505,12 +487,7 @@ namespace Spooky.Content.Generation
 
         private void DeleteAnnoyingTraps(GenerationProgress progress, GameConfiguration configuration)
         {
-            //biome position stuff
-            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
-
-            int BiomeCenterX = (SnowMiddle + (Main.maxTilesX / 2)) / 2;
-
-            int startPosX = BiomeCenterX + (BiomeCenterX < (Main.maxTilesX / 2) ? -(Main.maxTilesX / 25) : (Main.maxTilesX / 25));
+            int startPosX = (Main.maxTilesX / 2) + WorldGen.genRand.Next(-(Main.maxTilesX / 25), (Main.maxTilesX / 25));
             int startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - 30;
 
             Point origin = new Point(startPosX, startPosY);

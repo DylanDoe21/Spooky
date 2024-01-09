@@ -24,10 +24,6 @@ namespace Spooky
         
         internal Mod subworldLibrary = null;
 
-        public static Vector2 DaffodilPosition;
-        public static Vector2 PandoraPosition;
-        public static Vector2 FlowerPotPosition;
-
         public static int MistGhostSpawnX;
         public static int MistGhostSpawnY;
 

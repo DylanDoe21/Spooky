@@ -936,6 +936,15 @@ MocoTissue: {
 		'''
 }
 
+OldSaddle: {
+	DisplayName: Old Saddle
+	Tooltip:
+		'''
+		Summons a rideable trapdoor spider mount
+		Allows you to traverse on walls and ceilings
+		'''
+}
+
 OrangeCabbage: {
 	DisplayName: Orange Cabbage
 	Tooltip: Summons a spooky little guinea pig

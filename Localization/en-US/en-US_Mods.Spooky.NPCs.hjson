@@ -167,15 +167,15 @@ OldHunter: {
 		DislikeCrowded: I dislike how crowded I am.
 		HateCrowded: I hate how crowded I am.
 		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite the ugly ass spiders wandering around!
-		LikeBiome: The {BiomeName} is really nice. It's nice to live in an area where many of my friends and ancestors lay.
+		LikeBiome: The {BiomeName} is my type of biome. Nothing says home quite like fending off venomous bugs and bats!
 		DislikeBiome: Not really liking {BiomeName}, too peaceful and calm for me.
-		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land, I like me some action!
+		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land, I like me some action.
 		LoveNPC: "{NPCName} is awesome! Glad there's some hard-core dudes out there!"
 		LikeNPC: I like {NPCName}. Honestly I'm just glad I got someone old to talk with haha!
-		DislikeNPC: Who's {NPCName}? Seems way too hoity-toity to me.
+		DislikeNPC: "{NPCName}? Seems way too hoity-toity for me."
 		HateNPC: "{NPCName} can screw off. Don't think I ever seen such a terrible attitude before!"
-		Princess_LovesNPC: I like {NPCName}.
-		LikeNPC_Princess: I like {NPCName}.
+		Princess_LovesNPC: ""
+		LikeNPC_Princess: ""
 	}
 }
 

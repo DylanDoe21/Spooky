@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 			Projectile.width = 18;                   			 
             Projectile.height = 18;         
 			Projectile.hostile = true;                                 			  		
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.ignoreWater = false;                					
             Projectile.timeLeft = 180;
             Projectile.alpha = 255;

@@ -8,6 +8,10 @@ namespace Spooky.Core
 {
     public class Flags : ModSystem
     {
+        public static Vector2 DaffodilPosition;
+        public static Vector2 PandoraPosition;
+        public static Vector2 FlowerPotPosition;
+
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
@@ -67,6 +71,10 @@ namespace Spooky.Core
 
         public override void SaveWorldData(TagCompound tag)
         {
+            tag["DaffodilPosition"] = DaffodilPosition;
+            tag["PandoraPosition"] = PandoraPosition;
+            tag["FlowerPotPosition"] = FlowerPotPosition;
+
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
             if (downedMoco) tag["downedMoco"] = true;
@@ -97,6 +105,10 @@ namespace Spooky.Core
 
         public override void LoadWorldData(TagCompound tag) 
         {
+            DaffodilPosition = tag.Get<Vector2>("DaffodilPosition");
+            PandoraPosition = tag.Get<Vector2>("PandoraPosition");
+            FlowerPotPosition = tag.Get<Vector2>("FlowerPotPosition");
+
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
             downedMoco = tag.ContainsKey("downedMoco");
@@ -127,6 +139,10 @@ namespace Spooky.Core
 
         public override void NetSend(BinaryWriter writer)
         {
+            writer.WriteVector2(DaffodilPosition);
+            writer.WriteVector2(PandoraPosition);
+            writer.WriteVector2(FlowerPotPosition);
+
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
             downedFlags[1] = downedSpookySpirit;
@@ -164,6 +180,10 @@ namespace Spooky.Core
 
         public override void NetReceive(BinaryReader reader)
         {
+            DaffodilPosition = reader.ReadVector2();
+            PandoraPosition = reader.ReadVector2();
+            FlowerPotPosition = reader.ReadVector2();
+
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];
             downedSpookySpirit = downedFlags[1];

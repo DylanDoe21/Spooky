@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
@@ -71,7 +72,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), 40, true, true);
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), ModContent.WallType<CatacombBrickWall1>(), 40, true, true);
                 }
             }
 
@@ -319,8 +320,8 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
-                    SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
-                    SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), 40, true, true);
+                    SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
+                    SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
                 }
             }
 
@@ -332,7 +333,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = BigBoneArenaY - 35; Y <= BigBoneArenaY + 45; Y += 5)
                 {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), 10, true, true);
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 10, true, true);
                 }
             }
 
@@ -599,12 +600,12 @@ namespace Spooky.Content.Generation
                     //place the first layer bricks around the top half of the arena
                     if (Y <= DaffodilArenaY + 10)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), 10, true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), ModContent.WallType<CatacombBrickWall1>(), 10, true, true);
                     }
                     //on the bottom half, place the second layer bricks
                     else
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), 10, true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 10, true, true);
                     }
                 }
             }
@@ -613,8 +614,9 @@ namespace Spooky.Content.Generation
             Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena", DaffodilArenaOrigin.ToPoint16(), Mod);
 
             //spawn daffodil itself in the arena
-            int Daffodil = NPC.NewNPC(null, (XMiddle - 1) * 16, DaffodilArenaY * 16, ModContent.NPCType<DaffodilBody>());
-            Main.npc[Daffodil].position.X += 2;
+            Flags.DaffodilPosition = new Vector2(XMiddle * 16, DaffodilArenaY * 16);
+            int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
+            Main.npc[Daffodil].position.X -= 3;
 
             //place tunnels leading into the daffodil arena from the two rooms on the sides of it
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -675,7 +677,9 @@ namespace Spooky.Content.Generation
             int layer2StartThing = (int)Main.worldSurface + layer1Depth + 118;
             int PandoraBoxSpawnY = layer2StartThing + 84;
 
-            int PandoraBox = NPC.NewNPC(null, XMiddle * 16, PandoraBoxSpawnY * 16, ModContent.NPCType<PandoraBox>());
+            //spawn pandoras box
+            Flags.PandoraPosition = new Vector2(XMiddle * 16, PandoraBoxSpawnY * 16);
+            int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
             Main.npc[PandoraBox].position.X += 7;
 
             //place big bone arena
@@ -684,7 +688,8 @@ namespace Spooky.Content.Generation
             Generator.GenerateStructure("Content/Structures/CatacombLayer2/BigBoneArena", BigBoneArenaOrigin.ToPoint16(), Mod);
 
             //spawn giant flower pot in the big bone arena
-            int FlowerPot = NPC.NewNPC(null, (XMiddle) * 16, (BigBoneArenaY) * 16, ModContent.NPCType<BigFlowerPot>());
+            Flags.FlowerPotPosition = new Vector2(XMiddle * 16, BigBoneArenaY * 16);
+            int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
             Main.npc[FlowerPot].position.X -= 6;
 
             //dig entrance to big bone's arena

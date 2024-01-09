@@ -411,3 +411,8 @@ PheromoneWhipDebuff: {
 	DisplayName: Pheromone Whip Debuff
 	Description: ""
 }
+
+TrapdoorSpiderMountBuff: {
+	Description: Mods.Spooky.Buffs.TrapdoorSpiderMountBuff.Description
+	DisplayName: Trapdoor Spider Mount Buff
+}

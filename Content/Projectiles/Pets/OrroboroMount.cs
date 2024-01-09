@@ -25,7 +25,6 @@ namespace Spooky.Content.Projectiles.Pets
             MountData.spawnDustNoGravity = true;
             MountData.blockExtraJumps = true;
             MountData.usesHover = true;
-
             MountData.buff = ModContent.BuffType<OrroboroMountBuff>();
 
             int[] array = new int[MountData.totalFrames];
@@ -36,7 +35,6 @@ namespace Spooky.Content.Projectiles.Pets
             MountData.playerYOffsets = array;
             MountData.bodyFrame = 3;
             MountData.playerHeadOffset = 22;
-
 
             if (Main.netMode != NetmodeID.Server) 
             {

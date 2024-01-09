@@ -95,7 +95,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(5, 20), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(5, 20), true, true);
                     }
                 }
             }
@@ -105,7 +105,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(5, 20), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(5, 20), true, true);
                     }
                 }
             }
@@ -117,7 +117,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(15))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), WorldGen.genRand.Next(3, 5), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(3, 5), true, true);
                     }
                 }
             }

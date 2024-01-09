@@ -19,11 +19,19 @@ New Biome, The Spider Grotto:
 -Also has more new enemies and content after you have defeated one mechanical boss
 
 
-New Menu Overhaul:
+New Town NPC, The Old Hunter:
+
+-An ancient skeleton of a once living old hunter is scattered around the spider grotto, it's up to you to put him back together
+-You can re-assemble him at a giant spider web in the spider grotto, which has a wooden template for each piece
+-After all four pieces are inserted, the web will vanish and the old hunter will be revived back to life
+-He sells various different weapons and some other stuff
+
+
+New Main Menu Overhaul:
 
 -Spooky mods main menu style has been completely overhauled, with an amazing new art piece by Hat in a River depicting all the main biomes and bosses
 -This new menu not only looks awesome, but has a few funny little features to go along with it
--On the menu, you may notice blackened versions of each spooky mod boss. When you defeat each spooky mod boss in game, that respective will become permanently un-blackened on the menu
+-On the menu, you may notice blackened versions of each spooky mod boss. When you defeat a spooky mod boss in game, that respective will become permanently un-blackened on the menu
 -Clicking the menu logo also plays a funny sound, makes the logo squish, and makes the boss outlines flash
 -Completing the menu will give you a little reward on any new worlds you create
 
@@ -33,17 +41,17 @@ New Music:
 -"To A Floral Demise" by BananaLizard, plays during daffodil's fight
 -"It's Just Spider Stuff" by BananaLizard, plays in the new spider grotto biome
 -"Graveyard Without The G" by BananaLizard and Lurak, plays during the raveyard event
--Added tweaked/updated versions of some spooky mod themes that BananaLizard wanted to improve (such as moco and orro-boro's themes)
+-Added tweaked/updated versions of some spooky mod themes that BananaLizard wanted to improve (such as remasters of moco and orro-boro's themes)
 
 
 Other New Additions:
 
--Added craftable "safe" versions of the catacomb bricks and walls you can build with
+-Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with
 -Added multiple new spooky forest enemies to both prehardmode and hardmode
 -Added new colorful gourd tiles to the spooky forest
--Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 -Added a bunch more pets
--Added dumb zomboid
+-Added the dumb zomboid
+-Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 
 
 
@@ -52,13 +60,15 @@ Other New Additions:
 
 
 -The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
--Spooky forest now generates with the opposite tier ore of what vanilla has (example, if the world spawns with gold ore then the spooky forest will have platinum ore)
--Reworked the gore monger armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
--Buffed most of the weapons/acessories you find in the spooky forest cabin chests, and catacomb chests for both layers 1 and 2
+-Spooky forest now generates with the opposite tier ore of what vanilla has (for example, if your world generates with gold ore then the spooky forest will have platinum ore)
+-Gore monger armor is now called the gore armor set
+-Reworked the gore armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
+-Modified the gore armor's stat bonuses to be spread more across the different pieces, since too many stats were given by the helmets and not enough by the body and legs
+-Buffed most of the weapons/acessories you find in the spooky forest cabin chests and catacomb chests for both layers 1 and 2
 //THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you while the orange ones in phase 2 are now flung around randomly
--Added new custom sounds for spooky spirit's charging and death, made by Rockwizard5
--Spooky spirit now correctly displays that it is nighttime only in it's bestiary entry
+-Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
+-Spooky spirit now correctly displays that it is night-time only in it's bestiary entry
 -Spirit amulet movement speed increase buffed from 15% to 20%
 -Spooky mod music boxes now display the song title in color to make it more noticable and cool
 -Feral rats animation speed now depends on their current movement speed instead of just playing at a constant speed
@@ -102,6 +112,7 @@ Other New Additions:
 -Removed cobwebs and pumpkin seeds from the cemetery house chest loot and the spooky forest underground cabin chest loot
 -Increased the chance of a giant glowshroom tree to randomly grow on mushroom moss
 -Changed the necronomicon's use sound
+-Stitch's magic wand bolts no longer go through blocks
 
 
 
@@ -119,8 +130,8 @@ Fixed all of the following bugs and issues:
 -Spooky mod armor glowmasks not being affected by dyes
 -Spooky mod weapons that use the melee swing extension visual not scaling up/down their physical and hitbox size if the weapon itself has a reforgement that made it smaller or bigger
 -Some spooky mod melee swing extensions having slightly incorrectly sized hitboxes
--Skull smasher's right click ability was dealing double the weapons base damage
--Catacombs second layer sometimes generating with no vertical pathways, and same for the first layer
+-Skull smasher's right click ability dealing double the weapons base damage
+-Both catacomb layers sometimes generating with no vertical pathways
 -Daffodil's arena generating with layer 2 grass walls in it, which would cause daffodil to despawn during the fight
 -Daffodil, pandora's box, and big bone's flower pot spawning in subworlds
 -Pets on the character display screen being animated if you weren't hovering over that character, and bobbing up and down for some reason

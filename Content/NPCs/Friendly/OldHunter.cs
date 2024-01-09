@@ -28,11 +28,11 @@ namespace Spooky.Content.NPCs.Friendly
 
 			NPC.Happiness
 			.SetBiomeAffection<SpiderCaveBiome>(AffectionLevel.Love)
-			.SetBiomeAffection<CemeteryBiome>(AffectionLevel.Like)
+			.SetBiomeAffection<JungleBiome>(AffectionLevel.Like)
 			.SetBiomeAffection<OceanBiome>(AffectionLevel.Dislike)
 			.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
 			.SetNPCAffection(NPCID.ArmsDealer, AffectionLevel.Love)
-			.SetNPCAffection(NPCID.Clothier, AffectionLevel.Like)
+			.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Like)
 			.SetNPCAffection(NPCID.Princess, AffectionLevel.Dislike)
 			.SetNPCAffection(NPCID.Nurse, AffectionLevel.Hate);
 

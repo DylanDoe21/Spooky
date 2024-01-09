@@ -30,7 +30,7 @@ namespace Spooky.Content.Generation
             }));
         }
 			
-		public static void PlaceCircle(int X, int Y, int tileType, int radius, bool clearTiles, bool clearWalls)
+		public static void PlaceCircle(int X, int Y, int tileType, int wallType, int radius, bool clearTiles, bool clearWalls)
 		{
 			ShapeData circle = new ShapeData();
 			GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -39,14 +39,16 @@ namespace Spooky.Content.Generation
 				blotchMod.Output(circle)
 			}));
 
+			//clear tiles
 			if (clearTiles)
 			{
 				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
 				{
-					new Actions.ClearTile(), new Actions.Clear()
+					new Actions.ClearTile()
 				}));
 			}
 
+			//clear walls
 			if (clearWalls)
 			{
 				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
@@ -55,10 +57,14 @@ namespace Spooky.Content.Generation
 				}));
 			}
 
-			WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+			//place tiles for the circle
+			if (tileType > -1)
 			{
-				new Actions.PlaceTile((ushort)tileType)
-			}));
+				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(circle), Actions.Chain(new GenAction[]
+				{
+					new Actions.PlaceTile((ushort)tileType)
+				}));
+			}
 
 			//wall placing stuff
 			ShapeData wallCircle = new ShapeData();
@@ -68,21 +74,12 @@ namespace Spooky.Content.Generation
 				wallBlotchMod.Output(wallCircle)
 			}));
 
-			//place walls for the first catacomb layer
-			if (tileType == ModContent.TileType<CatacombBrick1>())
+			//dont place walls if it is not set to place any
+			if (wallType > 0)
 			{
 				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
 				{
-					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall1>())
-				}));
-			}
-
-			//place walls for the first catacomb layer
-			if (tileType == ModContent.TileType<CatacombBrick2>())
-			{
-				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(wallCircle), Actions.Chain(new GenAction[]
-				{
-					new Actions.PlaceWall((ushort)ModContent.WallType<CatacombBrickWall2>())
+					new Actions.PlaceWall((ushort)wallType)
 				}));
 			}
 		}

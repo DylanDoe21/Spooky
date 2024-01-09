@@ -8,6 +8,7 @@ using Terraria.Audio;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 
@@ -98,14 +99,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             if (Biting)
             {
-                player.Center = NPC.Center;
-
-                if (player.lifeRegen > 0)
-                {
-                    player.lifeRegen = 0;
-                }
-
-                player.lifeRegen -= 20;
+                //player.AddBuff(ModContent.BuffType<ToothyDebuff>(), 2);
 
                 if (player.statLife <= 0 || player.dead)
                 {
@@ -124,7 +118,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                for (int numDust = 0; numDust < 12; numDust++)
+                for (int numDusts = 0; numDusts < 12; numDusts++)
                 {                                                                                  
                     int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;

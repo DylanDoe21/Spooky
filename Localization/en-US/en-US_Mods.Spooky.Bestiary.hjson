@@ -50,7 +50,7 @@ TinyRat2: These rodents are small and cute, but who knows how dirty they are?
 BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups of them are approached.
 Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
 ZomboidCasket: A moving casket with legs on the bottom. Contains a wonderful surprise for anyone who dares to destroy it!
-ZomboidGremlin: Small zomboids with an usual amount of hostility compared to other zomboids. They will chase any target down despite their comically small size.
+ZomboidGremlin: Small zomboids with an unusual amount of hostility compared to other zomboids. They will chase any target down despite their comically small size.
 MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
 FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in their path.
@@ -63,10 +63,10 @@ Glutinous: A poorly put together creature made from biomass. It is only capable 
 Vesicator: Absolutely vile chunks of biomatter that can somehow function on their own. They can vomit out and use biomatter to their advantage. Maybe the valley of eyes does know what it's doing?
 Vigilante: Ugly slabs of left over meat, turned into this creature by the valley of eyes. Despite its strange design, it can fly around and hunt its targets pretty efficiently.
 Ventricle: A chunk of beating flesh shaped into this hideous mass by the valley of eyes. It uses blood and gas stored in its body to shoot out explosive biomass.
-//friendly npcs
+//friendly town npcs
 DumbZombie: A zomboid that got lost. It does not know how to read. Or think.
-LittleBone: A cute and friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
-LittleEye: A strange, sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
+LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
+LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 PartySkeleton1: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
 PartySkeleton2: Ancient skeletons that rise up during crazy parties. They look like they're close to overdosing.
 PartySkeleton3: Unlike most hostile skeletons, these ones are friendly to anyone and are great party guests.
@@ -98,16 +98,17 @@ PuttyPumpkinling: Offspring created by putty pumpkins when they are in danger. T
 PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest. They attempt to frighten anyone that comes across them, but are usually not successful.
 PuttySlime2: Slimes made out of spooky putty, brought to life by the spooky forest. They hop around the spooky forest mindlessly attempting to spook people.
 PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
-ScarecrowShotgunner: The release of the ancient souls has caused these scarecrows to become possessed by vengeful spirits, who will shoot at anything they deem as a foe.
+ScarecrowShotgunner: The release of the ancient souls has caused these scarecrows to become possessed by vengeful spirits who will shoot at anything that moves.
 ShroomHopper: Small bugs with a giant mushroom on their back, they peacefully hop around the purple moss covered areas where they live.
 TinyGhost1: Little mischevious ghosts that wander around during the night in the spooky forest.
 TinyGhost2: Small nefarious apparitions that wander around and harass homeowners in the spooky forest.
 TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
 TinyGhostRare: It's a tiny ghost, but these ones are orange. They can be befriended if you can manage to find and catch one!
 TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do!
+Witch: As it turns out, the stories are true. The death of the flesh wall has unleashed powerful spooky magic, allowing these evil witches to live at night once again.
 ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despite being blind, they can still sniff out their target's location.
-ZomboidPumpkin: Rooted to the ground, these zomboids are incapable of movement and are constantly enraged because of it. They can control their roots to attack nearby foes from below.
-ZomboidPumpkinFire: The death of the flesh wall has unleashed their full potential. Enraged and constantly on fire, their attacks are now far more chaotic and can lead to fourth-degree burns.
+ZomboidPumpkin: Rooted to the ground, these zomboids are incapable of movement and are constantly angry because of it. They can control their roots to attack nearby foes from below.
+ZomboidPumpkinFire: The death of the flesh wall has unleashed their full potential. Enraged and constantly on fire, their attacks are now far more chaotic and can lead to third-degree burns.
 ZomboidThorn: Thorn covered, shambling monsters that arise at night. They might be brainless, but should not be messed with if underprepared.
 ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.
 ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
