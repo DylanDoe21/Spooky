@@ -25,9 +25,12 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
+            //biome position stuff
+            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+
             int ExtraHeight = WorldGen.genRand.Next(20, 55);
 
-            int startPosX = (Main.maxTilesX / 2) + WorldGen.genRand.Next(-(Main.maxTilesX / 25), (Main.maxTilesX / 25));
+            int startPosX = SnowMiddle > (Main.maxTilesX / 2) ? SnowMiddle - Main.maxTilesX / 20 : SnowMiddle + Main.maxTilesX / 20;
             int startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight;
 
             int cavePerlinSeed = WorldGen.genRand.Next();
@@ -65,9 +68,9 @@ namespace Spooky.Content.Generation
                             WorldGen.TileRunner(X, Y + 20, WorldGen.genRand.Next(18, 25), WorldGen.genRand.Next(18, 25), TileID.Stone, true, 0f, 0f, true, true);
                         }
 
-                        if (percent > blurPercent && Y < origin.Y)
+                        if (percent > blurPercent && Y < origin.Y && Main.tile[X, Y - 20].WallType != WallID.SpiderUnsafe)
                         {
-                            SpookyWorldMethods.PlaceCircle(X, Y - 15, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(2, 35), false, false);
+                            SpookyWorldMethods.PlaceCircle(X, Y - 20, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(25, 35), false, false);
                         }
                     }
                 }
@@ -487,7 +490,10 @@ namespace Spooky.Content.Generation
 
         private void DeleteAnnoyingTraps(GenerationProgress progress, GameConfiguration configuration)
         {
-            int startPosX = (Main.maxTilesX / 2) + WorldGen.genRand.Next(-(Main.maxTilesX / 25), (Main.maxTilesX / 25));
+            //biome position stuff
+            int SnowMiddle = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+
+            int startPosX = SnowMiddle > (Main.maxTilesX / 2) ? SnowMiddle - Main.maxTilesX / 20 : SnowMiddle + Main.maxTilesX / 20;
             int startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - 30;
 
             Point origin = new Point(startPosX, startPosY);

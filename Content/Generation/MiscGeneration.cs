@@ -124,7 +124,7 @@ namespace Spooky.Content.Generation
 
         private void PlaceSecretPetShrine(GenerationProgress progress, GameConfiguration configuration)
         {
-            Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2, Main.maxTilesY / 2 + 100);
+            Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2 + WorldGen.genRand.Next(-200, 200), Main.maxTilesY / 2 + 20);
             Generator.GenerateStructure("Content/Structures/SecretPetShrine", structureOrigin.ToPoint16(), Mod);
         }
 

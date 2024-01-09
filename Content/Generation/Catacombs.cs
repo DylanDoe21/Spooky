@@ -38,7 +38,6 @@ namespace Spooky.Content.Generation
 
         public static int EntranceY = 0;
         public static int PositionX = 0;
-        public static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
         public static bool PlacedFirstBarrier = false;
         public static bool placedLootRoom1 = false;

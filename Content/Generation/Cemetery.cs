@@ -16,6 +16,8 @@ namespace Spooky.Content.Generation
 {
     public class Cemetery : ModSystem
     {
+        public int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+
         public static int BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
 
         //place a giant dirt area for the graveyard to generate on
@@ -25,7 +27,7 @@ namespace Spooky.Content.Generation
 
             BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
 
-            Catacombs.PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+            PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
             float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.65f : 8.55f;
 
@@ -43,28 +45,26 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
+            //place biome exactly on the surface by finding a valid surface
             bool foundSurface = false;
             int attempts = 0;
 
-            //place biome exactly on the surface by finding a valid surface
             while (!foundSurface && attempts++ < 100000)
             {
-                while (!WorldGen.SolidTile(XMiddle, Catacombs.PositionY) && Catacombs.PositionY <= Main.worldSurface)
+                while (!WorldGen.SolidTile(XMiddle, PositionY) && PositionY <= Main.maxTilesY)
 				{
-					Catacombs.PositionY++;
+					PositionY++;
 				}
-                if (!Main.tile[XMiddle, Catacombs.PositionY].HasTile)
+                if (WorldGen.SolidTile(XMiddle, PositionY) && NoFloatingIsland(XMiddle, PositionY))
                 {
-					continue;
-				}
-
-                foundSurface = true;
+					foundSurface = true;
+                }
             }
 
             //place the terrain itself and replace blocks with cemetery blocks
             for (int X = XMiddle - (BiomeWidth / 2); X <= XMiddle + (BiomeWidth / 2); X++)
             {
-                for (int Y = Catacombs.PositionY - 100; Y <= Main.worldSurface; Y++)
+                for (int Y = PositionY - 100; Y <= Main.worldSurface; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
 
@@ -106,7 +106,7 @@ namespace Spooky.Content.Generation
             //add tile dithering on the edges of the biome
             for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
             {
-                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
+                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
                     if (WorldGen.genRand.NextBool(2))
                     {
@@ -152,7 +152,7 @@ namespace Spooky.Content.Generation
 
             for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
-                for (int Y = Catacombs.PositionY - 75; Y <= Main.worldSurface; Y++)
+                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
                     WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>());
 
@@ -170,7 +170,7 @@ namespace Spooky.Content.Generation
             int XMiddle = XStart + (BiomeWidth / 2);
             int XEdge = XStart + BiomeWidth;
 
-            int StartPosY = Catacombs.PositionY - 100;
+            int StartPosY = PositionY - 100;
 
             //structures
             if (Main.maxTilesX >= 6400)

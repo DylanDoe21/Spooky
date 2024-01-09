@@ -69,8 +69,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             //target an enemy
             for (int i = 0; i < 200; i++)
             {
+                if (Vector2.Distance(player.Center, Projectile.Center) >= 450f)
+                {
+                    isAttacking = false;
+                    IdleAI(player);
+
+                    break;
+                }
+
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 750f)
+                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 500f)
                 {
                     AttackingAI(Target);
 
@@ -82,7 +90,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 
                 NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 750f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 500f)
                 {
                     AttackingAI(NPC);
 

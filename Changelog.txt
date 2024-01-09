@@ -113,6 +113,7 @@ Other New Additions:
 -Increased the chance of a giant glowshroom tree to randomly grow on mushroom moss
 -Changed the necronomicon's use sound
 -Stitch's magic wand bolts no longer go through blocks
+-Gilded bricks now produce gold dust when broken instead of stone dust
 
 
 
@@ -142,6 +143,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod pylons spawning incorrectly colored dust particles and spawning them way too much
 -Plant puncher staff minion being jittery when the player is not moving
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
+-Branch of gourd minions not following the player correctly if they got stuck on slopes or blocks they couldn't jump over
 
 
 
