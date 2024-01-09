@@ -93,17 +93,11 @@ namespace Spooky.Content.Projectiles.Pets
 					LegOffsets.X += (float)player.direction * 48f;
 				}
 
-				Vector2 LegDestination = FindAirBlock(LegOffsets * 0.4f, player.Center + SpiderLegData.MountCenter + player.velocity * 10f);
-				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2((player.direction == -1 ? -5f : 5f), 75f));
 				float MoveDelay = 15f;
 				int MovingTimer = (int)(((float)Main.GameUpdateCount + MoveDelay / 4f * (float)i) % MoveDelay);
 
-				/*
-				if (i == 0 && MovingTimer % 2 == 0 && player.velocity.X != 0) 
-				{
-					SoundEngine.PlaySound(WalkSound, player.Center);
-				}
-				*/
+				Vector2 LegDestination = FindAirBlock(LegOffsets * 0.4f, player.Center + SpiderLegData.MountCenter + player.velocity * 10f);
+				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2((player.direction == -1 ? -5f : 5f), 75f));
 
 				if ((Vector2.Distance(SpiderLegData.AnchorPoint[i], LegDestination) > SpiderLegData.LegFrameHeight || Vector2.Distance(SpiderLegData.AnchorPoint[i], player.Center + SpiderLegData.MountCenter) > SpiderLegData.LegFrameHeight) && MovingTimer == 1)
 				{
