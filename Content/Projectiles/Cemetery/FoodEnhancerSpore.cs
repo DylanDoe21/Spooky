@@ -38,20 +38,23 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 if (Projectile.Hitbox.Intersects(Main.npc[i].Hitbox))
                 {
-                    int[] Tier1Buffs = { BuffID.Poisoned, BuffID.BloodButcherer, BuffID.OnFire };
-                    int[] Tier2Buffs = { BuffID.Frostburn, BuffID.ShadowFlame };
-                    int[] Tier3Buffs = { BuffID.BetsysCurse, BuffID.Confused, BuffID.Venom };
-
-                    Main.npc[i].AddBuff(Main.rand.Next(Tier1Buffs), 300);
-
-                    if (player.HasBuff(BuffID.WellFed2))
+                    if (Main.npc[i].active && !Main.npc[i].friendly && !Main.npc[i].dontTakeDamage && !NPCID.Sets.CountsAsCritter[Main.npc[i].type])
                     {
-                        Main.npc[i].AddBuff(Main.rand.Next(Tier2Buffs), 300);
-                    }
+                        int[] Tier1Buffs = { BuffID.Poisoned, BuffID.BloodButcherer, BuffID.OnFire };
+                        int[] Tier2Buffs = { BuffID.Frostburn, BuffID.ShadowFlame };
+                        int[] Tier3Buffs = { BuffID.BetsysCurse, BuffID.Confused, BuffID.Venom };
 
-                    if (player.HasBuff(BuffID.WellFed3))
-                    {
-                        Main.npc[i].AddBuff(Main.rand.Next(Tier3Buffs), 300);
+                        Main.npc[i].AddBuff(Main.rand.Next(Tier1Buffs), 300);
+
+                        if (player.HasBuff(BuffID.WellFed2))
+                        {
+                            Main.npc[i].AddBuff(Main.rand.Next(Tier2Buffs), 300);
+                        }
+
+                        if (player.HasBuff(BuffID.WellFed3))
+                        {
+                            Main.npc[i].AddBuff(Main.rand.Next(Tier3Buffs), 300);
+                        }
                     }
                 }
             }

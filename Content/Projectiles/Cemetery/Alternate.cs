@@ -41,6 +41,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Player player = Main.player[Projectile.owner];
 
+            Projectile.spriteDirection = player.direction;
+
             if (Projectile.timeLeft <= 255)
             {
                 Projectile.alpha++;
@@ -49,66 +51,62 @@ namespace Spooky.Content.Projectiles.Cemetery
             //movement
             if (Projectile.localAI[0] < 1200)
             {
-                if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
-                {
-                    Projectile.ai[0] = 1f;
-                }
+                float goToX = (player.Center.X + (35 * -player.direction)) - Projectile.Center.X;
+                float goToY = player.Center.Y - Projectile.Center.Y - 50;
 
-                float speed = 8f;
-
-                if (Projectile.ai[0] == 1f)
-                {
-                    speed = 15f;
-                }
-
-                Vector2 center = Projectile.Center;
-                Vector2 direction = player.Center - center;
-                Projectile.ai[1] = 3600f;
-                Projectile.netUpdate = true;
-                int num = 1;
-                for (int k = 0; k < Projectile.whoAmI; k++)
-                {
-                    if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
-                    {
-                        num++;
-                    }
-                }
+                float speed = 0.08f;
                 
-                direction.X -= (20 + num * 40) * player.direction;
-                direction.Y -= 70f;
-                float distanceTo = direction.Length();
-                if (distanceTo > 10f && speed < 9f)
+                if (Vector2.Distance(Projectile.Center, player.Center) >= 140)
                 {
-                    speed = 9f;
-                }
-                if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
-                {
-                    Projectile.ai[0] = 0f;
-                    Projectile.netUpdate = true;
-                }
-                if (distanceTo > 2000f)
-                {
-                    Projectile.Center = player.Center;
-                }
-                if (distanceTo > 48f)
-                {
-                    direction.Normalize();
-                    direction *= speed;
-                    float temp = 40 / 2f;
-                    Projectile.velocity = (Projectile.velocity * temp + direction) / (temp + 1);
+                    speed = 0.2f;
                 }
                 else
                 {
-                    Projectile.direction = Main.player[Projectile.owner].direction;
-                    Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
+                    speed = 0.12f;
+                }
+                
+                if (Projectile.velocity.X > speed)
+                {
+                    Projectile.velocity.X *= 0.98f;
+                }
+                if (Projectile.velocity.Y > speed)
+                {
+                    Projectile.velocity.Y *= 0.98f;
                 }
 
-                Projectile.rotation = Projectile.velocity.X * 0.05f;
-
-                if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
+                if (Projectile.velocity.X < goToX)
                 {
-                    Projectile.spriteDirection = -Projectile.direction;
-                    return;
+                    Projectile.velocity.X = Projectile.velocity.X + speed;
+                    if (Projectile.velocity.X < 0f && goToX > 0f)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X + speed;
+                    }
+                }
+                else if (Projectile.velocity.X > goToX)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X - speed;
+                    if (Projectile.velocity.X > 0f && goToX < 0f)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X - speed;
+                    }
+                }
+                if (Projectile.velocity.Y < goToY)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                    if (Projectile.velocity.Y < 0f && goToY > 0f)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                        return;
+                    }
+                }
+                else if (Projectile.velocity.Y > goToY)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                    if (Projectile.velocity.Y > 0f && goToY < 0f)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                        return;
+                    }
                 }
             }
 

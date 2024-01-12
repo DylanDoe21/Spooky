@@ -21,7 +21,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 
         public override void SetStaticDefaults()
         {
-            TileID.Sets.IsATreeTrunk[Type] = true;
 			Main.tileFrameImportant[Type] = true;
             Main.tileMergeDirt[Type] = false;
             Main.tileSolid[Type] = false;

@@ -114,7 +114,7 @@ Other New Additions:
 -Changed the necronomicon's use sound
 -Stitch's magic wand bolts no longer go through blocks
 -Gilded bricks now produce gold dust when broken instead of stone dust
-
+-Catacomb flooring bricks now produce bone dust when broken instead of stone dust
 
 
 

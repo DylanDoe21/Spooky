@@ -36,7 +36,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
 
             orig(self);
 
-            if (ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1800)
+            if (ModContent.GetInstance<TileCount>().spiderCaveTiles >= 1500)
             {
                 Transparency += TransitionSpeed;
 

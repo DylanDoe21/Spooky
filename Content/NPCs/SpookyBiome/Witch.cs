@@ -151,20 +151,19 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatEyes>(), 30));
         }
 
-        /*
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 5; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/WitchGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/WitchClothGore").Type);
                     }
                 }
             }
         }
-        */
     }
 }

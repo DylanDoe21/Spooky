@@ -196,7 +196,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				else 
 				{
 					int chest = Chest.FindChest(left, top);
-					if (chest >= 0) 
+					if (chest >= 0)
 					{
 						Main.stackSplit = 600;
 						if (chest == player.chest) 

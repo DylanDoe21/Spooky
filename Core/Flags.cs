@@ -11,6 +11,7 @@ namespace Spooky.Core
         public static Vector2 DaffodilPosition;
         public static Vector2 PandoraPosition;
         public static Vector2 FlowerPotPosition;
+        public static Vector2 SpiderWebPosition;
 
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
@@ -22,7 +23,7 @@ namespace Spooky.Core
         public static bool downedBigBone = false;
 
         public static bool SpookyBackgroundAlt = false;
-
+        public static bool OldHunterAssembled = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
@@ -51,7 +52,7 @@ namespace Spooky.Core
             downedBigBone = false;
 
             SpookyBackgroundAlt = false;
-
+            OldHunterAssembled = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
@@ -74,6 +75,7 @@ namespace Spooky.Core
             tag["DaffodilPosition"] = DaffodilPosition;
             tag["PandoraPosition"] = PandoraPosition;
             tag["FlowerPotPosition"] = FlowerPotPosition;
+            tag["SpiderWebPosition"] = SpiderWebPosition;
 
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
@@ -85,7 +87,7 @@ namespace Spooky.Core
             if (downedBigBone) tag["downedBigBone"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
-            
+            if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
             if (CatacombKey1) tag["CatacombKey1"] = true;
             if (CatacombKey2) tag["CatacombKey2"] = true;
             if (CatacombKey3) tag["CatacombKey3"] = true;
@@ -108,6 +110,7 @@ namespace Spooky.Core
             DaffodilPosition = tag.Get<Vector2>("DaffodilPosition");
             PandoraPosition = tag.Get<Vector2>("PandoraPosition");
             FlowerPotPosition = tag.Get<Vector2>("FlowerPotPosition");
+            SpiderWebPosition = tag.Get<Vector2>("SpiderWebPosition");
 
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
@@ -119,7 +122,7 @@ namespace Spooky.Core
             downedBigBone = tag.ContainsKey("downedBigBone");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
-
+            OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
             CatacombKey2 = tag.ContainsKey("CatacombKey2");
             CatacombKey3 = tag.ContainsKey("CatacombKey3");
@@ -142,6 +145,7 @@ namespace Spooky.Core
             writer.WriteVector2(DaffodilPosition);
             writer.WriteVector2(PandoraPosition);
             writer.WriteVector2(FlowerPotPosition);
+            writer.WriteVector2(SpiderWebPosition);
 
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
@@ -156,9 +160,10 @@ namespace Spooky.Core
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
-            miscFlags[1] = CatacombKey1;
-            miscFlags[2] = CatacombKey2;
-            miscFlags[3] = CatacombKey3;
+            miscFlags[1] = OldHunterAssembled;
+            miscFlags[2] = CatacombKey1;
+            miscFlags[3] = CatacombKey2;
+            miscFlags[4] = CatacombKey3;
             writer.Write(miscFlags);
 
             var questFlags = new BitsByte();
@@ -183,6 +188,7 @@ namespace Spooky.Core
             DaffodilPosition = reader.ReadVector2();
             PandoraPosition = reader.ReadVector2();
             FlowerPotPosition = reader.ReadVector2();
+            SpiderWebPosition = reader.ReadVector2();
 
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];
@@ -196,9 +202,10 @@ namespace Spooky.Core
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
-            CatacombKey1 = miscFlags[1];
-            CatacombKey2 = miscFlags[2];
-            CatacombKey3 = miscFlags[3];
+            OldHunterAssembled = miscFlags[1];
+            CatacombKey1 = miscFlags[2];
+            CatacombKey2 = miscFlags[3];
+            CatacombKey3 = miscFlags[4];
 
             BitsByte questFlags = reader.ReadByte();
             EyeQuest1 = questFlags[0];

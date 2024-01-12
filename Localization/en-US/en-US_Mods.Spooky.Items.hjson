@@ -488,7 +488,7 @@ CarnisFlavorEnhancer: {
 }
 
 GeminiEntertainmentGame: {
-	DisplayName: Lethal Omen
+	DisplayName: Strange Videogame
 	Tooltip:
 		'''
 		Spawns short lived nature's mockery around you on the ground occassionally
@@ -502,7 +502,7 @@ HerobrineAltar: {
 	Tooltip:
 		'''
 		Press the Accessory Hotkey to summon a powerful bolt of lighting at your cursor position
-		The lighting bolt will deal massive damage to regular enemies
+		The lighting bolt will deal extremely fatal damage to regular enemies
 		Bosses will take 10% of their maximum life as damage
 		This ability has a 2 minute cooldown before it can be used again
 		'Removed Herobrine'
@@ -513,8 +513,9 @@ Local58Telescope: {
 	DisplayName: Telescope
 	Tooltip:
 		'''
-		Spawns a large moon to orbit around you constantly
-		The moon can damage enemies and block some enemy projectiles
+		Spawns a large moon that will orbit around you 
+		During day time the moon will remain close to you and reflect weak hostile projectiles
+		During night time the moon will remain further from you and will damage enemies
 		'His throne'
 		'''
 }
@@ -564,7 +565,7 @@ RedGodzillaCartridge: {
 }
 
 RedMistClarinet: {
-	DisplayName: Red Mist
+	DisplayName: Dreadful Clarinet
 	Tooltip:
 		'''
 		Critical hits will sometimes spawn an orbiting note that will chase enemies
@@ -601,12 +602,21 @@ SmileDogPicture: {
 }
 
 AnalogueHorrorTape: {
-	DisplayName: Analogue Horror Tape
-	Tooltip: Grants the effects of every analog horror accessory
+	DisplayName: VHS Tape
+	Tooltip:
+		'''
+		Grants the effects of every analog horror accessory
+		You will sometimes spawn nature's mockery that sap life from enemies
+		Press the Accessory Hotkey to summon an alternate that slows down nearby enemies
+		Moving will spawn spores that inflict debuffs, becomes stronger if you have well fed buffs
+		Spawns a floating head that decays nearby enemies, rapidly draining their health
+		Summons an orbiting moon that can reflect weaker hostile projectiles and damage enemies
+		Grants you a glass pyramid that gives you high defense for 3 hits and then shatters, after which you take double damage for a short time
+		'''
 }
 
 Creepypasta: {
-	DisplayName: Creepypasta
+	DisplayName: Creepy Pasta
 	Tooltip: Grants the effects of every creepypasta accessory
 }
 

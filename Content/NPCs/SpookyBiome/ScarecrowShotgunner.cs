@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void FindFrame(int frameHeight)
         {
-            if (!IsShooting)
+            if (!IsShooting || (IsShooting && NPC.localAI[0] > 210))
             {
                 //walking animation
                 NPC.frameCounter++;
@@ -139,11 +139,19 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 IsShooting = true;
 
-                NPC.aiStyle = 0;
-
-                NPC.velocity.X *= 0.5f;
-
                 NPC.localAI[0]++;
+
+                if (NPC.localAI[0] <= 210)
+                {
+                    NPC.velocity.X *= 0.5f;
+
+                    NPC.aiStyle = 0;
+                }
+                else
+                {
+                    NPC.aiStyle = 3;
+                    AIType = NPCID.GoblinWarrior;
+                }
 
                 //cock the shotgun 4 times
                 if (NPC.localAI[0] == 30 || NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
@@ -186,7 +194,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     }
                 }
                 
-                if (NPC.localAI[0] >= 260)
+                //delay before it can shoot again
+                if (NPC.localAI[0] >= 360)
                 {
                     NPC.localAI[0] = 0;
                     NPC.netUpdate = true;

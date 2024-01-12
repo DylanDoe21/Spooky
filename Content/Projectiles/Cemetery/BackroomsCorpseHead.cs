@@ -59,7 +59,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.spriteDirection = -player.direction;
 
-			float goToX = (player.Center.X + (player.direction == -1 ? 35 : -35)) - Projectile.Center.X;
+			float goToX = (player.Center.X + (35 * player.direction)) - Projectile.Center.X;
             float goToY = player.Center.Y - Projectile.Center.Y - 50;
 
             float speed = 0.08f;
@@ -117,11 +117,11 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
 
-            for (int k = 0; k < Main.maxNPCs; k++)
+            for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				if (Main.npc[k].active && Main.npc[k].Distance(Projectile.Center) <= 275f)
+				if (Main.npc[i].active && !Main.npc[i].friendly && !Main.npc[i].dontTakeDamage && !NPCID.Sets.CountsAsCritter[Main.npc[i].type])
                 {
-                    Main.npc[k].AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
+                    Main.npc[i].AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
                 }
             }
 		}
