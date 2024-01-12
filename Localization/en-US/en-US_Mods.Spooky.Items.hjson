@@ -513,9 +513,9 @@ Local58Telescope: {
 	DisplayName: Telescope
 	Tooltip:
 		'''
-		Spawns a large moon that will orbit around you 
-		During day time the moon will remain close to you and reflect weak hostile projectiles
-		During night time the moon will remain further from you and will damage enemies
+		Spawns a large moon that constantly orbits around you 
+		During the day the moon will orbit close to you and reflect weak hostile projectiles
+		During the night the moon will orbit further from you and will damage enemies
 		'His throne'
 		'''
 }
@@ -1164,6 +1164,17 @@ SpiderKey: {
 		'''
 		Unlocks a spider chest in the dungeon
 		Cannot be used until plantera has been defeated
+		'''
+}
+
+OrbWeaverShield: {
+	DisplayName: Spike Shell Basher
+	Tooltip:
+		'''
+		Hold out a damaging spiked shield infront of you that
+		Deals more damage the faster you are currently moving
+		After 3 seconds of being held, the shield will become changed
+		Release when charged to fire out the shield's spikes in a massive spread
 		'''
 }
 

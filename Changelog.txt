@@ -115,6 +115,8 @@ Other New Additions:
 -Stitch's magic wand bolts no longer go through blocks
 -Gilded bricks now produce gold dust when broken instead of stone dust
 -Catacomb flooring bricks now produce bone dust when broken instead of stone dust
+-Rod of hands projectiles are no longer weirdly scaled up
+
 
 
 
@@ -144,6 +146,6 @@ Fixed all of the following bugs and issues:
 -Plant puncher staff minion being jittery when the player is not moving
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 -Branch of gourd minions not following the player correctly if they got stuck on slopes or blocks they couldn't jump over
-
+-Rod of hands projectiles sometimes emerging from tiles too fast and floating in the air
 
 

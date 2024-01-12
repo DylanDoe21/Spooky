@@ -12,6 +12,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class Local58Moon : ModProjectile
     {
+        int ParryDelay = 0;
         float Distance = 100f;
 
         public override void SetDefaults()
@@ -48,25 +49,31 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (!Main.dayTime && Distance < 250f)
             {
-                Distance += 10f;
+                Distance += 5f;
             }
             if (Main.dayTime && Distance > 100f)
             {
-                Distance -= 10f;
+                Distance -= 5f;
             }
 
             Projectile.Center = player.Center + Projectile.ai[0].ToRotationVector2() * Distance;
             Projectile.rotation = Projectile.ai[0] + MathHelper.PiOver2 + MathHelper.PiOver4;
-            Projectile.ai[0] -= MathHelper.ToRadians(Main.dayTime ? 1.5f : 2.5f);
+            Projectile.ai[0] -= MathHelper.ToRadians(Main.dayTime ? 1.5f : 3.5f);
 
-            if (Main.dayTime)
+            if (ParryDelay > 0)
+            {
+                ParryDelay--;
+            }
+
+            if (Main.dayTime && ParryDelay <= 0)
             {
                 int damageToActivateParry = Main.masterMode ? 120 : Main.expertMode ? 90 : 50;
 
                 for (int i = 0; i <= Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].hostile && Main.projectile[i].damage >= damageToActivateParry)
+                    if (Projectile.Hitbox.Intersects(Main.projectile[i].Hitbox) && Main.projectile[i].hostile && Main.projectile[i].damage <= damageToActivateParry)
                     {
+                        ParryDelay = 30;
                         SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
                         Main.projectile[i].velocity = -Main.projectile[i].velocity;
                     }

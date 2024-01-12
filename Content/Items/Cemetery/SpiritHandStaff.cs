@@ -37,7 +37,7 @@ namespace Spooky.Content.Items.Cemetery
             Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.DD2_GhastlyGlaivePierce;
 			Item.shoot = ModContent.ProjectileType<SpiritHand>();
-			Item.shootSpeed = 5f;
+			Item.shootSpeed = 4f;
         }
 
         public override bool CanUseItem(Player player)
@@ -94,11 +94,12 @@ namespace Spooky.Content.Items.Cemetery
                     }
                 }
 
+                SoundEngine.PlaySound(SoundID.Item103, position);
+
                 Vector2 direction = mouse - position;
                 direction.Normalize();
                 direction *= Item.shootSpeed;
                 velocity = direction;
-                SoundEngine.PlaySound(SoundID.Item103, position);
             }
         }
     }

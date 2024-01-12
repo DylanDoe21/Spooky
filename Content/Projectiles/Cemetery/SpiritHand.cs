@@ -24,7 +24,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
             Projectile.alpha = 255;
-            Projectile.scale = 1.2f;
 		}
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
