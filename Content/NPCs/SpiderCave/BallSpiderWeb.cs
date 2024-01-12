@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 {
                     NPC.velocity *= 0;
 
-                    if (NPC.ai[1] < 40)
+                    if (NPC.ai[1] < 60)
                     {
                         NPC.active = false;
                     }

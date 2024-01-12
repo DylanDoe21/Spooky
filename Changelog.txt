@@ -147,5 +147,5 @@ Fixed all of the following bugs and issues:
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 -Branch of gourd minions not following the player correctly if they got stuck on slopes or blocks they couldn't jump over
 -Rod of hands projectiles sometimes emerging from tiles too fast and floating in the air
-
+-Booger blaster's spread of boogers on its second charge firing horribly in the wrong direction
 

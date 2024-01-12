@@ -39,8 +39,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (owner.ownedProjectileCounts[ModContent.ProjectileType<ShroomWhipSpore>()] < 5 && Main.rand.NextBool(5))
             {
-                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, 
-				ModContent.ProjectileType<ShroomWhipSpore>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<ShroomWhipSpore>(), Projectile.damage, 0f, Main.myPlayer);
             }
         }
 

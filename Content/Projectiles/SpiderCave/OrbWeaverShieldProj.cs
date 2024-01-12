@@ -24,6 +24,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.width = 52;
             Projectile.height = 52;
             Projectile.DamageType = DamageClass.Melee;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 30;
@@ -119,12 +121,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 {
                     SoundEngine.PlaySound(SoundID.Item79, Projectile.Center);
                 }
-
-                if (Projectile.frame >= 3)
-                {   
-                    Projectile.frame = 2;
-                }
-
+                
                 if (direction.X > 0) 
                 {
 					player.direction = 1;
@@ -160,7 +157,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 13f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
-                                    ModContent.ProjectileType<OrbWeaverShieldSpikeBig>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                                    ModContent.ProjectileType<OrbWeaverShieldSpike>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                                 }
                             }
                         }

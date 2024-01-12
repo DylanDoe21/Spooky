@@ -1193,6 +1193,15 @@ SphiderFlail: {
 	Tooltip: Fires out slowing webs while swung
 }
 
+SpiderEggCannon: {
+	DisplayName: Spider Egg Cannon
+	Tooltip:
+		'''
+		Fires out spider eggs
+		Every 5th shot will fire a large spider egg that summons a baby spider
+		'''
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 5% increased melee damage

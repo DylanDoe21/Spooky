@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.buyPrice(gold: 8);
+			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<OrbWeaverShieldProj>();
 			Item.shootSpeed = 0f;

@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 64;
+            Projectile.width = 32;
             Projectile.height = 120;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
@@ -113,7 +113,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        Vector2 ShootSpeed = Main.MouseWorld - player.Center;
                         ShootSpeed.Normalize();
 
                         switch (Projectile.frame)
@@ -134,14 +134,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
                             //shoot spread of 3 small boogers
                             case 1:
                             {
-                                ShootSpeed *= 16;
-
                                 Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
                                 for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                                 {
                                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-                                    ShootSpeed * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
+                                    16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                     ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                                 }
 

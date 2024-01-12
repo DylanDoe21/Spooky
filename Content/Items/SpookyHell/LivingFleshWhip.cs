@@ -46,14 +46,7 @@ namespace Spooky.Content.Items.SpookyHell
                 numUses = 0;
             }
 
-            if (numUses == 0)
-            {
-                type = ModContent.ProjectileType<LivingFleshWhipProjRed>();
-            }
-            else
-            {   
-                type = ModContent.ProjectileType<LivingFleshWhipProjBlue>();
-            }
+            type = numUses == 0 ? ModContent.ProjectileType<LivingFleshWhipProjRed>() : ModContent.ProjectileType<LivingFleshWhipProjBlue>();
 
             Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 			

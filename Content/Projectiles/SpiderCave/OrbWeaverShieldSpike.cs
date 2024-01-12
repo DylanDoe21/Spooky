@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
-    public class OrbWeaverShieldSpikeBig : ModProjectile
+    public class OrbWeaverShieldSpike : ModProjectile
     {
         public override void SetStaticDefaults()
         {
