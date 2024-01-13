@@ -28,7 +28,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     [AutoloadBossHead]
     public class DaffodilEye : ModNPC
     {
-
         public bool Phase2 = false;
         public bool SpawnedHands = false;
         public bool ActuallyDead = false;

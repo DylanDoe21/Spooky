@@ -33,7 +33,7 @@ namespace Spooky.Content.Generation
             ExtraHeight = WorldGen.genRand.Next(20, 55);
 
             startPosX =  (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
-            startPosY = (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight;
+            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight : Main.maxTilesY / 2 + ExtraHeight;
 
             //attempt to find a valid position for the biome to place in
             bool foundValidPosition = false;
@@ -62,7 +62,8 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int biomeSize = 250 + (Main.maxTilesX / 180);
+            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
+            int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
 
@@ -544,7 +545,8 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int biomeSize = 260 + (Main.maxTilesX / 180);
+            int InitialSize = Main.maxTilesY >= 1800 ? 260 : 130;
+            int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
 
@@ -658,9 +660,9 @@ namespace Spooky.Content.Generation
         public static bool CanPlaceStructure(int X, int Y)
         {
             //check a 70 by 70 square for other structures before placing
-            for (int i = X - 30; i < X + 30; i++)
+            for (int i = X - 35; i < X + 35; i++)
             {
-                for (int j = Y - 20; j < Y + 20; j++)
+                for (int j = Y - 35; j < Y + 35; j++)
                 {
                     //if any mossy stone bricks are found in the square then another structure is too close, so dont allow it to place
                     if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<SpookyStoneBricks>())

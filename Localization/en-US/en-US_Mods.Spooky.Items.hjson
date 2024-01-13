@@ -1171,15 +1171,14 @@ OrbWeaverShield: {
 	DisplayName: Spike Shell Basher
 	Tooltip:
 		'''
-		Hold out a damaging spiked shield infront of you that
-		Deals more damage the faster you are currently moving
+		Hold out a spiked shield that deals more damage the faster you are moving
 		After 3 seconds of being held, the shield will become changed
-		Release when charged to fire out the shield's spikes in a massive spread
+		Release when charged to fire out the shield's spikes
 		'''
 }
 
 PheromoneWhip: {
-	DisplayName: Pheromone Whip
+	DisplayName: Pheromone Stinger
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
@@ -1195,11 +1194,7 @@ SphiderFlail: {
 
 SpiderEggCannon: {
 	DisplayName: Spider Egg Cannon
-	Tooltip:
-		'''
-		Fires out spider eggs
-		Every 5th shot will fire a large spider egg that summons a baby spider
-		'''
+	Tooltip: Every 5 shots will fire a larger egg that summons an attack spider
 }
 
 GourdBody: {

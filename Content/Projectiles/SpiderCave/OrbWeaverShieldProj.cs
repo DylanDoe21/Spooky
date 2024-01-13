@@ -14,6 +14,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
         int SaveDirection;
         float SaveRotation;
 
+        float SaveKnockback;
+        bool SavedKnockback = false;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 2;
@@ -41,6 +44,21 @@ namespace Spooky.Content.Projectiles.SpiderCave
         public override bool? CanCutTiles()
         {
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
+            Vector2 Knockback = owner.Center - target.Center;
+            Knockback.Normalize();
+            Knockback *= SaveKnockback * 2;
+
+            if (target.knockBackResist > 0f)
+            {
+                target.velocity = -Knockback * target.knockBackResist;
+            }
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
@@ -83,6 +101,16 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
+
+            if (!SavedKnockback)
+            {
+                SaveKnockback = Projectile.knockBack;
+                SavedKnockback = true;
+            }
+            else
+            {
+                Projectile.knockBack = 0;
+            }
 
             if (Projectile.owner == Main.myPlayer)
             {

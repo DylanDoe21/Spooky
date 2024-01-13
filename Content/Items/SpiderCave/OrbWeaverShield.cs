@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useTime = 45;
 			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 4;
+			Item.knockBack = 7;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item1;

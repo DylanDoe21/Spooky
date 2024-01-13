@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.SpiderCave
 {
 	public class SpiderEggCannon : ModItem
 	{
-		int numUses = 0;
+		int numUses = -1;
 
 		public override void SetDefaults()
 		{
@@ -47,7 +47,7 @@ namespace Spooky.Content.Items.SpiderCave
 
 			type = numUses == 4 ? ModContent.ProjectileType<CannonEggBig>() : ModContent.ProjectileType<CannonEggSmall>();
 
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;

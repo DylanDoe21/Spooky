@@ -114,14 +114,13 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 NPC.aiStyle = 0;
 
-                NPC.direction = SaveDirection;
+                NPC.direction = NPC.spriteDirection = SaveDirection;
 
                 NPC.localAI[2]++;
 
                 if (NPC.localAI[2] == 100 || NPC.localAI[2] == 120 || NPC.localAI[2] == 140)
                 {
-                    int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.direction == -1 ? -60 : 60), 
-                    (int)NPC.Center.Y, ModContent.NPCType<WhipSpiderTongue>(), ai3: NPC.whoAmI);
+                    int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.direction == -1 ? -40 : 40), (int)NPC.Center.Y, ModContent.NPCType<WhipSpiderTongue>(), ai3: NPC.whoAmI);
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
