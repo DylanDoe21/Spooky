@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 80;
+            NPC.lifeMax = 90;
             NPC.damage = 30;
             NPC.defense = 5;
             NPC.width = 52;
@@ -138,8 +138,8 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC Parent = Main.npc[(int)NPC.ai[2]];
 
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
 
@@ -147,7 +147,10 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 GoToPosition(0, 200);
 
-                NPC.ai[0]++;
+                if (NPC.Distance(player.Center) <= 320f || NPC.ai[0] >= 400)
+                {
+                    NPC.ai[0]++;
+                }
 
                 if (NPC.ai[0] >= 500)
                 {

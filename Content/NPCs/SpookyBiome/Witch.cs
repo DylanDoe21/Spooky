@@ -60,9 +60,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter++;
-
             //walking animation
+            NPC.frameCounter++;
             if (NPC.localAI[0] <= 420 || NPC.localAI[0] >= 500)
             {
                 if (NPC.frameCounter > 10)

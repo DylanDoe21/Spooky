@@ -87,8 +87,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             if (player.Hitbox.Intersects(NPC.Hitbox) && !Biting)
             {
@@ -99,6 +99,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             if (Biting)
             {
+                player.Center = NPC.Center;
+
                 //player.AddBuff(ModContent.BuffType<ToothyDebuff>(), 2);
 
                 if (player.statLife <= 0 || player.dead)

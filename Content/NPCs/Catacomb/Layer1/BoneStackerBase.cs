@@ -53,8 +53,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		{
 			NPC.spriteDirection = NPC.direction;
 
-            NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
-
             //Create the stack of enemies
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

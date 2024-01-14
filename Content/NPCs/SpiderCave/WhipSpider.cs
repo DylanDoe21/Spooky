@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] >= 600 && player.Distance(NPC.Center) <= 300f)
+            if (NPC.localAI[0] >= 600 && player.Distance(NPC.Center) <= 450f)
             {
                 NPC.localAI[1] = 1;
             }

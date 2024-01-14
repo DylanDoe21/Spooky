@@ -179,8 +179,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
 			int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 35;
 

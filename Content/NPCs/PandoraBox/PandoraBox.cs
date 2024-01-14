@@ -26,10 +26,7 @@ namespace Spooky.Content.NPCs.PandoraBox
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
-            NPCID.Sets.ActsLikeTownNPC[Type] = true;
-            NPCID.Sets.ShimmerTownTransform[Type] = false;
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
-            NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -57,11 +54,8 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.defense = 0;
             NPC.width = 46;
             NPC.height = 36;
-            NPC.friendly = true;
-            NPC.townNPC = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-            TownNPCStayingHomeless = true;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type, ModContent.GetInstance<Biomes.PandoraBoxBiome>().Type };
         }
 
@@ -164,8 +158,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 if (PlayAnimation)
                 {
-                    NPC.frameCounter += 1;
-
+                    NPC.frameCounter++;
                     if (NPC.frameCounter > 7)
                     {
                         NPC.frame.Y = NPC.frame.Y + frameHeight;

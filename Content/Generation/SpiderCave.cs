@@ -10,6 +10,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Tree;
@@ -102,7 +104,7 @@ namespace Spooky.Content.Generation
                         float percent = dist / constant;
                         float blurPercent = 0.99f;
 
-                        if (percent > blurPercent)
+                        if (percent >= blurPercent)
                         {
                             if (WorldGen.genRand.NextBool())
                             {
@@ -181,13 +183,13 @@ namespace Spooky.Content.Generation
                         if (percent < blurPercent)
                         {
                             //place mounds of web blocks on the floor
-                            if (WorldGen.genRand.NextBool(20) && Main.tile[X, Y].HasTile && !Main.tile[X, Y - 1].HasTile)
+                            if (WorldGen.genRand.NextBool(20) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile)
                             {
                                 SpookyWorldMethods.PlaceMound(X, Y + 3, ModContent.TileType<WebBlock>(), WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(6, 10));
                             }
 
                             //place smaller chunks of web blocks on the ceiling
-                            if (WorldGen.genRand.NextBool(45) && Main.tile[X, Y].HasTile && !Main.tile[X, Y + 1].HasTile)
+                            if (WorldGen.genRand.NextBool(45) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile)
                             {
                                 SpookyWorldMethods.PlaceCircle(X, Y + 2, TileID.LivingMahoganyLeaves, 0, WorldGen.genRand.Next(2, 6), false, false);
                             }
@@ -532,6 +534,28 @@ namespace Spooky.Content.Generation
                     if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())
                     {
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<DampVines>());
+                    }
+                }
+            }
+
+            //place giant web in the center of the biome
+            Vector2 giantWebOrigin = new Vector2(origin.X - 18, origin.Y - 16);
+            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWeb", giantWebOrigin.ToPoint16(), Mod);
+
+            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
+            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+            Main.npc[GiantWeb].position.X -= 8;
+            Main.npc[GiantWeb].position.Y += 140;
+
+            //spread grass again
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+                for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        //spread grass onto the dirt blocks throughout the biome
+                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
                     }
                 }
             }

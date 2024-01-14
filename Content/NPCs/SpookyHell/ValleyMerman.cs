@@ -80,11 +80,10 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter += 1;
-
+            //running animation
+            NPC.frameCounter++;
             if (NPC.localAI[0] < 320)
             {
-                //running animation
                 if (NPC.frameCounter > 4)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -95,6 +94,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     NPC.frame.Y = 0 * frameHeight;
                 }
             }
+            //spitting animation
             else
             {
                 if (NPC.frame.Y < frameHeight * 7)

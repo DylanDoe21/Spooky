@@ -79,19 +79,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (NPC.localAI[0] <= 10)
             {
-                stretch -= 0.005f;
+                stretch -= 0.002f;
             }
             else if (NPC.localAI[0] <= 30 && NPC.localAI[0] > 10)
             {
-                stretch -= 0.03f;
+                stretch -= 0.02f;
             }
             else if (NPC.localAI[0] <= 40)
             {
-                stretch += 0.005f;
+                stretch += 0.002f;
             }
             else if (NPC.localAI[0] <= 60 && NPC.localAI[0] > 40)
             {
-                stretch += 0.03f;
+                stretch += 0.02f;
             }
 
             if (NPC.localAI[0] >= 60)

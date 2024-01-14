@@ -84,6 +84,16 @@ namespace Spooky.Core
 
                     NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
                 }
+
+                //spawn giant cobweb in the spider cave, only if you have not assembled the old hunter npc
+                if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !Flags.OldHunterAssembled)
+                {
+                    int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+                    Main.npc[GiantWeb].position.X -= 8;
+                    Main.npc[GiantWeb].position.Y += 140;
+
+                    NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
+                }
             }
 
             //for when day and night switch

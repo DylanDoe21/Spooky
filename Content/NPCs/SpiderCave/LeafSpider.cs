@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.SpiderCave.Projectiles;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
     public class LeafSpider : ModNPC  
@@ -68,6 +70,9 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
 			NPC.spriteDirection = NPC.direction;
 
             if (NPC.ai[1] == 0)
@@ -82,6 +87,34 @@ namespace Spooky.Content.NPCs.SpiderCave
                 }
 
                 NPC.ai[1]++;
+            }
+
+            if (NPC.ai[1] > 0)
+            {
+                bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
+
+                if (NPC.Distance(player.Center) <= 450f && lineOfSight)
+                {
+                    NPC.ai[0]++;
+                }
+
+                if (NPC.ai[0] >= 400)
+                {
+                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+                    for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y + 50),
+                            Main.rand.NextFloat(5f, 11f) * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y + 150)).RotatedBy(MathHelper.ToRadians(Main.rand.Next(6, 13)) * numProjectiles),
+                            ModContent.ProjectileType<LeafSpiderAcid>(), NPC.damage / 4, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    NPC.ai[0] = 0;
+                    NPC.netUpdate = true;
+                }
             }
         }
 

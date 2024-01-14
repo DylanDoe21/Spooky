@@ -184,7 +184,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 13f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 
+                                    Main.rand.Next(6, 9) * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
                                     ModContent.ProjectileType<OrbWeaverShieldSpike>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                                 }
                             }

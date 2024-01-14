@@ -151,8 +151,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
             
             if (NPC.ai[0] == 0 || (NPC.ai[0] == 1&& NPC.localAI[0] < 75))
             {

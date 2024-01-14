@@ -14,8 +14,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 	{
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.ActsLikeTownNPC[Type] = true;
-            NPCID.Sets.NoTownNPCHappiness[Type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
@@ -29,13 +27,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.height = 270;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.friendly = true;
-            NPC.immortal = true;
             NPC.noTileCollide = true;
-            NPC.dontTakeDamage = true;
             NPC.noGravity = true;
+            NPC.immortal = true;
+            NPC.dontTakeDamage = true;
             NPC.behindTiles = true;
-            TownNPCStayingHomeless = true;
             NPC.aiStyle = -1;
 		}
 

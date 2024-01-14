@@ -75,9 +75,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
-
             float maxDist = 600;
             int maxHealing = 5;
             int numHealing = 0;

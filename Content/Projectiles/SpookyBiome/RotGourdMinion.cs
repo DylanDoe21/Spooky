@@ -37,6 +37,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.penetrate = -1;
         }
 
+        public override bool? CanDamage()
+		{
+            return isAttacking && Projectile.velocity.Y > 0;
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			return false;

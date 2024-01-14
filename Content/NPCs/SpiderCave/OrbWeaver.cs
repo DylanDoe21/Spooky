@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 75;
-            NPC.damage = 20;
+            NPC.damage = 35;
 			NPC.defense = 20;
 			NPC.width = 74;
 			NPC.height = 52;
@@ -82,8 +82,11 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.TargetClosest(true);
 
             NPC.spriteDirection = NPC.direction;
-
-            NPC.localAI[0]++;
+    
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+            {
+                NPC.localAI[0]++;
+            }
 
             if (NPC.localAI[0] <= 250)
             {
@@ -164,7 +167,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 90;
-            NPC.damage = 20;
+            NPC.damage = 40;
 			NPC.defense = 20;
 			NPC.width = 82;
 			NPC.height = 56;
@@ -192,8 +195,11 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.TargetClosest(true);
 
             NPC.spriteDirection = NPC.direction;
-
-            NPC.localAI[0]++;
+    
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+            {
+                NPC.localAI[0]++;
+            }
 
             if (NPC.localAI[0] <= 250)
             {
@@ -205,7 +211,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 0;
             }
 
-            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200f)
             {
                 //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
                 if (NPC.localAI[1] == 0)
@@ -249,7 +255,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 90;
-            NPC.damage = 20;
+            NPC.damage = 30;
 			NPC.defense = 20;
 			NPC.width = 62;
 			NPC.height = 46;
@@ -278,7 +284,10 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-            NPC.localAI[0]++;
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+            {
+                NPC.localAI[0]++;
+            }
 
             if (NPC.localAI[0] <= 250)
             {
@@ -334,7 +343,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 900;
-            NPC.damage = 55;
+            NPC.damage = 60;
 			NPC.defense = 40;
 			NPC.width = 82;
 			NPC.height = 60;

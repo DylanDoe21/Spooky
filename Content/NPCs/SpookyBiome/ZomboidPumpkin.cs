@@ -49,9 +49,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frameCounter++;
-
             //idle animation
+            NPC.frameCounter++;
             if (NPC.ai[1] < 1)
             {
                 if (NPC.frameCounter > 8)
@@ -92,8 +91,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
         
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
 

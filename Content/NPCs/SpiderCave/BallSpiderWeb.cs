@@ -36,11 +36,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             switch ((int)NPC.ai[0])
             {
+                //fly upward until it hits a valid ceiling 
                 case 0: 
                 {
                     NPC.velocity.Y = -3;
@@ -55,16 +56,18 @@ namespace Spooky.Content.NPCs.SpiderCave
                     break;
                 }
 
+                //spawn the sphider once a ceiling is found
                 case 1: 
                 {
                     NPC.velocity *= 0;
 
-                    if (NPC.ai[1] < 60)
+                    //this "limit" makes it so if the ceiling this npc found is too low to the ground, it will just vanish and not spawn the spider
+                    if (NPC.ai[1] < 90)
                     {
                         NPC.active = false;
                     }
 
-                    if (NPC.Distance(player.Center) <= 300f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression)
+                    if ((NPC.Distance(player.Center) <= 300f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression) && NPC.ai[1] >= 90)
                     {
                         SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 

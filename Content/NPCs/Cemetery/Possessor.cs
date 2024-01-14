@@ -79,8 +79,8 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
             
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
