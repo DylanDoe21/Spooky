@@ -611,7 +611,8 @@ AnalogueHorrorTape: {
 		Moving will spawn spores that inflict debuffs, becomes stronger if you have well fed buffs
 		Spawns a floating head that decays nearby enemies, rapidly draining their health
 		Summons an orbiting moon that can reflect weaker hostile projectiles and damage enemies
-		Grants you a glass pyramid that gives you high defense for 3 hits and then shatters, after which you take double damage for a short time
+		Grants you a glass pyramid that gives you high defense for 3 hits and then shatters
+		You will take double damage for 10 seconds after the pyramid shatters
 		'''
 }
 
@@ -1167,6 +1168,24 @@ SpiderKey: {
 		'''
 }
 
+OrbWeaverBoomerang: {
+	DisplayName: Weaverang
+	Tooltip:
+		'''
+		Throws a returning orb weaver spike that can bounce off of surfaces
+		The boomerang will fly out for longer whenever it bounces off a surface
+		'''
+}
+
+OrbWeaverGiantStaff: {
+	DisplayName: Scepter of the Weaver
+	Tooltip:
+		'''
+		Summons a large orb weaver sentry to shoot spikes all around itself
+		The orb weaver will sometimes jump towards its target
+		'''
+}
+
 OrbWeaverShield: {
 	DisplayName: Spike Shell Basher
 	Tooltip:
@@ -1175,6 +1194,11 @@ OrbWeaverShield: {
 		After 3 seconds of being held, the shield will become changed
 		Release when charged to fire out the shield's spikes
 		'''
+}
+
+OrbWeaverStaff: {
+	DisplayName: Staff of the Weaver
+	Tooltip: Summons an orb weaver spider sentry to shoot spikes around it
 }
 
 PheromoneWhip: {

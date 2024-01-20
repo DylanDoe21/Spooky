@@ -81,7 +81,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            projectile.damage /= 2;
+            projectile.damage /= 5;
         }
 
         public override void AI()

@@ -34,6 +34,11 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.aiStyle = -1;
         }
 
+        public override bool CheckActive()
+        {
+            return NPC.ai[0] < 2;
+        }
+
         public override void AI()
         {
             NPC.TargetClosest(true);
@@ -66,8 +71,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                     {
                         NPC.active = false;
                     }
-
-                    if ((NPC.Distance(player.Center) <= 300f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression) && NPC.ai[1] >= 90)
+                    else if((NPC.Distance(player.Center) <= 300f || player.GetModPlayer<SpookyPlayer>().WhipSpiderAggression) && NPC.ai[1] >= 90)
                     {
                         SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 

@@ -8,6 +8,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class ZombiePart1 : ModProjectile
     {
+		int Bounces = 0;
+
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -31,8 +33,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.velocity.X = Projectile.velocity.X * 0.99f;   
             }
         }
-		
-		int Bounces = 0;
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
@@ -44,6 +44,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			else
 			{
 				Projectile.ai[0] = 30;
+				
 				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
 				if (Projectile.velocity.X != oldVelocity.X)

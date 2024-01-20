@@ -6,6 +6,7 @@ using Terraria.GameContent.Personalities;
 using Terraria.Localization;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Biomes;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -72,8 +73,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override bool CanTownNPCSpawn(int numTownNPCs) 
         {
-            //for now he will always move in, will be changed when the mechanic to get him is made
-			return true;
+            return Flags.OldHunterAssembled;
 		}
 
         public override List<string> SetNPCNameList() 
@@ -82,8 +82,7 @@ namespace Spooky.Content.NPCs.Friendly
             {
 				"Gerald",
 				"Bone",
-				"Hunt",
-				"Spooky Skeleton"
+				"Hunter"
 			};
 		}
 

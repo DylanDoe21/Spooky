@@ -12,7 +12,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class OldWoodOrgan : ModTile
     {
-        public static readonly SoundStyle OrganSound = new("Spooky/Content/Sounds/Organ", SoundType.Sound) { PitchVariance = 0.5f };
+        public static readonly SoundStyle OrganSound = new("Spooky/Content/Sounds/Organ", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{

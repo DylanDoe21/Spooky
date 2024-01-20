@@ -13,8 +13,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     public class RotGourdMinion : ModProjectile
     {
         int playerStill = 0;
-        bool isAttacking = false;
         bool playerFlying = false;
+        bool isAttacking = false;
 
         public override void SetStaticDefaults()
         {

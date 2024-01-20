@@ -30,6 +30,12 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void PostUpdateEverything()
 		{
+			if (!PandoraEventActive)
+			{
+				Wave = 0;
+				SpawnedEnemySpawners = false;
+			}
+
 			//end the event and reset everything if you die
 			if (PandoraEventActive && Main.player[Main.myPlayer].dead)
 			{

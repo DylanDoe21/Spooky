@@ -147,7 +147,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 GoToPosition(0, 200);
 
-                if (NPC.Distance(player.Center) <= 320f || NPC.ai[0] >= 400)
+                if (NPC.Distance(player.Center) <= 200f || NPC.ai[0] >= 400)
                 {
                     NPC.ai[0]++;
                 }

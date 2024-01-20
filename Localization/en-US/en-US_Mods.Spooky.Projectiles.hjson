@@ -277,26 +277,30 @@ ZomboidRootThorn.DisplayName: Root Spike
 ZomboidRootThornTelegraph.DisplayName: Thorn Telegraph
 ZomboidRootThornFire.DisplayName: Flaming Root Spike
 ZomboidRootThornTelegraphFire.DisplayName: Thorn Telegraph
-TelegraphRedLeft.DisplayName: Telegraph Red Left
-TelegraphRedDown.DisplayName: Telegraph Red Down
-TelegraphRedRight.DisplayName: Telegraph Red Right
-TelegraphRedUp.DisplayName: Telegraph Red Up
-GraveDiggerShovelProj.DisplayName: Grave Digger Shovel
-WhipSpiderProj.DisplayName: Whip Spider
-SphiderFlailProj.DisplayName: Sphider Flail
+TelegraphRedLeft.DisplayName: Telegraph
+TelegraphRedDown.DisplayName: Telegraph
+TelegraphRedRight.DisplayName: Telegraph
+TelegraphRedUp.DisplayName: Telegraph
+GraveDiggerShovelProj.DisplayName: Cemetery Digger's Shovel
+SphiderFlailProj.DisplayName: Swingable Sphider
 SphiderFlailWeb.DisplayName: Web Ball
-PheremoneWhipProj.DisplayName: Pheremone Whip
-PheromoneWhipProj.DisplayName: Pheromone Whip
+PheremoneWhipProj.DisplayName: Pheremone Stinger
 MocoNoseSnot.DisplayName: Snot
-WitchPotion.DisplayName: Witch Potion
-WeaverSpikeRed.DisplayName: Weaver Spike Red
-WeaverSpikeGreen.DisplayName: Weaver Spike Green
-WeaverSpikeBlack.DisplayName: Weaver Spike Black
-Local58Moon.DisplayName: Local58 Moon
-OrbWeaverShieldProj.DisplayName: Orb Weaver Shield Proj
-OrbWeaverShieldSpikeBig.DisplayName: Orb Weaver Shield Spike Big
-OrbWeaverShieldSpike.DisplayName: Orb Weaver Shield Spike
-CannonEggBig.DisplayName: Cannon Egg Big
-CannonEggSmall.DisplayName: Cannon Egg Small
-CannonSpider.DisplayName: Cannon Spider
-LeafSpiderAcid.DisplayName: Leaf Spider Acid
+WitchPotion.DisplayName: Witch's Potion
+WeaverSpikeRed.DisplayName: Orb Weaver Spike
+WeaverSpikeGreen.DisplayName: Orb Weaver Spike
+WeaverSpikeBlack.DisplayName: Orb Weaver Spike
+Local58Moon.DisplayName: The Moon
+OrbWeaverShieldProj.DisplayName: Spike Shell Basher
+OrbWeaverShieldSpike.DisplayName: Shield Spike
+CannonEggBig.DisplayName: Spider Egg
+CannonEggSmall.DisplayName: Spider Egg
+CannonSpider.DisplayName: Little Spider
+LeafSpiderAcid.DisplayName: Acid Spit
+WeaverSpikeGiant.DisplayName: Orb Weaver Spike
+OrbWeaverBoomerangProj.DisplayName: Weaverang
+OrbWeaverSentryBig.DisplayName: Big Orb Weaver Sentry
+OrbWeaverSentryBigSpike.DisplayName: Weaver Sentry Spike
+OrbWeaverSentrySmall.DisplayName: Orb Weaver Sentry
+OrbWeaverSentrySmallSpike.DisplayName: Weaver Sentry Spike
+PheromoneWhipProj.DisplayName: Pheromone Whip Proj

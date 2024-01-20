@@ -37,6 +37,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.value = Item.buyPrice(0, 0, 2, 50);
             NPC.HitSound = SoundID.Grass;
 			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.aiStyle = 66;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
@@ -75,42 +76,47 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.spriteDirection = NPC.direction;
 
-            //jumping ai
+            NPC.rotation = NPC.velocity.Y * 0.02f;
+                
             NPC.ai[0]++;
 
             if (NPC.ai[0] >= 75)
             {
                 //set where the it should be jumping towards
-                Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 100);
-
-                if (NPC.Distance(player.Center) >= 300)
-                {
-                    JumpTo = new(player.Center.X, NPC.Center.Y - 75);
-                }
+                Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 200);
 
                 //set velocity and speed
                 Vector2 velocity = JumpTo - NPC.Center;
                 velocity.Normalize();
 
-                float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 12);
+                float speed = MathHelper.Clamp(velocity.Length() / 36, 6, 18);
 
                 //actual jumping
                 if (NPC.velocity.X == 0)
                 {
                     if (NPC.velocity.Y == 0)
                     {
-                        velocity.Y -= 0.25f;
+                        NPC.ai[1]++;
+
+                        if (NPC.ai[1] == 10)
+                        {
+                            velocity.Y -= 0.25f;
+                        }
                     }
 
-                    velocity.X *= 1.2f;
-                    NPC.velocity = velocity * speed;
+                    if (NPC.ai[1] > 10)
+                    {
+                        velocity.X *= 1.2f;
+                        NPC.velocity = velocity * speed;
+                    }
                 }
             }
 
             //loop ai
             if (NPC.ai[0] >= 100)
             {
-                NPC.ai[0] = Main.rand.Next(0, 45);
+                NPC.ai[0] = Main.rand.Next(35, 60);
+                NPC.ai[1] = 0;
             }
         }
 

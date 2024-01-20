@@ -278,6 +278,15 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place giant web in the center of the biome
+            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
+            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
+
+            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
+            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+            Main.npc[GiantWeb].position.X += 18;
+            Main.npc[GiantWeb].position.Y += 1518;
+
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
@@ -537,28 +546,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-
-            //place giant web in the center of the biome
-            Vector2 giantWebOrigin = new Vector2(origin.X - 18, origin.Y - 16);
-            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWeb", giantWebOrigin.ToPoint16(), Mod);
-
-            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
-            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-            Main.npc[GiantWeb].position.X -= 8;
-            Main.npc[GiantWeb].position.Y += 140;
-
-            //spread grass again
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-            {
-                for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        //spread grass onto the dirt blocks throughout the biome
-                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
-                    }
-                }
-            }
         }
 
         private void DeleteAnnoyingTraps(GenerationProgress progress, GameConfiguration configuration)
@@ -581,7 +568,6 @@ namespace Spooky.Content.Generation
             Vector2 biomeTop = center - biomeOffset;
             Vector2 biomeBottom = center + biomeOffset;
 
-            //first, place a large barrier of stone along where the bottom of the biome will be
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
                 for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)

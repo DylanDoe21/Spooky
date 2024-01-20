@@ -37,6 +37,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.value = Item.buyPrice(0, 0, 2, 50);
             NPC.HitSound = SoundID.Grass;
 			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.aiStyle = 66;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
@@ -74,11 +75,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             if (NPC.Distance(player.Center) <= 200f)
             {
-                if (NPC.ai[1] < 45)
+                if (NPC.ai[2] < 45)
                 {
                     NPC.frame.Y = 3 * frameHeight;
                 }
-                if (NPC.ai[1] >= 45)
+                if (NPC.ai[2] >= 45)
                 {
                     NPC.frame.Y = 4 * frameHeight;
                 }
@@ -92,44 +93,50 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.spriteDirection = NPC.direction;
 
+            NPC.rotation = NPC.velocity.Y * 0.02f;
+
             //jumping ai
             if (NPC.Distance(player.Center) > 200f)
             {
                 NPC.ai[0]++;
-                NPC.ai[1] = 0;
+                NPC.ai[2] = 0;
 
                 if (NPC.ai[0] >= 75)
                 {
                     //set where the it should be jumping towards
-                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 100);
-
-                    if (NPC.Distance(player.Center) >= 300)
-                    {
-                        JumpTo = new(player.Center.X, NPC.Center.Y - 75);
-                    }
+                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 200);
 
                     //set velocity and speed
                     Vector2 velocity = JumpTo - NPC.Center;
                     velocity.Normalize();
 
-                    float speed = MathHelper.Clamp(velocity.Length() / 36, 8, 12);
+                    float speed = MathHelper.Clamp(velocity.Length() / 36, 6, 18);
 
                     //actual jumping
                     if (NPC.velocity.X == 0)
                     {
                         if (NPC.velocity.Y == 0)
                         {
-                            velocity.Y -= 0.25f;
+                            NPC.ai[1]++;
+
+                            if (NPC.ai[1] == 10)
+                            {
+                                velocity.Y -= 0.25f;
+                            }
                         }
 
-                        velocity.X *= 1.2f;
-                        NPC.velocity = velocity * speed;
+                        if (NPC.ai[1] > 10)
+                        {
+                            velocity.X *= 1.2f;
+                            NPC.velocity = velocity * speed;
+                        }
                     }
 
                     //loop ai
                     if (NPC.ai[0] >= 100)
                     {
-                        NPC.ai[0] = Main.rand.Next(0, 45);
+                        NPC.ai[0] = Main.rand.Next(35, 60);
+                        NPC.ai[1] = 0;
                     }
                 }
             }
@@ -137,30 +144,28 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //spit spores when close
             if (NPC.Distance(player.Center) <= 200f)
             {
-                NPC.ai[1]++;
+                NPC.ai[2]++;
                 NPC.ai[0] = 0;
 
                 //spit a spore
-                if (NPC.ai[1] == 45)
+                if (NPC.ai[2] == 45)
                 {
                     SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= 4f;
-                    ShootSpeed.Y *= 4f;
+                    ShootSpeed *= 4f;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                        ShootSpeed.Y, ProjectileID.DandelionSeed, NPC.damage / 3, 1, NPC.target, 0, 0);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootSpeed, ProjectileID.DandelionSeed, NPC.damage / 3, 1, NPC.target, 0, 0);
                     }
                 }
 
                 //loop ai
-                if (NPC.ai[1] >= 70)
+                if (NPC.ai[2] >= 70)
                 {
-                    NPC.ai[1] = 0;
+                    NPC.ai[2] = 0;
                 }
             }
         }

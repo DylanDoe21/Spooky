@@ -85,10 +85,15 @@ namespace Spooky.Content.NPCs.SpiderCave
             return true;
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             NPC Parent = Main.npc[(int)NPC.ai[2]];
 

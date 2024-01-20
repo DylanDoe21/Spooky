@@ -74,6 +74,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             //attacking animation
             if (NPC.ai[1] == 1)
             {
+                
             }
         }
         

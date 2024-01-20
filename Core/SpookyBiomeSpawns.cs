@@ -249,7 +249,7 @@ namespace Spooky.Core
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 				{
-					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 3);
+					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
 				}
 			}
 
@@ -382,21 +382,21 @@ namespace Spooky.Core
 					{
 						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 3);
 						pool.Add(ModContent.NPCType<JumpingSpider1>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
-						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSpider2>(), 3);
+						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
 						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
-						pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
-						pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
+						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
+						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
 
-						if (NPC.downedMechBossAny)
+						if (Main.hardMode)
 						{
 							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 1);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 0.8f);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
 							pool.Add(ModContent.NPCType<WhipSpider>(), 1);
 						}
 					}

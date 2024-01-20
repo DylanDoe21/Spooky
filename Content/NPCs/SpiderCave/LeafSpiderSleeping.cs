@@ -36,22 +36,22 @@ namespace Spooky.Content.NPCs.SpiderCave
 
 		public override void FindFrame(int frameHeight)
 		{
-			NPC.frameCounter += 1;
+			NPC.frameCounter++;
             if (NPC.frameCounter > 8)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0.0;
+                NPC.frameCounter = 0;
             }
             if (NPC.frame.Y >= frameHeight * 5)
             {
-                NPC.frame.Y = 0;
+                NPC.frame.Y = 0 * frameHeight;
             }
 		}
 
         public override void AI()
 		{
+			NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
 
             NPC.spriteDirection = NPC.direction;
 

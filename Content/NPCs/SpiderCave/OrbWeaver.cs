@@ -78,12 +78,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             NPC.spriteDirection = NPC.direction;
-    
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 0;
             }
 
-            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            if (NPC.localAI[0] >= 300)
             {
                 //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
                 if (NPC.localAI[1] == 0)
@@ -191,12 +191,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             NPC.spriteDirection = NPC.direction;
-    
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -211,7 +211,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 0;
             }
 
-            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200f)
+            if (NPC.localAI[0] >= 300)
             {
                 //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
                 if (NPC.localAI[1] == 0)
@@ -279,12 +279,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             NPC.spriteDirection = NPC.direction;
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -299,7 +299,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 NPC.aiStyle = 0;
             }
 
-            if (NPC.localAI[0] >= 300 && Vector2.Distance(player.Center, NPC.Center) <= 200)
+            if (NPC.localAI[0] >= 300)
             {
                 //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
                 if (NPC.localAI[1] == 0)
@@ -364,6 +364,52 @@ namespace Spooky.Content.NPCs.SpiderCave
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void AI()
+        {
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
+            NPC.spriteDirection = NPC.direction;
+
+            if (Vector2.Distance(player.Center, NPC.Center) <= 450f || NPC.localAI[0] >= 250)
+            {
+                NPC.localAI[0]++;
+            }
+
+            if (NPC.localAI[0] <= 250)
+            {
+                NPC.aiStyle = 3;
+			    AIType = NPCID.Crab;
+            }
+            else
+            {
+                NPC.aiStyle = 0;
+            }
+
+            if (NPC.localAI[0] >= 300)
+            {
+                //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
+                if (NPC.localAI[1] == 0)
+                {
+                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeGiant>(), 10f);
+
+                    NPC.localAI[1] = 1;
+                }
+            }
+
+            //cooldown before the spikes grow back
+            if (NPC.localAI[1] == 1)
+            {
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] >= 75)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
+                }
+            }
+        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

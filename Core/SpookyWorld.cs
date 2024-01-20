@@ -89,8 +89,8 @@ namespace Spooky.Core
                 if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !Flags.OldHunterAssembled)
                 {
                     int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-                    Main.npc[GiantWeb].position.X -= 8;
-                    Main.npc[GiantWeb].position.Y += 140;
+                    Main.npc[GiantWeb].position.X += 18;
+                    Main.npc[GiantWeb].position.Y += 1518;
 
                     NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
                 }

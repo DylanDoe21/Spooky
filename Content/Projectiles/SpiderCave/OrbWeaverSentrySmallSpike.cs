@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
-    public class OrbWeaverShieldSpike : ModProjectile
+    public class OrbWeaverSentrySmallSpike : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -17,13 +17,13 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 28;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.width = 8;
+            Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 1800;
-			Projectile.penetrate = 2;
+			Projectile.penetrate = 1;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.32f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.65f;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

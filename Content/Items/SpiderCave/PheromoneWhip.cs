@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
-			Item.width = 42;
-            Item.height = 42;
+			Item.width = 46;
+            Item.height = 48;
 			Item.useTime = 45;
 			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Swing;
