@@ -52,30 +52,23 @@ namespace Spooky.Content.Generation
             //otherwise place it in front of the dungeon
             else
             {
-                //left side dungeon
-                if (GenVars.dungeonSide == -1)
+                PositionX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+
+                //attempt to find a valid position for the biome to place in
+                bool foundValidPosition = false;
+                int attempts = 0;
+
+                //the biomes initial position is the very center of the snow biome
+                //this code basically looks for snow biome blocks, and if it finds any, keep moving the biome over until it is far enough away from the snow biome
+                while (!foundValidPosition && attempts++ < 100000)
                 {
-                    //decide the biome position based on how far to the right the dungeon generates
-                    if (GenVars.dungeonX > (Main.maxTilesX / 10))
+                    while (!NoSnowBiomeNearby(PositionX, PositionY))
                     {
-                        PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
+                        PositionX += (PositionX > (Main.maxTilesX / 2) ? 100 : -100);
                     }
-                    else
+                    if (NoSnowBiomeNearby(PositionX, PositionY))
                     {
-                        PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
-                    }
-                }
-                //right side dungeon
-                else
-                {
-                    //decide the biome position based on how far to the left the dungeon generates
-                    if (GenVars.dungeonX < Main.maxTilesX - (Main.maxTilesX / 10))
-                    {
-                        PositionX = GenVars.dungeonX + (Main.maxTilesX / 15);
-                    }
-                    else
-                    {
-                        PositionX = GenVars.dungeonX - (Main.maxTilesX / 15);
+                        foundValidPosition = true;
                     }
                 }
             }
@@ -616,10 +609,27 @@ namespace Spooky.Content.Generation
             return true;
         }
 
+        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        public static bool NoSnowBiomeNearby(int X, int Y)
+        {
+            for (int i = X - 300; i < X + 300; i++)
+            {
+                for (int j = Y; j < Y + 300; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Dungeon"));
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
 			if (GenIndex1 == -1)
 			{
 				return;

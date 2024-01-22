@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.RootArmor");
-			//player.GetModPlayer<SpookyPlayer>().RootSet = true;
+			player.GetModPlayer<SpookyPlayer>().RootSet = true;
 		}
 
 		public override void UpdateEquip(Player player) 

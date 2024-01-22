@@ -392,7 +392,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 //spawn two separate spreads of spike projectiles so it looks like they are spawning from the actual spikes on the orb weaver
                 if (NPC.localAI[1] == 0)
                 {
-                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeGiant>(), 10f);
+                    ShootSpikes(ModContent.ProjectileType<WeaverSpikeGiant>(), 13f);
 
                     NPC.localAI[1] = 1;
                 }

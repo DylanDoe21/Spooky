@@ -8,19 +8,19 @@ using Spooky.Content.Tiles.SpiderCave;
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class CreepyCrawlerBody : ModItem
+	public class SpiderBody : ModItem
 	{
 		public override void SetDefaults() 
 		{
 			Item.defense = 4;
-			Item.width = 46;
-			Item.height = 20;
+			Item.width = 30;
+			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 		}
 
 		public override void UpdateEquip(Player player) 
 		{
-            player.GetModPlayer<SpookyPlayer>().CreepyCrawlerSpeed = true;
+            player.GetModPlayer<SpookyPlayer>().SpiderSpeed = true;
             player.GetCritChance(DamageClass.Generic) += 3;
         }
 

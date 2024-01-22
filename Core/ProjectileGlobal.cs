@@ -30,6 +30,16 @@ namespace Spooky.Core
                     target.AddBuff(BuffID.OnFire, 120);
                 }
             }
+
+            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootSet && projectile.DamageType == DamageClass.Ranged && damageDone >= 2)
+            {
+                if (Main.rand.NextBool(5))
+                {
+                    int LifeHealed = damageDone / 2;
+                    Main.LocalPlayer.statLife += LifeHealed;
+                    Main.LocalPlayer.HealEffect(LifeHealed, true);
+                }
+            }
         }
 
         public override bool PreAI(Projectile projectile)

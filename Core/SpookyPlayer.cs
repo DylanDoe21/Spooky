@@ -31,8 +31,7 @@ namespace Spooky.Core
         //misc stuff
         public static float ScreenShakeAmount = 0;
         public float SpiderStealthAlpha = 0f;
-        public int CreepyCrawlerSpeedTimer = 0;
-        public int NightCrawlerSpeedTimer = 0;
+        public int SpiderSpeedTimer = 0;
         public int FlySpawnTimer = 0;
         public int SkullFrenzyCharge = 0;
         public int MocoBoogerCharge = 0;
@@ -47,16 +46,16 @@ namespace Spooky.Core
         public int CarnisSporeSpawnTimer = 0;
         public bool RaveyardGuardsHostile;
         public bool WhipSpiderAggression = false;
+        public bool SpiderWebSlowness = false;
 
         //armors
         public bool GourdSet = false;
-        public bool CreepyCrawlerSet = false;
-        public bool CreepyCrawlerSpeed = false;
+        public bool RootSet = false;
+        public bool SpiderSet = false;
+        public bool SpiderSpeed = false;
         public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
-        public bool NightCrawlerSet = false;
-        public bool NightCrawlerSpeed = false;
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
         public bool SentientCap = false;
@@ -148,16 +147,16 @@ namespace Spooky.Core
         {
             //misc 
             WhipSpiderAggression = false;
+            SpiderWebSlowness = false;
 
             //armors
             GourdSet = false;
-            CreepyCrawlerSet = false;
-            CreepyCrawlerSpeed = false;
+            RootSet = false;
+            SpiderSet = false;
+            SpiderSpeed = false;
             HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
-            NightCrawlerSet = false;
-            NightCrawlerSpeed = false;
             GoreArmorEye = false;
             GoreArmorMouth = false;
             SentientCap = false;
@@ -326,15 +325,9 @@ namespace Spooky.Core
                 }
 
                 //spider stealth
-                if (CreepyCrawlerSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
+                if (SpiderSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
                 {
-                    Player.AddBuff(ModContent.BuffType<CreepyCrawlerStealth>(), 600);
-                }
-
-                //night stealth
-                if (NightCrawlerSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
-                {
-                    Player.AddBuff(ModContent.BuffType<NightCrawlerStealth>(), 600);
+                    Player.AddBuff(ModContent.BuffType<SpiderArmorStealth>(), 600);
                 }
             }
         }
@@ -401,13 +394,9 @@ namespace Spooky.Core
             int damageToActivateSpeedBoost2 = Main.masterMode ? 120 : Main.expertMode ? 90 : 50;
 
             //give players the spider armor speed boosts when they get hit by a strong enough attack
-            if (CreepyCrawlerSpeed && info.Damage >= damageToActivateSpeedBoost1)
+            if (SpiderSpeed && info.Damage >= damageToActivateSpeedBoost1)
             {
-                CreepyCrawlerSpeedTimer = 45;
-            }
-            if (NightCrawlerSpeed && info.Damage >= damageToActivateSpeedBoost2)
-            {
-                NightCrawlerSpeedTimer = 45;
+                SpiderSpeedTimer = 45;
             }
 
             //give the player monument mythos shatter and cooldown if they get hit 3 times
@@ -529,14 +518,10 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
-            //decrease spider armor speed boost timers
-            if (CreepyCrawlerSpeedTimer > 0)
+            //decrease spider armor speed boost time
+            if (SpiderSpeedTimer > 0)
             {
-                CreepyCrawlerSpeedTimer--;
-            }
-            if (NightCrawlerSpeedTimer > 0)
-            {
-                NightCrawlerSpeedTimer--;
+                SpiderSpeedTimer--;
             }
 
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
@@ -801,22 +786,22 @@ namespace Spooky.Core
 
         public override void PostUpdateRunSpeeds()
         {
-            if (CreepyCrawlerSpeedTimer > 0)
+            if (SpiderSpeedTimer > 0)
             {
                 Player.maxRunSpeed += 5f;
                 Player.runAcceleration += 0.075f;
             }
 
-            if (NightCrawlerSpeedTimer > 0)
+            if (SpiderWebSlowness)
             {
-                Player.maxRunSpeed += 10f;
-                Player.runAcceleration += 0.085f;
+                Player.maxRunSpeed -= 5f;
+                Player.runAcceleration -= 0.075f;
             }
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (Player.HasBuff(ModContent.BuffType<CreepyCrawlerStealth>()) || Player.HasBuff(ModContent.BuffType<NightCrawlerStealth>()))
+            if (Player.HasBuff(ModContent.BuffType<SpiderArmorStealth>()))
             {
                 if (SpiderStealthAlpha < 0.8f)
                 {

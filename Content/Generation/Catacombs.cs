@@ -771,6 +771,23 @@ namespace Spooky.Content.Generation
             }
         }
 
+        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        public static bool NoJungleNearby(int X, int Y)
+        {
+            for (int i = X - 50; i < X + 50; i++)
+            {
+                for (int j = Y - 50; j < Y + 50; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == TileID.JungleGrass)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
@@ -785,8 +802,32 @@ namespace Spooky.Content.Generation
             int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
             tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
             {
-                int newTempleX = GenVars.JungleX < (Main.maxTilesX / 2) ? GenVars.JungleX + 250 : GenVars.JungleX - 250;
-                int newTempleY = Main.maxTilesY - (Main.maxTilesY / 2) + 75;
+                //first define the y-position 
+                int newTempleY = Main.maxTilesY - (Main.maxTilesY / 2) + WorldGen.genRand.Next(20, 80);
+
+                //middle of the where the cemetery/catacombs is
+                int XStart = PositionX;
+                int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+
+                //attempt to find a valid position for the jungle temple to place in, just in case it generates far away from the jungle
+                bool foundValidPosition = false;
+                int attempts = 0;
+
+                //keep moving towards the center of the world until a valid position in the jungle is found
+                while (!foundValidPosition && attempts++ < 100000)
+                {
+                    while (NoJungleNearby(XMiddle, newTempleY))
+                    {
+                        XMiddle += (XMiddle > (Main.maxTilesX / 2) ? -100 : 100);
+                    }
+                    if (!NoJungleNearby(XMiddle, newTempleY))
+                    {
+                        foundValidPosition = true;
+                    }
+                }
+
+                //define the x-position and then place the temple after finding a valid position
+                int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 350 : XMiddle - 350;
 
                 WorldGen.makeTemple(newTempleX, newTempleY);
             });

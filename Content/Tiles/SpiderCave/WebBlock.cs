@@ -31,13 +31,6 @@ namespace Spooky.Content.Tiles.SpiderCave
 			return true;
         }
 
-        public override void WalkDust(ref int dustType, ref bool makeDust, ref Color color)
-        {
-			dustType = DustID.Web;
-
-			Main.LocalPlayer.velocity.X *= 0.97f;
-        }
-
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
             bool isPlayerNear = WorldGen.PlayerLOS(i, j);
@@ -45,7 +38,7 @@ namespace Spooky.Content.Tiles.SpiderCave
 
             if (!Main.gamePaused && Main.instance.IsActive && !Below.HasTile && isPlayerNear)
             {
-                if (Main.rand.NextBool(320))
+                if (Main.rand.NextBool(450))
                 {
                     int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 5, 5, ModContent.DustType<CobwebParticle>());
                     Main.dust[newDust].velocity.Y += 0.09f;

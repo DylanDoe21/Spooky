@@ -7,7 +7,7 @@ using Spooky.Content.Tiles.SpiderCave;
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class CreepyCrawlerLegs : ModItem
+	public class SpiderLegs : ModItem
 	{
 		public override void SetDefaults() 
 		{

@@ -89,7 +89,7 @@ Other New Additions:
 -Spore smacker's mushroom spores now deal damage less rapidly and use separate immunity frames
 -Zomboid warlock's skull minions now deal damage less rapidly and use separate immunity frames
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
--Nerfed old wood greatsword's base damage to 18
+-Nerfed old wood greatsword's base damage
 -Old wood greatsword no longer requires amethyst to craft
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
 -Bubble belcher projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
@@ -116,7 +116,7 @@ Other New Additions:
 -Gilded bricks now produce gold dust when broken instead of stone dust
 -Catacomb flooring bricks now produce bone dust when broken instead of stone dust
 -Rod of hands projectiles are no longer weirdly scaled up
--Branch of gourd base damage increased from 12 to 16
+-Buffed the branch of gourd's base damage
 -Branch of gourd minions can no longer damage enemies unless they are actively slamming down
 
 
@@ -152,4 +152,5 @@ Fixed all of the following bugs and issues:
 -Booger blaster's spread of boogers on its second charge firing horribly in the wrong direction
 -Pandora's box is no longer considered a friendly npc, which should fix it randomly moving into empty houses
 -Pandora's box opening animation stuttering when it spawns enemies
-
+-Spooky forest destroying the dungeon if the spooky forest at spawnpoint config is turned off
+-Jungle temple still sometimes being generated over by the catacombs

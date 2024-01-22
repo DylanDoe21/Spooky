@@ -379,8 +379,8 @@ HerobrineAltarCooldown: {
 	Description: You cannot summon lightning
 }
 
-NightCrawlerStealth: {
-	DisplayName: Night Crawler Stealth
+SpiderArmorStealth: {
+	DisplayName: Spi-Ops Stealth
 	Description:
 		'''
 		Enemies will not target you
@@ -388,23 +388,14 @@ NightCrawlerStealth: {
 		'''
 }
 
-CreepyCrawlerStealth: {
-	DisplayName: Creepy Crawler Stealth
-	Description:
-		'''
-		Enemies will not target you
-		12% increased damage reduction
-		'''
+SpiderStealthCooldown: {
+	DisplayName: Spi-Ops Stealth Cooldown
+	Description: You cannot enter spider stealth
 }
 
 WhipSpiderAggression: {
 	DisplayName: Spider Pheromones
 	Description: Spider grotto creatures are more aggressive
-}
-
-SpiderStealthCooldown: {
-	DisplayName: Spider Stealth Cooldown
-	Description: You cannot enter spider stealth
 }
 
 PheromoneWhipDebuff: {
@@ -413,6 +404,6 @@ PheromoneWhipDebuff: {
 }
 
 TrapdoorSpiderMountBuff: {
-	Description: Mods.Spooky.Buffs.TrapdoorSpiderMountBuff.Description
-	DisplayName: Trapdoor Spider Mount Buff
+	DisplayName: Trapdoor Spider Mount
+	Description: Arachnophobes beware!
 }

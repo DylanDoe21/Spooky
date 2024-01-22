@@ -10,21 +10,21 @@ using Spooky.Content.Tiles.SpiderCave;
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class CreepyCrawlerHead : ModItem, IHelmetGlowmask
+	public class SpiderHead : ModItem, IHelmetGlowmask
 	{
-		public string GlowmaskTexture => "Spooky/Content/Items/SpiderCave/Armor/CreepyCrawlerHead_Glow";
+		public string GlowmaskTexture => "Spooky/Content/Items/SpiderCave/Armor/SpiderHead_Glow";
 
 		public override void SetDefaults() 
 		{
 			Item.defense = 3;
-			Item.width = 26;
-			Item.height = 26;
+			Item.width = 28;
+			Item.height = 22;
 			Item.rare = ItemRarityID.Blue;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) 
 		{
-			return body.type == ModContent.ItemType<CreepyCrawlerBody>() && legs.type == ModContent.ItemType<CreepyCrawlerLegs>();
+			return body.type == ModContent.ItemType<SpiderBody>() && legs.type == ModContent.ItemType<SpiderLegs>();
 		}
 
 		public override void ArmorSetShadows(Player player)
@@ -34,8 +34,8 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.CreepyCrawlerArmor");
-			player.GetModPlayer<SpookyPlayer>().CreepyCrawlerSet = true;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.SpiderArmor");
+			player.GetModPlayer<SpookyPlayer>().SpiderSet = true;
 		}
 
 		public override void UpdateEquip(Player player) 

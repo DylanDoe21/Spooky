@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs
 {
-	public class NightCrawlerStealth : ModBuff
+	public class SpiderArmorStealth : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,7 +12,7 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.endurance += 0.22f;
+			player.endurance += 0.12f;
 			player.aggro -= 200;
 		}
     }

@@ -7,8 +7,8 @@ SpookyConfig: {
 			'''
 			Spooky mod, by default, makes terraria's halloween seasonal event always active
 			Turn this option off to disable the halloween seasonal event being active
-			However, turning this off will not disable halloween if it's meant to normally happen 
-			(Like during october, or when you make it to wave 15 of the pumpkin moon before daytime)
+			However, turning this off will not disable the halloween seasonal event if it is normally meant to happen 
+			(Like during October, or when you make it to wave 15 of the pumpkin moon before daytime)
 			'''
 	}
 
@@ -19,7 +19,8 @@ SpookyConfig: {
 			Changes the location of where the spooky forest is placed during world generation
 			Keeping this on will make it placed at your spawn, which is the default option
 			Turning this off will make the spooky forest generate away from your spawn, nearby the dungeon
-			This option is applied only when making new worlds, and will have no effect on existing worlds
+			This option is applied ONLY when making new worlds, and will have no effect on existing worlds
+			Turning this off can be helpful if you are playing with other mods that add world generation at or nearby spawn
 			(Creating smaller worlds with this option off may potentially destroy or generate over other things!)
 			'''
 	}

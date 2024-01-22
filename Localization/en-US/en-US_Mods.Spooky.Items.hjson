@@ -1055,60 +1055,6 @@ YellowSpore: {
 	Tooltip: Summons a small mushroom hopper to provide light
 }
 
-CreepyCrawlerBody: {
-	DisplayName: Creepy Crawler Scalemail
-	Tooltip:
-		'''
-		3% increased critical strike chance
-		Taking a large amount of damage will give you a short speed boost
-		'''
-}
-
-CreepyCrawlerHead: {
-	DisplayName: Creepy Crawler Hood
-	Tooltip:
-		'''
-		10% increased damage
-		Gives you night vision
-		'''
-}
-
-CreepyCrawlerLegs: {
-	DisplayName: Creepy Crawler Boots
-	Tooltip:
-		'''
-		15% increased movement speed
-		Increases your movement acceleration and jump height
-		'''
-}
-
-NightCrawlerBody: {
-	DisplayName: Night Crawler Scalemail
-	Tooltip:
-		'''
-		10% increased critical strike chance
-		Taking a large amount of damage will give you a short speed boost
-		'''
-}
-
-NightCrawlerHead: {
-	DisplayName: Night Crawler Hood
-	Tooltip:
-		'''
-		18% increased damage
-		Gives you night vision and dangersense
-		'''
-}
-
-NightCrawlerLegs: {
-	DisplayName: Night Crawler Boots
-	Tooltip:
-		'''
-		30% increased movement speed
-		Increases your movement acceleration and jump height
-		'''
-}
-
 RootBody: {
 	DisplayName: Root Body Plate
 	Tooltip: Increases your ranged damage by 5
@@ -1122,6 +1068,33 @@ RootHead: {
 RootLegs: {
 	DisplayName: Root Garments
 	Tooltip: ""
+}
+
+SpiderBody: {
+	DisplayName: Spi-Ops Bodyplate
+	Tooltip:
+		'''
+		3% increased critical strike chance
+		Taking a large amount of damage will give you a short speed boost
+		'''
+}
+
+SpiderHead: {
+	DisplayName: Spi-Ops Visor
+	Tooltip:
+		'''
+		10% increased damage
+		Gives you night vision
+		'''
+}
+
+SpiderLegs: {
+	DisplayName: Spi-Ops Leggings
+	Tooltip:
+		'''
+		15% increased movement speed
+		Increases your movement acceleration and jump height
+		'''
 }
 
 InchwormBlackItem: {
@@ -1219,6 +1192,11 @@ SphiderFlail: {
 SpiderEggCannon: {
 	DisplayName: Spider Egg Cannon
 	Tooltip: Every 5 shots will fire a larger egg that summons an attack spider
+}
+
+SpiderSword: {
+	DisplayName: Spider Stabber
+	Tooltip: Can sometimes poison enemies
 }
 
 GourdBody: {

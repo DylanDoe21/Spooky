@@ -284,7 +284,6 @@ TelegraphRedUp.DisplayName: Telegraph
 GraveDiggerShovelProj.DisplayName: Cemetery Digger's Shovel
 SphiderFlailProj.DisplayName: Swingable Sphider
 SphiderFlailWeb.DisplayName: Web Ball
-PheremoneWhipProj.DisplayName: Pheremone Stinger
 MocoNoseSnot.DisplayName: Snot
 WitchPotion.DisplayName: Witch's Potion
 WeaverSpikeRed.DisplayName: Orb Weaver Spike
@@ -303,4 +302,5 @@ OrbWeaverSentryBig.DisplayName: Big Orb Weaver Sentry
 OrbWeaverSentryBigSpike.DisplayName: Weaver Sentry Spike
 OrbWeaverSentrySmall.DisplayName: Orb Weaver Sentry
 OrbWeaverSentrySmallSpike.DisplayName: Weaver Sentry Spike
-PheromoneWhipProj.DisplayName: Pheromone Whip Proj
+PheromoneWhipProj.DisplayName: Pheromone Stinger
+SpiderSwordProj.DisplayName: Spider Sword Proj
