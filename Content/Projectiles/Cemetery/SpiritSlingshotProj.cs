@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Cemetery
         int SaveDirection;
         float SaveRotation;
 
+        public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 3;
@@ -63,14 +65,14 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-			if (player.channel && Projectile.ai[2] == 0) 
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+
+            if (player.channel && Projectile.ai[2] == 0)
             {
                 Projectile.timeLeft = 25;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
-
-                Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 6 - Projectile.height / 2);
 
                 Projectile.localAI[0] += 0.25f;
 
@@ -96,8 +98,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 6 - Projectile.height / 2);
-
                     if (Projectile.timeLeft >= 24)
                     {
                         SaveDirection = Projectile.spriteDirection;
@@ -105,8 +105,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
-
-                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
@@ -117,7 +115,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                         {
                             case 0:
                             {
-                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.66f }, Projectile.Center);
+                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 1;
                                 extraDamage = -10;
 
@@ -125,7 +123,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             }
                             case 1:
                             {
-                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.33f }, Projectile.Center);
+                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 3;
                                 extraDamage = 0;
 
@@ -133,7 +131,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             }
                             case 2:
                             {
-                                SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+                                SoundEngine.PlaySound(ShootSound, Projectile.Center);
                                 ShootSpeed *= 5;
                                 extraDamage = 10;
 
@@ -141,7 +139,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 15, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<GhastlyOrbProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 

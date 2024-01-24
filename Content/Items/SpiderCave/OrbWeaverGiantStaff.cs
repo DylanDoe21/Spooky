@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.buyPrice(gold: 20);
+            Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.Item82;
             Item.shoot = ModContent.ProjectileType<OrbWeaverSentryBig>();
             Item.shootSpeed = 0f;
@@ -58,9 +58,9 @@ namespace Spooky.Content.Items.SpiderCave
             //dont allow this item to be used if your cursor is inside tiles
             Vector2 mouse = Main.MouseWorld;
             List<Vector2> tiles = new List<Vector2>();
-            for (int i = -2; i < 2; i++)
+            for (int i = -1; i < 1; i++)
             {
-                for (int j = -3; j < 3; j++)
+                for (int j = -1; j < 1; j++)
                 {
                     Tile tile = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16));
                     if (tile.HasTile && Main.tileSolid[tile.TileType])

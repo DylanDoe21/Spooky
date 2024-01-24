@@ -44,7 +44,7 @@ namespace Spooky.Core
         public int GizaGlassHits = 0;
         public int SlendermanPageDelay = 0;
         public int CarnisSporeSpawnTimer = 0;
-        public bool RaveyardGuardsHostile;
+        public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
         public bool SpiderWebSlowness = false;
 
@@ -492,6 +492,8 @@ namespace Spooky.Core
             //embryo revive ability
             if (Player.statLife <= 0)
             {
+                RaveyardGuardsHostile = false;
+
                 if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
                 {
                     SoundEngine.PlaySound(SoundID.Item103, Player.Center);
@@ -501,8 +503,6 @@ namespace Spooky.Core
                     ShouldRevive = false;
                 }
             }
-
-            RaveyardGuardsHostile = false;
 
             return ShouldRevive;
         }

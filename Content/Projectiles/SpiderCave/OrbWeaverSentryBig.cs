@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             //fall down constantly
             if (numAttacks < 10)
             {
-                Projectile.velocity.X *= 0.97f;
+                Projectile.velocity.X *= 0.95f;
 
                 Projectile.velocity.Y++;
                 if (Projectile.velocity.Y > 20f)
@@ -138,19 +138,20 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 if (Projectile.ai[0] >= 50)
                 {
                     //set where the it should be jumping towards
-                    Vector2 JumpTo = new Vector2(target.Center.X, Projectile.Center.Y - 100);
+                    Vector2 JumpTo = new Vector2(target.Center.X, target.Center.Y - 100);
 
                     //set velocity and speed
                     Vector2 velocity = JumpTo - Projectile.Center;
                     velocity.Normalize();
 
-                    float speed = MathHelper.Clamp(velocity.Length() / 36, 12, 22);
+                    float speed = MathHelper.Clamp(velocity.Length() / 36, 22, 35);
 
                     Projectile.ai[1]++;
 
                     if (Projectile.ai[1] > 10)
                     {
-                        velocity.X *= 2f;
+                        velocity.X *= 1.2f;
+                        velocity.Y *= 0.5f;
                         Projectile.velocity = velocity * speed;
                     }
                 }

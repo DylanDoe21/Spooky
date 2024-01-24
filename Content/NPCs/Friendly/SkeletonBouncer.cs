@@ -167,20 +167,17 @@ namespace Spooky.Content.NPCs.Friendly
         {
             NPC.spriteDirection = NPC.direction;
 
+            NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
             if (player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile)
             {
-                NPC.TargetClosest(true);
+                NPC.friendly = false;
 
                 if (!player.dead)
                 {
                     player.AddBuff(ModContent.BuffType<BouncerDeathmark>(), 2);
                 }
-
-                NPC.friendly = false;
-
-                NPC.spriteDirection = NPC.direction;
 
                 if (player.Distance(NPC.Center) < 400f && NumAmmo > 0)
                 {

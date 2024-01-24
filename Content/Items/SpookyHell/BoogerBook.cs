@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 5);
-            Item.UseSound = SoundID.Item34;
+            Item.UseSound = SoundID.Item46;
             Item.shoot = ModContent.ProjectileType<ControllableNose>();
             Item.shootSpeed = 0f;
         }

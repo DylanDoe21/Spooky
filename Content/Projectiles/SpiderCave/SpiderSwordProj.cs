@@ -1,6 +1,7 @@
 using Terraria;
-using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Enums;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Projectiles.SpiderCave
@@ -9,12 +10,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
 	{
 		public const int TotalDuration = 16;
 
-		public float CollisionWidth => 20f * Projectile.scale;
+		public float CollisionWidth => 30f * Projectile.scale;
 
 		public override void SetDefaults() 
         {
-			Projectile.width = 62;
-            Projectile.height = 62;
+			Projectile.width = 82;
+            Projectile.height = 82;
             Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -25,6 +26,14 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Projectile.timeLeft = 360;
             Projectile.aiStyle = -1;
 		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+			if (Main.rand.NextBool(4))
+			{
+            	target.AddBuff(BuffID.Poisoned, 300);
+			}
+        }
 
 		public override void AI() 
         {
@@ -53,8 +62,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		private void SetVisualOffsets() 
         {
-			const int HalfSpriteWidth = 62 / 2;
-			const int HalfSpriteHeight = 62 / 2;
+			const int HalfSpriteWidth = 82 / 2;
+			const int HalfSpriteHeight = 82 / 2;
 
 			int HalfProjWidth = Projectile.width / 2;
 			int HalfProjHeight = Projectile.height / 2;
@@ -80,7 +89,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) 
         {
 			Vector2 start = Projectile.Center;
-			Vector2 end = start + Projectile.velocity * 15f;
+			Vector2 end = start + Projectile.velocity * 20f;
 			float collisionPoint = 0f;
 
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, CollisionWidth, ref collisionPoint);

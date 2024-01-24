@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpiderCave
 
 		public override void SetDefaults()
 		{
-			Item.damage = 25;
+			Item.damage = 16;
 			Item.DamageType = DamageClass.Ranged;  
 			Item.noMelee = true;
 			Item.autoReuse = true;    
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpiderCave
                 position += muzzleOffset;
             }
 
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage * (type == ModContent.ProjectileType<CannonEggBig>() ? 2 : 1), knockback, player.whoAmI);
 
 			return false;
 		}

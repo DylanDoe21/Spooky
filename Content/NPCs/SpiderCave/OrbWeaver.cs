@@ -2,11 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave
@@ -147,6 +149,11 @@ namespace Spooky.Content.NPCs.SpiderCave
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverShield>(), 15));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
@@ -233,6 +240,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                     NPC.localAI[2] = 0;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverStaff>(), 15));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -323,6 +335,10 @@ namespace Spooky.Content.NPCs.SpiderCave
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
@@ -409,6 +425,12 @@ namespace Spooky.Content.NPCs.SpiderCave
                     NPC.localAI[2] = 0;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverBoomerang>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverGiantStaff>(), 10));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

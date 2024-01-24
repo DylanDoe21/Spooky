@@ -11,6 +11,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave;
+
 namespace Spooky.Content.NPCs.SpiderCave
 {
     public class TarantulaHawk1 : ModNPC
@@ -307,6 +309,11 @@ namespace Spooky.Content.NPCs.SpiderCave
 			});
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarantulaHawkBow>(), 10));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
@@ -331,6 +338,11 @@ namespace Spooky.Content.NPCs.SpiderCave
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TarantulaHawk3"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TatantulaFlyTome>(), 10));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -27,6 +27,9 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             Main.npcFrameCount[NPC.type] = 5;
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -56,17 +59,6 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.height = 36;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type, ModContent.GetInstance<Biomes.PandoraBoxBiome>().Type };
-        }
-
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
-            {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PandoraBox"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.PandoraBoxBiome>().ModBiomeBestiaryInfoElement)
-            });
         }
 
         public override bool NeedSaving()

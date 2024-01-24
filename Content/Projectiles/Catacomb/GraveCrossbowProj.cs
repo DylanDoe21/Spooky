@@ -63,14 +63,33 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+
 			if (player.channel && Projectile.ai[2] == 0) 
             {
                 Projectile.timeLeft = 30;
 
                 player.itemRotation = Projectile.rotation;
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-				Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+                switch (Projectile.frame)
+                {
+                    case 0:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                        break;
+                    }
+                    case 1:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
+                        break;
+                    }
+                    case 2:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
+                        break;
+                    }
+                }
+
 				player.velocity.X *= 0.98f;
 
                 Projectile.localAI[0] += 0.25f;
@@ -98,8 +117,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
-
                     if (Projectile.timeLeft >= 29)
                     {
                         SaveDirection = Projectile.spriteDirection;
@@ -120,7 +137,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                                 SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 10;
                                 extraDamage = -15;
-
                                 break;
                             }
                             case 1:
@@ -139,14 +155,14 @@ namespace Spooky.Content.Projectiles.Catacomb
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 5, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.frame = 3;
                     Projectile.spriteDirection = SaveDirection;
                     Projectile.rotation = SaveRotation;
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
 			}
 

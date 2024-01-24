@@ -523,6 +523,12 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y, WorldGen.genRand.Next(WallWebs));
                         }
+
+                        //place mushroom moss on top of mossy stone
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() && !WorldGen.SolidTile(X, Y - 1) && !WorldGen.SolidTile(X, Y - 2) && !WorldGen.SolidTile(X, Y - 3))
+                        {
+                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<MushroomMoss>();
+                        }
                     }
                 }
             }

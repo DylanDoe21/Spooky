@@ -21,20 +21,20 @@ namespace Spooky.Content.Items.SpiderCave
 
         public override void SetDefaults()
         {
-            Item.damage = 15;
-            Item.mana = 20;
+            Item.damage = 20;
+            Item.mana = 15;
 			Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
             Item.noMelee = true;
 			Item.autoReuse = true;
-            Item.width = 40;
-            Item.height = 42;
+            Item.width = 38;
+            Item.height = 46;
             Item.useTime = 30;
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(gold: 2);
+            Item.value = Item.buyPrice(gold: 3);
             Item.UseSound = SoundID.Item82;
             Item.shoot = ModContent.ProjectileType<OrbWeaverSentrySmall>();
             Item.shootSpeed = 0f;
@@ -58,9 +58,9 @@ namespace Spooky.Content.Items.SpiderCave
             //dont allow this item to be used if your cursor is inside tiles
             Vector2 mouse = Main.MouseWorld;
             List<Vector2> tiles = new List<Vector2>();
-            for (int i = -2; i < 2; i++)
+            for (int i = -1; i < 1; i++)
             {
-                for (int j = -3; j < 3; j++)
+                for (int j = -1; j < 1; j++)
                 {
                     Tile tile = Framing.GetTileSafely(i + (int)(mouse.X / 16), j + (int)(mouse.Y / 16));
                     if (tile.HasTile && Main.tileSolid[tile.TileType])

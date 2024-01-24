@@ -491,7 +491,7 @@ GeminiEntertainmentGame: {
 	DisplayName: Strange Videogame
 	Tooltip:
 		'''
-		Spawns short lived nature's mockery around you on the ground occassionally
+		Spawns short-lived nature's mockery around you on the ground occassionally
 		Nature's mockery will sap the life of enemies near it to heal you
 		'Go on, feed the woods'
 		'''
@@ -677,7 +677,7 @@ SpiritSlingshot: {
 	Tooltip:
 		'''
 		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into Ghastly Orbs that wildly ricochet off of surfaces and enemies
+		Converts Mossy Pebbles into ghastly orbs that wildly ricochet off of surfaces and enemies
 		'''
 }
 
@@ -1181,12 +1181,18 @@ PheromoneWhip: {
 		Your summons will focus struck enemies
 		Hitting enemies will spread pheromones onto them
 		Enemies inflicted with pheromones take more damage from spider related minions
+		~ABILITY DOES NOT WORK FULLY RN~
 		'''
 }
 
 SphiderFlail: {
 	DisplayName: Swingable Sphider
-	Tooltip: Fires out slowing webs while swung
+	Tooltip: Spits out web blobs while being swung
+}
+
+SpiderCrossbow: {
+	DisplayName: Venomous Crossbow
+	Tooltip: Converts arrows into piercing poisonous darts
 }
 
 SpiderEggCannon: {
@@ -1194,9 +1200,58 @@ SpiderEggCannon: {
 	Tooltip: Every 5 shots will fire a larger egg that summons an attack spider
 }
 
+SpiderLegStaff: {
+	DisplayName: Arachnid Leg Wand
+	Tooltip:
+		'''
+		Spaws short-lived spider legs on surfaces
+		If a leg touches an enemy, it will grab on and damage it for bit
+		~DOES NOT WORK RN~
+		'''
+}
+
+SpiderSlingshot: {
+	DisplayName: Web Flinger
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Converts Mossy Pebbles into web balls that slow enemies
+		~DOES NOT WORK RN~
+		'''
+}
+
+SpiderSummonEgg: {
+	DisplayName: Strange Spider Egg
+	Tooltip:
+		'''
+		Throw an egg that hatches into some baby spider minions
+		Each baby spider only takes half of a minion slot
+		~DOES NOT WORK RN~
+		'''
+}
+
 SpiderSword: {
 	DisplayName: Spider Stabber
 	Tooltip: Can sometimes poison enemies
+}
+
+TarantulaHawkBow: {
+	DisplayName: Spider-Wing Longbow
+	Tooltip:
+		'''
+		Shoots winged arrows that can slightly track enemies
+		The longer you use it, the faster it will shoot arrows
+		'''
+}
+
+TatantulaFlyTome: {
+	DisplayName: Grimoire of the Flies
+	Tooltip:
+		'''
+		Conjure a swarm of flies on your cursor that grows the longer you use the grimoire
+		Releasing will unleash all existing flies to attack enemies
+		~DOES NOT WORK RN~
+		'''
 }
 
 GourdBody: {
@@ -1375,7 +1430,7 @@ GourdSlingshot: {
 	Tooltip:
 		'''
 		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into Moldy Pellets that linger and create flies
+		Converts Mossy Pebbles into moldy pellets that linger and create flies
 		'''
 }
 

@@ -2,9 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave
@@ -137,6 +139,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                     NPC.netUpdate = true;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PheromoneWhip>(), 10));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

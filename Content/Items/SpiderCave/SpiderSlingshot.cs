@@ -6,18 +6,14 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome;
 
-namespace Spooky.Content.Items.Cemetery
+namespace Spooky.Content.Items.SpiderCave
 {
-    public class SpiritSlingshot : ModItem
+    public class SpiderSlingshot : ModItem
     {
 		public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/SlingshotDraw", SoundType.Sound);
-
-		public override void SetStaticDefaults()
-        {
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritHandStaff>();
-        }
 
         public override void SetDefaults()
         {
@@ -27,30 +23,33 @@ namespace Spooky.Content.Items.Cemetery
 			Item.autoReuse = false;
 			Item.noUseGraphic = true;
 			Item.channel = true;
-			Item.width = 24;
-            Item.height = 34;
-			Item.useTime = 40;
-			Item.useAnimation = 40;
+			Item.width = 22;
+            Item.height = 32;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.reuseDelay = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 3);
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = UseSound;
-			Item.shoot = ModContent.ProjectileType<SpiritSlingshotProj>();
+			//Item.shoot = ModContent.ProjectileType<SpiderSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }
 
+		/*
 		public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[ModContent.ProjectileType<SpiritSlingshotProj>()] < 1;
+			return player.ownedProjectileCounts[ModContent.ProjectileType<SpiderSlingshotProj>()] < 1;
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<SpiritSlingshotProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<SpiderSlingshotProj>(), damage, knockback, player.whoAmI, 0f, 0f);
 
 			return false;
 		}
+		*/
     }
 }

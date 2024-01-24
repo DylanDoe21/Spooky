@@ -64,25 +64,39 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
+            Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
+
 			if (player.channel && Projectile.ai[2] == 0) 
             {
                 Projectile.timeLeft = 20;
 
                 player.itemRotation = Projectile.rotation;
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-
-				Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
+                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                
+                switch (Projectile.frame)
+                {
+                    case 0:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                        break;
+                    }
+                    case 1:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
+                        break;
+                    }
+                    case 2:
+                    {
+                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
+                        break;
+                    }
+                }
 
                 Projectile.localAI[0] += 0.25f;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
+                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10)
                 {
                     Projectile.frame++;
-                }
-
-                if (Projectile.frame >= 3)
-                {   
-                    Projectile.frame = 2;
                 }
 
                 if (direction.X > 0) 
@@ -98,8 +112,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
-
                     if (Projectile.timeLeft >= 19)
                     {
                         SaveRotation = Projectile.rotation;
@@ -149,7 +161,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     Projectile.frame = 0;
                     Projectile.rotation = SaveRotation;
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
+                    player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
 			}
 

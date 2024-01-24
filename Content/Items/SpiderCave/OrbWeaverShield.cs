@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpiderCave
 		public override void SetDefaults()
 		{
 			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee;
+			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.noMelee = true;
 			Item.autoReuse = false;
 			Item.noUseGraphic = true;
@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 7;
 			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<OrbWeaverShieldProj>();
 			Item.shootSpeed = 0f;

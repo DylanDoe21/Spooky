@@ -20,8 +20,8 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.Pink;
-            Item.value = Item.buyPrice(gold: 12);
+			Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<PheromoneWhipProj>();
 			Item.shootSpeed = 3f;

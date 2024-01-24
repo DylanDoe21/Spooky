@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
@@ -12,6 +13,8 @@ namespace Spooky.Content.Items.SpookyBiome
 {
     public class OldWoodSlingshot : ModItem
     {
+		public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/SlingshotDraw", SoundType.Sound);
+
         public override void SetDefaults()
         {
             Item.damage = 8;
@@ -22,14 +25,13 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.channel = true;
 			Item.width = 26;
             Item.height = 38;
-			Item.useTime = 15;
-			Item.useAnimation = 15;
-			Item.reuseDelay = 15;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.White;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.UseSound = SoundID.Item17;
+			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<OldWoodSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
