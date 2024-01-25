@@ -28,8 +28,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
+            Projectile.timeLeft = 1800;
             Projectile.penetrate = 3;
-            Projectile.timeLeft = 180;
         }
 
         public override bool PreDraw(ref Color lightColor)

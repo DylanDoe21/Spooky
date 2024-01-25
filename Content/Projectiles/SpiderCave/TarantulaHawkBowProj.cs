@@ -134,7 +134,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 2, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<TarantulaHawkArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
