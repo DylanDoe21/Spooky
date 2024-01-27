@@ -31,10 +31,12 @@ namespace Spooky.Core
                 }
             }
 
+            //root armor set makes ranged projectiles life-steal sometimes
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootSet && projectile.DamageType == DamageClass.Ranged && damageDone >= 2)
             {
                 if (Main.rand.NextBool(5))
                 {
+                    //heal based on how much damage was done
                     int LifeHealed = damageDone / 2;
                     Main.LocalPlayer.statLife += LifeHealed;
                     Main.LocalPlayer.HealEffect(LifeHealed, true);

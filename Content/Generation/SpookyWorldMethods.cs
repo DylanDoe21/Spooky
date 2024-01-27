@@ -205,15 +205,8 @@ namespace Spooky.Content.Generation
 							float divide = 7.5f;
 							int heightLimit = (int)Main.worldSurface - (Main.maxTilesY / (int)divide);
 
-							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud && 
-							!Main.tileDungeon[Main.tile[k, l].TileType] && !Main.wallDungeon[Main.tile[k, l].WallType])
+							if (l > heightLimit && Main.tile[k, l].TileType != TileID.Cloud && Main.tile[k, l].TileType != TileID.RainCloud)
 							{
-								//I think this checks if the tile is air?
-								if (tileType < 0)
-								{
-									Main.tile[k, l].HasTile.Equals(false);
-								}
-
 								//kill all of these tiles
 								int[] Kill = { 19, 24, 27, 61, 71, 73, 74, 80, 81, 82, 83, 84, 110, 113, 129,
 								162, 165, 184, 185, 186, 187, 201, 227, 233, 236, 254, 324, 444, 461, 3, 21,
@@ -222,29 +215,26 @@ namespace Spooky.Content.Generation
 
 								if (!noTiles)
 								{
-									if (!Main.tileDungeon[Main.tile[k, l].TileType])
+									if (Kill.Contains(Main.tile[k, l].TileType))
 									{
-										if (Kill.Contains(Main.tile[k, l].TileType))
-										{
-											WorldGen.KillTile(k, l);
-										}
+										WorldGen.KillTile(k, l);
+									}
 
-										//replace tiles if it is not in the kill list
-										if (!Kill.Contains(Main.tile[k, l].TileType))
-										{
-											Main.tile[k, l].TileType = (ushort)tileType;
-										}
+									//replace tiles if it is not in the kill list
+									if (!Kill.Contains(Main.tile[k, l].TileType))
+									{
+										Main.tile[k, l].TileType = (ushort)tileType;
+									}
 
-										if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
-										{
-											Main.tile[k, l].WallType = (ushort)wallType;
-											WorldGen.PlaceTile(k, l, tileType);
-										}
+									if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
+									{
+										Main.tile[k, l].WallType = (ushort)wallType;
+										WorldGen.PlaceTile(k, l, tileType);
+									}
 
-										if (addTile)
-										{
-											Main.tile[k, l].TileType = (ushort)tileType;
-										}
+									if (addTile)
+									{
+										Main.tile[k, l].TileType = (ushort)tileType;
 									}
 								}
 

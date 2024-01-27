@@ -104,7 +104,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 if (NPC.ai[0] >= 75)
                 {
                     //set where the it should be jumping towards
-                    Vector2 JumpTo = new(player.Center.X, NPC.Center.Y - 200);
+                    Vector2 JumpTo = new Vector2(player.Center.X, NPC.Center.Y - 350);
 
                     //set velocity and speed
                     Vector2 velocity = JumpTo - NPC.Center;

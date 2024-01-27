@@ -213,7 +213,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = vector48.Length();
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 175f) || (playerDistance > 175f && Projectile.position.X == Projectile.oldPosition.X)))
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 170f) || (playerDistance > 170f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -6f;
                 }
@@ -225,14 +225,14 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     Projectile.velocity.Y = 15f;
                 }
 
-                if (playerDistance > 550f)
+                if (playerDistance > 500f)
                 {
                     playerFlying = true;
                     Projectile.velocity.X = 0f;
                     Projectile.velocity.Y = 0f;
                 }
 
-                if (playerDistance > 170f)
+                if (playerDistance > 160f)
                 {
                     if (player.position.X - Projectile.position.X > 0f)
                     {
@@ -252,7 +252,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     }
                 }
 
-                if (playerDistance < 160f)
+                if (playerDistance < 150f)
                 {
                     if (Projectile.velocity.X != 0f)
                     {

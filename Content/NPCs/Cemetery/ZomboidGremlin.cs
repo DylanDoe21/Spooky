@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.knockBackResist = 1f;
             NPC.value = Item.buyPrice(0, 0, 0, 20);
             NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath2 with { Pitch = 0.35f };
+			NPC.DeathSound = SoundID.NPCDeath2 with { Pitch = 0.45f };
             NPC.aiStyle = 3;
             AIType = NPCID.DesertGhoul;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };

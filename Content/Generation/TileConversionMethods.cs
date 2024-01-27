@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;
 
@@ -22,9 +23,12 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses with regular grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
+                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), ModContent.TileType<DampGrass>() };
+                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
+                        //replace spooky grasses with regular grass
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Grass;
@@ -33,8 +37,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky dirt with dirt 
-                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
-
                         if (DirtReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Dirt;
@@ -43,8 +45,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with stone
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
                         if (StoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Stone;
@@ -53,8 +53,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with grass walls
-                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
                         if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.GrassUnsafe;
@@ -75,9 +73,12 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses with hallowed grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
+                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), ModContent.TileType<DampGrass>() };
+                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
+                        //replace spooky grasses with hallowed grass
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.HallowedGrass;
@@ -86,8 +87,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky dirt with dirt 
-                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
-
                         if (DirtReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Dirt;
@@ -96,8 +95,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with pearlstone
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
                         if (StoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Pearlstone;
@@ -106,8 +103,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with hallowed grass walls
-                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
                         if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.HallowedGrassUnsafe;
@@ -128,9 +123,12 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses with corrupt grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
+                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), ModContent.TileType<DampGrass>() };
+                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
+                        //replace spooky grasses with corrupt grass
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.CorruptGrass;
@@ -139,8 +137,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky dirt with dirt 
-                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
-
                         if (DirtReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Dirt;
@@ -149,8 +145,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with ebonstone
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
                         if (StoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Ebonstone;
@@ -159,8 +153,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with corrupt grass walls
-                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
                         if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.CorruptGrassUnsafe;
@@ -181,9 +173,12 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses with crimson grass
-                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>() };
+                        int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), ModContent.TileType<DampGrass>() };
+                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
+                        //replace spooky grasses with crimson grass
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.CrimsonGrass;
@@ -192,8 +187,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky dirt with dirt 
-                        int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
-
                         if (DirtReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Dirt;
@@ -202,8 +195,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with crimstone
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
                         if (StoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Crimstone;
@@ -212,8 +203,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with crimson grass walls
-                        int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
                         if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.CrimsonGrassUnsafe;
@@ -234,10 +223,12 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses and dirt with snow
-                        int[] SnowReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), 
-                        ModContent.TileType<CemeteryGrass>(), ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
+                        int[] SnowReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), 
+                        ModContent.TileType<DampGrass>(), ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] IceReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] SnowWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
+                        //replace spooky grasses and dirt with snow
                         if (SnowReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.SnowBlock;
@@ -246,8 +237,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with ice
-                        int[] IceReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
                         if (IceReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.IceBlock;
@@ -256,8 +245,6 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with snow walls
-                        int[] SnowWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
                         if (SnowWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.SnowWallUnsafe;
@@ -278,11 +265,13 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size)))
                     {
-                        //replace spooky grasses and dirt with sand
-                        int[] SnowReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(),
-                        ModContent.TileType<CemeteryGrass>(), ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>() };
+                        int[] SandReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), 
+                        ModContent.TileType<DampGrass>(), ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
+                        int[] SandstoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] SandWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
-                        if (SnowReplace.Contains(Main.tile[k, l].TileType))
+                        //replace spooky grasses and dirt with sand
+                        if (SandReplace.Contains(Main.tile[k, l].TileType))
                         {
                             if (!Main.tile[k, l + 1].HasTile)
                             {
@@ -298,9 +287,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky stone with sandstone
-                        int[] IceReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
-
-                        if (IceReplace.Contains(Main.tile[k, l].TileType))
+                        if (SandstoneReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Sandstone;
                             WorldGen.SquareTileFrame(k, l);
@@ -308,9 +295,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //replace spooky grass walls with sandstone walls
-                        int[] SnowWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>() };
-
-                        if (SnowWallReplace.Contains(Main.tile[k, l].WallType))
+                        if (SandWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.Sandstone;
                             WorldGen.SquareWallFrame(k, l);
@@ -381,7 +366,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-        //convert blocks into swampy cemetery ones with orange solution
+        //convert blocks into swampy cemetery ones with dark green solution
         public static void ConvertPurityIntoCemetery(int i, int j, int size = 4) 
         {
 			for (int k = i - size; k <= i + size; k++) 
@@ -431,7 +416,57 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-        //convert underworld blocks into valley of eyes blocks
+        //convert blocks into spider grotto ones with dark brown solution
+        public static void ConvertPurityIntoSpiderGrotto(int i, int j, int size = 4) 
+        {
+			for (int k = i - size; k <= i + size; k++) 
+            {
+				for (int l = j - size; l <= j + size; l++) 
+                {
+					if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt((size * size) + (size * size))) 
+                    {
+                        //replace grass with cemetery grass
+                        int[] GrassReplace = { TileID.Grass, TileID.HallowedGrass, TileID.CorruptGrass, TileID.CrimsonGrass };
+
+                        if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
+                        {
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
+							WorldGen.SquareWallFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+
+                        //replace dirt blocks with spooky dirt
+						if (Main.tile[k, l].TileType == TileID.Dirt) 
+                        {
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+
+                        //replace stone blocks with spooky stone
+						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType]) 
+                        {
+							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryStone>();
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+
+						//replace grass walls with cemetery grass walls
+                        int[] WallReplace = { WallID.GrassUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Flower, 
+                        WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
+
+						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
+                        {
+							Main.tile[k, l].WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+							WorldGen.SquareWallFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
+					}
+				}
+			}
+		}
+
+        //convert underworld blocks into valley of eyes blocks with red & purple solution
         public static void ConvertHellIntoEyeValley(int i, int j, int size = 4) 
         {
 			for (int k = i - size; k <= i + size; k++) 

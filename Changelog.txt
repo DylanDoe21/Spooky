@@ -51,6 +51,7 @@ Other New Additions:
 -Added new colorful gourd tiles to the spooky forest
 -Added a bunch more pets
 -Added the dumb zomboid
+-Added dave & mike
 -Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
 
 
@@ -121,6 +122,7 @@ Other New Additions:
 -Added a custom sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
 -Added a custom sound effect for drawing slingshots
 -Changed snot-nosed tome's use sound
+-Zombino's death sound is now slightly more pitched up
 
 
 
@@ -151,6 +153,8 @@ Fixed all of the following bugs and issues:
 -Plant puncher staff minion being jittery when the player is not moving
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 -Branch of gourd minions not following the player correctly if they got stuck on slopes or blocks they couldn't jump over
+-Branch of gourd minions sometimes rotating incorrectly when  they land on the ground after flying to you
+-Branch of gourd itself dealing damage when swung
 -Rod of hands projectiles sometimes emerging from tiles too fast and floating in the air
 -Booger blaster's spread of boogers on its second charge firing horribly in the wrong direction
 -Pandora's box is no longer considered a friendly npc, which should fix it randomly moving into empty houses

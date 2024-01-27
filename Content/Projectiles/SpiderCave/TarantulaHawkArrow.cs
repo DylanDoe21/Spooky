@@ -23,7 +23,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 180;
-			Projectile.penetrate = 3;
+			Projectile.penetrate = 2;
         }
 
         public override bool PreDraw(ref Color lightColor)

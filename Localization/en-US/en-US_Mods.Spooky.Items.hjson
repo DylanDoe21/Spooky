@@ -1248,8 +1248,7 @@ TatantulaFlyTome: {
 	Tooltip:
 		'''
 		Conjure a swarm of flies around your cursor that grows the longer you use the grimoire
-		Releasing will unleash all existing flies to attack nearby enemies
-		~DOES NOT WORK RN~
+		Releasing while you have 10 or more flies will unleash them to attack enemies
 		'''
 }
 
