@@ -74,6 +74,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             //target an enemy
             for (int i = 0; i < 200; i++)
             {
+                //first, if the player gets too far away while an enemy is being targetted then have the minion stop attacking and return to the player
                 if (Vector2.Distance(player.Center, Projectile.Center) >= 450f)
                 {
                     isAttacking = false;

@@ -142,9 +142,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 14;
-			float launchSpeed = 25f;
-			float maxLaunchLength = 750f;
-			float retractAcceleration = 3f;
+			float launchSpeed = 20f;
+			float maxLaunchLength = 700f;
+			float retractAcceleration = 2.5f;
 			float maxRetractSpeed = 25f; 
 			float forcedRetractAcceleration = 25f;
 			float maxForcedRetractSpeed = 15f;
@@ -219,7 +219,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 						Vector2 ShootSpeed = player.Center - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= -30f;
+                        ShootSpeed *= -20f;
 
 						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed,
                         ModContent.ProjectileType<SphiderFlailWeb>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);

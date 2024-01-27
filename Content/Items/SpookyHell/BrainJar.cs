@@ -31,16 +31,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override bool CanUseItem(Player player)
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                if (Main.projectile[i].active && (Main.projectile[i].type == ModContent.ProjectileType<BrainJarProj>() ||
-                Main.projectile[i].type == ModContent.ProjectileType<Brainy>()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return player.ownedProjectileCounts[ModContent.ProjectileType<BrainJarProj>()] <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<Brainy>()] <= 0;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{
 			Projectile.CloneDefaults(ProjectileID.BabySpider);
             Projectile.width = 30;
-			Projectile.height = 22;
+			Projectile.height = 20;
 			Projectile.DamageType = DamageClass.Ranged;
 			Projectile.penetrate = 3;
 			Projectile.extraUpdates = 1;

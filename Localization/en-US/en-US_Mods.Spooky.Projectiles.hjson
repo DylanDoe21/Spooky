@@ -304,8 +304,11 @@ OrbWeaverSentrySmall.DisplayName: Orb Weaver Sentry
 OrbWeaverSentrySmallSpike.DisplayName: Weaver Sentry Spike
 PheromoneWhipProj.DisplayName: Pheromone Stinger
 SpiderSwordProj.DisplayName: Spider Stabber
-SpiderBabyGreen.DisplayName: Spider Baby
-SpiderCrossbowProj.DisplayName: Acidic Arbalest
-SpiderCrossbowDart.DisplayName: Spider Crossbow Dart
-TarantulaHawkBowProj.DisplayName: Tarantula Hawk Bow Proj
+SpiderCrossbowProj.DisplayName: Venomous Crossbow
+SpiderCrossbowDart.DisplayName: Poison Dart
+TarantulaHawkBowProj.DisplayName: Spider-Wing Longbow
 TarantulaHawkArrow.DisplayName: Tarantula Hawk Arrow
+SpiderSummonEggProj.DisplayName: Strange Spider Egg
+SpiderBabyGreen.DisplayName: Baby Spider
+SpiderBabyPurple.DisplayName: Baby Spider
+SpiderBabyRed.DisplayName: Baby Spider

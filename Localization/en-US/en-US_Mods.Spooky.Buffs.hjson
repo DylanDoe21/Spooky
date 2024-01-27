@@ -407,3 +407,8 @@ TrapdoorSpiderMountBuff: {
 	DisplayName: Trapdoor Spider Mount
 	Description: Arachnophobes beware!
 }
+
+SpiderBabyBuff: {
+	DisplayName: Baby Spiders
+	Description: They have imprinted on you
+}

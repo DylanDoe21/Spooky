@@ -62,6 +62,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             player.itemRotation = Projectile.rotation;
 
+            player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
             switch (Projectile.frame)
             {
                 case 0:

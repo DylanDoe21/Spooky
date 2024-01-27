@@ -3,46 +3,50 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Projectiles.Pets
+namespace Spooky.Content.Projectiles.SpiderCave
 {
-    public class InchwormPet : ModProjectile
+    public class SpiderBabyGreen : ModProjectile
     {
-        private int playerStill = 0;
-        private bool playerFlying = false;
+        int playerStill = 0;
+        bool playerFlying = false;
+        bool isAttacking = false;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 4;
-            Main.projPet[Projectile.type] = true;
-
-            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, 4, 4)
-            .WithOffset(-10f, 0f).WithSpriteDirection(-1).WhenNotSelected(0, 0);
+            Main.projFrames[Projectile.type] = 5;
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
+			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 28;
-			Projectile.height = 16;
+            Projectile.width = 22;
+			Projectile.height = 18;
+            Projectile.DamageType = DamageClass.Summon;
+			Projectile.minion = true;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
+            Projectile.tileCollide = true;
             Projectile.netImportant = true;
-            Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
+            Projectile.penetrate = -1;
+			Projectile.minionSlots = 0.5f;
+            Projectile.aiStyle = -1;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            Player player = Main.player[Projectile.owner];
-            Vector2 center2 = Projectile.Center;
-            Vector2 vector48 = player.Center - center2;
-            float playerDistance = vector48.Length();
-            fallThrough = playerDistance > 200f;
-            return true;
+        public override bool? CanDamage()
+		{
+            return isAttacking;
         }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
 
         public override void AI()
         {
@@ -50,22 +54,166 @@ namespace Spooky.Content.Projectiles.Pets
 
 			if (player.dead)
             {
-				player.GetModPlayer<SpookyPlayer>().InchwormPet = false;
+				player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion = false;
             }
 
-			if (player.GetModPlayer<SpookyPlayer>().InchwormPet)
+			if (player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion)
             {
 				Projectile.timeLeft = 2;
             }
 
+            //target an enemy
+            for (int i = 0; i < 200; i++)
+            {
+                //first, if the player gets too far away while an enemy is being targetted then have the minion stop attacking and return to the player
+                if (Vector2.Distance(player.Center, Projectile.Center) >= 550f)
+                {
+                    isAttacking = false;
+                    IdleAI(player);
+
+                    break;
+                }
+
+				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+				if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type])
+                {
+					AttackingAI(Target);
+
+					break;
+				}
+                else
+                {
+                    isAttacking = false;
+                }
+
+				NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
+                {
+					AttackingAI(NPC);
+
+					break;
+				}
+                else
+                {
+                    isAttacking = false;
+                }
+            }
+
+            if (!isAttacking)
+            {
+                IdleAI(player);
+            }
+
+            for (int num = 0; num < Main.projectile.Length; num++)
+			{
+				Projectile other = Main.projectile[num];
+
+                int[] SpiderMinions = { ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>() };
+
+				if (num != Projectile.whoAmI && SpiderMinions.Contains(other.type) && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+				{
+					const float pushAway = 0.5f;
+
+					if (Projectile.position.X < other.position.X)
+					{
+                        if (Projectile.velocity.X > -2)
+                        {
+						    Projectile.velocity.X -= pushAway;
+                        }
+					}
+					else
+					{
+                        if (Projectile.velocity.X < 2)
+                        {
+						    Projectile.velocity.X += pushAway;
+                        }
+					}
+				}
+			}
+        }
+
+        public void AttackingAI(NPC target)
+		{
+            isAttacking = true;
+
+            Projectile.tileCollide = true;
+
+            Projectile.rotation = 0;
+
+            Vector2 center2 = Projectile.Center;
+            Vector2 vector48 = target.Center - center2;
+            float targetDistance = vector48.Length();
+
+            if (Projectile.velocity.Y == 0 && ((HoleBelow() && targetDistance > 5f) || (targetDistance > 5f && Projectile.position.X == Projectile.oldPosition.X)))
+            {
+                Projectile.velocity.Y = -9f;
+            }
+
+            Projectile.velocity.Y += 0.35f;
+
+            if (Projectile.velocity.Y > 15f)
+            {
+                Projectile.velocity.Y = 15f;
+            }
+
+            if (target.position.X - Projectile.position.X > 0f)
+            {
+                Projectile.velocity.X += 0.12f;
+                if (Projectile.velocity.X > 6f)
+                {
+                    Projectile.velocity.X = 6f;
+                }
+            }
+            else
+            {
+                Projectile.velocity.X -= 0.12f;
+                if (Projectile.velocity.X < -6f)
+                {
+                    Projectile.velocity.X = -6f;
+                }
+            }
+
+            //falling frame
+            if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
+            {
+                Projectile.frame = 2;
+            }
+            //moving animation
+            else if (Projectile.velocity.X != 0)
+            {
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter > 2)
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 1;
+                }
+            }
+
+            if (Projectile.velocity.X > 0.8f)
+            {
+                Projectile.spriteDirection = -1;
+            }
+            else if (Projectile.velocity.X < -0.8f)
+            {
+                Projectile.spriteDirection = 1;
+            }
+        }
+
+        public void IdleAI(Player player)
+        {
             if (!playerFlying)
             {
                 Projectile.rotation = 0;
+
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = vector48.Length();
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 120f) || (playerDistance > 120f && Projectile.position.X == Projectile.oldPosition.X)))
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 175f) || (playerDistance > 175f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -6f;
                 }
@@ -77,14 +225,14 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.velocity.Y = 15f;
                 }
 
-                if (playerDistance > 450f)
+                if (playerDistance > 550f)
                 {
                     playerFlying = true;
                     Projectile.velocity.X = 0f;
                     Projectile.velocity.Y = 0f;
                 }
 
-                if (playerDistance > 100f)
+                if (playerDistance > 170f)
                 {
                     if (player.position.X - Projectile.position.X > 0f)
                     {
@@ -104,28 +252,23 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
 
-                if (playerDistance < 100f)
+                if (playerDistance < 160f)
                 {
                     if (Projectile.velocity.X != 0f)
                     {
                         if (Projectile.velocity.X > 0.8f)
                         {
-                            Projectile.velocity.X -= 0.25f;
+                            Projectile.velocity.X -= 0.1f;
                         }
                         else if (Projectile.velocity.X < -0.8f)
                         {
-                            Projectile.velocity.X += 0.25f;
+                            Projectile.velocity.X += 0.1f;
                         }
                         else if (Projectile.velocity.X < 0.8f && Projectile.velocity.X > -0.8f)
                         {
                             Projectile.velocity.X = 0f;
                         }
                     }
-                }
-
-                if (playerDistance < 70f)
-                {
-                    Projectile.velocity.X *= 0.5f;
                 }
 
                 //set frames when idle
@@ -136,7 +279,7 @@ namespace Spooky.Content.Projectiles.Pets
                 //falling frame
                 else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
                 {
-                    Projectile.frame = 3;
+                    Projectile.frame = 2;
                 }
                 //moving animation
                 else if (Projectile.velocity.X != 0)
@@ -149,7 +292,7 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                     if (Projectile.frame >= 4)
                     {
-                        Projectile.frame = 0;
+                        Projectile.frame = 1;
                     }
                 }
 
@@ -279,6 +422,17 @@ namespace Spooky.Content.Projectiles.Pets
             }
         }
 
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            Player player = Main.player[Projectile.owner];
+            Vector2 center2 = Projectile.Center;
+            Vector2 vector48 = player.Center - center2;
+            float playerDistance = vector48.Length();
+            fallThrough = playerDistance > 200f;
+
+            return true;
+        }
+
         private bool HoleBelow()
         {
             int tileWidth = 4;
@@ -300,5 +454,13 @@ namespace Spooky.Content.Projectiles.Pets
             }
             return true;
         }
+    }
+
+    public class SpiderBabyPurple : SpiderBabyGreen
+    {
+    }
+
+    public class SpiderBabyRed : SpiderBabyGreen
+    {
     }
 }

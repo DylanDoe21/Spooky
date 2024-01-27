@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.SpiderCave
 
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 40;
             Item.mana = 30;
 			Item.DamageType = DamageClass.Summon;
             Item.sentry = true;

@@ -71,6 +71,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 player.itemRotation = Projectile.rotation;
 
+                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
                 switch (Projectile.frame)
                 {
                     case 0:
@@ -162,6 +164,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     Projectile.frame = 3;
                     Projectile.spriteDirection = SaveDirection;
                     Projectile.rotation = SaveRotation;
+                    player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                     player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
 			}

@@ -34,7 +34,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{	
 			SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 
-			for (int numDust = 0; numDust < 5; numDust++)
+			for (int numDusts = 0; numDusts < 5; numDusts++)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Web, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;

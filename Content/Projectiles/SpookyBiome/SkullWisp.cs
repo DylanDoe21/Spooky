@@ -30,7 +30,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.width = 20;
 			Projectile.height = 28;
 			Projectile.DamageType = DamageClass.Summon;
-			Projectile.localNPCHitCooldown = 60;
+			Projectile.localNPCHitCooldown = 30;
             Projectile.usesLocalNPCImmunity = true;
 			Projectile.minion = true;
 			Projectile.friendly = true;
@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				float shakeX = Main.rand.Next(-2, 2);
 			    float shakeY = Main.rand.Next(-2, 2);
 
-                Color color = Color.Lerp(Color.Purple, Color.OrangeRed, numEffect);
+                Color color = Color.Lerp(Color.Magenta, Color.Orange, numEffect);
 
                 Vector2 vector = new Vector2(Projectile.Center.X - 1 + shakeX, Projectile.Center.Y + shakeY) + (numEffect / 4 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY + 2) * numEffect;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);

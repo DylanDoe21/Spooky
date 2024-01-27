@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<CannonSpider>(), Projectile.damage / 2, 0, Main.myPlayer);
 
-			for (int numDust = 0; numDust < 5; numDust++)
+			for (int numDusts = 0; numDusts < 10; numDusts++)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Web, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;

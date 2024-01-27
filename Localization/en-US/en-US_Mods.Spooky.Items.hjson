@@ -1226,7 +1226,6 @@ SpiderSummonEgg: {
 		'''
 		Throw an egg that hatches into some baby spider minions
 		Each baby spider only takes half of a minion slot
-		~DOES NOT WORK RN~
 		'''
 }
 
@@ -1240,7 +1239,7 @@ TarantulaHawkBow: {
 	Tooltip:
 		'''
 		Shoots winged arrows that can slightly track enemies
-		The longer you use it, the faster it will shoot arrows
+		The longer you use it, the faster it shoots
 		'''
 }
 
@@ -1248,8 +1247,8 @@ TatantulaFlyTome: {
 	DisplayName: Grimoire of the Flies
 	Tooltip:
 		'''
-		Conjure a swarm of flies on your cursor that grows the longer you use the grimoire
-		Releasing will unleash all existing flies to attack enemies
+		Conjure a swarm of flies around your cursor that grows the longer you use the grimoire
+		Releasing will unleash all existing flies to attack nearby enemies
 		~DOES NOT WORK RN~
 		'''
 }

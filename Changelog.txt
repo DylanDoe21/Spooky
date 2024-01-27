@@ -77,7 +77,7 @@ Other New Additions:
 -Changed sunny's bestiary description because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
 -The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
 -The flower armor's setbonus is no longer activated by double taping down, it now has a dedicated armor bonus hotkey (This is also due to the addition of another new armor that uses it)
--The flower armor's flower pot now only replaces the hermes boots running sound if it is visible on the player
+-The flower armor's flower pot now only replaces the hermes boots running sound with concrete scraping if it is visible on the player
 -Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage like vanilla ones do
 -Changed the spooky mod melee visual weapons to look smoother when swinging
 -Buffed the spooky buster's knockback
@@ -118,7 +118,7 @@ Other New Additions:
 -Rod of hands projectiles are no longer weirdly scaled up
 -Buffed the branch of gourd's base damage
 -Branch of gourd minions can no longer damage enemies unless they are actively slamming down
--Added a custom sound effect for drawing old hunter's crossbow
+-Added a custom sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
 -Added a custom sound effect for drawing slingshots
 -Changed snot-nosed tome's use sound
 
