@@ -66,7 +66,6 @@ Other New Additions:
 -Reworked the gore armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 -Modified the gore armor's stat bonuses to be spread more across the different pieces, since too many stats were given by the helmets and not enough by the body and legs
 -Buffed most of the weapons/acessories you find in the spooky forest cabin chests and catacomb chests for both layers 1 and 2
-//THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you while the orange ones in phase 2 are now flung around randomly
 -Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in it's bestiary entry
@@ -123,6 +122,8 @@ Other New Additions:
 -Added a custom sound effect for drawing slingshots
 -Changed snot-nosed tome's use sound
 -Zombino's death sound is now slightly more pitched up
+-Spooky mod "charging weapons" (like slingshots and the old hunter's crossbow) no longer have damage penalties when spammed, instead they just now get higher damage when you charge it longer
+//THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
 
 
 
@@ -153,8 +154,8 @@ Fixed all of the following bugs and issues:
 -Plant puncher staff minion being jittery when the player is not moving
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 -Branch of gourd minions not following the player correctly if they got stuck on slopes or blocks they couldn't jump over
--Branch of gourd minions sometimes rotating incorrectly when  they land on the ground after flying to you
--Branch of gourd itself dealing damage when swung
+-Branch of gourd minions sometimes rotating incorrectly when they land on the ground after flying to you
+-Branch of gourd item dealing damage when swung
 -Rod of hands projectiles sometimes emerging from tiles too fast and floating in the air
 -Booger blaster's spread of boogers on its second charge firing horribly in the wrong direction
 -Pandora's box is no longer considered a friendly npc, which should fix it randomly moving into empty houses

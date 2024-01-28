@@ -117,7 +117,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 1;
-                                extraDamage = -10;
+                                extraDamage = 0;
 
                                 break;
                             }
@@ -125,7 +125,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 3;
-                                extraDamage = 0;
+                                extraDamage = 10;
 
                                 break;
                             }
@@ -133,7 +133,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                             {
                                 SoundEngine.PlaySound(ShootSound, Projectile.Center);
                                 ShootSpeed *= 5;
-                                extraDamage = 10;
+                                extraDamage = 20;
 
                                 break;
                             }

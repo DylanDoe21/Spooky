@@ -1216,7 +1216,6 @@ SpiderSlingshot: {
 		'''
 		Hold down to pull back the slingshot, then release to fling ammo
 		Converts Mossy Pebbles into web balls that slow enemies
-		~DOES NOT WORK RN~
 		'''
 }
 

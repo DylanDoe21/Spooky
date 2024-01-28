@@ -167,7 +167,7 @@ FleshPillarTelegraph.DisplayName: Telegraph
 FleshPillar.DisplayName: Flesh Pillar
 GourdFlailProj.DisplayName: Rotty's Wrath
 GourdFlailFly.DisplayName: Fly
-GourdSlingshotProj.DisplayName: Gourd Slingshot
+GourdSlingshotProj.DisplayName: Stinky Slinger
 MoldyPelletProj.DisplayName: Moldy Pellet
 MoldPelletFly.DisplayName: Mold Fly
 SkullGoop.DisplayName: Skull Goop
@@ -313,3 +313,5 @@ SpiderBabyGreen.DisplayName: Baby Spider
 SpiderBabyPurple.DisplayName: Baby Spider
 SpiderBabyRed.DisplayName: Baby Spider
 TatantulaTomeFly.DisplayName: Large Fly
+SpiderSlingshotProj.DisplayName: Web Flinger
+SpiderSlingshotWeb.DisplayName: Web Ball

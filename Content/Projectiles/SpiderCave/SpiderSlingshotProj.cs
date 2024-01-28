@@ -4,9 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Projectiles.SpookyBiome
+namespace Spooky.Content.Projectiles.SpiderCave
 {
-	public class OldWoodSlingshotProj : ModProjectile
+	public class SpiderSlingshotProj : ModProjectile
 	{
         int SaveDirection;
         float SaveRotation;
@@ -20,8 +20,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 32;
-            Projectile.height = 24;
+            Projectile.width = 44;
+            Projectile.height = 30;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -31,8 +31,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		}
 
         public override bool? CanDamage()
-		{
-			return false;
+        {
+            return false;
         }
 
         public override bool? CanCutTiles()
@@ -65,7 +65,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 4 - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
 			if (player.channel && Projectile.ai[2] == 0) 
             {
@@ -133,14 +133,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             {
                                 SoundEngine.PlaySound(ShootSound, Projectile.Center);
                                 ShootSpeed *= 12;
-                                extraDamage = 10;
+                                extraDamage = 15;
 
                                 break;
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 7, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<MossyPebbleProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 10, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<SpiderSlingshotWeb>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.frame = 0;

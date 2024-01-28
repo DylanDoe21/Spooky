@@ -6,8 +6,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyBiome;
-using Spooky.Content.Projectiles.SpookyBiome;
-using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Projectiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave
 {
@@ -27,18 +26,16 @@ namespace Spooky.Content.Items.SpiderCave
             Item.height = 32;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.reuseDelay = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = UseSound;
-			//Item.shoot = ModContent.ProjectileType<SpiderSlingshotProj>();
+			Item.shoot = ModContent.ProjectileType<SpiderSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
 			Item.shootSpeed = 0f;
         }
-
-		/*
+		
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<SpiderSlingshotProj>()] < 1;
@@ -50,6 +47,5 @@ namespace Spooky.Content.Items.SpiderCave
 
 			return false;
 		}
-		*/
     }
 }

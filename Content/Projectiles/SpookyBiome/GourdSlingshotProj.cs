@@ -117,7 +117,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 3;
-                                extraDamage = -5;
+                                extraDamage = 0;
 
                                 break;
                             }
@@ -125,7 +125,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 7;
-                                extraDamage = 0;
+                                extraDamage = 6;
 
                                 break;
                             }
@@ -133,7 +133,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             {
                                 SoundEngine.PlaySound(ShootSound, Projectile.Center);
                                 ShootSpeed *= 12;
-                                extraDamage = 10;
+                                extraDamage = 12;
 
                                 break;
                             }
