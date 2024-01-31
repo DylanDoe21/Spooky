@@ -448,10 +448,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] == 200)
                     {
                         //spawn pillars on the walls
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 682, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 678, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
                         Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 675, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 659, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
                         Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
 
                         //spawn pillars on the floor

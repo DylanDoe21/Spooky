@@ -16,15 +16,15 @@ New Biome, The Spider Grotto:
 -An underground mini-biome that has been taken over by weird spider-like creatures and bugs
 -This biome has its own completely unique background (the background will not show up if you have the terraria background config turned off)
 -Like other biomes in the mod, this new biome has a bunch of new content such as weapons, accessories, armors, and a bunch of new enemies and critters
--Also has more new enemies and content after you have defeated one mechanical boss
+-Also has more new enemies and content in hardmode
 
 
 New Town NPC, The Old Hunter:
 
 -An ancient skeleton of a once living old hunter is scattered around the spider grotto, it's up to you to put him back together
--You can re-assemble him at a giant spider web in the spider grotto, which has a wooden template for each piece
+-You can re-assemble him at a giant spider web in the spider grotto, which has a wooden template for each piece stuck on it
 -After all four pieces are inserted, the web will vanish and the old hunter will be revived back to life
--He sells various different weapons and some other stuff
+-He sells various different weapons (especially ranged class weapons) and some other stuff
 
 
 New Main Menu Overhaul:
@@ -41,18 +41,19 @@ New Music:
 -"To A Floral Demise" by BananaLizard, plays during daffodil's fight
 -"It's Just Spider Stuff" by BananaLizard, plays in the new spider grotto biome
 -"Graveyard Without The G" by BananaLizard and Lurak, plays during the raveyard event
--Added tweaked/updated versions of some spooky mod themes that BananaLizard wanted to improve (such as remasters of moco and orro-boro's themes)
+-Added tweaked/updated versions of some spooky mod themes that BananaLizard wanted to improve (such as the remasters of moco and orro-boro's themes)
 
 
 Other New Additions:
 
--Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with
--Added multiple new spooky forest enemies to both prehardmode and hardmode
 -Added new colorful gourd tiles to the spooky forest
 -Added a bunch more pets
 -Added the dumb zomboid
 -Added dave & mike
--Added some compatiblity with lighting essentials, spooky mod ambient grasses will now provide colored lighting if you have lighting essentials "Light Environment" config option enabled
+-Added many new resprites for items, armors, tiles, ect
+-Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with
+-Added multiple new spooky forest enemies to both prehardmode and hardmode
+-Added compatiblity with lighting essentials, spooky mod ambient grasses will now produce colored lighting if you have lighting essentials mod on, and the "Light Environment" option enabled in their config
 
 
 
@@ -60,70 +61,84 @@ Other New Additions:
 ~CHANGES TO EXISTING CONTENT~
 
 
--The underground spooky forest cabin chests are no longer locked, and the old wood key has been removed from the mod
--Spooky forest now generates with the opposite tier ore of what vanilla has (for example, if your world generates with gold ore then the spooky forest will have platinum ore)
--Gore monger armor is now called the gore armor set
--Reworked the gore armor set bonus, instead of giving you an aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
+Items & Weapons:
+
+-The gore monger armor set is now just called the gore armor set
+-Reworked the gore armor set bonus, instead of giving you a weird protective aura it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies
 -Modified the gore armor's stat bonuses to be spread more across the different pieces, since too many stats were given by the helmets and not enough by the body and legs
--Buffed most of the weapons/acessories you find in the spooky forest cabin chests and catacomb chests for both layers 1 and 2
--Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you while the orange ones in phase 2 are now flung around randomly
--Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
--Spooky spirit now correctly displays that it is night-time only in it's bestiary entry
--Spirit amulet movement speed increase buffed from 15% to 20%
--Spooky mod music boxes now display the song title in color to make it more noticable and cool
--Feral rats animation speed now depends on their current movement speed instead of just playing at a constant speed
--Buffed the catacomb layer 2 enemies overall stats a bit
--Massively nerfed flourence's knockback resistance as it was way too high
--Changed sunny's bestiary description because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
--The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
--The flower armor's setbonus is no longer activated by double taping down, it now has a dedicated armor bonus hotkey (This is also due to the addition of another new armor that uses it)
+-The flower armor's setbonus is no longer activated by double taping down, it now has a dedicated armor bonus hotkey (This is also due to the addition of another new armor set that uses it)
 -The flower armor's flower pot now only replaces the hermes boots running sound with concrete scraping if it is visible on the player
 -Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage like vanilla ones do
--Changed the spooky mod melee visual weapons to look smoother when swinging
+-Changed the spooky mod melee swing extension weapons to look smoother and better when swinging
+-Buffed most of the weapons/acessories you find in the spooky forest cabin chests and catacomb chests for both layers 1 and 2
+-Spirit amulet movement speed bonus buffed from 15% to 20%
+-Spooky mod music boxes now display the song title in color to make it more noticable and cool
+-Sticky eye pet now drops from the new monster eye enemy instead of egg incursion enemies, and it now looks like monster eyes as well
 -Buffed the spooky buster's knockback
 -Sunflower rod now has a special new use animation, buffed its use speed, and its projectiles now have a different after image effect as its previous one didnt look fitting
 -Skull smasher and femur fracturer thrown projectiles now have after images along with their existing trail effect
--Giant fuzz bats can now sometimes inflict feral bite in expert mode and higher difficulties
 -Necromancy for dummies projectiles now bounce very quickly and make a less annoying sound when they bounce off of surfaces and die
--Creepy candle now gives a flat increase of 10 magic damage instead of 7% increased magic damage
--Spore smacker's mushroom spores now deal damage less rapidly and use separate immunity frames
--Zomboid warlock's skull minions now deal damage less rapidly and use separate immunity frames
--Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
--Nerfed old wood greatsword's base damage
--Old wood greatsword no longer requires amethyst to craft
--Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
+-Creepy candle now gives a flat increase of 10 magic damage instead of 7% more magic damage
+-Spore smacker's mushroom spores and the zomboid warlock's skull minion now deal damage less rapidly and use local immunity frames
+-Nerfed old wood greatsword's base damage, and it no longer requires amethyst to craft
 -Bubble belcher projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
 -Changed bubble belcher's use sound to be the same as the toxikarp's use sound
--Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one
--Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
--Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
--Nerfed boro's charging speed during his short dash attack while orro charges from above/below
--Resprited a bunch of grass and other blocks in each spooky mod biome
--Fixed many spooky mod enemies not being animated in the bestiary
--Sticky eye pet now drops from the new monster eye enemy instead of egg incursion enemies, and it now looks like monster eyes as well
 -Snotty schnoz now has a UI bar so you can see how much snot charge you have
 -Snotty schnoz no longer lets you shoot out snot globs for 5 seconds, instead it now shoots out a giant spread of boogers all at once and fully consumes all your booger charges
 -Increased the chance enemies have to drop snot when hit while you have the snotty schnoz equipped
 -Increased chained eyes maximum launch range and launching speed
 -Chained eyes projectiles now use the correct rotation while they are dropped while you hold left click
 -Fungal flail and rotty's wrath will now drop and stay on the ground when you hold left click after launching them like vanilla flails do
+-Changed the necronomicon's use sound
+-Changed snot-nosed tome's use sound
+-Rod of hands projectiles are no longer weirdly scaled up
+-Buffed the branch of gourd's base damage, and the gourd minions can no longer damage enemies unless they are actively slamming down
+-Spooky mod "charging weapons" (like slingshots and the old hunter's crossbow) no longer have damage penalties when spammed, instead they just now get higher damage when you charge it longer
+-Added a new sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
+-Added some new sound effects for drawing and shooting slingshots
+
+
+Enemy & Boss Changes:
+
+-Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
+-Changed big bone's razor rose attack, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
+-Daffodil's thorn ball after-images are now red instead of green
+-Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
+-Spooky spirit now correctly displays that it is night-time only in it's bestiary entry
+-Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one
+-Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
+-Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
+-Nerfed boro's charging speed during his short dash attack while orro charges from above/below
+-Fixed many spooky mod enemies not being animated in the bestiary
+-Feral rats animation speed now depends on their current movement speed instead of just playing at a constant speed
+-Buffed the catacomb layer 2 enemies overall stats a bit
+-Massively nerfed flourence's knockback resistance as it was way too high
+-Changed sunny's bestiary description because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
+-****NOT DONE****The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
+-Giant fuzz bats can now sometimes inflict feral bite in expert mode and higher like vanilla bat enemies
+-Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
+-Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
+-Stitch's magic wand bolts no longer go through blocks
+-Zombino's death sound is now more pitched up
+-Added a better sound effect for the aortic eel's charging
+
+
+Miscellaneous:
+
+-Resprited a bunch of grass and other blocks in each spooky mod biome
+-The underground spooky forest cabin chests are no longer locked
+-Spooky forest now generates with the opposite tier ore of what vanilla has (for example, if your world generates with gold ore then the spooky forest will have platinum ore)
 -Increased the amount of tungsten/iron bars and potions found in the cemetery house chests
--Chests in the second layer of the catacombs will now generate with adamantite/titanium bars instead of cobalt/palladium/mythril/orichalcum bars
+-Chests in the second layer of the catacombs will now generate with adamantite/titanium bars in them instead of cobalt/palladium/mythril/orichalcum bars
 -Removed cobwebs and pumpkin seeds from the cemetery house chest loot and the spooky forest underground cabin chest loot
 -Increased the chance of a giant glowshroom tree to randomly grow on mushroom moss
--Changed the necronomicon's use sound
--Stitch's magic wand bolts no longer go through blocks
 -Gilded bricks now produce gold dust when broken instead of stone dust
 -Catacomb flooring bricks now produce bone dust when broken instead of stone dust
--Rod of hands projectiles are no longer weirdly scaled up
--Buffed the branch of gourd's base damage
--Branch of gourd minions can no longer damage enemies unless they are actively slamming down
--Added a custom sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
--Added a custom sound effect for drawing slingshots
--Changed snot-nosed tome's use sound
--Zombino's death sound is now slightly more pitched up
--Spooky mod "charging weapons" (like slingshots and the old hunter's crossbow) no longer have damage penalties when spammed, instead they just now get higher damage when you charge it longer
-//THIS ISNT DONE BUT NEEDS TO BE -Big bone's flower stream attack is different, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
+
+
+Removals:
+
+-Removed the old wood key due to the old wood cabin chests no longer being locked
 
 
 
@@ -139,7 +154,7 @@ Fixed all of the following bugs and issues:
 -Samson's cuff ability not working at all
 -Spooky mod armor glowmasks showing through items equipped in your vanity
 -Spooky mod armor glowmasks not being affected by dyes
--Spooky mod weapons that use the melee swing extension visual not scaling up/down their physical and hitbox size if the weapon itself has a reforgement that made it smaller or bigger
+-Spooky mod melee swing extension visual not scaling up/down their physical and hitbox size if the weapon itself has a reforgement that made it smaller or bigger
 -Some spooky mod melee swing extensions having slightly incorrectly sized hitboxes
 -Skull smasher's right click ability dealing double the weapons base damage
 -Both catacomb layers sometimes generating with no vertical pathways

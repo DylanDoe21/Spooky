@@ -113,7 +113,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
-                return Color.Lerp(Color.Black, Color.Gold, factor.X) * factor.X;
+                return Color.Lerp(Color.DarkGreen, Color.Gold, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -189,7 +189,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (Projectile.ai[0] < 120)
                 {
                     Speed += 0.003f;
-                    TrailSize += 0.12f;
+                    TrailSize += 0.10f;
                 }
 
                 //play a bell sound when fully charged

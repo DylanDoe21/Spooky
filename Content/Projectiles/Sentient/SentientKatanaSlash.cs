@@ -29,7 +29,6 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override bool PreDraw(ref Color lightColor)
         {
-            //draw prim trail
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
 
@@ -38,9 +37,9 @@ namespace Spooky.Content.Projectiles.Sentient
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrailThin").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
@@ -72,7 +71,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 2 * factor, factor =>
             {
                 return Color.Lerp(Color.Blue, Color.Red, factor.X) * factor.X;
             });

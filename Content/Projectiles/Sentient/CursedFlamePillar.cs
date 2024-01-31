@@ -14,7 +14,7 @@ namespace Spooky.Content.Projectiles.Sentient
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        int trailWidth = 75;
+        int trailWidth = 70;
 
         private List<Vector2> cache;
         private Trail trail;
@@ -42,9 +42,9 @@ namespace Spooky.Content.Projectiles.Sentient
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrailBig").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.1f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
@@ -76,7 +76,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
         private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => trailWidth * (1 - factor), factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => trailWidth * (1 - factor), factor =>
             {
                 return Color.Lerp(Color.Green, Color.Lime, factor.X);
             });
@@ -126,7 +126,7 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Projectile.velocity *= 0;
 
-                trailWidth -= 3;
+                trailWidth -= 2;
             }
         }
     }

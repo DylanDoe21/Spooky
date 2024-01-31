@@ -2701,3 +2701,8 @@ CatacombBrickWallDaffodilBGItem: {
 	DisplayName: Daffodil Arena Wall
 	Tooltip: ""
 }
+
+TrapdoorScale: {
+	DisplayName: Trapdoor Scale
+	Tooltip: ""
+}

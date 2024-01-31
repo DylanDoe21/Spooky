@@ -139,7 +139,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 10, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 12, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<SpiderSlingshotWeb>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 

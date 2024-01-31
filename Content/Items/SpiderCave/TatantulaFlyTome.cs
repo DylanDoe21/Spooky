@@ -18,15 +18,15 @@ namespace Spooky.Content.Items.SpiderCave
             Item.noMelee = true;
             Item.width = 34;
             Item.height = 38;
-            Item.useTime = 50;
-			Item.useAnimation = 50;
+            Item.useTime = 45;
+			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 5);
-            Item.UseSound = SoundID.Item34;
+            Item.UseSound = SoundID.Item17;
             Item.shoot = ModContent.ProjectileType<TatantulaTomeFly>();
-            Item.shootSpeed = 2f;
+            Item.shootSpeed = 5f;
         }
 
         public override Vector2? HoldoutOffset()

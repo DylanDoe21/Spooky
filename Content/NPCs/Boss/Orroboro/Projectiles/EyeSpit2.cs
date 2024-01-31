@@ -33,17 +33,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 11)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 7)
-                {
-                    Projectile.frame = 0;
-                }
-            }
-
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
@@ -61,7 +50,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void AI()
         {
-			//fix Projectile direction
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 11)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame >= 7)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             

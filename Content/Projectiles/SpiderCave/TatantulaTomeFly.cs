@@ -65,6 +65,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             if (Main.mouseLeft && Projectile.ai[0] == 0 && Projectile.ai[2] == 0)
             {
+                Projectile.penetrate = -1;
                 Projectile.timeLeft = 180;
 
                 Projectile.tileCollide = false;
@@ -76,11 +77,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 if (Vector2.Distance(Projectile.Center, Main.MouseWorld) >= 140)
                 {
-                    speed = 0.3f;
+                    speed = 0.5f;
                 }
                 else
                 {
-                    speed = 0.15f;
+                    speed = 0.3f;
                 }
 
                 if (Projectile.velocity.X > speed)
@@ -160,6 +161,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
             {
                 if (player.ownedProjectileCounts[Type] >= 10)
                 {
+                    Projectile.penetrate = 1;
+
                     Projectile.tileCollide = true;
 
                     Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
@@ -177,26 +180,29 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
             }
 
+            if (Projectile.ai[0] == 1 && Projectile.ai[2] == 0)
+            {
+                int foundTarget = HomeOnTarget();
+                if (foundTarget != -1)
+                {
+                    NPC target = Main.npc[foundTarget];
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 20;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                    Projectile.tileCollide = false;
+                }
+            }
+
             if (Projectile.ai[2] > 0)
             {
                 Projectile.rotation += 0.25f * (float)Projectile.direction;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
 
-                Projectile.alpha += 2;
+                Projectile.alpha += 5;
 
                 if (Projectile.alpha >= 255)
                 {
                     Projectile.Kill();
                 }
-            }
-
-            int foundTarget = HomeOnTarget();
-            if (foundTarget != -1)
-            {
-                NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 20;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
-                Projectile.tileCollide = false;
             }
         }
 

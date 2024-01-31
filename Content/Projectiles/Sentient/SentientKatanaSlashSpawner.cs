@@ -32,8 +32,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 Vector2 Velocity = Projectile.Center - ProjectilePosition;
                 Velocity.Normalize();
                 Velocity *= 45f;
-                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition.X, ProjectilePosition.Y,
-                Velocity.X, Velocity.Y, ModContent.ProjectileType<SentientKatanaSlash>(), Projectile.damage, 0, 0);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, Velocity, ModContent.ProjectileType<SentientKatanaSlash>(), Projectile.damage, 0, 0);
             }
         }
     }

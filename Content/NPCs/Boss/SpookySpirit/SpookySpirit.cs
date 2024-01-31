@@ -363,7 +363,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         }
 
                         //loop charge attack
-                        if (NPC.localAI[0] == 105)
+                        if (NPC.localAI[0] >= 105)
                         {
                             SaveDirection = 0;
                             NPC.localAI[1]++;
@@ -624,7 +624,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 ShootSpeed.X *= 5f;
                                 ShootSpeed.Y *= 5f;
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -48 : 48), NPC.Center.Y + 3,
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -48 : 48), NPC.Center.Y + 5,
                                 ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeBeam>(), Damage * 2, 0f, Main.myPlayer);
                             }
 

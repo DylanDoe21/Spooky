@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             if (NPC.ai[0] <= 420)
             {
                 NPC.frameCounter++;
-                if (NPC.frameCounter > 7)
+                if (NPC.frameCounter > 15)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;

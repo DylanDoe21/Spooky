@@ -223,7 +223,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             var effects = SpriteEffects.None;
 
+            //while charging, use the saved direction and not the actual npc direction
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+            {
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
+            //while shooting roses in phase 1, use the saved direction and not the actual npc direction
+            else if (NPC.ai[0] == 3 && NPC.localAI[0] > 60 && NPC.localAI[0] <= 240 && !Phase2)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
@@ -346,6 +352,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             //while charging, use the saved direction and not the actual npc direction
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+            {
+                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
+            //while shooting roses in phase 1, use the saved direction and not the actual npc direction
+            else if (NPC.ai[0] == 3 && NPC.localAI[0] > 60 && NPC.localAI[0] <= 240 && !Phase2)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
@@ -883,8 +894,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                     Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
                                 
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), Position.X, Position.Y, 0, 0,
-                                    ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer, 0, 0);
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), Position, Vector2.Zero, ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer);
 
                                     SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
                                 }
@@ -966,10 +976,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 
+                            //set this to a random number without going too low or too high
                             NPC.localAI[1] = Main.rand.Next(4, 44);
 
                             for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
                             {
+                                //this is how the gap in the circle of thorns is created
+                                //this check basically makes it so every thorn in the loop is spawned, except for the randomly chosen number and multiple thorns behind the chosen number
                                 if (numProjectiles != NPC.localAI[1] && numProjectiles != NPC.localAI[1] - 1 && numProjectiles != NPC.localAI[1] - 2 && 
                                 numProjectiles != NPC.localAI[1] - 3 && numProjectiles != NPC.localAI[1] - 4)
                                 {
@@ -1014,54 +1027,84 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //shoot a continuous stream of roses that move in a wave
+                //use razor rose attack
                 case 3:
                 {
                     NPC.localAI[0]++;
 
                     GoAboveFlowerPot(200);
 
-                    if (NPC.localAI[0] <= 80)
+                    //save the players location, then shoot a barrage of roses at that location
+                    if (!Phase2)
                     {
-                        int MaxDusts = Main.rand.Next(2, 11);
-                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        if (NPC.localAI[0] == 60)
                         {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
-                            Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
-                            Main.dust[dustEffect].color = Phase2 ? Color.OrangeRed : Color.Red;
-                            Main.dust[dustEffect].noGravity = true;
-                            Main.dust[dustEffect].noLight = false;
-                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
-                            Main.dust[dustEffect].fadeIn = 1.3f;
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f, Main.myPlayer);
+                            SavePlayerPosition = player.Center;
+
+                            SaveRotation = NPC.rotation;
+                            SaveDirection = NPC.direction;
+                        }
+
+                        if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 240)
+                        {
+                            NPC.spriteDirection = SaveDirection;
+                            NPC.rotation = SaveRotation;
+                        }
+
+                        if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240)
+                        {
+                            NPC.velocity *= 0.98f;
+
+                            if (Main.rand.NextBool(2))
+                            {
+                                //recoil
+                                Vector2 Recoil = SavePlayerPosition - NPC.Center;
+                                Recoil.Normalize();
+                                Recoil *= -2;
+                                NPC.velocity = Recoil;
+
+                                Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed *= Main.rand.Next(25, 36);
+
+                                SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                            }
                         }
                     }
 
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240)
+                    //in phase 2 create a continuous stream of roses that is constantly shot at the player
+                    if (Phase2)
                     {
-                        NPC.velocity *= 0.98f;
-
-                        if (Main.rand.NextBool(2))
+                        if (NPC.localAI[0] == 60)
                         {
-                            //recoil
-                            Vector2 Recoil = player.Center - NPC.Center;
-                            Recoil.Normalize();
-                                    
-                            Recoil.X *= -2;
-                            Recoil.Y *= -2;
-                            NPC.velocity.X = Recoil.X;
-                            NPC.velocity.Y = Recoil.Y;
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraphLockOn>(), 0, 0f, Main.myPlayer);
+                        }
 
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= Phase2 ? 18 : 15;
-                            ShootSpeed.Y *= Phase2 ? 18 : 15;
+                        if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240)
+                        {
+                            NPC.velocity *= 0.98f;
 
-                            SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+                            if (Main.rand.NextBool(2))
+                            {
+                                //recoil
+                                Vector2 Recoil = player.Center - NPC.Center;
+                                Recoil.Normalize();
+                                Recoil *= -2;
+                                NPC.velocity = Recoil;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed *= 18;
+
+                                SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                            }
                         }
                     }
 
