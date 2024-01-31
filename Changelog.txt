@@ -96,12 +96,13 @@ Items & Weapons:
 -Spooky mod "charging weapons" (like slingshots and the old hunter's crossbow) no longer have damage penalties when spammed, instead they just now get higher damage when you charge it longer
 -Added a new sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
 -Added some new sound effects for drawing and shooting slingshots
+-Added a 4th new candy to the bag o' treats that gives you a temporary extra sentry slot
 
 
 Enemy & Boss Changes:
 
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
--Changed big bone's razor rose attack, in phase 1 he will make a telegraph and shoot all the roses at that spot, in phase 2 the stream of roses will follow the player like before
+-Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player like before
 -Daffodil's thorn ball after-images are now red instead of green
 -Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in it's bestiary entry

@@ -98,4 +98,14 @@ namespace Spooky.Content.Items.SpookyBiome.Misc
 			return false;
 		}
 	}
+
+	public class Candy4 : Candy1
+	{
+		public override bool OnPickup(Player player)
+		{
+			player.AddBuff(ModContent.BuffType<CandyBuff4>(), 600);
+
+			return false;
+		}
+	}
 }

@@ -10,12 +10,17 @@ CandyBuff1: {
 
 CandyBuff2: {
 	DisplayName: Summoner Candy
-	Description: 1 extra minion slot
+	Description: Increases your maximum number of minions by 1
 }
 
 CandyBuff3: {
 	DisplayName: Summoner Candy
 	Description: Slightly increased whip range
+}
+
+CandyBuff4: {
+	DisplayName: Summoner Candy
+	Description: Increases your maximum number of sentries by 1
 }
 
 DaffodilHairpinCooldown: {

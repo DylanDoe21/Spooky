@@ -1302,17 +1302,22 @@ WizardGangsterLegs: {
 }
 
 Candy1: {
-	DisplayName: Candy
+	DisplayName: Summoner Candy
 	Tooltip: ""
 }
 
 Candy2: {
-	DisplayName: Candy
+	DisplayName: Summoner Candy
 	Tooltip: ""
 }
 
 Candy3: {
-	DisplayName: Candy
+	DisplayName: Summoner Candy
+	Tooltip: ""
+}
+
+Candy4: {
+	DisplayName: Summoner Candy
 	Tooltip: ""
 }
 
