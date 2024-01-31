@@ -177,20 +177,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.NPCDeath39, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.DD2_SkeletonHurt, Projectile.Center);
         
-        	for (int numDusts = 0; numDusts < 25; numDusts++)
-			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                Main.dust[newDust].noGravity = true;
-
-                if (Main.dust[newDust].position != Projectile.Center)
-				{
-					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
-				}
-			}
+        	if (Main.netMode != NetmodeID.Server) 
+            {
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/BoneWispGore").Type);
+            }
 		}
     }
 }

@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             return true;
         }
 
-        const int TrailLength = 7;
+        const int TrailLength = 4;
 
         private void ManageCaches()
         {
@@ -75,13 +75,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         private void ManageTrail()
         {
-            //using (factor => 12 * factor) makes the trail get smaller the further from the projectile, the number (12 in this case) affects how thick it is
-            //using (factor => 12 * (1 - factor)) makes the trail get bigger the further from the projectile, the number (12 in this case) affects how thick it is
-            //just using (factor => 12) makes the trail the same size, where again the number (12 in this case) is the constant thickness
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12, factor =>
             {
-                //use (* 1 - factor.X) at the end to make it fade at the beginning, or use (* factor.X) at the end to make it fade at the end
-                return Color.Lerp(Color.White, Color.Yellow, factor.X);
+                return Color.Lerp(Color.White, Color.Yellow, factor.X) * factor.X * 2;
             });
 
             trail.Positions = cache.ToArray();

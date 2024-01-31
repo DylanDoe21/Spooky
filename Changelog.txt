@@ -103,6 +103,7 @@ Enemy & Boss Changes:
 
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
 -Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player like before
+-Big bone's skull wisp projectiles no longer make ghost screaming sounds when they die, and they now produce a funny gore version of themselves when they die (They will not damage you and are purely visual)
 -Daffodil's thorn ball after-images are now red instead of green
 -Added new custom sounds for spooky spirit's charging attack and death made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in it's bestiary entry
