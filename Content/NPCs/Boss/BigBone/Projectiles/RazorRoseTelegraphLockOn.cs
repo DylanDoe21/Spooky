@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-    public class RazorRoseTelegraph : ModProjectile
+    public class RazorRoseTelegraphLockOn : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
             Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
 
-            Main.EntitySpriteDraw(tex, vector, rectangle, Color.Red * 0.75f, Projectile.rotation, drawOrigin, Projectile.scale * 1.25f, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex, vector, rectangle, Color.Orange * 0.75f, Projectile.rotation, drawOrigin, Projectile.scale * 1.25f, SpriteEffects.None, 0);
 
             return true;
         }
@@ -38,6 +38,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void AI()
         {
+            Player player = Main.player[Projectile.owner];
+
+            Projectile.position = new Vector2(player.Center.X - (Projectile.width / 2), player.Center.Y - (Projectile.height / 2));
+
             Projectile.ai[0]++;
             if (Projectile.ai[0] <= 30)
             {

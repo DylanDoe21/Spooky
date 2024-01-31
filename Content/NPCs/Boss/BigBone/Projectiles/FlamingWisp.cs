@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/FireTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/MagicTrail").Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.075f);
             effect.Parameters["repeats"].SetValue(2);
 
@@ -58,7 +58,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             return true;
         }
 
-        const int TrailLength = 25;
+        const int TrailLength = 18;
 
         private void ManageCaches()
         {
@@ -81,9 +81,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10, factor =>
             {
-                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X) * factor.X;
+                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X) * factor.X * 2;
             });
 
             trail.Positions = cache.ToArray();

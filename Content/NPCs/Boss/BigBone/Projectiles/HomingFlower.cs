@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12, factor =>
             {
-                return Color.Lerp(Color.Red, Color.Yellow, factor.X) * factor.X * 2;
+                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X) * factor.X * 2;
             });
 
             trail.Positions = cache.ToArray();

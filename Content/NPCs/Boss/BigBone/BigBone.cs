@@ -818,7 +818,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //create skull wisps around itself that launch themselves at the player
+                //skull wisp attack
                 case 1:
                 {
                     NPC.localAI[0]++;
@@ -874,12 +874,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //use thorn attacks
+                //thorn attacks
                 case 2:
                 {
                     NPC.localAI[0]++;
 
-                    //in phase 1, use the telegraph thorn spread
+                    //in phase 1, spawn multiple telegraphs around the player and shoot thorns at each telegraph
                     if (!Phase2)
                     {
                         GoAboveFlowerPot(100);
@@ -967,7 +967,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    //in phase 2, make a circle of thorns with a random gap
+                    //in phase 2, make a circle of thorns with a random gap that the player has to get into before they are launched out
                     if (Phase2)
                     {
                         GoAboveFlowerPot(350);
@@ -1103,7 +1103,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRoseOrange>(), Damage, 0f, Main.myPlayer, 0, 0);
                             }
                         }
                     }
