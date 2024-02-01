@@ -1052,7 +1052,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.rotation = SaveRotation;
                         }
 
-                        if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240)
+                        if (NPC.localAI[0] >= 90 && NPC.localAI[0] <= 240)
                         {
                             NPC.velocity *= 0.98f;
 
@@ -1098,7 +1098,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                 Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
-                                ShootSpeed *= 18;
+                                ShootSpeed *= 16;
 
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
@@ -1392,13 +1392,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SaveRotation = NPC.rotation;
                         SaveDirection = NPC.direction;
 
-                        Vector2 Recoil = player.Center - NPC.Center;
+                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 35f : player.Center;
+
+                        Vector2 Recoil = SavePlayerPosition - NPC.Center;
                         Recoil.Normalize();
                                 
                         Recoil *= -5; 
                         NPC.velocity = Recoil;
-
-                        SavePlayerPosition = player.Center;
                     }
 
                     if (NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
@@ -1412,16 +1412,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.velocity *= 0.5f;
                     }
 
-                    if (NPC.localAI[0] == 105)
+                    if (NPC.localAI[0] == 100)
                     {
                         //charge
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
-                        ChargeDirection *= 45;
+                        ChargeDirection *= 55;
                         NPC.velocity = ChargeDirection;
                     }
 
-                    if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
+                    if (NPC.localAI[0] > 100 && NPC.localAI[1] == 0)
                     {
                         if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
                         {
@@ -1435,20 +1435,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                         if (NPC.velocity == Vector2.Zero)
                         {
-                            if (Phase2)
-                            {
-                                Vector2 Speed = new Vector2(10f, 0f).RotatedByRandom(2 * Math.PI);
-
-                                for (int numProjectiles = 0; numProjectiles < 8; numProjectiles++)
-                                {
-                                    Vector2 Position = new Vector2(NPC.Center.X, NPC.Center.Y);
-                                    Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-
-                                    Projectile.NewProjectile(NPC.GetSource_Death(), Position, speed, 
-                                    ModContent.ProjectileType<MassiveFlameBallBolt>(), Damage, 0f, Main.myPlayer, 0, 0);
-                                }
-                            }
-
                             SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                             
                             SpookyPlayer.ScreenShakeAmount = 25;

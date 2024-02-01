@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.Vinyl
             Item.accessory = true;
             Item.width = 32;
             Item.height = 22;
-            Item.rare = ItemRarityID.Quest;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 10);
         }
     }

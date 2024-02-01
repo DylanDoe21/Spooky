@@ -36,6 +36,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.aiStyle = -1;
         }
 
+        public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
@@ -45,7 +50,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Color.Lerp(Color.Yellow, Color.Red, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color color = Color.Lerp(new Color(255, 255, 197), Color.Red, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new Rectangle(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
@@ -92,9 +97,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 20, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 22, factor =>
             {
-                return Color.Lerp(Color.Red, Color.OrangeRed, factor.X) * factor.X * 2;
+                return Color.Lerp(Color.Red, Color.Tomato, factor.X) * factor.X * 2;
             });
 
             trail.Positions = cache.ToArray();

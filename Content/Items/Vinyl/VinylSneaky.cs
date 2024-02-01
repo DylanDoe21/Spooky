@@ -6,12 +6,12 @@ using Spooky.Content.Tiles.MusicBox;
 
 namespace Spooky.Content.Items.Vinyl
 {
-    public class VinylSleepy : ModItem
+    public class VinylSneaky : ModItem
     {
         public override void SetStaticDefaults()
         {
-            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Vinyl/Sleepy"), 
-            ModContent.ItemType<VinylSleepy>(), ModContent.TileType<VinylTileThing4>());
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Vinyl/Sneaky"), 
+            ModContent.ItemType<VinylSneaky>(), ModContent.TileType<VinylTileThing5>());
         }
 
         public override void SetDefaults()

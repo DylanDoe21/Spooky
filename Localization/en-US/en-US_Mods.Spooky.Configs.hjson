@@ -33,7 +33,7 @@ SpookyConfig: {
 			The default value for this setting is 1, which is the normal screen shaking intensity
 			Anything higher than 1 will make the screen shaking more intense
 			Anything lower than 1 will make the screen shaking less intense
-			Turning this all the way down will completely disable the effect
+			Turning this all the way down will entirely disable the mod's screen shake effect
 			'''
 	}
 }

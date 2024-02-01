@@ -36,6 +36,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.aiStyle = -1;
         }
 
+        public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
@@ -78,11 +83,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 cache = new List<Vector2>();
                 for (int i = 0; i < TrailLength; i++)
                 {
-                    cache.Add(Projectile.Center);
+                    cache.Add(Projectile.Center + (Projectile.velocity / 5));
                 }
             }
 
-            cache.Add(Projectile.Center);
+            cache.Add(Projectile.Center + (Projectile.velocity / 5));
 
             while (cache.Count > TrailLength)
             {
@@ -92,7 +97,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 20, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 22, factor =>
             {
                 return Color.Lerp(Color.Red, Color.Yellow, factor.X) * factor.X * 2;
             });

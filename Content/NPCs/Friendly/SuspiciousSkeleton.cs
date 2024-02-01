@@ -153,10 +153,11 @@ namespace Spooky.Content.NPCs.Friendly
             .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 150000 })
             .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 })
-            .Add(new Item(ModContent.ItemType<VinylSleepy>()) { shopCustomPrice = 200000 })
-            .Add(new Item(ModContent.ItemType<VinylAlley>()) { shopCustomPrice = 200000 })
-            .Add(new Item(ModContent.ItemType<VinylLazy>()) { shopCustomPrice = 200000 })
-            .Add(new Item(ModContent.ItemType<VinylMysterious>()) { shopCustomPrice = 200000 });
+            .Add<VinylMysterious>(SpookySpiritDowned)
+            .Add<VinylLazy>(MocoDowned)
+            .Add<VinylSleepy>(DaffodilDowned)
+            .Add<VinylSneaky>(OrroboroDowned)
+            .Add<VinylAlley>(BigBoneDowned);
 
             npcShop.Register();
         }

@@ -40,4 +40,9 @@ namespace Spooky.Content.Tiles.MusicBox
 	{
 		public override string Texture => "Spooky/Content/Tiles/MusicBox/VinylTileThing";
 	}
+
+    public class VinylTileThing5 : VinylTileThing
+	{
+		public override string Texture => "Spooky/Content/Tiles/MusicBox/VinylTileThing";
+	}
 }

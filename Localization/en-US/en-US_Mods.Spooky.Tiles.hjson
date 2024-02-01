@@ -39,7 +39,6 @@ SpiderCaveBoxTile.MapEntry: Music Box
 SpookyBiomeDayBoxTile.MapEntry: Music Box
 SpookyBiomeNightBoxTile.MapEntry: Music Box
 SpookyBiomeRainBoxTile.MapEntry: Music Box
-SpookyBiomeTownNightBoxTile.MapEntry: Music Box
 SpookyBiomeUGBoxTile.MapEntry: Music Box
 OrroboroBoxTile.MapEntry: Music Box
 SpookyHellBoxTile.MapEntry: Music Box
@@ -49,6 +48,7 @@ VinylTileThing.MapEntry: Music Box
 VinylTileThing2.MapEntry: Music Box
 VinylTileThing3.MapEntry: Music Box
 VinylTileThing4.MapEntry: Music Box
+VinylTileThing5.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
 SpiderCavePylon.MapEntry: Spider Grotto Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon

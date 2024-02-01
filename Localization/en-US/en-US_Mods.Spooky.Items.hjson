@@ -1251,6 +1251,11 @@ TatantulaFlyTome: {
 		'''
 }
 
+TrapdoorScale: {
+	DisplayName: Trapdoor Scale
+	Tooltip: ""
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 5% increased melee damage
@@ -2091,6 +2096,11 @@ VinylSleepy: {
 	Tooltip: ""
 }
 
+VinylSneaky: {
+	DisplayName: Vinyl Disc (Sneaky)
+	Tooltip: ""
+}
+
 LittleBonePot: {
 	DisplayName: Little Bone's Flower Pot
 	Tooltip:
@@ -2704,10 +2714,5 @@ CatacombBrickWallBigBoneBGItem: {
 
 CatacombBrickWallDaffodilBGItem: {
 	DisplayName: Daffodil Arena Wall
-	Tooltip: ""
-}
-
-TrapdoorScale: {
-	DisplayName: Trapdoor Scale
 	Tooltip: ""
 }

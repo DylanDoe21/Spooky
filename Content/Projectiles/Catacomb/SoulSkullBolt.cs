@@ -72,9 +72,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 5 * factor, factor =>
             {
-                return Color.Lerp(Color.Green, Color.Green, factor.X) * factor.X;
+                return Color.Lerp(Color.DarkGreen, Color.Lime, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

@@ -91,7 +91,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
             {
                 return Color.Lerp(Color.DarkGreen, Color.Gold, factor.X) * factor.X;
             });
