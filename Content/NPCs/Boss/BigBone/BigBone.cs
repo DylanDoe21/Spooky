@@ -1392,7 +1392,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SaveRotation = NPC.rotation;
                         SaveDirection = NPC.direction;
 
-                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 35f : player.Center;
+                        //in phase 2, predict the players movement
+                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 32f : player.Center;
 
                         Vector2 Recoil = SavePlayerPosition - NPC.Center;
                         Recoil.Normalize();
@@ -1417,7 +1418,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //charge
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
-                        ChargeDirection *= 55;
+                        ChargeDirection *= 50;
                         NPC.velocity = ChargeDirection;
                     }
 
