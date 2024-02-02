@@ -2686,6 +2686,11 @@ DampGrassSeeds: {
 	Tooltip: Plants grass on Damp Soil
 }
 
+MoyaiItem: {
+	DisplayName: Golden Moyai
+	Tooltip: ""
+}
+
 //the following catacomb walls are for testing, they do not exist in normal gameplay
 CatacombBrickWall1Item: {
 	DisplayName: Scary Gray Catacomb Wall

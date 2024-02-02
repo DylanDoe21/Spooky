@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
@@ -108,6 +109,20 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             {
                 Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BubbleExplosion")), Projectile.damage + Main.rand.Next(-10, 30), 0);
             }
+
+            for (int numDusts = 0; numDusts < 35; numDusts++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
+                Main.dust[newDust].color = Color.Red;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 1.2f;
+				}
+			}
         }
     }
 
@@ -146,17 +161,24 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            for (int i = 0; i <= Main.maxPlayers; i++)
+            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
             {
-                if (Main.player[i].active && !Main.player[i].dead)
-                {
-                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.localAI[1] + time)
-                    {
-                        Main.player[i].AddBuff(BuffID.WitheredArmor, 500);
-                        Main.player[i].AddBuff(BuffID.WitheredWeapon, 500);
-                    }
-                }
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BubbleExplosion")), Projectile.damage + Main.rand.Next(-10, 30), 0);
             }
+
+            for (int numDusts = 0; numDusts < 35; numDusts++)
+			{                                                                                  
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
+                Main.dust[newDust].color = Color.Purple;
+				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                Main.dust[newDust].noGravity = true;
+                
+				if (Main.dust[newDust].position != Projectile.Center)
+				{
+					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 1.2f;
+				}
+			}
         }
     }
 }

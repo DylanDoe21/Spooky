@@ -29,6 +29,11 @@ namespace Spooky.Content.Items.SpiderCave
             Item.shootSpeed = 5f;
         }
 
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 20;
+		}
+
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);

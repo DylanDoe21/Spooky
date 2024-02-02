@@ -109,7 +109,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			if (NPC.ai[0] == 0 || NPC.ai[0] == 2)
+			if (NPC.ai[0] == 0 || (NPC.ai[0] == 2 && NPC.localAI[0] >= 120))
 			{
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
@@ -230,7 +230,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     //go to attacks
                     if (NPC.localAI[0] >= 100)
-                    { 
+                    {
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;
 
@@ -370,7 +370,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         }
 
                         //save the players location
-                        if (NPC.localAI[0] == 101)
+                        if (NPC.localAI[0] == 100)
                         {
                             SavePlayerPosition = player.Center;
                         }

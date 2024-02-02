@@ -421,7 +421,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 100 / 3 : Main.expertMode ? 70 / 2 : 50;
+            int Damage = Main.masterMode ? 85 / 3 : Main.expertMode ? 65 / 2 : 45;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -720,9 +720,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= 5;
-                            ShootSpeed.Y *= 5;
+                            ShootSpeed *= 5;
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -1039,8 +1037,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         if (NPC.localAI[0] == 60)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f, Main.myPlayer);
-                            SavePlayerPosition = player.Center;
+                            SavePlayerPosition = player.Center + player.velocity * 15f;
+                            
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), SavePlayerPosition, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f, Main.myPlayer);
+
+                            //set big bone's rotation to the predicted spot so it is correct when shooting roses
+                            Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            float newRotateX = player.Center.X + player.velocity.X * 15f - newVector.X;
+                            float newRotateY = player.Center.Y + player.velocity.Y * 15f - newVector.Y;
+                            NPC.rotation = (float)Math.Atan2((double)newRotateY, (double)newRotateX) + 4.71f;
+
+                            //set big bone's direction based on the saved location so his sprite doesnt flip backwards
+                            NPC.direction = SavePlayerPosition.X > NPC.Center.X ? 1 : -1;
 
                             SaveRotation = NPC.rotation;
                             SaveDirection = NPC.direction;
@@ -1389,11 +1397,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(GrowlSound3, NPC.Center);
 
+                        //in phase 2, predict the players movement
+                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 40f : player.Center;
+
+                        if (Phase2)
+                        {
+                            //set this npcs rotation to the predicted spot in phase 2 so it is correct when charging
+                            Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                            float newRotateX = player.Center.X + player.velocity.X * 40f - newVector.X;
+                            float newRotateY = player.Center.Y + player.velocity.Y * 40f - newVector.Y;
+                            NPC.rotation = (float)Math.Atan2((double)newRotateY, (double)newRotateX) + 4.71f;
+
+                            //set big bone's direction based on the saved location so his sprite doesnt flip backwards
+                            NPC.direction = SavePlayerPosition.X > NPC.Center.X ? 1 : -1;
+                        }
+
                         SaveRotation = NPC.rotation;
                         SaveDirection = NPC.direction;
-
-                        //in phase 2, predict the players movement
-                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 32f : player.Center;
 
                         Vector2 Recoil = SavePlayerPosition - NPC.Center;
                         Recoil.Normalize();
@@ -1413,16 +1433,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.velocity *= 0.5f;
                     }
 
-                    if (NPC.localAI[0] == 100)
+                    //charge to the destination
+                    if (NPC.localAI[0] == 105)
                     {
-                        //charge
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
                         ChargeDirection *= 50;
                         NPC.velocity = ChargeDirection;
                     }
 
-                    if (NPC.localAI[0] > 100 && NPC.localAI[1] == 0)
+                    //stop and play slamming sound when big bone impacts a solid surface
+                    if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
                     {
                         if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
                         {
@@ -1446,9 +1467,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
+                    //go back above the flower pot before switching attacks
                     if (NPC.localAI[0] >= 160 && NPC.localAI[1] == 1)
                     {
                         GoAboveFlowerPot(300);
+                        NPC.velocity *= 0.98f;
                     }
 
                     if (NPC.localAI[0] >= 260)

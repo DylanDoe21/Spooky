@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 using Spooky.Content.Tiles.Catacomb.Safe;
 using Spooky.Content.Tiles.Cemetery;

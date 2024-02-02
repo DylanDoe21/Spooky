@@ -107,9 +107,10 @@ Items & Weapons:
 Enemy & Boss Changes:
 
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
--Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player like before
+-Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player
 -Big bone's skull wisp projectiles no longer make ghost screaming sounds when they die, and they now produce a gore version of themselves when they die (This will not damage you and is purely visual, and its also kinda funny)
--Big bone's charging attack now happens much quicker to make it more difficult to avoid in general, and in phase 2 he no longer creates fireballs when he hits a wall but his charging now predicts your movement
+-Big bone's charging speed is now a bit faster to make it more difficult to avoid in general
+-Big bone's charge attack in phase 2 no longer creates fireballs when he hits a wall, but it will now predict your movement
 -Tweaked and improved the visual effects on many of big bone's projectiles
 -Daffodil's thorn ball projectile after-images are now red instead of green
 -Added a custom sound for spooky spirit's charging attack and its own custom death sound, both made by Rockwizard5
@@ -127,6 +128,7 @@ Enemy & Boss Changes:
 -Giant fuzz bats can now sometimes inflict feral bite in expert and master mode like vanilla bat enemies
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
+-Claret cephalopod's bubble projectiles now create bubble dusts when they explode
 -Stitch's magic wand bolts no longer go through blocks
 -Zombino's death sound is now more pitched up
 -Added a better sound effect for the aortic eel's charging
@@ -146,6 +148,7 @@ Miscellaneous:
 -Spooky mod config menu now uses less blinding colors for the background and each individual config bar
 -Spooky mod screen shake intensity slider now has a much higher maximum value, increased from a maximum of 2x extra screenshake to 5x extra screenshake (I think its pretty funny)
 -Spooky mod's primitive trails are now more pixelated to fit with terraria's style a bit more
+-The rare golden moyai now drops an item when broken, allowing you to place it anywhere you'd like
 
 
 Removals:
@@ -160,6 +163,8 @@ Removals:
 
 Fixed all of the following bugs and issues:
 
+-Spooky forest sometimes destroying the dungeon if the spooky forest at spawnpoint config is turned off
+-Caatcombs still sometimes generating over the jungle temple
 -Being able switch to other items in your hotbar while using spooky mod's holdout weapons (such as slingshots or the old hunter's crossbow)
 -Chat messages for the catacomb barrier keys not being localized, and spamming in chat when they keys were used in multiplayer
 -Red & purple solution not converting ash grass into eye valley grass
@@ -187,5 +192,4 @@ Fixed all of the following bugs and issues:
 -Pandora's box throwing an error in the chat when you hit the "open" button on its dialogue box
 -Pandora's box is no longer considered a friendly npc, which should fix it randomly moving into empty houses
 -Pandora's box opening animation stuttering when it spawns enemies
--Spooky forest destroying the dungeon if the spooky forest at spawnpoint config is turned off
--Caatcombs still sometimes generating over the jungle temple
+-Claret cephalopod having after-images while not charging

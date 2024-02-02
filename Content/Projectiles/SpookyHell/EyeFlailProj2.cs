@@ -232,11 +232,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.2f;
-                        // This is where Drippler Crippler spawns its projectile
-                        /*
-                        if (Main.myPlayer == Projectile.owner)
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 928, Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                        */
+						
                         break;
                     }
 

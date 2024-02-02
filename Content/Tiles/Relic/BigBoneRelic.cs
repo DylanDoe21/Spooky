@@ -40,10 +40,10 @@ namespace Spooky.Content.Tiles.Relic
 
 		public override void SetStaticDefaults() 
         {
-			Main.tileShine[Type] = 400; 
+			Main.tileShine[Type] = 400;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.InteractibleByNPCs[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4); 
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2; 
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
@@ -52,7 +52,7 @@ namespace Spooky.Content.Tiles.Relic
 			TileObjectData.newTile.StyleMultiplier = 2;
 			TileObjectData.newTile.StyleWrapLimit = 2;
 			TileObjectData.newTile.styleLineSkipVisualOverride = 0;
-			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); 
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);

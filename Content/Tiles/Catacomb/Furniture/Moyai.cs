@@ -23,8 +23,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 		
 		public virtual string RelicTextureName => "Spooky/Content/Tiles/Catacomb/Furniture/MoyaiDraw";
 
-		public override string Texture => "Spooky/Content/Tiles/Catacomb/Furniture/Moyai";
-
 		public override void Load() 
         {
 			if (!Main.dedServ) 
@@ -41,9 +39,9 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
-            Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileObjectData.newTile.Width = 4;
+            Main.placementPreview = true;
+            TileObjectData.newTile.Width = 4;
 			TileObjectData.newTile.Height = 6;	
 			TileObjectData.newTile.Origin = new Point16(2, 5);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16 };

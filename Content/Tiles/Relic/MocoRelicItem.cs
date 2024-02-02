@@ -1,17 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Relic
 {
 	public class MocoRelicItem : ModItem
 	{
-		public override void SetStaticDefaults()
-        {
-            Item.ResearchUnlockCount = 1;
-        }
-
 		public override void SetDefaults() 
         {
 			Item.useTurn = true;
