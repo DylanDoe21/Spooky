@@ -10,9 +10,5 @@ namespace Spooky.Content.Buffs.Debuff
 		{
 			Main.debuff[Type] = true;
 		}
-
-		public override void Update(NPC npc, ref int buffIndex)
-        {
-		}
     }
 }

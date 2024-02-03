@@ -2,21 +2,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using Microsoft.Xna.Framework;
 using System.Linq;
 
-using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery.Misc;
 using Spooky.Content.Items.SpiderCave.Misc;
-using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Projectiles.SpiderCave;
 
 namespace Spooky.Core
 {
@@ -24,12 +20,6 @@ namespace Spooky.Core
     {
 		public override void ModifyShop(NPCShop shop)
 		{
-			//add mossy pebbles to the merchant shop so you can get them easily
-			if (shop.NpcType == NPCID.Merchant)
-			{
-				shop.Add<MossyPebble>();
-			}
-
 			//add spooky mod's biome solutions to the steampunker shop
 			if (shop.NpcType == NPCID.Steampunker)
 			{
@@ -51,8 +41,20 @@ namespace Spooky.Core
 			{
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
-                    float damageDivide = 1.8f;
-                    modifiers.FinalDamage /= (int)damageDivide;
+                    modifiers.FinalDamage /= 1.8f;
+                }
+            }
+
+            //enemies inflicted with the pheromone stinger debuff take increased damage from all spider related minions
+            if (npc.HasBuff(ModContent.BuffType<PheromoneWhipDebuff>()))
+            {
+                int[] SpiderMinionProjectiles = { ProjectileID.SpiderHiver, ProjectileID.BabySpider, ProjectileID.VenomSpider, ProjectileID.JumperSpider, ProjectileID.DangerousSpider,
+                ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>(),
+                ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), ModContent.ProjectileType<OrbWeaverSentryBigSpike>() };
+
+                if (SpiderMinionProjectiles.Contains(projectile.type))
+                {
+                    modifiers.FinalDamage *= 1.4f;
                 }
             }
         }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.SpiderCave.OldHunter;
+using Spooky.Content.Items.SpookyBiome;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -114,7 +115,9 @@ namespace Spooky.Content.NPCs.Friendly
 		public override void AddShops()
         {
 			var npcShop = new NPCShop(Type)
-			.Add<BoneBow>();
+			.Add<BoneBow>()
+			.Add<HighVelocitySlingshot>()
+			.Add<MossyPebble>();
             npcShop.Register();
         }
 

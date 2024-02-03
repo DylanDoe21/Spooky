@@ -72,6 +72,7 @@ namespace Spooky.Core
         public bool HasSpawnedCuffs = false;
         public bool PandoraRosary = false;
         public bool TrapdoorScale = false;
+        public bool HunterScarf = false;
         public bool BackroomsCorpse = false;
         public bool CarnisFlavorEnhancer = false;
         public bool GeminiEntertainmentGame = false;
@@ -174,6 +175,7 @@ namespace Spooky.Core
             PandoraCuffs = false;
             PandoraRosary = false;
             TrapdoorScale = false;
+            HunterScarf = false;
             BackroomsCorpse = false;
             CarnisFlavorEnhancer = false;
             GeminiEntertainmentGame = false;

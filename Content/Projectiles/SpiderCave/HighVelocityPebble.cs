@@ -4,30 +4,34 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
 
-namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
+namespace Spooky.Content.Projectiles.SpiderCave
 {
-    public class PhantomBomb : ModProjectile
+    public class HighVelocityPebble : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyBiome/MossyPebble";
+
         private List<Vector2> cache;
         private Trail trail;
 
         public override void SetDefaults()
         {
-            Projectile.width = 24;
-            Projectile.height = 28;
-            Projectile.hostile = true;
+            Projectile.width = 14;
+            Projectile.height = 12;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.penetrate = 1;
             Projectile.timeLeft = 2000;
+            Projectile.penetrate = 1;
+            Projectile.aiStyle = 0;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            //draw prim trail
             Main.spriteBatch.End();
             Effect effect = ShaderLoader.GlowyTrail;
 
@@ -36,8 +40,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.01f);
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
@@ -47,7 +51,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             return true;
         }
 
-        const int TrailLength = 15;
+        const int TrailLength = 8;
 
         private void ManageCaches()
         {
@@ -68,11 +72,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             }
         }
 
-		private void ManageTrail()
+        private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 8 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 3 * factor, factor =>
             {
-                return (SpookyWorld.RaveyardHappening ? Color.Lerp(Color.Purple, Color.Green, factor.X) : Color.Lerp(Color.Gray, new Color(60, 42, 255), factor.X)) * factor.X;
+                return Color.Gold * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -81,29 +85,37 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.5f, 0.35f, 0.7f);
-
-            Projectile.rotation += 0.2f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
-            Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-
-            if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+            if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();
             }
-        }
 
-        public override void OnKill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+			Projectile.rotation += 0.2f * (float)Projectile.direction;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 15)
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 25, 0, 0, 
-                ModContent.ProjectileType<PhantomExplosion>(), Projectile.damage, 0, Main.myPlayer, 0, 0);
+                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
             }
+        }
+		
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
+            for (int numDust = 0; numDust < 10; numDust++)
+			{
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, 0f, -2f, 0, default, 0.75f);
+				Main.dust[dust].position.X += Main.rand.Next(-35, 35) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-35, 35) * 0.05f - 1.5f;
+					
+				if (Main.dust[dust].position != Projectile.Center)
+				{
+					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
+				}
+			}
         }
     }
 }

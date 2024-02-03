@@ -40,7 +40,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolid[Type] = false;
-            Main.placementPreview = true;
             TileObjectData.newTile.Width = 4;
 			TileObjectData.newTile.Height = 6;	
 			TileObjectData.newTile.Origin = new Point16(2, 5);

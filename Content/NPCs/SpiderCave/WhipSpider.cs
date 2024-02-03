@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using System.IO;
 using System.Collections.Generic;
 
@@ -122,6 +123,8 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                 if (NPC.localAI[2] == 100 || NPC.localAI[2] == 120 || NPC.localAI[2] == 140)
                 {
+                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
                     int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.direction == -1 ? -40 : 40), (int)NPC.Center.Y, ModContent.NPCType<WhipSpiderTongue>(), ai3: NPC.whoAmI);
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)

@@ -44,6 +44,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 		public float SpinX = 0;
 		public float SpinY = 0;
         public float alpha;
+        
+        public static float fade = Main.GameUpdateCount % 60 / 60f;
+        public static int index = (int)(Main.GameUpdateCount / 60 % 3);
+
+        public static Color[] PartyColors = new Color[]
+        {
+            new Color(80, 0, 148),
+            new Color(18, 148, 0),
+            new Color(148, 80, 0)
+        };
 
         public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritCharge", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritDeath", SoundType.Sound);
@@ -171,6 +181,14 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             for (int numEffect = 0; numEffect < 4; numEffect++)
             {
                 Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, (EyeSprite ? Color.OrangeRed : Color.BlueViolet), numEffect));
+
+                float fade = Main.GameUpdateCount % 60 / 60f;
+                int index = (int)(Main.GameUpdateCount / 60 % 3);
+
+                if (SpookyWorld.RaveyardHappening)
+                {
+                    color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(PartyColors[index], PartyColors[(index + 1) % 3], fade));
+                }
 
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);

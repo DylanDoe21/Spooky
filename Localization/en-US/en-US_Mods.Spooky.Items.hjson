@@ -1146,6 +1146,20 @@ BoneBow: {
 	Tooltip: Fires piercing bones that ignore 50% of enemy defense
 }
 
+HighVelocitySlingshot: {
+	DisplayName: High-Velocity Slingshot
+	Tooltip: Fires high-velocity mossy pebbles
+}
+
+HunterScarf: {
+	DisplayName: Hunter Scarf
+	Tooltip:
+		'''
+		Nearby enemies location will be revealed
+		Revealed enemies will take more damage from your ranged weapons
+		'''
+}
+
 OrbWeaverBoomerang: {
 	DisplayName: Weaverang
 	Tooltip:
@@ -1185,8 +1199,7 @@ PheromoneWhip: {
 		'''
 		Your summons will focus struck enemies
 		Hitting enemies will spread pheromones onto them
-		Enemies inflicted with pheromones take more damage from spider related minions
-		~ABILITY DOES NOT WORK FULLY RN~
+		Enemies inflicted with pheromones take more damage from all spider-related minions
 		'''
 }
 

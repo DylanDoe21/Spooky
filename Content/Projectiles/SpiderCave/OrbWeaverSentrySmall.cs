@@ -31,6 +31,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.timeLeft = Projectile.SentryLifeTime;
         }
 
+        public override bool? CanDamage()
+		{
+            return false;
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			return false;

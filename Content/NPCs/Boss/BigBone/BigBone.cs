@@ -888,7 +888,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             {
                                 for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                                 {
-                                    float distance = Phase2 ? Main.rand.NextFloat(8f, 12f) : Main.rand.NextFloat(5f, 8f);
+                                    float distance = Main.rand.NextFloat(8f, 12f);
 
                                     Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
                                 
@@ -1397,12 +1397,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(GrowlSound3, NPC.Center);
 
-                        //in phase 2, predict the players movement
+                        //predict the players movement in phase 2
                         SavePlayerPosition = Phase2 ? player.Center + player.velocity * 40f : player.Center;
 
+                        //in phase 2, modify big bone's rotation and direction right before saving it so it is correct with the player movement prediction
                         if (Phase2)
                         {
-                            //set this npcs rotation to the predicted spot in phase 2 so it is correct when charging
+                            //set big bone's rotation to the predicted spot so it is correct when charging
                             Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
                             float newRotateX = player.Center.X + player.velocity.X * 40f - newVector.X;
                             float newRotateY = player.Center.Y + player.velocity.Y * 40f - newVector.Y;

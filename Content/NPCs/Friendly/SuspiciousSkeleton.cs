@@ -117,7 +117,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<SkeletonBouncer>()) && !projectile.friendly)
             {
                 Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
             }

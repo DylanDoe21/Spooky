@@ -4,12 +4,14 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Projectiles.Catacomb
+namespace Spooky.Content.Projectiles.SpiderCave
 {
-	public class GraveCrossbowProj : ModProjectile
+	public class HighVelocitySlingshotProj : ModProjectile
 	{
         int SaveDirection;
         float SaveRotation;
+
+        public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
@@ -18,20 +20,20 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 66;
-            Projectile.height = 88;
+            Projectile.width = 40;
+            Projectile.height = 48;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 25;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
 		}
 
         public override bool? CanDamage()
         {
-			return false;
-		}
+            return false;
+        }
 
         public override bool? CanCutTiles()
         {
@@ -44,7 +46,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -63,47 +65,21 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - 5 - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
 			if (player.channel && Projectile.ai[2] == 0) 
             {
-                Projectile.timeLeft = 30;
+                Projectile.timeLeft = 25;
 
                 player.itemRotation = Projectile.rotation;
-
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-
-                switch (Projectile.frame)
-                {
-                    case 0:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-                        break;
-                    }
-                    case 1:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
-                        break;
-                    }
-                    case 2:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
-                        break;
-                    }
-                }
-
-				player.velocity.X *= 0.98f;
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
 
                 Projectile.localAI[0] += 0.25f;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
+                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10)
                 {
                     Projectile.frame++;
-                }
-
-                if (Projectile.frame >= 3)
-                {   
-                    Projectile.frame = 2;
                 }
 
                 if (direction.X > 0) 
@@ -119,7 +95,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
 				if (Projectile.owner == Main.myPlayer)
 				{
-                    if (Projectile.timeLeft >= 29)
+                    if (Projectile.timeLeft >= 24)
                     {
                         SaveDirection = Projectile.spriteDirection;
                         SaveRotation = Projectile.rotation;
@@ -127,7 +103,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 5);
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 15);
                         ShootSpeed.Normalize();
 
                         int extraDamage = 0;
@@ -136,29 +112,32 @@ namespace Spooky.Content.Projectiles.Catacomb
                         {
                             case 0:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.66f }, Projectile.Center);
-                                ShootSpeed *= 10;
-                                extraDamage = -15;
+                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
+                                ShootSpeed *= 25;
+                                extraDamage = 0;
+
                                 break;
                             }
                             case 1:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.33f }, Projectile.Center);
-                                ShootSpeed *= 15;
-                                extraDamage = 0;
+                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
+                                ShootSpeed *= 45;
+                                extraDamage = 5;
+
                                 break;
                             }
                             case 2:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot, Projectile.Center);
-                                ShootSpeed *= 25;
-                                extraDamage = 25;
+                                SoundEngine.PlaySound(ShootSound, Projectile.Center);
+                                ShootSpeed *= 65;
+                                extraDamage = 15;
+
                                 break;
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 5, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 15, ShootSpeed.X, ShootSpeed.Y, 
+                        ModContent.ProjectileType<HighVelocityPebble>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.frame = 3;

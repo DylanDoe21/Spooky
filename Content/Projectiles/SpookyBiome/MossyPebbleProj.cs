@@ -7,6 +7,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
     public class MossyPebbleProj : ModProjectile
     {
+        public override string Texture => "Spooky/Content/Items/SpookyBiome/MossyPebble";
+
         public override void SetDefaults()
         {
             Projectile.width = 14;

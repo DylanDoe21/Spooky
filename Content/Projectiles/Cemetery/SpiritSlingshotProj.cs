@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 15);
                         ShootSpeed.Normalize();
 
                         int extraDamage = 0;

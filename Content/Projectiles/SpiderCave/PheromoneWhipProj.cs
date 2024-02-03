@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class PheromoneWhipProj : ModProjectile
@@ -29,7 +31,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
-			//TODO: add buff to enemies that makes them take more damage from spider-themed minions
+			target.AddBuff(ModContent.BuffType<PheromoneWhipDebuff>(), 180);
 		}
 
 		public override bool PreDraw(ref Color lightColor) 

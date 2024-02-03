@@ -123,11 +123,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         
                         SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 5);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 8, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 5, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<BoneBowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 

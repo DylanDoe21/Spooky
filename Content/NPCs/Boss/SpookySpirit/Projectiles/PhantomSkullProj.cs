@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 8 * factor, factor =>
             {
-                return Color.Lerp(Color.Gray, new Color(60, 42, 255), factor.X) * factor.X;
+                return (SpookyWorld.RaveyardHappening ? Color.Lerp(Color.Green, Color.Cyan, factor.X) : Color.Lerp(Color.Gray, new Color(60, 42, 255), factor.X)) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

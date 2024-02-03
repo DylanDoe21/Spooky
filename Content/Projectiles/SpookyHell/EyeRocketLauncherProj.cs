@@ -87,7 +87,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 8);
                     ShootSpeed.Normalize();
                     ShootSpeed *= 55;
 

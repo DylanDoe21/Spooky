@@ -110,12 +110,13 @@ Enemy & Boss Changes:
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
 -Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player
 -Big bone's skull wisp projectiles no longer make ghost screaming sounds when they die, and they now produce a gore version of themselves when they die (This will not damage you and is purely visual, and its also kinda funny)
--Big bone's charging speed is now a bit faster to make it more difficult to avoid in general
--Big bone's charge attack in phase 2 no longer creates fireballs when he hits a wall, but it will now predict your movement
+-Big bone's charging speed is now a bit faster overall to make it a bit more difficult
+-Big bone's charge attack in phase 2 no longer creates fireballs when he hits a wall, however to compensate his charge attack will now predict your movement in phase 2
 -Tweaked and improved the visual effects on many of big bone's projectiles
 -Daffodil's thorn ball projectile after-images are now red instead of green
 -Added a custom sound for spooky spirit's charging attack and its own custom death sound, both made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in its bestiary entry
+-Spooky spirit's aura and projectiles now have different colors if you fight him during a raveyard
 -Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one to make their attacks more understandable
 -Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
 -Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
