@@ -93,7 +93,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
             {
-                return Color.Lerp(Color.Gray, Color.Lime, factor.X) * factor.X;
+                return Color.Lerp(Color.DarkGray, (Projectile.ai[1] == 1 ? Color.Lime : Color.Gray), factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -162,7 +162,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (Projectile.ai[0] == 2 || Projectile.ai[0] == 4 || Projectile.ai[0] == 6 || Projectile.ai[0] == 8 || Projectile.ai[0] == 10 || Projectile.ai[0] == 12)
                 {
                     Vector2 Speed = new Vector2(1f, 0f).RotatedByRandom(2 * Math.PI);
-                    Vector2 newVelocity = Projectile.velocity / Main.rand.Next(3, 6);
+                    Vector2 newVelocity = Projectile.velocity / Main.rand.NextFloat(4f, 8f);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, ModContent.ProjectileType<FemurFractureSkull>(), Projectile.damage, 0f, Main.myPlayer);
                 }

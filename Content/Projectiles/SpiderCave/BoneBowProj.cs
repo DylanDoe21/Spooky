@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
-	public class SpiderCrossbowProj : ModProjectile
+	public class BoneBowProj : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,8 +15,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 66;
-            Projectile.height = 88;
+            Projectile.width = 60;
+            Projectile.height = 68;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -128,7 +128,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         ShootSpeed *= 20;
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 8, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<SpiderCrossbowDart>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        ModContent.ProjectileType<BoneBowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.frame = 3;

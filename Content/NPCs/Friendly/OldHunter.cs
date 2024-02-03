@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.SpiderCave.OldHunter;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -40,7 +41,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() 
             {
 				Velocity = 1f,
-				Direction = 1
+				Direction = -1
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
@@ -110,6 +111,13 @@ namespace Spooky.Content.NPCs.Friendly
 			return Main.rand.Next(Dialogue);
 		}
 
+		public override void AddShops()
+        {
+			var npcShop = new NPCShop(Type)
+			.Add<BoneBow>();
+            npcShop.Register();
+        }
+
 		//teleports this npc whenever the king statue is activated like vanilla town npcs
 		public override bool CanGoToStatue(bool toKingStatue) 
 		{
@@ -138,7 +146,6 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			multiplier = 12f;
 			randomOffset = 2f;
-			// SparklingBall is not affected by gravity, so gravityCorrection is left alone.
 		}
     }
 }

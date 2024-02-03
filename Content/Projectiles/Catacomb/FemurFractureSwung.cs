@@ -97,7 +97,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
             {
-                return Color.Lerp(Color.Gray, Color.Lime, factor.X) * factor.X;
+                return Color.Lerp(Color.DarkGray, (Projectile.ai[0] >= 240 ? Color.Lime : Color.Gray), factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();
@@ -185,7 +185,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play different sound when super charged
                 if (Projectile.ai[0] == 240)
                 {
-                    Speed += 0.25f;
                     TrailSize += 2f;
 
                     SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Volume = SoundID.DD2_DarkMageSummonSkeleton.Volume * 3.5f }, Projectile.Center);

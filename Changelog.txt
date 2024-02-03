@@ -101,7 +101,8 @@ Items & Weapons:
 -Added a new sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
 -Added some new sound effects for drawing and shooting slingshots
 -Added a new orange summoner buff candy to the bag o' treats that gives you a temporary extra sentry slot
--Femur Fracturer homing skulls are now lauched forward in the same direction as the hammer was thrown instead of being created and then moving super slowly
+-Femur fracturer homing skulls are now lauched forward in the same direction as the hammer was thrown instead of being created and then moving super slowly
+-Femur fracturer no longer spins faster when super-charged, instead it now starts off with a gray trail effect that turns green when super-charged
 
 
 Enemy & Boss Changes:

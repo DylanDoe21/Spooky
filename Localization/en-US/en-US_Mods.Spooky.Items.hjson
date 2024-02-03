@@ -1141,6 +1141,11 @@ SpiderKey: {
 		'''
 }
 
+BoneBow: {
+	DisplayName: Bone Bender
+	Tooltip: Fires piercing bones that ignore 50% of enemy defense
+}
+
 OrbWeaverBoomerang: {
 	DisplayName: Weaverang
 	Tooltip:
