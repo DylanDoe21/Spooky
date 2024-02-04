@@ -3,9 +3,9 @@
 
 Raveyard Overhaul:
 
--The secret raveyard event that has existed in the mod for a while has been overhauled into a more fun vanity event
--Instead of being activated with disco balls, it now just has a 1 in 20 chance to occur at the beginning of each night (similarly to blood moons)
--There are no enemies during this event, but it is filled with friendly skeletons that you can talk to
+-The secret raveyard event that has existed in the mod for a while has been overhauled into a more fun party event
+-It now has a 1 in 20 chance to occur at the beginning of each night (similarly to blood moons)
+-There are no enemies during this event, and it is filled with goofy friendly skeletons that you can talk to
 -It now has revamped visuals, with cool light beams swaying back and forth in the background and a color changing skybox
 -Added a new suspicious skeleton NPC who sells new strange accessories after each spooky mod boss is defeated, as well as some other things
 -Do not commit any wrong-doings infront of the bouncers
@@ -13,8 +13,8 @@ Raveyard Overhaul:
 
 New Biome, The Spider Grotto:
 
--An underground mini-biome that has been taken over by weird spider-like creatures and bugs
--This biome has its own completely unique background (the background will not show up if you have the terraria background config turned off)
+-An underground biome that has been taken over by weird spider-like creatures and bugs
+-This biome has its own completely unique background (the background will not show up if you have the terraria backgrounds option turned off)
 -Like other biomes in the mod, this new biome has a bunch of new content such as weapons, accessories, armors, and a bunch of new enemies and critters
 -Also has more new enemies and content in hardmode
 
@@ -22,8 +22,8 @@ New Biome, The Spider Grotto:
 New Town NPC, The Old Hunter:
 
 -An ancient skeleton of a once living old hunter is scattered around the spider grotto, it's up to you to put him back together
--You can re-assemble him at a giant spider web in the spider grotto, which has a wooden template for each piece stuck on it
--After all four pieces are inserted, the web will vanish and the old hunter will be revived back to life
+-You can re-assemble him in the spider grotto by finding his missing pieces, but they are quite scattered
+-After all four pieces are assembled, the old hunter will come back to life as a friendly town npc
 -He sells various different weapons (especially ranged class weapons) and some other stuff
 
 
@@ -55,8 +55,8 @@ Other New Additions:
 -Added many new resprites for items, armors, tiles, ect
 -Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with
 -Added multiple new spooky forest enemies to both prehardmode and hardmode
--Added a new spooky mod hotkey for armor set bonuses
--Added compatiblity with lighting essentials, spooky mod ambient grasses will now produce colored lighting if you have lighting essentials mod on, and the "Light Environment" option enabled in their config
+-Added a new spooky mod hotkey for activating armor set bonuses
+-Added compatiblity with lighting essentials, spooky mod ambient grasses will now produce colored lighting if you have the lighting essentials mod on, and the "Light Environment" option enabled in their config
 
 
 
@@ -67,11 +67,11 @@ Other New Additions:
 Items & Weapons:
 
 -The gore monger armor is now just called gore armor
--Reworked the gore armor set bonus, when you have the full set it now summons a baby orro or boro (depending on the helmet) that will viciously attack enemies (They both have the same behavior, just different sprites)
+-Reworked the gore armor set bonus, when you have the full set it now summons a baby orro or boro depending on the helmet, that will viciously attack enemies (They both have the same behavior, just different sprites)
 -Modified the gore armor's stat bonuses to be spread more evenly across each piece of set, since way too many stats were given by the helmets and barely any were given by the body and legs
 -The flower armor's setbonus is no longer activated by double tapping down, it now has a dedicated armor bonus hotkey (This is also due to the addition of another new armor set that uses it)
--The flower armor's flower pot now only replaces the hermes boots running sound with concrete scraping if it is actually visible on the player
--Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage like vanilla ones do
+-The flower armor's flower pot now only replaces the hermes boots running sound with the concrete scraping sound if it is actually visible on the player
+-Spooky mod weapons that use the melee swing visual effect can now only damage 2 enemies before it stops doing damage, like vanilla ones do
 -Changed the spooky mod melee swing extension weapons to look smoother and better when swinging
 -Buffed most of the weapons/acessories you find in the spooky forest cabin chests and catacomb chests for both layers 1 and 2
 -Spirit amulet movement speed bonus buffed from 15% to 20%
@@ -80,14 +80,14 @@ Items & Weapons:
 -Buffed the spooky buster's knockback
 -Sunflower rod now has a special new use animation, buffed its use speed, and its projectiles now have a different after image effect as its previous one didnt look fitting
 -Skull smasher and femur fracturer thrown projectiles now have after images along with their existing trail effect
--Necromancy for dummies projectiles now bounce very quickly and make a less annoying sound when they bounce off of surfaces and die
+-Necromancy for dummies projectiles now bounce very quickly and make less annoying sounds when they bounce off of surfaces and die
 -Creepy candle now gives a flat increase of 10 magic damage instead of a 7% increase
 -Spore smacker's mushroom spores and the zomboid warlock's skull minion now deal damage less rapidly and use local immunity frames
 -Nerfed old wood greatsword's base damage and it no longer requires amethyst to craft
--Bubble belcher's bubble projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added new visual effect for the red bubble's blood splatter
+-Bubble belcher's bubble projectiles now have a better dust effect when they pop, buffed the blue bubbles homing range and speed, and added better visuals for the red bubble's blood splatter
 -Changed bubble belcher's use sound to be the same as the toxikarp's use sound
 -Snotty schnoz now has a UI bar so you can see how much snot charge you have
--Snotty schnoz no longer lets you shoot out snot globs for 5 seconds, instead it now shoots out a giant spread of boogers all at once and fully consumes all your booger charges
+-Snotty schnoz no longer lets you shoot out snot globs for 5 seconds when fully charged, instead it now makes your weapons shoot out a giant spread of boogers all at once and fully consumes all your booger charges
 -Increased the chance enemies have to drop snot when hit while you have the snotty schnoz equipped
 -Increased chained eyes maximum launch range and launching speed
 -Chained eyes projectiles now use the correct rotation while they are dropped while you hold left click
@@ -99,25 +99,25 @@ Items & Weapons:
 -Branch of gourd minions can no longer damage enemies unless they are actively slamming down
 -Spooky mod "charging weapons" (like slingshots and the old hunter's crossbow) no longer have damage penalties when used without being charged, instead they now just get higher damage when you charge them for longer
 -Added a new sound effect for drawing the old hunter's crossbow, and while using it the player's arm will now physically pull the arrow back
--Added some new sound effects for drawing and shooting slingshots
+-Added some new sound effects for pulling back and shooting slingshots
 -Added a new orange summoner buff candy to the bag o' treats that gives you a temporary extra sentry slot
 -Femur fracturer homing skulls are now lauched forward in the same direction as the hammer was thrown instead of being created and then moving super slowly
--Femur fracturer no longer spins faster when super-charged, instead it now starts off with a gray trail effect that turns green when super-charged
+-Femur fracturer no longer spins faster when super-charged, instead it now starts off with a gray trail effect that turns green when super-charged to serve as a better visual indicator
 
 
 Enemy & Boss Changes:
 
 -Switched around big bone's skull wisp attacks, the yellow ones in phase 1 will now directly charge at you, while the orange ones in phase 2 are now flung around randomly
--Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player
 -Big bone's skull wisp projectiles no longer make ghost screaming sounds when they die, and they now produce a gore version of themselves when they die (This will not damage you and is purely visual, and its also kinda funny)
+-Changed big bone's rose projectile attack, in phase 1 he will spawn a telegraph at your position and shoot all the roses at that spot, and in phase 2 the telegraph itself and the stream of roses will follow the player
 -Big bone's charging speed is now a bit faster overall to make it a bit more difficult
 -Big bone's charge attack in phase 2 no longer creates fireballs when he hits a wall, however to compensate his charge attack will now predict your movement in phase 2
--Tweaked and improved the visual effects on many of big bone's projectiles
+-Tweaked and improved the visual effects for many of big bone's projectiles
 -Daffodil's thorn ball projectile after-images are now red instead of green
--Added a custom sound for spooky spirit's charging attack and its own custom death sound, both made by Rockwizard5
+-Added custom sounds for spooky spirit's charging attack and its death sound, both made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in its bestiary entry
--Spooky spirit's aura and projectiles now have different colors if you fight him during a raveyard (This is purely visual, there is no AI changes)
--Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one to make their attacks more understandable
+-Spooky spirit's glowy aura outline and projectiles now have different party-themed colors if you fight him during the raveyard event (This is purely visual, there is no AI changes or new loot)
+-Added new telegraph sprites for orro & boro that actually point in the direction of where they will come from, as well as making multiple telegraphs spawn in a line instead of just one to make their attacks more understandable
 -Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
 -Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
 -Nerfed boro's charging speed during his short dash attack while orro charges from above/below
@@ -126,7 +126,7 @@ Enemy & Boss Changes:
 -Buffed the catacomb layer 2 enemies overall stats a bit
 -Massively nerfed flourence's knockback resistance as it was way too high
 -Changed sunny's bestiary description because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
--****NOT DONE****The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (or until you die)
+-****NOT DONE****The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (Or until you die)
 -Giant fuzz bats can now sometimes inflict feral bite in expert and master mode like vanilla bat enemies
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
