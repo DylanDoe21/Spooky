@@ -140,6 +140,9 @@ Vesicator.DisplayName: Vesicator
 Vigilante.DisplayName: Vigilante
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid
+GiantWeb.DisplayName: Giant Web
+GiantWebAnimationBase.DisplayName: Old Hunter Animation
+GiantWebAnimation.DisplayName: Old Hunter Piece
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
@@ -161,15 +164,15 @@ OldHunter: {
 
 	TownNPCMood: {
 		Content: I am content.
-		NoHome: You know, I'd like a cozy place to live. Unless you just brought me back from the dead to watch me die again HAHA!
+		NoHome: You know, I was wonderin' if you had a cozy place to live.
 		FarFromHome: I am too far from home.
 		LoveSpace: The amount of space here is real nice!
-		DislikeCrowded: I dislike how crowded I am.
-		HateCrowded: I hate how crowded I am.
-		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite the ugly ass spiders wandering around!
-		LikeBiome: The {BiomeName} is my type of biome. Nothing says home quite like fending off venomous bugs and bats!
-		DislikeBiome: Not really liking {BiomeName}, too peaceful and calm for me.
-		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land, I like me some action.
+		DislikeCrowded: Ain't liking how many people are around me right now.
+		HateCrowded: It's too damn crowded here. Way too much yip-yapping!
+		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite them ugly ass spiders wandering around!
+		LikeBiome: The {BiomeName} is my type of biome. Nothin' says home quite like fending off venomous bugs and bats!
+		DislikeBiome: Not really likin' {BiomeName}, too peaceful and calm for me.
+		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land!
 		LoveNPC: "{NPCName} is awesome! Glad there's some hard-core dudes out there!"
 		LikeNPC: I like {NPCName}. Honestly I'm just glad I got someone old to talk with haha!
 		DislikeNPC: "{NPCName}? Seems way too hoity-toity for me."
@@ -271,4 +274,3 @@ TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider Tongue
 Witch.DisplayName: Witch
-GiantWeb.DisplayName: Giant Web

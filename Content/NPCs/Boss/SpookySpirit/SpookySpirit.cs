@@ -502,11 +502,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     {
                         NPC.velocity *= 0;
 
-                        if (NPC.localAI[0] == 60)
-                        {
-                            EyeSprite = true;
-                        }
-
                         //make glowmask fade before teleporting
                         if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
                         {
@@ -539,6 +534,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         //teleport
                         if (NPC.localAI[0] == 120)
                         {
+                            EyeSprite = true;
+
                             if (player.velocity.X != 0)
                             {
                                 NPC.position.X = (player.velocity.X > 0 ? player.Center.X + 550 : player.Center.X - 550) - NPC.width / 2;

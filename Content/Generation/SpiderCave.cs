@@ -159,10 +159,16 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
-                        //occasionally place large chunks of stone blocks
-                        if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
+                        float percent = dist / constant;
+                        float blurPercent = 0.95f;
+
+                        if (percent >= blurPercent)
                         {
-                            WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpookyStone>(), false, 0f, 0f, true, true);
+                            //occasionally place large chunks of stone blocks
+                            if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
+                            {
+                                WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpookyStone>(), false, 0f, 0f, true, true);
+                            }
                         }
                     }
                 }

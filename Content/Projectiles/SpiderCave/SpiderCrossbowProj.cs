@@ -123,7 +123,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
                         
-                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item102, Projectile.Center);
 
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();

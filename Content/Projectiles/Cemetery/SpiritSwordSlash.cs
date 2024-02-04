@@ -52,10 +52,10 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
 				float Fade = Projectile.rotation + Projectile.ai[0] * Repeats * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0];
 				Vector2 drawpos = vector + Fade.ToRotationVector2() * ((float)Texture.Width() * 0.5f - 6f) * Scale * 1.02f;
-				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.Gold, Color.Gold, CurrentAI, 0f, 0.5f, 0.5f, 1f, Fade, new Vector2(0f, Utils.Remap(CurrentAI, 0f, 1f, 3f, 0f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
+				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, Fade, new Vector2(0f, Utils.Remap(CurrentAI, 0f, 1f, 3f, 0f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
 			
                 Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)Texture.Width() * 0.5f - 4f) * Scale;
-			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.Gold, Color.Gold, CurrentAI, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(CurrentAI, 0f, 1f, 4f, 1f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
+			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(CurrentAI, 0f, 1f, 4f, 1f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
             }
 
             return false;

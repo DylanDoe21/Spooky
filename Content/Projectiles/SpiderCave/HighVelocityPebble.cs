@@ -74,7 +74,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
         private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 3 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 2 * factor, factor =>
             {
                 return Color.Gold * factor.X;
             });

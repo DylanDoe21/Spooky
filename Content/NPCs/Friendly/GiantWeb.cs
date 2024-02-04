@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -17,9 +18,6 @@ namespace Spooky.Content.NPCs.Friendly
 {
     public class GiantWeb : ModNPC  
     {
-        bool HasSkeletonPiece = Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterHat>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterSkull>()) ||
-        Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterLegs>());
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -97,21 +95,45 @@ namespace Spooky.Content.NPCs.Friendly
             {
                 Main.npcChatText = "";
 
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()))
+                SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack, NPC.Center);
+
+                SpookyPlayer.ScreenShakeAmount = 5;
+
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
                     Flags.OldHunterHat = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterSkull>()))
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
                     Flags.OldHunterSkull = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterTorso>()))
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
                     Flags.OldHunterTorso = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterLegs>()))
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
                     Flags.OldHunterLegs = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
             }
         }
@@ -120,6 +142,32 @@ namespace Spooky.Content.NPCs.Friendly
         {
             Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
             NPC.velocity *= 0;
+
+            if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
+            {
+                SoundEngine.PlaySound(SoundID.NPCHit11, NPC.Center);
+                SoundEngine.PlaySound(SoundID.DD2_DefeatScene with { Pitch = SoundID.DD2_DefeatScene.Pitch - 0.8f }, NPC.Center);
+
+                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+
+                for (int numGores = 1; numGores <= 19; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + Main.rand.Next(-NPC.width / 2, NPC.width / 2), NPC.Center.Y + Main.rand.Next(-NPC.height / 2, NPC.height / 2)), 
+                        NPC.velocity, ModContent.Find<ModGore>("Spooky/GiantWebGore" + numGores).Type);
+                    }
+                }
+
+                Flags.OldHunterAssembled = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
+                NPC.active = false;
+            }
         }
     }
 }

@@ -138,21 +138,21 @@ namespace Spooky.Content.Projectiles.Catacomb
                         {
                             case 0:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.66f }, Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.Item102 with { Pitch = SoundID.Item102.Pitch - 0.66f }, Projectile.Center);
                                 ShootSpeed *= 10;
                                 extraDamage = -15;
                                 break;
                             }
                             case 1:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot with { Pitch = SoundID.DD2_BallistaTowerShot.Pitch - 0.33f }, Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.Item102 with { Pitch = SoundID.Item102.Pitch - 0.33f }, Projectile.Center);
                                 ShootSpeed *= 15;
                                 extraDamage = 0;
                                 break;
                             }
                             case 2:
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot, Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.Item102, Projectile.Center);
                                 ShootSpeed *= 25;
                                 extraDamage = 25;
                                 break;
