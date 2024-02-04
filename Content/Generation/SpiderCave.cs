@@ -162,7 +162,7 @@ namespace Spooky.Content.Generation
                         float percent = dist / constant;
                         float blurPercent = 0.95f;
 
-                        if (percent >= blurPercent)
+                        if (percent < blurPercent)
                         {
                             //occasionally place large chunks of stone blocks
                             if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
