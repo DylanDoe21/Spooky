@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 4;
+			Item.knockBack = 8;
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 5);
 			Item.UseSound = UseSound;

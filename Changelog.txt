@@ -116,7 +116,7 @@ Enemy & Boss Changes:
 -Daffodil's thorn ball projectile after-images are now red instead of green
 -Added a custom sound for spooky spirit's charging attack and its own custom death sound, both made by Rockwizard5
 -Spooky spirit now correctly displays that it is night-time only in its bestiary entry
--Spooky spirit's aura and projectiles now have different colors if you fight him during a raveyard
+-Spooky spirit's aura and projectiles now have different colors if you fight him during a raveyard (This is purely visual, there is no AI changes)
 -Added new telegraph sprites for orro & boro that actually point in the direction they will come from, as well as making multiple telegraphs spawn in a line instead of just one to make their attacks more understandable
 -Orro & boro no longer draw behind tiles so you can see them coming if they are inside of tiles
 -Orro & boro will now shoot explosive biomass during their final spin attack if only one worm is remaining
@@ -165,7 +165,7 @@ Removals:
 
 Fixed all of the following bugs and issues:
 
--Spooky forest sometimes destroying the dungeon if the spooky forest at spawnpoint config is turned off
+-Spooky forest sometimes destroying the dungeon if the spooky forest at spawn point config is turned off
 -Caatcombs still sometimes generating over the jungle temple
 -Being able switch to other items in your hotbar while using spooky mod's holdout weapons (such as slingshots or the old hunter's crossbow)
 -Chat messages for the catacomb barrier keys not being localized, and spamming in chat when they keys were used in multiplayer

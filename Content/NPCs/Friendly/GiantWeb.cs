@@ -10,10 +10,16 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
+using Spooky.Core;
+using Spooky.Content.Items.SpiderCave.Misc;
+
 namespace Spooky.Content.NPCs.Friendly
 {
     public class GiantWeb : ModNPC  
     {
+        bool HasSkeletonPiece = Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterHat>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterSkull>()) ||
+        Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterLegs>());
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -24,51 +30,91 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetDefaults()
 		{
             NPC.lifeMax = 250;
+            NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 334;
 			NPC.height = 278;
-            NPC.friendly = true;
-            NPC.noGravity = true;
-            NPC.noTileCollide = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-            NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.75f;
-            NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath2;
-            NPC.aiStyle = -1;
+            NPC.noTileCollide = true;
+            NPC.noGravity = true;
         }
 
-        /*
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-            NPC.frame, Color.White * drawColor.A, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            if (Flags.OldHunterHat)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHat").Value;
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            }
+            if (Flags.OldHunterSkull)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkull").Value;
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            }
+            if (Flags.OldHunterTorso)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorso").Value;
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            }
+            if (Flags.OldHunterLegs)
+            {
+                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegs").Value;
+                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            }
         }
-        */
 
         public override bool NeedSaving()
         {
             return true;
         }
 
-        public override bool CanChat() 
+        public override bool CanChat()
         {
-			return false;
-		}
+            bool HasSkeletonPiece = Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterHat>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterSkull>()) ||
+            Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterLegs>());
+
+            return HasSkeletonPiece;
+        }
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "";
+			button = "Insert Skeleton Piece";
 		}
 
         public override string GetChat()
 		{
-            //this is where all of the code for inserting the old hunter pieces go
-			return "";
+			return "You are holding a piece of the skeleton, it looks like it can fit in the molds. Insert it?";
 		}
+
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
+            if (firstButton)
+            {
+                Main.npcChatText = "";
+
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()))
+                {
+                    Flags.OldHunterHat = true;
+                }
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterSkull>()))
+                {
+                    Flags.OldHunterSkull = true;
+                }
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterTorso>()))
+                {
+                    Flags.OldHunterTorso = true;
+                }
+                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterLegs>()))
+                {
+                    Flags.OldHunterLegs = true;
+                }
+            }
+        }
 
         public override void AI()
         {

@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         int SaveDirection;
         float SaveRotation;
 
+        int playerCenterOffset = 7;
+
         public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void SetStaticDefaults()
@@ -46,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(player.Center.X, player.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -106,7 +108,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 7);
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
                         int extraDamage = 0;
@@ -139,7 +141,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 7, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<MossyPebbleProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 

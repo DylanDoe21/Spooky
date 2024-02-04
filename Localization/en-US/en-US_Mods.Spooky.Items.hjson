@@ -1148,7 +1148,11 @@ BoneBow: {
 
 HighVelocitySlingshot: {
 	DisplayName: High-Velocity Slingshot
-	Tooltip: Fires high-velocity mossy pebbles
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Fires Mossy Pebbles at an extremely high velocity
+		'''
 }
 
 HunterScarf: {

@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
         int SaveDirection;
         float SaveRotation;
 
+        int playerCenterOffset = 17;
+
         public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void SetStaticDefaults()
@@ -20,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 40;
+            Projectile.width = 48;
             Projectile.height = 48;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
@@ -46,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.position;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(player.Center.X, player.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -65,7 +67,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-            Projectile.position = new Vector2(player.MountedCenter.X - 5 - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
 			if (player.channel && Projectile.ai[2] == 0) 
             {
@@ -103,7 +105,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 15);
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
                         int extraDamage = 0;
@@ -136,7 +138,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 15, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<HighVelocityPebble>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 

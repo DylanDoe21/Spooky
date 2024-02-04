@@ -23,10 +23,15 @@ namespace Spooky.Core
         public static bool downedBigBone = false;
 
         public static bool SpookyBackgroundAlt = false;
-        public static bool OldHunterAssembled = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
+
+        public static bool OldHunterAssembled = false;
+        public static bool OldHunterHat = false;
+        public static bool OldHunterSkull = false;
+        public static bool OldHunterTorso = false;
+        public static bool OldHunterLegs = false;
 
         public static bool EyeQuest1 = false; 
         public static bool EyeQuest2 = false;
@@ -52,10 +57,15 @@ namespace Spooky.Core
             downedBigBone = false;
 
             SpookyBackgroundAlt = false;
-            OldHunterAssembled = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
+
+            OldHunterAssembled = false;
+            OldHunterHat = false;
+            OldHunterSkull = false;
+            OldHunterTorso = false;
+            OldHunterLegs = false;
 
             EyeQuest1 = false; 
             EyeQuest2 = false;
@@ -87,10 +97,15 @@ namespace Spooky.Core
             if (downedBigBone) tag["downedBigBone"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
-            if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
             if (CatacombKey1) tag["CatacombKey1"] = true;
             if (CatacombKey2) tag["CatacombKey2"] = true;
             if (CatacombKey3) tag["CatacombKey3"] = true;
+
+            if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
+            if (OldHunterHat) tag["OldHunterHat"] = true;
+            if (OldHunterSkull) tag["OldHunterSkull"] = true;
+            if (OldHunterTorso) tag["OldHunterTorso"] = true;
+            if (OldHunterLegs) tag["OldHunterLegs"] = true;
 
             if (EyeQuest1) tag["EyeQuest1"] = true;
             if (EyeQuest2) tag["EyeQuest2"] = true;
@@ -122,10 +137,15 @@ namespace Spooky.Core
             downedBigBone = tag.ContainsKey("downedBigBone");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
-            OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
             CatacombKey2 = tag.ContainsKey("CatacombKey2");
             CatacombKey3 = tag.ContainsKey("CatacombKey3");
+            
+            OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
+            OldHunterHat = tag.ContainsKey("OldHunterHat");
+            OldHunterSkull = tag.ContainsKey("OldHunterSkull");
+            OldHunterTorso = tag.ContainsKey("OldHunterTorso");
+            OldHunterLegs = tag.ContainsKey("OldHunterLegs");
 
             EyeQuest1 = tag.ContainsKey("EyeQuest1");
             EyeQuest2 = tag.ContainsKey("EyeQuest2");
@@ -160,11 +180,18 @@ namespace Spooky.Core
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
-            miscFlags[1] = OldHunterAssembled;
-            miscFlags[2] = CatacombKey1;
-            miscFlags[3] = CatacombKey2;
-            miscFlags[4] = CatacombKey3;
+            miscFlags[1] = CatacombKey1;
+            miscFlags[2] = CatacombKey2;
+            miscFlags[3] = CatacombKey3;
             writer.Write(miscFlags);
+
+            var oldHunterFlags = new BitsByte();
+            oldHunterFlags[0] = OldHunterAssembled;
+            oldHunterFlags[1] = OldHunterHat;
+            oldHunterFlags[2] = OldHunterSkull;
+            oldHunterFlags[3] = OldHunterTorso;
+            oldHunterFlags[4] = OldHunterLegs;
+            writer.Write(oldHunterFlags);
 
             var questFlags = new BitsByte();
             questFlags[0] = EyeQuest1;
@@ -202,10 +229,16 @@ namespace Spooky.Core
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
-            OldHunterAssembled = miscFlags[1];
-            CatacombKey1 = miscFlags[2];
-            CatacombKey2 = miscFlags[3];
-            CatacombKey3 = miscFlags[4];
+            CatacombKey1 = miscFlags[1];
+            CatacombKey2 = miscFlags[2];
+            CatacombKey3 = miscFlags[3];
+
+            BitsByte oldHunterFlags = reader.ReadByte();
+            OldHunterAssembled = oldHunterFlags[0];
+            OldHunterHat = oldHunterFlags[1];
+            OldHunterSkull = oldHunterFlags[2];
+            OldHunterTorso = oldHunterFlags[3];
+            OldHunterLegs = oldHunterFlags[4];
 
             BitsByte questFlags = reader.ReadByte();
             EyeQuest1 = questFlags[0];

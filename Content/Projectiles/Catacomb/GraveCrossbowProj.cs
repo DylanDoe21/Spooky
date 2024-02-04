@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Catacomb
         int SaveDirection;
         float SaveRotation;
 
+        int playerCenterOffset = 5;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 4;
@@ -44,7 +46,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(player.Center.X, player.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -127,7 +129,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 5);
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
                         int extraDamage = 0;
@@ -157,7 +159,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                             }
                         }
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 5, ShootSpeed.X, ShootSpeed.Y, 
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
 
