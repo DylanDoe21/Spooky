@@ -7,9 +7,10 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
@@ -43,24 +44,44 @@ namespace Spooky.Content.NPCs.Friendly
             if (Flags.OldHunterHat)
             {
                 Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHat").Value;
+                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHatOutline").Value;
+
+                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+
                 Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterSkull)
             {
                 Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkull").Value;
+                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkullOutline").Value;
+
+                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+
                 Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterTorso)
             {
                 Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorso").Value;
+                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorsoOutline").Value;
+
+                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+
                 Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterLegs)
             {
                 Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegs").Value;
+                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegsOutline").Value;
+
+                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+
                 Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
@@ -150,12 +171,20 @@ namespace Spooky.Content.NPCs.Friendly
 
                 NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
 
-                for (int numGores = 1; numGores <= 19; numGores++)
+                for (int numGores = 1; numGores <= 15; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + Main.rand.Next(-NPC.width / 2, NPC.width / 2), NPC.Center.Y + Main.rand.Next(-NPC.height / 2, NPC.height / 2)), 
                         NPC.velocity, ModContent.Find<ModGore>("Spooky/GiantWebGore" + numGores).Type);
+                    }
+                }
+
+                for (int numGores = 16; numGores <= 19; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/GiantWebGore" + numGores).Type);
                     }
                 }
 

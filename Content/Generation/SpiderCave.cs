@@ -305,7 +305,7 @@ namespace Spooky.Content.Generation
                         Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
                         Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
                         {
-                            if (WorldGen.genRand.NextBool(30) && CanPlaceStructure(X, Y))
+                            if (WorldGen.genRand.NextBool(20) && CanPlaceStructure(X, Y))
                             {
                                 switch (WorldGen.genRand.Next(12))
                                 {
@@ -390,7 +390,7 @@ namespace Spooky.Content.Generation
                         Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
                         Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
                         {
-                            if (WorldGen.genRand.NextBool(40) && CanPlaceStructure(X, Y))
+                            if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
                             {
                                 switch (WorldGen.genRand.Next(5))
                                 {
@@ -678,6 +678,23 @@ namespace Spooky.Content.Generation
             }
         }
 
+        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        public static bool NoSnowBiomeNearby(int X, int Y)
+        {
+            for (int i = X - 200; i < X + 200; i++)
+            {
+                for (int j = Y - 200; j < Y; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         //determine if a structure can be placed at a set position
         public static bool CanPlaceStructure(int X, int Y)
         {
@@ -687,7 +704,7 @@ namespace Spooky.Content.Generation
                 for (int j = Y - 35; j < Y + 35; j++)
                 {
                     //if any mossy stone bricks are found in the square then another structure is too close, so dont allow it to place
-                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<SpookyStoneBricks>())
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyStoneBricks>() || Main.tile[i, j].TileType == ModContent.TileType<RootWood>()))
                     {
                         return false;
                     }
@@ -746,23 +763,6 @@ namespace Spooky.Content.Generation
             }
 
             TallMushroom.Grow(X, Y - 1, minSize, maxSize);
-
-            return true;
-        }
-
-        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
-        public static bool NoSnowBiomeNearby(int X, int Y)
-        {
-            for (int i = X - 200; i < X + 200; i++)
-            {
-                for (int j = Y - 200; j < Y; j++)
-                {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
-                    {
-                        return false;
-                    }
-                }
-            }
 
             return true;
         }

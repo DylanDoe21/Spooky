@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Friendly
                 for (int numPieces = 0; numPieces < 4; numPieces++)
                 {
                     int distance = 360 / 4;
-                    int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<GiantWebAnimation>());
+                    int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<GiantWebAnimationPiece>());
                     Main.npc[NewNPC].ai[0] = NPC.whoAmI;
                     Main.npc[NewNPC].ai[2] = numPieces * distance;
                     Main.npc[NewNPC].ai[3] = numPieces;
@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Friendly
         }
     }
 
-    public class GiantWebAnimation : ModNPC
+    public class GiantWebAnimationPiece : ModNPC
     {
         float distance = 0f;
         float rotationSpeed = 2f;
@@ -106,6 +106,21 @@ namespace Spooky.Content.NPCs.Friendly
             trail?.Render(effect);
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+            //draw aura
+            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+
+            Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
+            for (int numEffect = 0; numEffect < 4; numEffect++)
+            {
+                Color color = new Color(180 - NPC.alpha, 180 - NPC.alpha, 180 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.Gray, Color.Yellow, numEffect));
+
+                Color newColor = color;
+                newColor = NPC.GetAlpha(newColor);
+                newColor *= 1f;
+                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
+                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.5f, SpriteEffects.None, 0);
+            }
 
             return true;
         }
@@ -183,7 +198,7 @@ namespace Spooky.Content.NPCs.Friendly
 
             if (NPC.ai[1] > 200)
             {
-                rotationSpeed *= 0.7f;
+                rotationSpeed *= 0.75f;
             }
 
             if (NPC.ai[1] > 240 && distance > 0)

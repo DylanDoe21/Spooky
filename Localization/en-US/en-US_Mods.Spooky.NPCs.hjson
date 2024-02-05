@@ -142,7 +142,7 @@ Vigilante.DisplayName: Vigilante
 DumbZomboid.DisplayName: Dumb Zomboid
 GiantWeb.DisplayName: Giant Web
 GiantWebAnimationBase.DisplayName: Old Hunter Animation
-GiantWebAnimation.DisplayName: Old Hunter Piece
+GiantWebAnimationPiece.DisplayName: Old Hunter Piece
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
