@@ -198,7 +198,7 @@ namespace Spooky.Content.NPCs.Friendly
 
             if (NPC.ai[1] > 200)
             {
-                rotationSpeed *= 0.75f;
+                rotationSpeed *= 0.745f;
             }
 
             if (NPC.ai[1] > 240 && distance > 0)

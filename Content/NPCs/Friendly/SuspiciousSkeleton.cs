@@ -12,7 +12,6 @@ using Spooky.Core;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Cemetery.Contraband;
 using Spooky.Content.Items.Pets;
-using Spooky.Content.Items.Vinyl;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -152,12 +151,7 @@ namespace Spooky.Content.NPCs.Friendly
             .Add(new Item(ModContent.ItemType<PetscopTool2>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 150000 })
-            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 })
-            .Add<VinylMysterious>(SpookySpiritDowned)
-            .Add<VinylLazy>(MocoDowned)
-            .Add<VinylSleepy>(DaffodilDowned)
-            .Add<VinylSneaky>(OrroboroDowned)
-            .Add<VinylAlley>(BigBoneDowned);
+            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 });
 
             npcShop.Register();
         }

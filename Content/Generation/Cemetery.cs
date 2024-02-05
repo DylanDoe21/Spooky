@@ -224,7 +224,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (Main.tile[startX, startY].HasTile && NoFloatingIsland(startX, startY))
+                if (WorldGen.SolidTile(startX, startY) && NoFloatingIsland(startX, startY))
                 {
                     Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
                     Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
@@ -248,18 +248,18 @@ namespace Spooky.Content.Generation
                             }
                         }
                     }
-                }
 
-                placed = true;
+                    placed = true;
+                }
             }
         }
 
         //check the area around the given position for cloud blocks, to prevent structures from placing on floating islands
         public static bool NoFloatingIsland(int X, int Y)
         {
-            for (int i = X - 20; i < X + 20; i++)
+            for (int i = X - 35; i < X + 35; i++)
             {
-                for (int j = Y - 20; j < Y + 20; j++)
+                for (int j = Y - 35; j < Y + 35; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud || Main.tile[i, j].TileType == TileID.Sunplate))
                     {

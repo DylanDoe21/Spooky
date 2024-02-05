@@ -132,19 +132,5 @@ namespace Spooky.Core
 
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
-
-        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
-		{
-            //1 in 30 chance to drop a random dev mask out of goodie bags
-			if (item.type == ItemID.GoodieBag)
-			{
-				int[] DevMasks = new int[] { 
-                ModContent.ItemType<BananalizardHead>(), ModContent.ItemType<DylanDoeHead>(), ModContent.ItemType<HatHead>(), 
-                ModContent.ItemType<KrakenHead>(), ModContent.ItemType<PelusaHead>(), ModContent.ItemType<SeasaltHead>(), 
-                ModContent.ItemType<TacoHead>(), ModContent.ItemType<WaasephiHead>() };
-
-                itemLoot.Add(ItemDropRule.OneFromOptions(30, DevMasks));
-			}
-		}
 	}
 }

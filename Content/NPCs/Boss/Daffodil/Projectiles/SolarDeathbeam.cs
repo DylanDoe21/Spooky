@@ -72,9 +72,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
 		private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor.X, factor =>
             {
-                return Color.Gold;
+                return Color.Gold * factor.X;
             });
 
             trail.Positions = cache.ToArray();

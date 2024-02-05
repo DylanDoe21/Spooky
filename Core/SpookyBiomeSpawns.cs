@@ -251,6 +251,11 @@ namespace Spooky.Core
 				{
 					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
 				}
+
+				if (!NPC.AnyNPCs(ModContent.NPCType<Musicman>()))
+				{
+					pool.Add(ModContent.NPCType<Musicman>(), 5);
+				}
 			}
 
 			//catacomb first layer spawns

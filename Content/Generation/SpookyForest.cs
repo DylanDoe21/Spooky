@@ -498,8 +498,7 @@ namespace Spooky.Content.Generation
 				{
 					y++;
 				}
-
-                if (Main.tile[x, y].HasTile)
+                if (WorldGen.SolidTile(x, y))
 				{
                     Vector2 origin = new Vector2(x - 10, y - 25);
 

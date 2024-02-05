@@ -148,6 +148,7 @@ LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
 LittleEye.DisplayName: Little Eye
 LittleEyeSleeping.DisplayName: Sleeping Eye
+Musicman.DisplayName: Musicman
 PartySkeleton1.DisplayName: Party Skeleton
 PartySkeleton2.DisplayName: Party Skeleton
 PartySkeleton3.DisplayName: Party Skeleton
@@ -211,6 +212,7 @@ TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
+Witch.DisplayName: Witch
 ZomboidFungus.DisplayName: Zomboid
 ZomboidPumpkin.DisplayName: Root Zomboid
 ZomboidPumpkinFire.DisplayName: Flaming Root Zomboid
@@ -273,4 +275,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider Tongue
-Witch.DisplayName: Witch
