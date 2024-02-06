@@ -74,6 +74,8 @@ namespace Spooky.Core
         public bool PandoraRosary = false;
         public bool TrapdoorScale = false;
         public bool HunterScarf = false;
+        public bool AnalogHorrorTape = false;
+        public bool CreepyPasta = false;
         public bool BackroomsCorpse = false;
         public bool CarnisFlavorEnhancer = false;
         public bool GeminiEntertainmentGame = false;
@@ -178,6 +180,8 @@ namespace Spooky.Core
             PandoraRosary = false;
             TrapdoorScale = false;
             HunterScarf = false;
+            AnalogHorrorTape = false;
+            CreepyPasta = false;
             BackroomsCorpse = false;
             CarnisFlavorEnhancer = false;
             GeminiEntertainmentGame = false;
@@ -377,8 +381,11 @@ namespace Spooky.Core
 
                 RedMistNoteSpawnDelay = 120;
 
+                //dont cap the damage if the player has the combined creepypasta accessory
+                int damage = CreepyPasta ? hit.Damage : hit.Damage >= 70 ? 70 : hit.Damage;
+
                 Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, 
-                ModContent.ProjectileType<RedMistNote>(), hit.Damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
+                ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
             }
         }
 
