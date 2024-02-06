@@ -138,7 +138,7 @@ namespace Spooky.Core
             }
 
             //chance to activate raveyard each night
-            if (DaySwitched && !Main.dayTime && Main.rand.NextBool(20))
+            if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))
             {
                 RaveyardHappening = true;
 

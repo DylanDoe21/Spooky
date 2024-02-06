@@ -1,16 +1,14 @@
-PLEASE KEEP IN MIND: spooky mod's latest version and all future updates will ONLY be on the 1.4.4 version of tmodloader. Any previous versions of spooky mod on tmodloader versions before 1.4.4 will NOT be updated or supported anymore.
-
-Spooky mod is a decently large mod that adds in new content with the general theme of halloween
+Spooky mod is a fairly large mod that adds in new content with the general theme of halloween
 
 Currently the mod has:
 
--Five new biomes/areas to explore: The Spooky Forest, Swampy Cemetery, Creepy Catacombs, Valley of Eyes, and The Spider Grotto
+-Four new biomes and a new gigantic underground catacomb to explore
 
--Six brand new bosses, and two new events (all with boss checklist support!)
+-Six brand new bosses, and three new events (all with boss checklist support!)
 
--Tons of other usual content such as weapons, armor sets, accessories, pets, and many other items
+-Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, and whatever else
 
--Amazing new soundtracks for each biome and boss
+-Banger soundtracks for the biomes, events, and bosses
 
 -And more to come in the future!
 
@@ -26,7 +24,7 @@ Massive thanks to all the people who have helped out the mod in some way, or are
 
 Thanks to Renk, Graydee, and Lemmy for their help with coding
 Thanks to Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Pelusa for contributing awesome sprites
-Thanks to Bananalizard for composing the mod's amazing OST, and Rockwizard5 for composing the egg incursion theme
+Thanks to Bananalizard for composing the mod's amazing OST, and Rockwizard5 for composing the awesome egg incursion theme
 Thanks to Hat in a River for making a bunch of awesome concept art, as well as a lot of other art (such as the mod's new official menu background, and the little eye art on the steam workshop page!)
 Thanks to Angel for helping out with testing and balancing
 Thanks to Jim2OUK for building some of the cool structures you'll find in the mod

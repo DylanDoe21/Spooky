@@ -241,7 +241,7 @@ namespace Spooky.Content.NPCs.Friendly
             if (NPC.localAI[0] == 1)
             {
                 //select the dialogue this npc should use
-                dialogueStyle = Main.rand.Next(1, 30);
+                dialogueStyle = Main.rand.Next(1, 32);
 
                 //select a random name for the skeleton when it spawns
                 string[] names = { "Boney", "Tony", "Jeff", "McRib", "Clemmence", "Hans Flabberghast", "Carlcium", "Ribert", "Nigel",

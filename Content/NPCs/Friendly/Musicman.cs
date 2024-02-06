@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.knockBackResist = 0f;
             NPC.aiStyle = 7;
 			TownNPCStayingHomeless = true;
-			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.RaveyardBiome>().Type };
 		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

@@ -4,10 +4,11 @@
 Raveyard Overhaul:
 
 -The secret raveyard event that has existed in the mod for a while has been overhauled into a more fun party event
--It now has a 1 in 20 chance to occur at the beginning of each night (similarly to blood moons)
+-It now has a 1 in 15 chance to occur at the beginning of each night, and it will last until day time
 -There are no enemies during this event, and it is filled with goofy friendly skeletons that you can talk to
 -It now has revamped visuals, with cool light beams swaying back and forth in the background and a color changing skybox
 -Added a new suspicious skeleton NPC who sells new strange accessories after each spooky mod boss is defeated, as well as some other things
+-There is also another new friendly npc vendor that spawns during the event, who is now the new and only way to purchase the developer masks and the vinyl discs
 -Do not commit any wrong-doings infront of the bouncers
 
 

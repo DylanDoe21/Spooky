@@ -73,7 +73,8 @@ namespace Spooky.Core
 			//drastically increase spawns during the raveyard so all the funny skeletons spawn
 			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
-				spawnRate /= 5;
+				spawnRate = (int)(spawnRate / 5);
+				maxSpawns = (int)(maxSpawns * 5);
 			}
 		}
 
@@ -236,25 +237,37 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				pool.Add(ModContent.NPCType<PartySkeleton1>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton2>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton3>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton4>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton5>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton6>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
-				pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
-				pool.Add(ModContent.NPCType<SkeletonBouncer>(), 2);
-				pool.Add(ModContent.NPCType<SpookyDance>(), 0.2f);
-
-				if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
+				if (!spawnInfo.Water)
 				{
-					pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
-				}
+					pool.Add(ModContent.NPCType<PartySkeleton1>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton2>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton3>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton4>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton5>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton6>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
+					pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
+					pool.Add(ModContent.NPCType<SkeletonBouncer>(), 4);
+					pool.Add(ModContent.NPCType<SpookyDance>(), 3);
 
-				if (!NPC.AnyNPCs(ModContent.NPCType<Musicman>()))
-				{
-					pool.Add(ModContent.NPCType<Musicman>(), 5);
+					//do not spawn suspicious skeletons if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
+					{
+						pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
+					}
+
+					//do not spawn musicman if one exists, and if there isnt enough flat ground
+					if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].HasTile &&
+					Main.tile[spawnInfo.SpawnTileX + 1, spawnInfo.SpawnTileY].HasTile &&
+					Main.tile[spawnInfo.SpawnTileX + 2, spawnInfo.SpawnTileY].HasTile &&
+					Main.tile[spawnInfo.SpawnTileX + 3, spawnInfo.SpawnTileY].HasTile &&
+					Main.tile[spawnInfo.SpawnTileX + 4, spawnInfo.SpawnTileY].HasTile)
+					{
+						if (!NPC.AnyNPCs(ModContent.NPCType<Musicman>()))
+						{
+							pool.Add(ModContent.NPCType<Musicman>(), 6);
+						}
+					}
 				}
 			}
 
