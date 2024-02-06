@@ -103,7 +103,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 10));
+			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 9));
 		}
 
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -150,8 +150,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add(new Item(ModContent.ItemType<PetscopTool1>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool2>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
-            .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 150000 })
-            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 150000 });
+            .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 100000 })
+            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 20000 });
 
             npcShop.Register();
         }

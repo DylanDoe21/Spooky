@@ -44,6 +44,7 @@ namespace Spooky.Core
         public int GizaGlassHits = 0;
         public int SlendermanPageDelay = 0;
         public int CarnisSporeSpawnTimer = 0;
+        public int RedMistNoteSpawnDelay = 0;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
         public bool SpiderWebSlowness = false;
@@ -133,6 +134,7 @@ namespace Spooky.Core
 
 		//sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
+        public static readonly SoundStyle ClarinetSound = new("Spooky/Content/Sounds/Clarinet", SoundType.Sound) { Volume = 0.7f, PitchVariance = 0.6f };
         public static readonly SoundStyle CapSound1 = new("Spooky/Content/Sounds/SentientCap1", SoundType.Sound);
         public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
         public static readonly SoundStyle CapSound3 = new("Spooky/Content/Sounds/SentientCap3", SoundType.Sound);
@@ -350,18 +352,15 @@ namespace Spooky.Core
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //snotty schnoz booger item dropping on hit
-            if (MocoNose && MocoBoogerCharge < 15)
+            if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
             {
-                if (!Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
-                {
-                    int itemType = ModContent.ItemType<MocoNoseBooger>();
-                    int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
-                    Main.item[newItem].noGrabDelay = 0;
+                int itemType = ModContent.ItemType<MocoNoseBooger>();
+                int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
+                Main.item[newItem].noGrabDelay = 0;
 
-                    if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                    {
-                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                    }
+                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                 }
             }
 
@@ -369,6 +368,17 @@ namespace Spooky.Core
             if (SkullAmulet && target.life <= 0 && !target.friendly)
             {
                 Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
+            }
+
+            //spawn an orbiting note on critical hits with the clarinet
+            if (RedMistClarinet && RedMistNoteSpawnDelay <= 0 && hit.Crit && Main.rand.NextBool())
+            {
+                SoundEngine.PlaySound(ClarinetSound, Player.Center);
+
+                RedMistNoteSpawnDelay = 120;
+
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, 
+                ModContent.ProjectileType<RedMistNote>(), hit.Damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
             }
         }
 
@@ -697,6 +707,12 @@ namespace Spooky.Core
             if (SlendermanPageDelay > 0)
             {
                 SlendermanPageDelay--;
+            }
+
+            //decrease red mist note spawning delay
+            if (RedMistNoteSpawnDelay > 0)
+            {
+                RedMistNoteSpawnDelay--;
             }
 
             //all of these calculations are just copied from vanilla's stopwatch
