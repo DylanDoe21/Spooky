@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.defense = 0;
 			NPC.width = 18;
 			NPC.height = 12;
-            NPC.npcSlots = 1;
+            NPC.npcSlots = 0.5f;
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;

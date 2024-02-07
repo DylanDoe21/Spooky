@@ -24,13 +24,12 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.defense = 0;
 			NPC.width = 30;
 			NPC.height = 24;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0.5f;
             NPC.noGravity = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 64;
 			AIType = NPCID.Firefly;
-            //NPC.catchItem = (short)ModContent.ItemType<TinyGhostItem>();
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Content.Biomes.SpiderCaveBiome>().Type };
 		}
 

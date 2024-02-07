@@ -137,6 +137,7 @@ Enemy & Boss Changes:
 -Zombino's death sound is now more pitched up
 -Added a better sound effect for the aortic eel's charging
 -Sad ghosts can no longer go through blocks
+-Spooky mod friendly critters now only take up half of an npc slot like vanilla critters
 
 
 Miscellaneous:

@@ -27,7 +27,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.defense = 0;
 			NPC.width = 26;
 			NPC.height = 20;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0.5f;
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;

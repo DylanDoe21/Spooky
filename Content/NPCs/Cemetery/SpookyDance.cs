@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.lifeMax = 5;
             NPC.width = 40;
 			NPC.height = 56;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0.5f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
