@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpiderCave;
+using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
@@ -238,6 +239,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SphiderFlail>(), 15));
         }
 

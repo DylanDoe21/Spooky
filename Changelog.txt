@@ -132,9 +132,11 @@ Enemy & Boss Changes:
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount
 -Claret cephalopod's bubble projectiles now create bubble dusts when they explode
+-Tweaked the glowy auras and after-images on all the pandora's box enemies to make them look nicer
 -Stitch's magic wand bolts no longer go through blocks
 -Zombino's death sound is now more pitched up
 -Added a better sound effect for the aortic eel's charging
+-Sad ghosts can no longer go through blocks
 
 
 Miscellaneous:

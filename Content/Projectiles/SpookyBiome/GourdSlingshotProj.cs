@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         int SaveDirection;
         float SaveRotation;
 
-        int playerCenterOffset = 8;
+        int playerCenterOffset = 10;
 
         public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - new Vector2(player.Center.X, player.Center.Y - playerCenterOffset);
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;

@@ -31,6 +31,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
             {
@@ -173,7 +174,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            if (player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile)
+            if (player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile && player.active && !player.dead)
             {
                 NPC.friendly = false;
 

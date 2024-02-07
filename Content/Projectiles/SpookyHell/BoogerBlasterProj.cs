@@ -12,6 +12,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
         int SaveDirection;
         float SaveRotation;
 
+        int playerCenterOffset = 8;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 3;
@@ -45,7 +47,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -138,7 +140,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset,
                                     16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                     ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                                 }

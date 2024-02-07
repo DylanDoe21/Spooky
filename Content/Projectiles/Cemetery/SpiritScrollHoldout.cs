@@ -46,21 +46,22 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
+            Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -15 : 15), 0);
+
 			if (player.channel && player.statMana > 12)
             {
                 Projectile.timeLeft = 2;
 
                 player.itemRotation = Projectile.rotation;
 
-                Projectile.position = player.position + new Vector2(direction.X > 0 ? 8 : -18, 2);
                 player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<ScrollPumpkin>()] < 5)
                 {
-                    Projectile.localAI[0]++;
+                    Projectile.ai[2]++;
                 }
 
-                if (Projectile.localAI[0] >= 30)
+                if (Projectile.ai[2] >= 30)
                 {
                     player.statMana -= 12;
 
@@ -69,7 +70,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 10, 0, Main.rand.Next(-5, -3), 
                     ModContent.ProjectileType<ScrollPumpkin>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-                    Projectile.localAI[0] = 0;
+                    Projectile.ai[2] = 0;
                 }
 
                 if (direction.X > 0) 

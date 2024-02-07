@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 78;
+            Projectile.width = 28;
             Projectile.height = 80;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
@@ -43,7 +43,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;

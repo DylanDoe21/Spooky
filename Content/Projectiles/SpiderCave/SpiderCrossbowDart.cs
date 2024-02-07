@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.32f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

@@ -2,10 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
@@ -163,6 +165,11 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Poisoned, 300);
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

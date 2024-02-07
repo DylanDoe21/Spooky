@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Catacomb
         int SaveDirection;
         float SaveRotation;
 
-        int playerCenterOffset = 5;
+        int playerCenterOffset = 7;
 
 		public override void SetStaticDefaults()
 		{
@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - new Vector2(player.Center.X, player.Center.Y - playerCenterOffset);
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;

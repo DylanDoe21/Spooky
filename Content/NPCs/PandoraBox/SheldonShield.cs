@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
                 var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity;
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
                 Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.LightBlue);
 
                 for (int repeats = 0; repeats < 4; repeats++)
@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                     Color color = newColor;
                     color = NPC.GetAlpha(color);
                     color *= 1f - fade;
-                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + (repeats / 4 * 6f + NPC.rotation).ToRotationVector2() * (4f * fade + 2f) - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
                     Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
                 }
 

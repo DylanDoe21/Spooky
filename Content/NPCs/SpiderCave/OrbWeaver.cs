@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.SpiderCave;
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave
@@ -151,6 +152,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverShield>(), 15));
         }
 
@@ -244,6 +246,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverStaff>(), 15));
         }
 
@@ -335,8 +338,9 @@ namespace Spooky.Content.NPCs.SpiderCave
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -212,7 +212,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 4);
 					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 3);
 					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
-					pool.Add(ModContent.NPCType<SadGhostBig>(), 2);
+					pool.Add(ModContent.NPCType<SadGhostBig>(), 1);
 
 					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
 					{

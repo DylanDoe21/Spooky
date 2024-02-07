@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
@@ -72,6 +72,11 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -1132,6 +1132,11 @@ OldHunterTorso: {
 	Tooltip: A shirt with an entire skeletal torso inside
 }
 
+SpiderChitin: {
+	DisplayName: Spider Chitin
+	Tooltip: The hard exo-skeleton of a spider-like creature
+}
+
 SpiderKey: {
 	DisplayName: Spider Grotto Key
 	Tooltip:
@@ -1271,11 +1276,6 @@ TatantulaFlyTome: {
 		Conjure a swarm of flies around your cursor that grows the longer you use the grimoire
 		Releasing while you have 10 or more flies will unleash them to attack enemies
 		'''
-}
-
-TrapdoorScale: {
-	DisplayName: Trapdoor Scale
-	Tooltip: ""
 }
 
 GourdBody: {

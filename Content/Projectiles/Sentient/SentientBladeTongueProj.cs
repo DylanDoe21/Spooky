@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -55,14 +55,14 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
+            Projectile.position = player.Center - Projectile.Size / 2;
+
 			if (Main.mouseRight)
             {
                 Projectile.timeLeft = 2;
 
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-
-                Projectile.position = player.position + new Vector2(-8, -9);
 
                 Projectile.ai[2]++;
 

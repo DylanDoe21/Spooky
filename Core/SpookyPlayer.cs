@@ -72,7 +72,6 @@ namespace Spooky.Core
         public bool PandoraCuffs = false;
         public bool HasSpawnedCuffs = false;
         public bool PandoraRosary = false;
-        public bool TrapdoorScale = false;
         public bool HunterScarf = false;
         public bool AnalogHorrorTape = false;
         public bool CreepyPasta = false;
@@ -178,7 +177,6 @@ namespace Spooky.Core
             PandoraCross = false;
             PandoraCuffs = false;
             PandoraRosary = false;
-            TrapdoorScale = false;
             HunterScarf = false;
             AnalogHorrorTape = false;
             CreepyPasta = false;
@@ -355,7 +353,7 @@ namespace Spooky.Core
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //snotty schnoz booger item dropping on hit
+            //drop booger charge item when hitting an enemy while wearing the snotty schnoz
             if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
             {
                 int itemType = ModContent.ItemType<MocoNoseBooger>();
@@ -368,7 +366,7 @@ namespace Spooky.Core
                 }
             }
 
-            //skull amulet soul spawning
+            //spawn souls when you kill an enemy while wearing the skull amulet
             if (SkullAmulet && target.life <= 0 && !target.friendly)
             {
                 Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
@@ -384,7 +382,7 @@ namespace Spooky.Core
                 //dont cap the damage if the player has the combined creepypasta accessory
                 int damage = CreepyPasta ? hit.Damage : hit.Damage >= 70 ? 70 : hit.Damage;
 
-                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, 
+                Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, 
                 ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
             }
         }
@@ -403,7 +401,7 @@ namespace Spooky.Core
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            //give daffodil hairpin cooldown
+            //give daffodil hairpin cooldown when you get hit with the petal barrier
             if (DaffodilHairpin)
             {
                 Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 3600);
@@ -413,8 +411,8 @@ namespace Spooky.Core
         public override void OnHurt(Player.HurtInfo info)
         {
             //set maximum damage cap based on difficulties due to damage scaling
-            int damageToActivateSpeedBoost1 = Main.masterMode ? 80 : Main.expertMode ? 60 : 40;
-            int damageToActivateSpeedBoost2 = Main.masterMode ? 120 : Main.expertMode ? 90 : 50;
+            int damageToActivateSpeedBoost1 = Main.masterMode ? 100 : Main.expertMode ? 70 : 40;
+            int damageToActivateSpeedBoost2 = Main.masterMode ? 150 : Main.expertMode ? 100 : 50;
 
             //give players the spider armor speed boosts when they get hit by a strong enough attack
             if (SpiderSpeed && info.Damage >= damageToActivateSpeedBoost1)

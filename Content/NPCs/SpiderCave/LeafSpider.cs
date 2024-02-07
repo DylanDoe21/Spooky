@@ -5,9 +5,9 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave
@@ -114,6 +114,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                     NPC.netUpdate = true;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

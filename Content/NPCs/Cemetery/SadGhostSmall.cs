@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit54;
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.aiStyle = 22;

@@ -45,7 +45,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - player.Center;
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
