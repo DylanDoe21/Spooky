@@ -95,13 +95,14 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<VinylSleepy>()
             .Add<VinylSneaky>()
             .Add<VinylAlley>()
-			.Add(new Item(ModContent.ItemType<BananalizardHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<DylanDoeHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<HatHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<KrakenHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<SeasaltHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<TacoHead>()) { shopCustomPrice = 100000 })
-			.Add(new Item(ModContent.ItemType<WaasephiHead>()) { shopCustomPrice = 100000 });
+            .Add<BananalizardHead>()
+            .Add<DylanDoeHead>()
+            .Add<HatHead>()
+            .Add<KrakenHead>()
+            .Add<PelusaHead>()
+            .Add<SeasaltHead>()
+            .Add<TacoHead>()
+            .Add<WaasephiHead>();
 
             npcShop.Register();
         }

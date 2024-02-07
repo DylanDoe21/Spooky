@@ -150,8 +150,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add(new Item(ModContent.ItemType<PetscopTool1>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool2>()) { shopCustomPrice = 100000 })
             .Add(new Item(ModContent.ItemType<PetscopTool3>()) { shopCustomPrice = 100000 })
-            .Add(new Item(ModContent.ItemType<SirenHead>()) { shopCustomPrice = 100000 })
-            .Add(new Item(ModContent.ItemType<PartySkeletonSkull>()) { shopCustomPrice = 20000 });
+            .Add<SirenHead>()
+            .Add<PartySkeletonSkull>();
 
             npcShop.Register();
         }

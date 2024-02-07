@@ -40,12 +40,38 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(shirtStyle);
+            writer.Write(shirtLogoStyle);
+            writer.Write(pantsStyle);
+            writer.Write(dialogueStyle);
+
+            //bools
+            writer.Write(hasShirt);
+            writer.Write(shirtLogo);
+            writer.Write(hasPants);
+            writer.Write(hasSunGlasses);
+
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            shirtStyle = reader.ReadInt32();
+            shirtLogoStyle = reader.ReadInt32();
+            pantsStyle = reader.ReadInt32();
+            dialogueStyle = reader.ReadInt32();
+
+            //bools
+            hasShirt = reader.ReadBoolean();
+            shirtLogo = reader.ReadBoolean();
+            hasPants = reader.ReadBoolean();
+            hasSunGlasses = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
         }
@@ -274,6 +300,8 @@ namespace Spooky.Content.NPCs.Friendly
                 {
                     hasSunGlasses = true;
                 }
+
+                NPC.netUpdate = true;
             }
 
             if (Main.rand.NextBool(1500))

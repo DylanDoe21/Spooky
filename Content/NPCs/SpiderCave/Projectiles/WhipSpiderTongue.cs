@@ -12,6 +12,9 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 {
 	public class WhipSpiderTongue : ModNPC
 	{
+        int SaveDirection;
+        float SaveRotation;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
@@ -124,14 +127,14 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 
             if (NPC.ai[0] == 25)
             {
-                NPC.localAI[0] = NPC.rotation;
-                NPC.localAI[1] = NPC.direction;
+                SaveDirection = NPC.spriteDirection;
+                SaveRotation = NPC.rotation;
             }
 
             if (NPC.ai[0] > 25)
             {
-                NPC.rotation = NPC.localAI[0];
-                NPC.direction = (int)NPC.localAI[1];
+                NPC.spriteDirection = SaveDirection;
+                NPC.rotation = SaveRotation;
 
                 Vector2 ChargeSpeed = Parent.Center - NPC.Center;
                 ChargeSpeed.Normalize();

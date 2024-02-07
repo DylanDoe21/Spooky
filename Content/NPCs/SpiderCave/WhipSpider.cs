@@ -94,8 +94,8 @@ namespace Spooky.Content.NPCs.SpiderCave
         
         public override void AI()
 		{
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
 

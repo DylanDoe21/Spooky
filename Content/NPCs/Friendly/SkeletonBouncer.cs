@@ -169,10 +169,10 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void AI()
         {
-            NPC.spriteDirection = NPC.direction;
-
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
+
+            NPC.spriteDirection = NPC.direction;
 
             if (player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile && player.active && !player.dead)
             {

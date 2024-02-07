@@ -2712,34 +2712,3 @@ MoyaiItem: {
 	DisplayName: Golden Moyai
 	Tooltip: ""
 }
-
-//the following catacomb walls are for testing, they do not exist in normal gameplay
-CatacombBrickWall1Item: {
-	DisplayName: Scary Gray Catacomb Wall
-	Tooltip: Counts as an actual catacomb biome when placed underground
-}
-
-CatacombBrickWall2Item: {
-	DisplayName: Scary Brown Catacomb Wall
-	Tooltip: Counts as an actual catacomb biome when placed underground
-}
-
-CatacombBrickWallBG1Item: {
-	DisplayName: Catacomb Wall Background Layer 1
-	Tooltip: ""
-}
-
-CatacombBrickWallBG2Item: {
-	DisplayName: Catacomb Wall Background Layer 2
-	Tooltip: ""
-}
-
-CatacombBrickWallBigBoneBGItem: {
-	DisplayName: Big Bone Background Wall
-	Tooltip: ""
-}
-
-CatacombBrickWallDaffodilBGItem: {
-	DisplayName: Daffodil Arena Wall
-	Tooltip: ""
-}

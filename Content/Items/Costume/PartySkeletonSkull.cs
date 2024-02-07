@@ -13,6 +13,7 @@ namespace Spooky.Content.Items.Costume
 			Item.height = 20;
 			Item.vanity = true;
 			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 10);
 		}
 	}
 }

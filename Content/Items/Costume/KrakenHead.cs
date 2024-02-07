@@ -21,6 +21,7 @@ namespace Spooky.Content.Items.Costume
 			Item.height = 26;
 			Item.vanity = true;
 			Item.rare = ItemRarityID.Quest;
+			Item.value = Item.buyPrice(gold: 10);
 		}
 	}
 }
