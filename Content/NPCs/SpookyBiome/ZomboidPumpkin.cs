@@ -136,8 +136,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                             break;
                         }
 
-                        Vector2 lineDirection = new Vector2(Main.rand.Next(-15, 15), 16);
-
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X - 3, center.Y + 20, 0, 0, 
                         ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage / 4, 0, Main.myPlayer);
                     }

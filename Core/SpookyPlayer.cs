@@ -6,13 +6,11 @@ using Terraria.GameInput;
 using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
+using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Biomes;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.NPCs.SpookyHell;
@@ -45,6 +43,7 @@ namespace Spooky.Core
         public int SlendermanPageDelay = 0;
         public int CarnisSporeSpawnTimer = 0;
         public int RedMistNoteSpawnDelay = 0;
+        public int GeminiMockerySpawnTimer = 0;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
         public bool SpiderWebSlowness = false;
@@ -151,7 +150,7 @@ namespace Spooky.Core
 
         public override void ResetEffects()
         {
-            //misc 
+            //misc
             WhipSpiderAggression = false;
             SpiderWebSlowness = false;
 
@@ -545,6 +544,18 @@ namespace Spooky.Core
                 SpiderSpeedTimer--;
             }
 
+            //decrease slenderman page delay
+            if (SlendermanPageDelay > 0)
+            {
+                SlendermanPageDelay--;
+            }
+
+            //decrease red mist note spawning delay
+            if (RedMistNoteSpawnDelay > 0)
+            {
+                RedMistNoteSpawnDelay--;
+            }
+
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
             //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
@@ -708,16 +719,38 @@ namespace Spooky.Core
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
 
-            //decrease slenderman page delay
-            if (SlendermanPageDelay > 0)
+            if (GeminiEntertainmentGame && Player.ownedProjectileCounts[ModContent.ProjectileType<NaturesMockery>()] < 1)
             {
-                SlendermanPageDelay--;
-            }
+                GeminiMockerySpawnTimer++;
 
-            //decrease red mist note spawning delay
-            if (RedMistNoteSpawnDelay > 0)
+                if (GeminiMockerySpawnTimer >= 420)
+                {
+                    Vector2 center = new Vector2(Player.Center.X, Player.Center.Y + Player.height / 4);
+                    center.X += Main.rand.Next(-125, 126);
+                    int numtries = 0;
+                    int x = (int)(center.X / 16);
+                    int y = (int)(center.Y / 16);
+                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) &&
+                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+                    {
+                        y++;
+                        center.Y = y * 16;
+                    }
+                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+                    {
+                        numtries++;
+                        y--;
+                        center.Y = y * 16;
+                    }
+
+                    Projectile.NewProjectile(null, center.X, center.Y, 0, -1, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
+
+                    GeminiMockerySpawnTimer = 0;
+                }
+            }
+            else
             {
-                RedMistNoteSpawnDelay--;
+                GeminiMockerySpawnTimer = 0;
             }
 
             //all of these calculations are just copied from vanilla's stopwatch
