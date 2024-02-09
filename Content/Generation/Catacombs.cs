@@ -270,7 +270,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool())
+                        if (Y % 2 == 0)
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
                         }
@@ -827,7 +827,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //define the x-position and then place the temple after finding a valid position
-                int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 350 : XMiddle - 350;
+                int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 400 : XMiddle - 400;
 
                 WorldGen.makeTemple(newTempleX, newTempleY);
             });

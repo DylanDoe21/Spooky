@@ -220,11 +220,11 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-                while (!WorldGen.SolidTile(startX, startY) && startY <= Main.worldSurface)
+                while (!IsCemeteryTile(startX, startY) && startY <= Main.worldSurface)
 				{
 					startY++;
 				}
-                if (WorldGen.SolidTile(startX, startY) && NoFloatingIsland(startX, startY))
+                if (IsCemeteryTile(startX, startY) && NoFloatingIsland(startX, startY))
                 {
                     Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
                     Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
@@ -269,6 +269,13 @@ namespace Spooky.Content.Generation
             }
 
             return true;
+        }
+
+        public static bool IsCemeteryTile(int X, int Y)
+        {
+            return Main.tile[X, Y].TileType == ModContent.TileType<CemeteryGrass>() || 
+            Main.tile[X, Y].TileType == ModContent.TileType<CemeteryDirt>() ||
+            Main.tile[X, Y].TileType == ModContent.TileType<CemeteryStone>();
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

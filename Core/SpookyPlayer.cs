@@ -556,6 +556,12 @@ namespace Spooky.Core
                 RedMistNoteSpawnDelay--;
             }
 
+            //set skeleton bouncer hositility to false if no raveyard is happening
+            if (!SpookyWorld.RaveyardHappening)
+            {
+                RaveyardGuardsHostile = false;
+            }
+
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
             //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
             if (Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
@@ -643,6 +649,7 @@ namespace Spooky.Core
                 }
             }
 
+            //spawn pandora cuff to attach to the chosen enemy
             if (PandoraCuffs && Player.ownedProjectileCounts[ModContent.ProjectileType<PandoraCuffProj>()] < 1)
             {
                 for (int i = 0; i <= Main.maxNPCs; i++)
@@ -694,31 +701,8 @@ namespace Spooky.Core
             {
                 RosaryHandTimer = 0;
             }
-            
-            if (SentientCap && Main.rand.NextBool(1000))
-            {
-                switch (Main.rand.Next(3))
-                {
-                    case 0:
-                    {
-                        SoundEngine.PlaySound(CapSound1, Player.Center);
-                        break;
-                    }
-                    case 1:
-                    {
-                        SoundEngine.PlaySound(CapSound2, Player.Center);
-                        break;
-                    }
-                    case 2:
-                    {
-                        SoundEngine.PlaySound(CapSound3, Player.Center);
-                        break;
-                    }
-                }
 
-                CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
-            }
-
+            //spawn nature's mockery on the ground with the lethal omen accessory
             if (GeminiEntertainmentGame && Player.ownedProjectileCounts[ModContent.ProjectileType<NaturesMockery>()] < 1)
             {
                 GeminiMockerySpawnTimer++;
@@ -743,7 +727,7 @@ namespace Spooky.Core
                         center.Y = y * 16;
                     }
 
-                    Projectile.NewProjectile(null, center.X, center.Y, 0, -1, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
+                    Projectile.NewProjectile(null, center.X, center.Y, 0, -0.3f, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
 
                     GeminiMockerySpawnTimer = 0;
                 }
@@ -841,6 +825,31 @@ namespace Spooky.Core
                 {
                     BoneWispTimer = 0;
                 }
+            }
+
+            //sentient cap random dialogue
+            if (SentientCap && Main.rand.NextBool(1000))
+            {
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                    {
+                        SoundEngine.PlaySound(CapSound1, Player.Center);
+                        break;
+                    }
+                    case 1:
+                    {
+                        SoundEngine.PlaySound(CapSound2, Player.Center);
+                        break;
+                    }
+                    case 2:
+                    {
+                        SoundEngine.PlaySound(CapSound3, Player.Center);
+                        break;
+                    }
+                }
+
+                CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
         }
 

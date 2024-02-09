@@ -5,6 +5,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Cemetery
 {
     public class Alternate : ModProjectile
@@ -41,7 +43,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Player player = Main.player[Projectile.owner];
 
-            Projectile.spriteDirection = player.direction;
+            Projectile.spriteDirection = -player.direction;
 
             if (Projectile.timeLeft <= 255)
             {
@@ -110,13 +112,14 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
 
-            for (int k = 0; k < Main.maxNPCs; k++)
+            //slow down any nearby non-boss enemy
+            for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				if (Main.npc[k].active && Main.npc[k].Distance(Projectile.Center) <= 250f)
+				if (Main.npc[i].active && Main.npc[i].Distance(Projectile.Center) <= 250f)
                 {
-                    if (!Main.npc[k].boss && Main.npc[k].type != NPCID.EaterofWorldsHead && Main.npc[k].type != NPCID.EaterofWorldsBody && Main.npc[k].type != NPCID.EaterofWorldsTail)
+                    if (!Main.npc[i].boss && Main.npc[i].type != NPCID.EaterofWorldsHead && Main.npc[i].type != NPCID.EaterofWorldsBody && Main.npc[i].type != NPCID.EaterofWorldsTail)
                     {
-                        Main.npc[k].velocity *= 0.95f;
+                        Main.npc[i].velocity *= player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 0.75f : 0.95f;
                     }
                 }
             }

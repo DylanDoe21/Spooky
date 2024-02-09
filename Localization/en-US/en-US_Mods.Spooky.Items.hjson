@@ -601,8 +601,8 @@ SmileDogPicture: {
 		'''
 }
 
-AnalogueHorrorTape: {
-	DisplayName: VHS Tape
+AnalogHorrorTape: {
+	DisplayName: Corrupted VHS Tape
 	Tooltip:
 		'''
 		Grants the effects of every analog horror accessory
@@ -1166,6 +1166,15 @@ HunterScarf: {
 		'''
 		Nearby enemies location will be revealed
 		Revealed enemies will take more damage from your ranged weapons
+		'''
+}
+
+LegalShotgun: {
+	DisplayName: Totally Legal Shotgun
+	Tooltip:
+		'''
+		Shoots out a spread of bullets and has obnoxious recoil
+		'It's probably illegal...'
 		'''
 }
 

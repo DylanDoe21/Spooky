@@ -130,7 +130,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                     Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y - 30) - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed *= 15f;
+                    ShootSpeed *= 12f;
                     
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootSpeed, ModContent.ProjectileType<WitchPotion>(), NPC.damage / 4, 0, NPC.target);
 

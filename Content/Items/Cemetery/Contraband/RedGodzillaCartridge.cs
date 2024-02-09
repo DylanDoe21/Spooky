@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             Item.width = 36;
             Item.height = 44;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Gray;  
+            Item.rare = ItemRarityID.Lime;  
             //Item.value = Item.buyPrice(gold: 50);
         }
 

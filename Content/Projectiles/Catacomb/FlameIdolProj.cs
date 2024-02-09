@@ -66,6 +66,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
+            Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -20 : 20), -5);
+
 			if (player.channel && player.statMana > 0)
             {
                 player.AddBuff(BuffID.OnFire, 2);
@@ -74,7 +76,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 player.itemRotation = Projectile.rotation;
 
-                Projectile.position = player.position + new Vector2(direction.X > 0 ? -4 : -25, -30);
                 player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
                 Projectile.localAI[0]++;

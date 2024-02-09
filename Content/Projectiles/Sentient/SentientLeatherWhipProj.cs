@@ -73,7 +73,6 @@ namespace Spooky.Content.Projectiles.Sentient
 		//charge mechanic stuff
 		private bool Charge(Player owner) 
 		{
-			//120 is one second
 			if (!owner.channel || Projectile.ai[1] >= 120)
 			{
 				return true;

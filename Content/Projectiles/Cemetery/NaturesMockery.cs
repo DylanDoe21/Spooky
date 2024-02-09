@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Cemetery
 {
     public class NaturesMockery : ModProjectile
@@ -75,13 +77,14 @@ namespace Spooky.Content.Projectiles.Cemetery
             //lifesteal from enemies
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox) && Projectile.ai[1] % 30 == 5)
+                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox) && Projectile.ai[1] % 20 == 5)
                 {
-                    int damageDone = Main.rand.Next(5, 15); //Projectile.frame == 4 ? 80 : 10;
+                    int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(80, 100) : Main.rand.Next(10, 15);
+                    int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;
 
                     player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, false);
-                    player.statLife += damageDone / 2;
-                    player.HealEffect(damageDone / 2, true);
+                    player.statLife += damageDone / lifeStealDivider;
+                    player.HealEffect(damageDone / lifeStealDivider, true);
                 }
             }
         }
