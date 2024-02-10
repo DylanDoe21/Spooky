@@ -12,8 +12,6 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        int EnemyType;
-
         public override void SetDefaults()
         {
             Projectile.width = 10;
@@ -46,36 +44,52 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 
             if (Projectile.ai[1] >= 60)
             {
-                //chance to spawn stitch or sheldon, otherwise spawn a bobbert
-                if (Main.rand.NextBool(8))
+                Projectile.Kill();
+            }
+        }
+
+        public override void OnKill(int timeLeft)
+		{
+            //chance to spawn stitch or sheldon, otherwise spawn a bobbert
+            if (Main.rand.NextBool(8))
+            {
+                switch (Main.rand.Next(2))
                 {
-                    switch (Main.rand.Next(2))
+                    //Stitch
+                    case 0:
                     {
-                        //Stitch
-                        case 0:
-                        {
-                            EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
 
-                            break;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
                         }
 
-                        //Sheldon
-                        case 1:
-                        {
-                            EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
+                        break;
+                    }
 
-                            break;
+                    //Sheldon
+                    case 1:
+                    {
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
                         }
+
+                        break;
                     }
                 }
-                else
+            }
+            else
+            {
+                int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    EnemyType = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
+                    NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
                 }
-
-                NetMessage.SendData(MessageID.SyncNPC, number: EnemyType);
-
-                Projectile.Kill();
             }
         }
     }

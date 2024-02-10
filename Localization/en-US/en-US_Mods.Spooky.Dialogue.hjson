@@ -145,10 +145,10 @@ SkeletonBouncer: {
 
 SuspiciousSkeleton: {
 	ShopButton: Contraband
-	Dialogue1: You want some of my nightmare fuel? Hits the spot just right.
-	Dialogue2: My brother Tony is the supplier. Apparently it's easier to get the stuff whenever certain big monsters get beaten to a pulp. Don't ask me how it works, cuz I don't know.
-	Dialogue3: You know, that flavour enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
-	Dialogue4: Sorry kid, I ain't got much to give you right now. You've gotta beat up some big monsters before I'm able to get a new supply of contraband.
+	Dialogue1: You want some of my nightmare fuel? Hits the spot just right!
+	Dialogue2: My brother Tony is the supplier. Apparently it's easier to get all these strange objects whenever big monsters get beaten to a pulp. Don't ask me how it works, I don't know.
+	Dialogue3: Have I ever tried the stuff? No, I'm not stupid enough to. You are. Now buy more of my stuff.
+	Dialogue4: You want some weird contraband? You've probably come to the right place. Some of the people who buy my crap never return though.
 	Dialogue5: You asking me if I've tried the stuff? No, I'm not stupid enough to. You are. Now buy more of my stuff.
 	Dialogue6: The sweater? I won it at the arcade, where I played this weird arcade machine. Some men in black gave it to me for free!
 	Dialogue7: You've ever played the clarinet? No? No need to learn when the clarinet plays itself right?

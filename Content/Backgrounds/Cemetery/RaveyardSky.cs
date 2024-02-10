@@ -135,15 +135,14 @@ namespace Spooky.Content.Backgrounds.Cemetery
             if (minBGPillarDepth != -1)
             {
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
-                Rectangle rectangle = new Rectangle(-1000, -2000, 4000, 4000);
+                Rectangle rectangle = new Rectangle(-1000, -550, 4000, 4000);
                 
                 for (int i = minBGPillarDepth + 1; i < maxBGPillarDepth; i++)
                 {
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
 
-                    //only draw beams if they are on screen and they arent too high up
-                    if (rectangle.Contains((int)position.X, (int)position.Y) && position.Y > -720)
+                    if (rectangle.Contains((int)position.X, (int)position.Y))
                     {
                         float PillarIntensity = (float)Math.Sin(backgroundPillar[i].AlphaFrequency * Main.GlobalTimeWrappedHourly + backgroundPillar[i].SinOffset) * backgroundPillar[i].AlphaAmplitude + backgroundPillar[i].AlphaAmplitude;
                         PillarIntensity = MathHelper.Clamp(PillarIntensity, 0f, 1f);

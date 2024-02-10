@@ -429,7 +429,7 @@ namespace Spooky.Core
                     SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
                     
                     Player.AddBuff(ModContent.BuffType<MonumentMythosShatter>(), 600);
-                    Player.AddBuff(ModContent.BuffType<MonumentMythosCooldown>(), 7200);
+                    Player.AddBuff(ModContent.BuffType<MonumentMythosCooldown>(), 3600);
 
                     for (int numGores = 1; numGores <= 4; numGores++)
                     {

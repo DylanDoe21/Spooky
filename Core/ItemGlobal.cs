@@ -82,16 +82,18 @@ namespace Spooky.Core
 
         public override bool? UseItem(Item item, Player player)
         {
+            //make items shoot boogers when the snoot schnoz is at full charge
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
-                if (item.shoot <= 0 && item.mountType <= 0 && item.damage > 0)
+                //if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
+                if ((item.shoot <= 0 && item.mountType <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 
                     SpookyPlayer.ScreenShakeAmount = 8;
 
-                    float mouseXDist = (float)Main.mouseX + Main.screenPosition.X;
-                    float mouseYDist = (float)Main.mouseY + Main.screenPosition.Y;
+                    float mouseXDist = Main.mouseX + Main.screenPosition.X;
+                    float mouseYDist = Main.mouseY + Main.screenPosition.Y;
                 
                     Vector2 SnotVelocity = player.Center - new Vector2(mouseXDist, mouseYDist);
                     SnotVelocity.Normalize();
@@ -114,7 +116,7 @@ namespace Spooky.Core
         {
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
-                if (item.damage > 0)
+                if (item.damage > 0 && item.shootSpeed != 0)
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 

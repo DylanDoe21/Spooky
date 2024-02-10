@@ -55,7 +55,7 @@ namespace Spooky.Content.Generation
 				{
 					PositionY++;
 				}
-                if (WorldGen.SolidTile(XMiddle, PositionY) && NoFloatingIsland(XMiddle, PositionY))
+                if ((WorldGen.SolidTile(XMiddle, PositionY) || Main.tile[XMiddle, PositionY].WallType > 0) && NoFloatingIsland(XMiddle, PositionY))
                 {
 					foundSurface = true;
                 }
@@ -236,14 +236,17 @@ namespace Spooky.Content.Generation
                     }
                     else
                     {
-                        //place blocks below structure to prevent them from floating
-                        for (int fillX = (int)origin.X + 5; fillX <= (int)origin.X + 15; fillX += 2)
+                        if (StructureFile != "FishingLake")
                         {
-                            for (int fillY = startY + 5; fillY <= (int)Main.worldSurface - 35; fillY += 2)
+                            //place blocks below structure to prevent them from floating
+                            for (int fillX = startX - 10; fillX <= startX + 10; fillX++)
                             {
-                                if (Main.tile[fillX, fillY].WallType < 0 && !Main.tile[fillX, fillY].HasTile)
+                                for (int fillY = startY + 7; fillY <= (int)Main.worldSurface - 35; fillY++)
                                 {
-                                    SpookyWorldMethods.PlaceCircle(fillX, fillY, WorldGen.genRand.NextBool(5) ? ModContent.TileType<CemeteryStone>() : ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
+                                    if (!Main.tile[fillX, fillY].HasTile)
+                                    {
+                                        SpookyWorldMethods.PlaceCircle(fillX, fillY, WorldGen.genRand.NextBool(5) ? ModContent.TileType<CemeteryStone>() : ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(1, 3), true, true);
+                                    }
                                 }
                             }
                         }

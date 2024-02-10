@@ -35,6 +35,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			return new Vector2(-5, 0);
 		}
 
+		//this dont work lol
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 70f;

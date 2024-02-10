@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave.Armor
@@ -28,14 +29,16 @@ namespace Spooky.Content.Items.SpiderCave.Armor
         {
             CreateRecipe()
 			.AddIngredient(ItemID.Silk, 25)
-			.AddIngredient(ItemID.SilverBar, 16)
+			.AddIngredient(ItemID.SilverBar, 10)
+			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 22)
             .AddIngredient(ModContent.ItemType<WebBlockItem>(), 70)
             .AddTile(TileID.Anvils)
             .Register();
 
 			CreateRecipe()
 			.AddIngredient(ItemID.Silk, 25)
-			.AddIngredient(ItemID.TungstenBar, 16)
+			.AddIngredient(ItemID.TungstenBar, 10)
+			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 22)
             .AddIngredient(ModContent.ItemType<WebBlockItem>(), 70)
             .AddTile(TileID.Anvils)
             .Register();

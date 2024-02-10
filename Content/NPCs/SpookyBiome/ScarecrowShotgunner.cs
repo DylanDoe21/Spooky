@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void FindFrame(int frameHeight)
         {
-            if (!IsShooting || (IsShooting && NPC.localAI[0] > 210))
+            if (!IsShooting || (IsShooting && NPC.localAI[0] < 450))
             {
                 //walking animation
                 NPC.frameCounter++;
@@ -135,15 +135,18 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 350f || NPC.localAI[0] >= 30)
+            if (player.Distance(NPC.Center) <= 350f || NPC.localAI[0] >= 400)
             {
                 IsShooting = true;
 
                 NPC.localAI[0]++;
 
-                if (NPC.localAI[0] <= 210)
+                if (NPC.localAI[0] >= 450)
                 {
-                    NPC.velocity.X *= 0.5f;
+                    if (NPC.velocity.X > 0 || NPC.velocity.X < 0)
+                    {
+                        NPC.velocity.X *= 0.5f;
+                    }
 
                     NPC.aiStyle = 0;
                 }
@@ -154,13 +157,13 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
 
                 //cock the shotgun 4 times
-                if (NPC.localAI[0] == 30 || NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
+                if (NPC.localAI[0] == 470 || NPC.localAI[0] == 500 || NPC.localAI[0] == 530 || NPC.localAI[0] == 560)
                 {
                     SoundEngine.PlaySound(ReloadSound, NPC.Center);
                 }
 
                 //shoot bullet spreads 4 times
-                if (NPC.localAI[0] == 180 || NPC.localAI[0] == 190 || NPC.localAI[0] == 200 || NPC.localAI[0] == 210)
+                if (NPC.localAI[0] == 620 || NPC.localAI[0] == 630 || NPC.localAI[0] == 640 || NPC.localAI[0] == 650)
                 {
                     SoundEngine.PlaySound(SoundID.Item38, NPC.Center);
 
@@ -194,8 +197,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     }
                 }
                 
-                //delay before it can shoot again
-                if (NPC.localAI[0] >= 360)
+                //loop attack
+                if (NPC.localAI[0] >= 660)
                 {
                     NPC.localAI[0] = 0;
                     NPC.netUpdate = true;
@@ -207,6 +210,27 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 NPC.aiStyle = 3;
                 AIType = NPCID.GoblinWarrior;
+            }
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, GoreID.Smoke1);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, GoreID.Smoke2);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, GoreID.Smoke3);
+                }
+
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ScarecrowGore" + numGores).Type);
+                    }
+                }
             }
         }
     }

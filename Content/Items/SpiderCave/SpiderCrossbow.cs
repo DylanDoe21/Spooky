@@ -5,7 +5,9 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Tiles.SpiderCave;
  
 namespace Spooky.Content.Items.SpiderCave
 {
@@ -46,5 +48,14 @@ namespace Spooky.Content.Items.SpiderCave
 
 			return false;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 12)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 25)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

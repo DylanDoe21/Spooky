@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
 			if (Projectile.ai[1] > 0)
             {
-				Main.EntitySpriteDraw(tex, Projectile.Center + new Vector2(3, 0) - Main.screenPosition, 
+				Main.EntitySpriteDraw(tex, Projectile.Center + new Vector2(2, 0) - Main.screenPosition, 
                 new Rectangle(44 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 10), Color.Chocolate, 
                 Projectile.rotation, new Vector2(17, 17), 1.2f, SpriteEffects.None, 0);
 

@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Tiles.SpiderCave;
  
 namespace Spooky.Content.Items.SpiderCave
 {
@@ -34,6 +36,15 @@ namespace Spooky.Content.Items.SpiderCave
 		public override bool CanUseItem(Player player)
         {
             return player.ownedProjectileCounts[ModContent.ProjectileType<SpiderSummonEggProj>()] <= 0;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 5)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 50)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

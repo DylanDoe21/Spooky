@@ -5,7 +5,9 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave
 {
@@ -27,6 +29,15 @@ namespace Spooky.Content.Items.SpiderCave
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 2);
             Item.UseSound = SoundID.Item1;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 15)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 15)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
     }
 }

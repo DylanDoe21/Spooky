@@ -105,6 +105,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;

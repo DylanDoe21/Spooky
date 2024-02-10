@@ -515,7 +515,7 @@ Local58Telescope: {
 		'''
 		Spawns a large moon that constantly orbits around you 
 		During the day the moon will orbit close to you and reflect weak hostile projectiles
-		During the night the moon will orbit further from you and will damage enemies
+		During the night the moon will orbit further from you and damage enemies
 		'His throne'
 		'''
 }
@@ -525,7 +525,7 @@ MandelaCatalogueTV: {
 	Tooltip:
 		'''
 		Press the Accessory Hotkey to summon a temporary alternate
-		The alternate will follow you and cause nearby enemies to move slowly
+		The alternate will follow you that will slow down nearby enemies
 		You cannot summon your alternate again for one minute
 		'You are not the real you'
 		'''
@@ -535,10 +535,10 @@ MonumentMythosPyramid: {
 	DisplayName: Glass Pyramid
 	Tooltip:
 		'''
-		While worn, you will be protected by a giza glass pyramid
-		This pyramid will drastically increase your defense for 3 hits, after which it will shatter
+		Encases you in a protective glass pyramid 
+		The pyramid will drastically increase your defense for 3 hits, after which it will shatter
 		After it shatters, you will take double damage from all attacks for 10 seconds
-		The giza glass pyramid will regenerate after 2 minutes
+		The pyramid will regenerate after one minute
 		'She is only dormant now'
 		'''
 }
@@ -1517,11 +1517,7 @@ OldWoodBow: {
 
 OldWoodGreatsword: {
 	DisplayName: Old Wood Greatsword
-	Tooltip:
-		'''
-		Hitting enemies will knock all nearby enemies away from you
-		'It's more of a club than a sword'
-		'''
+	Tooltip: "'It's more of a club than a sword'"
 }
 
 OldWoodHammer: {

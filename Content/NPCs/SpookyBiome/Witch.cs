@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
     public class Witch : ModNPC  
     {
         bool CanShootPotion = false;
-        bool HasThrownPotion = false;
+        bool HasThrownPotion = true;
 
         public override void SetStaticDefaults()
         {
@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.DeathSound = SoundID.DD2_GoblinBomberDeath;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
         }
 

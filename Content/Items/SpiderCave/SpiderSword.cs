@@ -5,7 +5,9 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Items.SpiderCave
 {
@@ -29,6 +31,15 @@ namespace Spooky.Content.Items.SpiderCave
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SpiderSwordProj>();
 			Item.shootSpeed = 2.5f;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 10)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
     }
 }
