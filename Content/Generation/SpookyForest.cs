@@ -378,18 +378,35 @@ namespace Spooky.Content.Generation
                         SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyFungusVines>());
                     }
 
-                    //place orange grass only on orange grass
+                    //place gourds
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>())
                     {
                         //gourds
                         if (WorldGen.genRand.NextBool(7))
                         {
-                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(), 
-                            (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
-                            (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>(), 
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
                             (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
+                        }
+                    }
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
+                    {
+                        if (WorldGen.genRand.NextBool(7))
+                        {
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(),
+                            (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
+                        }
+                    }
+
+                    //rotten gourds
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
+                    {
+                        if (WorldGen.genRand.NextBool(25) && CanGrowRottenGourd(X, Y))
+                        {
+                            WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<GourdRotten>());
                         }
                     }
                 }

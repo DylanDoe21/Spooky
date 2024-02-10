@@ -6,8 +6,10 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Food;
@@ -24,11 +26,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -43,6 +47,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
+            NPC.aiStyle = 3;
+            AIType = NPCID.Crab;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
 		}
 
@@ -59,7 +65,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             //use regular walking anim when walking
             NPC.frameCounter++;
-            if (NPC.localAI[0] <= 240)
+            if (NPC.localAI[0] <= 360)
             {
                 if (NPC.frameCounter > 10)
                 {
@@ -78,7 +84,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 }
             }
             //use casting animation during casting ai
-            if (NPC.localAI[0] > 240)
+            if (NPC.localAI[0] > 360)
             {
                 if (NPC.frame.Y < frameHeight * 5)
                 {
@@ -103,52 +109,82 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 300f || NPC.localAI[0] >= 60)
+            //list of valid enemies that the necromancer can absorb souls from
+            int[] NecromancerValidEnemies = new int[] { ModContent.NPCType<BoneStackerMoving1>(), ModContent.NPCType<BoneStackerMoving2>(), ModContent.NPCType<BoneStackerMoving3>(), 
+            ModContent.NPCType<RollingSkull1>(), ModContent.NPCType<RollingSkull2>(), ModContent.NPCType<RollingSkull3>(), ModContent.NPCType<RollingSkull4>(),
+            ModContent.NPCType<Skeletoid1>(), ModContent.NPCType<Skeletoid2>(), ModContent.NPCType<Skeletoid3>(), ModContent.NPCType<Skeletoid4>(), ModContent.NPCType<SkeletoidBig>() };
+
+            //check every npc and if it is valid, spawn a soul if its close enough when it dies
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (!NPC.HasBuff(BuffID.Confused))
+                if (NecromancerValidEnemies.Contains(Main.npc[i].type) && Main.npc[i].Distance(NPC.Center) <= 500f && Main.npc[i].life <= 0)
                 {
-                    NPC.localAI[0]++;
+                    int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: Soul);
+                    }
+                }
+            }
+
+            //if the necromancer has absorbed a soul, start the summoning countdown
+            if (NPC.localAI[1] > 0)
+            {
+                NPC.localAI[0]++;
+
+                if (NPC.localAI[0] > 360)
+                {
+                    NPC.aiStyle = 0;
+
+                    NPC.velocity.X *= 0.5f;
                 }
                 else
                 {
+                    NPC.aiStyle = 3;
+                    AIType = NPCID.Crab;
+                }
+
+                //spawn a revived "ghost" of a skeletoid or a rolling skull
+                if (NPC.localAI[0] >= 450)
+                {
+                    int[] PhantomEnemy = new int[] { ModContent.NPCType<PhantomRollingSkull>(), ModContent.NPCType<PhantomSkeletoid>() };
+
+                    int SummonedGhost = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, Main.rand.Next(PhantomEnemy));
+
+                    //set the spawned enemies stats based on how many souls have been absorbed, only if multiple souls have been absorbed
+                    if (NPC.localAI[1] > 1)
+                    {
+                        int StatScalingValue = (int)NPC.localAI[1] * 3;
+
+                        Main.npc[SummonedGhost].lifeMax += StatScalingValue;
+                        Main.npc[SummonedGhost].life = Main.npc[SummonedGhost].lifeMax;
+                        Main.npc[SummonedGhost].damage += StatScalingValue;
+                        Main.npc[SummonedGhost].defense += StatScalingValue;
+                    }
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: SummonedGhost);
+                    }
+
+                    for (int numDusts = 0; numDusts < 20; numDusts++)
+                    {
+                        int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.2f);
+                        Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Cyan : Color.Purple;
+                        Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 3f);
+                        Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 3f);
+                        Main.dust[dustGore].noGravity = true;
+                    }
+
                     NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
                 }
             }
-
-            if (NPC.localAI[0] <= 240)
+            else
             {
                 NPC.aiStyle = 3;
                 AIType = NPCID.Crab;
-            }
-
-            if (NPC.localAI[0] > 240)
-            {
-                NPC.aiStyle = 0;
-
-                if (NPC.localAI[0] == 290 || NPC.localAI[0] == 340)
-                {
-                    SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
-
-                    for (int numDust = 0; numDust < 15; numDust++)
-                    {                                                                                  
-                        int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.HallowSpray, 0f, -2f, 0, default, 1.5f);
-                        Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                        Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                        Main.dust[DustGore].noGravity = true;
-                    }
-
-                    int Skull = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 50, ModContent.NPCType<ZomboidNecromancerSkull>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {  
-                        NetMessage.SendData(MessageID.SyncNPC, number: Skull);
-                    }
-                }
-            }
-
-            if (NPC.localAI[0] >= 360)
-            {
-                NPC.localAI[0] = 0;
             }
         }
 

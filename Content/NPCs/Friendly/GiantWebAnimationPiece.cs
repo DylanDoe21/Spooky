@@ -1,14 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Events;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 using Spooky.Core;
-using Terraria.GameContent.Events;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Friendly
 {

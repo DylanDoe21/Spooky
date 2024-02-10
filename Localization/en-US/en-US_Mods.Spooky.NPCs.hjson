@@ -97,7 +97,9 @@ RollingSkull2.DisplayName: Rolling Skull
 RollingSkull3.DisplayName: Rolling Skull
 RollingSkull4.DisplayName: Gilded Skull
 ZomboidNecromancer.DisplayName: Zomboid Necromancer
-ZomboidNecromancerSkull.DisplayName: Soul Skull
+ZomboidNecromancerSoul.DisplayName: Undead Soul
+PhantomRollingSkull.DisplayName: Phantom Skull
+PhantomSkeletoid.DisplayName: Phantom Skeletoid
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 //catacombs layer 2
 Daisy1.DisplayName: Daisy
@@ -212,9 +214,9 @@ TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
-Witch.DisplayName: Witch
+Witch.DisplayName: Evil Witch
 ZomboidFungus.DisplayName: Zomboid
-ZomboidPumpkin.DisplayName: Root Zomboid
+ZomboidPumpkin.DisplayName: Rooted Zomboid
 ZomboidPumpkinFire.DisplayName: Flaming Root Zomboid
 ZomboidThorn.DisplayName: Zomboid
 ZomboidWind.DisplayName: Zomboid
@@ -269,10 +271,10 @@ TinySpider2.DisplayName: Tiny Spider
 TinySpider3.DisplayName: Tiny Spider
 TinySpider4.DisplayName: Tiny Spider
 TinySpider5.DisplayName: Tiny Spider
+TinySpiderEgg.DisplayName: Spider Egg
 TrapdoorSpider1.DisplayName: Trapdoor Spider
 TrapdoorSpider2.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-TinySpiderEgg.DisplayName: Tiny Spider Egg

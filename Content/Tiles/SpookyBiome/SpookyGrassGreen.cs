@@ -68,8 +68,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 //grow colored gourds
                 if (WorldGen.genRand.NextBool(40))
                 {
-                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
-                    (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
+                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(),
+                    (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>() };
 
                     ushort newObject = Main.rand.Next(Gourds);
 

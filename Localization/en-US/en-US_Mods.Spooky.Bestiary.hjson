@@ -66,17 +66,18 @@ Ventricle: A chunk of beating flesh shaped into this hideous mass by the valley 
 DumbZombie: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
+Musicman: Alien scientist gone rogue, Musicman has become your personal DJ. He looks like he's trying to communicate...
 OldHunter: An ancient old hunter that once called the grotto home before it became taken over by spiders.
 PartySkeleton1: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
 PartySkeleton2: Ancient skeletons that rise up during crazy parties. They look like they're close to overdosing.
 PartySkeleton3: Unlike most hostile skeletons, these ones are friendly to anyone and are great party guests.
 PartySkeleton4: Their wild personalities make them funny to be around. Sadly, they can't exist outside of the raveyard due to the lack of party magic.
 PartySkeleton5: Their neon coloration is a result of party magic and likely whatever eldritch substances they consume during the party.
-PartySkeleton6: Once normal skeletons buried under the ground, the power of the raveyard allows them to celebrate, even if it's just one night.
-PartySkeleton7: They're so drunk, they can only speak by using strange human-like screams and vocalizations.
-PartySkeleton8: Despite being undead, some of these bright skeletons have a great sense of fashion, consisting of clothes they probably stole.
+PartySkeleton6: Once normal skeletons buried under the ground, the power of the raveyard allows them to celebrate, even if it's just for a short time.
+PartySkeleton7: It is entirely unknown how or why these skeletons act so drunk, despite not even drinking anything.
+PartySkeleton8: Despite being undead, some of these skeletons have a great sense of fashion, consisting of clothes they probably stole.
 SkeletonBouncer: Security that participates in the raveyard and makes sure nothing gets out of hand. They carry a super-weapon that allows them to gun down anyone in seconds.
-SuspiciousSkeleton: A weird skeleton that hangs around during wild parties. Sells extremely weird contraband to any idiot willing to buy it.
+SuspiciousSkeleton: A weird skeleton that hangs around during wild parties. Sells extremely weird objects and trinkets to any idiot willing to buy them.
 //spooky forest
 Bungus: Small humanoid mushroom creatures found deep underground in the spooky forest, hanging around areas infested with purple moss.
 CandleMonster: It is unknown how they are formed, but these candles are not as weak as they seem. They will spit molten candle wax out of their mouth at any unsuspecting human.
@@ -98,7 +99,7 @@ PuttyPumpkinling: Offspring created by putty pumpkins when they are in danger. T
 PuttySlime1: Little blobs of putty with spooky faces that hop around the spooky forest. They attempt to frighten anyone that comes across them, but are usually not successful.
 PuttySlime2: Slimes made out of spooky putty, brought to life by the spooky forest. They hop around the spooky forest mindlessly attempting to spook people.
 PuttySlime3: Strange living blobs of silly putty. The putty they are made out of allows them to jump higher than normal slimes.
-ScarecrowShotgunner: The release of the ancient souls has caused these scarecrows to become possessed by vengeful spirits who will shoot at anything that moves.
+ScarecrowShotgunner: The release of the ancient souls has caused these scarecrows to become possessed by vengeful spirits, who will not hesitate to use their shotgun on any human they spot.
 ShroomHopper: Small bugs with a giant mushroom on their back, they peacefully hop around the purple moss covered areas where they live.
 TinyGhost1: Little mischevious ghosts that wander around during the night in the spooky forest.
 TinyGhost2: Small nefarious apparitions that wander around and harass homeowners in the spooky forest.
@@ -115,7 +116,7 @@ ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet som
 //eye valley
 EyeBat: These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions.
 ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit saliva to digest prey from afar.
-ManHoleBig: Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will detect and attack intruders, allowing the mouth to hunt prey much easier.
+ManHoleBig: Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will look out and attack intruders, allowing the mouth to hunt prey much easier.
 MrHandy: A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.
 Tortumor: Disgusting flesh amalgams born from the eye valley. They can float around and attack by using chunks of themselves as projectiles.
 TortumorGiant: If regular tortumors weren't gross enough, these mutated blobs of flesh can make smaller clones of themselves to attack its prey.
@@ -133,7 +134,7 @@ Cockroach: Disgusting and hard to get rid of pests. At least they don't usually 
 DaddyLongLegs: Their long legs allow them to walk across the rough terrain in the grotto. Lacking any other attack besides biting, they are not as intimidating as they might seem.
 Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
 Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
-Inchworm3: These inchworms miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
+Inchworm3: These inchworms have miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
 JumpingSpider1: Their legs are small and they cannot walk very fast. However, they have evolved to facilitate jumping over long distances with extreme precision.
 JumpingSpider2: Rarely creating webs, these spiders have a more aggressive and active lifestyle. These ones have a strong paralyzing venom that coats their fangs, making their bites deadly.
 LeafSpider: These creatures are smart, and have learned to protect their fragile bodies with a large leaf as a disguise. When provoked, they can shoot a web to grapple themselves away from danger.
@@ -145,7 +146,7 @@ Moth2: These rarer moths have brown fur, which tricks predators into thinking th
 OrbWeaver1: Tiny spiders with a giant shell on their back. Using pressure they store, they can shoot and quickly regrow their spikes as a means of defense.
 OrbWeaver2: The skull-like pattern they have on their shells is a useful trait that helps to ward off intruders, or anything that disturbs them when they sleep.
 OrbWeaver3: A sub-species of orb weaver, their spikes are not as sharp as other orb weaver spiders but are coated in dangerous poison.
-OrbWeaverGiant: These scary mutated orb weavers roam in the grotto very rarely. Those who do see them are usually too captivated by it's pretty shell before realizing it is actually a deadly spider.
+OrbWeaverGiant: These scary mutated orb weavers roam in the grotto very rarely. Those who do see them are usually too captivated by its pretty shell before realizing it is actually a deadly spider.
 TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
 TarantulaHawk2: They can carry smaller spiders to their prey with their strong legs, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
 TarantulaHawk3: These tarantula hawks have adapted to take on the appearance of a large fly, which allows them to approach their prey without being noticed.

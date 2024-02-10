@@ -128,7 +128,12 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.ai[0] < 60)
             {
-                Projectile.timeLeft = 120;
+                Projectile.ai[1]++;
+
+                if (Projectile.ai[1] >= 300)
+                {
+                    Projectile.Kill();
+                }
 
                 GoAbovePlayer(player);
             }

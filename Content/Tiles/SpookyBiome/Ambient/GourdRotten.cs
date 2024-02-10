@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newTile.Origin = new Point16(1, 3);
             TileObjectData.newTile.DrawYOffset = 6;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(147, 33, 27));
+            AddMapEntry(new Color(120, 96, 62));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -52,9 +52,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
             if (!Main.gamePaused && Main.instance.IsActive && isPlayerNear)
             {
-                if (Main.rand.NextBool(550))
+                if (Main.rand.NextBool(300))
                 {
-                    Projectile.NewProjectile(null, new Vector2((i) * 16, (j - 1) * 16), Vector2.Zero, ModContent.ProjectileType<RottenGourdFly>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(null, new Vector2(i * 16, j * 16), Vector2.Zero, ModContent.ProjectileType<RottenGourdFly>(), 0, 0f, Main.myPlayer);
                 }
             }
         }

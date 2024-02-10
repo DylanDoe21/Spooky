@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.Food;
 using Spooky.Core;
-using Terraria.Audio;
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
@@ -237,18 +237,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = spawnInfo.Player;
-
-            if (player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
-            {
-                return 0.5f;
-            }
-
-            return 0f;
-        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
