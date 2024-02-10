@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 0;
             NPC.width = 34;
             NPC.height = 24;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = false;

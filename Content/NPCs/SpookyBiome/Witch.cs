@@ -64,7 +64,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.frameCounter++;
             if (NPC.localAI[0] <= 420 || NPC.localAI[0] >= 500)
             {
-                if (NPC.frameCounter > 10)
+                if (NPC.frameCounter > 7)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             if (NPC.localAI[0] <= 420 || NPC.localAI[0] >= 500)
             {
                 NPC.aiStyle = 3;
-                AIType = NPCID.Crab;
+                AIType = NPCID.GoblinScout;
             }
 
             //throw flasks

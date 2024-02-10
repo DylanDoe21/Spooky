@@ -33,6 +33,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 50;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.15f;
 			NPC.value = Item.buyPrice(0, 0, 2, 50);
             NPC.noGravity = false;

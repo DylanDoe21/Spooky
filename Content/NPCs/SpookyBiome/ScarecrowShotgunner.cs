@@ -64,7 +64,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
             NPC.aiStyle = 3;
-            AIType = NPCID.GoblinWarrior;
+            AIType = NPCID.GoblinScout;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
         }
 
@@ -130,18 +130,18 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 350f || NPC.localAI[0] >= 400)
+            if (player.Distance(NPC.Center) <= 450f || NPC.localAI[0] >= 250)
             {
                 IsShooting = true;
 
                 NPC.localAI[0]++;
 
-                if (NPC.localAI[0] >= 450)
+                if (NPC.localAI[0] >= 300)
                 {
                     if (NPC.velocity.X > 0 || NPC.velocity.X < 0)
                     {
@@ -153,17 +153,17 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 else
                 {
                     NPC.aiStyle = 3;
-                    AIType = NPCID.GoblinWarrior;
+                    AIType = NPCID.GoblinScout;
                 }
 
                 //cock the shotgun 4 times
-                if (NPC.localAI[0] == 470 || NPC.localAI[0] == 500 || NPC.localAI[0] == 530 || NPC.localAI[0] == 560)
+                if (NPC.localAI[0] == 320 || NPC.localAI[0] == 350 || NPC.localAI[0] == 380 || NPC.localAI[0] == 410)
                 {
                     SoundEngine.PlaySound(ReloadSound, NPC.Center);
                 }
 
                 //shoot bullet spreads 4 times
-                if (NPC.localAI[0] == 620 || NPC.localAI[0] == 630 || NPC.localAI[0] == 640 || NPC.localAI[0] == 650)
+                if (NPC.localAI[0] == 470 || NPC.localAI[0] == 480 || NPC.localAI[0] == 490 || NPC.localAI[0] == 500)
                 {
                     SoundEngine.PlaySound(SoundID.Item38, NPC.Center);
 
@@ -198,7 +198,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
                 
                 //loop attack
-                if (NPC.localAI[0] >= 660)
+                if (NPC.localAI[0] >= 510)
                 {
                     NPC.localAI[0] = 0;
                     NPC.netUpdate = true;
@@ -209,7 +209,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 IsShooting = false;
 
                 NPC.aiStyle = 3;
-                AIType = NPCID.GoblinWarrior;
+                AIType = NPCID.GoblinScout;
             }
         }
 

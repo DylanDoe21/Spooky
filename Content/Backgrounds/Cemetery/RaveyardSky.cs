@@ -135,9 +135,9 @@ namespace Spooky.Content.Backgrounds.Cemetery
             if (minBGPillarDepth != -1)
             {
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
-                Rectangle rectangle = new Rectangle(-1000, -550, 4000, 4000);
+                Rectangle rectangle = new Rectangle(-1000, -700, 4000, 4000);
                 
-                for (int i = minBGPillarDepth + 1; i < maxBGPillarDepth; i++)
+                for (int i = minBGPillarDepth + 4; i < maxBGPillarDepth; i++)
                 {
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
@@ -161,18 +161,18 @@ namespace Spooky.Content.Backgrounds.Cemetery
                             new Color(148, 80, 0)
                         };
 
-                        float Rotation = Main.GlobalTimeWrappedHourly * 0.4f;
+                        float Rotation = Main.GlobalTimeWrappedHourly * 0.3f;
 
                         Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
                         Texture2D BeamTextureBottom = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam2").Value;
 
-                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1550), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.3f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
-                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * PillarIntensity, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1620), null, 
+                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.4f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
+                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f , SpriteEffects.None, 0f);
 
-                        spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1550), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.3f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
-                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureBottom.Width / 2, 0), (Depth.X * 0.5f + 0.5f) * PillarIntensity, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1620), null, 
+                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.4f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
+                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureBottom.Width / 2, 0), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f, SpriteEffects.None, 0f);
                     }
                 }
             }

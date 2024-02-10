@@ -64,8 +64,7 @@ namespace Spooky.Core
 			}
 
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) ||
-			(player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
 			{
 				spawnRate /= 2;
 			}
@@ -99,16 +98,16 @@ namespace Spooky.Core
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-						pool.Add(ModContent.NPCType<PuttySlime1>(), 6);
-						pool.Add(ModContent.NPCType<PuttySlime2>(), 6);
-						pool.Add(ModContent.NPCType<PuttySlime3>(), 6);
+						pool.Add(ModContent.NPCType<PuttySlime1>(), 3);
+						pool.Add(ModContent.NPCType<PuttySlime2>(), 3);
+						pool.Add(ModContent.NPCType<PuttySlime3>(), 3);
 						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 
 						//hardmode enemies
                         if (Main.hardMode)
                         {
 							pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
-                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
+                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 2);
                         }
                     }
 				}
@@ -125,7 +124,7 @@ namespace Spooky.Core
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
 						pool.Add(ModContent.NPCType<ZomboidThorn>(), 4);
-						pool.Add(ModContent.NPCType<ZomboidPumpkin>(), 1);
+						pool.Add(ModContent.NPCType<ZomboidPumpkin>(), 2);
 						pool.Add(ModContent.NPCType<MonsterEye1>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye2>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye3>(), 1);
@@ -148,8 +147,8 @@ namespace Spooky.Core
 						//hardmode enemies
 						if (Main.hardMode)
 						{
-							pool.Add(ModContent.NPCType<Witch>(), 1);
-							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 1);
+							pool.Add(ModContent.NPCType<Witch>(), 2);
+							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 2);
 						}
 					}
 				}

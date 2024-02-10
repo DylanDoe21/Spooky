@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.defense = 0;
             NPC.width = 18;
             NPC.height = 14;
+			NPC.npcSlots = 0.5f;
 			NPC.knockBackResist = 0.6f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
