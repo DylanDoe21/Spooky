@@ -625,6 +625,23 @@ namespace Spooky.Content.Generation
             return true;
         }
 
+        //make sure rotten gourds cannot place too close to each other
+        public static bool CanGrowRottenGourd(int X, int Y)
+        {
+            for (int i = X - 15; i < X + 15; i++)
+            {
+                for (int j = Y - 15; j < Y + 15; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<GourdRotten>())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome

@@ -96,7 +96,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 300f)
+            if (player.Distance(NPC.Center) <= 500f)
             {
                 NPC.ai[0]++;
 
@@ -217,7 +217,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			NPC.spriteDirection = NPC.direction;
 
-            if (player.Distance(NPC.Center) <= 350f)
+            if (player.Distance(NPC.Center) <= 500f)
             {
                 NPC.ai[0]++;
 

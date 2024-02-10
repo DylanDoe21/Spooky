@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.Cemetery;
 
@@ -83,17 +84,23 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     }
                 }
                 
+                //grow colored gourds
                 if (WorldGen.genRand.NextBool(40))
                 {
-                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(), 
-                    (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
-                    (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>(), 
-                    (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
+                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(),
+                    (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>() };
 
                     ushort newObject = Main.rand.Next(Gourds);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //grow rotten gourd
+                if (WorldGen.genRand.NextBool(45) && SpookyForest.CanGrowRottenGourd(i, j))
+                {
+                    WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), 0, 0, -1, -1);
                 }
             }
 

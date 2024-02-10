@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
                 Main.dust[dirtDust].velocity.Y *= Main.rand.Next(2, 3);
             }
 
-            if (Projectile.ai[0] == 15)
+            if (Projectile.ai[0] == 5)
             {
                 Vector2 lineDirection = new Vector2(0, 16);
                 
