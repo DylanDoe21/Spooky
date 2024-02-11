@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileNoAttach[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.Origin = new Point16(1, 1);
-            TileObjectData.newTile.DrawYOffset = 6;
+            TileObjectData.newTile.DrawYOffset = 4;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(173, 138, 21));
             DustType = 288;

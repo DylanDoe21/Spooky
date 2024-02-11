@@ -18,6 +18,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class ZomboidNecromancer : ModNPC
     {
+        Vector2 SoulSpawnPosition;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;
@@ -115,15 +117,18 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             ModContent.NPCType<Skeletoid1>(), ModContent.NPCType<Skeletoid2>(), ModContent.NPCType<Skeletoid3>(), ModContent.NPCType<Skeletoid4>(), ModContent.NPCType<SkeletoidBig>() };
 
             //check every npc and if it is valid, spawn a soul if its close enough when it dies
-            for (int i = 0; i < Main.maxNPCs; i++)
+            for (int i = 0; i <= Main.maxNPCs; i++)
             {
-                if (NecromancerValidEnemies.Contains(Main.npc[i].type) && Main.npc[i].Distance(NPC.Center) <= 500f && Main.npc[i].life <= 0)
+                if (NecromancerValidEnemies.Contains(Main.npc[i].type) && Main.npc[i].Distance(NPC.Center) <= 500f)
                 {
-                    int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
-                    
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.npc[i].justHit && Main.npc[i].life <= 0)
                     {
-                        NetMessage.SendData(MessageID.SyncNPC, number: Soul);
+                        int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
+                        
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Soul);
+                        }
                     }
                 }
             }

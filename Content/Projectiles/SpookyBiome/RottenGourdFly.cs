@@ -82,13 +82,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 2)
             {
                 SavePosition = Projectile.Center;
             }
             
-            float goToX = SavePosition.X - Projectile.Center.X + Main.rand.Next(-200, 200);
-            float goToY = SavePosition.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
+            float goToX = SavePosition.X - Projectile.Center.X + Main.rand.Next(-100, 100);
+            float goToY = SavePosition.Y - Projectile.Center.Y + Main.rand.Next(-100, 100);
 
             float speed = 0.3f;
             

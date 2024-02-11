@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.DrawYOffset = 6;
+			TileObjectData.newTile.DrawYOffset = 4;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(144, 79, 25));
             DustType = 288;

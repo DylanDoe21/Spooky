@@ -31,11 +31,10 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 22;
+            NPC.width = 20;
             NPC.height = 20;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.alpha = 255;
             NPC.aiStyle = -1;
@@ -62,7 +61,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             return true;
         }
 
-        const int TrailLength = 5;
+        const int TrailLength = 10;
 
         private void ManageCaches()
         {
@@ -104,6 +103,16 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 ManageTrail();
             }
 
+            if (!Parent.active)
+            {
+                NPC.active = false;
+            }
+
+            if (Parent.Distance(NPC.Center) < 500f)
+            {
+                NPC.active = false;
+            }
+
             Vector2 HomingSpeed = Parent.Center - NPC.Center;
             HomingSpeed.Normalize();
             HomingSpeed *= 12;
@@ -111,6 +120,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             if (NPC.Hitbox.Intersects(Parent.Hitbox))
             {
+                SoundEngine.PlaySound(SoundID.NPCDeath52, NPC.Center);
+
                 Parent.localAI[1]++;
 
                 for (int numDusts = 0; numDusts < 20; numDusts++)

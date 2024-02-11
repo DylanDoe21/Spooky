@@ -138,6 +138,7 @@ Enemy & Boss Changes:
 -Added a better sound effect for the aortic eel's charging
 -Sad ghosts can no longer go through blocks
 -Spooky mod friendly critters now only take up half of an npc slot like vanilla critters
+-Zomboid necromancers now absorb the souls of undead enemies killed near them, and can use those souls to summon a phantom enemy, and the more souls it absorbs, the stronger the phantom enemy will be
 
 
 Miscellaneous:

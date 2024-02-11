@@ -41,9 +41,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.height = 62;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 0, 0);
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_OgreHurt;
+            NPC.HitSound = SoundID.NPCHit49;
+			NPC.DeathSound = SoundID.NPCDeath33;
             NPC.aiStyle = 3;
             AIType = NPCID.GoblinScout;
 		}
@@ -77,7 +76,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             //running animation
             NPC.frameCounter++;
-            if (NPC.frameCounter > 7)
+            if (NPC.frameCounter > 6)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
@@ -105,7 +104,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             {
                 for (int numDusts = 0; numDusts < 30; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.15f);
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.2f);
                     Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Cyan : Color.Purple;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 3f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 3f);
