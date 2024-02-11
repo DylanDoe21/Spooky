@@ -2722,3 +2722,8 @@ MoyaiItem: {
 	DisplayName: Golden Moyai
 	Tooltip: ""
 }
+
+SwoleMushroomStatueItem: {
+	DisplayName: Mushroom God Statue
+	Tooltip: ""
+}

@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.friendly = true; 
+			Projectile.friendly = true;
 			Projectile.tileCollide = false;
             Projectile.alpha = 255;
             Projectile.scale = 0.8f;
@@ -87,10 +87,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 SavePosition = Projectile.Center;
             }
             
-            float goToX = SavePosition.X - Projectile.Center.X + Main.rand.Next(-100, 100);
-            float goToY = SavePosition.Y - Projectile.Center.Y + Main.rand.Next(-100, 100);
+            float goToX = SavePosition.X - Projectile.Center.X + Main.rand.Next(-50, 50);
+            float goToY = SavePosition.Y - Projectile.Center.Y + Main.rand.Next(-50, 50);
 
-            float speed = 0.3f;
+            float speed = 1f;
             
             if (Projectile.velocity.X > speed)
             {

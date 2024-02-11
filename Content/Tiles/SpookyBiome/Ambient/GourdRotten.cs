@@ -54,7 +54,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
                 if (Main.rand.NextBool(300))
                 {
-                    Projectile.NewProjectile(null, new Vector2((i + Main.rand.Next(0, 3)) * 16, (j + Main.rand.Next(0, 3)) * 16), Vector2.Zero, ModContent.ProjectileType<RottenGourdFly>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(null, new Vector2((i + Main.rand.Next(0, 2)) * 16, (j + Main.rand.Next(0, 2)) * 16), Vector2.Zero, ModContent.ProjectileType<RottenGourdFly>(), 0, 0f, Main.myPlayer);
                 }
             }
         }

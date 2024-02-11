@@ -40,9 +40,10 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolid[Type] = false;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Width = 4;
 			TileObjectData.newTile.Height = 6;	
-			TileObjectData.newTile.Origin = new Point16(2, 5);
+			TileObjectData.newTile.Origin = new Point16(1, 5);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16 };
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;

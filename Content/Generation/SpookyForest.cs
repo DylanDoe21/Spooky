@@ -645,9 +645,9 @@ namespace Spooky.Content.Generation
         //make sure rotten gourds cannot place too close to each other
         public static bool CanGrowRottenGourd(int X, int Y)
         {
-            for (int i = X - 15; i < X + 15; i++)
+            for (int i = X - 25; i < X + 25; i++)
             {
-                for (int j = Y - 15; j < Y + 15; j++)
+                for (int j = Y - 25; j < Y + 25; j++)
                 {
                     if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<GourdRotten>())
                     {

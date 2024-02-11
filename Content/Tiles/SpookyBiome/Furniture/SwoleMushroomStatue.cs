@@ -15,7 +15,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Main.tileFrameImportant[Type] = true;
             Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-			TileObjectData.newTile.Width = 10;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.Width = 10;
 			TileObjectData.newTile.Height = 17;	
 			TileObjectData.newTile.Origin = new Point16(5, 16);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 };

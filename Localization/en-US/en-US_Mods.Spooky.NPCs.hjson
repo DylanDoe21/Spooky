@@ -2,7 +2,7 @@ RotGourd: {
 	DisplayName: Rot Gourd
 
 	BossChecklistIntegration: {
-		SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is sometimes dropped by breaking the pumpkins that grow there.
+		SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is dropped by breaking the large moldy gourds in the biome.
 		DespawnMessage: Rot Gourd hops into the distance
 	}
 }
