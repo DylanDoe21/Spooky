@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
                 int randomAmount = Main.rand.Next(2, 6);
 
-                for (int numItems = 0; numItems < randomAmount; numItems++) 
+                for (int numItems = 0; numItems <= randomAmount; numItems++) 
                 {
                     Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<RottenChunk>());
                 }

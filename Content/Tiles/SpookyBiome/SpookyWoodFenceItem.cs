@@ -2,15 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpookyBiome.Furniture;
-
 namespace Spooky.Content.Tiles.SpookyBiome
 {
-    public class SpookyWoodItem : ModItem
+    public class SpookyWoodFenceItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
@@ -20,27 +18,18 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
+			Item.useTime = 7;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<SpookyWood>();
+			Item.createWall = ModContent.WallType<SpookyWoodFence>();
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodWallItem>(), 4)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 1)
             .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodFenceItem>(), 4)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<OldWoodPlatformItem>(), 2)
             .Register();
         }
     }

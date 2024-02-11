@@ -2483,6 +2483,11 @@ SpookyWoodWallItem: {
 	Tooltip: ""
 }
 
+SpookyWoodFenceItem: {
+	DisplayName: Old Wood Fence
+	Tooltip: ""
+}
+
 EyeChestItem: {
 	DisplayName: Monster Chest
 	Tooltip: ""
