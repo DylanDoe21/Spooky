@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Linq;

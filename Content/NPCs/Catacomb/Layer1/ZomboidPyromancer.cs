@@ -79,10 +79,10 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void FindFrame(int frameHeight)
         {
-            //running animation
             NPC.frameCounter++;
             if (NPC.localAI[0] == 0)
             {
+                //walking animation
                 if (NPC.localAI[1] < 60)
                 {
                     if (NPC.frameCounter > 10)

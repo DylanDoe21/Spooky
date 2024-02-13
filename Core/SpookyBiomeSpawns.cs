@@ -293,14 +293,15 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
 						pool.Add(ModContent.NPCType<Skeletoid4>(), 5);
 						pool.Add(ModContent.NPCType<SkeletoidBig>(), 3);
-						pool.Add(ModContent.NPCType<RollingSkull1>(), 5);
-						pool.Add(ModContent.NPCType<RollingSkull2>(), 5);
-						pool.Add(ModContent.NPCType<RollingSkull3>(), 5);
+						pool.Add(ModContent.NPCType<RollingSkull1>(), 4);
+						pool.Add(ModContent.NPCType<RollingSkull2>(), 4);
+						pool.Add(ModContent.NPCType<RollingSkull3>(), 4);
 						pool.Add(ModContent.NPCType<RollingSkull4>(), 1);
 						pool.Add(ModContent.NPCType<GiantPutty>(), 5);
 						pool.Add(ModContent.NPCType<BoneStackerBase>(), 4);
 						pool.Add(ModContent.NPCType<ZomboidNecromancer>(), 3);
 						pool.Add(ModContent.NPCType<ZomboidPyromancer>(), 3);
+						pool.Add(ModContent.NPCType<ZomboidSuspiciomancer>(), 2);
 					}
 					else
 					{
