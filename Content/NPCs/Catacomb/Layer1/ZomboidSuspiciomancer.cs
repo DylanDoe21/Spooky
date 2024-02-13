@@ -20,14 +20,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetDefaults()
 		{
             NPC.lifeMax = 500;
-            NPC.damage = 10;
+            NPC.damage = 20;
             NPC.defense = 0;
             NPC.width = 64;
 			NPC.height = 70;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.DeathSound = SoundID.DoubleJump;
             NPC.aiStyle = 3;
             AIType = NPCID.Crab;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
