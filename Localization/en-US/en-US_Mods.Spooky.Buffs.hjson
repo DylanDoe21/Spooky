@@ -422,3 +422,8 @@ HunterScarfMark: {
 	DisplayName: Hunter Scarf Mark
 	Description: ""
 }
+
+ToothyDebuff: {
+	DisplayName: Chomped
+	Description: The plant monster is latched onto you!
+}

@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.height = 74;
             Item.useTime = 45;       
             Item.useAnimation = 45;  
-            Item.useStyle = ItemUseStyleID.Swing;      
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(platinum: 1); 

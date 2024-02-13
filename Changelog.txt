@@ -54,8 +54,10 @@ Other New Additions:
 -Added capsworth
 -Added many new resprites for items, armors, tiles, ect
 -Added a new spooky mod hotkey for activating armor set bonus abilities
+-Added the mushroom god statue
 -Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with
 -Added new colorful ambient gourd tiles to the spooky forest, and added a rotten version specifically for rot-gourd's summon item to drop from
+-Added a pumpkin carving mechanic, rot gourd now drops a carving kit which allows you to right click pumpkins to carve them, and you can put old wax candles inside of them to light them up
 -Added many new spooky forest enemies: monster eyes, rooted zomboids, flaming root zomboids, evil witches, possessed scarecrows, and candle monsters
 -Added compatiblity with lighting essentials, spooky mod ambient grasses will now produce colored lighting if you have the lighting essentials mod on, and the "Light Environment" option enabled in their config
 
@@ -65,7 +67,7 @@ Other New Additions:
 ~CHANGES TO EXISTING CONTENT~
 
 
-Items & Weapons:
+Weapons:
 
 -The gore monger armor is now just called gore armor
 -Reworked the gore armor set bonus, when you have the full set it now summons a baby orro or boro depending on the helmet, that will viciously attack enemies (They both have the same behavior, just different sprites)
@@ -156,6 +158,7 @@ Miscellaneous:
 -Spooky mod screen shake intensity slider now has a much higher maximum value, increased from a maximum of 2x extra screenshake to 5x extra screenshake (I think its pretty funny)
 -Spooky mod's primitive trails are now more pixelated to fit with terraria's style a bit more
 -The rare golden moyai now drops an item when broken, allowing you to place it anywhere you'd like
+-
 
 
 Removals:

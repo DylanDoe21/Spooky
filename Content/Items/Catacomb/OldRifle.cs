@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles;
-using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Projectiles.SpiderCave;
  
 namespace Spooky.Content.Items.Catacomb
 {
@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item36;
-			Item.shoot = ModContent.ProjectileType<OldRifleBullet>();
+			Item.shoot = ModContent.ProjectileType<RustedBulletProj>();
 			Item.useAmmo = AmmoID.Bullet;
 			Item.shootSpeed = 12f;
 		}
@@ -61,7 +61,7 @@ namespace Spooky.Content.Items.Catacomb
                 }
             }
 
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<OldRifleBullet>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<RustedBulletProj>(), damage, knockback, player.whoAmI, 0f, 0f);
 
 			return false;
 		}

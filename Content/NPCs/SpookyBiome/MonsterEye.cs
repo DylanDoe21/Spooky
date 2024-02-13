@@ -164,7 +164,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Lens, 3, 1, 1));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StickyEye>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

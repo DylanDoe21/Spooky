@@ -51,7 +51,6 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 			.AddIngredient(ItemID.Silk, 20)
 			.AddIngredient(ItemID.SilverBar, 8)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 20)
-            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
             .AddTile(TileID.Anvils)
             .Register();
 
@@ -59,7 +58,6 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 			.AddIngredient(ItemID.Silk, 20)
 			.AddIngredient(ItemID.TungstenBar, 8)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 20)
-            .AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
             .AddTile(TileID.Anvils)
             .Register();
         }

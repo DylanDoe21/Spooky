@@ -119,16 +119,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             //check every npc and if it is valid, spawn a soul if its close enough when it dies
             for (int i = 0; i <= Main.maxNPCs; i++)
             {
-                if (NecromancerValidEnemies.Contains(Main.npc[i].type) && Main.npc[i].Distance(NPC.Center) <= 500f)
+                NPC UndeadNPC = Main.npc[i];
+                if (NecromancerValidEnemies.Contains(UndeadNPC.type) && UndeadNPC.Distance(NPC.Center) < 505f && UndeadNPC.life <= 0)
                 {
-                    if (Main.npc[i].justHit && Main.npc[i].life <= 0)
+                    int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)UndeadNPC.Center.X, (int)UndeadNPC.Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
-                        
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: Soul);
-                        }
+                        NetMessage.SendData(MessageID.SyncNPC, number: Soul);
                     }
                 }
             }
@@ -165,7 +163,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                         Main.npc[SummonedGhost].lifeMax += StatScalingValue;
                         Main.npc[SummonedGhost].life = Main.npc[SummonedGhost].lifeMax;
                         Main.npc[SummonedGhost].damage += StatScalingValue;
-                        Main.npc[SummonedGhost].defense += StatScalingValue;
                     }
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)

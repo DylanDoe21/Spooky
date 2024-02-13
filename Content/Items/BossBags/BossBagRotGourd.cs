@@ -47,6 +47,9 @@ namespace Spooky.Content.Items.BossBags
             //material
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<RottenChunk>(), 1, 20, 35));
 
+			//pumpkin carving kit
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<PumpkinCarvingKit>(), 1));
+
 			//boss mask
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<RotGourdMask>(), 7));
 

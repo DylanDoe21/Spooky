@@ -108,7 +108,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 NPC.active = false;
             }
 
-            if (Parent.Distance(NPC.Center) < 500f)
+            if (Parent.Distance(NPC.Center) > 500f)
             {
                 NPC.active = false;
             }

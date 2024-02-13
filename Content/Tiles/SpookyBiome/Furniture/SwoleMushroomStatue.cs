@@ -29,5 +29,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
 		}
+
+		public override void NumDust(int i, int j, bool fail, ref int num)
+        {
+            num = fail ? 1 : 3;
+        }
     }
 }

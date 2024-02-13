@@ -392,7 +392,7 @@ PandoraCross: {
 	Tooltip:
 		'''
 		Press the Accessory Hotkey to release powerful sound around you for 5 seconds
-		The sound will deal damage to surrounding enemies, but will also damage you
+		The sound will deal damage to surrounding enemies, but will also damage you a little bit
 		This ability has a 40 second cooldown before it can be used again
 		'Heart-crushing Bass'
 		'''
@@ -602,7 +602,7 @@ SmileDogPicture: {
 }
 
 AnalogHorrorTape: {
-	DisplayName: Corrupted VHS Tape
+	DisplayName: Apocalypse Mixtape
 	Tooltip:
 		'''
 		Grants the effects of every analog horror accessory
@@ -1178,6 +1178,11 @@ LegalShotgun: {
 		'''
 }
 
+RustedBullet: {
+	DisplayName: Rusted Bullet
+	Tooltip: Splits into shrapnel on impact
+}
+
 OrbWeaverBoomerang: {
 	DisplayName: Weaverang
 	Tooltip:
@@ -1287,6 +1292,15 @@ TatantulaFlyTome: {
 		'''
 }
 
+VenomHarpoon: {
+	DisplayName: Venemous Spiderpoon
+	Tooltip:
+		'''
+		Fires out multiple venomous harpoons that can latch onto enemies and pull them towards you
+		Bosses cannot be pulled by the harpoons but they will be inflicted with venom
+		'''
+}
+
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
 	Tooltip: 5% increased melee damage
@@ -1370,6 +1384,15 @@ FlySmallItem: {
 LittleSpiderItem: {
 	DisplayName: Little Spider
 	Tooltip: ""
+}
+
+PumpkinCarvingKit: {
+	DisplayName: Gourd Carving Kit
+	Tooltip:
+		'''
+		Right click spooky forest gourds with this in your inventory to carve them
+		You can also place Old Wax Candles in them by right clicking them if you have one
+		'''
 }
 
 RottenChunk: {
@@ -2142,16 +2165,6 @@ LeechWhipGore: {
 	Tooltip: ""
 }
 
-CatacombBrickItem: {
-	DisplayName: Catacomb Bricks
-	Tooltip: ""
-}
-
-CatacombTilesItem: {
-	DisplayName: Catacomb Tiles
-	Tooltip: ""
-}
-
 CatacombCrate: {
 	DisplayName: Bone Crate
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -2160,6 +2173,41 @@ CatacombCrate: {
 CatacombCrate2: {
 	DisplayName: Skull Crate
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+MoyaiItem: {
+	DisplayName: Golden Moyai
+	Tooltip: ""
+}
+
+CatacombBrick1Item: {
+	DisplayName: Gray Catacomb Brick
+	Tooltip: ""
+}
+
+CatacombBrick2Item: {
+	DisplayName: Brown Catacomb Brick
+	Tooltip: ""
+}
+
+CatacombBrickWall1SafeItem: {
+	DisplayName: Gray Catacomb Brick Wall
+	Tooltip: ""
+}
+
+CatacombBrickWall2SafeItem: {
+	DisplayName: Brown Catacomb Brick Wall
+	Tooltip: ""
+}
+
+CatacombFlooringItem: {
+	DisplayName: Catacomb Floor Brick
+	Tooltip: ""
+}
+
+GildedBrickItem: {
+	DisplayName: Gilded Brick
+	Tooltip: ""
 }
 
 CemeteryDirtItem: {
@@ -2349,6 +2397,71 @@ SpookySpiritRelicItem: {
 	Tooltip: ""
 }
 
+DampGrassSeeds: {
+	DisplayName: Damp Grass Seeds
+	Tooltip: Plants grass on Damp Soil
+}
+
+DampSoilItem: {
+	DisplayName: Damp Soil
+	Tooltip: ""
+}
+
+RootWoodItem: {
+	DisplayName: Root Block
+	Tooltip: ""
+}
+
+RootWoodWallItem: {
+	DisplayName: Root Block Wall
+	Tooltip: ""
+}
+
+WebBlockItem: {
+	DisplayName: Spider Web Block
+	Tooltip: ""
+}
+
+GourdGiantItem: {
+	DisplayName: Red Carved Gourd
+	Tooltip: ""
+}
+
+GourdGiantLitItem: {
+	DisplayName: Red Gourd O' Lantern
+	Tooltip: ""
+}
+
+GourdLargeItem: {
+	DisplayName: Orange Carved Gourd
+	Tooltip: ""
+}
+
+GourdLargeLitItem: {
+	DisplayName: Orange Gourd O' Lantern
+	Tooltip: ""
+}
+
+GourdMediumItem: {
+	DisplayName: Yellow Carved Gourd
+	Tooltip: ""
+}
+
+GourdMediumLitItem: {
+	DisplayName: Yellow Gourd O' Lantern
+	Tooltip: ""
+}
+
+GourdSmallItem: {
+	DisplayName: Green Carved Gourd
+	Tooltip: ""
+}
+
+GourdSmallLitItem: {
+	DisplayName: Green Gourd O' Lantern
+	Tooltip: ""
+}
+
 HalloweenChestItem: {
 	DisplayName: Old Wood Chest
 	Tooltip: ""
@@ -2360,8 +2473,12 @@ SpookyBiomeChestItem: {
 }
 
 CandleItem: {
-	DisplayName: Small Candle
-	Tooltip: It flickers eerily
+	DisplayName: Old Wax Candle
+	Tooltip:
+		'''
+		Provides a small amount of light
+		Right click a carved gourd with this in your inventory to put it inside
+		'''
 }
 
 FlyBigJarItem: {
@@ -2436,6 +2553,11 @@ OldWoodWorkBenchItem: {
 SpookyCrate: {
 	DisplayName: Spooky Wood Crate
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+SwoleMushroomStatueItem: {
+	DisplayName: Mushroom God Statue
+	Tooltip: ""
 }
 
 MushroomMossSeeds: {
@@ -2658,72 +2780,7 @@ SpookySpiritTrophyItem: {
 	Tooltip: ""
 }
 
-CatacombBrick1Item: {
-	DisplayName: Gray Catacomb Brick
-	Tooltip: ""
-}
-
-CatacombBrick2Item: {
-	DisplayName: Brown Catacomb Brick
-	Tooltip: ""
-}
-
-CatacombBrickWall1SafeItem: {
-	DisplayName: Gray Catacomb Brick Wall
-	Tooltip: ""
-}
-
-CatacombBrickWall2SafeItem: {
-	DisplayName: Brown Catacomb Brick Wall
-	Tooltip: ""
-}
-
-CatacombFlooringItem: {
-	DisplayName: Catacomb Floor Brick
-	Tooltip: ""
-}
-
-GildedBrickItem: {
-	DisplayName: Gilded Brick
-	Tooltip: ""
-}
-
-DampSoilItem: {
-	DisplayName: Damp Soil
-	Tooltip: ""
-}
-
-WebBlockItem: {
-	DisplayName: Spider Web Block
-	Tooltip: ""
-}
-
 RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip: Test Item
-}
-
-RootWoodItem: {
-	DisplayName: Root Block
-	Tooltip: ""
-}
-
-RootWoodWallItem: {
-	DisplayName: Root Block Wall
-	Tooltip: ""
-}
-
-DampGrassSeeds: {
-	DisplayName: Damp Grass Seeds
-	Tooltip: Plants grass on Damp Soil
-}
-
-MoyaiItem: {
-	DisplayName: Golden Moyai
-	Tooltip: ""
-}
-
-SwoleMushroomStatueItem: {
-	DisplayName: Mushroom God Statue
-	Tooltip: ""
 }

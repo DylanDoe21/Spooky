@@ -384,29 +384,18 @@ namespace Spooky.Content.Generation
                         //gourds
                         if (WorldGen.genRand.NextBool(7))
                         {
-                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium1>(), (ushort)ModContent.TileType<GourdMedium2>(),
-                            (ushort)ModContent.TileType<GourdGiant1>(), (ushort)ModContent.TileType<GourdGiant2>() };
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium>(), (ushort)ModContent.TileType<GourdGiant>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, Main.rand.Next(0, 2));
                         }
                     }
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
                     {
                         if (WorldGen.genRand.NextBool(7))
                         {
-                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall1>(), (ushort)ModContent.TileType<GourdSmall2>(),
-                            (ushort)ModContent.TileType<GourdLarge1>(), (ushort)ModContent.TileType<GourdLarge2>() };
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall>(), (ushort)ModContent.TileType<GourdLarge>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds));    
-                        }
-                    }
-
-                    //rotten gourds
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyGrassGreen>())
-                    {
-                        if (WorldGen.genRand.NextBool(25) && CanGrowRottenGourd(X, Y))
-                        {
-                            WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<GourdRotten>());
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, Main.rand.Next(0, 2));    
                         }
                     }
                 }

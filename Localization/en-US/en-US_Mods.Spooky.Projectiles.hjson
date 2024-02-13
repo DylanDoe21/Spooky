@@ -61,8 +61,6 @@ GlowBulbThorn.DisplayName: Bulb Thorn
 GraveCrossbowArrow.DisplayName: Crossbow Arrow
 GraveCrossbowProj.DisplayName: Grave Crossbow
 NineTailsProj.DisplayName: Nine Tails
-OldRifleBullet.DisplayName: Rusty Bullet
-OldRifleBullet2.DisplayName: Rusty Bullet
 SkullTotem.DisplayName: Skull Totem
 SoulBolt.DisplayName: Soul Bolt
 SoulSkullBolt.DisplayName: Soul Bolt
@@ -325,3 +323,5 @@ HighVelocityPebble.DisplayName: High Velocity Pebble
 RedMistNote.DisplayName: Red Mist Note
 NaturesMockery.DisplayName: Nature's Mockery
 RottenGourdFly.DisplayName: Rotten Gourd Fly
+RustedBulletProj.DisplayName: Rusted Bullet
+RustedBulletShrapnel.DisplayName: Rusted Shrapnel

@@ -1,18 +1,21 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Projectiles.Catacomb
+namespace Spooky.Content.Projectiles.SpiderCave
 {
-    public class OldRifleBullet2 : ModProjectile
+    public class RustedBulletShrapnel : ModProjectile
     {
         private List<Vector2> cache;
         private Trail trail;
-        
+
         public override void SetDefaults()
         {
             Projectile.width = 8;
@@ -20,9 +23,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 2000;
-            Projectile.alpha = 255;
+            Projectile.timeLeft = 1800;
+			Projectile.penetrate = 1;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -35,9 +37,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
@@ -46,7 +48,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             return true;
         }
 
-        const int TrailLength = 12;
+        const int TrailLength = 3;
 
         private void ManageCaches()
         {
@@ -69,27 +71,32 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private void ManageTrail()
         {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 4 * factor, factor =>
+            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 1 * factor, factor =>
             {
-                return Color.Lerp(Color.Red, Color.Brown, factor.X) * factor.X;
+                return Color.Red * factor.X;
             });
 
             trail.Positions = cache.ToArray();
             trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
-        public override void AI()
+        public override void AI()       
         {
-			Projectile.rotation += 0.25f * (float)Projectile.direction;
-
-            Projectile.velocity.X *= 0.95f;
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
-
             if (!Main.dedServ)
             {
                 ManageCaches();
                 ManageTrail();
             }
+
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
+
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+        }
+
+        public override void OnKill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
         }
     }
 }

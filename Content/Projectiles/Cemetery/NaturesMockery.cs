@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -77,7 +78,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             //lifesteal from enemies
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox) && Projectile.ai[1] % 20 == 5)
+                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox) && Main.npc[i].active && !Main.npc[i].friendly && 
+                !Main.npc[i].dontTakeDamage && !NPCID.Sets.CountsAsCritter[Main.npc[i].type] && Projectile.ai[1] % 20 == 5)
                 {
                     int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(80, 100) : Main.rand.Next(10, 15);
                     int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;

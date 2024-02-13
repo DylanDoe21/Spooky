@@ -25,6 +25,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             player.GetModPlayer<SpookyPlayer>().GeminiEntertainmentGame = true;
             player.GetModPlayer<SpookyPlayer>().MandelaCatalogueTV = true;
             player.GetModPlayer<SpookyPlayer>().CarnisFlavorEnhancer = true;
+            player.GetModPlayer<SpookyPlayer>().BackroomsCorpse = true;
             player.GetModPlayer<SpookyPlayer>().Local58Telescope = true;
 
             //monument mythos pyramid defense
@@ -35,10 +36,17 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             }
 
             //spawn orbiting moon
-            bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<Local58Moon>()] <= 0;
-			if (NotSpawned && player.whoAmI == Main.myPlayer)
+            bool MoonNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<Local58Moon>()] <= 0;
+			if (MoonNotSpawned && player.whoAmI == Main.myPlayer)
 			{
 				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Local58Moon>(), 200, 5f, player.whoAmI);
+			}
+
+            //spawn decay head
+            bool HeadNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BackroomsCorpseHead>()] <= 0;
+			if (HeadNotSpawned && player.whoAmI == Main.myPlayer)
+			{
+				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<BackroomsCorpseHead>(), 0, 0f, player.whoAmI, 0f, 0f);
 			}
         }
 

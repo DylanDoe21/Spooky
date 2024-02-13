@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             {
                 player.Center = NPC.Center;
 
-                //player.AddBuff(ModContent.BuffType<ToothyDebuff>(), 2);
+                player.AddBuff(ModContent.BuffType<ToothyDebuff>(), 2);
 
                 if (player.statLife <= 0 || player.dead)
                 {

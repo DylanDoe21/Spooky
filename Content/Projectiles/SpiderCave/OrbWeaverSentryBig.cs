@@ -115,7 +115,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 {
                     SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 
-                    float Velocity = Main.rand.NextFloat(14f, 21f);
+                    float Velocity = Main.rand.NextFloat(15f, 26f);
 
                     for (int numProjectiles = -3; numProjectiles <= -1; numProjectiles++)
                     {

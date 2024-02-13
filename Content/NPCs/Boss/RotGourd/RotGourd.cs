@@ -1113,6 +1113,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//material
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RottenChunk>(), 1, 12, 20));
 
+			//pumpkin carving kit
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PumpkinCarvingKit>()));
+
 			//drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
 
