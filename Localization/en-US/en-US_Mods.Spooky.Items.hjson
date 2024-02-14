@@ -1161,7 +1161,7 @@ HighVelocitySlingshot: {
 }
 
 HunterScarf: {
-	DisplayName: Hunter Scarf
+	DisplayName: Old Hunter's Scarf
 	Tooltip:
 		'''
 		Nearby enemies location will be revealed
@@ -2787,5 +2787,9 @@ SpookySpiritTrophyItem: {
 
 RaveStarter: {
 	DisplayName: Rave Starter
-	Tooltip: Test Item
+	Tooltip:
+		'''
+		Starts the raveyard event when used at night
+		Testing Item
+		'''
 }

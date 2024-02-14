@@ -5,13 +5,13 @@ namespace Spooky.Content.Buffs.Debuff
 {
 	public class FleshWhipDefense : ModBuff
 	{
-		public override void SetStaticDefaults()
+        private bool initializeStats;
+        private int storedDefense;
+
+        public override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
 		}
-
-		private bool initializeStats;
-        private int storedDefense;
 
 		public override void Update(NPC npc, ref int buffIndex)
         {

@@ -57,6 +57,12 @@ namespace Spooky.Core
                     modifiers.FinalDamage *= 1.4f;
                 }
             }
+
+            //enemies inflicted with the hunter mark debuff, they take more damage from ranged weapons
+            if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
+            {
+                modifiers.FinalDamage *= 1.5f;
+            }
         }
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot) 

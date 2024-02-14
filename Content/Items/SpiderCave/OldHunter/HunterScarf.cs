@@ -6,6 +6,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.SpiderCave.OldHunter
 {
+    [AutoloadEquip(EquipType.Neck)]
 	public class HunterScarf : ModItem
 	{
 		public override void SetDefaults()

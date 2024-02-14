@@ -702,6 +702,20 @@ namespace Spooky.Core
                 RosaryHandTimer = 0;
             }
 
+            //inflict enemies with the hunter mark debuff with the old hunter's scarf
+            if (HunterScarf)
+            {
+                for (int i = 0; i <= Main.maxNPCs; i++)
+                {
+                    NPC NPC = Main.npc[i];
+
+                    if (NPC.active && !NPC.friendly && !NPC.immortal && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+                    {
+                        NPC.AddBuff(ModContent.BuffType<HunterScarfMark>(), 5);
+                    }
+                }
+            }
+
             //spawn nature's mockery on the ground with the lethal omen accessory
             if (GeminiEntertainmentGame && Player.ownedProjectileCounts[ModContent.ProjectileType<NaturesMockery>()] < 1)
             {

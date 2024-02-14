@@ -35,24 +35,19 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			return new Vector2(-5, 0);
 		}
 
-		//this dont work lol
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 70f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
-            for (int numProjectiles = 0; numProjectiles < 8; numProjectiles++)
+            for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
             {
-                Vector2 randomPosition = position * MathHelper.Lerp(20f, 60f, Main.rand.NextFloat());
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(25));
 
-                Vector2 newVelocity = Main.MouseWorld - randomPosition;
-                Vector2 newShootSpeed = Main.MouseWorld.SafeNormalize(Vector2.UnitY) * (Item.shootSpeed - Main.rand.Next(2, 4));
-                newVelocity = newVelocity.SafeNormalize(newShootSpeed) * (Item.shootSpeed - Main.rand.Next(2, 4));
-                newVelocity = Vector2.Lerp(newVelocity, newShootSpeed, Main.rand.NextFloat(-0.25f, 0.25f));
-                Projectile.NewProjectile(source, randomPosition, newVelocity, type, damage, knockback, player.whoAmI, 0f, 0f);
+			    Projectile.NewProjectile(source, position, newVelocity, type, damage, knockback, player.whoAmI);
             }
 
             player.velocity -= velocity;
