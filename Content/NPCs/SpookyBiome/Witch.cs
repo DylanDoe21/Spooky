@@ -25,11 +25,21 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+            writer.Write(CanShootPotion);
+            writer.Write(HasThrownPotion);
+
+            //floats
             writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //bools
+            CanShootPotion = reader.ReadBoolean();
+            HasThrownPotion = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
         }
         
@@ -136,6 +146,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                     CanShootPotion = false;
                     HasThrownPotion = true;
+                    NPC.netUpdate = true;
                 }
             }
 

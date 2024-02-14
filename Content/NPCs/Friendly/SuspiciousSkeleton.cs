@@ -103,7 +103,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 9));
+			return Language.GetTextValue("Mods.Spooky.Dialogue.SuspiciousSkeleton.Dialogue" + Main.rand.Next(1, 22));
 		}
 
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)

@@ -106,6 +106,7 @@ Weapons:
 -Added a new orange summoner buff candy to the bag o' treats that gives you a temporary extra sentry slot
 -Femur fracturer homing skulls are now lauched forward in the same direction as the hammer was thrown instead of being created and then moving super slowly
 -Femur fracturer no longer spins faster when super-charged, instead it now starts off with a gray trail effect that turns green when super-charged to serve as a better visual indicator
+-Spooky scroll pumpkin heads will now die if they are floating around you for too long without targetting an enemy
 
 
 Enemy & Boss Changes:
@@ -129,7 +130,7 @@ Enemy & Boss Changes:
 -Buffed the catacomb layer 2 enemies overall stats a bit
 -Massively nerfed flourence's knockback resistance as it was way too high
 -Changed sunny's bestiary description because it previously said it can use magic to summon more enemies which is a scrapped idea, and it now correctly mentions that it heals other enemies
--****NOT DONE****The toothy enemy no longer does contact damage, instead it now inflicts the player with a damage over time effect that stops as soon as the toothy is killed (Or until you die)
+-Toothy no longer does contact damage, instead it now inflicts the player with a damage over time debuff while it is chomped on you that stops as soon as the toothy is killed (Or until you die)
 -Giant fuzz bats can now sometimes inflict feral bite in expert and master mode like vanilla bat enemies
 -Small fuzzbats can now spawn in the underground spooky forest, and spawn less frequently in the spooky forest surface at night
 -Clot squids summoned by the claret cephalopod now count towards the regular clot squid's bestiary entry unlock and killcount

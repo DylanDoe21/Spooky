@@ -117,6 +117,7 @@ namespace Spooky.Content.NPCs.Friendly
 			var npcShop = new NPCShop(Type)
 			.Add<BoneBow>()
 			.Add<HighVelocitySlingshot>()
+			.Add<RustedBullet>()
 			.Add<MossyPebble>();
             npcShop.Register();
         }

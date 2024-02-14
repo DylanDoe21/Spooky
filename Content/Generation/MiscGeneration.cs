@@ -11,8 +11,10 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Tiles.SpiderCave.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
@@ -24,55 +26,12 @@ namespace Spooky.Content.Generation
     {
         private void PlaceSpookyChest(GenerationProgress progress, GameConfiguration configuration)
         {
-            bool placedChest = false;
-
-            for (int j = (int)Main.worldSurface + 200; j <= Main.maxTilesY - 200; j++)
-            {
-                int i = 100;
-                if (GenVars.dungeonSide == 1)
-                {
-                    i = Main.maxTilesX - 100;
-                }
-
-                bool shouldContinue = true;
-
-                while (shouldContinue)
-                {
-                    if (GenVars.dungeonSide == 1)
-                    {
-                        i--;
-                        if (i < Main.maxTilesX / 2)
-                        {
-                            shouldContinue = false;
-                        }
-                    }
-                    else
-                    {
-                        i++;
-                        if (i > Main.maxTilesX / 2)
-                        {
-                            shouldContinue = false;
-                        }
-                    }
-
-                    Tile tile = Main.tile[i, j];
-                    Tile tileUp = Main.tile[i, j - 1];
-                    Tile tileRight = Main.tile[i + 1, j - 1];
-
-                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest)
-                    {
-                        WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<SpookyBiomeChest>(), true, 1);
-                    }
-
-                    if (tileUp.TileType == ModContent.TileType<SpookyBiomeChest>())
-                    {
-                        placedChest = true;
-                    }
-                }
-            }
+            PlaceDungeonChest(ModContent.TileType<SpookyBiomeChest>());
+            PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
+            PlaceDungeonChest(ModContent.TileType<SpiderCaveChest>());
         }
 
-        private void PlaceEyeChest(GenerationProgress progress, GameConfiguration configuration)
+        public static void PlaceDungeonChest(int ChestType)
         {
             bool placedChest = false;
             
@@ -109,17 +68,35 @@ namespace Spooky.Content.Generation
                     Tile tileUp = Main.tile[i, j - 1];
                     Tile tileRight = Main.tile[i + 1, j - 1];
 
-                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest)
+                    if (Main.tileDungeon[tile.TileType] && Main.wallDungeon[tileUp.WallType] && !tileUp.HasTile && !tileRight.HasTile && !placedChest && CanPlaceDungeonChest(i, j))
                     {
-                        WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<SpookyHellChest>(), true, 1);
+                        WorldGen.PlaceChest(i, j - 1, (ushort)ChestType, true, 1);
                     }
 
-                    if (tileUp.TileType == ModContent.TileType<SpookyHellChest>())
+                    if (tileUp.TileType == ChestType)
                     {
                         placedChest = true;
                     }
                 }
             }
+        }
+
+        public static bool CanPlaceDungeonChest(int X, int Y)
+        {
+            //check a 400 by 200 square for other giant roots before placing
+            for (int i = X - 200; i < X + 200; i++)
+            {
+                for (int j = Y - 100; j < Y + 100; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpookyHellChest>() ||
+                    Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveChest>()))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void PlaceSecretPetShrine(GenerationProgress progress, GameConfiguration configuration)
@@ -136,8 +113,7 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Dungeon Chest", PlaceSpookyChest));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Dungeon Chest", PlaceEyeChest));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Biome Dungeon Chests", PlaceSpookyChest));
 
             if (MenuSaveSystem.hasDefeatedRotGourd && MenuSaveSystem.hasDefeatedSpookySpirit && MenuSaveSystem.hasDefeatedMoco &&
             MenuSaveSystem.hasDefeatedDaffodil && MenuSaveSystem.hasDefeatedOrroboro && MenuSaveSystem.hasDefeatedBigBone)
@@ -161,8 +137,8 @@ namespace Spooky.Content.Generation
                 Tile chestTile = Main.tile[chest.x, chest.y];
 
                 //spooky biome chest items
-				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || 
-                chestTile.TileType == ModContent.TileType<SpookyHellChest>()))
+				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || chestTile.TileType == ModContent.TileType<SpookyHellChest>() ||
+                chestTile.TileType == ModContent.TileType<SpiderCaveChest>()))
                 {
                     //potions
                     int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
@@ -170,14 +146,21 @@ namespace Spooky.Content.Generation
                     //more potions
                     int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
 
-                    //spooky biome chest main item
+                    //spider cave biome chest main item
+                    if (chestTile.TileType == ModContent.TileType<SpiderCaveChest>())
+                    {
+                        chest.item[0].SetDefaults(ModContent.ItemType<VenomHarpoon>());
+                        chest.item[0].stack = 1;
+                    }
+
+                    //spooky forest biome chest main item
                     if (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>())
                     {
                         chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
                         chest.item[0].stack = 1;
                     }
 
-                    //eye biome chest main item
+                    //eye valley biome chest main item
                     if (chestTile.TileType == ModContent.TileType<SpookyHellChest>())
                     {
                         chest.item[0].SetDefaults(ModContent.ItemType<BrainJar>());

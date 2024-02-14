@@ -1297,7 +1297,7 @@ VenomHarpoon: {
 	Tooltip:
 		'''
 		Fires out multiple venomous harpoons that can latch onto enemies and pull them towards you
-		Bosses cannot be pulled by the harpoons but they will be inflicted with venom
+		The harpoons cannot be aimed vertically
 		'''
 }
 
@@ -2397,6 +2397,11 @@ SpookySpiritRelicItem: {
 	Tooltip: ""
 }
 
+SpiderCaveChestItem: {
+	DisplayName: Spider Grotto Chest
+	Tooltip: ""
+}
+
 DampGrassSeeds: {
 	DisplayName: Damp Grass Seeds
 	Tooltip: Plants grass on Damp Soil
@@ -2464,11 +2469,6 @@ GourdSmallLitItem: {
 
 HalloweenChestItem: {
 	DisplayName: Old Wood Chest
-	Tooltip: ""
-}
-
-SpookyBiomeChestItem: {
-	DisplayName: Spooky Chest
 	Tooltip: ""
 }
 
@@ -2547,6 +2547,11 @@ OldWoodTableItem: {
 
 OldWoodWorkBenchItem: {
 	DisplayName: Old Wood Work Bench
+	Tooltip: ""
+}
+
+SpookyBiomeChestItem: {
+	DisplayName: Spooky Biome Chest
 	Tooltip: ""
 }
 

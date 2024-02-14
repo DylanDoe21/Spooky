@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.tileCollide = true;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 2;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -100,6 +100,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             Player player = Main.player[Projectile.owner];
 
             Projectile.spriteDirection = -Projectile.direction;
+
+            Projectile.timeLeft = 2;
 
 			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
             {

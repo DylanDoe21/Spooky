@@ -26,9 +26,37 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(platinum: 1);
-            Item.UseSound = SoundID.Item1;
-            //Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
-			//Item.shootSpeed = 2.5f;
+            Item.UseSound = SoundID.Zombie45;
+            Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
+			Item.shootSpeed = 0f;
         }
+
+        public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-16, -10);
+		}
+
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position.X += muzzleOffset.X;
+            }
+
+            position.Y -= 15;
+
+            for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+            {
+			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-18, 19)), Item.shoot, damage, knockback, player.whoAmI);
+            }
+			
+			return false;
+		}
     }
 }

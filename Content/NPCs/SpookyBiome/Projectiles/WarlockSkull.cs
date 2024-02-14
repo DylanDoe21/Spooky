@@ -168,59 +168,13 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] > 75 && Projectile.ai[0] < 110)
+            if (Projectile.ai[0] == 75)
             {
-                if (Projectile.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    target = -1;
-                    float distance = 2000f;
-                    for (int k = 0; k < 255; k++)
-                    {
-                        if (Main.player[k].active && !Main.player[k].dead)
-                        {
-                            Vector2 center = Main.player[k].Center;
-                            float currentDistance = Vector2.Distance(center, Projectile.Center);
-                            if (currentDistance < distance || target == -1)
-                            {
-                                distance = currentDistance;
-                                target = k;
-                            }
-                        }
-                    }
-                    if (target != -1)
-                    {
-                        Projectile.ai[1] = 1;
-                        Projectile.netUpdate = true;
-                    }
-                }
-                else if (target >= 0 && target < Main.maxPlayers)
-                {
-                    Player targetPlayer = Main.player[target];
-                    if (!targetPlayer.active || targetPlayer.dead)
-                    {
-                        target = -1;
-                        Projectile.ai[1] = 0;
-                        Projectile.netUpdate = true;
-                    }
-                    else
-                    {
-                        float currentRot = Projectile.velocity.ToRotation();
-                        Vector2 direction = targetPlayer.Center - Projectile.Center;
-                        float targetAngle = direction.ToRotation();
-                        if (direction == Vector2.Zero)
-                        {
-                            targetAngle = currentRot;
-                        }
-
-                        float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-                        Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-                    }
-                }
-
-                Projectile.velocity *= 1.055f;
+                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
+                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 8;
             }
 
-            if (Projectile.ai[0] > 110)
+            if (Projectile.ai[0] > 100)
             {
                 Projectile.tileCollide = true;
             }

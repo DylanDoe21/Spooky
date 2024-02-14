@@ -1,11 +1,16 @@
+SpiderCaveChest: {
+	MapEntry0: Spider Grotto Chest
+	MapEntry1: Locked Spider Grotto Chest
+}
+
 HalloweenChest: {
 	MapEntry0: Old Wood Chest
 	MapEntry1: Locked Old Wood Chest
 }
 
 SpookyBiomeChest: {
-	MapEntry0: Spooky Chest
-	MapEntry1: Locked Spooky Chest
+	MapEntry0: Spooky Forest Chest
+	MapEntry1: Locked Spooky Forest Chest
 }
 
 EyeChest: {

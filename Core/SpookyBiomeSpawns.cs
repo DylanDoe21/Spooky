@@ -189,6 +189,12 @@ namespace Spooky.Core
                         pool.Add(ModContent.NPCType<Bungus>(), 3);
                         pool.Add(ModContent.NPCType<Chungus>(), 2);
                     }
+
+					//hardmode enemies
+					if (Main.hardMode)
+					{
+						pool.Add(ModContent.NPCType<CandleMonster>(), 2);
+					}
                 }
 			}
 
