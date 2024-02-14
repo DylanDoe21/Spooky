@@ -101,6 +101,7 @@ ZomboidNecromancerSoul.DisplayName: Undead Soul
 PhantomRollingSkull.DisplayName: Phantom Skull
 PhantomSkeletoid.DisplayName: Phantom Skeletoid
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
+ZomboidSuspiciomancer.DisplayName: Zomboid Suspiciomancer
 //catacombs layer 2
 Daisy1.DisplayName: Daisy
 Daisy2.DisplayName: Daisy
@@ -143,8 +144,8 @@ Vigilante.DisplayName: Vigilante
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid
 GiantWeb.DisplayName: Giant Web
-GiantWebAnimationBase.DisplayName: Old Hunter Animation
-GiantWebAnimationPiece.DisplayName: Old Hunter Piece
+GiantWebAnimationBase.DisplayName: ""
+GiantWebAnimationPiece.DisplayName: ""
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
@@ -278,4 +279,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-ZomboidSuspiciomancer.DisplayName: Zomboid Suspiciomancer

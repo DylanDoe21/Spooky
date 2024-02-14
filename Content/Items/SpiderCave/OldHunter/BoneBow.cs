@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 5);
+			Item.value = Item.buyPrice(gold: 10);
 			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<BoneBowProj>();
 			Item.useAmmo = AmmoID.Arrow;

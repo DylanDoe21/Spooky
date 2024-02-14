@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
             Item.height = 32;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;  
-            Item.value = Item.buyPrice(gold: 5);
+            Item.value = Item.buyPrice(gold: 12);
         }
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

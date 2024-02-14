@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			if (firstButton) 
 			{
-				shop = ShopName; // Name of the shop tab we want to open.
+				shop = ShopName;
 			}
 		}
 
@@ -117,7 +117,9 @@ namespace Spooky.Content.NPCs.Friendly
 			var npcShop = new NPCShop(Type)
 			.Add<BoneBow>()
 			.Add<HighVelocitySlingshot>()
-			.Add<RustedBullet>()
+            .Add<LegalShotgun>(Condition.DownedSkeletron)
+            .Add<HunterScarf>()
+            .Add<RustedBullet>()
 			.Add<MossyPebble>();
             npcShop.Register();
         }
