@@ -337,6 +337,7 @@ namespace Spooky.Core
                 if (SpiderSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
                 {
                     Player.AddBuff(ModContent.BuffType<SpiderArmorStealth>(), 600);
+                    Player.AddBuff(ModContent.BuffType<SpiderStealthCooldown>(), 7200);
                 }
             }
         }
@@ -901,9 +902,9 @@ namespace Spooky.Core
 
             if (SpiderStealthAlpha > 0f)
             {
-                r *= 1f - (SpiderStealthAlpha * 0.5f);
+                r *= 1f - (SpiderStealthAlpha * 0.75f);
                 g *= 1f - (SpiderStealthAlpha * 0.5f);
-                b *= 1f - (SpiderStealthAlpha * 0.5f);
+                b *= 1f - (SpiderStealthAlpha * 0.75f);
                 a *= 1f - (SpiderStealthAlpha * 0.5f);
             }
         }

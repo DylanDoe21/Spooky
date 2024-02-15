@@ -22,6 +22,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -193,7 +195,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullAmulet>(), 30));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZomboidNecromancerHood>(), 5));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

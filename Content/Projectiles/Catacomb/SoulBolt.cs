@@ -104,6 +104,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.ai[0] == 0)
             {
+                Projectile.ai[1]++;
+
+                if (Projectile.ai[1] >= 600)
+                {
+                    Projectile.Kill();
+                }
+
                 Projectile.penetrate = -1;
                 Projectile.timeLeft = 180;
 

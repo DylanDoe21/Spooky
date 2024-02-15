@@ -15,6 +15,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
         
         public override void SetDefaults()

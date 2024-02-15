@@ -12,7 +12,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
         int playerCenterOffset = 1;
 
-		public override void SetStaticDefaults()
+        public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
+
+        public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 4;
 		}
@@ -132,12 +134,25 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         
                         SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 
+                        
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<TarantulaHawkArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        int ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
+
+                        float Speed = 20f;
+
+                        float knockBack = ActiveItem(player).knockBack;
+
+                        player.PickAmmo(ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out AmmoID.Arrow);
+
+                        //ProjType must be reset so it shoots the correct projectile
+                        ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
+                        knockBack = player.GetWeaponKnockback(ActiveItem(player), knockBack);
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
+                        ProjType, Projectile.damage, knockBack, Projectile.owner);
                     }
                 }
 
@@ -153,6 +168,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     Projectile.localAI[0] = 0;
                     Projectile.localAI[1] = 0;
                     Projectile.localAI[2] = 0;
+                }
+
+                //kill this holdout projectile if the player has no more arrows
+                if (!player.HasAmmo(ActiveItem(player)))
+                {
+                    Projectile.Kill();
                 }
 			}
 

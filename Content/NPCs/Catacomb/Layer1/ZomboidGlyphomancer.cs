@@ -11,17 +11,15 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
-    public class ZomboidPyromancer : ModNPC
+    public class ZomboidGlyphomancer : ModNPC
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 10;
+            Main.npcFrameCount[NPC.type] = 9;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
@@ -30,12 +28,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -43,8 +43,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.lifeMax = 150;
             NPC.damage = 20;
             NPC.defense = 0;
-            NPC.width = 46;
-			NPC.height = 56;
+            NPC.width = 52;
+			NPC.height = 60;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 75);
@@ -57,86 +57,46 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidPyromancer"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidGlyphomancer"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer1/ZomboidPyromancerFlames").Value;
-
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            for (int numEffect = 0; numEffect < 5; numEffect++)
-            {
-                float shakeX = Main.rand.Next(-2, 2);
-			    float shakeY = Main.rand.Next(-2, 2);
-
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0 + shakeX, NPC.gfxOffY + 4 + shakeY), 
-                NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0.5f);
-            }
-        }
 
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
             if (NPC.localAI[0] == 0)
             {
-                //walking animation
-                if (NPC.localAI[1] < 60)
-                {
-                    if (NPC.frameCounter > 10)
-                    {
-                        NPC.frame.Y = NPC.frame.Y + frameHeight;
-                        NPC.frameCounter = 0;
-                    }
-                    if (NPC.frame.Y >= frameHeight * 4)
-                    {
-                        NPC.frame.Y = 0 * frameHeight;
-                    }
-
-                    //frame when falling/jumping
-                    if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
-                    {
-                        NPC.frame.Y = 2 * frameHeight;
-                    }
-                }
-                //use casting animation during casting ai
-                if (NPC.localAI[1] >= 60)
-                {
-                    if (NPC.frame.Y < frameHeight * 5)
-                    {
-                        NPC.frame.Y = 4 * frameHeight;
-                    }
-
-                    if (NPC.frameCounter > 4)
-                    {
-                        NPC.frame.Y = NPC.frame.Y + frameHeight;
-                        NPC.frameCounter = 0;
-                    }
-                    if (NPC.frame.Y >= frameHeight * 7)
-                    {
-                        NPC.frame.Y = 5 * frameHeight;
-                    }
-                }
-            }
-            //on fire animation
-            else
-            {
-                if (NPC.frame.Y < frameHeight * 8)
-                {
-                    NPC.frame.Y = 7 * frameHeight;
-                }
-
-                if (NPC.frameCounter > 4)
+                if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 10)
+                if (NPC.frame.Y >= frameHeight * 5)
+                {
+                    NPC.frame.Y = 0 * frameHeight;
+                }
+
+                //frame when falling/jumping
+                if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
+                {
+                    NPC.frame.Y = 2 * frameHeight;
+                }
+            }
+            //attacking frames
+            else
+            {
+                if (NPC.localAI[2] == 0)
+                {
+                    NPC.frame.Y = 6 * frameHeight;
+                }
+                if (NPC.localAI[2] == 1)
                 {
                     NPC.frame.Y = 7 * frameHeight;
+                }
+                if (NPC.localAI[2] == 2)
+                {
+                    NPC.frame.Y = 8 * frameHeight;
                 }
             }
         }
@@ -153,21 +113,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             {
                 case 0:
                 {
-                    if (player.Distance(NPC.Center) <= 150f || NPC.localAI[1] >= 60)
+                    if (player.Distance(NPC.Center) <= 300f || NPC.localAI[1] >= 120)
                     {
                         NPC.localAI[1]++;
                     }
 
-                    if (NPC.localAI[1] < 60)
+                    if (NPC.localAI[1] < 180)
                     {
                         NPC.aiStyle = 3;
                         AIType = NPCID.Crab;
                     }
 
-                    if (NPC.localAI[1] >= 60)
+                    if (NPC.localAI[1] >= 180)
                     {
-                        NPC.aiStyle = 0;
-
+                        /*
                         int MaxDusts = Main.rand.Next(3, 8);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
@@ -181,23 +140,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-2f, -1f);
                             Main.dust[dustEffect].fadeIn = 1.3f;
                         }
+                        */
 
-                        //explode
+                        //start actually attacking
                         if (NPC.localAI[1] == 115)
                         {
-                            SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.Center);
-
-                            for (int numDust = 0; numDust < 35; numDust++)
-                            {                                                                                  
-                                int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
-                                Main.dust[dust].velocity.X *= Main.rand.NextFloat(-12f, 12f);
-                                Main.dust[dust].velocity.Y *= Main.rand.NextFloat(-12f, 12f);
-                                Main.dust[dust].scale = Main.rand.NextFloat(1f, 2f);
-                                Main.dust[dust].noGravity = true;
-                            }
-
                             NPC.localAI[1] = 0;
-                            NPC.localAI[0]++;
+                            NPC.localAI[2] = Main.rand.Next(0, 3);
+                            //NPC.localAI[0]++;
                         }
                     }
 
@@ -206,25 +156,25 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                 case 1:
                 {
-                    NPC.aiStyle = 3;
-                    AIType = NPCID.DesertGhoul;
-
-                    NPC.AddBuff(BuffID.OnFire3, 2);
-
-                    NPC.localAI[1]++;
-
-                    if (NPC.localAI[1] % 60 == 20)
+                    switch (NPC.localAI[2])
                     {
-                        for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
+                        //punching attack
+                        case 0:
                         {
-                            int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
-
-                            Vector2 Speed = new Vector2(2f, 0f).RotatedByRandom(2 * Math.PI);
-
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Speed, Main.rand.Next(Types), Damage, 0f, NPC.target, 0, 0);
+                            break;
                         }
 
-                        NPC.localAI[1] = 0;
+                        //scissor attack
+                        case 1:
+                        {
+                            break;
+                        }
+
+                        //finger gun attack
+                        case 2:
+                        {
+                            break;
+                        }
                     }
 
                     break;
@@ -234,8 +184,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlameIdol>(), 30));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZomboidPyromancerHood>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
         }
 
@@ -254,7 +202,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerGore" + numGores).Type);
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerCloth" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerCloth1").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerCloth3").Type);
                     }
                 }
             }
