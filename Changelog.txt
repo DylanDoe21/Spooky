@@ -106,7 +106,7 @@ Weapons:
 -Added a new orange summoner buff candy to the bag o' treats that gives you a temporary extra sentry slot
 -Femur fracturer homing skulls are now lauched forward in the same direction as the hammer was thrown instead of being created and then moving super slowly
 -Femur fracturer no longer spins faster when super-charged, instead it now starts off with a gray trail effect that turns green when super-charged to serve as a better visual indicator
--Spooky scroll pumpkin heads will now die if they are floating around you for too long without targetting an enemy
+-Spooky scroll pumpkin heads will now die if they are floating around you for too long without targetting an enemy, and they now target enemies much quicker
 -Harvester's scythe souls will now die if they linger around you for too long without being "activated" to target enemies
 
 

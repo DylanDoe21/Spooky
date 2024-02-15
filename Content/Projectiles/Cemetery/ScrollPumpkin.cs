@@ -92,7 +92,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return Projectile.ai[0] >= 120;
+			return Projectile.ai[0] >= 60;
 		}
 
         public override void AI()
@@ -140,7 +140,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 GoAbovePlayer(player);
             }
 
-            if (Projectile.ai[0] >= 120)
+            if (Projectile.ai[0] >= 60)
             {
                 Projectile.tileCollide = true;
             }
@@ -149,7 +149,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.tileCollide = false;
             }
 
-            //prevent Projectiles clumping together
+            //prevent projectiles clumping together
 			for (int num = 0; num < Main.projectile.Length; num++)
 			{
 				Projectile other = Main.projectile[num];
@@ -178,9 +178,16 @@ namespace Spooky.Content.Projectiles.Cemetery
     
         public void AttackingAI(NPC target)
         {
+            Projectile.ai[2]++;
+
+            if (Projectile.ai[2] >= 300)
+            {
+                Projectile.Kill();
+            }
+
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] == 120)
+            if (Projectile.ai[0] == 60)
             {
                 Vector2 ChargeDirection = target.Center - Projectile.Center;
                 ChargeDirection.Normalize();                     
