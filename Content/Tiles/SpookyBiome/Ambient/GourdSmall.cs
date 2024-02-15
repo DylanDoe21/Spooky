@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 4;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(73, 120, 46));
+            AddMapEntry(new Color(59, 82, 34));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -94,7 +94,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(73, 120, 46));
+            AddMapEntry(new Color(59, 82, 34));
             DustType = 288;
             HitSound = SoundID.Dig;
         }

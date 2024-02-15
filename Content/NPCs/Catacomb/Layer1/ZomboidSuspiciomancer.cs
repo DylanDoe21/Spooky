@@ -82,7 +82,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         {
 			if (NPC.life <= 0) 
             {
-                for (int numZombinos = 0; numZombinos <= 6; numZombinos++)
+                for (int numZombinos = 0; numZombinos <= 5; numZombinos++)
                 {
                     int Zombino = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-35, 35), (int)NPC.Center.Y - Main.rand.Next(-10, 45), ModContent.NPCType<ZomboidGremlin>());
                     Main.npc[Zombino].velocity.X = Main.rand.Next(-5, 6);

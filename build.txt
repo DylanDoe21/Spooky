@@ -3,9 +3,9 @@ author = DylanDoe21 and the Spooky Team
 version = 1.1
 
 buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, *.piskel, Unused\*
+hideCode = false
 hideResources = true
 includeSource = false
-hideCode = true
-includePDB = false
+includePDB = true
 
 modReferences = StructureHelper

@@ -462,7 +462,7 @@ namespace Spooky.Content.Generation
             //statues and traps are annoying, so clear out everything from the mushroom area in the spooky forest
             for (int mushroomX = 20; mushroomX <= Main.maxTilesX - 20; mushroomX++)
 			{
-                for (int mushroomY = PositionY - 100; mushroomY < Main.maxTilesY - 100; mushroomY++)
+                for (int mushroomY = PositionY - 100; mushroomY < Main.maxTilesY / 2 - 50; mushroomY++)
                 {
                     //whitelist so tiles meant to be on mushroom moss dont get cleared
                     int[] ClearWhitelist = { ModContent.TileType<MushroomMoss>(), ModContent.TileType<SpookyMushroom>(), 

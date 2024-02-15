@@ -34,7 +34,7 @@ namespace Spooky.Content.Generation
             //biome position stuff
             ExtraHeight = WorldGen.genRand.Next(20, 55);
 
-            startPosX =  (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+            startPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight : Main.maxTilesY / 2 + ExtraHeight;
 
             //attempt to find a valid position for the biome to place in
@@ -283,15 +283,11 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place giant web in the center of the biome
-            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
-            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
-
-            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
-            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-            Main.npc[GiantWeb].position.X += 18;
-            Main.npc[GiantWeb].position.Y += 1518;
-
+            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
+            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
+            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42), startPosY + (Main.maxTilesY / 18), "OldHunterTorso", 12, 8);
+            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42), startPosY + (Main.maxTilesY / 18), "OldHunterLegs", 12, 8);
+            
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
@@ -429,6 +425,15 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+            
+            //place giant web in the center of the biome
+            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
+            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
+
+            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
+            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+            Main.npc[GiantWeb].position.X += 18;
+            Main.npc[GiantWeb].position.Y += 1518;
 
             //spread grass after placing structures, but before placing ambient tiles
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -594,6 +599,26 @@ namespace Spooky.Content.Generation
                         }
                     }
                 }
+            }
+        }
+
+        public void GenerateOldHunterPile(int startX, int startY, string StructureFile, int offsetX, int offsetY)
+        {
+            bool placed = false;
+            int attempts = 0;
+            while (!placed && attempts++ < 100000)
+            {
+                while (!WorldGen.SolidTile(startX, startY) || (WorldGen.SolidTile(startX, startY) && WorldGen.SolidTile(startX, startY - 1)))
+				{
+					startY++;
+				}
+                if (WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1))
+                {
+                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                    Generator.GenerateStructure("Content/Structures/SpiderCave/" + StructureFile, origin.ToPoint16(), Mod);
+                }
+
+                placed = true;
             }
         }
 

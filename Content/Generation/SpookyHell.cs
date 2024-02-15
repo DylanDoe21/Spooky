@@ -461,7 +461,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (!Main.tile[startX, startY].HasTile)
+                if (!WorldGen.SolidTile(startX, startY))
                 {
 					continue;
                 }

@@ -142,6 +142,7 @@ Enemy & Boss Changes:
 -Sad ghosts can no longer go through blocks
 -Spooky mod friendly critters now only take up half of an npc slot like vanilla critters
 -Zomboid necromancers now absorb the souls of undead enemies killed near them, and can use those souls to summon a phantom enemy. The more souls it absorbs before summoning the enemy, the stronger it will be
+-Zomboid warlock's skull projectiles now shoot at the player at a constant speed instead of accelerating
 
 
 Miscellaneous:
@@ -159,7 +160,8 @@ Miscellaneous:
 -Spooky mod screen shake intensity slider now has a much higher maximum value, increased from a maximum of 2x extra screenshake to 5x extra screenshake (I think its pretty funny)
 -Spooky mod's primitive trails are now more pixelated to fit with terraria's style a bit more
 -The rare golden moyai now drops an item when broken, allowing you to place it anywhere you'd like
--
+-Cemetery structures now generate with clumps of blocks below them so they aren't randomly floating
+-Mossy pebbles are no longer sold by the merchant and are now sold by the new old hunter town npc
 
 
 Removals:
@@ -175,6 +177,7 @@ Removals:
 Fixed all of the following bugs and issues:
 
 -Spooky forest sometimes destroying the dungeon if the spooky forest at spawn point config is turned off
+-Spooky forest generation placing tiles completely randomly when the biome generated over a corruption/crimson crater
 -Catacombs still sometimes generating over the jungle temple
 -Being able switch to other items in your hotbar while using spooky mod's holdout weapons (such as slingshots or the old hunter's crossbow)
 -Chat messages for the catacomb barrier keys not being localized, and spamming in chat when they keys were used in multiplayer

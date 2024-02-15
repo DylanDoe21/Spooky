@@ -83,10 +83,10 @@ namespace Spooky.Content.Generation
 
         public static bool CanPlaceDungeonChest(int X, int Y)
         {
-            //check a 400 by 200 square for other giant roots before placing
-            for (int i = X - 200; i < X + 200; i++)
+            //check a 300 by 300 square to make sure the spooky mod dungeon chests are spaced out enough
+            for (int i = X - 150; i < X + 150; i++)
             {
-                for (int j = Y - 100; j < Y + 100; j++)
+                for (int j = Y - 150; j < Y + 150; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpookyHellChest>() ||
                     Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveChest>()))

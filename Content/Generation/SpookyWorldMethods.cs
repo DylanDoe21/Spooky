@@ -228,8 +228,7 @@ namespace Spooky.Content.Generation
 
 									if (Main.tile[k, l].WallType == WallID.EbonstoneUnsafe || Main.tile[k, l].WallType == WallID.CrimstoneUnsafe)
 									{
-										Main.tile[k, l].WallType = (ushort)wallType;
-										WorldGen.PlaceTile(k, l, tileType);
+										PlaceCircle(k, l, tileType, wallType, 6, false, false);
 									}
 
 									if (addTile)
