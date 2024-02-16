@@ -45,7 +45,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             SpookyPlayer.ScreenShakeAmount = 3;
 
-            if (Main.rand.NextBool(3))
+            if (hit.Crit)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Main.myPlayer);
             }

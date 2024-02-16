@@ -118,6 +118,7 @@ namespace Spooky.Content.NPCs.Friendly
 			.Add<BoneBow>()
 			.Add<HighVelocitySlingshot>()
             .Add<LegalShotgun>(Condition.DownedSkeletron)
+			.Add<GodGun>(Condition.Hardmode)
             .Add<HunterScarf>()
             .Add<RustedBullet>()
 			.Add<MossyPebble>();

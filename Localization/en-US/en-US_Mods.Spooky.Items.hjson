@@ -594,9 +594,8 @@ SmileDogPicture: {
 	DisplayName: Dog Photo
 	Tooltip:
 		'''
-		A weird dog will follow you and maul nearby enemies
-		Every 3 minutes, the dog will target you instead
-		You must subdue the dog in order to make it friendly again
+		Summons a smiling puppy to follow you and maul nearby enemies
+		Every 3 minutes, the dog will attack you for 10 seconds before returning to normal
 		'That dog is messed up'
 		'''
 }
@@ -636,6 +635,15 @@ CemeterySolution: {
 		'''
 		Used by the Clentaminator
 		Spreads the Swampy Cemetery
+		'''
+}
+
+DiscoSkull: {
+	DisplayName: Disco Skull
+	Tooltip:
+		'''
+		Fires out homing rainbow party skulls
+		Enemies killed by the skulls may sometimes turn into skeletons
 		'''
 }
 
@@ -1302,7 +1310,7 @@ TatantulaFlyTome: {
 }
 
 VenomHarpoon: {
-	DisplayName: Venemous Spiderpoon
+	DisplayName: Venomous Spiderpoon
 	Tooltip:
 		'''
 		Fires out multiple venomous harpoons that can latch onto enemies and pull them towards you
@@ -2135,6 +2143,16 @@ TortumorStaff: {
 	Tooltip: Summons friendly tortumors that shoot blood globs at enemies
 }
 
+RaveyardDisc1: {
+	DisplayName: Raveyard Vinyl (#1)
+	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak"
+}
+
+RaveyardDisc2: {
+	DisplayName: Raveyard Vinyl (#2)
+	Tooltip: "[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor"
+}
+
 VinylAlley: {
 	DisplayName: Vinyl Disc (Alley)
 	Tooltip: ""
@@ -2219,6 +2237,11 @@ GildedBrickItem: {
 	Tooltip: ""
 }
 
+CemeteryBiomeChestItem: {
+	DisplayName: Swampy Cemetery Chest
+	Tooltip: ""
+}
+
 CemeteryDirtItem: {
 	DisplayName: Swamp Soil
 	Tooltip: ""
@@ -2286,7 +2309,7 @@ RaveyardBox: {
 		Placeable on ceilings and provides rainbow party light when turned on
 		Cycles through both raveyard songs
 		[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak
-		[c/6FE4A5:Raveyard] by Luxcapacitor
+		[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor
 		'''
 }
 

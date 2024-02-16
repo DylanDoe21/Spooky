@@ -1,3 +1,4 @@
+/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -126,7 +127,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                     if (NPC.localAI[1] >= 180)
                     {
-                        /*
                         int MaxDusts = Main.rand.Next(3, 8);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
@@ -140,7 +140,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                             Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-2f, -1f);
                             Main.dust[dustEffect].fadeIn = 1.3f;
                         }
-                        */
 
                         //start actually attacking
                         if (NPC.localAI[1] == 115)
@@ -210,3 +209,4 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         }
     }
 }
+*/

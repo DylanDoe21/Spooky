@@ -15,6 +15,8 @@ namespace Spooky.Content.Projectiles.Pets
 {
 	public class TrapdoorSpiderMount : ModMount
 	{
+		int TimerForVelocity = 0;
+
 		bool ShouldUseFloatMovement = false;
 
 		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderMountWalk", SoundType.Sound);
@@ -135,10 +137,15 @@ namespace Spooky.Content.Projectiles.Pets
 			}
 			if (grounded >= 4)
 			{
-				player.gravity = 0;
-				player.mount._flyTime = 2;
-				MountData.flightTimeMax = 2;
-				MountData.usesHover = true;
+				TimerForVelocity++;
+
+				if (TimerForVelocity > 10)
+				{
+					player.gravity = 0;
+					player.mount._flyTime = 2;
+					MountData.flightTimeMax = 2;
+					MountData.usesHover = true;
+				}
 
 				if (player.controlDown)
 				{
@@ -147,6 +154,8 @@ namespace Spooky.Content.Projectiles.Pets
 			}
 			else
 			{
+				TimerForVelocity = 0;
+
 				player.mount._flyTime = 0;
 				MountData.flightTimeMax = 0;
 				MountData.usesHover = false;

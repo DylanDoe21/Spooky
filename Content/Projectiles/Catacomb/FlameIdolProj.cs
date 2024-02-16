@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Catacomb/FlameIdolProjGlow").Value;
             Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
 
-            SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            var spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             for (int numEffect = 0; numEffect < 4; numEffect++)
             {

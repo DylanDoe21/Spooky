@@ -2,7 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
@@ -68,6 +71,11 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OldSaddle>(), 75));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -139,6 +147,11 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 NPC.frame.Y = 1 * frameHeight;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OldSaddle>(), 50));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

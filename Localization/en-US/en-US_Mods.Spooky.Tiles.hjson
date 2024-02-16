@@ -1,3 +1,8 @@
+CemeteryBiomeChest: {
+	MapEntry0: Swampy Cemetery Chest
+	MapEntry1: Locked Swampy Cemetery Chest
+}
+
 SpiderCaveChest: {
 	MapEntry0: Spider Grotto Chest
 	MapEntry1: Locked Spider Grotto Chest
@@ -49,11 +54,6 @@ OrroboroBoxTile.MapEntry: Music Box
 SpookyHellBoxTile.MapEntry: Music Box
 SpookyMenuBoxTile.MapEntry: Music Box
 SpookySpiritBoxTile.MapEntry: Music Box
-VinylTileThing.MapEntry: Music Box
-VinylTileThing2.MapEntry: Music Box
-VinylTileThing3.MapEntry: Music Box
-VinylTileThing4.MapEntry: Music Box
-VinylTileThing5.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
 SpiderCavePylon.MapEntry: Spider Grotto Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon

@@ -19,8 +19,6 @@ namespace Spooky.Content.Tiles.MusicBox
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(200, 200, 200), name);
             DustType = -1;
             HitSound = SoundID.Dig;
         }
@@ -42,6 +40,16 @@ namespace Spooky.Content.Tiles.MusicBox
 	}
 
     public class VinylTileThing5 : VinylTileThing
+	{
+		public override string Texture => "Spooky/Content/Tiles/MusicBox/VinylTileThing";
+	}
+
+    public class VinylTileThing6 : VinylTileThing
+	{
+		public override string Texture => "Spooky/Content/Tiles/MusicBox/VinylTileThing";
+	}
+
+    public class VinylTileThing7 : VinylTileThing
 	{
 		public override string Texture => "Spooky/Content/Tiles/MusicBox/VinylTileThing";
 	}

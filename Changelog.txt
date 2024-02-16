@@ -50,6 +50,7 @@ Other New Additions:
 
 -Added a bunch more pets
 -Added the dumb zomboid
+-Added the zomboid suspiciomancer
 -Added dave & mike
 -Added capsworth
 -Added many new resprites for items, armors, tiles, ect

@@ -11,9 +11,11 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -28,6 +30,7 @@ namespace Spooky.Content.Generation
         {
             PlaceDungeonChest(ModContent.TileType<SpookyBiomeChest>());
             PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
+            PlaceDungeonChest(ModContent.TileType<CemeteryBiomeChest>());
             PlaceDungeonChest(ModContent.TileType<SpiderCaveChest>());
         }
 
@@ -89,7 +92,7 @@ namespace Spooky.Content.Generation
                 for (int j = Y - 150; j < Y + 150; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpookyHellChest>() ||
-                    Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveChest>()))
+                    Main.tile[i, j].TileType == ModContent.TileType<CemeteryBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveChest>()))
                     {
                         return false;
                     }
@@ -138,13 +141,20 @@ namespace Spooky.Content.Generation
 
                 //spooky biome chest items
 				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || chestTile.TileType == ModContent.TileType<SpookyHellChest>() ||
-                chestTile.TileType == ModContent.TileType<SpiderCaveChest>()))
+                chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>() || chestTile.TileType == ModContent.TileType<SpiderCaveChest>()))
                 {
                     //potions
                     int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
 
                     //more potions
                     int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
+
+                    //cemetery biome chest main item
+                    if (chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>())
+                    {
+                        chest.item[0].SetDefaults(ModContent.ItemType<DiscoSkull>());
+                        chest.item[0].stack = 1;
+                    }
 
                     //spider cave biome chest main item
                     if (chestTile.TileType == ModContent.TileType<SpiderCaveChest>())
