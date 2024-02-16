@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(244, 84, 16), name);
+			AddMapEntry(Color.Brown, name);
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
         }

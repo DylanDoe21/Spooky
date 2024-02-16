@@ -280,6 +280,7 @@ TelegraphRedDown.DisplayName: Telegraph
 TelegraphRedRight.DisplayName: Telegraph
 TelegraphRedUp.DisplayName: Telegraph
 GraveDiggerShovelProj.DisplayName: Cemetery Digger's Shovel
+GraveDiggerShovelBonk.DisplayName: Bonk
 SphiderFlailProj.DisplayName: Swingable Sphider
 SphiderFlailWeb.DisplayName: Web Ball
 MocoNoseSnot.DisplayName: Snot
@@ -327,4 +328,4 @@ RustedBulletProj.DisplayName: Rusted Bullet
 RustedBulletShrapnel.DisplayName: Rusted Shrapnel
 MoltenCandleChunk.DisplayName: Molten Candle Chunk
 VenomHarpoonProj.DisplayName: Venom Harpoon
-GodGunProj.DisplayName: God Gun Proj
+GodGunProj.DisplayName: Holy Fire

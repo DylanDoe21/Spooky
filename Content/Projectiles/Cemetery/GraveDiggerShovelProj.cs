@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -26,14 +27,28 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 10000;
+            Projectile.timeLeft = 2;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            Projectile.ai[0] = 30;
+
+            return false;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            SoundEngine.PlaySound(SoundID.Item178, target.Center);
+
             SpookyPlayer.ScreenShakeAmount = 3;
+
+            if (Main.rand.NextBool(3))
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Main.myPlayer);
+            }
 
             //return to the player upon hitting an enemy
             Projectile.ai[0] = 8;
@@ -45,6 +60,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
             Projectile.rotation += 0.35f * (float)Projectile.direction;
+
+            Projectile.timeLeft = 2;
 
             Projectile.ai[0]++;
             

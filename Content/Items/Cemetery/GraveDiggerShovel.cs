@@ -35,8 +35,8 @@ namespace Spooky.Content.Items.Cemetery
 		}
 
         public override bool CanUseItem(Player player)
-        {
-			return true;
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 	}
 }

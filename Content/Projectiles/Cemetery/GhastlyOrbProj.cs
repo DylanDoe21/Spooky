@@ -45,13 +45,6 @@ namespace Spooky.Content.Projectiles.Cemetery
             return true;
         }
 
-        public override void AI()       
-        {
-			Projectile.rotation += 0.5f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.01f;
-        }
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			SoundEngine.PlaySound(SoundID.Item56, Projectile.position);
@@ -77,6 +70,13 @@ namespace Spooky.Content.Projectiles.Cemetery
 			Projectile.velocity.X = -Projectile.velocity.X;
 			Projectile.velocity.Y = -Projectile.velocity.Y;
 		}
+
+        public override void AI()       
+        {
+			Projectile.rotation += 0.5f * (float)Projectile.direction;
+
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.01f;
+        }
 
 		public override void OnKill(int timeLeft)
 		{
