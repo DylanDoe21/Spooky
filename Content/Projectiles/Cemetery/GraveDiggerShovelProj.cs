@@ -41,17 +41,17 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(SoundID.Item178, target.Center);
-
-            SpookyPlayer.ScreenShakeAmount = 3;
-
             if (hit.Crit)
             {
+                SoundEngine.PlaySound(SoundID.Item178, target.Center);
+
+                SpookyPlayer.ScreenShakeAmount = 3;
+
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Main.myPlayer);
             }
 
             //return to the player upon hitting an enemy
-            Projectile.ai[0] = 8;
+            Projectile.ai[0] = 30;
         }
 
         public override void AI()
@@ -59,7 +59,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Player owner = Main.player[Projectile.owner];
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
-            Projectile.rotation += 0.35f * (float)Projectile.direction;
+            Projectile.rotation += 0.5f * (float)Projectile.direction;
 
             Projectile.timeLeft = 2;
 
