@@ -43,7 +43,7 @@ namespace Spooky.Content.Items.SpiderCave
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(player.direction == -1 ? -50 : 50, 50)) * 55f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position.X += muzzleOffset.X;
@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpiderCave
 
             for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
             {
-			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-18, 19)), Item.shoot, damage, knockback, player.whoAmI);
+			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-18, 19)), Item.shoot, damage, knockback, player.whoAmI, 0);
             }
 			
 			return false;

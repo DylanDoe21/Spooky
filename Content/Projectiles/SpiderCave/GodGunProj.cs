@@ -3,14 +3,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
-	public class TarantulaHawkBowProj : ModProjectile
+	public class GodGunProj : ModProjectile
 	{
-        float ExtraUseSpeed = 20;
+        int ExtraUseTime = 0;
 
-        int playerCenterOffset = 1;
+        int playerCenterOffset = 4;
 
         public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
 
@@ -21,8 +22,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 68;
-            Projectile.height = 68;
+            Projectile.width = 70;
+            Projectile.height = 138;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -41,7 +42,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             return false;
         }
 
-		public override void AI()
+        public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -69,30 +70,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             player.itemRotation = Projectile.rotation;
 
             player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-
-            switch (Projectile.frame)
-            {
-                case 0:
-                {
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-                    break;
-                }
-                case 1:
-                {
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
-                    break;
-                }
-                case 2:
-                {
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
-                    break;
-                }
-                case 3:
-                {
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
-                    break;
-                }
-            }
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
             Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 2 - Projectile.height / 2);
 
@@ -113,60 +91,40 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] % ExtraUseSpeed == 0)
+                if (Projectile.localAI[0] == 10 - ExtraUseTime)
                 {
                     Projectile.frame++;
-                }
 
-                if (Projectile.frame > 3)
-                {
-                    Projectile.frame = 3;
-                }
-
-                if (Projectile.frame > 2 && Projectile.localAI[1] < 20)
-                {
-                    Projectile.localAI[1]++;
-
-                    if (Projectile.localAI[2] == 0)
+                    if (Projectile.frame > 3)
                     {
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.localAI[2] = 1;
-                        
-                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
 
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;
 
-                        int ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
+                        int ProjType = ProjectileID.Bullet;
 
                         float Speed = 20f;
 
                         float knockBack = ActiveItem(player).knockBack;
 
-                        player.PickAmmo(ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out AmmoID.Arrow);
+                        player.PickAmmo(ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
 
-                        //ProjType must be reset so it shoots the correct projectile
-                        ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
-                        knockBack = player.GetWeaponKnockback(ActiveItem(player), knockBack);
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
-                        ProjType, Projectile.damage, knockBack, Projectile.owner);
-                    }
-                }
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                        ShootSpeed.X + Main.rand.Next(-3, 4), ShootSpeed.Y + Main.rand.Next(-3, 4), ProjType, Projectile.damage, knockBack, Projectile.owner);
 
-                //reset the ai values so the bow shoots again
-                if (Projectile.localAI[1] >= 20)
-                {
-                    if (ExtraUseSpeed > 2)
-                    {
-                        ExtraUseSpeed -= 2;
+                        if (ExtraUseTime < 9)
+                        {
+                            ExtraUseTime++;
+                        }
+
+                        Projectile.frame = 0;
                     }
 
-                    Projectile.frame = 0;
                     Projectile.localAI[0] = 0;
-                    Projectile.localAI[1] = 0;
-                    Projectile.localAI[2] = 0;
                 }
 
                 //kill this holdout projectile if the player has no more arrows

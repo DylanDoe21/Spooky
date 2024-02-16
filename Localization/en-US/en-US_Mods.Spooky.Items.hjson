@@ -1151,6 +1151,15 @@ BoneBow: {
 	Tooltip: Fires piercing bones that ignore 50% of enemy defense
 }
 
+GodGun: {
+	DisplayName: Holy Fire
+	Tooltip:
+		'''
+		Using it for too long will cause the gun to overheat and explode
+		'God's chosen weapon'
+		'''
+}
+
 HighVelocitySlingshot: {
 	DisplayName: High-Velocity Slingshot
 	Tooltip:

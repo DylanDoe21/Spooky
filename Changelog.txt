@@ -53,6 +53,7 @@ Other New Additions:
 -Added dave & mike
 -Added capsworth
 -Added many new resprites for items, armors, tiles, ect
+-Added dungeon biome chests for the swampy cemetery and new spider grotto biome
 -Added a new spooky mod hotkey for activating armor set bonus abilities
 -Added the mushroom god statue
 -Added craftable "safe" versions of all the catacomb bricks and walls that you can build stuff with

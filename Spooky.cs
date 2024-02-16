@@ -14,7 +14,6 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
-using Spooky.Content.UI;
 
 namespace Spooky
 {
@@ -75,7 +74,7 @@ namespace Spooky
 
             ShaderLoader.Load();
 
-            MocoNoseBar.Load();
+            Content.UI.MocoNoseBar.Load();
         }
 
         public override void Unload()
@@ -86,6 +85,8 @@ namespace Spooky
             ArmorBonusHotkey = null;
 
             ShaderLoader.Unload();
+
+            Content.UI.MocoNoseBar.Unload();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
