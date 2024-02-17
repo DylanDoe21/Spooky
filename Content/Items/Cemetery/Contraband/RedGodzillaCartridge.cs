@@ -14,12 +14,12 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             Item.height = 44;
             Item.accessory = true;
             Item.rare = ItemRarityID.Lime;  
-            //Item.value = Item.buyPrice(gold: 50);
+            Item.value = Item.buyPrice(gold: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<SpookyPlayer>().RedGodzillaCartridge = true;
+            player.GetModPlayer<SpookyPlayer>().RedGodzillaCartridge = true;
         }
     }
 }

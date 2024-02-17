@@ -385,6 +385,19 @@ namespace Spooky.Core
                 Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, 
                 ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
             }
+
+            //rarely spawn the red face when hitting an enemy
+            if (RedGodzillaCartridge && Main.rand.NextBool(35))
+            {
+                //dont spawn a red apparition if one already exists
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
+                {
+                    Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
+
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, 
+                    ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                }
+            }
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

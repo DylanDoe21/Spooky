@@ -213,7 +213,7 @@ namespace Spooky.Content.NPCs.Friendly
 
                 if (NPC.ai[3] == 0)
                 {
-                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OldHunter>());
+                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OldHunterSleeping>());
                 }
 
                 MoonlordDeathDrama.RequestLight(0f, NPC.Center);

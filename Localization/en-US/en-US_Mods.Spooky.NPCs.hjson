@@ -96,6 +96,7 @@ RollingSkull1.DisplayName: Rolling Skull
 RollingSkull2.DisplayName: Rolling Skull
 RollingSkull3.DisplayName: Rolling Skull
 RollingSkull4.DisplayName: Gilded Skull
+ZomboidGlyphomancer.DisplayName: Zomboid Glyphomancer
 ZomboidNecromancer.DisplayName: Zomboid Necromancer
 ZomboidNecromancerSoul.DisplayName: Undead Soul
 PhantomRollingSkull.DisplayName: Phantom Skull
@@ -162,6 +163,7 @@ PartySkeleton7.DisplayName: Party Skeleton
 PartySkeleton8.DisplayName: Party Skeleton
 SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
+OldHunterSleeping.DisplayName: Old Hunter
 
 OldHunter: {
 	DisplayName: Old Hunter
@@ -279,4 +281,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-ZomboidGlyphomancer.DisplayName: Zomboid Glyphomancer

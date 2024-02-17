@@ -16,8 +16,8 @@ namespace Spooky.Content.Items.Cemetery
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 85;
-            Item.mana = 20;
+			Item.damage = 100;
+            Item.mana = 30;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
             Item.channel = true;
@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.knockBack = 3;
 			Item.rare = ItemRarityID.Yellow;
 			Item.value = Item.buyPrice(platinum: 1);
-			Item.UseSound = SoundID.Item164;
+			Item.UseSound = SoundID.Item163;
 			Item.shoot = ModContent.ProjectileType<DiscoPartySkull>();
 			Item.shootSpeed = 0f;
 		}
@@ -40,7 +40,7 @@ namespace Spooky.Content.Items.Cemetery
 		{
             for (int numProjectiles = 0; numProjectiles < 8; numProjectiles++)
             {
-			    Projectile.NewProjectile(source, position, new Vector2(Main.rand.Next(-15, 16), Main.rand.Next(-15, 16)), Item.shoot, damage, knockback, player.whoAmI, 0, Main.rand.Next(0, 8));
+			    Projectile.NewProjectile(source, position, new Vector2(Main.rand.Next(-15, 16), Main.rand.Next(-15, 16)), Item.shoot, damage, knockback, player.whoAmI, 0, numProjectiles);
             }
 			
 			return false;

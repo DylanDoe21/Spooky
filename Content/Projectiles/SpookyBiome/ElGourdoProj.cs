@@ -161,7 +161,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
                 Main.dust[DustGore].noGravity = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Main.dust[DustGore].scale = 0.5f;
                     Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;

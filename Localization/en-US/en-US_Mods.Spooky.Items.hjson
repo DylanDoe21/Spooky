@@ -569,7 +569,7 @@ RedMistClarinet: {
 	Tooltip:
 		'''
 		Critical hits will sometimes spawn an orbiting note that will chase enemies
-		There is a 3 second cooldown before you can spawn another note
+		There is a 2 second cooldown before you can spawn another note
 		'Your worst and last performance'
 		'''
 }
@@ -591,7 +591,7 @@ SlendermanBuffPage: {
 }
 
 SmileDogPicture: {
-	DisplayName: Dog Photo
+	DisplayName: Creepy Dog Photo
 	Tooltip:
 		'''
 		Summons a smiling puppy to follow you and maul nearby enemies
@@ -617,7 +617,16 @@ AnalogHorrorTape: {
 
 Creepypasta: {
 	DisplayName: Creepy Pasta
-	Tooltip: Grants the effects of every creepypasta accessory
+	Tooltip:
+		'''
+		Grants the effects of every creepypasta accessory
+		Summons a damaging blue spiral on your cursor with 5 charges that damages enemies
+		Summons a smiling puppy that attacks enemies, and attacks you every 3 minutes for 10 seconds
+		Critical hits will spawn orbiting red notes that will attack enemies
+		Summons black tentacles to attack nearby enemies, enemies killed by them drop pages that buff them
+		Damaging enemies has a rare chance to spawn a red apparition to deal massive damage to them
+		Press the Accessory Hotkey to summon a bolt of lighting that smites enemies and deals lots of damage to bosses
+		'''
 }
 
 CemeteryKey: {
@@ -2144,12 +2153,12 @@ TortumorStaff: {
 }
 
 RaveyardDisc1: {
-	DisplayName: Raveyard Vinyl (#1)
+	DisplayName: Raveyard Vinyl #1
 	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak"
 }
 
 RaveyardDisc2: {
-	DisplayName: Raveyard Vinyl (#2)
+	DisplayName: Raveyard Vinyl #2
 	Tooltip: "[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor"
 }
 

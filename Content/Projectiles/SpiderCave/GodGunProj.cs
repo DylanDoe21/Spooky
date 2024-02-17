@@ -5,12 +5,17 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+using System;
+using Terraria.DataStructures;
+using Terraria.Localization;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class GodGunProj : ModProjectile
 	{
         int ExtraUseTime = 0;
-
+        int OverheatTimer = 0;
         int playerCenterOffset = 4;
 
         public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
@@ -89,11 +94,69 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 				player.velocity.X *= 0.98f;
 
+                OverheatTimer++;
+
                 Projectile.localAI[0]++;
 
                 if (Projectile.localAI[0] == 10 - ExtraUseTime)
                 {
                     Projectile.frame++;
+
+                    //spawn smoke when overheating
+                    if (OverheatTimer > 360 && Main.rand.NextBool(5))
+                    {
+                        Vector2 Offset = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                        Offset.Normalize();
+                        Offset *= 20;
+
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Offset.X, Offset.Y)) * 45f;
+
+                        int DustGore = Dust.NewDust(player.position + muzzleOffset, player.width / 2, player.height / 2, 
+                        ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.2f, 0.6f));
+                        Main.dust[DustGore].velocity.X *= 0.2f;
+                        Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(0f, 1f);
+                        Main.dust[DustGore].noGravity = true;
+
+                        if (Main.rand.NextBool(2))
+                        {
+                            Main.dust[DustGore].scale = 0.5f;
+                            Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                        }
+                    }
+
+                    //explode and damage the player
+                    if (OverheatTimer > 660)
+                    {
+                        player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.GodGunExplode")), 150 + Main.rand.Next(-30, 30), 0);
+
+                        SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+
+                        for (int numDust = 0; numDust < 75; numDust++)
+                        {
+                            int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 0f, -2f, 0, default, 2f);
+                            Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 9f);
+                            Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 9f);
+                            Main.dust[dustGore].scale = Main.rand.NextFloat(2f, 3f);
+                            Main.dust[dustGore].noGravity = true;
+                        }
+
+                        for (int numExplosion = 0; numExplosion < 25; numExplosion++)
+                        {
+                            int DustGore = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2,
+                            ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.8f, 1.2f));
+
+                            Main.dust[DustGore].velocity *= Main.rand.NextFloat(-5f, 6f);
+                            Main.dust[DustGore].noGravity = true;
+
+                            if (Main.rand.NextBool())
+                            {
+                                Main.dust[DustGore].scale = 0.5f;
+                                Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                            }
+                        }
+
+                        Projectile.Kill();
+                    }
 
                     if (Projectile.frame > 3)
                     {

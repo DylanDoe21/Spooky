@@ -187,7 +187,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 5)
                 {
                     Projectile.frame = 1;
                 }
@@ -290,7 +290,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Projectile.frame++;
                         Projectile.frameCounter = 0;
                     }
-                    if (Projectile.frame >= 4)
+                    if (Projectile.frame >= 5)
                     {
                         Projectile.frame = 1;
                     }

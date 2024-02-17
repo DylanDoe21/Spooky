@@ -94,14 +94,22 @@ LittleEye: {
 	Default5: My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.
 	Default6: The alchemy I do down here is not really science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
 	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
-	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any ol' fishing rod in it.
+	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
 	EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, 'Bloody red, you'll be dead, purplish blue, cripple you!'
 	OrroBoro: Hey there's two giant serpents chasing you right now. Maybe go worry about that?
 	Button1: Quest
 	Button2: Cauldron?
 }
 
-OldHunter.Default1: Unfinished placeholder dialogue
+OldHunter: {
+	Awaken: Huh? What the hell is this? And who the hell are you!? What even happened, how long was I asleep for? Eh whatever, it probably don't matter. You look decently strong, you wanna buy some of my crazy weapons?
+	Default1: Y'know, if ya want guns you've come to the right place! I've got some classic weapons ain't no one can top!
+	Default2: Hunting is a great sport! You ever try to snipe one of them weird lil' spider creatures from far away?
+	Default3: Fantasy swords? Crazy magic weapons? Why not use a good ol' gun like a normal person?
+	Default4: Didja know that the grotto used to not be infested by spiders? We used to get visitors all time but apparently spiders are too scary for some people.
+	Default5: Ya ever used a slingshot before? Well I doubt you ever used one of my state-of-the-art high-velocity ones!
+	Default6: Unfinished placeholder dialogue
+}
 
 PartySkeleton: {
 	Dialogue1: Bro I'm dead.
@@ -166,12 +174,6 @@ SuspiciousSkeleton: {
 	Dialogue19: You snooze, you lose. That's my motto kid, so get yer stuff while I'm here!
 	Dialogue20: Ye know one time ma brother Tony got lost in this weird town faaar away from here. Real foggy, couldn't see a thing, and it was filled with some real nasty ghouls. Not like us, more like, say the ones from the stuff I'm selling ye. Tony couldn't nab nothing from the place cause this cone-head freak kept chasing him around with a claymore.
 	Dialogue21: The real horror would be not buying the goods while ye got the chance to.
-	//creepy pasta
-	Polybius: The sweater? I won it at the arcade My brother Tony got that Policus or whathever the hell the machine's called. Some men in black gave it to me for free!
-	RedMist: You've ever played the clarinet? No? No need to learn when the clarinet plays itself ey?
-	Slenderman: I ain't got the rest of the pages before you ask.
-	//analog horror
-	VitaCarnis: Ey, ye know, that flavour Enhancer really does make things tastier. Or so I've heard, I mean, I can't eat I'm dead.
 }
 
 DumbZombie: {

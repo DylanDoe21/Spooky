@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override bool CanTownNPCSpawn(int numTownNPCs) 
         {
-            return Flags.OldHunterAssembled;
+            return Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>());
 		}
 
         public override List<string> SetNPCNameList() 
@@ -83,8 +83,10 @@ namespace Spooky.Content.NPCs.Friendly
 			return new List<string>() 
             {
 				"Gerald",
-				"Bone",
-				"Hunter"
+				"Hunter",
+				"Marrow",
+				"Mike",
+				"Bob"
 			};
 		}
 
@@ -103,13 +105,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override string GetChat()
 		{
-			//default dialogue options
-			List<string> Dialogue = new List<string>
-			{
-				Language.GetTextValue("Mods.Spooky.Dialogue.OldHunter.Default1"),
-			};
-
-			return Main.rand.Next(Dialogue);
+			return Language.GetTextValue("Mods.Spooky.Dialogue.OldHunter.Default" + Main.rand.Next(0, 7));
 		}
 
 		public override void AddShops()

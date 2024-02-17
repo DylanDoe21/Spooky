@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         Color[] ColorList = new Color[]
         {
-            Color.Red, Color.OrangeRed, Color.Gold, Color.Lime, Color.Cyan, Color.Blue, Color.Indigo, Color.Purple
+            Color.Red, Color.OrangeRed, Color.Gold, Color.Lime, Color.Cyan, Color.Blue, Color.Indigo, Color.Fuchsia
         };
 
         public override void SetStaticDefaults()
@@ -162,6 +162,43 @@ namespace Spooky.Content.Projectiles.Cemetery
                     }
                 }
             }
+            else
+            {
+                int foundTarget = HomeOnTarget();
+                if (foundTarget != -1)
+                {
+                    Projectile.tileCollide = false;
+
+                    NPC target = Main.npc[foundTarget];
+                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 15;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                }
+                else
+                {
+                    Projectile.tileCollide = true;
+                }
+            }
+        }
+
+        private int HomeOnTarget()
+        {
+            const float homingMaximumRangeInPixels = 500;
+
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile))
+                {
+                    float distance = Projectile.Distance(target.Center);
+                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
+                    {
+                        selectedTarget = i;
+                    }
+                }
+            }
+
+            return selectedTarget;
         }
     }
 }

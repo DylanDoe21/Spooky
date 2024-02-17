@@ -154,7 +154,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.velocity.Y == 0 && ((HoleBelow() && targetDistance > 5f) || (targetDistance > 5f && Projectile.position.X == Projectile.oldPosition.X)))
             {
-                Projectile.velocity.Y = -9f;
+                Projectile.velocity.Y = -10f;
             }
 
             Projectile.velocity.Y += 0.35f;
@@ -195,7 +195,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 5)
                 {
                     Projectile.frame = 1;
                 }
@@ -219,7 +219,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 100f) || (playerDistance > 100f && Projectile.position.X == Projectile.oldPosition.X)))
             {
-                Projectile.velocity.Y = -6f;
+                Projectile.velocity.Y = -10f;
             }
 
             Projectile.velocity.Y += 0.35f;
@@ -294,7 +294,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 5)
                 {
                     Projectile.frame = 1;
                 }
@@ -320,7 +320,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 5f) || (playerDistance > 5f && Projectile.position.X == Projectile.oldPosition.X)))
             {
-                Projectile.velocity.Y = -9f;
+                Projectile.velocity.Y = -10f;
             }
 
             Projectile.velocity.Y += 0.4f;
@@ -361,7 +361,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 5)
                 {
                     Projectile.frame = 1;
                 }
