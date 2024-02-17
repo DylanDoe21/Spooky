@@ -559,7 +559,7 @@ RedGodzillaCartridge: {
 	Tooltip:
 		'''
 		Upon damaging an enemy, there is a rare chance to summon a red apparition
-		The red beast will deal a heavy amount of damage to the target 3 times
+		The red apparition will deal a huge amount of damage to the enemy you hit
 		'King of monsters'
 		'''
 }
@@ -1269,12 +1269,7 @@ SpiderEggCannon: {
 
 SpiderLegStaff: {
 	DisplayName: Arachnid Leg Wand
-	Tooltip:
-		'''
-		Spaws short-lived spider legs on surfaces
-		If a leg touches an enemy, it will grab on and damage it for bit
-		~DOES NOT WORK RN~
-		'''
+	Tooltip: Casts out giant spider legs that can embed themselves in enemies
 }
 
 SpiderSlingshot: {
