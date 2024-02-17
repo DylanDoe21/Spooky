@@ -9,7 +9,7 @@ namespace Spooky.Content.Biomes
 {
     public class PandoraBoxBiome : ModBiome
     {
-        public override int Music => MusicID.GoblinInvasion; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PandoraBox");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/PandoraBox");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

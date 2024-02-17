@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,4 +32,3 @@ namespace Spooky.Content.Tiles.MusicBox
         }
     }
 }
-*/

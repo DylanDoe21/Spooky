@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override string GetChat()
 		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.OldHunter.Default" + Main.rand.Next(0, 7));
+			return Language.GetTextValue("Mods.Spooky.Dialogue.OldHunter.Default" + Main.rand.Next(0, 6));
 		}
 
 		public override void AddShops()

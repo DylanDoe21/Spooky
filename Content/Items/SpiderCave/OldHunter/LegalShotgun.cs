@@ -50,7 +50,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			    Projectile.NewProjectile(source, position, newVelocity, type, damage, knockback, player.whoAmI);
             }
 
-            player.velocity -= velocity;
+            player.velocity -= velocity / 2;
 
 			return false;
 		}

@@ -145,8 +145,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
 			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Bladetongue, ModContent.ItemType<SentientBladeTongue>());
-			AddTransformation(ItemID.Keybrand, ModContent.ItemType<SentientKeybrand>());
 			AddTransformation(ItemID.PaladinsHammer, ModContent.ItemType<SentientPaladinsHammer>());
+			//AddTransformation(ItemID.Keybrand, ModContent.ItemType<SentientKeybrand>());
 
 			//ranged
 			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());
