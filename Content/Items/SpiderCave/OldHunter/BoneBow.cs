@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
             Item.damage = 12;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
 			Item.width = 20;           

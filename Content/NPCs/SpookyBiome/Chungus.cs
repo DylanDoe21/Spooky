@@ -101,6 +101,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void AI()
 		{
+            NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;

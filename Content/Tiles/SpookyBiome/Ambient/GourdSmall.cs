@@ -117,7 +117,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<PumpkinCarvingKit>()))
+            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<CandleItem>()))
             {
                 SoundEngine.PlaySound(SoundID.Dig, new Vector2(i * 16, j * 16));
 

@@ -12,19 +12,18 @@ namespace Spooky.Core
                 return;
             }
 
-            void AddMusic(string path, string name, string author) => display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, path), name, "by " + author, "Spooky Mod");
+            void AddMusic(string path, string name, string author) => display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, path), name, "by " + author, Language.GetTextValue("Mods.Spooky.MusicDisplay.ModName"));
 
             //spooky forest
             AddMusic("Content/Sounds/Music/SpookyBiomeDay", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestDay"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeNight", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestNight"), "BananaLizard");
-            AddMusic("Content/Sounds/Music/SpookyBiomeTownNight", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestTownNight"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeRain", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestRain"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeUnderground", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestUG"), "BananaLizard");
             AddMusic("Content/Sounds/Music/RotGourd", Language.GetTextValue("Mods.Spooky.MusicDisplay.RotGourd"), "BananaLizard");
 
             //cemetery
             AddMusic("Content/Sounds/Music/Cemetery", Language.GetTextValue("Mods.Spooky.MusicDisplay.SwampyCemetery"), "BananaLizard");
-            AddMusic("Content/Sounds/Music/Raveyard", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard"), "LuxCapacitor");
+            AddMusic("Content/Sounds/Music/Raveyard", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard"), "BannanaLizard, Lurak, and LuxCapacitor");
             AddMusic("Content/Sounds/Music/SpookySpirit", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookySpirit"), "BananaLizard");
 
             //catacombs

@@ -28,17 +28,19 @@ namespace Spooky.Content.Generation
     {
         private void PlaceSpookyChest(GenerationProgress progress, GameConfiguration configuration)
         {
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.DungeonChests").Value;
+
             PlaceDungeonChest(ModContent.TileType<SpookyBiomeChest>());
-            PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
             PlaceDungeonChest(ModContent.TileType<CemeteryBiomeChest>());
             PlaceDungeonChest(ModContent.TileType<SpiderCaveChest>());
+            PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
         }
 
         public static void PlaceDungeonChest(int ChestType)
-        {
+        {   
             bool placedChest = false;
             
-            for (int j = (int)Main.worldSurface + 200; j <= Main.maxTilesY - 200; j++)
+            for (int j = (int)Main.worldSurface + 300; j <= Main.maxTilesY - 200; j++)
             {
                 int i = 100;
                 if (GenVars.dungeonSide == 1)
@@ -86,10 +88,10 @@ namespace Spooky.Content.Generation
 
         public static bool CanPlaceDungeonChest(int X, int Y)
         {
-            //check a 300 by 300 square to make sure the spooky mod dungeon chests are spaced out enough
-            for (int i = X - 150; i < X + 150; i++)
+            //check a 150 by 150 square to make sure the spooky mod dungeon chests are spaced out enough
+            for (int i = X - 75; i < X + 75; i++)
             {
-                for (int j = Y - 150; j < Y + 150; j++)
+                for (int j = Y - 75; j < Y + 75; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpookyHellChest>() ||
                     Main.tile[i, j].TileType == ModContent.TileType<CemeteryBiomeChest>() || Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveChest>()))

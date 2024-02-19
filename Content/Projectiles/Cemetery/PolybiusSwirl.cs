@@ -61,7 +61,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
 
-            if (!player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame || Main.gamePaused || Projectile.position.Distance(player.Center) > 500f)
+            if (!player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame || Main.gamePaused)
             {
                 Projectile.Kill();
             }

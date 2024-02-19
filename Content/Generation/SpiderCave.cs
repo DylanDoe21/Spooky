@@ -283,10 +283,10 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
-            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
-            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42), startPosY + (Main.maxTilesY / 18), "OldHunterTorso", 12, 8);
-            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42), startPosY + (Main.maxTilesY / 18), "OldHunterLegs", 12, 8);
+            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
+            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
+            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 18), "OldHunterTorso", 12, 8);
+            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 18), "OldHunterLegs", 12, 8);
             
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)

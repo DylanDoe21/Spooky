@@ -13,9 +13,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class DiscoPartySkull : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
-
         int Offset = Main.rand.Next(-100, 100);
 
         Color[] ColorList = new Color[]
@@ -41,23 +38,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
-
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
-
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.075f);
-            effect.Parameters["repeats"].SetValue(2);
-
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-
-            //after images
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 
             Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(ColorList[(int)Projectile.ai[1]]);
@@ -82,41 +62,14 @@ namespace Spooky.Content.Projectiles.Cemetery
             return true;
         }
 
-        const int TrailLength = 22;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 5 * factor, factor =>
-            {
-                return ColorList[(int)Projectile.ai[1]] * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
-
         public override Color? GetAlpha(Color lightColor)
         {
-            return ColorList[(int)Projectile.ai[1]];
+            return new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(ColorList[(int)Projectile.ai[1]]);
+        }
+
+        public override bool? CanDamage()
+		{
+            return Projectile.ai[0] > 120;
         }
 
         public override void AI()
@@ -125,10 +78,14 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
-            if (!Main.dedServ)
+            if (Projectile.timeLeft <= 60)
             {
-                ManageCaches();
-                ManageTrail();
+                Projectile.alpha += 5;
+
+                if (Projectile.alpha >= 255)
+                {
+                    Projectile.Kill();
+                }
             }
 
             Projectile.ai[0]++;
