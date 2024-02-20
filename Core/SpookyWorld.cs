@@ -23,8 +23,6 @@ namespace Spooky.Core
         public bool storedHalloween;
         public bool storedHalloweenForToday;
 
-        public static bool RaveyardHappening;
-
         public static bool DaySwitched;
         private static bool LastTime;
 
@@ -94,19 +92,41 @@ namespace Spooky.Core
 
                     NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
                 }
-            }
 
-            //for when day and night switch
-            if (Main.dayTime != LastTime)
-            {
-                DaySwitched = true;
-            }
-			else
-            {
-				DaySwitched = false;
-            }
+                //chance to activate raveyard each night
+                if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))
+                {
+                    Flags.RaveyardHappening = true;
 
-			LastTime = Main.dayTime;
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
+
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+                }
+
+                //if a raveyard is happening, end it during the day
+                if (Main.dayTime && Flags.RaveyardHappening)
+                {
+                    Flags.RaveyardHappening = false;
+
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
+
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+                }
+            }
 
             //store whatever vanilla halloween is set to before setting it based on the config
             if (!initializeHalloween)
@@ -137,39 +157,17 @@ namespace Spooky.Core
                 Flags.DailyQuest = false;
             }
 
-            //chance to activate raveyard each night
-            if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))
+            //for when day and night switch
+            if (Main.dayTime != LastTime)
             {
-                RaveyardHappening = true;
-
-                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
-
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText(text, 171, 64, 255);
-                }
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                }
+                DaySwitched = true;
+            }
+            else
+            {
+                DaySwitched = false;
             }
 
-            //if a raveyard is happening, end it during the day
-            if (Main.dayTime && RaveyardHappening)
-            {
-                RaveyardHappening = false;
-
-                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
-
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText(text, 171, 64, 255);
-                }
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                }
-            }
+            LastTime = Main.dayTime;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

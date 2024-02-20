@@ -26,6 +26,7 @@ namespace Spooky.Core
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
+        public static bool RaveyardHappening = false;
 
         public static bool OldHunterAssembled = false;
         public static bool OldHunterHat = false;
@@ -60,6 +61,7 @@ namespace Spooky.Core
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
+            RaveyardHappening = false;
 
             OldHunterAssembled = false;
             OldHunterHat = false;
@@ -100,6 +102,7 @@ namespace Spooky.Core
             if (CatacombKey1) tag["CatacombKey1"] = true;
             if (CatacombKey2) tag["CatacombKey2"] = true;
             if (CatacombKey3) tag["CatacombKey3"] = true;
+            if (RaveyardHappening) tag["RaveyardHappening"] = true;
 
             if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
             if (OldHunterHat) tag["OldHunterHat"] = true;
@@ -140,6 +143,7 @@ namespace Spooky.Core
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
             CatacombKey2 = tag.ContainsKey("CatacombKey2");
             CatacombKey3 = tag.ContainsKey("CatacombKey3");
+            RaveyardHappening = tag.ContainsKey("RaveyardHappening");
             
             OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
             OldHunterHat = tag.ContainsKey("OldHunterHat");
@@ -183,6 +187,7 @@ namespace Spooky.Core
             miscFlags[1] = CatacombKey1;
             miscFlags[2] = CatacombKey2;
             miscFlags[3] = CatacombKey3;
+            miscFlags[4] = RaveyardHappening;
             writer.Write(miscFlags);
 
             var oldHunterFlags = new BitsByte();
@@ -232,6 +237,7 @@ namespace Spooky.Core
             CatacombKey1 = miscFlags[1];
             CatacombKey2 = miscFlags[2];
             CatacombKey3 = miscFlags[3];
+            RaveyardHappening = miscFlags[4];
 
             BitsByte oldHunterFlags = reader.ReadByte();
             OldHunterAssembled = oldHunterFlags[0];

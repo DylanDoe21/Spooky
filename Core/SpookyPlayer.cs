@@ -571,7 +571,7 @@ namespace Spooky.Core
             }
 
             //set skeleton bouncer hositility to false if no raveyard is happening
-            if (!SpookyWorld.RaveyardHappening)
+            if (!Flags.RaveyardHappening)
             {
                 RaveyardGuardsHostile = false;
             }

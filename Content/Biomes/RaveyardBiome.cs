@@ -32,7 +32,7 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && SpookyWorld.RaveyardHappening;
+            bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && Flags.RaveyardHappening;
 
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 

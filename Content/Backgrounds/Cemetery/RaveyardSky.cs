@@ -192,6 +192,12 @@ namespace Spooky.Content.Backgrounds.Cemetery
                 spriteBatch.Draw(SkyTexture, new Rectangle(0, Math.Max(0, (int)((Main.worldSurface * 16.0 - (double)Main.screenPosition.Y - 2000) * 0.1f)), Main.screenWidth, Main.screenHeight),
                 Color.Lerp(SkyColors[index], SkyColors[(index + 1) % 3], fade) * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
             }
+
+            //deactivate the sky if in the menu
+            if (Main.gameMenu || !Main.LocalPlayer.active)  
+            {
+                skyActive = false;
+            }
         }
 
         public override float GetCloudAlpha()
@@ -260,7 +266,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
 
         public override bool IsActive()
         {
-            return (skyActive || opacity > 0.001f) && !Main.gameMenu;
+            return skyActive || opacity > 0.001f;
         }
     }
 }

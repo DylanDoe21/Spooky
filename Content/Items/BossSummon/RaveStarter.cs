@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.BossSummon
 
         public override bool? UseItem(Player player)
         {
-            SpookyWorld.RaveyardHappening = true;
+            Flags.RaveyardHappening = true;
 
             return true;
         }

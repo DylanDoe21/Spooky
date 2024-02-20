@@ -185,7 +185,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 float fade = Main.GameUpdateCount % 60 / 60f;
                 int index = (int)(Main.GameUpdateCount / 60 % 3);
 
-                if (SpookyWorld.RaveyardHappening)
+                if (Flags.RaveyardHappening)
                 {
                     color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(PartyColors[index], PartyColors[(index + 1) % 3], fade));
                 }

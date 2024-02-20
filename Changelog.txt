@@ -1,9 +1,3 @@
--Fixed old hunter displaying Mods.Spooky.Dialogue.OldHunter.Default0 as one of its dialogues
--Fixed small green gourds being incorrectly lightable with the gourd carving kit and not old wax candles
--Fixed music display crashing when loaded with spooky mod due to a scrapped song I forgot to remove
--Fixed the music display text for the raveyard theme not displaying all of song names and artists
--Fixed polybius swirl projectile dying when it was too far away from you
--Fixed issue where spider grotto enemies couldn't spawn on mushroom moss tiles in the grotto, which resulted in lower spawnrates
--Fixed disco skull projectiles damaging enemies before they are able to home in on enemies, and fixed the item being held in the wrong direction
--Fixed spooky forest dungeon chests taking super long to place, and added a world generation progress message for it
--Added mossy stone walls
+-Removed little bone's dialogue mentioning rot gourd's key since that was removed
+-Fixed issue where the raveyard being active wouldn't correctly save when leaving and re-entering a world
+-Fixed issue where the raveyard sky visuals wouldn't correctly activate when leaving and re-entering a world

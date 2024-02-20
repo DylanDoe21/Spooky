@@ -123,16 +123,7 @@ namespace Spooky.Content.NPCs.Friendly
 				//underground spooky forest chests
 				else if (Flags.downedRotGourd && !NPC.downedBoss2)
 				{
-					if (AdviceSwitch == 0)
-					{
-						AdviceSwitch++;
-						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiomeChests");
-					}
-					else if (AdviceSwitch >= 1)
-					{
-						AdviceSwitch--;
-						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
-					}
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
 
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
