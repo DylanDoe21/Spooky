@@ -173,6 +173,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //clean out small floating chunks of blocks
             CleanOutSmallClumps();
 
             //after the main biome is done, generate some clumps of web and leaves
@@ -216,7 +217,7 @@ namespace Spooky.Content.Generation
                         //remove any extra liquids that may still be in the biome
                         Main.tile[X, Y].LiquidAmount = 0;
 
-                        //clean tiles that are sticking out (aka tiles only attached to one tile on one side)
+                        //clean tiles that are sticking out (basically tiles only attached to one tile on one side)
                         bool OnlyRight = !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X - 1, Y].HasTile;
                         bool OnlyLeft = !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X + 1, Y].HasTile;
                         bool OnlyDown = !Main.tile[X, Y - 1].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile;
@@ -283,6 +284,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //generate old hunter piece structures
             GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
             GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
             GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 18), "OldHunterTorso", 12, 8);

@@ -17,6 +17,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
+            TileID.Sets.Grass[Type] = true;
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             TileID.Sets.GeneralPlacementTiles[Type] = false;

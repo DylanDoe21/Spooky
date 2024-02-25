@@ -13,6 +13,7 @@ namespace Spooky.Content.Tiles.SpookyHell
     {
         public override void SetStaticDefaults()
         {
+            TileID.Sets.Grass[Type] = true;
             TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<SpookyMush>();

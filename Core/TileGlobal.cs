@@ -92,27 +92,6 @@ namespace Spooky.Core
             }
         }
 
-        public override void NearbyEffects(int i, int j, int type, bool closer)
-        {
-            List<Point> EdgeTiles = new List<Point>();
-            Collision.GetEntityEdgeTiles(EdgeTiles, Main.LocalPlayer);
-            foreach (Point touchedTile in EdgeTiles)
-            {
-                Tile tile = Framing.GetTileSafely(touchedTile);
-                if (!tile.HasTile || !tile.HasUnactuatedTile)
-                {
-                    continue;
-                }
-
-                if (tile.TileType == ModContent.TileType<WebBlock>())
-                {
-                    Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SpiderWebSlowness = true;
-                }
-            }
-
-            base.NearbyEffects(i, j, type, closer);
-        }
-
         public override bool Slope(int i, int j, int type)
         {
             Tile tileAbove = Main.tile[i, j - 1];

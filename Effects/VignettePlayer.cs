@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Effects
 {
-	class VignettePlayer : ModPlayer
+    [Autoload(Side = ModSide.Client)]
+    class VignettePlayer : ModPlayer
 	{
 		private bool _lastTickVignetteActive;
 		private bool _vignetteActive;

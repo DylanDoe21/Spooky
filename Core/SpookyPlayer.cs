@@ -46,7 +46,6 @@ namespace Spooky.Core
         public int GeminiMockerySpawnTimer = 0;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
-        public bool SpiderWebSlowness = false;
 
         //armors
         public bool GourdSet = false;
@@ -152,7 +151,6 @@ namespace Spooky.Core
         {
             //misc
             WhipSpiderAggression = false;
-            SpiderWebSlowness = false;
 
             //armors
             GourdSet = false;
@@ -887,12 +885,6 @@ namespace Spooky.Core
             {
                 Player.maxRunSpeed += 5f;
                 Player.runAcceleration += 0.075f;
-            }
-
-            if (SpiderWebSlowness)
-            {
-                Player.maxRunSpeed -= 5f;
-                Player.runAcceleration -= 0.075f;
             }
         }
 

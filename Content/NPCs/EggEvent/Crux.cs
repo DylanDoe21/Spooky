@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Crux : ModNPC
     {
-        int aura;
+        int aura = 0;
 
         int repeats = Main.rand.Next(1, 4);
 
@@ -214,7 +214,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         NPC.velocity *= 0.99f;
 
-                        if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>() && aura != 0)
+                        if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>()) //&& //aura != 0)
                         {
                             Main.projectile[aura].position = NPC.Center - new Vector2(Main.projectile[aura].width / 2, Main.projectile[aura].height / 2);
                         }
