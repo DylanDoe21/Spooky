@@ -178,10 +178,19 @@ namespace Spooky.Content.NPCs.PandoraBox
                     PandoraBoxWorld.Wave++;
                     SpawnedEnemies = false;
                     PandoraBoxWorld.SpawnedEnemySpawners = false;
+
+                    NPC.netUpdate = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
                 else
                 {
                     EndingAnimation = true;
+
+                    NPC.netUpdate = true;
                 }
             }
         }
@@ -209,6 +218,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
 
                             SpawnedEnemies = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -237,6 +248,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 2);
 
                             SpawnedEnemies = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -265,6 +278,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
 
                             SpawnedEnemies = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -293,6 +308,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
 
                             SpawnedEnemies = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -312,6 +329,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 3);
 
                             SpawnedEnemies = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -394,6 +413,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                         }
 
                         NPC.ai[1] = 0;
+                        NPC.netUpdate = true;
                     }
                 }
             }
@@ -401,6 +421,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 SpawnedEnemies = false;
                 EventEnemiesExist = true;
+                NPC.netUpdate = true;
             }
         }
     }
