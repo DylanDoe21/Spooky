@@ -1,3 +1,4 @@
 -Removed little bone's dialogue mentioning rot gourd's key since that was removed
 -Fixed issue where the raveyard being active wouldn't correctly save when leaving and re-entering a world
 -Fixed issue where the raveyard sky visuals wouldn't correctly activate when leaving and re-entering a world
+-Fixed glowshroom and eye valley trees only dropping one block when broken in multiplayer
