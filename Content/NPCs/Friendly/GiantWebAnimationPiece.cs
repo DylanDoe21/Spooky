@@ -49,6 +49,11 @@ namespace Spooky.Content.NPCs.Friendly
                     Main.npc[NewNPC].ai[0] = NPC.whoAmI;
                     Main.npc[NewNPC].ai[2] = numPieces * distance;
                     Main.npc[NewNPC].ai[3] = numPieces;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {   
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+                    }
                 }
             }
         }
@@ -213,7 +218,12 @@ namespace Spooky.Content.NPCs.Friendly
 
                 if (NPC.ai[3] == 0)
                 {
-                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OldHunterSleeping>());
+                    int Skeleton = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OldHunterSleeping>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {   
+                        NetMessage.SendData(MessageID.SyncNPC, number: Skeleton);
+                    }
                 }
 
                 MoonlordDeathDrama.RequestLight(0f, NPC.Center);

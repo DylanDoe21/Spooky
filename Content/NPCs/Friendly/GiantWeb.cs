@@ -169,7 +169,12 @@ namespace Spooky.Content.NPCs.Friendly
                 SoundEngine.PlaySound(SoundID.NPCHit11, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_DefeatScene with { Pitch = SoundID.DD2_DefeatScene.Pitch - 0.8f }, NPC.Center);
 
-                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+                int Animation = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {   
+                    NetMessage.SendData(MessageID.SyncNPC, number: Animation);
+                }
 
                 for (int numGores = 1; numGores <= 15; numGores++)
                 {
