@@ -5,6 +5,8 @@
 -Fixed pandora's box not dropping an item at the end of the event in multiplayer
 -Fixed pandora's box enemies vanishing in multiplayer when hit
 -Attempted to fix pandora's box desyncing in multiplayer
+-Added a new shaking animation to pandora's box to telegraph when it is about to spawn enemies
+-Enemies spawned by pandora's box are now spawned out of the chest itself instead of being spawned by boring dust particles
 -Fixed daffodil vanishing in multiplayer when hit
 -Fixed big bone shooting multiple sets of projectiles in multiplayer
 -Root armor's lifesteal bonus now caps out at a maximum 12 life healed
