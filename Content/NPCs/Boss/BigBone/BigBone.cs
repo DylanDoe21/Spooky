@@ -497,7 +497,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //if his healing/immunity flowers do exist, then add his charging attack to the list to prevent more healing/immunity flowers from being spammed
                 else
                 {
-                    AttackPattern = AttackPattern.Append(7).ToArray();
+                    AttackPattern = AttackPattern.Append(SpecialAttack[1]).ToArray();
                 }
 
                 NPC.ai[2] = 1;
@@ -783,9 +783,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             int ProjType = Phase2 ? ModContent.ProjectileType<HomingFlower>() : ModContent.ProjectileType<BouncingFlower>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
-                            10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), 
-                            ProjType, Damage, 0f, Main.myPlayer);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
+                                10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), 
+                                ProjType, Damage, 0f, Main.myPlayer);
+                            }
                         }
                     }
 
@@ -839,8 +842,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<FlamingWisp>() : ModContent.ProjectileType<BoneWisp>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                            ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, 0);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
+                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, 0);
+                            }
                         }
                     }
 
@@ -886,26 +892,29 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             if (NPC.localAI[0] == 75)
                             {
-                                for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    float distance = Main.rand.NextFloat(8f, 12f);
+                                    for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
+                                    {
+                                        float distance = Main.rand.NextFloat(8f, 12f);
 
-                                    Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
-                                
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), Position, Vector2.Zero, ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer);
+                                        Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
+                                    
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), Position, Vector2.Zero, ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer);
 
-                                    SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
-                                }
+                                        SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
+                                    }
 
-                                for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
-                                {
-                                    Vector2 Direction = NPC.Center - SavePoint[numPoints];
-                                    Direction.Normalize();
+                                    for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
+                                    {
+                                        Vector2 Direction = NPC.Center - SavePoint[numPoints];
+                                        Direction.Normalize();
 
-                                    Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+                                        Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-                                    ModContent.ProjectileType<BigBoneThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
+                                        ModContent.ProjectileType<BigBoneThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                    }
                                 }
                             }
 
@@ -977,22 +986,25 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             //set this to a random number without going too low or too high
                             NPC.localAI[1] = Main.rand.Next(4, 44);
 
-                            for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                //this is how the gap in the circle of thorns is created
-                                //this check basically makes it so every thorn in the loop is spawned, except for the randomly chosen number and multiple thorns behind the chosen number
-                                if (numProjectiles != NPC.localAI[1] && numProjectiles != NPC.localAI[1] - 1 && numProjectiles != NPC.localAI[1] - 2 && 
-                                numProjectiles != NPC.localAI[1] - 3 && numProjectiles != NPC.localAI[1] - 4)
+                                for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
                                 {
-                                    Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 45));
+                                    //this is how the gap in the circle of thorns is created
+                                    //this check basically makes it so every thorn in the loop is spawned, except for the randomly chosen number and multiple thorns behind the chosen number
+                                    if (numProjectiles != NPC.localAI[1] && numProjectiles != NPC.localAI[1] - 1 && numProjectiles != NPC.localAI[1] - 2 && 
+                                    numProjectiles != NPC.localAI[1] - 3 && numProjectiles != NPC.localAI[1] - 4)
+                                    {
+                                        Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 45));
 
-                                    Vector2 Direction = NPC.Center - projPos;
-                                    Direction.Normalize();
+                                        Vector2 Direction = NPC.Center - projPos;
+                                        Direction.Normalize();
 
-                                    Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+                                        Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-                                    ModContent.ProjectileType<SolarThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
+                                        ModContent.ProjectileType<SolarThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                    }
                                 }
                             }
                         }
@@ -1078,8 +1090,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                }
                             }
                         }
                     }
@@ -1110,8 +1125,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRoseOrange>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRoseOrange>(), Damage, 0f, Main.myPlayer, 0, 0);
+                                }
                             }
                         }
                     }

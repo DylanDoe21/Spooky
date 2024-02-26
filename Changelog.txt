@@ -3,3 +3,5 @@
 -Fixed issue where the raveyard sky visuals wouldn't correctly activate when leaving and re-entering a world
 -Fixed glowshroom and eye valley trees only dropping one block when broken in multiplayer
 -Fixed pandora's box not dropping an item at the end of the event in multiplayer
+-Fixed daffodil vanishing in multiplayer
+-Fixed big bone shooting multiple sets of projectiles in multiplayer

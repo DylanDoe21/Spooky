@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Projectiles.Catacomb;
 
 namespace Spooky.Content.Items.BossSummon
@@ -31,6 +32,13 @@ namespace Spooky.Content.Items.BossSummon
             Item.shoot = ModContent.ProjectileType<BrickProj>();
 			Item.shootSpeed = 12f;
         }
+
+        /*
+        public override bool CanUseItem(Player player)
+        {
+            return !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>());
+        }
+        */
 
         public override void AddRecipes()
         {
