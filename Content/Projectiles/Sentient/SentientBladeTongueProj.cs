@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-            Projectile.position = player.Center - Projectile.Size / 2;
+            Projectile.position = player.MountedCenter - Projectile.Size / 2;
 
 			if (Main.mouseRight)
             {
