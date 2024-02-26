@@ -10,10 +10,14 @@ using Spooky.Core;
 using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
+using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
+using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky
 {
@@ -28,6 +32,10 @@ namespace Spooky
 
         public static int SpookySpiritSpawnX;
         public static int SpookySpiritSpawnY;
+
+        public static int DaffodilSpawnX;
+        public static int DaffodilSpawnY;
+        public static int DaffodilParent;
 
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
@@ -116,6 +124,11 @@ namespace Spooky
                     NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>());
                     break;
                 }
+                case SpookyMessageType.SpawnDaffodilEye:
+                {
+                    NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: DaffodilParent);
+                    break;
+                }
                 //should never occur I think?
                 default:
                 {
@@ -132,5 +145,6 @@ namespace Spooky
         SpawnSpookySpirit,
         SpawnMoco,
         SpawnOrroboro,
+        SpawnDaffodilEye,
     }
 }

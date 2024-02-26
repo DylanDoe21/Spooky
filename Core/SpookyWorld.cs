@@ -62,7 +62,10 @@ namespace Spooky.Core
                     int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
                     Main.npc[Daffodil].position.X -= 3;
 
-                    NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+                    }
                 }
 
                 //spawn pandoras box if it despawns for any reason
@@ -71,7 +74,10 @@ namespace Spooky.Core
                     int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
                     Main.npc[PandoraBox].position.X += 7;
 
-                    NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+                    }
                 }
 
                 //spawn big bone pot if it despawns for any reason
@@ -80,7 +86,10 @@ namespace Spooky.Core
                     int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
                     Main.npc[FlowerPot].position.X -= 6;
 
-                    NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                    }
                 }
 
                 //spawn giant cobweb in the spider cave, only if you have not assembled the old hunter npc
@@ -90,7 +99,10 @@ namespace Spooky.Core
                     Main.npc[GiantWeb].position.X += 18;
                     Main.npc[GiantWeb].position.Y += 1518;
 
-                    NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
+                    }
                 }
 
                 //chance to activate raveyard each night
