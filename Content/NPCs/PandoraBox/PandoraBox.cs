@@ -179,12 +179,12 @@ namespace Spooky.Content.NPCs.PandoraBox
                     SpawnedEnemies = false;
                     PandoraBoxWorld.SpawnedEnemySpawners = false;
 
-                    NPC.netUpdate = true;
-
                     if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.WorldData);
                     }
+
+                    NPC.netUpdate = true;
                 }
                 else
                 {
@@ -218,8 +218,6 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
 
                             SpawnedEnemies = true;
-
-                            NPC.netUpdate = true;
                         }
                     }
 
@@ -248,8 +246,6 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 2);
 
                             SpawnedEnemies = true;
-
-                            NPC.netUpdate = true;
                         }
                     }
 
@@ -278,8 +274,6 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
 
                             SpawnedEnemies = true;
-
-                            NPC.netUpdate = true;
                         }
                     }
 
@@ -308,8 +302,6 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
 
                             SpawnedEnemies = true;
-
-                            NPC.netUpdate = true;
                         }
                     }
 
@@ -329,14 +321,14 @@ namespace Spooky.Content.NPCs.PandoraBox
                             Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 3);
 
                             SpawnedEnemies = true;
-
-                            NPC.netUpdate = true;
                         }
                     }
 
                     break;
                 }
             }
+
+            NPC.netUpdate = true;
         }
 
         public override void AI()
@@ -398,22 +390,19 @@ namespace Spooky.Content.NPCs.PandoraBox
                         PandoraBoxWorld.Wave = 0;
                         PandoraBoxWorld.SpawnedEnemySpawners = false;
                         PandoraBoxWorld.PandoraEventActive = false;
-                        SpawnedEnemies = false;
-                        EventEnemiesExist = true;
-                        EndingAnimation = false;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
-                        }
 
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.SendData(MessageID.WorldData);
                         }
 
+                        SpawnedEnemies = false;
+                        EventEnemiesExist = true;
+                        EndingAnimation = false;
+
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
+
                         NPC.ai[1] = 0;
-                        NPC.netUpdate = true;
                     }
                 }
             }
@@ -421,7 +410,6 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 SpawnedEnemies = false;
                 EventEnemiesExist = true;
-                NPC.netUpdate = true;
             }
         }
     }

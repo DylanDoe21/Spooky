@@ -20,8 +20,8 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 2000;
-            Projectile.penetrate = 1;
             Projectile.alpha = 255;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
@@ -39,76 +39,73 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 
             if (Projectile.ai[1] >= 60)
             {
+                //spawn enemy depending on what ai[0] is set to
+                switch ((int)Projectile.ai[0])
+                {
+                    //Bobbert
+                    case 0:
+                    {
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                        }
+
+                        break;
+                    }
+
+                    //Stitch
+                    case 1:
+                    {
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                        }
+
+                        break;
+                    }
+
+                    //Sheldon
+                    case 2:
+                    {
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                        }
+
+                        break;
+                    }
+
+                    //Chester
+                    case 3:
+                    {
+                        int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Chester>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                        }
+
+                        break;
+                    }
+                }
+                
                 Projectile.Kill();
             }
         }
 
         public override void OnKill(int timeLeft)
 		{
-            if (!PandoraBoxWorld.SpawnedEnemySpawners)
-			{
-				PandoraBoxWorld.SpawnedEnemySpawners = true;
+            PandoraBoxWorld.SpawnedEnemySpawners = true;
 
-				if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
-
-            //spawn enemy depending on what ai[0] is set to
-            switch ((int)Projectile.ai[0])
+            if (Main.netMode == NetmodeID.Server)
             {
-                //Bobbert
-                case 0:
-                {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Bobbert>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
-                    break;
-                }
-
-                //Stitch
-                case 1:
-                {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Stitch>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
-                    break;
-                }
-
-                //Sheldon
-                case 2:
-                {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Sheldon>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
-                    break;
-                }
-
-                //Chester
-                case 3:
-                {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Chester>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
-                    break;
-                }
+                NetMessage.SendData(MessageID.WorldData);
             }
         }
     }

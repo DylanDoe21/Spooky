@@ -38,6 +38,12 @@ namespace Spooky.Content.NPCs.EggEvent
 				EggEventActive = false;
 			}
 
+			if (!EggEventActive)
+			{
+				Wave = 0;
+				hasSpawnedBiomass = false;
+			}
+
 			//end the event, reset everything, and set it to downed when completed
 			if (Wave > 11)
 			{
