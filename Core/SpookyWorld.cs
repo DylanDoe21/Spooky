@@ -110,6 +110,11 @@ namespace Spooky.Core
                 {
                     Flags.RaveyardHappening = true;
 
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
 
                     if (Main.netMode == NetmodeID.SinglePlayer)
@@ -126,6 +131,11 @@ namespace Spooky.Core
                 if (Main.dayTime && Flags.RaveyardHappening)
                 {
                     Flags.RaveyardHappening = false;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
 
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
 

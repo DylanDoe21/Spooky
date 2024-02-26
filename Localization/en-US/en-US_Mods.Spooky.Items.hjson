@@ -2837,5 +2837,10 @@ RaveStarter: {
 
 LittleEyePaintingItem: {
 	DisplayName: Little Eye's Self Portrait
-	Tooltip: ""
+	Tooltip: "'Waasephi'"
+}
+
+BaxterPaintingItem: {
+	DisplayName: Baxter Portrait
+	Tooltip: "'Waasephi'"
 }
