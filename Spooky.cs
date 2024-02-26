@@ -37,6 +37,15 @@ namespace Spooky
         public static int DaffodilSpawnY;
         public static int DaffodilParent;
 
+        public static int PandoraBoxX;
+        public static int PandoraBoxY;
+
+        //TODO: add packet for the egg event handler so it can be synced correctly in multiplayer
+        //At some point, probably in the eye valley improvement update, the system for the egg incursion should be entirely reworked
+        //also make the giant egg not a tile but an npc similarly to pandora's box
+        public static int EggEventHandlerX;
+        public static int EggEventHandlerY;
+
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
@@ -114,8 +123,7 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnMoco:
                 {
-                    int type = ModContent.NPCType<Moco>();
-                    NPC.SpawnOnPlayer(whoAmI, type);
+                    NPC.SpawnOnPlayer(whoAmI, ModContent.NPCType<Moco>());
                     NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: whoAmI, number2: type);
 					break;
                 }
@@ -127,6 +135,33 @@ namespace Spooky
                 case SpookyMessageType.SpawnDaffodilEye:
                 {
                     NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: DaffodilParent);
+                    break;
+                }
+                case SpookyMessageType.SpawnBobbert:
+                {
+                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Bobbert>());
+                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    break;
+                }
+                case SpookyMessageType.SpawnStitch:
+                {
+                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Stitch>());
+                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    break;
+                }
+                case SpookyMessageType.SpawnSheldon:
+                {
+                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Sheldon>());
+                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    break;
+                }
+                case SpookyMessageType.SpawnChester:
+                {
+                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Chester>());
+                    Main.npc[NewNPC].velocity.Y = -8;
                     break;
                 }
                 //should never occur I think?
@@ -146,5 +181,9 @@ namespace Spooky
         SpawnMoco,
         SpawnOrroboro,
         SpawnDaffodilEye,
+        SpawnBobbert,
+        SpawnStitch,
+        SpawnSheldon,
+        SpawnChester,
     }
 }

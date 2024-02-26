@@ -12,6 +12,8 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.PandoraBox.Projectiles;
 
 namespace Spooky.Content.NPCs.PandoraBox
@@ -19,9 +21,11 @@ namespace Spooky.Content.NPCs.PandoraBox
     public class PandoraBox : ModNPC
     {
         bool SpawnedEnemies = false;
+        bool HasDoneSpawnAnimation = false;
         bool EventEnemiesExist = true;
         bool PlayAnimation = false;
         bool EndingAnimation = false;
+        bool Shake = false;
 
         public override void SetStaticDefaults()
         {
@@ -36,18 +40,22 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             //bools
             writer.Write(SpawnedEnemies);
+            writer.Write(HasDoneSpawnAnimation);
             writer.Write(EventEnemiesExist);
             writer.Write(PlayAnimation);
             writer.Write(EndingAnimation);
+            writer.Write(Shake);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
             SpawnedEnemies = reader.ReadBoolean();
+            HasDoneSpawnAnimation = reader.ReadBoolean();
             EventEnemiesExist = reader.ReadBoolean();
             PlayAnimation = reader.ReadBoolean();
             EndingAnimation = reader.ReadBoolean();
+            Shake = reader.ReadBoolean();
         }
 
         public override void SetDefaults()
@@ -59,11 +67,6 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.height = 36;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
-        }
-
-        public override bool NeedSaving()
-        {
-            return true;
         }
 
         public override bool CanChat()
@@ -88,7 +91,14 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 Main.npcChatText = "";
                 SoundEngine.PlaySound(SoundID.Unlock, NPC.Center);
+
                 PandoraBoxWorld.PandoraEventActive = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
                 NPC.ai[0] = 180;
 
                 for (int numGores = 1; numGores <= 3; numGores++)
@@ -170,14 +180,14 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public void SwitchToNextWave()
         {
-            if (PandoraBoxWorld.SpawnedEnemySpawners && !EventEnemiesExist)
+            if (HasDoneSpawnAnimation && !EventEnemiesExist)
             {
                 if (PandoraBoxWorld.Wave < 4)
                 {
                     NPC.ai[0] = 180;
                     PandoraBoxWorld.Wave++;
                     SpawnedEnemies = false;
-                    PandoraBoxWorld.SpawnedEnemySpawners = false;
+                    HasDoneSpawnAnimation = false;
 
                     if (Main.netMode == NetmodeID.Server)
                     {
@@ -195,6 +205,91 @@ namespace Spooky.Content.NPCs.PandoraBox
             }
         }
 
+        public void SpawnEnemy(int Type)
+        {
+            switch (Type)
+            {
+                //bobbert
+                case 0:
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnBobbert);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
+                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    }
+
+                    break;
+                }
+
+                //stitch
+                case 1:
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnStitch);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
+                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    }
+
+                    break;
+                }
+
+                //sheldon
+                case 2:
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnSheldon);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
+                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
+                    }
+
+                    break;
+                }
+
+                //chester
+                case 3:
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnChester);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
+                        Main.npc[NewNPC].velocity.Y = -8;
+                    }
+
+                    break;
+                }
+            }
+
+            HasDoneSpawnAnimation = true;
+
+            NPC.netUpdate = true;
+        }
+
         public void SpawnEnemies()
         {
             switch (PandoraBoxWorld.Wave)
@@ -210,12 +305,10 @@ namespace Spooky.Content.NPCs.PandoraBox
                         {
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 0);
+                                SpawnEnemy(0);
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
+                            SpawnEnemy(1);
 
                             SpawnedEnemies = true;
                         }
@@ -235,15 +328,11 @@ namespace Spooky.Content.NPCs.PandoraBox
                         {
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 0);
+                                SpawnEnemy(0);
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
-
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 2);
+                            SpawnEnemy(1);
+                            SpawnEnemy(2);
 
                             SpawnedEnemies = true;
                         }
@@ -263,14 +352,12 @@ namespace Spooky.Content.NPCs.PandoraBox
                         {
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
+                                SpawnEnemy(1);
                             }
 
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 2);
+                                SpawnEnemy(2);
                             }
 
                             SpawnedEnemies = true;
@@ -291,14 +378,9 @@ namespace Spooky.Content.NPCs.PandoraBox
                         {
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 0);
-
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 1);
-
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-8f, 8f), 
-                                Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 2);
+                                SpawnEnemy(0);
+                                SpawnEnemy(1);
+                                SpawnEnemy(2);
                             }
 
                             SpawnedEnemies = true;
@@ -317,8 +399,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 
-                            Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<PandoraEnemySpawn>(), 0, 0, 0, 3);
+                            SpawnEnemy(3);
 
                             SpawnedEnemies = true;
                         }
@@ -335,28 +416,45 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             Player player = Main.player[NPC.target];
 
+            Spooky.PandoraBoxX = (int)NPC.Center.X;
+            Spooky.PandoraBoxY = (int)NPC.Center.Y;
+
             if (PandoraBoxWorld.PandoraEventActive)
             {
-                if (NPC.AnyNPCs(ModContent.NPCType<Bobbert>()) || NPC.AnyNPCs(ModContent.NPCType<Stitch>()) || 
-                NPC.AnyNPCs(ModContent.NPCType<Sheldon>()) || NPC.AnyNPCs(ModContent.NPCType<Chester>()))
-                {
-                    EventEnemiesExist = true;
-                }
-                else
-                {
-                    EventEnemiesExist = false;
-                }
+                //bool to check if any enemies during the event exist
+                EventEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<Bobbert>()) || NPC.AnyNPCs(ModContent.NPCType<Stitch>()) || NPC.AnyNPCs(ModContent.NPCType<Sheldon>()) || NPC.AnyNPCs(ModContent.NPCType<Chester>());
 
                 //cooldown before switching to the next wave
                 if (NPC.ai[0] > 0)
                 {
                     NPC.ai[0]--;
+
+                    if (NPC.ai[0] <= 60)
+                    {
+                        if (Shake)
+                        {
+                            NPC.rotation += 0.1f;
+                            if (NPC.rotation > 0.2f)
+                            {
+                                Shake = false;
+                            }
+                        }
+                        else
+                        {
+                            NPC.rotation -= 0.1f;
+                            if (NPC.rotation < -0.2f)
+                            {
+                                Shake = true;
+                            }
+                        }
+                    }
                 }
                 
                 SwitchToNextWave();
 
-                if (NPC.ai[0] <= 0)
+                if (NPC.ai[0] <= 0 && !EndingAnimation)
                 {
+                    NPC.rotation = 0;
                     SpawnEnemies();
                 }
 
@@ -367,6 +465,23 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                     if (NPC.ai[1] < 90)
                     {
+                        if (Shake)
+                        {
+                            NPC.rotation += 0.1f;
+                            if (NPC.rotation > 0.2f)
+                            {
+                                Shake = false;
+                            }
+                        }
+                        else
+                        {
+                            NPC.rotation -= 0.1f;
+                            if (NPC.rotation < -0.2f)
+                            {
+                                Shake = true;
+                            }
+                        }
+
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                         {
@@ -383,33 +498,61 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                     if (NPC.ai[1] >= 90)
                     {
+                        NPC.rotation = 0;
+
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
 
                         NPC.SetEventFlagCleared(ref Flags.downedPandoraBox, -1);
 
-                        PandoraBoxWorld.Wave = 0;
-                        PandoraBoxWorld.SpawnedEnemySpawners = false;
-                        PandoraBoxWorld.PandoraEventActive = false;
+                        PlayAnimation = true;
 
-                        if (Main.netMode == NetmodeID.Server)
+                        if (NPC.ai[1] == 115)
                         {
-                            NetMessage.SendData(MessageID.WorldData);
+                            //drop one of the pandora accessories
+                            int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 
+                            ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>() };
+
+                            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, Main.rand.Next(Accessories));
+
+                            if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                            {
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                            }
+
+                            //chance to drop the funny bean
+                            if (Main.rand.NextBool(20))
+                            {
+                                int FunnyBean = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<PandoraBean>());
+
+                                if (Main.netMode == NetmodeID.MultiplayerClient && FunnyBean >= 0)
+                                {
+                                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
+                                }
+                            }
                         }
 
-                        SpawnedEnemies = false;
-                        EventEnemiesExist = true;
-                        EndingAnimation = false;
+                        if (NPC.ai[1] >= 125)
+                        {
+                            PandoraBoxWorld.PandoraEventActive = false;
 
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
+                            }
 
-                        NPC.ai[1] = 0;
+                            NPC.ai[1] = 0;
+
+                            NPC.netUpdate = true;
+                        }
                     }
                 }
             }
             else
             {
                 SpawnedEnemies = false;
-                EventEnemiesExist = true;
+                HasDoneSpawnAnimation = false;
+                PlayAnimation = false;
+                EndingAnimation = false;
             }
         }
     }

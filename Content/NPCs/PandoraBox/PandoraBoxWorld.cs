@@ -19,13 +19,11 @@ namespace Spooky.Content.NPCs.PandoraBox
 	{
 		public static int Wave = 0;
 		public static bool PandoraEventActive;
-		public static bool SpawnedEnemySpawners;
 
 		public override void OnWorldLoad()
 		{
 			Wave = 0;
 			PandoraEventActive = false;
-			SpawnedEnemySpawners = false;
 		}
 
         public override void PostUpdateEverything()
@@ -33,14 +31,12 @@ namespace Spooky.Content.NPCs.PandoraBox
 			if (!PandoraEventActive)
 			{
 				Wave = 0;
-				SpawnedEnemySpawners = false;
 			}
 
 			//end the event and reset everything if you die
 			if (PandoraEventActive && Main.player[Main.myPlayer].dead)
 			{
 				Wave = 0;
-				SpawnedEnemySpawners = false;
 				PandoraEventActive = false;
 			}
 
