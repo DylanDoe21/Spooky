@@ -5,3 +5,4 @@
 -Fixed pandora's box not dropping an item at the end of the event in multiplayer
 -Fixed daffodil vanishing in multiplayer
 -Fixed big bone shooting multiple sets of projectiles in multiplayer
+-Root armor's lifesteal bonus now caps out at 12 life healed (it still scales with projectile damage but not past 12)
