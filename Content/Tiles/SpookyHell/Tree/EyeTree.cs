@@ -277,7 +277,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(122, 104);
+                Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
                 DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
@@ -322,7 +322,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(122, 104);
+                Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
                 DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
