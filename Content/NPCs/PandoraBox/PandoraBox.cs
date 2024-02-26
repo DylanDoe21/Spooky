@@ -303,6 +303,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
+                            SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
+
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
                                 SpawnEnemy(0);
@@ -326,6 +329,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
+                            SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
+
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 SpawnEnemy(0);
@@ -350,6 +356,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
+                            SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
+
                             for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
                             {
                                 SpawnEnemy(1);
@@ -376,6 +385,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
+                            SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
+
                             for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
                             {
                                 SpawnEnemy(0);
@@ -399,6 +411,9 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         if (NPC.frame.Y == 3 * 36)
                         {
+                            SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
+
                             SpawnEnemy(3);
 
                             SpawnedEnemies = true;
@@ -529,10 +544,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
                                 }
                             }
-                        }
-
-                        if (NPC.ai[1] >= 125)
-                        {
+                            
                             PandoraBoxWorld.PandoraEventActive = false;
 
                             if (Main.netMode == NetmodeID.Server)
