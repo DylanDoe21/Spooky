@@ -88,17 +88,14 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-            if (!EggEventWorld.hasSpawnedBiomass)
-			{
-				EggEventWorld.hasSpawnedBiomass = true;
-
-				if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
-
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
+
+            EggEventWorld.hasSpawnedBiomass = true;
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.WorldData);
+            }
 
             //spawn blood explosion clouds
             for (int numExplosion = 0; numExplosion < 8; numExplosion++)

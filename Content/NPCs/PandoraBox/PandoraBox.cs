@@ -178,10 +178,19 @@ namespace Spooky.Content.NPCs.PandoraBox
                     PandoraBoxWorld.Wave++;
                     SpawnedEnemies = false;
                     PandoraBoxWorld.SpawnedEnemySpawners = false;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+
+                    NPC.netUpdate = true;
                 }
                 else
                 {
                     EndingAnimation = true;
+
+                    NPC.netUpdate = true;
                 }
             }
         }
@@ -318,6 +327,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                     break;
                 }
             }
+
+            NPC.netUpdate = true;
         }
 
         public override void AI()
@@ -379,19 +390,17 @@ namespace Spooky.Content.NPCs.PandoraBox
                         PandoraBoxWorld.Wave = 0;
                         PandoraBoxWorld.SpawnedEnemySpawners = false;
                         PandoraBoxWorld.PandoraEventActive = false;
-                        SpawnedEnemies = false;
-                        EventEnemiesExist = true;
-                        EndingAnimation = false;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
-                        }
 
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.SendData(MessageID.WorldData);
                         }
+
+                        SpawnedEnemies = false;
+                        EventEnemiesExist = true;
+                        EndingAnimation = false;
+
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, 0, -1, ModContent.ProjectileType<PandoraLootSpawner>(), 0, 0, NPC.target);
 
                         NPC.ai[1] = 0;
                     }

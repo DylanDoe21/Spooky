@@ -1,4 +1,4 @@
-﻿using Terraria;
+﻿﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
@@ -33,7 +33,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             AddMapEntry(new Color(196, 188, 217), name);
             DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
-            RegisterItemDrop(ModContent.ItemType<SpookyGlowshroom>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -135,6 +134,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
                 WorldGen.KillTile(i, j, false, false, false);
+
+                int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16), ModContent.ItemType<SpookyGlowshroom>());
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
+                }
             }
         }
 

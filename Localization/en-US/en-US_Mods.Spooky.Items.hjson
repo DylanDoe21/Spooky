@@ -2834,3 +2834,8 @@ RaveStarter: {
 		Testing Item
 		'''
 }
+
+LittleEyePaintingItem: {
+	DisplayName: Little Eye's Self Portrait
+	Tooltip: ""
+}
