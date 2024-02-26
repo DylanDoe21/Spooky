@@ -280,7 +280,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, false);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
@@ -325,7 +325,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Vector2 treeOffset = new Vector2(118, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, true);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;
