@@ -1,12 +1,2 @@
--Removed little bone's dialogue mentioning rot gourd's key since that was removed
--Fixed issue where the raveyard being active wouldn't correctly save when leaving and re-entering a world
--Fixed issue where the raveyard sky visuals wouldn't correctly activate when leaving and re-entering a world
--Fixed glowshroom and eye valley trees only dropping one block when broken in multiplayer
--Fixed pandora's box not dropping an item at the end of the event in multiplayer
--Fixed pandora's box enemies vanishing in multiplayer when hit
--Attempted to fix pandora's box desyncing in multiplayer
--Added a new shaking animation to pandora's box to telegraph when it is about to spawn enemies
--Enemies spawned by pandora's box are now spawned out of the chest itself instead of being spawned by boring dust particles
--Fixed daffodil vanishing in multiplayer when hit
--Fixed big bone shooting multiple sets of projectiles in multiplayer
--Root armor's lifesteal bonus now caps out at a maximum 12 life healed
+-Attempted to fix desync with the raveyard event
+-Fixed raveyard skeletons vanishing when a raveyard is active

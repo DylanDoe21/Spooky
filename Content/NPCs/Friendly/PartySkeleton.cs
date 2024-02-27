@@ -331,7 +331,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
             }
 
-            if (!Main.LocalPlayer.InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
+            if (!Flags.RaveyardHappening)
             {
                 NPC.alpha += 5;
 

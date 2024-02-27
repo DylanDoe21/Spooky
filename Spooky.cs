@@ -49,6 +49,9 @@ namespace Spooky
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
+        public static int GiantWebX;
+        public static int GiantWebY;
+
         public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
@@ -165,6 +168,11 @@ namespace Spooky
                     Main.npc[NewNPC].velocity.Y = -8;
                     break;
                 }
+                case SpookyMessageType.SpawnHunterAnimation:
+                {
+                    NPC.NewNPC(null, GiantWebX, GiantWebY, ModContent.NPCType<GiantWebAnimationBase>());
+                    break;
+                }
                 //should never occur I think?
                 default:
                 {
@@ -186,5 +194,6 @@ namespace Spooky
         SpawnStitch,
         SpawnSheldon,
         SpawnChester,
+        SpawnHunterAnimation,
     }
 }

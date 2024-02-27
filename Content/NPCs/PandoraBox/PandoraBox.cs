@@ -69,6 +69,11 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.dontTakeDamage = true;
         }
 
+        public override bool NeedSaving()
+        {
+            return true;
+        }
+
         public override bool CanChat()
         {
             //dont allow interactions with the box during the event

@@ -62,7 +62,7 @@ namespace Spooky.Core
                     int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
                     Main.npc[Daffodil].position.X -= 3;
 
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
                     }
@@ -74,7 +74,7 @@ namespace Spooky.Core
                     int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
                     Main.npc[PandoraBox].position.X += 7;
 
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
                     }
@@ -86,7 +86,7 @@ namespace Spooky.Core
                     int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
                     Main.npc[FlowerPot].position.X -= 6;
 
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
                     }
@@ -99,7 +99,7 @@ namespace Spooky.Core
                     Main.npc[GiantWeb].position.X += 18;
                     Main.npc[GiantWeb].position.Y += 1518;
 
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
                     }
