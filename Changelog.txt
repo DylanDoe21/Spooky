@@ -1,3 +1,0 @@
--Attempted to fix desync with the raveyard event
--Fixed raveyard skeletons vanishing when a raveyard is active
--Attempted to fix the old hunter not being woken up when spoken to in multiplayer
