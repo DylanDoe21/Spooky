@@ -44,19 +44,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			int type = -1;
 
-			if (tileBelow.HasTile)
-            {
-				type = tileBelow.TileType;
-			}
-
-			if (type == ModContent.TileType<DampGrass>()) 
+			if (tileBelow.HasTile && tileBelow.TileType == ModContent.TileType<DampGrass>()) 
             {
 				return true;
 			}
-
-			WorldGen.KillTile(i, j);
+            else
+            {
+			    WorldGen.KillTile(i, j);
+            }
 
 			return true;
 		}

@@ -177,6 +177,11 @@ namespace Spooky.Core
             {
                 LittleEye.ChosenQuestForToday = Main.rand.Next(5);
                 Flags.DailyQuest = false;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
             }
 
             //for when day and night switch

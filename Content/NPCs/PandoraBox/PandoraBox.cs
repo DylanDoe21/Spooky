@@ -526,7 +526,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         PlayAnimation = true;
 
-                        if (NPC.ai[1] == 115)
+                        if (NPC.ai[1] >= 115)
                         {
                             //drop one of the pandora accessories
                             int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 

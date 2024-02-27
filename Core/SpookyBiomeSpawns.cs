@@ -199,7 +199,7 @@ namespace Spooky.Core
 			}
 
 			//cemetery spawns
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && NoEventsHappening)
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && !spawnInfo.Player.InModBiome(ModContent.GetInstance<RaveyardBiome>()) && NoEventsHappening)
 			{
 				pool.Clear();
 
