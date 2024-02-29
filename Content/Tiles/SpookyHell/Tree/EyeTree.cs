@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {
-                if (SolidTile(i, j - k))
+                if (SolidTile(i, j - k - 6))
                 {
                     height = k - 2;
                     break;
@@ -277,10 +277,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104);
+                Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, false);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
@@ -322,10 +322,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104);
+                Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, true);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;

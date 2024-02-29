@@ -42,6 +42,7 @@ namespace Spooky.Content.Tiles.SpookyHell
 
             if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope)
             {
+                //eye vines
                 if (Main.rand.Next(35) == 0)
                 {
                     Below.TileType = (ushort)ModContent.TileType<EyeVine>();
@@ -57,42 +58,72 @@ namespace Spooky.Content.Tiles.SpookyHell
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //eye stalks
-                if (Main.rand.Next(35) == 0)
+                if (Main.rand.NextBool(30))
                 {
-                    ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<TallEyeStalk1>(), 
-                    (ushort)ModContent.TileType<TallEyeStalk2>(), (ushort)ModContent.TileType<TallEyeStalk3>() };
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThin>(), (ushort)ModContent.TileType<EyeStalkThinTall>() };
 
-                    ushort newObject = Main.rand.Next(EyeStalks);
+                    ushort newObject = Main.rand.Next(Stalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                if (Main.rand.NextBool(35))
+                {
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkSmall1>(), (ushort)ModContent.TileType<EyeStalkSmall2>() };
+
+                    ushort newObject = Main.rand.Next(Stalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                if (Main.rand.NextBool(40))
+                {
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkMedium1>(), (ushort)ModContent.TileType<EyeStalkMedium2>() };
+
+                    ushort newObject = Main.rand.Next(Stalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                if (Main.rand.NextBool(45))
+                {
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkBig1>(), (ushort)ModContent.TileType<EyeStalkBig2>() };
+
+                    ushort newObject = Main.rand.Next(Stalks);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                if (Main.rand.NextBool(50))
+                {
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkGiant1>(), (ushort)ModContent.TileType<EyeStalkGiant2>() };
+
+                    ushort newObject = Main.rand.Next(Stalks);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
-                //eye flowers
-                if (Main.rand.Next(45) == 0)
+                //purple stalks
+                if (Main.rand.NextBool(45))
                 {
-                    ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), (ushort)ModContent.TileType<EyeFlower2>() };
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<StalkRed1>(), (ushort)ModContent.TileType<StalkRed2>(), (ushort)ModContent.TileType<StalkRed3>() };
 
-                    ushort newObject = Main.rand.Next(EyeFlowers);
+                    ushort newObject = Main.rand.Next(Stalks);
 
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    WorldGen.PlaceObject(i, j - 1, newObject, true, Main.rand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
-                //tentacles
-                if (Main.rand.Next(65) == 0)
+                //ambient manhole teeth
+                if (Main.rand.NextBool(35))
                 {
-                    ushort[] EyeStalks = new ushort[] { (ushort)ModContent.TileType<Tentacle1>(), (ushort)ModContent.TileType<Tentacle2>(), 
-                    (ushort)ModContent.TileType<Tentacle3>(), (ushort)ModContent.TileType<Tentacle4>() };
-
-                    ushort newObject = Main.rand.Next(EyeStalks);
-
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                    WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<Tooth>(), true, Main.rand.Next(0, 2));
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<Tooth>(), 0, 0, -1, -1);
                 }
 
                 //exposed nerve
-                if (Main.hardMode && Main.rand.Next(1000) == 0)
+                if (Main.hardMode && Main.rand.NextBool(1000))
                 {
                     WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ExposedNerveTile>(), true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, ModContent.TileType<ExposedNerveTile>(), 0, 0, -1, -1);

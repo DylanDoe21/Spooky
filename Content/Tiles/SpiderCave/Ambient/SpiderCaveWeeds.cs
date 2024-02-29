@@ -19,8 +19,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             Main.tileSolid[Type] = false;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(34, 78, 30));
             DustType = ModContent.DustType<DampGrassDust>();

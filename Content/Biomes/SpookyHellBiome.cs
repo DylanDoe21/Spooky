@@ -54,9 +54,9 @@ namespace Spooky.Content.Biomes
                     //reduce lighting behind walls
                     if (tile.WallType > 0)
                     {
-                        Red *= 0.5f;
-                        Green *= 0.5f;
-                        Blue *= 0.5f;
+                        Red *= 0.1f;
+                        Green *= 0.1f;
+                        Blue *= 0.1f;
                     }
 
                     if (tile.LiquidAmount > 0)
