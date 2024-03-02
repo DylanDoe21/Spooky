@@ -6,6 +6,7 @@ using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Cemetery;

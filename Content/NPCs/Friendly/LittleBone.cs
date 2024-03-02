@@ -104,23 +104,14 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.SpookyBiome");
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//rot gourd and cemetery biome
+				//rot gourd
 				else if ((NPC.downedBoss1 || Main.player[Main.myPlayer].statDefense >= 10) && !Flags.downedRotGourd)
 				{
-					if (AdviceSwitch == 0)
-					{
-						AdviceSwitch++;
-						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.RotGourd");
-					}
-					else if (AdviceSwitch >= 1)
-					{
-						AdviceSwitch--;
-						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");
-					}
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.RotGourd");
 					
 					SoundEngine.PlaySound(SoundID.Item56, NPC.Center);
 				}
-				//underground spooky forest chests
+				//cemetery biome
 				else if (Flags.downedRotGourd && !NPC.downedBoss2)
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleBone.CemeteryBiome");

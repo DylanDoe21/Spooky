@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/ValleyEelGrowl", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/SpookyHell/ValleyEelGrowl", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
         {
