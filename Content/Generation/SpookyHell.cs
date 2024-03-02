@@ -139,7 +139,6 @@ namespace Spooky.Content.Generation
             }
         }
 
-<<<<<<< Updated upstream
         private void RoughenUpTerrain(GenerationProgress progress, GameConfiguration configuration)
         {
             for (int roughPass = 0; roughPass < 2; roughPass++)
@@ -364,8 +363,6 @@ namespace Spooky.Content.Generation
 			}
         }
 
-=======
->>>>>>> Stashed changes
         private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all mush tiles
@@ -520,30 +517,8 @@ namespace Spooky.Content.Generation
                     //mush grass plants
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
                     {
-<<<<<<< Updated upstream
                         //purple stalks
                         if (WorldGen.genRand.NextBool(25))
-=======
-                        //eye flowers
-                        if (WorldGen.genRand.NextBool(10))
-                        {
-                            ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<EyeFlower1>(), (ushort)ModContent.TileType<EyeFlower2>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeFlowers));
-                        }
-
-                        //tendrils
-                        if (WorldGen.genRand.NextBool(10))
-                        {
-                            ushort[] EyeFlowers = new ushort[] { (ushort)ModContent.TileType<Tentacle1>(), (ushort)ModContent.TileType<Tentacle2>(),
-                            (ushort)ModContent.TileType<Tentacle3>(), (ushort)ModContent.TileType<Tentacle4>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(EyeFlowers)); 
-                        }
-
-                        //fingers
-                        if (WorldGen.genRand.NextBool(8))
->>>>>>> Stashed changes
                         {
                             ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<StalkRed1>(), (ushort)ModContent.TileType<StalkRed2>(), (ushort)ModContent.TileType<StalkRed3>() };
 
@@ -553,17 +528,7 @@ namespace Spooky.Content.Generation
                         //ambient manhole teeth
                         if (WorldGen.genRand.NextBool(20))
                         {
-<<<<<<< Updated upstream
-                            WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<Tooth>(), true, WorldGen.genRand.Next(0, 2));
-=======
-                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
-
-                            //cannot be bothered to check which one actually works
-                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
-                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
-                            WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
-                            WorldGen.PlaceObject(X, Y + 4, WorldGen.genRand.Next(HangingFinger));
->>>>>>> Stashed changes
+                            WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<Tooth>(), true);
                         }
                     }
 
@@ -735,7 +700,6 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-<<<<<<< Updated upstream
             tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley", RoughenUpTerrain));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley", ErodeEdges));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Wall Pillars", CreateWallPillars));
@@ -744,13 +708,6 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
             tasks.Insert(GenIndex1 + 8, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
             tasks.Insert(GenIndex1 + 9, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
-=======
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
-            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
->>>>>>> Stashed changes
         }
     }
 }
