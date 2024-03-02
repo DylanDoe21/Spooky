@@ -31,6 +31,11 @@ namespace Spooky.Content.Tiles.SpookyHell
             return true;
         }
 
+        public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+        {
+            frameXOffset = i % 3 * 288;
+        }
+
         public override void WalkDust(ref int dustType, ref bool makeDust, ref Color color)
         {
             dustType = DustID.Blood;

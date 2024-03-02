@@ -3,11 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpookyHell.Ambient
 {
+    [LegacyName("Artery3")]
     public class Artery1 : ModTile
     {
         public override void SetStaticDefaults()
@@ -18,17 +20,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(0, 35, 182));
+            AddMapEntry(new Color(168, 58, 96));
             DustType = DustID.Blood;
             HitSound = SoundID.NPCHit13;
         }
     }
 
     public class Artery2 : Artery1
-    {
-    }
-
-    public class Artery3 : Artery1
     {
     }
 }

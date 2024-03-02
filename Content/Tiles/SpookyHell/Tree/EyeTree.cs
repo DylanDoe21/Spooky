@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {
-                if (SolidTile(i, j - k))
+                if (SolidTile(i, j - k - 6))
                 {
                     height = k - 2;
                     break;
@@ -146,28 +146,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
 					}
                 }
-
-				//spawn tortumors out of the tree sometimes
-                if (Main.rand.NextBool(45))
-                {
-                    int NewEnemy = NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
-                    
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {   
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-                }
-
-                //rarely spawn giant tortumors
-                if (Main.rand.NextBool(75))
-                {
-                    int NewEnemy = NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {   
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-                }
             }
         }
 
@@ -221,7 +199,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
-                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(3)).Type);
+                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
                     }
                 }
             }
@@ -277,10 +255,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104);
+                Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, false);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
@@ -322,10 +300,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(118, 104);
+                Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(254 * frame, 0, 252, 108), TileOffset.ToWorldCoordinates(), treeOffset, true);
+                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
             }
 
             Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;

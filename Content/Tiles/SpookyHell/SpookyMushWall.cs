@@ -12,7 +12,7 @@ namespace Spooky.Content.Tiles.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(19, 14, 37));
+            AddMapEntry(new Color(93, 30, 26));
             DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
         }
