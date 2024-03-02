@@ -58,7 +58,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //eye stalks
-                if (Main.rand.NextBool(30))
+                if (Main.rand.Next(35) == 0)
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThin>(), (ushort)ModContent.TileType<EyeStalkThinTall>() };
 
