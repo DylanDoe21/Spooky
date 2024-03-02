@@ -116,15 +116,11 @@ ZomboidWarlock: These not so braindead zomboids are smart enough to use and lear
 ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
 //eye valley
 EyeBat: These flying abominations are adept and fast hunters. They have eyes all around their body, allowing them to see in all directions.
-EyeBatFleshy: A crude attempt by the eye valley to mimic the demons and hellbats from beyond its territory. They are vicious and can use their sharp claws and teeth to tear at its prey.
-ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. Their tongues are very long and are covered in microscopic spines, which can hurt and pull its prey.
-ManHoleFleshy: The eye valley can use these things to devour food that it can use to support itself. It has the ability to move them into the ground and relocate them to other spots if needed.
-MrHandy: A rather energetic living hand that will aggressively run towards it's target. It may look goofy from a distance, until it gets too close.
-MrHandyFleshy: These mutated hands remain on the ground, strategically waiting for prey to come near. The eye valley may make these to ambush unsuspecting explorers, or perhaps just to capture food.
-Tortumor: These clumps of living biomass have very dense bodies filled with gas, allowing them to float and launch themselves. They tend to just mindlessly float around for the most part.
-TortumorFleshy: These are the first known cretures the eye valley has made. Before it learned to mimic other organisms, it could make nothing more than these unorganized clumps of flesh and bone.
-TortumorGiant: Rarely these larger chunks of biomass can be seen in the eye valley. While generally sturdy, the gas in their body that lets them float can be very volatile if they are killed.
-TortumorGiantFleshy: Like the smaller tortumors, these ones take on a more hostile appearance. It is unknown why the eye valley continues to make these primitive creations.
+ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit saliva to digest prey from afar.
+ManHoleBig: Uncommonly, some man holes can form a symbiotic relationship. The eye that lives inside it will look out and attack intruders, allowing the mouth to hunt prey much easier.
+MrHandy: A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.
+Tortumor: Disgusting flesh amalgams born from the eye valley. They can float around and attack by using chunks of themselves as projectiles.
+TortumorGiant: If regular tortumors weren't gross enough, these mutated blobs of flesh can make smaller clones of themselves to attack its prey.
 ValleyFish: A small fleshy fish commonly found in the blood lake. Though small, its fast mobility can underwhelm those who aren't prepared.
 ValleyNautilus: A powerful mutant nautilus that lurks in the blood lake. It can use blood and oxygen stored in its chambered body to float and shoot out various harmful projectiles
 ValleySquid: They can use their gas filled heads to float, and even fly out of blood. They can shoot out globs of bloody ink that slow down its prey.

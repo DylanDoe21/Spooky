@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Food;
+using Spooky.Content.NPCs.SpookyHell;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpookyHell.Tree
 {
@@ -33,7 +34,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(168, 58, 96), name);
+            AddMapEntry(new Color(86, 2, 28), name);
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
             RegisterItemDrop(ModContent.ItemType<LivingFleshItem>());
@@ -145,6 +146,28 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
 					}
                 }
+
+				//spawn tortumors out of the tree sometimes
+                if (Main.rand.NextBool(45))
+                {
+                    int NewEnemy = NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<Tortumor>());
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {   
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+                }
+
+                //rarely spawn giant tortumors
+                if (Main.rand.NextBool(75))
+                {
+                    int NewEnemy = NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), x * 16, y * 16, ModContent.NPCType<TortumorGiant>());
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {   
+                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+                    }
+                }
             }
         }
 
@@ -198,7 +221,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
-                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
+                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(3)).Type);
                     }
                 }
             }

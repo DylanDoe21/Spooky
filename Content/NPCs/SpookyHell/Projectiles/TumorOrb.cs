@@ -7,14 +7,9 @@ using System;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
-	public class TumorOrb : ModProjectile
+	public class TumorOrb1 : ModProjectile
 	{
         int Offset = Main.rand.Next(-50, 50);
-
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 3;
-        }
 
 		public override void SetDefaults()
 		{
@@ -36,15 +31,13 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            Projectile.frame = (int)Projectile.ai[2];
-
             Projectile.ai[0]++;
 
             if (Projectile.ai[0] < 180)
             {
                 int index1 = (int)Projectile.ai[1];
                 
-                if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<TortumorFleshy>())) //|| Main.npc[index1].type == ModContent.NPCType<TortumorGiantFleshy>())) 
+                if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<Tortumor>() || Main.npc[index1].type == ModContent.NPCType<TortumorGiant>())) 
                 {
                     float goToX = Main.npc[index1].Center.X + Offset - Projectile.Center.X;
                     float goToY = Main.npc[index1].Center.Y + Offset - Projectile.Center.Y;
@@ -133,4 +126,12 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             }
         }
 	}
+
+    public class TumorOrb2 : TumorOrb1
+	{
+    }
+
+    public class TumorOrb3 : TumorOrb1
+	{
+    }
 }

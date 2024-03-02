@@ -4,32 +4,40 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
-    public class ManHole : ModNPC  
+    public class ManHoleBig : ModNPC  
     {
+        private bool spawned;
+
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 4;
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/ManHoleBigBestiary",
+                Position = new Vector2(0f, -15f)
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 135;
+            NPC.lifeMax = 150;
             NPC.damage = 50;
             NPC.defense = 10;
-            NPC.width = 78;
-            NPC.height = 36;
+            NPC.width = 70;
+            NPC.height = 40;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
@@ -45,14 +53,13 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ManHole"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ManHoleBig"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
+        }
 
         public override void FindFrame(int frameHeight)
         {
-            //idle animation
             NPC.frameCounter++;
             if (NPC.frameCounter > 4)
             {
@@ -63,36 +70,31 @@ namespace Spooky.Content.NPCs.SpookyHell
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
-
-            //open mouth for spit attack
-            if (NPC.ai[0] >= 400)
-            {
-                NPC.frame.Y = 4 * frameHeight;
-            }
         }
 
         public override void AI()
         {
-            NPC.ai[0]++;
-            if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)
+            //spawn eye when hit
+            if (NPC.life < NPC.lifeMax)
             {
-                if (Main.rand.NextBool(8))
+                if (!spawned)
                 {
-                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                    NPC.realLife = NPC.whoAmI;
+                    int Eye = NPC.whoAmI;
+                    
+                    Eye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + (NPC.width / 2), 
+                    (int)NPC.position.Y + (NPC.height / 2), ModContent.NPCType<ManHoleEye>(), NPC.whoAmI, 0, Eye);
+                    Main.npc[Eye].ai[3] = NPC.whoAmI;
+                    Main.npc[Eye].netUpdate = true;
 
-                    float Spread = (float)Main.rand.Next(-250, 250) * 0.01f;
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, -10,
-                        ModContent.ProjectileType<SalivaBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Eye);
                     }
+
+                    NPC.netUpdate = true;
+                    spawned = true;
                 }
-            }
-            
-            if (NPC.ai[0] >= 500)
-            {
-                NPC.ai[0] = 0;
             }
         }
 

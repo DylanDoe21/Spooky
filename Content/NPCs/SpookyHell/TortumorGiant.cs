@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -16,12 +15,12 @@ using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
-    public class TortumorGiantFleshy : ModNPC
+    public class TortumorGiant : ModNPC
     {
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
 
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/SpookyHell/TumorScreech2", SoundType.Sound) { Volume = 0.8f, PitchVariance = 0.6f };
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech2", SoundType.Sound) { Volume = 0.8f, PitchVariance = 0.6f };
 
 		public override void SetStaticDefaults()
         {
@@ -50,14 +49,14 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TortumorGiantFleshy"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TortumorGiant"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/TortumorGiantFleshyGlow").Value;
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/TortumorGiantGlow").Value;
 
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
@@ -103,10 +102,10 @@ namespace Spooky.Content.NPCs.SpookyHell
         
         public override void AI()
 		{
-            NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
-            
-            NPC.rotation += (NPC.velocity.X / 30);
+            NPC.TargetClosest(true);
+
+            NPC.rotation = NPC.velocity.X * 0.04f;
 			
 			if (!NPC.HasBuff(BuffID.Confused))
             {
@@ -187,14 +186,18 @@ namespace Spooky.Content.NPCs.SpookyHell
                 {
                     if (NPC.ai[0] >= 550 && NPC.ai[1] == 0)
                     {
+                        int[] Projectiles = new int[] { ModContent.ProjectileType<TumorOrb1>(), 
+                        ModContent.ProjectileType<TumorOrb2>(), ModContent.ProjectileType<TumorOrb3>() };
+
                         if (Main.rand.NextBool(3))
                         {
                             SoundEngine.PlaySound(SoundID.Item87, NPC.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {   
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                0, 0, ModContent.ProjectileType<TumorOrb>(), NPC.damage / 4, 0f, Main.myPlayer, 179, (float)NPC.whoAmI, Main.rand.Next(1, 4));
+                                int TumorOrb = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
+                                0, 0, Main.rand.Next(Projectiles), NPC.damage / 4, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
+                                Main.projectile[TumorOrb].ai[0] = 179;
                             }
                         }
                     }
@@ -219,27 +222,25 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			if (NPC.life <= 0) 
             {
-                //spawn gores
-                for (int numGores = 1; numGores <= 8; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-18, 19), Main.rand.Next(-18, 19)), ModContent.Find<ModGore>("Spooky/TortumorFleshyGore" + Main.rand.Next(1, 3)).Type, Main.rand.NextFloat(1.2f, 1.8f));
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGiantGore" + numGores).Type);
                     }
                 }
 
-                //spawn blood explosion clouds
-                for (int numExplosion = 0; numExplosion < 15; numExplosion++)
+                for (int numDusts = 0; numDusts < 45; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.2f));
-                    Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-3f, 3f);
-                    Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 0f);
-                    Main.dust[DustGore].noGravity = true;
+                    int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, 2f);
+                    Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
+                    Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
+                    Main.dust[newDust].noGravity = true;
 
                     if (Main.rand.NextBool(2))
                     {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                        Main.dust[newDust].scale = 0.5f;
+                        Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
                     }
                 }
             }

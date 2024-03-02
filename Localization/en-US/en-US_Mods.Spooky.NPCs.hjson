@@ -123,20 +123,19 @@ SheldonShield.DisplayName: Sheldon
 Stitch.DisplayName: Stitch
 StitchWand.DisplayName: Stitch
 //cemetery
-BloatGhostBig.DisplayName: Rowdy Ghost
-BloatGhostSmall.DisplayName: Rowdy Ghost
-Possessor.DisplayName: Poltergeist
-PossessorEvil.DisplayName: Poltergeist
-TinyRat1.DisplayName: Tiny Rat
-TinyRat2.DisplayName: Tiny Rat
-FeralRat1.DisplayName: Feral Rat
-FeralRat2.DisplayName: Feral Rat
-MistGhost.DisplayName: Sadistic Obituary
-SadGhostBig.DisplayName: Elder Bawler
-SadGhostSmall.DisplayName: Young Bawler
-SpookyDance.DisplayName: Spooky Dance Ghost
+BloatGhostBig.DisplayName: Bloated Ghost
+BloatGhostSmall.DisplayName: Ghost
+Possessor.DisplayName: Possessor
+PossessorEvil.DisplayName: Possessor
 ZomboidCasket.DisplayName: Zomboid Casket
 ZomboidGremlin.DisplayName: Zombino
+MistGhost.DisplayName: Mist Ghost
+FeralRat1.DisplayName: Feral Rat
+FeralRat2.DisplayName: Feral Rat
+TinyRat1.DisplayName: Tiny Rat
+TinyRat2.DisplayName: Tiny Rat
+SadGhostBig.DisplayName: Sad Ghost
+SadGhostSmall.DisplayName: Sad Ghost
 //egg event
 Crux.DisplayName: Crux
 Glutinous.DisplayName: Glutinous
@@ -212,6 +211,7 @@ PuttySlime2.DisplayName: Putty Slime
 PuttySlime3.DisplayName: Putty Slime
 ScarecrowShotgunner.DisplayName: Possessed Scarecrow
 ShroomHopper.DisplayName: Shroom Hopper
+SpookyDance.DisplayName: Spooky Dance Ghost
 TinyGhost1.DisplayName: Tiny Ghost
 TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
@@ -226,17 +226,12 @@ ZomboidWind.DisplayName: Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
 //valley of eyes
 EyeBat.DisplayName: Bat n' Eye
-EyeBatFleshy.DisplayName: Bat n' Eye
 ManHole.DisplayName: Man Hole
-ManHoleFleshy.DisplayName: Man Hole
 ManHoleBig.DisplayName: Man Hole
 ManHoleEye.DisplayName: Stalking Eye
 MrHandy.DisplayName: Mr. Handy
-MrHandyFleshy.DisplayName: Mr. Handy
 Tortumor.DisplayName: Tortumor
-TortumorFleshy.DisplayName: Tortumor
 TortumorGiant.DisplayName: Giant Tortumor
-TortumorGiantFleshy.DisplayName: Giant Tortumor
 ValleyFish.DisplayName: Peeper Fish
 ValleyNautilus.DisplayName: Claret Cephalopod
 ValleySquid.DisplayName: Clot Squid

@@ -367,26 +367,15 @@ namespace Spooky.Core
                 pool.Clear();
 
 				pool.Add(ModContent.NPCType<EyeBat>(), 5);
-				pool.Add(ModContent.NPCType<EyeBatFleshy>(), 2);
 				pool.Add(ModContent.NPCType<MrHandy>(), 5);
-				//pool.Add(ModContent.NPCType<MrHandyFleshy>(), 5);
 				pool.Add(ModContent.NPCType<ManHole>(), 4);
-				//pool.Add(ModContent.NPCType<ManHoleFleshy>(), 1);
+				pool.Add(ModContent.NPCType<ManHoleBig>(), 4);
 				pool.Add(ModContent.NPCType<Tortumor>(), 3);
-				pool.Add(ModContent.NPCType<TortumorFleshy>(), 1);
 
-				/*
 				//do not spawn giant tortumors if one already exists
 				if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
                 {
                     pool.Add(ModContent.NPCType<TortumorGiant>(), Main.hardMode ? 1 : 0.5f);
-                }
-				*/
-
-				//do not spawn fleshy giant tortumors if one already exists
-				if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
-                {
-                    pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), Main.hardMode ? 0.8f : 0.2f);
                 }
             }
 
