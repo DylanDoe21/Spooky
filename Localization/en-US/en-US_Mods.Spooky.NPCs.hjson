@@ -226,15 +226,12 @@ ZomboidWind.DisplayName: Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
 //valley of eyes
 EyeBat.DisplayName: Bat n' Eye
-EyeBatFleshy.DisplayName: Bat n' Eye
 ManHole.DisplayName: Man Hole
-ManHoleFleshy.DisplayName: Man Hole
+ManHoleEye.DisplayName: Eye
+ManHoleBig.DisplayName: Man Hole Big
 MrHandy.DisplayName: Mr. Handy
-MrHandyFleshy.DisplayName: Mr. Handy
 Tortumor.DisplayName: Tortumor
-TortumorFleshy.DisplayName: Tortumor
 TortumorGiant.DisplayName: Giant Tortumor
-TortumorGiantFleshy.DisplayName: Giant Tortumor
 ValleyFish.DisplayName: Peeper Fish
 ValleyNautilus.DisplayName: Claret Cephalopod
 ValleySquid.DisplayName: Clot Squid
@@ -284,5 +281,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-ManHoleEye.DisplayName: Man Hole Eye
-ManHoleBig.DisplayName: Man Hole Big
