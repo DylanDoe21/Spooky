@@ -17,25 +17,24 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 3;
+            Main.npcFrameCount[NPC.type] = 7;
         }
         
         public override void SetDefaults()
 		{
             NPC.lifeMax = 65;
-            NPC.damage = 45;
-            NPC.defense = 5;
+            NPC.damage = 30;
+            NPC.defense = 10;
             NPC.width = 56;
-			NPC.height = 66;
+			NPC.height = 62;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0.75f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 41;
-            AIType = NPCID.Derpling;
-            AnimationType = NPCID.Derpling;  
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type }; 
+            NPC.aiStyle = 3;
+			AIType = NPCID.DesertBeast;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -55,6 +54,31 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
+
+        public override void FindFrame(int frameHeight)
+        {   
+            //running animation
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 8 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
+            }
+            if (NPC.frame.Y >= frameHeight * 5)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+
+            //jumping frames
+            if (NPC.velocity.Y < 0)
+            {
+                NPC.frame.Y = 5 * frameHeight;
+            }
+            if (NPC.velocity.Y > 0)
+            {
+                NPC.frame.Y = 6 * frameHeight;
+            }
         }
 
         public override void AI()

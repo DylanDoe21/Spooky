@@ -27,5 +27,13 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.NPCHit13;
         }
+
+        public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects) 
+		{
+			if (i % 2 == 1) 
+			{
+				spriteEffects = SpriteEffects.FlipHorizontally;
+			}
+		}
     }
 }

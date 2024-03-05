@@ -34,10 +34,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(86, 2, 28), name);
+            AddMapEntry(new Color(168, 58, 96), name);
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
-            RegisterItemDrop(ModContent.ItemType<LivingFleshItem>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

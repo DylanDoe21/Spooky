@@ -226,7 +226,10 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
-                MoonlordDeathDrama.RequestLight(0f, NPC.Center);
+                if (ModContent.GetInstance<SpookyConfig>().OldHunterDramaticLight)
+                {
+                    MoonlordDeathDrama.RequestLight(0f, NPC.Center);
+                }
                 
                 SpookyPlayer.ScreenShakeAmount = 0;
 
@@ -235,7 +238,10 @@ namespace Spooky.Content.NPCs.Friendly
             }
             else
             {
-                MoonlordDeathDrama.RequestLight(NPC.ai[1] / 330f, NPC.Center);
+                if (ModContent.GetInstance<SpookyConfig>().OldHunterDramaticLight)
+                {
+                    MoonlordDeathDrama.RequestLight(NPC.ai[1] / 330f, NPC.Center);
+                }
             }
         }
     }

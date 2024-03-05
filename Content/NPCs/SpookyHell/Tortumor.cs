@@ -8,39 +8,36 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
-using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
     public class Tortumor : ModNPC
     {
-        public int MoveSpeedX = 0;
-		public int MoveSpeedY = 0;
-
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound) { Volume = 0.8f, PitchVariance = 0.6f };
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TortumorDeath", SoundType.Sound) { Volume = 0.6f };
 
 		public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 6;
+            Main.npcFrameCount[NPC.type] = 8;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 85;
-            NPC.damage = 45;
-            NPC.defense = 5;
-            NPC.width = 58;
-            NPC.height = 62;
+            NPC.lifeMax = 90;
+            NPC.damage = 30;
+            NPC.defense = 18;
+            NPC.width = 60;
+            NPC.height = 60;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit9;
-            NPC.DeathSound = SoundID.NPCDeath22;
+            NPC.DeathSound = DeathSound;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
         }
@@ -64,159 +61,50 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void FindFrame(int frameHeight)
         {
-            //floating animation
             NPC.frameCounter++;
-            if (NPC.ai[0] <= 420)
+            if (NPC.frameCounter > 8)
             {
-                NPC.frameCounter++;
-                if (NPC.frameCounter > 15)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
-                }
-                if (NPC.frame.Y >= frameHeight * 4)
-                {
-                    NPC.frame.Y = 0 * frameHeight;
-                }
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
             }
-
-            //screaming animation
-            if (NPC.ai[0] > 420)
+            if (NPC.frame.Y >= frameHeight * 8)
             {
-                if (NPC.frame.Y < 4 * frameHeight)
-                {
-                    NPC.frame.Y = 4 * frameHeight;
-                }
-
-                if (NPC.frameCounter > 10)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
-                }
-                if (NPC.frame.Y >= frameHeight * 6)
-                {
-                    NPC.frame.Y = 4 * frameHeight;
-                }
+                NPC.frame.Y = 0 * frameHeight;
             }
         }
         
         public override void AI()
 		{
-			Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
+            NPC.rotation += (NPC.velocity.X / 30);
+            NPC.velocity *= 0.96f;
 
-            NPC.rotation = NPC.velocity.X * 0.04f;
-
-            if (!NPC.HasBuff(BuffID.Confused))
+            NPC.ai[0]++;
+        
+            //immediately try to fling upward when it spawns in
+            if (NPC.ai[2] == 0)
             {
-			    NPC.ai[0]++;  
+                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, -12));
+                NPC.ai[2] = 1;
             }
-            else
+
+            if (NPC.ai[0] >= 300)
             {
+                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, 23));
                 NPC.ai[0] = 0;
+                NPC.ai[1] = 0;
             }
 
-            //dust spawning for when big tumor summons this enemy
-            if (NPC.ai[0] == -1)
+            //bounce off of tiles
+            if (NPC.ai[1] == 0 && Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
             {
-                for (int numDusts = 0; numDusts < 20; numDusts++)
-                {
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, Main.rand.NextFloat(1f, 2f));
-                    Main.dust[DustGore].velocity *= 3f;
-                    Main.dust[DustGore].noGravity = true;
+                NPC.velocity = -NPC.oldVelocity;
 
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
-            }
-
-            if (NPC.ai[0] <= 420)
-            {
-                int MaxSpeed = 25;
-
-                if (NPC.HasBuff(BuffID.Confused))
-                {
-                    MaxSpeed = -25;
-                }
-
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 8) 
-                {
-                    MoveSpeedX--;
-                }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed + 8)
-                {
-                    MoveSpeedX++;
-                }
-
-                NPC.velocity.X = MoveSpeedX * 0.1f;
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -MaxSpeed)
-                {
-                    MoveSpeedY--;
-                }
-                else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= MaxSpeed)
-                {
-                    MoveSpeedY++;
-                }
-
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
-            }
-
-            if (NPC.ai[0] >= 420)
-            {
-                if (NPC.ai[0] == 420)
-                {
-                    SoundEngine.PlaySound(ScreechSound, NPC.Center);
-                }
-
-                NPC.velocity *= 0.95f;
-
-                if (NPC.ai[0] == 495)
-                {
-                    for (int numDusts = 0; numDusts < 20; numDusts++)
-                    {
-                        int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, Main.rand.NextFloat(1f, 2f));
-                        Main.dust[DustGore].velocity *= 3f;
-                        Main.dust[DustGore].noGravity = true;
-
-                        if (Main.rand.NextBool(2))
-                        {
-                            Main.dust[DustGore].scale = 0.5f;
-                            Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                        }
-                    }
-
-                    Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57079637050629f) * new Vector2(5f, 3f);
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb1>(), NPC.damage / 4, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
-
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb2>(), NPC.damage / 4, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
-
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                        vector.X, vector.Y, ModContent.ProjectileType<TumorOrb3>(), NPC.damage / 4, 0f, Main.myPlayer, 0f, (float)NPC.whoAmI);
-                    }
-                }
-
-                if (NPC.ai[0] >= 510)
-                {
-                    NPC.ai[0] = 0;
-                }
+                NPC.ai[1] = 1;
             }
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 35));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MonsterBloodVial>(), 100));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 
@@ -224,25 +112,26 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 4; numGores++)
+                //spawn gores
+                for (int numGores = 1; numGores <= 8; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TortumorGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-12, 13)), ModContent.Find<ModGore>("Spooky/TortumorGore" + Main.rand.Next(1, 4)).Type, Main.rand.NextFloat(1f, 1.35f));
                     }
                 }
 
-                for (int numDusts = 0; numDusts < 25; numDusts++)
+                //spawn blood explosion clouds
+                for (int numExplosion = 0; numExplosion < 8; numExplosion++)
                 {
-                    int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, 2f);
-                    Main.dust[newDust].velocity.X *= Main.rand.Next(-8, 8);
-                    Main.dust[newDust].velocity.Y *= Main.rand.Next(-8, 8);
-                    Main.dust[newDust].noGravity = true;
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Purple * 0.65f, Main.rand.NextFloat(0.5f, 0.8f));
+                    Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-4f, 4f);
+                    Main.dust[DustGore].noGravity = true;
 
                     if (Main.rand.NextBool(2))
                     {
-                        Main.dust[newDust].scale = 0.5f;
-                        Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                        Main.dust[DustGore].scale = 0.5f;
+                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
             }

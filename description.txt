@@ -16,7 +16,7 @@ Currently the mod has:
 Some Warnings:
 -This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues!
 -It is also recommended to use medium or large worlds while playing this mod. Small worlds will still work but it may not be ideal for a playthrough, especially with multiple people or if you are using multiple mods with world generation
--While spooky mod is technically multiplayer compatible, there are currently many issues in the mod that may affect certain features. Most things usually work but things may be unstable! I am going to continue working to fix these issues, but it may take time due to multiplayer issues sometimes being incredibly frustrating to fix, I hope you can understand!
+-While spooky mod is technically "multiplayer compatible", there are currently many issues in the mod that may affect certain features. Most things usually work but things may be unstable! I am going to continue working to fix these issues, but it may take time due to multiplayer issues sometimes being incredibly frustrating to fix, I hope you can understand, and I appreciate the patience!
 
 
 [h1]Developers[/h1]

@@ -2844,3 +2844,8 @@ BaxterPaintingItem: {
 	DisplayName: Baxter Portrait
 	Tooltip: "'Waasephi'"
 }
+
+MonalumboItem: {
+	DisplayName: The Mona-Lumbo
+	Tooltip: "'Waasephi'"
+}

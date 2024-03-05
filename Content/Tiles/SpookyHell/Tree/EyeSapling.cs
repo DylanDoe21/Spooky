@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			TileObjectData.newTile.StyleMultiplier = 3;
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(95, 27, 43), name);
+            AddMapEntry(new Color(168, 58, 96), name);
             DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Saplings };
 		}
@@ -50,7 +50,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 		{
             if (Main.tile[i, j + 1].TileType != ModContent.TileType<EyeBlock>() && Main.tile[i, j + 1].TileType != ModContent.TileType<SpookyMushGrass>())
             {
-				if (WorldGen.genRand.Next(10) == 0)
+				if (WorldGen.genRand.NextBool(3))
 				{
 					EyeTree.Grow(i, j + 1, 12, 35, true);
 				}

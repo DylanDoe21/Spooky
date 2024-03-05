@@ -23,6 +23,7 @@ namespace Spooky.Content.Generation
 {
     public class SpiderCave : ModSystem
     {
+        static int initialStartPosX;
         static int startPosX;
         static int startPosY;
         static int ExtraHeight;
@@ -34,6 +35,7 @@ namespace Spooky.Content.Generation
             //biome position stuff
             ExtraHeight = WorldGen.genRand.Next(20, 55);
 
+            initialStartPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight : Main.maxTilesY / 2 + ExtraHeight;
 
@@ -47,7 +49,7 @@ namespace Spooky.Content.Generation
             {
                 while (!NoSnowBiomeNearby(startPosX, startPosY))
                 {
-                    startPosX += (startPosX > (Main.maxTilesX / 2) ? -50 : 50);
+                    startPosX += (initialStartPosX > (Main.maxTilesX / 2) ? -50 : 50);
                 }
                 if (NoSnowBiomeNearby(startPosX, startPosY))
                 {

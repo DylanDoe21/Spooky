@@ -111,14 +111,14 @@ namespace Spooky.Content.Tiles.SpookyHell
 
                     ushort newObject = Main.rand.Next(Stalks);
 
-                    WorldGen.PlaceObject(i, j - 1, newObject, true, Main.rand.Next(0, 2));
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
                 //ambient manhole teeth
                 if (Main.rand.NextBool(35))
                 {
-                    WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<Tooth>(), true, Main.rand.Next(0, 2));
+                    WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<Tooth>(), true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<Tooth>(), 0, 0, -1, -1);
                 }
 

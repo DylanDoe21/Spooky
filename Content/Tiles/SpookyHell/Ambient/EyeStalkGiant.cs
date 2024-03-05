@@ -22,7 +22,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			TileObjectData.newTile.Height = 5;
 			TileObjectData.newTile.Origin = new Point16(1, 4);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16 };
-			TileObjectData.newTile.StyleWrapLimit = 999;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;

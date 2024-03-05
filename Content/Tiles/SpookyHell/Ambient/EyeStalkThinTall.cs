@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,6 +18,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
+			TileObjectData.newTile.Height = 4;
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
            	AddMapEntry(new Color(145, 24, 12));

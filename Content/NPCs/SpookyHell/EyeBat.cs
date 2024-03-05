@@ -20,6 +20,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             Main.npcFrameCount[NPC.type] = 8;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 Position = new Vector2(20f, -10f)
@@ -31,7 +33,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             NPC.lifeMax = 75;
             NPC.damage = 30;
-            NPC.defense = 5;
+            NPC.defense = 15;
             NPC.width = 92;
             NPC.height = 92;
             NPC.npcSlots = 1f;
@@ -57,7 +59,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			if (NPC.localAI[0] >= 360) 
+			if (NPC.localAI[0] >= 180)
 			{
                 Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
 				Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Purple);
@@ -101,7 +103,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             }
 
             //charging frame
-            if (NPC.localAI[0] >= 420)
+            if (NPC.localAI[0] >= 240)
             {
                 NPC.frame.Y = 7 * frameHeight;
             }
@@ -111,67 +113,54 @@ namespace Spooky.Content.NPCs.SpookyHell
 		{
             Player player = Main.player[NPC.target];
 
-            if (!NPC.HasBuff(BuffID.Confused))
+            if (NPC.Distance(player.Center) <= 450f || NPC.localAI[0] >= 180)
             {
                 NPC.localAI[0]++;
+            }
 
-                if (NPC.localAI[0] >= 360)
-                {
-                    if (NPC.localAI[0] >= 420)
-                    {
-                        NPC.spriteDirection = NPC.velocity.X < 0 ? -1 : 1;
-                        NPC.rotation = 0;
-                    }
-                    else
-                    {
-                        NPC.spriteDirection = NPC.direction;
-                        NPC.rotation = NPC.velocity.X * 0.04f;
-                    }
+            if (NPC.localAI[0] >= 240)
+            {
+                NPC.spriteDirection = NPC.velocity.X < 0 ? -1 : 1;
+                NPC.rotation = 0;
 
-                    NPC.aiStyle = -1;
-                }
-                else
-                {
-                    NPC.spriteDirection = NPC.direction;
-                    NPC.rotation = NPC.velocity.X * 0.04f;
-
-                    NPC.aiStyle = 14;
-                    AIType = NPCID.Raven;
-                }
-                
-                if (NPC.localAI[0] >= 360 && NPC.localAI[0] < 420)
-                {
-                    Vector2 GoTo = new Vector2(player.Center.X + (NPC.Center.X < player.Center.X ? -200 : 200), player.Center.Y);
-
-                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
-                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                }
-
-                if (NPC.localAI[0] == 420)
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
-
-                    Vector2 ChargeDirection = player.Center - NPC.Center;
-                    ChargeDirection.Normalize();
-                            
-                    ChargeDirection.X *= 25;
-                    NPC.velocity.X = ChargeDirection.X;
-                }
-
-                if (NPC.localAI[0] >= 450)
-                {
-                    NPC.velocity *= 0.9f;
-                }
-
-                if (NPC.localAI[0] >= 475)
-                {
-                    NPC.localAI[0] = 0;
-                }
+                NPC.aiStyle = -1;
             }
             else
             {
+                NPC.spriteDirection = NPC.direction;
+                NPC.rotation = NPC.velocity.X * 0.04f;
+
                 NPC.aiStyle = 14;
                 AIType = NPCID.Raven;
+            }
+            
+            if (NPC.localAI[0] >= 180 && NPC.localAI[0] < 240)
+            {
+                Vector2 GoTo = new Vector2(player.Center.X + (NPC.Center.X < player.Center.X ? -300 : 300), player.Center.Y);
+
+                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
+                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+            }
+
+            if (NPC.localAI[0] == 240)
+            {
+                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                Vector2 ChargeDirection = player.Center - NPC.Center;
+                ChargeDirection.Normalize();
+                        
+                ChargeDirection.X *= 25;
+                NPC.velocity.X = ChargeDirection.X;
+            }
+
+            if (NPC.localAI[0] >= 270)
+            {
+                NPC.velocity *= 0.9f;
+            }
+
+            if (NPC.localAI[0] >= 295)
+            {
+                NPC.localAI[0] = 0;
             }
         }
 

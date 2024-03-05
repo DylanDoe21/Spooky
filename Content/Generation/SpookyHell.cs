@@ -88,7 +88,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of blocks along the edges of the biome so it transitions nicely
+            //place clumps of blocks along both edges of the biome so it transitions with the rest of the underworld more nicely
             for (int X = StartPosition - 50; X <= StartPosition; X++)
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
@@ -122,25 +122,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of eye blocks throughout the biome
-            for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 15);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Y >= Main.maxTilesY - 160)
-                {
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
-                    {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(45, 65), WorldGen.genRand.Next(45, 65), 
-                        ModContent.TileType<EyeBlock>(), false, 0f, 0f, false, true);
-                    }
-                }
-            }
-        }
-
-        private void RoughenUpTerrain(GenerationProgress progress, GameConfiguration configuration)
-        {
+            //roughen up the terrain so it looks more natural
             for (int roughPass = 0; roughPass < 2; roughPass++)
             {
                 int lastMaxTileX = 0;
@@ -149,7 +131,7 @@ namespace Spooky.Content.Generation
                 for (int i = StartPosition - 50; i <= BiomeEdge + 50; i++)
                 {
                     // flat ellipses
-                    if (WorldGen.genRand.Next(0, 40) == 0 && i > lastMaxTileX + lastXRadius)
+                    if (WorldGen.genRand.NextBool(40) && i > lastMaxTileX + lastXRadius)
                     {
                         int roughingPosition = 0;
                         // Look for a Y position to put ellipses
@@ -161,24 +143,31 @@ namespace Spooky.Content.Generation
                                 break;
                             }
                         }
-                        // Create random-sized boxes in which our ellipses will be carved
+
                         int radiusX;
                         int radiusY;
+
+                        //randomize the size of the craters that are dug
                         switch (roughPass)
                         {
-                            // This is for the big, ellipses
                             case 0:
+                            {
                                 radiusX = WorldGen.genRand.Next(8, 18);
                                 radiusY = WorldGen.genRand.Next(4, 10);
                                 break;
+                            }
                             case 1:
+                            {
                                 radiusX = WorldGen.genRand.Next(8, 15);
                                 radiusY = WorldGen.genRand.Next(2, 4);
                                 break;
+                            }
                             default:
+                            {
                                 radiusX = 0;
                                 radiusY = 0;
                                 break;
+                            }
                         }
 
                         int minTileX = i - radiusX;
@@ -186,59 +175,50 @@ namespace Spooky.Content.Generation
                         int minTileY = roughingPosition - radiusY;
                         int maxTileY = roughingPosition + radiusY;
 
-                        // Calculate diameter and center of ellipse based on the boundaries specified
                         int diameterX = Math.Abs(minTileX - maxTileX);
                         int diameterY = Math.Abs(minTileY - maxTileY);
                         float centerX = (minTileX + maxTileX - 1) / 2f;
                         float centerY = (minTileY + maxTileY - 1) / 2f;
 
-                        // Make the ellipse
+                        //make the ellipse
                         for (int ellipseTileX = minTileX; ellipseTileX < maxTileX; ellipseTileX++)
                         {
                             for (int ellipseTileY = minTileY; ellipseTileY < maxTileY; ellipseTileY++)
                             {
-                                // This is the equation for the unit ellipse; we're dividing by squares of the diameters to scale along the axes
-                                if
-                                (
-                                    (
-                                        Math.Pow(ellipseTileX - centerX, 2) / Math.Pow(diameterX / 2, 2))
-                                        + (Math.Pow(ellipseTileY - centerY, 2) / Math.Pow(diameterY / 2, 2)
-                                    ) <= 1
-                                )
+                                if ((Math.Pow(ellipseTileX - centerX, 2) / Math.Pow(diameterX / 2, 2)) + (Math.Pow(ellipseTileY - centerY, 2) / Math.Pow(diameterY / 2, 2)) <= 1)
                                 {
                                     if (ellipseTileX < Main.maxTilesX && ellipseTileY < Main.maxTilesY && ellipseTileX >= 0 && ellipseTileY >= 0)
                                     {
                                         Main.tile[ellipseTileX, ellipseTileY].ClearEverything();
-                                        WorldGen.KillWall(ellipseTileX + 1, ellipseTileY + 1);
-                                        WorldGen.KillWall(ellipseTileX - 1, ellipseTileY + 1);
+                                        WorldGen.KillWall(ellipseTileX + 1, ellipseTileY);
+                                        WorldGen.KillWall(ellipseTileX - 1, ellipseTileY);
                                         WorldGen.KillWall(ellipseTileX, ellipseTileY + 1);
                                         WorldGen.KillWall(ellipseTileX, ellipseTileY - 1);
                                     }
                                 }
                             }
+                            
                             for (int ellipseTileY = minTileY - 20; ellipseTileY < maxTileY - diameterY / 2; ellipseTileY++)
                             {
                                 if (ellipseTileX < Main.maxTilesX && ellipseTileY < Main.maxTilesY && ellipseTileX >= 0 && ellipseTileY >= 0)
                                 {
                                     Main.tile[ellipseTileX, ellipseTileY].ClearEverything();
-                                    WorldGen.KillWall(ellipseTileX + 1, ellipseTileY + 1);
-                                    WorldGen.KillWall(ellipseTileX - 1, ellipseTileY + 1);
+                                    WorldGen.KillWall(ellipseTileX + 1, ellipseTileY);
+                                    WorldGen.KillWall(ellipseTileX - 1, ellipseTileY);
                                     WorldGen.KillWall(ellipseTileX, ellipseTileY + 1);
                                     WorldGen.KillWall(ellipseTileX, ellipseTileY - 1);
                                 }
                             }
                         }
+
                         lastMaxTileX = maxTileX;
                         lastXRadius = diameterX / 2;
                     }
                 }
             }
-        }
 
-        private void ErodeEdges(GenerationProgress progress, GameConfiguration configuration)
-        {
-            int numPasses = 2; // clear edges twice
-            for (int clearPass = 0; clearPass < numPasses; clearPass++)
+            //erode edges of blocks to make it look more natural
+            for (int clearPass = 0; clearPass < 2; clearPass++)
             {
                 List<Point> list = new();
                 for (int tileX = StartPosition - 50; tileX <= BiomeEdge + 50; tileX++)
@@ -248,35 +228,23 @@ namespace Spooky.Content.Generation
                         // check if there's a tile, so it won't check all the surrounding tiles for nothing
                         if (Main.tile[tileX, tileY].HasTile)
                         {
-                            // if there are some tiles below..
-                            bool tilesBelow = Main.tile[tileX, tileY + 1].HasTile &&
-                                              Main.tile[tileX, tileY + 2].HasTile;
+                            bool tilesBelow = Main.tile[tileX, tileY + 1].HasTile && Main.tile[tileX, tileY + 2].HasTile;
+                            bool tilesAbove = Main.tile[tileX - 1, tileY - 1].HasTile && Main.tile[tileX, tileY - 1].HasTile && Main.tile[tileX + 1, tileY - 1].HasTile;
+                            bool tilesRight = Main.tile[tileX + 1, tileY].HasTile && Main.tile[tileX + 1, tileY + 1].HasTile;
+                            bool tilesLeft = Main.tile[tileX - 1, tileY].HasTile && Main.tile[tileX - 1, tileY + 1].HasTile;
 
-                            // ..and no tiles above
-                            bool tilesAbove = Main.tile[tileX - 1, tileY - 1].HasTile &&
-                                              Main.tile[tileX, tileY - 1].HasTile &&
-                                              Main.tile[tileX + 1, tileY - 1].HasTile;
-
-                            // check if there are tiles on the right and right-down
-                            bool tilesRight = Main.tile[tileX + 1, tileY].HasTile &&
-                                              Main.tile[tileX + 1, tileY + 1].HasTile;
-
-                            // check if there are tiles on the left and left-down
-                            bool tilesLeft = Main.tile[tileX - 1, tileY].HasTile &&
-                                             Main.tile[tileX - 1, tileY + 1].HasTile;
-
-                            // add the tile to a list if there are tiles on one side but not the other (XOR)
                             if (tilesBelow && !tilesAbove && (tilesRight ^ tilesLeft))
+                            {
                                 list.Add(new Point(tileX, tileY));
+                            }
 
-                            break; // so it won't find a tile somewhere below the surface
+                            break;
                         }
                     }
                 }
 
                 foreach (Point p in list)
                 {
-                    // clear the found tile 
                     Main.tile[p.X, p.Y].ClearEverything();
                     WorldGen.KillWall(p.X + 1, p.Y);
                     WorldGen.KillWall(p.X - 1, p.Y);
@@ -284,17 +252,31 @@ namespace Spooky.Content.Generation
                     WorldGen.KillWall(p.X, p.Y - 1);
                 }
             }
-        }
 
-        private void CreateWallPillars(GenerationProgress progress, GameConfiguration configuration)
-        {
+            //place pillars of flesh walls with plateaus in them for more varied terrain
             for (int X = StartPosition + 50; X <= BiomeEdge - 50; X++)
             {
                 if (WorldGen.genRand.NextBool(75))
                 {
                     PlaceWallPillar(X);
 
-                    X += 20;
+                    X += 45;
+                }
+            }
+
+            //place clumps of eye blocks throughout the biome after everything else is done
+            for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
+            {
+                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 15);
+
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Y >= Main.maxTilesY - 160)
+                {
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
+                    {
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(35, 65), WorldGen.genRand.Next(35, 65), 
+                        ModContent.TileType<EyeBlock>(), false, 0f, 0f, false, true);
+                    }
                 }
             }
         }
@@ -305,7 +287,7 @@ namespace Spooky.Content.Generation
 
             for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 6; Y += 5)
             {
-                //place platforms sometimes
+                //place platforms
                 if (Y > Main.maxTilesY - 160 && Y < Main.maxTilesY - 20 && WorldGen.SolidTile(StartPosition, Y) && !HasPlacedPlatform)
                 {
                     PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(10, 15), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
@@ -336,11 +318,9 @@ namespace Spooky.Content.Generation
 			{
 				int y = Y + j;
 
-				//Top two rows are fully placed
 				if (j >= 2)
 				{
 					HasSmoothed = true;
-					//The more rows the more tiles are "smoothed" away
 					smoothedSidesForBottomRowsLeft += WorldGen.genRand.Next(0, 2);
 					smoothedSidesForBottomRowsRight += WorldGen.genRand.Next(0, 2);
 				}
@@ -349,7 +329,6 @@ namespace Spooky.Content.Generation
 				{
 					int x = topLeftX + i;
 
-					//Don't generate dirt if the range forbids it (that way it smooths the bottom corners)
 					if (!HasSmoothed || (i > smoothedSidesForBottomRowsLeft && i < Width - smoothedSidesForBottomRowsRight))
 					{
 						WorldGen.PlaceTile(x, y, TileType, mute: true, forced: true);
@@ -542,6 +521,26 @@ namespace Spooky.Content.Generation
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
+
+                        //fingers
+                        if (WorldGen.genRand.NextBool(8))
+                        {
+                            ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<Finger1>(), (ushort)ModContent.TileType<Finger2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Fingers));    
+                        }
+
+                        //hanging fingers
+                        if (WorldGen.genRand.NextBool(8))
+                        {
+                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
+
+                            //cannot be bothered to check which one actually works
+                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
+                            WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 4, WorldGen.genRand.Next(HangingFinger));
+                        }
                     }
                 }
             }
@@ -700,14 +699,11 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley", RoughenUpTerrain));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley", ErodeEdges));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Wall Pillars", CreateWallPillars));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 8, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
-            tasks.Insert(GenIndex1 + 9, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Structures", GenerateStructures));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }
 }

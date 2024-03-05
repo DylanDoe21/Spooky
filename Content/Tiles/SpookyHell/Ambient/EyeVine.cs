@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			AddMapEntry(new Color(95, 27, 43));
+			AddMapEntry(new Color(168, 58, 96));
 			DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
 		}
