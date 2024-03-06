@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.width = 90;
             NPC.height = 94;
             NPC.npcSlots = 5f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 12, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = false;
@@ -117,24 +117,20 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             if (NPC.ai[0] <= 300)
             {
-                int MaxSpeed = 30;
-
-                if (NPC.HasBuff(BuffID.Confused))
-                {
-                    MaxSpeed = -30;
-                }
+                int MaxSpeed = 3;
 
                 //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 8) 
+                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 1) 
                 {
                     MoveSpeedX--;
                 }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed + 8)
+                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed + 1)
                 {
                     MoveSpeedX++;
                 }
 
-                NPC.velocity.X = MoveSpeedX * 0.1f;
+                NPC.velocity.X += MoveSpeedX * 0.01f;
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed - 1, MaxSpeed + 1);
                 
                 //flies to players Y position
                 if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -MaxSpeed)
@@ -146,7 +142,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                     MoveSpeedY++;
                 }
 
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
+                NPC.velocity.Y += MoveSpeedY * 0.01f;
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
             }
 
             if (NPC.ai[0] >= 300)

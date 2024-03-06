@@ -151,6 +151,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                         
                 ChargeDirection.X *= 25;
                 NPC.velocity.X = ChargeDirection.X;
+
+                NPC.velocity.Y *= 0.2f;
             }
 
             if (NPC.localAI[0] >= 270)

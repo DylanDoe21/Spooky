@@ -32,7 +32,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.width = 60;
             NPC.height = 60;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = false;
