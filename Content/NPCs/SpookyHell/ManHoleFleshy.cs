@@ -106,15 +106,16 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 5, 0, -10,
-                    ModContent.ProjectileType<ManholeBiomass>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 5, player.Center.X < NPC.Center.X ? Main.rand.Next(-12, -6) : Main.rand.Next(6, 12), -10,
+                    ModContent.ProjectileType<ManHoleBloodBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
                 }
             }
 
             if (NPC.ai[0] >= 300)
             {
-                //teleport on the last frame of its animation
-                if (NPC.frame.Y == 11 * NPC.height && NPC.ai[0] >= 360)
+                NPC.dontTakeDamage = true;
+
+                if (NPC.frame.Y == 11 * NPC.height && NPC.ai[0] == 360 && destinationX == 0f && destinationY == 0f)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -160,25 +161,35 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         NPC.netUpdate = true;
                     }
+                }
 
-                    //Teleport
-                    if (destinationX != 0f && destinationY != 0f)
+                if (NPC.ai[0] >= 360 && NPC.ai[0] <= 400)
+                {
+                    float PositionX = destinationX * 16f - (float)(NPC.width / 2) + 8f;
+                    float PositionY = destinationY * 16f - (float)NPC.height;
+
+                    Dust dust = Dust.NewDustDirect(new Vector2(PositionX, PositionY + 32), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+                    dust.noGravity = true;
+                }
+
+                if (NPC.ai[0] >= 420 && destinationX != 0f && destinationY != 0f)
+                {
+                    NPC.dontTakeDamage = false;
+
+                    NPC.position.X = destinationX * 16f - (float)(NPC.width / 2) + 8f;
+                    NPC.position.Y = destinationY * 16f - (float)NPC.height;
+                    destinationX = 0f;
+                    destinationY = 0f;
+                    NPC.netUpdate = true;
+
+                    SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
+
+                    for (int numDusts = 0; numDusts < 15; numDusts++)
                     {
-                        NPC.position.X = destinationX * 16f - (float)(NPC.width / 2) + 8f;
-                        NPC.position.Y = destinationY * 16f - (float)NPC.height;
-                        destinationX = 0f;
-                        destinationY = 0f;
-                        NPC.netUpdate = true;
-
-                        SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
-
-                        for (int numDusts = 0; numDusts < 15; numDusts++)
-                        {
-                            Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 3.5f);
-                            dust.noGravity = true;
-                        }
+                        Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+                        dust.noGravity = true;
                     }
-
+                    
                     NPC.ai[0] = 0;
                 }
             }
@@ -201,7 +212,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     {
                         if (Main.netMode != NetmodeID.Server) 
                         {
-                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleGore" + numGores).Type);
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ManHoleFleshyGore" + numGores).Type);
                         }
                     }
                 }

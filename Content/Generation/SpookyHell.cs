@@ -290,7 +290,7 @@ namespace Spooky.Content.Generation
                 //place platforms
                 if (Y > Main.maxTilesY - 160 && Y < Main.maxTilesY - 20 && WorldGen.SolidTile(StartPosition, Y) && !HasPlacedPlatform)
                 {
-                    PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(10, 15), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
+                    PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(8, 12), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
                     HasPlacedPlatform = true;
                 }
 
