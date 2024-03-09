@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class EyeRocketLauncherProj : ModProjectile
 	{
+        int playerCenterOffset = 9;
+
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 5;
@@ -43,7 +45,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -87,11 +89,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - 8);
+                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                     ShootSpeed.Normalize();
                     ShootSpeed *= 55;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - 8, 
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, 
                     ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                     Projectile.frame = 0;

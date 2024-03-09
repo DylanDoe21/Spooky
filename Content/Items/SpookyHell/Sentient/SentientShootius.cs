@@ -71,7 +71,6 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 }
             }
 
-            double currentdist = 9999;
             if (tiles.Count > 0)
             {
                 return false;

@@ -17,8 +17,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class ZomboidNecromancer : ModNPC
     {
-        Vector2 SoulSpawnPosition;
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;

@@ -19,8 +19,6 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Crux : ModNPC
     {
-        int aura = 0;
-
         int repeats = Main.rand.Next(1, 4);
 
         Vector2 SavePlayerPosition;
@@ -34,13 +32,12 @@ namespace Spooky.Content.NPCs.EggEvent
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(12f, 5f),
                 PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = 0f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
@@ -48,7 +45,6 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SendExtraAI(BinaryWriter writer)
         {
             //ints
-            writer.Write(aura);
             writer.Write(repeats);
 
             //floats
@@ -59,7 +55,6 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //ints
-            aura = reader.ReadInt32();
             repeats = reader.ReadInt32();
 
             //floats
@@ -205,25 +200,17 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         SoundEngine.PlaySound(ScreamSound, NPC.Center);
 
-                        aura = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0, 
-                        ModContent.ProjectileType<CruxAura>(), 0, 1, NPC.target, 0, 0);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CruxAura>(), 0, 0, NPC.target, NPC.whoAmI);
                     }
 
                     //make sure the aura is always on the center of the crux
                     if (NPC.localAI[0] > 60)
                     {
                         NPC.velocity *= 0.99f;
-
-                        if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>()) //&& //aura != 0)
-                        {
-                            Main.projectile[aura].position = NPC.Center - new Vector2(Main.projectile[aura].width / 2, Main.projectile[aura].height / 2);
-                        }
                     }
 
                     if (NPC.localAI[0] > 240)
                     {
-                        aura = 0;
-
                         NPC.velocity *= 0;
 
                         NPC.localAI[0] = 0;
@@ -245,11 +232,6 @@ namespace Spooky.Content.NPCs.EggEvent
         
         public override bool CheckDead() 
 		{
-            if (Main.projectile[aura].type == ModContent.ProjectileType<CruxAura>() && aura != 0)
-            {
-                Main.projectile[aura].Kill();
-            }
-
             return true;
         }
 

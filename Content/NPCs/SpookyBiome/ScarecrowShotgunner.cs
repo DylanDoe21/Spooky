@@ -26,11 +26,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             Main.npcFrameCount[NPC.type] = 9;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) 
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
 				Velocity = 1f
 			};
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifiers);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -139,6 +138,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 IsShooting = true;
 
+                NPC.knockBackResist = 0f;
+
                 NPC.localAI[0]++;
 
                 if (NPC.localAI[0] >= 300)
@@ -207,6 +208,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             else
             {
                 IsShooting = false;
+
+                NPC.knockBackResist = 0.8f;
 
                 NPC.aiStyle = 3;
                 AIType = NPCID.GoblinScout;

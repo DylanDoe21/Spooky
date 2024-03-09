@@ -19,11 +19,10 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 		public override void SetStaticDefaults()
 		{
-			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/Catacomb/Layer1/GiantPutty"
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
 
 		public override void SetDefaults()

@@ -24,8 +24,6 @@ namespace Spooky.Content.Backgrounds.Cemetery
 
             public float Depth;
 
-            public int TextureIndex;
-
             public float SinOffset;
 
             public float AlphaFrequency;

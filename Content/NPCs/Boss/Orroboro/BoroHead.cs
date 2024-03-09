@@ -40,14 +40,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             Main.npcFrameCount[NPC.type] = 5;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BoroBestiary",
                 Position = new Vector2(2f, -35f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -24f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;

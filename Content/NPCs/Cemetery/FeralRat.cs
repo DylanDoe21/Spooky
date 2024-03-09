@@ -15,13 +15,11 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             Main.npcFrameCount[NPC.type] = 5;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(10f, 0f),
-                PortraitPositionXOverride = 10f,
-                PortraitPositionYOverride = 0f
+                PortraitPositionXOverride = 10f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
         
         public override void SetDefaults()

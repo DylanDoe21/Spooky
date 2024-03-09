@@ -12,8 +12,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class SoulSkullMinion : ModProjectile
     {
-        int charge = 0;
-
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;

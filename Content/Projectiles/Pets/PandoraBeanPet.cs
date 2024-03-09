@@ -11,8 +11,6 @@ namespace Spooky.Content.Projectiles.Pets
 {
     public class PandoraBeanPet : ModProjectile
     {
-        private int playerStill = 0;
-
         public override void SetStaticDefaults()
         {
             Main.projPet[Projectile.type] = true;

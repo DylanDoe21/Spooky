@@ -52,10 +52,6 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			(Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()) ? Main.DiscoColor : Color.OrangeRed) * glowbrightness);
         }
 
-		int itemType;
-		int minAmount;
-		int maxAmount;
-
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Player player = Main.LocalPlayer;

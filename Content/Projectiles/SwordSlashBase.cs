@@ -42,8 +42,6 @@ namespace Spooky.Content.Projectiles
             float num2 = Projectile.ai[0];
             float Fade = Projectile.velocity.ToRotation();
             Projectile.rotation = (float)Math.PI * num2 * num + Fade + num2 * (float)Math.PI + player.fullRotation;
-            float num5 = 1f;
-            float num6 = 1.2f;
 
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
 

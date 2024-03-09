@@ -39,12 +39,11 @@ namespace Spooky.Content.NPCs.Friendly
 			.SetNPCAffection(NPCID.Princess, AffectionLevel.Dislike)
 			.SetNPCAffection(NPCID.Nurse, AffectionLevel.Hate);
 
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() 
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
 				Velocity = 1f,
 				Direction = -1
 			};
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
 		public override void SetDefaults() 

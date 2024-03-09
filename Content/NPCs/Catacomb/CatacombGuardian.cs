@@ -32,14 +32,13 @@ namespace Spooky.Content.NPCs.Catacomb
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Rotation = MathHelper.PiOver2,
                 Position = new Vector2(34f, 0f),
                 PortraitPositionXOverride = 8f,
                 PortraitPositionYOverride = -8f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

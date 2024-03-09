@@ -16,13 +16,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             Main.npcFrameCount[NPC.type] = 4;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(0f, -10f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -30f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
         
         public override void SetDefaults()

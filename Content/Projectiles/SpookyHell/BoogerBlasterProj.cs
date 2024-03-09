@@ -8,7 +8,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class BoogerBlasterProj : ModProjectile
 	{
-        int Charge = 0;
         int SaveDirection;
         float SaveRotation;
 
@@ -47,7 +46,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -115,7 +114,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         //set ai[2] to 1 so it cannot shoot again
                         Projectile.ai[2] = 1;
 
-                        Vector2 ShootSpeed = Main.MouseWorld - player.Center;
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
                         switch (Projectile.frame)
@@ -127,7 +126,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, ShootSpeed, 
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset) + muzzleOffset, ShootSpeed, 
                                 ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                                 break;
@@ -140,7 +139,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset,
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset) + muzzleOffset,
                                     16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
                                     ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
                                 }
@@ -155,7 +154,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                                 Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, ShootSpeed, 
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset) + muzzleOffset, ShootSpeed, 
                                 ModContent.ProjectileType<BlasterBoogerBig>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
 
                                 break;

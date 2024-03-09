@@ -14,8 +14,7 @@ namespace Spooky.Content.UI
     {
         internal const float DefaultXPosition = 50.103603f;
         internal const float DefaultYPosition = 55.765408f;
-
-        private static Vector2? dragOffset = null;
+        
         private static Texture2D BarTexture;
         private static Texture2D BarFillTexture;
         private static Texture2D BarFullTexture;
@@ -25,18 +24,14 @@ namespace Spooky.Content.UI
             BarTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBar", AssetRequestMode.ImmediateLoad).Value;
             BarFillTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBarFill", AssetRequestMode.ImmediateLoad).Value;
             BarFullTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBarFull", AssetRequestMode.ImmediateLoad).Value;
-            Reset();
         }
 
         internal static void Unload()
         {
-            Reset();
             BarTexture = null;
             BarFillTexture = null;
             BarFullTexture = null;
         }
-
-        private static void Reset() => dragOffset = null;
         
         public static void Draw(SpriteBatch spriteBatch, Player player)
         {

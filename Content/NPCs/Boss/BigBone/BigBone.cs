@@ -63,14 +63,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BigBoneBestiary",
                 Position = new Vector2(48f, -12f),
                 PortraitPositionXOverride = 12f,
                 PortraitPositionYOverride = -12f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
@@ -683,7 +682,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
                             int distance = 360 / 12;
 
-                            int solarFlower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), NPC.whoAmI, numFlowers * distance, NPC.whoAmI);
+                            int solarFlower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), ai0: NPC.whoAmI);
 
                             if (Main.netMode != NetmodeID.SinglePlayer)
                             {
@@ -1366,7 +1365,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<DefensiveFlowerSeed>() : ModContent.ProjectileType<HealingFlowerSeed>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, speed, ProjType, 0, 0f, Main.myPlayer, 0, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, speed, ProjType, 0, 0, Main.myPlayer, NPC.whoAmI);
                         }
                     }
 

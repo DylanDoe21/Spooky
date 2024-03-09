@@ -18,8 +18,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SetDefaults()
@@ -71,8 +70,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
             Main.npcFrameCount[NPC.type] = 4;
             
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SetDefaults()

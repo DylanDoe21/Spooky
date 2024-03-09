@@ -29,10 +29,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
 			Main.npcFrameCount[NPC.type] = 8;
 
-            NPCProfile = new Profiles.StackedNPCProfile(
-			new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)),
-			new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex)
-            );
+            NPCProfile = new Profiles.StackedNPCProfile(new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)), new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex));
         }
 
         public override void Load()

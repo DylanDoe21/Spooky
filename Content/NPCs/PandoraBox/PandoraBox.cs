@@ -32,8 +32,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             Main.npcFrameCount[NPC.type] = 5;
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SendExtraAI(BinaryWriter writer)

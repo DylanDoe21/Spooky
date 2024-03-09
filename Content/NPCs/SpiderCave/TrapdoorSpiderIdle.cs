@@ -13,8 +13,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 	{
 		public override void SetStaticDefaults()
 		{
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
 		public override void SetDefaults()

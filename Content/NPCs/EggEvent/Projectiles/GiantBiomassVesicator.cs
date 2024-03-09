@@ -15,8 +15,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class GiantBiomassVesicator : ModProjectile
     {
-        int EnemyType;
-
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath3", SoundType.Sound);
 
         public override void SetDefaults()

@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.localAI[0] >= 60)
+            if (Projectile.ai[1] >= 60)
             {
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 newColor *= 1f;
                 Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
                 Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 35 + (Projectile.localAI[1] < 250 ? time : time2), SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.ai[2] / 35 + (Projectile.ai[2] < 250 ? time : time2), SpriteEffects.None, 0);
             }
 
             return true;
@@ -60,19 +60,24 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     
         public override void AI()
         {
-            Projectile.rotation += 0.12f * (float)Projectile.direction;
+            NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
-            Projectile.localAI[0]++;   
-
-            if (Projectile.localAI[0] >= 60)
+            if (Parent.active && Parent.type == ModContent.NPCType<Crux>())
             {
-                if (Projectile.localAI[1] < 250)
+                Projectile.position = Parent.Center - Projectile.Size / 2;
+            }
+
+            Projectile.ai[1]++;
+
+            if (Projectile.ai[1] >= 60)
+            {
+                if (Projectile.ai[2] < 250)
                 {
-                    Projectile.localAI[1] += 5;
+                    Projectile.ai[2] += 5;
                 }
             }
 
-            if (Projectile.localAI[0] >= 150)
+            if (Projectile.ai[1] >= 150)
             {
                 Projectile.Kill();
             }
@@ -88,7 +93,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 if (Main.player[i].active && !Main.player[i].dead)
                 {
-                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.ai[2] + time)
                     {
                         Main.player[i].AddBuff(BuffID.WitheredArmor, 300);
                         Main.player[i].AddBuff(BuffID.WitheredWeapon, 300);

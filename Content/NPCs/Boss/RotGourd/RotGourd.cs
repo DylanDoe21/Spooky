@@ -38,14 +38,13 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			Main.npcFrameCount[NPC.type] = 2;
 			NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
-			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/RotGourdBestiary",
                 Position = new Vector2(20f, 20f),
                 PortraitPositionXOverride = -10f,
                 PortraitPositionYOverride = 12f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }

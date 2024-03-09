@@ -25,8 +25,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SetDefaults()

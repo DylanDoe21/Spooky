@@ -19,7 +19,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         float SaveKnockback;
         bool SavedKnockback = false;
-        bool hasHitSomething = false;
 
         public override bool PreDraw(ref Color lightColor)
         {

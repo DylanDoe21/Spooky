@@ -31,7 +31,6 @@ namespace Spooky.Content.Generation
     {
         int chosenRoom = 0;
         int switchRoom = 0;
-        int numAmbushRooms = 0;
 
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };

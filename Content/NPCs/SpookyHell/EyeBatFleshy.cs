@@ -22,11 +22,10 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(20f, -10f)
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SetDefaults()

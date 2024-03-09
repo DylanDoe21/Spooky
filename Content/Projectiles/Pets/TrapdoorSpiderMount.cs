@@ -17,8 +17,6 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		int TimerForVelocity = 0;
 
-		bool ShouldUseFloatMovement = false;
-
 		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderMountWalk", SoundType.Sound);
 
 		protected class SpiderLegData

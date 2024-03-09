@@ -20,14 +20,13 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             Main.npcFrameCount[NPC.type] = 6;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BallSpiderBestiary",
                 Position = new Vector2(0f, -25f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -20f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
         
         public override void SetDefaults()

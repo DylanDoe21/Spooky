@@ -11,7 +11,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class SmilingDog : ModProjectile
     {
-        int playerStill = 0;
         bool isAttacking = false;
 
         public override void SetStaticDefaults()

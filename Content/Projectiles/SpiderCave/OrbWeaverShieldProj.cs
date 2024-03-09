@@ -10,7 +10,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class OrbWeaverShieldProj : ModProjectile
 	{
-        int Charge = 0;
         int SaveDirection;
         float SaveRotation;
 

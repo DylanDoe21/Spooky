@@ -16,8 +16,6 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         private List<Vector2> cache;
         private Trail trail;
 
-        int target;
-
         int Offset = Main.rand.Next(-20, 20);
 
 		public override void SetStaticDefaults()

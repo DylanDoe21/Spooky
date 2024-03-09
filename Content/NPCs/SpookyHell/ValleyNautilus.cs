@@ -37,14 +37,13 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Rotation = MathHelper.PiOver2,
                 Position = new Vector2(26f, -12f),
                 PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = -6f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }

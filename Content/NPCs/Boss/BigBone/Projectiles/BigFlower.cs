@@ -19,8 +19,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Hide = true };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
 		public override void SetDefaults()
@@ -42,44 +41,44 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			for (int k = 0; k < Main.maxNPCs; k++)
+			NPC Parent = Main.npc[(int)NPC.ai[0]];
+
+			//draw flower chain connected to big bone
+			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>()) 
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigBone>()) 
+				Vector2 ParentCenter = Parent.Center;
+
+				Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain");
+
+				Rectangle? chainSourceRectangle = null;
+				float chainHeightAdjustment = 0f;
+
+				Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+				Vector2 chainDrawPosition = NPC.Center;
+				Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+				Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+				float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+
+				if (chainSegmentLength == 0)
 				{
-					Vector2 ParentCenter = Main.npc[k].Center;
+					chainSegmentLength = 10;
+				}
 
-					Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain");
+				float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+				int chainCount = 0;
+				float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+	
+				while (chainLengthRemainingToDraw > 0f)
+				{
+					Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-					Rectangle? chainSourceRectangle = null;
-					float chainHeightAdjustment = 0f;
+					var chainTextureToDraw = chainTexture;
 
-					Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
-					Vector2 chainDrawPosition = NPC.Center;
-					Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
-					Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-					float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+					Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
-					if (chainSegmentLength == 0)
-					{
-						chainSegmentLength = 10;
-					}
-
-					float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
-					int chainCount = 0;
-					float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
-		
-					while (chainLengthRemainingToDraw > 0f)
-					{
-						Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
-
-						var chainTextureToDraw = chainTexture;
-
-						Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
-
-						chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
-						chainCount++;
-						chainLengthRemainingToDraw -= chainSegmentLength;
-					}
+					chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+					chainCount++;
+					chainLengthRemainingToDraw -= chainSegmentLength;
 				}
 			}
 
@@ -103,8 +102,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void AI()
 		{
+			NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
-            NPC.TargetClosest(true);
+
+			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
 			int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
 
@@ -113,20 +114,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-			for (int k = 0; k < Main.maxNPCs; k++)
+			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>()) 
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigBone>()) 
-				{
-					NPC.ai[0] = Main.npc[k].localAI[2];
-				}
+				NPC.ai[1] = Parent.localAI[2];
 			}
 
-			if (NPC.ai[0] == 350)
+			if (NPC.ai[1] == 350)
 			{
 				SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 			}
 
-			if (NPC.ai[0] >= 350 && NPC.ai[0] <= 370)
+			if (NPC.ai[1] >= 350 && NPC.ai[1] <= 370)
 			{
 				int MaxDusts = Main.rand.Next(10, 20);
 				for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
@@ -141,7 +139,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 
-			if (NPC.ai[0] == 370)
+			if (NPC.ai[1] == 370)
 			{
 				SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
 
@@ -181,8 +179,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 		}
-
-		//Loot and stuff
+		
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
 			var parameters = new DropOneByOne.Parameters() 

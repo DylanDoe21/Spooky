@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Core;
 using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Armor

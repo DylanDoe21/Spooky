@@ -10,20 +10,14 @@ namespace Spooky
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [Label("$Mods.Spooky.Configs.HalloweenEnabled.Label")]
-        [Tooltip("$Mods.Spooky.Configs.HalloweenEnabled.Tooltip")]
         [BackgroundColor(125, 62, 0, 125)]
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
 
-        [Label("$Mods.Spooky.Configs.SpookyForestSpawn.Label")]
-        [Tooltip("$Mods.Spooky.Configs.SpookyForestSpawn.Tooltip")]
         [BackgroundColor(0, 125, 0, 125)]
         [DefaultValue(true)]
         public bool SpookyForestSpawn { get; set; }
 
-        [Label("$Mods.Spooky.Configs.OldHunterDramaticLight.Label")]
-        [Tooltip("$Mods.Spooky.Configs.OldHunterDramaticLight.Tooltip")]
         [BackgroundColor(120, 85, 60, 125)]
         [DefaultValue(true)]
         public bool OldHunterDramaticLight { get; set; }

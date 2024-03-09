@@ -44,14 +44,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             Main.npcFrameCount[NPC.type] = 4;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/DaffodilBestiary",
                 Position = new Vector2(1f, 30f),
                 PortraitPositionXOverride = 2f,
                 PortraitPositionYOverride = 30f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;

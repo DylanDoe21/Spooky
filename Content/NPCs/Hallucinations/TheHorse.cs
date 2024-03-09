@@ -26,13 +26,12 @@ namespace Spooky.Content.NPCs.Hallucinations
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(28f, 35f),
                 PortraitPositionXOverride = -5f,
                 PortraitPositionYOverride = 6f
             };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

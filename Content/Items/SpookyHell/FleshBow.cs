@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
@@ -61,6 +62,21 @@ namespace Spooky.Content.Items.SpookyHell
 			numUses++;
 			
 			return false;
+        }
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ItemID.DemoniteBar, 10)
+			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 100)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+			CreateRecipe()
+			.AddIngredient(ItemID.CrimtaneBar, 10)
+			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 100)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

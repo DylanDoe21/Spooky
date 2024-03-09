@@ -47,8 +47,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             Projectile.rotation += 0.25f * Projectile.direction; 
 
-			Projectile.ai[0]++;
-			if (Projectile.ai[0] > 20 && Main.rand.NextBool(45))
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] > 20 && Main.rand.NextBool(45))
 			{
 				Projectile.Kill();
 			}
@@ -66,7 +66,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			if (NPC.CountNPCS(ModContent.NPCType<DefensiveFlower>()) <= 12)
 			{		
-				int Flower = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<DefensiveFlower>());
+				int Flower = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<DefensiveFlower>(), ai0: Projectile.ai[0]);
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
 				{
