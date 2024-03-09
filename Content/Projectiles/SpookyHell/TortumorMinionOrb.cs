@@ -7,10 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class TortumorMinionOrb1 : ModProjectile
+    public class TortumorMinionOrb : ModProjectile
     {
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -46,6 +47,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		
         public override void AI()
         {    
+            Projectile.frame = (int)Projectile.ai[0];
+
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
@@ -73,8 +76,4 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
         }
 	}
-
-    public class TortumorMinionOrb2 : TortumorMinionOrb1
-    {
-    }
 }

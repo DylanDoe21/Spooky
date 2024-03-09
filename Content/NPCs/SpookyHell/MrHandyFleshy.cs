@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.width = 68;
 			NPC.height = 74;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0.75f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
@@ -74,11 +74,11 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 7; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MrHandyGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MrHandyFleshyGore" + numGores).Type);
                     }
                 }
             }

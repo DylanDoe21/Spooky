@@ -30,7 +30,7 @@ SpookyConfig: {
 		Tooltip:
 			'''
 			When the old hunter is assembled, his spawn animation causes the screen to constantly get whiter before he spawns
-			Turn this off to disable the screen turning white during his spawn animation
+			Turn this off to disable the screen turning white during his spawn animation, especially if you are sensative to bright light
 			'''
 	}
 

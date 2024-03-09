@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.Catacomb
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
@@ -39,8 +40,6 @@ namespace Spooky.Content.NPCs.Catacomb
                 PortraitPositionYOverride = -8f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
-
-            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

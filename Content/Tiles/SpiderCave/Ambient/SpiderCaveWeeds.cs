@@ -19,8 +19,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             Main.tileSolid[Type] = false;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<DampGrass>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(34, 78, 30));
             DustType = ModContent.DustType<DampGrassDust>();
@@ -40,22 +41,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
         }
-
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-
-			if (tileBelow.HasTile && tileBelow.TileType == ModContent.TileType<DampGrass>()) 
-            {
-				return true;
-			}
-            else
-            {
-			    WorldGen.KillTile(i, j);
-            }
-
-			return true;
-		}
 
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {

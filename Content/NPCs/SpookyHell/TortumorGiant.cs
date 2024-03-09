@@ -107,8 +107,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            //TODO: replace this with new yoyo when its finished
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorYoyo>(), 8));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 

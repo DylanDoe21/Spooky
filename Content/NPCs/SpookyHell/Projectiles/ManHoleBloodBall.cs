@@ -72,15 +72,15 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		{
             Player player = Main.player[Main.myPlayer];
 
+            SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
+
 			Bounces++;
-			if (Bounces >= 3)
+			if (Bounces > 3)
 			{
 				Projectile.Kill();
 			}
             else
             {
-                SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
-
                 Projectile.velocity.X = player.Center.X < Projectile.Center.X ? Main.rand.Next(-12, -6) : Main.rand.Next(6, 12);
 
                 if (Projectile.velocity.Y != oldVelocity.Y)

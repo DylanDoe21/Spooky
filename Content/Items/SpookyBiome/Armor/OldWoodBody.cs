@@ -9,6 +9,18 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	[AutoloadEquip(EquipType.Body)]
 	public class OldWoodBody : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                return;
+            }
+
+            int equipSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
+
+            ArmorIDs.Body.Sets.HidesArms[equipSlot] = true;
+        }
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 2;

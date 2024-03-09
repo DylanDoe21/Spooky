@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpookyHell
 
 		public override void SetDefaults()
 		{
-			Item.damage = 15;
+			Item.damage = 30;
 			Item.mana = 20;          
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
@@ -29,16 +29,12 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.useAnimation = 35;         
 			Item.useStyle = ItemUseStyleID.Swing;          
 			Item.knockBack = 1;
-			Item.rare = ItemRarityID.Green;  
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 5);
 			Item.UseSound = SoundID.Item82;     
 			Item.buffType = ModContent.BuffType<TortumorMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<TortumorMinion>();
-		}
-
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
-		{
-			position = Main.MouseWorld;
+			Item.shootSpeed = 5f;
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

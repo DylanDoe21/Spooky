@@ -47,7 +47,7 @@ namespace Spooky.Content.Biomes
                 }
                 if ((!tile.HasTile || tile.IsHalfBlock || !Main.tileNoSunLight[tile.TileType]) && tile.LiquidAmount < byte.MaxValue)
                 {
-                    Red = Intensity;
+                    Red = Intensity * 1.5f;
                     Green = Intensity;
                     Blue = Intensity;
 

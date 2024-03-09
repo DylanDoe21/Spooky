@@ -108,10 +108,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, Main.rand.Next(15, 21), 75, 0);
+            JumpTo(player, 250, 75, 0);
         }
 
-        public void JumpTo(Player target, int JumpHeight, int JumpSpeed, int TimeBeforeNextJump, int DelayBeforeNextJump)
+        public void JumpTo(Player target, int JumpHeight, int TimeBeforeNextJump, int DelayBeforeNextJump)
         {
             NPC.ai[0]++;
 
@@ -122,7 +122,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
             Vector2 velocity = JumpTo - NPC.Center;
             velocity.Normalize();
 
-            float speed = MathHelper.Clamp(velocity.Length() / 36, 12, JumpSpeed);
+            int JumpSpeed = Main.rand.Next(13, 18);
+
+            float speed = MathHelper.Clamp(velocity.Length() / 36, 10, JumpSpeed);
 
             NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
 
@@ -211,7 +213,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 450, Main.rand.Next(15, 21), 60, Main.rand.Next(30, 60));
+            JumpTo(player, 450, 60, Main.rand.Next(20, 40));
         }
     }
 
@@ -250,7 +252,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, Main.rand.Next(15, 21), 10, 10);
+            JumpTo(player, 250, 10, 10);
         }
     }
 
@@ -289,7 +291,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 820, Main.rand.Next(15, 21), 60, Main.rand.Next(0, 60));
+            JumpTo(player, 820, 60, Main.rand.Next(0, 60));
         }
     }
 }

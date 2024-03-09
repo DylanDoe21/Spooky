@@ -490,6 +490,19 @@ namespace Spooky.Content.Generation
                             ushort[] Arteries = new ushort[] { (ushort)ModContent.TileType<ArteryHanging1>(), (ushort)ModContent.TileType<ArteryHanging2>() };
 
                             WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(Arteries), true);
+                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(Arteries), true);
+                        }
+
+                        //hanging fingers
+                        if (WorldGen.genRand.NextBool(8))
+                        {
+                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
+
+                            //cannot be bothered to check which one actually works
+                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
+                            WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
+                            WorldGen.PlaceObject(X, Y + 4, WorldGen.genRand.Next(HangingFinger));
                         }
                     }
 
@@ -528,18 +541,6 @@ namespace Spooky.Content.Generation
                             ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<Finger1>(), (ushort)ModContent.TileType<Finger2>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Fingers));    
-                        }
-
-                        //hanging fingers
-                        if (WorldGen.genRand.NextBool(8))
-                        {
-                            ushort[] HangingFinger = new ushort[] { (ushort)ModContent.TileType<FingerHanging1>(), (ushort)ModContent.TileType<FingerHanging2>() };
-
-                            //cannot be bothered to check which one actually works
-                            WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingFinger));
-                            WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingFinger));    
-                            WorldGen.PlaceObject(X, Y + 3, WorldGen.genRand.Next(HangingFinger));
-                            WorldGen.PlaceObject(X, Y + 4, WorldGen.genRand.Next(HangingFinger));
                         }
                     }
                 }

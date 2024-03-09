@@ -10,6 +10,10 @@ namespace Spooky.Content.Items.Cemetery.Armor
 		public override void SetStaticDefaults()
         {
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritHorsemanLegs>();
+
+			int equipSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
+
+			ArmorIDs.Body.Sets.HidesArms[equipSlot] = true;
         }
 
 		public override void SetDefaults() 

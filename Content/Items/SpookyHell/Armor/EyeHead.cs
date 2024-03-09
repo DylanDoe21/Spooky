@@ -10,13 +10,15 @@ using Spooky.Content.Tiles.SpookyHell;
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class EyeHead : ModItem
+	public class EyeHead : ModItem, IHelmetGlowmask
 	{
+		public string GlowmaskTexture => "Spooky/Content/Items/SpookyHell/Armor/EyeHead_Glow";
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 3;
-			Item.width = 24;
-			Item.height = 22;
+			Item.width = 38;
+			Item.height = 30;
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 		}
@@ -42,11 +44,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 				Main.projectile[smallEye].originalDamage = realDamage;
 			}
-		}
-
-		public override void ArmorSetShadows(Player player)
-		{
-			player.armorEffectDrawOutlines = true;
 		}
 
 		public override void UpdateEquip(Player player) 

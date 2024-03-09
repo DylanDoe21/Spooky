@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(139, 18, 37));
+            AddMapEntry(new Color(135, 7, 0));
             DustType = DustID.Blood;
             HitSound = SoundID.NPCHit20;
             MineResist = 0.7f;

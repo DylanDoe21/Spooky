@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(168, 58, 96));
+            AddMapEntry(new Color(131, 93, 228));
             DustType = DustID.Blood;
             HitSound = SoundID.NPCHit13;
         }

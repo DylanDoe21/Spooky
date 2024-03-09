@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetDefaults()
         {
             NPC.lifeMax = 500;
-            NPC.damage = 50;
+            NPC.damage = 42;
             NPC.defense = 10;
             NPC.width = 90;
             NPC.height = 94;
@@ -71,8 +71,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.frameCounter++;
             if (NPC.ai[0] <= 300)
             {
-                NPC.frameCounter++;
-                if (NPC.frameCounter > 20)
+                if (NPC.frameCounter > 8)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
@@ -161,6 +160,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     if (NPC.ai[0] == 400)
                     {
                         int TortumorSummon = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 38, ModContent.NPCType<TortumorFleshy>());
+                        Main.npc[TortumorSummon].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6));
 
                         if (Main.netMode == NetmodeID.Server)
                         {
@@ -197,7 +197,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TortumorStaff>(), 8));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 

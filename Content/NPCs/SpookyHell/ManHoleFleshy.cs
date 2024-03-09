@@ -106,7 +106,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 5, player.Center.X < NPC.Center.X ? Main.rand.Next(-12, -6) : Main.rand.Next(6, 12), -10,
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 5, player.Center.X < NPC.Center.X ? Main.rand.Next(-10, -2) : Main.rand.Next(2, 10), -10,
                     ModContent.ProjectileType<ManHoleBloodBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
                 }
             }

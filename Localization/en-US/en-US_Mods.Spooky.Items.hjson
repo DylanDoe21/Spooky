@@ -1656,7 +1656,7 @@ GoreBody: {
 	DisplayName: Gore Chestplate
 	Tooltip:
 		'''
-		10% increased damaged
+		10% increased damage
 		12% increased critical strike chance
 		Enemies are more likely to target you
 		'''
@@ -2147,6 +2147,11 @@ TortumorStaff: {
 	Tooltip: Summons friendly tortumors that shoot blood globs at enemies
 }
 
+TortumorYoyo: {
+	DisplayName: Tumor Throw
+	Tooltip: Generates damaging chunks around it while used
+}
+
 RaveyardDisc1: {
 	DisplayName: Raveyard Vinyl #1
 	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak"
@@ -2239,6 +2244,11 @@ CatacombFlooringItem: {
 GildedBrickItem: {
 	DisplayName: Gilded Brick
 	Tooltip: ""
+}
+
+BaxterPaintingItem: {
+	DisplayName: Portrait of Baxter
+	Tooltip: "'Waasephi'"
 }
 
 CemeteryBiomeChestItem: {
@@ -2601,6 +2611,16 @@ SwoleMushroomStatueItem: {
 	Tooltip: ""
 }
 
+TinyGhostJarItem: {
+	DisplayName: Tiny Ghost Jar
+	Tooltip: ""
+}
+
+TinyMushroomCageItem: {
+	DisplayName: Tiny Mushroom Cage
+	Tooltip: ""
+}
+
 MushroomMossSeeds: {
 	DisplayName: Mushroom Moss Seeds
 	Tooltip: Plants mushroom moss on Mossy Stone
@@ -2761,6 +2781,16 @@ EyeWorkBenchItem: {
 	Tooltip: ""
 }
 
+LittleEyePaintingItem: {
+	DisplayName: Little Eye's Self Portrait
+	Tooltip: "'Waasephi'"
+}
+
+MonalumboItem: {
+	DisplayName: The Mona-Lumbo
+	Tooltip: "'Waasephi'"
+}
+
 LivingFleshItem: {
 	DisplayName: Living Flesh
 	Tooltip: ""
@@ -2833,19 +2863,4 @@ RaveStarter: {
 		Starts the raveyard event when used at night
 		Testing Item
 		'''
-}
-
-LittleEyePaintingItem: {
-	DisplayName: Little Eye's Self Portrait
-	Tooltip: "'Waasephi'"
-}
-
-BaxterPaintingItem: {
-	DisplayName: Baxter Portrait
-	Tooltip: "'Waasephi'"
-}
-
-MonalumboItem: {
-	DisplayName: The Mona-Lumbo
-	Tooltip: "'Waasephi'"
 }

@@ -19,8 +19,9 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
             Main.tileSolid[Type] = false;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<CemeteryGrass>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(32, 82, 26));
             DustType = ModContent.DustType<CemeteryGrassDust>();
@@ -40,22 +41,6 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
         }
-
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-
-			if (tileBelow.HasTile && tileBelow.TileType == ModContent.TileType<CemeteryGrass>()) 
-            {
-				return true;
-			}
-            else
-            {
-			    WorldGen.KillTile(i, j);
-            }
-
-			return true;
-		}
 
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {

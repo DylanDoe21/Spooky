@@ -24,8 +24,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileSolid[Type] = false;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<SpookyGrassGreen>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(62, 95, 38));
             DustType = ModContent.DustType<SpookyGrassDustGreen>();
@@ -45,22 +46,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
         }
-
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-
-			if (tileBelow.HasTile && tileBelow.TileType == ModContent.TileType<SpookyGrassGreen>()) 
-            {
-				return true;
-			}
-            else
-            {
-			    WorldGen.KillTile(i, j);
-            }
-
-			return true;
-		}
 
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {

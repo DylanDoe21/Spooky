@@ -14,6 +14,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetStaticDefaults()
 		{
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttyPumpkinling"

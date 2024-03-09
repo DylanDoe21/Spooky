@@ -117,8 +117,7 @@ NerveWhipProj.DisplayName: Exposed Nerve
 NoseMinion.DisplayName: Nose Fly
 ScyclerProj.DisplayName: Scycler
 TortumorMinion.DisplayName: Tortumor
-TortumorMinionOrb1.DisplayName: Tumor Orb
-TortumorMinionOrb2.DisplayName: Tumor Orb
+TortumorMinionOrb.DisplayName: Tumor Orb
 CauldronTransformProj.DisplayName: Cauldron Transform
 OrroboroSpawn.DisplayName: Orroboro Spawner
 DecayDebuffFly.DisplayName: Decay Debuff Fly
@@ -331,3 +330,5 @@ RedFace.DisplayName: Red Apparition
 SpiderLegStaffProj.DisplayName: Arachnid Leg Wand
 SpiderLeg.DisplayName: Arachnid Leg
 ManHoleBloodBall.DisplayName: Blood Glob
+TortumorYoyoProj.DisplayName: Tumor Throw
+TortumorYoyoChunk.DisplayName: Tumor Chunk
