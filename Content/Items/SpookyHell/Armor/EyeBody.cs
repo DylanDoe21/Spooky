@@ -32,8 +32,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Summon) += 0.05f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.05f;
+			player.whipRangeMultiplier = 1.2f;
 			player.maxMinions += 1;
 			player.maxTurrets += 1;
 		}
@@ -47,9 +46,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
             .Register();
 
 			CreateRecipe()
-			.AddIngredient(ItemID.CrimtaneBar, 10)
-            .AddIngredient(ModContent.ItemType<EyeBlockItem>(), 38)
-			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 75)
+			.AddIngredient(ItemID.CrimtaneBar, 15)
+			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 80)
             .AddTile(TileID.Anvils)
             .Register();
         }

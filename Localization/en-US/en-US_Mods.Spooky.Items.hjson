@@ -1633,7 +1633,7 @@ EyeBody: {
 	DisplayName: Living Flesh Chestmail
 	Tooltip:
 		'''
-		5% increased summon damage
+		20% increased whip range
 		Increases your max number minions and sentries by 1
 		'''
 }
@@ -1649,7 +1649,7 @@ EyeHead: {
 
 EyeLegs: {
 	DisplayName: Living Flesh Leggings
-	Tooltip: 5% increased movement speed
+	Tooltip: 5% increased summon damage and movement speed
 }
 
 GoreBody: {

@@ -31,6 +31,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            
             NPC target = Main.npc[(int)Projectile.ai[1]];
 
             Projectile.ai[0]++;
@@ -59,12 +60,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 double Velocity = Math.Atan2(target.Center.Y - Projectile.Center.Y, target.Center.X - Projectile.Center.X);
                 Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
-            }
-
-            if (Projectile.localAI[0] > 60)
-            {
-                Projectile.spriteDirection = SaveDirection;
-                Projectile.rotation = SaveRotation;
             }
 
             if (Projectile.ai[0] > 75)

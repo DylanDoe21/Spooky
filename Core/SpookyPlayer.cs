@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
@@ -351,6 +352,23 @@ namespace Spooky.Core
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //spawn eyes when hitting enemies with whips with the living flesh armor
+            if (EyeArmorSet && hit.DamageType == DamageClass.SummonMeleeSpeed && Main.rand.NextBool(5))
+            {
+                Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
+
+                for (int numDusts = 0; numDusts < 10; numDusts++)
+                {                                                                                  
+                    int dust = Dust.NewDust(SpawnPosition, 20, 20, DustID.Blood, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                }
+
+                Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, 
+                ModContent.ProjectileType<LivingFleshEye>(), damageDone / 2, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+            }
+
             //drop booger charge item when hitting an enemy while wearing the snotty schnoz
             if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
             {

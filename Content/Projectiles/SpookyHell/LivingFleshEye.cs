@@ -1,0 +1,53 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+
+namespace Spooky.Content.Projectiles.SpookyHell
+{
+    public class LivingFleshEye : ModProjectile
+    {
+        public int SaveDirection;
+        public float SaveRotation;
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 14;
+			Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
+			Projectile.friendly = true;
+			Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 1000;
+            Projectile.aiStyle = -1;
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+            
+            NPC target = Main.npc[(int)Projectile.ai[1]];
+
+            Projectile.rotation += Projectile.velocity.X * 0.2f;
+
+            Projectile.ai[0]++;
+    
+            if (Projectile.ai[0] == 1)
+            {
+                double Velocity = Math.Atan2(target.Center.Y - Projectile.Center.Y, target.Center.X - Projectile.Center.X);
+                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
+            }
+
+            if (Projectile.ai[0] > 20)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
+            }
+        }
+    }
+}

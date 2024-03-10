@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 2;
+			Item.defense = 3;
 			Item.width = 22;
 			Item.height = 16;
 			Item.rare = ItemRarityID.Green;
@@ -21,6 +21,8 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
+			player.GetDamage(DamageClass.Summon) += 0.05f;
+			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.05f;
 			player.moveSpeed += 0.05f;
 		}
 
