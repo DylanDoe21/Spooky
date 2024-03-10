@@ -23,11 +23,7 @@ SpiderArmor:
 	This ability has a 2 minute cooldown before you can use it again
 	'''
 SpiritHorsemanArmor: Your own head will now fight with you!
-EyeArmor:
-	'''
-	Summons a tiny floating eye to protect you
-	The eye does not take up any minion slots
-	'''
+EyeArmor: Hitting enemies with whips will sometimes spawn eyes to deal additional damage
 FlowerArmor:
 	'''
 	Greatly increases your life regeneration

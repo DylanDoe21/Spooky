@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override bool OnPickup(Player player)
 		{
-            int LifeHealed = Main.rand.Next(2, 10);
+            int LifeHealed = Main.rand.Next(5, 21);
 			player.statLife += LifeHealed;
 			player.HealEffect(LifeHealed, true);
 			

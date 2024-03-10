@@ -22,8 +22,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{
 			Projectile.DefaultToWhip();
 
-			Projectile.WhipSettings.Segments = 30;
-			Projectile.WhipSettings.RangeMultiplier = 1f;
+			Projectile.WhipSettings.Segments = 45;
+			Projectile.WhipSettings.RangeMultiplier = 1.2f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 

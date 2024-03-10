@@ -10,14 +10,14 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetDefaults() 
         {
-			Item.damage = 38;
+			Item.damage = 35;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.width = 40;
 			Item.height = 48;
-			Item.useTime = 40;
-			Item.useAnimation = 40;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;

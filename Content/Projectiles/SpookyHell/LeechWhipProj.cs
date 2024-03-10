@@ -19,8 +19,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
 			Projectile.DefaultToWhip();
 
-			Projectile.WhipSettings.Segments = 40;
-			Projectile.WhipSettings.RangeMultiplier = 1.25f;
+			Projectile.WhipSettings.Segments = 50;
+			Projectile.WhipSettings.RangeMultiplier = 1.75f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
-			if (Main.rand.NextBool(8))
+			if (Main.rand.NextBool(15))
             {
 				Item.NewItem(Projectile.GetSource_DropAsItem(), target.position, target.Size, ModContent.ItemType<LeechWhipGore>());
             }

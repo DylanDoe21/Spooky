@@ -12,22 +12,22 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 15;
+			Item.damage = 20;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.autoReuse = true;
 			Item.width = 40;           
 			Item.height = 60;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 2);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<NineTailsProj>();
-			Item.shootSpeed = 4f;
+			Item.shootSpeed = 4.5f;
 		}
 
 		public override bool MeleePrefix() 

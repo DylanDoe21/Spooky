@@ -32,18 +32,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.EyeArmor");
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
-
-			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EyeArmorMinion>()] <= 0;
-			if (NotSpawned)
-			{
-				var realDamage = 20;
-                var scaledDamage = (int)player.GetTotalDamage<SummonDamageClass>().ApplyTo(20);
-
-				int smallEye = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, 
-				player.position.Y, 0, 0 ,ModContent.ProjectileType<EyeArmorMinion>(), scaledDamage, 0, player.whoAmI);
-
-				Main.projectile[smallEye].originalDamage = realDamage;
-			}
 		}
 
 		public override void UpdateEquip(Player player) 
@@ -56,15 +44,13 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-			.AddIngredient(ItemID.DemoniteBar, 5)
-            .AddIngredient(ModContent.ItemType<EyeBlockItem>(), 25)
+			.AddIngredient(ItemID.DemoniteBar, 8)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 50)
             .AddTile(TileID.Anvils)
             .Register();
 
 			CreateRecipe()
-			.AddIngredient(ItemID.CrimtaneBar, 5)
-            .AddIngredient(ModContent.ItemType<EyeBlockItem>(), 25)
+			.AddIngredient(ItemID.CrimtaneBar, 8)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 50)
             .AddTile(TileID.Anvils)
             .Register();

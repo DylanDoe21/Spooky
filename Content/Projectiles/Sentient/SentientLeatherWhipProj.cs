@@ -30,7 +30,7 @@ namespace Spooky.Content.Projectiles.Sentient
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 1;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.WhipSettings.Segments = 11;
+			Projectile.WhipSettings.Segments = 15;
 			Projectile.WhipSettings.RangeMultiplier = 0.95f;
 		}
 

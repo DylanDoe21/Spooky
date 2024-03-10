@@ -12,8 +12,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     public class ElGourdoProj : ModProjectile
     {
         int ScaleTimerLimit = 10;
-        float RotateSpeed = 0.2f;
         float ScaleAmount = 0.05f;
+        float SaveRotation = 0f;
+        bool Shake = false;
 
         public override void SetStaticDefaults()
         {
@@ -40,12 +41,38 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.Kill();
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+            }
+
+			return false;
+		}
+
         public override void AI()
         {
-            Projectile.rotation += RotateSpeed * Projectile.direction; 
-
             Projectile.ai[0]++;
 
+            //set projectile rotation randomly for variance
+            if (Projectile.ai[0] == 1)
+            {   
+                Projectile.rotation = Main.rand.Next(0, 360);
+            }
+
+            //dont allow projectile to collide with tiles if you are close to the ground
             if (Projectile.ai[0] < 5)
             {
                 Projectile.tileCollide = false;
@@ -55,31 +82,46 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.tileCollide = true;
             }
 
-            //slow down
+            //slow down before getting ready to explode
             if (Projectile.ai[0] >= 75)
             {
                 Projectile.velocity *= 0.98f;
             }
 
-            if (Projectile.ai[0] == 210 || Projectile.ai[0] == 240 || Projectile.ai[0] == 270)
+            //rotate projectile based on the direction it is moving in
+            if (Projectile.ai[0] <= 180)
             {
-                ScaleAmount += 0.05f;
-                ScaleTimerLimit -= 3;
+                Projectile.rotation += 0.2f * Projectile.direction;
+            }
+
+            //save rotation before exploding
+            if (Projectile.ai[0] == 180)
+            {
+                SaveRotation = Projectile.rotation;
             }
 
             //scale up and down before it explodes
             if (Projectile.ai[0] >= 180)
             {
-                if (RotateSpeed >= 0)
+                //shake the projectile back and fourth based on its last saved rotation before beginning to detonate
+                if (Shake)
                 {
-                    RotateSpeed -= 0.01f;
+                    Projectile.rotation += 0.1f;
+                    if (Projectile.rotation > SaveRotation + 0.2f)
+                    {
+                        Shake = false;
+                    }
                 }
                 else
                 {
-                    RotateSpeed = 0f;
-                    Projectile.rotation = 0;
+                    Projectile.rotation -= 0.1f;
+                    if (Projectile.rotation < SaveRotation - 0.2f)
+                    {
+                        Shake = true;
+                    }
                 }
 
+                //make projectile scale up and down really quickly
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] < ScaleTimerLimit)
                 {
@@ -97,32 +139,18 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            //explode and die
+            //increase the rate and size at which the projectile scales for the above
+            if (Projectile.ai[0] == 210 || Projectile.ai[0] == 240 || Projectile.ai[0] == 270)
+            {
+                ScaleAmount += 0.05f;
+                ScaleTimerLimit -= 3;
+            }
+
+            //explode
             if (Projectile.ai[0] >= 300)
             {
                 Projectile.Kill();
             }
-        }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            if (Projectile.velocity.X != oldVelocity.X)
-            {
-                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X * 0.8f;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-            }
-
-			return false;
-		}
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            Projectile.Kill();
         }
 
         public override void OnKill(int timeLeft)

@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.DefaultToWhip();
 
 			Projectile.WhipSettings.Segments = 30;
-			Projectile.WhipSettings.RangeMultiplier = 0.99f;
+			Projectile.WhipSettings.RangeMultiplier = 1.25f;
 		}
 
 		int numHits = 0;
@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			
 			if (numHits < 5)
 			{
-				Projectile.damage = (int)(damageDone * 2f);
+				Projectile.damage = (int)(damageDone * 1.75f);
 			}
 		}
 

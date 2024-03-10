@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 30;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.value = Item.buyPrice(gold: 12);
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<SentientLeatherWhipProj>();
-			Item.shootSpeed = 2f;
+			Item.shootSpeed = 2.75f;
         }
 
 		public override bool MeleePrefix() 

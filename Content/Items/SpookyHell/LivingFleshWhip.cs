@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpookyHell
 
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 65;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
@@ -48,7 +48,7 @@ namespace Spooky.Content.Items.SpookyHell
 
             type = numUses == 0 ? ModContent.ProjectileType<LivingFleshWhipProjRed>() : ModContent.ProjectileType<LivingFleshWhipProjBlue>();
 
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + Main.rand.Next(-1, 2), velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
 			
 			return false;
         }

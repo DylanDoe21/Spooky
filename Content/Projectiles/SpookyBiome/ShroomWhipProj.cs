@@ -26,8 +26,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
 			Projectile.DefaultToWhip();
 
-			Projectile.WhipSettings.Segments = 15;
-			Projectile.WhipSettings.RangeMultiplier = 0.9f;
+			Projectile.WhipSettings.Segments = 18;
+			Projectile.WhipSettings.RangeMultiplier = 1f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
