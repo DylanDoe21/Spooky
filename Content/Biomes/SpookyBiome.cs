@@ -22,7 +22,7 @@ namespace Spooky.Content.Biomes
             {
                 int music = Main.curMusic;
 
-                if (!Main.bloodMoon)
+                if (!Main.bloodMoon && !Main.eclipse)
                 {
                     /*
                     //play normal theme if its not storming and the player isnt in a town
@@ -62,10 +62,17 @@ namespace Spooky.Content.Biomes
                         music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeRain");
                     }
                 }
-                //blood moon theme takes priority over everything
                 else
                 {
-                    music = MusicID.Eerie;
+                    if (Main.bloodMoon)
+                    {
+                        music = MusicID.Eerie;
+                    }
+
+                    if (Main.eclipse)
+                    {
+                        music = MusicID.Eclipse;
+                    }
                 }
                 
                 return music;
