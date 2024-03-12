@@ -86,6 +86,15 @@ namespace Spooky.Content.Tiles.Pylon
 			b = 0.2f;
 		}
 
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Pylon/SpookyHellPylonGlow").Value;
+			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+			int yOffset = TileObjectData.GetTileData(tile).DrawYOffset;
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + yOffset) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
+		}
+
 		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch) 
         {
 			DefaultDrawPylonCrystal(spriteBatch, i, j, crystalTexture, crystalHighlightTexture, new Vector2(0f, -12f), Color.White * 0.1f, Color.Red, 20, CrystalVerticalFrameCount);
