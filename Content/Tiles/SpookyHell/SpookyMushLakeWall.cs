@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.SpookyHell
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(19, 14, 37));
-            DustType = ModContent.DustType<SpookyHellPurpleDust>();
+            DustType = DustID.Blood;
             HitSound = SoundID.Dig;
         }
 

@@ -389,7 +389,7 @@ SpiderArmorStealth: {
 	Description:
 		'''
 		Enemies will not target you
-		20% increased damage reduction
+		12% increased damage reduction
 		'''
 }
 

@@ -64,5 +64,27 @@ namespace Spooky.Content.Tiles.MusicBox
                 Gore.NewGore(new EntitySource_TileUpdate(i, j), position, velocity, goreType, 0.8f);
             }
         }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
+		{
+            Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/MusicBox/SpookyBiomeRainBoxTileGlow").Value;
+
+            Tile tile = Main.tile[i, j];
+            Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+            int width = 16;
+            int height = 16;
+            int yOffset = TileObjectData.GetTileData(tile).DrawYOffset;
+
+            ulong randShakeEffect = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)(uint)i);
+            float drawPositionX = i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f;
+            float drawPositionY = j * 16 - (int)Main.screenPosition.Y;
+            for (int c = 0; c < 7; c++)
+            {
+                float shakeX = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
+                float shakeY = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
+                Main.spriteBatch.Draw(flameTexture, new Vector2(drawPositionX + shakeX, drawPositionY + shakeY + yOffset) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, width, height), new Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+            }
+		}
     }
 }

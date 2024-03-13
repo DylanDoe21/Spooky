@@ -1,0 +1,49 @@
+~NEW STUFF~
+
+
+Eye Valley Improvements:
+
+-Changed the terrain generation to be more rough looking, making it more interesting and natural
+-Added pillars of flesh walls that generate in the biome
+-Added small plateaus that place sometimes to give the terrain more variance
+-Added new sprites for all of the eye valley blocks, ambient objects, and eye stalk trees
+
+
+
+New Music:
+
+
+
+Other New Additions:
+
+
+
+
+~CHANGES TO EXISTING CONTENT~
+
+
+Weapons & Gear:
+
+
+
+Enemy & Boss Changes:
+
+
+
+Miscellaneous:
+
+-Sentient hearts now only require one to be researched in journey mode to unlock duplication
+
+
+
+Removals:
+
+
+
+
+~BUGS AND OTHER FIXES~
+
+
+Fixed all of the following bugs and issues:
+
+-Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
