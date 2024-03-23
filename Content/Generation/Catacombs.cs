@@ -978,7 +978,7 @@ namespace Spooky.Content.Generation
                 if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>()))
                 {
                     //place stuff in barrels
-                    if (chestTile.TileFrameX == 5 * 36) 
+                    if (chestTile.TileFrameX == 5 * 36)
                     {
                         int[] RareItem = new int[] { ItemID.WaterBolt, ItemID.BoneSword, ItemID.BonePickaxe };
 
@@ -1047,6 +1047,26 @@ namespace Spooky.Content.Generation
                 //place loot in the second layer chests
                 if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall2>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall2>()))
                 {
+                    //place stuff in barrels
+                    if (chestTile.TileFrameX == 5 * 36)
+                    {
+                        int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
+
+                        if (WorldGen.genRand.NextBool(5))
+                        {
+                            chest.item[0].SetDefaults(ItemID.GoodieBag);
+                            chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+                        }
+                        else
+                        {
+                            chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
+                            chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+                        }
+
+                        chest.item[1].SetDefaults(ItemID.SilverCoin);
+                        chest.item[1].stack = WorldGen.genRand.Next(2, 16);
+                    }
+
                     //place stuff in pumpkin chests
                     if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ModContent.ItemType<Fertilizer>())
                     {
