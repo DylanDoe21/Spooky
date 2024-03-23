@@ -41,12 +41,12 @@ namespace Spooky.Content.Tiles.Catacomb
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
-            if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
+            if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope) 
             {
                 //grow vines
                 if (Main.rand.NextBool(15)) 
                 {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines2>());
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines2>(), true);
                 }
             }
 
@@ -55,14 +55,14 @@ namespace Spooky.Content.Tiles.Catacomb
                 //grow weeds
                 if (Main.rand.NextBool(8))
                 {
-                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CatacombWeeds>());
+                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CatacombWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
                 }
 
                 //grow mushrooms
                 if (Main.rand.NextBool(25))
                 {
-                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SporeMushroom>());
+                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SporeMushroom>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
                 }
             }

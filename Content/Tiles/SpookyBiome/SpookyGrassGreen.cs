@@ -36,34 +36,22 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
-			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
+			if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.Next(8) == 0) 
+                //grow vines
+                if (Main.rand.NextBool(15)) 
                 {
-                    Below.TileType = (ushort)ModContent.TileType<SpookyVinesGreen>();
-                    Below.HasTile = true;
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
-                    }
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<SpookyVinesGreen>(), true);
                 }
             }
 
-            if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
+            if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow weeds
                 if (Main.rand.NextBool(15))
                 {
-                    Above.TileType = (ushort)ModContent.TileType<SpookyWeedsGreen>();
-                    Above.HasTile = true;
-                    Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(Main.rand.Next(10) * 18);
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
-                    }
+                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyWeedsGreen>(), true);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
 				}
 
                 //grow colored gourds

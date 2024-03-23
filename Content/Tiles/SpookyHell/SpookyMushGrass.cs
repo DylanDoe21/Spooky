@@ -40,22 +40,16 @@ namespace Spooky.Content.Tiles.SpookyHell
             Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
-            if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope)
+            if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope)
             {
-                //eye vines
-                if (Main.rand.NextBool(35))
+                //grow vines
+                if (Main.rand.NextBool(35)) 
                 {
-                    Below.TileType = (ushort)ModContent.TileType<EyeVine>();
-                    Below.HasTile = true;
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
-                    }
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<EyeVine>(), true);
                 }
             }
 
-            if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
+            if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //eye stalks
                 if (Main.rand.NextBool(35))

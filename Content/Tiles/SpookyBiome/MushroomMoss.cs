@@ -48,35 +48,22 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
-            if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
+            if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.NextBool(10))
+                //grow vines
+                if (Main.rand.NextBool(15))
                 {
-                    Below.TileType = (ushort)ModContent.TileType<SpookyFungusVines>();
-                    Below.HasTile = true;
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
-                    }
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<SpookyFungusVines>(), true);
                 }
             }
 
-            if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
+            if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow mushrooms
                 if (Main.rand.NextBool(5))
                 {
-                    Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
-                    Above.HasTile = true;
-                    Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(Main.rand.Next(4) * 18);
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
-                    }
+                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyMushroom>(), true);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(4) * 18);
 				}
 
                 //grow big mushrooms
