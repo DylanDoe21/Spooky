@@ -6,6 +6,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Gores.Misc;
+using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Tiles.Cemetery.Tree
@@ -25,7 +26,7 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 		//the tiles this tree can grow on
 		public override void SetStaticDefaults() 
 		{
-			GrowsOnTileId = new int[1] { ModContent.TileType<CemeteryGrass>() };
+			GrowsOnTileId = new int[3] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
 		}
 
 		//the sapling that grows into this tree

@@ -84,14 +84,14 @@ namespace Spooky.Content.Generation
                 {
                     chosenRoom = RoomPatternLayer1[switchRoom];
 
-                    switchRoom += Main.rand.Next(1, 3);
+                    switchRoom += 1; //Main.rand.Next(1, 3);
 
                     if (switchRoom >= RoomPatternLayer1.Length)
                     {
                         switchRoom = 0;
                     }
 
-                    //origin offset for each room so it places at the center
+                    //origin offset for each room so it places at the center of the position its placed at
                     Vector2 origin = new Vector2(X - 18, Y - 18);
 
                     //first row
@@ -271,7 +271,7 @@ namespace Spooky.Content.Generation
                         //place a vertical hall randomly under any room
                         if (WorldGen.genRand.NextBool())
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 5), verticalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                     //on the bottom row of rooms, only place horizontal halls
@@ -342,7 +342,7 @@ namespace Spooky.Content.Generation
                 {
                     chosenRoom = RoomPatternLayer2[switchRoom];
 
-                    switchRoom += Main.rand.Next(1, 3);
+                    switchRoom += 1; //Main.rand.Next(1, 3);
 
                     if (switchRoom >= RoomPatternLayer2.Length)
                     {
@@ -500,7 +500,7 @@ namespace Spooky.Content.Generation
                         //place a vertical hall randomly under any room except for the pandoras box room
                         if (X != XMiddle || (Y != layer2Start + 84 && Y != layer2Start + 42))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 4), verticalHallOrigin.ToPoint16(), Mod);
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 5), verticalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                     //on the bottom row of rooms, only place horizontal halls
@@ -678,7 +678,7 @@ namespace Spooky.Content.Generation
             //spawn pandoras box
             Flags.PandoraPosition = new Vector2(XMiddle * 16, PandoraBoxSpawnY * 16);
             int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
-            Main.npc[PandoraBox].position.X += 7;
+            Main.npc[PandoraBox].position.X -= 8;
 
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
@@ -726,7 +726,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //kill plants and vines that are not on valid tiles
+            //ambient tiles and grass walls
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
             {
                 for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 100; Y++)
@@ -735,36 +735,76 @@ namespace Spooky.Content.Generation
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
 
-                    //place grass walls in layer one
+                    //place grass walls
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(8, 15), 1, ModContent.TileType<CatacombBrick1>(),
                         ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, true, true);
                     }
 
-                    //kill vines if the tile above it is not valid
-                    if (tile.TileType == ModContent.TileType<CemeteryVines>() && tileAbove.TileType != ModContent.TileType<CemeteryGrass>() && tileAbove.TileType != ModContent.TileType<CemeteryVines>())
+                    //catacomb vines and weeds
+                    if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>())
                     {
-                        WorldGen.KillTile(X, Y);
-                    }
+                        if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
+                        {
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
+                        }
 
-                    //kill any remaining weeds that are not on catacomb grass blocks
-                    if ((tile.TileType == ModContent.TileType<CatacombWeeds>() || tile.TileType == ModContent.TileType<SporeMushroom>()) && tileBelow.TileType != ModContent.TileType<CemeteryGrass>())
+                        if (WorldGen.genRand.NextBool(12) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        {
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SporeMushroom>());
+                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                        }
+
+                        if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        {
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<CatacombWeeds>());
+                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                        }
+                    }
+                    if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
-                        WorldGen.KillTile(X, Y);
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines>());
                     }
                 }
 
-                //separate loop so the second layer grass walls dont place too high up
+                //ambient tiles for layer 2
                 for (int Y = DaffodilArenaY + 50; Y <= Main.maxTilesY - 100; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
+                    Tile tileAbove = Main.tile[X, Y - 1];
+                    Tile tileBelow = Main.tile[X, Y + 1];
 
-                    //place grass walls in layer two
+                    //place grass walls
                     if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
                         ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, true, true);
+                    }
+ 
+                    //catacomb vines and weeds
+                    if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>())
+                    {
+                        if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
+                        {
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines2>());
+                        }
+
+                        if (WorldGen.genRand.NextBool(12) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        {
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SporeMushroom>());
+                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                        }
+
+                        if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        {
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<CatacombWeeds>());
+                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                        }
+                    }
+                    if (tile.TileType == ModContent.TileType<CatacombVines2>())
+                    {
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines2>());
                     }
                 }
             }
@@ -783,6 +823,48 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+
+            return true;
+        }
+
+        public static bool GrowGiantFlower(int X, int Y, int tileType)
+        {
+            int canPlace = 0;
+
+            //do not allow giant flowers to place if another one is too close
+            for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //make sure the area is large enough for it to place in both horizontally and vertically
+            for (int i = X - 2; i < X + 2; i++)
+            {
+                for (int j = Y - 8; j < Y - 2; j++)
+                {
+                    //only check for solid blocks, ambient objects dont matter
+                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    {
+                        canPlace++;
+                        if (canPlace > 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            BigFlower.Grow(X, Y - 1, 3, 6);
 
             return true;
         }

@@ -46,8 +46,7 @@ namespace Spooky.Core
                 int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
 
                 //disable tools, block placement, and the rod of discord
-                if (item.pick > 0 || item.hammer > 0 || item.axe > 0 || (item.createTile > 0 && !Torches.Contains(item.type)) || 
-                item.type is ItemID.RodofDiscord or ItemID.Clentaminator or ItemID.Clentaminator2)
+                if (item.pick > 0 || item.hammer > 0 || item.axe > 0 || (item.createTile > 0 && !Torches.Contains(item.type)) || item.type == ItemID.RodofDiscord)
                 {
                     return false;
                 }
@@ -86,7 +85,7 @@ namespace Spooky.Core
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
                 //if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
-                if ((item.shoot <= 0 && item.mountType <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))
+                if (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0)) && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 

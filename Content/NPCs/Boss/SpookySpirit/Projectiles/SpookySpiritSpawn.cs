@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        public static readonly SoundStyle SpawnSound = new("Spooky/Content/Sounds/SpookySpiritSummon", SoundType.Sound);
+        public static readonly SoundStyle SpawnSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritSummon", SoundType.Sound);
 
         public override void SetDefaults()
         {

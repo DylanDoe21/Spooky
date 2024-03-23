@@ -2,7 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
@@ -18,7 +21,18 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
             DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
-	}
+
+        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+        {
+            if (Main.rand.NextBool(750))
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PooFly, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(i * 16 + 8, j * 16 - 8)
+                });
+            }
+        }
+    }
 
 	public class Casket2 : Casket1
     {

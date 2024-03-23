@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 
 using Spooky.Content.Items.Catacomb.Misc;
+using Steamworks;
 
 namespace Spooky.Content.Items.Catacomb.Armor
 {

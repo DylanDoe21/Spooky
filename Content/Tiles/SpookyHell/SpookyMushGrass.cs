@@ -43,7 +43,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope)
             {
                 //eye vines
-                if (Main.rand.Next(35) == 0)
+                if (Main.rand.NextBool(35))
                 {
                     Below.TileType = (ushort)ModContent.TileType<EyeVine>();
                     Below.HasTile = true;
@@ -58,7 +58,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //eye stalks
-                if (Main.rand.Next(35) == 0)
+                if (Main.rand.NextBool(35))
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThin>(), (ushort)ModContent.TileType<EyeStalkThinTall>() };
 

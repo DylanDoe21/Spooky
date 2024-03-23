@@ -254,7 +254,7 @@ namespace Spooky.Content.Generation
             }
 
             //place pillars of flesh walls with plateaus in them for more varied terrain
-            for (int X = StartPosition + 50; X <= BiomeEdge - 50; X++)
+            for (int X = StartPosition + 70; X <= BiomeEdge - 70; X++)
             {
                 if (WorldGen.genRand.NextBool(75))
                 {
@@ -285,7 +285,7 @@ namespace Spooky.Content.Generation
         {
             bool HasPlacedPlatform = false;
 
-            for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 6; Y += 5)
+            for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 30; Y += 5)
             {
                 //place platforms
                 if (Y > Main.maxTilesY - 160 && Y < Main.maxTilesY - 20 && WorldGen.SolidTile(StartPosition, Y) && !HasPlacedPlatform)

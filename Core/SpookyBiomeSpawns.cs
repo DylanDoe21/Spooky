@@ -132,10 +132,24 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<FluffBatSmall1>(), 1);
                     	pool.Add(ModContent.NPCType<FluffBatSmall2>(), 1);
 						
-						//spawn windchime zomboids during windy days
+						//windy day enemies
 						if (Main.WindyEnoughForKiteDrops)
 						{
 							pool.Add(ModContent.NPCType<ZomboidWind>(), 3);
+							pool.Add(ModContent.NPCType<ZomboidClarinet>(), 3);
+						}
+
+						//raining enemies
+						if (Main.raining)
+						{
+							pool.Add(ModContent.NPCType<ZomboidRain>(), 3);
+						}
+
+						//bloodmoon enemies
+						if (Main.bloodMoon)
+						{
+							pool.Add(ModContent.NPCType<ZomboidTomato>(), 2);
+							pool.Add(ModContent.NPCType<ZomboidTomatoMold>(), 2);
 						}
 
 						//do not spawn zomboid warlocks if one already exists
@@ -281,7 +295,7 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombFlooring>(), ModContent.TileType<CemeteryGrass>() };
+				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombFlooring>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
@@ -321,10 +335,10 @@ namespace Spooky.Core
 
 			//catacomb second layer spawns
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
-			{ 
+			{
                 pool.Clear();
 
-                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<GildedBrick>(), ModContent.TileType<CemeteryGrass>() };
+                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<GildedBrick>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))

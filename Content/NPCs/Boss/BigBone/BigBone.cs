@@ -543,7 +543,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(350);
 
-                    SpookyPlayer.ScreenShakeAmount = NPC.localAI[0] / 8;
+                    SpookyPlayer.ScreenShakeAmount = NPC.localAI[0] / 10;
 
                     //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                     if (NPC.localAI[0] <= 5)
@@ -556,7 +556,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             }
                         }
                     }
-
+                    
                     //save where big bone is
                     if (NPC.localAI[0] == 60)
                     {
@@ -1609,11 +1609,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Main.NewText(text, Color.Yellow);
+                    Main.NewText(text, 171, 64, 255);
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), Color.Yellow);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
             }
 

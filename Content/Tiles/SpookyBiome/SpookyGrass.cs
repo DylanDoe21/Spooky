@@ -56,7 +56,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
 			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
-                if (WorldGen.genRand.NextBool(8))
+                if (Main.rand.NextBool(8))
                 {
                     Below.TileType = (ushort)ModContent.TileType<SpookyVines>();
                     Below.HasTile = true;
@@ -71,12 +71,12 @@ namespace Spooky.Content.Tiles.SpookyBiome
             if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
-                if (WorldGen.genRand.NextBool(15))
+                if (Main.rand.NextBool(15))
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpookyWeedsOrange>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
+                    Above.TileFrameX = (short)(Main.rand.Next(10) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
 
                     if (Main.netMode == NetmodeID.Server) 
@@ -86,7 +86,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
                 
                 //grow colored gourds
-                if (WorldGen.genRand.NextBool(40))
+                if (Main.rand.NextBool(40))
                 {
                     ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium>(), (ushort)ModContent.TileType<GourdGiant>() };
 
@@ -97,7 +97,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
 
                 //grow rotten gourd
-                if (WorldGen.genRand.NextBool(45) && SpookyForest.CanGrowRottenGourd(i, j))
+                if (Main.rand.NextBool(45) && SpookyForest.CanGrowRottenGourd(i, j))
                 {
                     WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), true, Main.rand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), 0, 0, -1, -1);

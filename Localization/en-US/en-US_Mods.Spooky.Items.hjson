@@ -307,8 +307,8 @@ FlameIdol: {
 	DisplayName: Idol of Flame
 	Tooltip:
 		'''
-		Hold down to fire out spreads of powerful lingering fire all over the place
-		However, the flame idol will also ignite you while using it
+		Hold down to cast out spreads of lingering fire all over the place
+		The flame idol will also ignite you while using it
 		'''
 }
 
@@ -1634,7 +1634,7 @@ EyeBody: {
 	Tooltip:
 		'''
 		20% increased whip range
-		Increases your max number minions and sentries by 1
+		Increases your max number of minions and sentries by 1
 		'''
 }
 

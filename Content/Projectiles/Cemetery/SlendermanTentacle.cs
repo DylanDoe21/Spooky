@@ -77,9 +77,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             float RotateY = player.Center.Y - vector.Y;
             Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-            //tentacle head movement (homing)
-            Vector2 playerVel = player.position - player.oldPosition;
-            Projectile.position += playerVel;
+            Vector2 ProjectileVelocity = player.position - player.oldPosition;
+            Projectile.position += ProjectileVelocity;
             Projectile.ai[0]++;
 
             if (Projectile.ai[0] >= 0f)
@@ -112,7 +111,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     distance /= 8f;
                 }
 
-                if (range > 120f) //switch to fast return mode
+                if (range > 120f)
                 {
                     Projectile.ai[0] = -1f;
                     Projectile.netUpdate = true;
@@ -125,11 +124,13 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.velocity *= 0.96f;
                 }
 
-                if (Projectile.ai[0] > 120f) //attack nearby enemy
+                if (Projectile.ai[0] > 120f)
                 {
                     Projectile.ai[0] = 10 + Main.rand.Next(10);
+
                     float maxDistance = 600f;
                     int target = -1;
+
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
@@ -143,13 +144,14 @@ namespace Spooky.Content.Projectiles.Cemetery
                             }
                         }
                     }
+
                     if (target != -1)
                     {
                         Projectile.velocity = Main.npc[target].Center - Projectile.Center;
                         Projectile.velocity.Normalize();
                         Projectile.velocity *= 13f;
                         Projectile.velocity += Main.npc[target].velocity / 2f;
-                        Projectile.velocity -= playerVel;
+                        Projectile.velocity -= ProjectileVelocity;
                         Projectile.ai[0] *= -1f;
                     }
 

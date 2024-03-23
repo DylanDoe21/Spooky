@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.PandoraBox
         public override void SetDefaults()
         {
             NPC.lifeMax = 200;
-            NPC.damage = 35;
+            NPC.damage = 50;
             NPC.defense = 0;
             NPC.width = 40;
             NPC.height = 38;
@@ -142,15 +142,15 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage / 2, 0, Main.myPlayer);
+            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage / 4, 0, Main.myPlayer);
 
             NPC.active = false;
         }
 
         public override void AI()
 		{
-			Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
 
             NPC.rotation = NPC.velocity.X * 0.04f;
 

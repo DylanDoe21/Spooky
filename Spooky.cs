@@ -138,7 +138,7 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnDaffodilEye:
                 {
-                    NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: DaffodilParent);
+                    NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: (Flags.downedDaffodil && Main.rand.NextBool(20)) ? -4 : -1, ai1: DaffodilParent);
                     break;
                 }
                 case SpookyMessageType.SpawnBobbert:

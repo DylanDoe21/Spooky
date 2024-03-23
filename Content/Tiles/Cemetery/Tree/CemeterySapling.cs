@@ -8,6 +8,8 @@ using Terraria.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Tiles.Catacomb;
+
 namespace Spooky.Content.Tiles.Cemetery.Tree
 {
 	public class CemeterySapling : ModTile
@@ -28,7 +30,7 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = new int[] { ModContent.TileType<CemeteryGrass>() };
+			TileObjectData.newTile.AnchorValidTiles = new int[] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
@@ -37,7 +39,6 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 			TileObjectData.addTile(Type);
 			AdjTiles = new int[]{ TileID.Saplings };
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Sapling");
 			AddMapEntry(new Color(200, 200, 200), name);
             DustType = -1;
 			HitSound = SoundID.Dig;

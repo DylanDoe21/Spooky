@@ -459,8 +459,12 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
+                        Tile tile = Main.tile[X, Y];
+                        Tile tileAbove = Main.tile[X, Y - 1];
+                        Tile tileBelow = Main.tile[X, Y + 1];
+
                         //place ceiling webs
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<WebBlock>())
+                        if (tile.TileType == ModContent.TileType<WebBlock>())
                         {
                             ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
 
@@ -469,7 +473,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place ambient tiles that can spawn on stone and grass
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+                        if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<SpookyStone>())
                         {
                             if (Main.rand.NextBool(4))
                             {
@@ -506,14 +510,14 @@ namespace Spooky.Content.Generation
                         }
 
                         //grass only ambient tiles
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>())
+                        if (tile.TileType == ModContent.TileType<DampGrass>())
                         {
-                            if (WorldGen.genRand.NextBool(3) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                            if (WorldGen.genRand.NextBool(3) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
                             {
                                 CanGrowGiantRoot(X, Y, ModContent.TileType<GiantRoot>(), 6, 12);
                             }
 
-                            if (WorldGen.genRand.NextBool(3) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                            if (WorldGen.genRand.NextBool(3) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
                             {
                                 CanGrowTallMushroom(X, Y, ModContent.TileType<TallMushroom>(), 2, 5);
                             }
@@ -527,6 +531,18 @@ namespace Spooky.Content.Generation
                                 (ushort)ModContent.TileType<MushroomYellow1>(), (ushort)ModContent.TileType<MushroomYellow2>() };
 
                                 WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
+                            }
+
+                            //grow weeds
+                            if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                            {
+                                WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SpiderCaveWeeds>());
+                                tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(16) * 18);
+                                WorldGen.SquareTileFrame(X, Y + 1, true);
+                                if (Main.netMode == NetmodeID.Server)
+                                {
+                                    NetMessage.SendTileSquare(-1, X, Y - 1, 1, TileChangeType.None);
+                                }
                             }
                         }
 

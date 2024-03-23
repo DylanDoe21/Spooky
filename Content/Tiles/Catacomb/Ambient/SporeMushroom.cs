@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
-            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<CemeteryGrass>() };
+            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(31, 85, 37));
             DustType = DustID.Slush;
@@ -32,9 +32,32 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.08f;
-			g = 0.2f;
-			b = 0.0f;
+            Tile tile = Main.tile[i, j];
+
+            if (tile.TileFrameX == 18 * 0 || tile.TileFrameX == 18 * 1)
+            {
+                r = 0f;
+                g = 0.2f;
+                b = 0.5f;
+            }
+            if (tile.TileFrameX == 18 * 2 || tile.TileFrameX == 18 * 3)
+            {
+                r = 0.5f;
+                g = 0f;
+                b = 0f;
+            }
+            if (tile.TileFrameX == 18 * 4 || tile.TileFrameX == 18 * 5)
+            {
+                r = 0.5f;
+                g = 0.25f;
+                b = 0f;
+            }
+            if (tile.TileFrameX == 18 * 6 || tile.TileFrameX == 18 * 7)
+            {
+                r = 0.15f;
+                g = 0.5f;
+                b = 0f;
+            }
         }
 
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)

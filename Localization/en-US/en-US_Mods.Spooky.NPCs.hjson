@@ -218,12 +218,16 @@ TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
 Witch.DisplayName: Evil Witch
+ZomboidClarinet.DisplayName: Zomboid
 ZomboidFungus.DisplayName: Zomboid
 ZomboidPumpkin.DisplayName: Rooted Zomboid
 ZomboidPumpkinFire.DisplayName: Flaming Root Zomboid
+ZomboidRain.DisplayName: Leaky Zomboid
 ZomboidThorn.DisplayName: Zomboid
-ZomboidWind.DisplayName: Zomboid
+ZomboidTomatoMold.DisplayName: Tomato Zomboid
+ZomboidTomato.DisplayName: Tomato Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
+ZomboidWind.DisplayName: Zomboid
 //valley of eyes
 EyeBat.DisplayName: Bat n' Eye
 EyeBatFleshy.DisplayName: Bat n' Eye

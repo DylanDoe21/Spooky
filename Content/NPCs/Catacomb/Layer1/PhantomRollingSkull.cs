@@ -55,8 +55,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
-            Color newColor1 = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Cyan);
-            Color newColor2 = new Color(200 - NPC.alpha, 200 - NPC.alpha, 200 - NPC.alpha, 0).MultiplyRGBA(Color.Purple);
+            Color newColor1 = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Gold);
+            Color newColor2 = new Color(200 - NPC.alpha, 200 - NPC.alpha, 200 - NPC.alpha, 0).MultiplyRGBA(Color.Indigo);
 
             for (int repeats = 0; repeats < 4; repeats++)
             {
@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 {
                     hasCollidedWithWall = false;
 
-                    SpookyPlayer.ScreenShakeAmount = 3;
+                    SpookyPlayer.ScreenShakeAmount = 2;
                 }
 
                 //collide with walls and play a sound
@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 {   
                     SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.35f }, NPC.Center);
 
-                    SpookyPlayer.ScreenShakeAmount = 10;
+                    SpookyPlayer.ScreenShakeAmount = 8;
 
                     //set timer to slow down the npc after hitting a wall
                     NPC.localAI[0] = 60;
@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 for (int numDusts = 0; numDusts < 30; numDusts++)
                 {
                     int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.2f);
-                    Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Cyan : Color.Purple;
+                    Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Gold : Color.Indigo;
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 3f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 3f);
                     Main.dust[dustGore].noGravity = true;

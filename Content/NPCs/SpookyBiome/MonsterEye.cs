@@ -15,6 +15,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class MonsterEye1 : ModNPC
 	{
+        bool HasJumped = false;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -94,8 +96,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void AI()
         {
-            Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
 
             //face towards the player
             Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -148,6 +150,11 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     if (NPC.ai[1] > 10)
                     {
                         NPC.velocity = velocity * speed;
+
+                        if (NPC.ai[1] > 20)
+                        {
+                            HasJumped = true;
+                        }
                     }
                 }
             }
@@ -155,6 +162,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             //loop ai
             if (NPC.ai[0] >= 100)
             {
+                HasJumped = false;
+
                 NPC.ai[0] = DelayBeforeNextJump;
                 NPC.ai[1] = 0;
             }
@@ -209,7 +218,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 450, 60, Main.rand.Next(20, 40));
+            JumpTo(player, 450, 60, Main.rand.Next(15, 30));
         }
     }
 
@@ -285,7 +294,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 820, 60, Main.rand.Next(0, 60));
+            JumpTo(player, 820, 60, Main.rand.Next(0, 40));
         }
     }
 }

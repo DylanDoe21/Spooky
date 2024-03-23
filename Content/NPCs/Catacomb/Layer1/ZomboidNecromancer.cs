@@ -172,7 +172,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                     for (int numDusts = 0; numDusts < 20; numDusts++)
                     {
                         int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.2f);
-                        Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Cyan : Color.Purple;
+                        Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Gold : Color.Indigo;
                         Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 3f);
                         Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 3f);
                         Main.dust[dustGore].noGravity = true;

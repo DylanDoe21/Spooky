@@ -38,7 +38,7 @@ namespace Spooky.Content.Tiles.SpiderCave
 
 			if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.Next(8) == 0) 
+                if (Main.rand.NextBool(8))
                 {
                     Below.TileType = (ushort)ModContent.TileType<DampVines>();
                     Below.HasTile = true;
@@ -53,7 +53,7 @@ namespace Spooky.Content.Tiles.SpiderCave
 			if (!Above.HasTile && Above.LiquidType <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     Above.TileType = (ushort)ModContent.TileType<SpiderCaveWeeds>();
                     Above.HasTile = true;

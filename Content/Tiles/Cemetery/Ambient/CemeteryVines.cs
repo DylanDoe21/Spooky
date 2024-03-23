@@ -8,7 +8,6 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Cemetery.Ambient
 {
-	[LegacyName("CatacombVines")]
 	public class CemeteryVines : ModTile
 	{
 		public override void SetStaticDefaults()
@@ -104,7 +103,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
 
 			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Ambient/CemeteryVinesGlow").Value;
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
+			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.5f);
 		}
 	}
 }

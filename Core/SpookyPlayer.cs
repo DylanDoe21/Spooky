@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameInput;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -243,16 +244,17 @@ namespace Spooky.Core
 
             if (!Main.gameMenu && ExtraMultiplier > 0)
             {
+                PunchCameraModifier modifier = new PunchCameraModifier(Player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), ScreenShakeAmount * ExtraMultiplier, 1f, 1, 550f, null);
+				Main.instance.CameraModifiers.Add(modifier);
+
                 if (ScreenShakeAmount * ExtraMultiplier >= 0)
                 {
-                    ScreenShakeAmount -= 0.1f;
+                    ScreenShakeAmount -= 0.2f;
                 }
                 if (ScreenShakeAmount * ExtraMultiplier < 0)
                 {
                     ScreenShakeAmount = 0;
                 }
-                
-                Main.screenPosition += new Vector2((ScreenShakeAmount * ExtraMultiplier) * Main.rand.NextFloat(), (ScreenShakeAmount * ExtraMultiplier) * Main.rand.NextFloat());
             }
             else
             {

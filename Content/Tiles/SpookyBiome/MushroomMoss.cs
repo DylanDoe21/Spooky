@@ -50,7 +50,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
             if (!Below.HasTile && Below.LiquidType <= 0 && !Tile.BottomSlope) 
             {
-                if (Main.rand.Next(10) == 0) 
+                if (Main.rand.NextBool(10))
                 {
                     Below.TileType = (ushort)ModContent.TileType<SpookyFungusVines>();
                     Below.HasTile = true;
@@ -70,7 +70,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                     Above.TileType = (ushort)ModContent.TileType<SpookyMushroom>();
                     Above.HasTile = true;
                     Above.TileFrameY = 0;
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(4) * 18);
+                    Above.TileFrameX = (short)(Main.rand.Next(4) * 18);
                     WorldGen.SquareTileFrame(i, j + 1, true);
 
                     if (Main.netMode == NetmodeID.Server) 

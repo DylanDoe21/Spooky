@@ -103,7 +103,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 2, 5));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustyRing>(), 20));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustyRing>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 

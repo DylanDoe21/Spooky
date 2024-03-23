@@ -46,19 +46,19 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             //spawn slenderman tentacles
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<SlendermanTentacle>()] < 4 && Main.myPlayer == player.whoAmI)
             {
-                bool[] tentaclesPresent = new bool[4];
+                bool[] spawnedTentacle = new bool[4];
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
                     if (projectile.active && projectile.type == ModContent.ProjectileType<SlendermanTentacle>() && projectile.owner == Main.myPlayer && projectile.ai[1] >= 0f && projectile.ai[1] < 4f)
                     {
-                        tentaclesPresent[(int)projectile.ai[1]] = true;
+                        spawnedTentacle[(int)projectile.ai[1]] = true;
                     }
                 }
 
                 for (int i = 0; i < 4; i++)
                 {
-                    if (!tentaclesPresent[i])
+                    if (!spawnedTentacle[i])
                     {
                         Vector2 vel = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, 14)) * 0.25f;
                         Projectile.NewProjectile(null, player.Center, vel, ModContent.ProjectileType<SlendermanTentacle>(), 90, 0f, Main.myPlayer, Main.rand.Next(120), i + 3);

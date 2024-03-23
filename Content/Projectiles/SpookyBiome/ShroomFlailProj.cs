@@ -118,7 +118,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				for (int oldPos = 0; oldPos < Projectile.oldPos.Length && oldPos < StateTimer; oldPos++)
 				{
 					Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-					Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+					Color color = Projectile.GetAlpha(new Color(125, 125, 125, 0).MultiplyRGBA(Color.Blue)) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
 					Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
 				}
 			}

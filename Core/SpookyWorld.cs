@@ -72,7 +72,7 @@ namespace Spooky.Core
                 if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()))
                 {
                     int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
-                    Main.npc[PandoraBox].position.X += 7;
+                    Main.npc[PandoraBox].position.X -= 8;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.Cemetery.Ambient;
 
 using StructureHelper;
 
@@ -137,8 +138,7 @@ namespace Spooky.Content.Generation
                 {
                     if (Main.tile[X, Y].TileType == ModContent.TileType<CemeteryDirt>())
                     {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(10, 18), WorldGen.genRand.Next(10, 18), 
-                        ModContent.TileType<CemeteryStone>(), false, 0f, 0f, false, true);
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(10, 18), WorldGen.genRand.Next(10, 18), ModContent.TileType<CemeteryStone>(), false, 0f, 0f, false, true);
                     }
                 }
             }
@@ -154,11 +154,28 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
                 {
+                    Tile tile = Main.tile[X, Y];
+                    Tile tileAbove = Main.tile[X, Y - 1];
+                    Tile tileBelow = Main.tile[X, Y + 1];
+
                     WorldGen.SpreadGrass(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.TileType<CemeteryGrass>());
 
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<CemeteryGrass>())
+                    if (tile.TileType == (ushort)ModContent.TileType<CemeteryGrass>())
                     {
+                        //grow trees
                         WorldGen.GrowTree(X, Y - 1);
+
+                        //grow cemetery weeds
+                        if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        {
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<CemeteryWeeds>());
+                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                            WorldGen.SquareTileFrame(X, Y + 1, true);
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendTileSquare(-1, X, Y - 1, 1, TileChangeType.None);
+                            }
+                        }
                     }
                 }
             }
