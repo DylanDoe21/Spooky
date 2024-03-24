@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(44, 15, 15));
-            DustType = DustID.Stone;
+            DustType = DustID.t_Lihzahrd;
         }
 
         public override bool CanExplode(int i, int j)

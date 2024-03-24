@@ -15,7 +15,7 @@ namespace Spooky.Content.Tiles.Catacomb.Safe
         {
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(44, 15, 15));
-            DustType = DustID.Stone;
+            DustType = DustID.t_Lihzahrd;
         }
     }
 }

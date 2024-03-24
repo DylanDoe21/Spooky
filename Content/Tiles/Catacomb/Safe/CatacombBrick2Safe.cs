@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.Catacomb.Safe
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			AddMapEntry(new Color(87, 52, 37));
-			DustType = DustID.Stone;
+			DustType = DustID.t_Lihzahrd;
 			HitSound = SoundID.Tink;
 		}
 

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.SpiderCave.OldHunter;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
@@ -614,7 +615,8 @@ namespace Spooky.Content.Generation
             //spawn daffodil itself in the arena
             Flags.DaffodilPosition = new Vector2(XMiddle * 16, DaffodilArenaY * 16);
             int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
-            Main.npc[Daffodil].position.X -= 3;
+            Main.npc[Daffodil].position.X -= 9;
+            Main.npc[Daffodil].position.Y += 10;
 
             //place tunnels leading into the daffodil arena from the two rooms on the sides of it
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -679,6 +681,7 @@ namespace Spooky.Content.Generation
             Flags.PandoraPosition = new Vector2(XMiddle * 16, PandoraBoxSpawnY * 16);
             int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
             Main.npc[PandoraBox].position.X -= 8;
+
 
             //place big bone arena
             Vector2 BigBoneArenaOrigin = new Vector2(XMiddle - 53, BigBoneArenaY - 35);
@@ -838,11 +841,7 @@ namespace Spooky.Content.Generation
                 {
                     if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
                     {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
@@ -853,13 +852,9 @@ namespace Spooky.Content.Generation
                 for (int j = Y - 8; j < Y - 2; j++)
                 {
                     //only check for solid blocks, ambient objects dont matter
-                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    if (Main.tile[i, j].HasTile)
                     {
-                        canPlace++;
-                        if (canPlace > 0)
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
@@ -1050,7 +1045,7 @@ namespace Spooky.Content.Generation
                     //place stuff in barrels
                     if (chestTile.TileFrameX == 5 * 36)
                     {
-                        int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
+                        int[] Ammo = new int[] { ItemID.VenomArrow, ModContent.ItemType<RustedBullet>() };
 
                         if (WorldGen.genRand.NextBool(5))
                         {
