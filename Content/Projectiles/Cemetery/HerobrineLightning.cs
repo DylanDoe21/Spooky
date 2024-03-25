@@ -16,6 +16,8 @@ namespace Spooky.Content.Projectiles.Cemetery
     {
         float colorlerp;
 
+        bool HasHitBoss = false;
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
@@ -32,8 +34,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.alpha = 100;
             Projectile.penetrate = -1;
             Projectile.extraUpdates = 3;
-            Projectile.scale = 0.5f;
             Projectile.timeLeft = 180;
+            Projectile.scale = 0.5f;
             Projectile.aiStyle = -1;
         }
 
@@ -65,6 +67,11 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             return false;
+        }
+
+        public override bool? CanDamage()
+		{
+            return !HasHitBoss;
         }
 
         public override void AI()
@@ -152,6 +159,8 @@ namespace Spooky.Content.Projectiles.Cemetery
             if (target.boss)
             {
                 modifiers.FinalDamage += (target.lifeMax / 10) - 1;
+
+                HasHitBoss = true;
             }
             else
             {

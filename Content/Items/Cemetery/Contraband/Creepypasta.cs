@@ -25,6 +25,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             player.GetModPlayer<SpookyPlayer>().CreepyPasta = true;
             player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame = true;
             player.GetModPlayer<SpookyPlayer>().SmileDogPicture = true;
+            player.GetModPlayer<SpookyPlayer>().RedMistClarinet = true;
             player.GetModPlayer<SpookyPlayer>().SlendermanPage = true;
             player.GetModPlayer<SpookyPlayer>().RedGodzillaCartridge = true;
             player.GetModPlayer<SpookyPlayer>().HerobrineAltar = true;

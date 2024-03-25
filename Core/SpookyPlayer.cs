@@ -398,7 +398,7 @@ namespace Spooky.Core
                 RedMistNoteSpawnDelay = 120;
 
                 //dont cap the damage if the player has the combined creepypasta accessory
-                int damage = CreepyPasta ? hit.Damage : hit.Damage >= 70 ? 70 : hit.Damage;
+                int damage = CreepyPasta ? hit.Damage : (hit.Damage >= 70 ? 70 : hit.Damage);
 
                 Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, 
                 ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));

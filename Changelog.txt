@@ -24,6 +24,7 @@ Other New Additions:
 
 Weapons & Gear:
 
+-Increased the use speed of the harvester's scythe and the spooky buster
 
 
 Enemy & Boss Changes:
@@ -47,3 +48,5 @@ Removals:
 Fixed all of the following bugs and issues:
 
 -Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
+-Combined creepy pasta accessory not giving the red mist clarinet ability
+-Fixed spooky mod ambient grasses and other plants growing underwater
