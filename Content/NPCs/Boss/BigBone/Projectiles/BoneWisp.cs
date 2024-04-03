@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics;
+using Terraria.Graphics.Shaders;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +19,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
         private Trail trail;
 
         int Offset = Main.rand.Next(-100, 100);
+
+        public VertexStrip TrailDrawer;
 
         public override void SetStaticDefaults()
         {
@@ -35,6 +39,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.alpha = 255;
             Projectile.aiStyle = -1;
         }
+
+        public Color TrailColorFunction(float completionRatio)
+        {
+            float opacity = (float)Math.Pow(Utils.GetLerpValue(1f, 0.45f, completionRatio, true), 4D) * Projectile.Opacity * 0.48f;
+            return Color.Lerp(Color.Gold, Color.Green, opacity) * opacity;
+        }
+
+        public float TrailWidthFunction(float completionRatio) => 10f;
 
         public override bool PreDraw(ref Color lightColor)
         {

@@ -17,10 +17,10 @@ namespace Spooky.Content.NPCs.SpiderCave
 {
     public class TarantulaHawk1 : ModNPC
     {
-        int EnemyBeingCarried = 0;
+        public int EnemyBeingCarried = 0;
 
-        bool InitializedEnemy = false;
-        bool CarryingEnemy = true;
+        public bool InitializedEnemy = false;
+        public bool CarryingEnemy = true;
 
         public override void SetStaticDefaults()
         {
@@ -287,6 +287,45 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             if (NPC.life <= 0) 
             {
+                if (CarryingEnemy)
+                {
+                    int DroppedEnemy = 0;
+
+                    switch (EnemyBeingCarried)
+                    {
+                        case 0:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider1>());
+                            break;
+                        }
+                        case 1:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider2>());
+                            break;
+                        }
+                        case 2:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver3>());
+                            break;
+                        }
+                        case 3:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver1>());
+                            break;
+                        }
+                        case 4:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver2>());
+                            break;
+                        }
+                        case 5:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<TrapdoorSpider1>());
+                            break;
+                        }
+                    }
+                }
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -318,6 +357,45 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             if (NPC.life <= 0) 
             {
+                if (CarryingEnemy)
+                {
+                    int DroppedEnemy = 0;
+
+                    switch (EnemyBeingCarried)
+                    {
+                        case 0:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider1>());
+                            break;
+                        }
+                        case 1:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider2>());
+                            break;
+                        }
+                        case 2:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver3>());
+                            break;
+                        }
+                        case 3:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver1>());
+                            break;
+                        }
+                        case 4:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver2>());
+                            break;
+                        }
+                        case 5:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<TrapdoorSpider1>());
+                            break;
+                        }
+                    }
+                }
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -349,6 +427,45 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             if (NPC.life <= 0) 
             {
+                if (CarryingEnemy)
+                {
+                    int DroppedEnemy = 0;
+
+                    switch (EnemyBeingCarried)
+                    {
+                        case 0:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider1>());
+                            break;
+                        }
+                        case 1:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<JumpingSpider2>());
+                            break;
+                        }
+                        case 2:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver3>());
+                            break;
+                        }
+                        case 3:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver1>());
+                            break;
+                        }
+                        case 4:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<OrbWeaver2>());
+                            break;
+                        }
+                        case 5:
+                        {   
+                            DroppedEnemy = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<TrapdoorSpider1>());
+                            break;
+                        }
+                    }
+                }
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

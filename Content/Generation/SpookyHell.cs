@@ -47,7 +47,7 @@ namespace Spooky.Content.Generation
                     tile.ClearEverything();
                     WorldGen.KillWall(X, Y);
                 }
-            }
+            }   
 
             //generate the surface
             int width = BiomeEdge;
@@ -290,7 +290,7 @@ namespace Spooky.Content.Generation
                 //place platforms
                 if (Y > Main.maxTilesY - 160 && Y < Main.maxTilesY - 20 && WorldGen.SolidTile(StartPosition, Y) && !HasPlacedPlatform)
                 {
-                    PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(8, 12), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
+                    PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(4, 8), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
                     HasPlacedPlatform = true;
                 }
 
@@ -583,6 +583,15 @@ namespace Spooky.Content.Generation
 
         public void GenerateStructures(GenerationProgress progress, GameConfiguration configuration)
         {
+            //define the center of the biome
+            int XMiddle = (StartPosition + BiomeEdge) / 2;
+
+            int StartPosY = Main.maxTilesY - 10;
+
+            ///place little eye's house
+            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
+
             /*
             //define the center of the biome
             int XMiddle = (StartPosition + BiomeEdge) / 2;
@@ -684,7 +693,7 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "LittleEyeHouse")
                 {
-                    NPC.NewNPC(null, (startX - 1) * 16, (startY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>(), 0, 0f, 0f, 0f, 0f, 255);
+                    NPC.NewNPC(null, (startX - 9) * 16, (startY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>());
                 }
 
                 placed = true;
@@ -700,10 +709,10 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Structures", GenerateStructures));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
             tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }

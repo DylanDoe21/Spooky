@@ -35,6 +35,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			return false;
         }
 
+        /*
         public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);
@@ -67,5 +68,6 @@ namespace Spooky.Content.Tiles.Catacomb
                 }
             }
         }
+        */
 	}
 }

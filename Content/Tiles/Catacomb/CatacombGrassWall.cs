@@ -19,6 +19,16 @@ namespace Spooky.Content.Tiles.Catacomb
             HitSound = SoundID.Grass;
         }
 
+        public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}
+
+        public override void KillWall(int i, int j, ref bool fail)
+        {
+            fail = true;
+        }
+
         public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

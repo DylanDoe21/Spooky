@@ -27,22 +27,43 @@ namespace Spooky.Content.Tiles.Catacomb
         }
     }
 
-    /*
     public class CatacombBrickWallDaffodilBG : CatacombBrickWall1 
     {
         public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall1";
 
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            int width = 8;
-            int height = 6;
-            int parallax = 10;
-            Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/UpperCatacombBG").Value;
-            Vector2 zero = (Vector2)(Main.drawToScreen ? Vector2.Zero : new Vector2((float)Main.offScreenRange));
-            Rectangle frame = new((int)((i * 16) - Main.screenPosition.X / (float)parallax) % (width * 16), (int)((float)(j * 16) - Main.screenPosition.Y / (float)parallax) % (height * 16), 16, 16);
-            Main.spriteBatch.Draw(texture, new Vector2((float)(i * 16 - (int)Main.screenPosition.X), (float)(j * 16 - (int)Main.screenPosition.Y)) + zero, (Rectangle?)frame, Lighting.GetColor(i, j), 0f, Vector2.Zero, 1f, (SpriteEffects)0, 0f);
-            return false;
+            //wall merges
+            Texture2D Background = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG").Value;
+
+            float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.025f;
+            float YParallax = (Main.LocalPlayer.Center.Y / 16 - j) * 0.025f;
+
+            Vector2 DrawPosition = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
+            Vector2 DrawPositionParallax = (new Vector2(i, j) - new Vector2((1454 / 2) / 16 + XParallax, (576 / 2) / 16 + YParallax) + TileOffset) * 16 - Main.screenPosition;
+            
+            spriteBatch.Draw(Background, DrawPosition, new Rectangle(1456 * 0, 0, 1454, 576), new Color(70, 46, 46));
+            spriteBatch.Draw(Background, DrawPositionParallax, new Rectangle(1456 * 0, 0, 1454, 576), new Color(70, 46, 46));
+
+            //new Vector2((1454 / 2) / 16, (576 / 2) / 16)
+
+            /*
+            //wall merges
+            Texture2D Background = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG").Value;
+
+            Vector2 drawOrigin = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
+            Vector2 drawPos = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
+
+            float XParallax = (Main.LocalPlayer.Center.X / 16 - drawOrigin.X) * 0.015f;
+            float YParallax = (Main.LocalPlayer.Center.Y / 16 - drawOrigin.Y) * 0.015f;
+
+            drawPos.X += XParallax;
+            drawPos.Y += YParallax;
+            
+            spriteBatch.Draw(Background, drawPos, new Rectangle(1456 * 0, 0, 1454, 576), new Color(80, 80, 80));
+            */
         }
     }
-    */
 }

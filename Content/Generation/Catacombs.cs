@@ -732,14 +732,14 @@ namespace Spooky.Content.Generation
             //ambient tiles and grass walls
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
             {
-                for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 100; Y++)
+                for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 200; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
 
                     //place grass walls
-                    if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
+                    if (!tile.HasTile && Y <= DaffodilArenaY - 40 && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(8, 15), 1, ModContent.TileType<CatacombBrick1>(),
                         ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, true, true);

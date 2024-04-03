@@ -7,6 +7,7 @@ Eye Valley Improvements:
 -Added pillars of flesh walls that generate in the biome
 -Added small plateaus that place sometimes to give the terrain more variance
 -Added new sprites for all of the eye valley blocks, ambient objects, and eye stalk trees
+-Added new giant evil lab that little eye lives in to replace the previous small house
 
 
 
@@ -50,3 +51,4 @@ Fixed all of the following bugs and issues:
 -Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
 -Combined creepy pasta accessory not giving the red mist clarinet ability
 -Fixed spooky mod ambient grasses and other plants growing underwater
+-Tarantula hawks not dropping the enemy they are carrying when killed, if they are killed before dropping it

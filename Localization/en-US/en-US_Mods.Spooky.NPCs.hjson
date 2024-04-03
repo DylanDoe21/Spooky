@@ -104,14 +104,19 @@ PhantomSkeletoid.DisplayName: Phantom Skeletoid
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 ZomboidSuspiciomancer.DisplayName: Zomboid Suspiciomancer
 //catacombs layer 2
-Daisy1.DisplayName: Daisy
-Daisy2.DisplayName: Daisy
-Flourence.DisplayName: Flourence
-Marigold.DisplayName: Marigold
-MarigoldSpit.DisplayName: Marigold
-Smelly.DisplayName: Smelly
-Sunny.DisplayName: Sunny
-Toothy.DisplayName: Toothy
+CatacombCrusherSpawner.DisplayName: Ancient Crusher Spawner
+CatacombCrusher1.DisplayName: Ancient Crusher
+CatacombCrusher2.DisplayName: Ancient Crusher
+CatacombCrusher3.DisplayName: Ancient Crusher
+CatacombCrusher4.DisplayName: Gilded Crusher
+OrchidPinkBig.DisplayName: Observing Orchid
+OrchidPinkSmall.DisplayName: Observing Orchid
+OrchidPurpleBig.DisplayName: Observing Orchid
+OrchidPurpleSmall.DisplayName: Observing Orchid
+OrchidStem.DisplayName: Orchid Stem
+Sunflower1.DisplayName: Stalking Sunflower
+Sunflower3.DisplayName: Stalking Sunflower
+Sunflower2.DisplayName: Stalking Sunflower
 //pandora's box
 PandoraBox.DisplayName: Pandora's Box
 Bobbert.DisplayName: Bobbert
@@ -290,3 +295,4 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
+Toothy.DisplayName: Toothy

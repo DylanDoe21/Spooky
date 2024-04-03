@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                 //collide with walls and play a sound
                 if (!hasCollidedWithWall && (NPC.oldVelocity.X >= 5 || NPC.oldVelocity.X <= -5) && NPC.collideX)
-                {   
+                {
                     SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.35f }, NPC.Center);
 
                     SpookyPlayer.ScreenShakeAmount = 8;

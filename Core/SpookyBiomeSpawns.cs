@@ -350,6 +350,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<FlySmall>(), 2);
 						pool.Add(ModContent.NPCType<FlyBig>(), 2);
 
+						/*
 						//enemies
 						pool.Add(ModContent.NPCType<Daisy1>(), 3);
 						pool.Add(ModContent.NPCType<Daisy2>(), 3);
@@ -364,6 +365,7 @@ namespace Spooky.Core
 						{
 							pool.Add(ModContent.NPCType<Sunny>(), 1);
 						}
+						*/
 					}
 					else
 					{
