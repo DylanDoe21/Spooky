@@ -427,3 +427,18 @@ ToothyDebuff: {
 	DisplayName: Chomped
 	Description: The plant monster is latched onto you!
 }
+
+BeeDamageBuff: {
+	DisplayName: Pollenation Damage
+	Description: Mods.Spooky.Buffs.BeeDamageBuff.Description
+}
+
+BeeHealingBuff: {
+	DisplayName: Pollenation Healing
+	Description: Mods.Spooky.Buffs.BeeHealingBuff.Description
+}
+
+BeePollinationProcessBuff: {
+	DisplayName: Bee Pollination Process Buff
+	Description: Mods.Spooky.Buffs.BeePollinationProcessBuff.Description
+}

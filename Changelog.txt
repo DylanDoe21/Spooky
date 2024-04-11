@@ -5,9 +5,21 @@ Eye Valley Improvements:
 
 -Changed the terrain generation to be more rough looking, making it more interesting and natural
 -Added pillars of flesh walls that generate in the biome
--Added small plateaus that place sometimes to give the terrain more variance
--Added new sprites for all of the eye valley blocks, ambient objects, and eye stalk trees
--Added new giant evil lab that little eye lives in to replace the previous small house
+-Added small plateaus throughout the biome to give the terrain more variance
+-Added many new ambient tiles and resprites for existing ambient tiles to make them look better
+-Added a new giant evil lab that little eye lives in, it replaces the previous small house
+
+
+
+Catacomb Improvements:
+
+-Improved each individual catacomb room in general, they are no longer super cluttered with furniture and dont have cobwebs in them anymore to prevent inventory clutter while exploring
+-Changed some of the light source furniture tiles in both layers of the catacombs to make it aesthetically better and cleaner looking
+-Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
+-Resprited all of the plants and vines in the catacombs
+-Giant flowers now grow naturally in the second layer of the catacombs instead of always be pregenerated in the same locations in each room
+-Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
+-Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
 
 
 
@@ -25,10 +37,15 @@ Other New Additions:
 
 Weapons & Gear:
 
+-Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
+-Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more sdamage whenever you hit them with a whip
 -Increased the use speed of the harvester's scythe and the spooky buster
 
 
 Enemy & Boss Changes:
+
+-Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
+-Monster eyes now explode into small little chunk gores when killed
 
 
 
@@ -39,6 +56,8 @@ Miscellaneous:
 
 
 Removals:
+
+-Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
 
 
 
@@ -51,4 +70,6 @@ Fixed all of the following bugs and issues:
 -Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
 -Combined creepy pasta accessory not giving the red mist clarinet ability
 -Fixed spooky mod ambient grasses and other plants growing underwater
--Tarantula hawks not dropping the enemy they are carrying when killed, if they are killed before dropping it
+-Tarantula hawks not dropping the enemy they are carrying when killed (If they are killed before dropping it)
+-Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
+-Swampy cemetery sometimes generating over large amounts of the jungle

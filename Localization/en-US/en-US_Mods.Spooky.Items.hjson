@@ -99,7 +99,11 @@ BabyRattle: {
 
 Brick: {
 	DisplayName: Heavy Brick
-	Tooltip: Can be thrown at lazy things to wake them up
+	Tooltip:
+		'''
+		Can be thrown at lazy things to wake them up
+		Awakens Daffodil if thrown at her
+		'''
 }
 
 Concoction: {

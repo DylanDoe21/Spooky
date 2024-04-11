@@ -2,8 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Linq;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Misc;
@@ -18,6 +22,47 @@ namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
     {
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
+
+            Vector2 frameOrigin = npc.frame.Size() / 2f;
+            //Vector2 offset = new Vector2(npc.width / 2 - frameOrigin.X, npc.height - npc.frame.Height);
+            Vector2 drawPos = npc.position - Main.screenPosition + frameOrigin + new Vector2(0f, npc.gfxOffY + 4);
+
+			float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+
+            float time = Main.GlobalTimeWrappedHourly;
+
+            time %= 4f;
+            time /= 2f;
+
+            time = time * 0.5f + 0.5f;
+
+            var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            //draw red aura on an enemy with the bee damage buff
+            if (npc.HasBuff(ModContent.BuffType<BeeDamageBuff>()))
+            {
+                for (float i = 0f; i < 1f; i += 0.34f)
+                {
+                    float radians = (i + (fade / 2)) * MathHelper.TwoPi;
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 1f).RotatedBy(radians) * time, npc.frame, new Color(225, 225, 225, 225), npc.rotation, frameOrigin, npc.scale * 1.2f, effects, 0);
+                }
+			}
+
+            if (npc.HasBuff(ModContent.BuffType<BeeHealingBuff>()))
+            {
+                for (float i = 0f; i < 1f; i += 0.34f)
+                {
+                    float radians = (i + (fade / 2)) * MathHelper.TwoPi;
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 1f).RotatedBy(radians) * time, npc.frame, new Color(255, 220, 0, 225), npc.rotation, frameOrigin, npc.scale * 1.2f, effects, 0);
+                }
+			}
+
+			return true;
+        }
+
 		public override void ModifyShop(NPCShop shop)
 		{
 			//add spooky mod's biome solutions to the steampunker shop

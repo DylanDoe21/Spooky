@@ -21,6 +21,8 @@ namespace Spooky.Content.Generation
 
         public static int BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
 
+        static int initialStartPosX;
+
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemetery(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -36,10 +38,28 @@ namespace Spooky.Content.Generation
             if (GenVars.dungeonSide == -1)
 			{
                 Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 100;
+                initialStartPosX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 100;
 			}
 			else
 			{
                 Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 160;
+                initialStartPosX = (Main.maxTilesX / (int)worldEdgeOffset) - 160;
+            }
+
+            //move away from the jungle so the cemetery doesnt destroy it
+            bool foundValidPosition = false;
+            int XPosAttempts = 0;
+
+            while (!foundValidPosition && XPosAttempts++ < 100000)
+            {
+                while (!LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface))
+                {
+                    Catacombs.PositionX += (initialStartPosX < (Main.maxTilesX / 2) ? -50 : 50);
+                }
+                if (LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface) || Catacombs.PositionX < 250 || Catacombs.PositionX >= Main.maxTilesX - 250)
+                {
+                    foundValidPosition = true;
+                }
             }
 
             int XStart = Catacombs.PositionX;
@@ -289,6 +309,32 @@ namespace Spooky.Content.Generation
             }
 
             return true;
+        }
+
+        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        public static bool LowEnoughJungleTiles(int X, int Y)
+        {
+            int numJungleTiles = 0;
+
+            for (int i = X - 50; i < X + 50; i++)
+            {
+                for (int j = Y - 50; j < Y + 50; j++)
+                {
+                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && Main.tile[i, j].TileType == TileID.Mud)
+                    {
+                        numJungleTiles++;
+                    }
+                }
+            }
+
+            if (numJungleTiles > 100)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public static bool IsCemeteryTile(int X, int Y)

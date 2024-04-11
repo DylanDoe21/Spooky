@@ -51,8 +51,8 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.lifeMax = 250;
             NPC.damage = 10;
 			NPC.defense = 15;
-            NPC.width = 18;
-			NPC.height = 40;
+            NPC.width = 42;
+			NPC.height = 52;
             NPC.knockBackResist = 0.5f;
             NPC.townNPC = true;
 			NPC.friendly = true;

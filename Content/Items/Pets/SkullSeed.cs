@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 using Spooky.Content.Projectiles.Pets;
 using Spooky.Content.Buffs.Pets;
@@ -21,10 +22,12 @@ namespace Spooky.Content.Items.Pets
 			Item.buffType = ModContent.BuffType<BigBonePetBuff>();
 		}
 
-		public override bool? UseItem(Player player)
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-			player.AddBuff(Item.buffType, 2);
-			return true;
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(Item.buffType, 2, true);
+            }
         }
 	}
 }

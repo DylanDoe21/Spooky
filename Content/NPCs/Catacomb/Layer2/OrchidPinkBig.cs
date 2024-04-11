@@ -20,6 +20,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             Main.npcFrameCount[NPC.type] = 8;
 
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/OrchidPinkBigBestiary",
@@ -30,12 +32,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 220;
+            NPC.lifeMax = 260;
             NPC.damage = 50;
             NPC.defense = 10;
             NPC.width = 72;
 			NPC.height = 68;
             NPC.npcSlots = 1f;
+            NPC.knockBackResist = 0.2f;
             NPC.value = Item.buyPrice(0, 0, 3, 0);
             NPC.noTileCollide = false;
             NPC.noGravity = true;
@@ -135,12 +138,16 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             {
                 ChasePlayer(player, Parent, 3, 0.01f);
             }
+            else
+            {
+                NPC.active = false;
+            }
         }
 
         public void ChasePlayer(Player player, NPC Parent, int MaxSpeed, float Acceleration)
         {
             //fly towards the player
-            if (player.Distance(Parent.Center) <= 360f)
+            if (player.Distance(Parent.Center) <= 360f && !player.dead)
             {
                 //rotation
                 Vector2 vector = new(NPC.Center.X, NPC.Center.Y);

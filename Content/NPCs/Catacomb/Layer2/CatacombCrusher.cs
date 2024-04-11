@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 600;
+            NPC.lifeMax = 500;
             NPC.damage = 60;
             NPC.defense = 25;
             NPC.width = 88;
@@ -200,6 +200,24 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
     public class CatacombCrusher4 : CatacombCrusher1  
     {
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 700;
+            NPC.damage = 60;
+            NPC.defense = 25;
+            NPC.width = 88;
+            NPC.height = 60;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 0f;
+            NPC.noGravity = true;
+            NPC.noTileCollide = false;
+            NPC.value = Item.buyPrice(0, 2, 50, 0);
+            NPC.HitSound = SoundID.DD2_SkeletonHurt;
+            NPC.alpha = 255;
+            NPC.aiStyle = -1;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
+        }
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()

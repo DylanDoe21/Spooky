@@ -1,8 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics;
-using Terraria.Graphics.Shaders;
+using Terraria.GameContent;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,12 +14,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class BoneWisp : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
-
         int Offset = Main.rand.Next(-100, 100);
-
-        public VertexStrip TrailDrawer;
 
         public override void SetStaticDefaults()
         {
@@ -40,65 +34,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.aiStyle = -1;
         }
 
-        public Color TrailColorFunction(float completionRatio)
-        {
-            float opacity = (float)Math.Pow(Utils.GetLerpValue(1f, 0.45f, completionRatio, true), 4D) * Projectile.Opacity * 0.48f;
-            return Color.Lerp(Color.Gold, Color.Green, opacity) * opacity;
-        }
-
-        public float TrailWidthFunction(float completionRatio) => 10f;
-
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            Texture2D tex = TextureAssets.Extra[98].Value;
+            Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
+            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gold);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.075f);
-            effect.Parameters["repeats"].SetValue(2);
+			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                newColor = Projectile.GetAlpha(newColor);
+                newColor *= 1f;
 
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Main.EntitySpriteDraw(tex, drawPos, null, newColor, Projectile.rotation + (float)Math.PI / 2f, tex.Size() / 2f, scale, SpriteEffects.None);
+            }
 
             return true;
-        }
-
-        const int TrailLength = 22;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 10 * factor, factor =>
-            {
-                return Color.Lerp(Color.Gold, Color.LimeGreen, factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
         public override void AI()
@@ -106,12 +61,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
 
             if (Projectile.alpha > 0)
             {

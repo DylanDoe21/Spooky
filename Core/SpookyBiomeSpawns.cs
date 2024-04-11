@@ -437,7 +437,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
 						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
 						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 2);
+						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 4);
 
 						if (Main.hardMode)
 						{

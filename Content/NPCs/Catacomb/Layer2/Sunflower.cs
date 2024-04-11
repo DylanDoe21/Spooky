@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 350;
-            NPC.damage = 45;
+			NPC.lifeMax = 200;
+            NPC.damage = 35;
             NPC.defense = 15;
 			NPC.width = 58;
 			NPC.height = 52;
@@ -93,11 +93,15 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			if (NPC.localAI[0] == 0)
 			{
 				NPC.aiStyle = 0;
+
+				NPC.dontTakeDamage = true;
 			}
 			else
 			{
 				NPC.aiStyle = 26;
 				AIType = NPCID.Unicorn;
+
+				NPC.dontTakeDamage = false;
 			}
 
 			if ((NPC.Distance(player.Center) <= 150f || NPC.life < NPC.lifeMax) && NPC.localAI[0] == 0)
@@ -129,8 +133,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 	{
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 400;
-            NPC.damage = 45;
+			NPC.lifeMax = 275;
+            NPC.damage = 40;
             NPC.defense = 15;
 			NPC.width = 54;
 			NPC.height = 56;
@@ -173,7 +177,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 	{
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 450;
+			NPC.lifeMax = 350;
             NPC.damage = 50;
             NPC.defense = 20;
 			NPC.width = 54;

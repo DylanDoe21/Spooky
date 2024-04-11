@@ -25,8 +25,8 @@ namespace Spooky.Content.Items.Cemetery
 			Item.autoReuse = true;
             Item.width = 66;
             Item.height = 66;
-            Item.useTime = 25;
-			Item.useAnimation = 25;
+            Item.useTime = 35;
+			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 4;
             Item.rare = ItemRarityID.Green;

@@ -16,21 +16,13 @@ namespace Spooky.Content.Buffs.Pets
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			player.buffTime[buffIndex] = 2;
+
 			player.GetModPlayer<SpookyPlayer>().GhostPet = true;
 
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<GhostPet>()] < 1)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<GhostPet>()] < 1 && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 
-				0f, 0f, ModContent.ProjectileType<GhostPet>(), 0, 0f, player.whoAmI);
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().GhostPet)
-			{
-				player.buffTime[buffIndex] = 2;
-			}
-			else
-			{
-				player.buffTime[buffIndex] = 0;
+				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<GhostPet>(), 0, 0f, player.whoAmI);
 			}
 		}
 	}

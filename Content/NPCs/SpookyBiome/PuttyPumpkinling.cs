@@ -100,15 +100,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 5; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 0.8f);
-                    Main.dust[DustGore].color = Color.Orange;
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.Orange, 0.8f);
                     Main.dust[DustGore].velocity *= 1.2f;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
                 }
             }
 		}

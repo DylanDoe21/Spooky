@@ -31,14 +31,8 @@ ZomboidNecromancer: These zomboids spend their time locked away in the catacombs
 ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
 ZomboidSuspiciomancer: An unusually gigantic cloak with a group of mischevious zombinos hiding under it, disguised as one of the various zomboid mages. It is unknown why they travel together in such goofy ways.
 //catacombs layer 2
-Daisy1: Small flowers that have decided to learn how to run. They can also float by spinning their petals like a helicopter.
-Daisy2: Very violent flowers that will chase intruders through the catacombs. Their sharp petals can cut though lots of stuff, like your flesh!
-Flourence: A sentient plant that can slither quickly and quietly, allowing it to ambush intruders in the darkness of the lower catacombs.
-Marigold: Somehow, these flowers grew in an old shoe and are now stuck in it forever. They hop around the catacombs as it is their only form of travel.
-MarigoldSpit: Large marigolds that have a mouth-like opening in their flower, allowing them to spit harmful spores at intruders.
-Smelly: Its name is no joke, these corpse flowers can belch out stinky and toxic spores out of their mouth-like opening, which can poison those who inhale it.
-Sunny: Large sunflowers that have become sentient due to the excess plant magic in the catacombs. They can use this magic to heal their nearby allies.
-Toothy: Silently sitting on the ground, they will patiently await for foolish explorers to step on them. Its sharp teeth and strong grip are deadly, so watch out for these!
+PollinatorBeeDamage: These bees are actually completely harmless and don't even have a stinger. They can, however, pollinate their flower allies which can make them stronger for a short time.
+PollinatorBeeHealing: Sometimes found flying aimlessly through the catacombs, they can spread a special pollen with healing properties to certain floral creatures nearby it.
 //pandora's box
 Bobbert: Tiny little ghosts that pulse. Do not go near them, as they have a very explosive reaction when defeated!
 Stitch: Mischevious spirits trapped in pandora's box. They use their fragile sticks to cast spells at foes.

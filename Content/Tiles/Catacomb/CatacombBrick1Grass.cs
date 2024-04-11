@@ -1,3 +1,4 @@
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +36,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			return false;
         }
 
-        /*
         public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);
@@ -47,7 +47,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 //grow vines
                 if (Main.rand.NextBool(15)) 
                 {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines2>(), true);
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
                 }
             }
 
@@ -68,6 +68,5 @@ namespace Spooky.Content.Tiles.Catacomb
                 }
             }
         }
-        */
 	}
 }

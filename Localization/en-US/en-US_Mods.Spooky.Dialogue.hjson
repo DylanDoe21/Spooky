@@ -203,6 +203,11 @@ PandoraBox: {
 	Dialogue: It's a strange box with a weird aura emanating from it. Will you open it?
 }
 
+GiantWeb: {
+	Button: Insert Skeleton Piece
+	Dialogue: You are holding a piece of the skeleton, it looks like it can fit in the molds. Insert it?
+}
+
 SentientCap: {
 	Dialogue1: Hi Hi Hi Hi!
 	Dialogue2: NIGHTMARE NIGHTMARE NIGHTMARE

@@ -109,11 +109,21 @@ CatacombCrusher1.DisplayName: Ancient Crusher
 CatacombCrusher2.DisplayName: Ancient Crusher
 CatacombCrusher3.DisplayName: Ancient Crusher
 CatacombCrusher4.DisplayName: Gilded Crusher
+Dahlia.DisplayName: Diva Dahlia
+DahliaEye.DisplayName: Diva Dahlia
 OrchidPinkBig.DisplayName: Observing Orchid
 OrchidPinkSmall.DisplayName: Observing Orchid
 OrchidPurpleBig.DisplayName: Observing Orchid
 OrchidPurpleSmall.DisplayName: Observing Orchid
 OrchidStem.DisplayName: Orchid Stem
+PlantTrap1.DisplayName: Trapper Plant
+PlantTrap2.DisplayName: Trapper Plant
+PlantTrap3.DisplayName: Trapper Plant
+PlantTrap4.DisplayName: Trapper Plant
+PlantTrap5.DisplayName: Trapper Plant
+PlantTrap6.DisplayName: Trapper Plant
+PollinatorBeeDamage.DisplayName: Pollinator Bee
+PollinatorBeeHealing.DisplayName: Pollinator Bee
 Sunflower1.DisplayName: Stalking Sunflower
 Sunflower3.DisplayName: Stalking Sunflower
 Sunflower2.DisplayName: Stalking Sunflower
@@ -295,4 +305,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-Toothy.DisplayName: Toothy

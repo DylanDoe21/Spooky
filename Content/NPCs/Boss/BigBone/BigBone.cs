@@ -212,7 +212,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
                     rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
-
+                    
                     spriteBatch.Draw(texture, (oldPos + newPos) / 2 - Main.screenPosition, texture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
                 }
             }
@@ -241,7 +241,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             Vector2 offset = new Vector2(NPC.width / 2 - frameOrigin.X, NPC.height - NPC.frame.Height);
             Vector2 drawPos = NPC.position - Main.screenPosition + frameOrigin + offset;
 
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             float time = Main.GlobalTimeWrappedHourly;
             float timer = time / 240f + time * 0.04f;
@@ -262,15 +262,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, 
-                    NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.34f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time,
-                    NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -280,15 +278,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, 
-                    NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.34f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time,
-                    NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -298,15 +294,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, 
-                    NPC.frame, new Color(255, 165, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 165, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.34f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time,
-                    NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
+                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
                 }
             }
 

@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.Friendly
 {
     public class GiantWeb : ModNPC  
     {
+        public bool ConsumeItem = false;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -102,12 +104,12 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "Insert Skeleton Piece";
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.GiantWeb.Button");
 		}
 
         public override string GetChat()
 		{
-			return "You are holding a piece of the skeleton, it looks like it can fit in the molds. Insert it?";
+			return Language.GetTextValue("Mods.Spooky.Dialogue.GiantWeb.Dialogue");
 		}
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -120,6 +122,18 @@ namespace Spooky.Content.NPCs.Friendly
 
                 SpookyPlayer.ScreenShakeAmount = 5;
 
+                ConsumeItem = true;
+                NPC.netUpdate = true;
+            }
+        }
+
+        public override void AI()
+        {
+            Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
+            NPC.velocity *= 0;
+
+            if (ConsumeItem)
+            {
                 if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
                     Flags.OldHunterHat = true;
@@ -156,13 +170,10 @@ namespace Spooky.Content.NPCs.Friendly
                         NetMessage.SendData(MessageID.WorldData);
                     }
                 }
-            }
-        }
 
-        public override void AI()
-        {
-            Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
-            NPC.velocity *= 0;
+                ConsumeItem = false;
+                NPC.netUpdate = true;
+            }
 
             if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
             {
@@ -200,6 +211,7 @@ namespace Spooky.Content.NPCs.Friendly
                     NetMessage.SendData(MessageID.WorldData);
                 }
 
+                NPC.netUpdate = true;
                 NPC.active = false;
             }
         }

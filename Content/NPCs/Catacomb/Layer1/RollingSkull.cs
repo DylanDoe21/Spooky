@@ -222,7 +222,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.knockBackResist = 0.5f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.value = Item.buyPrice(0, 2, 0, 0);
+            NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
             NPC.aiStyle = 26;

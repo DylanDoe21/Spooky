@@ -107,10 +107,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, 75, 0);
+            JumpToTarget(player, 250, 50, 0);
         }
 
-        public void JumpTo(Player target, int JumpHeight, int TimeBeforeNextJump, int DelayBeforeNextJump)
+        public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump, int DelayBeforeNextJump)
         {
             NPC.ai[0]++;
 
@@ -128,39 +128,33 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
 
             //actual jumping
-            if (NPC.ai[0] >= TimeBeforeNextJump)
+            if (NPC.ai[0] >= TimeBeforeNextJump && !HasJumped)
             {
-                if (NPC.velocity.X == 0)
+                if (NPC.velocity == Vector2.Zero)
                 {
-                    if (NPC.velocity.Y == 0)
+                    NPC.ai[1]++;
+
+                    if (NPC.ai[1] == 10)
                     {
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] == 10)
+                        if (target.Distance(NPC.Center) <= 450f)
                         {
-                            if (target.Distance(NPC.Center) <= 450f)
-                            {
-                                SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
-                            }
-                            
-                            velocity.Y -= 0.25f;
+                            SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
                         }
+                        
+                        velocity.Y -= 0.25f;
+                        
+                        HasJumped = true;
                     }
-
-                    if (NPC.ai[1] > 10)
-                    {
-                        NPC.velocity = velocity * speed;
-
-                        if (NPC.ai[1] > 20)
-                        {
-                            HasJumped = true;
-                        }
-                    }
+                }
+                
+                if (NPC.ai[1] < 20 && HasJumped)
+                {
+                    NPC.velocity = velocity * speed;
                 }
             }
 
             //loop ai
-            if (NPC.ai[0] >= 100)
+            if (NPC.ai[0] >= TimeBeforeNextJump + 100)
             {
                 HasJumped = false;
 
@@ -179,7 +173,13 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             if (NPC.life <= 0) 
             {
-                //todo: dust and blood explosion here
+                for (int numGores = 1; numGores <= 12; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, (NPC.velocity * 0.5f) + new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, -1)), ModContent.Find<ModGore>("Spooky/MonsterEyeChunk").Type);
+                    }
+                }
             }
         }
 	}
@@ -218,7 +218,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 450, 60, Main.rand.Next(15, 30));
+            JumpToTarget(player, 375, 50, Main.rand.Next(15, 30));
         }
     }
 
@@ -256,7 +256,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 250, 10, 10);
+            JumpToTarget(player, 180, 10, 0);
         }
     }
 
@@ -294,7 +294,21 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpTo(player, 820, 60, Main.rand.Next(0, 40));
+            JumpToTarget(player, 800, 75, Main.rand.Next(0, 40));
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 12; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, (NPC.velocity * 0.5f) + new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, -1)), ModContent.Find<ModGore>("Spooky/MonsterEyeChunkFaded").Type);
+                    }
+                }
+            }
         }
     }
 }

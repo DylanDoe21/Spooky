@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			spriteBatch.Draw(tex, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
-			NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
+            NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
 
 			return false;
         }
@@ -104,16 +104,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
-                    Main.dust[DustGore].color = Color.LimeGreen;
-					Main.dust[DustGore].scale = 0.5f;
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.LimeGreen, 1f);
                     Main.dust[DustGore].velocity *= 1.2f;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
                 }
             }
 		}
@@ -145,16 +137,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
-                    Main.dust[DustGore].color = Color.MediumPurple;
-					Main.dust[DustGore].scale = 0.5f;
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.MediumPurple, 1f);
                     Main.dust[DustGore].velocity *= 1.2f;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
                 }
             }
 		}
@@ -186,16 +170,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 2f);
-                    Main.dust[DustGore].color = Color.Chocolate;
-					Main.dust[DustGore].scale = 0.5f;
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.Chocolate, 1f);
                     Main.dust[DustGore].velocity *= 1.2f;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
                 }
             }
 		}

@@ -14,7 +14,7 @@ using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
-    public class Toothy : ModNPC  
+    public class PlantTrap1 : ModNPC  
     {
         public bool Biting = false;
 
@@ -22,7 +22,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 3;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
@@ -41,15 +41,15 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void SetDefaults()
         {
             NPC.lifeMax = 175;
-            NPC.damage = 0;
+            NPC.damage = 30;
             NPC.defense = 0;
-            NPC.width = 43;
-            NPC.height = 46;
+            NPC.width = 70;
+            NPC.height = 44;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.HitSound = SoundID.Grass;
-            NPC.DeathSound = SoundID.NPCDeath5;
+            NPC.DeathSound = SoundID.NPCDeath5 with { Pitch = 0.45f };
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
@@ -58,7 +58,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Toothy"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap1"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -73,14 +73,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             if (Biting)
             {
                 NPC.frameCounter++;
-                if (NPC.frameCounter > 1)
+                if (NPC.frameCounter > 3)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 5)
+                if (NPC.frame.Y >= frameHeight * 3)
                 {
-                    NPC.frame.Y = 4 * frameHeight;
+                    NPC.frame.Y = 2 * frameHeight;
                 }
             }
         }
@@ -93,15 +93,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             if (player.Hitbox.Intersects(NPC.Hitbox) && !Biting)
             {
                 Biting = true;
-                NPC.frame.Y = 4;
                 SoundEngine.PlaySound(ChompSound, NPC.Center);
             }
 
             if (Biting)
             {
                 player.Center = NPC.Center;
-
-                player.AddBuff(ModContent.BuffType<ToothyDebuff>(), 2);
 
                 if (player.statLife <= 0 || player.dead)
                 {
@@ -116,7 +113,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
-        public override void HitEffect(NPC.HitInfo hit) 
+        public override void HitEffect(NPC.HitInfo hit)
         {
 			if (NPC.life <= 0) 
             {
@@ -136,5 +133,65 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 }
             }
         }
+    }
+
+    public class PlantTrap2 : PlantTrap1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap2"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
+			});
+		}
+    }
+
+    public class PlantTrap3 : PlantTrap1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap3"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
+			});
+		}
+    }
+
+    public class PlantTrap4 : PlantTrap1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap4"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
+			});
+		}
+    }
+
+    public class PlantTrap5 : PlantTrap1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap5"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
+			});
+		}
+    }
+
+    public class PlantTrap6 : PlantTrap1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap6"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
+			});
+		}
     }
 }

@@ -16,8 +16,8 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.noUseGraphic = true;
 			Item.width = 46;
             Item.height = 48;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;

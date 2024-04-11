@@ -103,8 +103,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//randomly spawn pumpkinlings on hit
             if (Main.rand.NextBool(3))
             {
-                NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20),
-                (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+                NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
             }
 
             if (NPC.life <= 0) 
@@ -112,21 +111,13 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				//spawn more pumpkinlings on death
 				for (int numSlimes = 0; numSlimes < 3; numSlimes++)
 				{
-					NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), 
-					(int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+					NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
 				}
 
                 for (int numDusts = 0; numDusts < 15; numDusts++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, default, 1f);
-                    Main.dust[DustGore].color = Color.Orange;
+                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.Orange, 1f);
                     Main.dust[DustGore].velocity *= 1.2f;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[DustGore].scale = 0.5f;
-                        Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
                 }
             }
 		}
