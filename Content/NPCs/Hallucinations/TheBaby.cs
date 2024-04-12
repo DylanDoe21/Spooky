@@ -60,6 +60,7 @@ namespace Spooky.Content.NPCs.Hallucinations
             NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
+            NPC.aiStyle = -1;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -73,6 +74,7 @@ namespace Spooky.Content.NPCs.Hallucinations
 
         public override void AI()
         {
+            NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
             player.AddBuff(ModContent.BuffType<HallucinationDebuff2>(), 2);

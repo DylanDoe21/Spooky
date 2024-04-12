@@ -50,16 +50,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             if (!Parent.active)
             {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Parent.velocity, ModContent.Find<ModGore>("Spooky/DahliaEyeGore" + ((int)NPC.ai[2] + 1)).Type);
+
                 NPC.active = false;
             }
 
-            /*
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = Parent.Center.X - vector.X;
-            float RotateY = Parent.Center.Y - vector.Y;
-            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-            */
-
+            //rotate around the parent depending on its velocity
             NPC.ai[1] += (Parent.velocity.X * 0.5f + Parent.velocity.Y * 0.5f);
             double rad = NPC.ai[1] * (Math.PI / 180);
             NPC.position.X = Parent.Center.X - (int)(Math.Cos(rad) * 60f) - NPC.width / 2;

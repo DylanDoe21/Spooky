@@ -10,8 +10,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.NoTownNPCHappiness[Type] = true;
-            
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
         

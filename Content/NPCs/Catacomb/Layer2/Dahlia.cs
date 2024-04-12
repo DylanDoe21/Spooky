@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.value = Item.buyPrice(0, 0, 2, 0);
+            NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.HitSound = SoundID.Grass;
             NPC.DeathSound = SoundID.NPCDeath42 with { Pitch = 0.45f };
             NPC.aiStyle = -1;
@@ -111,11 +111,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
 
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 9; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ToothyGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center + new Vector2(Main.rand.Next(-30, 30), Main.rand.Next(-30, 30)), NPC.velocity, ModContent.Find<ModGore>("Spooky/DahliaGore" + Main.rand.Next(1, 3)).Type);
                     }
                 }
             }

@@ -57,8 +57,10 @@ namespace Spooky.Content.NPCs.Hallucinations
             NPC.height = 90;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            NPC.noGravity = false;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
+            NPC.aiStyle = -1;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -72,10 +74,13 @@ namespace Spooky.Content.NPCs.Hallucinations
 
         public override void AI()
         {
+            NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
             player.AddBuff(ModContent.BuffType<HallucinationDebuff3>(), 2);
             player.AddBuff(BuffID.Dazed, 2);
+
+            NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[2]++;
             //make npcs displayed name a random jumble of characters constantly
