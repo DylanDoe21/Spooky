@@ -111,11 +111,18 @@ CatacombCrusher3.DisplayName: Ancient Crusher
 CatacombCrusher4.DisplayName: Gilded Crusher
 Dahlia.DisplayName: Diva Dahlia
 DahliaEye.DisplayName: Diva Dahlia
+JumpingSeed1.DisplayName: Jumping Seedling
+JumpingSeed2.DisplayName: Jumping Seedling
+JumpingSeed3.DisplayName: Jumping Seedling
 OrchidPinkBig.DisplayName: Observing Orchid
 OrchidPinkSmall.DisplayName: Observing Orchid
 OrchidPurpleBig.DisplayName: Observing Orchid
 OrchidPurpleSmall.DisplayName: Observing Orchid
 OrchidStem.DisplayName: Orchid Stem
+PitcherPlant1.DisplayName: Shoe Pitcher
+PitcherPlant2.DisplayName: Shoe Pitcher
+PitcherPlant3.DisplayName: Shoe Pitcher
+PitcherPlant4.DisplayName: Shoe Pitcher
 PlantTrap1.DisplayName: Trapper Plant
 PlantTrap2.DisplayName: Trapper Plant
 PlantTrap3.DisplayName: Trapper Plant
@@ -305,3 +312,4 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
+Smelly.DisplayName: Smelly

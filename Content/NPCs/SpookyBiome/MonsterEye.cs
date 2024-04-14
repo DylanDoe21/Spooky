@@ -128,12 +128,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
 
             //actual jumping
-            if (NPC.ai[0] >= TimeBeforeNextJump && !HasJumped)
+            if (NPC.ai[0] >= TimeBeforeNextJump)
             {
-                if (NPC.velocity == Vector2.Zero)
-                {
-                    NPC.ai[1]++;
+                NPC.ai[1]++;
 
+                if (NPC.velocity == Vector2.Zero && !HasJumped)
+                {
                     if (NPC.ai[1] == 10)
                     {
                         if (target.Distance(NPC.Center) <= 450f)
@@ -147,7 +147,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     }
                 }
                 
-                if (NPC.ai[1] < 20 && HasJumped)
+                if (NPC.ai[1] < 15 && HasJumped)
                 {
                     NPC.velocity = velocity * speed;
                 }

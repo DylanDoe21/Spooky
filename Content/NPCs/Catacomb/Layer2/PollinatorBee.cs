@@ -19,10 +19,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public static List<int> BuffableNPCs = new List<int>() 
         {
+            ModContent.NPCType<Dahlia>(),
+            ModContent.NPCType<JumpingSeed1>(),
+            ModContent.NPCType<JumpingSeed2>(),
+            ModContent.NPCType<JumpingSeed3>(),
             ModContent.NPCType<OrchidPinkBig>(),
             ModContent.NPCType<OrchidPinkSmall>(),
             ModContent.NPCType<OrchidPurpleBig>(),
             ModContent.NPCType<OrchidPurpleSmall>(),
+            ModContent.NPCType<PitcherPlant1>(),
+            ModContent.NPCType<PitcherPlant2>(),
+            ModContent.NPCType<PitcherPlant3>(),
+            ModContent.NPCType<PitcherPlant4>(),
+            ModContent.NPCType<Smelly>(),
             ModContent.NPCType<Sunflower1>(),
             ModContent.NPCType<Sunflower2>(),
             ModContent.NPCType<Sunflower3>()

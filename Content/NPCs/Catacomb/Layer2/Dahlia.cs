@@ -72,7 +72,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC.rotation += (NPC.velocity.X * 0.01f + NPC.velocity.Y * 0.01f);
+            NPC.rotation += 0.05f * (float)NPC.direction;
 
             if (NPC.ai[0] == 0)
             {

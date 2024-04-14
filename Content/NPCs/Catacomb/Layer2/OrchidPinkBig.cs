@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrchidBigPink"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.OrchidPinkBig"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
         }

@@ -1,19 +1,15 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class BoneMaskWisp : ModProjectile
 	{
-        private List<Vector2> cache;
-        private Trail trail;
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 24;
@@ -27,55 +23,31 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            Texture2D tex = TextureAssets.Extra[98].Value;
+            Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.DarkGray);
+            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gold);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			TrailRotation += 0f * (float)Projectile.direction;
 
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-
-            return true;
-        }
-
-        const int TrailLength = 22;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
+			for (int oldPos = 2; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
+                Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                newColor = Projectile.GetAlpha(newColor);
+                newColor *= 1f;
+
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+
+                for (int repeats = 0; repeats < 2; repeats++)
                 {
-                    cache.Add(Projectile.Center);
+                    Main.EntitySpriteDraw(tex, drawPos, null, newColor, TrailRotation, tex.Size() / 2f, scale, SpriteEffects.None);
                 }
             }
 
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 15 * factor, factor =>
-            {
-                return Color.Lerp(Color.Black, Color.Yellow, factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
+            return true;
         }
 
 		public override void AI()
@@ -86,12 +58,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (Projectile.spriteDirection == 1)
             {
                 Projectile.rotation += MathHelper.Pi;
-            }
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
             }
 
             int foundTarget = HomeOnTarget();

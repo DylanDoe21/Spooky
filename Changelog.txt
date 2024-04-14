@@ -46,6 +46,7 @@ Enemy & Boss Changes:
 
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little chunk gores when killed
+-Heavily nerfed monster eyes jumping rate and speed as it was way too unbalanced before
 
 
 
@@ -73,3 +74,5 @@ Fixed all of the following bugs and issues:
 -Tarantula hawks not dropping the enemy they are carrying when killed (If they are killed before dropping it)
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
 -Swampy cemetery sometimes generating over large amounts of the jungle
+-Hallucination entities not facing towards the player correctly
+-Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls

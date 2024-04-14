@@ -21,7 +21,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 		{
 			Main.npcFrameCount[NPC.type] = 9;
 
-			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Frame = 1
+            };
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 		}
 
 		public override void SetDefaults()

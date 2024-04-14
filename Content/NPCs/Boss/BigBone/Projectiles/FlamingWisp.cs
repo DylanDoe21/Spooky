@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.NPCs.Catacomb;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
@@ -43,6 +42,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
             Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
 
+            float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			TrailRotation += 0f * (float)Projectile.direction;
+
 			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
@@ -51,7 +53,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(tex, drawPos, null, newColor, Projectile.rotation + (float)Math.PI / 2f, tex.Size() / 2f, scale, SpriteEffects.None);
+                
+                for (int repeats = 0; repeats < 2; repeats++)
+                {
+                    Main.EntitySpriteDraw(tex, drawPos, null, newColor, TrailRotation, tex.Size() / 2f, scale, SpriteEffects.None);
+                }
             }
 
             return true;
@@ -87,47 +93,46 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             if (Projectile.ai[0] < 75)
             {
-                for (int k = 0; k < Main.maxNPCs; k++)
-                {
-                    if (Main.npc[k].active && (Main.npc[k].type == ModContent.NPCType<BigBone>() || Main.npc[k].type == ModContent.NPCType<CatacombGuardian>()))
-                    {
-                        float goToX = Main.npc[k].Center.X + Offset - Projectile.Center.X;
-                        float goToY = Main.npc[k].Center.Y + Offset - Projectile.Center.Y;
-                        float speed = 0.12f;
+                NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
-                        if (Projectile.velocity.X < goToX)
+                if (Parent.active && (Parent.type == ModContent.NPCType<BigBone>() || Parent.type == ModContent.NPCType<CatacombGuardian>()))
+                {
+                    float goToX = Parent.Center.X + Offset - Projectile.Center.X;
+                    float goToY = Parent.Center.Y + Offset - Projectile.Center.Y;
+                    float speed = 0.12f;
+
+                    if (Projectile.velocity.X < goToX)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X + speed;
+                        if (Projectile.velocity.X < 0f && goToX > 0f)
                         {
                             Projectile.velocity.X = Projectile.velocity.X + speed;
-                            if (Projectile.velocity.X < 0f && goToX > 0f)
-                            {
-                                Projectile.velocity.X = Projectile.velocity.X + speed;
-                            }
                         }
-                        else if (Projectile.velocity.X > goToX)
+                    }
+                    else if (Projectile.velocity.X > goToX)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X - speed;
+                        if (Projectile.velocity.X > 0f && goToX < 0f)
                         {
                             Projectile.velocity.X = Projectile.velocity.X - speed;
-                            if (Projectile.velocity.X > 0f && goToX < 0f)
-                            {
-                                Projectile.velocity.X = Projectile.velocity.X - speed;
-                            }
                         }
-                        if (Projectile.velocity.Y < goToY)
+                    }
+                    if (Projectile.velocity.Y < goToY)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                        if (Projectile.velocity.Y < 0f && goToY > 0f)
                         {
                             Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                            if (Projectile.velocity.Y < 0f && goToY > 0f)
-                            {
-                                Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                                return;
-                            }
+                            return;
                         }
-                        else if (Projectile.velocity.Y > goToY)
+                    }
+                    else if (Projectile.velocity.Y > goToY)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                        if (Projectile.velocity.Y > 0f && goToY < 0f)
                         {
                             Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                            if (Projectile.velocity.Y > 0f && goToY < 0f)
-                            {
-                                Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                                return;
-                            }
+                            return;
                         }
                     }
                 }

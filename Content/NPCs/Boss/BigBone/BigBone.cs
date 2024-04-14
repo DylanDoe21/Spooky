@@ -838,7 +838,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, 0);
+                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, NPC.whoAmI);
                             }
                         }
                     }

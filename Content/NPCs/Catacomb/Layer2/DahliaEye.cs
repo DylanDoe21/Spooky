@@ -48,6 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             NPC Parent = Main.npc[(int)NPC.ai[0]];
 
+            //kill this npc if the parent doesnt exist, and spawn a gore based on the npc frame
             if (!Parent.active)
             {
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Parent.velocity, ModContent.Find<ModGore>("Spooky/DahliaEyeGore" + ((int)NPC.ai[2] + 1)).Type);
@@ -56,7 +57,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             }
 
             //rotate around the parent depending on its velocity
-            NPC.ai[1] += (Parent.velocity.X * 0.5f + Parent.velocity.Y * 0.5f);
+            NPC.ai[1] += (float)Parent.direction == -1 ? -3f : 3f;
             double rad = NPC.ai[1] * (Math.PI / 180);
             NPC.position.X = Parent.Center.X - (int)(Math.Cos(rad) * 60f) - NPC.width / 2;
             NPC.position.Y = Parent.Center.Y - (int)(Math.Sin(rad) * 60f) - NPC.height / 2;

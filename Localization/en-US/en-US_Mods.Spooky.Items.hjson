@@ -1312,8 +1312,8 @@ TatantulaFlyTome: {
 	DisplayName: Grimoire of the Flies
 	Tooltip:
 		'''
-		Conjure a swarm of flies around your cursor that grows the longer you use the grimoire
-		Releasing while you have 10 or more flies will unleash them to attack enemies
+		Conjures flies that follow your cursor while continously using the grimoire
+		Releasing while having 10 or more flies around your cursor causes them to home in on enemies
 		'''
 }
 
