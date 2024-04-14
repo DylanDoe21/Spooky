@@ -83,7 +83,10 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.hostile = false;
 
             //timer for when it should start attacking you
-            Projectile.ai[1]++;
+            if (!player.GetModPlayer<SpookyPlayer>().CreepyPasta)
+            {
+                Projectile.ai[1]++;
+            }
 
             if (Projectile.ai[1] < 10800)
             {

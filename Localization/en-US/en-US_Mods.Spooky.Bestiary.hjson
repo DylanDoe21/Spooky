@@ -31,12 +31,12 @@ ZomboidNecromancer: These zomboids spend their time locked away in the catacombs
 ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
 ZomboidSuspiciomancer: An unusually gigantic cloak with a group of mischevious zombinos hiding under it, disguised as one of the various zomboid mages. It is unknown why they travel together in such goofy ways.
 //catacombs layer 2
-CatacombCrusher1: A large weathered idol that constantly smashes the ground causing loud noises and tremors throughout the lower catacombs.
+CatacombCrusher1: A large and cracked statue that constantly smashes the ground, causing intense tremors throughout the lower catacombs.
 CatacombCrusher2: They constantly smash the ground in an extremely hostile way. They may have been created as a sort of trap to kill off unwanted intruders.
 CatacombCrusher3: It is unknown if they are truly alive or not. Some say they are just traps, while others say they are ancient idols possessed by vengeful spirits who wish to inflict pain on anything they see.
 CatacombCrusher4: A rare crusher made out of gold, possibly meant as a symbol of wealth for the deceased within the lower catacombs.
-Dahlia: An very strange sentient flower that became so jealous of the guardian of the second layer, she tried to mimic her look. The result speaks for itself.
-JumpingSeed1: A small juvenile seedling that spends its time in the ground so it may eventually grow into a bigger plant.
+Dahlia: A strange flower that became so jealous of the lower catacombs guardian, she tried to mimic her look. Looks like she went a little overboard though.
+JumpingSeed1: A small juvenile seedling that spends its time buried in the ground so it may eventually grow into a bigger plant.
 JumpingSeed2: Despite their small size, they can leap out of the ground when disturbed. While not too harmful, it can scare those who aren't expecting it.
 JumpingSeed3: It is unknown where exactly these seeds come from. They may actually be the seeds that grow into the other plant creatures in the deep catacombs.
 OrchidPinkBig: These passive looking flowers are very territorial. They will not pay any mind to intruders so long as they stay away from their area.
@@ -49,10 +49,11 @@ PitcherPlant3: Rarely, these pitcher plants may mutate and grow an extra head. T
 PitcherPlant4: Their genetic abnormality has resulted in unusual success in surviving. They can shoot both poison and venomous spit at anything they deem an intruder.
 PollinatorBeeDamage: These bees are actually completely harmless and don't even have a stinger. They can, however, pollinate their floral allies which can make them stronger for a short time.
 PollinatorBeeHealing: Sometimes found flying aimlessly through the catacombs, they can spread a special pollen with healing properties to other flower creatures to heal their wounds.
-Smelly: While not agressive itself, the absolutely horrendous smell and nasty flies they attract definitely are. Make sure to bring a clothespin or other object to close your nose while exploring!
+Smelly: While not agressive itself, the absolutely horrendous smell and nasty flies they attract definitely are. Make sure to bring a clothespin or nose plug to close your nose while exploring!
 Sunflower1: Staying perfectly still, they have learned how to perfect their stealth abilities to sneak up on intruders.
 Sunflower2: They have become great at remaining still and can easily look like a normal sunflower, then quickly ambush their prey when it gets too close.
 Sunflower3: Even though they remain perfectly still when hunting, they also do the same when sleeping. Though waking them from their sleep probably makes them angrier.
+//pandora's box
 Bobbert: Tiny little ghosts that pulse. Do not go near them, as they have a very explosive reaction when defeated!
 Stitch: Mischevious spirits trapped in pandora's box. They use their fragile sticks to cast spells at foes.
 Sheldon: Large blob shaped spirits with a shield that can protect them from certain projectiles. Beware of their dash attack!

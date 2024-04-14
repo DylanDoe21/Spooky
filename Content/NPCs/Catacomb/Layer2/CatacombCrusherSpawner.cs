@@ -54,6 +54,39 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
                     NPC.ai[1]++;
 
+                    //automatically kill the spawner if it hits a platform to prevent the crusher from getting stuck
+                    int minTilePosX = (int)(NPC.position.X / 16.0) - 1;
+                    int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16.0) + 2;
+                    int minTilePosY = (int)(NPC.position.Y / 16.0) - 1;
+                    int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16.0) + 2;
+                    if (minTilePosX < 0)
+                    {
+                        minTilePosX = 0;
+                    }
+                    if (maxTilePosX > Main.maxTilesX)
+                    {
+                        maxTilePosX = Main.maxTilesX;
+                    }
+                    if (minTilePosY < 0)
+                    {
+                        minTilePosY = 0;
+                    }
+                    if (maxTilePosY > Main.maxTilesY)
+                    {
+                        maxTilePosY = Main.maxTilesY;
+                    }
+
+                    for (int i = minTilePosX; i < maxTilePosX; ++i)
+                    {
+                        for (int j = minTilePosY; j < maxTilePosY; ++j)
+                        {
+                            if (Main.tile[i, j] != null && TileID.Sets.Platforms[Main.tile[i, j].TileType])
+                            {
+                                NPC.active = false;
+                            }
+                        }
+                    }
+
                     if (NPC.ai[1] >= 10 && Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
                     {
                         NPC.ai[0]++;
@@ -65,12 +98,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 //spawn the crusher once the ceiling is found
                 case 1: 
                 {
-                    if (NPC.ai[1] < 22)
+                    if (NPC.ai[1] < 15)
                     {
                         NPC.active = false;
                     }
 
-                    if (NPC.ai[1] >= 22)
+                    if (NPC.ai[1] >= 15)
                     {
                         if (Main.rand.NextBool(10))
                         {

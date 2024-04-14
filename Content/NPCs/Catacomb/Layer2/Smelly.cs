@@ -110,7 +110,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			if (Main.rand.NextBool(20))
 			{
 				Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), 
-				Vector2.Zero, ModContent.ProjectileType<SmellyFly>(), NPC.damage / 4, 0f, Main.myPlayer);
+				Vector2.Zero, ModContent.ProjectileType<SmellyFly>(), NPC.damage / 4, 0f, Main.myPlayer, 0, NPC.whoAmI);
 			}
         }
 
@@ -118,11 +118,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 4; numGores++)
+				for (int numGores = 1; numGores <= 8; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/Sunflower1Gore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmellyPetalGore" + Main.rand.Next(1, 4)).Type);
+                    }
+                }
+
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SmellyGore" + numGores).Type);
                     }
                 }
             }

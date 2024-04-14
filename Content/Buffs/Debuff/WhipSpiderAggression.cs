@@ -13,7 +13,7 @@ namespace Spooky.Content.Buffs.Debuff
 			Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            BuffID.Sets.LongerExpertDebuff[Type] = false;
+            BuffID.Sets.LongerExpertDebuff[Type] = true;
         }
 
 		public override void Update(Player player, ref int buffIndex)

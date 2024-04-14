@@ -90,8 +90,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //slam down
             if (NPC.ai[0] > 60 && !hasCollidedWithFloor)
             {
+                /*
                 //set tile collide to true to prevent platforms and stuff getting in the way
-                if (NPC.position.Y >= player.Center.Y - 150 || player.Distance(NPC.Center) > 150f)
+                if (NPC.position.Y >= player.Center.Y - 100 || player.Distance(NPC.Center) > 200f)
 				{
                     NPC.noTileCollide = false;
                 }
@@ -99,15 +100,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 {
                     NPC.noTileCollide = true;
                 }
+                */
 
                 //smash the ground
                 if (NPC.velocity.Y <= 0.1f)
                 {
-                    SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-
-                    if (player.velocity.Y == 0)
+                    if (player.Distance(NPC.Center) <= 300f)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 8;
+                        SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
+
+                        if (player.velocity.Y == 0)
+                        {
+                            SpookyPlayer.ScreenShakeAmount = 8;
+                        }
                     }
 
                     NPC.velocity *= 0;

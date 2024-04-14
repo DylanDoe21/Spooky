@@ -40,6 +40,7 @@ Weapons & Gear:
 -Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
 -Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more sdamage whenever you hit them with a whip
 -Increased the use speed of the harvester's scythe and the spooky buster
+-Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 
 
 Enemy & Boss Changes:
@@ -76,3 +77,5 @@ Fixed all of the following bugs and issues:
 -Swampy cemetery sometimes generating over large amounts of the jungle
 -Hallucination entities not facing towards the player correctly
 -Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls
+-Spooky mod cooldown buffs being removed when you are healed by the nurse
+-Creepy pasta combination accessory not giving the red mist clarinets ability

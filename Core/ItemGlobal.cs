@@ -28,7 +28,7 @@ namespace Spooky.Core
 
             //manually handle daffodils music box recording if her intro themes are playing, since music boxes cant be assigned more than one song
             if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && 
-            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") ||
+            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || 
             Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
             {
                 SoundEngine.PlaySound(SoundID.Item166, player.Center);
@@ -81,11 +81,11 @@ namespace Spooky.Core
 
         public override bool? UseItem(Item item, Player player)
         {
-            //make items shoot boogers when the snoot schnoz is at full charge
+            //make items shoot boogers when the snotty schnoz is at full charge
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
                 //if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
-                if (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0)) && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
+                if (item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))))
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 
@@ -113,6 +113,7 @@ namespace Spooky.Core
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            //make items shoot boogers when the snotty schnoz is at full charge
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
                 if (item.damage > 0 && item.shootSpeed != 0)

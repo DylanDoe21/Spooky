@@ -33,6 +33,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
 
         public override void AI()
 		{
+            NPC Parent = Main.npc[(int)Projectile.ai[1]];
+
+            if (!Parent.active || Parent.type != ModContent.NPCType<Smelly>())
+            {
+                Projectile.Kill();
+            }
+
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 4)
             {

@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void AI()
         {
             Spooky.DaffodilSpawnX = (int)NPC.Center.X;
-            Spooky.DaffodilSpawnY = (int)NPC.Center.Y + 30; 
+            Spooky.DaffodilSpawnY = (int)NPC.Center.Y + 30;
             Spooky.DaffodilParent = NPC.whoAmI;
 
             //sleepy particles

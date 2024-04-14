@@ -122,7 +122,7 @@ namespace Spooky.Content.NPCs.Friendly
 
                 SpookyPlayer.ScreenShakeAmount = 5;
 
-                ConsumeItem = true;
+                NPC.ai[0] = 1;
                 NPC.netUpdate = true;
             }
         }
@@ -132,7 +132,7 @@ namespace Spooky.Content.NPCs.Friendly
             Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
             NPC.velocity *= 0;
 
-            if (ConsumeItem)
+            if (NPC.ai[0] == 1)
             {
                 if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
@@ -171,7 +171,7 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
-                ConsumeItem = false;
+                NPC.ai[0] = 0;
                 NPC.netUpdate = true;
             }
 

@@ -12,6 +12,7 @@ namespace Spooky.Content.Buffs.Debuff
             Main.pvpBuff[Type] = true;  
             Main.buffNoSave[Type] = true;
             BuffID.Sets.LongerExpertDebuff[Type] = false;
+			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 	}
 }

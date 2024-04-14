@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs.Debuff
@@ -11,6 +12,7 @@ namespace Spooky.Content.Buffs.Debuff
             Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			Main.persistentBuff[Type] = true;
+			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)

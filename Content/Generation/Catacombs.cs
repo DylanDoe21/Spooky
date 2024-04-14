@@ -1047,15 +1047,18 @@ namespace Spooky.Content.Generation
                     {
                         int[] Ammo = new int[] { ItemID.VenomArrow, ModContent.ItemType<RustedBullet>() };
 
-                        if (WorldGen.genRand.NextBool(5))
+                        if (chest.item[0].type != ModContent.ItemType<Fertilizer>())
                         {
-                            chest.item[0].SetDefaults(ItemID.GoodieBag);
-                            chest.item[0].stack = WorldGen.genRand.Next(1, 3);
-                        }
-                        else
-                        {
-                            chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
-                            chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+                            if (WorldGen.genRand.NextBool(5))
+                            {
+                                chest.item[0].SetDefaults(ItemID.GoodieBag);
+                                chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+                            }
+                            else
+                            {
+                                chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
+                                chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+                            }
                         }
 
                         chest.item[1].SetDefaults(ItemID.SilverCoin);
@@ -1063,7 +1066,7 @@ namespace Spooky.Content.Generation
                     }
 
                     //place stuff in pumpkin chests
-                    if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ModContent.ItemType<Fertilizer>())
+                    if (chestTile.TileFrameX == 45 * 36)
                     {
                         //potions
                         int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
-    public class HerobrineLightning : ModProjectile // Thank you zoroarkcity for the lightning code
+    public class HerobrineLightning : ModProjectile
     {
         float colorlerp;
 
