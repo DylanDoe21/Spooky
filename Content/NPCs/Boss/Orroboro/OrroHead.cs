@@ -492,7 +492,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[1] < repeats)
                     {
                         //use chase movement
-                        ChaseMovement(player, 8.5f, 0.13f);
+                        ChaseMovement(player, 8.5f, 0.15f);
 
                         //Shoot toxic spit when nearby the player
                         if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 200)
@@ -539,7 +539,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[0] >= 230)
                         {
                             OpenMouth = false;
-                            NPC.velocity *= 0.98f;
+                            NPC.velocity *= 0.9f;
                         }
 
                         if (NPC.localAI[0] >= 260)

@@ -497,38 +497,32 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (((!Enraged && NPC.localAI[0] % 60 == 20) || (Enraged && NPC.localAI[0] % 20 == 5)) && NPC.localAI[1] > 0)
                         {
-                            for (int j = 0; j <= 0; j++)
+                            Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
+                            center.X += Main.rand.Next(150, 220);
+                            int numtries = 0;
+                            int x = (int)(center.X / 16);
+                            int y = (int)(center.Y / 16);
+                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                            Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
                             {
-                                for (int i = 0; i <= 0; i += 1) 
-                                {
-                                    Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                                    center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
-                                    int numtries = 0;
-                                    int x = (int)(center.X / 16);
-                                    int y = (int)(center.Y / 16);
-                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                                    {
-                                        y++;
-                                        center.Y = y * 16;
-                                    }
-                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                                    {
-                                        numtries++;
-                                        y--;
-                                        center.Y = y * 16;
-                                    }
+                                y++;
+                                center.Y = y * 16;
+                            }
+                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                            {
+                                numtries++;
+                                y--;
+                                center.Y = y * 16;
+                            }
 
-                                    if (numtries >= 10)
-                                    {
-                                        break;
-                                    }
+                            if (numtries >= 10)
+                            {
+                                break;
+                            }
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 0, Main.myPlayer, 0, 0);
-                                    }
-                                }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                             }
                         }
 
@@ -573,7 +567,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         int time1 = Enraged ? 60 : 80;
                         int time2 = Enraged ? 120 : 160;
                         int time3 = Enraged ? 180 : 240;
-                        if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
+                        if (NPC.localAI[0] == time1 - 15 || NPC.localAI[0] == time2 - 15 || NPC.localAI[0] == time3 - 15)
                         {
                             Vector2 CenterPoint = player.Center;
 
@@ -583,18 +577,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             SavePlayerPosition = CenterPoint;
                         }
 
-                        //charge towards where the telegraphs saved point is
                         if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                         {
                             SoundEngine.PlaySound(LickSound, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-                            ChargeDirection *= Enraged ? 28 : 22;
+                            ChargeDirection *= Enraged ? 25 : 22;
                             NPC.velocity = ChargeDirection;
 
                             int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroTongue>(), ai3: NPC.whoAmI);
-                            Main.npc[Tongue].velocity = NPC.velocity * 1.3f;
+                            Main.npc[Tongue].velocity = NPC.velocity * 1.75f;
                     
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

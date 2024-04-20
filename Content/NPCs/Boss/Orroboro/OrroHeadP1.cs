@@ -315,7 +315,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.localAI[0]++;
 
                     //use chase movement
-                    if (NPC.localAI[0] < 170 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 370) || NPC.localAI[0] >= 450)
+                    if (NPC.localAI[0] < 170 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 370))
                     {
                         Chomp = true;
 
@@ -344,7 +344,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
-                        ChargeDirection *= 28;
+                        ChargeDirection.X *= 28;
+                        ChargeDirection.Y *= 20;
                         NPC.velocity = ChargeDirection;
                     }
 
@@ -357,7 +358,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity *= 0.2f;
                     }
 
-                    if (NPC.localAI[0] > 460)
+                    if (NPC.localAI[0] > 450)
                     {
                         OpenMouth = false;
                         Chomp = false;
@@ -460,7 +461,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //chase the player
                         if (NPC.localAI[0] < 70)
                         {
-                            Movement(player, 5.5f, 0.1f);
+                            Movement(player, 6f, 0.12f);
                         }
 
                         //slow down
@@ -727,75 +728,65 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                        if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
+                        if (NPC.localAI[0] % 30 == 10 && NPC.localAI[1] > 0)
                         {
-                            for (int j = 0; j <= 0; j++) //0 was 1, 1 was 10
+                            Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
+                            center.X += Main.rand.Next(150, 220);
+                            int numtries = 0;
+                            int x = (int)(center.X / 16);
+                            int y = (int)(center.Y / 16);
+                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                            Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
                             {
-                                for (int i = 0; i <= 0; i += 1) 
+                                y++;
+                                center.Y = y * 16;
+                            }
+                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                            {
+                                numtries++;
+                                y--;
+                                center.Y = y * 16;
+                            }
+
+                            if (numtries >= 10)
+                            {
+                                break;
+                            }
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                            }
+
+                            //sometimes spawn a pillar at the players position
+                            if (Main.rand.NextBool(15))
+                            {
+                                Vector2 PlayerCenter = new(player.Center.X, player.Center.Y + player.height / 4);
+                                PlayerCenter.X += Main.rand.Next(150, 220);
+                                int numPlayerTries = 0;
+                                int playerX = (int)(PlayerCenter.X / 16);
+                                int playerY = (int)(PlayerCenter.Y / 16);
+                                while (playerY < Main.maxTilesY - 10 && Main.tile[playerX, playerY] != null && !WorldGen.SolidTile2(playerX, playerY) && 
+                                Main.tile[playerX - 1, playerY] != null && !WorldGen.SolidTile2(playerX - 1, playerY) && Main.tile[playerX + 1, playerY] != null && !WorldGen.SolidTile2(playerX + 1, playerY)) 
                                 {
-                                    Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                                    center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
-                                    int numtries = 0;
-                                    int x = (int)(center.X / 16);
-                                    int y = (int)(center.Y / 16);
-                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                                    {
-                                        y++;
-                                        center.Y = y * 16;
-                                    }
-                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                                    {
-                                        numtries++;
-                                        y--;
-                                        center.Y = y * 16;
-                                    }
-
-                                    if (numtries >= 10)
-                                    {
-                                        break;
-                                    }
-
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, 
-                                        ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
-                                    }
+                                    playerY++;
+                                    PlayerCenter.Y = playerY * 16;
+                                }
+                                while ((WorldGen.SolidOrSlopedTile(playerX, playerY) || WorldGen.SolidTile2(playerX, playerY)) && numPlayerTries < 10) 
+                                {
+                                    numPlayerTries++;
+                                    playerY--;
+                                    PlayerCenter.Y = playerY * 16;
                                 }
 
-                                for (int i = -1; i <= 1; i += 2) 
+                                if (numPlayerTries >= 10)
                                 {
-                                    Vector2 center = new(player.Center.X, player.Center.Y + player.height / 4);
-                                    center.X += j * Main.rand.Next(150, 220) * i; //distance between each spike
-                                    int numtries = 0;
-                                    int x = (int)(center.X / 16);
-                                    int y = (int)(center.Y / 16);
-                                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                                    {
-                                        y++;
-                                        center.Y = y * 16;
-                                    }
-                                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                                    {
-                                        numtries++;
-                                        y--;
-                                        center.Y = y * 16;
-                                    }
+                                    break;
+                                }
 
-                                    if (numtries >= 10)
-                                    {
-                                        break;
-                                    }
-
-                                    if (Main.rand.Next(15) == 0)
-                                    {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        {
-                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, 
-                                            ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
-                                        }
-                                    }
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), PlayerCenter.X, PlayerCenter.Y + 20, 0, 0, ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
                                 }
                             }
                         }
@@ -809,19 +800,21 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
-                        if (NPC.localAI[0] == 60)
+                        //go up to the player before looping its attack pattern
+                        if (NPC.localAI[0] <= 50)
                         {
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
-                            ChargeDirection.Normalize();
-                                    
-                            ChargeDirection.X *= 8;
-                            ChargeDirection.Y *= 8;
-                            NPC.velocity.X = ChargeDirection.X;
-                            NPC.velocity.Y = ChargeDirection.Y;
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += NPC.Center.X < player.Center.X ? -475 : 475;
+                            GoTo.Y -= 350;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 15);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        if (NPC.localAI[0] >= 90)
+                        if (NPC.localAI[0] >= 50)
                         {
+                            NPC.velocity *= 0.2f;
+
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0; 
                             NPC.ai[0] = 0;

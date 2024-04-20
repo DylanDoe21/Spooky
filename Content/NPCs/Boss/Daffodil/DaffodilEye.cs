@@ -723,7 +723,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] >= 240)
+                    if (NPC.localAI[0] >= 260)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;

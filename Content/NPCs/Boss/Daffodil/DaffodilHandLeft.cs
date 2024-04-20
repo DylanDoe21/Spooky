@@ -206,6 +206,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 case -3: 
                 {
                     GoToPosition(0, 0);
+                    NPC.velocity *= 0.98f;
 
                     break;
                 }
@@ -313,6 +314,19 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (Parent.localAI[0] < 60)
                     {
                         GoToPosition(-250, 35);
+
+                        int MaxDusts = Main.rand.Next(5, 15);
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                            Vector2 velocity = dustPos - NPC.Center;
+                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.12f);
+                            Main.dust[dustEffect].color = Color.Red;
+                            Main.dust[dustEffect].noGravity = true;
+                            Main.dust[dustEffect].noLight = false;
+                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
+                            Main.dust[dustEffect].fadeIn = 1.3f;
+                        }
                     }
 
                     if (Parent.localAI[0] == 60)
@@ -364,7 +378,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         NPC.velocity *= 0.99f;
                     }
 
-                    if (Parent.localAI[0] >= 230)
+                    if (Parent.localAI[0] >= 250)
                     {
                         HasHitSurface = false;
                     }
