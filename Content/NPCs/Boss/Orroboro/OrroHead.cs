@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.lifeMax = 15000;
             NPC.damage = 55;
-            NPC.defense = 35;
+            NPC.defense = 30;
             NPC.width = 98;
             NPC.height = 88;
             NPC.npcSlots = 25f;
@@ -121,7 +121,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -172,20 +172,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (Enraged)
             {
+                Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
+                Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red) * 0.5f;
-
-                for (int numEffect = 0; numEffect < 4; numEffect++)
+                for (int repeats = 0; repeats < 4; repeats++)
                 {
-                    Color newColor = color;
-                    newColor = NPC.GetAlpha(newColor);
-                    newColor *= 1f - fade;
-                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6 + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
-                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                    Color color = newColor;
+                    color = NPC.GetAlpha(color);
+                    color *= 1f - fade;
+                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+                    Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
                 }
+
+                Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
             return true;
@@ -196,7 +200,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 50 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -281,8 +285,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         Chomp = true;
 
-                        float speed = Enraged ? 13f : 10f;
-                        float acceleration = Enraged ? 0.16f : 0.18f;
+                        float speed = Enraged ? 12f : 10f;
+                        float acceleration = Enraged ? 0.16f : 0.13f;
                         ChaseMovement(player, speed, acceleration);
 
                         if (NPC.localAI[0] >= 145)
@@ -451,13 +455,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed.X *= Enraged ? 4.5f : 3f;
-                            ShootSpeed.Y *= Enraged ? 4.5f : 3f;
+                            ShootSpeed *= Enraged ? 4.5f : 3f;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer, 0, 0);
+                                ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer);
                             }
                         }
                     }
@@ -489,7 +492,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[1] < repeats)
                     {
                         //use chase movement
-                        ChaseMovement(player, 8.5f, 0.18f);
+                        ChaseMovement(player, 8.5f, 0.13f);
 
                         //Shoot toxic spit when nearby the player
                         if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 200)
@@ -502,17 +505,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                     
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
-                                int MaxProjectiles = Main.rand.Next(1, 3);
-
-                                float speed = Enraged ? 4.8f : 4.2f;
-
-                                for (int numProjectiles = -MaxProjectiles; numProjectiles <= MaxProjectiles; numProjectiles++)
+                                for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
                                 {
+                                    Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y + Main.rand.Next(-50, 50)) - NPC.Center;
+                                    ShootSpeed.Normalize();
+                                    ShootSpeed.X *= Main.rand.Next(10, 18);
+                                    ShootSpeed.Y *= Main.rand.Next(10, 18);
+
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
-                                        speed * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f, 
+                                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 1);
                                     }
                                 }
                             }
@@ -529,18 +532,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-                                    
-                            ChargeDirection.X *= 25;
-                            ChargeDirection.Y *= 25;
-                            NPC.velocity.X = ChargeDirection.X;
-                            NPC.velocity.Y = ChargeDirection.Y;
+                            ChargeDirection *= 25;
+                            NPC.velocity = ChargeDirection;
                         }
 
-                        if (NPC.localAI[0] == 230)
+                        if (NPC.localAI[0] >= 230)
                         {
                             OpenMouth = false;
-
-                            NPC.velocity *= 0.65f;
+                            NPC.velocity *= 0.98f;
                         }
 
                         if (NPC.localAI[0] >= 260)
@@ -589,32 +588,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                        if (NPC.localAI[0] % 20 == 5 && NPC.localAI[1] > 0)
+                        int Delay = Enraged ? 10 : 20;
+                        int Time = Enraged ? 0 : 2;
+
+                        //shoot projectiles only when close enough to the player's x-position
+                        if (NPC.localAI[0] % Delay == Time && (NPC.Center.X > player.Center.X - 700 && NPC.Center.X < player.Center.X + 700) && NPC.localAI[1] > 0)
                         {
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
-                            //if enraged shoot spreads of fangs downward
-                            if (Enraged)
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y + 50);
-
-                                for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
-                                {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
-                                        4.5f * NPC.DirectionTo(position).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                                        ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 5,
-                                    ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 0);
-                                }
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 3), Main.rand.Next(4, 12), 
+                                ModContent.ProjectileType<EyeSpit2>(), Damage, 0f, Main.myPlayer);
                             }
                         }
 

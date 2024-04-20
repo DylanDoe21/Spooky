@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.lifeMax = 15000;
             NPC.damage = 55;
-            NPC.defense = 35;
+            NPC.defense = 30;
             NPC.width = 75;
             NPC.height = 75;
             NPC.knockBackResist = 0f;

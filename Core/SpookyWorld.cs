@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.PandoraBox;
-using Spooky.Content.UI;
 
 namespace Spooky.Core
 {
@@ -106,6 +106,13 @@ namespace Spooky.Core
                     }
                 }
 
+                //spawn giant egg on the orro-boro nest if it despawns for any reason
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()))
+                {
+                    int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
+                    Main.npc[Egg].position.X += 2;
+                }
+
                 //chance to activate raveyard each night
                 if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))
                 {
@@ -196,19 +203,6 @@ namespace Spooky.Core
             }
 
             LastTime = Main.dayTime;
-        }
-
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        {
-            int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
-            if (mouseIndex != -1)
-            {
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Moco Nose UI", () =>
-                {
-                    MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
-                    return true;
-                }, InterfaceScaleType.None));
-            }
         }
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

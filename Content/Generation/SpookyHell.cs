@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
@@ -16,7 +18,6 @@ using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
-using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Generation
 {
@@ -47,7 +48,7 @@ namespace Spooky.Content.Generation
                     tile.ClearEverything();
                     WorldGen.KillWall(X, Y);
                 }
-            }   
+            }
 
             //generate the surface
             int width = BiomeEdge;
@@ -287,13 +288,6 @@ namespace Spooky.Content.Generation
 
             for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 30; Y += 5)
             {
-                //place platforms
-                if (Y > Main.maxTilesY - 160 && Y < Main.maxTilesY - 20 && WorldGen.SolidTile(StartPosition, Y) && !HasPlacedPlatform)
-                {
-                    PlacePlatform(StartPosition + WorldGen.genRand.Next(-5, 5), Y - WorldGen.genRand.Next(4, 8), WorldGen.genRand.Next(28, 36), 17, ModContent.TileType<SpookyMush>());
-                    HasPlacedPlatform = true;
-                }
-
                 if (WorldGen.SolidTile(StartPosition, Y))
                 {
                     SpookyWorldMethods.PlaceCircle(StartPosition + 10, Y, -1, ModContent.WallType<SpookyMushWall>(), 15, false, false);
@@ -302,44 +296,6 @@ namespace Spooky.Content.Generation
 
                 SpookyWorldMethods.PlaceCircle(StartPosition + WorldGen.genRand.Next(-5, 6), Y, -1, ModContent.WallType<SpookyMushWall>(), 15, false, false);
             }
-        }
-
-        public static void PlacePlatform(int X, int Y, int Width, int Height, int TileType)
-		{
-			bool HasSmoothed = false;
-
-			int smoothedSidesForBottomRowsLeft = 0;
-			int smoothedSidesForBottomRowsRight = 0;
-
-			int topLeftX = X - Width / 2;
-			int height = Height;
-
-			for (int j = 0; j < height; j++)
-			{
-				int y = Y + j;
-
-				if (j >= 2)
-				{
-					HasSmoothed = true;
-					smoothedSidesForBottomRowsLeft += WorldGen.genRand.Next(0, 2);
-					smoothedSidesForBottomRowsRight += WorldGen.genRand.Next(0, 2);
-				}
-
-				for (int i = 0; i < Width; i++)
-				{
-					int x = topLeftX + i;
-
-					if (!HasSmoothed || (i > smoothedSidesForBottomRowsLeft && i < Width - smoothedSidesForBottomRowsRight))
-					{
-						WorldGen.PlaceTile(x, y, TileType, mute: true, forced: true);
-					}
-
-                    if (!HasSmoothed)
-                    {
-                        SpookyWorldMethods.PlaceCircle(x, y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(1, 3), false, false);
-                    }
-				}
-			}
         }
 
         private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
@@ -592,84 +548,8 @@ namespace Spooky.Content.Generation
             int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
-            /*
-            //define the center of the biome
-            int XMiddle = (StartPosition + BiomeEdge) / 2;
-
-            int StartPosY = Main.maxTilesY - 10;
-
-            //place first flesh pillar
-            GenerateStructure(StartPosition + 135, StartPosY, "FleshPillar-1", 16, 32);
-
-            ///place little eye's house
-            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
-            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 23, 18);
-
-            //place second flesh pillar
-            GenerateStructure(XMiddle - 135, StartPosY, "FleshPillar-2", 15, 38);
-
             //place orroboro nest
-            GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 6, 16);
-
-            //place third flesh pillar
-            GenerateStructure(XMiddle + 135, StartPosY, "FleshPillar-3", 15, 29);
-
-            //anything bigger than small worlds
-            if (Main.maxTilesX >= 6400)
-            {
-                //place moco shrine
-                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 45 : (XMiddle + BiomeEdge) / 2 - 45;
-                GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
-
-                //place blood lake
-                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 + 75 : (XMiddle + BiomeEdge) / 2 + 75;
-                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 25);
-            }
-            //small worlds
-            else
-            {
-                //place moco shrine
-                int ShrineX = (GenVars.JungleX < Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - 15 : (XMiddle + BiomeEdge) / 2 - 5;
-                GenerateStructure(ShrineX, StartPosY, "MocoShrine", 19, 18);
-
-                //place blood lake
-                int LakeX = (GenVars.JungleX < Main.maxTilesX / 2) ? XMiddle - 360 : XMiddle + 360;
-                GenerateStructure(LakeX, StartPosY, "BloodLake", 47, 25);
-            }
-
-            //place fourth flesh pillar
-            GenerateStructure(BiomeEdge - 135, StartPosY, "FleshPillar-4", 15, 39);
-
-            //lock all monster chests
-            for (int X = StartPosition - 50; X < BiomeEdge + 50; X++)
-            {
-                for (int Y = Main.maxTilesY - 180; Y < Main.maxTilesY - 15; Y++)
-                {
-                    //check for the top left frame of the chest
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<EyeChest>() && //top left
-                    Main.tile[X + 1, Y].TileType == ModContent.TileType<EyeChest>() && //top right
-                    Main.tile[X, Y + 1].TileType == ModContent.TileType<EyeChest>() && //bottom left
-                    Main.tile[X + 1, Y + 1].TileType == ModContent.TileType<EyeChest>()) //bottom right
-                    {
-                        //top left
-                        Main.tile[X, Y].TileFrameX = 36;
-                        Main.tile[X, Y].TileFrameY = 0;
-
-                        //top right
-                        Main.tile[X + 1, Y].TileFrameX = 18 + 36;
-                        Main.tile[X + 1, Y].TileFrameY = 0;
-
-                        //bottom left
-                        Main.tile[X, Y + 1].TileFrameX = 36;
-                        Main.tile[X, Y + 1].TileFrameY = 18;
-
-                        //bottom right
-                        Main.tile[X + 1, Y + 1].TileFrameX = 18 + 36;
-                        Main.tile[X + 1, Y + 1].TileFrameY = 18;
-                    }
-                }
-            }
-            */
+            GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 23, 19);
         }
 
         //method for finding a valid surface and placing the structure on it
@@ -679,7 +559,7 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-                while (WorldGen.SolidTile(startX, startY) && startY >= Main.maxTilesY - 200)
+                while (WorldGen.SolidTile(startX, startY) && startY >= Main.maxTilesY - 155)
 				{
 					startY--;
 				}
@@ -694,6 +574,13 @@ namespace Spooky.Content.Generation
                 if (StructureFile == "LittleEyeHouse")
                 {
                     NPC.NewNPC(null, (startX - 9) * 16, (startY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                }
+
+                if (StructureFile == "OrroboroNest")
+                {
+                    Flags.EggPosition = new Vector2(startX * 16, startY * 16);
+                    int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
+                    Main.npc[Egg].position.X += 2;
                 }
 
                 placed = true;

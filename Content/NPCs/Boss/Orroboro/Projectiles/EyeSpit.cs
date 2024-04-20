@@ -66,13 +66,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
             Projectile.ai[0]++;
-            if (Projectile.ai[0] <= 30)
-            {   
-                Projectile.velocity *= 0.97f;
-            }
-            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 75)
+            if (Projectile.ai[0] >= 20 && Projectile.ai[0] <= 75 && Projectile.ai[1] == 1)
             {
-                Projectile.velocity *= 1.05f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
             }
 		}
 

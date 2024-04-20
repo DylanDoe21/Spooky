@@ -31,6 +31,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         Vector2 SavePlayerPosition;
 
+        public static readonly SoundStyle LickSound = new("Spooky/Content/Sounds/Orroboro/BoroLick", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
@@ -95,7 +96,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.lifeMax = 15000;
             NPC.damage = 55;
-            NPC.defense = 35;
+            NPC.defense = 30;
             NPC.width = 65;
             NPC.height = 65;
             NPC.npcSlots = 25f;
@@ -150,20 +151,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (Enraged)
             {
+                Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
+                Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red) * 0.5f;
-
-                for (int numEffect = 0; numEffect < 4; numEffect++)
+                for (int repeats = 0; repeats < 4; repeats++)
                 {
-                    Color newColor = color;
-                    newColor = NPC.GetAlpha(newColor);
-                    newColor *= 1f - fade;
-                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6 + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
-                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                    Color color = newColor;
+                    color = NPC.GetAlpha(color);
+                    color *= 1f - fade;
+                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+                    Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
                 }
+
+                Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
             return true;
@@ -183,7 +188,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 50 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -293,7 +298,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= Enraged ? 38 : 40;
+                            ChargeDirection.X *= Enraged ? 45 : 40;
                             ChargeDirection.Y *= 0;
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
@@ -352,14 +357,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= (Enraged ? 28 : 22) + Main.rand.Next(-5, 5);
-                            ChargeDirection.Y *= (Enraged ? 28 : 22) + Main.rand.Next(-5, 5);
+                            ChargeDirection.X *= (Enraged ? 27 : 22) + Main.rand.Next(-5, 5);
+                            ChargeDirection.Y *= (Enraged ? 27 : 22) + Main.rand.Next(-5, 5);
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
 
                         if (NPC.localAI[0] > time3)
                         {
+                            NPC.velocity *= 0.9f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1]++;
                             NPC.netUpdate = true;
@@ -520,8 +526,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, 
-                                        ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 1, Main.myPlayer, 0, 0);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 20, 0, 0, ModContent.ProjectileType<FleshPillarTelegraph>(), Damage, 0, Main.myPlayer, 0, 0);
                                     }
                                 }
                             }
@@ -536,12 +541,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
-                        //go below player after pillar attack is over to prepare for acid breath
-                        if (NPC.localAI[0] <= 60)
+                        //go to the players side before doing the tongue attack so it doesnt unfairly hit the player from off screen
+                        if (NPC.localAI[0] <= 50)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += 0;
-                            GoTo.Y += 750;
+                            GoTo.X += NPC.Center.X < player.Center.X ? -475 : 475;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -558,7 +562,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //charge and shoot acid breath while orro drops venom spit
+                //charge and shoot out tongue while orro drops venom spit
                 case 4:
                 {
                     NPC.localAI[0]++;
@@ -573,8 +577,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             Vector2 CenterPoint = player.Center;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), CenterPoint.X, CenterPoint.Y, 0, 0, 
-                            ModContent.ProjectileType<AcidTarget>(), 0, 0f, 0);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), CenterPoint.X, CenterPoint.Y, 0, 0, ModContent.ProjectileType<AcidTarget>(), 0, 0f, Main.myPlayer);
                             
                             //use SavePlayerPosition to save where the telegraph was
                             SavePlayerPosition = CenterPoint;
@@ -583,21 +586,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //charge towards where the telegraphs saved point is
                         if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                         {
-                            SoundEngine.PlaySound(HissSound1, NPC.Center);
-                            SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
+                            SoundEngine.PlaySound(LickSound, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-                            ChargeDirection *= Enraged ? 35 : 28;
+                            ChargeDirection *= Enraged ? 28 : 22;
                             NPC.velocity = ChargeDirection;
-                        }
-                        
-                        if ((NPC.localAI[0] > time1 + 15 && NPC.localAI[0] < time1 + 35) || (NPC.localAI[0] > time2 + 15 && NPC.localAI[0] < time2 + 35) ||
-                        (NPC.localAI[0] > time3 + 15 && NPC.localAI[0] < time3 + 35))
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.velocity.X / 3), NPC.Center.Y + (NPC.velocity.Y / 3), 
-                            NPC.velocity.X * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, NPC.velocity.Y * 0.5f + Main.rand.NextFloat(-0.2f, 0.2f) * 1, 
-                            ModContent.ProjectileType<AcidBreath>(), Damage, 0f, 0);
+
+                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroTongue>(), ai3: NPC.whoAmI);
+                            Main.npc[Tongue].velocity = NPC.velocity * 1.3f;
+                    
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: Tongue);
+                            }
                         }
 
                         if (NPC.localAI[0] >= time3 + 35)

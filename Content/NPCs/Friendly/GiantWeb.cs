@@ -1,26 +1,19 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.UI;
 using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
+using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Friendly
 {
     public class GiantWeb : ModNPC  
     {
-        public bool ConsumeItem = false;
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -35,10 +28,12 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.defense = 0;
             NPC.width = 334;
 			NPC.height = 278;
-            NPC.immortal = true;
-            NPC.dontTakeDamage = true;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
+            NPC.immortal = true;
+            NPC.dontTakeDamage = true;
+            NPC.behindTiles = true;
+            NPC.aiStyle = -1;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -94,6 +89,7 @@ namespace Spooky.Content.NPCs.Friendly
             return true;
         }
 
+        /*
         public override bool CanChat()
         {
             bool HasSkeletonPiece = Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterHat>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterSkull>()) ||
@@ -126,52 +122,93 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.netUpdate = true;
             }
         }
+        */
 
         public override void AI()
         {
             Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
             NPC.velocity *= 0;
 
+            bool PlayerHasSkeletonPiece = Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterHat>()) || Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterSkull>()) ||
+            Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterLegs>());
+
+            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 2, (int)Main.MouseWorld.Y - 2, 5, 5)) && 
+            NPC.Hitbox.Intersects(Main.player[Main.myPlayer].Hitbox) && PlayerHasSkeletonPiece && Main.myPlayer == Main.player[Main.myPlayer].whoAmI)
+            {
+                NPC.GivenName = Language.GetTextValue("Mods.Spooky.NPCs.GiantWeb.DisplayNameAlt");
+
+                if (Main.mouseRight && NPC.ai[0] == 0)
+                {
+                    NPC.ai[0] = 1;
+                    NPC.netUpdate = true;
+                }
+            }
+            else
+            {
+                NPC.GivenName = Language.GetTextValue("Mods.Spooky.NPCs.GiantWeb.DisplayName");
+            }
+
             if (NPC.ai[0] == 1)
             {
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
-                {
-                    Flags.OldHunterHat = true;
+                SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack, NPC.Center);
 
-                    if (Main.netMode == NetmodeID.Server)
+                SpookyPlayer.ScreenShakeAmount = 5;
+
+                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.OldHunterHat);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.OldHunterHat = true;
                     }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
+                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
-                    Flags.OldHunterSkull = true;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.OldHunterSkull);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.OldHunterSkull = true;
                     }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
+                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
-                    Flags.OldHunterTorso = true;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.OldHunterTorso);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.OldHunterTorso = true;
                     }
                 }
-                if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
+                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
-                    Flags.OldHunterLegs = true;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.OldHunterLegs);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.OldHunterLegs = true;
                     }
                 }
 
                 NPC.ai[0] = 0;
+
                 NPC.netUpdate = true;
             }
 
@@ -204,11 +241,15 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
-                Flags.OldHunterAssembled = true;
-
-                if (Main.netMode == NetmodeID.Server)
+                if (Main.netMode != NetmodeID.SinglePlayer)
                 {
-                    NetMessage.SendData(MessageID.WorldData);
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)SpookyMessageType.OldHunterAssembled);
+                    packet.Send();
+                }
+                else
+                {
+                    Flags.OldHunterAssembled = true;
                 }
 
                 NPC.netUpdate = true;

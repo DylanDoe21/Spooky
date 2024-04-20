@@ -15,7 +15,7 @@ namespace Spooky.Core
         private static bool? hasDefeatedBigBoneField;
 
         //default file path for the README file
-        public static string DefaultFilePath => $"{Main.SavePath}/SpookyModMenuScreen/README.txt";
+        public static string ReadMeFilePath => $"{Main.SavePath}/SpookyModMenuScreen/README.txt";
 
         //individual file paths for each boss
         public static string RotGourdSavePath => $"{Main.SavePath}/SpookyModMenuScreen/RotGourd";
@@ -28,9 +28,9 @@ namespace Spooky.Core
         public override void Load()
         {
             //create the directory for the menu saves if it doesn't exist
-            if (!File.Exists(DefaultFilePath))
+            if (!File.Exists(ReadMeFilePath))
             {
-                string ActualDirectory = Path.GetDirectoryName(DefaultFilePath);
+                string ActualDirectory = Path.GetDirectoryName(ReadMeFilePath);
 
                 if (!Directory.Exists(ActualDirectory))
                 {
@@ -38,11 +38,11 @@ namespace Spooky.Core
                 }
 
                 //TODO: turn this into localized text
-                var pathWriter = File.CreateText(DefaultFilePath);
-                pathWriter.WriteLine("Spooky mod's custom menu screen has blackened versions of the each boss on it" +
+                var pathWriter = File.CreateText(ReadMeFilePath);
+                pathWriter.WriteLine("Spooky mod's custom menu screen has blackened versions of each spooky mod boss on it" +
                 "\nEach time a spooky mod boss is defeated in game, a blank file with that bosses name will be created in this folder (If it doesn't exist already)" +
                 "\nSpooky mod itself will check if these files exist, and if they do, then that respective boss will become un-blackened on the menu screen" +
-                "\nDeleting any of the files in here will re-blacken that respective boss, but you must reload the mod in game for this to take effect");
+                "\nDeleting any of those files in this folder will re-blacken that respective boss on the menu, but you need reload the mod in game for this to take effect");
                 pathWriter.Close();
             }
         }

@@ -66,6 +66,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 Projectile.position = Parent.Center - Projectile.Size / 2;
             }
+            else
+            {
+                Projectile.Kill();
+            }
 
             Projectile.ai[1]++;
 

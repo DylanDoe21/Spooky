@@ -4,11 +4,12 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 
-namespace Spooky.Content.NPCs.SpookyHell.Projectiles
+namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
-	public class ValleySharkMouth : ModNPC
+    public class BoroTongue : ModNPC
 	{
         public override void SetStaticDefaults()
         {
@@ -17,15 +18,16 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 5;
-            NPC.damage = 0;
-            NPC.defense = 0;
-            NPC.width = 22;
-            NPC.height = 20;
+            NPC.lifeMax = 15000;
+            NPC.damage = 55;
+            NPC.defense = 30;
+            NPC.width = 40;
+            NPC.height = 40;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            NPC.behindTiles = true;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
             NPC.aiStyle = -1;
@@ -36,17 +38,17 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
             //only draw if the parent is active
-            if (Parent.active && Parent.type == ModContent.NPCType<ValleyShark>())
+            if (Parent.active && Parent.type == ModContent.NPCType<BoroHead>())
             {
                 Vector2 ParentCenter = Parent.Center;
 
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/Projectiles/ValleySharkMouthChain");
+                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
                 Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
-                Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y + 3);
+                Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y );
                 Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
                 float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
@@ -62,6 +64,15 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 while (chainLengthRemainingToDraw > 0f)
                 {
+                    if (chainCount == 0)
+                    {
+                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongue");
+                    }
+                    else
+                    {
+                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
+                    }
+
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
                     var chainTextureToDraw = chainTexture;
@@ -74,7 +85,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 }
             }
 
-            return true;
+            return false;
         }
 
         public override void AI()
@@ -95,36 +106,12 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             }
 
             //die if the parent npc is dead
-            if (!Parent.active || Parent.type != ModContent.NPCType<ValleyShark>())
+            if (!Parent.active || Parent.type != ModContent.NPCType<BoroHead>())
             {
                 NPC.active = false;
             }
 
-            //set mouth to retract immediately when it hits the targetted player
-            if (NPC.Hitbox.Intersects(player.Hitbox))
-            {
-                if (NPC.ai[1] == 0)
-                {
-                    NPC.ai[0] = 24;
-                    NPC.ai[1] = 1;
-                }
-            }
-
-            //if the mouth is grappled onto the player
-            if (NPC.ai[1] == 1)
-            {
-                player.Center = NPC.Center;
-            }
-
             NPC.ai[0]++;
-
-            if (NPC.ai[0] == 1)
-            {
-                Vector2 ChargeSpeed = player.Center - NPC.Center;
-                ChargeSpeed.Normalize();
-                ChargeSpeed *= 22;
-                NPC.velocity = ChargeSpeed;
-            }
 
             if (NPC.ai[0] == 25)
             {
@@ -139,22 +126,22 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 Vector2 ChargeSpeed = Parent.Center - NPC.Center;
                 ChargeSpeed.Normalize();
-                ChargeSpeed *= 12;
+                ChargeSpeed *= 60;
                 NPC.velocity = ChargeSpeed;
 
                 if (NPC.Distance(Parent.Center) <= 30f)
                 {
-                    //if the mouth is grappled onto the player, then set the valley shark ai to immediately do its slam attack
-                    if (NPC.ai[1] == 1)
-                    {
-                        Parent.localAI[0] = 1;
-                        Parent.localAI[1] = 340;
-                        Parent.localAI[2] = 0;
-                    }
-
                     NPC.active = false;
                 }
             }
 		}
 	}
 }
+     
+          
+
+
+
+
+
+

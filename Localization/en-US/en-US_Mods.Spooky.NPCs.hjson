@@ -58,6 +58,7 @@ BigFlowerPot.DisplayName: Giant Flower Pot
 BigFlower.DisplayName: Solar Flower
 DefensiveFlower.DisplayName: Defensive Flower
 HealingFlower.DisplayName: Healing Flower
+CatacombGuardian.DisplayName: Catacomb Guardian
 DaffodilBody.DisplayName: ""
 DaffodilHandLeft.DisplayName: Daffodil
 DaffodilHandRight.DisplayName: Daffodil
@@ -78,7 +79,6 @@ TheFlesh.DisplayName: The Flesh
 TheHorse.DisplayName: The Horse
 TheMan.DisplayName: The Man
 //catacombs layer 1
-CatacombGuardian.DisplayName: Catacomb Guardian
 Skeletoid1.DisplayName: Skeletoid
 Skeletoid2.DisplayName: Skeletoid
 Skeletoid3.DisplayName: Skeletoid
@@ -114,15 +114,19 @@ DahliaEye.DisplayName: Diva Dahlia
 JumpingSeed1.DisplayName: Hopseed
 JumpingSeed2.DisplayName: Hopseed
 JumpingSeed3.DisplayName: Hopseed
+LilySlime1Big.DisplayName: Leaping Lily
+LilySlime1Small.DisplayName: Leaping Lily
+LilySlime2Big.DisplayName: Leaping Lily
+LilySlime2Small.DisplayName: Leaping Lily
 OrchidPinkBig.DisplayName: Observing Orchid
 OrchidPinkSmall.DisplayName: Observing Orchid
 OrchidPurpleBig.DisplayName: Observing Orchid
 OrchidPurpleSmall.DisplayName: Observing Orchid
 OrchidStem.DisplayName: Orchid Stem
-PitcherPlant1.DisplayName: Shoe Pitcher
-PitcherPlant2.DisplayName: Shoe Pitcher
-PitcherPlant3.DisplayName: Shoe Pitcher
-PitcherPlant4.DisplayName: Shoe Pitcher
+PitcherPlant1.DisplayName: Spitcher Plant
+PitcherPlant2.DisplayName: Spitcher Plant
+PitcherPlant3.DisplayName: Spitcher Plant
+PitcherPlant4.DisplayName: Spitcher Plant
 PlantTrap1.DisplayName: Trapper Plant
 PlantTrap2.DisplayName: Trapper Plant
 PlantTrap3.DisplayName: Trapper Plant
@@ -131,6 +135,7 @@ PlantTrap5.DisplayName: Trapper Plant
 PlantTrap6.DisplayName: Trapper Plant
 PollinatorBeeDamage.DisplayName: Pollinator Bee
 PollinatorBeeHealing.DisplayName: Pollinator Bee
+Smelly.DisplayName: Smelly
 Sunflower1.DisplayName: Stalking Sunflower
 Sunflower3.DisplayName: Stalking Sunflower
 Sunflower2.DisplayName: Stalking Sunflower
@@ -164,9 +169,9 @@ Glutinous.DisplayName: Glutinous
 Ventricle.DisplayName: Ventricle
 Vesicator.DisplayName: Vesicator
 Vigilante.DisplayName: Vigilante
+OrroboroEgg.DisplayName: ""
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid
-GiantWeb.DisplayName: Giant Web
 GiantWebAnimationBase.DisplayName: ""
 GiantWebAnimationPiece.DisplayName: ""
 LittleBone.DisplayName: Little Bone
@@ -208,6 +213,11 @@ OldHunter: {
 		Princess_LovesNPC: ""
 		LikeNPC_Princess: ""
 	}
+}
+
+GiantWeb: {
+	DisplayName: Giant Web
+	DisplayNameAlt: Right click to insert old hunter piece
 }
 
 //spooky biome
@@ -312,4 +322,4 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-Smelly.DisplayName: Smelly
+BoroTongue.DisplayName: Boro Tongue

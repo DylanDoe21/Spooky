@@ -1,17 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.Graphics;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Utilities;
-using static Terraria.ModLoader.ModContent;
 
 namespace Spooky.Core
 {
@@ -28,7 +16,6 @@ namespace Spooky.Core
 
             return combined;
         }
-
     }
 }
 

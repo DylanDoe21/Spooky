@@ -12,6 +12,7 @@ namespace Spooky.Core
         public static Vector2 PandoraPosition;
         public static Vector2 FlowerPotPosition;
         public static Vector2 SpiderWebPosition;
+        public static Vector2 EggPosition;
 
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
@@ -34,11 +35,11 @@ namespace Spooky.Core
         public static bool OldHunterTorso = false;
         public static bool OldHunterLegs = false;
 
-        public static bool EyeQuest1 = false; 
-        public static bool EyeQuest2 = false;
-        public static bool EyeQuest3 = false;
-        public static bool EyeQuest4 = false;
-        public static bool EyeQuest5 = false;
+        public static bool LittleEyeBounty1 = false; 
+        public static bool LittleEyeBounty2 = false;
+        public static bool LittleEyeBounty3 = false;
+        public static bool LittleEyeBounty4 = false;
+        public static bool BountyInProgress = false;
         public static bool DailyQuest = false;
 
         public static bool encounteredMan = false;
@@ -69,11 +70,11 @@ namespace Spooky.Core
             OldHunterTorso = false;
             OldHunterLegs = false;
 
-            EyeQuest1 = false; 
-            EyeQuest2 = false;
-            EyeQuest3 = false;
-            EyeQuest4 = false;
-            EyeQuest5 = false;
+            LittleEyeBounty1 = false; 
+            LittleEyeBounty2 = false;
+            LittleEyeBounty3 = false;
+            LittleEyeBounty4 = false;
+            BountyInProgress = false;
             DailyQuest = false;
 
             encounteredMan = false;
@@ -88,6 +89,7 @@ namespace Spooky.Core
             tag["PandoraPosition"] = PandoraPosition;
             tag["FlowerPotPosition"] = FlowerPotPosition;
             tag["SpiderWebPosition"] = SpiderWebPosition;
+            tag["EggPosition"] = EggPosition;
 
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
@@ -110,11 +112,11 @@ namespace Spooky.Core
             if (OldHunterTorso) tag["OldHunterTorso"] = true;
             if (OldHunterLegs) tag["OldHunterLegs"] = true;
 
-            if (EyeQuest1) tag["EyeQuest1"] = true;
-            if (EyeQuest2) tag["EyeQuest2"] = true;
-            if (EyeQuest3) tag["EyeQuest3"] = true;
-            if (EyeQuest4) tag["EyeQuest4"] = true;
-            if (EyeQuest5) tag["EyeQuest5"] = true;
+            if (LittleEyeBounty1) tag["LittleEyeBounty1"] = true;
+            if (LittleEyeBounty2) tag["LittleEyeBounty2"] = true;
+            if (LittleEyeBounty3) tag["LittleEyeBounty3"] = true;
+            if (LittleEyeBounty4) tag["LittleEyeBounty4"] = true;
+            if (BountyInProgress) tag["BountyInProgress"] = true;
             if (DailyQuest) tag["DailyQuest"] = true;
 
             if (encounteredMan) tag["encounteredMan"] = true;
@@ -129,6 +131,7 @@ namespace Spooky.Core
             PandoraPosition = tag.Get<Vector2>("PandoraPosition");
             FlowerPotPosition = tag.Get<Vector2>("FlowerPotPosition");
             SpiderWebPosition = tag.Get<Vector2>("SpiderWebPosition");
+            EggPosition = tag.Get<Vector2>("EggPosition");
 
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
@@ -151,11 +154,11 @@ namespace Spooky.Core
             OldHunterTorso = tag.ContainsKey("OldHunterTorso");
             OldHunterLegs = tag.ContainsKey("OldHunterLegs");
 
-            EyeQuest1 = tag.ContainsKey("EyeQuest1");
-            EyeQuest2 = tag.ContainsKey("EyeQuest2");
-            EyeQuest3 = tag.ContainsKey("EyeQuest3");
-            EyeQuest4 = tag.ContainsKey("EyeQuest4");
-            EyeQuest5 = tag.ContainsKey("EyeQuest5");
+            LittleEyeBounty1 = tag.ContainsKey("LittleEyeBounty1");
+            LittleEyeBounty2 = tag.ContainsKey("LittleEyeBounty2");
+            LittleEyeBounty3 = tag.ContainsKey("LittleEyeBounty3");
+            LittleEyeBounty4 = tag.ContainsKey("LittleEyeBounty4");
+            BountyInProgress = tag.ContainsKey("BountyInProgress");
             DailyQuest = tag.ContainsKey("DailyQuest");
 
             encounteredMan = tag.ContainsKey("encounteredMan");
@@ -170,6 +173,7 @@ namespace Spooky.Core
             writer.WriteVector2(PandoraPosition);
             writer.WriteVector2(FlowerPotPosition);
             writer.WriteVector2(SpiderWebPosition);
+            writer.WriteVector2(EggPosition);
 
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
@@ -199,11 +203,11 @@ namespace Spooky.Core
             writer.Write(oldHunterFlags);
 
             var questFlags = new BitsByte();
-            questFlags[0] = EyeQuest1;
-            questFlags[1] = EyeQuest2;
-            questFlags[2] = EyeQuest3;
-            questFlags[3] = EyeQuest4;
-            questFlags[4] = EyeQuest5;
+            questFlags[0] = LittleEyeBounty1;
+            questFlags[1] = LittleEyeBounty2;
+            questFlags[2] = LittleEyeBounty3;
+            questFlags[3] = LittleEyeBounty4;
+            questFlags[4] = BountyInProgress;
             questFlags[5] = DailyQuest;
             writer.Write(questFlags);
 
@@ -221,6 +225,7 @@ namespace Spooky.Core
             PandoraPosition = reader.ReadVector2();
             FlowerPotPosition = reader.ReadVector2();
             SpiderWebPosition = reader.ReadVector2();
+            EggPosition = reader.ReadVector2();
 
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];
@@ -247,11 +252,11 @@ namespace Spooky.Core
             OldHunterLegs = oldHunterFlags[4];
 
             BitsByte questFlags = reader.ReadByte();
-            EyeQuest1 = questFlags[0];
-            EyeQuest2 = questFlags[1];
-            EyeQuest3 = questFlags[2];
-            EyeQuest4 = questFlags[3];
-            EyeQuest5 = questFlags[4];
+            LittleEyeBounty1 = questFlags[0];
+            LittleEyeBounty2 = questFlags[1];
+            LittleEyeBounty3 = questFlags[2];
+            LittleEyeBounty4 = questFlags[3];
+            BountyInProgress = questFlags[4];
             DailyQuest = questFlags[5];
 
             BitsByte encounterFlags = reader.ReadByte();

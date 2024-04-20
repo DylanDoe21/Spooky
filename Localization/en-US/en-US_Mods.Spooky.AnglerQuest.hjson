@@ -10,7 +10,7 @@ GourdFish: {
 
 HibiscusFish: {
 	Description: In the plant infested catacombs, there is a rare fish that can grow off of plants and swim on its own! I think it would be great if you could go down there and get one for me.
-	CatchLocation: Caught in the Creepy Catacombs
+	CatchLocation: Caught in the Lower Catacombs
 }
 
 OrroEel: {

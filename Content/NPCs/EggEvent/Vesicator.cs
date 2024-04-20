@@ -138,8 +138,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (stretchRecoil > 0)
 			{
-				stretchRecoil *= 0.965f;
-				stretchRecoil -= 0.02f;
+				stretchRecoil -= 0.03f;
 			}
 			else
 			{

@@ -69,23 +69,6 @@ LittleBone: {
 }
 
 LittleEye: {
-	Awaken: Whoa there, I was trying to take a nap! You must be a pretty curious adventurer to have found your way down here.
-	Quest1: So, there are four different flasks you can make that I can combine into something that will be helpful later. However, I am unable to gather the needed ingredients, so I'll need your help to find them, and then craft the flask with them. To make this first flask, you'll need the following.
-	Quest1Rewards: You made that potion faster than expected. I'll be holding onto this for later use, take this stuff as a reward for your troubles.
-	Quest2: This next flask is similar, but my inability to move still prevents me from getting the ingredients, so I'll need you to craft the next flask with the following.
-	Quest2Rewards: You're getting the hang of this! Here, since I know how much you love my magical little hat, you can have this bootleg version!
-	Quest3: At this point I assume you understand what to do. For this next flask, you'll need the following materials.
-	Quest3Rewards: Good work! I've heard that this giant cotton swab can be used at a shrine somewhere around here to summon a rare creature. Truth is, I just wanna see you fight it because I heard it looks really funny.
-	Quest4: So, now that you only have one last substance to make for me, I've got a special reward for you if you can bring me it. As usual you'll need some materials to make it.
-	Quest4Rewards: Alright, that was the final flask I need! As a reward, you can have this magic pylon that allows you teleport back here whenever you like! Eventually, I'll need you to bring me a special ingredient so I can cook up a special concoction for you.
-	Quest5: In order for me to combine all four flasks, you'll need to bring me some special souls. Since you defeated that giant flesh wall, you should be able to get them now.
-	Quest5Rewards: Here, take this nasty concoction. With it, you should be able to break that giant egg over there. I am not responsible for what happens, or any injuries sustained if something bad does happen.
-	RandomQuest: If you want, I can bring you more of those sentient hearts... if you can craft this flask for me. You'll need these materials to make the one I need right now.
-	RandomQuestReward: Thanks, here take these silly little rewards.
-	NoQuests1: I don't need you to get another flask for me right now, stop by later and I may need something then.
-	NoQuests2: You're gonna have to give me some time before I'll need another flask from you.
-	NoQuests3: Sorry, I don't have anything else for you to gather at the moment.
-	Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
 	Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
 	Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
 	Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
@@ -94,10 +77,55 @@ LittleEye: {
 	Default6: The alchemy I do down here is not really science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
 	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
 	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
-	EggEventAdvice: So, you must be trying to open that egg, huh? Well then, just be careful and follow my favorite saying, 'Bloody red, you'll be dead, purplish blue, cripple you!'
-	OrroBoro: Hey there's two giant serpents chasing you right now. Maybe go worry about that?
-	Button1: Quest
+	Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
+	Button1: Bounties
 	Button2: Cauldron?
+	Bounty1:
+		'''
+		[c/8284FF: I tried to make a freaky monster a while back to defend my lab...]
+		[c/8284FF: But, after a few mishaps, it escaped and ran off to the surface.]
+		[c/8284FF: You should go and find it, maybe bring a piece of it back for me too!]
+		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF7B2A: Spooky Forest][c/F5FFCF: and defeat it]
+		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
+		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		'''
+	Bounty2:
+		'''
+		[c/8284FF: ???]
+		[c/8284FF: ???]
+		[c/8284FF: ???]
+		[c/F5FFCF: Bounty Mission: Find this monster in the][c/12A400: Swampy Cemetery][c/F5FFCF: and defeat it]
+		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
+		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		'''
+	Bounty3:
+		'''
+		[c/8284FF: ???]
+		[c/8284FF: ???]
+		[c/8284FF: ???]
+		[c/F5FFCF: Bounty Mission: Find this monster in the][c/BB8684: Spider Grotto][c/F5FFCF: and defeat it]
+		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
+		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		'''
+	Bounty4:
+		'''
+		[c/8284FF: Ever tried cloning yourself? It's actually really awesome!]
+		[c/8284FF: What isn't so awesome is when your clone gets a bit too powerful.]
+		[c/8284FF: However, I am already great, so please go show my clone who's boss.]
+		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF4523: Valley of Eyes][c/F5FFCF: and defeat it]
+		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
+		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		'''
+	Bounty5Locked: "[c/E52906: Defeat all three mechanical bosses to unlock this bounty]"
+	Bounty5:
+		'''
+		[c/8284FF: Ever wonder why the giant egg has a shield on it? Its kinda my fault...]
+		[c/8284FF: I put a curse on it by accident while trying to make it into scrambled eggs.]
+		[c/8284FF: I have a concoction that may stop it, but I have no clue what will happen.]
+		[c/F5FFCF: Bounty Mission: Find the][c/8130FF: Giant Egg][c/F5FFCF: and use the concoction on it.]
+		[c/68DD27: Click to accept this bounty and recieve the concoction]
+		[c/E52906: Good luck!]
+		'''
 }
 
 OldHunter: {
@@ -201,11 +229,6 @@ Daffodil: {
 PandoraBox: {
 	Button: Open
 	Dialogue: It's a strange box with a weird aura emanating from it. Will you open it?
-}
-
-GiantWeb: {
-	Button: Insert Skeleton Piece
-	Dialogue: You are holding a piece of the skeleton, it looks like it can fit in the molds. Insert it?
 }
 
 SentientCap: {

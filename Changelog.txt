@@ -5,9 +5,8 @@ Eye Valley Improvements:
 
 -Changed the terrain generation to be more rough looking, making it more interesting and natural
 -Added pillars of flesh walls that generate in the biome
--Added small plateaus throughout the biome to give the terrain more variance
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
--Added a new giant evil lab that little eye lives in, it replaces the previous small house
+-Added a new giant evil lab for little eye to live in
 
 
 
@@ -20,6 +19,7 @@ Catacomb Improvements:
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always be pregenerated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
+-Daffodil's arena now has a new custom background, which was made by Hat in a river
 
 
 
@@ -38,23 +38,34 @@ Other New Additions:
 Weapons & Gear:
 
 -Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
--Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more sdamage whenever you hit them with a whip
--Increased the use speed of the harvester's scythe and the spooky buster
+-Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more damage whenever you hit them with a whip
+-Increased the use speed of the harvester's scythe and spooky buster
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 
 
 Enemy & Boss Changes:
 
+-Added slight screenshake to orro-boros flesh spike attacks
+-Reduced orro-boros overall movement speed a bit, and reduced their overall movement acceleration (The amount I reduced is different for each attack)
+-Orro-boros gravity affected spit projectiles now have a maximum speed they can fall at instead of constantly falling faster over time
+-Orro-boro now slows down way more before dashing in its phase 1 chase attack to telegraph them better
+-Orro-boros phase 1 attack where it chases the player and shoots spreads of spit while charging has been changed, he now moves at the player way slower, charges a bit slower, and spits a more natural looking spread of projectiles
+-Orro-boros phase 1 upward charge attack where it spits 2 spreads of projectiles up that fall down has been changed to be a stream of projectiles that are shot in random directions upward and then fall down
+-Orros spit drop attack in phase 2 is now more natural, the projectiles will now fall down in slightly randomized directions instead of straight down, and now only shoots them if he is within a certain range of the players X-position
+-Orro now shoots spit projectiles in his phase 2 spit drop attack way more frequently while enraged instead of shooting spreads of them
+-Reduced boros quick dash attack dashing speed a bit
+-Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same but with a new projectile)
+-Boro will now emerge out of the ground before using his tongue attack instead of just randomly appearing out of the ground
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little chunk gores when killed
 -Heavily nerfed monster eyes jumping rate and speed as it was way too unbalanced before
 
 
-
 Miscellaneous:
 
--Sentient hearts now only require one to be researched in journey mode to unlock duplication
-
+-Sentient hearts now only require two to be researched in journey mode to unlock duplication
+-Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
+-The giant eye valley egg now has a new animation when it spawns orro-boro
 
 
 Removals:
@@ -70,12 +81,18 @@ Removals:
 Fixed all of the following bugs and issues:
 
 -Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
--Combined creepy pasta accessory not giving the red mist clarinet ability
--Fixed spooky mod ambient grasses and other plants growing underwater
--Tarantula hawks not dropping the enemy they are carrying when killed (If they are killed before dropping it)
+-Combined creepypasta accessory not giving the red mist clarinet ability
+-Fixed spooky mod ambient grasses, vines, and other plants growing underwater
+-Tarantula hawks not dropping the enemy they are carrying if they are killed before dropping it
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
 -Swampy cemetery sometimes generating over large amounts of the jungle
 -Hallucination entities not facing towards the player correctly
 -Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
--Creepy pasta combination accessory not giving the red mist clarinets ability
+-Killing a crux not killing its debuff aura if it was using one before dying
+-Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
+
+
+Fixed all of the following multiplayer bugs and issues:
+
+-Old hunter giant web not saving pieces being inserted properly

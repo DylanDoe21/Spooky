@@ -53,8 +53,8 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
 
-            int XStart = PositionX;
-            int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+            int XStart = PositionX - (Cemetery.BiomeWidth / 2);
+            int XMiddle = PositionX;
 
             //LAYER 1
 
@@ -882,8 +882,8 @@ namespace Spooky.Content.Generation
                 int newTempleY = Main.maxTilesY - (Main.maxTilesY / 2) + WorldGen.genRand.Next(20, 80);
 
                 //middle of the where the cemetery/catacombs is
-                int XStart = PositionX;
-                int XMiddle = XStart + (Cemetery.BiomeWidth / 2);
+                int XStart = PositionX - (Cemetery.BiomeWidth / 2);
+                int XMiddle = PositionX;
 
                 //attempt to find a valid position for the jungle temple to place in, just in case it generates far away from the jungle
                 bool foundValidPosition = false;

@@ -19,53 +19,19 @@ namespace Spooky.Content.NPCs.EggEvent
 	{
 		public static int Wave = 0;
 		public static bool EggEventActive;
-		public static bool hasSpawnedBiomass;
 
 		public override void OnWorldLoad()
 		{
 			Wave = 0;
 			EggEventActive = false;
-			hasSpawnedBiomass = false;
 		}
 
         public override void PostUpdateEverything()
 		{
 			//end the event and reset everything if you die, or if you leave the valley of eyes
-			if (EggEventActive && !Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				Wave = 0;
-				hasSpawnedBiomass = false;
-				EggEventActive = false;
-			}
-
-			if (!EggEventActive)
-			{
-				Wave = 0;
-				hasSpawnedBiomass = false;
-			}
-
-			//end the event, reset everything, and set it to downed when completed
-			if (Wave > 11)
-			{
-				if (!Flags.downedEggEvent)
-				{
-					//event end message
-					string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
-
-					if (Main.netMode != NetmodeID.Server)
-					{
-						Main.NewText(text, 171, 64, 255);
-					}
-					else
-					{
-						ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-					}
-
-					NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
-				}
-
-				Wave = 0;
-				hasSpawnedBiomass = false;
 				EggEventActive = false;
 			}
 		}
@@ -108,7 +74,7 @@ namespace Spooky.Content.NPCs.EggEvent
 				Rectangle ProgressBackground = Utils.CenteredRectangle(new Vector2(Main.screenWidth - OffsetX - 100f, Main.screenHeight - OffsetY - 23f), new Vector2(width, height));
 				Utils.DrawInvBG(spriteBatch, ProgressBackground, new Color(95, 27, 43, 255) * 0.785f);
 
-				float divide = 0.12f;
+				float divide = 0.1f;
 
 				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarProgress") + (Wave + 1);
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);

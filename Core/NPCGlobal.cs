@@ -27,7 +27,6 @@ namespace Spooky.Core
             Texture2D tex = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
 
             Vector2 frameOrigin = npc.frame.Size() / 2f;
-            //Vector2 offset = new Vector2(npc.width / 2 - frameOrigin.X, npc.height - npc.frame.Height);
             Vector2 drawPos = npc.position - Main.screenPosition + frameOrigin + new Vector2(0f, npc.gfxOffY + 4);
 
 			float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;

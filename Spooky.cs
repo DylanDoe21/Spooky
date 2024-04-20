@@ -18,6 +18,7 @@ using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.PandoraBox;
+using Spooky.Content.UserInterfaces;
 
 namespace Spooky
 {
@@ -39,12 +40,6 @@ namespace Spooky
 
         public static int PandoraBoxX;
         public static int PandoraBoxY;
-
-        //TODO: add packet for the egg event handler so it can be synced correctly in multiplayer
-        //At some point, probably in the eye valley improvement update, the system for the egg incursion should be entirely reworked
-        //also make the giant egg not a tile but an npc similarly to pandora's box
-        public static int EggEventHandlerX;
-        public static int EggEventHandlerY;
 
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
@@ -94,7 +89,7 @@ namespace Spooky
 
             ShaderLoader.Load();
 
-            Content.UI.MocoNoseBar.Load();
+            MocoNoseBar.Load();
         }
 
         public override void Unload()
@@ -106,7 +101,7 @@ namespace Spooky
 
             ShaderLoader.Unload();
 
-            Content.UI.MocoNoseBar.Unload();
+            MocoNoseBar.Unload();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -168,6 +163,36 @@ namespace Spooky
                     Main.npc[NewNPC].velocity.Y = -8;
                     break;
                 }
+                case SpookyMessageType.OldHunterHat:
+                {
+                    Flags.OldHunterHat = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.OldHunterSkull:
+                {
+                    Flags.OldHunterSkull = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.OldHunterTorso:
+                {
+                    Flags.OldHunterTorso = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.OldHunterLegs:
+                {
+                    Flags.OldHunterLegs = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.OldHunterAssembled:
+                {
+                    Flags.OldHunterAssembled = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.SpawnHunterAnimation:
                 {
                     NPC.NewNPC(null, GiantWebX, GiantWebY, ModContent.NPCType<GiantWebAnimationBase>());
@@ -194,6 +219,11 @@ namespace Spooky
         SpawnStitch,
         SpawnSheldon,
         SpawnChester,
+        OldHunterHat,
+        OldHunterSkull,
+        OldHunterTorso,
+        OldHunterLegs,
+        OldHunterAssembled,
         SpawnHunterAnimation,
     }
 }

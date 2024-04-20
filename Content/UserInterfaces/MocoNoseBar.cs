@@ -3,12 +3,10 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 
 using Spooky.Core;
 
-namespace Spooky.Content.UI
+namespace Spooky.Content.UserInterfaces
 {
     public class MocoNoseBar
     {
@@ -21,9 +19,9 @@ namespace Spooky.Content.UI
 
         internal static void Load()
         {
-            BarTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBar", AssetRequestMode.ImmediateLoad).Value;
-            BarFillTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBarFill", AssetRequestMode.ImmediateLoad).Value;
-            BarFullTexture = ModContent.Request<Texture2D>("Spooky/Content/UI/MocoNoseBarFull", AssetRequestMode.ImmediateLoad).Value;
+            BarTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBar", AssetRequestMode.ImmediateLoad).Value;
+            BarFillTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFill", AssetRequestMode.ImmediateLoad).Value;
+            BarFullTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFull", AssetRequestMode.ImmediateLoad).Value;
         }
 
         internal static void Unload()

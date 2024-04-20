@@ -6,6 +6,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
     public class FleshPillarTelegraph : ModProjectile
@@ -48,6 +50,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
             if (Projectile.ai[0] >= 80)
             {
+                SpookyPlayer.ScreenShakeAmount = 3;
+
                 SoundEngine.PlaySound(BoneSnap, Projectile.position);
 
                 Projectile.Kill();

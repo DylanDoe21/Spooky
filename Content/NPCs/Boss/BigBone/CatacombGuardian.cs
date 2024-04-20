@@ -14,7 +14,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
-namespace Spooky.Content.NPCs.Catacomb
+namespace Spooky.Content.NPCs.Boss.BigBone
 {
     [AutoloadBossHead]
     public class CatacombGuardian : ModNPC  
@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Catacomb
         //draw eye after images
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianEye").Value;
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/CatacombGuardianEye").Value;
             Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
 
             for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)

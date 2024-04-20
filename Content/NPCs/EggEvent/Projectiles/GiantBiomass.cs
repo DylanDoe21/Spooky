@@ -90,13 +90,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 		{
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            EggEventWorld.hasSpawnedBiomass = true;
-
-            if (Main.netMode == NetmodeID.Server)
-            {
-                NetMessage.SendData(MessageID.WorldData);
-            }
-
             //spawn blood explosion clouds
             for (int numExplosion = 0; numExplosion < 8; numExplosion++)
             {

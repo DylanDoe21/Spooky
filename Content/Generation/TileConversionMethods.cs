@@ -457,7 +457,7 @@ namespace Spooky.Content.Generation
 
 						if (WallReplace.Contains(Main.tile[k, l].WallType)) 
                         {
-							Main.tile[k, l].WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+							Main.tile[k, l].WallType = (ushort)ModContent.WallType<DampGrassWall>();
 							WorldGen.SquareWallFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}

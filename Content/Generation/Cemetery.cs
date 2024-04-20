@@ -32,18 +32,16 @@ namespace Spooky.Content.Generation
 
             PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
-            float worldEdgeOffset = Main.maxTilesX >= 6400 ? 8.65f : 8.55f;
-
             //place biome based on the opposite side of the dungeon
             if (GenVars.dungeonSide == -1)
 			{
-                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 100;
-                initialStartPosX = Main.maxTilesX - (Main.maxTilesX / (int)worldEdgeOffset) - 100;
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / 5);
+                initialStartPosX = Main.maxTilesX - (Main.maxTilesX / 5);
 			}
 			else
 			{
-                Catacombs.PositionX = (Main.maxTilesX / (int)worldEdgeOffset) - 160;
-                initialStartPosX = (Main.maxTilesX / (int)worldEdgeOffset) - 160;
+                Catacombs.PositionX = (Main.maxTilesX / 5);
+                initialStartPosX = (Main.maxTilesX / 5);
             }
 
             //move away from the jungle so the cemetery doesnt destroy it
@@ -52,19 +50,30 @@ namespace Spooky.Content.Generation
 
             while (!foundValidPosition && XPosAttempts++ < 100000)
             {
+                //2.4.1.243302711
                 while (!LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface))
                 {
-                    Catacombs.PositionX += (initialStartPosX < (Main.maxTilesX / 2) ? -50 : 50);
+                    Catacombs.PositionX += (initialStartPosX < (Main.maxTilesX / 2) ? -10 : 10);
                 }
-                if (LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface) || Catacombs.PositionX < 250 || Catacombs.PositionX >= Main.maxTilesX - 250)
+                if (LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface))
                 {
                     foundValidPosition = true;
                 }
             }
 
-            int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            //if the catacombs found position is too close to the edge of the world, set it so it doesnt generate over the oceans
+            if (Catacombs.PositionX <= (Main.maxTilesX / 10))
+            {
+                Catacombs.PositionX = (Main.maxTilesX / 10);
+            }
+            if (Catacombs.PositionX >= Main.maxTilesX - (Main.maxTilesX / 10))
+            {
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / 10);
+            }
+
+            int XStart = Catacombs.PositionX - (BiomeWidth / 2);
+            int XMiddle = Catacombs.PositionX;
+            int XEdge = Catacombs.PositionX + (BiomeWidth / 2);
 
             //place biome exactly on the surface by finding a valid surface
             bool foundSurface = false;
@@ -166,9 +175,9 @@ namespace Spooky.Content.Generation
 
         private void CemeteryGrassAndTrees(GenerationProgress progress, GameConfiguration configuration)
         {
-            int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            int XStart = Catacombs.PositionX - (BiomeWidth / 2);
+            int XMiddle = Catacombs.PositionX;
+            int XEdge = Catacombs.PositionX + (BiomeWidth / 2);
 
             for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
@@ -203,9 +212,9 @@ namespace Spooky.Content.Generation
 
         public void GenerateCemeteryStructures(GenerationProgress progress, GameConfiguration configuration)
         {
-            int XStart = Catacombs.PositionX;
-            int XMiddle = XStart + (BiomeWidth / 2);
-            int XEdge = XStart + BiomeWidth;
+            int XStart = Catacombs.PositionX - (BiomeWidth / 2);
+            int XMiddle = Catacombs.PositionX;
+            int XEdge = Catacombs.PositionX + (BiomeWidth / 2);
 
             int StartPosY = PositionY - 100;
 

@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.lifeMax = 12000;
             NPC.damage = 50;
-            NPC.defense = 35;
+            NPC.defense = 30;
             NPC.width = 55;
             NPC.height = 55;
             NPC.knockBackResist = 0f;
@@ -48,20 +48,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
+                Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
+                Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red) * 0.5f;
-
-                for (int numEffect = 0; numEffect < 4; numEffect++)
+                for (int repeats = 0; repeats < 4; repeats++)
                 {
-                    Color newColor = color;
-                    newColor = NPC.GetAlpha(newColor);
-                    newColor *= 1f - fade;
-                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6 + NPC.rotation + 0f).ToRotationVector2() * (4f * fade + 2f) - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
-                    Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                    Color color = newColor;
+                    color = NPC.GetAlpha(color);
+                    color *= 1f - fade;
+                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+                    Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
                 }
+
+                Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
             return true;
