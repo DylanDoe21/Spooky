@@ -124,11 +124,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
 
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    for (int numGores = 1; numGores <= 2; numGores++)
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ToothyGore" + numGores).Type);
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGoreYellow" + numGores).Type);
+                        }
                     }
                 }
             }
@@ -162,11 +165,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
 
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    for (int numGores = 1; numGores <= 2; numGores++)
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ToothyGore" + numGores).Type);
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGoreYellow" + numGores).Type);
+                        }
                     }
                 }
             }
@@ -183,6 +189,34 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<PlantTrap1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
+                for (int numDusts = 0; numDusts < 12; numDusts++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
+                {
+                    for (int numGores = 1; numGores <= 2; numGores++)
+                    {
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGorePink" + numGores).Type);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class PlantTrap4 : PlantTrap1  
@@ -212,11 +246,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
 
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    for (int numGores = 1; numGores <= 2; numGores++)
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ToothyGore" + numGores).Type);
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGorePink" + numGores).Type);
+                        }
                     }
                 }
             }
@@ -233,6 +270,34 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<PlantTrap1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
+                for (int numDusts = 0; numDusts < 12; numDusts++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
+                {
+                    for (int numGores = 1; numGores <= 2; numGores++)
+                    {
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGoreRed" + numGores).Type);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class PlantTrap6 : PlantTrap1  
@@ -262,11 +327,14 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
 
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int Repeats = 1; Repeats <= 4; Repeats++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    for (int numGores = 1; numGores <= 2; numGores++)
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ToothyGore" + numGores).Type);
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PlantTrapToothGoreRed" + numGores).Type);
+                        }
                     }
                 }
             }

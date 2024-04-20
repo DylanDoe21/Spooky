@@ -92,8 +92,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 		{
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-            Player player = Main.player[Parent.target];
-
             if (NPC.ai[0] <= 25)
             {
                 NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? 1 : -1;

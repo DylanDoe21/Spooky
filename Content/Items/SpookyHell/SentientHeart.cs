@@ -9,6 +9,11 @@ namespace Spooky.Content.Items.SpookyHell
 {
     public class SentientHeart : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 2;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 38;

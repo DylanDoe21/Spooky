@@ -20,7 +20,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 {
     public class DaffodilHandLeft : ModNPC
     {
-        public bool GrabbingPlayer = false;
+        Vector2 SavePlayerPosition;
+
+        public bool HasHitSurface = false;
 
         public override void SetStaticDefaults()
         {
@@ -32,23 +34,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(GrabbingPlayer);
-
-            //local ai
-            writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
+            writer.Write(HasHitSurface);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            GrabbingPlayer = reader.ReadBoolean();
-
-            //local ai
-            NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
+            HasHitSurface = reader.ReadBoolean();
         }
 
         public override void SetDefaults()
@@ -63,7 +55,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 			NPC.dontTakeDamage = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.netAlways = true;
             NPC.behindTiles = true;
             NPC.aiStyle = -1;
@@ -110,6 +102,21 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     chainCount++;
                     chainLengthRemainingToDraw -= chainSegmentLength;
                 }
+
+                if (Parent.ai[0] == 4 && Parent.localAI[0] >= 40 && Parent.localAI[0] < 200 && !HasHitSurface)
+                { 
+                    Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+                    Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
+                    Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
+
+                    for (int repeats = 0; repeats < 4; repeats++)
+                    {
+                        Color color = newColor;
+                        color = NPC.GetAlpha(color);
+                        Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+                        Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, SpriteEffects.None, 0f);
+                    }
+                }
             }
 
             return true;
@@ -135,6 +142,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 1;
             }
+            else if (Parent.ai[0] == 4 && Parent.localAI[0] >= 40 && Parent.localAI[0] < 200)
+            {
+                NPC.frame.Y = frameHeight * 2;
+            }
             else
             {
                 NPC.frame.Y = frameHeight * 0;
@@ -143,8 +154,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            //TODO: daffodils hands will be able to hit the player if grabbing or punching
-            return false;
+            NPC Parent = Main.npc[(int)NPC.ai[2]];
+
+            return Parent.ai[0] == 4;
         }
 
         public override void AI()
@@ -298,6 +310,70 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case 4: 
                 {
+                    if (Parent.localAI[0] < 60)
+                    {
+                        GoToPosition(-250, 35);
+                    }
+
+                    if (Parent.localAI[0] == 60)
+                    {
+                        SavePlayerPosition = player.Center;
+                    }
+
+                    if (Parent.localAI[0] == 70)
+                    {
+                        Vector2 Recoil = SavePlayerPosition - NPC.Center;
+                        Recoil.Normalize();
+                        Recoil *= -5;
+                        NPC.velocity = Recoil;
+                    }
+                    
+                    if (Parent.localAI[0] == 80)
+                    {
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                        ChargeDirection.Normalize();
+                        ChargeDirection *= 30;
+                        NPC.velocity = ChargeDirection;
+                    }
+
+                    if (Parent.localAI[0] > 80 && Parent.localAI[0] < 140 && !HasHitSurface)
+                    {
+                        if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
+                        {
+                            NPC.velocity *= 0;
+                        }
+
+                        if (NPC.velocity.Y <= 0.1f && NPC.velocity.Y >= -0.1f)
+                        {
+                            NPC.velocity *= 0;
+                        }
+
+                        if (NPC.velocity == Vector2.Zero)
+                        {
+                            SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
+                            
+                            SpookyPlayer.ScreenShakeAmount = 8;
+
+                            HasHitSurface = true;
+                        }
+                    }
+                    
+                    if (Parent.localAI[0] > 140 && HasHitSurface)
+                    {
+                        GoToPosition(-130, 180);
+                        NPC.velocity *= 0.99f;
+                    }
+
+                    if (Parent.localAI[0] >= 230)
+                    {
+                        HasHitSurface = false;
+                    }
+
+                    break;
+                }
+
+                case 5: 
+                {
                     if (Parent.localAI[0] < 300)
                     {
                         GoToPosition(-300, -50);
@@ -310,14 +386,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                case 5: 
+                case 6: 
                 {
                     GoToPosition(-130, 180);
 
                     break;
                 }
 
-                case 6: 
+                case 7: 
                 {
                     GoToPosition(-130, 180);
 

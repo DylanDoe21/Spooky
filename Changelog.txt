@@ -19,7 +19,7 @@ Catacomb Improvements:
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always be pregenerated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
--Daffodil's arena now has a new custom background, which was made by Hat in a river
+-Daffodil's arena now has a new custom background, made by Hat in a river
 
 
 
@@ -56,6 +56,7 @@ Enemy & Boss Changes:
 -Reduced boros quick dash attack dashing speed a bit
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same but with a new projectile)
 -Boro will now emerge out of the ground before using his tongue attack instead of just randomly appearing out of the ground
+-Daffodil now has a new punch attack
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little chunk gores when killed
 -Heavily nerfed monster eyes jumping rate and speed as it was way too unbalanced before

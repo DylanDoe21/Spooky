@@ -53,16 +53,16 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
-			/*
             if (NPC.life <= 0) 
             {
-                for (int numDusts = 0; numDusts < 20; numDusts++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.LimeGreen, 1f);
-                    Main.dust[DustGore].velocity *= 1.2f;
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/LilyLeafGore" + Main.rand.Next(1, 3)).Type);
+                    }
                 }
             }
-			*/
 		}
     }
 
@@ -121,16 +121,16 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
-			/*
             if (NPC.life <= 0) 
             {
-                for (int numDusts = 0; numDusts < 20; numDusts++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
-                    int DustGore = Dust.NewDust(NPC.Center, 1, 1, DustID.TintableDust, 0f, 0f, 100, Color.LimeGreen, 1f);
-                    Main.dust[DustGore].velocity *= 1.2f;
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/LilyLeafGoreSmall" + Main.rand.Next(1, 3)).Type);
+                    }
                 }
             }
-			*/
 		}
 	}
 

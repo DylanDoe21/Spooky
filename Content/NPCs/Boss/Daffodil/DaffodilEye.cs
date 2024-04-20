@@ -214,15 +214,19 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 NPC.frame.Y = frameHeight * 0;
             }
-            else if (NPC.ai[0] == 4 && NPC.localAI[0] >= 120 && NPC.localAI[0] <= 300)
-            {
-                NPC.frame.Y = frameHeight * 0;
-            }
-            else if (NPC.ai[0] == 5 && NPC.localAI[0] > 160)
+            else if (NPC.ai[0] == 4 && NPC.localAI[0] >= 70 && NPC.localAI[0] <= 135)
             {
                 NPC.frame.Y = frameHeight * 3;
             }
-            else if (NPC.ai[0] == 6 && NPC.localAI[0] >= 160 && NPC.localAI[0] <= 240)
+            else if (NPC.ai[0] == 5 && NPC.localAI[0] >= 120 && NPC.localAI[0] <= 300)
+            {
+                NPC.frame.Y = frameHeight * 0;
+            }
+            else if (NPC.ai[0] == 6 && NPC.localAI[0] > 160)
+            {
+                NPC.frame.Y = frameHeight * 3;
+            }
+            else if (NPC.ai[0] == 7 && NPC.localAI[0] >= 160 && NPC.localAI[0] <= 240)
             {
                 NPC.frame.Y = frameHeight * 3;
             }
@@ -714,8 +718,23 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //drop seeds from the ceiling that spawn thorn pillars 
+                //raise hands up, then punch the player (code for this attack is handled in each hand's ai)
                 case 4:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 240)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //drop seeds from the ceiling that spawn thorn pillars 
+                case 5:
                 {
                     NPC.localAI[0]++;
 
@@ -741,7 +760,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 500)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = Phase2 ? 6 : 5;
+                        NPC.ai[0] = Phase2 ? 7 : 6;
                         NPC.netUpdate = true;
                     }
 
@@ -749,17 +768,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
 
                 //fire constant deathray at the player that follows them, unable to go through blocks
-                case 5:
+                case 6:
                 {
                     NPC.localAI[0]++;
 
                     if (NPC.localAI[0] == 20)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 450, NPC.Center.Y + 350, 
-                        0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
-
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 465, NPC.Center.Y + 350, 
-                        0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 450, NPC.Center.Y + 350, 0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 465, NPC.Center.Y + 350, 0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
                     }
 
                     if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 120)
@@ -807,7 +823,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
                 
                 //Save positions, then shoot solar deathrays at them
-                case 6:
+                case 7:
                 {
                     NPC.localAI[0]++;
 
