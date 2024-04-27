@@ -81,7 +81,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetDefaults()
         {
             NPC.lifeMax = 32000;
-            NPC.damage = 50;
+            NPC.damage = 55;
             NPC.defense = 30;
             NPC.width = 75;
             NPC.height = 75;
@@ -143,7 +143,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 55 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -314,12 +314,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.localAI[0]++;
 
-                    //use chase movement
+                    //chase the player
                     if (NPC.localAI[0] < 170 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 370))
                     {
                         Chomp = true;
 
-                        Movement(player, 13f, 0.13f);
+                        //chase movement
+                        Vector2 GoTo = player.Center;
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 8.5f);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
                     //save the players location
@@ -459,9 +462,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[1] < 3)
                     {
                         //chase the player
-                        if (NPC.localAI[0] < 70)
+                        if (NPC.localAI[0] < 100)
                         {
-                            Movement(player, 6f, 0.12f);
+                            //chase movement
+                            Vector2 GoTo = player.Center;
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 5f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
                         //slow down
@@ -801,7 +807,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     else
                     {
                         //go up to the player before looping its attack pattern
-                        if (NPC.localAI[0] <= 50)
+                        if (NPC.localAI[0] <= 75)
                         {
                             Vector2 GoTo = player.Center;
                             GoTo.X += NPC.Center.X < player.Center.X ? -475 : 475;
@@ -811,7 +817,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
-                        if (NPC.localAI[0] >= 50)
+                        if (NPC.localAI[0] >= 75)
                         {
                             NPC.velocity *= 0.2f;
 
@@ -824,265 +830,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     break;
                 }
-            }
-        }
-
-        //goofy ahh modified vanilla worm movement code
-        private void Movement(Player player, float maxSpeed, float accel)
-        {
-            bool collision = false;
-            bool FastMovement = false;
-
-            if (Vector2.Distance(NPC.Center, player.Center) >= 500)
-            {
-                FastMovement = true;
-            }
-            if (Vector2.Distance(NPC.Center, player.Center) <= 500)           
-            {
-                FastMovement = false;
-            }
-
-            float speed = maxSpeed;
-            float acceleration = accel;
-
-            if (!collision)
-            {
-                Rectangle rectangle1 = new((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-
-                int maxDistance = 12;
-
-                bool playerCollision = true;
-
-                for (int index = 0; index < 255; ++index)
-                {
-                    if (Main.player[index].active)
-                    {
-                        Rectangle rectangle2 = new((int)Main.player[index].position.X - maxDistance, 
-                        (int)Main.player[index].position.Y - maxDistance, maxDistance * 2, maxDistance * 2);
-                        if (rectangle1.Intersects(rectangle2))
-                        {
-                            playerCollision = false;
-                        
-                            break;
-                        }
-                    }
-                }
-
-                if (playerCollision)
-                {
-                    collision = true;
-                }
-            }
-
-            Vector2 NPCCenter = new(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
-            float targetXPos = player.position.X + (player.width / 2);
-            float targetYPos = player.position.Y + (player.height / 2);
-
-            float targetRoundedPosX = (int)(targetXPos / 16.0) * 16;
-            float targetRoundedPosY = (int)(targetYPos / 16.0) * 16;
-            NPCCenter.X = (int)(NPCCenter.X / 16.0) * 16;
-            NPCCenter.Y = (int)(NPCCenter.Y / 16.0) * 16;
-            float dirX = targetRoundedPosX - NPCCenter.X;
-            float dirY = targetRoundedPosY - NPCCenter.Y;
-            float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-            
-            if (!collision)
-            {
-                NPC.TargetClosest(true);
-
-                if (NPC.velocity.Y > speed)
-                {
-                    NPC.velocity.Y = speed;
-                }
-                if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.4)
-                {
-                    if (NPC.velocity.X < 0.0)
-                    {
-                        NPC.velocity.X -= acceleration * 1.1f;
-                    }
-                    else
-                    {
-                        NPC.velocity.X += acceleration * 1.1f;
-                    }
-                }
-
-                else if (NPC.velocity.Y == speed)
-                {
-                    if (NPC.velocity.X < dirX)
-                    {
-                        NPC.velocity.X += acceleration;
-                    }
-                    else if (NPC.velocity.X > dirX)
-                    {
-                        NPC.velocity.X -= acceleration;
-                    }
-                }
-                else if (NPC.velocity.Y > 4.0)
-                {
-                    if (NPC.velocity.X < 0.0)
-                    {
-                        NPC.velocity.X += acceleration * 1f;
-                    }
-                    else
-                    {
-                        NPC.velocity.X -= acceleration * 1f; 
-                    }
-                }
-            }
-
-            if (!collision)
-            {
-                NPC.TargetClosest(true);
-                NPC.velocity.Y = NPC.velocity.Y + 0.11f;
-
-                if (NPC.velocity.Y > speed)
-                { 
-                    NPC.velocity.Y = speed;
-                }
-
-                if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 1.0)
-                {
-                    if (NPC.velocity.X < 0.0)
-                    {
-                        NPC.velocity.X -= acceleration * 1.1f;
-                    }
-                    else
-                    {
-                        NPC.velocity.X += acceleration * 1.4f;
-                    }
-                }
-                
-                if (NPC.velocity.Y > 5.0) 
-                {
-                    if (NPC.velocity.X < 0.0)
-                    {
-                        NPC.velocity.X += acceleration * 0.9f;
-                    }
-                    else
-                    {
-                        NPC.velocity.X -= acceleration * 0.9f;
-                    }
-                }
-            }
-            else if (collision || FastMovement)
-            {
-                float absDirX = Math.Abs(dirX);
-                float absDirY = Math.Abs(dirY);
-                float newSpeed = speed / length;
-                dirX *= newSpeed;
-                dirY *= newSpeed;
-
-                if (NPC.velocity.X > 0.0 && dirX > 0.0 || NPC.velocity.X < 0.0 && dirX < 0.0 || (NPC.velocity.Y > 0.0 && dirY > 0.0 || NPC.velocity.Y < 0.0 && dirY < 0.0))
-                {
-                    if (NPC.velocity.X < dirX)
-                    {
-                        NPC.velocity.X += acceleration;
-                    }
-                    else if (NPC.velocity.X > dirX)
-                    {
-                        NPC.velocity.X -= acceleration;
-                    }
-                    if (NPC.velocity.Y < dirY)
-                    {
-                        NPC.velocity.Y += acceleration;
-                    }
-                    else if (NPC.velocity.Y > dirY)
-                    {
-                        NPC.velocity.Y -= acceleration;
-                    }
-
-                    if (Math.Abs(dirY) < speed * 0.2 && (NPC.velocity.X > 0.0 && dirX < 0.0 || NPC.velocity.X < 0.0 && dirX > 0.0))
-                    {
-                        if (NPC.velocity.Y > 0.0)
-                        {
-                            NPC.velocity.Y += acceleration * 2f;
-                        }
-                        else
-                        {
-                            NPC.velocity.Y -= acceleration * 2f;
-                        }
-                    }
-                    if (Math.Abs(dirX) < speed * 0.2 && (NPC.velocity.Y > 0.0 && dirY < 0.0 || NPC.velocity.Y < 0.0 && dirY > 0.0))
-                    {
-                        if (NPC.velocity.X > 0.0)
-                        {
-                            NPC.velocity.X += acceleration * 2f;
-                        }
-                        else
-                        {
-                            NPC.velocity.X -= acceleration * 2f;
-                        }
-                    }
-                }
-                else if (absDirX > absDirY)
-                {
-                    if (NPC.velocity.X < dirX)
-                    {
-                        NPC.velocity.X += acceleration * 1.1f;
-                    }
-                    else if (NPC.velocity.X > dirX)
-                    {
-                        NPC.velocity.X -= acceleration * 1.1f;
-                    }
-                    if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.5)
-                    {
-                        if (NPC.velocity.Y > 0.0)
-                        {
-                            NPC.velocity.Y += acceleration;
-                        }
-                        else
-                        {
-                            NPC.velocity.Y -= acceleration;
-                        }
-                    }
-                }
-                else
-                {
-                    if (NPC.velocity.Y < dirY)
-                    {
-                        NPC.velocity.Y += acceleration * 1.1f;
-                    }
-                    else if (NPC.velocity.Y > dirY)
-                    {
-                        NPC.velocity.Y -= acceleration * 1.1f;
-                    }
-
-                    if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.5)
-                    {
-                        if (NPC.velocity.X > 0.0)
-                        {
-                            NPC.velocity.X += acceleration;
-                        }
-                        else
-                        {
-                            NPC.velocity.X -= acceleration;
-                        }
-                    }
-                }
-            }
-
-            //Some netupdate stuff
-            if (collision)
-            {
-                if (NPC.localAI[2] != 1)
-                {
-                    NPC.netUpdate = true;
-                }
-                NPC.localAI[2] = 1f;
-            }
-            else
-            {
-                if (NPC.localAI[2] != 0.0)
-                {
-                    NPC.netUpdate = true;
-                }
-                NPC.localAI[2] = 0.0f;
-            }
-
-            if ((NPC.velocity.X > 0.0 && NPC.oldVelocity.X < 0.0 || NPC.velocity.X < 0.0 && NPC.oldVelocity.X > 0.0 || 
-            (NPC.velocity.Y > 0.0 && NPC.oldVelocity.Y < 0.0 || NPC.velocity.Y < 0.0 && NPC.oldVelocity.Y > 0.0)) && !NPC.justHit)
-            {
-                NPC.netUpdate = true;
             }
         }
 

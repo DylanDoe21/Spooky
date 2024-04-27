@@ -11,7 +11,7 @@ namespace Spooky.Content.UserInterfaces
     public class LittleEyeQuestUI
     {
         public static int LittleEye = -1;
-        public static bool CurrentlyViewing = false;
+        public static bool UIOpen = false;
         public static bool IsHoveringOverAnyButton = false;
 
         public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 275f, Main.screenHeight / 2 - 140f);
@@ -21,7 +21,7 @@ namespace Spooky.Content.UserInterfaces
         public static void Draw(SpriteBatch spriteBatch)
         {
             //dont draw at all if the UI isnt open
-            if (!CurrentlyViewing)
+            if (!UIOpen)
             {
                 LittleEye = -1;
                 return;
@@ -30,7 +30,7 @@ namespace Spooky.Content.UserInterfaces
             //stop the UI from being open if the player is doing other stuff
             if (Main.LocalPlayer.chest != -1 || Main.LocalPlayer.sign != -1 || Main.LocalPlayer.talkNPC == -1 || !InRangeOfNPC() || Main.InGuideCraftMenu)
             {
-                CurrentlyViewing = false;
+                UIOpen = false;
                 return;
             }
 

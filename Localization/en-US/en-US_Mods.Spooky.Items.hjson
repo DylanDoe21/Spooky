@@ -1268,7 +1268,11 @@ SpiderCrossbow: {
 
 SpiderEggCannon: {
 	DisplayName: Spider Egg Cannon
-	Tooltip: Every 5 shots will fire a larger egg that summons an attack spider
+	Tooltip:
+		'''
+		Shoots out silky spider eggs
+		Every 5 shots will fire a larger egg that summons an attack spider
+		'''
 }
 
 SpiderLegStaff: {
@@ -2795,6 +2799,66 @@ MonalumboItem: {
 	Tooltip: "'Waasephi'"
 }
 
+NoseTempleBrickGreenItem: {
+	DisplayName: Green Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleBrickPurpleItem: {
+	DisplayName: Purple Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleBrickRedItem: {
+	DisplayName: Red Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickGreenItem: {
+	DisplayName: Green Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickPurpleItem: {
+	DisplayName: Purple Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickRedItem: {
+	DisplayName: Red Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyWallGreenItem: {
+	DisplayName: Green Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleFancyWallPurpleItem: {
+	DisplayName: Purple Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleFancyWallRedItem: {
+	DisplayName: Red Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleWallGreenItem: {
+	DisplayName: Green Occultist Brick Wall
+	Tooltip: ""
+}
+
+NoseTempleWallPurpleItem: {
+	DisplayName: Purple Occultist Brick Wall
+	Tooltip: ""
+}
+
+NoseTempleWallRedItem: {
+	DisplayName: Red Occultist Brick Wall
+	Tooltip: ""
+}
+
 LivingFleshItem: {
 	DisplayName: Living Flesh
 	Tooltip: ""
@@ -2882,4 +2946,29 @@ NoseTempleWallItem: {
 NoseTempleFancyWallItem: {
 	DisplayName: Nose Temple Fancy Wall Item
 	Tooltip: ""
+}
+
+SnotStoneItem: {
+	DisplayName: Snot Stone
+	Tooltip: ""
+}
+
+NoseTempleWallBGItem: {
+	DisplayName: Nose Temple Wall Background Item
+	Tooltip: ""
+}
+
+BrickColorChanger1: {
+	DisplayName: Brick Color Changer 1
+	Tooltip: Changes Purple to Green
+}
+
+BrickColorChanger2: {
+	DisplayName: Brick Color Changer 2
+	Tooltip: Changes Green to Red
+}
+
+BrickColorChanger3: {
+	DisplayName: Brick Color Changer 3
+	Tooltip: Changes Red to Purple
 }

@@ -114,7 +114,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			effectColor.A = 0;
 			effectColor = effectColor * 0.1f * scale;
 
-			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * (float)Math.PI)) 
+			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * (float)Math.PI))
 			{
 				spriteBatch.Draw(texture, drawPos + (TwoPi * num5).ToRotationVector2() * (6f + offset * 2f), frame, effectColor, 0f, origin, 1f, effects, 0f);
 			}

@@ -51,19 +51,12 @@ namespace Spooky.Content.Biomes
                     Green = Intensity;
                     Blue = Intensity;
 
-                    //reduce lighting behind walls
-                    if (tile.WallType > 0)
+                    //dont provide lighting behind walls or liquids
+                    if (tile.WallType > 0 || tile.LiquidAmount > 0)
                     {
-                        Red *= 0.1f;
-                        Green *= 0.1f;
-                        Blue *= 0.1f;
-                    }
-
-                    if (tile.LiquidAmount > 0)
-                    {
-                        Red *= 0.1f;
-                        Green *= 0.1f;
-                        Blue *= 0.1f;
+                        Red *= 0f;
+                        Green *= 0f;
+                        Blue *= 0f;
                     }
                 }
 

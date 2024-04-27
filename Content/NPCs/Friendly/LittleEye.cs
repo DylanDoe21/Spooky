@@ -110,7 +110,7 @@ namespace Spooky.Content.NPCs.Friendly
 			if (firstButton) 
             {
 				LittleEyeQuestUI.LittleEye = NPC.whoAmI;
-                LittleEyeQuestUI.CurrentlyViewing = true;
+                LittleEyeQuestUI.UIOpen = true;
 			}
 			//cauldron button
 			else

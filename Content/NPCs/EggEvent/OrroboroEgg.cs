@@ -515,6 +515,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
             OrroboroDoesNotExist = !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 
+            if (!Flags.downedEggEvent || EggEventWorld.EggEventActive) 
+            {
+                Lighting.AddLight(NPC.Center, Color.Indigo.ToVector3());
+            }
+
             //stretch stuff
             if (stretchRecoil > 0)
 			{

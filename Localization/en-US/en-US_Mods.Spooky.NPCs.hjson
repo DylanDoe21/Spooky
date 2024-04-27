@@ -72,6 +72,7 @@ OrroBody.DisplayName: Orro
 OrroBodyP1.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
+BoroTongue.DisplayName: Boro Tongue
 PhantomSkull.DisplayName: Phantom Skull
 //hallucinations
 TheBaby.DisplayName: The Baby
@@ -220,6 +221,18 @@ GiantWeb: {
 	DisplayNameAlt: Right click to insert old hunter piece
 }
 
+//nose cult
+MocoIdol.DisplayName: Moco Idol
+NoseCultistBruteIdle.DisplayName: Cultist Brute
+NoseCultistBrute.DisplayName: Cultist Brute
+NoseCultistGruntIdle.DisplayName: Cultist Sneezer
+NoseCultistGrunt.DisplayName: Cultist Sneezer
+NoseCultistGunnerIdle.DisplayName: Cultist Blaster
+NoseCultistGunner.DisplayName: Cultist Blaster
+NoseCultistMageIdle.DisplayName: Cultist Mage
+NoseCultistMage.DisplayName: Cultist Mage
+NoseCultistWingedIdle.DisplayName: Cultist Flier
+NoseCultistWinged.DisplayName: Cultist Flier
 //spooky biome
 Bungus.DisplayName: Bungus
 CandleMonster.DisplayName: Candle Monster
@@ -322,4 +335,3 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
-BoroTongue.DisplayName: Boro Tongue

@@ -7,8 +7,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.MusicBox;
@@ -41,7 +42,7 @@ namespace Spooky.Core
         public override bool CanUseItem(Item item, Player player)
         {
             //disable a bunch of tools and other utility items while in the catacombs
-            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
+            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>())) //|| player.InModBiome<NoseTempleBiome>())
             {
                 int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
 

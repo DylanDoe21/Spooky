@@ -28,6 +28,11 @@ CatacombBiome2: {
 	TownNPCDialogueName: Lower Catacombs
 }
 
+NoseTempleBiome: {
+	DisplayName: Nose Temple
+	TownNPCDialogueName: the Nose Temple
+}
+
 PandoraBoxBiome: {
 	DisplayName: Pandora's Box
 	TownNPCDialogueName: Pandora's Box

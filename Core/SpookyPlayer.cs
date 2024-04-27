@@ -133,7 +133,7 @@ namespace Spooky.Core
         public bool MocoPet = false;
         public bool BigBonePet = false;
 
-		//sounds
+        //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
         public static readonly SoundStyle ClarinetSound = new("Spooky/Content/Sounds/Clarinet", SoundType.Sound) { Volume = 0.7f, PitchVariance = 0.6f };
         public static readonly SoundStyle CapSound1 = new("Spooky/Content/Sounds/SentientCap1", SoundType.Sound);
@@ -400,8 +400,7 @@ namespace Spooky.Core
                 //dont cap the damage if the player has the combined creepypasta accessory
                 int damage = CreepyPasta ? hit.Damage : (hit.Damage >= 70 ? 70 : hit.Damage);
 
-                Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, 
-                ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
+                Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
             }
 
             //rarely spawn the red face when hitting an enemy
@@ -498,7 +497,7 @@ namespace Spooky.Core
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
-                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 30, 1, Main.myPlayer);
+                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 20, 1, Main.myPlayer);
                     }
                 }
             }

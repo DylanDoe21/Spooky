@@ -15,6 +15,7 @@ using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Tiles.SpookyHell.NoseTemple;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
@@ -23,6 +24,10 @@ namespace Spooky.Content.Generation
 {
     public class SpookyHell : ModSystem
     {
+        int NoseTempleBrickColor;
+        int NoseTempleBrickWallColor;
+        static int NoseTemplePositionY;
+
         static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
         static int BiomeEdge = StartPosition + (Main.maxTilesX / 5);
 
@@ -587,6 +592,162 @@ namespace Spooky.Content.Generation
             }
         }
 
+        public void GenerateNoseTemple(GenerationProgress progress, GameConfiguration configuration)
+        {
+            int DungeonX = (StartPosition < Main.maxTilesX / 2 ? 200 : Main.maxTilesX - 200);
+
+            int StartPosY = Main.maxTilesY - 130;
+
+            GenerateNoseTempleStructure(DungeonX, Main.maxTilesY - 131, "Entrance", 49, 22);
+
+            GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 3, "EntranceTunnel", 9, 0);
+
+            for (int dungeonRoomLoop = 0; dungeonRoomLoop <= 4; dungeonRoomLoop++)
+            {
+                int numHallsBeforeRoom = Main.maxTilesX >= 8400 ? WorldGen.genRand.Next(2, 5) : (Main.maxTilesX >= 6400 ? WorldGen.genRand.Next(1, 3) : 1);
+
+                for (int numLoops = 0; numLoops <= numHallsBeforeRoom; numLoops++)
+                {
+                    if (numLoops < numHallsBeforeRoom)
+                    {
+                        if (numLoops == 0)
+                        {
+                            DungeonX += (StartPosition < Main.maxTilesX / 2 ? 19 : -19);
+                        }
+
+                        GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 6), 10, 10);
+
+                        if (WorldGen.genRand.NextBool(5))
+                        {
+                            GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 16, "ChestChamber-" + WorldGen.genRand.Next(1, 3), 10, 9);
+                        }
+
+                        DungeonX += (StartPosition < Main.maxTilesX / 2 ? 20 : -20);
+                    }
+                    if (numLoops >= numHallsBeforeRoom)
+                    {
+                        GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
+                        DungeonX += (StartPosition < Main.maxTilesX / 2 ? 53 : -53);
+                    }
+                }
+            }
+
+            //brick color variance
+            int Brick = ModContent.TileType<NoseTempleBrickGreen>();
+            int FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
+            int BrickWall = ModContent.WallType<NoseTempleWallGreen>();
+            int FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
+            int BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
+
+            NoseTempleBrickColor = WorldGen.genRand.Next(0, 3);
+
+            switch (NoseTempleBrickColor)
+            {
+                case 0:
+                {
+                    Brick = ModContent.TileType<NoseTempleBrickGreen>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
+                    break;
+                }
+                case 1:
+                {
+                    Brick = ModContent.TileType<NoseTempleBrickPurple>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
+                    break;
+                }
+                case 2:
+                {
+                    Brick = ModContent.TileType<NoseTempleBrickRed>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickRed>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGRed>();
+                    break;
+                }
+            }
+
+            NoseTempleBrickWallColor = Main.rand.Next(0, 3);
+
+            switch (NoseTempleBrickWallColor)
+            {
+                case 0:
+                {
+                    BrickWall = ModContent.WallType<NoseTempleWallGreen>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
+                    break;
+                }
+                case 1:
+                {
+                    BrickWall = ModContent.WallType<NoseTempleWallPurple>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
+                    break;
+                }
+                case 2:
+                {
+                    BrickWall = ModContent.WallType<NoseTempleWallRed>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallRed>();
+                    break;
+                }
+            }
+
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
+            {
+                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+
+                    //regular bricks
+                    if (tile.TileType == ModContent.TileType<NoseTempleBrickPurple>())
+                    {
+                        tile.TileType = (ushort)Brick;
+                    }
+                    //fancy bricks
+                    if (tile.TileType == ModContent.TileType<NoseTempleFancyBrickPurple>())
+                    {
+                        tile.TileType = (ushort)FancyBrick;
+                    }
+                    //walls
+                    if (tile.WallType == ModContent.WallType<NoseTempleWallPurple>())
+                    {
+                        tile.WallType = (ushort)BrickWall;
+                    }
+                    //fancy walls
+                    if (tile.WallType == ModContent.WallType<NoseTempleFancyWallPurple>())
+                    {
+                        tile.WallType = (ushort)FancyBrickWall;
+                    }
+                    //BG walls
+                    if (tile.WallType == ModContent.WallType<NoseTempleWallBGPurple>())
+                    {
+                        tile.WallType = (ushort)BGBrickWall;
+                    }
+                }
+            }
+        }
+
+        //method for finding a valid surface and placing the structure on it
+        public void GenerateNoseTempleStructure(int startX, int startY, string StructureFile, int offsetX, int offsetY)
+        {
+            bool placed = false;
+            while (!placed)
+            {
+                if (StructureFile == "Entrance")
+                {
+                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                    Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
+
+                    NoseTemplePositionY = startY + 25;
+                }
+                else
+                {
+                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                    Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
+                }
+
+                placed = true;
+            }
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
@@ -599,8 +760,9 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Moco Cult Dungeon", GenerateNoseTemple));
+            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
+            tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }
 }

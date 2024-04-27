@@ -35,7 +35,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            //wall merges
+            //wall background
             Texture2D Background = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG").Value;
 
             float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.025f;
@@ -46,24 +46,18 @@ namespace Spooky.Content.Tiles.Catacomb
             
             spriteBatch.Draw(Background, DrawPosition, new Rectangle(1456 * 0, 0, 1454, 576), new Color(70, 46, 46));
             spriteBatch.Draw(Background, DrawPositionParallax, new Rectangle(1456 * 0, 0, 1454, 576), new Color(70, 46, 46));
+        }
+    }
 
-            //new Vector2((1454 / 2) / 16, (576 / 2) / 16)
+    public class CatacombBrickWall1Safe : ModWall 
+    {
+        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall1";
 
-            /*
-            //wall merges
-            Texture2D Background = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG").Value;
-
-            Vector2 drawOrigin = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
-            Vector2 drawPos = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
-
-            float XParallax = (Main.LocalPlayer.Center.X / 16 - drawOrigin.X) * 0.015f;
-            float YParallax = (Main.LocalPlayer.Center.Y / 16 - drawOrigin.Y) * 0.015f;
-
-            drawPos.X += XParallax;
-            drawPos.Y += YParallax;
-            
-            spriteBatch.Draw(Background, drawPos, new Rectangle(1456 * 0, 0, 1454, 576), new Color(80, 80, 80));
-            */
+        public override void SetStaticDefaults()
+        {
+            Main.wallHouse[Type] = true;
+            AddMapEntry(new Color(29, 24, 35));
+            DustType = DustID.Stone;
         }
     }
 }

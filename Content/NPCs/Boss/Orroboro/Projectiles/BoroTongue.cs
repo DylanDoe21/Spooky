@@ -21,8 +21,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             NPC.lifeMax = 15000;
             NPC.damage = 65;
             NPC.defense = 30;
-            NPC.width = 40;
-            NPC.height = 40;
+            NPC.width = 65;
+            NPC.height = 65;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.immortal = true;

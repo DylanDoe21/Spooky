@@ -266,7 +266,7 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-                while (!IsCemeteryTile(startX, startY) && startY <= Main.worldSurface)
+                while ((!IsCemeteryTile(startX, startY) || !NoFloatingIsland(startX, startY)) && startY <= Main.worldSurface)
 				{
 					startY++;
 				}

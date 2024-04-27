@@ -102,13 +102,6 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                         }
                     }
 
-                    /*
-                    if (flat)
-                    {
-                        zero.Y += bg0Height * 1.3f - vector2.Y;
-                    }
-                    */
-
                     vector2 *= Scale;
 
                     zero.Y -= num;
@@ -119,9 +112,9 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     {
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), (Main.maxTilesY - 200) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
                         var frame = rectangle;
-                        var clr = new Color(140, 140, 140) * Transparency;
+                        var color = new Color(140, 140, 140) * Transparency;
 
-                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
 
                         if (Layers < 3)
                         {

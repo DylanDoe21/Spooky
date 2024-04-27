@@ -188,7 +188,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 55 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -567,7 +567,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         int time1 = Enraged ? 60 : 80;
                         int time2 = Enraged ? 120 : 160;
                         int time3 = Enraged ? 180 : 240;
-                        if (NPC.localAI[0] == time1 - 15 || NPC.localAI[0] == time2 - 15 || NPC.localAI[0] == time3 - 15)
+                        if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                         {
                             Vector2 CenterPoint = player.Center;
 
@@ -664,8 +664,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             {
                                 Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
-                                ShootSpeed.X *= Enraged ? 3f : 2f;
-                                ShootSpeed.Y *= Enraged ? 3f : 2f;
+                                ShootSpeed.X *= Enraged ? 3f : 4f;
+                                ShootSpeed.Y *= Enraged ? 3f : 4f;
 
                                 int ProjectileType = Enraged ? ModContent.ProjectileType<BoroBiomatter>() : ModContent.ProjectileType<EyeSpit>();
 

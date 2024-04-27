@@ -725,11 +725,11 @@ namespace Spooky.Content.Generation
         //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
         public static bool NoSnowBiomeNearby(int X, int Y)
         {
-            for (int i = X - 200; i < X + 200; i++)
+            for (int i = X - 300; i < X + 300; i++)
             {
-                for (int j = Y - 200; j < Y; j++)
+                for (int j = Y - 100; j < Y; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tileDungeon[Main.tile[i, j].TileType]))
                     {
                         return false;
                     }

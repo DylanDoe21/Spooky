@@ -19,6 +19,13 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 }, 
 				InterfaceScaleType.None));
+
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
+                {
+                    BloomBuffUIBox.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
             }
 
             //little eye bounty UI

@@ -7,6 +7,7 @@ Eye Valley Improvements:
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Added a new giant evil lab for little eye to live in
+-Added a dungeon in the eye valley, requires a shadow key to enter
 
 
 
@@ -16,7 +17,7 @@ Catacomb Improvements:
 -Changed some of the light source furniture tiles in both layers of the catacombs to make it aesthetically better and cleaner looking
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
 -Resprited all of the plants and vines in the catacombs
--Giant flowers now grow naturally in the second layer of the catacombs instead of always be pregenerated in the same locations in each room
+-Giant flowers now grow naturally in the second layer of the catacombs instead of always be pre-generated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
 -Daffodil's arena now has a new custom background, made by Hat in a river
@@ -41,6 +42,8 @@ Weapons & Gear:
 -Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more damage whenever you hit them with a whip
 -Increased the use speed of the harvester's scythe and spooky buster
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
+-Buffed dave & mike's base damage and critical strike chance
+-Reduced the spirit amulet's homing seeds base damage from 30 to 20
 
 
 Enemy & Boss Changes:
@@ -54,9 +57,9 @@ Enemy & Boss Changes:
 -Orro-boro in phase 1 now emerges out of the ground towards the side of the player after finishing its flesh spine attack to prevent players from getting hit unfairly
 -Orro-boro now spawns flesh spines less frequently in phase 1 during its flesh spine attack
 -Orros spit drop attack in phase 2 is now more natural, the projectiles will now fall down in slightly randomized directions instead of straight down, and now only shoots them if it is within a certain range of the players X-position
--Orro now shoots spit projectiles in its phase 2 spit drop attack way more frequently while enraged instead of shooting spreads
--Reduced boros quick dash attack dashing speed a bit
--Boro will now emerge out of the ground after using its flesh spine attack to prevent players getting hit unfairly
+-Orro now shoots spit projectiles in its phase 2 spit drop attack way more frequently while enraged, instead of shooting spreads of them while enraged
+-Reduced boros short lunge dash attack speed a bit
+-Boro will now emerge out of the ground after using its flesh spine attack to prevent players from getting hit unfairly
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same but with a new projectile)
 -Daffodil now has a new punch attack
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
@@ -89,10 +92,11 @@ Fixed all of the following bugs and issues:
 -Tarantula hawks not dropping the enemy they are carrying if they are killed before dropping it
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
 -Swampy cemetery sometimes generating over large amounts of the jungle
+-Spider grotto sometimes generating over the dungeon, and sometimes spawning a bit too close to the snow biome
 -Hallucination entities not facing towards the player correctly
 -Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
--Killing a crux not killing its debuff aura if it was using one before dying
+-Killing a crux not removing its debuff aura if it was using one before dying
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
 
 

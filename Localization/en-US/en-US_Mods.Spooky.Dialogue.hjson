@@ -69,6 +69,7 @@ LittleBone: {
 }
 
 LittleEye: {
+	Awaken: Whoa there, I was trying to take a nap! You must be a pretty curious adventurer to have found your way down here.
 	Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
 	Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
 	Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
@@ -87,7 +88,7 @@ LittleEye: {
 		[c/8284FF: You should go and find it, maybe bring a piece of it back for me too!]
 		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF7B2A: Spooky Forest][c/F5FFCF: and defeat it]
 		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		[c/E52906: You will not be able to accept another bounty until you finish this one!]
 		'''
 	Bounty2:
 		'''
@@ -96,16 +97,16 @@ LittleEye: {
 		[c/8284FF: ???]
 		[c/F5FFCF: Bounty Mission: Find this monster in the][c/12A400: Swampy Cemetery][c/F5FFCF: and defeat it]
 		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		[c/E52906: You will not be able to accept another bounty until you finish this one!]
 		'''
 	Bounty3:
 		'''
 		[c/8284FF: ???]
 		[c/8284FF: ???]
 		[c/8284FF: ???]
-		[c/F5FFCF: Bounty Mission: Find this monster in the][c/BB8684: Spider Grotto][c/F5FFCF: and defeat it]
+		[c/F5FFCF: Bounty Mission: Find this monster in the][c/BE743E: Spider Grotto][c/F5FFCF: and defeat it]
 		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		[c/E52906: You will not be able to accept another bounty until you finish this one!]
 		'''
 	Bounty4:
 		'''
@@ -114,7 +115,7 @@ LittleEye: {
 		[c/8284FF: However, I am already great, so please go show my clone who's boss.]
 		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF4523: Valley of Eyes][c/F5FFCF: and defeat it]
 		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one]
+		[c/E52906: You will not be able to accept another bounty until you finish this one!]
 		'''
 	Bounty5Locked: "[c/E52906: Defeat all three mechanical bosses to unlock this bounty]"
 	Bounty5:
