@@ -9,11 +9,11 @@ namespace Spooky.Content.UserInterfaces
 	{
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            //Snotty schnoz meter
+            //snotty schnoz meter and bloom buff UI
             int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
             if (mouseIndex != -1)
             {
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Moco Nose UI", () =>
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
                 {
                     MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
                     return true;
@@ -22,7 +22,7 @@ namespace Spooky.Content.UserInterfaces
 
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
                 {
-                    BloomBuffUIBox.Draw(Main.spriteBatch);
+                    BloomBuffUI.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));

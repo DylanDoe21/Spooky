@@ -29,8 +29,8 @@ CatacombBiome2: {
 }
 
 NoseTempleBiome: {
-	DisplayName: Nose Temple
-	TownNPCDialogueName: the Nose Temple
+	DisplayName: The Snotterdam
+	TownNPCDialogueName: the Snotterdam
 }
 
 PandoraBoxBiome: {

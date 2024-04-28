@@ -43,11 +43,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.immune[Projectile.owner] = 1;
-        }
-
         public override void AI()
         {
             Projectile.frameCounter++;

@@ -23,8 +23,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.penetrate = -1;
             Projectile.timeLeft = 1000;
+            Projectile.penetrate = 3;
             Projectile.aiStyle = -1;
         }
 

@@ -18,8 +18,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Summon).Flat += 5;
-			player.GetDamage(DamageClass.SummonMeleeSpeed).Flat += 5;
+			player.GetDamage(DamageClass.Summon).Flat += 2;
 			player.moveSpeed += 0.05f;
 		}
 	}

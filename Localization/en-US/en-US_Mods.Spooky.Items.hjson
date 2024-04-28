@@ -199,6 +199,100 @@ FlowerLegs: {
 		'''
 }
 
+Dragonfruit: {
+	DisplayName: Dah-ragon Fruit
+	Tooltip:
+		'''
+		You will spawn a dah-ragon fruit that will orbit around you and chase nearby enemies
+		After hitting an enemy the fruit will die, and will respawn after a few seconds
+		Eating multiple of this fruit while having this ability active will increase its stack
+		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
+		5 minute duration
+		'Tastes like sass!'
+		'''
+}
+
+SummerLemon: {
+	DisplayName: Multiplemon
+	Tooltip:
+		'''
+		Using weapons will sometimes shoot bouncing lemon projectiles
+		Each lemon shot consecutively will cause an extra bouncy lemon to shoot out
+		5 minute duration
+		'''
+}
+
+SummerOrange: {
+	DisplayName: Angry Orange
+	Tooltip:
+		'''
+		Grants you an aura that sets enemies inside of it on fire
+		The auras radius will increase the faster you are currently moving
+		5 minute duration
+		'''
+}
+
+SummerPineapple: {
+	DisplayName: Poker Pinnaple
+	Tooltip:
+		'''
+		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 10%
+		Critical hits will occassionally heal you a bit
+		5 minute duration
+		'''
+}
+
+SummerSunflower: {
+	DisplayName: Sunny-Side Up
+	Tooltip:
+		'''
+		Increases the rate blooms grow at by 20% 
+		Has a 50% chance of giving you the Happy buff when consumed
+		5 minute duration
+		'''
+}
+
+WinterBlackberry: {
+	DisplayName: Blackberry Glacier
+	Tooltip:
+		'''
+		Any blooms you harvet have a chance to be refrigerated
+		A refrigerated bloom's effects will last for 50% longer
+		10 minute duration
+		'''
+}
+
+WinterBlueberry: {
+	DisplayName: Verry Blues
+	Tooltip:
+		'''
+		You have a 15% chance to inflict enemies with frozen blueberry juice for 10 seconds, which will slown them down
+		Additionally, any enemy nearby the inflicted enemy will also be inflicted with this debuff for a shorter time
+		5 minute duration
+		'''
+}
+
+WinterGooseberry: {
+	DisplayName: Winter Gooseberry
+	Tooltip:
+		'''
+		Every third instance of damage you deal has a 30% chance to spawn a Gooseberry you can pick up
+		Gooseberries increase health regeneration by 5% when picked up
+		However, gooseberries will be destroyed upon making contact with hostile projectiles
+		5 minute duration
+		'''
+}
+
+WinterStrawberry: {
+	DisplayName: Mountain Strawberry
+	Tooltip:
+		'''
+		Ocasionally a mountain strawberry will spawn nearby you
+		Picking these strawberries up will grant a 10% boost to all stats for a few seconds
+		5 minute duration
+		'''
+}
+
 CatacombKey1: {
 	DisplayName: Yellow Barrier Key
 	Tooltip: Use to open the yellow catcombs barrier
@@ -1699,87 +1793,6 @@ GoreLegs: {
 		20% increased movement speed
 		5% increased critical strike chance
 		Enemies are more likely to target you
-		'''
-}
-
-Flask1: {
-	DisplayName: Mysterious Flask I
-	Tooltip:
-		'''
-		A smelly substance, made from ground up plants
-		Little eye may be interested in this
-		'''
-}
-
-Flask2: {
-	DisplayName: Mysterious Flask II
-	Tooltip:
-		'''
-		A nasty substance, created from cold and organic materials
-		Little eye may be interested in this
-		'''
-}
-
-Flask3: {
-	DisplayName: Mysterious Flask III
-	Tooltip:
-		'''
-		A gooey substance, made from the most sticky items
-		Little eye may be interested in this
-		'''
-}
-
-Flask4: {
-	DisplayName: Mysterious Flask IV
-	Tooltip:
-		'''
-		A warm substance, created from hellish ingredients
-		Little eye may be interested in this
-		'''
-}
-
-FlaskMisc1: {
-	DisplayName: Flask of Night
-	Tooltip:
-		'''
-		Concocted from the souls of evil creatures
-		Little eye may be interested in this
-		'''
-}
-
-FlaskMisc2: {
-	DisplayName: Flask of Light
-	Tooltip:
-		'''
-		Concocted from the souls of light creatures
-		Little eye may be interested in this
-		'''
-}
-
-FlaskMisc3: {
-	DisplayName: Spooky Flask
-	Tooltip:
-		'''
-		A flask of mushed up pumpkins
-		Little eye may be interested in this
-		'''
-}
-
-FlaskMisc4: {
-	DisplayName: Aquatic Flask
-	Tooltip:
-		'''
-		Made from materials of the sea
-		Little eye may be interested in this
-		'''
-}
-
-FlaskMisc5: {
-	DisplayName: Sandstorm Flask
-	Tooltip:
-		'''
-		A mythical substance of rare desert materials
-		Little eye may be interested in this
 		'''
 }
 

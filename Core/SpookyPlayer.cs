@@ -45,6 +45,7 @@ namespace Spooky.Core
         public int SlendermanPageDelay = 0;
         public int CarnisSporeSpawnTimer = 0;
         public int RedMistNoteSpawnDelay = 0;
+        public int RedGodzillaCartridgeSpawnDelay = 0;
         public int GeminiMockerySpawnTimer = 0;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
@@ -404,15 +405,16 @@ namespace Spooky.Core
             }
 
             //rarely spawn the red face when hitting an enemy
-            if (RedGodzillaCartridge && Main.rand.NextBool(35))
+            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
             {
+                RedGodzillaCartridgeSpawnDelay = 360;
+
                 //dont spawn a red apparition if one already exists
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
                 {
                     Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
 
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, 
-                    ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
                 }
             }
         }
@@ -497,7 +499,7 @@ namespace Spooky.Core
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
-                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 20, 1, Main.myPlayer);
+                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 20, 0, Main.myPlayer);
                     }
                 }
             }
@@ -585,6 +587,11 @@ namespace Spooky.Core
             if (RedMistNoteSpawnDelay > 0)
             {
                 RedMistNoteSpawnDelay--;
+            }
+
+            if (RedGodzillaCartridgeSpawnDelay > 0)
+            {
+                RedGodzillaCartridgeSpawnDelay--;
             }
 
             //set skeleton bouncer hositility to false if no raveyard is happening

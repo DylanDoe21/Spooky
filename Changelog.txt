@@ -7,6 +7,9 @@ Eye Valley Improvements:
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Added a new giant evil lab for little eye to live in
+-Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
+-Added new "fleshy" variants of all the regular eye valley enemies that have entirely new behavior from their original counter parts
+-Changes the behavior of some of the normal eye valley enemies to make them more interesting
 -Added a dungeon in the eye valley, requires a shadow key to enter
 
 
@@ -17,10 +20,13 @@ Catacomb Improvements:
 -Changed some of the light source furniture tiles in both layers of the catacombs to make it aesthetically better and cleaner looking
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
 -Resprited all of the plants and vines in the catacombs
--Giant flowers now grow naturally in the second layer of the catacombs instead of always be pre-generated in the same locations in each room
+-Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
 -Daffodil's arena now has a new custom background, made by Hat in a river
+
+
+New Farming Mechanic:
 
 
 
@@ -43,7 +49,9 @@ Weapons & Gear:
 -Increased the use speed of the harvester's scythe and spooky buster
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 -Buffed dave & mike's base damage and critical strike chance
--Reduced the spirit amulet's homing seeds base damage from 30 to 20
+-Reduced the spirit amulet's homing seeds base damage from 30 to 20, and they no longer inflict knockback on enemies
+-NES cartridge now has a lower chance to spawn red apparitions, they can now only pierce an enemy 3 times, and there is now a 6 second delay before another can be spawned
+-Warlock's cloak now gives 2 flat summon damage instead of 5
 
 
 Enemy & Boss Changes:
