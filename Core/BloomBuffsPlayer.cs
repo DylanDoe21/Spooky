@@ -42,6 +42,36 @@ namespace Spooky.Core
         //UI default position
         public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 116f, 75f);
 
+        //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
+        public bool CanConsumeFruit(string BuffName)
+        {
+            //if the player eats a bloom they already have active, allow it to be used so it can reset the buff duration
+            if (BloomBuffSlots.Contains(BuffName))
+            {
+                return true;
+            }
+            else
+            {
+                //if every single buff slot is filled and both slot 3 and slot 4 are locked, dont allow the player to consume a bloom
+                if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && !UnlockedSlot3 && !UnlockedSlot4)
+                {
+                    return false;
+                }
+                //if every single buff slot is filled and the fourth slot is locked, dont allow the player to consume a bloom
+                if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && BloomBuffSlots[2] != string.Empty && !UnlockedSlot4)
+                {
+                    return false;
+                }
+                //if every single buff slot is filled, dont allow the player to consume a bloom
+                if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && BloomBuffSlots[2] != string.Empty && BloomBuffSlots[3] != string.Empty)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         //when the player consumes a bloom, add that blooms name to a buff list slot and set its duration in that specific slot
         public void AddBuffToList(string BuffName, int Duration)
         {

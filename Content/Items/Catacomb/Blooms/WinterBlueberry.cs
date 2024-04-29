@@ -22,6 +22,11 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 			Item.scale = 0.5f;
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("WinterBlueberry");
+        }
+
 		public override bool? UseItem(Player player)
 		{
 			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("WinterBlueberry", 18000);

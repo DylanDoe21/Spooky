@@ -266,8 +266,8 @@ WinterBlueberry: {
 	DisplayName: Verry Blues
 	Tooltip:
 		'''
-		You have a 15% chance to inflict enemies with frozen blueberry juice for 10 seconds, which will slown them down
-		Additionally, any enemy nearby the inflicted enemy will also be inflicted with this debuff for a shorter time
+		Weapons have a chance to inflict an enemy with frozen blueberry juice for a bit, which will slown them down
+		Additionally, any enemy nearby the initial enemy will also be inflicted with it for a shorter time
 		5 minute duration
 		'''
 }
@@ -1456,7 +1456,7 @@ OldWoodLegs: {
 
 WizardGangsterBody: {
 	DisplayName: Gilded Mage Tunic
-	Tooltip: Increases your magic damage by 5
+	Tooltip: 10% increased magic damage
 }
 
 WizardGangsterHead: {
@@ -1578,11 +1578,7 @@ CandyBag: {
 
 CreepyCandle: {
 	DisplayName: Creepy Candle
-	Tooltip:
-		'''
-		Increases magic damage by 10
-		Magic projectiles will sometimes ignite enemies
-		'''
+	Tooltip: Magic projectiles will sometimes ignite enemies
 }
 
 ElGourdo: {

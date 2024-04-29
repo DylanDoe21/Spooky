@@ -31,6 +31,13 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 25)
             .AddTile(TileID.Anvils)
             .Register();
+
+			CreateRecipe()
+            .AddIngredient(ItemID.PlatinumBar, 12)
+			.AddIngredient(ItemID.Silk, 12)
+			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 25)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

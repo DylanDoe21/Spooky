@@ -52,6 +52,9 @@ Weapons & Gear:
 -Reduced the spirit amulet's homing seeds base damage from 30 to 20, and they no longer inflict knockback on enemies
 -NES cartridge now has a lower chance to spawn red apparitions, they can now only pierce an enemy 3 times, and there is now a 6 second delay before another can be spawned
 -Warlock's cloak now gives 2 flat summon damage instead of 5
+-Creepy candle no longer increases magic damage, but magic projectiles now have a much higher chance to set enemies on fire while wearing it
+-Gilded mage armor can now be crafted with both gold or platinum bars
+-Gilded mage tunic now gives 10% increased magic damage instead of a flat increase of 5
 
 
 Enemy & Boss Changes:

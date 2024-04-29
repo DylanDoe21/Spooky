@@ -74,21 +74,21 @@ namespace Spooky.Content.UserInterfaces
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.2f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.4f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
             }
 
             //draw locked icons if the player doesnt have those respective slots unlocked yet
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.2f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.4f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
             }
         }
 

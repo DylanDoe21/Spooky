@@ -25,7 +25,7 @@ namespace Spooky.Core
             //creepy candle makes magic projectiles inflict on fire
             if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
             {
-                if (Main.rand.NextBool(5))
+                if (Main.rand.NextBool(3))
                 {
                     target.AddBuff(BuffID.OnFire, 120);
                 }

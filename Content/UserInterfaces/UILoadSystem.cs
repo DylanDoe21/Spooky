@@ -7,21 +7,21 @@ namespace Spooky.Content.UserInterfaces
 {
 	public class UILoadSystem : ModSystem
 	{
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            //snotty schnoz meter
-            int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
-            if (mouseIndex != -1)
+            //snotty schnoz UI
+            int resourceBarIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
+            if (resourceBarIndex != -1)
             {
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
+                layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
                 {
                     MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
                     return true;
-                }, 
-				InterfaceScaleType.None));
+                },
+                InterfaceScaleType.None));
             }
 
-            //little eye bounty UI and bloom buff UI
+            //little eye bounty UI
             int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseTextIndex != -1)
             {
@@ -31,8 +31,13 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 },
                 InterfaceScaleType.None));
+            }
 
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
+            //bloom buff UI
+            int inGameOptionsIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Ingame Options");
+            if (inGameOptionsIndex != -1)
+            {
+                layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
                 {
                     BloomBuffUI.Draw(Main.spriteBatch);
                     return true;

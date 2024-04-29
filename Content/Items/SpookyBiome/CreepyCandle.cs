@@ -19,7 +19,6 @@ namespace Spooky.Content.Items.SpookyBiome
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Magic).Flat += 10;
             player.GetModPlayer<SpookyPlayer>().MagicCandle = true;
         }
     }
