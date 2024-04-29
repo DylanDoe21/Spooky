@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 
 using Spooky.Content.UserInterfaces;
 
@@ -38,6 +38,9 @@ namespace Spooky.Core
         public int DragonfruitStacks = 0;
         public bool UnlockedSlot3 = false;
         public bool UnlockedSlot4 = false;
+
+        //UI default position
+        public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 116f, 75f);
 
         //when the player consumes a bloom, add that blooms name to a buff list slot and set its duration in that specific slot
         public void AddBuffToList(string BuffName, int Duration)
@@ -178,11 +181,15 @@ namespace Spooky.Core
         //save and load the unlocked slots so they are permanent
         public override void SaveData(TagCompound tag)
         {
+            tag["UITopLeft"] = UITopLeft;
+
             if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
             if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
         }
         public override void LoadData(TagCompound tag)
         {
+            UITopLeft = tag.Get<Vector2>("UITopLeft");
+
             UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
@@ -201,7 +208,7 @@ namespace Spooky.Core
         }
 
         public override void PreUpdate()
-        { 
+        {
             //open the bloom buff UI if you have any bloom buff at all, if not then close it
             //instead of just appearing, make the UI fade in for a cool effect if the player eats a bloom
             if (BloomBuffSlots[0] == string.Empty && BloomBuffSlots[1] == string.Empty && BloomBuffSlots[2] == string.Empty && BloomBuffSlots[3] == string.Empty)
@@ -213,15 +220,31 @@ namespace Spooky.Core
             }
             else
             {
-                if (BloomBuffUI.Transparency < 1f)
+                if (!Main.playerInventory)
+                { 
+                    if (BloomBuffUI.Transparency < 1f)
+                    {
+                        BloomBuffUI.Transparency += 0.05f;
+                    }
+                }
+                //fade out a little if the players inventory is open
+                else
                 {
-                    BloomBuffUI.Transparency += 0.05f;
+                    if (BloomBuffUI.Transparency > 0.5f)
+                    {
+                        BloomBuffUI.Transparency -= 0.05f;
+                    }
+                    if (BloomBuffUI.Transparency < 0.5f)
+                    {
+                        BloomBuffUI.Transparency += 0.05f;
+                    }
                 }
             }
 
             HandleBloomBuffDuration();
             GivePlayerBloomBonus();
 
+            //automatically remove all dragonfruit stacks if the player doesnt have that buff active
             if (!Dragonfruit)
             {
                 DragonfruitStacks = 0;

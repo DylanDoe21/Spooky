@@ -9,7 +9,7 @@ namespace Spooky.Content.UserInterfaces
 	{
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            //snotty schnoz meter and bloom buff UI
+            //snotty schnoz meter
             int mouseIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
             if (mouseIndex != -1)
             {
@@ -19,22 +19,22 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 }, 
 				InterfaceScaleType.None));
-
-                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
-                {
-                    BloomBuffUI.Draw(Main.spriteBatch);
-                    return true;
-                },
-                InterfaceScaleType.None));
             }
 
-            //little eye bounty UI
+            //little eye bounty UI and bloom buff UI
             int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Bounty UI", () =>
                 {
                     LittleEyeQuestUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
+
+                layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
+                {
+                    BloomBuffUI.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));

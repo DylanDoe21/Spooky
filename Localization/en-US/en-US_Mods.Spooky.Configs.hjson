@@ -45,4 +45,14 @@ SpookyConfig: {
 			Turning this all the way down will entirely disable the mod's screen shake effect
 			'''
 	}
+
+	CanDragBloomBuffUI: {
+		Label: Draggable Bloom Buff UI
+		Tooltip:
+			'''
+			The bloom buffs user interface can be dragged with the mouse if you hold left click on it
+			Turn this option off if you want to lock the UI in place and don't want to drag it
+			Useful if you have found a good spot for it and you want it to be locked there
+			'''
+	}
 }
