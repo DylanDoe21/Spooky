@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +12,6 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Pets;
-using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
@@ -24,6 +24,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public int attackPattern = 0;
         public int SaveDirection;
         public float SaveRotation;
+
+        private static Asset<Texture2D> EyeGlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -85,25 +87,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         //draw eye after images
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/CatacombGuardianEye").Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+            EyeGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/CatacombGuardianEye");
+
+            Vector2 drawOrigin = new(EyeGlowTexture.Width() * 0.5f, NPC.height * 0.5f);
 
             for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
             {
-                var effects = SpriteEffects.None;
-
-                if (attackPattern == 2 && NPC.localAI[0] >= 360)
-                {
-                    effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                }
-                else
-                {
-                    effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally; 
-                }
+                var effects = attackPattern == 2 && NPC.localAI[0] >= 360 ? (SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) : (NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
                 Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
                 Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-                spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+                spriteBatch.Draw(EyeGlowTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
             }
 		}
         
@@ -163,7 +157,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BoneWisp>(), NPC.damage / 2, 1, Main.myPlayer, NPC.whoAmI);
+                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BoneWisp>(), NPC.damage / 2, 1, Main.myPlayer, 0, NPC.whoAmI);
                                 }
                             }
                         }

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,6 +19,9 @@ namespace Spooky.Content.Projectiles.Sentient
         bool UsingMagic = false;
         bool Charging = false;
         bool isAttacking = false;
+
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -50,26 +54,19 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             if (Charging || UsingMagic)
             {
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+                ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
+                Color color = new Color(125, 125, 125, 0).MultiplyRGBA(UsingMagic ? Color.Lime : Color.Red);
 
-                if (UsingMagic)
-                {
-                    color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Lime);
-                }
+                Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+                var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
                 for (int numEffect = 0; numEffect < 4; numEffect++)
                 {
-                    var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    Color newColor = color;
-                    newColor = Projectile.GetAlpha(newColor);
-                    newColor *= 1f;
-                    Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 4 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                    Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, effects, 0);
+                    Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 4 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                    Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                    Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, effects, 0);
                 }
             }
 
@@ -80,15 +77,15 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             if (UsingMagic)
             {
-                Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/GrugMagicGlow").Value;
+                GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/GrugMagicGlow");
 
                 var spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                int height = glowTex.Height / Main.projFrames[Projectile.type];
+                int height = GlowTexture.Height() / Main.projFrames[Projectile.type];
                 int frameHeight = height * Projectile.frame;
-                Rectangle rectangle = new Rectangle(0, frameHeight, glowTex.Width, height);
+                Rectangle rectangle = new Rectangle(0, frameHeight, GlowTexture.Width(), height);
 
-                Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
-                rectangle, Color.White, Projectile.rotation, new Vector2(glowTex.Width / 2f, height / 2f), Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(GlowTexture.Value, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
+                rectangle, Color.White, Projectile.rotation, new Vector2(GlowTexture.Width() / 2f, height / 2f), Projectile.scale, spriteEffects, 0);
             }
         }
 

@@ -203,7 +203,7 @@ SuspiciousSkeleton: {
 	Dialogue21: The real horror would be not buying the goods while ye got the chance to.
 }
 
-DumbZombie: {
+DumbZomboid: {
 	Dialogue1: Uurrgghh...
 	Dialogue2: Gurhhh?
 	Dialogue3: Huurgg?!

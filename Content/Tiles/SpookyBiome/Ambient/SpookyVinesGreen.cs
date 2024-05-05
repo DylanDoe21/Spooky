@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,7 +11,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
 	public class SpookyVinesGreen : ModTile
 	{
-		public override void SetStaticDefaults()
+        private Asset<Texture2D> GlowTexture;
+
+        public override void SetStaticDefaults()
 		{
 			Main.tileLighted[Type] = true;
 			Main.tileCut[Type] = true;
@@ -60,7 +62,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (WorldGen.genRand.Next(12) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (Main.rand.NextBool(12) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
 				bool PlaceVine = false;
 				int Test = j;
@@ -95,10 +97,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			Tile tile = Framing.GetTileSafely(i, j);
-			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/SpookyVinesGreenGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/SpookyVinesGreenGlow");
+
+            Tile tile = Framing.GetTileSafely(i, j);
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-			spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.5f);
+
+			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.5f);
 		}
 	}
 }

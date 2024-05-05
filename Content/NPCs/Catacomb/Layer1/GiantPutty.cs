@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +18,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 	{
         float stretch;
 
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> NPCTexture;
+
+        public override void SetStaticDefaults()
 		{
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -55,9 +58,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-
-            float time = Main.GlobalTimeWrappedHourly * 3;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			stretch = Math.Abs(stretch);
 
@@ -65,7 +66,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			spriteBatch.Draw(tex, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
 			NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
 
 			return false;

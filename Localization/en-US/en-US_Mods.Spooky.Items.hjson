@@ -385,8 +385,8 @@ DaffodilStaff: {
 	DisplayName: Plant Puncher Staff
 	Tooltip:
 		'''
-		Summons a powerful plant hand to punch nearby enemies
-		It only requires one minion slot, but only one can be active at once
+		Summons powerful plant hands to punch nearby enemies
+		Each hand requires one minion slot, but only up to 2 can be active at once
 		'''
 }
 
@@ -599,8 +599,8 @@ HerobrineAltar: {
 	DisplayName: Blocky Altar
 	Tooltip:
 		'''
-		Press the Accessory Hotkey to summon a powerful bolt of lighting at your cursor position
-		The lighting bolt will deal extremely fatal damage to regular enemies
+		Press the Accessory Hotkey to summon powerful lighting from the sky at your cursor position
+		The lighting bolts will deal extremely high damage to enemies
 		Bosses will take 10% of their maximum life as damage
 		This ability has a 2 minute cooldown before it can be used again
 		'Removed Herobrine'
@@ -721,9 +721,9 @@ Creepypasta: {
 		Summons a damaging blue spiral on your cursor with 5 charges that damages enemies
 		Summons a smiling puppy that will maul nearby enemies
 		Critical hits may spawn orbiting red notes that will attack enemies
-		Summons black tentacles to attack nearby enemies, enemies killed by them drop pages that buff them
+		Summons black tentacles to attack nearby enemies, enemies killed by them may drop pages that buff them
 		Damaging enemies has a rare chance to spawn a red apparition to deal massive damage to them
-		Press the Accessory Hotkey to summon a bolt of lighting that smites enemies and deals lots of damage to bosses
+		Press the Accessory Hotkey to summon bolts of lighting that smite enemies and deals lots of damage to bosses
 		'''
 }
 
@@ -1722,7 +1722,7 @@ WarlockRobe: {
 	DisplayName: Warlock's Cloak
 	Tooltip:
 		'''
-		Increases your summon damage by 5
+		Increases your summon damage by 2
 		5% increased movement speed
 		'''
 }

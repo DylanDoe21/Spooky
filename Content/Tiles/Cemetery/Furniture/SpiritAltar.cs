@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +18,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
 	public class SpiritAltar : ModTile
     {
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> OutlineTexture;
+
+        public override void SetStaticDefaults()
 		{
             Main.tileFrameImportant[Type] = true;
             Main.tileLighted[Type] = true;
@@ -78,7 +82,6 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 
             for (int k = 0; k < Main.projectile.Length; k++)
             {
-
                 if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<SpookySpiritSpawn>())
                 {
                     return true;
@@ -108,24 +111,20 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarGlow");
+            OutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarOutline");
+
             Tile tile = Framing.GetTileSafely(i, j);
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-            //draw actual glowmask
-            Texture2D glowtex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarGlow").Value;
-
-            spriteBatch.Draw(glowtex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
+            spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White);
 
             if (!Main.dayTime)
             {
-                //draw glowy outline
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarOutline").Value;
+                float time = Main.GameUpdateCount * 0.02f;
+                float glowbrightness = (float)MathF.Sin(j / 15f - time);
 
-                float glowspeed = Main.GameUpdateCount * 0.02f;
-                float glowbrightness = (float)MathF.Sin(j / 15f - glowspeed);
-
-                spriteBatch.Draw(tex, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Fuchsia * glowbrightness);
-
+                spriteBatch.Draw(OutlineTexture.Value, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Fuchsia * glowbrightness);
             }
         }
     }

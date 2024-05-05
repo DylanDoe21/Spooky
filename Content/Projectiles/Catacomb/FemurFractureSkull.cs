@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,7 +36,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(2);
 

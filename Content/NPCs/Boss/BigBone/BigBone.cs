@@ -24,6 +24,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
+using ReLogic.Content;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
@@ -49,6 +50,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         Vector2 SavePlayerPosition;
         Vector2 SaveNPCPosition;
 
+        private static Asset<Texture2D> NeckTexture;
+        private static Asset<Texture2D> AuraTexture;
+        private static Asset<Texture2D> GlowTexture1;
+        private static Asset<Texture2D> GlowTexture2;
+        private static Asset<Texture2D> GlowTexture3;
+        private static Asset<Texture2D> GlowTexture4;
+        private static Asset<Texture2D> ShieldTexture;
+
         public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound);
         public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound);
         public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound);
@@ -57,7 +66,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/BigBone/BigBoneDeath", SoundType.Sound);
         public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneDeath2", SoundType.Sound);
-        
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
@@ -185,16 +194,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            //only draw if the parent is active
+            //only draw the neck stem if the parent is active
             if (Main.npc[(int)NPC.ai[3]].active)
 			{
+                NeckTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneStem");
+
                 Vector2 rootPosition = Main.npc[(int)NPC.ai[3]].Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -60), NPC.Center + new Vector2(-60 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(-14 * NPC.direction, 0).RotatedBy(NPC.rotation) };
                 float bezierProgress = 0;
                 float bezierIncrement = 27;
 
-                Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneStem").Value;
                 Vector2 textureCenter = NPC.spriteDirection == -1 ? new Vector2(16, 16) : new Vector2(16, 16);
 
                 float rotation;
@@ -213,12 +223,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
                     rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
                     
-                    spriteBatch.Draw(texture, (oldPos + newPos) / 2 - Main.screenPosition, texture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(NeckTexture.Value, (oldPos + newPos) / 2 - Main.screenPosition, NeckTexture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
                 }
             }
 
             //draw aura when healed or protected by flowers
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura").Value;
+            AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura");
 
             var effects = SpriteEffects.None;
 
@@ -244,7 +254,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             float time = Main.GlobalTimeWrappedHourly;
-            float timer = time / 240f + time * 0.04f;
 
             time %= 4f;
             time /= 2f;
@@ -262,13 +271,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
-                }
-
-                for (float i = 0f; i < 1f; i += 0.34f)
-                {
-                    float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.Red * 0.65f, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -278,13 +281,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
-                }
-
-                for (float i = 0f; i < 1f; i += 0.34f)
-                {
-                    float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(225, 70, 0, 50), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.OrangeRed * 0.65f, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -294,13 +291,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 165, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.Red * 0.65f, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 1.2f, effects, 0);
                 }
 
-                for (float i = 0f; i < 1f; i += 0.34f)
+                for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(tex, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, new Color(255, 0, 0, 50), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.OrangeRed * 0.65f, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 0.9f, effects, 0);
                 }
             }
 
@@ -309,37 +306,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1").Value;
-
-            //draw different glowmask colors based on the current attack being used
-            if (!Phase2)
-            {
-                if (NPC.ai[0] == 0 || NPC.ai[0] == 7)
-                {
-                    tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1").Value;
-                }
-
-                if (NPC.ai[0] == 2 || NPC.ai[0] == 3 || NPC.ai[0] == 6)
-                {
-                    tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow2").Value;
-                }
-
-                if (NPC.ai[0] == 4 || NPC.ai[0] == 5 || NPC.ai[0] == 8)
-                {
-                    tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3").Value;
-                }
-
-                if (NPC.ai[0] == 1)
-                {
-                    tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow4").Value;
-                }
-            }
-
-            //in phase 2 only use the orange glow
-            if (Phase2)
-            {
-                tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3").Value;
-            }
+            GlowTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow1");
+            GlowTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow2");
+            GlowTexture3 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow3");
+            GlowTexture4 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow4");
 
             var effects = SpriteEffects.None;
 
@@ -362,18 +332,45 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             Color color = Color.Lerp(Color.Transparent, Color.White, fade);
 
-            //draw big bone's antler glowmask
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+            //draw different glowmask colors based on the current attack being used
+            if (!Phase2)
+            {
+                if (NPC.ai[0] == 0 || NPC.ai[0] == 7)
+                {
+                    Main.EntitySpriteDraw(GlowTexture1.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                }
+
+                if (NPC.ai[0] == 2 || NPC.ai[0] == 3 || NPC.ai[0] == 6)
+                {
+                    Main.EntitySpriteDraw(GlowTexture2.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                }
+
+                if (NPC.ai[0] == 4 || NPC.ai[0] == 5 || NPC.ai[0] == 8)
+                {
+                    Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                }
+
+                if (NPC.ai[0] == 1)
+                {
+                    Main.EntitySpriteDraw(GlowTexture4.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                }
+            }
+            else
+            {
+                Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+            }
 
             //draw solar forcefield during his phase transition
             if (NPC.ai[0] == -1 && NPC.AnyNPCs(ModContent.NPCType<BigFlower>()))
             {
+                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BigBoneShield");
+
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
                 float intensity = fade;
-                DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/BigBoneShield").Value, center - new Vector2(0, -55), 
+                DrawData drawData = new DrawData(ShieldTexture.Value, center - new Vector2(0, -55), 
                 new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Gold, Color.OrangeRed, fade), 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
@@ -674,7 +671,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         for (int numFlowers = 0; numFlowers < maxFlowers; numFlowers++)
                         {
                             Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
-                            int distance = 360 / 12;
 
                             int solarFlower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), ai0: NPC.whoAmI);
 
@@ -838,7 +834,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, NPC.whoAmI);
+                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, NPC.whoAmI);
                             }
                         }
                     }

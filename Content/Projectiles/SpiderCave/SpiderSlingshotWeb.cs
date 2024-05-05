@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {

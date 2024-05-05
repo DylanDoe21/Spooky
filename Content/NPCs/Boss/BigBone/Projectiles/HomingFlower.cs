@@ -12,11 +12,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class HomingFlower : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
-
         int target;
         int bounces = 0;
+
+        private List<Vector2> cache;
+        private Trail trail;
 
         public override void SetStaticDefaults()
         {
@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/MagicTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 

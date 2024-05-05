@@ -5,8 +5,6 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-using Spooky.Core;
-
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
 {
     public class MushroomRed1 : ModTile

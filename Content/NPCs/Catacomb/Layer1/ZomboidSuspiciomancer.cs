@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class ZomboidSuspiciomancer : ModNPC
     {
+        private static Asset<Texture2D> GlowTexture;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
@@ -46,11 +49,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer1/ZomboidSuspiciomancerGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer1/ZomboidSuspiciomancerGlow");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 

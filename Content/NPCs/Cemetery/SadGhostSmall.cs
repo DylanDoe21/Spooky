@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using System.IO;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
@@ -16,6 +16,8 @@ namespace Spooky.Content.NPCs.Cemetery
     {
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -53,9 +55,9 @@ namespace Spooky.Content.NPCs.Cemetery
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //draw aura
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
+            Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -63,15 +65,12 @@ namespace Spooky.Content.NPCs.Cemetery
             {
                 Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Blue, numEffect));
 
-                Color newColor = color;
-                newColor = NPC.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(-1, NPC.gfxOffY + 3) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
+                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
+                Main.EntitySpriteDraw(NPCTexture.Value, vector, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
             }
-            
+
             return true;
-		}
+        }
 
         public override void FindFrame(int frameHeight)
         {

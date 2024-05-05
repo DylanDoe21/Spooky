@@ -1,14 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
@@ -18,6 +15,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
     public class PhantomRollingSkull : ModNPC  
     {
         bool hasCollidedWithWall = false;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
@@ -64,10 +63,10 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 color = NPC.GetAlpha(color);
                 color *= 1f - fade;
                 Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.05f, effects, 0f);
+                Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.05f, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor2, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0f);
+            Main.spriteBatch.Draw(NPCTexture.Value, drawPosition, NPC.frame, newColor2, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0f);
 
             return false;
         }

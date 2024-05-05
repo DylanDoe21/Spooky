@@ -41,7 +41,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
             for (int numDust = 0; numDust < 10; numDust++)
 			{                                                                                  

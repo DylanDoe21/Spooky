@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -55,8 +55,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             new Color(148, 80, 0)
         };
 
+        private static Asset<Texture2D> AuraTexture;
+        private static Asset<Texture2D> EyeTexture1;
+        private static Asset<Texture2D> EyeTexture2;
+
         public static readonly SoundStyle ChargeSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritCharge", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/SpookySpirit/SpookySpiritDeath", SoundType.Sound);
+
         
         public override void SetStaticDefaults()
         {
@@ -166,9 +171,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //draw aura
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritAura").Value;
+            AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritAura");
 
-            Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
+            Vector2 drawOrigin = new(AuraTexture.Width() * 0.5f, NPC.height * 0.5f);
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -193,7 +198,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 newColor = NPC.GetAlpha(newColor);
                 newColor *= 1f;
                 Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 2 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
+                Main.EntitySpriteDraw(AuraTexture.Value, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
             }
             
             return true;
@@ -211,8 +216,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 alpha -= 0.05f;
             }
 
-            Texture2D eyeTex1 = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye1").Value;
-            Texture2D eyeTex2 = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye2").Value;
+            EyeTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye1");
+            EyeTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye2");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -223,12 +228,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             
             if (!EyeSprite)
             {
-                Main.EntitySpriteDraw(eyeTex1, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
+                Main.EntitySpriteDraw(EyeTexture1.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
                 new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
             if (EyeSprite)
             {
-                Main.EntitySpriteDraw(eyeTex2, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
+                Main.EntitySpriteDraw(EyeTexture2.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
                 new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
         }

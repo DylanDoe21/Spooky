@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
@@ -15,7 +14,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		int HealingAmount = 0;
 
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> NPCTexture;
+
+        public override void SetStaticDefaults()
 		{
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
@@ -45,18 +48,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			//draw flower chain connected to big bone
 			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>()) 
 			{
-				Vector2 ParentCenter = Parent.Center;
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain");
 
-				Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigFlowerChain");
+                Vector2 ParentCenter = Parent.Center;
 
 				Rectangle? chainSourceRectangle = null;
 				float chainHeightAdjustment = 0f;
 
-				Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+				Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
 				Vector2 chainDrawPosition = NPC.Center;
 				Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 				Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-				float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+				float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
 				if (chainSegmentLength == 0)
 				{
@@ -71,9 +74,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				{
 					Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-					var chainTextureToDraw = chainTexture;
-
-					Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
 					chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
 					chainCount++;
@@ -81,21 +82,21 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 
-			//draw glowy effect
-			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/HealingFlowerGlow").Value;
+            //draw glowy effect
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/HealingFlowerGlow");
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
 
             Color color = Color.Lerp(Color.Red, Color.Transparent, fade);
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale + fade / 5, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale + fade / 5, SpriteEffects.None, 0);
 
-			//draw flower on top so it doesnt look weird
-			Texture2D flowerTex = ModContent.Request<Texture2D>(Texture).Value;
+            //draw flower on top so it doesnt look weird
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Main.EntitySpriteDraw(flowerTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.3f + fade / 5, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.3f + fade / 5, SpriteEffects.None, 0);
 
-            return true;
+            return false;
         }
 
 		public override void AI()

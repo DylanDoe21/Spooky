@@ -3,13 +3,17 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class OldWoodCandle : ModTile
     {
+        private Asset<Texture2D> GlowTexture;
+
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -25,6 +29,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             DustType = DustID.WoodFurniture;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.Candles };
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<OldWoodCandleItem>());
         }
 
         public override void HitWire(int i, int j)
@@ -71,7 +80,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
 		{
-			SpriteEffects effects = SpriteEffects.None;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Furniture/OldWoodCandleGlow");
+
+            SpriteEffects effects = SpriteEffects.None;
 
 			Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 
@@ -96,8 +107,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			{
 				float shakeX = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
-				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Furniture/OldWoodCandleGlow").Value;
-				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, new Rectangle(frameX, frameY, width, height), new Color(100, 100, 100, 0), 0f, default, 1f, effects, 0f);
+				spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, new Rectangle(frameX, frameY, width, height), new Color(100, 100, 100, 0), 0f, default, 1f, effects, 0f);
 			}
 		}
     }

@@ -1,10 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
 using Spooky.Content.Dusts;
@@ -46,29 +44,6 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = 64;
 			AIType = NPCID.Firefly;
-		}
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            //draw aura
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-
-            Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
-
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            for (int numEffect = 0; numEffect < 4; numEffect++)
-            {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.White);
-
-                Color newColor = color;
-                newColor = NPC.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.025f, effects, 0);
-            }
-            
-            return true;
 		}
         
         public override void FindFrame(int frameHeight)

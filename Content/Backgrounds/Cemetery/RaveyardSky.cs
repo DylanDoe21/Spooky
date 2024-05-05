@@ -4,7 +4,6 @@ using Terraria.Graphics.Effects;
 using Terraria.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 
 namespace Spooky.Content.Backgrounds.Cemetery

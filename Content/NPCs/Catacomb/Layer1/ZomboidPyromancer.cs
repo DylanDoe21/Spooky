@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,6 +20,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
     public class ZomboidPyromancer : ModNPC
     {
+        private static Asset<Texture2D> GlowTexture;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 10;
@@ -64,7 +67,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer1/ZomboidPyromancerFlames").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer1/ZomboidPyromancerFlames");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -73,7 +76,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 float shakeX = Main.rand.Next(-2, 2);
 			    float shakeY = Main.rand.Next(-2, 2);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0 + shakeX, NPC.gfxOffY + 4 + shakeY), 
+                Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0 + shakeX, NPC.gfxOffY + 4 + shakeY), 
                 NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0.5f);
             }
         }

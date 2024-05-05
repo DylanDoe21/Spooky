@@ -2,11 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -14,105 +13,63 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class EyeRocket : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 34;
+            Projectile.width = 26;
+            Projectile.height = 26;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 200;
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Red) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+            }
+
+            return true;
+        }
+
+        public override void AI()
+        {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 5)
+            if (Projectile.frameCounter >= 3)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
+                if (Projectile.frame >= 3)
                 {
                     Projectile.frame = 0;
                 }
             }
 
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
-
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
-
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(5);
-
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-
-            return true;
-        }
-
-        const int TrailLength = 6;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 4 * factor, factor =>
-            {
-                return Color.Lerp(Color.Red, Color.Gray, factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
-		
-        public override void AI()
-        {    
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
             if (Projectile.spriteDirection == -1)
             {
                 Projectile.rotation += MathHelper.Pi;
-            }
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
             }
 
             int foundTarget = HomeOnTarget();
@@ -160,8 +117,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 7),
-                    Main.rand.Next(-3, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    int Blood = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 7), Main.rand.Next(-3, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
+                    Main.projectile[Blood].scale = 0.5f;
                 }
             }
 

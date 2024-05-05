@@ -53,7 +53,7 @@ namespace Spooky.Content.Items.SpiderCave
 
             for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
             {
-			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-18, 19)), Item.shoot, damage, knockback, player.whoAmI, 0);
+			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-35, 36)), Item.shoot, damage, knockback, player.whoAmI);
             }
 			
 			return false;

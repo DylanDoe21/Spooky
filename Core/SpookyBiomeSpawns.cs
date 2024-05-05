@@ -185,11 +185,11 @@ namespace Spooky.Core
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<FluffBatSmall1>(), 4);
-					pool.Add(ModContent.NPCType<FluffBatSmall2>(), 4);
-                    pool.Add(ModContent.NPCType<FluffBatBig1>(), 2);
-                    pool.Add(ModContent.NPCType<FluffBatBig2>(), 2);
-                    pool.Add(ModContent.NPCType<ZomboidFungus>(), 5);
+					pool.Add(ModContent.NPCType<FluffBatSmall1>(), 2);
+					pool.Add(ModContent.NPCType<FluffBatSmall2>(), 2);
+                    pool.Add(ModContent.NPCType<FluffBatBig1>(), 1);
+                    pool.Add(ModContent.NPCType<FluffBatBig2>(), 1);
+                    pool.Add(ModContent.NPCType<ZomboidFungus>(), 4);
 
                     //do not spawn zomboid warlocks if one already exists
 					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidWarlock>()))
@@ -200,7 +200,7 @@ namespace Spooky.Core
                     //mushroom moss mini-biome spawns
                     if (spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
                     {
-                        pool.Add(ModContent.NPCType<Bungus>(), 3);
+                        pool.Add(ModContent.NPCType<Bungus>(), 2);
                         pool.Add(ModContent.NPCType<Chungus>(), 2);
                     }
 
@@ -350,6 +350,44 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<FlySmall>(), 2);
 						pool.Add(ModContent.NPCType<FlyBig>(), 2);
 
+						//enemies
+						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 1);
+						pool.Add(ModContent.NPCType<JumpingSeed1>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSeed2>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSeed3>(), 2);
+						pool.Add(ModContent.NPCType<LilySlime1Big>(), 2);
+						pool.Add(ModContent.NPCType<LilySlime1Small>(), 3);
+						pool.Add(ModContent.NPCType<LilySlime2Big>(), 2);
+						pool.Add(ModContent.NPCType<LilySlime2Small>(), 3);
+						pool.Add(ModContent.NPCType<OrchidStem>(), 2);
+						pool.Add(ModContent.NPCType<PitcherPlant1>(), 3);
+						pool.Add(ModContent.NPCType<PitcherPlant2>(), 3);
+						pool.Add(ModContent.NPCType<PitcherPlant3>(), 2);
+						pool.Add(ModContent.NPCType<PitcherPlant4>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap1>(), 1);
+						pool.Add(ModContent.NPCType<PlantTrap2>(), 1);
+						pool.Add(ModContent.NPCType<PlantTrap3>(), 1);
+						pool.Add(ModContent.NPCType<PlantTrap4>(), 1);
+						pool.Add(ModContent.NPCType<PlantTrap5>(), 1);
+						pool.Add(ModContent.NPCType<PlantTrap6>(), 1);
+						pool.Add(ModContent.NPCType<PollinatorBeeDamage>(), 1);
+						pool.Add(ModContent.NPCType<PollinatorBeeHealing>(), 1);
+						pool.Add(ModContent.NPCType<Sunflower1>(), 3);
+						pool.Add(ModContent.NPCType<Sunflower2>(), 2);
+						pool.Add(ModContent.NPCType<Sunflower3>(), 2);
+
+						//do not spawn smelly if one already exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<Smelly>()))
+						{
+							pool.Add(ModContent.NPCType<Smelly>(), 0.8f);
+						}
+
+						//do not spawn dahlia if one already exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<Dahlia>()))
+						{
+							pool.Add(ModContent.NPCType<Dahlia>(), 0.5f);
+						}
+
 						/*
 						//enemies
 						pool.Add(ModContent.NPCType<Daisy1>(), 3);
@@ -361,9 +399,9 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<Toothy>(), 2);
 
 						//do not spawn sunny if one already exists
-						if (!NPC.AnyNPCs(ModContent.NPCType<Sunny>()))
+						if (!NPC.AnyNPCs(ModContent.NPCType<Dahlia>()))
 						{
-							pool.Add(ModContent.NPCType<Sunny>(), 1);
+							pool.Add(ModContent.NPCType<Dahlia>(), 0.5f);
 						}
 						*/
 					}

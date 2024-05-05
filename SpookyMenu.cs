@@ -1,11 +1,11 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+
 using Spooky.Core;
 
 namespace Spooky
@@ -30,6 +30,15 @@ namespace Spooky
         
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
 
+        private static Asset<Texture2D> MenuTexture;
+        private static Asset<Texture2D> RotGourdTexture;
+        private static Asset<Texture2D> SpookySpiritTexture;
+        private static Asset<Texture2D> MocoTexture;
+        private static Asset<Texture2D> DaffodilTexture;
+        private static Asset<Texture2D> OrroboroTexture;
+        private static Asset<Texture2D> BigBoneTexture;
+        private static Asset<Texture2D> OutlineTexture;
+
         public static readonly SoundStyle LogoClickSound1 = new("Spooky/Content/Sounds/MenuLogoClick1", SoundType.Sound);
         public static readonly SoundStyle LogoClickSound2 = new("Spooky/Content/Sounds/MenuLogoClick2", SoundType.Sound);
 
@@ -53,11 +62,11 @@ namespace Spooky
             logoScale = 0.8f;
 
             //draw the menu background
-            Texture2D texture = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenu").Value;
+            MenuTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenu");
 
             Vector2 drawOffset = Vector2.Zero;
-            float xScale = (float)Main.screenWidth / texture.Width;
-            float yScale = (float)Main.screenHeight / texture.Height;
+            float xScale = (float)Main.screenWidth / MenuTexture.Width();
+            float yScale = (float)Main.screenHeight / MenuTexture.Height();
             float scale = xScale;
 
             if (xScale != yScale)
@@ -65,51 +74,51 @@ namespace Spooky
                 if (yScale > xScale)
                 {
                     scale = yScale;
-                    drawOffset.X -= (texture.Width * scale - Main.screenWidth - 10) * 0.5f;
+                    drawOffset.X -= (MenuTexture.Width() * scale - Main.screenWidth - 10) * 0.5f;
                 }
                 else
                 {
-                    drawOffset.Y -= (texture.Height * scale - Main.screenHeight) * 0.5f;
+                    drawOffset.Y -= (MenuTexture.Height() * scale - Main.screenHeight) * 0.5f;
                 }
             }
 
-            spriteBatch.Draw(texture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(MenuTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             //draw the defeated bosses
             if (MenuSaveSystem.hasDefeatedRotGourd)
             {
-                Texture2D rotGourdTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockRotGourd").Value;
-                spriteBatch.Draw(rotGourdTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                RotGourdTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockRotGourd");
+                spriteBatch.Draw(RotGourdTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedSpookySpirit)
             {
-                Texture2D spookySpiritTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockSpookySpirit").Value;
-                spriteBatch.Draw(spookySpiritTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                SpookySpiritTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockSpookySpirit");
+                spriteBatch.Draw(SpookySpiritTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedMoco)
             {
-                Texture2D mocoTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockMoco").Value;
-                spriteBatch.Draw(mocoTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                MocoTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockMoco");
+                spriteBatch.Draw(MocoTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedDaffodil)
             {
-                Texture2D daffodilTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockDaffodil").Value;
-                spriteBatch.Draw(daffodilTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                DaffodilTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockDaffodil");
+                spriteBatch.Draw(DaffodilTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedOrroboro)
             {
-                Texture2D orroboroTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockOrroboro").Value;
-                spriteBatch.Draw(orroboroTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                OrroboroTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockOrroboro");
+                spriteBatch.Draw(OrroboroTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedBigBone)
             {
-                Texture2D bigBoneTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockBigBone").Value;
-                spriteBatch.Draw(bigBoneTex, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                BigBoneTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockBigBone");
+                spriteBatch.Draw(BigBoneTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
 
             //outlines for each boss
-            Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines").Value;
-            spriteBatch.Draw(outlineTex, drawOffset, null, Color.White * LogoSquishIntensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            OutlineTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines");
+            spriteBatch.Draw(OutlineTexture.Value, drawOffset, null, Color.White * LogoSquishIntensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             //draw the actual menu logo
             logoCenter = logoDrawCenter;

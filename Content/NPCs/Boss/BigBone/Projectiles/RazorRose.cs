@@ -1,6 +1,6 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/GlowTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 

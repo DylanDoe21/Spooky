@@ -4,6 +4,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,6 +12,8 @@ namespace Spooky.Content.Tiles.MusicBox
 {
     public class SpookyBiomeRainBoxTile : ModTile
     {
+        private static Asset<Texture2D> GlowTexture;
+
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -65,9 +68,9 @@ namespace Spooky.Content.Tiles.MusicBox
             }
         }
 
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
-		{
-            Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/MusicBox/SpookyBiomeRainBoxTileGlow").Value;
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/MusicBox/SpookyBiomeRainBoxTileGlow");
 
             Tile tile = Main.tile[i, j];
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
@@ -83,8 +86,8 @@ namespace Spooky.Content.Tiles.MusicBox
             {
                 float shakeX = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
                 float shakeY = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
-                Main.spriteBatch.Draw(flameTexture, new Vector2(drawPositionX + shakeX, drawPositionY + shakeY + yOffset) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, width, height), new Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(GlowTexture.Value, new Vector2(drawPositionX + shakeX, drawPositionY + shakeY + yOffset) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, width, height), new Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
             }
-		}
+        }
     }
 }

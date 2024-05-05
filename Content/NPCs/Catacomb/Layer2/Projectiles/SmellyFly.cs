@@ -3,8 +3,6 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Core;
-
 namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
 {
 	public class SmellyFly : ModProjectile

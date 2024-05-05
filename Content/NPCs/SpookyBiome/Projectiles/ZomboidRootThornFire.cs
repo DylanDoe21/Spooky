@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -9,7 +10,10 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 {   
     public class ZomboidRootThornFire : ModProjectile
     {
-		public override void SetDefaults()
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetDefaults()
 		{
 			DrawOffsetX = 0;
 			DrawOriginOffsetY = -16;
@@ -39,17 +43,18 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/Projectiles/ZomboidRootThornFireGlow").Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/Projectiles/ZomboidRootThornFireGlow");
 
-			if (Projectile.ai[1] > 0)
+            lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
+
+            if (Projectile.ai[1] > 0)
             {
-				Main.EntitySpriteDraw(tex, Projectile.Center + new Vector2(3, 0) - Main.screenPosition, 
+				Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + new Vector2(3, 0) - Main.screenPosition, 
                 new Rectangle(60 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), Color.Chocolate, 
                 Projectile.rotation, new Vector2(17, 17), 1.2f, SpriteEffects.None, 0);
 
-		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
+		    	Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(60 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), lightColor, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 
@@ -58,7 +63,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 					int XOffset = Main.rand.Next(-1, 2);
 					int YOffset = Main.rand.Next(-1, 2);
 
-					Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + new Vector2(XOffset, YOffset), 
+					Main.EntitySpriteDraw(GlowTexture.Value, Projectile.Center - Main.screenPosition + new Vector2(XOffset, YOffset), 
 					new Rectangle(60 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), Color.White * 0.5f, 
 					Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 				}

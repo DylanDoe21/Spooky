@@ -2,15 +2,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class BoneMaskWisp : ModProjectile
 	{
-		public override void SetDefaults()
+        private static Asset<Texture2D> AfterImageTexture;
+
+        public override void SetDefaults()
 		{
 			Projectile.width = 24;
 			Projectile.height = 26;
@@ -23,7 +25,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = TextureAssets.Extra[98].Value;
+            AfterImageTexture ??= TextureAssets.Extra[98];
+
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
             Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.DarkGray);
@@ -43,7 +46,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 for (int repeats = 0; repeats < 2; repeats++)
                 {
-                    Main.EntitySpriteDraw(tex, drawPos, null, newColor, TrailRotation, tex.Size() / 2f, scale, SpriteEffects.None);
+                    Main.EntitySpriteDraw(AfterImageTexture.Value, drawPos, null, newColor, TrailRotation, AfterImageTexture.Size() / 2f, scale, SpriteEffects.None);
                 }
             }
 

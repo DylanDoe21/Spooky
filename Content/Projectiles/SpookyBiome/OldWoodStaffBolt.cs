@@ -35,7 +35,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.04f);
             effect.Parameters["repeats"].SetValue(1);
 

@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,6 +18,9 @@ namespace Spooky.Content.NPCs.SpookyHell
         private bool segmentsSpawned;
 
         Vector2 SavePlayerPosition;
+
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> NPCTexture;
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
@@ -107,15 +110,15 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ValleyEelHeadGlow").Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ValleyEelHeadGlow");
 
             var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Rectangle frame = new Rectangle(0, NPC.frame.Y, tex.Width, tex.Height / Main.npcFrameCount[NPC.type]);
-            Vector2 origin = new Vector2(tex.Width * 0.5f, tex.Height / Main.npcFrameCount[NPC.type] * 0.5f);
-            Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, effects, 0);
-            Main.spriteBatch.Draw(glowTex, NPC.Center - Main.screenPosition, frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
+            Rectangle frame = new Rectangle(0, NPC.frame.Y, NPCTexture.Width(), NPCTexture.Height() / Main.npcFrameCount[NPC.type]);
+            Vector2 origin = new Vector2(NPCTexture.Width() * 0.5f, NPCTexture.Height() / Main.npcFrameCount[NPC.type] * 0.5f);
+            Main.spriteBatch.Draw(NPCTexture.Value, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, effects, 0);
+            Main.spriteBatch.Draw(GlowTexture.Value, NPC.Center - Main.screenPosition, frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
 
             return false;
         }

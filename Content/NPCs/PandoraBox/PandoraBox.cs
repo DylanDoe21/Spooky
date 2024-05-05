@@ -1,20 +1,18 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Pets;
-using Spooky.Content.NPCs.PandoraBox.Projectiles;
 
 namespace Spooky.Content.NPCs.PandoraBox
 {
@@ -26,6 +24,8 @@ namespace Spooky.Content.NPCs.PandoraBox
         bool PlayAnimation = false;
         bool EndingAnimation = false;
         bool Shake = false;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -119,24 +119,21 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             if (PandoraBoxWorld.PandoraEventActive)
             {
-                Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
                 var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
-                Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Cyan);
+                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Cyan);
 
                 for (int repeats = 0; repeats < 4; repeats++)
                 {
-                    Color color = newColor;
-                    color = NPC.GetAlpha(color);
-                    color *= 1f - fade;
                     Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                    Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+                    Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color * fade, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
                 }
 
-                Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+                Main.spriteBatch.Draw(NPCTexture.Value, drawPosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
             return true;

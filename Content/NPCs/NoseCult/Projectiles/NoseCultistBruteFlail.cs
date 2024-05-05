@@ -1,8 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +14,10 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
 		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyHell/BoogerFlailChain";
 
-		public override void SetStaticDefaults() 
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetStaticDefaults() 
         {
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -35,18 +36,18 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 		{
 			NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
-			Vector2 ParentCenter = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -38 : 38), Parent.Center.Y + 3);
+			ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/BoogerFlailChain");
 
-			Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
+            Vector2 ParentCenter = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -38 : 38), Parent.Center.Y + 3);
 			
 			Rectangle? chainSourceRectangle = null;
 			float chainHeightAdjustment = 0f;
 
-			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
 			Vector2 chainDrawPosition = Projectile.Center;
 			Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 			Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
 			if (chainSegmentLength == 0)
 			{
@@ -61,17 +62,16 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 			{
 				Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-				var chainTextureToDraw = chainTexture;
-
-				Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
 				chainDrawPosition += unitVectorToParent * chainSegmentLength;
 				chainCount++;
 				chainLengthRemainingToDraw -= chainSegmentLength;
 			}
 
-			Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
-			Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 			SpriteEffects spriteEffects = SpriteEffects.None;
 
 			if (Projectile.spriteDirection == -1)
@@ -82,7 +82,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 			{
 				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 				Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-				Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
+				Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
 			}
 
 			return true;

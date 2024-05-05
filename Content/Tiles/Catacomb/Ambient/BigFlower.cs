@@ -1,8 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Localization;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,6 +15,9 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
         //X frame 0 = normal tree segment
         //X frame 16 = tree top draw segment
         //X frame 36 = stubby top segment
+
+        private static Asset<Texture2D> TopTexture;
+        private static Asset<Texture2D> StemTexture;
 
         public override void SetStaticDefaults()
         {
@@ -116,12 +119,6 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            //X frame 0 = normal tree segment
-            //X frame 16 = tree top draw segment
-            //X frame 36 = stubby top segment
-
-            Tile tile = Framing.GetTileSafely(i, j);
-
             if (fail && !effectOnly && !noItem)
             {
                 (int x, int y) = (i, j);
@@ -174,20 +171,20 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             Vector2 pos = TileCustomPosition(i, j);
 
             //draw the actual tree
-            Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlower").Value;
+            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlower");
 
-            spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
 
             //draw the tree tops
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
-                Texture2D topTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlowerTops").Value;
+                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlowerTops");
                 int frame = tile.TileFrameY / 18;
 
                 Vector2 treeOffset = new Vector2(30, 72);
 
-                DrawTreeTops(i - 1, j - 1, topTex, new Rectangle(76 * frame, 0, 74, 80), default, TileOffset.ToWorldCoordinates(), treeOffset);
+                DrawTreeTops(i - 1, j - 1, TopTexture.Value, new Rectangle(76 * frame, 0, 74, 80), default, TileOffset.ToWorldCoordinates(), treeOffset);
             }
 
             return false;

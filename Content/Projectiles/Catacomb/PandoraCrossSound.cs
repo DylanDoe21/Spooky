@@ -1,15 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class PandoraCrossSound : ModProjectile
     {
+        private static Asset<Texture2D> ProjTexture;
+
         public override void SetDefaults()
         {
             Projectile.width = 66;
@@ -25,13 +26,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
-            Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(tex, vector, rectangle, Color.Cyan, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Color.Cyan, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
 
             return true;
         }

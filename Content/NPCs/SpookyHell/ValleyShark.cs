@@ -1,13 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -18,6 +17,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 {
     public class ValleyShark : ModNPC  
     {
+        private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> NPCTexture;
+
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
 
@@ -79,15 +81,15 @@ namespace Spooky.Content.NPCs.SpookyHell
         {
 			if (NPC.localAI[0] == 1 && NPC.localAI[1] >= 350 && NPC.localAI[2] == 0)
 			{
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+				Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
 
 				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
 				{
 					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(-10f, NPC.gfxOffY + 4);
 					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+					spriteBatch.Draw(NPCTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 				}
 			}
             
@@ -96,11 +98,11 @@ namespace Spooky.Content.NPCs.SpookyHell
         
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ValleySharkGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/ValleySharkGlow");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 

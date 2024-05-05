@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,11 +12,13 @@ using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Catacomb
-{
+{ 
     public class FemurFractureProj : ModProjectile
     {
         private List<Vector2> cache;
         private Trail trail;
+
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -44,7 +47,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 
@@ -52,8 +55,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
@@ -61,8 +65,8 @@ namespace Spooky.Content.Projectiles.Catacomb
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(Color.Lime) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale * 1.2f, effects, 0);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale * 1.2f, effects, 0);
             }
 
             return true;

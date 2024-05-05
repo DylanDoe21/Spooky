@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +17,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	public class MonsterEye1 : ModNPC
 	{
         bool HasJumped = false;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -57,7 +60,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			float stretch = NPC.velocity.Y * 0.025f;
 
@@ -88,7 +91,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
 
 			return false;

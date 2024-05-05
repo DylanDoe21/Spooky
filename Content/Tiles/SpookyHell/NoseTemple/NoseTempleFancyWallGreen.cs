@@ -1,14 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Tiles.SpookyHell.NoseTemple
 {
     public class NoseTempleFancyWallGreen : ModWall
     {
+        private Asset<Texture2D> MergeTexture;
+
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
@@ -31,7 +33,7 @@ namespace Spooky.Content.Tiles.SpookyHell.NoseTemple
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             //wall merges
-            Texture2D mergeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/NoseTemple/NoseTempleFancyWallMergeGreen").Value;
+            MergeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/NoseTemple/NoseTempleFancyWallMergeGreen");
             
             int Type = ModContent.WallType<NoseTempleWallGreen>();
 
@@ -43,22 +45,22 @@ namespace Spooky.Content.Tiles.SpookyHell.NoseTemple
             //top left
             if (Left.WallType == Type && Above.WallType == Type && !WorldGen.SolidTile(i - 1, j) && !WorldGen.SolidTile(i, j - 1))
             {
-                spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
             }
             //top right
             if (Right.WallType == Type && Above.WallType == Type && !WorldGen.SolidTile(i + 1, j) && !WorldGen.SolidTile(i, j - 1))
             {
-                spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
             }
             //bottom left
             if (Left.WallType == Type && Below.WallType == Type && !WorldGen.SolidTile(i - 1, j) && !WorldGen.SolidTile(i, j + 1))
             {
-                spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
             }
             //bottom right
             if (Right.WallType == Type && Below.WallType == Type && !WorldGen.SolidTile(i + 1, j) && !WorldGen.SolidTile(i, j + 1))
             {
-                spriteBatch.Draw(mergeTex, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, (new Vector2(i, j) + TileOffset) * 16 - Main.screenPosition, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
             }
         }
     }

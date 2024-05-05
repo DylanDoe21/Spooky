@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Projectiles.SpookyHell
+namespace Spooky.Content.Items.SpookyHell.Misc
 {
 	public class LeechWhipGore : ModItem
 	{

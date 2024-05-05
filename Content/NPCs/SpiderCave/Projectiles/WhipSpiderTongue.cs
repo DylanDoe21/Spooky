@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 using Spooky.Content.Buffs.Debuff;
 
@@ -14,6 +13,8 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 	{
         int SaveDirection;
         float SaveRotation;
+
+        private static Asset<Texture2D> ChainTexture;
 
         public override void SetStaticDefaults()
         {
@@ -41,18 +42,18 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<WhipSpider>())
             {
-                Vector2 ParentCenter = new Vector2(Parent.Center.X+ (Parent.direction == -1 ? -40 : 40), Parent.Center.Y);
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/Projectiles/WhipSpiderTongueSegment");
 
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/Projectiles/WhipSpiderTongueSegment");
+                Vector2 ParentCenter = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -40 : 40), Parent.Center.Y);
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
                 Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y + 3);
                 Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -67,9 +68,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
                 {
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
                     chainCount++;

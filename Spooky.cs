@@ -88,8 +88,6 @@ namespace Spooky
             SpookyHellBG.Load();
 
             ShaderLoader.Load();
-
-            MocoNoseBar.Load();
         }
 
         public override void Unload()
@@ -100,8 +98,6 @@ namespace Spooky
             ArmorBonusHotkey = null;
 
             ShaderLoader.Unload();
-
-            MocoNoseBar.Unload();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

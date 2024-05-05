@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class LivingFleshWhipProjRed : ModProjectile
 	{
-		public override void SetStaticDefaults() 
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetStaticDefaults() 
 		{
 			ProjectileID.Sets.IsAWhip[Type] = true;
 		}
@@ -58,11 +60,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override bool PreDraw(ref Color lightColor) 
         {
-			List<Vector2> list = new();
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            List<Vector2> list = new();
 			Projectile.FillWhipControlPoints(Projectile, list);
 
 			Main.instance.LoadProjectile(Type);
-			Texture2D texture = TextureAssets.Projectile[Type].Value;
 
 			Vector2 pos = list[0];
 
@@ -102,7 +105,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				float rotation = diff.ToRotation() - MathHelper.PiOver2; //This projectile's sprite faces down, so PiOver2 is used to correct rotation.
 				Color color = Lighting.GetColor(element.ToTileCoordinates());
 
-				Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(ProjTexture.Value, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
 
 				pos += diff;
 			}

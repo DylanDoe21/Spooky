@@ -3,17 +3,26 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
-using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Friendly
 {
     public class GiantWeb : ModNPC  
     {
+        private static Asset<Texture2D> HatTexture;
+        private static Asset<Texture2D> HatOutlineTexture;
+        private static Asset<Texture2D> SkullTexture;
+        private static Asset<Texture2D> SkullOutlineTexture;
+        private static Asset<Texture2D> TorsoTexture;
+        private static Asset<Texture2D> TorsoOutlineTexture;
+        private static Asset<Texture2D> LegsTexture;
+        private static Asset<Texture2D> LegsOutlineTexture;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -40,46 +49,46 @@ namespace Spooky.Content.NPCs.Friendly
         {
             if (Flags.OldHunterHat)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHat").Value;
-                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHatOutline").Value;
+                HatTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHat");
+                HatOutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebHatOutline");
 
-                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                Main.EntitySpriteDraw(HatOutlineTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
                 NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(HatTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterSkull)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkull").Value;
-                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkullOutline").Value;
+                SkullTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkull");
+                SkullOutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebSkullOutline");
 
-                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                Main.EntitySpriteDraw(SkullOutlineTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
                 NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(SkullTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterTorso)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorso").Value;
-                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorsoOutline").Value;
+                TorsoTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorso");
+                TorsoOutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebTorsoOutline");
 
-                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                Main.EntitySpriteDraw(TorsoOutlineTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
                 NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(TorsoTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
             if (Flags.OldHunterLegs)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegs").Value;
-                Texture2D outlineTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegsOutline").Value;
+                LegsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegs");
+                LegsOutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/GiantWebLegsOutline");
 
-                Main.EntitySpriteDraw(outlineTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
+                Main.EntitySpriteDraw(LegsOutlineTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4),
                 NPC.frame, Color.White * 0.25f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(LegsTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
             }
         }
@@ -88,41 +97,6 @@ namespace Spooky.Content.NPCs.Friendly
         {
             return true;
         }
-
-        /*
-        public override bool CanChat()
-        {
-            bool HasSkeletonPiece = Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterHat>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterSkull>()) ||
-            Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<OldHunterLegs>());
-
-            return HasSkeletonPiece;
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = Language.GetTextValue("Mods.Spooky.Dialogue.GiantWeb.Button");
-		}
-
-        public override string GetChat()
-		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.GiantWeb.Dialogue");
-		}
-
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-		{
-            if (firstButton)
-            {
-                Main.npcChatText = "";
-
-                SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack, NPC.Center);
-
-                SpookyPlayer.ScreenShakeAmount = 5;
-
-                NPC.ai[0] = 1;
-                NPC.netUpdate = true;
-            }
-        }
-        */
 
         public override void AI()
         {

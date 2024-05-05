@@ -20,13 +20,6 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		public static int ChosenQuestForToday = 0;
 
-        int Quest1Timer = 0;
-		int Quest2Timer = 0;
-		int Quest3Timer = 0;
-		int Quest4Timer = 0;
-		int Quest5Timer = 0;
-		int RandomQuestTimer = 0;
-
         private static int ShimmerHeadIndex;
         private static Profiles.StackedNPCProfile NPCProfile;
 
@@ -140,14 +133,14 @@ namespace Spooky.Content.NPCs.Friendly
 			return Main.rand.Next(Dialogue);
 		}
 
-		public override void AI()
+		public override bool PreAI()
 		{
 			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
+			
+			NPC.spriteDirection = NPC.direction;
 
-            NPC.spriteDirection = NPC.direction;
-
-            NPC.velocity.X *= 0;
+			return false;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

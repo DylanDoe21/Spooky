@@ -3,18 +3,18 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-
-using Spooky.Content.NPCs.Catacomb;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class FlamingWisp : ModProjectile
     {
         int Offset = Main.rand.Next(-100, 100);
+
+        private static Asset<Texture2D> AfterImageTexture;
 
         public override void SetStaticDefaults()
         {
@@ -36,14 +36,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = TextureAssets.Extra[98].Value;
+            AfterImageTexture ??= TextureAssets.Extra[98];
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
             Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
             Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
 
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			TrailRotation += 0f * (float)Projectile.direction;
+			TrailRotation += 0f * Projectile.direction;
 
 			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
             {
@@ -56,7 +56,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 
                 for (int repeats = 0; repeats < 2; repeats++)
                 {
-                    Main.EntitySpriteDraw(tex, drawPos, null, newColor, TrailRotation, tex.Size() / 2f, scale, SpriteEffects.None);
+                    Main.EntitySpriteDraw(AfterImageTexture.Value, drawPos, null, newColor, TrailRotation, AfterImageTexture.Size() / 2f, scale, SpriteEffects.None);
                 }
             }
 
@@ -93,7 +93,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
             if (Projectile.ai[0] < 75)
             {
-                NPC Parent = Main.npc[(int)Projectile.ai[0]];
+                NPC Parent = Main.npc[(int)Projectile.ai[1]];
 
                 if (Parent.active && (Parent.type == ModContent.NPCType<BigBone>() || Parent.type == ModContent.NPCType<CatacombGuardian>()))
                 {

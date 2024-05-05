@@ -1,11 +1,7 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -29,9 +25,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         }
 
         public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
-            
+        {   
             NPC target = Main.npc[(int)Projectile.ai[1]];
 
             Projectile.rotation += Projectile.velocity.X * 0.2f;

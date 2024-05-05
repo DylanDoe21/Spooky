@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -17,7 +16,10 @@ namespace Spooky.Content.NPCs.PandoraBox
 {
     public class Bobbert : ModNPC
     {
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> NPCTexture;
+
+        public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -60,18 +62,18 @@ namespace Spooky.Content.NPCs.PandoraBox
 			{
 				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<PandoraBox>() && NPC.Distance(Main.npc[k].Center) <= 750f) 
 				{
-					Vector2 ParentCenter = Main.npc[k].Center;
-
-					Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/PandoraBox/ChainSmall");
+                    ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/PandoraBox/ChainSmall");
+                    
+                    Vector2 ParentCenter = Main.npc[k].Center;
 
 					Rectangle? chainSourceRectangle = null;
 					float chainHeightAdjustment = 0f;
 
-					Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+					Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
 					Vector2 chainDrawPosition = NPC.Center;
 					Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 					Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-					float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+					float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
 					if (chainSegmentLength == 0)
 					{
@@ -86,9 +88,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 					{
 						Color chainDrawColor = Color.Cyan * 0.5f;
 
-						var chainTextureToDraw = chainTexture;
-
-						Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
 						chainDrawPosition += unitVectorToParent * chainSegmentLength;
 						chainCount++;
@@ -97,24 +97,21 @@ namespace Spooky.Content.NPCs.PandoraBox
 				}
 			}
 
-            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
             var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
-			Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.LightBlue);
+			Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.LightBlue);
 
             for (int repeats = 0; repeats < 4; repeats++)
             {
-				Color color = newColor;
-                color = NPC.GetAlpha(color);
-                color *= 1f - fade;
                 Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+                Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color * fade, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+            Main.spriteBatch.Draw(NPCTexture.Value, drawPosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
 
             return true;
         }

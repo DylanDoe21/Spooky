@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttySlime1 : ModNPC
 	{
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> NPCTexture;
+
+        public override void SetStaticDefaults()
 		{
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -51,7 +54,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			float stretch = NPC.velocity.Y * 0.45f;
 
@@ -82,7 +85,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			spriteBatch.Draw(tex, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
             NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
 
 			return false;

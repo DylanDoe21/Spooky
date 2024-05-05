@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +12,9 @@ namespace Spooky.Content.Projectiles.Pets
 {
 	public class BigBonePet : ModProjectile
 	{
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> ChainTexture;
+
+        public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
@@ -41,13 +44,14 @@ namespace Spooky.Content.Projectiles.Pets
             //only draw if the owner exists
             if (!player.dead)
 			{
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetChain");
+                
                 Vector2 rootPosition = player.Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), Projectile.Center + new Vector2(-30 * Projectile.direction, 0).RotatedBy(Projectile.rotation), Projectile.Center + new Vector2(-7 * Projectile.direction, 0).RotatedBy(Projectile.rotation) };
                 float bezierProgress = 0;
                 float bezierIncrement = 8;
-
-                Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetChain").Value;
+                
                 Vector2 textureCenter = Projectile.spriteDirection == -1 ? new Vector2(2, 2) : new Vector2(2, 2);
 
                 float rotation;
@@ -66,7 +70,7 @@ namespace Spooky.Content.Projectiles.Pets
                     Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
                     rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
 
-                    Main.spriteBatch.Draw(texture, (oldPos + newPos) / 2 - Main.screenPosition, texture.Frame(), lightColor, rotation, textureCenter, Projectile.scale, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(ChainTexture.Value, (oldPos + newPos) / 2 - Main.screenPosition, ChainTexture.Frame(), lightColor, rotation, textureCenter, Projectile.scale, SpriteEffects.None, 0f);
                 }
             }
 

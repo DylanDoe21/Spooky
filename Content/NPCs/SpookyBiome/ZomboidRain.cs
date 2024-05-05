@@ -3,10 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
@@ -15,6 +14,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class ZomboidRain : ModNPC  
     {
+        private static Asset<Texture2D> BloodTexture;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
@@ -50,13 +51,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            //if a blood moon is happening make the rain blood water
             if (Main.bloodMoon)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/ZomboidRainBlood").Value;
+                BloodTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/ZomboidRainBlood");
 
                 var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                     
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(BloodTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 		}
 

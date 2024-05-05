@@ -144,7 +144,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Vector2 vector48 = target.Center - center2;
             float targetDistance = vector48.Length();
 
-            if (Projectile.velocity.Y == 0 && ((HoleBelow() && targetDistance > 5f) || (targetDistance > 5f && Projectile.position.X == Projectile.oldPosition.X)))
+            if (Projectile.velocity.Y == 0 && (HoleBelow() || (targetDistance <= 50f && Projectile.position.X == Projectile.oldPosition.X)))
             {
                 Projectile.velocity.Y = -9f;
             }

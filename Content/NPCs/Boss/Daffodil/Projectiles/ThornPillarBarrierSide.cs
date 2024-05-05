@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +11,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 { 
     public class ThornPillarBarrierSide : ModProjectile
 	{
-		public static readonly SoundStyle ThornSpawnSound = new("Spooky/Content/Sounds/Daffodil/ThornBarrier", SoundType.Sound);
+        private static Asset<Texture2D> ProjTexture;
+
+        public static readonly SoundStyle ThornSpawnSound = new("Spooky/Content/Sounds/Daffodil/ThornBarrier", SoundType.Sound);
 
 		public override void SetDefaults()
 		{
@@ -47,13 +50,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
 		{
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			if (Projectile.ai[1] > 0)
             {
 				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
-		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
+		    	Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(487 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 42), Color.White, 
                 Projectile.rotation, new Vector2(17, 17), Projectile.scale + fade / 6, SpriteEffects.None, 0);
             }

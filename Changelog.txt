@@ -8,8 +8,8 @@ Eye Valley Improvements:
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Added a new giant evil lab for little eye to live in
 -Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
--Added new "fleshy" variants of all the regular eye valley enemies that have entirely new behavior from their original counter parts
--Changes the behavior of some of the normal eye valley enemies to make them more interesting
+-Changed the behavior of some of the normal eye valley enemies to make them more interesting
+-Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
 -Added a dungeon in the eye valley, requires a shadow key to enter
 
 
@@ -36,6 +36,8 @@ New Music:
 
 Other New Additions:
 
+-Due to new tmodloader documentation on requesting assets for things like drawcode, all of the texture requesting in spooky mod has been change to be more optimized
+
 
 
 
@@ -55,6 +57,8 @@ Weapons & Gear:
 -Creepy candle no longer increases magic damage, but magic projectiles now have a much higher chance to set enemies on fire while wearing it
 -Gilded mage armor can now be crafted with both gold or platinum bars
 -Gilded mage tunic now gives 10% increased magic damage instead of a flat increase of 5
+-Nerfed the plant puncher staff's damage from 50 to 30, but you can now have up to 2 hands at once
+-Venomous spiderpoon projectiles now have a higher vertical shoot range
 
 
 Enemy & Boss Changes:
@@ -62,27 +66,31 @@ Enemy & Boss Changes:
 -Added slight screenshake to orro-boros flesh spike attacks
 -Reduced orro-boros overall movement speed a bit, and reduced their overall movement acceleration (The amount reduced is different for each attack)
 -Orro-boros gravity affected spit projectiles now have a maximum falling speed instead of constantly falling faster over time
--Orro-boro now slows down way more before dashing in its phase 1 chase attack to telegraph them better before they happen
+-Orro-boro now slows down way more before dashing in its phase 1 chase attack to telegraph them better
 -Orro-boros phase 1 attack where it chases the player, shoots spreads of spit, and then charges has been changed, it now moves at the player way slower, charges a bit slower, and spits a more natural looking spread of projectiles
 -Orro-boros phase 1 upward charge attack where it spits 2 spreads of projectiles upward that fall down has been changed to be a stream of projectiles that are shot in random directions upward and then fall down
 -Orro-boro in phase 1 now emerges out of the ground towards the side of the player after finishing its flesh spine attack to prevent players from getting hit unfairly
 -Orro-boro now spawns flesh spines less frequently in phase 1 during its flesh spine attack
 -Orros spit drop attack in phase 2 is now more natural, the projectiles will now fall down in slightly randomized directions instead of straight down, and now only shoots them if it is within a certain range of the players X-position
--Orro now shoots spit projectiles in its phase 2 spit drop attack way more frequently while enraged, instead of shooting spreads of them while enraged
+-Orro now shoots spit projectiles in its phase 2 spit drop attack way more frequently while enraged, instead of shooting spreads of them
 -Reduced boros short lunge dash attack speed a bit
 -Boro will now emerge out of the ground after using its flesh spine attack to prevent players from getting hit unfairly
--Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same but with a new projectile)
--Daffodil now has a new punch attack
+-Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
+-All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
+-Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
+-Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
+-Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collission issues the old one had)
+-Daffodil now has a new punch attack in phase 2
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
--Monster eyes now explode into small little chunk gores when killed
--Heavily nerfed monster eyes jumping rate and speed as it was way too unbalanced before
+-Monster eyes now explode into small little chunk gores when killed and heavily nerfed their jumping rate and speed
 
 
 Miscellaneous:
 
--Sentient hearts now only require two to be researched in journey mode to unlock duplication
+-Sentient hearts now only require 2 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
 -The giant eye valley egg now has a new animation when it spawns orro-boro
+-Spooky mod ambient grasses for all biomes now actually grow during world generation
 
 
 Removals:

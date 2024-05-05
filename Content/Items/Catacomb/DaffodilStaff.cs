@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 50;
-			Item.mana = 15;       
+			Item.damage = 35;
+			Item.mana = 10;
 			Item.DamageType = DamageClass.Summon;
 			Item.autoReuse = true;
 			Item.noMelee = true;
@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.Catacomb
 
 		public override bool CanUseItem(Player player)
 		{
-			if (player.ownedProjectileCounts[Item.shoot] > 0 && player.altFunctionUse != 2) 
+			if (player.ownedProjectileCounts[Item.shoot] > 1 && player.altFunctionUse != 2)
 			{
 				return false;
 			}

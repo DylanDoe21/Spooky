@@ -20,6 +20,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = -1;
+            Projectile.alpha = 255;
             Projectile.timeLeft = 1800;
         }
 
@@ -37,6 +38,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
         public override void AI()       
         {
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 10;
+            }
+
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             if (IsStickingToTarget) 
@@ -64,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
                 Projectile.rotation += 0f * (float)Projectile.direction;
 
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.4f;
             }
         }
 

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,7 +11,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class Candle : ModTile
 	{
-		public override void SetStaticDefaults()
+        private Asset<Texture2D> GlowTexture;
+
+        public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
@@ -42,7 +45,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 			if (frameY / 18 % 3 == 0) 
 			{
-				if (Main.rand.Next(3) == 0)
+				if (Main.rand.NextBool(3))
 				{
 					int newDust = Dust.NewDust(new Vector2(i * 16 + 4, j * 16 + 2), 4, 4, DustID.Torch, 0f, 0f, 100, default, 1f);
 
@@ -56,7 +59,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
 		{
-			SpriteEffects effects = SpriteEffects.None;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Furniture/CandleFlame");
+
+            SpriteEffects effects = SpriteEffects.None;
 
 			Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 
@@ -81,8 +86,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			{
 				float shakeX = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
 				float shakeY = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
-				Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Furniture/CandleFlame").Value;
-				spriteBatch.Draw(flameTexture, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, new Rectangle(frameX, frameY, width, height), new Color(100, 100, 100, 0), 0f, default, 1f, effects, 0f);
+				spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + shakeX, j * 16 - (int)Main.screenPosition.Y + offsetY + shakeY) + zero, new Rectangle(frameX, frameY, width, height), new Color(100, 100, 100, 0), 0f, default, 1f, effects, 0f);
 			}
 		}
 	}

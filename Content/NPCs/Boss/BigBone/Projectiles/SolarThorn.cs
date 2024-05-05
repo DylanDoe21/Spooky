@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -10,9 +11,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 { 
     public class SolarThorn : ModProjectile
     {
+		private static Asset<Texture2D> ProjTexture;
+
 		public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
 
-		public override void SetDefaults()
+        public override void SetDefaults()
 		{
 			DrawOffsetX = 0;
 			DrawOriginOffsetY = -16;
@@ -42,12 +45,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			if (Projectile.ai[1] > 0)
             {
-		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
+		    	Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 20), Color.White, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }

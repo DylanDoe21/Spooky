@@ -40,8 +40,8 @@ SpookyConfig: {
 			'''
 			Adjust the intensity of the screen shaking effect caused by various things in the mod
 			The default value for this setting is 1, which is the normal screen shaking intensity
-			Anything higher than 1 will make the screen shaking more intense
-			Anything lower than 1 will make the screen shaking less intense
+			Anything higher than the normal intensity will make the screen shaking more intense
+			Anything lower than the normal intensity will make the screen shaking less intense
 			Turning this all the way down will entirely disable the mod's screen shake effect
 			'''
 	}
@@ -52,7 +52,7 @@ SpookyConfig: {
 			'''
 			The bloom buffs user interface can be dragged with the mouse if you hold left click on it
 			Turn this option off if you want to lock the UI in place and don't want to drag it
-			Useful if you have found a good spot for it and you want it to be locked there
+			Useful if you have found a good spot for it and dont want to move it
 			'''
 	}
 }

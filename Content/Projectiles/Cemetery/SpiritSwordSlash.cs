@@ -2,14 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Cemetery
 { 
@@ -21,11 +18,14 @@ namespace Spooky.Content.Projectiles.Cemetery
         bool SavedKnockback = false;
         bool hasHitSomething = false;
 
+        private static Asset<Texture2D> ProjTexture;
+
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            
             Vector2 vector = Projectile.Center - Main.screenPosition;
-			Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashSpecial");
-			Rectangle rectangle = Texture.Frame(1, 2);
+			Rectangle rectangle = ProjTexture.Frame(1, 2);
 			Vector2 origin = rectangle.Size() / 2f;
 			float Scale = Projectile.scale * 1.44f;
 			SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
@@ -37,24 +37,24 @@ namespace Spooky.Content.Projectiles.Cemetery
             Color SlashColor4 = Color.Lerp(Color.DarkViolet, Color.DarkViolet, Intensity);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor2 * Intensity * 0.3f, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor3 * Intensity * 0.3f, Projectile.rotation, origin, Scale, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor4 * Intensity * 0.5f, Projectile.rotation, origin, Scale * 0.975f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor2 * Intensity * 0.3f, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor3 * Intensity * 0.3f, Projectile.rotation, origin, Scale, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor4 * Intensity * 0.5f, Projectile.rotation, origin, Scale * 0.975f, effects, 0f);
 			
             //draw extra lines on top of each slash
-            Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.DarkOrange * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.Orange * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.8f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), Color.Gold * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.6f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.DarkOrange * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.Orange * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.8f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.Gold * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.6f, effects, 0f);
 			
             //draw star sparkle and trail on top of the slashes
             for (float Repeats = 0f; Repeats < 8f; Repeats += 1f) 
             {
 				float Fade = Projectile.rotation + Projectile.ai[0] * Repeats * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0];
-				Vector2 drawpos = vector + Fade.ToRotationVector2() * ((float)Texture.Width() * 0.5f - 6f) * Scale * 1.02f;
+				Vector2 drawpos = vector + Fade.ToRotationVector2() * ((float)ProjTexture.Width() * 0.5f - 6f) * Scale * 1.02f;
 				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, Fade, new Vector2(0f, Utils.Remap(CurrentAI, 0f, 1f, 3f, 0f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
 			
-                Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)Texture.Width() * 0.5f - 4f) * Scale;
+                Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)ProjTexture.Width() * 0.5f - 4f) * Scale;
 			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(CurrentAI, 0f, 1f, 4f, 1f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
             }
 

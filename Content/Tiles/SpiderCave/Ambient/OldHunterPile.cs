@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,6 +13,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 {
     public class OldHunterPileHat : ModTile
     {
+        private Asset<Texture2D> GlowTexture;
+
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
@@ -35,7 +38,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
         public static void DrawGlow(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
         {
-            Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
 
             Main.spriteBatch.Draw(tex, drawPos, source, Color.White, 0, origin ?? source.Value.Size() / 3f, 2f, SpriteEffects.None, 0f);
@@ -43,15 +45,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Ambient/OldHunterPileGlow");
+
             Tile tile = Framing.GetTileSafely(i, j);
 
             if (tile.TileFrameX == 0 && tile.TileFrameY == 0)
             {
-                Texture2D GlowTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Ambient/OldHunterPileGlow").Value;
-
                 Vector2 Offset = new Vector2(8, 2);
 
-                DrawGlow(i, j - 3, GlowTex, new Rectangle(0, 0, 14, 48), TileOffset.ToWorldCoordinates(), Offset);
+                DrawGlow(i, j - 3, GlowTexture.Value, new Rectangle(0, 0, 14, 48), TileOffset.ToWorldCoordinates(), Offset);
             }
 
             return true;

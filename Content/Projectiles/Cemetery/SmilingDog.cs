@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
@@ -12,6 +12,8 @@ namespace Spooky.Content.Projectiles.Cemetery
     public class SmilingDog : ModProjectile
     {
         bool isAttacking = false;
+
+        private static Asset<Texture2D> GlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -49,8 +51,9 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             if (Projectile.ai[1] >= 10800)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/SmilingDogGlow").Value;
-                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+                GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/SmilingDogGlow");
+
+                Vector2 drawOrigin = new(GlowTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
                 var spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
@@ -59,8 +62,8 @@ namespace Spooky.Content.Projectiles.Cemetery
                     float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                     Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                     Color color = Projectile.GetAlpha(Color.Red) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                    Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, spriteEffects, 0);
+                    Rectangle rectangle = new(0, (GlowTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, GlowTexture.Width(), GlowTexture.Height() / Main.projFrames[Projectile.type]);
+                    Main.EntitySpriteDraw(GlowTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, spriteEffects, 0);
                 }
             }
         }
@@ -79,9 +82,6 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.timeLeft = 2;
             }
 
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-
             //timer for when it should start attacking you
             if (!player.GetModPlayer<SpookyPlayer>().CreepyPasta)
             {
@@ -90,6 +90,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Projectile.ai[1] < 10800)
             {
+                Projectile.friendly = true;
+                Projectile.hostile = false;
+
                 //target an enemy
                 for (int i = 0; i < 200; i++)
                 {

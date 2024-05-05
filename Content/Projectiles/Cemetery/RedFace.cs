@@ -29,9 +29,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         }
 
         public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
-            
+        {   
             NPC target = Main.npc[(int)Projectile.ai[1]];
 
             Projectile.ai[0]++;

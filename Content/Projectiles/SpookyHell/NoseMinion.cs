@@ -241,7 +241,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             horiPos += (float)Main.rand.Next(-15, 15);
             float npcDistance = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
             float num21 = 18f;
-            float num27 = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
 
             if (npcDistance < 50f)
             {

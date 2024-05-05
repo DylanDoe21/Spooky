@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class SlendermanTentacle : ModProjectile
     {
+        private static Asset<Texture2D> ChainTexture;
+
         public override void SetDefaults()
         {
             Projectile.width = 10;
@@ -28,16 +30,16 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/SlendermanTentacleSegment");
+            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/SlendermanTentacleSegment");
 
             Rectangle? chainSourceRectangle = null;
             float chainHeightAdjustment = 0f;
 
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
             Vector2 chainDrawPosition = Main.player[Projectile.owner].Center;
             Vector2 VectorToPlayer = Projectile.Center.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
             Vector2 unitVectorToPlayer = VectorToPlayer.SafeNormalize(Vector2.Zero);
-            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
             if (chainSegmentLength == 0)
             {
@@ -51,9 +53,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                var chainTextureToDraw = chainTexture;
-
-                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, Projectile.rotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, Projectile.rotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                 chainDrawPosition += unitVectorToPlayer * chainSegmentLength;
                 chainCount++;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpiderCave.OldHunter;
 using Spooky.Content.Items.SpookyBiome;
 
@@ -116,7 +117,8 @@ namespace Spooky.Content.NPCs.Friendly
 			.Add<GodGun>(Condition.Hardmode)
             .Add<HunterScarf>()
             .Add<RustedBullet>()
-			.Add<MossyPebble>();
+			.Add<MossyPebble>()
+			.Add(new Item(ModContent.ItemType<InchwormApple>()) { shopCustomPrice = 200000 });
             npcShop.Register();
         }
 

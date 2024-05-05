@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,28 +11,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroTail";
 
+        private static Asset<Texture2D> NPCTexture;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
             {
-                Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red) * 0.5f;
 
-                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
-                Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
-
-                for (int repeats = 0; repeats < 4; repeats++)
+                for (int numEffect = 0; numEffect < 4; numEffect++)
                 {
-                    Color color = newColor;
-                    color = NPC.GetAlpha(color);
-                    color *= 1f - fade;
-                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                    Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+                    Color newColor = color;
+                    newColor = NPC.GetAlpha(newColor);
+                    newColor *= 1f;
+                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6 + NPC.rotation + 0f).ToRotationVector2() * 6f - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
+                    Main.EntitySpriteDraw(NPCTexture.Value, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
                 }
-
-                Main.spriteBatch.Draw(texture, drawPosition, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
             }
 
             return true;

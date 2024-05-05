@@ -1,16 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Core;
-using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -18,6 +16,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
     public class CandleMonster : ModNPC  
     {
         bool HasShotProjectiles = false;
+
+        private static Asset<Texture2D> GlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -61,7 +61,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/CandleMonsterGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/CandleMonsterGlow");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -70,7 +70,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 int XOffset = Main.rand.Next(-2, 3);
                 int YOffset = Main.rand.Next(-2, 3);
                 
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(XOffset, NPC.gfxOffY + 4 + YOffset), 
+                Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(XOffset, NPC.gfxOffY + 4 + YOffset), 
                 NPC.frame, Color.White * 0.5f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 		}

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Biomes;
 
 namespace Spooky.Content.Backgrounds.SpookyHell
 { 

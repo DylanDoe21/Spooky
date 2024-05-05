@@ -17,6 +17,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         Dictionary<int, Projectile> segments = new Dictionary<int, Projectile>();
 
+        private static Asset<Texture2D> HeadTexture;
+        private static Asset<Texture2D> BodyTexture;
+        private static Asset<Texture2D> TailTexture;
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionSacrificable[Type] = true;
@@ -38,6 +42,37 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
             Projectile.aiStyle = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            HeadTexture ??= ModContent.Request<Texture2D>(Texture);
+            BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroBody");
+            TailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroTail");
+
+            for (var i = segments.Count; i > 0; i--)
+            {
+                if (segments.ContainsKey(i))
+                {
+                    SpriteEffects effects = Math.Abs(segments[i].rotation) > MathHelper.PiOver2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+                    if (i < segments.Count)
+                    {
+                        Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
+                        segments[i].rotation + MathHelper.Pi / 2f, BodyTexture.Size() / 2f, segments[i].scale, effects, 0);
+                    }
+                    else
+                    {
+                        Main.EntitySpriteDraw(TailTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
+                        segments[i].rotation + MathHelper.Pi / 2f, TailTexture.Size() / 2f, segments[i].scale, effects, 0);
+                    }
+                }
+            }
+
+            Main.EntitySpriteDraw(HeadTexture.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
+            HeadTexture.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+
+            return false;
         }
 
         public override bool? CanCutTiles()
@@ -223,37 +258,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.ai[2] = 0;
             }
         }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D headTex = ModContent.Request<Texture2D>(Texture).Value;
-            Texture2D bodyTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroBody").Value;
-            Texture2D tailTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroTail").Value;
-
-            for (var i = segments.Count; i > 0; i--)
-            {
-                if (segments.ContainsKey(i))
-                {
-                    SpriteEffects effects = Math.Abs(segments[i].rotation) > MathHelper.PiOver2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                    
-                    if (i < segments.Count)
-                    {
-                        Main.EntitySpriteDraw(bodyTex, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor), 
-                        segments[i].rotation + MathHelper.Pi / 2f, bodyTex.Size() / 2f, segments[i].scale, effects, 0);
-                    }
-                    else
-                    {
-                        Main.EntitySpriteDraw(tailTex, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor), 
-                        segments[i].rotation + MathHelper.Pi / 2f, tailTex.Size() / 2f, segments[i].scale, effects, 0);
-                    }
-                }
-            }
-
-            Main.EntitySpriteDraw(headTex, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
-            headTex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-            
-            return false;
-        }
     }
 
     public class MiniOrroHead : ModProjectile
@@ -261,6 +265,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
         bool isAttacking = false;
 
         Dictionary<int, Projectile> segments = new Dictionary<int, Projectile>();
+
+        private static Asset<Texture2D> HeadTexture;
+        private static Asset<Texture2D> BodyTexture;
+        private static Asset<Texture2D> TailTexture;
 
         public override void SetStaticDefaults()
         {
@@ -283,6 +291,37 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
             Projectile.aiStyle = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            HeadTexture ??= ModContent.Request<Texture2D>(Texture);
+            BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroBody");
+            TailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroTail");
+
+            for (var i = segments.Count; i > 0; i--)
+            {
+                if (segments.ContainsKey(i))
+                {
+                    SpriteEffects effects = Math.Abs(segments[i].rotation) > MathHelper.PiOver2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+                    if (i < segments.Count)
+                    {
+                        Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
+                        segments[i].rotation + MathHelper.Pi / 2f, BodyTexture.Size() / 2f, segments[i].scale, effects, 0);
+                    }
+                    else
+                    {
+                        Main.EntitySpriteDraw(TailTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
+                        segments[i].rotation + MathHelper.Pi / 2f, TailTexture.Size() / 2f, segments[i].scale, effects, 0);
+                    }
+                }
+            }
+
+            Main.EntitySpriteDraw(HeadTexture.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
+            HeadTexture.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+
+            return false;
         }
 
         public override bool? CanCutTiles()
@@ -467,37 +506,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Projectile.ai[2] = 0;
             }
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D headTex = ModContent.Request<Texture2D>(Texture).Value;
-            Texture2D bodyTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroBody").Value;
-            Texture2D tailTex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/MiniOrroboroTail").Value;
-
-            for (var i = segments.Count; i > 0; i--)
-            {
-                if (segments.ContainsKey(i))
-                {
-                    SpriteEffects effects = Math.Abs(segments[i].rotation) > MathHelper.PiOver2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                    
-                    if (i < segments.Count)
-                    {
-                        Main.EntitySpriteDraw(bodyTex, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor), 
-                        segments[i].rotation + MathHelper.Pi / 2f, bodyTex.Size() / 2f, segments[i].scale, effects, 0);
-                    }
-                    else
-                    {
-                        Main.EntitySpriteDraw(tailTex, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor), 
-                        segments[i].rotation + MathHelper.Pi / 2f, tailTex.Size() / 2f, segments[i].scale, effects, 0);
-                    }
-                }
-            }
-
-            Main.EntitySpriteDraw(headTex, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
-            headTex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-            
-            return false;
         }
     }
 }

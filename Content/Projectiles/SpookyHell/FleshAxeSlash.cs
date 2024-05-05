@@ -1,15 +1,9 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 { 
@@ -20,11 +14,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
         float SaveKnockback;
         bool SavedKnockback = false;
 
+        private static Asset<Texture2D> ProjTexture;
+
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
             Vector2 vector = Projectile.Center - Main.screenPosition;
-            Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashSpecial");
-            Rectangle rectangle = Texture.Frame(1, 2);
+            Rectangle rectangle = ProjTexture.Frame(1, 2);
             Vector2 origin = rectangle.Size() / 2f;
             float Scale = Projectile.scale;
             SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
@@ -32,10 +29,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
 
             //this is the slash texture itself
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, Color.Crimson * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, rectangle, Color.Crimson * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
 
             //draw extra lines on top of the slash
-            Main.spriteBatch.Draw(Texture.Value, vector, Texture.Frame(1, 2, 0, 1), Color.Gray * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, ProjTexture.Frame(1, 2, 0, 1), Color.Gray * Intensity * 0.75f, Projectile.rotation, origin, Scale, effects, 0f);
 
             return false;
         }

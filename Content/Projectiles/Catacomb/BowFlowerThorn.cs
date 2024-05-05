@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class BowFlowerThorn : ModProjectile
     {
-		public override void SetDefaults()
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetDefaults()
 		{
 			DrawOffsetX = 0;
 			DrawOriginOffsetY = -16;
@@ -41,12 +44,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			if (Projectile.ai[1] > 0)
             {
-		    	Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, 
+		    	Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(1200 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 34), Color.Red, 
                 Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
             }

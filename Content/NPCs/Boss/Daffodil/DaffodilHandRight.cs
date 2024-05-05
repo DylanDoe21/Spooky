@@ -1,16 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
@@ -23,6 +19,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         Vector2 SavePlayerPosition;
 
         public bool HasHitSurface = false;
+
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -46,7 +45,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SetDefaults()
         {
             NPC.lifeMax = 18000;
-            NPC.damage = 45;
+            NPC.damage = 50;
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 56;
@@ -68,18 +67,18 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<DaffodilEye>())
             {
-                Vector2 ParentCenter = Parent.Center;
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilArm");
 
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Daffodil/DaffodilArm");
+                Vector2 ParentCenter = Parent.Center;
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
                 Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 10);
                 Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -94,9 +93,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorToParent * chainSegmentLength;
                     chainCount++;
@@ -104,9 +101,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
 
                 if (Parent.ai[0] == 4 && Parent.localAI[0] >= 40 && Parent.localAI[0] < 200 && !HasHitSurface)
-                { 
-                    Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-                    Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
+                {
+                    NPCTexture ??= ModContent.Request<Texture2D>(Texture);
                     Color newColor = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
                     for (int repeats = 0; repeats < 4; repeats++)
@@ -114,7 +110,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         Color color = newColor;
                         color = NPC.GetAlpha(color);
                         Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                        Main.spriteBatch.Draw(texture, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, SpriteEffects.None, 0f);
                     }
                 }
             }
@@ -126,7 +122,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-            if (Parent.ai[0] == 1 && Parent.localAI[0] >= 60)
+            if (Parent.ai[0] == 1 && Parent.localAI[0] >= 60 && Parent.localAI[0] <= 260)
             {
                 NPC.frame.Y = frameHeight * 1;
             }
@@ -260,12 +256,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 case 1: 
                 {
-                    if (Parent.localAI[0] < 60)
+                    if (Parent.localAI[0] < 60 || Parent.localAI[0] > 260)
                     {
                         GoToPosition(210, 100);
                     }
 
-                    if (Parent.localAI[0] >= 60)
+                    if (Parent.localAI[0] >= 60 && Parent.localAI[0] <= 260)
                     {
                         GoToPosition(300, 35);
                     }

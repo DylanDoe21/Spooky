@@ -25,7 +25,6 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override void Load() 
         {
-			// We'll need these textures for later, it's best practice to cache them on load instead of continually requesting every draw call.
 			crystalTexture = ModContent.Request<Texture2D>(Texture + "Crystal");
 			crystalHighlightTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Pylon/PylonHighlight");
 			mapIcon = ModContent.Request<Texture2D>(Texture + "Icon");

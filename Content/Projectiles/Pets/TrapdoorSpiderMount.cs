@@ -17,7 +17,9 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		int TimerForVelocity = 0;
 
-		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderMountWalk", SoundType.Sound);
+        private static Asset<Texture2D> LegTexture;
+
+        public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderMountWalk", SoundType.Sound);
 
 		protected class SpiderLegData
 		{
@@ -217,7 +219,9 @@ namespace Spooky.Content.Projectiles.Pets
 			//drawType 0 = draws behind the mount and player
 			if (drawType == 0)
 			{
-				for (int i = 0; i < SpiderLegData.NumLegs; i++)
+                LegTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/TrapdoorSpiderMountLeg");
+
+                for (int i = 0; i < SpiderLegData.NumLegs; i++)
 				{
 					Vector2 legEnd = SpiderLegData.LegPosition[i] + SpiderLegData.LegPositionDistance[i];
 					float drawRotation = 0f;
@@ -235,13 +239,12 @@ namespace Spooky.Content.Projectiles.Pets
 					float Angle1 = angleOther + angleParent;
 					float Angle2 = 0f - angleOther + angleParent;
 
-					for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 2; j++)
 					{
-						Texture2D LegTexture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/TrapdoorSpiderMountLeg", AssetRequestMode.ImmediateLoad).Value;
 						Vector2 position = legEnd + drawPosition - drawplayer.Center;
 						int legSegments = 2;
-                        Rectangle rect = new Rectangle(0, LegTexture.Height / legSegments * j, LegTexture.Width, LegTexture.Height / legSegments);
-                        Vector2 origin = new Vector2((float)LegTexture.Width * 0.5f, 0f);
+                        Rectangle rect = new Rectangle(0, LegTexture.Height() / legSegments * j, LegTexture.Width(), LegTexture.Height() / legSegments);
+                        Vector2 origin = new Vector2((float)LegTexture.Width() * 0.5f, 0f);
 
 						if (j == 0)
 						{
@@ -254,7 +257,7 @@ namespace Spooky.Content.Projectiles.Pets
 							position = Utils.RotatedBy(new Vector2(0f, SpiderLegData.LegFrameHeight), (double)Angle1, default(Vector2)) + drawPosition + SpiderLegData.MountCenter;
 						}
 
-                        DrawData drawData = new DrawData(LegTexture, position, (Rectangle?)rect, drawColor, drawRotation, origin, drawScale, effects, -1f);
+                        DrawData drawData = new DrawData(LegTexture.Value, position, (Rectangle?)rect, drawColor, drawRotation, origin, drawScale, effects, -1f);
 						int currentShader = drawplayer.cMount;
 						drawData.shader = currentShader;
 						playerDrawData.Add(drawData);

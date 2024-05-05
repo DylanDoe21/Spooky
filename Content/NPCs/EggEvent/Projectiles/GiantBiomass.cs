@@ -3,10 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.NPCs.EggEvent;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {

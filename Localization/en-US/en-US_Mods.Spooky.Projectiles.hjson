@@ -26,7 +26,6 @@ BoroBiomatter.DisplayName: Biomass
 EyeSpit.DisplayName: Saliva Ball
 EyeSpit2.DisplayName: Saliva Ball
 OrroBiomatter.DisplayName: Biomass
-TelegraphPurple.DisplayName: Telegraph
 DirtDebris.DisplayName: Dirt Debris
 MoldSpore.DisplayName: Mold Spore
 RotFly.DisplayName: Fly
@@ -343,3 +342,4 @@ PitcherSpitPoison.DisplayName: Poison Spit
 PitcherSpitVenom.DisplayName: Venom Spit
 SmellyFly.DisplayName: Corpse Fly
 NoseCultistBruteFlail.DisplayName: Booger Flail
+DaffodilBeam.DisplayName: Solar Beam

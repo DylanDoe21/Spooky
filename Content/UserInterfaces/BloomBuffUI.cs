@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using Spooky.Core;
+using ReLogic.Content;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -15,6 +16,8 @@ namespace Spooky.Content.UserInterfaces
         public static bool IsDragging = false;
 
         public static float Transparency = 0f;
+
+        private static Asset<Texture2D> BarTexture;
 
         public static void Draw(SpriteBatch spriteBatch)
         {
@@ -26,7 +29,7 @@ namespace Spooky.Content.UserInterfaces
                 return;
             }
 
-            Texture2D UIBoxTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffUIBox").Value;
+            BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffUIBox");
             Vector2 UIBoxScale = Vector2.One * Main.UIScale * 0.9f;
 
             //UI dragging 
@@ -36,7 +39,7 @@ namespace Spooky.Content.UserInterfaces
             if (ModContent.GetInstance<SpookyConfig>().CanDragBloomBuffUI && !Main.playerInventory)
             {
                 //if the player is hovering over the UI panel and presses left click then allow dragging
-                if (IsMouseOverUI((int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.X, (int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.Y, UIBoxTexture, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+                if (IsMouseOverUI((int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.X, (int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.Y, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     IsDragging = true;
                 }
@@ -45,7 +48,7 @@ namespace Spooky.Content.UserInterfaces
                 if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     player.mouseInterface = true;
-                    player.GetModPlayer<BloomBuffsPlayer>().UITopLeft = Main.MouseScreen - (UIBoxTexture.Size() / 2) * UIBoxScale;
+                    player.GetModPlayer<BloomBuffsPlayer>().UITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
                 }
 
                 //if the player lets go of mouse left, stop dragging the UI panel
@@ -61,7 +64,7 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //draw the main UI box
-            spriteBatch.Draw(UIBoxTexture, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, null, Color.White * Transparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, null, Color.White * Transparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
 
             //bloom buff icon drawing for each slot
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[0] != string.Empty)

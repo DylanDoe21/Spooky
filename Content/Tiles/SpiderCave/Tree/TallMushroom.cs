@@ -2,14 +2,10 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
-using Terraria.DataStructures;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpiderCave.Tree
 {
@@ -18,6 +14,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
         //reminder:
         //X frame 0 = normal tree segment
         //X frame 16 = tree top draw segment
+
+        private Asset<Texture2D> TopTexture;
+        private Asset<Texture2D> StemTexture;
 
         public override void SetStaticDefaults()
         {
@@ -172,12 +171,12 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 offset = new Vector2((xOff * 2) - (frameOff / 2), 0);
             Vector2 pos = TileCustomPosition(i, j + 1);
 
             if (tile.TileFrameX == 18)
             {
-                Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroomTops").Value;
+                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroomTops");
+
                 int frame = tile.TileFrameY / 18;
 
                 Vector2 TopOffset = new Vector2(2, 2);
@@ -200,15 +199,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 }
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(22 * frame, 0, 20, 16), TileOffset.ToWorldCoordinates(), TopOffset);
+                DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(22 * frame, 0, 20, 16), TileOffset.ToWorldCoordinates(), TopOffset);
             }
 
-            Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroom").Value;
+            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroom");
 
             Vector2 treeNormalOffset = new Vector2(0, 4);
 
             //draw the actual tree
-            spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
             return false;

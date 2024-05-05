@@ -2,21 +2,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using Terraria.GameContent;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
     public class HerobrineLightning : ModProjectile
     {
-        float colorlerp;
-
         bool HasHitBoss = false;
+
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -46,8 +43,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
-            Rectangle rectangle = texture2D13.Bounds;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Rectangle rectangle = ProjTexture.Value.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color27 = Projectile.GetAlpha(lightColor);
             for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
@@ -62,7 +60,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 for (int j = 0; j < length; j += step)
                 {
                     Vector2 value5 = Projectile.oldPos[i] + offset * j;
-                    Main.EntitySpriteDraw(texture2D13, value5 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, Projectile.rotation, origin2, scale, SpriteEffects.FlipHorizontally, 0);
+                    Main.EntitySpriteDraw(ProjTexture.Value, value5 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, Projectile.rotation, origin2, scale, SpriteEffects.FlipHorizontally, 0);
                 }
             }
 
@@ -78,7 +76,6 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.frameCounter = Projectile.frameCounter + 1;
             Lighting.AddLight(Projectile.Center, 0.3f, 0.45f, 0.5f);
-            colorlerp += 0.05f;
 
             if (Projectile.frameCounter < Projectile.extraUpdates * 2)
             {

@@ -22,6 +22,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 			Projectile.alpha = 100;
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+
         public override void AI()
         {
             Projectile.frameCounter++;
@@ -42,10 +47,5 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             dust.noGravity = true;
             dust.scale = 1.6f;
         }
-		
-		public override Color? GetAlpha(Color lightColor)
-		{
-			return Color.White;
-		}
     }
 }

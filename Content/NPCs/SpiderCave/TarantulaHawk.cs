@@ -1,13 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -21,6 +20,8 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public bool InitializedEnemy = false;
         public bool CarryingEnemy = true;
+
+        private static Asset<Texture2D> CarriedNPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -99,13 +100,13 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
             if (CarryingEnemy)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/TarantulaHawkEnemyCarry").Value;
+                CarriedNPCTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/TarantulaHawkEnemyCarry");
 
                 Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + (EnemyBeingCarried == 5 ? 35 : 20));
 
                 var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-                spriteBatch.Draw(tex, drawPosition, new Rectangle(0, EnemyBeingCarried * NPC.frame.Height, NPC.frame.Width, NPC.frame.Height), drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0f);
+                spriteBatch.Draw(CarriedNPCTexture.Value, drawPosition, new Rectangle(0, EnemyBeingCarried * NPC.frame.Height, NPC.frame.Width, NPC.frame.Height), drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0f);
             }
 
             return true;

@@ -2,18 +2,14 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 
-using Spooky.Core;
 using Spooky.Content.Items.Food;
-using Spooky.Content.NPCs.SpookyHell;
-using System.Collections.Generic;
 
 namespace Spooky.Content.Tiles.SpookyHell.Tree
 {
@@ -23,6 +19,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
         //X frame 0 = normal tree segment
         //X frame 16 = tree top draw segment
         //X frame 36 = stubby top segment
+
+        private static Asset<Texture2D> TopTexture;
+        private static Asset<Texture2D> StemTexture;
+        private static Asset<Texture2D> TopGlowTexture;
+        private static Asset<Texture2D> StemGlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -251,21 +252,21 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
-                Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops").Value;
+                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops");
                 int frame = tile.TileFrameY / 18;
 
                 Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
+                DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
             }
 
-            Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree").Value;
+            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree");
 
             Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
-            spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
@@ -296,22 +297,21 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
-                Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow").Value;
+                TopGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow");
                 int frame = tile.TileFrameY / 18;
 
                 Vector2 treeOffset = new Vector2(122, 104);
 
                 //draw tree tops
-                DrawTreeTop(i - 1, j - 1, topsTex, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
+                DrawTreeTop(i - 1, j - 1, TopGlowTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
             }
 
-            Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow").Value;
+            StemGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow");
 
             Vector2 treeNormalOffset = new Vector2(1, 0);
 
             //draw the actual tree
-            spriteBatch.Draw(treeTex, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
-            Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
         }
     }
 }

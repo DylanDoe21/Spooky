@@ -5,6 +5,7 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -141,6 +142,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
     {
         public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Ambient/GourdSmallCarved";
 
+        private Asset<Texture2D> GlowTexture;
+
         public override void MouseOver(int i, int j)
 		{
             Player player = Main.LocalPlayer;
@@ -162,7 +165,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		{
             Lighting.AddLight(new Vector2(i * 16, j * 16), Color.Coral.ToVector3());
 
-            Texture2D flameTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GourdSmallCarvedGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GourdSmallCarvedGlow");
 
             Tile tile = Main.tile[i, j];
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
@@ -178,7 +181,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
                 float shakeX = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
                 float shakeY = Utils.RandomInt(ref randShakeEffect, -10, 11) * 0.05f;
-                Main.spriteBatch.Draw(flameTexture, new Vector2(drawPositionX + shakeX, drawPositionY + shakeY + yOffset) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, width, height), new Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(GlowTexture.Value, new Vector2(drawPositionX + shakeX, drawPositionY + shakeY + yOffset) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, width, height), new Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
             }
 		}
     }

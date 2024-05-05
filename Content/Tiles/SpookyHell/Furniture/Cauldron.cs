@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -78,6 +79,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public int shakeTimer = 0;
 
 		Vector2 scaleVec;
+
+        private Asset<Texture2D> GlowTexture;
+        private Asset<Texture2D> ProjTexture;
+
         public override void SetStaticDefaults()
         {
 			Main.projFrames[Projectile.type] = 4;
@@ -116,16 +121,17 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override bool PreDraw(ref Color lightColor)
         {
-			Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-			Texture2D bubbleTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyGlow").Value;
-			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
-			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyGlow");
 
-			Main.spriteBatch.Draw(tex, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
+			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
+
+			Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
 
 			if (shakeTimer <= 0)
 			{
-				Main.spriteBatch.Draw(bubbleTex, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(GlowTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(GlowTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
 			}
 
             return false;
@@ -256,7 +262,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override void SetDefaults()
         {
-			Projectile.width = Projectile.height = 4;
+			Projectile.width = 4;
+			Projectile.height = 4;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.friendly = false;

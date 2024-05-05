@@ -34,8 +34,7 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Vector2 speed = new Vector2(Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-10f, -5f));
                 
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, 
-                ModContent.ProjectileType<ToxicBloodSplatter>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, ModContent.ProjectileType<ToxicBloodSplatter>(), Projectile.damage, 0f, Main.myPlayer);
             }
 
             for (int numDusts = 0; numDusts < 25; numDusts++)

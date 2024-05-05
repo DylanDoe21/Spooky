@@ -11,6 +11,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 {
     public class BoroTongue : ModNPC
 	{
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> ProjTexture;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
@@ -40,18 +43,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<BoroHead>())
             {
+                ProjTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongue");
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
+                
                 Vector2 ParentCenter = Parent.Center;
-
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
                 Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y );
                 Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -64,20 +68,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
                 while (chainLengthRemainingToDraw > 0f)
                 {
-                    if (chainCount == 0)
-                    {
-                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongue");
-                    }
-                    else
-                    {
-                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
-                    }
-
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(chainCount == 0 ? ProjTexture.Value : ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorToParent * chainSegmentLength;
                     chainCount++;

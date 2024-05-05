@@ -51,7 +51,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (WorldGen.genRand.Next(12) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (Main.rand.NextBool(12) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
 				bool PlaceVine = false;
 				int Test = j;

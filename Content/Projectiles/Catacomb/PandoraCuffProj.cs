@@ -2,16 +2,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using ReLogic.Content;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class PandoraCuffProj : ModProjectile
     {
         public bool IsStickingToTarget = false;
+
+        private static Asset<Texture2D> ChainTexture;
 
         public override void SetDefaults()
         {
@@ -26,18 +28,18 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 ParentCenter = Main.player[Projectile.owner].Center;
+            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Catacomb/PandoraCuffProjChain");
 
-            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Catacomb/PandoraCuffProjChain");
+            Vector2 ParentCenter = Main.player[Projectile.owner].Center;
 
             Rectangle? chainSourceRectangle = null;
             float chainHeightAdjustment = 0f;
 
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
             Vector2 chainDrawPosition = Projectile.Center;
             Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
             Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
             if (chainSegmentLength == 0)
             {
@@ -52,9 +54,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Color chainDrawColor = Color.Cyan * 0.5f;
 
-                var chainTextureToDraw = chainTexture;
-
-                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                 chainDrawPosition += unitVectorToParent * chainSegmentLength;
                 chainCount++;

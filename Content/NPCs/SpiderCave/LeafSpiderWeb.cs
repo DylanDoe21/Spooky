@@ -5,13 +5,14 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.SpiderCave
 {
     public class LeafSpiderWeb : ModNPC
     {
         public override string Texture => "Spooky/Content/NPCs/SpiderCave/BallSpiderWeb";
+
+        private static Asset<Texture2D> ChainTexture;
 
         public override void SetStaticDefaults()
         {
@@ -43,18 +44,19 @@ namespace Spooky.Content.NPCs.SpiderCave
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<LeafSpider>())
             {
-                Vector2 ParentCenter = Parent.Center;
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/BallSpiderWeb");
 
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/BallSpiderWeb");
+                Vector2 ParentCenter = Parent.Center;
+                
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
                 Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 10);
                 Vector2 VectorToNPC = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorToNPC = VectorToNPC.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -69,9 +71,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 {
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorToNPC * chainSegmentLength;
                     chainCount++;

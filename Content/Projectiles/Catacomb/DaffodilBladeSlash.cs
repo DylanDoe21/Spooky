@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Drawing;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,11 +15,14 @@ namespace Spooky.Content.Projectiles.Catacomb
         float SaveKnockback;
         bool SavedKnockback = false;
 
+        private static Asset<Texture2D> ProjTexture;
+
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
             Vector2 vector = Projectile.Center - Main.screenPosition;
-            Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashBase");
-            Rectangle rectangle = Texture.Frame(1, 2);
+            Rectangle rectangle = ProjTexture.Frame(1, 2);
             Vector2 origin = rectangle.Size() / 2f;
             float Scale = Projectile.scale * 1.44f;
             SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
@@ -28,9 +30,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
 
             //these are the slash textures themselves
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(140, 184, 0) * Intensity * 0.65f, Projectile.rotation, origin, Scale * 0.85f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(165, 91, 2) * Intensity * 0.57f, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
-            Main.spriteBatch.Draw(Texture.Value, vector, rectangle, new Color(229, 26, 0) * Intensity * 0.5f, Projectile.rotation, origin, Scale * 0.5f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, rectangle, new Color(140, 184, 0) * Intensity * 0.65f, Projectile.rotation, origin, Scale * 0.85f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, rectangle, new Color(165, 91, 2) * Intensity * 0.57f, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, rectangle, new Color(229, 26, 0) * Intensity * 0.5f, Projectile.rotation, origin, Scale * 0.5f, effects, 0f);
 
             return false;
         }

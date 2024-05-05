@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.GameContent;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,13 +9,8 @@ using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
-	// Example Advanced Flail is a complete adaption of Ball O' Hurt projectile. The code has been rewritten a bit to make it easier to follow. Compare this code against the decompiled Terraria code for an example of adapting vanilla code. A few comments and extra code snippets show features from other vanilla flails as well.
-	// Example Advanced Flail shows a plethora of advanced AI and collision topics.
-	// See ExampleFlail for a simpler but less customizable flail projectile example.
 	public class EyeFlailProj : ModProjectile
-	{
-		private const string ChainTexturePath = "Spooky/Content/Projectiles/SpookyHell/EyeFlailChain"; // The folder path to the flail chain sprite
-		
+	{	
 		private enum AIState
 		{
 			Spinning,
@@ -28,7 +22,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Dropping
 		}
 
-		// These properties wrap the usual ai and localAI arrays for cleaner and easier to understand code.
 		private AIState CurrentAIState 
         {
 			get => (AIState)Projectile.ai[0];
@@ -38,7 +31,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public ref float CollisionCounter => ref Projectile.localAI[0];
 		public ref float SpinningStateTimer => ref Projectile.localAI[1];
 
-		public override void SetStaticDefaults() 
+        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetStaticDefaults() 
         {
 			// These lines facilitate the trail drawing
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
@@ -57,61 +53,48 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.localNPCHitCooldown = 10;
 		}
 
-		// PreDraw is used to draw a chain and trail before the projectile is drawn normally.
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
+            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain");
 
-			// This fixes a vanilla GetPlayerArmPosition bug causing the chain to draw incorrectly when stepping up slopes. The flail itself still draws incorrectly due to another similar bug. This should be removed once the vanilla bug is fixed.
+            Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
+
 			playerArmPosition.Y -= Main.player[Projectile.owner].gfxOffY;
 
-			Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
-			
-			Rectangle? chainSourceRectangle = null;
-			// Drippler Crippler customizes sourceRectangle to cycle through sprite frames: sourceRectangle = asset.Frame(1, 6);
-			float chainHeightAdjustment = 0f; // Use this to adjust the chain overlap. 
+            Rectangle? chainSourceRectangle = null;
+            float chainHeightAdjustment = 0f;
 
-			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
 			Vector2 chainDrawPosition = Projectile.Center;
 			Vector2 vectorFromProjectileToPlayerArms = playerArmPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 			Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
 			if (chainSegmentLength == 0)
 			{
-				chainSegmentLength = 10; // When the chain texture is being loaded, the height is 0 which would cause infinite loops.
+				chainSegmentLength = 10;
 			}
 
 			float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
 			int chainCount = 0;
 			float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
 
-			// This while loop draws the chain texture from the projectile to the player, looping to draw the chain texture along the path
 			while (chainLengthRemainingToDraw > 0f)
 			{
-				// This code gets the lighting at the current tile coordinates
 				Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-				// Flaming Mace and Drippler Crippler use code here to draw custom sprite frames with custom lighting.
-				// Cycling through frames: sourceRectangle = asset.Frame(1, 6, 0, chainCount % 6);
-				// This example shows how Flaming Mace works. It checks chainCount and changes chainTexture and draw color at different values
+				Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
-				var chainTextureToDraw = chainTexture;
-
-				// Here, we draw the chain texture at the coordinates
-				Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
-
-				// chainDrawPosition is advanced along the vector back to the player by the chainSegmentLength
 				chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
 				chainCount++;
 				chainLengthRemainingToDraw -= chainSegmentLength;
 			}
 
-			// Add a motion trail when moving forward, like most flails do (don't add trail if already hit a tile)
 			if (CurrentAIState == AIState.LaunchingForward)
 			{
-				Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
-				Vector2 drawOrigin = new(projectileTexture.Width * 0.5f, Projectile.height * 0.5f);
+                ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+                Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 				SpriteEffects spriteEffects = SpriteEffects.None;
 
 				if (Projectile.spriteDirection == -1)
@@ -122,7 +105,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				{
 					Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 					Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-					Main.spriteBatch.Draw(projectileTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, spriteEffects, 0f);
 				}
 			}
 
@@ -232,11 +215,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.2f;
-                        // This is where Drippler Crippler spawns its projectile
-                        /*
-                        if (Main.myPlayer == Projectile.owner)
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 928, Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                        */
                         break;
                     }
 

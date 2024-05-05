@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Events;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,7 +48,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/MagicTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 

@@ -1,16 +1,13 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 
@@ -18,6 +15,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
     public class Dahlia : ModNPC  
     {
+        private static Asset<Texture2D> LipsTexture;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -57,14 +56,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Player player = Main.player[NPC.target];
+            LipsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/DahliaLips");
 
-            Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/DahliaLips");
-
-            Vector2 drawOrigin = new Vector2(texture.Width / 2, texture.Height / 2);
+            Vector2 drawOrigin = new Vector2(LipsTexture.Width() / 2, LipsTexture.Height() / 2);
             Vector2 drawPos = new Vector2(NPC.Center.X, NPC.Center.Y + 2) - screenPos;
 
-            spriteBatch.Draw(texture, drawPos, null, drawColor, 0, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(LipsTexture.Value, drawPos, null, drawColor, 0, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
         }
 
         public override void AI()

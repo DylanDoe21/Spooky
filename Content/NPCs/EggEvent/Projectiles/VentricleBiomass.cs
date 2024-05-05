@@ -1,9 +1,9 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,6 +15,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class VentricleBiomass : ModProjectile
     {
+        private static Asset<Texture2D> AuraTexture;
+
         public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath2", SoundType.Sound);
 
         public override void SetDefaults()
@@ -31,22 +33,21 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             if (Projectile.localAI[0] >= 60)
             {
-                float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/PurpleAura");
+
+                float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-                Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
-
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/RedAura").Value;
+                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Purple);
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-                Color newColor = glowColor;
-                newColor = Projectile.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
-                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 37 + (Projectile.localAI[1] < 135 ? time : time2), SpriteEffects.None, 0);
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
+
+                Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
+
+                Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.localAI[1] / 37 + (Projectile.localAI[1] < 135 ? time : time2), SpriteEffects.None, 0);
             }
 
             return true;

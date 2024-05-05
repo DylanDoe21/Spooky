@@ -1,13 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 {
     public class TomatoSauce : ModProjectile
-    {	
+    {
+        private static Asset<Texture2D> ProjTexture;
+
         public override void SetDefaults()
         {
             Projectile.width = 16;
@@ -21,20 +24,12 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-            Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
-
-            for (int numEffect = 0; numEffect < 2; numEffect++)
-            {
-                Color newColor = glowColor;
-                newColor = Projectile.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 2 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
-            }
+            Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Color.Red * 0.75f, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
 
             return true;
         }

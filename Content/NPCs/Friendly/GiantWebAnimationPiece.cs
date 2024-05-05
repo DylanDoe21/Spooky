@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.Friendly
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/MagicTrail").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 
@@ -116,13 +116,10 @@ namespace Spooky.Content.NPCs.Friendly
             Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
             for (int numEffect = 0; numEffect < 4; numEffect++)
             {
-                Color color = new Color(180 - NPC.alpha, 180 - NPC.alpha, 180 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.Gray, Color.Yellow, numEffect));
+                Color color = new Color(180, 180, 180, 0).MultiplyRGBA(Color.Lerp(Color.Gray, Color.Yellow, numEffect));
 
-                Color newColor = color;
-                newColor = NPC.GetAlpha(newColor);
-                newColor *= 1f;
                 Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.5f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(tex, vector, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale * 1.5f, SpriteEffects.None, 0);
             }
 
             return true;

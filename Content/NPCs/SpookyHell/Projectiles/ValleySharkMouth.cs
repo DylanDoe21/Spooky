@@ -4,12 +4,13 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
 	public class ValleySharkMouth : ModNPC
 	{
+        private static Asset<Texture2D> ChainTexture;
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
@@ -38,18 +39,18 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<ValleyShark>())
             {
+                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/Projectiles/ValleySharkMouthChain");
+                
                 Vector2 ParentCenter = Parent.Center;
-
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/Projectiles/ValleySharkMouthChain");
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
                 Vector2 chainDrawPosition = new Vector2(NPC.Center.X, NPC.Center.Y + 3);
                 Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -64,9 +65,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 {
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorToParent * chainSegmentLength;
                     chainCount++;

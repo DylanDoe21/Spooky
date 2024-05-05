@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,6 +14,10 @@ namespace Spooky.Content.Projectiles.Sentient
     public class SentientShootiusSentry : ModProjectile
     {
         public bool isAttacking = false;
+
+        private static Asset<Texture2D> AuraTexture;
+        private static Asset<Texture2D> PupilTexture;
+        private static Asset<Texture2D> PupilLargeTexture;
 
         public override void SetStaticDefaults()
 		{
@@ -35,20 +40,20 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             if (isAttacking)
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryEyeDraw").Value;
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryEyeDraw");
 
                 Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.DeepPink);
 
-                Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+                Vector2 drawOrigin = new(AuraTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
                 for (int numEffect = 0; numEffect < 3; numEffect++)
                 {
                     Color newColor = color;
                     newColor = Projectile.GetAlpha(newColor);
                     newColor *= 1f;
-                    Vector2 vector = new Vector2(Projectile.Center.X - 2, Projectile.Center.Y + 3) + (numEffect / 3 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                    Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+                    Vector2 vector = new Vector2(Projectile.Center.X - 2, Projectile.Center.Y + 3) + (numEffect / 3 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                    Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
+                    Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
                 }
             }
 
@@ -57,16 +62,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void PostDraw(Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryPupil").Value;
+            PupilTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryPupil");
+            PupilLargeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryPupilWide");
 
-            if (isAttacking)
-            {
-                tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/SentientShootiusSentryPupilWide").Value;
-            }
-
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
-            Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Vector2 drawOrigin = new(PupilTexture.Width() * 0.5f, Projectile.height * 0.5f);
+            Rectangle rectangle = new(0, PupilTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, PupilTexture.Width(), PupilTexture.Height() / Main.projFrames[Projectile.type]);
+            Main.EntitySpriteDraw(isAttacking ? PupilLargeTexture.Value : PupilTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

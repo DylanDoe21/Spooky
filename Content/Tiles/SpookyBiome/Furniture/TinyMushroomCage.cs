@@ -4,10 +4,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
-using Terraria.Enums;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,7 +16,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		private List<Vector2> cache;
         private Trail trail;
 
-		public override void SetStaticDefaults()
+        private static Asset<Texture2D> AuraTexture;
+
+        public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
@@ -53,17 +56,18 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value); //trails texture image
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f); //this affects something?
-            effect.Parameters["repeats"].SetValue(1); //this is how many times the trail is drawn
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
+            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
+            effect.Parameters["repeats"].SetValue(1);
 
             trail?.Render(effect);
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-			//draw aura
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyBiome/SkullWispAura").Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            //draw aura
+            AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyBiome/SkullWispAura");
+
+            Vector2 drawOrigin = new(AuraTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -75,8 +79,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Color color = Color.Lerp(Color.Magenta, Color.Orange, numEffect);
 
                 Vector2 vector = new Vector2(Projectile.Center.X - 1 + shakeX, Projectile.Center.Y + shakeY) + (numEffect / 4 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY + 2) * numEffect;
-                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-				Main.EntitySpriteDraw(tex, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.035f, effects, 0);
+                Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
+				Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.035f, effects, 0);
             }
 
             return true;

@@ -2,13 +2,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -22,6 +22,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         private List<Vector2> cache;
         private Trail trail;
+
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -67,7 +69,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
                 effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-                effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrail").Value);
+                effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
                 effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
                 effect.Parameters["repeats"].SetValue(3);
 
@@ -76,11 +78,12 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
             }
 
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            int frameHeight = tex.Height / Main.projFrames[Projectile.type];
-            Rectangle frame = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Main.spriteBatch.Draw(tex, Projectile.Center - new Vector2(0, 0) - Main.screenPosition, frame, 
+            int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
+            Rectangle frame = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
+
+            Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Center - new Vector2(0, 0) - Main.screenPosition, frame, 
             lightColor, Projectile.rotation, new Vector2(0, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
 
             return false;

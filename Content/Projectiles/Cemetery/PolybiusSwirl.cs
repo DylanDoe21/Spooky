@@ -1,19 +1,17 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
 	public class PolybiusSwirl : ModProjectile
     {
+        private static Asset<Texture2D> ProjTexture;
+
         public override void SetDefaults()
         {
 			Projectile.width = 138;
@@ -28,14 +26,14 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/PolybiusSwirlBack").Value;
+            ProjTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/PolybiusSwirlBack");
 
             Color color = new Color(lightColor.R, lightColor.G, lightColor.B, -Projectile.alpha);
 
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + drawOrigin + new Vector2(-69, Projectile.gfxOffY - 69);
 
-            Main.EntitySpriteDraw(tex, vector, null, color, -Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, null, color, -Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return true;
         }

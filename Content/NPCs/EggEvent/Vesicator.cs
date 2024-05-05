@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,6 +21,9 @@ namespace Spooky.Content.NPCs.EggEvent
     {
         float addedStretch = 0f;
 		float stretchRecoil = 0f;
+
+        private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle DeathSound1 = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
@@ -80,8 +83,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			Texture2D Tex = ModContent.Request<Texture2D>(Texture).Value;
-			Texture2D GlowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/VesicatorGlow").Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/VesicatorGlow");
 
 			float stretch = 0f;
 
@@ -101,10 +104,10 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			Vector2 scaleStretch = new Vector2(1f - stretch, 1f + stretch);
 
-            spriteBatch.Draw(Tex, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
 			NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
 
-			spriteBatch.Draw(GlowTex, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
+			spriteBatch.Draw(GlowTexture.Value, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
 			NPC.frame, Color.White, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
 
             return false;

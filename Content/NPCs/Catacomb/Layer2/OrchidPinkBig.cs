@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
@@ -15,6 +14,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
     {
         int MoveSpeedX;
         int MoveSpeedY;
+
+        private static Asset<Texture2D> ChainTexture1;
+        private static Asset<Texture2D> ChainTexture2;
 
         public override void SetStaticDefaults()
         {
@@ -79,18 +81,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<OrchidStem>())
             {
-                Vector2 ParentCenter = Parent.Center;
+                ChainTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/OrchidStem1");
+                ChainTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/OrchidStem2");
 
-                Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/OrchidStem1");
+                Vector2 ParentCenter = Parent.Center;
 
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 
-                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+                Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture1.Size() / 2f);
                 Vector2 chainDrawPosition = NPC.Center;
                 Vector2 vectorFromProjectileToPlayerArms = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
                 Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+                float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture1.Height()) + chainHeightAdjustment;
 
                 if (chainSegmentLength == 0)
                 {
@@ -105,22 +108,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 {
                     Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    var chainTextureToDraw = chainTexture;
-
-                    Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(chainCount % 2 == 0 ? ChainTexture1.Value : ChainTexture2.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                     chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
                     chainCount++;
                     chainLengthRemainingToDraw -= chainSegmentLength;
-
-                    if (chainCount % 2 == 0)
-                    {
-                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/OrchidStem2");
-                    }
-                    else
-                    {
-                        chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/Layer2/OrchidStem1");
-                    }
                 }
             }
 

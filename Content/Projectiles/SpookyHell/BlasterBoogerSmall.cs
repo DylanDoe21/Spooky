@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,6 +10,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
     public class BlasterBoogerSmall : ModProjectile
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Moco/Projectiles/SnotBall";
+
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -28,31 +31,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.timeLeft = 180;
             Projectile.alpha = 255;
 		}
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 11)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                
-                if (Projectile.frame >= 7)
-                {
-                    Projectile.frame = 0;
-                }
-            }
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;
@@ -60,8 +52,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void AI()
         {
-			//fix Projectile direction
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 11)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+
+                if (Projectile.frame >= 7)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
+            //fix Projectile direction
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
             if (Projectile.alpha > 0)

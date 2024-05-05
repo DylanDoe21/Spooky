@@ -1,7 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,11 +15,14 @@ namespace Spooky.Content.Projectiles.Sentient
         bool SavedKnockback = false;
         bool hasHitSomething = false;
 
+        private static Asset<Texture2D> ProjTexture;
+
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
             Vector2 vector = Projectile.Center - Main.screenPosition;
-			Asset<Texture2D> Texture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SwordSlashCutter");
-			Rectangle rectangle = Texture.Frame(1, 2);
+			Rectangle rectangle = ProjTexture.Frame(1, 2);
 			Vector2 origin = rectangle.Size() / 2f;
             float Scale = Projectile.scale * 1.02f;
 			SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
@@ -31,14 +32,14 @@ namespace Spooky.Content.Projectiles.Sentient
 			Color SlashColor2 = Color.Lerp(Color.Red, Color.Blue, Intensity);
 
 			//these are the slash textures themselves
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor2 * Intensity, Projectile.rotation, origin, Scale * 0.9f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor2 * Intensity, Projectile.rotation, origin, Scale * 0.9f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation, origin, Scale * 0.7f, effects, 0f);
 			
             //draw extra lines on top of each slash
-            Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor2 * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.9f, effects, 0f);
-			Main.spriteBatch.Draw(Texture.Value, vector, (Rectangle?)Texture.Frame(1, 2, 0, 1), SlashColor1 * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), SlashColor1 * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale * 1.1f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), SlashColor2 * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.9f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), SlashColor1 * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.7f, effects, 0f);
 
             return false;
         }

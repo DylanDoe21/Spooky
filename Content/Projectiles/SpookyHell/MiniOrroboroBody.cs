@@ -62,7 +62,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public void SegmentMove()
         {
-            Player player = Main.player[Projectile.owner];
             var live = false;
 
             Projectile nextSegment = new Projectile();

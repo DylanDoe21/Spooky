@@ -81,7 +81,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 else
                 {
                     NPC.ai[1] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, 
-                    ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: NPC.whoAmI);
+                    ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? 7 : 7, ai1: NPC.whoAmI);
                 }
 
                 //NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[1]);

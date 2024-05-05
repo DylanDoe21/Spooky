@@ -2,16 +2,10 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
-using Terraria.DataStructures;
-using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Tiles.SpiderCave.Tree
 {
@@ -23,6 +17,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
         //X frame 36 = root base
         //X frame 54 = root sides
         //X frame 72 = root stubby bottom
+
+        private Asset<Texture2D> BottomTexture;
+        private Asset<Texture2D> RootTexture;
 
         public override void SetStaticDefaults()
         {
@@ -233,21 +230,21 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 
             if (tile.TileFrameX == 18)
             {
-                Texture2D topsTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom").Value;
+                BottomTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom");
                 int frame = tile.TileFrameY / 18;
 
                 Vector2 RootBottomOffset = new Vector2(34, -14);
 
                 //draw tree tops
-                DrawRootBottom(i - 1, j - 1, topsTex, new Rectangle(88 * frame, 0, 86, 82), TileOffset.ToWorldCoordinates(), RootBottomOffset);
+                DrawRootBottom(i - 1, j - 1, BottomTexture.Value, new Rectangle(88 * frame, 0, 86, 82), TileOffset.ToWorldCoordinates(), RootBottomOffset);
             }
 
-            Texture2D treeTex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRoot").Value;
+            RootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRoot");
 
             Vector2 treeNormalOffset = new Vector2(0, 4);
 
             //draw the actual tree
-            spriteBatch.Draw(treeTex, pos + offset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(RootTexture.Value, pos + offset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
             return false;

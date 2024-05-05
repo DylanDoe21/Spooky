@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.DumbZombie"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.DumbZomboid"),
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
 			});
 		}
@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.DumbZombie.Dialogue" + Main.rand.Next(1, 4));
+			return Language.GetTextValue("Mods.Spooky.Dialogue.DumbZomboid.Dialogue" + Main.rand.Next(1, 4));
 		}
 
         public override void AI()

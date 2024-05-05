@@ -14,23 +14,18 @@ namespace Spooky.Content.Tiles.Relic
 {
 	public class BigBoneRelic : ModTile
 	{
-		public const int FrameWidth = 18 * 3;
+        public override string Texture => "Spooky/Content/Tiles/Relic/RelicPedestal";
+
+        public const int FrameWidth = 18 * 3;
 		public const int FrameHeight = 18 * 4;
 		public const int HorizontalFrames = 1;
 		public const int VerticalFrames = 1;
 
-		public Asset<Texture2D> RelicTexture;
-
-		public virtual string RelicTextureName => "Spooky/Content/Tiles/Relic/BigBoneRelic";
-
-		public override string Texture => "Spooky/Content/Tiles/Relic/RelicPedestal";
+        private Asset<Texture2D> RelicTexture;
 
 		public override void Load() 
         {
-			if (!Main.dedServ) 
-            {
-				RelicTexture = ModContent.Request<Texture2D>(RelicTextureName);
-			}
+			RelicTexture = ModContent.Request<Texture2D>("Spooky/Content/Tiles/Relic/BigBoneRelic");
 		}
 
 		public override void Unload() 

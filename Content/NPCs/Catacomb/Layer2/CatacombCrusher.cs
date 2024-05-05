@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 //smash the ground
                 if (NPC.velocity.Y <= 0.1f)
                 {
-                    if (player.Distance(NPC.Center) <= 300f)
+                    if (player.Distance(NPC.Center) <= 500f)
                     {
                         SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
 

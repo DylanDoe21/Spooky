@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -23,6 +24,11 @@ namespace Spooky.Content.NPCs.Friendly
         bool shirtLogo = false;
         bool hasPants = false;
         bool hasSunGlasses = false;
+
+        private static Asset<Texture2D> ShirtTexture;
+        private static Asset<Texture2D> ShirtLogoTexture;
+        private static Asset<Texture2D> PantsTexture;
+        private static Asset<Texture2D> SunglassesTexture;
 
         public override void SetStaticDefaults()
         {
@@ -109,97 +115,91 @@ namespace Spooky.Content.NPCs.Friendly
         {
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            if (hasPants)
-            {
-                Texture2D pantsTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants1").Value;
-
-                switch (pantsStyle)
-                {
-                    case 0:
-                    {
-                        pantsTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants1").Value;
-                        break;
-                    }
-                    case 1:
-                    {
-                        pantsTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants2").Value;
-                        break;
-                    }
-                    case 2:
-                    {
-                        pantsTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants3").Value;
-                        break;
-                    }
-                }
-
-                Main.EntitySpriteDraw(pantsTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-            }
-
             if (hasShirt)
             {
-                Texture2D shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt1").Value;
-
                 switch (shirtStyle)
                 {
                     case 0:
                     {
-                        shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt1").Value;
+                        ShirtTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt1");
                         break;
                     }
                     case 1:
                     {
-                        shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt2").Value;
+                        ShirtTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt2");
                         break;
                     }
                     case 2:
                     {
-                        shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt3").Value;
+                        ShirtTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt3");
                         break;
                     }
                     case 3:
                     {
-                        shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt4").Value;
+                        ShirtTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt4");
                         break;
                     }
                     case 4:
                     {
-                        shirtTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt5").Value;
+                        ShirtTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Shirt5");
                         break;
                     }
                 }
 
-                Main.EntitySpriteDraw(shirtTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(ShirtTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             if (shirtLogo)
             {
-                Texture2D shirtLogoTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/ShirtLogo1").Value;
-
                 switch (shirtLogoStyle)
                 {
                     case 0:
                     {
-                        shirtLogoTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/ShirtLogo1").Value;
+                        ShirtLogoTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/ShirtLogo1");
                         break;
                     }
                     case 1:
                     {
-                        shirtLogoTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/ShirtLogo2").Value;
+                        ShirtLogoTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/ShirtLogo2");
                         break;
                     }
                 }
 
-                Main.EntitySpriteDraw(shirtLogoTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(ShirtLogoTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+            }
+
+            if (hasPants)
+            {
+                switch (pantsStyle)
+                {
+                    case 0:
+                    {
+                        PantsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants1");
+                        break;
+                    }
+                    case 1:
+                    {
+                        PantsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants2");
+                        break;
+                    }
+                    case 2:
+                    {
+                        PantsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/Pants3");
+                        break;
+                    }
+                }
+
+                Main.EntitySpriteDraw(PantsTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             if (hasSunGlasses)
             {
-                Texture2D sunglassTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/SunGlasses").Value;
+                SunglassesTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/SunGlasses");
 
-                Main.EntitySpriteDraw(sunglassTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+                Main.EntitySpriteDraw(SunglassesTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
                 NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
         }

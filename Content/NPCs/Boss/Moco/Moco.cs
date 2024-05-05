@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -35,6 +35,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public bool AfterImages = false;
 
         Vector2 SaveNPCPosition;
+
+        private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> AngryTexture;
+        private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
         public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound);
@@ -128,15 +132,15 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
 			if (AfterImages) 
 			{
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-				Vector2 drawOrigin = new(tex.Width * 0.5f, (NPC.height * 0.5f));
+                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+				Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, (NPC.height * 0.5f));
 
 				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
 				{
 					var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
 					Color color = NPC.GetAlpha(Color.Purple) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-					spriteBatch.Draw(tex, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+					spriteBatch.Draw(NPCTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 				}
 			}
             
@@ -148,26 +152,26 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //angry phase transition
             if (NPC.ai[0] == -1 && (NPC.localAI[0] > 120 && NPC.localAI[0] < 240))
             {
-                Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-                Texture2D angerTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoAngry").Value;
-                Vector2 drawOrigin1 = new(tex.Width * 0.5f, (NPC.height * 0.5f));
-                Vector2 drawOrigin2 = new(angerTex.Width * 0.5f, (NPC.height * 0.5f));
+                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+                AngryTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoAngry");
+                Vector2 drawOrigin1 = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
+                Vector2 drawOrigin2 = new(AngryTexture.Width() * 0.5f, NPC.height * 0.5f);
 
                 //draw moco but red
-                spriteBatch.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
+                spriteBatch.Draw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
 				Color.Red, NPC.rotation, drawOrigin1, NPC.scale, SpriteEffects.None, 0.99f);
 
                 //draw angry symbol thingie
-                spriteBatch.Draw(angerTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
+                spriteBatch.Draw(AngryTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame,
 				Color.Red, NPC.rotation, drawOrigin2, NPC.scale, SpriteEffects.None, 0);
             }
 
             //eye glow textures
-            Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow");
 
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(glowTex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }
 

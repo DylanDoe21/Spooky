@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Spooky.Content.NPCs.SpookyHell
     {
         public int MoveSpeedX = 0;
 		public int MoveSpeedY = 0;
+
+        private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech2", SoundType.Sound) { Volume = 0.6f, PitchVariance = 0.6f };
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TortumorDeath", SoundType.Sound) { Volume = 0.75f };
@@ -59,9 +62,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/TortumorGiantFleshyGlow").Value;
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/TortumorGiantFleshyGlow");
 
-            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
         }
 

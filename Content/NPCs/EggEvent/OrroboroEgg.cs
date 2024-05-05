@@ -5,6 +5,8 @@ using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.Chat;
+using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,8 +18,6 @@ using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
-using Spooky.Content.Items.SpiderCave.Misc;
-using Terraria.Audio;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -36,6 +36,8 @@ namespace Spooky.Content.NPCs.EggEvent
         bool EventEnemiesExist = true;
 
         bool OrroboroDoesNotExist;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/EggEvent/EggEventEnd", SoundType.Sound) { Volume = 2f };
         public static readonly SoundStyle EggDecaySound = new("Spooky/Content/Sounds/Orroboro/EggDecay", SoundType.Sound);
@@ -76,7 +78,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			Texture2D Tex = ModContent.Request<Texture2D>(Texture).Value;
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			float stretch = 0f;
 
@@ -98,7 +100,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             Vector2 DrawPos = NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY + 4) - Main.screenPosition;
 
-            spriteBatch.Draw(Tex, DrawPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
+            spriteBatch.Draw(NPCTexture.Value, DrawPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
 
             return false;
         }

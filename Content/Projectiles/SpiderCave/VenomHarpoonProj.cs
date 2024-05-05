@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
@@ -16,7 +13,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		float SaveRotation;
 
-		public override void SetDefaults() 
+        private static Asset<Texture2D> ChainTexture;
+
+        public override void SetDefaults() 
         {
 			Projectile.width = 10;
 			Projectile.height = 24;
@@ -31,18 +30,18 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{
 			Player player = Main.player[Projectile.owner];
 
-			Vector2 ParentCenter = player.MountedCenter + new Vector2(player.direction == -1 ? -65 : 65, -10);
+            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/BallSpiderWeb");
 
-			Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/BallSpiderWeb");
+            Vector2 ParentCenter = player.MountedCenter + new Vector2(player.direction == -1 ? -65 : 65, -10);
 
 			Rectangle? chainSourceRectangle = null;
 			float chainHeightAdjustment = 0f;
 
-			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+			Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
 			Vector2 chainDrawPosition = Projectile.Center;
 			Vector2 vectorToParent = ParentCenter.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
 			Vector2 unitVectorToParent = vectorToParent.SafeNormalize(Vector2.Zero);
-			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
 
 			if (chainSegmentLength == 0)
 			{
@@ -55,9 +54,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 			while (chainLengthRemainingToDraw > 0f)
 			{
-				var chainTextureToDraw = chainTexture;
-
-				Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, lightColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, lightColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
 				chainDrawPosition += unitVectorToParent * chainSegmentLength;
 				chainCount++;

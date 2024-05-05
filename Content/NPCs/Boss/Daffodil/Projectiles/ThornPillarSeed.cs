@@ -1,18 +1,16 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-
-using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 {
     public class ThornPillarSeed : ModProjectile
     {
+        private static Asset<Texture2D> ProjTexture;
+
         public static readonly SoundStyle ThornSpawnSound = new("Spooky/Content/Sounds/Daffodil/SeedThorn", SoundType.Sound);
 
         public override void SetDefaults()
@@ -27,11 +25,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Lime);
 
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             for (int numEffect = 0; numEffect < 3; numEffect++)
             {
@@ -39,8 +37,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
                 Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 3 * 6 + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                Rectangle rectangle = new(0, tex.Height / Main.projFrames[Projectile.type] * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
             }
 
             return true;

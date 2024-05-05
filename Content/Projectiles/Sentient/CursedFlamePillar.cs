@@ -42,7 +42,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ModContent.Request<Texture2D>("Spooky/ShaderAssets/ShadowTrailBig").Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrailBig.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.1f);
             effect.Parameters["repeats"].SetValue(1);
 

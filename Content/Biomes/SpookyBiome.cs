@@ -40,7 +40,7 @@ namespace Spooky.Content.Biomes
                     //play town theme if the player is in a town
                     else if (!Main.raining && Main.LocalPlayer.townNPCs >= 3f)
                     {
-                        music = Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownNight") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownNight");
+                        music = Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownDay") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownNight");
                     }
                     */
 
