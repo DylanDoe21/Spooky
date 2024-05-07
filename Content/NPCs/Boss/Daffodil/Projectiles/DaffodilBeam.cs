@@ -4,6 +4,9 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+
+using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 {
@@ -107,19 +110,17 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
             Vector2 LaserOrigin = new(Parent.Center.X, Parent.Center.Y + 10);
             Projectile.Center = LaserOrigin;
 
-            Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[1]);
+            if (Projectile.timeLeft > 10)
+            {
+                Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[1]);
+            }
 
             if (Projectile.localAI[0] <= 10)
             {
                 LaserScale += 0.09f;
             }
-            else if (Projectile.timeLeft < 10 || !Parent.active)
+            else if (Projectile.timeLeft < 10)
             {
-                if (Projectile.timeLeft > 10)
-                {
-                    Projectile.timeLeft = 10;
-                }
-
                 LaserScale -= 0.1f;
             }
 
@@ -128,11 +129,18 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
         public void EndpointTileCollision()
         {
+            //beam tile collission and produce dust where the beam iss hitting the ground
             for (LaserLength = FirstSegmentDrawDist; LaserLength < MaxLaserLength; LaserLength += LaserSegmentLength)
             {
                 Vector2 start = Projectile.Center + Vector2.UnitX.RotatedBy(Projectile.rotation) * LaserLength;
                 if (!Collision.CanHitLine(Projectile.Center, 10, 10, start, 20, 20))
                 {
+                    float angle = Projectile.rotation + (Main.rand.NextBool() ? 1f : -1f) * MathHelper.PiOver2;
+                    Vector2 velocity = angle.ToRotationVector2();
+                    Dust dust = Dust.NewDustDirect(start, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X, velocity.Y, 0, Color.Gold, 0.3f);
+                    dust.color = Color.Gold;
+                    dust.noGravity = true;
+
                     LaserLength -= LaserSegmentLength;
                     break;
                 }

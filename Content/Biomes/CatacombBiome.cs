@@ -78,7 +78,8 @@ namespace Spooky.Content.Biomes
             int PlayerY = (int)player.Center.Y / 16;
 
             bool BiomeCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWall2>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombGrassWall2>();
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombGrassWall2>() || 
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<CatacombBrickWallBigBoneBG>();
             
             bool UndergroundCondition = PlayerY > Main.worldSurface - 25;
 

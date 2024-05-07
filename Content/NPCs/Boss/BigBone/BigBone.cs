@@ -328,7 +328,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
 
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             Color color = Color.Lerp(Color.Transparent, Color.White, fade);
 
@@ -371,7 +371,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
                 float intensity = fade;
                 DrawData drawData = new DrawData(ShieldTexture.Value, center - new Vector2(0, -55), 
-                new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Gold, Color.OrangeRed, fade), 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
+                new Rectangle(0, 0, 500, 400), Color.Lerp(Color.OrangeRed, Color.Tomato, fade), 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
                 drawData.Draw(Main.spriteBatch);

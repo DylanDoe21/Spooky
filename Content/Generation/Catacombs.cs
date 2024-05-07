@@ -779,7 +779,7 @@ namespace Spooky.Content.Generation
                     Tile tileBelow = Main.tile[X, Y + 1];
 
                     //place grass walls
-                    if (!tile.HasTile && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
+                    if (!tile.HasTile && Y < BigBoneArenaY - 50 && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
                     {
                         SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
                         ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, true, true);
@@ -832,8 +832,6 @@ namespace Spooky.Content.Generation
 
         public static bool GrowGiantFlower(int X, int Y, int tileType)
         {
-            int canPlace = 0;
-
             //do not allow giant flowers to place if another one is too close
             for (int i = X - 5; i < X + 5; i++)
             {

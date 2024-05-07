@@ -31,20 +31,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public ref float CollisionCounter => ref Projectile.localAI[0];
 		public ref float SpinningStateTimer => ref Projectile.localAI[1];
 
-        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> ChainTexture1;
+        private static Asset<Texture2D> ChainTexture2;
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults() 
         {
-			// These lines facilitate the trail drawing
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
 
 		public override void SetDefaults() 
         {
-			Projectile.width = 24;
-			Projectile.height = 24;
+			Projectile.width = 28;
+			Projectile.height = 28;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true; 
 			Projectile.netImportant = true; 
@@ -55,40 +55,41 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain");
+            ChainTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain1");
+            ChainTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain2");
 
             Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
 
-			playerArmPosition.Y -= Main.player[Projectile.owner].gfxOffY;
+            playerArmPosition.Y -= Main.player[Projectile.owner].gfxOffY;
 
             Rectangle? chainSourceRectangle = null;
             float chainHeightAdjustment = 0f;
 
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
-			Vector2 chainDrawPosition = Projectile.Center;
-			Vector2 vectorFromProjectileToPlayerArms = playerArmPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
-			Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-			float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture1.Size() / 2f);
+            Vector2 chainDrawPosition = Projectile.Center;
+            Vector2 vectorFromProjectileToPlayerArms = playerArmPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+            Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture1.Height()) + chainHeightAdjustment;
 
-			if (chainSegmentLength == 0)
-			{
-				chainSegmentLength = 10;
-			}
+            if (chainSegmentLength == 0)
+            {
+                chainSegmentLength = 10;
+            }
 
-			float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
-			int chainCount = 0;
-			float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+            float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+            int chainCount = 0;
+            float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
 
-			while (chainLengthRemainingToDraw > 0f)
-			{
-				Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
+            while (chainLengthRemainingToDraw > 0f)
+            {
+                Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-				Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainCount % 2 == 0 ? ChainTexture1.Value : ChainTexture2.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
-				chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
-				chainCount++;
-				chainLengthRemainingToDraw -= chainSegmentLength;
-			}
+                chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+                chainCount++;
+                chainLengthRemainingToDraw -= chainSegmentLength;
+            }
 
 			if (CurrentAIState == AIState.LaunchingForward)
 			{

@@ -38,6 +38,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
+            NPC.noTileCollide = true;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.HitSound = SoundID.Grass;
             NPC.DeathSound = SoundID.NPCDeath42 with { Pitch = 0.45f };

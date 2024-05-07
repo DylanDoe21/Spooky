@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
@@ -149,7 +150,33 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             {
                 spriteBatch.Draw(EyeTexture.Value, drawPos, null, drawColor, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
             }
+
+            if ((NPC.ai[0] == 6 && NPC.localAI[0] >= 160 && NPC.localAI[0] <= 260) || (NPC.ai[0] == 7 && NPC.localAI[0] >= 90 && NPC.localAI[0] <= 190))
+            {
+                //draw sparkle
+                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y + 10) - Main.screenPosition;
+                float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
+                DrawPrettyStarSparkle(NPC.Opacity, SpriteEffects.None, vector, Color.Gold, Color.Gold, 0.5f, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(5f * time, 4f * time), new Vector2(5, 5));
+            }
         }
+
+        private static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness) 
+        {
+			Texture2D Texture = TextureAssets.Extra[98].Value;
+			Color color = shineColor * opacity * 0.5f;
+			color.A = (byte)0;
+			Vector2 origin = Texture.Size() / 2f;
+			Color color2 = drawColor * 0.5f;
+			float Intensity = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);
+			Vector2 vector = new Vector2(fatness.X * 0.5f, scale.X) * Intensity;
+			Vector2 vector2 = new Vector2(fatness.Y * 0.5f, scale.Y) * Intensity;
+			color *= Intensity;
+			color2 *= Intensity;
+			Main.EntitySpriteDraw(Texture, drawpos, null, color, (float)Math.PI / 2f + rotation, origin, vector, dir);
+			Main.EntitySpriteDraw(Texture, drawpos, null, color, 0f + rotation, origin, vector2, dir);
+			Main.EntitySpriteDraw(Texture, drawpos, null, color2, (float)Math.PI / 2f + rotation, origin, vector * 0.6f, dir);
+			Main.EntitySpriteDraw(Texture, drawpos, null, color2, 0f + rotation, origin, vector2 * 0.6f, dir);
+		}
 
         public override void FindFrame(int frameHeight)
         {
@@ -280,8 +307,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
 
-            Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
-
             //despawn if the player dies or leaves the biome
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
@@ -368,7 +393,10 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             if (Main.projectile[k].active && Main.projectile[k].hostile) 
                             {
-                                Main.projectile[k].Kill();
+                                if (Main.projectile[k].type != ModContent.ProjectileType<ThornPillarBarrierFloor>() && Main.projectile[k].type != ModContent.ProjectileType<ThornPillarBarrierSide>())
+                                {
+                                    Main.projectile[k].Kill();
+                                }
                             }
                         }
                     }
@@ -617,7 +645,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] >= 450)
+                    if (NPC.localAI[0] >= 420)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;
@@ -761,7 +789,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         }
                     }
 
-                    if (NPC.localAI[0] >= 590)
+                    if (NPC.localAI[0] >= 570)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = Phase2 ? 7 : 6;

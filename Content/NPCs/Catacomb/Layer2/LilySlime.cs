@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 220;
+            NPC.lifeMax = 180;
             NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 50;
@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 130;
+            NPC.lifeMax = 90;
             NPC.damage = 30;
             NPC.defense = 5;
             NPC.width = 30;

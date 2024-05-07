@@ -33,22 +33,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		public ref float CollisionCounter => ref Projectile.localAI[0];
 		public ref float SpinningStateTimer => ref Projectile.localAI[1];
 
-        private static Asset<Texture2D> ChainTexture;
+        private static Asset<Texture2D> ChainTexture1;
+        private static Asset<Texture2D> ChainTexture2;
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults() 
         {
-			// DisplayName.SetDefault("Eye Flail");
-
-			// These lines facilitate the trail drawing
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
 
 		public override void SetDefaults() 
         {
-			Projectile.width = 24;
-			Projectile.height = 24;
+			Projectile.width = 28;
+			Projectile.height = 28;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true; 
 			Projectile.netImportant = true; 
@@ -59,7 +57,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain");
+            ChainTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain1");
+            ChainTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/SpookyHell/EyeFlailChain2");
 
             Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
 
@@ -68,11 +67,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Rectangle? chainSourceRectangle = null;
             float chainHeightAdjustment = 0f;
 
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture1.Size() / 2f);
             Vector2 chainDrawPosition = Projectile.Center;
             Vector2 vectorFromProjectileToPlayerArms = playerArmPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
             Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture1.Height()) + chainHeightAdjustment;
 
             if (chainSegmentLength == 0)
             {
@@ -87,7 +86,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainCount % 2 == 0 ? ChainTexture1.Value : ChainTexture2.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
 
                 chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
                 chainCount++;
@@ -185,7 +184,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         }
                     }
 
-                    SpinningStateTimer -= 1f;
+                    SpinningStateTimer += 0.8f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 

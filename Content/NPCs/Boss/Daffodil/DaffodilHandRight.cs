@@ -165,9 +165,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             NPC.direction = 1;
 
-            //add light for visibility
-            Lighting.AddLight(NPC.Center, 0.5f, 0.45f, 0f);
-
             //kill the hand if the parent does not exist
             if (!Parent.active)
             {

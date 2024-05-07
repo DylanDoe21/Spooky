@@ -3,14 +3,11 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Microsoft.Xna.Framework;
 using System.Reflection;
-using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery.Ambient;
-using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -131,7 +128,7 @@ namespace Spooky.Core
                 settings.attemptsBeforeGivingUp--;
                 result = self.CheckForGoodTeleportationSpot(ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
             }
-            
+
             return result;
         }
     }

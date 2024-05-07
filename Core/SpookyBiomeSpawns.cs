@@ -302,12 +302,6 @@ namespace Spooky.Core
 				{
 					if (Flags.CatacombKey1)
 					{
-						//critters
-						pool.Add(NPCID.Maggot, 2);
-						pool.Add(ModContent.NPCType<FlySmall>(), 2);
-						pool.Add(ModContent.NPCType<FlyBig>(), 2);
-
-						//enemies
 						pool.Add(ModContent.NPCType<Skeletoid1>(), 5);
 						pool.Add(ModContent.NPCType<Skeletoid2>(), 5);
 						pool.Add(ModContent.NPCType<Skeletoid3>(), 5);
@@ -345,65 +339,42 @@ namespace Spooky.Core
 				{
 					if (Flags.CatacombKey2)
 					{
-						//critters
-						pool.Add(NPCID.Maggot, 2);
-						pool.Add(ModContent.NPCType<FlySmall>(), 2);
-						pool.Add(ModContent.NPCType<FlyBig>(), 2);
-
-						//enemies
-						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 1);
-						pool.Add(ModContent.NPCType<JumpingSeed1>(), 2);
-						pool.Add(ModContent.NPCType<JumpingSeed2>(), 2);
-						pool.Add(ModContent.NPCType<JumpingSeed3>(), 2);
-						pool.Add(ModContent.NPCType<LilySlime1Big>(), 2);
-						pool.Add(ModContent.NPCType<LilySlime1Small>(), 3);
-						pool.Add(ModContent.NPCType<LilySlime2Big>(), 2);
-						pool.Add(ModContent.NPCType<LilySlime2Small>(), 3);
-						pool.Add(ModContent.NPCType<OrchidStem>(), 2);
-						pool.Add(ModContent.NPCType<PitcherPlant1>(), 3);
-						pool.Add(ModContent.NPCType<PitcherPlant2>(), 3);
-						pool.Add(ModContent.NPCType<PitcherPlant3>(), 2);
-						pool.Add(ModContent.NPCType<PitcherPlant4>(), 2);
-						pool.Add(ModContent.NPCType<PlantTrap1>(), 1);
-						pool.Add(ModContent.NPCType<PlantTrap2>(), 1);
-						pool.Add(ModContent.NPCType<PlantTrap3>(), 1);
-						pool.Add(ModContent.NPCType<PlantTrap4>(), 1);
-						pool.Add(ModContent.NPCType<PlantTrap5>(), 1);
-						pool.Add(ModContent.NPCType<PlantTrap6>(), 1);
-						pool.Add(ModContent.NPCType<PollinatorBeeDamage>(), 1);
-						pool.Add(ModContent.NPCType<PollinatorBeeHealing>(), 1);
-						pool.Add(ModContent.NPCType<Sunflower1>(), 3);
-						pool.Add(ModContent.NPCType<Sunflower2>(), 2);
-						pool.Add(ModContent.NPCType<Sunflower3>(), 2);
+						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 12);
+						pool.Add(ModContent.NPCType<JumpingSeed1>(), 5);
+						pool.Add(ModContent.NPCType<JumpingSeed2>(), 5);
+						pool.Add(ModContent.NPCType<JumpingSeed3>(), 5);
+						pool.Add(ModContent.NPCType<LilySlime1Big>(), 4);
+						pool.Add(ModContent.NPCType<LilySlime1Small>(), 4);
+						pool.Add(ModContent.NPCType<LilySlime2Big>(), 4);
+						pool.Add(ModContent.NPCType<LilySlime2Small>(), 4);
+						pool.Add(ModContent.NPCType<OrchidStem>(), 4);
+						pool.Add(ModContent.NPCType<PitcherPlant1>(), 4);
+						pool.Add(ModContent.NPCType<PitcherPlant2>(), 4);
+						pool.Add(ModContent.NPCType<PitcherPlant3>(), 4);
+						pool.Add(ModContent.NPCType<PitcherPlant4>(), 4);
+						pool.Add(ModContent.NPCType<PlantTrap1>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap2>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap3>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap4>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap5>(), 2);
+						pool.Add(ModContent.NPCType<PlantTrap6>(), 2);
+						pool.Add(ModContent.NPCType<PollinatorBeeDamage>(), 2);
+						pool.Add(ModContent.NPCType<PollinatorBeeHealing>(), 2);
+						pool.Add(ModContent.NPCType<Sunflower1>(), 4);
+						pool.Add(ModContent.NPCType<Sunflower2>(), 4);
+						pool.Add(ModContent.NPCType<Sunflower3>(), 4);
 
 						//do not spawn smelly if one already exists
 						if (!NPC.AnyNPCs(ModContent.NPCType<Smelly>()))
 						{
-							pool.Add(ModContent.NPCType<Smelly>(), 0.8f);
+							pool.Add(ModContent.NPCType<Smelly>(), 1);
 						}
 
 						//do not spawn dahlia if one already exists
 						if (!NPC.AnyNPCs(ModContent.NPCType<Dahlia>()))
 						{
-							pool.Add(ModContent.NPCType<Dahlia>(), 0.5f);
+							pool.Add(ModContent.NPCType<Dahlia>(), 0.8f);
 						}
-
-						/*
-						//enemies
-						pool.Add(ModContent.NPCType<Daisy1>(), 3);
-						pool.Add(ModContent.NPCType<Daisy2>(), 3);
-						pool.Add(ModContent.NPCType<Flourence>(), 2);
-						pool.Add(ModContent.NPCType<Marigold>(), 3);
-						pool.Add(ModContent.NPCType<MarigoldSpit>(), 2);
-						pool.Add(ModContent.NPCType<Smelly>(), 2);
-						pool.Add(ModContent.NPCType<Toothy>(), 2);
-
-						//do not spawn sunny if one already exists
-						if (!NPC.AnyNPCs(ModContent.NPCType<Dahlia>()))
-						{
-							pool.Add(ModContent.NPCType<Dahlia>(), 0.5f);
-						}
-						*/
 					}
 					else
 					{
@@ -492,12 +463,9 @@ namespace Spooky.Core
 			}
 
 			//dumb zomboid can spawn anywhere super rarely
-			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()))
+			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)
 			{
-				if (!spawnInfo.Water)
-				{
-					pool.Add(ModContent.NPCType<DumbZomboid>(), 0.0005f);
-				}
+				//pool.Add(ModContent.NPCType<DumbZomboid>(), 0.1f);
 			}
         }
     }

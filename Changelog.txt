@@ -23,7 +23,7 @@ Catacomb Improvements:
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
--Daffodil's arena now has a new custom background, made by Hat in a river
+-Daffodil's arena and big bone's arena now have new custom backgrounds, both made by Hat in a river
 
 
 New Farming Mechanic:

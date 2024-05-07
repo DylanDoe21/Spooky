@@ -22,6 +22,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.defense = 0;
             NPC.width = 20;
 			NPC.height = 12;
+            NPC.value = Item.buyPrice(0, 0, 3, 0);
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.noTileCollide = true;

@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 10;
+            NPC.width = 88;
             NPC.height = 10;
             NPC.knockBackResist = 0f;
             NPC.immortal = true;
@@ -98,12 +98,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 //spawn the crusher once the ceiling is found
                 case 1: 
                 {
-                    if (NPC.ai[1] < 15)
+                    if (NPC.ai[1] < 25)
                     {
                         NPC.active = false;
                     }
 
-                    if (NPC.ai[1] >= 15)
+                    if (NPC.ai[1] >= 25)
                     {
                         if (Main.rand.NextBool(10))
                         {

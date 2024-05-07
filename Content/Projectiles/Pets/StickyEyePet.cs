@@ -66,19 +66,23 @@ namespace Spooky.Content.Projectiles.Pets
             }
 
             //lighting check from companion cube pet
-            Color color;
-            color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16);
-            Vector3 vector3_1 = color.ToVector3();
-            color = Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16);
-            Vector3 vector3_2 = color.ToVector3();
+            if (!Main.dedServ)
+            {
+                Color color;
 
-            if ((double)vector3_1.Length() < 0.3 && (double)vector3_2.Length() < 0.3)
-            {
-                shouldGlow = true;
-            }
-            if ((double)vector3_1.Length() >= 0.9 && (double)vector3_2.Length() >= 0.9)
-            {
-                shouldGlow = false;
+                color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16);
+                Vector3 vector3_1 = color.ToVector3();
+                color = Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16);
+                Vector3 vector3_2 = color.ToVector3();
+
+                if ((double)vector3_1.Length() < 0.3 && (double)vector3_2.Length() < 0.3)
+                {
+                    shouldGlow = true;
+                }
+                if ((double)vector3_1.Length() >= 0.9 && (double)vector3_2.Length() >= 0.9)
+                {
+                    shouldGlow = false;
+                }
             }
 
             //use glowing frame and glowy effect if you are in the dark

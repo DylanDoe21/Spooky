@@ -39,8 +39,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             AfterImageTexture ??= TextureAssets.Extra[98];
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
-            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
 
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			TrailRotation += 0f * Projectile.direction;
