@@ -358,7 +358,7 @@ namespace Spooky.Content.Generation
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         //do not place the first loot room in the middle where the entrance is either
-                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1", origin.ToPoint16(), Mod);
                             placedLootRoom1 = true;
@@ -386,7 +386,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 42)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
                             placedLootRoom2 = true;
@@ -408,7 +408,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 84)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", origin.ToPoint16(), Mod);
                             placedLootRoom3 = true;
@@ -434,7 +434,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 126)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom4 && X != XMiddle && (WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width))
+                        if (!placedLootRoom4 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
                             placedLootRoom4 = true;

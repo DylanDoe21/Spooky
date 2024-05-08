@@ -32,7 +32,7 @@ namespace Spooky.Content.Items
                 {
                     Tile tile = Main.tile[i, j];
 
-                    if (tile.TileType == ModContent.TileType<BigFlower>() || tile.TileType == ModContent.TileType<CatacombVines>() || tile.TileType == ModContent.TileType<CatacombVines2>() ||
+                    if (tile.TileType == ModContent.TileType<CatacombVines>() || tile.TileType == ModContent.TileType<CatacombVines2>() ||
                     tile.TileType == ModContent.TileType<CatacombWeeds>() || tile.TileType == ModContent.TileType<SporeMushroom>())
                     {
                         WorldGen.KillTile(i, j);
