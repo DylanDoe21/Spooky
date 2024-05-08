@@ -11,6 +11,7 @@ using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Core
 {
@@ -103,7 +104,17 @@ namespace Spooky.Core
             return base.Slope(i, j, type);
         }
 
-        public bool IsProtected(int x, int y)
+		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+		{
+			if (Main.LocalPlayer.HasBuff(ModContent.BuffType<CatacombDebuff>()) && !Main.tileCut[Main.tile[i, j].TileType])
+			{
+				return false;
+			}
+
+			return base.CanKillTile(i, j, type, ref blockDamaged);
+		}
+
+		public bool IsProtected(int x, int y)
         {
             if (!Main.gameMenu || Main.dedServ)
             {

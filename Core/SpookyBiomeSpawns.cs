@@ -373,7 +373,7 @@ namespace Spooky.Core
 						//do not spawn dahlia if one already exists
 						if (!NPC.AnyNPCs(ModContent.NPCType<Dahlia>()))
 						{
-							pool.Add(ModContent.NPCType<Dahlia>(), 0.8f);
+							pool.Add(ModContent.NPCType<Dahlia>(), 1);
 						}
 					}
 					else
