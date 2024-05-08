@@ -185,7 +185,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap3"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap2"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -266,7 +266,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap5"),
+                new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.PlantTrap3"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
 		}
