@@ -213,13 +213,13 @@ namespace Spooky.Content.NPCs.PandoraBox
                 //bobbert
                 case 0:
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.SpawnBobbert);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
                         Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
@@ -232,13 +232,13 @@ namespace Spooky.Content.NPCs.PandoraBox
                 //stitch
                 case 1:
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.SpawnStitch);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
                         Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
@@ -251,13 +251,13 @@ namespace Spooky.Content.NPCs.PandoraBox
                 //sheldon
                 case 2:
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.SpawnSheldon);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
                         Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
@@ -270,13 +270,13 @@ namespace Spooky.Content.NPCs.PandoraBox
                 //chester
                 case 3:
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.SpawnChester);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
                         Main.npc[NewNPC].velocity.Y = -8;

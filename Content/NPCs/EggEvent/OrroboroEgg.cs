@@ -587,7 +587,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn message
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
 
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 
@@ -595,7 +595,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         packet.Write((byte)SpookyMessageType.SpawnOrroboro);
                         packet.Send();
                     }
-                    else 
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Main.NewText(text, 171, 64, 255);
 

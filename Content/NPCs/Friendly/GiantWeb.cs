@@ -130,52 +130,52 @@ namespace Spooky.Content.NPCs.Friendly
 
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterHat);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Flags.OldHunterHat = true;
                     }
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterSkull);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Flags.OldHunterSkull = true;
                     }
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterTorso);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Flags.OldHunterTorso = true;
                     }
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    if (Main.netMode == NetmodeID.Server) 
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterLegs);
                         packet.Send();
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Flags.OldHunterLegs = true;
                     }
