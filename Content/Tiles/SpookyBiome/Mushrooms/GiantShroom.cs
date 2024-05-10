@@ -48,7 +48,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             float cos = Main.GlobalTimeWrappedHourly * 0.08971428571f * 16;
             scaleVec = new Vector2(1f, -MathF.Cos(cos));
 
-            Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
+            Vector2 drawPos = new Vector2(i * 16, j * 16) - Main.screenPosition + (offset ?? new Vector2(0, -2));
             Color color = Lighting.GetColor(i, j);
 
             Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);

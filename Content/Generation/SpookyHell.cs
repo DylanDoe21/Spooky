@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
-using Spooky.Content.Tiles.SpookyHell.NoseTemple;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
@@ -598,7 +598,7 @@ namespace Spooky.Content.Generation
 
             int StartPosY = Main.maxTilesY - 130;
 
-            GenerateNoseTempleStructure(DungeonX, Main.maxTilesY - 131, "Entrance", 49, 22);
+            GenerateNoseTempleStructure(DungeonX, Main.maxTilesY - 131, "Entrance", 49, 23);
 
             GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 3, "EntranceTunnel", 9, 0);
 

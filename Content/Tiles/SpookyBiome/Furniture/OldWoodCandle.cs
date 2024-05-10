@@ -26,14 +26,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(93, 62, 39), name);
+            RegisterItemDrop(ModContent.ItemType<OldWoodCandleItem>());
             DustType = DustID.WoodFurniture;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.Candles };
-        }
-
-        public override IEnumerable<Item> GetItemDrops(int i, int j)
-        {
-            yield return new Item(ModContent.ItemType<OldWoodCandleItem>());
         }
 
         public override void HitWire(int i, int j)

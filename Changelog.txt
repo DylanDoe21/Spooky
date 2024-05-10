@@ -92,6 +92,7 @@ Miscellaneous:
 -The giant eye valley egg now has a new animation when it spawns orro-boro
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -Pickaxes, axes, and hammers can now be used in the catacombs but cannot break blocks until after big bone
+-Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
 
 
 Removals:

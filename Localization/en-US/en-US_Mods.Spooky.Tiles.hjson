@@ -33,6 +33,11 @@ EyeDresser: {
 	MapEntry: Dresser
 }
 
+CultistDresser: {
+	ContainerName: Occultist Dresser
+	MapEntry: Dresser
+}
+
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
 BigBoneBoxTile.MapEntry: Music Box
@@ -110,3 +115,18 @@ GraveShovelTile.MapEntry: Grave Shovel Tile
 TallMushroom.MapEntry: Tall Mushroom
 TinyGhostJar.MapEntry: Tiny Ghost Jar
 TinyMushroomCage.MapEntry: Tiny Mushroom Cage
+CultistBathtub.MapEntry: Bathtub
+CultistBed.MapEntry: Bed
+CultistBookcase.MapEntry: Bookcase
+CultistCandelabra.MapEntry: Candelabra
+CultistCandle.MapEntry: Candle
+CultistChair.MapEntry: Chair
+CultistChandelier.MapEntry: Chandelier
+CultistClock.MapEntry: Clock
+CultistDoorClosed.MapEntry: Door
+CultistDoorOpen.MapEntry: Door
+CultistLamp.MapEntry: Lamp
+CultistLantern.MapEntry: Lantern
+CultistSink.MapEntry: Sink
+CultistSofa.MapEntry: Sofa
+CultistTable.MapEntry: Table

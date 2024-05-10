@@ -2394,6 +2394,66 @@ SpookySpiritBox: {
 	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
 }
 
+NoseTempleBrickGreenItem: {
+	DisplayName: Green Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleBrickPurpleItem: {
+	DisplayName: Purple Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleBrickRedItem: {
+	DisplayName: Red Occultist Brick
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickGreenItem: {
+	DisplayName: Green Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickPurpleItem: {
+	DisplayName: Purple Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickRedItem: {
+	DisplayName: Red Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyWallGreenItem: {
+	DisplayName: Green Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleFancyWallPurpleItem: {
+	DisplayName: Purple Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleFancyWallRedItem: {
+	DisplayName: Red Occultist Slab Wall
+	Tooltip: ""
+}
+
+NoseTempleWallGreenItem: {
+	DisplayName: Green Occultist Brick Wall
+	Tooltip: ""
+}
+
+NoseTempleWallPurpleItem: {
+	DisplayName: Purple Occultist Brick Wall
+	Tooltip: ""
+}
+
+NoseTempleWallRedItem: {
+	DisplayName: Red Occultist Brick Wall
+	Tooltip: ""
+}
+
 CemeteryPylonItem: {
 	DisplayName: Swampy Cemetery Pylon
 	Tooltip:
@@ -2808,66 +2868,6 @@ MonalumboItem: {
 	Tooltip: "'Waasephi'"
 }
 
-NoseTempleBrickGreenItem: {
-	DisplayName: Green Occultist Brick
-	Tooltip: ""
-}
-
-NoseTempleBrickPurpleItem: {
-	DisplayName: Purple Occultist Brick
-	Tooltip: ""
-}
-
-NoseTempleBrickRedItem: {
-	DisplayName: Red Occultist Brick
-	Tooltip: ""
-}
-
-NoseTempleFancyBrickGreenItem: {
-	DisplayName: Green Occultist Slab
-	Tooltip: ""
-}
-
-NoseTempleFancyBrickPurpleItem: {
-	DisplayName: Purple Occultist Slab
-	Tooltip: ""
-}
-
-NoseTempleFancyBrickRedItem: {
-	DisplayName: Red Occultist Slab
-	Tooltip: ""
-}
-
-NoseTempleFancyWallGreenItem: {
-	DisplayName: Green Occultist Slab Wall
-	Tooltip: ""
-}
-
-NoseTempleFancyWallPurpleItem: {
-	DisplayName: Purple Occultist Slab Wall
-	Tooltip: ""
-}
-
-NoseTempleFancyWallRedItem: {
-	DisplayName: Red Occultist Slab Wall
-	Tooltip: ""
-}
-
-NoseTempleWallGreenItem: {
-	DisplayName: Green Occultist Brick Wall
-	Tooltip: ""
-}
-
-NoseTempleWallPurpleItem: {
-	DisplayName: Purple Occultist Brick Wall
-	Tooltip: ""
-}
-
-NoseTempleWallRedItem: {
-	DisplayName: Red Occultist Brick Wall
-	Tooltip: ""
-}
-
 LivingFleshItem: {
 	DisplayName: Living Flesh
 	Tooltip: ""
@@ -2980,4 +2980,79 @@ BrickColorChanger2: {
 BrickColorChanger3: {
 	DisplayName: Brick Color Changer 3
 	Tooltip: Changes Red to Purple
+}
+
+CultistBathtubItem: {
+	DisplayName: Occultist Bathtub
+	Tooltip: ""
+}
+
+CultistBedItem: {
+	DisplayName: Occultist Bed
+	Tooltip: ""
+}
+
+CultistBookcaseItem: {
+	DisplayName: Occultist Bookcase
+	Tooltip: ""
+}
+
+CultistCandelabraItem: {
+	DisplayName: Occultist Candelabra
+	Tooltip: ""
+}
+
+CultistCandleItem: {
+	DisplayName: Occultist Candle
+	Tooltip: ""
+}
+
+CultistChairItem: {
+	DisplayName: Occultist Chair
+	Tooltip: ""
+}
+
+CultistChandelierItem: {
+	DisplayName: Occultist Chandelier
+	Tooltip: ""
+}
+
+CultistClockItem: {
+	DisplayName: Occultist Clock
+	Tooltip: ""
+}
+
+CultistDoorItem: {
+	DisplayName: Occultist Door
+	Tooltip: ""
+}
+
+CultistDresserItem: {
+	DisplayName: Occultist Dresser
+	Tooltip: ""
+}
+
+CultistLampItem: {
+	DisplayName: Occultist Lamp
+	Tooltip: ""
+}
+
+CultistLanternItem: {
+	DisplayName: Occultist Lantern
+	Tooltip: ""
+}
+
+CultistSinkItem: {
+	DisplayName: Occultist Sink
+	Tooltip: ""
+}
+
+CultistSofaItem: {
+	DisplayName: Occultist Sofa
+	Tooltip: ""
+}
+
+CultistTableItem: {
+	DisplayName: Occultist Table
+	Tooltip: ""
 }

@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Tiles.SpookyHell.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple;
 
 namespace Spooky.Content.Biomes
 {

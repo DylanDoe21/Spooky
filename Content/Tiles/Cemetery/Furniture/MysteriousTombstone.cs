@@ -57,6 +57,9 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 		{
 			Player player = Main.LocalPlayer;
 
+			//always drop some swamp rock
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(3, 10));
+
 			//guaranteed goodie bags during a raveyard
 			if (player.InModBiome<RaveyardBiome>())
 			{
@@ -95,28 +98,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Torch, Main.rand.Next(3, 9));
 						break;
 					}
-					//swampy stone
+					//maggots
 					case 2:
 					{
-						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(2, 7));
-						break;
-					}
-					//maggots
-					case 3:
-					{
 						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Maggot, Main.rand.Next(1, 4));
-						break;
-					}
-					//bullets
-					case 4:
-					{
-						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.MusketBall, Main.rand.Next(5, 26));
-						break;
-					}
-					//goodie bag
-					case 5:
-					{
-						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.GoodieBag, Main.rand.Next(1, 3));
 						break;
 					}
 				}

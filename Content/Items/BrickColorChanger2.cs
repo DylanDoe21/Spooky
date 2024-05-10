@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Tiles.SpookyHell.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple;
 
 namespace Spooky.Content.Items
 {

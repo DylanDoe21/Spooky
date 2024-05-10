@@ -31,14 +31,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(114, 13, 39), name);
+            RegisterItemDrop(ModContent.ItemType<EyeChandelierItem>());
             DustType = DustID.Blood;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.Chandeliers };
-        }
-
-        public override IEnumerable<Item> GetItemDrops(int i, int j)
-        {
-            yield return new Item(ModContent.ItemType<EyeChandelierItem>());
         }
 
         public override void HitWire(int i, int j)

@@ -43,7 +43,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
         public override LocalizedText DefaultContainerName(int frameX, int frameY)
         {
-            return this.GetLocalization("MapEntry");
+            return this.GetLocalization("ContainerName");
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 
