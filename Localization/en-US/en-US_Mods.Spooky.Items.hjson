@@ -2394,6 +2394,96 @@ SpookySpiritBox: {
 	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
 }
 
+CultistBathtubItem: {
+	DisplayName: Occultist Bathtub
+	Tooltip: ""
+}
+
+CultistBedItem: {
+	DisplayName: Occultist Bed
+	Tooltip: ""
+}
+
+CultistBookcaseItem: {
+	DisplayName: Occultist Bookcase
+	Tooltip: ""
+}
+
+CultistCandelabraItem: {
+	DisplayName: Occultist Candelabra
+	Tooltip: ""
+}
+
+CultistCandleItem: {
+	DisplayName: Occultist Candle
+	Tooltip: ""
+}
+
+CultistChairItem: {
+	DisplayName: Occultist Chair
+	Tooltip: ""
+}
+
+CultistChandelierItem: {
+	DisplayName: Occultist Chandelier
+	Tooltip: ""
+}
+
+CultistClockItem: {
+	DisplayName: Occultist Clock
+	Tooltip: ""
+}
+
+CultistDoorItem: {
+	DisplayName: Occultist Door
+	Tooltip: ""
+}
+
+CultistDresserItem: {
+	DisplayName: Occultist Dresser
+	Tooltip: ""
+}
+
+CultistLampItem: {
+	DisplayName: Occultist Lamp
+	Tooltip: ""
+}
+
+CultistLanternItem: {
+	DisplayName: Occultist Lantern
+	Tooltip: ""
+}
+
+CultistSinkItem: {
+	DisplayName: Occultist Sink
+	Tooltip: ""
+}
+
+CultistSofaItem: {
+	DisplayName: Occultist Sofa
+	Tooltip: ""
+}
+
+CultistTableItem: {
+	DisplayName: Occultist Table
+	Tooltip: ""
+}
+
+NoseTemplePlatformGreenItem: {
+	DisplayName: Green Occultist Platform
+	Tooltip: ""
+}
+
+NoseTemplePlatformPurpleItem: {
+	DisplayName: Purple Occultist Platform
+	Tooltip: ""
+}
+
+NoseTemplePlatformRedItem: {
+	DisplayName: Red Occultist Platform
+	Tooltip: ""
+}
+
 NoseTempleBrickGreenItem: {
 	DisplayName: Green Occultist Brick
 	Tooltip: ""
@@ -2980,79 +3070,4 @@ BrickColorChanger2: {
 BrickColorChanger3: {
 	DisplayName: Brick Color Changer 3
 	Tooltip: Changes Red to Purple
-}
-
-CultistBathtubItem: {
-	DisplayName: Occultist Bathtub
-	Tooltip: ""
-}
-
-CultistBedItem: {
-	DisplayName: Occultist Bed
-	Tooltip: ""
-}
-
-CultistBookcaseItem: {
-	DisplayName: Occultist Bookcase
-	Tooltip: ""
-}
-
-CultistCandelabraItem: {
-	DisplayName: Occultist Candelabra
-	Tooltip: ""
-}
-
-CultistCandleItem: {
-	DisplayName: Occultist Candle
-	Tooltip: ""
-}
-
-CultistChairItem: {
-	DisplayName: Occultist Chair
-	Tooltip: ""
-}
-
-CultistChandelierItem: {
-	DisplayName: Occultist Chandelier
-	Tooltip: ""
-}
-
-CultistClockItem: {
-	DisplayName: Occultist Clock
-	Tooltip: ""
-}
-
-CultistDoorItem: {
-	DisplayName: Occultist Door
-	Tooltip: ""
-}
-
-CultistDresserItem: {
-	DisplayName: Occultist Dresser
-	Tooltip: ""
-}
-
-CultistLampItem: {
-	DisplayName: Occultist Lamp
-	Tooltip: ""
-}
-
-CultistLanternItem: {
-	DisplayName: Occultist Lantern
-	Tooltip: ""
-}
-
-CultistSinkItem: {
-	DisplayName: Occultist Sink
-	Tooltip: ""
-}
-
-CultistSofaItem: {
-	DisplayName: Occultist Sofa
-	Tooltip: ""
-}
-
-CultistTableItem: {
-	DisplayName: Occultist Table
-	Tooltip: ""
 }

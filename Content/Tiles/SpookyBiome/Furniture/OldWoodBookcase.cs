@@ -13,10 +13,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
     {
 		public override void SetStaticDefaults()
 		{
+            Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;
-            Main.tileSolidTop[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
