@@ -15,10 +15,10 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(41, 80, 20));
+			AddMapEntry(new Color(87, 93, 55));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
-			//MinPick = int.MaxValue;
+			MinPick = int.MaxValue;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
@@ -45,7 +45,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(41, 80, 20));
+			AddMapEntry(new Color(87, 93, 55));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}

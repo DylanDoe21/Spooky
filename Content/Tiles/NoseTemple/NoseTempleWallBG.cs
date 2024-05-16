@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.NoseTemple
         }
     }
 
-    public class NoseTempleWallBGRed : NoseTempleWallBGGreen 
+    public class NoseTempleWallBGGray : NoseTempleWallBGGreen 
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
@@ -77,7 +77,7 @@ namespace Spooky.Content.Tiles.NoseTemple
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            BackgroundTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyHell/NoseDungeonWallBGRed");
+            BackgroundTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyHell/NoseDungeonWallBGGray");
 
             int width = 13;
             int height = 8;

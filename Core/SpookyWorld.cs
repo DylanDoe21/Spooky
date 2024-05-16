@@ -3,10 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Chat;
-using Terraria.UI;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.BigBone;
@@ -24,10 +22,10 @@ namespace Spooky.Core
         public bool storedHalloweenForToday;
 
         public static bool DaySwitched;
-        private static bool LastTime;
+        public static bool LastTime;
 
-        //check to make sure the player isnt in a subworld so that daffodil, pandora's box, and big bone's flower pot are not spawned in subworlds
-        public bool IsInSubworld()
+		//check to make sure the player isnt in a subworld so that daffodil, pandora's box, and big bone's flower pot are not spawned in subworlds
+		public bool IsInSubworld()
         {
             if (Spooky.Instance.subworldLibrary == null)
             {

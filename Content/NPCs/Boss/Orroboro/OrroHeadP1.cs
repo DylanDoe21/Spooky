@@ -162,16 +162,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     for (int Segment1 = 0; Segment1 < 3; Segment1++)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                        ModContent.NPCType<OrroBodyP1>(), NPC.whoAmI, 0, latestNPC);                   
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<OrroBodyP1>(), NPC.whoAmI, 0, latestNPC);                   
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
                     
-                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroBodyConnect>(), NPC.whoAmI, 0, latestNPC);                   
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroBodyConnect>(), NPC.whoAmI, 0, latestNPC);                   
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
@@ -179,16 +177,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     for (int Segment2 = 0; Segment2 < 3; Segment2++)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                        ModContent.NPCType<BoroBodyP1>(), NPC.whoAmI, 0, latestNPC);
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroBodyP1>(), NPC.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
 
-                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroTailP1>(), NPC.whoAmI, 0, latestNPC);
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroTailP1>(), NPC.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;

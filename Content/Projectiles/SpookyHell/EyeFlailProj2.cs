@@ -169,10 +169,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     shouldOwnerHitCheck = true;
                     if (Projectile.owner == Main.myPlayer) 
                     {
-                        Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-75, 75), Main.MouseWorld.Y + Main.rand.Next(-75, 75))).SafeNormalize(Vector2.UnitX * player.direction);
-
                         if (!player.channel) // If the player releases then change to moving forward mode
                         {
+                            Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-75, 75), Main.MouseWorld.Y + Main.rand.Next(-75, 75))).SafeNormalize(Vector2.UnitX * player.direction);
                             CurrentAIState = AIState.LaunchingForward;
                             StateTimer = 0f;
                             Projectile.velocity = unitVectorTowardsMouse * launchSpeed + player.velocity;
@@ -184,7 +183,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         }
                     }
 
-                    SpinningStateTimer += 0.8f;
+                    SpinningStateTimer -= 0.8f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 

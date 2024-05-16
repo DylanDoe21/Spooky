@@ -13,6 +13,7 @@ using Spooky.Core;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -615,12 +616,14 @@ namespace Spooky.Content.Generation
                             DungeonX += (StartPosition < Main.maxTilesX / 2 ? 19 : -19);
                         }
 
-                        GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 6), 10, 10);
+                        GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
 
+                        /*
                         if (WorldGen.genRand.NextBool(5))
                         {
                             GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 16, "ChestChamber-" + WorldGen.genRand.Next(1, 3), 10, 9);
                         }
+                        */
 
                         DungeonX += (StartPosition < Main.maxTilesX / 2 ? 20 : -20);
                     }
@@ -633,11 +636,12 @@ namespace Spooky.Content.Generation
             }
 
             //brick color variance
-            int Brick = ModContent.TileType<NoseTempleBrickGreen>();
-            int FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
-            int BrickWall = ModContent.WallType<NoseTempleWallGreen>();
-            int FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
-            int BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
+            int Brick = ModContent.TileType<NoseTempleBrickPurple>();
+            int FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
+            int BrickWall = ModContent.WallType<NoseTempleWallPurple>();
+            int FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
+            int BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
+            int Platform = ModContent.TileType<NoseTemplePlatformPurple>();
 
             NoseTempleBrickColor = WorldGen.genRand.Next(0, 3);
 
@@ -648,6 +652,7 @@ namespace Spooky.Content.Generation
                     Brick = ModContent.TileType<NoseTempleBrickGreen>();
                     FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
+                    Platform = ModContent.TileType<NoseTemplePlatformGreen>();
                     break;
                 }
                 case 1:
@@ -655,13 +660,15 @@ namespace Spooky.Content.Generation
                     Brick = ModContent.TileType<NoseTempleBrickPurple>();
                     FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
+                    Platform = ModContent.TileType<NoseTemplePlatformPurple>();
                     break;
                 }
                 case 2:
                 {
-                    Brick = ModContent.TileType<NoseTempleBrickRed>();
-                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickRed>();
-                    BGBrickWall = ModContent.WallType<NoseTempleWallBGRed>();
+                    Brick = ModContent.TileType<NoseTempleBrickGray>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGray>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGray>();
+                    Platform = ModContent.TileType<NoseTemplePlatformGray>();
                     break;
                 }
             }
@@ -684,8 +691,8 @@ namespace Spooky.Content.Generation
                 }
                 case 2:
                 {
-                    BrickWall = ModContent.WallType<NoseTempleWallRed>();
-                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallRed>();
+                    BrickWall = ModContent.WallType<NoseTempleWallGray>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGray>();
                     break;
                 }
             }
@@ -720,6 +727,11 @@ namespace Spooky.Content.Generation
                     if (tile.WallType == ModContent.WallType<NoseTempleWallBGPurple>())
                     {
                         tile.WallType = (ushort)BGBrickWall;
+                    }
+                    //Platforms
+                    if (tile.TileType == ModContent.TileType<NoseTemplePlatformPurple>())
+                    {
+                        tile.TileType = (ushort)Platform;
                     }
                 }
             }

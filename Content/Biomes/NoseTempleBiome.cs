@@ -11,7 +11,7 @@ namespace Spooky.Content.Biomes
 {
     public class NoseTempleBiome : ModBiome
     {
-        public override int Music => MusicID.Eerie;
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/NoseTemple");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -32,9 +32,9 @@ namespace Spooky.Content.Biomes
             Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallGreen>() ||
             Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallGreen>() || 
             Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGGreen>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallRed>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallRed>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGRed>();
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallGray>() ||
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallGray>() || 
+            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGGray>();
 
             bool DeepEnoughCondition = PlayerY >= Main.maxTilesY - 103;
 

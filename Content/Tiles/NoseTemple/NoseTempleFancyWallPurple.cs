@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.NoseTemple
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(17, 6, 31));
+            AddMapEntry(new Color(42, 20, 58));
             DustType = DustID.Stone;
         }
 
@@ -72,7 +72,7 @@ namespace Spooky.Content.Tiles.NoseTemple
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
-            AddMapEntry(new Color(17, 6, 31));
+            AddMapEntry(new Color(42, 20, 58));
             DustType = DustID.Stone;
         }
 

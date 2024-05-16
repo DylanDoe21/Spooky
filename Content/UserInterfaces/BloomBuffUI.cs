@@ -104,6 +104,22 @@ namespace Spooky.Content.UserInterfaces
 
             switch (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor])
             {
+                case "FallGourd": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallGourdIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallGourd.DisplayName");
+                    break;
+                case "FallSoulPumpkin": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallSoulPumpkinIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallSoulPumpkin.DisplayName");
+                    break;
+                case "FallWaterGourd": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallWaterGourdIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallWaterGourd.DisplayName");
+                    break;
+                case "FallZucchini": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallZucchiniIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallZucchini.DisplayName");
+                    break;
                 case "WinterBlackberry": 
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterBlackberryIcon").Value;
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterBlackberry.DisplayName");
@@ -119,6 +135,22 @@ namespace Spooky.Content.UserInterfaces
                 case "WinterStrawberry": 
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterStrawberryIcon").Value;
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterStrawberry.DisplayName");
+                    break;
+                case "SpringHeartFlower": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringHeartFlowerIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringHeartFlower.DisplayName");
+                    break;
+                case "SpringIris": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringIrisIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringIris.DisplayName");
+                    break;
+                case "SpringOrchid": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringOrchidIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringOrchid.DisplayName");
+                    break;
+                case "SpringRose": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringRoseIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringRose.DisplayName");
                     break;
                 case "SummerLemon": 
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerLemonIcon").Value; 

@@ -212,6 +212,46 @@ Dragonfruit: {
 		'''
 }
 
+FallGourd: {
+	DisplayName: PVZ Gourd
+	Tooltip: ""
+}
+
+FallSoulPumpkin: {
+	DisplayName: Soul Pumpkin
+	Tooltip: ""
+}
+
+FallWaterGourd: {
+	DisplayName: Watering Gourd
+	Tooltip: ""
+}
+
+FallZucchini: {
+	DisplayName: Zucchini
+	Tooltip: ""
+}
+
+SpringHeartFlower: {
+	DisplayName: Heart Flower
+	Tooltip: ""
+}
+
+SpringIris: {
+	DisplayName: Iris
+	Tooltip: ""
+}
+
+SpringOrchid: {
+	DisplayName: Monkey Orchid
+	Tooltip: ""
+}
+
+SpringRose: {
+	DisplayName: Rose
+	Tooltip: ""
+}
+
 SummerLemon: {
 	DisplayName: Multiplemon
 	Tooltip:
@@ -2323,6 +2363,11 @@ MocoBox: {
 	Tooltip: "[c/4DDE17:And Yet The Snot-Nosed Bug Remains] by BananaLizard"
 }
 
+NoseTempleBox: {
+	DisplayName: Music Box (Snottre-Dame)
+	Tooltip: "[c/EF5145:Court Of The Snot-Nosed Bug] by BananaLizard"
+}
+
 OrroboroBox: {
 	DisplayName: Music Box (Orro & Boro)
 	Tooltip: "[c/A17CFF:The All Is One] by BananaLizard"
@@ -2479,8 +2524,8 @@ NoseTemplePlatformPurpleItem: {
 	Tooltip: ""
 }
 
-NoseTemplePlatformRedItem: {
-	DisplayName: Red Occultist Platform
+NoseTemplePlatformGrayItem: {
+	DisplayName: Gray Occultist Platform
 	Tooltip: ""
 }
 
@@ -2494,8 +2539,8 @@ NoseTempleBrickPurpleItem: {
 	Tooltip: ""
 }
 
-NoseTempleBrickRedItem: {
-	DisplayName: Red Occultist Brick
+NoseTempleBrickGrayItem: {
+	DisplayName: Gray Occultist Brick
 	Tooltip: ""
 }
 
@@ -2509,8 +2554,8 @@ NoseTempleFancyBrickPurpleItem: {
 	Tooltip: ""
 }
 
-NoseTempleFancyBrickRedItem: {
-	DisplayName: Red Occultist Slab
+NoseTempleFancyBrickGrayItem: {
+	DisplayName: Gray Occultist Slab
 	Tooltip: ""
 }
 
@@ -2524,8 +2569,8 @@ NoseTempleFancyWallPurpleItem: {
 	Tooltip: ""
 }
 
-NoseTempleFancyWallRedItem: {
-	DisplayName: Red Occultist Slab Wall
+NoseTempleFancyWallGrayItem: {
+	DisplayName: Gray Occultist Slab Wall
 	Tooltip: ""
 }
 
@@ -2539,8 +2584,8 @@ NoseTempleWallPurpleItem: {
 	Tooltip: ""
 }
 
-NoseTempleWallRedItem: {
-	DisplayName: Red Occultist Brick Wall
+NoseTempleWallGrayItem: {
+	DisplayName: Gray Occultist Brick Wall
 	Tooltip: ""
 }
 

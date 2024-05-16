@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 
 namespace Spooky.Content.Items
 {
@@ -62,6 +63,12 @@ namespace Spooky.Content.Items
                     if (tile.WallType == ModContent.WallType<NoseTempleWallBGPurple>())
                     {
                         Main.tile[i, j].WallType = (ushort)ModContent.WallType<NoseTempleWallBGGreen>();
+                    }
+
+                    //platforms
+                    if (tile.TileType == ModContent.TileType<NoseTemplePlatformPurple>())
+                    {
+                        Main.tile[i, j].TileType = (ushort)ModContent.TileType<NoseTemplePlatformGreen>();
                     }
                 }
             }

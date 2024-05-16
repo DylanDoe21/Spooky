@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 
 namespace Spooky.Content.Items
 {
@@ -35,33 +36,39 @@ namespace Spooky.Content.Items
                     Tile tile = Main.tile[i, j];
 
                     //regular bricks
-                    if (tile.TileType == ModContent.TileType<NoseTempleBrickRed>())
+                    if (tile.TileType == ModContent.TileType<NoseTempleBrickGray>())
                     {
                         Main.tile[i, j].TileType = (ushort)ModContent.TileType<NoseTempleBrickPurple>();
                     }
 
                     //fancy bricks
-                    if (tile.TileType == ModContent.TileType<NoseTempleFancyBrickRed>())
+                    if (tile.TileType == ModContent.TileType<NoseTempleFancyBrickGray>())
                     {
                         Main.tile[i, j].TileType = (ushort)ModContent.TileType<NoseTempleFancyBrickPurple>();
                     }
 
                     //walls
-                    if (tile.WallType == ModContent.WallType<NoseTempleWallRed>())
+                    if (tile.WallType == ModContent.WallType<NoseTempleWallGray>())
                     {
                         Main.tile[i, j].WallType = (ushort)ModContent.WallType<NoseTempleWallPurple>();
                     }
 
                     //fancy walls
-                    if (tile.WallType == ModContent.WallType<NoseTempleFancyWallRed>())
+                    if (tile.WallType == ModContent.WallType<NoseTempleFancyWallGray>())
                     {
                         Main.tile[i, j].WallType = (ushort)ModContent.WallType<NoseTempleFancyWallPurple>();
                     }
 
                     //BG walls
-                    if (tile.WallType == ModContent.WallType<NoseTempleWallBGRed>())
+                    if (tile.WallType == ModContent.WallType<NoseTempleWallBGGray>())
                     {
                         Main.tile[i, j].WallType = (ushort)ModContent.WallType<NoseTempleWallBGPurple>();
+                    }
+
+                    //platforms
+                    if (tile.TileType == ModContent.TileType<NoseTemplePlatformGray>())
+                    {
+                        Main.tile[i, j].TileType = (ushort)ModContent.TileType<NoseTemplePlatformPurple>();
                     }
                 }
             }

@@ -26,7 +26,7 @@ namespace Spooky.Content.Biomes
             On_TileLightScanner.ApplyHellLight += SpookyHellCustomLighting;
         }
 
-        //modified vanilla hell lighting code, just makes the vanilla hell lighting completely white while in the eye valley to make it not look ugly
+        //modified vanilla hell lighting code, just makes the vanilla hell lighting a different color because the default hell lighting is ugly in the biome
         private void SpookyHellCustomLighting(On_TileLightScanner.orig_ApplyHellLight orig, TileLightScanner self, Tile tile, int x, int y, ref Vector3 lightColor)
         {
             orig.Invoke(self, tile, x, y, ref lightColor);
@@ -37,7 +37,7 @@ namespace Spooky.Content.Biomes
                 float Green = 0f;
                 float Blue = 0f;
                 
-                float Intensity = 0.55f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2f) * 0.08f;
+                float Intensity = 0.45f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2f) * 0.08f;
 
                 if ((!tile.HasTile || !Main.tileNoSunLight[tile.TileType] || ((tile.Slope != 0 || tile.IsHalfBlock) && Main.tile[x, y - 1].LiquidAmount == 0 && Main.tile[x, y + 1].LiquidAmount == 0 && Main.tile[x - 1, y].LiquidAmount == 0 && Main.tile[x + 1, y].LiquidAmount == 0)) && lightColor.X < Intensity && (Main.wallLight[tile.WallType] || tile.IsWallInvisible) && tile.LiquidAmount < 200 && (!tile.IsHalfBlock || Main.tile[x, y - 1].LiquidAmount < 200))
                 {

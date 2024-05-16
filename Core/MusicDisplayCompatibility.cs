@@ -39,6 +39,7 @@ namespace Spooky.Core
 
             //eye valley
             AddMusic("Content/Sounds/Music/SpookyHell", Language.GetTextValue("Mods.Spooky.MusicDisplay.EyeValley"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/NoseTemple", Language.GetTextValue("Mods.Spooky.MusicDisplay.NoseTemple"), "BananaLizard");
             AddMusic("Content/Sounds/Music/Moco", Language.GetTextValue("Mods.Spooky.MusicDisplay.Moco"), "BananaLizard");
             AddMusic("Content/Sounds/Music/EggEvent", Language.GetTextValue("Mods.Spooky.MusicDisplay.EggEvent"), "Rockwizard5");
             AddMusic("Content/Sounds/Music/Orroboro", Language.GetTextValue("Mods.Spooky.MusicDisplay.Orroboro"), "BananaLizard");

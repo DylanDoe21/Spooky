@@ -24,10 +24,18 @@ namespace Spooky.Core
         public int Duration4 = 0;
 
         //bools for each edible bloom
+        public bool FallGourd = false;
+        public bool FallSoulPumpkin = false;
+        public bool FallWaterGourd = false;
+        public bool FallZucchini = false;
         public bool WinterBlackberry = false;
         public bool WinterBlueberry = false;
         public bool WinterGooseberry = false;
         public bool WinterStrawberry = false;
+        public bool SpringHeartFlower = false;
+        public bool SpringIris = false;
+        public bool SpringOrchid = false;
+        public bool SpringRose = false;
         public bool SummerLemon = false;
         public bool SummerOrange = false;
         public bool SummerPineapple = false;
@@ -93,7 +101,7 @@ namespace Spooky.Core
                 }
                 else if (BloomBuffSlots[3] == BuffName && UnlockedSlot4)
                 {
-                    Duration3 = Duration;
+                    Duration4 = Duration;
                 }
 
                 return;
@@ -119,7 +127,7 @@ namespace Spooky.Core
             else if (BloomBuffSlots[3] == string.Empty && UnlockedSlot4)
             {
                 BloomBuffSlots[3] = BuffName;
-                Duration3 = Duration;
+                Duration4 = Duration;
             }
         }
 
@@ -128,6 +136,22 @@ namespace Spooky.Core
         //this probably doesnt look very pretty but whatever, cannot be bothered to change it right now
         public void GivePlayerBloomBonus()
         {
+            if (BloomBuffSlots.Contains("FallGourd"))
+            {
+                FallGourd = true;
+            }
+            if (BloomBuffSlots.Contains("FallSoulPumpkin"))
+            {
+                FallSoulPumpkin = true;
+            }
+            if (BloomBuffSlots.Contains("FallWaterGourd"))
+            {
+                FallWaterGourd = true;
+            }
+            if (BloomBuffSlots.Contains("FallZucchini"))
+            {
+                FallZucchini = true;
+            }
             if (BloomBuffSlots.Contains("WinterBlackberry"))
             {
                 WinterBlackberry = true;
@@ -143,6 +167,22 @@ namespace Spooky.Core
             if (BloomBuffSlots.Contains("WinterStrawberry"))
             {
                 WinterStrawberry = true;
+            }
+            if (BloomBuffSlots.Contains("SpringHeartFlower"))
+            {
+                SpringHeartFlower = true;
+            }
+            if (BloomBuffSlots.Contains("SpringIris"))
+            {
+                SpringIris = true;
+            }
+            if (BloomBuffSlots.Contains("SpringOrchid"))
+            {
+                SpringOrchid = true;
+            }
+            if (BloomBuffSlots.Contains("SpringRose"))
+            {
+                SpringRose = true;
             }
             if (BloomBuffSlots.Contains("SummerLemon"))
             {
@@ -226,10 +266,18 @@ namespace Spooky.Core
 
         public override void ResetEffects()
         {
+            FallGourd = false;
+            FallSoulPumpkin = false;
+            FallWaterGourd = false;
+            FallZucchini = false;
             WinterBlackberry = false;
             WinterBlueberry = false;
             WinterGooseberry = false;
             WinterStrawberry = false;
+            SpringHeartFlower = false;
+            SpringIris = false;
+            SpringOrchid = false;
+            SpringRose = false;
             SummerLemon = false;
             SummerOrange = false;
             SummerPineapple = false;
@@ -250,6 +298,7 @@ namespace Spooky.Core
             }
             else
             {
+                //draw the bloom UI fully when the players inventory is not open
                 if (!Main.playerInventory)
                 { 
                     if (BloomBuffUI.Transparency < 1f)

@@ -15,10 +15,10 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(78, 32, 114));
+			AddMapEntry(new Color(96, 48, 132));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
-			//MinPick = int.MaxValue;
+			MinPick = int.MaxValue;
 		}
 
 		public override bool CanExplode(int i, int j)
@@ -39,7 +39,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(78, 32, 114));
+			AddMapEntry(new Color(96, 48, 132));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}

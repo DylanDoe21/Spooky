@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newTile.LavaDeath = true;
 			TileObjectData.newTile.DrawYOffset = 0;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(59, 104, 33));
+            AddMapEntry(new Color(63, 93, 35));
 			DustType = DustID.Stone;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AdjTiles = new int[] { TileID.Platforms };
