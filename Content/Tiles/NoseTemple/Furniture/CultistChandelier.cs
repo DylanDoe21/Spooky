@@ -42,35 +42,41 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
         }
 
         public override void HitWire(int i, int j)
-        {
-            int left = i - Main.tile[i, j].TileFrameX / 18 % 3;
-            int top = j - Main.tile[i, j].TileFrameY / 18 % 3;
-            for (int x = left; x < left + 3; x++)
-            {
-                for (int y = top; y < top + 3; y++)
-                {
+		{
+			Tile tile = Main.tile[i, j];
+			int width = 3;
+			int height = 3;
+			int x = i - tile.TileFrameX / 18 % width;
+			int y = j - tile.TileFrameY / 18 % height;
 
-                    if (Main.tile[x, y].TileFrameX >= 54)
-                    {
-                        Main.tile[x, y].TileFrameX -= 54;
-                    }
-                    else
-                    {
-                        Main.tile[x, y].TileFrameX += 54;
-                    }
-                }
-            }
+			for (int l = x; l < x + width; l++)
+			{
+				for (int m = y; m < y + height; m++)
+				{
+					Tile checkTile = Framing.GetTileSafely(l, m);
+					if (checkTile.HasTile && checkTile.TileType == Type)
+					{
+						if (checkTile.TileFrameX != 108)
+						{
+							checkTile.TileFrameX += 54;
+						}
+						if (checkTile.TileFrameX >= 108)
+						{
+							checkTile.TileFrameX -= 108;
+						}
+					}
 
-            if (Wiring.running)
-            {
-                Wiring.SkipWire(left, top);
-                Wiring.SkipWire(left, top + 1);
-                Wiring.SkipWire(left + 1, top);
-                Wiring.SkipWire(left + 1, top + 1);
-            }
+					if (Wiring.running)
+					{
+						Wiring.SkipWire(l, m);
+					}
+				}
+			}
 
-            NetMessage.SendTileSquare(-1, left, top + 1, 2);
-        }
+			int w2 = width / 2;
+			int h2 = height / 2;
+			NetMessage.SendTileSquare(-1, x + w2 - 1, y + h2, 1 + w2 + h2);
+		}
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

@@ -142,7 +142,7 @@ namespace Spooky.Content.Generation
                     {
                         int roughingPosition = 0;
                         // Look for a Y position to put ellipses
-                        for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 6; lookupY++)
+                        for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 135; lookupY++)
                         {
                             if (Framing.GetTileSafely(i, lookupY).HasTile)
                             {
@@ -230,7 +230,7 @@ namespace Spooky.Content.Generation
                 List<Point> list = new();
                 for (int tileX = StartPosition - 50; tileX <= BiomeEdge + 50; tileX++)
                 {
-                    for (int tileY = Main.maxTilesY - 200; tileY <= Main.maxTilesY - 6; tileY++)
+                    for (int tileY = Main.maxTilesY - 200; tileY <= Main.maxTilesY - 135; tileY++)
                     {
                         // check if there's a tile, so it won't check all the surrounding tiles for nothing
                         if (Main.tile[tileX, tileY].HasTile)
@@ -548,7 +548,7 @@ namespace Spooky.Content.Generation
             //define the center of the biome
             int XMiddle = (StartPosition + BiomeEdge) / 2;
 
-            int StartPosY = Main.maxTilesY - 10;
+            int StartPosY = Main.maxTilesY - 150;
 
             ///place little eye's house
             int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
@@ -565,11 +565,11 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-                while (WorldGen.SolidTile(startX, startY) && startY >= Main.maxTilesY - 155)
+                while (!WorldGen.SolidTile(startX, startY) && Main.tile[startX, startY].TileType != ModContent.TileType<SpookyMushGrass>() && startY < Main.maxTilesY - 50)
 				{
-					startY--;
+					startY++;
 				}
-                if (WorldGen.SolidTile(startX, startY))
+                if (WorldGen.SolidTile(startX, startY) && Main.tile[startX, startY].TileType == ModContent.TileType<SpookyMushGrass>())
                 {
 					continue;
                 }
@@ -615,6 +615,10 @@ namespace Spooky.Content.Generation
                         {
                             DungeonX += (StartPosition < Main.maxTilesX / 2 ? 19 : -19);
                         }
+                        else
+                        {
+                            SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+                        }
 
                         GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
 
@@ -629,6 +633,8 @@ namespace Spooky.Content.Generation
                     }
                     if (numLoops >= numHallsBeforeRoom)
                     {
+                        SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+
                         GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
                         DungeonX += (StartPosition < Main.maxTilesX / 2 ? 53 : -53);
                     }
@@ -769,10 +775,10 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex1 + 2, new PassLegacy("Moco Cult Dungeon", GenerateNoseTemple));
             tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
             tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Moco Cult Dungeon", GenerateNoseTemple));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
             tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
             tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }

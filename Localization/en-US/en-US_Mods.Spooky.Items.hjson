@@ -2365,7 +2365,7 @@ MocoBox: {
 
 NoseTempleBox: {
 	DisplayName: Music Box (Snottre-Dame)
-	Tooltip: "[c/EF5145:Court Of The Snot-Nosed Bug] by BananaLizard"
+	Tooltip: "[c/EF5145:Grand Sinus Corridors] by BananaLizard"
 }
 
 OrroboroBox: {
@@ -3109,10 +3109,10 @@ BrickColorChanger1: {
 
 BrickColorChanger2: {
 	DisplayName: Brick Color Changer 2
-	Tooltip: Changes Green to Red
+	Tooltip: Changes Green to Gray
 }
 
 BrickColorChanger3: {
 	DisplayName: Brick Color Changer 3
-	Tooltip: Changes Red to Purple
+	Tooltip: Changes Gray to Purple
 }
