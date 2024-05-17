@@ -30,7 +30,11 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 		public override bool? UseItem(Player player)
 		{
 			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("Dragonfruit", 18000);
-			player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks++;
+
+            if (player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks < 10)
+            {
+			    player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks++;
+            }
 
 			return true;
 		}

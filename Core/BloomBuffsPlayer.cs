@@ -6,6 +6,11 @@ using System;
 using System.Linq;
 
 using Spooky.Content.UserInterfaces;
+using Spooky.Content.Projectiles.Blooms;
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Items.Catacomb.Blooms;
 
 namespace Spooky.Core
 {
@@ -43,6 +48,7 @@ namespace Spooky.Core
         public bool Dragonfruit = false;
 
         //misc stuff
+        public int DragonFruitSpawnTimer = 0;
         public int DragonfruitStacks = 0;
         public bool UnlockedSlot3 = false;
         public bool UnlockedSlot4 = false;
@@ -132,78 +138,25 @@ namespace Spooky.Core
         }
 
         //manually set the bools for each bonus if the list of buffs contains that buff name
-        //since the buffs order doesnt matter, just checking the slot list if it contains that respective string is fine
-        //this probably doesnt look very pretty but whatever, cannot be bothered to change it right now
         public void GivePlayerBloomBonus()
         {
-            if (BloomBuffSlots.Contains("FallGourd"))
-            {
-                FallGourd = true;
-            }
-            if (BloomBuffSlots.Contains("FallSoulPumpkin"))
-            {
-                FallSoulPumpkin = true;
-            }
-            if (BloomBuffSlots.Contains("FallWaterGourd"))
-            {
-                FallWaterGourd = true;
-            }
-            if (BloomBuffSlots.Contains("FallZucchini"))
-            {
-                FallZucchini = true;
-            }
-            if (BloomBuffSlots.Contains("WinterBlackberry"))
-            {
-                WinterBlackberry = true;
-            }
-            if (BloomBuffSlots.Contains("WinterBlueberry"))
-            {
-                WinterBlueberry = true;
-            }
-            if (BloomBuffSlots.Contains("WinterGooseberry"))
-            {
-                WinterGooseberry = true;
-            }
-            if (BloomBuffSlots.Contains("WinterStrawberry"))
-            {
-                WinterStrawberry = true;
-            }
-            if (BloomBuffSlots.Contains("SpringHeartFlower"))
-            {
-                SpringHeartFlower = true;
-            }
-            if (BloomBuffSlots.Contains("SpringIris"))
-            {
-                SpringIris = true;
-            }
-            if (BloomBuffSlots.Contains("SpringOrchid"))
-            {
-                SpringOrchid = true;
-            }
-            if (BloomBuffSlots.Contains("SpringRose"))
-            {
-                SpringRose = true;
-            }
-            if (BloomBuffSlots.Contains("SummerLemon"))
-            {
-                SummerLemon = true;
-            }
-            if (BloomBuffSlots.Contains("SummerOrange"))
-            {
-                SummerOrange = true;
-            }
-            if (BloomBuffSlots.Contains("SummerPineapple"))
-            {
-                SummerPineapple = true;
-            }
-            if (BloomBuffSlots.Contains("SummerSunflower"))
-            {
-                SummerSunflower = true;
-            }
-            if (BloomBuffSlots.Contains("Dragonfruit"))
-            {
-                Dragonfruit = true;
-            }
+            FallGourd = BloomBuffSlots.Contains("FallGourd");
+            FallSoulPumpkin = BloomBuffSlots.Contains("FallSoulPumpkin");
+            FallWaterGourd = BloomBuffSlots.Contains("FallWaterGourd");
+            FallZucchini = BloomBuffSlots.Contains("FallZucchini");
+            WinterBlackberry = BloomBuffSlots.Contains("WinterBlackberry");
+            WinterBlueberry = BloomBuffSlots.Contains("WinterBlueberry");
+            WinterGooseberry = BloomBuffSlots.Contains("WinterGooseberry");
+            WinterStrawberry = BloomBuffSlots.Contains("WinterStrawberry");
+            SpringHeartFlower = BloomBuffSlots.Contains("SpringHeartFlower");
+            SpringIris = BloomBuffSlots.Contains("SpringIris");
+            SpringOrchid = BloomBuffSlots.Contains("SpringOrchid");
+            SpringRose = BloomBuffSlots.Contains("SpringRose");
+            SummerLemon = BloomBuffSlots.Contains("SummerLemon");
+            SummerOrange = BloomBuffSlots.Contains("SummerOrange");
+			SummerPineapple = BloomBuffSlots.Contains("SummerPineapple");
+			SummerSunflower = BloomBuffSlots.Contains("SummerSunflower");
+            Dragonfruit = BloomBuffSlots.Contains("Dragonfruit");
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out
@@ -264,70 +217,70 @@ namespace Spooky.Core
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
 
-        public override void ResetEffects()
+		public override void PreUpdate()
         {
-            FallGourd = false;
-            FallSoulPumpkin = false;
-            FallWaterGourd = false;
-            FallZucchini = false;
-            WinterBlackberry = false;
-            WinterBlueberry = false;
-            WinterGooseberry = false;
-            WinterStrawberry = false;
-            SpringHeartFlower = false;
-            SpringIris = false;
-            SpringOrchid = false;
-            SpringRose = false;
-            SummerLemon = false;
-            SummerOrange = false;
-            SummerPineapple = false;
-            SummerSunflower = false;
-            Dragonfruit = false;
-        }
+			HandleBloomBuffDuration();
+			GivePlayerBloomBonus();
 
-        public override void PreUpdate()
-        {
-            //open the bloom buff UI if you have any bloom buff at all, if not then close it
-            //instead of just appearing, make the UI fade in for a cool effect if the player eats a bloom
-            if (BloomBuffSlots[0] == string.Empty && BloomBuffSlots[1] == string.Empty && BloomBuffSlots[2] == string.Empty && BloomBuffSlots[3] == string.Empty)
-            {
-                if (BloomBuffUI.Transparency > 0f)
-                {
-                    BloomBuffUI.Transparency -= 0.05f;
-                }
-            }
-            else
-            {
-                //draw the bloom UI fully when the players inventory is not open
-                if (!Main.playerInventory)
-                { 
-                    if (BloomBuffUI.Transparency < 1f)
-                    {
-                        BloomBuffUI.Transparency += 0.05f;
-                    }
-                }
-                //fade out a little if the players inventory is open
-                else
-                {
-                    if (BloomBuffUI.Transparency > 0.5f)
-                    {
-                        BloomBuffUI.Transparency -= 0.05f;
-                    }
-                    if (BloomBuffUI.Transparency < 0.5f)
-                    {
-                        BloomBuffUI.Transparency += 0.05f;
-                    }
-                }
-            }
+			//open the bloom buff UI if you have any bloom buff at all, if not then close it
+			//instead of just appearing, make the UI fade in for a cool effect if the player eats a bloom
+			if (BloomBuffSlots[0] == string.Empty && BloomBuffSlots[1] == string.Empty && BloomBuffSlots[2] == string.Empty && BloomBuffSlots[3] == string.Empty)
+			{
+				if (BloomBuffUI.Transparency > 0f)
+				{
+					BloomBuffUI.Transparency -= 0.05f;
+				}
+			}
+			else
+			{
+				//draw the bloom UI fully when the players inventory is not open
+				if (!Main.playerInventory)
+				{
+					if (BloomBuffUI.Transparency < 1f)
+					{
+						BloomBuffUI.Transparency += 0.05f;
+					}
+				}
+				//fade out a little if the players inventory is open
+				else
+				{
+					if (BloomBuffUI.Transparency > 0.5f)
+					{
+						BloomBuffUI.Transparency -= 0.05f;
+					}
+					if (BloomBuffUI.Transparency < 0.5f)
+					{
+						BloomBuffUI.Transparency += 0.05f;
+					}
+				}
+			}
 
-            HandleBloomBuffDuration();
-            GivePlayerBloomBonus();
+			//spawn orbiting dragon fruits around the player and spawn more with each stack the player has
+			if (Dragonfruit && Player.ownedProjectileCounts[ModContent.ProjectileType<DragonfruitOrbiter>()] < DragonfruitStacks)
+			{
+				DragonFruitSpawnTimer++;
 
-            //automatically remove all dragonfruit stacks if the player doesnt have that buff active
-            if (!Dragonfruit)
-            {
-                DragonfruitStacks = 0;
-            }
-        }
-    }
+				if (DragonFruitSpawnTimer >= 120)
+				{
+                    int numOrbiters = Player.ownedProjectileCounts[ModContent.ProjectileType<DragonfruitOrbiter>()];
+
+					int DistanceFromPlayer = 20 * (numOrbiters + 1);
+
+					Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<DragonfruitOrbiter>(), 40, 0f, Main.myPlayer, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
+
+					DragonFruitSpawnTimer = 0;
+				}
+			}
+			else
+			{
+				DragonFruitSpawnTimer = 0;
+			}
+			//automatically remove all dragonfruit stacks and reset the timer if the player doesnt have the buff active
+			if (!Dragonfruit)
+			{
+				DragonfruitStacks = 0;
+				DragonFruitSpawnTimer = 0;
+			}
+		}
+	}
 }
