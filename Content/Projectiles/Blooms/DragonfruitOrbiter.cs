@@ -98,6 +98,14 @@ namespace Spooky.Content.Projectiles.Blooms
         public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+
+            for (int numGores = 1; numGores <= 3; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/DragonfruitOrbiterGore" + numGores).Type);
+                }
+            }
 		}
     }
 }

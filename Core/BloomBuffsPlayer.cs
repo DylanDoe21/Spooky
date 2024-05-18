@@ -1,6 +1,8 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace Spooky.Core
     {
         //list of strings for each buff slot
         //each consumable bloom adds its name to a slot in this list of strings, and then each bonus is applied if that string is in the list
-        //also used in the bloom UI so that it can draw each respective buff icons on it
+        //also used in the bloom UI so that it can draw each respective buff icon on it
         public string[] BloomBuffSlots = new string[4];
 
         //durations for each buff slot
@@ -45,6 +47,9 @@ namespace Spooky.Core
         public bool SummerOrange = false;
         public bool SummerPineapple = false;
         public bool SummerSunflower = false;
+        public bool DandelionHerd = false;
+        public bool DandelionMapleSeed = false;
+        public bool DandelionTumbleweed = false;
         public bool Dragonfruit = false;
 
         //misc stuff
@@ -89,25 +94,45 @@ namespace Spooky.Core
         //when the player consumes a bloom, add that blooms name to a buff list slot and set its duration in that specific slot
         public void AddBuffToList(string BuffName, int Duration)
         {
-            //if the player consumes a bloom they already have, then reset the duration similarly to how drinking potions in terraria resets their duration if you have the buff already
-            //then return so that buffs name doesnt get added to the list again
+            //if the player consumes a bloom they already have, then add that blooms base duration to the existing bloom buffs duration
+            //also cap out the maximum duration for every single bloom buff at 72000 (which is 20 minutes in real time)
             if (BloomBuffSlots.Contains(BuffName))
             {
                 if (BloomBuffSlots[0] == BuffName)
                 {
-                    Duration1 = Duration;
+                    Duration1 += Duration;
+
+                    if (Duration1 > 72000)
+                    {
+                        Duration1 = 72000;
+                    }
                 }
                 else if (BloomBuffSlots[1] == BuffName)
                 {
-                    Duration2 = Duration;
+                    Duration2 += Duration;
+
+                    if (Duration2 > 72000)
+                    {
+                        Duration2 = 72000;
+                    }
                 }
                 else if (BloomBuffSlots[2] == BuffName && UnlockedSlot3)
                 {
-                    Duration3 = Duration;
+                    Duration3 += Duration;
+
+                    if (Duration3 > 72000)
+                    {
+                        Duration3 = 72000;
+                    }
                 }
                 else if (BloomBuffSlots[3] == BuffName && UnlockedSlot4)
                 {
-                    Duration4 = Duration;
+                    Duration4 += Duration;
+
+                    if (Duration4 > 72000)
+                    {
+                        Duration4 = 72000;
+                    }
                 }
 
                 return;
@@ -156,6 +181,9 @@ namespace Spooky.Core
             SummerOrange = BloomBuffSlots.Contains("SummerOrange");
 			SummerPineapple = BloomBuffSlots.Contains("SummerPineapple");
 			SummerSunflower = BloomBuffSlots.Contains("SummerSunflower");
+            DandelionHerd = BloomBuffSlots.Contains("DandelionHerd");
+            DandelionMapleSeed = BloomBuffSlots.Contains("DandelionMapleSeed");
+            DandelionTumbleweed = BloomBuffSlots.Contains("DandelionTumbleweed");
             Dragonfruit = BloomBuffSlots.Contains("Dragonfruit");
         }
 
@@ -217,10 +245,10 @@ namespace Spooky.Core
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
 
-		public override void PreUpdate()
+        public override void PreUpdate()
         {
-			HandleBloomBuffDuration();
 			GivePlayerBloomBonus();
+            HandleBloomBuffDuration();
 
 			//open the bloom buff UI if you have any bloom buff at all, if not then close it
 			//instead of just appearing, make the UI fade in for a cool effect if the player eats a bloom
@@ -262,11 +290,13 @@ namespace Spooky.Core
 
 				if (DragonFruitSpawnTimer >= 120)
 				{
+                    SoundEngine.PlaySound(SoundID.NPCDeath42 with { Pitch = 0.75f, Volume = 0.1f }, Player.Center);
+
                     int numOrbiters = Player.ownedProjectileCounts[ModContent.ProjectileType<DragonfruitOrbiter>()];
 
 					int DistanceFromPlayer = 20 * (numOrbiters + 1);
 
-					Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<DragonfruitOrbiter>(), 40, 0f, Main.myPlayer, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
+					Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<DragonfruitOrbiter>(), 50, 0f, Main.myPlayer, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
 
 					DragonFruitSpawnTimer = 0;
 				}
@@ -281,6 +311,29 @@ namespace Spooky.Core
 				DragonfruitStacks = 0;
 				DragonFruitSpawnTimer = 0;
 			}
-		}
+        }
+
+        public override void PostUpdate()
+        {
+            //fall gourd increases damage by 12% if you are falling
+			if (FallGourd && Player.velocity.Y > 0f)
+			{
+				Player.GetDamage(DamageClass.Generic) += 0.12f;
+			}
+        }
+
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            //spring rose gives the player thorns and inflicts bleeding sometimes
+            if (SpringRose)
+            {
+				Player.ApplyDamageToNPC(npc, 50, 2, 0, false);
+
+				if (Main.rand.NextBool(3))
+				{
+					//TODO: make a custom bleeding debuff for the rose to inflict
+				}
+            }
+        }
 	}
 }

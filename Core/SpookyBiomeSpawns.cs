@@ -107,7 +107,7 @@ namespace Spooky.Core
                         if (Main.hardMode)
                         {
 							pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
-                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 2);
+                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
                         }
                     }
 				}
@@ -161,7 +161,7 @@ namespace Spooky.Core
 						//hardmode enemies
 						if (Main.hardMode)
 						{
-							pool.Add(ModContent.NPCType<Witch>(), 2);
+							pool.Add(ModContent.NPCType<Witch>(), 1);
 							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 2);
 						}
 					}

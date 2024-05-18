@@ -199,6 +199,35 @@ FlowerLegs: {
 		'''
 }
 
+DandelionHerd: {
+	DisplayName: Dandelion Herd
+	Tooltip:
+		'''
+		You will leave behind short lived dandelion clusters while flying that hurt and stick to enemies
+		4 minute duration
+		'''
+}
+
+DandelionMapleSeed: {
+	DisplayName: Whindwhirl Mapleseed
+	Tooltip:
+		'''
+		Ocassionally spawns a gliding mapleseed around you while you are flying
+		Collecting these mapleseeds will slightly boost your flight time
+		4 minute duration
+		'''
+}
+
+DandelionTumbleweed: {
+	DisplayName: Tumblingweed
+	Tooltip:
+		'''
+		Grants you a temporary tumbleweed mount that allows you to move fast and jump really high
+		Deals damage when ramming into enemies that increases with speed
+		5 minute duration
+		'''
+}
+
 Dragonfruit: {
 	DisplayName: Diva Dragon Fruit
 	Tooltip:
@@ -207,7 +236,7 @@ Dragonfruit: {
 		After hitting an enemy the fruit will die, and will respawn after a few seconds
 		Eating multiple of this bloom while having this bloom's ability active will increase its stack
 		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
-		5 minute duration
+		3 minute duration
 		'Tastes like sass!'
 		'''
 }
@@ -217,7 +246,7 @@ FallGourd: {
 	Tooltip:
 		'''
 		Increases damage by 12% while you are falling down
-		3 minute duration
+		5 minute duration
 		'''
 }
 
@@ -225,7 +254,7 @@ FallSoulPumpkin: {
 	DisplayName: Pumptergeist
 	Tooltip:
 		'''
-		You will sometimes spawn a ghastly pumpkin that homes in on nearby enemies
+		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
 		The ghastly pumpkins will ignite enemies and possess them for a short time
 		2 minute duration
 		'''
@@ -235,7 +264,7 @@ FallWaterGourd: {
 	DisplayName: Watering Gourd
 	Tooltip:
 		'''
-		Any blooms you harvest have a chance to give you double the number of blooms and seeds
+		Any bloom crops you harvest have a chance to yield an extra bloom and additional seeds
 		5 minute duration
 		'''
 }
@@ -253,7 +282,7 @@ SpringHeartFlower: {
 	DisplayName: Bleeding Heart
 	Tooltip:
 		'''
-		Increase life regenation, and increases it further for each occupied bloom buff slot you have
+		Increases life regenation a bit, and increases it further for each of your occupied bloom buff slots
 		4 minute duration
 		'''
 }
@@ -262,8 +291,8 @@ SpringIris: {
 	DisplayName: Dialated Iris
 	Tooltip:
 		'''
-		Occassionally fire out a slow moving bolt that deals a decent amount of damage
-		If the bolt is active for more than 3 seconds, it will aggressively home in on a nearby enemy
+		Occassionally fire out a harmful slow moving iris petal
+		If the petal is active for long enough, it will aggressively home in on a nearby enemy
 		3 minute duration
 		'''
 }
@@ -272,9 +301,9 @@ SpringOrchid: {
 	DisplayName: Monkey Orchid
 	Tooltip:
 		'''
-		You have a small chance to shoot a barrage of monkey orchid shurikens while using a weapon 
-		These shurikens deal 35% of the currently held weapon's damage
-		3 minute duration
+		You have a small chance to shoot a spread of monkey orchid shurikens while using a weapon 
+		The monkey orchid shurikens will deal half of that weapon's damage
+		4 minute duration
 		'''
 }
 
@@ -282,8 +311,9 @@ SpringRose: {
 	DisplayName: Thorn-Tipped Rose
 	Tooltip:
 		'''
-		Grants you a ring of thorns which deals a small amount of damage and knockback to enemies, and inflicts Bleeding
-		4 minute duration
+		Grants you a ring of thorns that deals a small amount of damage and knockback
+		The thorn ring can also sometimes inflict enemies with bleeding for a short time
+		5 minute duration
 		'''
 }
 
@@ -291,7 +321,7 @@ SummerLemon: {
 	DisplayName: Multiplemon
 	Tooltip:
 		'''
-		Using weapons will sometimes shoot bouncing lemon projectiles
+		Using weapons will sometimes shoot bouncing lemon bombs
 		Each lemon shot consecutively will cause an extra bouncy lemon to shoot out
 		5 minute duration
 		'''
@@ -311,7 +341,7 @@ SummerPineapple: {
 	DisplayName: Poker Pinnaple
 	Tooltip:
 		'''
-		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 10%
+		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 15%
 		Critical hits will occassionally heal you a bit
 		5 minute duration
 		'''
@@ -321,8 +351,8 @@ SummerSunflower: {
 	DisplayName: Sunny-Side Up
 	Tooltip:
 		'''
-		Increases the rate blooms grow at by 20% 
-		Has a 50% chance of giving you the Happy buff when consumed
+		Significantly increases the rate at which bloom plants grow
+		Has a 50% chance of giving you the happy buff when eaten
 		5 minute duration
 		'''
 }
@@ -386,6 +416,16 @@ CatacombKey3: {
 PlantChunk: {
 	DisplayName: Plant Chunk
 	Tooltip: A piece of living plant matter
+}
+
+Slot3Unlocker: {
+	DisplayName: 2nd Place Ribbon
+	Tooltip: Use to unlock your third bloom buff slot
+}
+
+Slot4Unlocker: {
+	DisplayName: 1st Place Ribbon
+	Tooltip: Use to unlock your fourth bloom buff slot
 }
 
 BigBoneBow: {

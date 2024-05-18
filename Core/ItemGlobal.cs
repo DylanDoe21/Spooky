@@ -2,15 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.BossBags.Accessory;
-using Spooky.Content.Items.Costume;
+using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.MusicBox;
 
@@ -29,8 +26,7 @@ namespace Spooky.Core
 
             //manually handle daffodils music box recording if her intro themes are playing, since music boxes cant be assigned more than one song
             if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && 
-            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || 
-            Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
+            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
             {
                 SoundEngine.PlaySound(SoundID.Item166, player.Center);
                 item.ChangeItemType(ModContent.ItemType<DaffodilBox>());
@@ -108,6 +104,29 @@ namespace Spooky.Core
                     player.AddBuff(ModContent.BuffType<SnottySchnozCooldown>(), 1800);
                 }
             }
+
+			//items shoot out 3 monkey orchid shurikens if you have the monkey shruiken bloom buff
+			if (player.GetModPlayer<BloomBuffsPlayer>().SpringOrchid)
+			{
+				if (item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
+				{
+					if (Main.rand.NextBool(15))
+					{
+						float mouseXDist = Main.mouseX + Main.screenPosition.X;
+						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+						Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
+						ShootSpeed.Normalize();
+						ShootSpeed *= -7;
+
+						for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
+						{
+							Projectile.NewProjectile(null, player.Center, new Vector2(ShootSpeed.X - numProjectiles, ShootSpeed.Y - numProjectiles),
+							ModContent.ProjectileType<MonkeyOrchidShuriken>(), item.damage / 2, item.knockBack, player.whoAmI);
+						}
+					}
+				}
+			}
 
             return base.UseItem(item, player);
         }

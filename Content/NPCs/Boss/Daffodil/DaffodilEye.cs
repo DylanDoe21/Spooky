@@ -17,6 +17,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -955,6 +956,19 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void OnKill()
         {
+            for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
+            {
+                if (Main.player[numPlayer].active && !Main.player[numPlayer].GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
+                {
+                    int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<Slot3Unlocker>());
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedDaffodil, -1);
 
             MenuSaveSystem.hasDefeatedDaffodil = Flags.downedDaffodil;

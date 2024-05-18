@@ -20,6 +20,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -1593,6 +1594,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void OnKill()
         {
+            for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
+            {
+                if (Main.player[numPlayer].active && !Main.player[numPlayer].GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
+                {
+                    int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<Slot4Unlocker>());
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+                }
+            }
+
             if (!Flags.downedBigBone)
             {
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.BigBoneDefeat");

@@ -83,6 +83,7 @@ Enemy & Boss Changes:
 -Daffodil now has a new punch attack in phase 2
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little chunk gores when killed and heavily nerfed their jumping rate and speed
+-Candle monsters now dont spit flaming candle wax unless the player is close enough to them
 
 
 Miscellaneous:

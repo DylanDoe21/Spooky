@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Catacomb.Blooms
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
-			Item.rare = ItemRarityID.Quest;
+			Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item2;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.maxStack = 9999;
@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("Dragonfruit", 18000);
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("Dragonfruit", 10800);
 
             if (player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks < 10)
             {

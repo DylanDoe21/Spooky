@@ -168,6 +168,18 @@ namespace Spooky.Content.UserInterfaces
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerSunflowerIcon").Value;
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SummerSunflower.DisplayName");
                     break;
+                case "DandelionHerd": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionHerdIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionHerd.DisplayName");
+                    break;
+                case "DandelionMapleSeed": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionMapleSeedIcon").Value; 
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionMapleSeed.DisplayName");
+                    break;
+                case "DandelionTumbleweed": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionTumbleweedIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionTumbleweed.DisplayName");
+                    break;
                 case "Dragonfruit": 
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value; 
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.Dragonfruit.DisplayName");
