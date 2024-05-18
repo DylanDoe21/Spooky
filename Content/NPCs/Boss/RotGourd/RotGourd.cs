@@ -18,6 +18,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
 
@@ -1117,6 +1118,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			//drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
+
+			//pumpkin gut bloom seed, drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FallSeed>(), 1, 1, 2));
 
             //trophy always drops directly from the boss
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));

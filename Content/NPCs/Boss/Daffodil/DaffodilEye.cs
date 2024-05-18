@@ -9,6 +9,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -20,10 +21,9 @@ using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
-using System;
-using Spooky.Content.NPCs.Hallucinations;
 
 namespace Spooky.Content.NPCs.Boss.Daffodil
 {
@@ -947,6 +947,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DaffodilMask>(), 7));
+
+            //pollen bloom seed, drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpringSeed>(), 1, 1, 2));
 
             //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DaffodilTrophyItem>(), 10));

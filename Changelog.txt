@@ -28,6 +28,19 @@ Catacomb Improvements:
 
 New Farming Mechanic:
 
+-The blooms mechanic is a farming mechanic where you can plant seeds on special farmland blocks, which grow into a different plant depending on the seed type you planted
+-When the plant is fully grown, it will produce one of a few different blooms that you can pick off the plant and eat
+-Each individual bloom will give you a temporary bonus, with some giving you generic boosts, some giving you entirely unique abilities, and some even benefitting bloom crop growth
+-Unlike vanilla buffs though, blooms do not give you a regular buff, but instead have a special UI where their buffs show up
+-This bloom buff mechanic only has a limited number of slots, with 2 by default and 2 additional slots you can unlock later on after using items dropped by daffodil and big bone
+-This means you can use any combination of bloom buffs that you'd like, but you can only have a limited number of them active at once so make sure to consider which ones you want to use
+
+Some things to note about this buff mechanic:
+-Bloom buffs, unlike vanilla buffs, cannot be manually removed. Once you eat a bloom, you must wait for that buffs duration to run out for the slot to become open again
+-Unlike vanilla buffs, eating a bloom will not reset a blooms buff duration. Instead, eating a bloom for a buff you have already will actually add its duration to the remaining duration of that buff
+(For example, if you have a buff duration of 3 minutes for a specific bloom buff, and you eat the same bloom that gives you that buff for 5 minutes by default, then that buffs duration will be set to 8 minutes)
+(Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs maximum duration is 20 minutes and it will not go beyond that even if you eat more of that bloom)
+
 
 
 New Music:

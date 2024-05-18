@@ -4,14 +4,14 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.Catacomb.Blooms
+namespace Spooky.Content.Items.Blooms
 {
-	public class SummerPineapple : ModItem
+	public class SummerLemon : ModItem
 	{
 		public override void SetDefaults()
         {
-            Item.width = 46;
-            Item.height = 52;
+            Item.width = 44;
+            Item.height = 40;
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
@@ -24,12 +24,12 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("SummerPineapple");
+            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("SummerLemon");
         }
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("SummerPineapple", 18000);
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("SummerLemon", 18000);
 
 			return true;
 		}

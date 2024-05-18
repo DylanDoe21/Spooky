@@ -1,3 +1,203 @@
+DandelionHerd: {
+	DisplayName: Dandelion Herd
+	Tooltip:
+		'''
+		You will leave behind short lived dandelion clusters while flying that hurt and stick to enemies
+		4 minute duration
+		'''
+}
+
+DandelionMapleSeed: {
+	DisplayName: Whindwhirl Mapleseed
+	Tooltip:
+		'''
+		Ocassionally spawns a gliding mapleseed around you while you are flying
+		Collecting these mapleseeds will slightly boost your flight time
+		4 minute duration
+		'''
+}
+
+DandelionTumbleweed: {
+	DisplayName: Tumblingweed
+	Tooltip:
+		'''
+		Grants you a temporary tumbleweed mount that allows you to move fast and jump really high
+		Deals damage when ramming into enemies that increases with speed
+		5 minute duration
+		'''
+}
+
+Dragonfruit: {
+	DisplayName: Diva Dragon Fruit
+	Tooltip:
+		'''
+		Spawns a dragon fruit that will orbit around you and chase nearby enemies
+		After hitting an enemy the fruit will die, and will respawn after a few seconds
+		Eating multiple of this bloom while having this bloom's ability active will increase its stack
+		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
+		3 minute duration
+		'Tastes like sass!'
+		'''
+}
+
+FallGourd: {
+	DisplayName: The Squash
+	Tooltip:
+		'''
+		Increases damage by 12% while you are falling down
+		5 minute duration
+		'''
+}
+
+FallSoulPumpkin: {
+	DisplayName: Pumptergeist
+	Tooltip:
+		'''
+		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
+		The ghastly pumpkins will ignite enemies and possess them for a short time
+		2 minute duration
+		'''
+}
+
+FallWaterGourd: {
+	DisplayName: Watering Gourd
+	Tooltip:
+		'''
+		Any bloom crops you harvest have a chance to yield an extra bloom and additional seeds
+		10 minute duration
+		'''
+}
+
+FallZucchini: {
+	DisplayName: Zappy Zucchini
+	Tooltip:
+		'''
+		Occassionally zap nearby enemies with zucchini electricity for a few seconds
+		2 minute duration
+		'''
+}
+
+SpringHeartFlower: {
+	DisplayName: Bleeding Heart
+	Tooltip:
+		'''
+		Increases life regeneration by 10%
+		Grants an additional 10% life regeneration for each of your occupied bloom buff slots
+		4 minute duration
+		'''
+}
+
+SpringIris: {
+	DisplayName: Dialated Iris
+	Tooltip:
+		'''
+		Occassionally fire out a harmful slow moving iris petal
+		If the petal is active for long enough, it will aggressively home in on a nearby enemy
+		3 minute duration
+		'''
+}
+
+SpringOrchid: {
+	DisplayName: Monkey Orchid
+	Tooltip:
+		'''
+		You have a small chance to shoot a spread of monkey orchid shurikens while using a weapon 
+		The monkey orchid shurikens will deal half of that weapon's damage
+		4 minute duration
+		'''
+}
+
+SpringRose: {
+	DisplayName: Thorn-Tipped Rose
+	Tooltip:
+		'''
+		Grants you a ring of thorns that deals a small amount of damage and knockback
+		The thorn ring can also sometimes inflict enemies with bleeding for a short time
+		5 minute duration
+		'''
+}
+
+SummerLemon: {
+	DisplayName: Multiplemon
+	Tooltip:
+		'''
+		Using weapons will sometimes shoot bouncing lemon bombs
+		Each lemon shot consecutively will cause an extra bouncy lemon to shoot out
+		5 minute duration
+		'''
+}
+
+SummerOrange: {
+	DisplayName: Angry Orange
+	Tooltip:
+		'''
+		Grants you an aura that sets enemies inside of it on fire
+		The auras radius will increase the faster you are currently moving
+		5 minute duration
+		'''
+}
+
+SummerPineapple: {
+	DisplayName: Poker Pinnaple
+	Tooltip:
+		'''
+		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 15%
+		Critical hits will occassionally heal you a bit
+		5 minute duration
+		'''
+}
+
+SummerSunflower: {
+	DisplayName: Sunny-Side Up
+	Tooltip:
+		'''
+		Significantly increases the rate at which bloom plants grow
+		Has a 50% chance of giving you the happy buff when eaten
+		5 minute duration
+		'''
+}
+
+WinterBlackberry: {
+	DisplayName: Blackberry Glacier
+	Tooltip:
+		'''
+		Any blooms you harvet have a chance to be refrigerated
+		A refrigerated bloom's effects will last for 50% longer
+		10 minute duration
+		'''
+}
+
+WinterBlueberry: {
+	DisplayName: Verry Blues
+	Tooltip:
+		'''
+		Weapons have a chance to inflict an enemy with frozen blueberry juice which will slown them down
+		Additionally, any enemy nearby the initial enemy will also be inflicted with it for a shorter time
+		5 minute duration
+		'''
+}
+
+WinterGooseberry: {
+	DisplayName: Plump Gooseberry
+	Tooltip:
+		'''
+		Every third instance of damage you deal has a 30% chance to spawn a Gooseberry you can pick up
+		Gooseberries increase life regeneration and damage by 10% when picked up for a short time
+		However, gooseberries will be destroyed upon making contact with hostile projectiles
+		5 minute duration
+		'''
+}
+
+WinterStrawberry: {
+	DisplayName: Mountain Strawberry
+	Tooltip:
+		'''
+		Ocasionally a mountain strawberry will spawn nearby you
+		Picking these strawberries up will grant a 10% boost to all stats for a few seconds
+		5 minute duration
+		'''
+}
+
 BoneMask: {
 	DisplayName: Disciple's Mask
 	Tooltip:
@@ -196,205 +396,6 @@ FlowerLegs: {
 		Grants immunity to knockback
 		Reduces damage taken by 8%
 		Causes you to fall much faster when worn
-		'''
-}
-
-DandelionHerd: {
-	DisplayName: Dandelion Herd
-	Tooltip:
-		'''
-		You will leave behind short lived dandelion clusters while flying that hurt and stick to enemies
-		4 minute duration
-		'''
-}
-
-DandelionMapleSeed: {
-	DisplayName: Whindwhirl Mapleseed
-	Tooltip:
-		'''
-		Ocassionally spawns a gliding mapleseed around you while you are flying
-		Collecting these mapleseeds will slightly boost your flight time
-		4 minute duration
-		'''
-}
-
-DandelionTumbleweed: {
-	DisplayName: Tumblingweed
-	Tooltip:
-		'''
-		Grants you a temporary tumbleweed mount that allows you to move fast and jump really high
-		Deals damage when ramming into enemies that increases with speed
-		5 minute duration
-		'''
-}
-
-Dragonfruit: {
-	DisplayName: Diva Dragon Fruit
-	Tooltip:
-		'''
-		Spawns a dragon fruit that will orbit around you and chase nearby enemies
-		After hitting an enemy the fruit will die, and will respawn after a few seconds
-		Eating multiple of this bloom while having this bloom's ability active will increase its stack
-		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
-		3 minute duration
-		'Tastes like sass!'
-		'''
-}
-
-FallGourd: {
-	DisplayName: The Squash
-	Tooltip:
-		'''
-		Increases damage by 12% while you are falling down
-		5 minute duration
-		'''
-}
-
-FallSoulPumpkin: {
-	DisplayName: Pumptergeist
-	Tooltip:
-		'''
-		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
-		The ghastly pumpkins will ignite enemies and possess them for a short time
-		2 minute duration
-		'''
-}
-
-FallWaterGourd: {
-	DisplayName: Watering Gourd
-	Tooltip:
-		'''
-		Any bloom crops you harvest have a chance to yield an extra bloom and additional seeds
-		5 minute duration
-		'''
-}
-
-FallZucchini: {
-	DisplayName: Zappy Zucchini
-	Tooltip:
-		'''
-		Occassionally zap nearby enemies with zucchini electricity for a few seconds
-		2 minute duration
-		'''
-}
-
-SpringHeartFlower: {
-	DisplayName: Bleeding Heart
-	Tooltip:
-		'''
-		Increases life regenation a bit, and increases it further for each of your occupied bloom buff slots
-		4 minute duration
-		'''
-}
-
-SpringIris: {
-	DisplayName: Dialated Iris
-	Tooltip:
-		'''
-		Occassionally fire out a harmful slow moving iris petal
-		If the petal is active for long enough, it will aggressively home in on a nearby enemy
-		3 minute duration
-		'''
-}
-
-SpringOrchid: {
-	DisplayName: Monkey Orchid
-	Tooltip:
-		'''
-		You have a small chance to shoot a spread of monkey orchid shurikens while using a weapon 
-		The monkey orchid shurikens will deal half of that weapon's damage
-		4 minute duration
-		'''
-}
-
-SpringRose: {
-	DisplayName: Thorn-Tipped Rose
-	Tooltip:
-		'''
-		Grants you a ring of thorns that deals a small amount of damage and knockback
-		The thorn ring can also sometimes inflict enemies with bleeding for a short time
-		5 minute duration
-		'''
-}
-
-SummerLemon: {
-	DisplayName: Multiplemon
-	Tooltip:
-		'''
-		Using weapons will sometimes shoot bouncing lemon bombs
-		Each lemon shot consecutively will cause an extra bouncy lemon to shoot out
-		5 minute duration
-		'''
-}
-
-SummerOrange: {
-	DisplayName: Angry Orange
-	Tooltip:
-		'''
-		Grants you an aura that sets enemies inside of it on fire
-		The auras radius will increase the faster you are currently moving
-		5 minute duration
-		'''
-}
-
-SummerPineapple: {
-	DisplayName: Poker Pinnaple
-	Tooltip:
-		'''
-		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 15%
-		Critical hits will occassionally heal you a bit
-		5 minute duration
-		'''
-}
-
-SummerSunflower: {
-	DisplayName: Sunny-Side Up
-	Tooltip:
-		'''
-		Significantly increases the rate at which bloom plants grow
-		Has a 50% chance of giving you the happy buff when eaten
-		5 minute duration
-		'''
-}
-
-WinterBlackberry: {
-	DisplayName: Blackberry Glacier
-	Tooltip:
-		'''
-		Any blooms you harvet have a chance to be refrigerated
-		A refrigerated bloom's effects will last for 50% longer
-		10 minute duration
-		'''
-}
-
-WinterBlueberry: {
-	DisplayName: Verry Blues
-	Tooltip:
-		'''
-		Weapons have a chance to inflict an enemy with frozen blueberry juice which will slown them down
-		Additionally, any enemy nearby the initial enemy will also be inflicted with it for a shorter time
-		5 minute duration
-		'''
-}
-
-WinterGooseberry: {
-	DisplayName: Winter Gooseberry
-	Tooltip:
-		'''
-		Every third instance of damage you deal has a 30% chance to spawn a Gooseberry you can pick up
-		Gooseberries increase health regeneration by 5% when picked up
-		However, gooseberries will be destroyed upon making contact with hostile projectiles
-		5 minute duration
-		'''
-}
-
-WinterStrawberry: {
-	DisplayName: Mountain Strawberry
-	Tooltip:
-		'''
-		Ocasionally a mountain strawberry will spawn nearby you
-		Picking these strawberries up will grant a 10% boost to all stats for a few seconds
-		5 minute duration
 		'''
 }
 
@@ -1619,6 +1620,15 @@ FlySmallItem: {
 	Tooltip: ""
 }
 
+LittleBonePot: {
+	DisplayName: Little Bone's Flower Pot
+	Tooltip:
+		'''
+		A magical flower pot that belongs to little bone
+		Use to summon Little Bone to your location
+		'''
+}
+
 LittleSpiderItem: {
 	DisplayName: Little Spider
 	Tooltip: ""
@@ -1924,6 +1934,11 @@ ChestFood: {
 CreepyChunk: {
 	DisplayName: Monster Meat
 	Tooltip: "'Looks almost edible!'"
+}
+
+LeechWhipGore: {
+	DisplayName: Gore Food
+	Tooltip: ""
 }
 
 SpookyHellKey: {
@@ -2319,18 +2334,59 @@ VinylSneaky: {
 	Tooltip: ""
 }
 
-LittleBonePot: {
-	DisplayName: Little Bone's Flower Pot
+DandelionSeed: {
+	DisplayName: Dandelion Seed
 	Tooltip:
 		'''
-		A magical flower pot that belongs to little bone
-		Use to summon Little Bone to your location
+		Places a plant that grows various dandelion seed blooms
+		Requires a flat ground of Spring Garden Soil to be planted on
 		'''
 }
 
-LeechWhipGore: {
-	DisplayName: Gore Food
-	Tooltip: ""
+DragonfruitSeed: {
+	DisplayName: Diva Seed
+	Tooltip:
+		'''
+		Places an invasive plant that grows a strange bloom
+		Can be planted on a flat ground of any Garden Soil
+		Try not to plant this too close to other blooms
+		'''
+}
+
+FallSeed: {
+	DisplayName: Pumpkin Guts
+	Tooltip:
+		'''
+		Places a plant that grows various gourd blooms
+		Requires a flat ground of Autumn Garden Soil to be planted on
+		'''
+}
+
+SpringSeed: {
+	DisplayName: Spring Pollen
+	Tooltip:
+		'''
+		Places a plant that grows various flower blooms
+		Requires a flat ground of Spring Garden Soil to be planted on
+		'''
+}
+
+SummerSeed: {
+	DisplayName: Solar Sunflower Seed
+	Tooltip:
+		'''
+		Places a plant that grows various tropical blooms
+		Requires a flat ground of Summer Garden Soil to be planted on
+		'''
+}
+
+WinterSeed: {
+	DisplayName: Snowy Berry Bush
+	Tooltip:
+		'''
+		Places a plant that grows various cold blooms
+		Requires a flat ground of Winter Garden Soil to be planted on
+		'''
 }
 
 CatacombCrate: {

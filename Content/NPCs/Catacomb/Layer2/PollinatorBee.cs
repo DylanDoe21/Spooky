@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
+using Spooky.Content.Tiles.Blooms;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
@@ -19,7 +21,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public static List<int> BuffableNPCs = new List<int>() 
         {
-            ModContent.NPCType<Dahlia>(),
             ModContent.NPCType<JumpingSeed1>(),
             ModContent.NPCType<JumpingSeed2>(),
             ModContent.NPCType<JumpingSeed3>(),
@@ -244,6 +245,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     break;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DandelionSeed>(), 10, 1, 2));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

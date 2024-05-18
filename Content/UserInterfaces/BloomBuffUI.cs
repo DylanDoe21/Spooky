@@ -1,12 +1,13 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 using Spooky.Core;
-using ReLogic.Content;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -207,7 +208,11 @@ namespace Spooky.Content.UserInterfaces
                 {
                     if (IconTexture != ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value)
                     {
-                        Main.instance.MouseText(BuffDisplayName + "\n" + DurationToCheckFor.ToString());
+						//convert the buff time to minutes and seconds by dividing the time by 60 and then changing it to Minutes:Seconds format
+						TimeSpan time = TimeSpan.FromSeconds(DurationToCheckFor / 60);
+						string answer = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+
+						Main.instance.MouseText(BuffDisplayName + "\n" + answer);
                     }
                     else
                     {

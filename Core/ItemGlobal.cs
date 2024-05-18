@@ -117,7 +117,7 @@ namespace Spooky.Core
 
 						Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
 						ShootSpeed.Normalize();
-						ShootSpeed *= -7;
+						ShootSpeed *= -8;
 
 						for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
 						{

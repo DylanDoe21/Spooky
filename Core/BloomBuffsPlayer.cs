@@ -7,12 +7,9 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-using Spooky.Content.UserInterfaces;
 using Spooky.Content.Projectiles.Blooms;
-using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.Catacomb;
-using Spooky.Content.Projectiles.Catacomb;
-using Spooky.Content.Items.Catacomb.Blooms;
+using Spooky.Content.UserInterfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Spooky.Core
 {
@@ -52,11 +49,15 @@ namespace Spooky.Core
         public bool DandelionTumbleweed = false;
         public bool Dragonfruit = false;
 
-        //misc stuff
-        public int DragonFruitSpawnTimer = 0;
-        public int DragonfruitStacks = 0;
-        public bool UnlockedSlot3 = false;
-        public bool UnlockedSlot4 = false;
+		//slot unlocks
+		public bool UnlockedSlot3 = false;
+		public bool UnlockedSlot4 = false;
+
+		//misc stuff
+		public int FallSoulPumpkinTimer = 0;
+		public int FallZucchiniTimer = 0;
+		public int DragonFruitTimer = 0;
+		public int DragonfruitStacks = 0;
 
         //UI default position
         public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 116f, 75f);
@@ -64,7 +65,7 @@ namespace Spooky.Core
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
         public bool CanConsumeFruit(string BuffName)
         {
-            //if the player eats a bloom they already have active, allow it to be used so it can reset the buff duration
+            //if the player eats a bloom they already have active, allow it to be used so its duration can be added to its exsiting buff duration
             if (BloomBuffSlots.Contains(BuffName))
             {
                 return true;
@@ -76,7 +77,7 @@ namespace Spooky.Core
                 {
                     return false;
                 }
-                //if every single buff slot is filled and the fourth slot is locked, dont allow the player to consume a bloom
+                //if every single buff slot is filled and slot 4 is locked, dont allow the player to consume a bloom
                 if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && BloomBuffSlots[2] != string.Empty && !UnlockedSlot4)
                 {
                     return false;
@@ -283,12 +284,60 @@ namespace Spooky.Core
 				}
 			}
 
+            //spawn soul pumpkins around the player somewhat randomly 
+            if (FallSoulPumpkin && Player.ownedProjectileCounts[ModContent.ProjectileType<GhastlyPumpkin>()] < 1)
+            {
+                FallSoulPumpkinTimer++;
+
+                if (FallSoulPumpkinTimer > 360 && Main.rand.NextBool(25))
+                {
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + Main.rand.Next(-30, 30), Player.Center.Y + Main.rand.Next(-50, -30)), 
+                    Vector2.Zero, ModContent.ProjectileType<GhastlyPumpkin>(), 30, 0, Player.whoAmI);
+
+					FallSoulPumpkinTimer = 0;
+                }
+            }
+            else
+			{
+				FallSoulPumpkinTimer = 0;
+			}
+
+			if (FallZucchini)
+			{
+				FallZucchiniTimer++;
+
+				if (FallZucchiniTimer == 600 || FallZucchiniTimer == 620 || FallZucchiniTimer == 640)
+				{
+					for (int i = 0; i < 200; i++)
+					{
+						NPC NPC = Main.npc[i];
+						if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+						{
+							Vector2 ShootSpeed = NPC.Center - Player.Center;
+							ShootSpeed.Normalize();
+							ShootSpeed *= 8;
+
+							Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), 20, 3, Player.whoAmI, ShootSpeed.ToRotation());
+						}
+					}
+				}
+
+				if (FallZucchiniTimer > 660)
+				{
+					FallZucchiniTimer = 0;
+				}
+			}
+			else
+			{
+				FallZucchiniTimer = 0;
+			}
+
 			//spawn orbiting dragon fruits around the player and spawn more with each stack the player has
 			if (Dragonfruit && Player.ownedProjectileCounts[ModContent.ProjectileType<DragonfruitOrbiter>()] < DragonfruitStacks)
 			{
-				DragonFruitSpawnTimer++;
+				DragonFruitTimer++;
 
-				if (DragonFruitSpawnTimer >= 120)
+				if (DragonFruitTimer >= 120)
 				{
                     SoundEngine.PlaySound(SoundID.NPCDeath42 with { Pitch = 0.75f, Volume = 0.1f }, Player.Center);
 
@@ -296,20 +345,20 @@ namespace Spooky.Core
 
 					int DistanceFromPlayer = 20 * (numOrbiters + 1);
 
-					Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<DragonfruitOrbiter>(), 50, 0f, Main.myPlayer, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
+					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DragonfruitOrbiter>(), 50, 3, Player.whoAmI, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
 
-					DragonFruitSpawnTimer = 0;
+					DragonFruitTimer = 0;
 				}
 			}
 			else
 			{
-				DragonFruitSpawnTimer = 0;
+				DragonFruitTimer = 0;
 			}
 			//automatically remove all dragonfruit stacks and reset the timer if the player doesnt have the buff active
 			if (!Dragonfruit)
 			{
 				DragonfruitStacks = 0;
-				DragonFruitSpawnTimer = 0;
+				DragonFruitTimer = 0;
 			}
         }
 
@@ -320,6 +369,27 @@ namespace Spooky.Core
 			{
 				Player.GetDamage(DamageClass.Generic) += 0.12f;
 			}
+
+			//give the player additional life regeneration for each bloom slot in use
+			if (SpringHeartFlower)
+			{
+				if (BloomBuffSlots[0] != string.Empty)
+				{
+					Player.lifeRegen += 10;
+				}
+				if (BloomBuffSlots[1] != string.Empty)
+				{
+					Player.lifeRegen += 10;
+				}
+				if (BloomBuffSlots[2] != string.Empty)
+				{
+					Player.lifeRegen += 10;
+				}
+				if (BloomBuffSlots[3] != string.Empty)
+				{
+					Player.lifeRegen += 10;
+				}
+			}
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
@@ -327,7 +397,7 @@ namespace Spooky.Core
             //spring rose gives the player thorns and inflicts bleeding sometimes
             if (SpringRose)
             {
-				Player.ApplyDamageToNPC(npc, 50, 2, 0, false);
+				Player.ApplyDamageToNPC(npc, 40, 2, 0, false);
 
 				if (Main.rand.NextBool(3))
 				{

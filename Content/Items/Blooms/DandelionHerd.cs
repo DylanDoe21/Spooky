@@ -4,14 +4,14 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.Catacomb.Blooms
+namespace Spooky.Content.Items.Blooms
 {
-	public class SpringHeartFlower : ModItem
+	public class DandelionHerd : ModItem
 	{
 		public override void SetDefaults()
         {
-            Item.width = 46;
-            Item.height = 56;
+            Item.width = 56;
+            Item.height = 68;
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
@@ -24,12 +24,12 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("SpringHeartFlower");
+            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("DandelionHerd");
         }
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("SpringHeartFlower", 18000);
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("DandelionHerd", 18000);
 
 			return true;
 		}

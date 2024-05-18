@@ -20,6 +20,7 @@ namespace Spooky.Content.Projectiles.Blooms
         {
             Projectile.width = 46;
             Projectile.height = 44;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
@@ -76,7 +77,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 230;
+            const float homingMaximumRangeInPixels = 260;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

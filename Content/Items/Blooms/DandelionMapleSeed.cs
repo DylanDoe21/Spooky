@@ -4,18 +4,18 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.Catacomb.Blooms
+namespace Spooky.Content.Items.Blooms
 {
-	public class WinterStrawberry : ModItem
+	public class DandelionMapleSeed : ModItem
 	{
 		public override void SetDefaults()
         {
-            Item.width = 42;
-            Item.height = 56;
+            Item.width = 44;
+            Item.height = 58;
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item2;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.maxStack = 9999;
@@ -24,12 +24,12 @@ namespace Spooky.Content.Items.Catacomb.Blooms
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("WinterStrawberry");
+            return player.GetModPlayer<BloomBuffsPlayer>().CanConsumeFruit("DandelionMapleSeed");
         }
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("WinterStrawberry", 18000);
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("DandelionMapleSeed", 18000);
 
 			return true;
 		}

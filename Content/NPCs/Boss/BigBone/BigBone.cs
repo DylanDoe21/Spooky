@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,9 +24,9 @@ using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
-using ReLogic.Content;
 
 namespace Spooky.Content.NPCs.Boss.BigBone
 {
@@ -1585,6 +1586,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlowerPotHead>(), 20));
+
+            //sunflower bloom seed, drop directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SummerSeed>(), 1, 1, 2));
 
             //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));
