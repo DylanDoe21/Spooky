@@ -56,6 +56,7 @@ namespace Spooky.Core
 		//misc stuff
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
+        public int SummerLemonsShot = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
 

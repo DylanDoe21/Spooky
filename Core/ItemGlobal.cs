@@ -82,7 +82,7 @@ namespace Spooky.Core
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
                 //if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
-                if (item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))))
+                if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))))
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 
@@ -108,7 +108,7 @@ namespace Spooky.Core
 			//items shoot out 3 monkey orchid shurikens if you have the monkey shruiken bloom buff
 			if (player.GetModPlayer<BloomBuffsPlayer>().SpringOrchid)
 			{
-				if (item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
+				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 				{
 					if (Main.rand.NextBool(15))
 					{
@@ -128,7 +128,41 @@ namespace Spooky.Core
 				}
 			}
 
-            return base.UseItem(item, player);
+			//items shoot out lemon bombs with the summer lemon bloom buff
+			if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemon)
+			{
+				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
+				{
+
+					if (Main.rand.NextBool(8) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool()))
+					{
+						float mouseXDist = Main.mouseX + Main.screenPosition.X;
+						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+						for (int numProjectiles = 0; numProjectiles <= player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot; numProjectiles++)
+						{
+							Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
+							ShootSpeed.Normalize();
+							ShootSpeed *= -15 + -numProjectiles;
+
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage , item.knockBack, player.whoAmI);
+						}
+
+						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;
+
+						if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 4)
+						{
+							player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot = 0;
+						}
+					}
+					else
+					{
+						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot = 0;
+					}
+				}
+			}
+
+			return base.UseItem(item, player);
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
