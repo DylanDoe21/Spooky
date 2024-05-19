@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Projectiles.Blooms
 {
     public class BouncyLemon : ModProjectile
@@ -64,6 +66,14 @@ namespace Spooky.Content.Projectiles.Blooms
 
 		public override void OnKill(int timeLeft)
 		{
+            SoundEngine.PlaySound(SoundID.NPCDeath1 with { Volume = 0.5f }, Projectile.Center);
+
+            for (int numDusts = 0; numDusts <= 5; numDusts++)
+            {
+                int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Gold * 0.5f, Main.rand.NextFloat(0.5f, 0.75f));
+                Main.dust[DustEffect].velocity *= 0;
+                Main.dust[DustEffect].alpha = 100;
+            }
 		}
     }
 }

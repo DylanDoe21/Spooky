@@ -141,9 +141,10 @@ namespace Spooky.Core
 
 						for (int numProjectiles = 0; numProjectiles <= player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot; numProjectiles++)
 						{
-							Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
+							Vector2 ShootSpeed = new Vector2(mouseXDist, mouseYDist) - player.Center;
 							ShootSpeed.Normalize();
-							ShootSpeed *= -15 + -numProjectiles;
+							ShootSpeed.X *= 15 + Main.rand.NextFloat(-5f, 5f);
+                            ShootSpeed.Y *= 15 + Main.rand.NextFloat(-5f, 5f);
 
 							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage , item.knockBack, player.whoAmI);
 						}
