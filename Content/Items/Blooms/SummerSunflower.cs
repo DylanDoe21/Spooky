@@ -30,11 +30,7 @@ namespace Spooky.Content.Items.Blooms
 		public override bool? UseItem(Player player)
 		{
 			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("SummerSunflower", 18000);
-
-            if (Main.rand.NextBool())
-            {
-                player.AddBuff(BuffID.Sunflower, 7200);
-            }
+            player.AddBuff(BuffID.Sunflower, 7200);
 
 			return true;
 		}

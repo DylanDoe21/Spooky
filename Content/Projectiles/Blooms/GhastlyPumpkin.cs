@@ -52,6 +52,11 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.OnFire, 180);
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

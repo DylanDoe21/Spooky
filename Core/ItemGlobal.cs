@@ -35,7 +35,16 @@ namespace Spooky.Core
             base.UpdateAccessory(item, player, hideVisual);
         }
 
-        public override bool CanUseItem(Item item, Player player)
+		public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
+		{
+			//halve crit chance with the poker pineapple bloom
+			if (player.GetModPlayer<BloomBuffsPlayer>().SummerPineapple)
+			{
+				crit *= 0.5f;
+			}
+		}
+
+		public override bool CanUseItem(Item item, Player player)
         {
             //disable a bunch of tools and other utility items while in the catacombs
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>())) //|| player.InModBiome<NoseTempleBiome>())

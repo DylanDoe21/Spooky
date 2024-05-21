@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.UserInterfaces;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Spooky.Core
 {
@@ -340,7 +340,7 @@ namespace Spooky.Core
 				FallZucchiniTimer = 0;
 			}
 
-            //spawn orbiting dragon fruits around the player and spawn more with each stack the player has
+            //spawn invisible rose thorn projectile on the player so the ring looks like its inflicting damage
 			if (SpringRose && Player.ownedProjectileCounts[ModContent.ProjectileType<RoseThornRing>()] < 1)
 			{
 				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);
@@ -405,5 +405,35 @@ namespace Spooky.Core
 				}
 			}
         }
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			//increase all crit damage by 35% with the poker pineapple
+			if (SummerPineapple)
+			{
+				modifiers.CritDamage += 1.35f;
+			}
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			//if the player lands a crit wit hthe poker pineapple, then heal them and produce some pineapple dusts for a cool effect
+			if (SummerPineapple && hit.Crit)
+			{
+				int randomHealAmount = Main.rand.Next(10, 25);
+
+				Player.statLife += randomHealAmount;
+				Player.HealEffect(randomHealAmount, true);
+
+				for (int numDusts = 0; numDusts < 6; numDusts++)
+				{
+					Vector2 vel = Main.rand.NextVector2Circular(2, 4);
+					vel.Y = MathF.Abs(vel.Y) * -1;
+					Dust.NewDustPerfect(Player.Center + new Vector2(Main.rand.Next(-24, 24), 0), ModContent.DustType<PineappleDust>(), vel, 0, default, 1f);
+				}
+			}
+			
+			base.OnHitNPC(target, hit, damageDone);
+		}
 	}
 }

@@ -55,7 +55,7 @@ FallSoulPumpkin: {
 		'''
 		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
 		The ghastly pumpkins will ignite enemies and possess them for a short time
-		2 minute duration
+		4 minute duration
 		'''
 }
 
@@ -83,7 +83,7 @@ SpringHeartFlower: {
 		'''
 		Increases life regeneration by 10%
 		Grants an additional 10% life regeneration for each of your occupied bloom buff slots
-		4 minute duration
+		5 minute duration
 		'''
 }
 
@@ -113,7 +113,7 @@ SpringRose: {
 		'''
 		Grants you a ring of thorns that deals a small amount of damage and knockback
 		The thorn ring can also sometimes inflict enemies with bleeding for a short time
-		5 minute duration
+		6 minute duration
 		'''
 }
 
@@ -138,11 +138,11 @@ SummerOrange: {
 }
 
 SummerPineapple: {
-	DisplayName: Poker Pinnaple
+	DisplayName: Poker Pineapple
 	Tooltip:
 		'''
-		Increases damage dealt from critical hits by 20%, but lowers critical strike chance by 15%
-		Critical hits will occassionally heal you a bit
+		Increases damage dealt from critical hits by 35% but halves your overall critical strike chance
+		Critical hits will also heal you a bit
 		5 minute duration
 		'''
 }
@@ -152,7 +152,7 @@ SummerSunflower: {
 	Tooltip:
 		'''
 		Significantly increases the rate at which bloom plants grow
-		Has a 50% chance of giving you the happy buff when eaten
+		Gives you the happy sunflower buff for 2 minutes
 		5 minute duration
 		'''
 }
@@ -420,13 +420,13 @@ PlantChunk: {
 }
 
 Slot3Unlocker: {
-	DisplayName: 2nd Place Ribbon
-	Tooltip: Use to unlock your third bloom buff slot
+	DisplayName: 2nd Place Bloom Ribbon
+	Tooltip: Unlocks your third bloom slot
 }
 
 Slot4Unlocker: {
-	DisplayName: 1st Place Ribbon
-	Tooltip: Use to unlock your fourth bloom buff slot
+	DisplayName: 1st Place Bloom Ribbon
+	Tooltip: Unlocks your fourth bloom slot
 }
 
 BigBoneBow: {
