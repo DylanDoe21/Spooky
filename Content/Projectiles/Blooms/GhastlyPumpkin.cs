@@ -56,7 +56,7 @@ namespace Spooky.Content.Projectiles.Blooms
         {
             Player player = Main.player[Projectile.owner];
 
-            Projectile.spriteDirection = Projectile.direction;
+            Projectile.spriteDirection = player.direction;
             Projectile.rotation = Projectile.velocity.X * 0.04f;
 
             if (player.dead || !player.GetModPlayer<BloomBuffsPlayer>().FallSoulPumpkin)
@@ -64,9 +64,9 @@ namespace Spooky.Content.Projectiles.Blooms
                 Projectile.Kill();
             }
 
-            if (Projectile.timeLeft <= 255)
+            if (Projectile.timeLeft <= 125)
             {
-                Projectile.alpha++;
+                Projectile.alpha += 2;
             }
 
             if (Projectile.ai[0] == 0)
@@ -92,6 +92,8 @@ namespace Spooky.Content.Projectiles.Blooms
 			int foundTarget = HomeOnTarget();
             if (foundTarget != -1)
             {
+                Projectile.spriteDirection = Projectile.direction;
+
 				NPC target = Main.npc[foundTarget];
 				Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 7;
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
@@ -125,7 +127,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
         public void GoAbovePlayer(Player player)
         {
-            float goToX = player.Center.X - Projectile.Center.X;
+            float goToX = player.Center.X - Projectile.Center.X + (player.direction == 1 ? -5 : 5);
             float goToY = player.Center.Y - Projectile.Center.Y - 100;
 
             float speed = 0.08f;

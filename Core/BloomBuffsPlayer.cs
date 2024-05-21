@@ -57,6 +57,7 @@ namespace Spooky.Core
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
         public int SummerLemonsShot = 0;
+        public int SummerLemonDelay = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
 
@@ -285,6 +286,12 @@ namespace Spooky.Core
 				}
 			}
 
+            //decrease lemon shoot delay time
+            if (SummerLemonDelay > 0)
+            {
+                SummerLemonDelay--;
+            }
+
             //spawn soul pumpkins around the player somewhat randomly 
             if (FallSoulPumpkin && Player.ownedProjectileCounts[ModContent.ProjectileType<GhastlyPumpkin>()] < 1)
             {
@@ -331,6 +338,12 @@ namespace Spooky.Core
 			else
 			{
 				FallZucchiniTimer = 0;
+			}
+
+            //spawn orbiting dragon fruits around the player and spawn more with each stack the player has
+			if (SpringRose && Player.ownedProjectileCounts[ModContent.ProjectileType<RoseThornRing>()] < 1)
+			{
+				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);
 			}
 
 			//spawn orbiting dragon fruits around the player and spawn more with each stack the player has
@@ -391,20 +404,6 @@ namespace Spooky.Core
 					Player.lifeRegen += 10;
 				}
 			}
-        }
-
-        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
-        {
-            //spring rose gives the player thorns and inflicts bleeding sometimes
-            if (SpringRose)
-            {
-				Player.ApplyDamageToNPC(npc, 40, 2, 0, false);
-
-				if (Main.rand.NextBool(3))
-				{
-					//TODO: make a custom bleeding debuff for the rose to inflict
-				}
-            }
         }
 	}
 }

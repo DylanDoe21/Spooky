@@ -28,28 +28,6 @@ namespace Spooky.Core
 {
     public class SpookyPlayer : ModPlayer
     {
-        //misc stuff
-        public static float ScreenShakeAmount = 0;
-        public float SpiderStealthAlpha = 0f;
-        public int SpiderSpeedTimer = 0;
-        public int FlySpawnTimer = 0;
-        public int SkullFrenzyCharge = 0;
-        public int MocoBoogerCharge = 0;
-        public int SoulDrainCharge = 0;
-        public int CrossSoundTimer = 0;
-        public int PandoraCuffTimer = 0;
-        public int RosaryHandTimer = 0;
-        public int BoneWispTimer = 0;
-        public int BustlingHealTimer = 0;
-        public int GizaGlassHits = 0;
-        public int SlendermanPageDelay = 0;
-        public int CarnisSporeSpawnTimer = 0;
-        public int RedMistNoteSpawnDelay = 0;
-        public int RedGodzillaCartridgeSpawnDelay = 0;
-        public int GeminiMockerySpawnTimer = 0;
-        public bool RaveyardGuardsHostile = false;
-        public bool WhipSpiderAggression = false;
-
         //armors
         public bool GourdSet = false;
         public bool RootSet = false;
@@ -133,6 +111,28 @@ namespace Spooky.Core
         public bool StickyEyePet = false;
         public bool MocoPet = false;
         public bool BigBonePet = false;
+
+        //misc stuff
+        public static float ScreenShakeAmount = 0;
+        public float SpiderStealthAlpha = 0f;
+        public int SpiderSpeedTimer = 0;
+        public int FlySpawnTimer = 0;
+        public int SkullFrenzyCharge = 0;
+        public int MocoBoogerCharge = 0;
+        public int SoulDrainCharge = 0;
+        public int CrossSoundTimer = 0;
+        public int PandoraCuffTimer = 0;
+        public int RosaryHandTimer = 0;
+        public int BoneWispTimer = 0;
+        public int BustlingHealTimer = 0;
+        public int GizaGlassHits = 0;
+        public int SlendermanPageDelay = 0;
+        public int CarnisSporeSpawnTimer = 0;
+        public int RedMistNoteSpawnDelay = 0;
+        public int RedGodzillaCartridgeSpawnDelay = 0;
+        public int GeminiMockerySpawnTimer = 0;
+        public bool RaveyardGuardsHostile = false;
+        public bool WhipSpiderAggression = false;
 
         //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };

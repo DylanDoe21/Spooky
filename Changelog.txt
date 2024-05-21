@@ -10,8 +10,6 @@ Eye Valley Improvements:
 -Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
 -Changed the behavior of some of the normal eye valley enemies to make them more interesting
 -Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
--Added a dungeon in the eye valley, requires a shadow key to enter
-
 
 
 Catacomb Improvements:
@@ -42,9 +40,9 @@ Some things to note about this buff mechanic:
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs maximum duration is 20 minutes and it will not go beyond that even if you eat more of that bloom)
 
 
-
 New Music:
 
+-"Grand Sinus Corridors" by BananaLizard, plays in the new nose cultist dungeon
 
 
 Other New Additions:
@@ -92,11 +90,11 @@ Enemy & Boss Changes:
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
--Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collission issues the old one had)
+-Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collision issues the old one had)
 -Daffodil now has a new punch attack in phase 2
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
--Monster eyes now explode into small little chunk gores when killed and heavily nerfed their jumping rate and speed
--Candle monsters now dont spit flaming candle wax unless the player is close enough to them
+-Monster eyes now explode into small little gore chunks when killed, and heavily nerfed their jumping rate and speed
+-Candle monsters no longer spit flaming candle wax unless the player is close enough to them
 
 
 Miscellaneous:
@@ -126,7 +124,7 @@ Fixed all of the following bugs and issues:
 -Fixed spooky mod ambient grasses, vines, and other plants growing underwater
 -Tarantula hawks not dropping the enemy they are carrying if they are killed before dropping it
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
--Swampy cemetery sometimes generating over large amounts of the jungle
+-Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if it generates past the jungle
 -Spider grotto sometimes generating over the dungeon, and sometimes spawning a bit too close to the snow biome
 -Hallucination entities not facing towards the player correctly
 -Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls

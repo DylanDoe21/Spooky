@@ -12,9 +12,6 @@ namespace Spooky.Content.Projectiles.Catacomb
     public class BrickProj : ModProjectile
     {
         public static readonly SoundStyle BonkSound = new("Spooky/Content/Sounds/BrickBonk", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle CalamityBellSound = new("Spooky/Content/Sounds/BrickBonkBell", SoundType.Sound) { PitchVariance = 0.6f };
-
-        public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
 
         public override void SetDefaults()
         {
@@ -42,7 +39,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				{
                     if (Main.npc[k].Distance(Projectile.Center) <= 100f && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
                     {
-                        SoundEngine.PlaySound(CalamityActive() ? CalamityBellSound : BonkSound, Projectile.Center);
+                        SoundEngine.PlaySound(BonkSound, Projectile.Center);
                         
                         Main.npc[k].ai[0] = 1;
                         Main.npc[k].netUpdate = true;

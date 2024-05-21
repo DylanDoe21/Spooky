@@ -129,11 +129,10 @@ namespace Spooky.Core
 			}
 
 			//items shoot out lemon bombs with the summer lemon bloom buff
-			if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemon)
+			if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemon && player.GetModPlayer<BloomBuffsPlayer>().SummerLemonDelay <= 0)
 			{
 				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 				{
-
 					if (Main.rand.NextBool(8) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool()))
 					{
 						float mouseXDist = Main.mouseX + Main.screenPosition.X;
@@ -151,8 +150,10 @@ namespace Spooky.Core
 
 						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;
 
-						if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 4)
+                        //if you reach a combo of 3 or more lemons, set it back to one and give the player a short delay before they can shoot lemons again
+						if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot >= 4)
 						{
+                            player.GetModPlayer<BloomBuffsPlayer>().SummerLemonDelay = 240;
 							player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot = 0;
 						}
 					}

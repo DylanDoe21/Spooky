@@ -104,23 +104,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.localAI[0] = reader.ReadSingle();
         }
 
-        public override void SetDefaults()
-		{
-            NPC.lifeMax = 90;
-            NPC.damage = 15;
-            NPC.defense = 5;
-            NPC.width = 32;
-			NPC.height = 48;
-            NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 0, 75);
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
-            NPC.aiStyle = 3;
-            AIType = NPCID.DesertGhoul;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
-		}
-
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -215,23 +198,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
     public class Skeletoid3 : Skeletoid1
     {
-        public override void SetDefaults()
-		{
-            NPC.lifeMax = 70;
-            NPC.damage = 20;
-            NPC.defense = 12;
-            NPC.width = 32;
-			NPC.height = 48;
-            NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 0, 75);
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
-            NPC.aiStyle = 3;
-            AIType = NPCID.DesertGhoul;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
-		}
-
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -258,23 +224,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
     public class Skeletoid4 : Skeletoid1
     {
-        public override void SetDefaults()
-		{
-            NPC.lifeMax = 50;
-            NPC.damage = 35;
-            NPC.defense = 0;
-            NPC.width = 32;
-			NPC.height = 48;
-            NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 0, 75);
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
-            NPC.aiStyle = 3;
-            AIType = NPCID.DesertGhoul;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
-		}
-
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -282,6 +231,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Skeletoid4"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(BuffID.Bleeding, 300);
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

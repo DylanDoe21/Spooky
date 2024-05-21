@@ -53,6 +53,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.value = Item.buyPrice(0, 0, 1, 75);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
+            NPC.aiStyle = 3;
+            AIType = NPCID.Crab;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
 		}
 

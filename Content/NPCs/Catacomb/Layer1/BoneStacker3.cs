@@ -98,35 +98,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         }
     }
 
-    public class BoneStackerMoving3 : ModNPC
+    public class BoneStackerMoving3 : BoneStackerMoving1
     {
         public override string Texture => "Spooky/Content/NPCs/Catacomb/Layer1/BoneStacker3";
-
-        public override void SetStaticDefaults()
-        {
-            NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
-        }
-
-        public override void SetDefaults()
-        {
-            NPC.lifeMax = 30;
-            NPC.damage = 30;
-            NPC.defense = 10;
-            NPC.width = 44;
-			NPC.height = 16;
-            NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0.8f;
-            NPC.noGravity = false;
-            NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-            NPC.aiStyle = 3;
-            AIType = NPCID.ZombieMushroom;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type }; 
-        }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
@@ -137,19 +111,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			});
 		}
 
-        public override void AI()
-		{
-			NPC.spriteDirection = NPC.direction;
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
-        }
-
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            target.AddBuff(BuffID.Bleeding, 600);
+            target.AddBuff(BuffID.Bleeding, 300);
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -49,12 +49,6 @@ namespace Spooky.Content.Projectiles.Blooms
         public override void AI()
         {
             Projectile.rotation += 0.12f * (float)Projectile.direction;
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 20)
-            {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.3f;
-            }
         }
     }
 }
