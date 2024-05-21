@@ -329,7 +329,7 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 50; j < Y + 50; j++)
                 {
-                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && Main.tile[i, j].TileType == TileID.Mud)
+                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Mud || Main.tile[i, j].TileType == TileID.Sand))
                     {
                         numJungleTiles++;
                     }

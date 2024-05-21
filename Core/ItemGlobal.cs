@@ -145,12 +145,12 @@ namespace Spooky.Core
 							ShootSpeed.X *= 15 + Main.rand.NextFloat(-5f, 5f);
                             ShootSpeed.Y *= 15 + Main.rand.NextFloat(-5f, 5f);
 
-							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage , item.knockBack, player.whoAmI);
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage, item.knockBack, player.whoAmI);
 						}
 
 						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;
 
-                        //if you reach a combo of 3 or more lemons, set it back to one and give the player a short delay before they can shoot lemons again
+                        //if you reach a combo of 4 lemons, set it back to 1 and give the player a short delay before they can shoot lemons again
 						if (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot >= 4)
 						{
                             player.GetModPlayer<BloomBuffsPlayer>().SummerLemonDelay = 240;

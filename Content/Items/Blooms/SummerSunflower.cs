@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.Blooms
 		{
 			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("SummerSunflower", 18000);
 
-            if (Main.rand.NextBool(2))
+            if (Main.rand.NextBool())
             {
                 player.AddBuff(BuffID.Sunflower, 7200);
             }
