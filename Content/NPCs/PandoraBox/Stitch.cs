@@ -38,8 +38,9 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             //ints
             writer.Write(repeats);
-            writer.Write(SavePosition.X);
-            writer.Write(SavePosition.Y);
+
+            //bools
+            writer.Write(SpawnedWand);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -50,8 +51,9 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             //ints
             repeats = reader.ReadInt32();
-            SavePosition.X = reader.ReadInt32();
-            SavePosition.X = reader.ReadInt32();
+
+            //bools
+            SpawnedWand = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();

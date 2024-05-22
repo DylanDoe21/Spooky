@@ -56,6 +56,7 @@ namespace Spooky.Core
 		//misc stuff
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
+        public int SpringIrisTimer = 0;
         public int SummerLemonsShot = 0;
         public int SummerLemonDelay = 0;
 		public int DragonFruitTimer = 0;
@@ -339,6 +340,19 @@ namespace Spooky.Core
 			{
 				FallZucchiniTimer = 0;
 			}
+
+            //spawn the iris eye lock on and petal projectile every minute 
+            if (SpringIris && Player.ownedProjectileCounts[ModContent.ProjectileType<IrisPetalLockOn>()] < 1)
+            {
+                SpringIrisTimer++;
+
+                if (SpringIrisTimer >= 3600)
+                {
+                    Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetalLockOn>(), 0, 0, Player.whoAmI);
+
+                    SpringIrisTimer = 0;
+                }
+            }
 
             //spawn invisible rose thorn projectile on the player so the ring looks like its inflicting damage
 			if (SpringRose && Player.ownedProjectileCounts[ModContent.ProjectileType<RoseThornRing>()] < 1)

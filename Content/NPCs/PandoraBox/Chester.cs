@@ -7,6 +7,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
@@ -31,6 +32,24 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //bools
+            writer.Write(SpawnedWeapons);
+
+            //floats
+            writer.Write(NPC.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //bools
+            SpawnedWeapons = reader.ReadBoolean();
+
+            //floats
+            NPC.localAI[0] = reader.ReadSingle();
         }
 
         public override void SetDefaults()

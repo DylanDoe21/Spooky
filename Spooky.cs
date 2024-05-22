@@ -124,7 +124,7 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnOrroboro:
                 {
-                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>());
+                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), 0, -1);
                     break;
                 }
                 case SpookyMessageType.SpawnDaffodilEye:

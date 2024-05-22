@@ -568,6 +568,13 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         NPC.ai[0] = 420;
                         EggEventWorld.EggEventActive = true;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        NPC.netUpdate = true;
                     }
                 }
             }

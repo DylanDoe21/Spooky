@@ -142,7 +142,7 @@ SummerPineapple: {
 	Tooltip:
 		'''
 		Increases damage dealt from critical hits by 35% but halves your overall critical strike chance
-		Critical hits will also heal you a bit
+		Landing a critical hit will also heal a bit of your health
 		5 minute duration
 		'''
 }

@@ -131,12 +131,12 @@ namespace Spooky.Content.NPCs.Friendly
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
+				    {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterHat);
                         packet.Send();
                     }
-                    else if (Main.netMode == NetmodeID.SinglePlayer) 
+                    else
                     {
                         Flags.OldHunterHat = true;
                     }
@@ -144,12 +144,12 @@ namespace Spooky.Content.NPCs.Friendly
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
+				    {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterSkull);
                         packet.Send();
                     }
-                    else if (Main.netMode == NetmodeID.SinglePlayer) 
+                    else
                     {
                         Flags.OldHunterSkull = true;
                     }
@@ -157,12 +157,12 @@ namespace Spooky.Content.NPCs.Friendly
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
+				    {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterTorso);
                         packet.Send();
                     }
-                    else if (Main.netMode == NetmodeID.SinglePlayer) 
+                    else
                     {
                         Flags.OldHunterTorso = true;
                     }
@@ -170,12 +170,12 @@ namespace Spooky.Content.NPCs.Friendly
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
+				    {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterLegs);
                         packet.Send();
                     }
-                    else if (Main.netMode == NetmodeID.SinglePlayer) 
+                    else
                     {
                         Flags.OldHunterLegs = true;
                     }
@@ -186,7 +186,7 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.netUpdate = true;
             }
 
-            if (NPC.ai[0] == 0 && Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
+            if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
             {
                 SoundEngine.PlaySound(SoundID.NPCHit11, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_DefeatScene with { Pitch = SoundID.DD2_DefeatScene.Pitch - 0.8f }, NPC.Center);
@@ -227,6 +227,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
 
                 NPC.netUpdate = true;
+                
                 NPC.active = false;
             }
         }

@@ -148,3 +148,4 @@ Fixed all of the following multiplayer bugs and issues:
 
 -Old hunter giant web not saving pieces being inserted properly
 -Egg incursion not saving as downed correctly when completed
+-Orro-boro not charging upward when it breaks out of the giant egg
