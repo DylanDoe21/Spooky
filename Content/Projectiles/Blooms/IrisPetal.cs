@@ -80,8 +80,11 @@ namespace Spooky.Content.Projectiles.Blooms
 
             Projectile.ai[1] += 0.15f;
 
-            Vector2 desiredVelocity = Projectile.DirectionTo(Parent.Center) * Projectile.ai[1];
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+            Vector2 Speed = Parent.Center - Projectile.Center;
+            Speed.Normalize();
+            Speed *= Projectile.ai[1];
+
+            Projectile.velocity = Speed;
 
             if (Projectile.Hitbox.Intersects(Parent.Hitbox))
             {

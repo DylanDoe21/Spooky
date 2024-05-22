@@ -50,14 +50,5 @@ namespace Spooky.Content.Projectiles.Blooms
                 Projectile.ai[0] = 1;
             }
         }
-
-        public override void OnKill(int timeLeft)
-        {
-            SoundEngine.PlaySound(DeathSound, Projectile.Center);
-
-            Vector2 vel = Main.rand.NextVector2Circular(2, 4);
-            vel.Y = MathF.Abs(vel.Y) * -1;
-            Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<IrisPetalLockOnDeath>(), vel, 0, default, 1f);
-        }
     }
 }
