@@ -12,6 +12,11 @@ Eye Valley Improvements:
 -Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
 
 
+New Nose Dungeon:
+
+-Stuff lol (too lazy to write a changelog rn and it isnt fully complete yet)
+
+
 Catacomb Improvements:
 
 -Improved each individual catacomb room in general, they are no longer super cluttered with furniture and dont have cobwebs in them anymore to prevent inventory clutter while exploring
@@ -45,9 +50,14 @@ New Music:
 -"Grand Sinus Corridors" by BananaLizard, plays in the new nose cultist dungeon
 
 
-Other New Additions:
+Config Additions:
 
--Due to new tmodloader documentation on requesting assets for things like drawcode, all of the texture requesting in spooky mod has been change to be more optimized
+-Added new option "Old Hunter Dramatic Light", allows you to enable/disable the dramatic light that gets brighter over time during the old hunter's spawn animation
+-Added new option "Draggable Bloom Buff UI", allows you to choose whether you want to be able to drag the new bloom buffs ui box with your mouse or not
+-Moved the "Halloween Season" option into a new spooky mod server-side config since vanillas halloween season is not meant to be decided on a single client
+
+
+Other New Additions:
 
 
 
@@ -58,7 +68,7 @@ Other New Additions:
 Weapons & Gear:
 
 -Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
--Living flesh armor set bonus changed, you now hava a chance to spawn eyes that fling themselves at enemies to deal more damage whenever you hit them with a whip
+-Living flesh armor set bonus changed, you now have a chance to spawn eye projectiles that fling themselves at enemies to deal more damage whenever you hit them with a whip
 -Increased the use speed of the harvester's scythe and spooky buster
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 -Buffed dave & mike's base damage and critical strike chance
@@ -85,7 +95,7 @@ Enemy & Boss Changes:
 -Orros spit drop attack in phase 2 is now more natural, the projectiles will now fall down in slightly randomized directions instead of straight down, and now only shoots them if it is within a certain range of the players X-position
 -Orro now shoots spit projectiles in its phase 2 spit drop attack way more frequently while enraged, instead of shooting spreads of them
 -Reduced boros short lunge dash attack speed a bit
--Boro will now emerge out of the ground after using its flesh spine attack to prevent players from getting hit unfairly
+-Boro will now emerge out of the ground to the side of the player after using its flesh spine attack to prevent players from getting hit unfairly (similarly to the phase 1 flesh spine attack)
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
@@ -103,7 +113,7 @@ Miscellaneous:
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
 -The giant eye valley egg now has a new animation when it spawns orro-boro
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
--Pickaxes, axes, and hammers can now be used in the catacombs but cannot break blocks until after big bone
+-Pickaxes, axes, and hammers can now be used in the catacombs but cannot break anything until after big bone (besides cuttable ambient tiles like vines and grasses)
 -Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
 
 
@@ -121,7 +131,7 @@ Fixed all of the following bugs and issues:
 
 -Spider stealth buff incorrectly displaying 20% increased damage reduction instead of 12%
 -Combined creepypasta accessory not giving the red mist clarinet ability
--Fixed spooky mod ambient grasses, vines, and other plants growing underwater
+-Spooky mod ambient grasses, vines, and other plants growing underwater
 -Tarantula hawks not dropping the enemy they are carrying if they are killed before dropping it
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
 -Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if it generates past the jungle
@@ -129,10 +139,12 @@ Fixed all of the following bugs and issues:
 -Hallucination entities not facing towards the player correctly
 -Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
--Killing a crux not removing its debuff aura if it was using one before dying
+-Killing a crux not killing its debuff aura if it was using one before dying
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
+-Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
 Fixed all of the following multiplayer bugs and issues:
 
 -Old hunter giant web not saving pieces being inserted properly
+-Egg incursion not saving as downed correctly when completed

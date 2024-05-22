@@ -12,10 +12,6 @@ namespace Spooky
 
         [BackgroundColor(250, 175, 0, 125)]
         [DefaultValue(true)]
-        public bool HalloweenEnabled { get; set; }
-
-        [BackgroundColor(250, 175, 0, 125)]
-        [DefaultValue(true)]
         public bool SpookyForestSpawn { get; set; }
 
         [BackgroundColor(250, 175, 0, 125)]
@@ -32,5 +28,15 @@ namespace Spooky
         [DefaultValue(1f)]
         [Slider]
 		public float ScreenShakeIntensity;
+    }
+
+    [BackgroundColor(100, 32, 0, 175)]
+    public class SpookyServerConfig : ModConfig
+	{
+        public override ConfigScope Mode => ConfigScope.ServerSide;
+
+        [BackgroundColor(250, 175, 0, 125)]
+        [DefaultValue(true)]
+        public bool HalloweenEnabled { get; set; }
     }
 }

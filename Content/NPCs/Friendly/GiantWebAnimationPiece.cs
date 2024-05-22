@@ -221,11 +221,13 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
+                //immediately disable the dramatic lighting when the animation is done
                 if (ModContent.GetInstance<SpookyConfig>().OldHunterDramaticLight)
                 {
                     MoonlordDeathDrama.RequestLight(0f, NPC.Center);
                 }
                 
+                //immediately stop screen shake when the animation is done
                 SpookyPlayer.ScreenShakeAmount = 0;
 
                 parent.active = false;
@@ -233,6 +235,7 @@ namespace Spooky.Content.NPCs.Friendly
             }
             else
             {
+                //dont apply dramatic light if the player has the config option for it turned off
                 if (ModContent.GetInstance<SpookyConfig>().OldHunterDramaticLight)
                 {
                     MoonlordDeathDrama.RequestLight(NPC.ai[1] / 330f, NPC.Center);

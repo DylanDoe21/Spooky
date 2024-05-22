@@ -33,6 +33,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void AI()
         {
+            Spooky.SpookySpiritSpawnX = (int)Projectile.Center.X;
+            Spooky.SpookySpiritSpawnY = (int)Projectile.Center.Y;
+
             //make a trail of dust
             Vector2 dustPosition = Projectile.Center;
             dustPosition -= Projectile.velocity * 0.25f;
@@ -43,9 +46,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             Main.dust[dust].velocity *= 0.2f;
 
             Projectile.velocity *= 1.03f;
-
-            Spooky.SpookySpiritSpawnX = (int)Projectile.Center.X;
-            Spooky.SpookySpiritSpawnY = (int)Projectile.Center.Y;
 
             Projectile.ai[0]++;
 
@@ -62,19 +62,22 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
 
-                if (Main.netMode == NetmodeID.Server) 
+                if (!NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()))
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 
-					ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
-					packet.Send();
-				}
-				else if (Main.netMode == NetmodeID.SinglePlayer) 
-                {
-                    Main.NewText(text, 171, 64, 255);
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
+                        packet.Send();
+                    }
+                    else 
+                    {
+                        Main.NewText(text, 171, 64, 255);
 
-					NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
+                        NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
+                    }
                 }
 
                 for (int numDusts = 0; numDusts < 30; numDusts++)

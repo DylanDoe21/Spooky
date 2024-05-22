@@ -6,6 +6,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.Projectiles.Blooms
 {
     public class MonkeyOrchidShuriken : ModProjectile
@@ -14,7 +16,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
         public override void SetStaticDefaults()
 		{
-			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
 
@@ -25,7 +27,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 300;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -49,6 +51,22 @@ namespace Spooky.Content.Projectiles.Blooms
         public override void AI()
         {
             Projectile.rotation += 0.12f * (float)Projectile.direction;
+
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] <= 30)
+            {
+                Projectile.velocity *= 0.95f;
+            }
+            else
+            {
+                Projectile.velocity *= 1.08f;
+            }
+        }
+
+        public override void OnKill(int timeLeft)
+		{
+            Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<MonkeyOrchidShurikenDeath>(), Projectile.velocity, 0, default, 1f);
         }
     }
 }

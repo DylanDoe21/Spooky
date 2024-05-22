@@ -210,16 +210,16 @@ namespace Spooky.Content.UserInterfaces
                     {
 						//convert the buff time to minutes and seconds by dividing the time by 60 and then changing it to Minutes:Seconds format
 						TimeSpan time = TimeSpan.FromSeconds(DurationToCheckFor / 60);
-						string answer = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+						string actualTime = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
 
                         //if the player has the dragon fruit buff, then also display the dragon fruit buff stacks as part of the description
                         if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value)
                         {
-                            Main.instance.MouseText(BuffDisplayName + "\n" + answer + "\nStacks: " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10");
+                            Main.instance.MouseText(BuffDisplayName + "\n" + actualTime + "\nStacks: " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10");
                         }
                         else
                         {
-						    Main.instance.MouseText(BuffDisplayName + "\n" + answer);
+						    Main.instance.MouseText(BuffDisplayName + "\n" + actualTime);
                         }
                     }
                     else

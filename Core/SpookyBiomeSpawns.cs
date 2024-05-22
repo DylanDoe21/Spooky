@@ -340,6 +340,11 @@ namespace Spooky.Core
 					if (Flags.CatacombKey2)
 					{
 						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 12);
+						pool.Add(ModContent.NPCType<CelebrationSkeletoid1>(), 5);
+						pool.Add(ModContent.NPCType<CelebrationSkeletoid2>(), 5);
+						pool.Add(ModContent.NPCType<CelebrationSkeletoid3>(), 5);
+						pool.Add(ModContent.NPCType<CelebrationSkeletoid4>(), 5);
+						pool.Add(ModContent.NPCType<CelebrationSkeletoid5>(), 5);
 						pool.Add(ModContent.NPCType<JumpingSeed1>(), 5);
 						pool.Add(ModContent.NPCType<JumpingSeed2>(), 5);
 						pool.Add(ModContent.NPCType<JumpingSeed3>(), 5);

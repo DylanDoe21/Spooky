@@ -165,7 +165,7 @@ namespace Spooky.Core
             }
 
             //if the halloween config is on, force halloween to be active
-            if (ModContent.GetInstance<SpookyConfig>().HalloweenEnabled)
+            if (ModContent.GetInstance<SpookyServerConfig>().HalloweenEnabled)
             {
                 Main.halloween = true;
             }

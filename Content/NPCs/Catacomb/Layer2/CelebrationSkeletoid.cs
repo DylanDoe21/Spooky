@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CelebrationSkeletoid1Gore" + numGores).Type);
                     }
                 }
             }
@@ -102,6 +102,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CelebrationSkeletoid2Gore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class CelebrationSkeletoid3 : CelebrationSkeletoid1
@@ -113,6 +127,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CelebrationSkeletoid3"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CelebrationSkeletoid3Gore" + numGores).Type);
+                    }
+                }
+            }
         }
     }
 
@@ -126,6 +154,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CelebrationSkeletoid4Gore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class CelebrationSkeletoid5 : CelebrationSkeletoid1
@@ -137,6 +179,20 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CelebrationSkeletoid5"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CatacombBiome2>().ModBiomeBestiaryInfoElement)
 			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CelebrationSkeletoid5Gore" + numGores).Type);
+                    }
+                }
+            }
         }
     }
 }

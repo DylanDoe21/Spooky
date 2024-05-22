@@ -2,7 +2,7 @@ DandelionHerd: {
 	DisplayName: Dandelion Herd
 	Tooltip:
 		'''
-		You will leave behind short lived dandelion clusters while flying that hurt and stick to enemies
+		Leave behind short-lived damaging dandelion seeds while flying that stick to enemies
 		4 minute duration
 		'''
 }
@@ -91,9 +91,10 @@ SpringIris: {
 	DisplayName: Dialated Iris
 	Tooltip:
 		'''
-		Occassionally fire out a harmful slow moving iris petal
-		If the petal is active for long enough, it will aggressively home in on a nearby enemy
-		3 minute duration
+		Every minute, you will spawn an iris petal and a large eye on your cursor
+		The iris petal slowly chases the eye and speeds up over time while damaging anything it touches
+		The petal and eye will both vanish when they collide with each other
+		4 minute duration
 		'''
 }
 
@@ -101,8 +102,7 @@ SpringOrchid: {
 	DisplayName: Monkey Orchid
 	Tooltip:
 		'''
-		You have a small chance to shoot a spread of monkey orchid shurikens while using a weapon 
-		The monkey orchid shurikens will deal half of that weapon's damage
+		Weapons have a chance to shoot a spread of monkey orchid shurikens when used
 		4 minute duration
 		'''
 }
@@ -111,8 +111,8 @@ SpringRose: {
 	DisplayName: Thorn-Tipped Rose
 	Tooltip:
 		'''
-		Grants you a ring of thorns that deals a small amount of damage and knockback
-		The thorn ring can also sometimes inflict enemies with bleeding for a short time
+		Grants you a ring of thorns that deals a small amount of damage to enemies
+		The thorn ring can also sometimes inflict bleeding for a short time
 		6 minute duration
 		'''
 }
@@ -172,7 +172,7 @@ WinterBlueberry: {
 	Tooltip:
 		'''
 		Weapons have a chance to inflict an enemy with frozen blueberry juice which will slown them down
-		Additionally, any enemy nearby the initial enemy will also be inflicted with it for a shorter time
+		Any enemy nearby the initially inflicted enemy will also be inflicted with it for a shorter time
 		5 minute duration
 		'''
 }

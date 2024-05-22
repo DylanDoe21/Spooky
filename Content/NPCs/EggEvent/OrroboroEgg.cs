@@ -56,6 +56,7 @@ namespace Spooky.Content.NPCs.EggEvent
             //bools
             writer.Write(SpawnedEnemies);
             writer.Write(EventEnemiesExist);
+            writer.Write(OrroboroDoesNotExist);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -63,6 +64,7 @@ namespace Spooky.Content.NPCs.EggEvent
             //bools
             SpawnedEnemies = reader.ReadBoolean();
             EventEnemiesExist = reader.ReadBoolean();
+            OrroboroDoesNotExist = reader.ReadBoolean();
         }
 
         public override void SetDefaults()
@@ -206,7 +208,16 @@ namespace Spooky.Content.NPCs.EggEvent
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
 
-                    NPC.SetEventFlagCleared(ref Flags.downedEggEvent, -1);
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.EggIncursionDowned);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.downedEggEvent = true;
+                    }
                 }
 
                 NPC.netUpdate = true;
@@ -587,19 +598,22 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn message
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
 
-                    if (Main.netMode == NetmodeID.Server) 
+                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
                     {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        if (Main.netMode != NetmodeID.SinglePlayer) 
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnOrroboro);
-                        packet.Send();
-                    }
-                    else if (Main.netMode == NetmodeID.SinglePlayer) 
-                    {
-                        Main.NewText(text, 171, 64, 255);
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.SpawnOrroboro);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Main.NewText(text, 171, 64, 255);
 
-                        NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP1>(), 0, -1);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP1>(), 0, -1);
+                        }
                     }
 
                     //spawn egg gores

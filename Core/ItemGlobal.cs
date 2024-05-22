@@ -91,7 +91,7 @@ namespace Spooky.Core
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
                 //if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
-                if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (((item.shoot <= 0 && item.damage > 0) || (item.shoot > 0 && item.shootSpeed == 0))))
+                if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (item.shoot <= 0 || (item.shoot > 0 && item.shootSpeed == 0)))
                 {
                     SoundEngine.PlaySound(SneezeSound, player.Center);
 
@@ -119,19 +119,20 @@ namespace Spooky.Core
 			{
 				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 				{
-					if (Main.rand.NextBool(15))
+					int Chance = item.shoot > 0 ? 7 : 85;
+
+					if (Main.rand.NextBool(Chance))
 					{
-						float mouseXDist = Main.mouseX + Main.screenPosition.X;
-						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
-
-						Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
-						ShootSpeed.Normalize();
-						ShootSpeed *= -8;
-
 						for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
 						{
-							Projectile.NewProjectile(null, player.Center, new Vector2(ShootSpeed.X - numProjectiles, ShootSpeed.Y - numProjectiles),
-							ModContent.ProjectileType<MonkeyOrchidShuriken>(), item.damage / 2, item.knockBack, player.whoAmI);
+							float mouseXDist = Main.mouseX + Main.screenPosition.X + Main.rand.Next(-30, 30);
+							float mouseYDist = Main.mouseY + Main.screenPosition.Y + Main.rand.Next(-30, 30);
+
+							Vector2 ShootSpeed = player.Center - new Vector2(mouseXDist, mouseYDist);
+							ShootSpeed.Normalize();
+							ShootSpeed *= -10;
+
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<MonkeyOrchidShuriken>(), 35, item.knockBack, player.whoAmI);
 						}
 					}
 				}
@@ -142,7 +143,10 @@ namespace Spooky.Core
 			{
 				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 				{
-					if (Main.rand.NextBool(8) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool()))
+					int Chance1 = item.shoot > 0 ? 7 : 85;
+					int Chance2 = item.shoot > 0 ? 2 : 3;
+
+					if (Main.rand.NextBool(Chance1) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool(Chance2)))
 					{
 						float mouseXDist = Main.mouseX + Main.screenPosition.X;
 						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
@@ -154,7 +158,7 @@ namespace Spooky.Core
 							ShootSpeed.X *= 15 + Main.rand.NextFloat(-5f, 5f);
                             ShootSpeed.Y *= 15 + Main.rand.NextFloat(-5f, 5f);
 
-							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage, item.knockBack, player.whoAmI);
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), 75, item.knockBack, player.whoAmI);
 						}
 
 						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;

@@ -189,9 +189,10 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
-                case SpookyMessageType.SpawnHunterAnimation:
+                case SpookyMessageType.EggIncursionDowned:
                 {
-                    NPC.NewNPC(null, GiantWebX, GiantWebY, ModContent.NPCType<GiantWebAnimationBase>());
+                    Flags.downedEggEvent = true;
+                    NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 //should never occur I think?
@@ -220,6 +221,6 @@ namespace Spooky
         OldHunterTorso,
         OldHunterLegs,
         OldHunterAssembled,
-        SpawnHunterAnimation,
+        EggIncursionDowned,
     }
 }

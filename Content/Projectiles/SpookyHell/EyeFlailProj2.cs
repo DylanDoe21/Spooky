@@ -396,7 +396,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity) 
+		public override bool OnTileCollide(Vector2 oldVelocity)
         {
 			int impactIntensity = 0;
 			Vector2 velocity = Projectile.velocity;

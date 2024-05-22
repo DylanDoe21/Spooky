@@ -130,7 +130,7 @@ namespace Spooky.Content.NPCs.Friendly
 
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
-                    if (Main.netMode == NetmodeID.Server) 
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterHat);
@@ -143,7 +143,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
-                    if (Main.netMode == NetmodeID.Server) 
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterSkull);
@@ -156,7 +156,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
-                    if (Main.netMode == NetmodeID.Server) 
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterTorso);
@@ -169,7 +169,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
                 if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
-                    if (Main.netMode == NetmodeID.Server) 
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.OldHunterLegs);
@@ -186,7 +186,7 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.netUpdate = true;
             }
 
-            if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
+            if (NPC.ai[0] == 0 && Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
             {
                 SoundEngine.PlaySound(SoundID.NPCHit11, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_DefeatScene with { Pitch = SoundID.DD2_DefeatScene.Pitch - 0.8f }, NPC.Center);

@@ -1,16 +1,5 @@
 SpookyConfig: {
-	DisplayName: Spooky Mod Config
-
-	HalloweenEnabled: {
-		Label: Halloween Season
-		Tooltip:
-			'''
-			Spooky mod, by default, makes terraria's halloween seasonal event always active
-			Turn this option off to disable the halloween seasonal event being active
-			However, turning this off will not disable the halloween seasonal event if it is normally meant to happen 
-			(Like during October, or when you make it to wave 15 of the pumpkin moon before daytime)
-			'''
-	}
+	DisplayName: Spooky Mod Client Config
 
 	SpookyForestSpawn: {
 		Label: Spooky Forest at Spawn
@@ -50,10 +39,24 @@ SpookyConfig: {
 		Label: Draggable Bloom Buff UI
 		Tooltip:
 			'''
-			The bloom buffs UI box can be dragged with the mouse if you hold left click on it
-			Turn this option on if you want to move the bloom buffs UI to your preferred location 
+			The bloom buffs UI box can be dragged with your mouse if you hold left click and drag it if you turn this on
 			Especially useful if you are using other mods that add UI in similar locations
-			Turning this option off will lock the UI in place and you cannot drag it
+			Keeping this option off, which is by default, will lock the UI in place and disable you from moving it
+			'''
+	}
+}
+
+SpookyServerConfig: {
+	DisplayName: Spooky Mod Server Config
+
+	HalloweenEnabled: {
+		Label: Halloween Season
+		Tooltip:
+			'''
+			Spooky mod, by default, makes terraria's halloween seasonal event always active
+			Turn this option off to disable the halloween seasonal event being active
+			However, turning this off will not disable the halloween seasonal event if it is normally meant to happen 
+			(Like during October, or when you make it to wave 15 of the pumpkin moon before daytime)
 			'''
 	}
 }
