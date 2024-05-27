@@ -651,16 +651,17 @@ namespace Spooky.Content.NPCs.EggEvent
                 //push players towards the egg if they get too far so they cannot leave the area during the event
                 for (int i = 0; i <= Main.maxPlayers; i++)
                 {
-                    if (Main.player[i].active && !Main.player[i].dead)
+                    Player ActivePlayer = Main.player[i];
+
+                    if (ActivePlayer.active && !ActivePlayer.dead)
                     {
-                        float distance = Main.player[i].Distance(new Vector2(NPC.Center.X, NPC.Center.Y - 85));
-                        if (distance > 1600 && Main.player[i].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+                        if (ActivePlayer.Distance(new Vector2(NPC.Center.X, NPC.Center.Y - 85)) > 1600 && ActivePlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
                         {
-                            Vector2 movement = new Vector2(NPC.Center.X, NPC.Center.Y - 85) - Main.player[i].Center;
+                            Vector2 movement = new Vector2(NPC.Center.X, NPC.Center.Y - 85) - ActivePlayer.Center;
                             float difference = movement.Length() - 600;
                             movement.Normalize();
                             movement *= difference < 25f ? difference : 25f;
-                            Main.player[i].position += movement;
+                            ActivePlayer.position += movement;
                         }
                     }
                 }

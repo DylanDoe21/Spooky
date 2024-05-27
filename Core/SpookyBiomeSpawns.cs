@@ -55,6 +55,13 @@ namespace Spooky.Core
 				maxSpawns = 0;
 			}
 
+			//remove spawns while in the nose dungeon
+			if (player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+            {
+				spawnRate = 0;
+				maxSpawns = 0;
+			}
+
 			//disable spawns during a hallucination encounter
             if (player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
 			player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))

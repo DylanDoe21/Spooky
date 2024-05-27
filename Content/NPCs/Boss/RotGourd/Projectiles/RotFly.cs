@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
             {
                 ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Brown);
+                Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Brown);
 
                 Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 

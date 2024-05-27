@@ -113,7 +113,6 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 			Projectile.Center = RealFlailPosition + offsetFromHand * 25f;
 			Projectile.velocity = Vector2.Zero;
 		}
-				
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) 
         {
@@ -122,7 +121,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 			Vector2 RealFlailPosition = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -50 : 50), Parent.Center.Y);
 			Vector2 shortestVectorFromPlayerToTarget = targetHitbox.ClosestPointInRect(RealFlailPosition) - RealFlailPosition;
 			shortestVectorFromPlayerToTarget.Y /= 0.8f; // Makes the hit area an ellipse. Vertical hit distance is smaller due to this math.
-			float hitRadius = 55f; // The length of the semi-major radius of the ellipse (the long end)
+			float hitRadius = 125f; // The length of the semi-major radius of the ellipse (the long end)
 			return shortestVectorFromPlayerToTarget.Length() <= hitRadius;
 		}
 	}

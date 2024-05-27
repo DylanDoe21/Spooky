@@ -107,7 +107,7 @@ namespace Spooky.Core
                     for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
                     {
                         Projectile.NewProjectile(null, player.Center, SnotVelocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
-                        ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 40, item.knockBack, player.whoAmI);
+                        ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 20, item.knockBack, player.whoAmI);
                     }
 
                     player.AddBuff(ModContent.BuffType<SnottySchnozCooldown>(), 1800);
@@ -123,6 +123,8 @@ namespace Spooky.Core
 
 					if (Main.rand.NextBool(Chance))
 					{
+                        float DivideAmount = 1.5f;
+
 						for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
 						{
 							float mouseXDist = Main.mouseX + Main.screenPosition.X + Main.rand.Next(-30, 30);
@@ -132,7 +134,7 @@ namespace Spooky.Core
 							ShootSpeed.Normalize();
 							ShootSpeed *= -10;
 
-							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<MonkeyOrchidShuriken>(), 35, item.knockBack, player.whoAmI);
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<MonkeyOrchidShuriken>(), item.damage / (int)DivideAmount, item.knockBack, player.whoAmI);
 						}
 					}
 				}
@@ -148,6 +150,8 @@ namespace Spooky.Core
 
 					if (Main.rand.NextBool(Chance1) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool(Chance2)))
 					{
+                        float DivideAmount = 1.5f;
+
 						float mouseXDist = Main.mouseX + Main.screenPosition.X;
 						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
 
@@ -158,7 +162,7 @@ namespace Spooky.Core
 							ShootSpeed.X *= 15 + Main.rand.NextFloat(-5f, 5f);
                             ShootSpeed.Y *= 15 + Main.rand.NextFloat(-5f, 5f);
 
-							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), 75, item.knockBack, player.whoAmI);
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage / (int)DivideAmount, item.knockBack, player.whoAmI);
 						}
 
 						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;

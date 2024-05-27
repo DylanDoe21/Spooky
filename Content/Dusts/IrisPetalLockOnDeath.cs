@@ -19,8 +19,8 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
-            dust.velocity.Y += 0.12f;
-            dust.scale *= 0.97f;
+            dust.velocity.Y += 0.18f;
+            dust.scale *= 0.95f;
 
             dust.position += dust.velocity;
 

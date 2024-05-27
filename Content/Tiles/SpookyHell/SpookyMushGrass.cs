@@ -51,17 +51,25 @@ namespace Spooky.Content.Tiles.SpookyHell
 
             if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
-                //eye stalks
-                if (Main.rand.NextBool(35))
+                //grow small weeds
+                if (Main.rand.NextBool(5))
                 {
-                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThin>(), (ushort)ModContent.TileType<EyeStalkThinTall>() };
+                    WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyHellWeeds>(), true);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(6) * 18);
+                }
+
+                //eye stalks
+                if (Main.rand.NextBool(20))
+                {
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThinShort>(), (ushort)ModContent.TileType<EyeStalkThin>(), 
+                    (ushort)ModContent.TileType<EyeStalkThinTall>(), (ushort)ModContent.TileType<EyeStalkThinVeryTall>() };
 
                     ushort newObject = Main.rand.Next(Stalks);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
-                if (Main.rand.NextBool(35))
+                if (Main.rand.NextBool(25))
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkSmall1>(), (ushort)ModContent.TileType<EyeStalkSmall2>() };
 
@@ -70,7 +78,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
-                if (Main.rand.NextBool(40))
+                if (Main.rand.NextBool(30))
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkMedium1>(), (ushort)ModContent.TileType<EyeStalkMedium2>() };
 
@@ -79,7 +87,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
-                if (Main.rand.NextBool(45))
+                if (Main.rand.NextBool(35))
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkBig1>(), (ushort)ModContent.TileType<EyeStalkBig2>() };
 
@@ -88,7 +96,8 @@ namespace Spooky.Content.Tiles.SpookyHell
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
-                if (Main.rand.NextBool(50))
+
+                if (Main.rand.NextBool(35))
                 {
                     ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkGiant1>(), (ushort)ModContent.TileType<EyeStalkGiant2>() };
 
@@ -98,10 +107,12 @@ namespace Spooky.Content.Tiles.SpookyHell
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
-                //purple stalks
-                if (Main.rand.NextBool(45))
+                //purple eye stalk
+                if (Main.rand.NextBool(35))
                 {
-                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<StalkRed1>(), (ushort)ModContent.TileType<StalkRed2>(), (ushort)ModContent.TileType<StalkRed3>() };
+                    ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkPurple1>(), (ushort)ModContent.TileType<EyeStalkPurple2>(), 
+                    (ushort)ModContent.TileType<EyeStalkPurple3>(), (ushort)ModContent.TileType<EyeStalkPurple4>(),
+                    (ushort)ModContent.TileType<EyeStalkPurple5>(), (ushort)ModContent.TileType<EyeStalkPurple6>() };
 
                     ushort newObject = Main.rand.Next(Stalks);
 

@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.width = 60;
 			NPC.height = 54;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.25f;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.25f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 3;
@@ -77,15 +77,13 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
-                /*
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistGruntGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistGunnerGore" + numGores).Type);
                     }
                 }
-                */
             }
         }
     }

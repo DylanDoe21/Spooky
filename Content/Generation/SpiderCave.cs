@@ -475,7 +475,7 @@ namespace Spooky.Content.Generation
                         //place ambient tiles that can spawn on stone and grass
                         if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<SpookyStone>())
                         {
-                            if (Main.rand.NextBool(4))
+                            if (WorldGen.genRand.NextBool(4))
                             {
                                 WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(19, 22));
                             }

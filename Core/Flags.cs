@@ -8,11 +8,16 @@ namespace Spooky.Core
 {
     public class Flags : ModSystem
     {
-        public static Vector2 DaffodilPosition;
-        public static Vector2 PandoraPosition;
-        public static Vector2 FlowerPotPosition;
-        public static Vector2 SpiderWebPosition;
-        public static Vector2 EggPosition;
+        public static Vector2 DaffodilPosition = Vector2.Zero;
+        public static Vector2 PandoraPosition = Vector2.Zero;
+        public static Vector2 FlowerPotPosition = Vector2.Zero;
+        public static Vector2 SpiderWebPosition = Vector2.Zero;
+        public static Vector2 EggPosition = Vector2.Zero;
+        public static Vector2 MocoIdolPosition1 = Vector2.Zero;
+        public static Vector2 MocoIdolPosition2 = Vector2.Zero;
+        public static Vector2 MocoIdolPosition3 = Vector2.Zero;
+        public static Vector2 MocoIdolPosition4 = Vector2.Zero;
+        public static Vector2 MocoIdolPosition5 = Vector2.Zero;
 
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
@@ -22,6 +27,12 @@ namespace Spooky.Core
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
+
+        public static bool downedMocoIdol1 = false;
+        public static bool downedMocoIdol2 = false;
+        public static bool downedMocoIdol3 = false;
+        public static bool downedMocoIdol4 = false;
+        public static bool downedMocoIdol5 = false;
 
         public static bool SpookyBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
@@ -58,6 +69,12 @@ namespace Spooky.Core
             downedOrroboro = false;
             downedBigBone = false;
 
+            downedMocoIdol1 = false;
+            downedMocoIdol2 = false;
+            downedMocoIdol3 = false;
+            downedMocoIdol4 = false;
+            downedMocoIdol5 = false;
+
             SpookyBackgroundAlt = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
@@ -90,6 +107,11 @@ namespace Spooky.Core
             tag["FlowerPotPosition"] = FlowerPotPosition;
             tag["SpiderWebPosition"] = SpiderWebPosition;
             tag["EggPosition"] = EggPosition;
+            tag["MocoIdolPosition1"] = MocoIdolPosition1;
+            tag["MocoIdolPosition2"] = MocoIdolPosition2;
+            tag["MocoIdolPosition3"] = MocoIdolPosition3;
+            tag["MocoIdolPosition4"] = MocoIdolPosition4;
+            tag["MocoIdolPosition5"] = MocoIdolPosition5;
 
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
@@ -99,6 +121,12 @@ namespace Spooky.Core
             if (downedEggEvent) tag["downedEggEvent"] = true;
             if (downedOrroboro) tag["downedOrroboro"] = true;
             if (downedBigBone) tag["downedBigBone"] = true;
+
+            if (downedMocoIdol1) tag["downedMocoIdol1"] = true;
+            if (downedMocoIdol2) tag["downedMocoIdol2"] = true;
+            if (downedMocoIdol3) tag["downedMocoIdol3"] = true;
+            if (downedMocoIdol4) tag["downedMocoIdol4"] = true;
+            if (downedMocoIdol5) tag["downedMocoIdol5"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
             if (CatacombKey1) tag["CatacombKey1"] = true;
@@ -132,6 +160,11 @@ namespace Spooky.Core
             FlowerPotPosition = tag.Get<Vector2>("FlowerPotPosition");
             SpiderWebPosition = tag.Get<Vector2>("SpiderWebPosition");
             EggPosition = tag.Get<Vector2>("EggPosition");
+            MocoIdolPosition1 = tag.Get<Vector2>("MocoIdolPosition1");
+            MocoIdolPosition2 = tag.Get<Vector2>("MocoIdolPosition2");
+            MocoIdolPosition3 = tag.Get<Vector2>("MocoIdolPosition3");
+            MocoIdolPosition4 = tag.Get<Vector2>("MocoIdolPosition4");
+            MocoIdolPosition5 = tag.Get<Vector2>("MocoIdolPosition5");
 
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
@@ -141,6 +174,12 @@ namespace Spooky.Core
             downedEggEvent = tag.ContainsKey("downedEggEvent");
             downedOrroboro = tag.ContainsKey("downedOrroboro");
             downedBigBone = tag.ContainsKey("downedBigBone");
+
+            downedMocoIdol1 = tag.ContainsKey("downedMocoIdol1");
+            downedMocoIdol2 = tag.ContainsKey("downedMocoIdol2");
+            downedMocoIdol3 = tag.ContainsKey("downedMocoIdol3");
+            downedMocoIdol4 = tag.ContainsKey("downedMocoIdol4");
+            downedMocoIdol5 = tag.ContainsKey("downedMocoIdol5");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
@@ -174,6 +213,11 @@ namespace Spooky.Core
             writer.WriteVector2(FlowerPotPosition);
             writer.WriteVector2(SpiderWebPosition);
             writer.WriteVector2(EggPosition);
+            writer.WriteVector2(MocoIdolPosition1);
+            writer.WriteVector2(MocoIdolPosition2);
+            writer.WriteVector2(MocoIdolPosition3);
+            writer.WriteVector2(MocoIdolPosition4);
+            writer.WriteVector2(MocoIdolPosition5);
 
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
@@ -185,6 +229,14 @@ namespace Spooky.Core
             downedFlags[6] = downedOrroboro;
             downedFlags[7] = downedBigBone;
             writer.Write(downedFlags);
+
+            var noseDungeonFlags = new BitsByte();
+            noseDungeonFlags[0] = downedMocoIdol1;
+            noseDungeonFlags[1] = downedMocoIdol2;
+            noseDungeonFlags[2] = downedMocoIdol3;
+            noseDungeonFlags[3] = downedMocoIdol4;
+            noseDungeonFlags[4] = downedMocoIdol5;
+            writer.Write(noseDungeonFlags);
 
             var miscFlags = new BitsByte();
             miscFlags[0] = SpookyBackgroundAlt;
@@ -226,6 +278,11 @@ namespace Spooky.Core
             FlowerPotPosition = reader.ReadVector2();
             SpiderWebPosition = reader.ReadVector2();
             EggPosition = reader.ReadVector2();
+            MocoIdolPosition1 = reader.ReadVector2();
+            MocoIdolPosition2 = reader.ReadVector2();
+            MocoIdolPosition3 = reader.ReadVector2();
+            MocoIdolPosition4 = reader.ReadVector2();
+            MocoIdolPosition5 = reader.ReadVector2();
 
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];
@@ -236,6 +293,13 @@ namespace Spooky.Core
             downedEggEvent = downedFlags[5];
             downedOrroboro = downedFlags[6];
             downedBigBone = downedFlags[7];
+
+            BitsByte noseDungeonFlags = reader.ReadByte();
+            downedMocoIdol1 = noseDungeonFlags[0];
+            downedMocoIdol2 = noseDungeonFlags[1];
+            downedMocoIdol3 = noseDungeonFlags[2];
+            downedMocoIdol4 = noseDungeonFlags[3];
+            downedMocoIdol5 = noseDungeonFlags[4];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];

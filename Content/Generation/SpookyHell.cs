@@ -102,7 +102,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(5, 20), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 20), true, true);
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(30))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(5, 20), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 20), true, true);
                     }
                 }
             }
@@ -124,7 +124,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(15))
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), 0, WorldGen.genRand.Next(5, 7), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace Spooky.Content.Generation
                     {
                         int roughingPosition = 0;
                         // Look for a Y position to put ellipses
-                        for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 135; lookupY++)
+                        for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 130; lookupY++)
                         {
                             if (Framing.GetTileSafely(i, lookupY).HasTile)
                             {
@@ -160,7 +160,7 @@ namespace Spooky.Content.Generation
                             case 0:
                             {
                                 radiusX = WorldGen.genRand.Next(8, 18);
-                                radiusY = WorldGen.genRand.Next(4, 10);
+                                radiusY = WorldGen.genRand.Next(3, 6);
                                 break;
                             }
                             case 1:
@@ -230,7 +230,7 @@ namespace Spooky.Content.Generation
                 List<Point> list = new();
                 for (int tileX = StartPosition - 50; tileX <= BiomeEdge + 50; tileX++)
                 {
-                    for (int tileY = Main.maxTilesY - 200; tileY <= Main.maxTilesY - 135; tileY++)
+                    for (int tileY = Main.maxTilesY - 200; tileY <= Main.maxTilesY - 130; tileY++)
                     {
                         // check if there's a tile, so it won't check all the surrounding tiles for nothing
                         if (Main.tile[tileX, tileY].HasTile)
@@ -268,6 +268,28 @@ namespace Spooky.Content.Generation
                     PlaceWallPillar(X);
 
                     X += 45;
+                }
+            }
+
+            //place blocks at the edge of the biome where the nose mini boss arena will generate
+            if (StartPosition < (Main.maxTilesX / 2))
+            {
+                for (int X = 20; X <= 200; X += 5)
+                {
+                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
+                    {
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
+                    }
+                }
+            }
+            else
+            {
+                for (int X = Main.maxTilesX - 200; X <= Main.maxTilesX - 20; X += 5)
+                {
+                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
+                    {
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
+                    }
                 }
             }
 
@@ -398,36 +420,53 @@ namespace Spooky.Content.Generation
                     }
 
                     //plants that can grow on both blocks
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<EyeBlock>())
                     {
+						//place flesh pots
+						if (WorldGen.genRand.NextBool(4))
+						{
+							WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(22, 25));
+						}
+
                         //eye stalks
-                        if (WorldGen.genRand.NextBool(30))
+                        if (WorldGen.genRand.NextBool(20))
                         {
-                            ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThin>(), (ushort)ModContent.TileType<EyeStalkThinTall>() };
+                            ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkThinShort>(), (ushort)ModContent.TileType<EyeStalkThin>(), 
+                            (ushort)ModContent.TileType<EyeStalkThinTall>(), (ushort)ModContent.TileType<EyeStalkThinVeryTall>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
-                        if (WorldGen.genRand.NextBool(35))
+                        if (WorldGen.genRand.NextBool(25))
                         {
                             ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkSmall1>(), (ushort)ModContent.TileType<EyeStalkSmall2>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
-                        if (WorldGen.genRand.NextBool(40))
+                        if (WorldGen.genRand.NextBool(30))
                         {
                             ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkMedium1>(), (ushort)ModContent.TileType<EyeStalkMedium2>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
-                        if (WorldGen.genRand.NextBool(45))
+                        if (WorldGen.genRand.NextBool(35))
                         {
                             ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkBig1>(), (ushort)ModContent.TileType<EyeStalkBig2>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
-                        if (WorldGen.genRand.NextBool(50))
+                        if (WorldGen.genRand.NextBool(35))
                         {
                             ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkGiant1>(), (ushort)ModContent.TileType<EyeStalkGiant2>() };
+
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
+                        }
+
+                        //purple eye stalks
+                        if (WorldGen.genRand.NextBool(25))
+                        {
+                            ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<EyeStalkPurple1>(), (ushort)ModContent.TileType<EyeStalkPurple2>(), 
+                            (ushort)ModContent.TileType<EyeStalkPurple3>(), (ushort)ModContent.TileType<EyeStalkPurple4>(),
+                            (ushort)ModContent.TileType<EyeStalkPurple5>(), (ushort)ModContent.TileType<EyeStalkPurple6>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
                         }
@@ -471,12 +510,15 @@ namespace Spooky.Content.Generation
                     //mush grass plants
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>())
                     {
-                        //purple stalks
-                        if (WorldGen.genRand.NextBool(25))
+                        if (WorldGen.genRand.NextBool(10) && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                         {
-                            ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<StalkRed1>(), (ushort)ModContent.TileType<StalkRed2>(), (ushort)ModContent.TileType<StalkRed3>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
+                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SpookyHellWeeds>());
+                            Main.tile[X, Y - 1].TileFrameX = (short)(WorldGen.genRand.Next(6) * 18);
+                            WorldGen.SquareTileFrame(X, Y + 1, true);
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendTileSquare(-1, X, Y - 1, 1, TileChangeType.None);
+                            }
                         }
 
                         //ambient manhole teeth
@@ -489,14 +531,6 @@ namespace Spooky.Content.Generation
                     //eye block plants
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>())
                     {
-                        //red stalks
-                        if (WorldGen.genRand.NextBool(25))
-                        {
-                            ushort[] Stalks = new ushort[] { (ushort)ModContent.TileType<StalkPurple1>(), (ushort)ModContent.TileType<StalkPurple2>(), (ushort)ModContent.TileType<StalkPurple3>() };
-
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Stalks), true);
-                        }
-
                         //fingers
                         if (WorldGen.genRand.NextBool(8))
                         {
@@ -527,6 +561,14 @@ namespace Spooky.Content.Generation
                     !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
                     {
                         WorldGen.KillTile(X, Y);
+                    }
+
+                    //get rid of 1x2 tiles on the ground since it looks weird
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() && Main.tile[X - 1, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() && 
+                    !Main.tile[X - 2, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
+                    {
+                        WorldGen.KillTile(X, Y);
+                        WorldGen.KillTile(X - 1, Y);
                     }
 
                     //slope tiles
@@ -579,7 +621,7 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "LittleEyeHouse")
                 {
-                    NPC.NewNPC(null, (startX - 9) * 16, (startY - 5) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                    NPC.NewNPC(null, (startX - 9) * 16, (startY - 7) * 16, ModContent.NPCType<LittleEyeSleeping>());
                 }
 
                 if (StructureFile == "OrroboroNest")
@@ -595,7 +637,8 @@ namespace Spooky.Content.Generation
 
         public void GenerateNoseTemple(GenerationProgress progress, GameConfiguration configuration)
         {
-            int DungeonX = (StartPosition < Main.maxTilesX / 2 ? 200 : Main.maxTilesX - 200);
+            int DungeonX = (StartPosition < Main.maxTilesX / 2 ? 250 : Main.maxTilesX - 250);
+            int CathedralX = (StartPosition < Main.maxTilesX / 2 ? 250 : Main.maxTilesX - 250);
 
             int StartPosY = Main.maxTilesY - 130;
 
@@ -603,6 +646,31 @@ namespace Spooky.Content.Generation
 
             GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 3, "EntranceTunnel", 9, 0);
 
+            //place the cathedral arena and hallways leading to it
+            for (int cathedralArenaLoop = 0; cathedralArenaLoop <= 3; cathedralArenaLoop++)
+            {
+                //place the arena at the end of the loop
+                if (cathedralArenaLoop == 3)
+                {
+                    CathedralX += (StartPosition < Main.maxTilesX / 2 ? -27 : 25);
+
+                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY, "CathedralArena", 44, 41);
+                }
+                //otherwise place hallways
+                else
+                {
+                    if (cathedralArenaLoop == 0)
+                    {
+                        CathedralX += (StartPosition < Main.maxTilesX / 2 ? -19 : 20);
+                    }
+
+                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
+
+                    CathedralX += (StartPosition < Main.maxTilesX / 2 ? -20 : 20);
+                }
+            }
+
+            //place the actual dungeon rooms and hallways on the opposite side of the cathedral
             for (int dungeonRoomLoop = 0; dungeonRoomLoop <= 4; dungeonRoomLoop++)
             {
                 int numHallsBeforeRoom = Main.maxTilesX >= 8400 ? WorldGen.genRand.Next(2, 5) : (Main.maxTilesX >= 6400 ? WorldGen.genRand.Next(1, 3) : 1);
@@ -613,30 +681,66 @@ namespace Spooky.Content.Generation
                     {
                         if (numLoops == 0)
                         {
-                            DungeonX += (StartPosition < Main.maxTilesX / 2 ? 19 : -19);
+                            DungeonX += (StartPosition < Main.maxTilesX / 2 ? 20 : -19);
                         }
                         else
                         {
-                            SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+                            SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), 30, false, false);
                         }
 
                         GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
-
-                        /*
-                        if (WorldGen.genRand.NextBool(5))
-                        {
-                            GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 16, "ChestChamber-" + WorldGen.genRand.Next(1, 3), 10, 9);
-                        }
-                        */
 
                         DungeonX += (StartPosition < Main.maxTilesX / 2 ? 20 : -20);
                     }
                     if (numLoops >= numHallsBeforeRoom)
                     {
-                        SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+                        switch (dungeonRoomLoop)
+                        {
+                            case 0:
+                            {
+                                Flags.MocoIdolPosition1 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                break;
+                            }
+                            case 1:
+                            {
+                                Flags.MocoIdolPosition2 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                break;
+                            }
+                            case 2:
+                            {
+                                Flags.MocoIdolPosition3 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                break;
+                            }
+                            case 3:
+                            {
+                                Flags.MocoIdolPosition4 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                break;
+                            }
+                            case 4:
+                            {
+                                Flags.MocoIdolPosition5 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                break;
+                            }
+                        }
 
-                        GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
-                        DungeonX += (StartPosition < Main.maxTilesX / 2 ? 53 : -53);
+                        SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+
+                        GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
+
+                        //when the very end of the dungeon is reached, place a wall on the entrance opening of the last room 
+                        if (dungeonRoomLoop == 4)
+                        {
+                            if (DungeonX < (Main.maxTilesX / 2))
+                            {
+                                GenerateNoseTempleStructure(DungeonX + 61, NoseTemplePositionY + 27, "RoomEndRight", 2, 6);
+                            }
+                            else
+                            {
+                                GenerateNoseTempleStructure(DungeonX - 61, NoseTemplePositionY + 27, "RoomEndLeft", 2, 6);
+                            }
+                        }
+
+                        DungeonX += (StartPosition < Main.maxTilesX / 2 ? 53 : -54);
                     }
                 }
             }

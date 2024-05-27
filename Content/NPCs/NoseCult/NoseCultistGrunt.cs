@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.width = 34;
 			NPC.height = 42;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.5f;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.1f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 3;
@@ -60,44 +60,62 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void FindFrame(int frameHeight)
         {   
             //running animation
-            NPC.frameCounter++;
-            if (NPC.velocity.Y == 0)
+            if (NPC.ai[1] <= 0)
             {
-                if (NPC.frameCounter > 5)
+                NPC.frameCounter++;
+                if (NPC.velocity.Y == 0)
                 {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
+                    if (NPC.frameCounter > 5)
+                    {
+                        NPC.frame.Y = NPC.frame.Y + frameHeight;
+                        NPC.frameCounter = 0;
+                    }
+                    if (NPC.frame.Y >= frameHeight * 5)
+                    {
+                        NPC.frame.Y = 0 * frameHeight;
+                    }
                 }
-                if (NPC.frame.Y >= frameHeight * 5)
+                //falling frame
+                else
                 {
-                    NPC.frame.Y = 0 * frameHeight;
+                    NPC.frame.Y = 6 * frameHeight;
                 }
             }
-            //falling animation
+            //sneezing animation
             else
             {
-                NPC.frame.Y = 6 * frameHeight;
+
             }
         }
         
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+
+            //NPC.ai[0]++;
+
+            if (NPC.ai[0] >= 360 && NPC.velocity.Y == 0)
+            {
+                NPC.ai[1] = 1;
+            }
+
+            if (NPC.ai[1] > 0)
+            {
+
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
-                /*
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistGruntGore" + numGores).Type);
                     }
                 }
-                */
             }
         }
     }

@@ -37,7 +37,7 @@ namespace Spooky.Content.Biomes
                 float Green = 0f;
                 float Blue = 0f;
                 
-                float Intensity = 0.45f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2f) * 0.08f;
+                float Intensity = 0.32f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2f) * 0.08f;
 
                 if ((!tile.HasTile || !Main.tileNoSunLight[tile.TileType] || ((tile.Slope != 0 || tile.IsHalfBlock) && Main.tile[x, y - 1].LiquidAmount == 0 && Main.tile[x, y + 1].LiquidAmount == 0 && Main.tile[x - 1, y].LiquidAmount == 0 && Main.tile[x + 1, y].LiquidAmount == 0)) && lightColor.X < Intensity && (Main.wallLight[tile.WallType] || tile.IsWallInvisible) && tile.LiquidAmount < 200 && (!tile.IsHalfBlock || Main.tile[x, y - 1].LiquidAmount < 200))
                 {

@@ -45,6 +45,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(78, 70, 78), name);
+            RegisterItemDrop(ModContent.ItemType<CultistDoorItem>());
             DustType = DustID.Stone;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AdjTiles = new int[] { TileID.OpenDoor };

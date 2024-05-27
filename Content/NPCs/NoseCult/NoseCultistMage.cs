@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.lifeMax = 300;
             NPC.damage = 40;
             NPC.defense = 15;
-            NPC.width = 106;
-			NPC.height = 112;
+            NPC.width = 54;
+			NPC.height = 78;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.noGravity = false;
@@ -60,6 +60,21 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 3; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistMageGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistMageCloth" + numGores).Type);
+                    }
+                }
+            }
         }
     }
 }

@@ -93,7 +93,7 @@ SpringIris: {
 		'''
 		Every minute, you will spawn an iris petal and a large eye on your cursor
 		The iris petal slowly chases the eye and speeds up over time while damaging anything it touches
-		The petal and eye will both vanish when they collide with each other
+		The petal and eye will both die when they collide with each other
 		4 minute duration
 		'''
 }
@@ -103,6 +103,7 @@ SpringOrchid: {
 	Tooltip:
 		'''
 		Weapons have a chance to shoot a spread of monkey orchid shurikens when used
+		The shurikens damage scales based on the damage of the weapon used
 		4 minute duration
 		'''
 }

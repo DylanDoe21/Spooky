@@ -18,8 +18,9 @@ SpookyConfig: {
 		Label: Old Hunter Dramatic Light
 		Tooltip:
 			'''
-			When the old hunter is assembled, his spawn animation causes the screen to constantly get whiter before he spawns
-			Turn this off to disable the screen turning white during his spawn animation, especially if you are sensative to bright light
+			When the old hunter is assembled, his spawn animation causes the screen to constantly get brighter before he spawns
+			Turn this option off to disable the screen brightness during his spawn animation
+			Especially important to turn this off if you are sensative to bright light
 			'''
 	}
 
@@ -39,9 +40,9 @@ SpookyConfig: {
 		Label: Draggable Bloom Buff UI
 		Tooltip:
 			'''
-			The bloom buffs UI box can be dragged with your mouse if you hold left click and drag it if you turn this on
-			Especially useful if you are using other mods that add UI in similar locations
-			Keeping this option off, which is by default, will lock the UI in place and disable you from moving it
+			Keeping this option on will allow you to drag the bloom buffs UI by holding left click with your mouse over it
+			Keeping this option off will lock the UI in place and disables you from moving it
+			Can be useful to turn on if you are using other mods that add UI in similar locations
 			'''
 	}
 }

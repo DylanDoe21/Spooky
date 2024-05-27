@@ -2,12 +2,16 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpookyHell.Ambient
 {
+	[LegacyName("Tentacle1")]
+	[LegacyName("StalkPurple1")]
+	[LegacyName("StalkRed1")]
 	public class EyeStalkThin : ModTile
 	{
         private Asset<Texture2D> GlowTexture;
@@ -18,6 +22,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
+			TileObjectData.newTile.Origin = new Point16(0, 2);
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
            	AddMapEntry(new Color(145, 24, 12));

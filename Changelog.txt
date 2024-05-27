@@ -12,9 +12,14 @@ Eye Valley Improvements:
 -Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
 
 
-New Nose Dungeon:
+New Nose Cultist Dungeon:
 
--Stuff lol (too lazy to write a changelog rn and it isnt fully complete yet)
+-Stuff lol (Too lazy to write a changelog and it isnt fully complete yet)
+
+
+Little Eye Quest Rework:
+
+-Stuff lol (Again, too lazy to write a changelog and this feature is not fully complete yet either)
 
 
 Catacomb Improvements:
@@ -31,17 +36,17 @@ Catacomb Improvements:
 
 New Farming Mechanic:
 
--The blooms mechanic is a farming mechanic where you can plant seeds on special farmland blocks, which grow into a different plant depending on the seed type you planted
+-The blooms mechanic is a farming mechanic where you can plant special "seeds" on special farmland blocks, which grow into a different plant depending on the seed type you planted
 -When the plant is fully grown, it will produce one of a few different blooms that you can pick off the plant and eat
 -Each individual bloom will give you a temporary bonus, with some giving you generic boosts, some giving you entirely unique abilities, and some even benefitting bloom crop growth
 -Unlike vanilla buffs though, blooms do not give you a regular buff, but instead have a special UI where their buffs show up
--This bloom buff mechanic only has a limited number of slots, with 2 by default and 2 additional slots you can unlock later on after using items dropped by daffodil and big bone
--This means you can use any combination of bloom buffs that you'd like, but you can only have a limited number of them active at once so make sure to consider which ones you want to use
+-This bloom buffs UI only has a limited number of slots, with 2 by default and 2 additional slots you can unlock later on after using items dropped by daffodil and big bone
+-This means you can use any combination of bloom buffs that you'd like, but you can only have a limited number of them active at once, so make sure to consider which ones you want to use
 
 Some things to note about this buff mechanic:
 -Bloom buffs, unlike vanilla buffs, cannot be manually removed. Once you eat a bloom, you must wait for that buffs duration to run out for the slot to become open again
 -Unlike vanilla buffs, eating a bloom will not reset a blooms buff duration. Instead, eating a bloom for a buff you have already will actually add its duration to the remaining duration of that buff
-(For example, if you have a buff duration of 3 minutes for a specific bloom buff, and you eat the same bloom that gives you that buff for 5 minutes by default, then that buffs duration will be set to 8 minutes)
+(For example, if you have a buff duration of 3 minutes for a specific bloom buff, and you eat the bloom that gives you that buff for 5 minutes by default, then that buffs duration will be set to 8 minutes)
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs maximum duration is 20 minutes and it will not go beyond that even if you eat more of that bloom)
 
 
@@ -52,8 +57,8 @@ New Music:
 
 Config Additions:
 
--Added new option "Old Hunter Dramatic Light", allows you to enable/disable the dramatic light that gets brighter over time during the old hunter's spawn animation
--Added new option "Draggable Bloom Buff UI", allows you to choose whether you want to be able to drag the new bloom buffs ui box with your mouse or not
+-Added new option "Old Hunter Dramatic Light", allows you to enable/disable the dramatic light that gets brighter over time during the old hunter's spawn animation (On by default)
+-Added new option "Draggable Bloom Buff UI", allows you to choose whether or not you are able to drag the new bloom buffs ui box with your mouse (Off by default)
 -Moved the "Halloween Season" option into a new spooky mod server-side config since vanillas halloween season is not meant to be decided on a single client
 
 
@@ -111,9 +116,9 @@ Miscellaneous:
 
 -Sentient hearts now only require 2 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
--The giant eye valley egg now has a new animation when it spawns orro-boro
+-The giant eye valley egg now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
--Pickaxes, axes, and hammers can now be used in the catacombs but cannot break anything until after big bone (besides cuttable ambient tiles like vines and grasses)
+-Pickaxes, axes, and hammers can now be used in the catacombs but cannot break anything until after big bone (Besides cuttable ambient tiles like vines and grasses)
 -Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
 
 
@@ -137,9 +142,9 @@ Fixed all of the following bugs and issues:
 -Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if it generates past the jungle
 -Spider grotto sometimes generating over the dungeon, and sometimes spawning a bit too close to the snow biome
 -Hallucination entities not facing towards the player correctly
--Graveyard without the G and Bonerattlin' raving not displaying with the music display mod for their individual vinyls
+-"Graveyard without the G" and "Bonerattlin' Raving" not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
--Killing a crux not killing its debuff aura if it was using one before dying
+-Crux not killing its debuff aura if it was using one when killed
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
@@ -147,5 +152,6 @@ Fixed all of the following bugs and issues:
 Fixed all of the following multiplayer bugs and issues:
 
 -Old hunter giant web not saving pieces being inserted properly
+-Old hunter not waking up correctly when spoken to
 -Egg incursion not saving as downed correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg

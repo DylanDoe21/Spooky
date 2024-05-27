@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 	[LegacyName("TallEyeStalk1")]
 	[LegacyName("TallEyeStalk2")]
 	[LegacyName("TallEyeStalk3")]
+	[LegacyName("Tentacle2")]
+	[LegacyName("StalkPurple2")]
+	[LegacyName("StalkRed2")]
 	public class EyeStalkThinTall : ModTile
 	{
         private Asset<Texture2D> GlowTexture;
@@ -22,6 +26,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
 			TileObjectData.newTile.Height = 4;
+			TileObjectData.newTile.Origin = new Point16(0, 3);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);

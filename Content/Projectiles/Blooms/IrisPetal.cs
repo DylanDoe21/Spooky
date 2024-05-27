@@ -32,6 +32,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 5;
+            Projectile.penetrate = -1;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -50,12 +51,6 @@ namespace Spooky.Content.Projectiles.Blooms
             }
 
             return true;
-        }
-
-        //set the hit npcs immunity frames to a high amount so it cannot rapidly damage them
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.immune[Projectile.owner] = 30;
         }
 
         public override void AI()
@@ -78,7 +73,7 @@ namespace Spooky.Content.Projectiles.Blooms
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            Projectile.ai[1] += 0.15f;
+            Projectile.ai[1] += 0.05f;
 
             Vector2 Speed = Parent.Center - Projectile.Center;
             Speed.Normalize();
@@ -90,16 +85,11 @@ namespace Spooky.Content.Projectiles.Blooms
             {
                 Parent.Kill();
                 Projectile.Kill();
+
+                SoundEngine.PlaySound(DeathSound, Parent.Center);
+
+                Dust.NewDustPerfect(new Vector2(Parent.Center.X - 34, Parent.Center.Y - 19), ModContent.DustType<IrisPetalLockOnDeath>(), Projectile.velocity / 2, 0, default, 1f);
             }
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            Projectile Parent = Main.projectile[(int)Projectile.ai[0]];
-
-            SoundEngine.PlaySound(DeathSound, Parent.Center);
-
-            Dust.NewDustPerfect(new Vector2(Parent.Center.X - 34, Parent.Center.Y - 19), ModContent.DustType<IrisPetalLockOnDeath>(), Projectile.velocity / 2, 0, default, 1f);
         }
 	}
 }

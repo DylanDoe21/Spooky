@@ -39,7 +39,6 @@ namespace Spooky.Content.Generation
         public static int EntranceY = 0;
         public static int PositionX = 0;
 
-        public static bool PlacedFirstBarrier = false;
         public static bool placedLootRoom1 = false;
         public static bool placedLootRoom2 = false;
         public static bool placedLootRoom3 = false;
@@ -554,35 +553,21 @@ namespace Spooky.Content.Generation
 
             //EXTRA STUFF
 
-            //place the entrance to the catacombs from of the cemetery crypt building
+            //place the entrance to the catacombs from the bottom of the cemetery crypt building
             int EntranceX = XMiddle - 5;
 
-            for (int EntranceNewY = EntranceY + 60; EntranceNewY <= (int)Main.worldSurface - 6; EntranceNewY += 6)
+            for (int EntranceNewY = EntranceY + 60; EntranceNewY <= (int)Main.worldSurface - 6; EntranceNewY += 5)
             {
-                Vector2 entranceOrigin = new Vector2(EntranceX - 3, EntranceNewY);
-                Vector2 entranceBarrierOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
-                Vector2 cryptEntranceOrigin = new Vector2(EntranceX - 3, EntranceNewY + 2);
+                Vector2 EntranceOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
 
                 //place the yellow barrier entrance once the catacombs is reached
-                if (Main.tile[EntranceX, EntranceNewY].TileType == ModContent.TileType<CatacombBrick1>())
+                if (EntranceNewY == EntranceY + 60)
                 {
-                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
-                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", entranceBarrierOrigin.ToPoint16(), Mod);
-                    PlacedFirstBarrier = true;
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", EntranceOrigin.ToPoint16(), Mod);
                 }
                 else
                 {
-                    //place catacomb wall entrances after placing the actual barrier
-                    if (PlacedFirstBarrier)
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", entranceBarrierOrigin.ToPoint16(), Mod);
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", cryptEntranceOrigin.ToPoint16(), Mod);
-                    }
-                    //place a normal crypt entrance otherwise
-                    else 
-                    {
-                        Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntrance-" + WorldGen.genRand.Next(1, 5), entranceOrigin.ToPoint16(), Mod);
-                    }
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", EntranceOrigin.ToPoint16(), Mod);
                 }
             }
 

@@ -49,18 +49,25 @@ namespace Spooky.Content.NPCs.NoseCult
 			return false;
 		}
 
+		public override bool CheckActive()
+        {
+            return false;
+        }
+
         public override void AI()
 		{
-			/*
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-			if (Parent.ai[1] == 0)
+			NPC.spriteDirection = NPC.Center.X > Parent.Center.X ? -1 : 1;
+
+			if (Parent.ai[1] == 1)
 			{
-				int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NoseCultistGrunt>());
+				int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistGrunt>());
                     
 				NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+
+				NPC.active = false;
 			}
-			*/
         }
     }
 }

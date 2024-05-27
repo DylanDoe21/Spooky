@@ -52,7 +52,6 @@ namespace Spooky.Content.Items.BossSummon
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 
-                Main.npc[RotGourd].netUpdate = true;
                 NetMessage.SendData(MessageID.SyncNPC, number: RotGourd);
             }
             else 

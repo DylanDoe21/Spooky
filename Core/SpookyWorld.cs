@@ -11,6 +11,7 @@ using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.NoseCult;
 using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky.Core
@@ -24,7 +25,7 @@ namespace Spooky.Core
         public static bool DaySwitched;
         public static bool LastTime;
 
-		//check to make sure the player isnt in a subworld so that daffodil, pandora's box, and big bone's flower pot are not spawned in subworlds
+		//check to make sure the player isnt in a subworld so that all of the npcs meant to be saved in specific locations are not spawned in subworlds
 		public bool IsInSubworld()
         {
             if (Spooky.Instance.subworldLibrary == null)
@@ -54,8 +55,8 @@ namespace Spooky.Core
         {
             if (!IsInSubworld())
             {
-                //spawn daffodil if she despawns for any reason
-                if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()))
+                //spawn daffodil
+                if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()) && Flags.DaffodilPosition != Vector2.Zero)
                 {
                     int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
                     Main.npc[Daffodil].position.X -= 9;
@@ -67,8 +68,8 @@ namespace Spooky.Core
                     }
                 }
 
-                //spawn pandoras box if it despawns for any reason
-                if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()))
+                //spawn pandoras box
+                if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()) && Flags.PandoraPosition != Vector2.Zero)
                 {
                     int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
                     Main.npc[PandoraBox].position.X -= 8;
@@ -79,8 +80,8 @@ namespace Spooky.Core
                     }
                 }
 
-                //spawn big bone pot if it despawns for any reason
-                if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()))
+                //spawn big bone pot
+                if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()) && Flags.FlowerPotPosition != Vector2.Zero)
                 {
                     int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
                     Main.npc[FlowerPot].position.X -= 6;
@@ -91,8 +92,8 @@ namespace Spooky.Core
                     }
                 }
 
-                //spawn giant cobweb in the spider cave, only if you have not assembled the old hunter npc
-                if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>()) && !Flags.OldHunterAssembled)
+                //spawn giant cobweb, only if you have not assembled the old hunter npc
+                if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>()) && Flags.SpiderWebPosition != Vector2.Zero && !Flags.OldHunterAssembled)
                 {
                     int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
                     Main.npc[GiantWeb].position.X += 18;
@@ -104,11 +105,38 @@ namespace Spooky.Core
                     }
                 }
 
-                //spawn giant egg on the orro-boro nest if it despawns for any reason
-                if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()))
+                //spawn giant egg
+                if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()) && Flags.EggPosition != Vector2.Zero)
                 {
                     int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
                     Main.npc[Egg].position.X += 2;
+                }
+
+                //spawn moco idols in each ambush room
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol1>()) && Flags.MocoIdolPosition1 != Vector2.Zero && !Flags.downedMocoIdol1)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition1.X, (int)Flags.MocoIdolPosition1.Y, ModContent.NPCType<MocoIdol1>());
+                    Main.npc[Idol].position.X += 8;
+                }
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol2>()) && Flags.MocoIdolPosition2 != Vector2.Zero && !Flags.downedMocoIdol2)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition2.X, (int)Flags.MocoIdolPosition2.Y, ModContent.NPCType<MocoIdol2>());
+                    Main.npc[Idol].position.X += 8;
+                }
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol3>()) && Flags.MocoIdolPosition3 != Vector2.Zero && !Flags.downedMocoIdol3)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition3.X, (int)Flags.MocoIdolPosition3.Y, ModContent.NPCType<MocoIdol3>());
+                    Main.npc[Idol].position.X += 8;
+                }
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol4>()) && Flags.MocoIdolPosition4 != Vector2.Zero && !Flags.downedMocoIdol4)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition4.X, (int)Flags.MocoIdolPosition4.Y, ModContent.NPCType<MocoIdol4>());
+                    Main.npc[Idol].position.X += 8;
+                }
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol5>()) && Flags.MocoIdolPosition5 != Vector2.Zero && !Flags.downedMocoIdol1)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition5.X, (int)Flags.MocoIdolPosition5.Y, ModContent.NPCType<MocoIdol5>());
+                    Main.npc[Idol].position.X += 8;
                 }
 
                 //chance to activate raveyard each night

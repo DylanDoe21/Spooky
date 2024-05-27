@@ -227,7 +227,11 @@ GiantWeb: {
 }
 
 //nose cult
-MocoIdol.DisplayName: Moco Idol
+MocoIdol1.DisplayName: Moco Idol
+MocoIdol2.DisplayName: Moco Idol
+MocoIdol3.DisplayName: Moco Idol
+MocoIdol4.DisplayName: Moco Idol
+MocoIdol5.DisplayName: Moco Idol
 NoseCultistBruteIdle.DisplayName: Cultist Brute
 NoseCultistBrute.DisplayName: Cultist Brute
 NoseCultistGruntIdle.DisplayName: Cultist Sneezer
