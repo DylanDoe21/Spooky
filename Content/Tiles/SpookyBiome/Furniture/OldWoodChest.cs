@@ -3,23 +3,25 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
-using Terraria.GameContent.ObjectInteractions;
 using Terraria.Localization;
 using Terraria.Enums;
 using Terraria.Audio;
+using Terraria.GameContent.ObjectInteractions;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Content.Dusts;
-using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Items.SpookyBiome.Misc;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
-    [LegacyName("EyeChest2")]
-	[LegacyName("EyeChest3")]
-	[LegacyName("EyeChest4")]
-	public class EyeChest : ModTile
+	[LegacyName("HalloweenChest2")]
+	[LegacyName("HalloweenChest3")]
+	[LegacyName("HalloweenChest4")]
+	[LegacyName("HalloweenChest5")]
+	[LegacyName("WoodTombChest")]
+	[LegacyName("CatacombChest")]
+	[LegacyName("HalloweenChest")]
+	public class OldWoodChest : ModTile
 	{
 		public sealed override void SetStaticDefaults()
 		{
@@ -44,8 +46,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(255, 55, 41), name);
-			RegisterItemDrop(ModContent.ItemType<EyeChestItem>());
+			AddMapEntry(new Color(93, 62, 39), name);
+			RegisterItemDrop(ModContent.ItemType<OldWoodChestItem>());
 			DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Containers };
 		}
@@ -166,7 +168,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
 				if (player.cursorItemIconText == defaultName)
 				{
-					player.cursorItemIconID = ModContent.ItemType<EyeChestItem>();
+					player.cursorItemIconID = ModContent.ItemType<OldWoodChestItem>();
 					player.cursorItemIconText = string.Empty;
 				}
 			}

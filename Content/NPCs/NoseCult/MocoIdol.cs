@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Biomes;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -63,7 +64,7 @@ namespace Spooky.Content.NPCs.NoseCult
             }
 
             //draw sparkle
-            if (NPC.ai[2] > 5)
+            if (NPC.ai[2] > 65)
             {
                 Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y + 10) - Main.screenPosition;
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + (NPC.ai[3] / 50);
@@ -132,100 +133,119 @@ namespace Spooky.Content.NPCs.NoseCult
         //handle all of the cultist enemy spawn and event varaibles
         public void HandleCultistAmbush()
         {
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
             //bool to check if any cultist enemies exist
             AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || 
-            NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()); //|| NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>());
+            NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>());
 
             //collision rectangle that activates the shrine when the player enters it
             Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
 
-			//activate all the enemies when the player gets within range of the altar 
-			for (int i = 0; i < Main.maxPlayers; i++)
-			{
-                Player player = Main.player[i];
+            if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
+            {
+                //activate every single nose cultist attatched to this altar
+                NPC.ai[1] = 1;
+                
+                NoseCultAmbushWorld.AmbushActive = true;
 
-                if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    //activate every single nose cultist attatched to this altar
-                    NPC.ai[1] = 1;
-                    NoseCultAmbushWorld.AmbushActive = true;
-
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendData(MessageID.WorldData);
-                    }
+                    NetMessage.SendData(MessageID.WorldData);
                 }
             }
 
-            if (NPC.ai[1] > 0)
-            {
-                if (AnyCultistsExist)
+            if (NPC.ai[1] > 0 && NoseCultAmbushWorld.AmbushActive)
+            {   
+                if (!player.active || player.dead || !player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
                 {
-                    NPC.ai[2] = 0;
-                    NPC.ai[3] = 0;
+                    NPC.active = false;
                 }
-                else
+
+                if (!AnyCultistsExist)
                 {
                     NPC.ai[2]++;
-                    NPC.ai[3] += 0.05f;
 
-                    NPC.position.Y--;
-
-                    if (Shake)
+                    if (NPC.ai[2] > 65)
                     {
-                        NPC.rotation += NPC.ai[3] / 20;
-                        if (NPC.rotation > 0.5f)
-                        {
-                            Shake = false;
-                        }
-                    }
-                    else
-                    {
-                        NPC.rotation -= NPC.ai[3] / 20;
-                        if (NPC.rotation < -0.5f)
-                        {
-                            Shake = true;
-                        }
-                    }
+                        NPC.position.Y--;
 
-                    if (NPC.ai[2] > 180)
-                    {
-                        SoundEngine.PlaySound(DeathSound, NPC.Center);
+                        NPC.ai[3] += 0.05f;
 
-						ActivateLightTiles();
-
-						if (NPC.type == ModContent.NPCType<MocoIdol1>())
+                        if (Shake)
                         {
-                            //Flags.downedMocoIdol1 = true;
-                        }
-
-                        //spawn gores
-                        for (int numGores = 1; numGores <= 6; numGores++)
-                        {
-                            if (Main.netMode != NetmodeID.Server) 
+                            NPC.rotation += NPC.ai[3] / 20;
+                            if (NPC.rotation > 0.5f)
                             {
-                                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/MocoIdolGore" + numGores).Type);
+                                Shake = false;
+                            }
+                        }
+                        else
+                        {
+                            NPC.rotation -= NPC.ai[3] / 20;
+                            if (NPC.rotation < -0.5f)
+                            {
+                                Shake = true;
                             }
                         }
 
-                        //spawn dusts
-                        for (int numDusts = 0; numDusts < 45; numDusts++)
+                        if (NPC.ai[2] > 245)
                         {
-                            int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemEmerald, 0f, -2f, 0, default, 3f);
-                            Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-16f, 16f);
-                            Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-4f, 4f);
-                            Main.dust[dustGore].noGravity = true;
+                            SoundEngine.PlaySound(DeathSound, NPC.Center);
+
+                            //TODO: each of these needs a custom packet for multiplayer
+                            if (NPC.type == ModContent.NPCType<MocoIdol1>())
+                            {
+                                Flags.downedMocoIdol1 = true;
+                            }
+                            if (NPC.type == ModContent.NPCType<MocoIdol2>())
+                            {
+                                Flags.downedMocoIdol2 = true;
+                            }
+                            if (NPC.type == ModContent.NPCType<MocoIdol3>())
+                            {
+                                Flags.downedMocoIdol3 = true;
+                            }
+                            if (NPC.type == ModContent.NPCType<MocoIdol4>())
+                            {
+                                Flags.downedMocoIdol4 = true;
+                            }
+                            if (NPC.type == ModContent.NPCType<MocoIdol5>())
+                            {
+                                Flags.downedMocoIdol5 = true;
+                            }
+
+                            ActivateLightTiles();
+
+                            //spawn gores
+                            for (int numGores = 1; numGores <= 6; numGores++)
+                            {
+                                if (Main.netMode != NetmodeID.Server) 
+                                {
+                                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/MocoIdolGore" + numGores).Type);
+                                }
+                            }
+
+                            //spawn dusts
+                            for (int numDusts = 0; numDusts < 45; numDusts++)
+                            {
+                                int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemEmerald, 0f, -2f, 0, default, 3f);
+                                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-16f, 16f);
+                                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-4f, 4f);
+                                Main.dust[dustGore].noGravity = true;
+                            }
+
+                            NoseCultAmbushWorld.AmbushActive = false;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
+                            }
+
+                            NPC.active = false;
+                            NPC.netUpdate = true;
                         }
-
-                        NoseCultAmbushWorld.AmbushActive = false;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            NetMessage.SendData(MessageID.WorldData);
-                        }
-
-                        NPC.active = false;
-                        NPC.netUpdate = true;
                     }
                 }
             }
@@ -266,7 +286,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] > 0)
             {
-                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * 10);
+                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * (NPC.ai[2] / 10));
             }
 
             HandleCultistAmbush();
@@ -295,21 +315,21 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 320, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 320, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
 
             if (NPC.ai[1] > 0)
             {
-                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * 10);
+                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * (NPC.ai[2] / 10));
             }
 
             HandleCultistAmbush();
@@ -338,23 +358,21 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 300, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X + 300, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
 
             if (NPC.ai[1] > 0)
             {
-                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * 10);
+                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * (NPC.ai[2] / 10));
             }
 
             HandleCultistAmbush();
@@ -384,18 +402,18 @@ namespace Spooky.Content.NPCs.NoseCult
             if (NPC.ai[0] == 0)
             {
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
 
             if (NPC.ai[1] > 0)
             {
-                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * 10);
+                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * (NPC.ai[2] / 10));
             }
 
             HandleCultistAmbush();
@@ -424,21 +442,21 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 300, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X - 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X - 65, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 90, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X + 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X + 300, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X + 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
 
             if (NPC.ai[1] > 0)
             {
-                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * 10);
+                Lighting.AddLight(NPC.Center, Color.LightGreen.ToVector3() * (NPC.ai[2] / 10));
             }
 
             HandleCultistAmbush();

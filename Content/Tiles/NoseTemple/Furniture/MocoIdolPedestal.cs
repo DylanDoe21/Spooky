@@ -12,7 +12,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Moco;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Furniture
 {
 	public class MocoIdolPedestal : ModTile
 	{

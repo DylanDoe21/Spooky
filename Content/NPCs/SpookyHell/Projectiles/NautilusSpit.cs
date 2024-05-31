@@ -32,17 +32,6 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 11)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 4)
-                {
-                    Projectile.frame = 0;
-                }
-            }
-
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new Vector2(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
@@ -73,6 +62,17 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		
 		public override void AI()
         {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 11)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
 			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
@@ -140,6 +140,32 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
     public class NautilusSpit2 : NautilusSpit1
     {
+        private static Asset<Texture2D> ProjTexture;
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new Vector2(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new Rectangle(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }
+
+            for (int numEffect = 0; numEffect < 2; numEffect++)
+            {
+                Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 2 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                Color color = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.White);
+                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+            }
+
+            return true;
+        }
     }
 }
      

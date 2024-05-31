@@ -4,7 +4,7 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
-	public class HalloweenChestItem : ModItem
+	public class OldWoodChestItem : ModItem
 	{
 		public override void SetDefaults() 
 		{
@@ -17,7 +17,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<HalloweenChest>();
+			Item.createTile = ModContent.TileType<OldWoodChest>();
 		}
 
 		public override void AddRecipes()

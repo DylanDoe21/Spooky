@@ -44,31 +44,32 @@ namespace Spooky.Content.Generation
                 initialStartPosX = (Main.maxTilesX / 5);
             }
 
-            //move away from the jungle so the cemetery doesnt destroy it
+            //move away from the jungle and desert so the cemetery doesnt destroy it
             bool foundValidPosition = false;
             int XPosAttempts = 0;
 
             while (!foundValidPosition && XPosAttempts++ < 100000)
             {
-                //2.4.1.243302711
-                while (!LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface))
+                while (!CanPlaceBiome(Catacombs.PositionX, (int)Main.worldSurface))
                 {
                     Catacombs.PositionX += (initialStartPosX < (Main.maxTilesX / 2) ? -10 : 10);
                 }
-                if (LowEnoughJungleTiles(Catacombs.PositionX, (int)Main.worldSurface))
+                if (CanPlaceBiome(Catacombs.PositionX, (int)Main.worldSurface))
                 {
                     foundValidPosition = true;
                 }
             }
 
-            //if the catacombs found position is too close to the edge of the world, set it so it doesnt generate over the oceans
-            if (Catacombs.PositionX <= (Main.maxTilesX / 10))
+            int DistanceMax = Main.maxTilesX < 6400 ? 8 : 9;
+
+            //if the catacombs placement position is too close to the edge of the world, cap it to prevent it from generating too close to the oceans
+            if (Catacombs.PositionX <= (Main.maxTilesX / DistanceMax))
             {
-                Catacombs.PositionX = (Main.maxTilesX / 10);
+                Catacombs.PositionX = (Main.maxTilesX / DistanceMax);
             }
-            if (Catacombs.PositionX >= Main.maxTilesX - (Main.maxTilesX / 10))
+            if (Catacombs.PositionX >= Main.maxTilesX - (Main.maxTilesX / DistanceMax))
             {
-                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / 10);
+                Catacombs.PositionX = Main.maxTilesX - (Main.maxTilesX / DistanceMax);
             }
 
             int XStart = Catacombs.PositionX - (BiomeWidth / 2);
@@ -320,8 +321,8 @@ namespace Spooky.Content.Generation
             return true;
         }
 
-        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
-        public static bool LowEnoughJungleTiles(int X, int Y)
+        //determine if theres no jungle or desert blocks nearby
+        public static bool CanPlaceBiome(int X, int Y)
         {
             int numJungleTiles = 0;
 
@@ -329,14 +330,31 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 50; j < Y + 50; j++)
                 {
-                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Mud || Main.tile[i, j].TileType == TileID.Sand))
+                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && Main.tile[i, j].TileType == TileID.Mud)
                     {
                         numJungleTiles++;
                     }
                 }
             }
 
+            int numDesertTiles = 0;
+
+            for (int i = X - 100; i < X + 100; i++)
+            {
+                for (int j = Y - 50; j < Y + 50; j++)
+                {
+                    if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && Main.tile[i, j].TileType == TileID.Sand)
+                    {
+                        numDesertTiles++;
+                    }
+                }
+            }
+
             if (numJungleTiles > 100)
+            {
+                return false;
+            }
+            else if (numDesertTiles > 150)
             {
                 return false;
             }

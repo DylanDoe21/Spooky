@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(78, 70, 78), name);
+            AddMapEntry(new Color(98, 67, 82), name);
             RegisterItemDrop(ModContent.ItemType<CultistCandelabraItem>());
             DustType = DustID.Stone;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

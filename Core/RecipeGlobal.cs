@@ -10,7 +10,7 @@ namespace Spooky.Content.Generation
     {
         public override void AddRecipeGroups()
         {
-            //old wood and mossy stone count as a vanilla wood type and stone type respectively
+            //old wood counts as a vanilla wood type
             RecipeGroup wood = RecipeGroup.recipeGroups[RecipeGroupID.Wood];
             wood.ValidItems.Add(ModContent.ItemType<SpookyWoodItem>());
         }

@@ -29,16 +29,16 @@ namespace Spooky.Content.Generation
         int NoseTempleBrickWallColor;
         static int NoseTemplePositionY;
 
-        static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
-        static int BiomeEdge = StartPosition + (Main.maxTilesX / 5);
+        static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+        static int BiomeEdge = StartPosition + (Main.maxTilesX / 6);
 
         private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley").Value;
 
             //set these to their intended values again just to be safe
-            StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 5) - 80;
-            BiomeEdge = StartPosition + (Main.maxTilesX / 5);
+            StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+            BiomeEdge = StartPosition + (Main.maxTilesX / 6);
 
             //extra clear width depending on the side of the world its on
             int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;
@@ -271,10 +271,10 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place blocks at the edge of the biome where the nose mini boss arena will generate
+            //place blocks at the edge of the biome where the nose miniboss arena will generate
             if (StartPosition < (Main.maxTilesX / 2))
             {
-                for (int X = 20; X <= 200; X += 5)
+                for (int X = 20; X <= 180; X += 5)
                 {
                     for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
                     {
@@ -284,7 +284,7 @@ namespace Spooky.Content.Generation
             }
             else
             {
-                for (int X = Main.maxTilesX - 200; X <= Main.maxTilesX - 20; X += 5)
+                for (int X = Main.maxTilesX - 180; X <= Main.maxTilesX - 20; X += 5)
                 {
                     for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
                     {
@@ -312,8 +312,6 @@ namespace Spooky.Content.Generation
 
         public static void PlaceWallPillar(int StartPosition)
         {
-            bool HasPlacedPlatform = false;
-
             for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 30; Y += 5)
             {
                 if (WorldGen.SolidTile(StartPosition, Y))
@@ -593,7 +591,7 @@ namespace Spooky.Content.Generation
             int StartPosY = Main.maxTilesY - 150;
 
             ///place little eye's house
-            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2: (XMiddle + BiomeEdge) / 2;
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
             //place orroboro nest
@@ -621,7 +619,7 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "LittleEyeHouse")
                 {
-                    NPC.NewNPC(null, (startX - 9) * 16, (startY - 7) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                    NPC.NewNPC(null, (startX - 12) * 16, (startY) * 16, ModContent.NPCType<LittleEyeSleeping>());
                 }
 
                 if (StructureFile == "OrroboroNest")
@@ -642,9 +640,13 @@ namespace Spooky.Content.Generation
 
             int StartPosY = Main.maxTilesY - 130;
 
+            bool IsSmallWorld = Main.maxTilesX < 6400;
+
             GenerateNoseTempleStructure(DungeonX, Main.maxTilesY - 131, "Entrance", 49, 23);
 
             GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 3, "EntranceTunnel", 9, 0);
+
+            GenerateNoseTempleStructure(DungeonX + (DungeonX < (Main.maxTilesX / 2) ? -3 : 3), NoseTemplePositionY + 28, "MinibossRoomBarrier", 0, 6);
 
             //place the cathedral arena and hallways leading to it
             for (int cathedralArenaLoop = 0; cathedralArenaLoop <= 3; cathedralArenaLoop++)
@@ -654,7 +656,17 @@ namespace Spooky.Content.Generation
                 {
                     CathedralX += (StartPosition < Main.maxTilesX / 2 ? -27 : 25);
 
-                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY, "CathedralArena", 44, 41);
+                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY, "MinibossArena", 44, 41);
+
+                    //when the very end of the dungeon is reached, place a wall on the entrance opening of the last room 
+                    if (CathedralX > (Main.maxTilesX / 2))
+                    {
+                        GenerateNoseTempleStructure(DungeonX + 148, NoseTemplePositionY + 27, "RoomEndRight", 2, 6);
+                    }
+                    else
+                    {
+                        GenerateNoseTempleStructure(DungeonX - 148, NoseTemplePositionY + 27, "RoomEndLeft", 2, 6);
+                    }
                 }
                 //otherwise place hallways
                 else
@@ -671,9 +683,11 @@ namespace Spooky.Content.Generation
             }
 
             //place the actual dungeon rooms and hallways on the opposite side of the cathedral
-            for (int dungeonRoomLoop = 0; dungeonRoomLoop <= 4; dungeonRoomLoop++)
+            int MaxDungeonRooms = IsSmallWorld ? 2 : 4;
+
+            for (int dungeonRoomLoop = 0; dungeonRoomLoop <= MaxDungeonRooms; dungeonRoomLoop++)
             {
-                int numHallsBeforeRoom = Main.maxTilesX >= 8400 ? WorldGen.genRand.Next(2, 5) : (Main.maxTilesX >= 6400 ? WorldGen.genRand.Next(1, 3) : 1);
+                int numHallsBeforeRoom = Main.maxTilesX >= 8400 ? WorldGen.genRand.Next(2, 4) : (Main.maxTilesX >= 6400 ? WorldGen.genRand.Next(1, 3) : 1);
 
                 for (int numLoops = 0; numLoops <= numHallsBeforeRoom; numLoops++)
                 {
@@ -703,12 +717,26 @@ namespace Spooky.Content.Generation
                             }
                             case 1:
                             {
-                                Flags.MocoIdolPosition2 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                if (IsSmallWorld)
+                                {
+                                    Flags.MocoIdolPosition3 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                }
+                                else
+                                {
+                                    Flags.MocoIdolPosition2 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                }
                                 break;
                             }
                             case 2:
                             {
-                                Flags.MocoIdolPosition3 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                if (IsSmallWorld)
+                                {
+                                    Flags.MocoIdolPosition4 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                }
+                                else
+                                {
+                                    Flags.MocoIdolPosition3 = new Vector2((DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27)) * 16, (NoseTemplePositionY + 25) * 16);
+                                }
                                 break;
                             }
                             case 3:
@@ -728,7 +756,7 @@ namespace Spooky.Content.Generation
                         GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
 
                         //when the very end of the dungeon is reached, place a wall on the entrance opening of the last room 
-                        if (dungeonRoomLoop == 4)
+                        if (dungeonRoomLoop == MaxDungeonRooms)
                         {
                             if (DungeonX < (Main.maxTilesX / 2))
                             {
@@ -855,16 +883,11 @@ namespace Spooky.Content.Generation
             {
                 if (StructureFile == "Entrance")
                 {
-                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                    Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
-
                     NoseTemplePositionY = startY + 25;
                 }
-                else
-                {
-                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                    Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
-                }
+
+                Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
+                Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
 
                 placed = true;
             }

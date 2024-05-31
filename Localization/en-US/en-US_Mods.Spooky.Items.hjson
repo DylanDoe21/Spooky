@@ -2857,11 +2857,6 @@ GourdSmallLitItem: {
 	Tooltip: ""
 }
 
-HalloweenChestItem: {
-	DisplayName: Old Wood Chest
-	Tooltip: ""
-}
-
 CandleItem: {
 	DisplayName: Old Wax Candle
 	Tooltip:
@@ -2903,6 +2898,11 @@ OldWoodCandleItem: {
 
 OldWoodChairItem: {
 	DisplayName: Old Wood Chair
+	Tooltip: ""
+}
+
+OldWoodChestItem: {
+	DisplayName: Old Wood Chest
 	Tooltip: ""
 }
 

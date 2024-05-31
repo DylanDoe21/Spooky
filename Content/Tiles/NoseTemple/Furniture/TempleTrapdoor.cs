@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -9,9 +8,9 @@ using Terraria.GameContent.ObjectInteractions;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Furniture
 {
-    public class ShadowTrapdoor : ModTile
+    public class TempleTrapdoor : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -22,7 +21,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileLavaDeath[Type] = true;
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
-			//TileID.Sets.HasOutlines[Type] = true;
+			TileID.Sets.HasOutlines[Type] = true;
             TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 1;
             TileObjectData.newTile.CoordinateHeights = new[] { 16 };
@@ -35,12 +34,30 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(114, 13, 39), name);
-            DustType = DustID.Blood;
+            DustType = DustID.Stone;
+        }
+
+        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+        {
+			return false;
+        }
+
+        public override bool CanExplode(int i, int j)
+        {
+			return false;
+        }
+
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ItemID.ShadowKey;
         }
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HasItem(ItemID.ShadowKey) && Main.tile[i, j].TileFrameY <= 0)
+            if (Main.LocalPlayer.HasItem(ItemID.ShadowKey))
             {
                 SoundEngine.PlaySound(SoundID.Unlock, new Vector2(i * 16, j * 16));
 
@@ -51,17 +68,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
                 {
                     for (int y = top; y < top + 1; y++)
                     {
-                        Main.tile[x, y].TileFrameY += 18;
+                        WorldGen.KillTile(x, y);
                     }
                 }
             }
 
             return base.RightClick(i, j);
-        }
-
-        public override bool Slope(int i, int j) 
-        {
-            return false;
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 
@@ -75,4 +87,3 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         }
     }
 }
-*/

@@ -47,14 +47,20 @@ namespace Spooky.Content.Generation
             //this code basically looks for snow biome blocks, and if it finds any, keep moving the biome over until it is far enough away from the snow biome
             while (!foundValidPosition && attempts++ < 100000)
             {
-                while (!NoSnowBiomeNearby(startPosX, startPosY))
+                while (!CanPlaceBiome(startPosX, startPosY))
                 {
                     startPosX += (initialStartPosX > (Main.maxTilesX / 2) ? -50 : 50);
                 }
-                if (NoSnowBiomeNearby(startPosX, startPosY))
+                if (CanPlaceBiome(startPosX, startPosY))
                 {
                     foundValidPosition = true;
                 }
+            }
+
+            //make sure the spider grotto doesnt get pushed beyond the center of the world from its initial position
+            if ((initialStartPosX < (Main.maxTilesX / 2) && startPosX >= (Main.maxTilesX / 2)) || (initialStartPosX > (Main.maxTilesX / 2) && startPosX <= (Main.maxTilesX / 2)))
+            {
+                startPosX = (Main.maxTilesX / 2);
             }
 
             int cavePerlinSeed = WorldGen.genRand.Next();
@@ -65,7 +71,7 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
+            int InitialSize = Main.maxTilesX >= 6400 ? 250 : 150;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -722,14 +728,14 @@ namespace Spooky.Content.Generation
             }
         }
 
-        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
-        public static bool NoSnowBiomeNearby(int X, int Y)
+        //determine if theres no snow, sandstone, or dungeon blocks nearby so the biome doesnt place in them
+        public static bool CanPlaceBiome(int X, int Y)
         {
-            for (int i = X - 300; i < X + 300; i++)
+            for (int i = X - 350; i < X + 350; i++)
             {
                 for (int j = Y - 100; j < Y; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tileDungeon[Main.tile[i, j].TileType]))
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Sandstone || Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tileDungeon[Main.tile[i, j].TileType]))
                     {
                         return false;
                     }

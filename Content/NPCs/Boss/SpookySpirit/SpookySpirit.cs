@@ -634,17 +634,19 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
                             }
 
+                            if (NPC.localAI[0] == 200)
+                            {
+                                float theta = (SavePlayerPosition - NPC.Center).ToRotation();
+
+                                //ai[0] = npc parent
+                                //ai[1] = laser sweeping speed, for this attack there is none
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)),
+                                ModContent.ProjectileType<EyeBeam>(), Damage + 30, 0f, Main.myPlayer, NPC.whoAmI, 0f);
+                            }
+
                             if (NPC.localAI[0] >= 200 && NPC.localAI[0] <= 270)
                             {
                                 NPC.direction = SaveDirection;
-
-                                Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed.X *= 5f;
-                                ShootSpeed.Y *= 5f;
-
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -48 : 48), NPC.Center.Y + 5,
-                                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeBeam>(), Damage * 2, 0f, Main.myPlayer);
                             }
 
                             if (NPC.localAI[0] >= 350)

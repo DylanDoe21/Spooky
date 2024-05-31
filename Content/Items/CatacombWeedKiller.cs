@@ -12,6 +12,8 @@ namespace Spooky.Content.Items
 {
     public class CatacombWeedKiller : ModItem
     {
+        public override string Texture => "Spooky/Content/Items/BossSummon/CowBell";
+
         public override void SetDefaults()
         {                
             Item.width = 20;

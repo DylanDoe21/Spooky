@@ -133,7 +133,7 @@ namespace Spooky.Core
                     int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition4.X, (int)Flags.MocoIdolPosition4.Y, ModContent.NPCType<MocoIdol4>());
                     Main.npc[Idol].position.X += 8;
                 }
-                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol5>()) && Flags.MocoIdolPosition5 != Vector2.Zero && !Flags.downedMocoIdol1)
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol5>()) && Flags.MocoIdolPosition5 != Vector2.Zero && !Flags.downedMocoIdol5)
                 {
                     int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition5.X, (int)Flags.MocoIdolPosition5.Y, ModContent.NPCType<MocoIdol5>());
                     Main.npc[Idol].position.X += 8;

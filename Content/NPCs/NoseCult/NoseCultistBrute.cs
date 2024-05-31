@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.NPCs.NoseCult.Projectiles;
@@ -14,7 +15,8 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
-
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(0f, 50f),
@@ -22,10 +24,20 @@ namespace Spooky.Content.NPCs.NoseCult
                 PortraitPositionYOverride = 10f
             };
         }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+        }
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 1200;
+            NPC.lifeMax = 800;
             NPC.damage = 50;
             NPC.defense = 15;
             NPC.width = 106;

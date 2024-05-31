@@ -38,7 +38,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             TileObjectData.newTile.LavaPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(78, 70, 78), name);
+            AddMapEntry(new Color(98, 67, 82), name);
             RegisterItemDrop(ModContent.ItemType<CultistLampItem>());
             DustType = DustID.Stone;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

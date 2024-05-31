@@ -12,7 +12,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Moco;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Furniture
 {
 	public class NoseShrine : ModTile
 	{
@@ -24,9 +24,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
 			TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
-			TileObjectData.newTile.Width = 5;
+			TileObjectData.newTile.Width = 7;
 			TileObjectData.newTile.Height = 8;
-			TileObjectData.newTile.Origin = new Point16(3, 7);
+			TileObjectData.newTile.Origin = new Point16(4, 7);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16, 16, 16 };
 			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);

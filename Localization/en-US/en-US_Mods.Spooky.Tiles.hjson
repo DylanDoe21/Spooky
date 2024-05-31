@@ -8,19 +8,9 @@ SpiderCaveChest: {
 	MapEntry1: Locked Spider Grotto Chest
 }
 
-HalloweenChest: {
-	MapEntry0: Old Wood Chest
-	MapEntry1: Locked Old Wood Chest
-}
-
 SpookyBiomeChest: {
 	MapEntry0: Spooky Forest Chest
 	MapEntry1: Locked Spooky Forest Chest
-}
-
-EyeChest: {
-	MapEntry0: Monster Chest
-	MapEntry1: Sleeping Monster Chest
 }
 
 SpookyHellChest: {
@@ -71,6 +61,7 @@ OldWoodBed.MapEntry: Bed
 OldWoodBookcase.MapEntry: Bookcase
 OldWoodCandle.MapEntry: Candle
 OldWoodChair.MapEntry: Chair
+OldWoodChest.MapEntry: Old Wood Chest
 OldWoodDoorClosed.MapEntry: Door
 OldWoodDoorOpen.MapEntry: Door
 OldWoodOrgan.MapEntry: Organ
@@ -80,8 +71,6 @@ OldWoodWorkBench.MapEntry: Work Bench
 GiantShroom.MapEntry: Giant Shroom
 SpookySapling.MapEntry: Sapling
 SpookySaplingGreen.MapEntry: Sapling
-EyeChest_Sleeping.MapEntry: Sleeping Monster Chest
-SpookyHellChest_Locked.MapEntry: Locked Eye Chest
 Cauldron.MapEntry: Creepy Cauldron
 EyeBathtub.MapEntry: Bathtub
 EyeBed.MapEntry: Bed
@@ -90,6 +79,7 @@ EyeCandelabra.MapEntry: Candelabra
 EyeCandle.MapEntry: Candle
 EyeChair.MapEntry: Chair
 EyeChandelier.MapEntry: Chandelier
+EyeChest.MapEntry: Monster Chest
 EyeClock.MapEntry: Clock
 EyeDoorClosed.MapEntry: Door
 EyeDoorOpen.MapEntry: Door
@@ -131,3 +121,4 @@ CultistLantern.MapEntry: Lantern
 CultistSink.MapEntry: Sink
 CultistSofa.MapEntry: Sofa
 CultistTable.MapEntry: Table
+TempleTrapdoor.MapEntry: Temple Trapdoor

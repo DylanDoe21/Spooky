@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistWingedIdle : ModNPC
@@ -10,7 +12,8 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void SetStaticDefaults()
 		{	
 			Main.npcFrameCount[NPC.type] = 3;
-
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+			
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
@@ -61,11 +64,21 @@ namespace Spooky.Content.NPCs.NoseCult
 
 			if (Parent.ai[1] == 1)
 			{
-				//int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistWinged>());
-                    
-				//NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+				NPC.ai[1]++;
 
-				NPC.active = false;
+				if (NPC.ai[1] == 30)
+				{
+					Dust.NewDustPerfect(new Vector2(NPC.Center.X, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 1f);
+				}
+
+				if (NPC.ai[1] >= 60)
+				{
+					int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistWinged>(), ai0: NPC.ai[0]);
+						
+					NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+
+					NPC.active = false;
+				}
 			}
         }
     }

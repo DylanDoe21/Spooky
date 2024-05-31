@@ -73,32 +73,6 @@ namespace Spooky.Content.NPCs.PandoraBox
             return true;
         }
 
-        public override bool CanChat()
-        {
-            //dont allow interactions with the box during the event
-            return !PandoraBoxWorld.PandoraEventActive;
-        }
-
-        public override string GetChat()
-		{
-            return Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Dialogue");
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Button");
-		}
-
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-		{
-            if (firstButton)
-            {
-                Main.npcChatText = string.Empty;
-                
-                NPC.ai[2] = 1;
-            }
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (PandoraBoxWorld.PandoraEventActive)
@@ -410,6 +384,32 @@ namespace Spooky.Content.NPCs.PandoraBox
             }
 
             NPC.netUpdate = true;
+        }
+
+        public override bool CanChat()
+        {
+            //dont allow interactions with the box during the event
+            return !PandoraBoxWorld.PandoraEventActive;
+        }
+
+        public override string GetChat()
+		{
+            return Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Dialogue");
+        }
+
+        public override void SetChatButtons(ref string button, ref string button2)
+		{
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Button");
+		}
+
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
+            if (firstButton)
+            {
+                Main.npcChatText = string.Empty;
+                
+                NPC.ai[2] = 1;
+            }
         }
 
         public override void AI()

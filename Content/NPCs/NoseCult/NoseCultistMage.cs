@@ -6,7 +6,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -16,6 +15,7 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void SetStaticDefaults()
 		{	
 			Main.npcFrameCount[NPC.type] = 7;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 		}
 
 		public override void SetDefaults()

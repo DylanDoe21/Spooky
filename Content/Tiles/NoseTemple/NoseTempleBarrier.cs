@@ -60,9 +60,10 @@ namespace Spooky.Content.Tiles.Catacomb
 			float time = Main.GameUpdateCount * 0.01f;
 
 			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
+			intensity *= (float)MathF.Sin(time + j);
+			intensity += 2f;
+
+			intensity = MathHelper.Clamp(intensity, 0.1f, 1f);
 
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
@@ -74,7 +75,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			else
 			{
 				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Lime * 0.1f);
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Lime * 0.05f);
 			}
 
 			return false;
@@ -93,7 +94,11 @@ namespace Spooky.Content.Tiles.Catacomb
 
             Tile tile = Framing.GetTileSafely(i, j);
 
-			if (Flags.downedMocoIdol1 && Flags.downedMocoIdol2 && Flags.downedMocoIdol3 && Flags.downedMocoIdol4 && Flags.downedMocoIdol5)
+			bool IsSmallWorld = Main.maxTilesX < 6400;
+
+			bool AllIdolsDowned = IsSmallWorld ? Flags.downedMocoIdol1 && Flags.downedMocoIdol3 && Flags.downedMocoIdol4 : Flags.downedMocoIdol1 && Flags.downedMocoIdol2 && Flags.downedMocoIdol3 && Flags.downedMocoIdol4 && Flags.downedMocoIdol5;
+
+			if (AllIdolsDowned)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
             }
@@ -105,9 +110,10 @@ namespace Spooky.Content.Tiles.Catacomb
 			float time = Main.GameUpdateCount * 0.01f;
 
 			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
+			intensity *= (float)MathF.Sin(time + j);
 			intensity += 0.7f;
+
+			intensity = MathHelper.Clamp(intensity, 0.5f, 1f);
 
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
@@ -119,7 +125,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			else
 			{
 				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Lime * 0.1f);
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Lime * 0.05f);
 			}
 
 			return false;

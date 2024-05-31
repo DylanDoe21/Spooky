@@ -18,6 +18,21 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 13;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -29,7 +44,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.height = 54;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.25f;
-            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.25f };
+            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.3f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 3;
 			AIType = NPCID.Crab;
@@ -71,6 +86,18 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+
+            //NPC.localAI[0]++;
+
+            if (NPC.localAI[0] >= 360 && NPC.velocity.Y == 0)
+            {
+                NPC.localAI[1] = 1;
+            }
+
+            if (NPC.localAI[1] > 0)
+            {
+
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

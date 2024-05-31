@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(78, 70, 78), name);
+			AddMapEntry(new Color(98, 67, 82), name);
 			DustType = DustID.Stone;
 			AdjTiles = new int[] { TileID.Benches };
 		}

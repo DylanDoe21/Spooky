@@ -18,6 +18,21 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 11;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -59,10 +74,10 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void FindFrame(int frameHeight)
         {   
-            //running animation
-            if (NPC.ai[1] <= 0)
+            NPC.frameCounter++;
+            if (NPC.localAI[1] <= 0)
             {
-                NPC.frameCounter++;
+                //walking animation
                 if (NPC.velocity.Y == 0)
                 {
                     if (NPC.frameCounter > 5)
@@ -84,7 +99,24 @@ namespace Spooky.Content.NPCs.NoseCult
             //sneezing animation
             else
             {
+                if (NPC.frame.Y < frameHeight * 8)
+                {
+                    NPC.frame.Y = 7 * frameHeight;
+                }
 
+                if (NPC.frameCounter > 10)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 11)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
+
+                    NPC.frame.Y = 0 * frameHeight;
+                }
             }
         }
         
@@ -92,16 +124,26 @@ namespace Spooky.Content.NPCs.NoseCult
 		{
 			NPC.spriteDirection = NPC.direction;
 
-            //NPC.ai[0]++;
+            NPC.localAI[0]++;
 
-            if (NPC.ai[0] >= 360 && NPC.velocity.Y == 0)
+            if (NPC.localAI[0] >= 360 && NPC.velocity.Y == 0)
             {
-                NPC.ai[1] = 1;
+                NPC.localAI[1] = 1;
             }
 
-            if (NPC.ai[1] > 0)
+            if (NPC.localAI[1] > 0)
             {
+                NPC.velocity *= 0;
 
+                if (NPC.frame.Y == 8 * 50 && NPC.localAI[2] == 0)
+                {
+                    //debuf text for now
+                    Main.NewText("Projectile Shot", Color.Green);
+                    
+                    NPC.localAI[2]++;
+
+                    NPC.netUpdate = true;
+                }
             }
         }
 

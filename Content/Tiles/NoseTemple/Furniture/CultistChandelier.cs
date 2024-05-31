@@ -30,7 +30,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(78, 70, 78), name);
+			AddMapEntry(new Color(98, 67, 82), name);
             DustType = DustID.Stone;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.Chandeliers };

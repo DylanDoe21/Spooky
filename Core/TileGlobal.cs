@@ -8,6 +8,7 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery.Ambient;
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -95,7 +96,7 @@ namespace Spooky.Core
             Tile tileAbove = Main.tile[i, j - 1];
 
             //dont allow sloping under specific spooky mod tiles
-            if (tileAbove.TileType == ModContent.TileType<Cauldron>() || tileAbove.TileType == ModContent.TileType<NoseShrine>() ||
+            if (tileAbove.TileType == ModContent.TileType<Cauldron>() || tileAbove.TileType == ModContent.TileType<NoseShrine>() || tileAbove.TileType == ModContent.TileType<MocoIdolPedestal>() ||
             tileAbove.TileType == ModContent.TileType<CemeteryPylon>() || tileAbove.TileType == ModContent.TileType<SpookyBiomePylon>() || tileAbove.TileType == ModContent.TileType<SpookyHellPylon>())
             {
                 return false;
