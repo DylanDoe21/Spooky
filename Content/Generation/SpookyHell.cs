@@ -591,7 +591,7 @@ namespace Spooky.Content.Generation
             int StartPosY = Main.maxTilesY - 150;
 
             ///place little eye's house
-            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2: (XMiddle + BiomeEdge) / 2;
+            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 60): (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 60);
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
             //place orroboro nest
@@ -777,7 +777,9 @@ namespace Spooky.Content.Generation
             int Brick = ModContent.TileType<NoseTempleBrickPurple>();
             int FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
             int BrickWall = ModContent.WallType<NoseTempleWallPurple>();
+            int BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
             int FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
+            int FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallPurpleSafe>();
             int BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
             int Platform = ModContent.TileType<NoseTemplePlatformPurple>();
 
@@ -818,19 +820,25 @@ namespace Spooky.Content.Generation
                 case 0:
                 {
                     BrickWall = ModContent.WallType<NoseTempleWallGreen>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallGreenSafe>();
                     FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGreenSafe>();
                     break;
                 }
                 case 1:
                 {
                     BrickWall = ModContent.WallType<NoseTempleWallPurple>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
                     FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallPurpleSafe>();
                     break;
                 }
                 case 2:
                 {
                     BrickWall = ModContent.WallType<NoseTempleWallGray>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallGraySafe>();
                     FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGray>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGraySafe>();
                     break;
                 }
             }
@@ -856,10 +864,20 @@ namespace Spooky.Content.Generation
                     {
                         tile.WallType = (ushort)BrickWall;
                     }
+                    //walls safe
+                    if (tile.WallType == ModContent.WallType<NoseTempleWallPurpleSafe>())
+                    {
+                        tile.WallType = (ushort)BrickWallSafe;
+                    }
                     //fancy walls
                     if (tile.WallType == ModContent.WallType<NoseTempleFancyWallPurple>())
                     {
                         tile.WallType = (ushort)FancyBrickWall;
+                    }
+                    //fancy walls safe
+                    if (tile.WallType == ModContent.WallType<NoseTempleFancyWallPurpleSafe>())
+                    {
+                        tile.WallType = (ushort)FancyBrickWallSafe;
                     }
                     //BG walls
                     if (tile.WallType == ModContent.WallType<NoseTempleWallBGPurple>())

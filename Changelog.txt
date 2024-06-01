@@ -12,9 +12,14 @@ Eye Valley Improvements:
 -Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
 
 
-New Nose Cultist Dungeon:
+New Nose Dungeon:
 
--Stuff lol (Too lazy to write a changelog and it isnt fully complete yet)
+-A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited with strange cultists
+-Found at the very edge of the biome at a large broken temple with a brand new statue used to summon moco
+-Entrance is blocked by a locked trapdoor which can only be opened with a shadow key
+-At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared the dungeon
+-At the end you can enter a tunnel to backtrack to the entrance where the barrier previously blocking the opposite side is now opened
+-This newly opened hallway takes you to a giant arena where you will fight a new mini-boss who will drop the cotton swab to summon moco when killed
 
 
 Little Eye Quest Rework:
@@ -85,6 +90,7 @@ Weapons & Gear:
 -Gilded mage tunic now gives 10% increased magic damage instead of a flat increase of 5
 -Nerfed the plant puncher staff's damage from 50 to 30, but you can now have up to 2 hands at once
 -Venomous spiderpoon projectiles now have a higher vertical shoot range
+-Cowbell entity minions now use local immunity frames so they dont prevent other projectiles from hitting enemies
 
 
 Enemy & Boss Changes:
@@ -125,6 +131,7 @@ Miscellaneous:
 Removals:
 
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
+-Removed the cotton swab's crafting recipe due to its new obtainment method
 
 
 
@@ -146,6 +153,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
 -Crux not killing its debuff aura if it was using one when killed
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
+-Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

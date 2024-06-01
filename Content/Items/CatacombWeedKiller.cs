@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.Catacomb.Ambient;

@@ -33,7 +33,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(114, 13, 39), name);
+            AddMapEntry(new Color(125, 125, 125), name);
             DustType = DustID.Stone;
         }
 

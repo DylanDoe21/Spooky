@@ -93,7 +93,7 @@ namespace Spooky.Content.Generation
                         float percent = dist / constant;
                         float blurPercent = 0.99f;
 
-                        if (percent > blurPercent && Main.tile[X, Y - 20].WallType != WallID.SpiderUnsafe)
+                        if (percent > blurPercent && Main.tile[X, Y].WallType == 0)
                         {
                             SpookyWorldMethods.PlaceCircle(X, Y, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(45, 75), false, false);
                         }

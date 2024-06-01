@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 using Spooky.Content.Tiles.NoseTemple;
 
@@ -26,19 +27,11 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            bool WallCondition = Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallPurple>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallPurple>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGPurple>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallGreen>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallGreen>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGGreen>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallGray>() ||
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleFancyWallGray>() || 
-            Main.tile[PlayerX, PlayerY].WallType == ModContent.WallType<NoseTempleWallBGGray>();
+            int[] DungeonWalls = new int[] { ModContent.WallType<NoseTempleWallPurple>(), ModContent.WallType<NoseTempleFancyWallPurple>(), ModContent.WallType<NoseTempleWallBGPurple>(),
+            ModContent.WallType<NoseTempleWallGreen>(), ModContent.WallType<NoseTempleFancyWallGreen>(), ModContent.WallType<NoseTempleWallBGGreen>(),
+            ModContent.WallType<NoseTempleWallGray>(), ModContent.WallType<NoseTempleFancyWallGray>(), ModContent.WallType<NoseTempleWallBGGray>() };
 
-            bool DeepEnoughCondition = PlayerY >= Main.maxTilesY - 103;
-
-            bool BiomeCondition = DeepEnoughCondition && WallCondition && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>());
+            bool BiomeCondition = DungeonWalls.Contains(Main.tile[PlayerX, PlayerY].WallType) && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>());
 
             return BiomeCondition;
         }

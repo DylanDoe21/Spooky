@@ -194,27 +194,73 @@ namespace Spooky.Content.NPCs.NoseCult
                         {
                             SoundEngine.PlaySound(DeathSound, NPC.Center);
 
-                            //TODO: each of these needs a custom packet for multiplayer
+                            /*
                             if (NPC.type == ModContent.NPCType<MocoIdol1>())
                             {
-                                Flags.downedMocoIdol1 = true;
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned1);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol1 = true;
+                                }
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol2>())
                             {
-                                Flags.downedMocoIdol2 = true;
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned2);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol2 = true;
+                                }
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol3>())
                             {
-                                Flags.downedMocoIdol3 = true;
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned3);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol3 = true;
+                                }
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol4>())
                             {
-                                Flags.downedMocoIdol4 = true;
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned4);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol4 = true;
+                                }
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol5>())
                             {
-                                Flags.downedMocoIdol5 = true;
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned5);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol5 = true;
+                                }
                             }
+                            */
 
                             ActivateLightTiles();
 

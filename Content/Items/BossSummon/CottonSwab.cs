@@ -20,15 +20,5 @@ namespace Spooky.Content.Items.BossSummon
             Item.rare = ItemRarityID.White;
             Item.maxStack = 1;
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 10)
-            .AddIngredient(ItemID.Bone, 12)
-            .AddIngredient(ItemID.Cobweb, 25)
-            .AddTile(TileID.DemonAltar)
-            .Register();
-        }
     }
 }

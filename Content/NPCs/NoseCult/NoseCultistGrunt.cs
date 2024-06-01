@@ -122,6 +122,9 @@ namespace Spooky.Content.NPCs.NoseCult
         
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
 			NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;

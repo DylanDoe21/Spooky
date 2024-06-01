@@ -226,22 +226,6 @@ GiantWeb: {
 	DisplayNameAlt: Right click to insert old hunter piece
 }
 
-//nose cult
-MocoIdol1.DisplayName: Moco Idol
-MocoIdol2.DisplayName: Moco Idol
-MocoIdol3.DisplayName: Moco Idol
-MocoIdol4.DisplayName: Moco Idol
-MocoIdol5.DisplayName: Moco Idol
-NoseCultistBruteIdle.DisplayName: Cultist Brute
-NoseCultistBrute.DisplayName: Cultist Brute
-NoseCultistGruntIdle.DisplayName: Cultist Sneezer
-NoseCultistGrunt.DisplayName: Cultist Sneezer
-NoseCultistGunnerIdle.DisplayName: Cultist Blaster
-NoseCultistGunner.DisplayName: Cultist Blaster
-NoseCultistMageIdle.DisplayName: Cultist Mage
-NoseCultistMage.DisplayName: Cultist Mage
-NoseCultistWingedIdle.DisplayName: Cultist Flier
-NoseCultistWinged.DisplayName: Cultist Flier
 //spooky biome
 Bungus.DisplayName: Bungus
 CandleMonster.DisplayName: Candle Monster
@@ -344,3 +328,19 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
+//nose cult
+MocoIdol1.DisplayName: Nose Idol
+MocoIdol2.DisplayName: Nose Idol
+MocoIdol3.DisplayName: Nose Idol
+MocoIdol4.DisplayName: Nose Idol
+MocoIdol5.DisplayName: Nose Idol
+NoseCultistBruteIdle.DisplayName: ""
+NoseCultistBrute.DisplayName: Cultist Brute
+NoseCultistGruntIdle.DisplayName: ""
+NoseCultistGrunt.DisplayName: Cultist Sneezer
+NoseCultistGunnerIdle.DisplayName: ""
+NoseCultistGunner.DisplayName: Cultist Blaster
+NoseCultistMageIdle.DisplayName: ""
+NoseCultistMage.DisplayName: Cultist Mage
+NoseCultistWingedIdle.DisplayName: ""
+NoseCultistWinged.DisplayName: Cultist Flier

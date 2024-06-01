@@ -62,32 +62,60 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void FindFrame(int frameHeight)
         {   
-            //running animation
             NPC.frameCounter++;
-            if (NPC.velocity.Y == 0)
+
+            if (NPC.localAI[1] <= 0)
             {
-                if (NPC.frameCounter > 9)
+                //walking animation
+                if (NPC.velocity.Y == 0)
+                {
+                    if (NPC.frameCounter > 9)
+                    {
+                        NPC.frame.Y = NPC.frame.Y + frameHeight;
+                        NPC.frameCounter = 0;
+                    }
+                    if (NPC.frame.Y >= frameHeight * 5)
+                    {
+                        NPC.frame.Y = 0 * frameHeight;
+                    }
+                }
+                //falling animation
+                else
+                {
+                    NPC.frame.Y = 5 * frameHeight;
+                }
+            }
+            else
+            {
+                if (NPC.frame.Y < frameHeight * 7)
+                {
+                    NPC.frame.Y = 6 * frameHeight;
+                }
+
+                if (NPC.frameCounter > 4)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 5)
+                if (NPC.frame.Y >= frameHeight * 13)
                 {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
+
                     NPC.frame.Y = 0 * frameHeight;
                 }
-            }
-            //falling animation
-            else
-            {
-                NPC.frame.Y = 5 * frameHeight;
             }
         }
         
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
 			NPC.spriteDirection = NPC.direction;
 
-            //NPC.localAI[0]++;
+            NPC.localAI[0]++;
 
             if (NPC.localAI[0] >= 360 && NPC.velocity.Y == 0)
             {
@@ -96,7 +124,19 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.localAI[1] > 0)
             {
+                NPC.velocity *= 0;
 
+                if (NPC.frame.Y == 10 * NPC.height && NPC.localAI[2] == 0)
+                {
+                    SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
+
+                    //debuf text for now
+                    Main.NewText("Projectile Shot", Color.Green);
+                    
+                    NPC.localAI[2]++;
+
+                    NPC.netUpdate = true;
+                }
             }
         }
 

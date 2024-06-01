@@ -195,6 +195,36 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.MocoIdolDowned1:
+                {
+                    Flags.downedMocoIdol1 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.MocoIdolDowned2:
+                {
+                    Flags.downedMocoIdol2 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.MocoIdolDowned3:
+                {
+                    Flags.downedMocoIdol3 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.MocoIdolDowned4:
+                {
+                    Flags.downedMocoIdol4 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.MocoIdolDowned5:
+                {
+                    Flags.downedMocoIdol5 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 //should never occur I think?
                 default:
                 {
@@ -222,5 +252,10 @@ namespace Spooky
         OldHunterLegs,
         OldHunterAssembled,
         EggIncursionDowned,
+        MocoIdolDowned1,
+        MocoIdolDowned2,
+        MocoIdolDowned3,
+        MocoIdolDowned4,
+        MocoIdolDowned5,
     }
 }

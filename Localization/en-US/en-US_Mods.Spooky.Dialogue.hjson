@@ -179,7 +179,6 @@ SkeletonBouncer: {
 }
 
 SuspiciousSkeleton: {
-	ShopButton: Contraband
 	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
 	Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
 	Dialogue3: Ey kid! Yer too slow! Just sold someone a big golden ring earlier. Haven't heard from em in a minute though
