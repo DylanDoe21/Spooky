@@ -24,5 +24,13 @@ namespace Spooky.Content.Tiles.NoseTemple
 			Item.maxStack = 9999;
 			Item.createWall = ModContent.WallType<NoseTempleWallGraySafe>();
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<NoseTempleBrickGrayItem>())
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }

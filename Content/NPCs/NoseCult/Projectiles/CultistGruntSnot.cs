@@ -61,7 +61,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.OgreSpit, 60, true);
+            target.AddBuff(BuffID.OgreSpit, 180, true);
         }
 
         public override void AI()
