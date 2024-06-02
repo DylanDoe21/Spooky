@@ -9,12 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.Food;
+using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
     public class NoseCultistGrunt : ModNPC  
     {
+        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 11;
@@ -26,6 +28,7 @@ namespace Spooky.Content.NPCs.NoseCult
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -33,6 +36,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -41,7 +45,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 34;
-			NPC.height = 42;
+			NPC.height = 50;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.1f };
@@ -129,7 +133,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] >= 360 && NPC.velocity.Y == 0)
+            if (NPC.localAI[0] == 1)
+            {
+                NPC.localAI[3] = Main.rand.Next(360, 480);
+            }
+
+            if (NPC.localAI[0] >= NPC.localAI[3] && NPC.velocity.Y == 0)
             {
                 NPC.localAI[1] = 1;
             }
@@ -138,10 +147,11 @@ namespace Spooky.Content.NPCs.NoseCult
             {
                 NPC.velocity *= 0;
 
-                if (NPC.frame.Y == 8 * 50 && NPC.localAI[2] == 0)
+                if (NPC.frame.Y == 8 * NPC.height && NPC.localAI[2] == 0)
                 {
-                    //debuf text for now
-                    Main.NewText("Projectile Shot", Color.Green);
+                    SoundEngine.PlaySound(SneezeSound with { Pitch = 0.4f, Volume = 0.5f }, NPC.Center);
+
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, NPC.direction == -1 ? -10 : 10, 0, ModContent.ProjectileType<CultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
                     
                     NPC.localAI[2]++;
 

@@ -9,12 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.Food;
+using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
     public class NoseCultistGunner : ModNPC  
     {
+        public static readonly SoundStyle GunPumpSound = new("Spooky/Content/Sounds/ScarecrowReload", SoundType.Sound);
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 13;
@@ -26,6 +28,7 @@ namespace Spooky.Content.NPCs.NoseCult
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -33,6 +36,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -92,7 +96,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = 6 * frameHeight;
                 }
 
-                if (NPC.frameCounter > 4)
+                if (NPC.frameCounter > 7)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
@@ -117,7 +121,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPC.localAI[0]++;
 
-            if (NPC.localAI[0] >= 360 && NPC.velocity.Y == 0)
+            if (NPC.localAI[0] == 1)
+            {
+                NPC.localAI[3] = Main.rand.Next(300, 420);
+            }
+
+            if (NPC.localAI[0] >= NPC.localAI[3] && NPC.velocity.Y == 0)
             {
                 NPC.localAI[1] = 1;
             }
@@ -126,13 +135,29 @@ namespace Spooky.Content.NPCs.NoseCult
             {
                 NPC.velocity *= 0;
 
+                if (NPC.frame.Y == 7 * NPC.height && NPC.localAI[2] == 0)
+                {
+                    SoundEngine.PlaySound(GunPumpSound, NPC.Center);
+
+                    NPC.localAI[2]++;
+                }
+
+                if (NPC.frame.Y == 8 * NPC.height)
+                {
+                    NPC.localAI[2] = 0;
+                }
+
                 if (NPC.frame.Y == 10 * NPC.height && NPC.localAI[2] == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
 
-                    //debuf text for now
-                    Main.NewText("Projectile Shot", Color.Green);
-                    
+                    for (int numProjectiles = 0; numProjectiles <= 5; numProjectiles++)
+                    {
+                        int ShootSpeedX = NPC.direction == -1 ? Main.rand.Next(-7, -4) : Main.rand.Next(5, 8);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeedX, Main.rand.Next(-4, 0), ModContent.ProjectileType<CultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
+                    }
+
                     NPC.localAI[2]++;
 
                     NPC.netUpdate = true;

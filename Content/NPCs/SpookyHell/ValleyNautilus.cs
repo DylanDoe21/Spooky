@@ -341,12 +341,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //charge four times
                     if (NPC.localAI[1] < 4)
                     {
-                        //save location to go to
-                        if (NPC.localAI[0] == 5)
-                        {
-                            SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - Main.rand.Next(150, 220));
-                        }
-
                         if (NPC.localAI[0] > 5 && NPC.localAI[0] < 75)
                         {
                             Vector2 GoTo = SavePlayerPosition;
@@ -366,7 +360,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         }
 
                         //shake before charging
-                        if (NPC.localAI[0] > 75 && NPC.localAI[0] < 100)
+                        if (NPC.localAI[0] > 75 && NPC.localAI[0] < 95)
                         {
                             NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-7, 7);
@@ -410,7 +404,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             if (NPC.localAI[1] < 3)
                             {
-                                NPC.localAI[0] = 100;
+                                NPC.localAI[0] = 98;
                             }
                             else
                             {

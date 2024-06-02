@@ -295,8 +295,8 @@ namespace Spooky.Content.Generation
             //generate old hunter piece structures
             GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
             GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
-            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 18), "OldHunterTorso", 12, 8);
-            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 18), "OldHunterLegs", 12, 8);
+            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterTorso", 12, 8);
+            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterLegs", 12, 8);
             
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -638,7 +638,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if (WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1))
+                if ((WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1)) || Main.tile[startX, startY].WallType == WallID.SpiderUnsafe)
                 {
                     Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
                     Generator.GenerateStructure("Content/Structures/SpiderCave/" + StructureFile, origin.ToPoint16(), Mod);

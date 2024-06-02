@@ -29,6 +29,13 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             HitSound = SoundID.Dig;
         }
 
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			r = 0.4f;
+            g = 0.4f;
+            b = 0f;
+        }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY) 
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<OldHunterHat>());

@@ -141,7 +141,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 }
 
                 //slow down before spitting
-                if (NPC.localAI[0] >= 320)
+                if (NPC.localAI[0] >= 320 && NPC.velocity.Y == 0)
                 {
                     NPC.velocity.X *= 0.2f;
                 }
@@ -167,8 +167,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         float Spread = Main.rand.Next(-2, 2);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y - 10, ShootSpeed.X + Spread, 
-                        ShootSpeed.Y + Spread, ProjectileID.BloodShot, Damage, 0, NPC.target);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y - 10, ShootSpeed.X + Spread, ShootSpeed.Y + Spread, ProjectileID.BloodShot, Damage, 0, NPC.target);
                     }
                 }
 

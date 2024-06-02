@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.SpookyHell.Furniture;
+
 namespace Spooky.Content.Tiles.NoseTemple
 {
     public class NoseTempleBrickGrayItem : ModItem
@@ -23,6 +25,19 @@ namespace Spooky.Content.Tiles.NoseTemple
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<NoseTempleBrickGraySafe>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.GrayBrick)
+            .AddTile(ModContent.TileType<Cauldron>())
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<NoseTempleWallGrayItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

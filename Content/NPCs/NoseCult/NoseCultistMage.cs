@@ -12,6 +12,9 @@ namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistMage : ModNPC
 	{
+        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{	
 			Main.npcFrameCount[NPC.type] = 7;
@@ -46,20 +49,76 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
-            if (NPC.frameCounter > 15)
+
+            if (NPC.ai[0] < 420)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
+                //idle animation
+                if (NPC.frameCounter > 10)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 4)
+                {
+                    NPC.frame.Y = 0 * frameHeight;
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 4)
+            else
             {
-                NPC.frame.Y = 0 * frameHeight;
+                //casting animation
+                if (NPC.frame.Y < frameHeight * 3)
+                {
+                    NPC.frame.Y = 2 * frameHeight;
+                }
+
+                if (NPC.frameCounter > 15)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 7)
+                {
+                    NPC.frame.Y = 5 * frameHeight;
+                }
             }
         }
 
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+            
 			NPC.spriteDirection = NPC.direction;
+
+            NPC.ai[0]++;
+
+            if (NPC.ai[0] >= 420)
+            {
+                //play pitched up sneezing sound like a real goofy sneeze
+                if (NPC.frame.Y == 6 * NPC.height && NPC.ai[0] < 550 && NPC.ai[2] == 0)
+                {
+                    SoundEngine.PlaySound(SneezeSound1 with { Pitch = 0.2f, Volume = 0.5f }, NPC.Center);
+                    NPC.ai[2] = 1;
+                }
+                else
+                {
+                    NPC.ai[2] = 0;
+                }
+
+                //play actual sneeze sound and shoot out booger enemies
+                if (NPC.ai[0] >= 570)
+                {
+                    SoundEngine.PlaySound(SneezeSound2, NPC.Center);
+
+                    Main.NewText("Enemy Spawned", Color.Green);
+
+                    NPC.ai[0] = 0;
+                    NPC.ai[1] = 0;
+                    NPC.ai[2] = 0;
+
+                    NPC.netUpdate = true;
+                }
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

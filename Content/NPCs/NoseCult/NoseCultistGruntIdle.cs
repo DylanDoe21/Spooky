@@ -76,7 +76,10 @@ namespace Spooky.Content.NPCs.NoseCult
 				{
 					int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistGrunt>());
 						
-					NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+					}
 
 					NPC.active = false;
 				}

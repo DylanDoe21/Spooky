@@ -126,6 +126,7 @@ Miscellaneous:
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -Pickaxes, axes, and hammers can now be used in the catacombs but cannot break anything until after big bone (Besides cuttable ambient tiles like vines and grasses)
 -Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
+-Old hunter piece tiles now give off light to make them easier to find
 
 
 Removals:
@@ -154,6 +155,7 @@ Fixed all of the following bugs and issues:
 -Crux not killing its debuff aura if it was using one when killed
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
 -Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
+-Claret cephalopod repeatedly charging at the same location instead of actually charging at the players current location
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
