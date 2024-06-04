@@ -91,6 +91,9 @@ Weapons & Gear:
 -Nerfed the plant puncher staff's damage from 50 to 30, but you can now have up to 2 hands at once
 -Venomous spiderpoon projectiles now have a higher vertical shoot range
 -Cowbell entity minions now use local immunity frames so they dont prevent other projectiles from hitting enemies
+-Old hunter's scarf mark enemy damage multiplier nerfed from 1.5x to 1.2x
+-Cross charm now gives you 15 defense while active instead of increasing your damage reduction
+-Glass pyramid now gives you 40% damage reduction for 3 hits instead of increasing your defense
 
 
 Enemy & Boss Changes:

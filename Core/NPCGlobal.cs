@@ -110,7 +110,7 @@ namespace Spooky.Core
             //enemies inflicted with the hunter mark debuff, they take more damage from ranged weapons
             if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
             {
-                modifiers.FinalDamage *= 1.5f;
+                modifiers.FinalDamage *= 1.2f;
             }
         }
 

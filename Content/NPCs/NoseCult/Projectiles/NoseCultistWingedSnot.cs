@@ -5,9 +5,9 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
+namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class SnotBall2 : ModProjectile
+    public class NoseCultistWingedSnot : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
 
@@ -20,29 +20,18 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 		
         public override void SetDefaults()
         {
-            Projectile.width = 26;                  			 
-            Projectile.height = 26;          
+            Projectile.width = 12;                  			 
+            Projectile.height = 12;       
 			Projectile.friendly = false;
             Projectile.hostile = true;                 			  		
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.ignoreWater = true;             					
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 600;
             Projectile.alpha = 255;
 		}
         
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 11)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 7)
-                {
-                    Projectile.frame = 0;
-                }
-            }
-
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
             Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
@@ -62,73 +51,41 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.OgreSpit, 60, true);
+            target.AddBuff(BuffID.OgreSpit, 180, true);
         }
 
         public override void AI()
         {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 8)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame >= 7)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 8;
-            }
-
-            Projectile.ai[0]++;
-
-            if (Projectile.ai[0] > 75)
-            {
-                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.18f;
-
-                int minTilePosX = (int)(Projectile.position.X / 16.0) - 1;
-                int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16.0) + 2;
-                int minTilePosY = (int)(Projectile.position.Y / 16.0) - 1;
-                int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16.0) + 2;
-                if (minTilePosX < 0)
-                {
-                    minTilePosX = 0;
-                }
-                if (maxTilePosX > Main.maxTilesX)
-                {
-                    maxTilePosX = Main.maxTilesX;
-                }
-                if (minTilePosY < 0)
-                {
-                    minTilePosY = 0;
-                }
-                if (maxTilePosY > Main.maxTilesY)
-                {
-                    maxTilePosY = Main.maxTilesY;
-                }
-
-                for (int i = minTilePosX; i < maxTilePosX; ++i)
-                {
-                    for (int j = minTilePosY; j < maxTilePosY; ++j)
-                    {
-                        if (Main.tile[i, j] != null && (Main.tile[i, j].HasTile && (Main.tileSolid[(int)Main.tile[i, j].TileType])))
-                        {
-                            Vector2 vector2;
-                            vector2.X = (float)(i * 16);
-                            vector2.Y = (float)(j * 16);
-
-                            if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
-                            (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
-                            {
-                                Projectile.Kill();
-                            }
-                        }
-                    }
-                }
+                Projectile.alpha -= 15;
             }
 		}
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            Projectile.velocity *= 0;
+
+            return false;
+        }
+
 		public override void OnKill(int timeLeft)
 		{
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer);
-
-            for (int numDusts = 0; numDusts < 20; numDusts++)
+            for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;

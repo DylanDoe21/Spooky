@@ -22,8 +22,8 @@ namespace Spooky.Content.Items.Catacomb
         { 
             if (!player.HasBuff(ModContent.BuffType<CrossCooldown>()))
             {
-                player.endurance += 0.35f;
                 player.GetModPlayer<SpookyPlayer>().CrossCharmShield = true;
+                player.statDefense += 15;
             }
         }
     }

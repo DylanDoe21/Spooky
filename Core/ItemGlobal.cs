@@ -150,8 +150,6 @@ namespace Spooky.Core
 
 					if (Main.rand.NextBool(Chance1) || (player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot > 0 && Main.rand.NextBool(Chance2)))
 					{
-                        float DivideAmount = 1.5f;
-
 						float mouseXDist = Main.mouseX + Main.screenPosition.X;
 						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
 
@@ -162,7 +160,7 @@ namespace Spooky.Core
 							ShootSpeed.X *= 15 + Main.rand.NextFloat(-5f, 5f);
                             ShootSpeed.Y *= 15 + Main.rand.NextFloat(-5f, 5f);
 
-							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage / (int)DivideAmount, item.knockBack, player.whoAmI);
+							Projectile.NewProjectile(null, player.Center, ShootSpeed, ModContent.ProjectileType<BouncyLemon>(), item.damage, item.knockBack, player.whoAmI);
 						}
 
 						player.GetModPlayer<BloomBuffsPlayer>().SummerLemonsShot++;

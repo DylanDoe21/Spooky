@@ -43,7 +43,7 @@ namespace Spooky.Content.UserInterfaces
             spriteBatch.Draw(UIBoxTexture, UITopLeft, null, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
 
             //prevent any mouse interactions while the mouse is hovering over this UI
-            if (IsMouseOverUI((int)UITopLeft.X, (int)UITopLeft.Y, UIBoxTexture, UIBoxScale))
+            if (IsMouseOverUI(UITopLeft, UIBoxTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = false;
 
@@ -61,7 +61,7 @@ namespace Spooky.Content.UserInterfaces
             Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon1TopLeft, Icon1Texture);
 
-            if (IsMouseOverUI((int)Icon1TopLeft.X, (int)Icon1TopLeft.Y, Icon1Texture, UIBoxScale))
+            if (IsMouseOverUI(Icon1TopLeft, Icon1Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
@@ -80,7 +80,7 @@ namespace Spooky.Content.UserInterfaces
             Texture2D Icon2Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon2TopLeft, Icon2Texture);
 
-            if (IsMouseOverUI((int)Icon2TopLeft.X, (int)Icon2TopLeft.Y, Icon2Texture, UIBoxScale))
+            if (IsMouseOverUI(Icon2TopLeft, Icon2Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
@@ -99,7 +99,7 @@ namespace Spooky.Content.UserInterfaces
             Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon3TopLeft, Icon3Texture);
 
-            if (IsMouseOverUI((int)Icon3TopLeft.X, (int)Icon3TopLeft.Y, Icon3Texture, UIBoxScale))
+            if (IsMouseOverUI(Icon3TopLeft, Icon3Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
@@ -118,7 +118,7 @@ namespace Spooky.Content.UserInterfaces
             Texture2D Icon4Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon4TopLeft, Icon4Texture);
 
-            if (IsMouseOverUI((int)Icon4TopLeft.X, (int)Icon4TopLeft.Y, Icon4Texture, UIBoxScale))
+            if (IsMouseOverUI(Icon4TopLeft, Icon4Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
@@ -136,7 +136,7 @@ namespace Spooky.Content.UserInterfaces
             Texture2D OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon5Locked").Value;
             DrawIcon(spriteBatch, OrroboroIconTopLeft, OrroboroIconTexture);
 
-            if (IsMouseOverUI((int)OrroboroIconTopLeft.X, (int)OrroboroIconTopLeft.Y, OrroboroIconTexture, UIBoxScale))
+            if (IsMouseOverUI(OrroboroIconTopLeft, OrroboroIconTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
@@ -194,9 +194,9 @@ namespace Spooky.Content.UserInterfaces
         }
 
         //check if the mouse is hovering over a specific button or UI box
-        public static bool IsMouseOverUI(int TopLeft, int TopRight, Texture2D texture, Vector2 backgroundScale)
+        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
         {
-            Rectangle backgroundArea = new Rectangle(TopLeft, TopRight, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
 
             if (MouseScreenArea.Intersects(backgroundArea))
             {

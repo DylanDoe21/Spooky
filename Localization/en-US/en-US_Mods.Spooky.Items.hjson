@@ -474,7 +474,7 @@ CrossCharm: {
 	DisplayName: Cross Charm
 	Tooltip:
 		'''
-		Grants you a magic cross that reduces damage the next time you are hit
+		Grants you a magic cross that gives you 15 extra defense
 		After being hit, the cross will disappear and regenerate after 10 seconds
 		'''
 }
@@ -751,7 +751,7 @@ MonumentMythosPyramid: {
 	Tooltip:
 		'''
 		Encases you in a protective glass pyramid 
-		The pyramid will drastically increase your defense for 3 hits, after which it will shatter
+		The pyramid will drastically increase your damage reduction for 3 hits, after which it will shatter
 		After it shatters, you will take double damage from all attacks for 10 seconds
 		The pyramid will regenerate after one minute
 		'She is only dormant now'
@@ -3232,19 +3232,4 @@ SnotStoneItem: {
 NoseTempleWallBGItem: {
 	DisplayName: Nose Temple Wall Background Item
 	Tooltip: ""
-}
-
-BrickColorChanger1: {
-	DisplayName: Brick Color Changer 1
-	Tooltip: Changes Purple to Green
-}
-
-BrickColorChanger2: {
-	DisplayName: Brick Color Changer 2
-	Tooltip: Changes Green to Gray
-}
-
-BrickColorChanger3: {
-	DisplayName: Brick Color Changer 3
-	Tooltip: Changes Gray to Purple
 }

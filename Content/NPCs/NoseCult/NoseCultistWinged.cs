@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
@@ -111,10 +112,13 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] >= 240)
             {
-                if (NPC.frame.Y == 8 * NPC.height && NPC.ai[3] == 0)
+                if (NPC.frame.Y == 6 * NPC.height && NPC.ai[3] == 0)
                 {
-                    //debuf text for now
-                    Main.NewText("Projectile Thrown", Color.Green);
+                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 12f;
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
 
                     NPC.ai[3]++;
 

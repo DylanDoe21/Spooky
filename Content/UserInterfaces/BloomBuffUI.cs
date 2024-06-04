@@ -40,7 +40,7 @@ namespace Spooky.Content.UserInterfaces
             if (ModContent.GetInstance<SpookyConfig>().CanDragBloomBuffUI && !Main.playerInventory)
             {
                 //if the player is hovering over the UI panel and presses left click then allow dragging
-                if (IsMouseOverUI((int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.X, (int)player.GetModPlayer<BloomBuffsPlayer>().UITopLeft.Y, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+                if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     IsDragging = true;
                 }
@@ -204,7 +204,7 @@ namespace Spooky.Content.UserInterfaces
                 spriteBatch.Draw(IconTexture, IconTopLeft, null, Color.White * Transparency, 0f, Vector2.Zero, Vector2.One * Main.UIScale * 0.9f, SpriteEffects.None, 0f);
 
                 //only display text if the player is hovering over the UI, and the inventory is not open
-                if (IsMouseOverUI((int)IconTopLeft.X, (int)IconTopLeft.Y, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)
+                if (IsMouseOverUI(IconTopLeft, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)
                 {
                     if (IconTexture != ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value)
                     {
@@ -233,9 +233,9 @@ namespace Spooky.Content.UserInterfaces
         public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
 
         //check if the mouse is hovering over a specific button or UI box
-        public static bool IsMouseOverUI(int TopLeft, int TopRight, Texture2D texture, Vector2 backgroundScale)
+        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
         {
-            Rectangle backgroundArea = new Rectangle(TopLeft, TopRight, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
 
             if (MouseScreenArea.Intersects(backgroundArea))
             {
