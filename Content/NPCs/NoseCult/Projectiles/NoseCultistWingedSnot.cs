@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +28,6 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;             					
             Projectile.timeLeft = 600;
-            Projectile.alpha = 255;
 		}
         
         public override bool PreDraw(ref Color lightColor)
@@ -36,14 +36,11 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
             Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
 
-            for (int numEffect = 0; numEffect < 2; numEffect++)
+            for (int numEffect = 0; numEffect < 3; numEffect++)
             {
-                Color newColor = glowColor;
-                newColor = Projectile.GetAlpha(newColor);
-                newColor *= 1f;
                 Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 2 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
                 Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, glowColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
             }
 
             return true;
@@ -69,16 +66,18 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
-            
-            if (Projectile.alpha > 0)
-            {
-                Projectile.alpha -= 15;
-            }
 		}
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
             Projectile.velocity *= 0;
+
+            if (Projectile.ai[0] == 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
+
+                Projectile.ai[0] = 1;
+            }
 
             return false;
         }

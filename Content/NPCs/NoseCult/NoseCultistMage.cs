@@ -19,6 +19,13 @@ namespace Spooky.Content.NPCs.NoseCult
 		{	
 			Main.npcFrameCount[NPC.type] = 7;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Position = new Vector2(5f, 18f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 0f
+            };
 		}
 
 		public override void SetDefaults()

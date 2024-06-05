@@ -21,6 +21,13 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             Main.npcFrameCount[NPC.type] = 9;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Position = new Vector2(2f, 10f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 0f
+            };
         }
 
         public override void SetDefaults()
@@ -112,7 +119,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] >= 240)
             {
-                if (NPC.frame.Y == 6 * NPC.height && NPC.ai[3] == 0)
+                if (NPC.frame.Y == 7 * NPC.height && NPC.ai[3] == 0)
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
