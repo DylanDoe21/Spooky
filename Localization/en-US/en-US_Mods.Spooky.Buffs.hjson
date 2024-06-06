@@ -63,11 +63,7 @@ BouncerDeathmark: {
 
 CatacombDebuff: {
 	DisplayName: Curse of the Catacombs
-	Description:
-		'''
-		You cannot place blocks or use various tools
-		Your vision is very limited
-		'''
+	Description: A curse prevents you from using teleportation
 }
 
 CrossCooldown: {

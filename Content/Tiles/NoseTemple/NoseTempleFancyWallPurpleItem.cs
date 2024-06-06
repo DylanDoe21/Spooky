@@ -19,7 +19,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Item.width = 16;
 			Item.height = 16;
 			Item.useTime = 7;
-			Item.useAnimation = 15;
+			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.createWall = ModContent.WallType<NoseTempleFancyWallPurpleSafe>();

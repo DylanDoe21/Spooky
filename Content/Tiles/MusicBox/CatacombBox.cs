@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.MusicBox
             Item.width = 24;
             Item.height = 32;
             Item.useTime = 10;
-            Item.useAnimation = 15;
+			Item.useAnimation = 14;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 10);

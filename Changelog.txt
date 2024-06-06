@@ -116,6 +116,9 @@ Enemy & Boss Changes:
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
 -Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collision issues the old one had)
 -Daffodil now has a new punch attack in phase 2
+-Spooky spirit now has a new beam projectile to fix collision issues the previous one had
+-Nerfed spooky spirit's defense from 15 to 8
+-Nerfed spooky spirit's health from 3500 to 3000 (this is its base health, not affected by difficulty scaling)
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little gore chunks when killed, and heavily nerfed their jumping rate and speed
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
@@ -127,9 +130,11 @@ Miscellaneous:
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
 -The giant eye valley egg now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
--Pickaxes, axes, and hammers can now be used in the catacombs but cannot break anything until after big bone (Besides cuttable ambient tiles like vines and grasses)
 -Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
+-Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass and colored mushrooms on it
+-Added actual items for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
+-you can now break blocks in the catacombs, however the actual brick blocks in the catacombs are still unbreakable, rod of discord is still disabled, and you still cant place blocks besides torches
 
 
 Removals:

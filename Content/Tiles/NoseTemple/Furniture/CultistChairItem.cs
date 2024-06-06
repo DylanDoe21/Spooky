@@ -12,21 +12,19 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 15;
-			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<CultistChair>();
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 14)
+            .AddIngredient(ModContent.ItemType<NoseTempleBrickGrayItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
         }
-		*/
 	}
 }

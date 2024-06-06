@@ -27,7 +27,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe(2)
-            .AddIngredient(ModContent.ItemType<LivingFleshItem>(), 1)
+            .AddIngredient(ModContent.ItemType<LivingFleshItem>())
             .Register();
         }
 	}

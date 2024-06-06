@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             Item.width = 16;
 			Item.height = 16;
 			Item.useTime = 10;
-			Item.useAnimation = 15;
+			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 		}

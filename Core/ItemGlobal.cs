@@ -46,40 +46,12 @@ namespace Spooky.Core
 
 		public override bool CanUseItem(Item item, Player player)
         {
-            //disable a bunch of tools and other utility items while in the catacombs
-            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>())) //|| player.InModBiome<NoseTempleBiome>())
+            //dont allow placing blocks and disable the rod of discord in the catacombs
+            int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
+
+            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()) && ((item.createTile > 0 && !Torches.Contains(item.type)) || item.type == ItemID.RodofDiscord))
             {
-                int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
-
-                //disable tools, block placement, and the rod of discord
-                if ((item.createTile > 0 && !Torches.Contains(item.type)) || item.type == ItemID.RodofDiscord)
-                {
-                    return false;
-                }
-
-                //disable the use of any explosives
-                int[] Explosives = { 166, 3196, 3115, 3547, 4908, 4827, 167, 4826, 4825, 4423, 235, 4909, 2896, 4824 };
-
-                if (Explosives.Contains(item.type))
-                {
-                    return false;
-                }
-
-                //disable the use of any wire items
-                int[] WireTools = { 509, 850, 851, 3612, 3625, 3611, 510 };
-
-                if (WireTools.Contains(item.type))
-                {
-                    return false;
-                }
-
-                //disable the use of buckets
-                int[] LiquidItems = { 205, 206, 207, 1128, 3031, 4820, 5302, 5364 };
-
-                if (LiquidItems.Contains(item.type))
-                {
-                    return false;
-                }
+                return false;
             }
 
             return base.CanUseItem(item, player);

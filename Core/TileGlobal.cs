@@ -105,16 +105,6 @@ namespace Spooky.Core
             return base.Slope(i, j, type);
         }
 
-		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
-		{
-			if (Main.LocalPlayer.HasBuff(ModContent.BuffType<CatacombDebuff>()) && !Main.tileCut[Main.tile[i, j].TileType])
-			{
-				return false;
-			}
-
-			return base.CanKillTile(i, j, type, ref blockDamaged);
-		}
-
 		public bool IsProtected(int x, int y)
         {
             if (!Main.gameMenu || Main.dedServ)

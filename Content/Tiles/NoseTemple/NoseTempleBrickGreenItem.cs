@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Tiles.NoseTemple
@@ -21,7 +22,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Item.width = 16;
 			Item.height = 16;
 			Item.useTime = 10;
-			Item.useAnimation = 15;
+			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<NoseTempleBrickGreenSafe>();
@@ -37,6 +38,10 @@ namespace Spooky.Content.Tiles.NoseTemple
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<NoseTempleWallGreenItem>(), 4)
             .AddTile(TileID.WorkBenches)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<NoseTemplePlatformGreenItem>(), 2)
             .Register();
         }
     }

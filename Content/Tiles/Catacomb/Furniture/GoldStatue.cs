@@ -15,6 +15,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			Main.tileFrameImportant[Type] = true;
             Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Width = 2;
 			TileObjectData.newTile.Height = 4;	
 			TileObjectData.newTile.Origin = new Point16(0, 3);
@@ -25,7 +26,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(218, 139, 49));
-			DustType = DustID.Stone;
+			DustType = DustID.Gold;
 			HitSound = SoundID.Dig;
 		}
     }

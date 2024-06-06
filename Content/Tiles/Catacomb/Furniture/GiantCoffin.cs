@@ -8,13 +8,16 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
-	public class GiantCoffin1 : ModTile
+	[LegacyName("GiantCoffin1")]
+	[LegacyName("GiantCoffin2")]
+	public class GiantCoffin : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
             Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 4;	
 			TileObjectData.newTile.Origin = new Point16(1, 3);
@@ -23,14 +26,17 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
-			TileObjectData.addTile(Type);
+			TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.StyleMultiplier = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
+            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
+            TileObjectData.addAlternate(1);
+            TileObjectData.addTile(Type);
             AddMapEntry(new Color(122, 81, 70));
 			DustType = DustID.WoodFurniture;
 			HitSound = SoundID.Dig;
 		}
     }
-
-	public class GiantCoffin2 : GiantCoffin1
-	{
-	}
 }

@@ -1923,15 +1923,6 @@ ArteryPiece: {
 	Tooltip: Filled with strange blood
 }
 
-ChestFood: {
-	DisplayName: Chest Monster Food
-	Tooltip:
-		'''
-		Opens one monster chest in the eye valley
-		'A chest monster's favorite delicacy'
-		'''
-}
-
 CreepyChunk: {
 	DisplayName: Monster Meat
 	Tooltip: "'Looks almost edible!'"
@@ -2400,8 +2391,53 @@ CatacombCrate2: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
+GiantCoffinItem: {
+	DisplayName: Old Wood Casket
+	Tooltip: ""
+}
+
+GoldStatue1Item: {
+	DisplayName: Gilded Evil Face Statue
+	Tooltip: ""
+}
+
+GoldStatue2Item: {
+	DisplayName: Gilded Mouth Statue
+	Tooltip: ""
+}
+
+GoldStatue3Item: {
+	DisplayName: Gilded Skull Statue
+	Tooltip: ""
+}
+
+GoldStatue4Item: {
+	DisplayName: Gilded Soul Statue
+	Tooltip: ""
+}
+
 MoyaiItem: {
 	DisplayName: Golden Moyai
+	Tooltip: ""
+}
+
+PottedPlant1Item: {
+	DisplayName: Potted Catacomb Mouth Flower
+	Tooltip: ""
+}
+
+PottedPlant2Item: {
+	DisplayName: Potted Catacomb Plant
+	Tooltip: ""
+}
+
+PottedPlant3Item: {
+	DisplayName: Potted Catacomb Eye Flower
+	Tooltip: ""
+}
+
+PottedPlant4Item: {
+	DisplayName: Potted Catacomb Skull
 	Tooltip: ""
 }
 
@@ -2428,6 +2464,11 @@ CatacombBrickWall2SafeItem: {
 CatacombFlooringItem: {
 	DisplayName: Catacomb Floor Brick
 	Tooltip: ""
+}
+
+CatacombGrassSeeds: {
+	DisplayName: Catacomb Grass Seeds
+	Tooltip: Plats grass on gray and brown catacomb bricks
 }
 
 GildedBrickItem: {
@@ -2718,6 +2759,11 @@ NoseTempleWallPurpleItem: {
 
 NoseTempleWallGrayItem: {
 	DisplayName: Gray Occultist Brick Wall
+	Tooltip: ""
+}
+
+SnotStoneItem: {
+	DisplayName: Snot Stone
 	Tooltip: ""
 }
 
@@ -3214,22 +3260,12 @@ CatacombWeedKiller: {
 	Tooltip: ""
 }
 
-NoseTempleWallItem: {
-	DisplayName: Nose Temple Wall Item
-	Tooltip: ""
+GrottoCompass: {
+	DisplayName: Rusted Compass
+	Tooltip: Points to the location of the spider-infested grotto
 }
 
-NoseTempleFancyWallItem: {
-	DisplayName: Nose Temple Fancy Wall Item
-	Tooltip: ""
-}
-
-SnotStoneItem: {
-	DisplayName: Snot Stone
-	Tooltip: ""
-}
-
-NoseTempleWallBGItem: {
-	DisplayName: Nose Temple Wall Background Item
-	Tooltip: ""
+EyeValleyCompass: {
+	DisplayName: Fleshy Compass
+	Tooltip: Points to the direction of a strange biome in the underworld
 }

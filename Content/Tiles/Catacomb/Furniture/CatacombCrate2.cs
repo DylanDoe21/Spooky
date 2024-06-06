@@ -23,8 +23,8 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			Item.consumable = true;
             Item.width = 34;
 			Item.height = 34;
-			Item.useTime = 15;
-			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.Green;  
