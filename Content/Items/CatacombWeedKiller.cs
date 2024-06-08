@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 
 using Spooky.Core;
+using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 
 namespace Spooky.Content.Items

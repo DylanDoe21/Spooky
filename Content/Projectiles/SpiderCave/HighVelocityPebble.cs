@@ -27,6 +27,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.tileCollide = true;
             Projectile.timeLeft = 2000;
             Projectile.penetrate = 1;
+            Projectile.extraUpdates = 4;
             Projectile.aiStyle = 0;
         }
 
@@ -92,13 +93,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
             }
 
 			Projectile.rotation += 0.2f * (float)Projectile.direction;
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 15)
-            {
-                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
-            }
         }
 		
         public override void OnKill(int timeLeft)

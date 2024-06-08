@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			Item.useAnimation = 55;
 			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 5;
-			Item.rare = ItemRarityID.LightRed;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item36;
 			Item.shoot = ProjectileID.PurificationPowder;

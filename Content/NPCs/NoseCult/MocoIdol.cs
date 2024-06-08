@@ -194,7 +194,6 @@ namespace Spooky.Content.NPCs.NoseCult
                         {
                             SoundEngine.PlaySound(DeathSound, NPC.Center);
 
-                            /*
                             if (NPC.type == ModContent.NPCType<MocoIdol1>())
                             {
                                 if (Main.netMode != NetmodeID.SinglePlayer)
@@ -260,7 +259,6 @@ namespace Spooky.Content.NPCs.NoseCult
                                     Flags.downedMocoIdol5 = true;
                                 }
                             }
-                            */
 
                             ActivateLightTiles();
 

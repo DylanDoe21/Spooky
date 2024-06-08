@@ -1,14 +1,13 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class NoseCultistWingedSnot : ModProjectile
+    public class NoseCultistGruntSnot : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
 
@@ -19,13 +18,14 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 		
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 22;
+            Projectile.width = 12;
+            Projectile.height = 16;
 			Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 400;
+            Projectile.alpha = 255;
 		}
         
         public override bool PreDraw(ref Color lightColor)
@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
         public override void AI()
         {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 8)
+            if (Projectile.frameCounter >= 11)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
@@ -64,21 +64,14 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
-		}
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            Projectile.velocity *= 0;
-
-            if (Projectile.ai[0] == 0)
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
+            
+            if (Projectile.alpha > 0)
             {
-                SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
-
-                Projectile.ai[0] = 1;
+                Projectile.alpha -= 15;
             }
-
-            return false;
-        }
+		}
 
 		public override void OnKill(int timeLeft)
 		{

@@ -23,13 +23,9 @@ Some Warnings:
 
 Massive thanks to all the people who have helped out the mod in some way, or are actively helping develop it!
 
-DylanDoe21(me), Renk, Graydee, and Lemmy for their help with coding
-Seasalt, Hugekraken, Taco, HondaCivicMoment, Waasephi, Heart Plus Up, and Pelusa for contributing awesome sprites
-Bananalizard for composing the mod's amazing OST, Rockwizard5 for composing the awesome egg incursion theme, and Luxcapacitor for making the banger rayevyard theme Bone Rattlin' Raving
-Hat in a River for making a bunch of awesome concept art, the mods menu background, and a few in game backgrounds (And the little eye art featured on the steam workshop page!)
-Angel for helping out with testing and balancing
-Jim2OUK for building some of the cool structures you'll find in the mod
-Also shoutout to zapsplat.com, where most of the mod's custom sound effects come from
+Developers: DylanDoe21, Bananalizard, Rockwizard5, Luxcapacitor, Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Angel, Jim2OUK
+Contributors: Grae, Graydee, Heart Plus Up, RocketLauncher, Guck, HondaCivicMoment
+Also credit to zapsplat.com, where I get most of the mod's custom sound effects come from
 
 And of course, thanks to everyone who has supported the mod or shown interest in any way!
 

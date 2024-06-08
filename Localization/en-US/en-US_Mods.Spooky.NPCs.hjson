@@ -344,4 +344,6 @@ NoseCultistMageIdle.DisplayName: ""
 NoseCultistMage.DisplayName: Cultist Conjurer
 NoseCultistWingedIdle.DisplayName: ""
 NoseCultistWinged.DisplayName: Cultist Flier
-NoseCultistLeader.DisplayName: Nose Cultist Leader
+NoseCultistLeader.DisplayName: Noseferatu
+SnotMonster.DisplayName: Snot Monster
+SnotSlime.DisplayName: Snot Slime

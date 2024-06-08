@@ -114,7 +114,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             case 0:
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
-                                ShootSpeed *= 25;
+                                ShootSpeed *= 4;
                                 extraDamage = 0;
 
                                 break;
@@ -122,7 +122,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             case 1:
                             {
                                 SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
-                                ShootSpeed *= 45;
+                                ShootSpeed *= 7;
                                 extraDamage = 5;
 
                                 break;
@@ -130,7 +130,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             case 2:
                             {
                                 SoundEngine.PlaySound(ShootSound, Projectile.Center);
-                                ShootSpeed *= 65;
+                                ShootSpeed *= 10;
                                 extraDamage = 15;
 
                                 break;

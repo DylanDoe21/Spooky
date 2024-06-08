@@ -7,25 +7,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class CultistGruntSnot : ModProjectile
+    public class NoseCultistMageSnot : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 7;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
 		
         public override void SetDefaults()
         {
-            Projectile.width = 12;                  			 
-            Projectile.height = 16;          
+            Projectile.width = 30;
+            Projectile.height = 28;
 			Projectile.friendly = false;
-            Projectile.hostile = true;                 			  		
+            Projectile.hostile = true;
             Projectile.tileCollide = true;
-            Projectile.ignoreWater = true;             					
+            Projectile.ignoreWater = true;
             Projectile.timeLeft = 400;
             Projectile.alpha = 255;
 		}
@@ -33,44 +26,29 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
             Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
 
-            for (int numEffect = 0; numEffect < 2; numEffect++)
+            for (int numEffect = 0; numEffect < 5; numEffect++)
             {
-                Color newColor = glowColor;
-                newColor = Projectile.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 2 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 2 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
                 Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, glowColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f / numEffect, SpriteEffects.None, 0);
             }
 
             return true;
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        public override bool CanHitPlayer(Player target)
         {
-            target.AddBuff(BuffID.OgreSpit, 180, true);
+            return false;
         }
 
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 11)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 7)
-                {
-                    Projectile.frame = 0;
-                }
-            }
+			Projectile.rotation += 0.25f * (float)Projectile.direction;
 
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			Projectile.rotation += 0f * (float)Projectile.direction;
-
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
             
             if (Projectile.alpha > 0)
             {
@@ -80,6 +58,15 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
+            int[] Types = new int[] { ModContent.NPCType<SnotMonster>(), ModContent.NPCType<SnotSlime>() };
+
+            int SpawnedNPC = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + Projectile.height / 2, Main.rand.Next(Types));
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+            }
+
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);

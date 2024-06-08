@@ -17,18 +17,18 @@ namespace Spooky.Content.Generation
 	{
 		public static void PlaceMound(int X, int Y, int tileType, int halfWidth, int height)
 		{
-            ShapeData mound = new ShapeData();
-            GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
-            WorldUtils.Gen(new Point(X, Y), new Shapes.Mound(halfWidth, height), Actions.Chain(new GenAction[]
-            {
-                blotchMod.Output(mound)
-            }));
+			ShapeData mound = new ShapeData();
+			GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
+			WorldUtils.Gen(new Point(X, Y), new Shapes.Mound(halfWidth, height), Actions.Chain(new GenAction[]
+			{
+				blotchMod.Output(mound)
+			}));
 
-            WorldUtils.Gen(new Point(X, Y), new ModShapes.All(mound), Actions.Chain(new GenAction[]
-            {
-                new Actions.ClearTile(), new Actions.PlaceTile((ushort)tileType)
-            }));
-        }
+			WorldUtils.Gen(new Point(X, Y), new ModShapes.All(mound), Actions.Chain(new GenAction[]
+			{
+				new Actions.ClearTile(), new Actions.PlaceTile((ushort)tileType)
+			}));
+		}
 			
 		public static void PlaceCircle(int X, int Y, int tileType, int wallType, int radius, bool clearTiles, bool clearWalls)
 		{

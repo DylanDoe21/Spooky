@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.NoseCult.Projectiles;
+
 namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistMage : ModNPC
@@ -16,7 +18,7 @@ namespace Spooky.Content.NPCs.NoseCult
         public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound);
 
 		public override void SetStaticDefaults()
-		{	
+		{
 			Main.npcFrameCount[NPC.type] = 7;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -117,7 +119,9 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     SoundEngine.PlaySound(SneezeSound2, NPC.Center);
 
-                    Main.NewText("Enemy Spawned", Color.Green);
+                    int ShootSpeedX = NPC.direction == -1 ? Main.rand.Next(-5, -2) : Main.rand.Next(3, 6);
+
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 6, ShootSpeedX, -5, ModContent.ProjectileType<NoseCultistMageSnot>(), 0, 0, NPC.target);
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;

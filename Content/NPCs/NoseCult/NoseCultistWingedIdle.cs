@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 using Spooky.Content.Dusts;
 
@@ -61,6 +62,13 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
 			NPC.spriteDirection = NPC.Center.X > Parent.Center.X ? -1 : 1;
+
+			int[] Idols = { ModContent.NPCType<MocoIdol1>(), ModContent.NPCType<MocoIdol2>(), ModContent.NPCType<MocoIdol3>(), ModContent.NPCType<MocoIdol4>(), ModContent.NPCType<MocoIdol5>() };
+
+			if (!Parent.active || !Idols.Contains(Parent.type))
+			{
+				NPC.active = false;
+			}
 
 			if (Parent.ai[1] == 1)
 			{

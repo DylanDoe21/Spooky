@@ -25,7 +25,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/MonsterEyeBestiary1",
-                Rotation = MathHelper.PiOver2 + 12,
                 PortraitPositionYOverride = -20f
             };
         }

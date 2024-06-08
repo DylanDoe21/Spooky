@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 5)
+                if (NPC.frame.Y >= frameHeight * 9)
                 {
                     NPC.frame.Y = 0 * frameHeight;
                 }

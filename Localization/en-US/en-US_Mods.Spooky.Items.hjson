@@ -1329,6 +1329,11 @@ SpiderLegs: {
 		'''
 }
 
+GrottoCompass: {
+	DisplayName: Rusted Compass
+	Tooltip: Points to the location of the spider-infested grotto
+}
+
 InchwormBlackItem: {
 	DisplayName: Black Inchworm
 	Tooltip: ""
@@ -1736,7 +1741,7 @@ GourdSlingshot: {
 	Tooltip:
 		'''
 		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into moldy pellets that linger and create flies
+		Converts Mossy Pebbles into moldy pellets that create flies on impact
 		'''
 }
 
@@ -1926,6 +1931,11 @@ ArteryPiece: {
 CreepyChunk: {
 	DisplayName: Monster Meat
 	Tooltip: "'Looks almost edible!'"
+}
+
+EyeValleyCompass: {
+	DisplayName: Fleshy Compass
+	Tooltip: Points to the direction of a strange biome in the underworld
 }
 
 LeechWhipGore: {
@@ -2381,6 +2391,16 @@ WinterSeed: {
 		'''
 }
 
+CatacombBrickPlatform1Item: {
+	DisplayName: Gray Catacomb Brick Platform
+	Tooltip: ""
+}
+
+CatacombBrickPlatform2Item: {
+	DisplayName: Brown Catacomb Brick Platform
+	Tooltip: ""
+}
+
 CatacombCrate: {
 	DisplayName: Bone Crate
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -2422,22 +2442,22 @@ MoyaiItem: {
 }
 
 PottedPlant1Item: {
-	DisplayName: Potted Catacomb Mouth Flower
+	DisplayName: Potted Mouth Flower
 	Tooltip: ""
 }
 
 PottedPlant2Item: {
-	DisplayName: Potted Catacomb Plant
+	DisplayName: Potted Petal Plant
 	Tooltip: ""
 }
 
 PottedPlant3Item: {
-	DisplayName: Potted Catacomb Eye Flower
+	DisplayName: Potted Eye Flower
 	Tooltip: ""
 }
 
 PottedPlant4Item: {
-	DisplayName: Potted Catacomb Skull
+	DisplayName: Potted Skull Plant
 	Tooltip: ""
 }
 
@@ -2451,12 +2471,12 @@ CatacombBrick2Item: {
 	Tooltip: ""
 }
 
-CatacombBrickWall1SafeItem: {
+CatacombBrickWall1Item: {
 	DisplayName: Gray Catacomb Brick Wall
 	Tooltip: ""
 }
 
-CatacombBrickWall2SafeItem: {
+CatacombBrickWall2Item: {
 	DisplayName: Brown Catacomb Brick Wall
 	Tooltip: ""
 }
@@ -2548,7 +2568,7 @@ OrroboroBox: {
 
 PandoraEventBox: {
 	DisplayName: Music Box (Pandora's Box)
-	Tooltip: "[c/33C0A4:Pandora's Box] by ENNWAY"
+	Tooltip: "[c/33C0A4:You Should Know Better] by BananaLizard"
 }
 
 RaveyardBox: {
@@ -3258,14 +3278,4 @@ RaveStarter: {
 CatacombWeedKiller: {
 	DisplayName: Catacomb Weed Killer
 	Tooltip: ""
-}
-
-GrottoCompass: {
-	DisplayName: Rusted Compass
-	Tooltip: Points to the location of the spider-infested grotto
-}
-
-EyeValleyCompass: {
-	DisplayName: Fleshy Compass
-	Tooltip: Points to the direction of a strange biome in the underworld
 }

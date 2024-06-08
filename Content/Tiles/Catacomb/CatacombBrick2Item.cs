@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.Catacomb
@@ -30,14 +31,18 @@ namespace Spooky.Content.Tiles.Catacomb
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<CatacombBrickWall2SafeItem>(), 4)
+            .AddIngredient(ModContent.ItemType<CemeteryStoneItem>())
+            .AddIngredient(ItemID.MudBlock)
+            .AddTile(TileID.Furnaces)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<CatacombBrickWall2Item>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
 
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<CemeteryStoneItem>())
-            .AddIngredient(ItemID.MudBlock)
-            .AddTile(TileID.Furnaces)
+            .AddIngredient(ModContent.ItemType<CatacombBrickPlatform2Item>(), 2)
             .Register();
         }
     }

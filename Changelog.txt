@@ -58,6 +58,7 @@ Some things to note about this buff mechanic:
 New Music:
 
 -"Grand Sinus Corridors" by BananaLizard, plays in the new nose cultist dungeon
+-"You Should Know Better" by BananaLizard, plays during the pandora's box event
 
 
 Config Additions:
@@ -68,6 +69,10 @@ Config Additions:
 
 
 Other New Additions:
+
+-Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
+-Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
+-Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory
 
 
 
@@ -94,6 +99,7 @@ Weapons & Gear:
 -Old hunter's scarf mark enemy damage multiplier nerfed from 1.5x to 1.2x
 -Cross charm now gives you 15 defense while active instead of increasing your damage reduction
 -Glass pyramid now gives you 40% damage reduction for 3 hits instead of increasing your defense
+-Changed totally legal shotguns rarity color from light red to light orange to properly reflect its tier in progression
 
 
 Enemy & Boss Changes:
@@ -130,11 +136,10 @@ Miscellaneous:
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
 -The giant eye valley egg now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
--Mysterious glowing tombstones now always drop swamp rock along with the other loot, and they can no longer drop goodie bags outside of the raveyard event
+-The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
+-Mysterious glowing tombstones can no longer drop goodiebags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
--Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass and colored mushrooms on it
--Added actual items for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
--you can now break blocks in the catacombs, however the actual brick blocks in the catacombs are still unbreakable, rod of discord is still disabled, and you still cant place blocks besides torches
+-you can now break blocks in the catacombs, however the actual brick blocks in the catacombs are still unbreakable, the rod of discord is still disabled, and you still cant place blocks besides torches
 
 
 Removals:
@@ -164,6 +169,7 @@ Fixed all of the following bugs and issues:
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
 -Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Claret cephalopod repeatedly charging at the same location instead of actually charging at the players current location
+-High-velocity slingshot projectiles sometimes passing through enemies, especially smaller ones, without hitting them
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

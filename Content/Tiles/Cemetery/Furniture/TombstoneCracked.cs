@@ -23,6 +23,11 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
         }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(3, 10));
+        }
     }
 
     public class TombstoneCracked2 : TombstoneCracked1

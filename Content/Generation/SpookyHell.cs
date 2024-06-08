@@ -278,7 +278,7 @@ namespace Spooky.Content.Generation
                 {
                     for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, false);
                     }
                 }
             }
@@ -288,7 +288,7 @@ namespace Spooky.Content.Generation
                 {
                     for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, false);
                     }
                 }
             }
