@@ -15,21 +15,9 @@ namespace Spooky.Content.Items.Catacomb.Misc
 		{
 			Item.width = 14;
 			Item.height = 24;
-            Item.consumable = true;
-			Item.noUseGraphic = true;
-            Item.useTime = 5;
-            Item.useAnimation = 5;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.rare = ItemRarityID.Quest;
+			Item.rare = ItemRarityID.Blue;
             Item.maxStack = 1;
 		}
-
-		public override bool? UseItem(Player player)
-        {
-			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, -3, ModContent.ProjectileType<CatacombKey2Proj>(), 0, 0, player.whoAmI);
-
-			return true;
-        }
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) 
 		{
@@ -70,7 +58,7 @@ namespace Spooky.Content.Items.Catacomb.Misc
 				spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, Color.Red * 0.5f, rotation, frameOrigin, scale, SpriteEffects.None, 0);
 			}
 
-			for (float i = 0f; i < 1f; i += 0.34f) 
+			for (float i = 0f; i < 1f; i += 0.25f) 
 			{
 				float radians = (i + timer) * MathHelper.TwoPi;
 

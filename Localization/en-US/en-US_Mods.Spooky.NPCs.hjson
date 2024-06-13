@@ -100,8 +100,8 @@ RollingSkull4.DisplayName: Gilded Skull
 ZomboidGlyphomancer.DisplayName: Zomboid Glyphomancer
 ZomboidNecromancer.DisplayName: Zomboid Necromancer
 ZomboidNecromancerSoul.DisplayName: Undead Soul
-PhantomRollingSkull.DisplayName: Phantom Skull
-PhantomSkeletoid.DisplayName: Phantom Skeletoid
+PhantomRollingSkull.DisplayName: Phantom
+PhantomSkeletoid.DisplayName: Phantom
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 ZomboidSuspiciomancer.DisplayName: Zomboid Suspiciomancer
 //catacombs layer 2
@@ -334,6 +334,8 @@ MocoIdol2.DisplayName: Nose Idol
 MocoIdol3.DisplayName: Nose Idol
 MocoIdol4.DisplayName: Nose Idol
 MocoIdol5.DisplayName: Nose Idol
+NoseBallPurple.DisplayName: Nolegam
+NoseBallRed.DisplayName: Nolegam
 NoseCultistBruteIdle.DisplayName: ""
 NoseCultistBrute.DisplayName: Cultist Brute
 NoseCultistGruntIdle.DisplayName: ""
@@ -344,6 +346,8 @@ NoseCultistMageIdle.DisplayName: ""
 NoseCultistMage.DisplayName: Cultist Conjurer
 NoseCultistWingedIdle.DisplayName: ""
 NoseCultistWinged.DisplayName: Cultist Flier
+NoseCultistLeaderIdle.DisplayName: ""
 NoseCultistLeader.DisplayName: Noseferatu
 SnotMonster.DisplayName: Snot Monster
 SnotSlime.DisplayName: Snot Slime
+MocoIdol6.DisplayName: Moco Idol6

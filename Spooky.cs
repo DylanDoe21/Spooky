@@ -225,6 +225,24 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.CatacombKey1:
+                {
+                    Flags.CatacombKey1 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.CatacombKey2:
+                {
+                    Flags.CatacombKey2 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.CatacombKey3:
+                {
+                    Flags.CatacombKey3 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 //should never occur I think?
                 default:
                 {
@@ -257,5 +275,8 @@ namespace Spooky
         MocoIdolDowned3,
         MocoIdolDowned4,
         MocoIdolDowned5,
+        CatacombKey1,
+        CatacombKey2,
+        CatacombKey3,
     }
 }

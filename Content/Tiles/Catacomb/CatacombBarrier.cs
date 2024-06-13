@@ -14,93 +14,10 @@ using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
-	public class CatacombBarrier : ModTile
+	[LegacyName("CatacombBarrier2Daffodil")]
+	public class CatacombBarrierDaffodil : ModTile
 	{
-        private static Asset<Texture2D> TileTexture;
-
-        public override void SetStaticDefaults()
-		{
-			TileID.Sets.DrawsWalls[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
-			Main.tileBrick[Type] = true;
-			Main.tileMergeDirt[Type] = true;
-            Main.tileBlendAll[Type] = true;
-			Main.tileSolid[Type] = true;
-			Main.tileBlockLight[Type] = true;
-			AddMapEntry(Color.Yellow);
-			MinPick = int.MaxValue;
-			HitSound = SoundID.Dig;
-			DustType = -1;
-		}
-
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
-        {
-			return false;
-        }
-
-		public override bool CanExplode(int i, int j)
-		{
-			return false;
-		}
-
-		public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = !Flags.CatacombKey1;
-			player.cursorItemIconID = ModContent.ItemType<CatacombKey1>();
-			player.cursorItemIconText = "";
-		}
-
-		public override void MouseOverFar(int i, int j)
-		{
-			MouseOver(i, j);
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = false;
-			player.cursorItemIconID = 0;
-		}
-
-		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-            TileTexture ??= ModContent.Request<Texture2D>(Texture);
-
-            Tile tile = Framing.GetTileSafely(i, j);
-
-			if (Flags.CatacombKey1)
-			{
-				tile.Get<TileWallWireStateData>().IsActuated = true;
-            }
-			else
-			{
-				tile.Get<TileWallWireStateData>().IsActuated = false;
-            }
-
-			float time = Main.GameUpdateCount * 0.01f;
-
-			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
-
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-
-			if (!tile.Get<TileWallWireStateData>().IsActuated)
-			{
-				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * intensity);
-			}
-			else
-			{
-				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Yellow * 0.1f);
-			}
-
-			return false;
-		}
-    }
-
-	public class CatacombBarrier2 : CatacombBarrier
-	{
-		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
+        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
 
         private static Asset<Texture2D> TileTexture;
 
@@ -117,71 +34,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			MinPick = int.MaxValue;
 			HitSound = SoundID.Dig;
 			DustType = -1;
-		}
-
-		public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = !Flags.CatacombKey2;
-			player.cursorItemIconID = ModContent.ItemType<CatacombKey2>();
-			player.cursorItemIconText = "";
-		}
-
-		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-            TileTexture ??= ModContent.Request<Texture2D>(Texture);
-
-            Tile tile = Framing.GetTileSafely(i, j);
-
-			if (Flags.CatacombKey2)
-			{
-				if (NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
-				{
-					tile.Get<TileWallWireStateData>().IsActuated = false;
-				}
-				else
-				{
-					tile.Get<TileWallWireStateData>().IsActuated = true;
-				}
-            }
-			else
-			{
-				tile.Get<TileWallWireStateData>().IsActuated = false;
-            }
-
-			float time = Main.GameUpdateCount * 0.01f;
-
-			float intensity = 0.7f;
-			intensity *= (float)MathF.Sin(-j / 8f + time + i);
-			intensity *= (float)MathF.Sin(-i / 8f + time + j);
-			intensity += 0.7f;
-
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-
-			if (!tile.Get<TileWallWireStateData>().IsActuated)
-			{
-				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * intensity);
-			}
-			else
-			{
-				spriteBatch.Draw(TileTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.Red * 0.1f);
-			}
-
-			return false;
-		}
-	}
-
-	public class CatacombBarrier2Daffodil : CatacombBarrier2
-	{
-        private static Asset<Texture2D> TileTexture;
-
-        public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = false;
-			player.cursorItemIconText = "";
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -223,8 +75,10 @@ namespace Spooky.Content.Tiles.Catacomb
 		}
 	}
 
-	public class CatacombBarrierPandora : CatacombBarrier2
+	public class CatacombBarrierPandora : ModTile
 	{
+        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
+
         private static Asset<Texture2D> TileTexture;
 
         public override void SetStaticDefaults()
@@ -240,13 +94,6 @@ namespace Spooky.Content.Tiles.Catacomb
 			MinPick = int.MaxValue;
 			HitSound = SoundID.Dig;
 			DustType = -1;
-		}
-
-		public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = false;
-			player.cursorItemIconText = "";
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -288,7 +135,8 @@ namespace Spooky.Content.Tiles.Catacomb
 		}
 	}
 
-	public class CatacombBarrier3 : CatacombBarrier
+	[LegacyName("CatacombBarrier3")]
+	public class CatacombBarrierBigBone : ModTile
 	{
 		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBarrier";
 
@@ -309,41 +157,19 @@ namespace Spooky.Content.Tiles.Catacomb
 			DustType = -1;
 		}
 
-		public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = !Flags.CatacombKey3;
-			player.cursorItemIconID = ModContent.ItemType<CatacombKey3>();
-			player.cursorItemIconText = "";
-		}
-
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
             TileTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Tile tile = Framing.GetTileSafely(i, j);
 
-			if (Flags.CatacombKey3)
+			if (NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
 			{
-				for (int k = 0; k < Main.maxNPCs; k++)
-				{
-					if (Main.npc[k].type == ModContent.NPCType<BigFlowerPot>() && Main.npc[k].ai[1] > 0)
-					{
-						tile.Get<TileWallWireStateData>().IsActuated = false;
-					}
-				}
-				if (NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
-				{
-					tile.Get<TileWallWireStateData>().IsActuated = false;
-				}
-				else
-				{
-					tile.Get<TileWallWireStateData>().IsActuated = true;
-				}
+				tile.Get<TileWallWireStateData>().IsActuated = false;
 			}
 			else
 			{
-				tile.Get<TileWallWireStateData>().IsActuated = false;
+				tile.Get<TileWallWireStateData>().IsActuated = true;
 			}
 
 			float time = Main.GameUpdateCount * 0.01f;

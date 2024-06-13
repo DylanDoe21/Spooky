@@ -138,6 +138,11 @@ namespace Spooky.Core
                     int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition5.X, (int)Flags.MocoIdolPosition5.Y, ModContent.NPCType<MocoIdol5>());
                     Main.npc[Idol].position.X += 8;
                 }
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()) && Flags.LeaderIdolPositon != Vector2.Zero && !Flags.downedMocoIdol6)
+                {
+                    int Idol = NPC.NewNPC(null, (int)Flags.LeaderIdolPositon.X, (int)Flags.LeaderIdolPositon.Y, ModContent.NPCType<MocoIdol6>());
+                    Main.npc[Idol].position.X += 8;
+                }
 
                 //chance to activate raveyard each night
                 if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))

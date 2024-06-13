@@ -110,26 +110,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.spriteDirection = NPC.direction;
 
-            //list of valid enemies that the necromancer can absorb souls from
-            int[] NecromancerValidEnemies = new int[] { ModContent.NPCType<BoneStackerMoving1>(), ModContent.NPCType<BoneStackerMoving2>(), ModContent.NPCType<BoneStackerMoving3>(), 
-            ModContent.NPCType<RollingSkull1>(), ModContent.NPCType<RollingSkull2>(), ModContent.NPCType<RollingSkull3>(), ModContent.NPCType<RollingSkull4>(),
-            ModContent.NPCType<Skeletoid1>(), ModContent.NPCType<Skeletoid2>(), ModContent.NPCType<Skeletoid3>(), ModContent.NPCType<Skeletoid4>(), ModContent.NPCType<SkeletoidBig>() };
-
-            //check every npc and if it is valid, spawn a soul if its close enough when it dies
-            for (int i = 0; i <= Main.maxNPCs; i++)
-            {
-                NPC UndeadNPC = Main.npc[i];
-                if (NecromancerValidEnemies.Contains(UndeadNPC.type) && UndeadNPC.Distance(NPC.Center) < 505f && UndeadNPC.life <= 0)
-                {
-                    int Soul = NPC.NewNPC(NPC.GetSource_FromAI(), (int)UndeadNPC.Center.X, (int)UndeadNPC.Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: NPC.whoAmI);
-                    
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: Soul);
-                    }
-                }
-            }
-
             //if the necromancer has absorbed a soul, start the summoning countdown
             if (NPC.localAI[1] > 0)
             {

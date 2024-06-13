@@ -101,12 +101,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 ManageTrail();
             }
 
-            if (!Parent.active)
-            {
-                NPC.active = false;
-            }
-
-            if (Parent.Distance(NPC.Center) > 500f)
+            if (!Parent.active || Parent.type != ModContent.NPCType<ZomboidNecromancer>())
             {
                 NPC.active = false;
             }

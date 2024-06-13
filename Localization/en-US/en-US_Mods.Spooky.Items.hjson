@@ -402,17 +402,17 @@ FlowerLegs: {
 
 CatacombKey1: {
 	DisplayName: Yellow Barrier Key
-	Tooltip: Use to open the yellow catcombs barrier
+	Tooltip: Unlocks the yellow catcombs barrier
 }
 
 CatacombKey2: {
 	DisplayName: Red Barrier Key
-	Tooltip: Use to open the red catcombs barrier
+	Tooltip: Unlocks the red catcombs barrier
 }
 
 CatacombKey3: {
 	DisplayName: Orange Barrier Key
-	Tooltip: Use to open the orange catacombs barrier
+	Tooltip: Unlocks the orange catacombs barrier
 }
 
 PlantChunk: {

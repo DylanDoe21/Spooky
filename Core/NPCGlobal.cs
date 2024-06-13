@@ -16,6 +16,7 @@ using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.SpiderCave;
 
 namespace Spooky.Core
@@ -114,7 +115,34 @@ namespace Spooky.Core
             }
         }
 
-        public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
+		public override void OnKill(NPC npc)
+		{
+			//summon zomboid necromancer souls from undead catacomb enemies if they are killed nearby one
+			int[] UndeadCatacombEnemies = new int[] { ModContent.NPCType<BoneStackerMoving1>(), ModContent.NPCType<BoneStackerMoving2>(), ModContent.NPCType<BoneStackerMoving3>(),
+			ModContent.NPCType<RollingSkull1>(), ModContent.NPCType<RollingSkull2>(), ModContent.NPCType<RollingSkull3>(), ModContent.NPCType<RollingSkull4>(),
+			ModContent.NPCType<Skeletoid1>(), ModContent.NPCType<Skeletoid2>(), ModContent.NPCType<Skeletoid3>(), ModContent.NPCType<Skeletoid4>(), ModContent.NPCType<SkeletoidBig>() };
+
+			if (UndeadCatacombEnemies.Contains(npc.type))
+			{
+				for (int i = 0; i < Main.maxNPCs; i++)
+				{
+					NPC target = Main.npc[i];
+					if (target.type == ModContent.NPCType<ZomboidNecromancer>() && npc.Distance(target.Center) <= 500f)
+					{
+						int Soul = NPC.NewNPC(npc.GetSource_Death(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<ZomboidNecromancerSoul>(), ai0: target.whoAmI);
+
+						if (Main.netMode != NetmodeID.MultiplayerClient)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: Soul);
+						}
+					}
+				}
+			}
+
+			base.OnKill(npc);
+		}
+
+		public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
 			//entity drop
 			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CatacombEntityCondition(), ModContent.ItemType<BabyRattle>(), 450));

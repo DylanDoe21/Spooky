@@ -97,9 +97,12 @@ namespace Spooky.Content.NPCs.NoseCult
 			int NPCX = (int)NPC.Center.X / 16;
 			int NPCY = (int)NPC.Center.Y / 16;
 
-			for (int i = NPCX - 35; i <= NPCX + 35; i++)
+            int Width = NPC.type == ModContent.NPCType<MocoIdol6>() ? 45 : 35;
+            int StartHeight = NPC.type == ModContent.NPCType<MocoIdol6>() ? 60 : 20;
+
+			for (int i = NPCX - Width; i <= NPCX + Width; i++)
 			{
-				for (int j = NPCY - 20; j <= NPCY + 20; j++)
+				for (int j = NPCY - StartHeight; j <= NPCY + 20; j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<CultistCandelabra>() && Main.tile[i, j].TileFrameX > 18)
 					{
@@ -137,8 +140,8 @@ namespace Spooky.Content.NPCs.NoseCult
             Player player = Main.player[NPC.target];
 
             //bool to check if any cultist enemies exist
-            AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || 
-            NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>());
+            AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || 
+            NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>());
 
             //collision rectangle that activates the shrine when the player enters it
             Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
@@ -169,6 +172,23 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.ai[2] > 65)
                     {
+                        //the minibosses idol is just an invisible spawner due to the statue in the big arena being used not only to rematch him, but spawn waves of cultists for farming
+                        //because of this, unlike the other idols, it should just immediately vanish when the miniboss is killed instead of playing an animation
+                        if (NPC.type == ModContent.NPCType<MocoIdol6>())
+                        {
+                            ActivateLightTiles();
+
+                            NoseCultAmbushWorld.AmbushActive = false;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
+                            }
+
+                            NPC.active = false;
+                            NPC.netUpdate = true;
+                        }
+
                         NPC.position.Y--;
 
                         NPC.ai[3] += 0.05f;
@@ -517,6 +537,30 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.localAI[2]++;
                 NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 100) * 10;
             }
+        }
+    }
+
+    public class MocoIdol6 : MocoIdol1  
+    {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
+        public override void AI()
+        {
+            NPC.alpha = 255;
+
+            //spawn the cultist leader
+            if (NPC.ai[0] == 0)
+            {
+                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 100, NPC.whoAmI);
+                NPC.ai[0]++;
+            }
+
+            if (NPC.ai[1] > 0)
+            {
+                Lighting.AddLight(new Vector2(NPC.Center.X, NPC.Center.Y - 50), Color.LightGreen.ToVector3() * (NPC.ai[2] / 3));
+            }
+
+            HandleCultistAmbush();
         }
     }
 }

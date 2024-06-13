@@ -45,7 +45,7 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom4 = false;
         public static bool placedMoyaiRoom = false;
 
-        Vector2[] Layer2LootRooms = new Vector2[2];
+        Vector2[] Layer2LootRooms = new Vector2[3];
         Vector2 PandoraRoomPosition;
 
         private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
@@ -409,7 +409,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", origin.ToPoint16(), Mod);
+                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
                             placedLootRoom3 = true;
                         }
                         else if (X == XMiddle)
@@ -435,7 +435,7 @@ namespace Spooky.Content.Generation
                         //randomly place the loot room, or place it automatically if it reaches the edge
                         if (!placedLootRoom4 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
-                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
+                            Layer2LootRooms[2] = new Vector2(origin.X, origin.Y);
                             placedLootRoom4 = true;
                         }
                         else
@@ -522,7 +522,11 @@ namespace Spooky.Content.Generation
                 {
                     Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2", Layer2LootRooms[numPoints].ToPoint16(), Mod);
                 }
-                else
+                if (numPoints == 1)
+                {
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3", Layer2LootRooms[numPoints].ToPoint16(), Mod);
+                }
+                if (numPoints == 2)
                 {
                     Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-4", Layer2LootRooms[numPoints].ToPoint16(), Mod);
                 }
@@ -559,11 +563,13 @@ namespace Spooky.Content.Generation
             for (int EntranceNewY = EntranceY + 60; EntranceNewY <= (int)Main.worldSurface - 6; EntranceNewY += 5)
             {
                 Vector2 EntranceOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
+                Vector2 EntranceBarrierOrigin = new Vector2(EntranceX - 3, EntranceNewY - 1);
 
                 //place the yellow barrier entrance once the catacombs is reached
                 if (EntranceNewY == EntranceY + 60)
                 {
-                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", EntranceOrigin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance", EntranceOrigin.ToPoint16(), Mod);
+                    Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier", EntranceBarrierOrigin.ToPoint16(), Mod);
                 }
                 else
                 {

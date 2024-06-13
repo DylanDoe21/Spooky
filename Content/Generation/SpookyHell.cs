@@ -658,6 +658,8 @@ namespace Spooky.Content.Generation
 
                     GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY, "MinibossArena", 44, 41);
 
+                    Flags.LeaderIdolPositon = new Vector2((CathedralX) * 16, (NoseTemplePositionY + 20) * 16);
+
                     //when the very end of the dungeon is reached, place a wall on the entrance opening of the last room 
                     if (CathedralX > (Main.maxTilesX / 2))
                     {

@@ -18,6 +18,7 @@ namespace Spooky.Core
         public static Vector2 MocoIdolPosition3 = Vector2.Zero;
         public static Vector2 MocoIdolPosition4 = Vector2.Zero;
         public static Vector2 MocoIdolPosition5 = Vector2.Zero;
+        public static Vector2 LeaderIdolPositon = Vector2.Zero;
 
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
@@ -33,6 +34,7 @@ namespace Spooky.Core
         public static bool downedMocoIdol3 = false;
         public static bool downedMocoIdol4 = false;
         public static bool downedMocoIdol5 = false;
+        public static bool downedMocoIdol6 = false;
 
         public static bool SpookyBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
@@ -74,6 +76,7 @@ namespace Spooky.Core
             downedMocoIdol3 = false;
             downedMocoIdol4 = false;
             downedMocoIdol5 = false;
+            downedMocoIdol6 = false;
 
             SpookyBackgroundAlt = false;
             CatacombKey1 = false; 
@@ -112,6 +115,7 @@ namespace Spooky.Core
             tag["MocoIdolPosition3"] = MocoIdolPosition3;
             tag["MocoIdolPosition4"] = MocoIdolPosition4;
             tag["MocoIdolPosition5"] = MocoIdolPosition5;
+            tag["LeaderIdolPositon"] = LeaderIdolPositon;
 
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
@@ -127,6 +131,7 @@ namespace Spooky.Core
             if (downedMocoIdol3) tag["downedMocoIdol3"] = true;
             if (downedMocoIdol4) tag["downedMocoIdol4"] = true;
             if (downedMocoIdol5) tag["downedMocoIdol5"] = true;
+            if (downedMocoIdol6) tag["downedMocoIdol6"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
             if (CatacombKey1) tag["CatacombKey1"] = true;
@@ -165,6 +170,7 @@ namespace Spooky.Core
             MocoIdolPosition3 = tag.Get<Vector2>("MocoIdolPosition3");
             MocoIdolPosition4 = tag.Get<Vector2>("MocoIdolPosition4");
             MocoIdolPosition5 = tag.Get<Vector2>("MocoIdolPosition5");
+            LeaderIdolPositon = tag.Get<Vector2>("LeaderIdolPositon");
 
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
@@ -180,6 +186,7 @@ namespace Spooky.Core
             downedMocoIdol3 = tag.ContainsKey("downedMocoIdol3");
             downedMocoIdol4 = tag.ContainsKey("downedMocoIdol4");
             downedMocoIdol5 = tag.ContainsKey("downedMocoIdol5");
+            downedMocoIdol6 = tag.ContainsKey("downedMocoIdol6");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
@@ -218,6 +225,7 @@ namespace Spooky.Core
             writer.WriteVector2(MocoIdolPosition3);
             writer.WriteVector2(MocoIdolPosition4);
             writer.WriteVector2(MocoIdolPosition5);
+            writer.WriteVector2(LeaderIdolPositon);
 
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
@@ -236,6 +244,7 @@ namespace Spooky.Core
             noseDungeonFlags[2] = downedMocoIdol3;
             noseDungeonFlags[3] = downedMocoIdol4;
             noseDungeonFlags[4] = downedMocoIdol5;
+            noseDungeonFlags[5] = downedMocoIdol6;
             writer.Write(noseDungeonFlags);
 
             var miscFlags = new BitsByte();
@@ -283,6 +292,7 @@ namespace Spooky.Core
             MocoIdolPosition3 = reader.ReadVector2();
             MocoIdolPosition4 = reader.ReadVector2();
             MocoIdolPosition5 = reader.ReadVector2();
+            LeaderIdolPositon = reader.ReadVector2();
 
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];
@@ -300,6 +310,7 @@ namespace Spooky.Core
             downedMocoIdol3 = noseDungeonFlags[2];
             downedMocoIdol4 = noseDungeonFlags[3];
             downedMocoIdol5 = noseDungeonFlags[4];
+            downedMocoIdol6 = noseDungeonFlags[5];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];

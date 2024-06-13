@@ -72,11 +72,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[0] >= 300)
             {
-                for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y + 6, Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-4f, 0f),
-                    ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
-                }
+                //TODO: make explosion
 
                 NPC.active = false;
             }
@@ -86,12 +82,6 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
-                for (int numProjectiles = 0; numProjectiles <= 5; numProjectiles++)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y + 6, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-2f, 0f),
-                    ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
-                }
-
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
                     int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);

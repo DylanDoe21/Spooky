@@ -69,8 +69,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             for (int i = 0; i < 4; i++)
             {
-                int XOffset = Main.rand.Next(-2, 3);
-                int YOffset = Main.rand.Next(-2, 3);
+                int XOffset = Main.rand.Next(-1, 2);
+                int YOffset = Main.rand.Next(-1, 2);
                 
                 Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(XOffset, NPC.gfxOffY + 4 + YOffset), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }

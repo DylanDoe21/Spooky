@@ -170,6 +170,7 @@ Fixed all of the following bugs and issues:
 -Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Claret cephalopod repeatedly charging at the same location instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through enemies, especially smaller ones, without hitting them
+-Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

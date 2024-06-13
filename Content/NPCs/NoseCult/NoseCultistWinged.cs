@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-                Position = new Vector2(2f, 10f),
+                Position = new Vector2(2f, 5f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 0f
             };
@@ -39,6 +39,8 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.height = 72;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.25f;
+            NPC.noGravity = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.3f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;

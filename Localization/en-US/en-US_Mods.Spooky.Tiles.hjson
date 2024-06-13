@@ -122,3 +122,6 @@ CultistSink.MapEntry: Sink
 CultistSofa.MapEntry: Sofa
 CultistTable.MapEntry: Table
 TempleTrapdoor.MapEntry: Temple Trapdoor
+CatacombTrapdoor1.MapEntry: Catacomb Trapdoor
+CatacombTrapdoor2.MapEntry: Catacomb Trapdoor
+CatacombTrapdoor3.MapEntry: Catacomb Trapdoor

@@ -130,7 +130,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = (int)Main.worldSurface - 65; Y <= Main.worldSurface; Y += 2)
                 {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CemeteryDirt>(), ModContent.WallType<CemeteryGrassWall>(), WorldGen.genRand.Next(2, 3), true, false);
                 }
             }
 
