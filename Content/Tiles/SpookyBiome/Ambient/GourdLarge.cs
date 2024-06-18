@@ -60,15 +60,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
                 SoundEngine.PlaySound(CarveSound, new Vector2(i * 16, j * 16));
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 4;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 3;
+                int left = i - Framing.GetTileSafely(i, j).TileFrameX / 18 % 4;
+                int top = j - Framing.GetTileSafely(i, j).TileFrameY / 18 % 3;
 
                 for (int x = left; x < left + 4; x++)
                 {
                     for (int y = top; y < top + 3; y++)
                     {
-                        Main.tile[x, y].TileType = (ushort)ModContent.TileType<GourdLargeCarved>();
+                        Tile tile = Framing.GetTileSafely(x, y);
+                        tile.TileType = (ushort)ModContent.TileType<GourdLargeCarved>();
                     }
+                }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, left, top, 12);
                 }
             }
 
@@ -127,15 +133,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             {
                 SoundEngine.PlaySound(SoundID.Dig, new Vector2(i * 16, j * 16));
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 4;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 3;
+                int left = i - Framing.GetTileSafely(i, j).TileFrameX / 18 % 4;
+                int top = j - Framing.GetTileSafely(i, j).TileFrameY / 18 % 3;
 
                 for (int x = left; x < left + 4; x++)
                 {
                     for (int y = top; y < top + 3; y++)
                     {
-                        Main.tile[x, y].TileType = (ushort)ModContent.TileType<GourdLargeCarvedLit>();
+                        Tile tile = Framing.GetTileSafely(x, y);
+                        tile.TileType = (ushort)ModContent.TileType<GourdLargeCarvedLit>();
                     }
+                }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, left, top, 12);
                 }
             }
 
@@ -172,7 +184,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GourdLargeCarvedGlow");
 
-            Tile tile = Main.tile[i, j];
+            Tile tile = Framing.GetTileSafely(i, j);
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
             int width = 16;

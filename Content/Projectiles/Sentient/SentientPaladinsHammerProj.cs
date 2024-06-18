@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<SentientPaladinsHammerStar>(), 0f, -2f, 0, default, 1f);
+				int newDust = Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 Main.dust[newDust].noGravity = true;

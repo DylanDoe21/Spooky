@@ -74,6 +74,7 @@ OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 BoroTongue.DisplayName: Boro Tongue
 PhantomSkull.DisplayName: Phantom Skull
+OrbitingBooger.DisplayName: Booger Ball
 //hallucinations
 TheBaby.DisplayName: The Baby
 TheFlesh.DisplayName: The Flesh
@@ -334,6 +335,7 @@ MocoIdol2.DisplayName: Nose Idol
 MocoIdol3.DisplayName: Nose Idol
 MocoIdol4.DisplayName: Nose Idol
 MocoIdol5.DisplayName: Nose Idol
+MocoIdol6.DisplayName: ""
 NoseBallPurple.DisplayName: Nolegam
 NoseBallRed.DisplayName: Nolegam
 NoseCultistBruteIdle.DisplayName: ""
@@ -350,4 +352,3 @@ NoseCultistLeaderIdle.DisplayName: ""
 NoseCultistLeader.DisplayName: Noseferatu
 SnotMonster.DisplayName: Snot Monster
 SnotSlime.DisplayName: Snot Slime
-MocoIdol6.DisplayName: Moco Idol6

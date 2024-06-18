@@ -32,7 +32,11 @@ namespace Spooky.Content.NPCs.NoseCult
 				AmbushActive = false;
 			}
 
-			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+			//bool to check if any cultist enemies exist
+            bool AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || 
+            NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>());
+
+			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<NoseTempleBiome>())) //|| !AnyCultistsExist)
 			{
 				AmbushActive = false;
 			}

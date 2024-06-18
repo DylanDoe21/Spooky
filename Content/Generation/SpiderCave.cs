@@ -26,18 +26,15 @@ namespace Spooky.Content.Generation
         static int initialStartPosX;
         static int startPosX;
         static int startPosY;
-        static int ExtraHeight;
 
         private void PlaceSpiderCave(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
             //biome position stuff
-            ExtraHeight = WorldGen.genRand.Next(20, 55);
-
             initialStartPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
-            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) - ExtraHeight : Main.maxTilesY / 2 + ExtraHeight;
+            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) : Main.maxTilesY / 2;
 
             //attempt to find a valid position for the biome to place in
             bool foundValidPosition = false;
@@ -57,12 +54,6 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //make sure the spider grotto doesnt get pushed beyond the center of the world from its initial position
-            if ((initialStartPosX < (Main.maxTilesX / 2) && startPosX >= (Main.maxTilesX / 2)) || (initialStartPosX > (Main.maxTilesX / 2) && startPosX <= (Main.maxTilesX / 2)))
-            {
-                startPosX = (Main.maxTilesX / 2);
-            }
-
             int cavePerlinSeed = WorldGen.genRand.Next();
 
             Point origin = new Point(startPosX, startPosY);
@@ -71,7 +62,7 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int InitialSize = Main.maxTilesX >= 6400 ? 250 : 150;
+            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -93,7 +84,7 @@ namespace Spooky.Content.Generation
                         float percent = dist / constant;
                         float blurPercent = 0.99f;
 
-                        if (percent > blurPercent && Main.tile[X, Y].WallType == 0)
+                        if (percent > blurPercent && Main.tile[X, Y - 20].WallType != WallID.SpiderUnsafe)
                         {
                             SpookyWorldMethods.PlaceCircle(X, Y, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(45, 75), false, false);
                         }
@@ -181,9 +172,6 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //clean out small floating chunks of blocks
-            CleanOutSmallClumps();
-
             //after the main biome is done, generate some clumps of web and leaves
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
@@ -250,6 +238,9 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+
+            //clean out small floating chunks of blocks
+            CleanOutSmallClumps();
 
             //place clumps of vanilla ores
             //spider grotto is deeper underground, so the tier 1 ore doesnt need to generate here
@@ -481,7 +472,7 @@ namespace Spooky.Content.Generation
                         //place ambient tiles that can spawn on stone and grass
                         if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<SpookyStone>())
                         {
-                            if (WorldGen.genRand.NextBool(4))
+                            if (Main.rand.NextBool(4))
                             {
                                 WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(19, 22));
                             }
@@ -638,7 +629,7 @@ namespace Spooky.Content.Generation
 				{
 					startY++;
 				}
-                if ((WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1)) || Main.tile[startX, startY].WallType == WallID.SpiderUnsafe)
+                if (WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1))
                 {
                     Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
                     Generator.GenerateStructure("Content/Structures/SpiderCave/" + StructureFile, origin.ToPoint16(), Mod);
@@ -666,6 +657,7 @@ namespace Spooky.Content.Generation
                 (ushort)ModContent.TileType<DampGrass>(),
                 (ushort)ModContent.TileType<DampSoil>(),
                 (ushort)ModContent.TileType<SpookyStone>(),
+                (ushort)ModContent.TileType<WebBlock>(),
             };
             
             void getAttachedPoints(int x, int y, List<Point> points)
@@ -692,7 +684,8 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int biomeSize = 250 + (Main.maxTilesX / 180);
+            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
+            int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
 
@@ -728,14 +721,14 @@ namespace Spooky.Content.Generation
             }
         }
 
-        //determine if theres no snow, sandstone, or dungeon blocks nearby so the biome doesnt place in them
+        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
         public static bool CanPlaceBiome(int X, int Y)
         {
-            for (int i = X - 350; i < X + 350; i++)
+            for (int i = X - 300; i < X + 300; i++)
             {
                 for (int j = Y - 100; j < Y; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Sandstone || Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tileDungeon[Main.tile[i, j].TileType]))
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tileDungeon[Main.tile[i, j].TileType]))
                     {
                         return false;
                     }

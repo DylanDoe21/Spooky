@@ -355,7 +355,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             HandleCultistAmbush();
 
-            if (NPC.ai[2] < 5)
+            if (NPC.ai[2] < 65)
             {
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
@@ -398,7 +398,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             HandleCultistAmbush();
 
-            if (NPC.ai[2] < 5)
+            if (NPC.ai[2] < 65)
             {
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
@@ -441,7 +441,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             HandleCultistAmbush();
 
-            if (NPC.ai[2] < 5)
+            if (NPC.ai[2] < 65)
             {
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
@@ -482,7 +482,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             HandleCultistAmbush();
 
-            if (NPC.ai[2] < 5)
+            if (NPC.ai[2] < 65)
             {
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
@@ -525,7 +525,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             HandleCultistAmbush();
 
-            if (NPC.ai[2] < 5)
+            if (NPC.ai[2] < 65)
             {
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
@@ -542,7 +542,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
     public class MocoIdol6 : MocoIdol1  
     {
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        public override string Texture => "Spooky/Content/NPCs/NoseCult/MocoIdol";
 
         public override void AI()
         {

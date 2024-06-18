@@ -3,24 +3,34 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistLeader : ModNPC
 	{
-        //0 = idle flying animation
-        //1 = sneezing animation
-        //2 = casting animation
-        int CurrentFrameX = 0;
+        int CurrentFrameX = 0; //0 = idle flying animation  1 = sneezing animation  2 = casting animation
+        int SaveDirection;
+
+        bool Sneezing = false;
+        bool Casting = false;
+        bool Charging = false;
+        bool hasCollidedWithWall = false;
+
+        Vector2 SavePosition;
 
         private static Asset<Texture2D> NPCTexture;
+
+        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -35,9 +45,25 @@ namespace Spooky.Content.NPCs.NoseCult
             };
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
+        }
+
         public override void SetDefaults()
         {
-            NPC.lifeMax = 3500;
+            NPC.lifeMax = 4000;
             NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 122;
@@ -45,15 +71,22 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -5f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.NoseTempleBiome>().Type };
         }
 
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * bossAdjustment);
+        }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
+
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.NoseCultistLeader"),
@@ -72,14 +105,64 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPC.frameCounter++;
 
-            if (NPC.frameCounter > 2)
+            //sneezing animation, first 6 frames on the second horizontal row
+            if (Sneezing)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
+                if (NPC.frameCounter > 5)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 6)
+                {
+                    NPC.frame.Y = 3 * frameHeight;
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 9)
+            //casting animation, third horizontal row
+            else if (Casting)
             {
-                NPC.frame.Y = 0 * frameHeight;
+                if (NPC.frameCounter > 7)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 6)
+                {
+                    NPC.frame.Y = 3 * frameHeight;
+                }
+            }
+            //charging animation, last 3 frames on the second horizontal row 
+            else if (Charging)
+            {
+                if (NPC.frame.Y < frameHeight * 7)
+                {
+                    NPC.frame.Y = 6 * frameHeight;
+                }
+
+                int frameSpeed = CurrentFrameX == 2 ? 5 : 2;
+
+                if (NPC.frameCounter > frameSpeed)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 9)
+                {
+                    NPC.frame.Y = 6 * frameHeight;
+                }
+            }
+            //default idle animation, first horizontal row
+            else
+            {
+                if (NPC.frameCounter > 2)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 9)
+                {
+                    NPC.frame.Y = 0 * frameHeight;
+                }
             }
         }
 
@@ -99,39 +182,278 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            //NPC Parent = Main.npc[(int)NPC.ai[3]];
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
             
             NPC.spriteDirection = NPC.direction;
 
             switch ((int)NPC.ai[0])
             {
-                //fly around to a location around the shrine
+                //fly around to a location around the shrine, then switch to a random attack
                 case 0:
                 {
+                    CurrentFrameX = 0;
+
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 5)
+                    {
+                        SavePosition = new Vector2(Parent.Center.X + Main.rand.Next(-350, 350), Parent.Center.Y - Main.rand.Next(50, 150));
+                    }
+
+                    if (NPC.localAI[0] > 5)
+                    {
+                        Vector2 GoTo = SavePosition;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] >= 120)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1]++;
+
+                        NPC.ai[0] = NPC.localAI[1] > 3 ? 4 : Main.rand.Next(1, 4);
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
                 //go to the top of the arena and sneeze out a stream of boogers
                 case 1:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60)
+                    {
+                        CurrentFrameX = 0;
+                    }
+
+                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 550);
+
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        Sneezing = true;
+
+                        NPC.frame.Y = 0;
+                    }
+
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 240)
+                    {
+                        CurrentFrameX = 1;
+
+                        if (NPC.frame.Y >= 3 * NPC.height && NPC.localAI[0] % 10 == 0)
+                        {
+                            SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= Main.rand.NextFloat(12f, 17f);
+                            ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
+
+                            Projectile.NewProjectile(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    if (NPC.localAI[0] > 240)
+                    {
+                        CurrentFrameX = 0;
+                    }
+
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        Sneezing = false;
+
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
-                //cast orbiting snot balls and then fly around, after a few seconds launch the oribiting boogers
+                //cast orbiting snot balls and then fly toward the player slowly, after a few seconds launch the oribiting boogers
                 case 2:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60)
+                    {
+                        CurrentFrameX = 0;
+                    }
+
+                    if (NPC.localAI[0] <= 160)
+                    {
+                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 85);
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        Casting = true;
+                        
+                        CurrentFrameX = 2;
+
+                        NPC.frame.Y = 0;
+                    }
+
+                    if (NPC.localAI[0] == 160)
+                    {
+                        for (int numOrbiters = 0; numOrbiters < 4; numOrbiters++)
+                        {
+                            int distance = 360 / 4;
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrbitingBooger>(), NPC.whoAmI, NPC.whoAmI, numOrbiters * distance);
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 180)
+                    {   
+                        Casting = false;
+
+                        CurrentFrameX = 0;
+
+                        Vector2 GoTo = player.Center;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1, 2);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] >= 330)
+                    {
+                        NPC.velocity *= 0;
+                    }
+
+                    if (NPC.localAI[0] >= 550)
+                    {
+                        Casting = false;
+
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
                 //charge at the player and get stunned after hitting a wall
                 case 3:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 40) 
+                    {
+                        NPC.noTileCollide = false;
+
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
+                        GoTo.Y -= 20;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 10);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 40)
+                    {
+                        NPC.velocity *= 0f;
+
+                        SaveDirection = NPC.direction;
+                    }
+
+                    if (NPC.localAI[0] == 45)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                        CurrentFrameX = 1;
+
+                        Charging = true;
+
+                        int ChargeSpeed = 15;
+
+                        Vector2 ChargeDirection = player.Center - NPC.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection.X *= ChargeSpeed;
+                        ChargeDirection.Y *= ChargeSpeed / 5f;
+                        NPC.velocity.X = ChargeDirection.X;
+                        NPC.velocity.Y = ChargeDirection.Y;
+                    }
+
+                    if (NPC.localAI[0] >= 45)
+                    {
+                        NPC.spriteDirection = SaveDirection;
+                    }
+
+                    if (NPC.localAI[0] >= 55)
+                    {
+                        //collide with walls and play a sound
+                        if (!hasCollidedWithWall && (NPC.oldVelocity.X >= 5 || NPC.oldVelocity.X <= -5) && (NPC.collideX || NPC.velocity == Vector2.Zero))
+                        {
+                            SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.35f }, NPC.Center);
+
+                            CurrentFrameX = 2;
+
+                            SpookyPlayer.ScreenShakeAmount = 8;
+
+                            NPC.velocity *= 0;
+
+                            NPC.noGravity = false;
+
+                            hasCollidedWithWall = true;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        Charging = false;
+                        hasCollidedWithWall = false;
+
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.noGravity = true;
+                        NPC.noTileCollide = true;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 
-                //summon some nose amalgams
+                //special attack, summon a nose amalgam, and summon multiple after reaching half hp
                 case 4:
                 {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60)
+                    {
+                        CurrentFrameX = 0;
+                    }
+
+                    if (NPC.localAI[0] <= 160)
+                    {
+                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        Casting = true;
+                        
+                        CurrentFrameX = 2;
+
+                        NPC.frame.Y = 0;
+                    }
+                
                     break;
                 }
             }
@@ -141,6 +463,9 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
+                NPC Parent = Main.npc[(int)NPC.ai[3]];
+                Parent.active = false;
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -153,7 +478,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
+            //NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
         }
     }
 }

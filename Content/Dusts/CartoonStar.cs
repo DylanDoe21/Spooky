@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Dusts
 {
-    public class SentientPaladinsHammerStar : ModDust
+    public class CartoonStar : ModDust
     {
         public override void OnSpawn(Dust dust)
         {

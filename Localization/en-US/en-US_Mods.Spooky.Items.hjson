@@ -3201,6 +3201,11 @@ MonalumboItem: {
 	Tooltip: "'Waasephi'"
 }
 
+ShadowEyePaintingItem: {
+	DisplayName: The Eye
+	Tooltip: "'???'"
+}
+
 LivingFleshItem: {
 	DisplayName: Living Flesh
 	Tooltip: ""

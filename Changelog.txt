@@ -10,6 +10,7 @@ Eye Valley Improvements:
 -Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
 -Changed the behavior of some of the normal eye valley enemies to make them more interesting
 -Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
+-Added moclings
 
 
 New Nose Dungeon:
@@ -19,24 +20,28 @@ New Nose Dungeon:
 -Entrance is blocked by a locked trapdoor which can only be opened with a shadow key
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared the dungeon
 -At the end you can enter a tunnel to backtrack to the entrance where the barrier previously blocking the opposite side is now opened
--This newly opened hallway takes you to a giant arena where you will fight a new mini-boss who will drop the cotton swab to summon moco when killed
+-This newly opened hallway takes you to a giant arena where you will fight a new mini-boss
+-While the actual dungeon itself is indestructable, you can make craftable versions of every block and wall in the dungeon
+-You can craft each occultist brick block at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with the gray occultist bricks
 
 
 Little Eye Quest Rework:
 
--Stuff lol (Again, too lazy to write a changelog and this feature is not fully complete yet either)
+-Stuff lol (Too lazy to write a changelog and this feature is not fully complete yet either)
 
 
 Catacomb Improvements:
 
 -Improved each individual catacomb room in general, they are no longer super cluttered with furniture and dont have cobwebs in them anymore to prevent inventory clutter while exploring
+-Every single catacomb layer barrier has now been replaced with an unbreakable trapdoor that you open by right-clicking while you have that corresponding key in your inventory
 -Changed some of the light source furniture tiles in both layers of the catacombs to make it aesthetically better and cleaner looking
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
 -Resprited all of the plants and vines in the catacombs
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
--Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of the catacomb rooms entirely
+-Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of every catacomb room
 -Daffodil's arena and big bone's arena now have new custom backgrounds, both made by Hat in a river
+-You can now break blocks and use explosives in the catacombs (However, the actual brick blocks in the catacombs are still unbreakable, the rod of discord is still disabled, and you still cant place anything besides torches)
 
 
 New Farming Mechanic:
@@ -137,15 +142,15 @@ Miscellaneous:
 -The giant eye valley egg now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
--Mysterious glowing tombstones can no longer drop goodiebags outside of the raveyard event
+-Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
--you can now break blocks in the catacombs, however the actual brick blocks in the catacombs are still unbreakable, the rod of discord is still disabled, and you still cant place blocks besides torches
 
 
 Removals:
 
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
 -Removed the cotton swab's crafting recipe due to its new obtainment method
+-Removed the mechanic where gravestones wouldnt spawn if you died in the catacombs since you can now break blocks in it
 
 
 
@@ -171,6 +176,7 @@ Fixed all of the following bugs and issues:
 -Claret cephalopod repeatedly charging at the same location instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through enemies, especially smaller ones, without hitting them
 -Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
+-Swimming hibiscus not being catchable
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
@@ -180,3 +186,4 @@ Fixed all of the following multiplayer bugs and issues:
 -Old hunter not waking up correctly when spoken to
 -Egg incursion not saving as downed correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
+-Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit

@@ -22,6 +22,7 @@ using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -403,26 +404,33 @@ namespace Spooky.Core
 			{ 
                 pool.Clear();
 
-				pool.Add(ModContent.NPCType<EyeBat>(), 4);
-				pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
-				pool.Add(ModContent.NPCType<MrHandy>(), 4);
-				pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
-				pool.Add(ModContent.NPCType<ManHole>(), 3);
-				pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.75f);
-				pool.Add(ModContent.NPCType<Tortumor>(), 3);
-				pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.75f);
+				int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
+				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>() };
 
-				//do not spawn giant tortumors if one already exists
-				if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
-                {
-                    pool.Add(ModContent.NPCType<TortumorGiant>(), Main.hardMode ? 1 : 0.5f);
-                }
+				//do not allow catacomb enemies to spawn on non catacomb tiles
+				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				{
+					pool.Add(ModContent.NPCType<EyeBat>(), 4);
+					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
+					pool.Add(ModContent.NPCType<MrHandy>(), 4);
+					pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
+					pool.Add(ModContent.NPCType<ManHole>(), 3);
+					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.75f);
+					pool.Add(ModContent.NPCType<Tortumor>(), 3);
+					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.75f);
 
-				//do not spawn giant fleshy tortumors if one already exists
-				if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
-                {
-                    pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), Main.hardMode ? 0.5f : 0.25f);
-                }
+					//do not spawn giant tortumors if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
+					{
+						pool.Add(ModContent.NPCType<TortumorGiant>(), Main.hardMode ? 1 : 0.5f);
+					}
+
+					//do not spawn giant fleshy tortumors if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
+					{
+						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), Main.hardMode ? 0.5f : 0.25f);
+					}
+				}
             }
 
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))

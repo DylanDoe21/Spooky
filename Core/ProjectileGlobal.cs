@@ -46,20 +46,6 @@ namespace Spooky.Core
 
         public override bool PreAI(Projectile projectile)
 		{
-            //disable gravestones in the catacombs to prevent graveyards from forming there
-            int[] Gravestones = new int[] {ProjectileID.Tombstone, ProjectileID.GraveMarker, ProjectileID.CrossGraveMarker,
-            ProjectileID.Headstone, ProjectileID.Gravestone, ProjectileID.Obelisk, ProjectileID.RichGravestone1, ProjectileID.RichGravestone2,
-            ProjectileID.RichGravestone3, ProjectileID.RichGravestone4, ProjectileID.RichGravestone5 };
-
-			if (Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome>()) || Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome2>()))
-            {
-                if (Gravestones.Contains(projectile.type))
-                {
-                    projectile.active = false;
-                    return false;
-                }
-			}
-
             //convert spooky mod tiles with different clentaminator solutions
             if (projectile.type == ProjectileID.PureSpray)
             {

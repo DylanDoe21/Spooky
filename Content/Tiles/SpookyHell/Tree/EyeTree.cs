@@ -182,7 +182,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
 
                 //spawn a seed from the tree
-                if (Main.rand.NextBool(2))
+                if (Main.rand.NextBool())
                 {
                     int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));

@@ -61,19 +61,25 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             {
                 SoundEngine.PlaySound(SoundID.Unlock, new Vector2(i * 16, j * 16));
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 3;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 1;
+                int left = i - Framing.GetTileSafely(i, j).TileFrameX / 18 % 3;
+                int top = j - Framing.GetTileSafely(i, j).TileFrameY / 18 % 1;
 
                 for (int x = left; x < left + 3; x++)
                 {
                     for (int y = top; y < top + 1; y++)
                     {
-                        WorldGen.KillTile(x, y);
+                        Tile tile = Framing.GetTileSafely(x, y);
+						tile.HasTile = false;
                     }
+                }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+				    NetMessage.SendTileSquare(-1, i, j + 1, 3);
                 }
             }
 
-            return base.RightClick(i, j);
+            return true;
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 

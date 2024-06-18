@@ -979,28 +979,20 @@ namespace Spooky.Core
 
                         return;
                     }
-
-                    //crate
-                    if (Main.rand.NextBool(5) && attempt.crate && Flags.downedSpookySpirit)
-                    {
-                        itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
-
-                        return;
-                    }
                 }
 
                 if (Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
                 {
                     //quest fishes
-                    if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.rare)
+                    if (attempt.questFish == ModContent.ItemType<HibiscusFish>() && attempt.rare)
                     {
-                        itemDrop = ModContent.ItemType<SpookySpiritFish>();
+                        itemDrop = ModContent.ItemType<HibiscusFish>();
 
                         return;
                     }
 
                     //crate
-                    if (Main.rand.NextBool(5) && attempt.crate && Flags.downedSpookySpirit)
+                    if (Main.rand.NextBool(3) && attempt.crate)
                     {
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
 

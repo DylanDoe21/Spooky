@@ -60,34 +60,74 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<CatacombKey1>()))
+            UnlockTrapdoor(i, j, ModContent.ItemType<CatacombKey1>());
+
+            return true;
+        }
+
+        public void UnlockTrapdoor(int i, int j, int Key)
+        {
+            if (Main.LocalPlayer.ConsumeItem(Key))
             {
                 SoundEngine.PlaySound(SoundID.Unlock, new Vector2(i * 16, j * 16));
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 7;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 1;
+                if (Key == ModContent.ItemType<CatacombKey1>())
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.CatacombKey1);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.CatacombKey1 = true;
+                    }
+                }
+                if (Key == ModContent.ItemType<CatacombKey2>())
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.CatacombKey2);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.CatacombKey2 = true;
+                    }
+                }
+                if (Key == ModContent.ItemType<CatacombKey3>())
+                {
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.CatacombKey3);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        Flags.CatacombKey3 = true;
+                    }
+                }
+
+                int left = i - Framing.GetTileSafely(i, j).TileFrameX / 18 % 7;
+                int top = j - Framing.GetTileSafely(i, j).TileFrameY / 18 % 1;
 
                 for (int x = left; x < left + 7; x++)
                 {
                     for (int y = top; y < top + 1; y++)
                     {
-                        WorldGen.KillTile(x, y);
-                    }
-                }
+						Tile tile = Framing.GetTileSafely(x, y);
+						tile.HasTile = false;
+					}
+				}
 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
-                    ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)SpookyMessageType.CatacombKey1);
-                    packet.Send();
-                }
-                else
-                {
-                    Flags.CatacombKey1 = true;
+				    NetMessage.SendTileSquare(-1, i, j + 1, 3);
                 }
             }
-
-            return base.RightClick(i, j);
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) 
@@ -101,7 +141,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
         }
     }
 
-    public class CatacombTrapdoor2 : ModTile
+    public class CatacombTrapdoor2 : CatacombTrapdoor1
     {
         public override void SetStaticDefaults()
         {
@@ -138,38 +178,13 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<CatacombKey2>()))
-            {
-                SoundEngine.PlaySound(SoundID.Unlock, new Vector2(i * 16, j * 16));
+            UnlockTrapdoor(i, j, ModContent.ItemType<CatacombKey2>());
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 7;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 1;
-
-                for (int x = left; x < left + 7; x++)
-                {
-                    for (int y = top; y < top + 1; y++)
-                    {
-                        WorldGen.KillTile(x, y);
-                    }
-                }
-
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)SpookyMessageType.CatacombKey2);
-                    packet.Send();
-                }
-                else
-                {
-                    Flags.CatacombKey2 = true;
-                }
-            }
-
-            return base.RightClick(i, j);
+            return true;
         }
     }
 
-    public class CatacombTrapdoor3 : ModTile
+    public class CatacombTrapdoor3 : CatacombTrapdoor1
     {
         public override void SetStaticDefaults()
         {
@@ -206,34 +221,9 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<CatacombKey3>()))
-            {
-                SoundEngine.PlaySound(SoundID.Unlock, new Vector2(i * 16, j * 16));
+            UnlockTrapdoor(i, j, ModContent.ItemType<CatacombKey3>());
 
-                int left = i - Main.tile[i, j].TileFrameX / 18 % 7;
-                int top = j - Main.tile[i, j].TileFrameY / 18 % 1;
-
-                for (int x = left; x < left + 7; x++)
-                {
-                    for (int y = top; y < top + 1; y++)
-                    {
-                        WorldGen.KillTile(x, y);
-                    }
-                }
-
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)SpookyMessageType.CatacombKey3);
-                    packet.Send();
-                }
-                else
-                {
-                    Flags.CatacombKey3 = true;
-                }
-            }
-
-            return base.RightClick(i, j);
+            return true;
         }
     }
 }
