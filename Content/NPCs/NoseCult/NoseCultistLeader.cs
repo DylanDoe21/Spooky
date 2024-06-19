@@ -213,7 +213,14 @@ namespace Spooky.Content.NPCs.NoseCult
                         NPC.localAI[0] = 0;
                         NPC.localAI[1]++;
 
-                        NPC.ai[0] = NPC.localAI[1] > 3 ? 4 : Main.rand.Next(1, 4);
+                        if (NPC.localAI[1] > 3 && !NPC.AnyNPCs(ModContent.NPCType<NoseBallPurple>()) && !NPC.AnyNPCs(ModContent.NPCType<NoseBallRed>()))
+                        {
+                            NPC.ai[0] = 4;
+                        }
+                        else
+                        {
+                            NPC.ai[0] = Main.rand.Next(1, 4);
+                        }
 
                         NPC.netUpdate = true;
                     }
@@ -349,7 +356,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] < 40) 
+                    if (NPC.localAI[0] < 70) 
                     {
                         NPC.noTileCollide = false;
 
@@ -361,14 +368,14 @@ namespace Spooky.Content.NPCs.NoseCult
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
-                    if (NPC.localAI[0] == 40)
+                    if (NPC.localAI[0] == 70)
                     {
                         NPC.velocity *= 0f;
 
                         SaveDirection = NPC.direction;
                     }
 
-                    if (NPC.localAI[0] == 45)
+                    if (NPC.localAI[0] == 75)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
@@ -376,7 +383,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         Charging = true;
 
-                        int ChargeSpeed = 15;
+                        int ChargeSpeed = 18;
 
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize();
@@ -387,12 +394,12 @@ namespace Spooky.Content.NPCs.NoseCult
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    if (NPC.localAI[0] >= 45)
+                    if (NPC.localAI[0] >= 75)
                     {
                         NPC.spriteDirection = SaveDirection;
                     }
 
-                    if (NPC.localAI[0] >= 55)
+                    if (NPC.localAI[0] >= 85)
                     {
                         //collide with walls and play a sound
                         if (!hasCollidedWithWall && (NPC.oldVelocity.X >= 5 || NPC.oldVelocity.X <= -5) && (NPC.collideX || NPC.velocity == Vector2.Zero))
@@ -411,7 +418,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         }
                     }
 
-                    if (NPC.localAI[0] >= 300)
+                    if (NPC.localAI[0] >= 330)
                     {
                         Charging = false;
                         hasCollidedWithWall = false;
@@ -437,7 +444,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] <= 160)
+                    if (NPC.localAI[0] <= 200)
                     {
                         Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
 
@@ -452,6 +459,32 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 2;
 
                         NPC.frame.Y = 0;
+                    }
+
+                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 180)
+                    {
+                        SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+                        int[] Types = new int[] { ModContent.ProjectileType<NoseBallPurpleProj>(), ModContent.ProjectileType<NoseBallRedProj>() };
+
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
+                        Main.rand.Next(-10, 11), Main.rand.Next(-12, -7), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
+                    }
+
+                    if (NPC.localAI[0] >= 200)
+                    {
+                        Casting = false;
+
+                        CurrentFrameX = 0;
+
+                        NPC.velocity *= 0;
+                    }
+
+                    if (NPC.localAI[0] >= 350)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0] = 0;
                     }
                 
                     break;

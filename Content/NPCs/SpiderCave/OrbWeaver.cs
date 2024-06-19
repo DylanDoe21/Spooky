@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC.lifeMax = 75;
             NPC.damage = 35;
-			NPC.defense = 20;
+			NPC.defense = 15;
 			NPC.width = 74;
 			NPC.height = 52;
             NPC.npcSlots = 1f;
@@ -177,7 +177,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC.lifeMax = 90;
             NPC.damage = 40;
-			NPC.defense = 20;
+			NPC.defense = 15;
 			NPC.width = 82;
 			NPC.height = 56;
             NPC.npcSlots = 1f;
@@ -271,7 +271,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC.lifeMax = 90;
             NPC.damage = 30;
-			NPC.defense = 20;
+			NPC.defense = 15;
 			NPC.width = 62;
 			NPC.height = 46;
             NPC.npcSlots = 1f;
@@ -364,7 +364,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC.lifeMax = 900;
             NPC.damage = 60;
-			NPC.defense = 40;
+			NPC.defense = 30;
 			NPC.width = 82;
 			NPC.height = 60;
             NPC.npcSlots = 1f;

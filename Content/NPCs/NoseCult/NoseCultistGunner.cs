@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetDefaults()
 		{
             NPC.lifeMax = 200;
-            NPC.damage = 40;
+            NPC.damage = 30;
             NPC.defense = 5;
             NPC.width = 60;
 			NPC.height = 54;

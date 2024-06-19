@@ -3282,5 +3282,18 @@ RaveStarter: {
 
 CatacombWeedKiller: {
 	DisplayName: Catacomb Weed Killer
-	Tooltip: ""
+	Tooltip:
+		'''
+		Delets all catacomb ambient weed tiles
+		Testing Item
+		'''
+}
+
+NoseTempleTest: {
+	DisplayName: Nose Temple Resetter
+	Tooltip:
+		'''
+		Resets all of the nose temple rooms
+		Testing Item
+		'''
 }

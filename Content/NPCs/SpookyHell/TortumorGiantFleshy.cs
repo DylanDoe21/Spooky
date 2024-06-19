@@ -162,8 +162,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                 {
                     if (NPC.ai[0] == 400)
                     {
-                        int TortumorSummon = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 38, ModContent.NPCType<TortumorFleshy>());
-                        Main.npc[TortumorSummon].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6));
+                        int TortumorSummon = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<TortumorFleshy>());
+                        Main.npc[TortumorSummon].velocity = new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(-8, 9));
 
                         if (Main.netMode == NetmodeID.Server)
                         {

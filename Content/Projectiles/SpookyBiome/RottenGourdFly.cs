@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.height = 16;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
             Projectile.alpha = 255;
             Projectile.scale = 0.8f;
             Projectile.timeLeft = 300;

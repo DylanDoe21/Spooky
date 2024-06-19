@@ -361,18 +361,9 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 155; Y < Main.maxTilesY - 120; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() && CanPlaceTree(X, Y))
+                    if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>()) && CanPlaceTree(X, Y))
                     {
-                        if (WorldGen.genRand.NextBool(20) && (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>()) && 
-                        !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
-                        {
-                            EyeTree.Grow(X, Y - 1, 12, 35, false);
-                        }
-                    }
-
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() && CanPlaceTree(X, Y))
-                    {
-                        if (WorldGen.genRand.NextBool(10) && (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>()) && 
+                        if (WorldGen.genRand.NextBool(7) && (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>()) && 
                         !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                         {
                             EyeTree.Grow(X, Y - 1, 12, 35, false);

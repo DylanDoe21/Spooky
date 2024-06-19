@@ -31,7 +31,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		{
             NPC.lifeMax = 90;
             NPC.damage = 25;
-			NPC.defense = 15;
+			NPC.defense = 5;
 			NPC.width = 58;
 			NPC.height = 102;
             NPC.npcSlots = 1f;

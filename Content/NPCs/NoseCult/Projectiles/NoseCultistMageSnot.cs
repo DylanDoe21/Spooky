@@ -39,6 +39,11 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             return true;
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.OgreSpit, 80, true);
+        }
+
         public override bool CanHitPlayer(Player target)
         {
             return false;

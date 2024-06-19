@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetDefaults()
 		{
             NPC.lifeMax = 800;
-            NPC.damage = 50;
+            NPC.damage = 40;
             NPC.defense = 15;
             NPC.width = 106;
 			NPC.height = 112;
@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.NoseCult
             if (NPC.localAI[0] == 0)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), 
-				Vector2.Zero, ModContent.ProjectileType<NoseCultistBruteFlail>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI);
+				Vector2.Zero, ModContent.ProjectileType<NoseCultistBruteFlail>(), NPC.damage / 5, 0f, Main.myPlayer, NPC.whoAmI);
 
                 NPC.localAI[0] = 1;
             }

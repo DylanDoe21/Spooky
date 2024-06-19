@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.White);
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 6; i++)
             {
                 int XOffset = Main.rand.Next(-1, 2);
                 int YOffset = Main.rand.Next(-1, 2);

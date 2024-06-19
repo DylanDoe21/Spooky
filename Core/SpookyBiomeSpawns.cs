@@ -23,6 +23,7 @@ using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.NoseTemple;
+using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 
@@ -405,7 +406,8 @@ namespace Spooky.Core
                 pool.Clear();
 
 				int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
-				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>() };
+				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
+				ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
@@ -418,6 +420,12 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.75f);
 					pool.Add(ModContent.NPCType<Tortumor>(), 3);
 					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.75f);
+
+					//do not spawn mocling swarms if one exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<MoclingSwarm>()))
+					{
+						pool.Add(ModContent.NPCType<MoclingSwarm>(), 1);
+					}
 
 					//do not spawn giant tortumors if one already exists
 					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))

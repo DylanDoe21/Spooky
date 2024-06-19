@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
-            if (NPC.frameCounter > 7)
+            if (NPC.frameCounter > (12 - (int)NPC.ai[1]))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
@@ -72,9 +72,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[0] >= 300)
             {
-                //TODO: make explosion
+                NPC.ai[1] += 0.2f;
 
-                NPC.active = false;
+                if (NPC.ai[1] > 0)
+                {
+                    NPC.active = false;
+                }
             }
 		}
 

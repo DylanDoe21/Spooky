@@ -15,7 +15,7 @@ namespace Spooky.Content.NPCs.NoseCult
 {
     public class NoseCultistGrunt : ModNPC  
     {
-        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Pitch = 0.4f, Volume = 0.5f };
 
         public override void SetStaticDefaults()
         {
@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
-            NPC.damage = 35;
+            NPC.damage = 30;
             NPC.defense = 5;
             NPC.width = 34;
 			NPC.height = 50;
@@ -149,7 +149,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 if (NPC.frame.Y == 8 * NPC.height && NPC.localAI[2] == 0)
                 {
-                    SoundEngine.PlaySound(SneezeSound with { Pitch = 0.4f, Volume = 0.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, NPC.direction == -1 ? -10 : 10, 0, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
                     

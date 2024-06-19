@@ -85,13 +85,13 @@ namespace Spooky.Content.NPCs.SpookyHell
             //immediately try to fling upward when it spawns in
             if (NPC.ai[2] == 0)
             {
-                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, -12));
+                NPC.velocity = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, -5));
                 NPC.ai[2] = 1;
             }
 
             if (NPC.ai[0] >= 300)
             {
-                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, 23));
+                NPC.velocity = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, 14));
                 NPC.ai[0] = 0;
                 NPC.ai[1] = 0;
             }
@@ -110,9 +110,9 @@ namespace Spooky.Content.NPCs.SpookyHell
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeChocolate>(), 100));
         }
 
-        public override void HitEffect(NPC.HitInfo hit) 
+        public override void HitEffect(NPC.HitInfo hit)
         {
-			if (NPC.life <= 0) 
+			if (NPC.life <= 0)
             {
                 //spawn gores
                 for (int numGores = 1; numGores <= 8; numGores++)

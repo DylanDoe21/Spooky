@@ -6,6 +6,7 @@ Eye Valley Improvements:
 -Changed the terrain generation to be more rough looking, making it more interesting and natural
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
+-Made eye stalk trees grow way more frequently in the biome during world generation
 -Added a new giant evil lab for little eye to live in
 -Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
 -Changed the behavior of some of the normal eye valley enemies to make them more interesting
@@ -16,18 +17,17 @@ Eye Valley Improvements:
 New Nose Dungeon:
 
 -A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited with strange cultists
--Found at the very edge of the biome at a large broken temple with a brand new statue used to summon moco
--Entrance is blocked by a locked trapdoor which can only be opened with a shadow key
--At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared the dungeon
+-Found at the very edge of the biome is a large broken temple with a brand new fancy looking statue used to summon moco
+-Entrance is blocked off by a locked trapdoor which can only be opened with a shadow key
+-At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared the normal dungeon rooms
 -At the end you can enter a tunnel to backtrack to the entrance where the barrier previously blocking the opposite side is now opened
 -This newly opened hallway takes you to a giant arena where you will fight a new mini-boss
--While the actual dungeon itself is indestructable, you can make craftable versions of every block and wall in the dungeon
--You can craft each occultist brick block at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with the gray occultist bricks
+-While the actual dungeon bricks themselves are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with gray occultist bricks
 
 
 Little Eye Quest Rework:
 
--Stuff lol (Too lazy to write a changelog and this feature is not fully complete yet either)
+-Stuff lol (this feature is not fully complete yet)
 
 
 Catacomb Improvements:
@@ -144,6 +144,7 @@ Miscellaneous:
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
+-Old hunter pieces now have better generation and place in spots that are way easier to find
 
 
 Removals:
@@ -173,10 +174,11 @@ Fixed all of the following bugs and issues:
 -Crux not killing its debuff aura if it was using one when killed
 -Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
 -Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
--Claret cephalopod repeatedly charging at the same location instead of actually charging at the players current location
--High-velocity slingshot projectiles sometimes passing through enemies, especially smaller ones, without hitting them
+-Claret cephalopod repeatedly charging at the same location during its charge attack instead of actually charging at the players current location
+-High-velocity slingshot projectiles sometimes passing through some smaller enemies without actually hitting them
 -Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
 -Swimming hibiscus not being catchable
+-Old hunter pieces sometimes generating below the bottom of the spider grotto
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

@@ -87,13 +87,13 @@ namespace Spooky.Content.NPCs.SpookyHell
             //immediately try to fling upward when it spawns in
             if (NPC.ai[2] == 0)
             {
-                NPC.velocity = new Vector2(Main.rand.Next(-30, 31), Main.rand.Next(-22, -12));
+                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, -12));
                 NPC.ai[2] = 1;
             }
 
             if (NPC.ai[0] >= 240)
             {
-                NPC.velocity = new Vector2(Main.rand.Next(-30, 31), Main.rand.Next(-30, 31));
+                NPC.velocity = new Vector2(Main.rand.Next(-22, 23), Main.rand.Next(-22, 23));
                 NPC.ai[0] = 0;
                 NPC.ai[1] = 0;
             }

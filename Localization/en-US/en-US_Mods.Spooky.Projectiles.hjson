@@ -211,7 +211,6 @@ DaffodilBladeSlash.DisplayName: Thorn Dagger
 DaffodilRodFlower.DisplayName: Sunflower Bolt
 MistGhostSpawn.DisplayName: Mist Ghost Spawner
 NoseMinionBooger.DisplayName: Booger
-SmellyCloud.DisplayName: Rancid Spore
 OldHunterMelee.DisplayName: Warrior Spirit
 OldHunterRanged.DisplayName: Shotgunner Spirit
 OldHunterRangedBullet.DisplayName: Ghost Bullet
@@ -352,3 +351,5 @@ NoseCultistGruntSnot.DisplayName: Snot
 NoseCultistWingedSnot.DisplayName: Snot
 NoseCultistMageSnot.DisplayName: Snot Ball
 OrbitingBoogerProj.DisplayName: Booger Ball
+NoseBallPurpleProj.DisplayName: Nolegam
+NoseBallRedProj.DisplayName: Nolegam

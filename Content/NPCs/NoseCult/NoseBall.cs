@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,11 @@ namespace Spooky.Content.NPCs.NoseCult
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.NoseTempleBiome>().Type };
         }
 
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.65f * bossAdjustment);
+        }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -44,8 +50,6 @@ namespace Spooky.Content.NPCs.NoseCult
 		{
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
-			NPC.spriteDirection = NPC.direction;
 
             NPC.rotation += (NPC.velocity.X / 40);
 
@@ -78,6 +82,21 @@ namespace Spooky.Content.NPCs.NoseCult
                     }
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 1,
+				MaximumItemDropsCount = 3,
+			};
+
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
         }
     }
 
