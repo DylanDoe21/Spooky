@@ -2303,12 +2303,17 @@ TortumorYoyo: {
 
 RaveyardDisc1: {
 	DisplayName: Raveyard Vinyl #1
-	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak"
+	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard"
 }
 
 RaveyardDisc2: {
 	DisplayName: Raveyard Vinyl #2
 	Tooltip: "[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor"
+}
+
+RaveyardDiscLegacy: {
+	DisplayName: Raveyard Vinyl #3
+	Tooltip: "[c/6FE4A5:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak"
 }
 
 VinylAlley: {
@@ -2704,6 +2709,11 @@ CultistSofaItem: {
 
 CultistTableItem: {
 	DisplayName: Occultist Table
+	Tooltip: ""
+}
+
+FireExitSignItem: {
+	DisplayName: Fire Exit Sign
 	Tooltip: ""
 }
 

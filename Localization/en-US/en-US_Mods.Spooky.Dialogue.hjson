@@ -127,6 +127,7 @@ LittleEye: {
 		[c/68DD27: Click to accept this bounty and recieve the concoction]
 		[c/E52906: Good luck!]
 		'''
+	BountyCompleted: "[c/68DD27:You have completed this bounty!]"
 }
 
 OldHunter: {

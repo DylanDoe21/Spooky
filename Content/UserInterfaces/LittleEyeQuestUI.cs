@@ -6,6 +6,8 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.UserInterfaces
 {
     public class LittleEyeQuestUI
@@ -58,7 +60,7 @@ namespace Spooky.Content.UserInterfaces
             //eye gremlin display stuff
             Vector2 Icon1TopLeft = ButtonTopLeft.ToVector2() + new Vector2(315f, -24f) * Main.UIScale;
 
-            Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
+            Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon1TopLeft, Icon1Texture);
 
             if (IsMouseOverUI(Icon1TopLeft, Icon1Texture, UIBoxScale))
@@ -77,7 +79,7 @@ namespace Spooky.Content.UserInterfaces
             //chalupo display stuff
             Vector2 Icon2TopLeft = ButtonTopLeft.ToVector2() + new Vector2(400f, -24f) * Main.UIScale;
 
-            Texture2D Icon2Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
+            Texture2D Icon2Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon2TopLeft, Icon2Texture);
 
             if (IsMouseOverUI(Icon2TopLeft, Icon2Texture, UIBoxScale))
@@ -96,7 +98,7 @@ namespace Spooky.Content.UserInterfaces
             //spider grotto display stuff
             Vector2 Icon3TopLeft = ButtonTopLeft.ToVector2() + new Vector2(485f, -24f) * Main.UIScale;
 
-            Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
+            Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon3TopLeft, Icon3Texture);
 
             if (IsMouseOverUI(Icon3TopLeft, Icon3Texture, UIBoxScale))
@@ -115,7 +117,7 @@ namespace Spooky.Content.UserInterfaces
             //eye wizard display stuff
             Vector2 Icon4TopLeft = ButtonTopLeft.ToVector2() + new Vector2(570f, -24f) * Main.UIScale;
 
-            Texture2D Icon4Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon1NotDone").Value;
+            Texture2D Icon4Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon4NotDone").Value;
             DrawIcon(spriteBatch, Icon4TopLeft, Icon4Texture);
 
             if (IsMouseOverUI(Icon4TopLeft, Icon4Texture, UIBoxScale))
@@ -131,22 +133,43 @@ namespace Spooky.Content.UserInterfaces
                 }
             }
 
+            //orroboro display stuff
             Vector2 OrroboroIconTopLeft = ButtonTopLeft.ToVector2() + new Vector2(655f, -24f) * Main.UIScale;
 
-            Texture2D OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BountyIcon5Locked").Value;
+            Texture2D OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked").Value;
+
+            bool downedAllMechs = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
+
+            if (downedAllMechs)
+            {
+                if (!Flags.downedOrroboro)
+                {
+                    OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5NotDone").Value;
+                }
+                else
+                {
+                    OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Done").Value;
+                }
+            }
+
             DrawIcon(spriteBatch, OrroboroIconTopLeft, OrroboroIconTexture);
 
             if (IsMouseOverUI(OrroboroIconTopLeft, OrroboroIconTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                bool downedAllMechs = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
-
                 string OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty5Locked");
                 
                 if (downedAllMechs)
                 {
-                    OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty5");
+                    if (!Flags.downedOrroboro)
+                    {
+                        OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty5");
+                    }
+                    else
+                    {
+                        OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.BountyCompleted");
+                    }
                 }
 
                 DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, OrroboroIconText);

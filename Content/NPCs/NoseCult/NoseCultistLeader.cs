@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -428,6 +429,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         NPC.noGravity = true;
                         NPC.noTileCollide = true;
+
                         NPC.netUpdate = true;
                     }
 
@@ -477,7 +479,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         CurrentFrameX = 0;
 
-                        NPC.velocity *= 0;
+                        NPC.velocity *= 0.1f;
                     }
 
                     if (NPC.localAI[0] >= 350)
@@ -496,9 +498,6 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
-                NPC Parent = Main.npc[(int)NPC.ai[3]];
-                Parent.active = false;
-
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -511,7 +510,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void OnKill()
         {
-            //NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
+            NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
         }
     }
 }

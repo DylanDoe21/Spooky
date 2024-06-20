@@ -92,8 +92,8 @@ namespace Spooky.Content.NPCs.NoseCult
 				ChanceDenominator = 1,
 				MinimumStackPerChunkBase = 1,
 				MaximumStackPerChunkBase = 1,
-				MinimumItemDropsCount = 1,
-				MaximumItemDropsCount = 3,
+				MinimumItemDropsCount = 2,
+				MaximumItemDropsCount = 5,
 			};
 
 			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));

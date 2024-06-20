@@ -225,6 +225,12 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.MocoIdolDowned6:
+                {
+                    Flags.downedMocoIdol6 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.CatacombKey1:
                 {
                     Flags.CatacombKey1 = true;
@@ -275,6 +281,7 @@ namespace Spooky
         MocoIdolDowned3,
         MocoIdolDowned4,
         MocoIdolDowned5,
+        MocoIdolDowned6,
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,

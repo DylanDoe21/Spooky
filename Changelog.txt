@@ -133,13 +133,14 @@ Enemy & Boss Changes:
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Monster eyes now explode into small little gore chunks when killed, and heavily nerfed their jumping rate and speed
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
+-Lowered the defense of some of the spider grotto enemies
 
 
 Miscellaneous:
 
 -Sentient hearts now only require 2 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
--The giant eye valley egg now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
+-The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
@@ -151,7 +152,7 @@ Removals:
 
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
 -Removed the cotton swab's crafting recipe due to its new obtainment method
--Removed the mechanic where gravestones wouldnt spawn if you died in the catacombs since you can now break blocks in it
+-Removed the mechanic where gravestones wouldn't spawn if you died in the catacombs since you can now break blocks in it
 
 
 

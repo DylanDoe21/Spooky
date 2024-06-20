@@ -28,6 +28,7 @@ namespace Spooky.Content.Generation
         int NoseTempleBrickColor;
         int NoseTempleBrickWallColor;
         static int NoseTemplePositionY;
+        static int NoseTempleEntranceTunnelX;
 
         static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
         static int BiomeEdge = StartPosition + (Main.maxTilesX / 6);
@@ -637,6 +638,8 @@ namespace Spooky.Content.Generation
 
             GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 3, "EntranceTunnel", 9, 0);
 
+            NoseTempleEntranceTunnelX = DungeonX;
+
             GenerateNoseTempleStructure(DungeonX + (DungeonX < (Main.maxTilesX / 2) ? -3 : 3), NoseTemplePositionY + 28, "MinibossRoomBarrier", 0, 6);
 
             //place the cathedral arena and hallways leading to it
@@ -669,7 +672,7 @@ namespace Spooky.Content.Generation
                         CathedralX += (StartPosition < Main.maxTilesX / 2 ? -19 : 20);
                     }
 
-                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
+                    GenerateNoseTempleStructure(CathedralX, NoseTemplePositionY + 27, "HallwayMiniboss", 10, 10);
 
                     CathedralX += (StartPosition < Main.maxTilesX / 2 ? -20 : 20);
                 }
@@ -751,13 +754,35 @@ namespace Spooky.Content.Generation
                         //when the very end of the dungeon is reached, place a wall on the entrance opening of the last room 
                         if (dungeonRoomLoop == MaxDungeonRooms)
                         {
-                            if (DungeonX < (Main.maxTilesX / 2))
+                            if (DungeonX > (Main.maxTilesX / 2))
                             {
-                                GenerateNoseTempleStructure(DungeonX + 61, NoseTemplePositionY + 27, "RoomEndRight", 2, 6);
+                                GenerateNoseTempleStructure(DungeonX - 70, NoseTemplePositionY + 27, "FireExitLeft", 7, 10);
+                                GenerateNoseTempleStructure(DungeonX - 68, NoseTemplePositionY + 38, "FireExitTunnelLeft", 4, 8);
+
+                                for (int X = DungeonX - 60; X <= NoseTempleEntranceTunnelX + 2; X++)
+                                {
+                                    GenerateNoseTempleStructure(X, NoseTemplePositionY + 45, "FireExitTunnelSegment", 4, 8);
+
+                                    if (X == NoseTempleEntranceTunnelX + 2)
+                                    {
+                                        GenerateNoseTempleStructure(X - 1, NoseTemplePositionY + 38, "FireExitTunnelRightBarrier", 4, 8);
+                                    }
+                                }
                             }
                             else
                             {
-                                GenerateNoseTempleStructure(DungeonX - 61, NoseTemplePositionY + 27, "RoomEndLeft", 2, 6);
+                                GenerateNoseTempleStructure(DungeonX + 70, NoseTemplePositionY + 27, "FireExitRight", 7, 10);
+                                GenerateNoseTempleStructure(DungeonX + 68, NoseTemplePositionY + 38, "FireExitTunnelRight", 4, 8);
+
+                                for (int X = DungeonX + 68; X >= NoseTempleEntranceTunnelX + 2; X--)
+                                {
+                                    GenerateNoseTempleStructure(X, NoseTemplePositionY + 45, "FireExitTunnelSegment", 4, 8);
+
+                                    if (X == NoseTempleEntranceTunnelX + 2)
+                                    {
+                                        GenerateNoseTempleStructure(X - 2, NoseTemplePositionY + 38, "FireExitTunnelLeftBarrier", 4, 8);
+                                    }
+                                }
                             }
                         }
 

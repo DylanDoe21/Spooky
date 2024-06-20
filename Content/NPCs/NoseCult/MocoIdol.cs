@@ -170,13 +170,24 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     NPC.ai[2]++;
 
-                    if (NPC.ai[2] > 65)
+                    if (NPC.ai[2] > 70)
                     {
                         //the minibosses idol is just an invisible spawner due to the statue in the big arena being used not only to rematch him, but spawn waves of cultists for farming
                         //because of this, unlike the other idols, it should just immediately vanish when the miniboss is killed instead of playing an animation
                         if (NPC.type == ModContent.NPCType<MocoIdol6>())
                         {
                             ActivateLightTiles();
+
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                ModPacket packet = Mod.GetPacket();
+                                packet.Write((byte)SpookyMessageType.MocoIdolDowned6);
+                                packet.Send();
+                            }
+                            else
+                            {
+                                Flags.downedMocoIdol6 = true;
+                            }
 
                             NoseCultAmbushWorld.AmbushActive = false;
 
