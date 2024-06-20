@@ -231,7 +231,24 @@ namespace Spooky.Core
             {
                 BloomBuffSlots[3] = string.Empty;
             }
-        }
+
+			if (BloomBuffSlots[0] == string.Empty)
+			{
+				Duration1 = 0;
+			}
+			if (BloomBuffSlots[1] == string.Empty)
+			{
+				Duration2 = 0;
+			}
+			if (BloomBuffSlots[2] == string.Empty)
+			{
+				Duration3 = 0;
+			}
+			if (BloomBuffSlots[3] == string.Empty)
+			{
+				Duration4 = 0;
+			}
+		}
 
         //save and load the unlocked slots so they are permanent
         public override void SaveData(TagCompound tag)

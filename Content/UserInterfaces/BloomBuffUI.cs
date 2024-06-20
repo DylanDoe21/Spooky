@@ -221,6 +221,12 @@ namespace Spooky.Content.UserInterfaces
                         {
 						    Main.instance.MouseText(BuffDisplayName + "\n" + actualTime);
                         }
+
+						//remove the buff if the player right clicks the icon on the ui
+						if (Main.mouseRightRelease && Main.mouseRight)
+						{
+							player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] = string.Empty;
+						}
                     }
                     else
                     {

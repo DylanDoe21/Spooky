@@ -54,7 +54,7 @@ New Farming Mechanic:
 -This means you can use any combination of bloom buffs that you'd like, but you can only have a limited number of them active at once, so make sure to consider which ones you want to use
 
 Some things to note about this buff mechanic:
--Bloom buffs, unlike vanilla buffs, cannot be manually removed. Once you eat a bloom, you must wait for that buffs duration to run out for the slot to become open again
+-Bloom buffs, like vanilla buffs, can be manually removed by right clicking the icon of the buff you want to remove
 -Unlike vanilla buffs, eating a bloom will not reset a blooms buff duration. Instead, eating a bloom for a buff you have already will actually add its duration to the remaining duration of that buff
 (For example, if you have a buff duration of 3 minutes for a specific bloom buff, and you eat the bloom that gives you that buff for 5 minutes by default, then that buffs duration will be set to 8 minutes)
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs maximum duration is 20 minutes and it will not go beyond that even if you eat more of that bloom)
