@@ -79,55 +79,9 @@ LittleEye: {
 	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
 	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
 	Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
+	//buttons
 	Button1: Bounties
 	Button2: Cauldron?
-	Bounty1:
-		'''
-		[c/8284FF: I tried to make a freaky monster a while back to defend my lab...]
-		[c/8284FF: But, after a few mishaps, it escaped and ran off to the surface.]
-		[c/8284FF: You should go and find it, maybe bring a piece of it back for me too!]
-		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF7B2A: Spooky Forest][c/F5FFCF: and defeat it]
-		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one!]
-		'''
-	Bounty2:
-		'''
-		[c/8284FF: ???]
-		[c/8284FF: ???]
-		[c/8284FF: ???]
-		[c/F5FFCF: Bounty Mission: Find this monster in the][c/12A400: Swampy Cemetery][c/F5FFCF: and defeat it]
-		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one!]
-		'''
-	Bounty3:
-		'''
-		[c/8284FF: ???]
-		[c/8284FF: ???]
-		[c/8284FF: ???]
-		[c/F5FFCF: Bounty Mission: Find this monster in the][c/BE743E: Spider Grotto][c/F5FFCF: and defeat it]
-		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one!]
-		'''
-	Bounty4:
-		'''
-		[c/8284FF: Ever tried cloning yourself? It's actually really awesome!]
-		[c/8284FF: What isn't so awesome is when your clone gets a bit too powerful.]
-		[c/8284FF: However, I am already great, so please go show my clone who's boss.]
-		[c/F5FFCF: Bounty Mission: Find this monster in the][c/FF4523: Valley of Eyes][c/F5FFCF: and defeat it]
-		[c/68DD27: Click to accept this bounty and recieve an item to attract said monster]
-		[c/E52906: You will not be able to accept another bounty until you finish this one!]
-		'''
-	Bounty5Locked: "[c/E52906: Defeat all three mechanical bosses to unlock this bounty]"
-	Bounty5:
-		'''
-		[c/8284FF: Ever wonder why the giant egg has a shield on it? Its kinda my fault...]
-		[c/8284FF: I put a curse on it by accident while trying to make it into scrambled eggs.]
-		[c/8284FF: I have a concoction that may stop it, but I have no clue what will happen.]
-		[c/F5FFCF: Bounty Mission: Find the][c/8130FF: Giant Egg][c/F5FFCF: and use the concoction on it.]
-		[c/68DD27: Click to accept this bounty and recieve the concoction]
-		[c/E52906: Good luck!]
-		'''
-	BountyCompleted: "[c/68DD27:You have completed this bounty!]"
 }
 
 OldHunter: {

@@ -7,8 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class NoseCultistMageSnot : ModProjectile
+    public class NoseCultistLeaderEnemySpawner : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/NoseCult/Projectiles/NoseCultistMageSnot";
+
         private static Asset<Texture2D> ProjTexture;
 		
         public override void SetDefaults()
@@ -63,7 +65,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
-            int[] Types = new int[] { ModContent.NPCType<SnotMonster>(), ModContent.NPCType<SnotSlime>() };
+            int[] Types = new int[] { ModContent.NPCType<NoseCultistGrunt>(), ModContent.NPCType<NoseCultistGunner>(), ModContent.NPCType<NoseCultistMage>() };
 
             int SpawnedNPC = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + Projectile.height / 2, Main.rand.Next(Types));
 

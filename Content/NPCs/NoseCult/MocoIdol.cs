@@ -562,7 +562,7 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn the cultist leader
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
                 NPC.ai[0]++;
             }
 

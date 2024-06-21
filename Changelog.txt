@@ -25,9 +25,14 @@ New Nose Dungeon:
 -While the actual dungeon bricks themselves are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with gray occultist bricks
 
 
-Little Eye Quest Rework:
+Little Eye Quest Rework: (NOT FINISHED IN GAME YET)
 
--Stuff lol (this feature is not fully complete yet)
+-Little eye's quest system has now been entirely reworked into a bounty quest type system, with a brand new UI, and 4 brand new minibosses to fight
+-Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
+-You can also complete all 4 of the bounties in any order you like, but once you choose a bounty, you must complete that bounty before you can select another one
+-Orro-boro is now also a bounty quest, but it is separate from the other 4 and you can unlock it by defeating all 3 mechanical bosses
+(The orro-boro bounty is also not tied to the other ones, meaning you do not have to complete any of the other 4 bounties to unlock it)
+-Each miniboss also has some unique rewards they drop if you want some extra goodies
 
 
 Catacomb Improvements:
@@ -55,21 +60,21 @@ New Farming Mechanic:
 
 Some things to note about this buff mechanic:
 -Bloom buffs, like vanilla buffs, can be manually removed by right clicking the icon of the buff you want to remove
--Unlike vanilla buffs, eating a bloom will not reset a blooms buff duration. Instead, eating a bloom for a buff you have already will actually add its duration to the remaining duration of that buff
-(For example, if you have a buff duration of 3 minutes for a specific bloom buff, and you eat the bloom that gives you that buff for 5 minutes by default, then that buffs duration will be set to 8 minutes)
-(Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs maximum duration is 20 minutes and it will not go beyond that even if you eat more of that bloom)
+-Bloom buffs have stacking durations, if you eat multiple of the same bloom then that blooms base duration will be added onto the remaining duration for the existing buff
+(Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs duration will cap at 20 minutes and it will not go beyond that even if you eat more of that bloom)
 
 
 New Music:
 
 -"Grand Sinus Corridors" by BananaLizard, plays in the new nose cultist dungeon
 -"You Should Know Better" by BananaLizard, plays during the pandora's box event
+-New redone version of "Graveyard without the G" by Bananalizard, and kept the old version as a legacy theme you can listen to with a vinyl purchased from music man
 
 
 Config Additions:
 
 -Added new option "Old Hunter Dramatic Light", allows you to enable/disable the dramatic light that gets brighter over time during the old hunter's spawn animation (On by default)
--Added new option "Draggable Bloom Buff UI", allows you to choose whether or not you are able to drag the new bloom buffs ui box with your mouse (Off by default)
+-Added new option "Draggable Bloom Buff UI", allows you to choose whether or not you are able to drag the new bloom buffs UI box with your mouse (Off by default)
 -Moved the "Halloween Season" option into a new spooky mod server-side config since vanillas halloween season is not meant to be decided on a single client
 
 
@@ -145,7 +150,7 @@ Miscellaneous:
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
--Old hunter pieces now have better generation and place in spots that are way easier to find
+-Old hunter pieces now have better generation and place in spots that are a bit easier to spot
 
 
 Removals:
@@ -167,7 +172,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod ambient grasses, vines, and other plants growing underwater
 -Tarantula hawks not dropping the enemy they are carrying if they are killed before dropping it
 -Goblin shark rod drawing the fishing line at the incorrect position if the player is using any of the vanilla fishing bobber accessories
--Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if it generates past the jungle
+-Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if the desert generates past the jungle
 -Spider grotto sometimes generating over the dungeon, and sometimes spawning a bit too close to the snow biome
 -Hallucination entities not facing towards the player correctly
 -"Graveyard without the G" and "Bonerattlin' Raving" not displaying with the music display mod for their individual vinyls
@@ -178,7 +183,7 @@ Fixed all of the following bugs and issues:
 -Claret cephalopod repeatedly charging at the same location during its charge attack instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through some smaller enemies without actually hitting them
 -Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
--Swimming hibiscus not being catchable
+-Swimming hibiscus not being catchable in the catacombs
 -Old hunter pieces sometimes generating below the bottom of the spider grotto
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
@@ -187,6 +192,6 @@ Fixed all of the following multiplayer bugs and issues:
 
 -Old hunter giant web not saving pieces being inserted properly
 -Old hunter not waking up correctly when spoken to
--Egg incursion not saving as downed correctly when completed
+-Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit

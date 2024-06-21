@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using System.Linq;
+using Microsoft.CodeAnalysis.Text;
+using SteelSeries.GameSense;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -16,12 +19,14 @@ namespace Spooky.Content.UserInterfaces
         public static bool UIOpen = false;
         public static bool IsHoveringOverAnyButton = false;
 
-        public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 275f, Main.screenHeight / 2 - 140f);
+        public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
 
         public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
 
         public static void Draw(SpriteBatch spriteBatch)
         {
+            Player player = Main.LocalPlayer;
+
             //dont draw at all if the UI isnt open
             if (!UIOpen)
             {
@@ -30,7 +35,7 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //stop the UI from being open if the player is doing other stuff
-            if (Main.LocalPlayer.chest != -1 || Main.LocalPlayer.sign != -1 || Main.LocalPlayer.talkNPC == -1 || !InRangeOfNPC() || Main.InGuideCraftMenu)
+            if (player.chest != -1 || player.sign != -1 || player.talkNPC == -1 || !InRangeOfNPC() || Main.InGuideCraftMenu)
             {
                 UIOpen = false;
                 return;
@@ -42,23 +47,46 @@ namespace Spooky.Content.UserInterfaces
             Vector2 UIBoxScale = Vector2.One * Main.UIScale;
 
             //draw the main UI box
-            spriteBatch.Draw(UIBoxTexture, UITopLeft, null, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(UIBoxTexture, UITopLeft, null, Color.White, 0f, UIBoxTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
             //prevent any mouse interactions while the mouse is hovering over this UI
             if (IsMouseOverUI(UITopLeft, UIBoxTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = false;
 
-                Main.LocalPlayer.mouseInterface = false;
+                player.mouseInterface = false;
                 Main.blockMouse = true;
             }
 
-            Point ButtonTopLeft = (UITopLeft + new Vector2(-250f, 32f) * UIBoxScale).ToPoint();
+            Point ButtonTopLeft = (UITopLeft + new Vector2(-525f, -110f) * UIBoxScale).ToPoint();
 
-            //draw each bounty icon and display text when hovering over it
+			string QuestIcon1Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty1");
+			string Quest1ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty1Condition");
 
-            //eye gremlin display stuff
-            Vector2 Icon1TopLeft = ButtonTopLeft.ToVector2() + new Vector2(315f, -24f) * Main.UIScale;
+			string QuestIcon2Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty2");
+			string Quest2ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty2Condition");
+
+			string QuestIcon3Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty3");
+			string Quest3ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty3Condition");
+
+			string QuestIcon4Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty4");
+			string Quest4ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty4Condition");
+
+			string QuestIcon5LockedText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Locked");
+			string QuestIcon5Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5");
+			string Quest5ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Condition");
+
+			string QuestAcceptText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyAccept");
+			string QuestWarningText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyWarning");
+			string Quest5AcceptText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Accept");
+			string Quest5WarningText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Warning");
+
+			string QuestCompleteText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompleted");
+
+			//draw each bounty icon and display text when hovering over it
+
+			//eye gremlin display stuff
+			Vector2 Icon1TopLeft = ButtonTopLeft.ToVector2() + new Vector2(315f, -24f) * Main.UIScale;
 
             Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
             DrawIcon(spriteBatch, Icon1TopLeft, Icon1Texture);
@@ -67,10 +95,10 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
-                string Quest1Text = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty1");
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, Quest1Text);
+				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, 
+				QuestIcon1Text, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
 
-                if (Main.mouseLeftRelease && Main.mouseLeft)
+				if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
                     //TODO: implement accepting bounty here
                 }
@@ -86,10 +114,10 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
-                string QuestIcon2Text = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty2");
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, QuestIcon2Text);
+				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+				QuestIcon2Text, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
 
-                if (Main.mouseLeftRelease && Main.mouseLeft)
+				if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
                     //TODO: implement accepting bounty here
                 }
@@ -105,10 +133,10 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
-                string QuestIcon3Text = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty3");
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, QuestIcon3Text);
+				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+				QuestIcon3Text, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
 
-                if (Main.mouseLeftRelease && Main.mouseLeft)
+				if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
                     //TODO: implement accepting bounty here
                 }
@@ -124,10 +152,10 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
-                string QuestIcon4Text = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty4");
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, QuestIcon4Text);
+				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+				QuestIcon4Text, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
 
-                if (Main.mouseLeftRelease && Main.mouseLeft)
+				if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
                     //TODO: implement accepting bounty here
                 }
@@ -135,7 +163,6 @@ namespace Spooky.Content.UserInterfaces
 
             //orroboro display stuff
             Vector2 OrroboroIconTopLeft = ButtonTopLeft.ToVector2() + new Vector2(655f, -24f) * Main.UIScale;
-
             Texture2D OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked").Value;
 
             bool downedAllMechs = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
@@ -157,22 +184,29 @@ namespace Spooky.Content.UserInterfaces
             if (IsMouseOverUI(OrroboroIconTopLeft, OrroboroIconTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
-
-                string OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty5Locked");
                 
+				//quest text
                 if (downedAllMechs)
                 {
+					//display the actual quest text if you havent killed orro-boro but you killed the mechs
                     if (!Flags.downedOrroboro)
                     {
-                        OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Bounty5");
-                    }
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+						QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
+					}
+					//if you have killed orro-boro display the quest as complete
                     else
                     {
-                        OrroboroIconText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.BountyCompleted");
-                    }
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+						QuestCompleteText, string.Empty, string.Empty, string.Empty, Color.White);
+					}
                 }
-
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(22f, 110f) * UIBoxScale, OrroboroIconText);
+				//if you havent killed all 3 mechs, then display the quest as locked
+				else
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
+					string.Empty, QuestIcon5LockedText, string.Empty, string.Empty, Color.Red);
+				}
 
                 if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
@@ -181,7 +215,7 @@ namespace Spooky.Content.UserInterfaces
             }
 
             /*
-            //still dunno if im even going to bother implementing this, dont really think its necessary ngl
+            //might not even be necessary to implement
             if (!IsHoveringOverAnyButton)
             {
                 string NoSelectedText = "[c/8284FF: So, you want to help me with some tasks?]"
@@ -204,14 +238,64 @@ namespace Spooky.Content.UserInterfaces
             return validTalkArea.Intersects(Main.npc[LittleEye].Hitbox);
         }
 
-        public static void DrawTextDescription(SpriteBatch spriteBatch, Vector2 nameDrawCenter, string Text)
-        {
-            Vector2 scale = new Vector2(0.85f, 0.85f) * Main.UIScale;
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, nameDrawCenter, Color.White, 0f, Vector2.Zero, scale);
-        }
+		public static void DrawTextDescription(SpriteBatch spriteBatch, Vector2 TextTopLeft, string Description, string Condition, string Accept, string Warning, Color ConditionColor)
+		{
+			Vector2 scale = new Vector2(0.9f, 0.925f) * MathHelper.Clamp(Main.screenHeight / 1440f, 0.825f, 1f) * Main.UIScale;
 
-        //used to draw individual icons over the main UI box
-        public static void DrawIcon(SpriteBatch spriteBatch, Vector2 drawPositionTopLeft, Texture2D texture)
+			//this probably doesnt look pretty, but since text wrapping didnt work with manually coloring the text in localization I had to do this instead
+			//basically it takes all 4 parts of the text for each bounty and just draws each one separately below each other with their own individual colors
+
+			//first draw the mission description
+			foreach (string TextLine in Utils.WordwrapString(Description, FontAssets.MouseText.Value, 700, 16, out _))
+			{
+				if (string.IsNullOrEmpty(TextLine))
+				{
+					continue;
+				}
+				
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, TextLine, TextTopLeft, new Color(130, 132, 255), 0f, Vector2.Zero, scale);
+				TextTopLeft.Y += Main.UIScale * 16f;
+			}
+
+			//then draw the condition text for the biome you find the miniboss in
+			foreach (string TextLine in Utils.WordwrapString(Condition, FontAssets.MouseText.Value, 700, 16, out _))
+			{
+				if (string.IsNullOrEmpty(TextLine))
+				{
+					continue;
+				}
+
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, TextLine, TextTopLeft, ConditionColor, 0f, Vector2.Zero, scale);
+				TextTopLeft.Y += Main.UIScale * 16f;
+			}
+
+			//draw the text to tell players they have to click the button to accept the bounty
+			foreach (string TextLine in Utils.WordwrapString(Accept, FontAssets.MouseText.Value, 700, 16, out _))
+			{
+				if (string.IsNullOrEmpty(TextLine))
+				{
+					continue;
+				}
+
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, TextLine, TextTopLeft, Color.Lime, 0f, Vector2.Zero, scale);
+				TextTopLeft.Y += Main.UIScale * 16f;
+			}
+
+			//finally display the warning that you cant accept another bounty until the selected one is done
+			foreach (string TextLine in Utils.WordwrapString(Warning, FontAssets.MouseText.Value, 700, 16, out _))
+			{
+				if (string.IsNullOrEmpty(TextLine))
+				{
+					continue;
+				}
+
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, TextLine, TextTopLeft, Color.Red, 0f, Vector2.Zero, scale);
+				TextTopLeft.Y += Main.UIScale * 16f;
+			}
+		}
+
+		//used to draw individual icons over the main UI box
+		public static void DrawIcon(SpriteBatch spriteBatch, Vector2 drawPositionTopLeft, Texture2D texture)
         {
             spriteBatch.Draw(texture, drawPositionTopLeft, null, Color.White, 0f, Vector2.Zero, Main.UIScale, SpriteEffects.None, 0f);
         }

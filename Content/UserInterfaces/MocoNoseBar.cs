@@ -19,13 +19,10 @@ namespace Spooky.Content.UserInterfaces
         
         public static void Draw(SpriteBatch spriteBatch, Player player)
         {
-            // Sanity check the planned position before drawing
-            Vector2 screenRatioPosition = new Vector2(DefaultXPosition, DefaultYPosition);
+            Vector2 ScreenPosition = new Vector2(DefaultXPosition, DefaultYPosition);
 
-            // Convert the screen ratio position to an absolute position in pixels
-            // Cast to integer to prevent blurriness which results from decimal pixel positions
             float uiScale = Main.UIScale;
-            Vector2 screenPos = screenRatioPosition;
+            Vector2 screenPos = ScreenPosition;
             screenPos.X = (int)(screenPos.X * 0.01f * Main.screenWidth);
             screenPos.Y = (int)(screenPos.Y * 0.01f * Main.screenHeight);
 

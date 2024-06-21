@@ -2311,7 +2311,7 @@ RaveyardDisc2: {
 	Tooltip: "[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor"
 }
 
-RaveyardDiscLegacy: {
+RaveyardDisc3: {
 	DisplayName: Raveyard Vinyl #3
 	Tooltip: "[c/6FE4A5:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak"
 }

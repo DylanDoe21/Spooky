@@ -41,24 +41,6 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.65f * bossAdjustment);
         }
-
-        /*
-        public override bool PreDraw(ref Color lightColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-            Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
-            Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
-
-            for (int numEffect = 0; numEffect < 5; numEffect++)
-            {
-                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 2 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(NPCTexture.Value, vector, rectangle, glowColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f / numEffect, SpriteEffects.None, 0);
-            }
-
-            return true;
-        }
-        */
         
         public override void AI()
         {

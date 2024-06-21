@@ -8,9 +8,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Content.Dusts;
-using Spooky.Content.Items.BossSummon;
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.NoseCult;
 
 namespace Spooky.Content.Tiles.NoseTemple.Furniture
 {
@@ -50,6 +50,13 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
 		{
 			noBreak = true;
+			return true;
+		}
+
+		public override bool RightClick(int i, int j)
+		{
+			NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (int)Flags.LeaderIdolPositon.X, (int)Flags.LeaderIdolPositon.Y, ModContent.NPCType<MocoIdol6>());
+
 			return true;
 		}
     }

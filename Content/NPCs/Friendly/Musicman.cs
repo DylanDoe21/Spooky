@@ -97,6 +97,7 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<VinylAlley>()
             .Add<RaveyardDisc1>()
             .Add<RaveyardDisc2>()
+            .Add<RaveyardDisc3>()
             .Add<BananalizardHead>()
             .Add<DylanDoeHead>()
             .Add<HatHead>()

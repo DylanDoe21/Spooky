@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -25,6 +27,7 @@ namespace Spooky.Content.NPCs.NoseCult
         bool Sneezing = false;
         bool Casting = false;
         bool Charging = false;
+        bool HasSpawnedEnemies = false;
         bool hasCollidedWithWall = false;
 
         Vector2 SavePosition;
@@ -48,6 +51,14 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+            writer.Write(Sneezing);
+            writer.Write(Casting);
+            writer.Write(Charging);
+            writer.Write(HasSpawnedEnemies);
+            writer.Write(hasCollidedWithWall);
+
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -56,6 +67,14 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //bools
+            Sneezing = reader.ReadBoolean();
+            Casting = reader.ReadBoolean();
+            Charging = reader.ReadBoolean();
+            HasSpawnedEnemies = reader.ReadBoolean();
+            hasCollidedWithWall = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -187,6 +206,26 @@ namespace Spooky.Content.NPCs.NoseCult
             
             NPC.spriteDirection = NPC.direction;
 
+            //set to transition
+            if (NPC.life < (NPC.lifeMax / 2) && !HasSpawnedEnemies && NPC.ai[0] != 5)
+            {
+                NPC.noGravity = true;
+                NPC.noTileCollide = true;
+
+                Sneezing = false;
+                Charging = false;
+                Casting = false;
+                hasCollidedWithWall = false;
+
+                CurrentFrameX = 0;
+
+                NPC.ai[0] = 5;
+                NPC.localAI[0] = 0;
+                NPC.localAI[1] = 0;
+
+                NPC.netUpdate = true;
+            }
+
             switch ((int)NPC.ai[0])
             {
                 //fly around to a location around the shrine, then switch to a random attack
@@ -264,7 +303,7 @@ namespace Spooky.Content.NPCs.NoseCult
                             ShootSpeed.X *= Main.rand.NextFloat(12f, 17f);
                             ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
 
-                            Projectile.NewProjectile(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
                         }
                     }
 
@@ -469,8 +508,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         int[] Types = new int[] { ModContent.ProjectileType<NoseBallPurpleProj>(), ModContent.ProjectileType<NoseBallRedProj>() };
 
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
-                        Main.rand.Next(-10, 11), Main.rand.Next(-12, -7), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
+                        Main.rand.Next(-10, 11), Main.rand.Next(-12, -2), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
                     }
 
                     if (NPC.localAI[0] >= 200)
@@ -487,8 +526,60 @@ namespace Spooky.Content.NPCs.NoseCult
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
                     }
                 
+                    break;
+                }
+
+                //spawn cultists to assist once half health is reached
+                case 5:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] < 60)
+                    {
+                        CurrentFrameX = 0;
+                    }
+
+                    if (NPC.localAI[0] <= 200)
+                    {
+                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        Casting = true;
+                        
+                        CurrentFrameX = 2;
+
+                        NPC.frame.Y = 0;
+                    }
+
+                    if (NPC.localAI[0] == 120 || NPC.localAI[0] == 150 || NPC.localAI[0] == 180 || NPC.localAI[0] == 210 || NPC.localAI[0] == 240)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
+                        Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<NoseCultistLeaderEnemySpawner>(), 0, 0f, Main.myPlayer);
+                    }
+
+                    if (NPC.localAI[0] >= 360)
+                    {
+                        Casting = false;
+
+                        HasSpawnedEnemies = true;
+
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
             }
@@ -498,14 +589,36 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistLeaderGore" + numGores).Type);
+                    }
+                }
+
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistLeaderWingGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistLeaderWingGore" + numGores).Type);
+                    }
+                }
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistWingedGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/NoseCultistLeaderClothGore" + Main.rand.Next(1, 3)).Type);
                     }
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CottonSwab>()));
         }
 
         public override void OnKill()
