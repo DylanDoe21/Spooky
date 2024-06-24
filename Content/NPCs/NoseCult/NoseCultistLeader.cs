@@ -90,6 +90,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.height = 128;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -5f };
@@ -98,6 +99,7 @@ namespace Spooky.Content.NPCs.NoseCult
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.NoseTempleBiome>().Type };
         }
 
+        //uses boss hp scaling so that it scales based on the amount of players
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * bossAdjustment);
@@ -335,7 +337,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] <= 160)
+                    if (NPC.localAI[0] < 180)
                     {
                         Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 85);
 
@@ -485,13 +487,10 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] <= 200)
-                    {
-                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
                     if (NPC.localAI[0] == 60)
                     {
@@ -517,8 +516,6 @@ namespace Spooky.Content.NPCs.NoseCult
                         Casting = false;
 
                         CurrentFrameX = 0;
-
-                        NPC.velocity *= 0.1f;
                     }
 
                     if (NPC.localAI[0] >= 350)
@@ -543,13 +540,10 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] <= 200)
-                    {
-                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
                     if (NPC.localAI[0] == 60)
                     {
@@ -565,7 +559,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
 
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
-                        Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<NoseCultistLeaderEnemySpawner>(), 0, 0f, Main.myPlayer);
+                        Main.rand.Next(-6, 7), Main.rand.Next(-8, -3), ModContent.ProjectileType<NoseCultistEnemySpawner>(), 0, 0f, Main.myPlayer);
                     }
 
                     if (NPC.localAI[0] >= 360)
@@ -589,7 +583,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 7; numGores++)
+                for (int numGores = 1; numGores <= 8; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {

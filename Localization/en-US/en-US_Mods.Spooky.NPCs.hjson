@@ -62,6 +62,8 @@ CatacombGuardian.DisplayName: Catacomb Guardian
 DaffodilBody.DisplayName: ""
 DaffodilHandLeft.DisplayName: Daffodil
 DaffodilHandRight.DisplayName: Daffodil
+MocoIntro.DisplayName: Mocling
+MocoSpawner.DisplayName: ""
 BoroBody.DisplayName: Boro
 BoroBodyConnect.DisplayName: Boro
 BoroBodyP1.DisplayName: Boro

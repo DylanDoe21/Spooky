@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class NoseCultistLeaderEnemySpawner : ModProjectile
+    public class NoseCultistEnemySpawner : ModProjectile
     {
         public override string Texture => "Spooky/Content/NPCs/NoseCult/Projectiles/NoseCultistMageSnot";
 

@@ -14,6 +14,11 @@ namespace Spooky.Content.NPCs.NoseCult
     {
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TortumorDeath", SoundType.Sound) { Volume = 0.35f };
 
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
         public override void SetDefaults()
 		{
             NPC.lifeMax = 200;
@@ -93,7 +98,7 @@ namespace Spooky.Content.NPCs.NoseCult
 				MinimumStackPerChunkBase = 1,
 				MaximumStackPerChunkBase = 1,
 				MinimumItemDropsCount = 2,
-				MaximumItemDropsCount = 5,
+				MaximumItemDropsCount = 4,
 			};
 
 			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));

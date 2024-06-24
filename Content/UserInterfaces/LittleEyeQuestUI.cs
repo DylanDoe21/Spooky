@@ -7,9 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
-using System.Linq;
-using Microsoft.CodeAnalysis.Text;
-using SteelSeries.GameSense;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -83,6 +80,8 @@ namespace Spooky.Content.UserInterfaces
 
 			string QuestCompleteText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompleted");
 
+            Texture2D ButtonSelectedTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIconSelectedOutline").Value;
+
 			//draw each bounty icon and display text when hovering over it
 
 			//eye gremlin display stuff
@@ -94,6 +93,8 @@ namespace Spooky.Content.UserInterfaces
             if (IsMouseOverUI(Icon1TopLeft, Icon1Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
+
+                DrawIcon(spriteBatch, Icon1TopLeft, ButtonSelectedTexture);
 
 				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, 
 				QuestIcon1Text, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
@@ -114,6 +115,8 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
+                DrawIcon(spriteBatch, Icon2TopLeft, ButtonSelectedTexture);
+
 				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
 				QuestIcon2Text, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
 
@@ -132,6 +135,8 @@ namespace Spooky.Content.UserInterfaces
             if (IsMouseOverUI(Icon3TopLeft, Icon3Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
+
+                DrawIcon(spriteBatch, Icon3TopLeft, ButtonSelectedTexture);
 
 				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
 				QuestIcon3Text, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
@@ -152,6 +157,8 @@ namespace Spooky.Content.UserInterfaces
             {
                 IsHoveringOverAnyButton = true;
 
+                DrawIcon(spriteBatch, Icon4TopLeft, ButtonSelectedTexture);
+
 				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
 				QuestIcon4Text, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
 
@@ -162,8 +169,8 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //orroboro display stuff
-            Vector2 OrroboroIconTopLeft = ButtonTopLeft.ToVector2() + new Vector2(655f, -24f) * Main.UIScale;
-            Texture2D OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked").Value;
+            Vector2 Icon5TopLeft = ButtonTopLeft.ToVector2() + new Vector2(655f, -24f) * Main.UIScale;
+            Texture2D Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked").Value;
 
             bool downedAllMechs = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
 
@@ -171,19 +178,21 @@ namespace Spooky.Content.UserInterfaces
             {
                 if (!Flags.downedOrroboro)
                 {
-                    OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5NotDone").Value;
+                    Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5NotDone").Value;
                 }
                 else
                 {
-                    OrroboroIconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Done").Value;
+                    Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Done").Value;
                 }
             }
 
-            DrawIcon(spriteBatch, OrroboroIconTopLeft, OrroboroIconTexture);
+            DrawIcon(spriteBatch, Icon5TopLeft, Icon5Texture);
 
-            if (IsMouseOverUI(OrroboroIconTopLeft, OrroboroIconTexture, UIBoxScale))
+            if (IsMouseOverUI(Icon5TopLeft, Icon5Texture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
+
+                DrawIcon(spriteBatch, Icon5TopLeft, ButtonSelectedTexture);
                 
 				//quest text
                 if (downedAllMechs)

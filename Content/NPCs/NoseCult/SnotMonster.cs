@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.NoseCult
             {
                 NPC.ai[1] += 0.2f;
 
-                if (NPC.ai[1] > 0)
+                if (NPC.ai[1] >= 12)
                 {
                     NPC.active = false;
                 }

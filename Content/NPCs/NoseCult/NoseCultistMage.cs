@@ -39,6 +39,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.height = 78;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 0, 8, 0);
 			NPC.noGravity = false;
             NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.4f };
             NPC.DeathSound = SoundID.NPCDeath1;

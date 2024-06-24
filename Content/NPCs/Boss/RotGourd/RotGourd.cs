@@ -1132,7 +1132,10 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
         {
             NPC.SetEventFlagCleared(ref Flags.downedRotGourd, -1);
 
-			MenuSaveSystem.hasDefeatedRotGourd = Flags.downedRotGourd;
+			if (!MenuSaveSystem.hasDefeatedRotGourd)
+			{
+				MenuSaveSystem.hasDefeatedRotGourd = true;
+			}
         }
 
         public override void BossLoot(ref string name, ref int potionType)

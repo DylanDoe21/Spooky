@@ -955,7 +955,10 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         {
             NPC.SetEventFlagCleared(ref Flags.downedSpookySpirit, -1);
 
-            MenuSaveSystem.hasDefeatedSpookySpirit = Flags.downedSpookySpirit;
+            if (!MenuSaveSystem.hasDefeatedSpookySpirit)
+			{
+				MenuSaveSystem.hasDefeatedSpookySpirit = true;
+			}
         }
 
         public override void BossLoot(ref string name, ref int potionType)

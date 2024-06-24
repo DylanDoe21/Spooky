@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.UserInterfaces
 {
+    [Autoload(Side = ModSide.Client)]
 	public class UILoadSystem : ModSystem
 	{
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

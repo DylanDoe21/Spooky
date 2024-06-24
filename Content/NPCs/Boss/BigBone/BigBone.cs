@@ -1627,7 +1627,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             NPC.SetEventFlagCleared(ref Flags.downedBigBone, -1);
 
-            MenuSaveSystem.hasDefeatedBigBone = Flags.downedBigBone;
+            if (!MenuSaveSystem.hasDefeatedBigBone)
+            {
+                MenuSaveSystem.hasDefeatedBigBone = true;
+            }
         }
 
         public override void BossLoot(ref string name, ref int potionType)

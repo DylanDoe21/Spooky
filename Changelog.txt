@@ -25,7 +25,7 @@ New Nose Dungeon:
 -While the actual dungeon bricks themselves are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with gray occultist bricks
 
 
-Little Eye Quest Rework: (NOT FINISHED IN GAME YET)
+Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
 
 -Little eye's quest system has now been entirely reworked into a bounty quest type system, with a brand new UI, and 4 brand new minibosses to fight
 -Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards

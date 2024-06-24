@@ -8,9 +8,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 
 namespace Spooky.Content.Tiles.NoseTemple.Furniture
 {
@@ -52,7 +52,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 
         public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
-			if (!NPC.AnyNPCs(ModContent.NPCType<Moco>()))
+			if (!NPC.AnyNPCs(ModContent.NPCType<MocoSpawner>()) && !NPC.AnyNPCs(ModContent.NPCType<MocoIntro>()) && !NPC.AnyNPCs(ModContent.NPCType<Moco>()))
 			{
 				frame = 0;
 			}
@@ -90,25 +90,33 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 		public override bool RightClick(int i, int j)
 		{
 			//do not allow right clicking if moco exists
-			if (NPC.AnyNPCs(ModContent.NPCType<Moco>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<MocoSpawner>()) || NPC.AnyNPCs(ModContent.NPCType<MocoIntro>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()))
 			{
-				return true;
+				return false;
 			}
+
+			int x = i;
+			int y = j;
+			while (Main.tile[x, y].TileType == Type) x--;
+			x++;
+			while (Main.tile[x, y].TileType == Type) y--;
+			y++;
 
 			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<CottonSwab>())) 
 			{
 				SoundEngine.PlaySound(SneezeSound, player.Center);
 
+				//TODO: add a multiplayer packer for this
 				if (Main.netMode != NetmodeID.SinglePlayer) 
 				{
-					ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)SpookyMessageType.SpawnMoco);
-					packet.Send();
+					//ModPacket packet = Mod.GetPacket();
+					//packet.Write((byte)SpookyMessageType.SpawnMoco);
+					//packet.Send();
 				}
 				else 
 				{
-					NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<Moco>());
+					NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 55, y * 16 + 50), (x * 16 + 55), (y * 16 + 50), ModContent.NPCType<MocoSpawner>());
 				}
 			}
 
