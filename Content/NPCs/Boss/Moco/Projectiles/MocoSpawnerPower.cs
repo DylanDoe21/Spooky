@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
 
             effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
+            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
             effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
             effect.Parameters["repeats"].SetValue(1);
 
@@ -86,6 +86,11 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.timeLeft = 5;
 
             NPC Parent = Main.npc[(int)Projectile.ai[0]];
+
+            if (!Parent.active || Parent.type != ModContent.NPCType<MocoIntro>())
+            {
+                Projectile.Kill();
+            }
 
             Projectile.ai[1]++;
 

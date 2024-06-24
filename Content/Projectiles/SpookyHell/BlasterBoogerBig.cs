@@ -29,6 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;             					
             Projectile.timeLeft = 180;
+            Projectile.penetrate = 5;
             Projectile.alpha = 255;
 		}
         

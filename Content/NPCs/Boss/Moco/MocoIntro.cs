@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         Vector2 SaveNPCPosition;
 
+        private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
         
         public override void SetStaticDefaults()
@@ -73,13 +74,17 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
         }
 
-		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/MoclingGlow");
 
 			var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
+            Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
 			Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+
+            return false;
 		}
 
 		public override void AI()
@@ -99,7 +104,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             if (NPC.ai[0] > 1 && NPC.ai[0] <= 10)
             {
-                MoveToParent(Parent, RandomGoToX, RandomGoToY);
+                if (Parent.active && Parent.type == ModContent.NPCType<MocoSpawner>())
+                {
+                    MoveToParent(Parent, RandomGoToX, RandomGoToY);
+                }
             }
             else
             {
@@ -116,20 +124,23 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 NPC.ai[2]++;
 
-                Parent.ai[1] = 1;
-
-                //spawn dusts from the moco shrine head that the mocling aborbs
-                if (Parent.ai[2] <= 200)
+                if (Parent.active && Parent.type == ModContent.NPCType<MocoSpawner>())
                 {
-                    if (Parent.ai[2] % 20 == 0)
+                    Parent.ai[1] = 1;
+
+                    //spawn dusts from the moco shrine head that the mocling aborbs
+                    if (Parent.ai[2] <= 200)
                     {
-                        Vector2 ProjectilePosition = Parent.Center + new Vector2(0, 65).RotatedByRandom(360);
+                        if (Parent.ai[2] % 20 == 0)
+                        {
+                            Vector2 ProjectilePosition = Parent.Center + new Vector2(0, 65).RotatedByRandom(360);
 
-                        Vector2 Velocity = Parent.Center - ProjectilePosition;
-                        Velocity.Normalize();
-                        Velocity *= 5f;
+                            Vector2 Velocity = Parent.Center - ProjectilePosition;
+                            Velocity.Normalize();
+                            Velocity *= 5f;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectilePosition, Velocity, ModContent.ProjectileType<MocoSpawnerPower>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectilePosition, Velocity, ModContent.ProjectileType<MocoSpawnerPower>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+                        }
                     }
                 }
 
@@ -142,17 +153,37 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 {
                     NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                     NPC.Center += Main.rand.NextVector2Square(-5, 5);
+
+                    //make the mocling scale up and down rapidly
+                    NPC.ai[3]++;
+                    if (NPC.ai[3] < 3)
+                    {
+                        NPC.scale -= 0.2f;
+                    }
+                    if (NPC.ai[3] >= 3)
+                    {
+                        NPC.scale += 0.2f;
+                    }
+                    
+                    if (NPC.ai[3] > 6)
+                    {
+                        NPC.ai[3] = 0;
+                        NPC.scale = 1f;
+                    }
                 }
 
                 if (NPC.ai[2] >= 360)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_BetsyFlyingCircleAttack, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack, NPC.Center);
 
                     //spawn particles
-                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
+                    for (int numParticles = 0; numParticles <= 12; numParticles++)
                     {
-                        PositionInWorld = NPC.Center
-                    });
+                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
+                        {
+                            PositionInWorld = NPC.Center + new Vector2(Main.rand.Next(-55, 56), Main.rand.Next(-55, 56))
+                        });
+                    }
 
                     int Moco = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<Moco>());
                     Main.npc[Moco].alpha = 255;
