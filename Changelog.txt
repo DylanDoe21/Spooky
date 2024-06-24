@@ -7,10 +7,10 @@ Eye Valley Improvements:
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Made eye stalk trees grow way more frequently in the biome during world generation
--Added a new giant evil lab for little eye to live in
--Added new improved sprites for all the eye valley enemies, and re-animated all of them to have smoother and more detailed animations
+-Added a new giant house/lab structure where little eye lives
+-Added new improved sprites for all the eye valley enemies, and re-did all of their animations to be smoother and more detailed
 -Changed the behavior of some of the normal eye valley enemies to make them more interesting
--Added new fleshy variants of all the regular eye valley enemies that have entirely new behavior from their original counterparts
+-Added new red flesh variants of all the regular eye valley enemies that have different behavior from their original variants
 -Added moclings
 
 
@@ -18,11 +18,11 @@ New Nose Dungeon:
 
 -A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited with strange cultists
 -Found at the very edge of the biome is a large broken temple with a brand new fancy looking statue used to summon moco
--Entrance is blocked off by a locked trapdoor which can only be opened with a shadow key
--At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared the normal dungeon rooms
--At the end you can enter a tunnel to backtrack to the entrance where the barrier previously blocking the opposite side is now opened
+-The entrance of the dungeon is blocked off by a locked trapdoor, which can only be opened with a shadow key
+-At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other combat rooms
+-At the end of the last room, you can enter a funny fire exit tunnel to backtrack to the entrance, where the barrier previously blocking the opposite side is now opened
 -This newly opened hallway takes you to a giant arena where you will fight a new mini-boss
--While the actual dungeon bricks themselves are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the cultist dungeon furniture with gray occultist bricks
+-While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
 
 
 Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
@@ -60,7 +60,7 @@ New Farming Mechanic:
 
 Some things to note about this buff mechanic:
 -Bloom buffs, like vanilla buffs, can be manually removed by right clicking the icon of the buff you want to remove
--Bloom buffs have stacking durations, if you eat multiple of the same bloom then that blooms base duration will be added onto the remaining duration for the existing buff
+-Bloom buffs have stacking durations, if you eat multiple of the same bloom, then that blooms base duration will be added onto the remaining duration for the existing buff
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs duration will cap at 20 minutes and it will not go beyond that even if you eat more of that bloom)
 
 
@@ -78,7 +78,7 @@ Config Additions:
 -Moved the "Halloween Season" option into a new spooky mod server-side config since vanillas halloween season is not meant to be decided on a single client
 
 
-Other New Additions:
+Other Miscellaneous Additions:
 
 -Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
@@ -134,9 +134,9 @@ Enemy & Boss Changes:
 -Daffodil now has a new punch attack in phase 2
 -Spooky spirit now has a new beam projectile to fix collision issues the previous one had
 -Nerfed spooky spirit's defense from 15 to 8
--Nerfed spooky spirit's health from 3500 to 3000 (this is its base health, not affected by difficulty scaling)
+-Nerfed spooky spirit's health from 3500 to 3000 (this is its base health without any difficulty scaling)
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
--Monster eyes now explode into small little gore chunks when killed, and heavily nerfed their jumping rate and speed
+-Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
 -Lowered the defense of some of the spider grotto enemies
 
@@ -150,13 +150,13 @@ Miscellaneous:
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
--Old hunter pieces now have better generation and place in spots that are a bit easier to spot
+-Old hunter pieces now have better generation and place in spots that are a bit easier to find
 
 
 Removals:
 
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
--Removed the cotton swab's crafting recipe due to its new obtainment method
+-Removed the cotton swabs crafting recipe due to its new obtainment method
 -Removed the mechanic where gravestones wouldn't spawn if you died in the catacombs since you can now break blocks in it
 
 
@@ -178,8 +178,8 @@ Fixed all of the following bugs and issues:
 -"Graveyard without the G" and "Bonerattlin' Raving" not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
 -Crux not killing its debuff aura if it was using one when killed
--Boro's charging speed during his horizontal dashes being slower while enraged instead of faster
--Suspicious contraband skeleton not selling items if you were using another language besides english (Caused by an issue with its shop name not being correctly named)
+-Boro's charging speed for its horizontal dash attack being slower while enraged instead of faster
+-Suspicious contraband skeleton not selling items if you are using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Claret cephalopod repeatedly charging at the same location during its charge attack instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through some smaller enemies without actually hitting them
 -Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
