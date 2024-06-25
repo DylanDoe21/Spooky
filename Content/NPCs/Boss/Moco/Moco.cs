@@ -4,12 +4,10 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -27,15 +25,16 @@ namespace Spooky.Content.NPCs.Boss.Moco
     [AutoloadBossHead]
     public class Moco : ModNPC
     {
+        int[] AttackPattern1 = new int[] { 0, 1, 2, 3, 4 };
+        int[] AttackPattern2 = new int[] { 0, 1, 2, 3, 4 };
+
         int CurrentFrameX = 0;
         int SaveDirection;
-
-        float RandomGoToX;
-        float RandomGoToY;
 
         bool Phase2 = false;
         bool Transition = false;
         bool Sneezing = false;
+        bool FinishedSneezing = false;
         bool SwitchedSides = false;
         bool AfterImages = false;
 
@@ -44,10 +43,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound);
-        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
-        public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound);
-        public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/Moco/MocoSneeze3", SoundType.Sound);
+        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Volume = 0.5f };
+        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/Moco/MocoSneeze3", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle AngrySound = new("Spooky/Content/Sounds/Moco/MocoAngry", SoundType.Sound);
         
         public override void SetStaticDefaults()
@@ -70,6 +69,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             writer.Write(Phase2);
             writer.Write(Transition);
             writer.Write(Sneezing);
+            writer.Write(FinishedSneezing);
             writer.Write(SwitchedSides);
             writer.Write(AfterImages);
 
@@ -89,6 +89,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             Phase2 = reader.ReadBoolean();
             Transition = reader.ReadBoolean();
             Sneezing = reader.ReadBoolean();
+            FinishedSneezing = reader.ReadBoolean();
             SwitchedSides = reader.ReadBoolean();
             AfterImages = reader.ReadBoolean();
 
@@ -104,7 +105,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.damage = 45;
             NPC.defense = 10;
             NPC.width = 78;
-            NPC.height = 120;
+            NPC.height = 128;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.lavaImmune = true;
@@ -143,14 +144,41 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.frame.X = (int)(NPC.frame.Width * CurrentFrameX);
 
             NPC.frameCounter++;
-            if (NPC.frameCounter > 2)
+
+            if (Sneezing)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
+                if (NPC.frameCounter > 2)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+
+                if (!FinishedSneezing)
+                {
+                    if (NPC.frame.Y >= frameHeight * 6)
+                    {
+                        NPC.frame.Y = 4 * frameHeight;
+                    }
+                }
+                else
+                {
+                    if (NPC.frame.Y >= frameHeight * 8)
+                    {
+                        NPC.frame.Y = 0 * frameHeight;
+                    }
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 10)
+            else
             {
-                NPC.frame.Y = 0 * frameHeight;
+                if (NPC.frameCounter > 2)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 10)
+                {
+                    NPC.frame.Y = 0 * frameHeight;
+                }
             }
         }
 
@@ -160,6 +188,17 @@ namespace Spooky.Content.NPCs.Boss.Moco
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow");
 
             var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            if (AfterImages)
+            {
+				for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+				{
+					Vector2 drawPos = NPC.oldPos[oldPos] - screenPos + NPC.frame.Size() / 2 + new Vector2(-25f, NPC.gfxOffY);
+					Color color = NPC.GetAlpha(drawColor) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+
+					spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0f);
+				}
+            }
 
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
             spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
@@ -213,40 +252,177 @@ namespace Spooky.Content.NPCs.Boss.Moco
 					break;
 				}
 
-                //chase the player (for now)
+                //dash towards the player twice quickly
                 case 0:
 				{
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] == 60)
-                    {
-                        SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                    CurrentFrameX = 0;
 
-                        RandomGoToX = Main.rand.NextFloat(-150f, 150f);
-                        RandomGoToY = Main.rand.NextFloat(-170f, -100f);
+                    if (NPC.localAI[1] < 2)
+                    {
+                        //go to the side of the player
+                        if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 100) 
+                        {	
+                            Vector2 GoTo = player.Center;
+                            GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
+                            GoTo.Y -= 20;
+
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        //stop before charging
+                        if (NPC.localAI[0] == 100)
+                        {
+                            NPC.velocity *= 0f;
+                        }
+
+                        //charge
+                        if (NPC.localAI[0] == 105)
+                        {
+                            AfterImages = true;
+
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= 22f;
+                            ChargeDirection.Y *= 22f / 2.5f;
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
+                        }
+
+                        //loop attack
+                        if (NPC.localAI[0] >= 135)
+                        {
+                            AfterImages = false;
+
+                            NPC.localAI[1]++;
+                            NPC.localAI[0] = 70;
+
+                            NPC.netUpdate = true;
+                        }
+                    }
+                    //go to next attack
+                    else
+                    {
+                        NPC.velocity *= 0.95f;
+
+                        AfterImages = false;
+
+                        if (NPC.localAI[0] >= 135)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.ai[0]++;
+
+                            NPC.netUpdate = true;
+                        }
                     }
 
-                    if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 70)
+                    break;
+                }
+
+                //zip above the player and shoot out snot globs that turn into puddles
+                case 1:
+				{
+                    NPC.localAI[0]++;
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
                     {
-                        MoveToPlayer(player, RandomGoToX, RandomGoToY);
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        AfterImages = true;
+
+                        CurrentFrameX = 2;
+
+                        //make moco go to an offset x-position to reach the player a bit more quickly
+                        MoveToPlayer(player, player.Center.X < NPC.Center.X ? -225f : 225f, -280f);
                     }
                     else
                     {
-                        NPC.velocity = NPC.velocity * 0.92f;
+                        NPC.velocity *= 0.92f;
                     }
 
-                    if (NPC.localAI[0] >= 160)
+                    //save position for shaking
+                    if (NPC.localAI[0] == 90)
                     {
-                        NPC.localAI[0] = 58;
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
                     }
 
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+					if (NPC.localAI[0] == 120)
+					{
+						NPC.frame.Y = 0;
+					}
+
+                    //fire out nose globs that land on the ground and add upward recoil when each one is shot
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 270 && NPC.localAI[0] % 15 == 0)
+                    {
+                        SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+						Sneezing = true;
+
+                        CurrentFrameX = 3;
+
+                        NPC.velocity.Y = -4;
+                            
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 35, Main.rand.Next(-7, 8), Main.rand.Next(2, 4), ModContent.ProjectileType<LingeringSnotBall>(), Damage, 0, NPC.target);
+                    }
+                    else
+                    {
+                        if (NPC.localAI[0] >= 120)
+                        {
+                            NPC.velocity *= 0.1f;
+                        }
+                    }
+
+                    //set this to true so the sneezing animation can finish playing
+                    if (NPC.localAI[0] == 270)
+                    {
+                        FinishedSneezing = true;
+                    }
+
+                    //once the sneezing animation is done, then set its animation back to idle
+                    if (NPC.localAI[0] > 270 && NPC.frame.Y >= 7 * NPC.height)
+                    {
+                        Sneezing = false;
+                        FinishedSneezing = false;
+
+                        CurrentFrameX = 2;
+                    }
+                    
+                    //go to next attack
+                    if (NPC.localAI[0] >= 340)
+                    {
+                        CurrentFrameX = 0;
+
+                        NPC.localAI[0] = 0;
+						NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+ 
                     break;
                 }
 			}
 		}
 
         //super fast movement to create a fly-like movement effect
-        //TODO: pair this with afterimages to make it look super cool
         public void MoveToPlayer(Player target, float TargetPositionX, float TargetPositionY)
         {
             Vector2 GoTo = target.Center + new Vector2(TargetPositionX, TargetPositionY);

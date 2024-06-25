@@ -199,6 +199,13 @@ namespace Spooky.Content.NPCs.NoseCult
             return false;
         }
 
+        public override bool CheckActive()
+        {
+            Player player = Main.player[NPC.target];
+
+            return !player.InModBiome(ModContent.GetInstance<Biomes.NoseTempleBiome>());
+        }
+
         public override void AI()
 		{
             NPC.TargetClosest(true);
@@ -221,9 +228,9 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 CurrentFrameX = 0;
 
-                NPC.ai[0] = 5;
                 NPC.localAI[0] = 0;
                 NPC.localAI[1] = 0;
+                NPC.ai[0] = 5;
 
                 NPC.netUpdate = true;
             }

@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.defense = 0;
             NPC.width = 52;
 			NPC.height = 52;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0f;
 			NPC.knockBackResist = 2f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;

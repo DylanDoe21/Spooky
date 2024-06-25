@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             NPC.defense = 0;
             NPC.width = 30;
             NPC.height = 28;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;

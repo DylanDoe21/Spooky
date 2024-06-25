@@ -55,7 +55,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
         {
 			Projectile.rotation += 0.25f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
             
             if (Projectile.alpha > 0)
             {

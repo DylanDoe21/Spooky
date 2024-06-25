@@ -26,11 +26,12 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.defense = 0;
             NPC.width = 108;
 			NPC.height = 124;
+			NPC.npcSlots = 0f;
+			NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.knockBackResist = 0f;
             NPC.aiStyle = -1;
 		}
 

@@ -1,15 +1,18 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
-    public class SnotBall2 : ModProjectile
+    public class LingeringSnotBall : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
+
+        public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/TomatoSplat", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -69,23 +72,22 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
         {
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
+
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
             
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 8;
+                Projectile.alpha -= 20;
             }
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] > 75)
+            if (Projectile.ai[0] > 20)
             {
-                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.18f;
-
-                int minTilePosX = (int)(Projectile.position.X / 16.0) - 1;
-                int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16.0) + 2;
-                int minTilePosY = (int)(Projectile.position.Y / 16.0) - 1;
-                int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16.0) + 2;
+                int minTilePosX = (int)(Projectile.position.X / 16) - 1;
+                int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
+                int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
+                int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16) + 2;
                 if (minTilePosX < 0)
                 {
                     minTilePosX = 0;
@@ -126,6 +128,8 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
+            SoundEngine.PlaySound(SplatSound, Projectile.Center);
+
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer);
 
             for (int numDusts = 0; numDusts < 20; numDusts++)

@@ -89,6 +89,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
 		public override void AI()
         {
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
             NPC.rotation = NPC.velocity.X * 0.01f;
@@ -147,6 +150,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 if (NPC.ai[2] == 300)
                 {
                     SaveNPCPosition = NPC.Center;
+                }
+
+                if (NPC.ai[2] >= 300)
+                {
+                    NPC.spriteDirection = NPC.direction;
                 }
 
                 if (NPC.ai[2] > 300 && NPC.ai[2] < 360)
