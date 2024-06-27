@@ -162,7 +162,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     if (NPC.localAI[0] == 1 || NPC.localAI[0] % 20 == 0)
                     {
-                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - Main.rand.Next(250, 300));
+                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-200, 200), player.Center.Y - Main.rand.Next(80, 135));
                     }
 
                     if (NPC.localAI[0] <= 180)

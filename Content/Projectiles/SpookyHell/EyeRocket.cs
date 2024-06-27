@@ -18,7 +18,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
@@ -30,6 +30,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
+            Projectile.extraUpdates = 4;
             Projectile.timeLeft = 200;
         }
 
@@ -43,9 +44,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Red) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Red);
+                Color RealColor = Projectile.GetAlpha(color) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, RealColor, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
             return true;
@@ -76,7 +78,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             if (foundTarget != -1)
             {
                 NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 100;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 20;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                 Projectile.tileCollide = false;
             }

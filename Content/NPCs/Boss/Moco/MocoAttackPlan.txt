@@ -1,15 +1,6 @@
-Moco attack plan 
+Moco attack plan
 
-Shoots eyes out of his head as a midrange attack shoots out further in second phase.
-
-Snot puddles: Moco will shoot out snot that turns into puddles that will damage the player. In phase 2 moco will shoot out more snot puddles.
-
-Gatling gun snot: Moco will shoot a stream of snot projectiles.
-
-Dashes in a zig zag pattern towards the player.
-
-Booger bouncer: Shoots a giant projectile that will bounce towards the player. In the second phase it will explode into more snotty projectiles.
-
+First phase - Done
 
 Second phase
 

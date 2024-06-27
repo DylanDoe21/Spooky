@@ -24,10 +24,27 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.hostile = true;                 			  		
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;             					
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 1200;
 		}
-        
+
         public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+            Vector2 RealDrawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+            Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            Main.EntitySpriteDraw(ProjTexture.Value, RealDrawPos, rectangle, Projectile.GetAlpha(Color.Lime * 0.5f), Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
+
+            return false;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.OgreSpit, 60, true);
+        }
+
+        public override void AI()
         {
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 11)
@@ -40,31 +57,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 }
             }
 
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
-
-            Color glowColor = new Color(127 - Projectile.alpha, 127 - Projectile.alpha, 127 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
-
-            for (int numEffect = 0; numEffect < 2; numEffect++)
-            {
-                Color newColor = glowColor;
-                newColor = Projectile.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(Projectile.Center.X - 1, Projectile.Center.Y) + (numEffect / 2 * 6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
-                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, newColor, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
-            }
-
-            return true;
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.OgreSpit, 60, true);
-        }
-
-        public override void AI()
-        {
             Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;	
             
             int minTilePosX = (int)(Projectile.position.X / 16.0) - 1;

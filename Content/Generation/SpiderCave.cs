@@ -296,129 +296,135 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideCircle(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
-                        //ground structures
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                        Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                        Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
+                        float percent = dist / constant;
+                        float blurPercent = 0.95f;
+
+                        if (percent < blurPercent)
                         {
-                            if (WorldGen.genRand.NextBool(20) && CanPlaceStructure(X, Y))
+                            //ground structures
+                            if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
+                            Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
+                            Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
                             {
-                                switch (WorldGen.genRand.Next(12))
+                                if (WorldGen.genRand.NextBool(7) && CanPlaceStructure(X, Y))
                                 {
-                                    case 0:
+                                    switch (WorldGen.genRand.Next(12))
                                     {
-                                        Vector2 structureOrigin = new Vector2(X - 12, Y - 13);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HouseSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 1:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 13, Y - 25);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HouseMedium", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 2:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 17, Y - 23);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HouseLarge", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 3:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 21, Y - 28);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HouseGiant", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 4:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 12, Y - 14);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/GraveSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 5:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 15, Y - 16);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/GraveLarge", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 6:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 18, Y - 22);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 7:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 15, Y - 25);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsMedium", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 8:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 12, Y - 23);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 9:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 9, Y - 20);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/TowerSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 10:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 9, Y - 26);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/TowerLarge", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 11:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 10, Y - 15);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/SmallShrine", structureOrigin.ToPoint16(), Mod);
-                                        break;
+                                        case 0:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 13);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HouseSmall", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 1:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 13, Y - 25);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HouseMedium", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 2:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 17, Y - 23);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HouseLarge", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 3:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 21, Y - 28);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HouseGiant", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 4:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 14);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/GraveSmall", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 5:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 15, Y - 16);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/GraveLarge", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 6:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 18, Y - 22);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsSmall", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 7:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 15, Y - 25);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsMedium", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 8:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 23);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 9:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 9, Y - 20);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/TowerSmall", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 10:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 9, Y - 26);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/TowerLarge", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 11:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 10, Y - 15);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/SmallShrine", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        //ceiling structures
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                        Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                        Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
-                        {
-                            if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
+                            //ceiling structures
+                            if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
+                            Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
+                            Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
                             {
-                                switch (WorldGen.genRand.Next(5))
+                                if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
                                 {
-                                    case 0:
+                                    switch (WorldGen.genRand.Next(5))
                                     {
-                                        Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerSmall", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 1:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerLarge", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 2:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 18, Y - 8);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerGiant", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 3:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 10, Y - 5);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootRoom", structureOrigin.ToPoint16(), Mod);
-                                        break;
-                                    }
-                                    case 4:
-                                    {
-                                        Vector2 structureOrigin = new Vector2(X - 16, Y - 6);
-                                        Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootWeb", structureOrigin.ToPoint16(), Mod);
-                                        break;
+                                        case 0:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerSmall", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 1:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerLarge", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 2:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 18, Y - 8);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerGiant", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 3:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 10, Y - 5);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootRoom", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
+                                        case 4:
+                                        {
+                                            Vector2 structureOrigin = new Vector2(X - 16, Y - 6);
+                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootWeb", structureOrigin.ToPoint16(), Mod);
+                                            break;
+                                        }
                                     }
                                 }
                             }

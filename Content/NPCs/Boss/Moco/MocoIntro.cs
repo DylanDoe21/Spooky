@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             if (NPC.ai[0] == 1)
             {
-                RandomGoToX = NPC.Center.X > Parent.Center.X ? -75f : 75f;
+                RandomGoToX = Main.rand.NextFloat(-85f, 85f);
                 RandomGoToY = Main.rand.NextFloat(-100f, -50f);
             }
 
@@ -114,7 +114,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
             else
             {
-                NPC.velocity = NPC.velocity * 0.92f;
+                NPC.velocity *= 0.92f;
             }
 
             if (NPC.ai[0] >= 100 && NPC.ai[1] < 5)

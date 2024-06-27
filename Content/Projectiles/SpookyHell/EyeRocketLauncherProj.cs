@@ -91,7 +91,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                     ShootSpeed.Normalize();
-                    ShootSpeed *= 55;
+                    ShootSpeed *= 10;
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, 
                     ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

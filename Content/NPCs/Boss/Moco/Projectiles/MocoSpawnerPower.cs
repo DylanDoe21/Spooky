@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
         {
             trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 6 * factor, factor =>
             {
-                return Color.Lerp(Color.Green, Color.Lime, factor.X) * factor.X;
+                return Color.Lerp(Color.Brown, Color.Lime, factor.X) * factor.X;
             });
 
             trail.Positions = cache.ToArray();

@@ -235,6 +235,11 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.netUpdate = true;
             }
 
+            if (NPC.alpha == 255)
+            {
+                NPC.alpha = 0;
+            }
+
             switch ((int)NPC.ai[0])
             {
                 //fly around to a location around the shrine, then switch to a random attack

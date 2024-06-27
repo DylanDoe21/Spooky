@@ -8,6 +8,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -35,6 +36,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         bool Transition = false;
         bool Sneezing = false;
         bool FinishedSneezing = false;
+        bool EyesPoppedOut = false;
         bool SwitchedSides = false;
         bool AfterImages = false;
 
@@ -43,7 +45,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Volume = 0.5f };
+        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound);
+        public static readonly SoundStyle EyePopSound = new("Spooky/Content/Sounds/Moco/MocoEyePop", SoundType.Sound) { PitchVariance = 0.75f };
         public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SneezeSound2 = new("Spooky/Content/Sounds/Moco/MocoSneeze2", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SneezeSound3 = new("Spooky/Content/Sounds/Moco/MocoSneeze3", SoundType.Sound) { PitchVariance = 0.6f };
@@ -70,6 +73,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             writer.Write(Transition);
             writer.Write(Sneezing);
             writer.Write(FinishedSneezing);
+            writer.Write(EyesPoppedOut);
             writer.Write(SwitchedSides);
             writer.Write(AfterImages);
 
@@ -90,6 +94,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             Transition = reader.ReadBoolean();
             Sneezing = reader.ReadBoolean();
             FinishedSneezing = reader.ReadBoolean();
+            EyesPoppedOut = reader.ReadBoolean();
             SwitchedSides = reader.ReadBoolean();
             AfterImages = reader.ReadBoolean();
 
@@ -101,8 +106,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 4200;
-            NPC.damage = 45;
+            NPC.lifeMax = 5000;
+            NPC.damage = 42;
             NPC.defense = 10;
             NPC.width = 78;
             NPC.height = 128;
@@ -162,10 +167,27 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
                 else
                 {
-                    if (NPC.frame.Y >= frameHeight * 8)
+                    if (NPC.frame.Y >= frameHeight * 9)
                     {
                         NPC.frame.Y = 0 * frameHeight;
                     }
+                }
+            }
+            else if (EyesPoppedOut)
+            {
+                if (NPC.frame.Y < frameHeight * 9)
+                {
+                    NPC.frame.Y = 8 * frameHeight;
+                }
+
+                if (NPC.frameCounter > 2)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 10)
+                {
+                    NPC.frame.Y = 8 * frameHeight;
                 }
             }
             else
@@ -213,7 +235,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 30;
 
-            NPC.rotation = NPC.velocity.X * 0.01f;
+            NPC.rotation = NPC.velocity.X * 0.005f;
             NPC.spriteDirection = NPC.direction;
 
             //despawn if the player dies or leaves the biome
@@ -222,12 +244,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 NPC.ai[0] = -2;
             }
 
+            /*
             //set to transition
             if (NPC.life < (NPC.lifeMax / 2) && !Phase2 && NPC.ai[0] != -1)
             {
                 NPC.ai[0] = -1;
                 NPC.localAI[0] = 0;
             }
+            */
 
             if (NPC.alpha == 255)
             {
@@ -326,6 +350,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
 
                 //zip above the player and shoot out snot globs that turn into puddles
+                //TODO: in phase 2, create more snot globs and make their horizontal range higher
                 case 1:
 				{
                     NPC.localAI[0]++;
@@ -333,12 +358,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //zip to the players location
                     if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
                     {
+                        AfterImages = true;
+
                         if (NPC.localAI[0] == 60)
                         {
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
                         }
-
-                        AfterImages = true;
 
                         CurrentFrameX = 2;
 
@@ -347,7 +372,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
                     else
                     {
-                        NPC.velocity *= 0.92f;
+                        NPC.velocity *= 0.85f;
                     }
 
                     //save position for shaking
@@ -398,7 +423,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
 
                     //once the sneezing animation is done, then set its animation back to idle
-                    if (NPC.localAI[0] > 270 && NPC.frame.Y >= 7 * NPC.height)
+                    if (NPC.localAI[0] > 270 && NPC.frame.Y >= 8 * NPC.height)
                     {
                         Sneezing = false;
                         FinishedSneezing = false;
@@ -412,11 +437,387 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         CurrentFrameX = 0;
 
                         NPC.localAI[0] = 0;
-						NPC.ai[0] = 0;
+						NPC.ai[0]++;
 
                         NPC.netUpdate = true;
                     }
  
+                    break;
+                }
+
+                //zip above the player and shoot out a giant bouncing snot glob
+                //TODO: in phase 2, the giant booger should explode into a bunch of boogers that land on the ground
+                case 2:
+				{
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 155)
+                    {
+                        //EoC rotation
+                        Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                        float RotateX = player.Center.X - vector.X;
+                        float RotateY = player.Center.Y - vector.Y;
+                        NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    }
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        //make moco go to an offset x-position to reach the player a bit more quickly
+                        MoveToPlayer(player, player.Center.X < NPC.Center.X ? -225f : 225f, -280f);
+                    }
+                    
+                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    //save position for shaking
+                    if (NPC.localAI[0] == 90)
+                    {
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    //fire out bouncy booger
+                    if (NPC.localAI[0] == 120)
+                    {
+                        SoundEngine.PlaySound(SneezeSound2, NPC.Center);
+
+						Sneezing = true;
+                        FinishedSneezing = true;
+
+                        NPC.frame.Y = 0;
+                        CurrentFrameX = 1;
+
+                        NPC.velocity *= 0f;
+
+                        Vector2 ShootSpeed = player.Center - new Vector2(NPC.Center.X, NPC.Center.Y + 35);
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 12;
+
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
+                        Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                        if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        {
+                            position += muzzleOffset;
+                        }
+                            
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), Damage, 0, NPC.target);
+                    }
+                    
+                    //after shooting the booger, stay still zip towards the player quickly if the get too far away
+                    if (NPC.localAI[0] >= 155)
+                    {
+                        //quickly move to a location above the player if they are too far away
+                        if (NPC.Distance(player.Center) >= 550f)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                            AfterImages = true;
+
+                            //make moco go to an offset x-position to reach the player a bit more quickly
+                            MoveToPlayer(player, 0f, -300f);
+                        }
+                        //if moco is close enough, then slow down its velocity
+                        else
+                        {
+                            AfterImages = false;
+
+                            NPC.velocity *= 0.85f;
+                        }
+                    }
+
+                    //once the sneezing animation is done, then set its animation back to idle
+                    if (NPC.frame.Y >= 8 * NPC.height)
+                    {
+                        Sneezing = false;
+                        FinishedSneezing = false;
+
+                        CurrentFrameX = 0;
+                    }
+                    
+                    //go to next attack
+                    if (NPC.localAI[0] >= 420)
+                    {
+                        AfterImages = false;
+
+                        CurrentFrameX = 0;
+
+                        NPC.velocity *= 0;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+						NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //zip to the side of the player and use booger gatling
+                case 3:
+				{
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 60)
+                    {
+                        //EoC rotation
+                        Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                        float RotateX = player.Center.X - vector.X;
+                        float RotateY = player.Center.Y - vector.Y;
+                        NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    }
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        CurrentFrameX = 2;
+
+                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -250f : 250f, -100f);
+                    }
+
+                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    //save position for shaking
+                    if (NPC.localAI[0] == 90)
+                    {
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+					if (NPC.localAI[0] == 120)
+					{
+						NPC.frame.Y = 0;
+					}
+
+                    //fire out nose globs that land on the ground and add upward recoil when each one is shot
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300 && NPC.localAI[0] % 10 == 0)
+                    {
+                        SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+
+						Sneezing = true;
+
+                        CurrentFrameX = 3;
+
+                        Vector2 Recoil = player.Center - NPC.Center;
+                        Recoil.Normalize();
+                        Recoil *= 2;
+                        NPC.velocity -= Recoil;
+
+                        Vector2 ShootSpeed = player.Center - NPC.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed.X *= 10 + Main.rand.Next(-5, 6);
+                        ShootSpeed.Y *= 10 + Main.rand.Next(-5, 6);
+
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
+                        Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                        if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        {
+                            position += muzzleOffset;
+                        }
+                            
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<SnotBall>(), Damage, 0, NPC.target);
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
+                    {
+                        //quickly move towards the player if they try and run away
+                        if (NPC.Distance(player.Center) >= 600f)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                            AfterImages = true;
+
+                            MoveToPlayer(player, player.Center.X > NPC.Center.X ? -200f : 200f, -100f);
+                        }
+                        //if moco is close enough, then slow down its velocity
+                        else
+                        {
+                            AfterImages = false;
+
+                            NPC.velocity *= 0.85f;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        NPC.velocity *= 0;
+                    }
+
+                    //set this to true so the sneezing animation can finish playing
+                    if (NPC.localAI[0] == 300)
+                    {
+                        FinishedSneezing = true;
+                    }
+
+                    //once the sneezing animation is done, then set its animation back to idle
+                    if (NPC.localAI[0] > 300 && NPC.frame.Y >= 8 * NPC.height)
+                    {
+                        Sneezing = false;
+                        FinishedSneezing = false;
+
+                        CurrentFrameX = 2;
+                    }
+                    
+                    //go to next attack
+                    if (NPC.localAI[0] >= 340)
+                    {
+                        CurrentFrameX = 0;
+
+                        NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
+                    }
+ 
+                    break;
+                }
+
+                //go nearby the player, then shoot out eyes 
+                case 4:
+				{
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 120)
+                    {
+                        //EoC rotation
+                        Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                        float RotateX = player.Center.X - vector.X;
+                        float RotateY = player.Center.Y - vector.Y;
+                        NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    }
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        CurrentFrameX = 2;
+
+                        MoveToPlayer(player, 0f, -75f);
+                    }
+
+					if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+					//save position for shaking
+                    if (NPC.localAI[0] == 90)
+                    {
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+					//pop out eyes
+                    if (NPC.localAI[0] == 120)
+                    {
+                        SoundEngine.PlaySound(EyePopSound, NPC.Center);
+                        SoundEngine.PlaySound(SneezeSound2, NPC.Center);
+
+						EyesPoppedOut = true;
+
+                        CurrentFrameX = 3;
+
+                        NPC.velocity *= 0;
+
+						NPC.localAI[1] = NPC.rotation;
+
+                        for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles += 2)
+                        {
+                            Vector2 ShootFrom = 35f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(23) * numProjectiles);
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootFrom.X, ShootFrom.Y)) * 38f;
+                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                            {
+                                position += muzzleOffset;
+                            }
+
+                            Vector2 ShootSpeed = player.Center - position;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 28;
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                        }
+                    }
+
+					if (NPC.localAI[0] >= 120)
+                    {
+                        NPC.rotation = NPC.localAI[1];
+					}
+
+                    //set this to true so the sneezing animation can finish playing
+                    if (NPC.localAI[0] >= 250)
+                    {
+                        CurrentFrameX = 2;
+
+                        EyesPoppedOut = false;
+                    }
+
+                    //go to next attack
+                    if (NPC.localAI[0] >= 320)
+                    {
+                        CurrentFrameX = 0;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+						NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
 			}
@@ -426,30 +827,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public void MoveToPlayer(Player target, float TargetPositionX, float TargetPositionY)
         {
             Vector2 GoTo = target.Center + new Vector2(TargetPositionX, TargetPositionY);
-
-            if (NPC.Distance(GoTo) >= 200f)
-            { 
-                GoTo -= NPC.DirectionTo(GoTo) * 100f;
-            }
-
-            Vector2 GoToVelocity = GoTo - NPC.Center;
-
-            float lerpValue = Utils.GetLerpValue(100f, 600f, GoToVelocity.Length(), false);
-
-            float velocityLength = GoToVelocity.Length();
-
-            if (velocityLength > 18f)
-            { 
-                velocityLength = 18f;
-            }
-
-            NPC.velocity = Vector2.Lerp(GoToVelocity.SafeNormalize(Vector2.Zero) * velocityLength, GoToVelocity / 6f, lerpValue);
-            NPC.netUpdate = true;
-        }
-
-        public void MoveToParent(NPC parent, float TargetPositionX, float TargetPositionY)
-        {
-            Vector2 GoTo = parent.Center + new Vector2(TargetPositionX, TargetPositionY);
 
             if (NPC.Distance(GoTo) >= 200f)
             { 

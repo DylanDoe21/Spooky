@@ -82,6 +82,7 @@ namespace Spooky.Content.NPCs.NoseCult
 				if (NPC.ai[1] >= 60)
 				{
 					int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistLeader>(), ai3: NPC.ai[0]);
+					Main.npc[SpawnedNPC].alpha = 255;
 
 					if (Main.netMode == NetmodeID.Server)
 					{

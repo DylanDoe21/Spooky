@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/Moco/MocoIdolShatter", SoundType.Sound);
+        public static readonly SoundStyle ShatterSound = new("Spooky/Content/Sounds/Moco/MocoIdolShatter", SoundType.Sound);
 
         public override void SetStaticDefaults()
 		{
@@ -77,10 +77,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             NPC.ai[0]++;
 
-            //spawn moco
+            //spawn moco intro
             if (NPC.ai[0] == 30)
             {
-                int MocoSpawnOffsetX = ((int)NPC.Center.X / 16) < (Main.maxTilesX / 2) ? 2000 : -2000;
+                int MocoSpawnOffsetX = ((int)NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -1500 : 1500;
 
                 int MocoIntro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + MocoSpawnOffsetX, (int)NPC.Center.Y, ModContent.NPCType<MocoIntro>(), ai3: NPC.whoAmI);
 
@@ -115,7 +115,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                 if (NPC.ai[2] >= 300)
                 {
-                    SoundEngine.PlaySound(DeathSound, NPC.Center);
+                    SoundEngine.PlaySound(ShatterSound, NPC.Center);
 
                     //spawn dusts
                     for (int numDusts = 0; numDusts < 45; numDusts++)

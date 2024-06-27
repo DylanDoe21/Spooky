@@ -185,6 +185,9 @@ Fixed all of the following bugs and issues:
 -Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
 -Swimming hibiscus not being catchable in the catacombs
 -Old hunter pieces sometimes generating below the bottom of the spider grotto
+-Spider grotto structures sometimes generating outside of the actual grotto
+-Spider grotto sometimes generating with small floating clumps of tiles in it
+-I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
