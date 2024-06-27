@@ -41,6 +41,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         bool AfterImages = false;
 
         Vector2 SaveNPCPosition;
+        Vector2 SavePlayerPosition;
 
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
@@ -659,7 +660,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
                     {
                         //quickly move towards the player if they try and run away
-                        if (NPC.Distance(player.Center) >= 600f)
+                        if (NPC.Distance(player.Center) >= 750f)
                         {
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
@@ -759,6 +760,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
+                    if (NPC.localAI[0] == 100)
+                    {
+                        NPC.localAI[1] = NPC.rotation;
+
+                        SavePlayerPosition = player.Center;
+                    }
+
+                    if (NPC.localAI[0] > 100)
+                    {
+                        NPC.rotation = NPC.localAI[1];
+					}
+
 					//pop out eyes
                     if (NPC.localAI[0] == 120)
                     {
@@ -771,11 +784,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         NPC.velocity *= 0;
 
-						NPC.localAI[1] = NPC.rotation;
-
                         for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles += 2)
                         {
-                            Vector2 ShootFrom = 35f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(23) * numProjectiles);
+                            Vector2 ShootFrom = 35f * NPC.DirectionTo(SavePlayerPosition).RotatedBy(MathHelper.ToRadians(23) * numProjectiles);
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootFrom.X, ShootFrom.Y)) * 38f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -785,18 +796,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 position += muzzleOffset;
                             }
 
-                            Vector2 ShootSpeed = player.Center - position;
+                            Vector2 ShootSpeed = SavePlayerPosition - position;
                             ShootSpeed.Normalize();
                             ShootSpeed *= 28;
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
                         }
                     }
-
-					if (NPC.localAI[0] >= 120)
-                    {
-                        NPC.rotation = NPC.localAI[1];
-					}
 
                     //set this to true so the sneezing animation can finish playing
                     if (NPC.localAI[0] >= 250)
