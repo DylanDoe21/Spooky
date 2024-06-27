@@ -104,6 +104,11 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
+            if (Projectile.ai[0] > 0)
+            {
+                //spawn projectiles here
+            }
+
 			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);

@@ -16,7 +16,6 @@ MassiveFlameBallBolt.DisplayName: Solar Blast
 RazorRose.DisplayName: Razor Rose
 SolarThorn.DisplayName: Solar Thorn
 GiantSnot.DisplayName: Snot Ball
-GiantSnot2.DisplayName: Snot Ball
 LingeringSnot.DisplayName: Snot Pile
 SnotBall.DisplayName: Snot Ball
 LingeringSnotBall.DisplayName: Snot Ball
@@ -355,4 +354,4 @@ NoseBallPurpleProj.DisplayName: Nolegam
 NoseBallRedProj.DisplayName: Nolegam
 NoseCultistEnemySpawner.DisplayName: Snot Ball
 MocoSpawnerPower.DisplayName: Snot Ritual Power
-MocoEye.DisplayName: Moco Eyeball
+MocoEye.DisplayName: Moco's Eye

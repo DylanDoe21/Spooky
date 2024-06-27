@@ -10,6 +10,8 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
     public class LingeringSnotBall : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/Boss/Moco/Projectiles/SnotBall";
+
         private static Asset<Texture2D> ProjTexture;
 
         public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/TomatoSplat", SoundType.Sound) { Volume = 0.5f };
