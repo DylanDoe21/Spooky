@@ -26,9 +26,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
     [AutoloadBossHead]
     public class Moco : ModNPC
     {
-        int[] AttackPattern1 = new int[] { 0, 1, 2, 3, 4 };
-        int[] AttackPattern2 = new int[] { 0, 1, 2, 3, 4 };
-
         int CurrentFrameX = 0;
         int SaveDirection;
 
@@ -45,6 +42,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
+        private static Asset<Texture2D> AuraTexture1;
+        private static Asset<Texture2D> AuraTexture2;
 
         public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound);
         public static readonly SoundStyle EyePopSound = new("Spooky/Content/Sounds/Moco/MocoEyePop", SoundType.Sound) { PitchVariance = 0.75f };
@@ -209,6 +208,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoGlow");
+            AuraTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoPowerGlow1");
+            AuraTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Moco/MocoPowerGlow2");
 
             var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -223,8 +224,21 @@ namespace Spooky.Content.NPCs.Boss.Moco
 				}
             }
 
-            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            bool IsAngry = Transition && Sneezing && !FinishedSneezing && NPC.localAI[0] >= 100;
+
+            Color NPCDrawColor = IsAngry ? NPC.GetAlpha(Color.Red) : NPC.GetAlpha(drawColor);
+
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPCDrawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
             spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+
+            if (!Transition && Phase2)
+            {
+                float fade1 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+                float fade2 = (float)Math.Sin((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+
+                spriteBatch.Draw(AuraTexture1.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.Lime * 0.5f) * fade1, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+                spriteBatch.Draw(AuraTexture2.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.Lime * 0.5f) * fade2, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            }
             
             return false;
         }
@@ -245,14 +259,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 NPC.ai[0] = -2;
             }
 
-            /*
             //set to transition
-            if (NPC.life < (NPC.lifeMax / 2) && !Phase2 && NPC.ai[0] != -1)
+            if (NPC.life < (NPC.lifeMax / 2) && NPC.ai[0] != -1 && !Phase2)
             {
                 NPC.ai[0] = -1;
                 NPC.localAI[0] = 0;
+                NPC.localAI[1] = 0;
             }
-            */
 
             if (NPC.alpha == 255)
             {
@@ -274,6 +287,89 @@ namespace Spooky.Content.NPCs.Boss.Moco
 				//phase transition
 				case -1:
 				{
+                    NPC.localAI[0]++;
+
+                    NPC.velocity *= 0.92f;
+
+                    if (NPC.localAI[0] == 1)
+                    {
+                        NPC.rotation = 0;
+
+                        AfterImages = false;
+                        Sneezing = false;
+                        FinishedSneezing = false;
+                        EyesPoppedOut = false;
+                        Transition = true;
+
+                        CurrentFrameX = 2;
+
+                        NPC.immortal = true;
+                        NPC.dontTakeDamage = true;
+                    }
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 240)
+                    {
+                        if (NPC.localAI[0] == 120)
+                        {
+                            SoundEngine.PlaySound(AngrySound, NPC.Center);
+                        }
+
+                        Sneezing = true;
+
+                        CurrentFrameX = 3;
+
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-8, 8);
+
+                        int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
+                        Main.gore[Steam1].velocity.X *= 0f;
+                        Main.gore[Steam1].velocity.Y *= -2f;
+                        Main.gore[Steam1].alpha = 125;
+
+                        int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 40, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
+                        Main.gore[Steam2].velocity.X *= 0f;
+                        Main.gore[Steam2].velocity.Y *= -2f;
+                        Main.gore[Steam2].alpha = 125;
+                    }
+
+                    //set this to true so the sneezing animation can finish playing
+                    if (NPC.localAI[0] == 250)
+                    {
+                        FinishedSneezing = true;
+                    }
+
+                    //once the sneezing animation is done, then set its animation back to idle
+                    if (NPC.localAI[0] > 250 && NPC.frame.Y >= 8 * NPC.height)
+                    {
+                        Sneezing = false;
+                        FinishedSneezing = false;
+
+                        CurrentFrameX = 2;
+                    }
+
+                    if (NPC.localAI[0] >= 300)
+                    {
+                        //summon mocling minions
+                        SpawnMoclings(12);
+
+                        Phase2 = true;
+                        Transition = false;
+                        NPC.immortal = false;
+                        NPC.dontTakeDamage = false;
+
+                        NPC.ai[0] = 1;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
+
 					break;
 				}
 
@@ -396,8 +492,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 						NPC.frame.Y = 0;
 					}
 
+                    int Frequency = Phase2 ? 7 : 15;
+
                     //fire out nose globs that land on the ground and add upward recoil when each one is shot
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 270 && NPC.localAI[0] % 15 == 0)
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 270 && NPC.localAI[0] % Frequency == 0)
                     {
                         SoundEngine.PlaySound(SneezeSound1, NPC.Center);
 
@@ -406,8 +504,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         CurrentFrameX = 3;
 
                         NPC.velocity.Y = -4;
+
+                        int VelocityX = Phase2 ? Main.rand.Next(-10, 11) : Main.rand.Next(-7, 8);
                             
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 35, Main.rand.Next(-7, 8), Main.rand.Next(2, 4), ModContent.ProjectileType<LingeringSnotBall>(), Damage, 0, NPC.target);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 35, VelocityX, Main.rand.Next(2, 4), ModContent.ProjectileType<LingeringSnotBall>(), Damage, 0, NPC.target);
                     }
                     else
                     {
@@ -520,14 +620,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             position += muzzleOffset;
                         }
                             
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), Damage, 0, NPC.target);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), Damage, 0, NPC.target, Phase2 ? 1 : 0);
                     }
                     
                     //after shooting the booger, stay still zip towards the player quickly if the get too far away
                     if (NPC.localAI[0] >= 155)
                     {
                         //quickly move to a location above the player if they are too far away
-                        if (NPC.Distance(player.Center) >= 550f)
+                        if (NPC.Distance(player.Center) >= 750f)
                         {
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
@@ -565,7 +665,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
-						NPC.ai[0]++;
+						NPC.ai[0] = Phase2 ? 1 : 3;
 
                         NPC.netUpdate = true;
                     }
@@ -573,7 +673,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     break;
                 }
 
-                //zip to the side of the player and use booger gatling
+                //zip to the side of the player and rapid fire boogers
                 case 3:
 				{
                     NPC.localAI[0]++;
@@ -826,8 +926,73 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                     break;
                 }
+
+                //summon projectile moclings that charge at the player and die on impact
+                case 5:
+				{
+                    NPC.localAI[0]++;
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        CurrentFrameX = 2;
+
+                        MoveToPlayer(player, 0f, -300f);
+                    }
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] % 20 == 0)
+                    {
+                        int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
+                        int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    }
+
+                    break;
+                }
+
+                //make every existing mocling minion shoot or charge at the player, and if no moclings exist when this attack is used then summon some
+                case 6:
+				{
+                    NPC.velocity *= 0;
+
+                    break;
+                }
+
+                //shoot snot balls at the player horizontally with intense recoil and then come back on the other side of the screen
+                case 7:
+				{
+                    NPC.velocity *= 0;
+
+                    break;
+                }
 			}
 		}
+
+        public void SpawnMoclings(int Amount)
+        {
+            for (int numFlies = 1; numFlies <= Amount; numFlies++)
+            {
+                int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
+                int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
+
+                int NewMocling = NPC.NewNPC(NPC.GetSource_FromAI(), SpawnX, SpawnY, ModContent.NPCType<MoclingMinion>(), ai1: NPC.whoAmI);
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: NewMocling);
+                }
+            }
+
+            NPC.netUpdate = true;
+        }
 
         //super fast movement to create a fly-like movement effect
         public void MoveToPlayer(Player target, float TargetPositionX, float TargetPositionY)

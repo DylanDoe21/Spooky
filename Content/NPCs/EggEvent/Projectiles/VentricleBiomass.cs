@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             if (Projectile.localAI[0] >= 60)
             {
-                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/PurpleAura");
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/RedAura");
 
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
@@ -136,13 +136,14 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            for (int i = 0; i <= Main.maxPlayers; i++)
+            for (int i = 0; i < Main.maxPlayers; i++)
             {
-                if (Main.player[i].active && !Main.player[i].dead)
+                Player player = Main.player[i];
+                if (player.active && !player.dead)
                 {
-                    if (Main.player[i].Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+                    if (player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
                     {
-                        Main.player[i].Hurt(PlayerDeathReason.ByCustomReason(Main.player[i].name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+                        player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
                     }
                 }
             }

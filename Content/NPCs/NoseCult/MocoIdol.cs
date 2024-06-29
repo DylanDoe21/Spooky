@@ -160,8 +160,8 @@ namespace Spooky.Content.NPCs.NoseCult
             }
 
             if (NPC.ai[1] > 0 && NoseCultAmbushWorld.AmbushActive)
-            {   
-                if (!player.active || player.dead || !player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+			{
+                if (!player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
                 {
                     NPC.active = false;
                 }

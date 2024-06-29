@@ -102,14 +102,6 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 13)
-                {
-                    NPC.localAI[0] = 0;
-                    NPC.localAI[1] = 0;
-                    NPC.localAI[2] = 0;
-
-                    NPC.frame.Y = 0 * frameHeight;
-                }
             }
         }
         
@@ -163,6 +155,15 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     NPC.netUpdate = true;
                 }
+            }
+
+            if (NPC.frame.Y > 12 * NPC.height)
+            {
+                NPC.frame.Y = 0;
+
+                NPC.localAI[0] = 0;
+                NPC.localAI[1] = 0;
+                NPC.localAI[2] = 0;
             }
         }
 

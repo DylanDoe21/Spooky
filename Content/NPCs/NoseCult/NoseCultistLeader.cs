@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.NoseCult
         bool HasSpawnedEnemies = false;
         bool hasCollidedWithWall = false;
 
+        Vector2 ParentCenter = Vector2.Zero;
         Vector2 SavePosition;
 
         private static Asset<Texture2D> NPCTexture;
@@ -211,7 +212,12 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC Parent = Main.npc[(int)NPC.ai[3]];
+            if (ParentCenter == Vector2.Zero)
+            {
+                NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+                ParentCenter = Parent.Center;
+            }
             
             NPC.spriteDirection = NPC.direction;
 
@@ -251,7 +257,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] == 5)
                     {
-                        SavePosition = new Vector2(Parent.Center.X + Main.rand.Next(-350, 350), Parent.Center.Y - Main.rand.Next(50, 150));
+                        SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-350, 350), ParentCenter.Y - Main.rand.Next(50, 150));
                     }
 
                     if (NPC.localAI[0] > 5)
@@ -292,7 +298,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 550);
+                    Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 550);
 
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -351,7 +357,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] < 180)
                     {
-                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 85);
+                        Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 85);
 
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -499,7 +505,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+                    Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 150);
 
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -552,7 +558,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+                    Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 150);
 
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -629,6 +635,9 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void OnKill()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+            Parent.active = false;
+
             NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
         }
     }

@@ -62,6 +62,7 @@ CatacombGuardian.DisplayName: Catacomb Guardian
 DaffodilBody.DisplayName: ""
 DaffodilHandLeft.DisplayName: Daffodil
 DaffodilHandRight.DisplayName: Daffodil
+MoclingMinion.DisplayName: Mocling
 MocoIntro.DisplayName: Mocling
 MocoSpawner.DisplayName: ""
 BoroBody.DisplayName: Boro
@@ -334,11 +335,11 @@ TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
 //nose cult
-MocoIdol1.DisplayName: Nose Idol
-MocoIdol2.DisplayName: Nose Idol
-MocoIdol3.DisplayName: Nose Idol
-MocoIdol4.DisplayName: Nose Idol
-MocoIdol5.DisplayName: Nose Idol
+MocoIdol1.DisplayName: ""
+MocoIdol2.DisplayName: ""
+MocoIdol3.DisplayName: ""
+MocoIdol4.DisplayName: ""
+MocoIdol5.DisplayName: ""
 MocoIdol6.DisplayName: ""
 NoseBallPurple.DisplayName: Nolegam
 NoseBallRed.DisplayName: Nolegam

@@ -4,8 +4,6 @@ First phase - Done
 
 Second phase
 
-Moco shoots out a spread of snot that sends them dashing across to the other side of the screen.
-
 Nose flys: Minions moco will summon around him these minions will both shield him from attacks and occasionally attack themselves. 
 
 Nose fly swarm: Moco will summon nose flys that suicide charge at the player.

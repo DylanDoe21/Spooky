@@ -15,6 +15,7 @@ namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistWinged : ModNPC
 	{
+        Vector2 ParentCenter = Vector2.Zero;
         Vector2 SavePosition;
 
         public override void SetStaticDefaults()
@@ -85,14 +86,6 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 9)
-                {
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
-                    NPC.ai[3] = 0;
-
-                    NPC.frame.Y = 0 * frameHeight;
-                }
             }
         }
 
@@ -101,7 +94,12 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC Parent = Main.npc[(int)NPC.ai[0]];
+            if (ParentCenter == Vector2.Zero)
+            {
+                NPC Parent = Main.npc[(int)NPC.ai[0]];
+
+                ParentCenter = Parent.Center;
+            }
             
             NPC.spriteDirection = NPC.direction;
 
@@ -109,7 +107,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] == 5)
             {
-                SavePosition = new Vector2(Parent.Center.X + Main.rand.Next(-300, 300), Parent.Center.Y - Main.rand.Next(10, 150));
+                SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-300, 300), ParentCenter.Y - Main.rand.Next(10, 150));
             }
 
             if (NPC.ai[1] > 5)
@@ -122,7 +120,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] >= 240)
             {
-                if (NPC.frame.Y == 7 * NPC.height && NPC.ai[3] == 0)
+                if (NPC.frame.Y == 7 * NPC.height && NPC.ai[2] == 0)
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
@@ -130,10 +128,20 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
 
-                    NPC.ai[3]++;
+                    NPC.ai[2]++;
 
                     NPC.netUpdate = true;
                 }
+            }
+
+            if (NPC.frame.Y >= 8 * NPC.height)
+            {
+                NPC.frame.Y = 0;
+
+                NPC.ai[1] = 0;
+                NPC.ai[2] = 0;
+
+                NPC.netUpdate = true;
             }
         }
 

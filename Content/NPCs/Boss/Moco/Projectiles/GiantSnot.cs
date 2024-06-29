@@ -71,9 +71,10 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
             float speed = MathHelper.Clamp(velocity.Length() / 5, 10, 45);
 
+            velocity.X *= Projectile.ai[0] > 0 ? 1.5f : 1.2f;
             velocity.Y -= Main.rand.NextFloat(0.5f, 1f);
 
-            Projectile.velocity = velocity * speed;
+			Projectile.velocity = velocity * speed;
 
 			return false;
 		}
@@ -107,6 +108,9 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             if (Projectile.ai[0] > 0)
             {
                 //spawn projectiles here
+
+                //debug text for now
+                Main.NewText("BOOOM!!!", Color.Green);
             }
 
 			for (int numDusts = 0; numDusts < 20; numDusts++)
