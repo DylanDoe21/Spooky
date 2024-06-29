@@ -497,4 +497,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
 		}
 	}
+
+    public class EyeFlailProj2 : EyeFlailProj
+	{
+        public override string Texture => "Spooky/Content/Projectiles/SpookyHell/EyeFlailProj";
+    }
 }

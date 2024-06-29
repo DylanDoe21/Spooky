@@ -132,6 +132,65 @@ namespace Spooky.Content.NPCs.NoseCult
 			}
 		}
 
+        //check if any player is in the range to activate the range
+        public bool AllPlayersInRange()
+        {
+            Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+
+                //int playerCount = 0;
+                int playerInEventCount = 0;
+
+                /*
+                //dont count players if they are dead or not active
+                if (!player.active || player.dead)
+                {
+                    continue;
+                }
+
+                playerCount++;
+                */
+
+                if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
+                {
+                    playerInEventCount++;
+                }
+
+                if (playerInEventCount >= 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool AnyPlayersInBiome()
+        {
+            Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+
+                int playerInBiomeCount = 0;
+
+                if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+                {
+                    playerInBiomeCount++;
+                }
+
+                if (playerInBiomeCount >= 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         //handle all of the cultist enemy spawn and event varaibles
         public void HandleCultistAmbush()
@@ -143,10 +202,7 @@ namespace Spooky.Content.NPCs.NoseCult
             AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || 
             NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>());
 
-            //collision rectangle that activates the shrine when the player enters it
-            Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
-
-            if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
+            if (AllPlayersInRange())
             {
                 //activate every single nose cultist attatched to this altar
                 NPC.ai[1] = 1;
@@ -161,7 +217,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] > 0 && NoseCultAmbushWorld.AmbushActive)
 			{
-                if (!player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+                if (!AnyPlayersInBiome())
                 {
                     NPC.active = false;
                 }

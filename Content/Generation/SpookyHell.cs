@@ -325,7 +325,88 @@ namespace Spooky.Content.Generation
             }
         }
 
-        private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
+		private void GenerateBloodLake(GenerationProgress progress, GameConfiguration configuration)
+		{
+			//define the center of the biome
+			int XMiddle = (StartPosition + BiomeEdge) / 2;
+
+			///place little eye's house
+			int LakeX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+
+			Point origin = new Point(LakeX, Main.maxTilesY - 80);
+			Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
+
+			float angle = MathHelper.Pi * 0.15f;
+			float otherAngle = MathHelper.PiOver2 - angle;
+
+			int InitialSize = 80;
+			int biomeSize = InitialSize + (Main.maxTilesX / 180);
+			float actualSize = biomeSize * 16f;
+			float constant = actualSize * 2f / (float)Math.Sin(angle);
+
+			float biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
+			int verticalRadius = (int)(constant / 16f);
+
+			Vector2 biomeOffset = Vector2.UnitY * biomeSpacing;
+			Vector2 biomeTop = center - biomeOffset;
+			Vector2 biomeBottom = center + biomeOffset;
+
+			//first place a bunch of spider caves as a barrier around the biome
+			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			{
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+						if (Y <= Main.maxTilesY - 60)
+						{
+							float percent = dist / constant;
+							float blurPercent = 0.98f;
+
+							if (percent < blurPercent)
+							{
+								if (Main.tileSolid[Main.tile[X, Y].TileType])
+								{
+									WorldGen.KillTile(X, Y);
+
+									if (Y >= Main.maxTilesY - 115)
+									{
+										Main.tile[X, Y].WallType = (ushort)ModContent.WallType<SpookyMushLakeWall>();
+									}
+								}
+							}
+							else
+							{
+								if (WorldGen.genRand.NextBool(3) && Y >= Main.maxTilesY - 105)
+								{
+									double RootAngle = Y / 3.0 * 2.0 + 0.57075;
+									WorldUtils.Gen(new Point(X, Y), new ShapeRoot((int)RootAngle, WorldGen.genRand.Next(80, 120), WorldGen.genRand.Next(5, 8)),
+									Actions.Chain(new Actions.ClearTile(), new Actions.ClearWall(), new Actions.PlaceWall((ushort)ModContent.WallType<SpookyMushLakeWall>(), true)));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//method to make sure things only generate in the biome's circle
+		public static bool CheckInsideOval(Point tile, Vector2 focus1, Vector2 focus2, float distanceConstant, Vector2 center, out float distance)
+		{
+			Vector2 point = tile.ToWorldCoordinates();
+			float distX = center.X - point.X;
+			float distY = center.Y - point.Y;
+			point.Y -= distY * 3f;
+			point.X -= distX * 3f;
+
+			float distance1 = Vector2.Distance(point, focus1);
+			float distance2 = Vector2.Distance(point, focus2);
+			distance = distance1 + distance2;
+
+			return distance <= distanceConstant;
+		}
+
+		private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
         {
             //spread grass on all mush tiles
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
@@ -339,8 +420,7 @@ namespace Spooky.Content.Generation
 
                     if (Main.tile[X, Y].HasTile)
                     {
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>() &&
-                        ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>() && ((!up.HasTile || up.TileType == TileID.Trees) || !down.HasTile || !left.HasTile || !right.HasTile))
                         {
                             Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyMushGrass>();
                         }
@@ -938,12 +1018,13 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-            tasks.Insert(GenIndex1 + 2, new PassLegacy("Moco Cult Dungeon", GenerateNoseTemple));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
+			tasks.Insert(GenIndex1 + 2, new PassLegacy("Blood Lake", GenerateBloodLake));
+			tasks.Insert(GenIndex1 + 3, new PassLegacy("Nose Cultist Dungeon", GenerateNoseTemple));
+            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Structures", GenerateStructures));
+            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
+            tasks.Insert(GenIndex1 + 8, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Spooky.Core
     {
         public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Volume = 0.75f, Pitch = 0.9f };
 
+        public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
+
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             if (Main.myPlayer != player.whoAmI)

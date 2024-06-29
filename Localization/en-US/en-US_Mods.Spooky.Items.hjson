@@ -2003,7 +2003,7 @@ SentientChumCaster: {
 	Tooltip:
 		'''
 		Fish with two bobbers at once
-		Able to catch fish from the blood lake in the Valley of Eyes
+		Able to catch dangerous creatures from the blood lake
 		'It snarls at you'
 		'''
 }

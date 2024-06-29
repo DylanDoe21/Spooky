@@ -23,6 +23,7 @@ using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
+using Spooky.Content.Items.SpookyHell.Sentient;
 
 namespace Spooky.Core
 {
@@ -1002,7 +1003,7 @@ namespace Spooky.Core
             }
 
             //alternate blood moon enemy catches
-            if (Player.InModBiome<SpookyHellBiome>())
+            if (Player.InModBiome<SpookyHellBiome>())	
             {
                 //random blocks and junk normally fished out of the blood lake
                 int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),
@@ -1033,7 +1034,7 @@ namespace Spooky.Core
                 NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || 
                 NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyShark>());
 
-                if (!BloodFishingEnemiesExist)
+                if (!BloodFishingEnemiesExist && ItemGlobal.ActiveItem(Player).type == ModContent.ItemType<SentientChumCaster>())
                 {
                     int ExtraChanceToFishEnemy = (Player.HeldItem.fishingPole + Player.fishingSkill) / 5;
 

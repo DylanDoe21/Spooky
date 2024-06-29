@@ -1,14 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using Spooky.Content.Dusts;
-using System;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
+
+using Spooky.Core;
+using Spooky.Content.Dusts;
+
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
@@ -17,8 +17,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
         int ExtraUseTime = 0;
         int OverheatTimer = 0;
         int playerCenterOffset = 4;
-
-        public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
 
         public override void SetStaticDefaults()
 		{
@@ -170,9 +168,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                         float Speed = 20f;
 
-                        float knockBack = ActiveItem(player).knockBack;
+                        float knockBack = ItemGlobal.ActiveItem(player).knockBack;
 
-                        player.PickAmmo(ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
+                        player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
@@ -191,7 +189,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
 
                 //kill this holdout projectile if the player has no more arrows
-                if (!player.HasAmmo(ActiveItem(player)))
+                if (!player.HasAmmo(ItemGlobal.ActiveItem(player)))
                 {
                     Projectile.Kill();
                 }

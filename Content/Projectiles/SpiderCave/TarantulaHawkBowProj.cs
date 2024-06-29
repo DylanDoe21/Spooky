@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class TarantulaHawkBowProj : ModProjectile
@@ -11,8 +13,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
         float ExtraUseSpeed = 20;
 
         int playerCenterOffset = 1;
-
-        public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
 
         public override void SetStaticDefaults()
 		{
@@ -142,13 +142,13 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                         float Speed = 20f;
 
-                        float knockBack = ActiveItem(player).knockBack;
+                        float knockBack = ItemGlobal.ActiveItem(player).knockBack;
 
-                        player.PickAmmo(ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out AmmoID.Arrow);
+                        player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out AmmoID.Arrow);
 
                         //ProjType must be reset so it shoots the correct projectile
                         ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
-                        knockBack = player.GetWeaponKnockback(ActiveItem(player), knockBack);
+                        knockBack = player.GetWeaponKnockback(ItemGlobal.ActiveItem(player), knockBack);
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
                         ProjType, Projectile.damage, knockBack, Projectile.owner);
@@ -170,7 +170,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
 
                 //kill this holdout projectile if the player has no more arrows
-                if (!player.HasAmmo(ActiveItem(player)))
+                if (!player.HasAmmo(ItemGlobal.ActiveItem(player)))
                 {
                     Projectile.Kill();
                 }

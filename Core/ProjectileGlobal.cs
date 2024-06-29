@@ -72,15 +72,6 @@ namespace Spooky.Core
                 TileConversionMethods.ConvertSpookyIntoDesert((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }
 
-            //dont allow fishing in the blood lake in the valley of eyes, unless you have the goblin shark rod
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-            {
-                if (projectile.aiStyle == ProjAIStyleID.Bobber && projectile.wet && projectile.type != ModContent.ProjectileType<SentientChumCasterBobber>())
-                {
-                    projectile.Kill();
-                }
-            }
-
 			return base.PreAI(projectile);
 		}
 
