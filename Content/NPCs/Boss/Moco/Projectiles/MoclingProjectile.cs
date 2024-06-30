@@ -123,18 +123,12 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-        	for (int numDusts = 0; numDusts < 25; numDusts++)
-			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].noGravity = true;
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[newDust].position != Projectile.Center)
-				{
-					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
-				}
-			}
+            SoundEngine.PlaySound(SoundID.NPCDeath16, Projectile.Center);
+
+        	if (Main.netMode != NetmodeID.Server) 
+            {
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/MoclingGore").Type);
+            }
 		}
 	}
 }

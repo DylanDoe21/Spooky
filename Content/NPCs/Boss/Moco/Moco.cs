@@ -56,8 +56,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
-            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
+            NPCID.Sets.TrailingMode[NPC.type] = 1;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
