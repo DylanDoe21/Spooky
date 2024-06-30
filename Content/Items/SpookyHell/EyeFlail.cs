@@ -36,7 +36,7 @@ namespace Spooky.Content.Items.SpookyHell
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI), ModContent.ProjectileType<EyeFlailProj>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI / 16f), ModContent.ProjectileType<EyeFlailProj2>(), damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI), ModContent.ProjectileType<EyeFlailProj2>(), damage, knockback, player.whoAmI);
 
             return false;
         }

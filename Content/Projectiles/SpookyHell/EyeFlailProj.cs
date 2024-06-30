@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class EyeFlailProj : ModProjectile
 	{	
-		private enum AIState
+		public enum AIState
 		{
 			Spinning,
 			LaunchingForward,
@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Dropping
 		}
 
-		private AIState CurrentAIState 
+		public AIState CurrentAIState 
         {
 			get => (AIState)Projectile.ai[0];
 			set => Projectile.ai[0] = (float)value;
@@ -501,5 +501,287 @@ namespace Spooky.Content.Projectiles.SpookyHell
     public class EyeFlailProj2 : EyeFlailProj
 	{
         public override string Texture => "Spooky/Content/Projectiles/SpookyHell/EyeFlailProj";
+
+        // This AI code was adapted from vanilla code: Terraria.Projectile.AI_015_Flails() 
+		public override void AI() 
+        {
+			Player player = Main.player[Projectile.owner];
+			// Kill the projectile if the player dies or gets crowd controlled
+			if (!player.active || player.dead || player.noItems || player.CCed || Vector2.Distance(Projectile.Center, player.Center) > 900f) 
+            {
+				Projectile.Kill();
+				return;
+			}
+			if (Main.myPlayer == Projectile.owner && Main.mapFullscreen) 
+            {
+				Projectile.Kill();
+				return;
+			}
+
+			Vector2 mountedCenter = player.MountedCenter;
+			bool shouldOwnerHitCheck = false;
+			int launchTimeLimit = 17;
+			float launchSpeed = 30f; 
+			float maxLaunchLength = 850f;
+			float retractAcceleration = 3f; 
+			float maxRetractSpeed = 30f;
+			float forcedRetractAcceleration = 30f; 
+			float maxForcedRetractSpeed = 20f; 
+			float unusedRetractAcceleration = 1f;
+			float unusedMaxRetractSpeed = 14f;
+			int unusedChainLength = 60;
+			int defaultHitCooldown = 10; 
+			int spinHitCooldown = 20; 
+			int movingHitCooldown = 20; 
+			int ricochetTimeLimit = launchTimeLimit + 5;
+
+			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
+			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
+			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			launchSpeed *= meleeSpeedMultiplier;
+			unusedRetractAcceleration *= meleeSpeedMultiplier;
+			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
+			retractAcceleration *= meleeSpeedMultiplier;
+			maxRetractSpeed *= meleeSpeedMultiplier;
+			forcedRetractAcceleration *= meleeSpeedMultiplier;
+			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+			float launchRange = launchSpeed * launchTimeLimit;
+			float maxDroppedRange = launchRange + 160f;
+			Projectile.localNPCHitCooldown = defaultHitCooldown;
+
+			switch (CurrentAIState) 
+            {
+				case AIState.Spinning: 
+                {
+                    shouldOwnerHitCheck = true;
+                    if (Projectile.owner == Main.myPlayer) 
+                    {
+                        Vector2 vectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y)).SafeNormalize(Vector2.UnitX * player.direction);
+
+                        if (!player.channel) // If the player releases then change to moving forward mode
+                        {
+                            Vector2 unitVectorTowardsMouse = mountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X + Main.rand.Next(-75, 75), Main.MouseWorld.Y + Main.rand.Next(-75, 75))).SafeNormalize(Vector2.UnitX * player.direction);
+                            CurrentAIState = AIState.LaunchingForward;
+                            StateTimer = 0f;
+                            Projectile.velocity = unitVectorTowardsMouse * launchSpeed + player.velocity;
+                            Projectile.Center = mountedCenter;
+                            Projectile.netUpdate = true;
+                            Projectile.ResetImmunity();
+                            Projectile.localNPCHitCooldown = movingHitCooldown;
+                            break;
+                        }
+                    }
+
+                    SpinningStateTimer -= 0.8f;
+                    // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
+                    Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
+
+                    offsetFromPlayer.Y *= 0.9f;
+                    if (offsetFromPlayer.Y * player.gravDir > 0f) 
+                    {
+                        offsetFromPlayer.Y *= 1f;
+                    }
+
+					offsetFromPlayer.X *= 1.2f;
+                    if (offsetFromPlayer.X * player.gravDir > 0f) 
+                    {
+                        offsetFromPlayer.X *= 1f;
+                    }
+
+                    Projectile.Center = mountedCenter + offsetFromPlayer * 30f;
+                    Projectile.velocity = Vector2.Zero;
+                    Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
+
+                    break;
+                }
+				case AIState.LaunchingForward: 
+                {
+                    bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
+                    shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
+                    
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                        break;
+                    }
+
+                    if (shouldSwitchToRetracting)
+                    {
+                        CurrentAIState = AIState.Retracting;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.3f;
+                        // This is also where Drippler Crippler spawns its projectile, see above code.
+                    }
+                    player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+                    Projectile.localNPCHitCooldown = movingHitCooldown;
+                    break;
+                }
+				case AIState.Retracting: 
+                {
+                    Vector2 unitVectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+
+                    if (Projectile.Distance(mountedCenter) <= maxRetractSpeed) 
+                    {
+                        Projectile.Kill(); // Kill the projectile once it is close enough to the player
+                        return;
+                    }
+                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
+                    {
+                        CurrentAIState = AIState.Dropping;
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        Projectile.velocity *= 0.2f;
+                    }
+                    else 
+                    {
+                        Projectile.velocity *= 0.98f;
+                        Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
+                        player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+                    }
+                    break;
+                }
+				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.
+                {
+                    if (!player.controlUseItem) 
+                    {
+                        CurrentAIState = AIState.ForcedRetracting; // Move to super retracting mode if the player taps
+                        StateTimer = 0f;
+                        Projectile.netUpdate = true;
+                        break;
+                    }
+
+                    float currentChainLength = Projectile.Distance(mountedCenter);
+                    Projectile.tileCollide = StateTimer == 1f;
+                    bool flag3 = currentChainLength <= launchRange;
+
+                    if (flag3 != Projectile.tileCollide) 
+                    {
+                        Projectile.tileCollide = flag3;
+                        StateTimer = Projectile.tileCollide ? 1 : 0;
+                        Projectile.netUpdate = true;
+                    }
+
+                    if (currentChainLength > unusedChainLength) 
+                    {
+
+                        if (currentChainLength >= launchRange) 
+                        {
+                            Projectile.velocity *= 0.5f;
+                            Projectile.velocity = Projectile.velocity.MoveTowards(Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero) * unusedMaxRetractSpeed, unusedMaxRetractSpeed);
+                        }
+
+                        Projectile.velocity *= 0.98f;
+                        Projectile.velocity = Projectile.velocity.MoveTowards(Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero) * unusedMaxRetractSpeed, unusedRetractAcceleration);
+                    }
+                    else 
+                    {
+                        if (Projectile.velocity.Length() < 6f) 
+                        {
+                            Projectile.velocity.X *= 0.96f;
+                            Projectile.velocity.Y += 0.2f;
+                        }
+                        if (player.velocity.X == 0f) {
+                            Projectile.velocity.X *= 0.96f;
+                        }
+                    }
+
+                    player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+
+                    break;
+                }
+				case AIState.ForcedRetracting:
+                {
+                    Projectile.tileCollide = false;
+                    Vector2 unitVectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+
+                    if (Projectile.Distance(mountedCenter) <= maxForcedRetractSpeed) 
+                    {
+                        Projectile.Kill(); // Kill the projectile once it is close enough to the player
+                        return;
+                    }
+
+                    Projectile.velocity *= 0.98f;
+                    Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxForcedRetractSpeed, forcedRetractAcceleration);
+                    Vector2 target = Projectile.Center + Projectile.velocity;
+                    Vector2 value = mountedCenter.DirectionFrom(target).SafeNormalize(Vector2.Zero);
+
+                    if (Vector2.Dot(unitVectorTowardsPlayer, value) < 0f) 
+                    {
+                        Projectile.Kill(); // Kill projectile if it will pass the player
+                        return;
+                    }
+
+                    player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+
+                    break;
+                }
+				case AIState.Ricochet:
+                {
+					if (StateTimer++ >= ricochetTimeLimit) 
+                    {
+						CurrentAIState = AIState.Dropping;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.localNPCHitCooldown = movingHitCooldown;
+						Projectile.velocity.Y += 0.6f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+					break;
+                }
+				case AIState.Dropping:
+                {
+					if (!player.controlUseItem || Projectile.Distance(mountedCenter) > maxDroppedRange) 
+                    {
+						CurrentAIState = AIState.ForcedRetracting;
+						StateTimer = 0f;
+						Projectile.netUpdate = true;
+					}
+					else 
+                    {
+						Projectile.velocity.Y += 0.8f;
+						Projectile.velocity.X *= 0.95f;
+						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+					}
+
+					break;
+                }
+			}
+
+			// This is where Flower Pow launches projectiles. Decompile Terraria to view that code.
+			Projectile.direction = (Projectile.velocity.X > 0f) ? 1 : -1;
+			Projectile.spriteDirection = Projectile.direction;
+			Projectile.ownerHitCheck = shouldOwnerHitCheck; // This prevents attempting to damage enemies without line of sight to the player. The custom Colliding code for spinning makes this necessary.
+
+			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
+			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
+
+			// If you have a ball shaped flail, you can use this simplified rotation code instead
+			/*
+			if (Projectile.velocity.Length() > 1f)
+				Projectile.rotation = Projectile.velocity.ToRotation() + Projectile.velocity.X * 0.1f; // skid
+			else
+				Projectile.rotation += Projectile.velocity.X * 0.1f; // roll
+			*/
+
+			Projectile.timeLeft = 2; // Makes sure the flail doesn't die (good when the flail is resting on the ground)
+			player.heldProj = Projectile.whoAmI;
+			player.SetDummyItemTime(2); //Add a delay so the player can't button mash the flail
+			player.itemRotation = Projectile.DirectionFrom(mountedCenter).ToRotation();
+
+			if (Projectile.Center.X < mountedCenter.X) 
+            {
+				player.itemRotation += (float)Math.PI;
+			}
+
+			player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
+		}
     }
 }

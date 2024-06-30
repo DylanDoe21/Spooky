@@ -360,7 +360,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] < 180)
+                    if (NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 85);
 
@@ -386,6 +386,11 @@ namespace Spooky.Content.NPCs.NoseCult
                         }
                     }
 
+                    if ((NPC.localAI[0] > 60 && NPC.localAI[0] < 180) || NPC.localAI[0] >= 330)
+                    {
+                        NPC.velocity *= 0.1f;
+                    }
+
                     if (NPC.localAI[0] >= 180 && NPC.localAI[0] < 330)
                     {   
                         Casting = false;
@@ -396,11 +401,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1, 2);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                    }
-
-                    if (NPC.localAI[0] >= 330)
-                    {
-                        NPC.velocity *= 0.1f;
                     }
 
                     if (NPC.localAI[0] >= 550)
@@ -510,7 +510,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         CurrentFrameX = 0;
                     }
 
-                    if (NPC.localAI[0] < 120)
+                    if (NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = new Vector2(ParentCenter.X, ParentCenter.Y - 150);
 

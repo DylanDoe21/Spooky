@@ -62,8 +62,8 @@ namespace Spooky.Content.Tiles.SpookyHell
 			intensity1 += 0.7f;
             intensity2 += 0.7f;
 
-			Main.spriteBatch.Draw(GlowTexture1.Value, pos + new Vector2(-8, -8), frame, Color.White * intensity1, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(GlowTexture2.Value, pos + new Vector2(-8, -8), frame, Color.White * intensity2, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GlowTexture1.Value, pos + new Vector2(-8, -8), frame, Color.Salmon * intensity1, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(GlowTexture2.Value, pos + new Vector2(-8, -8), frame, Color.Salmon * intensity2, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			//spawn water infront of the wall
 			if ((tile.LiquidAmount == 0 || tile.LiquidType == LiquidID.Water) && !tile.HasTile)
