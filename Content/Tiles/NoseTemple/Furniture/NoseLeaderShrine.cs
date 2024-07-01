@@ -55,7 +55,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 
 		public override bool RightClick(int i, int j)
 		{
-			if (NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>()) || NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()))
+			if (NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeaderIdle>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>()) || NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()) || !Flags.downedMocoIdol6)
 			{
 				return false;
 			}

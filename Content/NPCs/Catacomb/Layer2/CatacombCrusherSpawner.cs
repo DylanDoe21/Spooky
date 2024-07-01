@@ -98,12 +98,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 //spawn the crusher once the ceiling is found
                 case 1: 
                 {
-                    if (NPC.ai[1] < 25)
+                    if (NPC.ai[1] < 18)
                     {
                         NPC.active = false;
                     }
 
-                    if (NPC.ai[1] >= 25)
+                    if (NPC.ai[1] >= 18)
                     {
                         if (Main.rand.NextBool(10))
                         {

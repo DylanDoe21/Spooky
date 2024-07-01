@@ -56,7 +56,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit22 with { Pitch = 0.45f };
 			NPC.DeathSound = SoundID.NPCDeath16;
             NPC.alpha = 255;
@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyHell/MoclingGlow");
 
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
         }

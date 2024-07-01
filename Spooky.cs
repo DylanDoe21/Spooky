@@ -14,7 +14,9 @@ using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
+using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.PandoraBox;
+using Spooky.Content.NPCs.NoseCult;
 
 namespace Spooky
 {
@@ -245,8 +247,8 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
-                //should never occur I think?
-                default:
+				//should never occur I think?
+				default:
                 {
 					Logger.Warn("Spooky Mod: Unknown Message type: " + messageType);
 					break;
@@ -281,5 +283,5 @@ namespace Spooky
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,
-    }
+	}
 }

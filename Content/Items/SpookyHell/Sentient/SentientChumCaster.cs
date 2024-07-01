@@ -33,12 +33,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) 
         {
-			float spreadAmount = 75f; // how much the different bobbers are spread out.
-
-			for (int index = 0; index < 2; ++index) 
+			for (int numBobbers = 0; numBobbers < 2; numBobbers++) 
             {
-				Vector2 bobberSpeed = velocity + new Vector2(Main.rand.NextFloat(-spreadAmount, spreadAmount) * 0.05f, Main.rand.NextFloat(-spreadAmount, spreadAmount) * 0.05f);
-				Projectile.NewProjectile(source, position, bobberSpeed, type, 0, 0f, player.whoAmI, ai2: index);
+				Vector2 bobberSpeed = velocity + (player.direction == -1 ? new Vector2(numBobbers * 3, 0) : new Vector2(-(numBobbers * 3), 0));
+				Projectile.NewProjectile(source, position, bobberSpeed, type, 0, 0f, player.whoAmI, ai2: numBobbers);
 			}
 
 			return false;

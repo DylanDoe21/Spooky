@@ -74,6 +74,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.defense = 0;
             NPC.width = 128;
             NPC.height = 122;
+            NPC.npcSlots = 0f;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
         }
@@ -172,10 +173,12 @@ namespace Spooky.Content.NPCs.EggEvent
                 CombatText.NewText(NPC.getRect(), Color.Magenta, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventWaveComplete"), true);
                 
                 NPC.ai[0] = 420;
-                EggEventWorld.Wave++;
+                
                 SpawnedEnemies = false;
 
-                if (Main.netMode == NetmodeID.Server)
+				EggEventWorld.Wave++;
+
+				if (Main.netMode == NetmodeID.Server)
                 {
                     NetMessage.SendData(MessageID.WorldData);
                 }

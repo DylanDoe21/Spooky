@@ -316,7 +316,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         //chase movement
                         Vector2 GoTo = player.Center;
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 8.5f);
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 5.5f);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
@@ -461,7 +461,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             //chase movement
                             Vector2 GoTo = player.Center;
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 5f);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1, 5);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
 
@@ -826,11 +826,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
             }
-        }
-
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
         }
         
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

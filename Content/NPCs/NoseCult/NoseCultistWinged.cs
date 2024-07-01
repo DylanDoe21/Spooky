@@ -110,7 +110,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-300, 300), ParentCenter.Y - Main.rand.Next(10, 150));
             }
 
-            if (NPC.ai[1] > 5)
+            if (NPC.ai[1] > 5 && NPC.ai[0] < 240)
             {
                 Vector2 GoTo = SavePosition;
 
@@ -120,6 +120,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] >= 240)
             {
+                NPC.velocity *= 0.85f;
+
                 if (NPC.frame.Y == 7 * NPC.height && NPC.ai[2] == 0)
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;

@@ -144,11 +144,13 @@ namespace Spooky.Content.NPCs.PandoraBox
                 if (PandoraBoxWorld.Wave < 4)
                 {
                     NPC.ai[0] = 180;
-                    PandoraBoxWorld.Wave++;
+                    
                     SpawnedEnemies = false;
                     HasDoneSpawnAnimation = false;
 
-                    if (Main.netMode == NetmodeID.Server)
+					PandoraBoxWorld.Wave++;
+
+					if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.WorldData);
                     }

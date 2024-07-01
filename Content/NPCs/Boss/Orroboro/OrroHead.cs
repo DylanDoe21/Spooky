@@ -281,7 +281,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         Chomp = true;
 
-                        float speed = Enraged ? 9f : 7f;
+                        float speed = Enraged ? 7.5f : 5.5f;
 
                         //chase movement
                         Vector2 GoTo = player.Center;

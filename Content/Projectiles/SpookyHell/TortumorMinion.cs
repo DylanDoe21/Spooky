@@ -127,6 +127,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
 			isAttacking = true;
 
+			Projectile.ai[0]++;
+
 			//idle animation
 			Projectile.frameCounter++;
 			if (Projectile.ai[0] < 30)
@@ -145,7 +147,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			{
 				if (Projectile.ai[0] == 30)
                 {
-                    Projectile.frame = 2;
+                    Projectile.frame = 8;
                 }
 
 				if (Projectile.frameCounter >= 8)
@@ -187,23 +189,18 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.velocity.Y += MoveSpeedY * 0.01f;
 			Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, -MaxSpeed, MaxSpeed);
 
-			Projectile.ai[0]++;
-
-			if (Projectile.ai[0] >= 30)
+			if (Projectile.ai[0] == 80)
 			{
-				if (Projectile.ai[0] == 105)
-				{
-					SoundEngine.PlaySound(SoundID.Item87, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item87, Projectile.Center);
 
-					Vector2 ShootSpeed = target.Center - Projectile.Center;
-					ShootSpeed.Normalize();
-					ShootSpeed *= 25f;
-							
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<TortumorMinionOrb>(), Projectile.damage, 1f, Main.myPlayer, Main.rand.Next(0, 2));
-				}
+				Vector2 ShootSpeed = target.Center - Projectile.Center;
+				ShootSpeed.Normalize();
+				ShootSpeed *= 25f;
+						
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<TortumorMinionOrb>(), Projectile.damage, 1f, Main.myPlayer, Main.rand.Next(0, 2));
 			}
 
-			if (Projectile.ai[0] >= 120)
+			if (Projectile.ai[0] >= 100)
 			{
 				Projectile.ai[0] = 0;
 			}

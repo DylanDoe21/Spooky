@@ -1,13 +1,10 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Localization;
-using Terraria.Chat;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -96,7 +93,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
 				float divide = 0.05f;
 
-				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.PandoraBoxBarProgress") + (Wave + 1);
+				string ProgressText = Language.GetTextValue("Mods.Spooky.UI.PandoraBox.PandoraBoxBarProgress") + (Wave + 1);
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
@@ -113,7 +110,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 				int descOffset = (descBackground.Height - (int)(32f * Scale)) / 2;
 				var icon = new Rectangle(descBackground.X + descOffset + 7, descBackground.Y + descOffset, (int)(32 * Scale), (int)(32 * Scale));
 				spriteBatch.Draw(EventIcon, icon, Color.White);
-				Utils.DrawBorderString(spriteBatch, Language.GetTextValue("Mods.Spooky.EventsAndBosses.PandoraBoxBarDisplayName"), new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
+				Utils.DrawBorderString(spriteBatch, Language.GetTextValue("Mods.Spooky.UI.PandoraBox.PandoraBoxBarDisplayName"), new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
 			}
 		}
 	}

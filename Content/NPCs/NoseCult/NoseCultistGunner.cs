@@ -148,7 +148,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     {
                         int ShootSpeedX = NPC.direction == -1 ? Main.rand.Next(-7, -4) : Main.rand.Next(5, 8);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 6, ShootSpeedX, Main.rand.Next(-4, 0), ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 6, ShootSpeedX, Main.rand.Next(-4, 0), ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
                     }
 
                     NPC.localAI[2]++;
@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 }
             }
 
-            if (NPC.frame.Y > 12 * NPC.height)
+            if (NPC.frame.Y >= 12 * NPC.height)
             {
                 NPC.frame.Y = 0;
 

@@ -325,12 +325,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-8, 8);
 
-                        int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
+                        int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 3, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
                         Main.gore[Steam1].velocity.X *= 0f;
                         Main.gore[Steam1].velocity.Y *= -2f;
                         Main.gore[Steam1].alpha = 125;
 
-                        int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 40, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
+                        int Steam2 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 34, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
                         Main.gore[Steam2].velocity.X *= 0f;
                         Main.gore[Steam2].velocity.Y *= -2f;
                         Main.gore[Steam2].alpha = 125;

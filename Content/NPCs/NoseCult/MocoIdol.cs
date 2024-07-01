@@ -133,7 +133,7 @@ namespace Spooky.Content.NPCs.NoseCult
 		}
 
         //check if any player is in the range to activate the range
-        public bool AllPlayersInRange()
+        public bool AnyPlayersInRange()
         {
             Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
 
@@ -170,8 +170,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public bool AnyPlayersInBiome()
         {
-            Rectangle CollisionRectangle = new Rectangle((int)NPC.Center.X - 525, (int)NPC.Center.Y - 180, 1050, 300);
-
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
@@ -202,7 +200,7 @@ namespace Spooky.Content.NPCs.NoseCult
             AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || 
             NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>());
 
-            if (AllPlayersInRange())
+            if (AnyPlayersInRange() && NPC.ai[1] == 0)
             {
                 //activate every single nose cultist attatched to this altar
                 NPC.ai[1] = 1;
@@ -213,13 +211,23 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     NetMessage.SendData(MessageID.WorldData);
                 }
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[1] > 0 && NoseCultAmbushWorld.AmbushActive)
 			{
+                //make sure the event doesnt end unless no players are in the biome
                 if (!AnyPlayersInBiome())
                 {
-                    NPC.active = false;
+					NoseCultAmbushWorld.AmbushActive = false;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+
+					NPC.active = false;
                 }
 
                 if (!AnyCultistsExist)

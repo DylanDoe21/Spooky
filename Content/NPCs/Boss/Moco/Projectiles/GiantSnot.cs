@@ -6,6 +6,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 {
     public class GiantSnot : ModProjectile
@@ -45,13 +47,13 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                float scale = 1f * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(Color.DarkGreen) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
-            Main.EntitySpriteDraw(ProjTexture.Value, RealDrawPos, rectangle, Projectile.GetAlpha(Color.Lime * 0.5f), Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, RealDrawPos, rectangle, Projectile.GetAlpha(Color.Lime * 0.5f), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
         }
@@ -101,16 +103,41 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             {
                 Projectile.alpha -= 20;
             }
+
+            if (Projectile.ai[0] > 0 && Projectile.timeLeft <= 85)
+            {
+                //make the mocling scale up and down rapidly
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] < 2)
+                {
+                    Projectile.scale -= 0.5f;
+                }
+                if (Projectile.ai[1] >= 2)
+                {
+                    Projectile.scale += 0.5f;
+                }
+                
+                if (Projectile.ai[1] > 4)
+                {
+                    Projectile.ai[1] = 0;
+                    Projectile.scale = 1f;
+                }
+            }
         }
 
 		public override void OnKill(int timeLeft)
 		{
             if (Projectile.ai[0] > 0)
             {
-                //spawn projectiles here
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, Projectile.Center);
 
-                //debug text for now
-                Main.NewText("BOOOM!!!", Color.Green);
+                SpookyPlayer.ScreenShakeAmount = 8;
+
+                for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+			    {
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-7, -3)), ModContent.ProjectileType<LingeringSnotBall>(), Projectile.damage, 0, Main.myPlayer);
+                }
             }
 
 			for (int numDusts = 0; numDusts < 20; numDusts++)

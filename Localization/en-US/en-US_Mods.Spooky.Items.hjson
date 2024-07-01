@@ -1131,6 +1131,15 @@ VampireGummy: {
 		'''
 }
 
+SnotWings: {
+	DisplayName: Snot Bug Wings
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		'Gross...'
+		'''
+}
+
 BatBlood: {
 	DisplayName: Bat Blood
 	Tooltip: Summons a creepy bat

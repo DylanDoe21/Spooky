@@ -1,16 +1,12 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Localization;
-using Terraria.Chat;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Biomes;
 
 namespace Spooky.Content.NPCs.EggEvent
@@ -26,10 +22,32 @@ namespace Spooky.Content.NPCs.EggEvent
 			EggEventActive = false;
 		}
 
-        public override void PostUpdateEverything()
+		public bool AnyPlayersInBiome()
+		{
+			for (int i = 0; i < Main.maxPlayers; i++)
+			{
+				Player player = Main.player[i];
+
+				int playerInBiomeCount = 0;
+
+				if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				{
+					playerInBiomeCount++;
+				}
+
+				if (playerInBiomeCount >= 1)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public override void PostUpdateEverything()
 		{
 			//end the event and reset everything if you die, or if you leave the valley of eyes
-			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (!AnyPlayersInBiome())
 			{
 				Wave = 0;
 				EggEventActive = false;
@@ -76,7 +94,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 				float divide = 0.1f;
 
-				string ProgressText = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarProgress") + (Wave + 1);
+				string ProgressText = Language.GetTextValue("Mods.Spooky.UI.EggEvent.EggEventBarProgress") + (Wave + 1);
 				Utils.DrawBorderString(spriteBatch, ProgressText, new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + 5), Color.White, Scale, 0.5f, -0.1f);
 				Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(ProgressBackground.Center.X, ProgressBackground.Y + ProgressBackground.Height * 0.75f), TextureAssets.ColorBar.Size());
 
@@ -93,7 +111,7 @@ namespace Spooky.Content.NPCs.EggEvent
 				int descOffset = (descBackground.Height - (int)(32f * Scale)) / 2;
 				var icon = new Rectangle(descBackground.X + descOffset + 7, descBackground.Y + descOffset, (int)(32 * Scale), (int)(32 * Scale));
 				spriteBatch.Draw(EventIcon, icon, Color.White);
-				Utils.DrawBorderString(spriteBatch, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBarDisplayName"), new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
+				Utils.DrawBorderString(spriteBatch, Language.GetTextValue("Mods.Spooky.UI.EggEvent.EggEventBarDisplayName"), new Vector2(barrierBackground.Center.X, barrierBackground.Y - InternalOffset - descSize.Y * 0.5f), Color.White, 0.8f, 0.3f, 0.4f);
 			}
 		}
 	}

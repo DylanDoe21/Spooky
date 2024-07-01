@@ -186,7 +186,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         }
                     }
 
-                    SpinningStateTimer += 1f;
+                    SpinningStateTimer += 0.75f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 
@@ -196,7 +196,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         offsetFromPlayer.Y *= 1f;
                     }
 
-					offsetFromPlayer.X *= 1.2f;
+					offsetFromPlayer.X *= 1f;
                     if (offsetFromPlayer.X * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.X *= 1f;
