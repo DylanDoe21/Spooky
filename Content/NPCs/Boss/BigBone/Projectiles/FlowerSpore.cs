@@ -2,25 +2,19 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 { 
     public class FlowerSpore : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
+		bool runOnce = true;
+		Vector2[] trailLength = new Vector2[10];
 
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
+		private static Asset<Texture2D> TrailTexture;
 		
         public override void SetDefaults()
         {
@@ -34,73 +28,72 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.alpha = 255;
 		}
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-            return true;
-        }
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        const int TrailLength = 5;
+				float max = betweenPositions.Length() / (4 * scale);
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            cache.Add(Projectile.Center);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, Color.Orange, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
+				}
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+				previousPosition = currentPos;
+			}
 
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 6, factor =>
-            {
-                return Color.Lerp(Color.Red, Color.Tomato, factor.X) * factor.X * 2;
-            });
+			return true;
+		}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
-		
 		public override void AI()
         {
             Lighting.AddLight(Projectile.Center, 0.5f, 0.25f, 0f);
 
-            if (Projectile.alpha > 0)
+			if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
+
+			if (Projectile.alpha > 0)
 			{
 				Projectile.alpha -= 5;
 			}
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
 
             Projectile.localAI[0]++;
             

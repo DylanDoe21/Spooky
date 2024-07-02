@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 7;
+            Main.projFrames[Projectile.type] = 9;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -72,7 +72,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
             if (Projectile.ai[0] == 1)
             {
-                Vector2 GoTo = player.Center + new Vector2(Main.rand.Next(-50, 51), Main.rand.Next(-50, -100));
+                Vector2 GoTo = player.Center + new Vector2(Main.rand.Next(-50, 51), Main.rand.Next(-100, -50));
 
                 if (Projectile.Distance(GoTo) >= 200f)
                 { 

@@ -783,7 +783,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
-                    if (NPC.localAI[0] >= 165)
+                    if (NPC.localAI[0] >= 200)
                     {
                         if (Main.rand.NextBool(3))
                         {
@@ -903,8 +903,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                         Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-                                        ModContent.ProjectileType<BigBoneThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BigBoneThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                                     }
                                 }
                             }

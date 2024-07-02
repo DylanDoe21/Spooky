@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
         private static Asset<Texture2D> ProjTexture;
 
-        public static readonly SoundStyle BiteSound = new("Spooky/Content/Sounds/Bite", SoundType.Sound) { PitchVariance = 0.7f };
+        public static readonly SoundStyle BiteSound = new("Spooky/Content/Sounds/Bite", SoundType.Sound) { PitchVariance = 0.7f, Volume = 0.5f };
 
         public override void SetStaticDefaults()
         {

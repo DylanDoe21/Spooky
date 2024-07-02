@@ -119,7 +119,7 @@ Weapons & Gear:
 -Changed totally legal shotguns rarity color from light red to light orange to properly reflect its tier in progression
 -Buffed all of the prehardmode sentient weapons base damage due to moco being moved to post-skeletron in progression
 -Massively increased the speed at which the samson's cuff projectile homes in on an enemy
--Necronomicon skulls now create gores when they die instead of fading away
+-Necronomicon skulls now create gores when they die instead of fading away, and their chomping sound now plays with lower volume
 -Gore staff damage buffed, and the tortumor minions now have new behavior to match the new red tortumor enemies behavior
 -Reduced the amount of screenshake cause by the skull smasher hitting enemies
 
@@ -139,6 +139,7 @@ Enemy & Boss Changes:
 -Reduced boros short lunge dash attack speed a bit
 -Boro will now emerge out of the ground to the side of the player after using its flesh spine attack to prevent players from getting hit unfairly (similarly to the phase 1 flesh spine attack)
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
+-Massively improved the visual effect for orro's and boro's enrage auras and also changed the way the worms themselves are drawn so their heads and other segments arent weirdly off-center
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
