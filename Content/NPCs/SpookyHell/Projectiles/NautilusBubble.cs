@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.DeepPink);
+                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Red);
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
@@ -140,7 +140,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Magenta);
+                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Purple);
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
@@ -155,6 +155,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 
             SpookyPlayer.ScreenShakeAmount = 2;
 

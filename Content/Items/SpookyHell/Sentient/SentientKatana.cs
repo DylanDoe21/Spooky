@@ -14,14 +14,14 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 35;
 			Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
 			Item.autoReuse = true;
             Item.width = 50;
             Item.height = 64;
-            Item.useTime = 20;
-			Item.useAnimation = 20;
+            Item.useTime = 18;
+			Item.useAnimation = 18;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
             Item.rare = ModContent.RarityType<SentientRarity>();

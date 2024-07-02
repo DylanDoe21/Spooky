@@ -1,4 +1,3 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,8 +5,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -48,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.height = 60;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 1, 75);
+            NPC.value = Item.buyPrice(0, 0, 3, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };
@@ -81,7 +78,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 //frame when falling/jumping
                 if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
                 {
-                    NPC.frame.Y = 2 * frameHeight;
+                    NPC.frame.Y = 5 * frameHeight;
                 }
             }
             //attacking frames
@@ -108,15 +105,13 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.spriteDirection = NPC.direction;
 
-            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 30 / 2 : 20;
-
             switch ((int)NPC.localAI[0])
             {
                 case 0:
                 {
                     if (player.Distance(NPC.Center) <= 300f || NPC.localAI[1] >= 120)
                     {
-                        NPC.localAI[1]++;
+                        //NPC.localAI[1]++;
                     }
 
                     if (NPC.localAI[1] < 180)
@@ -196,17 +191,15 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerGore" + numGores).Type);
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerCloth1").Type);
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidPyromancerCloth3").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidGlyphomancerGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidNecromancerCloth" + Main.rand.Next(2, 4)).Type);
                     }
                 }
             }
         }
     }
 }
-*/

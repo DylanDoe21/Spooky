@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.NoseTemple;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -642,6 +643,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SnotWings>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CottonSwab>()));
         }
 

@@ -5,7 +5,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
@@ -45,7 +44,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 			NPC.height = 56;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
-            NPC.value = Item.buyPrice(0, 0, 1, 75);
+            NPC.value = Item.buyPrice(0, 0, 3, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 3;

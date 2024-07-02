@@ -45,7 +45,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6.28318548f)) / 2f + 0.5f;
+                float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
                 for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
                 {
@@ -79,16 +79,6 @@ namespace Spooky.Content.Projectiles.Sentient
 		
 		public override void AI()
         {
-            if (Projectile.timeLeft <= 60)
-            {
-                Projectile.alpha += 5;
-
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.Kill();
-                }
-            }
-
             if (IsStickingToTarget) 
             {
                 Projectile.frame = 3;
@@ -133,5 +123,18 @@ namespace Spooky.Content.Projectiles.Sentient
                 }
 			}
 		}
+
+        public override void OnKill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.NPCHit2, Projectile.Center);
+
+            for (int numGores = 1; numGores <= 2; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.Find<ModGore>("Spooky/SentientSkullGore" + numGores).Type);
+                }
+            }
+        }
     }
 }

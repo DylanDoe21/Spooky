@@ -189,7 +189,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.velocity.Y += MoveSpeedY * 0.01f;
 			Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, -MaxSpeed, MaxSpeed);
 
-			if (Projectile.ai[0] == 80)
+			if (Projectile.ai[0] == 60)
 			{
 				SoundEngine.PlaySound(SoundID.Item87, Projectile.Center);
 
@@ -200,7 +200,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<TortumorMinionOrb>(), Projectile.damage, 1f, Main.myPlayer, Main.rand.Next(0, 2));
 			}
 
-			if (Projectile.ai[0] >= 100)
+			if (Projectile.ai[0] >= 80)
 			{
 				Projectile.ai[0] = 0;
 			}

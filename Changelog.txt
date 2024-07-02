@@ -6,6 +6,7 @@ Eye Valley Improvements:
 -Changed the terrain generation to be more rough looking, making it more interesting and natural
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
+-Added many new ambient structures that spawn in the biome to make it more visually interesting
 -Made eye stalk trees grow way more frequently in the biome during world generation
 -Added a new giant house/lab structure where little eye lives
 -Added new improved sprites for all the eye valley enemies, and re-did all of their animations to be smoother and more detailed
@@ -16,13 +17,19 @@ Eye Valley Improvements:
 
 New Nose Dungeon:
 
--A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited with strange cultists
+-A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited by strange cultists
 -Found at the very edge of the biome is a large broken temple with a brand new fancy looking statue used to summon moco
 -The entrance of the dungeon is blocked off by a locked trapdoor, which can only be opened with a shadow key
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other combat rooms
 -At the end of the last room, you can enter a funny fire exit tunnel to backtrack to the entrance, where the barrier previously blocking the opposite side is now opened
 -This newly opened hallway takes you to a giant arena where you will fight a new mini-boss
 -While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
+
+
+Moco Rework:
+
+-Moco has new AI now because his fight was very old and outdated compared to every other spooky mod boss so we took the opportunity to update it
+-To keep it a surprise, you will have to fight moco in game to find out what its like
 
 
 Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
@@ -110,6 +117,11 @@ Weapons & Gear:
 -Cross charm now gives you 15 defense while active instead of increasing your damage reduction
 -Glass pyramid now gives you 40% damage reduction for 3 hits instead of increasing your defense
 -Changed totally legal shotguns rarity color from light red to light orange to properly reflect its tier in progression
+-Buffed all of the prehardmode sentient weapons base damage due to moco being moved to post-skeletron in progression
+-Massively increased the speed at which the samson's cuff projectile homes in on an enemy
+-Necronomicon skulls now create gores when they die instead of fading away
+-Gore staff damage buffed, and the tortumor minions now have new behavior to match the new red tortumor enemies behavior
+-Reduced the amount of screenshake cause by the skull smasher hitting enemies
 
 
 Enemy & Boss Changes:

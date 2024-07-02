@@ -67,7 +67,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
-			if (player.channel && Projectile.ai[2] == 0) 
+			if (player.channel && Projectile.ai[2] == 0)
             {
                 Projectile.timeLeft = 30;
 

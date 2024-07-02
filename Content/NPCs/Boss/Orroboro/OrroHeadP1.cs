@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 
@@ -129,6 +130,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.frame.Y = frameHeight * 0;
                 }
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            
+            return false;
         }
 
         //rotate the bosses map icon to the NPCs direction
@@ -316,7 +324,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         //chase movement
                         Vector2 GoTo = player.Center;
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 5.5f);
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 7f);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 

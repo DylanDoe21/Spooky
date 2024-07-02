@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using System.Linq;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Generation;
-using Spooky.Content.Projectiles.Sentient;
 
 namespace Spooky.Core
 {

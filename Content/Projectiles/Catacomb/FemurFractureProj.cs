@@ -66,7 +66,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(Color.Lime) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale * 1.2f, effects, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale, effects, 0);
             }
 
             return true;
@@ -114,8 +114,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{
-                int dustGore = Dust.NewDust(target.Center, target.width / 2, target.height / 2, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 1.5f);
-                Main.dust[dustGore].color = Color.Lime;
+                int dustGore = Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, Color.Lime, 1.5f);
                 Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
                 Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
                 Main.dust[dustGore].scale = 0.25f;

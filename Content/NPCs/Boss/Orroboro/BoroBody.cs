@@ -12,30 +12,40 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         private static Asset<Texture2D> NPCTexture;
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
-            {
-                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Red) * 0.5f;
+			if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
+			{
+				for (int i = 0; i < 360; i += 30)
+				{
+                    Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
-                for (int numEffect = 0; numEffect < 4; numEffect++)
-                {
-                    Color newColor = color;
-                    newColor = NPC.GetAlpha(newColor);
-                    newColor *= 1f;
-                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 4 * 6 + NPC.rotation + 0f).ToRotationVector2() * 6f - Main.screenPosition + new Vector2(0, NPC.gfxOffY) - NPC.velocity * numEffect;
-                    Main.EntitySpriteDraw(NPCTexture.Value, vector, NPC.frame, newColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.5f, SpriteEffects.None, 0);
-                }
-            }
+					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
+					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+				}
+			}
 
-            return true;
-        }
-    }
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+
+			return false;
+		}
+	}
 
     public class BoroBodyP1 : OrroBodyP1
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroBody";
-    }
+
+		private static Asset<Texture2D> NPCTexture;
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+
+			return false;
+		}
+	}
 }

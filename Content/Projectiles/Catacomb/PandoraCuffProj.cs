@@ -108,7 +108,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.timeLeft = 300;
 
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 70;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 			}
 		}

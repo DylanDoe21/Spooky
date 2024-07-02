@@ -153,7 +153,7 @@ namespace Spooky.Core
 				"LogBoss", 
 				Mod,
 				nameof(Moco),
-				4.01f,
+				5.01f,
 				() => Flags.downedMoco,
 				ModContent.NPCType<Moco>(),
 				new Dictionary<string, object>() 

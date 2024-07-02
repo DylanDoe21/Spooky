@@ -16,22 +16,22 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 38;
             Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
             Item.noMelee = true;
             Item.width = 50;
             Item.height = 56;
-            Item.useTime = 25;
-			Item.useAnimation = 25;
+            Item.useTime = 42;
+			Item.useAnimation = 42;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 8);
             Item.UseSound = SoundID.Item8;
             Item.shoot = ModContent.ProjectileType<SentientSkull>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 15f;
         }
 
         public override Vector2? HoldoutOffset()
