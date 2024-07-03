@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
     public class ChlorophyllFlower : ModProjectile
     {
         int target;
-        
-        private List<Vector2> cache;
-        private Trail trail;
 
-        public override void SetDefaults()
+		bool runOnce = true;
+		Vector2[] trailLength = new Vector2[10];
+
+		private static Asset<Texture2D> TrailTexture;
+
+		public override void SetDefaults()
 		{
 			Projectile.width = 20;                   			 
             Projectile.height = 24;     
@@ -27,58 +30,48 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
             Projectile.timeLeft = 180;
 		}
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				Color color = Color.Lerp(Color.Green, Color.Lime, scale);
 
-            return true;
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-        const int TrailLength = 22;
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				float max = betweenPositions.Length() / (4 * scale);
 
-            cache.Add(Projectile.Center);
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
+				}
 
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 3 * factor, factor =>
-            {
-                return Color.Lerp(Color.Green, Color.Lime, factor.X) * factor.X;
-            });
+				previousPosition = currentPos;
+			}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
+			return true;
+		}
 
 		public override void AI()
         {
@@ -87,13 +80,24 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
             Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0f);
 
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+			if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
 
-            Projectile.ai[0]++;
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
+
+			Projectile.ai[0]++;
 
             if (Projectile.ai[0] < 50)
             {
