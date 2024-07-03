@@ -418,7 +418,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
 
                     //turn around after vertically passing the player
-                    if (NPC.localAI[0] >= 90 && NPC.localAI[0] <= 145)
+                    if (NPC.localAI[0] >= 90 && NPC.localAI[0] <= 150)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                         while (angle > Math.PI)
@@ -439,12 +439,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * NPC.localAI[1]);
                     }
 
-                    if (NPC.localAI[0] > 145)
+                    if (NPC.localAI[0] > 150)
                     {
                         NPC.velocity *= 0.8f;
                     }
 
-                    if (NPC.localAI[0] > 150)
+                    if (NPC.localAI[0] > 160)
                     {
                         OpenMouth = false;
 

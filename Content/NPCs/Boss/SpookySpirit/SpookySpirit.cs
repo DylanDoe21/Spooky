@@ -55,6 +55,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             new Color(148, 80, 0)
         };
 
+        private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> AuraTexture;
         private static Asset<Texture2D> EyeTexture1;
         private static Asset<Texture2D> EyeTexture2;
@@ -171,6 +172,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //draw aura
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
             AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritAura");
 
             Vector2 drawOrigin = new(AuraTexture.Width() * 0.5f, NPC.height * 0.5f);
@@ -197,7 +199,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 Color newColor = color;
                 newColor = NPC.GetAlpha(newColor);
                 newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 2 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
+                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 2 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
                 Main.EntitySpriteDraw(AuraTexture.Value, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
             }
             

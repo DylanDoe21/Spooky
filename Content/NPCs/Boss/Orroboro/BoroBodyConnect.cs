@@ -2,13 +2,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
 {
     public class BoroBodyConnect : ModNPC
     {
+        private static Asset<Texture2D> NPCTexture;
+
         public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
@@ -56,6 +60,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.frame.Y = 0;
             }
         }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+
+			return false;
+		}
 
         public override bool PreAI()
         {   
