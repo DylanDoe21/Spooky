@@ -77,14 +77,14 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
         {
             if (NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()))
             {
-                return true;
+                return false;
             }
 
             for (int k = 0; k < Main.projectile.Length; k++)
             {
                 if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<SpookySpiritSpawn>())
                 {
-                    return true;
+                    return false;
                 }
             }
 

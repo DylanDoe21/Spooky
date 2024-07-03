@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 LaserScale = 0.1f;
             }
 
-            Vector2 LaserOrigin = new(Parent.Center.X + (Parent.direction == -1 ? -45 : 45), Parent.Center.Y + 10);
+            Vector2 LaserOrigin = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -45 : 45), Parent.Center.Y + 10);
             Projectile.Center = LaserOrigin;
 
             if (Projectile.timeLeft > 10)

@@ -1,11 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-
-using Spooky.Core;
+using System;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
@@ -13,13 +12,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
     {
         int target;
 
-		private List<Vector2> cache;
-        private Trail trail;
+		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> EyeTexture;
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 		
         public override void SetDefaults()
@@ -35,56 +34,26 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
         {
-            //draw prim trail
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			EyeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/Projectiles/PhantomBombGlow");
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.01f);
-            effect.Parameters["repeats"].SetValue(1);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-            trail?.Render(effect);
+            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale + (fade / 2), effects, 0);
+				Main.EntitySpriteDraw(EyeTexture.Value, drawPos, rectangle, Color.White * 0.5f, Projectile.oldRot[oldPos], drawOrigin, scale + (fade / 2), effects, 0);
+            }
 
             return true;
-        }
-
-		const int TrailLength = 15;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 8 * factor, factor =>
-            {
-                return (Flags.RaveyardHappening ? Color.Lerp(Color.Green, Color.Cyan, factor.X) : Color.Lerp(Color.Gray, new Color(60, 42, 255), factor.X)) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 		
 		public override void AI()
@@ -100,12 +69,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             }
 
             Projectile.velocity *= 0.985f;
-
-			if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
 
             Projectile.ai[0]++;
             if (Projectile.ai[0] > 0 && Projectile.ai[0] < 50)

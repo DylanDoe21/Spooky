@@ -44,9 +44,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             float num741 = Main.player[NPC.target].Center.Y - vector92.Y;
             NPC.rotation = (float)Math.Atan2((double)num741, (double)num740) + 4.71f;
 
-            NPC parent = Main.npc[(int)NPC.ai[0]];
+            NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-            if (!parent.active)
+            if (!Parent.active)
             {
                 NPC.active = false;
             }
@@ -59,8 +59,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             NPC.ai[1] += 2f;
             int distance = 165;
             double rad = NPC.ai[1] * (Math.PI / 180);
-            NPC.position.X = parent.Center.X - (int)(Math.Cos(rad) * distance) - NPC.width / 2;
-            NPC.position.Y = parent.Center.Y - (int)(Math.Sin(rad) * distance) - NPC.height / 2;
+            NPC.position.X = Parent.Center.X - (int)(Math.Cos(rad) * distance) - NPC.width / 2;
+            NPC.position.Y = Parent.Center.Y - (int)(Math.Sin(rad) * distance) - NPC.height / 2;
 
             //shoot itself as a projectile
             NPC.ai[2]++;
@@ -68,10 +68,13 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             if (NPC.ai[2] >= 45)
             {
                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
-                float rotation = (float)Math.Atan2(NPC.Center.Y - player.Center.Y, NPC.Center.X - player.Center.X);
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, (float)((Math.Cos(rotation) * 3.8f) * -1),
-                (float)((Math.Sin(rotation) * 3.8f) * -1), ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage / 2, 0f, Main.myPlayer);
+                Vector2 ShootSpeed = Parent.Center - NPC.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed.X *= -Main.rand.NextFloat(2f, 4f);
+                ShootSpeed.Y *= -Main.rand.NextFloat(2f, 4f);
+
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage / 2, 0f, Main.myPlayer);
 
                 NPC.active = false;
             }

@@ -601,8 +601,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 float amount = NPC.direction == -1 ? NPC.localAI[2] - 7.2f / 2 : -(NPC.localAI[2] - 8.8f / 2);
                                 Vector2 ShootSpeed = new Vector2(projSpeed.X, projSpeed.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, amount));
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                                ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
+                                Vector2 ProjectileShootPos = new Vector2(NPC.Center.X + (NPC.direction == -1 ? -45 : 45), NPC.Center.Y + 10);
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectileShootPos, ShootSpeed, ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
                             }
 
                             if (NPC.localAI[0] > 180)
