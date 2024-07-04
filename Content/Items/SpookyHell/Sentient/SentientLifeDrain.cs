@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void SetDefaults()
         {
             Item.damage = 35;
-            Item.mana = 10;
+            Item.mana = 20;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
             Item.noMelee = true;
@@ -54,14 +54,13 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                     {
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, npc.Center);
 
-                        Projectile.NewProjectile(source, newPosition.X, newPosition.Y, 0, 0, Main.rand.Next(Types), damage, knockback, player.whoAmI);
+                        Projectile.NewProjectile(source, newPosition, Vector2.Zero, Main.rand.Next(Types), damage, knockback, player.whoAmI);
                     }
                 }
             }
             else
             {
-                Projectile.NewProjectile(source, player.Center.X, player.Center.Y, 0, 0, 
-                ModContent.ProjectileType<SoulDrainShockwave>(), damage * 3, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, Vector2.Zero, ModContent.ProjectileType<SoulDrainShockwave>(), damage * 3, knockback, player.whoAmI);
 
                 player.GetModPlayer<SpookyPlayer>().SoulDrainCharge = 0;
             }

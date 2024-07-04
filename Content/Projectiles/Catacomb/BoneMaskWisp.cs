@@ -12,6 +12,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 	{
         private static Asset<Texture2D> AfterImageTexture;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+        }
+
         public override void SetDefaults()
 		{
 			Projectile.width = 24;

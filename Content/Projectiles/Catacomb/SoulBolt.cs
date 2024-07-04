@@ -46,6 +46,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				scale *= 1f;
 
                 Color color = Color.Lerp(Color.White, Color.Cyan, scale);
+                color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -254,22 +255,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             return selectedTarget;
         }
-
-		public override void OnKill(int timeLeft)
-		{
-            for (int numDust = 0; numDust < 20; numDust++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.UltraBrightTorch, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                
-				if (Main.dust[dust].position != Projectile.Center)
-                {
-				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-                }
-			}
-		}
     }
 }
      

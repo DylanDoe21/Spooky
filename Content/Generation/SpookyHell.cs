@@ -357,7 +357,7 @@ namespace Spooky.Content.Generation
 
             int WaterHeightLimit = Main.maxTilesY - 50;
 
-            //first do an upward check to see how high the terrain is at the position where the blood lake will generate
+            //first do an upward check to see how high the terrain is at the position where the blood lake will generate so that the water level is adjusted with the terrain
             while (!foundValidPosition && attempts++ < 100000)
             {
                 while (WorldGen.SolidTile(origin.X, WaterHeightLimit))
@@ -366,7 +366,7 @@ namespace Spooky.Content.Generation
                 }
                 if (!WorldGen.SolidTile(origin.X, WaterHeightLimit))
                 {
-                    WaterHeightLimit += 10;
+                    WaterHeightLimit += 12;
                     foundValidPosition = true;
                 }
             }
