@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class OldHunterMagicBolt : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[5];
 

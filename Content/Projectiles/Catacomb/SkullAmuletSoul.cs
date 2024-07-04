@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 {
     public class SkullAmuletSoul : ModProjectile
     {
+		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
 
@@ -18,8 +20,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 18;
+            Projectile.width = 14;
+            Projectile.height = 14;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 75;

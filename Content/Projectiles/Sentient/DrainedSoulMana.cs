@@ -11,6 +11,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class DrainedSoulMana : ModProjectile
     {
+		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
 

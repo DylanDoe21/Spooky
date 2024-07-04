@@ -52,7 +52,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.tileCollide = false;
 
                 int npcTarget = (int)Projectile.ai[1];
-                if (npcTarget < 0 || npcTarget >= 200) 
+                if (npcTarget < 0 || npcTarget >= 200)
                 {
                     Projectile.Kill();
                 }

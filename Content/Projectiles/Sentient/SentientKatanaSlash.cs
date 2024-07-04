@@ -9,6 +9,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class SentientKatanaSlash : ModProjectile
     {
+		public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
 

@@ -9,6 +9,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class MassiveFlameBallBolt : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[10];
 

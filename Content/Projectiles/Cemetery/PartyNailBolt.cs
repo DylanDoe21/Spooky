@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PartyNailBolt : ModProjectile
     {
+		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[10];
 

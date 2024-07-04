@@ -1131,6 +1131,25 @@ VampireGummy: {
 		'''
 }
 
+SnotArrow: {
+	DisplayName: Snot Arrow
+	Tooltip: Bounces off of solid surfaces
+}
+
+SnotBullet: {
+	DisplayName: Mucus Bullet
+	Tooltip: Ricochets to another nearby enemy when it hits an enemy
+}
+
+SnotRocket: {
+	DisplayName: Snot Rocket
+	Tooltip:
+		'''
+		Accelerates rapidly as it travels
+		Explodes into lingering snot on direct enemy hits
+		'''
+}
+
 SnotWings: {
 	DisplayName: Snot Bug Wings
 	Tooltip:

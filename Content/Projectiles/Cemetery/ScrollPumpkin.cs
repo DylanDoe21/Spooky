@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 	public class ScrollPumpkin : ModProjectile
     {   
         bool runOnce = true;
-		Vector2[] trailLength = new Vector2[7];
+		Vector2[] trailLength = new Vector2[10];
 
 		private static Asset<Texture2D> TrailTexture;
 
@@ -44,7 +44,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 				return false;
 			}
 
-			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailCircle");
 
 			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
 			Vector2 previousPosition = Projectile.Center;

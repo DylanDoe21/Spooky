@@ -38,7 +38,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				return false;
 			}
 
-			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailCircle");
 
 			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
