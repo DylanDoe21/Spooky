@@ -39,20 +39,19 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.velocity.X != 0 && Projectile.velocity.Y != 0)
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+
+            var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int numEffect = 0; numEffect < 5; numEffect++)
             {
-                ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-
-                Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
-
-                for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-                {
-                    var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                    Color color = Projectile.GetAlpha(Color.Green) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                    Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                    Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
-                }
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 5 * 6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(-1, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.25f, effects, 0);
             }
 			
             return true;
@@ -134,8 +133,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
                     Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
-                    perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed, ModContent.ProjectileType<SoulSkullBolt>(), Projectile.damage, 0f, Main.myPlayer);
                 }
                 else
                 {
@@ -143,11 +141,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     Vector2 ChargeDirection = target.Center - Projectile.Center;
                     ChargeDirection.Normalize();
-
-                    ChargeDirection.X *= 20;
-                    ChargeDirection.Y *= 20;
-                    Projectile.velocity.X = ChargeDirection.X;
-                    Projectile.velocity.Y = ChargeDirection.Y;
+                    ChargeDirection *= 35;
+                    Projectile.velocity = ChargeDirection;
 
                     Projectile.localAI[1] = 0;
                 }

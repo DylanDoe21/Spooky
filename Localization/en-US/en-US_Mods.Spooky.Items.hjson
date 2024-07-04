@@ -2501,8 +2501,8 @@ CatacombFlooringItem: {
 }
 
 CatacombGrassSeeds: {
-	DisplayName: Catacomb Grass Seeds
-	Tooltip: Plats grass on gray and brown catacomb bricks
+	DisplayName: Catacomb Moss Seeds
+	Tooltip: Plats moss on gray and brown catacomb bricks
 }
 
 GildedBrickItem: {

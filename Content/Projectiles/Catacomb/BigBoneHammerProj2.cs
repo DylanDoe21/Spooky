@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -15,12 +16,11 @@ namespace Spooky.Content.Projectiles.Catacomb
     {
         public override string Texture => "Spooky/Content/Items/Catacomb/BigBoneHammer";
 
-        private List<Vector2> cache;
-        private Trail trail;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -37,68 +37,23 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(3);
-
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            Vector2 drawOrigin = new(tex.Width * 0.5f, Projectile.height * 0.5f);
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Gold);
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Gold) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (tex.Height / Main.projFrames[Projectile.type]) * Projectile.frame, tex.Width, tex.Height / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(tex, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale, effects, 0);
+                Color realColor = Projectile.GetAlpha(color) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, realColor, Projectile.oldRot[oldPos], drawOrigin, scale * 1.2f, effects, 0);
             }
             
             return true;
-        }
-
-        const int TrailLength = 12;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 12 * factor, factor =>
-            {
-                return Color.Lerp(Color.DarkGreen, Color.Gold, factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -124,13 +79,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Player owner = Main.player[Projectile.owner];
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
-            Projectile.rotation += 0.85f * (float)Projectile.direction;
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            Projectile.rotation += 1f * (float)Projectile.direction;
 
             if (!owner.active || owner.dead)
             {

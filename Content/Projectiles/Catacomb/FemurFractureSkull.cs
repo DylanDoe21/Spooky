@@ -1,18 +1,25 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class FemurFractureSkull : ModProjectile
 	{
-        private List<Vector2> cache;
-        private Trail trail;
+        private static Asset<Texture2D> ProjTexture;
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+        }
 
 		public override void SetDefaults()
 		{
@@ -28,55 +35,22 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Lime);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(2);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-            trail?.Render(effect);
-
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                var effects = Projectile.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(color), Projectile.oldRot[oldPos], drawOrigin, scale, effects, 0);
+            }
 
             return true;
-        }
-
-        const int TrailLength = 5;
-
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
-
-            cache.Add(Projectile.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 5, factor =>
-            {
-                return Color.Lerp(Color.Gray, Color.Lime, factor.X) * factor.X * 2;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
 		public override void AI()
@@ -87,12 +61,6 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (Projectile.spriteDirection == 1)
             {
                 Projectile.rotation += MathHelper.Pi;
-            }
-
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
             }
 
             Projectile.ai[0]++;

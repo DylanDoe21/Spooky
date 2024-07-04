@@ -22,10 +22,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         float SaveKnockback;
         bool SavedKnockback = false;
 
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[12];
 
         private static Asset<Texture2D> ProjTexture;
+        private static Asset<Texture2D> TrailTexture;
 
         public override void SetDefaults()
         {
@@ -43,23 +44,50 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.ai[0] > 10)
+            if (runOnce)
+			{
+				return false;
+			}
+
+            if (Projectile.ai[0] > 15)
             {
-                Main.spriteBatch.End();
-                Effect effect = ShaderLoader.GlowyTrail;
+                TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
 
-                Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-                Matrix view = Main.GameViewMatrix.ZoomMatrix;
-                Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+                Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+                Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 50);
+                Vector2 previousPosition = Projectile.Center + offset;
 
-                effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-                effect.Parameters["sampleTexture"].SetValue(ShaderLoader.ShadowTrail.Value);
-                effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-                effect.Parameters["repeats"].SetValue(1);
+                for (int k = 0; k < trailLength.Length; k++)
+                {
+                    float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+                    scale *= 1f + TrailSize;
 
-                trail?.Render(effect);
+                    Color color = Color.Lerp(Color.DarkGray, (Projectile.ai[0] >= 240 ? Color.Lime : Color.Gray), scale);
 
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                    if (trailLength[k] == Vector2.Zero)
+                    {
+                        return false;
+                    }
+
+                    Vector2 drawPos = trailLength[k] - Main.screenPosition;
+                    Vector2 currentPos = trailLength[k];
+                    Vector2 betweenPositions = previousPosition - currentPos;
+
+                    float max = betweenPositions.Length() / (4 * scale);
+
+                    for (int i = 0; i < max; i++)
+                    {
+                        drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
+
+                        //gives the projectile after images a shaking effect
+                        float x = Main.rand.Next(-1, 2) * scale;
+                        float y = Main.rand.Next(-1, 2) * scale;
+
+                        Main.spriteBatch.Draw(TrailTexture.Value, drawPos + new Vector2(x, y), null, color, Projectile.rotation, drawOrigin, scale * 0.45f, SpriteEffects.None, 0f);
+                    }
+
+                    previousPosition = currentPos;
+                }
             }
 
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
@@ -67,44 +95,9 @@ namespace Spooky.Content.Projectiles.Catacomb
             int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
             Rectangle frame = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
 
-            Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Center - new Vector2(0, 0) - Main.screenPosition, frame, 
-            lightColor, Projectile.rotation, new Vector2(0, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, new Vector2(0, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
 
             return false;
-        }
-
-        const int TrailLength = 12;
-
-        private void ManageCaches()
-        {
-            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 48);
-
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center + offset);
-                }
-            }
-
-            cache.Add(Projectile.Center + offset);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => TrailSize * factor, factor =>
-            {
-                return Color.Lerp(Color.DarkGray, (Projectile.ai[0] >= 240 ? Color.Lime : Color.Gray), factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -126,11 +119,23 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player owner = Main.player[Projectile.owner];
 
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+            Vector2 offset = (Projectile.rotation - 0.78f).ToRotationVector2() * (Projectile.width - 50);
+			Vector2 current = Projectile.Center + offset;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
 
             if (!owner.active || owner.dead)
             {
@@ -176,7 +181,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (Projectile.ai[0] < 120)
                 {
                     Speed += 0.0025f;
-                    TrailSize += 0.08f;
+                    TrailSize += 0.005f;
                 }
 
                 //play sound when fully charged
@@ -188,8 +193,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play different sound when super charged
                 if (Projectile.ai[0] == 240)
                 {
-                    TrailSize += 2f;
-
                     SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Volume = SoundID.DD2_DarkMageSummonSkeleton.Volume * 3.5f }, Projectile.Center);
                 }
 

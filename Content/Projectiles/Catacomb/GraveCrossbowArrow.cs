@@ -2,18 +2,19 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class GraveCrossbowArrow : ModProjectile
     {
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[10];
+
+		private static Asset<Texture2D> TrailTexture;
 
         public override void SetStaticDefaults()
         {
@@ -33,57 +34,47 @@ namespace Spooky.Content.Projectiles.Catacomb
         }
 
         public override bool PreDraw(ref Color lightColor)
-        {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/FlowerTrail");
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				Color color = Color.Lerp(Color.DarkGray, Color.White, scale);
 
-            return true;
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-        const int TrailLength = 12;
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				float max = betweenPositions.Length() / (4 * scale);
 
-            cache.Add(Projectile.Center);
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.4f, SpriteEffects.None, 0f);
+				}
 
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new TriangularTip(4), factor => 3 * factor, factor =>
-            {
-                return Color.LightGray * factor.X;
-            });
+				previousPosition = currentPos;
+			}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
+			return true;
+		}
 
         public override void AI()
         {
@@ -92,11 +83,22 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
 
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
         }
 
         public override void OnKill(int timeLeft)

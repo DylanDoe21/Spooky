@@ -122,6 +122,8 @@ Weapons & Gear:
 -Necronomicon skulls now create gores when they die instead of fading away, and their chomping sound now plays with lower volume
 -Gore staff damage buffed, and the tortumor minions now have new behavior to match the new red tortumor enemies behavior
 -Reduced the amount of screenshake cause by the skull smasher hitting enemies
+-Massively buffed the soul skull scepter minions charging speed
+-Slightly increased the thorn daggers base use speed
 
 
 Enemy & Boss Changes:
@@ -139,15 +141,14 @@ Enemy & Boss Changes:
 -Reduced boros short lunge dash attack speed a bit
 -Boro will now emerge out of the ground to the side of the player after using its flesh spine attack to prevent players from getting hit unfairly (similarly to the phase 1 flesh spine attack)
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
--Massively improved the visual effect for orro's and boro's enrage auras and also changed the way the worms themselves are drawn so their heads and other segments arent weirdly off-center
+-Massively improved the visual effect for orro's and boro's enrage auras, and also changed the way the worms themselves are drawn so their heads and other segments arent weirdly off-center
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
 -Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collision issues the old one had)
 -Daffodil now has a new punch attack in phase 2
 -Spooky spirit now has a new beam projectile to fix collision issues the previous one had
--Nerfed spooky spirit's defense from 15 to 8
--Nerfed spooky spirit's health from 3500 to 3000 (this is its base health without any difficulty scaling)
+-Nerfed spooky spirit's base health from 3500 to 3000, and its defense from 15 to 8
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
@@ -157,7 +158,7 @@ Enemy & Boss Changes:
 Miscellaneous:
 
 -Sentient hearts now only require 2 to be researched in journey mode to unlock duplication
--Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up
+-Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
 -The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken

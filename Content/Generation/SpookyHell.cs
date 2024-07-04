@@ -622,8 +622,8 @@ namespace Spooky.Content.Generation
                     //get rid of any other left over lava
                     if (Main.tile[X, Y].LiquidType == LiquidID.Lava && !Main.tile[X, Y].HasTile)
                     {
-                        Tile newTile = Main.tile[X, Y];
-                        newTile.ClearEverything();
+                        Tile tile = Main.tile[X, Y];
+                        tile.ClearEverything();
                     }
 
                     //get rid of random floating singular tiles

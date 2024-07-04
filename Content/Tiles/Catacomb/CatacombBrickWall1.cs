@@ -40,8 +40,8 @@ namespace Spooky.Content.Tiles.Catacomb
             //wall background
             BGTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG");
 
-            float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.025f;
-            float YParallax = (Main.LocalPlayer.Center.Y / 16 - j) * 0.025f;
+            float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.02f;
+            float YParallax = (Main.LocalPlayer.Center.Y / 16 - j) * 0.02f;
 
             Vector2 DrawPosition = (new Vector2(i, j) - new Vector2((1454 / 2) / 16, (576 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
             Vector2 DrawPositionParallax = (new Vector2(i, j) - new Vector2((1454 / 2) / 16 + XParallax, (576 / 2) / 16 + YParallax) + TileOffset) * 16 - Main.screenPosition;

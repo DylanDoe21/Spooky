@@ -2,11 +2,11 @@ Spooky mod is a fairly large mod that adds in new content with the general theme
 
 Currently the mod has:
 
--Four new biomes and a new gigantic underground catacomb to explore
+-Four new biomes and a giant underground structure to explore, all filled with new content
 
 -Six brand new bosses, and three new events (all with boss checklist support!)
 
--Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, and whatever else
+-Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, blocks, and whatever else
 
 -Banger soundtracks for the biomes, events, and bosses
 

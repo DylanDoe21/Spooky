@@ -53,8 +53,8 @@ namespace Spooky.Content.Tiles.Catacomb
             BGRootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/BigBoneArenaRoots");
             BGRootGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/BigBoneArenaRootsGlow");
 
-            float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.025f;
-            float YParallax = (Main.LocalPlayer.Center.Y / 16 - j) * 0.025f;
+            float XParallax = (Main.LocalPlayer.Center.X / 16 - i) * 0.02f;
+            float YParallax = (Main.LocalPlayer.Center.Y / 16 - j) * 0.02f;
 
             Vector2 DrawPosition = (new Vector2(i, j) - new Vector2((1680 / 2) / 16, (1102 / 2) / 16) + TileOffset) * 16 - Main.screenPosition;
             Vector2 DrawPositionParallax = (new Vector2(i, j) - new Vector2((1680 / 2) / 16 + XParallax, (1102 / 2) / 16 + YParallax) + TileOffset) * 16 - Main.screenPosition;
@@ -74,7 +74,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
             for (int X = i * 16 - 700; X <= i * 16 + 700; X += 20)
             {
-                for (int Y = j * 16 - 400; Y <= j * 16 + 500; Y += 20)
+                for (int Y = j * 16 - 400; Y <= j * 16 + 600; Y += 20)
                 {
                     if (!Main.tile[X / 16, Y / 16].HasTile)
                     {

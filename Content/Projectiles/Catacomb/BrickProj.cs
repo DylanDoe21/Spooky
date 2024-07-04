@@ -51,5 +51,16 @@ namespace Spooky.Content.Projectiles.Catacomb
                 }
             }
         }
+
+        public override void OnKill(int timeLeft)
+		{
+            for (int numGores = 1; numGores <= 2; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.Find<ModGore>("Spooky/BrickGore" + numGores).Type);
+                }
+            }
+        }
     }
 }
