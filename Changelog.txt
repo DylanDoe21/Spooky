@@ -101,7 +101,8 @@ Weapons & Gear:
 
 -Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
 -Living flesh armor set bonus changed, you now have a chance to spawn eye projectiles that fling themselves at enemies to deal more damage whenever you hit them with a whip
--Increased the use speed of the harvester's scythe and spooky buster
+-Increased the use speed of the harvester's scythe
+-Buffed spooky busters use speed and knockback a bit
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 -Buffed dave & mike's base damage and critical strike chance
 -Reduced the spirit amulet's homing seeds base damage from 30 to 20, and they no longer inflict knockback on enemies

@@ -351,6 +351,26 @@ namespace Spooky.Content.Generation
 			Vector2 biomeTop = center - biomeOffset;
 			Vector2 biomeBottom = center + biomeOffset;
 
+            //attempt to find a valid position for the biome to place in
+            bool foundValidPosition = false;
+            int attempts = 0;
+
+            int WaterHeightLimit = Main.maxTilesY - 50;
+
+            //first do an upward check to see how high the terrain is at the position where the blood lake will generate
+            while (!foundValidPosition && attempts++ < 100000)
+            {
+                while (WorldGen.SolidTile(origin.X, WaterHeightLimit))
+                {
+                    WaterHeightLimit--;
+                }
+                if (!WorldGen.SolidTile(origin.X, WaterHeightLimit))
+                {
+                    WaterHeightLimit += 10;
+                    foundValidPosition = true;
+                }
+            }
+
 			//first place a bunch of spider caves as a barrier around the biome
 			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
 			{
@@ -369,7 +389,7 @@ namespace Spooky.Content.Generation
 								{
 									WorldGen.KillTile(X, Y);
 
-									if (Y >= Main.maxTilesY - 115)
+									if (Y >= WaterHeightLimit)
 									{
 										Main.tile[X, Y].WallType = (ushort)ModContent.WallType<SpookyMushLakeWall>();
 									}

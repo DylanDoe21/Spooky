@@ -1,98 +1,100 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PumpkinHeadBolt : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[5];
 
-        private List<Vector2> cache;
-        private Trail trail;
+		private static Asset<Texture2D> ProjTexture;
 		
         public override void SetDefaults()
         {
-			Projectile.width = 18;                   			 
-            Projectile.height = 26;         
+			Projectile.width = 14;
+            Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Generic;
 			Projectile.friendly = true;                                 			  		
             Projectile.tileCollide = false;
             Projectile.ignoreWater = false;                					
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 180;
             Projectile.alpha = 255;
 		}
 
         public override bool PreDraw(ref Color lightColor)
-        {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				Color color = Color.Lerp(Color.Indigo, Color.OrangeRed, scale);
+                color *= (Projectile.timeLeft) / 90f;
 
-            return true;
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-        const int TrailLength = 15;
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				float max = betweenPositions.Length() / (4 * scale);
 
-            cache.Add(Projectile.Center);
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.45f, SpriteEffects.None, 0f);
+				}
 
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 6 * factor, factor =>
-            {
-                return Color.Lerp(Color.Gray, Color.OrangeRed, factor.X) * factor.X;
-            });
+				previousPosition = currentPos;
+			}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
+			return true;
+		}
 		
 		public override void AI()
         {
             //add lighting so you can see it in the dark
-            Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 0.5f, 0.25f, 0f);
+            Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 0.25f, 0.1f, 0f);
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
 
             Projectile.ai[1]++;
             if (Projectile.ai[1] <= 60)
@@ -109,7 +111,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 		{
 			for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, -2f, 0, default, 1.5f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
 				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;

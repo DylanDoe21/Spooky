@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 				scale *= 1f;
 
 				Color color = Color.Lerp(Color.Gold, Color.White, scale);
-				color *= (Projectile.timeLeft * 2) / 90f;
+				color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)
 				{
