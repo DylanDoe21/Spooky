@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,10 +15,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 {
 	public class ZomboidNecromancerSoul : ModNPC
 	{
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
 
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[6];
+
+		private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
@@ -40,66 +43,71 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 previousPosition = NPC.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = NPC.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                Color color = Color.Lerp(Color.Gold, Color.Indigo, scale);
 
-            return true;
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-        const int TrailLength = 10;
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(NPC.Center);
-                }
-            }
+				float max = betweenPositions.Length() / (4 * scale);
 
-            cache.Add(NPC.Center);
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+					//gives the after images a shaking effect
+					float x = Main.rand.Next(-1, 2) * scale;
+					float y = Main.rand.Next(-1, 2) * scale;
 
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 4, factor =>
-            {
-                return Color.Lerp(Color.Gold, Color.Indigo, factor.X) * factor.X;
-            });
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, color, NPC.rotation, drawOrigin, scale * 0.6f, SpriteEffects.None, 0f);
+				}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = NPC.oldPosition;
-        }
+				previousPosition = currentPos;
+			}
+
+			return true;
+		}
 
         public override void AI()
 		{
             NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = NPC.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
 
             if (!Parent.active || Parent.type != ModContent.NPCType<ZomboidNecromancer>())
             {

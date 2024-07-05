@@ -16,9 +16,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
     {
         float distance = 0f;
 
-        private List<Vector2> cache;
-        private Trail trail;
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 6;

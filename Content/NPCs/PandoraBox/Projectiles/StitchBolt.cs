@@ -1,25 +1,26 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 {
     public class StitchBolt : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/Blank";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
 
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[5];
+
+		private static Asset<Texture2D> ProjTexture;
 		
         public override void SetDefaults()
         {
-			Projectile.width = 18;                   			 
-            Projectile.height = 18;         
+			Projectile.width = 14;                   			 
+            Projectile.height = 14;         
 			Projectile.hostile = true;                                 			  		
             Projectile.tileCollide = true;
             Projectile.ignoreWater = false;                					
@@ -28,58 +29,45 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
 		}
 
         public override bool PreDraw(ref Color lightColor)
-        {
-            //draw prim trail
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-            return true;
-        }
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        const int TrailLength = 15;
+				float max = betweenPositions.Length() / (4 * scale);
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            cache.Add(Projectile.Center);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, Color.Cyan, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
+				}
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+				previousPosition = currentPos;
+			}
 
-		private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 3 * factor, factor =>
-            {
-                return Color.Lerp(Color.White, Color.Cyan, factor.X) * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
+			return true;
+		}
 		
 		public override void AI()
         {
@@ -89,10 +77,21 @@ namespace Spooky.Content.NPCs.PandoraBox.Projectiles
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 10)
             {
-                if (!Main.dedServ && Projectile.velocity != Vector2.Zero)
+                if (runOnce)
                 {
-                    ManageCaches();
-                    ManageTrail();
+                    for (int i = 0; i < trailLength.Length; i++)
+                    {
+                        trailLength[i] = Vector2.Zero;
+                    }
+                    runOnce = false;
+                }
+
+                Vector2 current = Projectile.Center;
+                for (int i = 0; i < trailLength.Length; i++)
+                {
+                    Vector2 previousPosition = trailLength[i];
+                    trailLength[i] = current;
+                    current = previousPosition;
                 }
             }
 

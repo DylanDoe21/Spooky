@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,8 +16,10 @@ namespace Spooky.Content.Projectiles.SpiderCave
     {
         public override string Texture => "Spooky/Content/Items/SpiderCave/OldHunter/RustedBullet";
 
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[8];
+
+		private static Asset<Texture2D> TrailTexture;
 
         public override void SetDefaults()
         {
@@ -31,77 +34,78 @@ namespace Spooky.Content.Projectiles.SpiderCave
         }
 
         public override bool PreDraw(ref Color lightColor)
-        {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailSquare");
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.GlowTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scaleForLerp = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scaleForLerp *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				Color color = Color.Lerp(Color.Transparent, Color.Brown, scaleForLerp / 1.5f);
 
-            return true;
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-        const int TrailLength = 15;
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(Projectile.Center);
-                }
-            }
+				float max = betweenPositions.Length() / 4;
 
-            cache.Add(Projectile.Center);
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0f);
+				}
 
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 1 * factor, factor =>
-            {
-                return Color.Lerp(Color.Red, Color.Gold, factor.X) * factor.X;
-            });
+				previousPosition = currentPos;
+			}
 
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = Projectile.Center + Projectile.velocity;
-        }
+			return true;
+		}
 
         public override void AI()       
         {
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
-
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
+
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
         }
 
         public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Dig with { Volume = 0.5f }, Projectile.Center);
 
             Vector2 Speed = new Vector2(2f, -12f).RotatedByRandom(2 * Math.PI);
 
-            for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+            for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
             {
                 Vector2 speed = -(Projectile.velocity / 8) + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6));
 
