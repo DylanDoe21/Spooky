@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Graphics.Light;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -35,7 +36,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.One * 16 : Vector2.One * 12;
 
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             //wall background
             BGTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG");

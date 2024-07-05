@@ -136,8 +136,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 					
 					Vector2 RetractSpeed = Projectile.Center - ParentCenter;
 					RetractSpeed.Normalize();
-					RetractSpeed *= 10;
-					Projectile.velocity = -RetractSpeed;
+					RetractSpeed *= -35;
+					Projectile.velocity = RetractSpeed;
 
 					if (GrappledNPC != null)
 					{

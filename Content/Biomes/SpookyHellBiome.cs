@@ -29,7 +29,7 @@ namespace Spooky.Content.Biomes
         //modified vanilla hell lighting code, just makes the vanilla hell lighting a different color because the default hell lighting is ugly in the biome
         private void SpookyHellCustomLighting(On_TileLightScanner.orig_ApplyHellLight orig, TileLightScanner self, Tile tile, int x, int y, ref Vector3 lightColor)
         {
-            orig.Invoke(self, tile, x, y, ref lightColor);
+            orig(self, tile, x, y, ref lightColor);
 
             if (ModContent.GetInstance<TileCount>().spookyHellTiles >= 500)
             {

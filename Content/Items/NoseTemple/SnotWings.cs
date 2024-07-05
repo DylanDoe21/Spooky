@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.NoseTemple
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new Terraria.DataStructures.WingStats(45, default, 1.05f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new Terraria.DataStructures.WingStats(50, default, 1.05f);
 		}
 
 		public override void SetDefaults()
