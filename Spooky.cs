@@ -84,8 +84,6 @@ namespace Spooky
 
             SpiderCaveBG.Load();
             SpookyHellBG.Load();
-
-            ShaderLoader.Load();
         }
 
         public override void Unload()
@@ -94,8 +92,6 @@ namespace Spooky
 
             AccessoryHotkey = null;
             ArmorBonusHotkey = null;
-
-            ShaderLoader.Unload();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
