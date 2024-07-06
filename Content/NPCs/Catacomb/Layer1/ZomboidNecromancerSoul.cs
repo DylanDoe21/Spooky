@@ -20,7 +20,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
 
-		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -48,9 +48,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				return false;
 			}
 
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPCTexture.Height() * 0.5f);
 			Vector2 previousPosition = NPC.Center;
 
 			for (int k = 0; k < trailLength.Length; k++)
@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 					float x = Main.rand.Next(-1, 2) * scale;
 					float y = Main.rand.Next(-1, 2) * scale;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, color, NPC.rotation, drawOrigin, scale * 0.6f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(NPCTexture.Value, drawPos + new Vector2(x, y), null, color, NPC.rotation, drawOrigin, scale * 0.6f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -92,7 +92,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		{
             NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-            if (runOnce)
+            if (!Parent.active || Parent.type != ModContent.NPCType<ZomboidNecromancer>())
+            {
+                NPC.active = false;
+            }
+
+			if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)
 				{
@@ -109,11 +114,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 				current = previousPosition;
 			}
 
-            if (!Parent.active || Parent.type != ModContent.NPCType<ZomboidNecromancer>())
-            {
-                NPC.active = false;
-            }
-
             Vector2 HomingSpeed = Parent.Center - NPC.Center;
             HomingSpeed.Normalize();
             HomingSpeed *= 12;
@@ -127,8 +127,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {
-                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.1f);
-                    Main.dust[dustGore].color = Main.rand.NextBool() ? Color.Gold : Color.Indigo;
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, Main.rand.NextBool() ? Color.Gold : Color.Indigo, 0.1f);
                     Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-2f, 3f);
                     Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-2f, 3f);
                     Main.dust[dustGore].noGravity = true;

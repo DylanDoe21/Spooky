@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Events;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -63,8 +64,10 @@ namespace Spooky.Content.NPCs.Friendly
         float distance = 0f;
         float rotationSpeed = 2f;
 
-        private List<Vector2> cache;
-        private Trail trail;
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[6];
+
+		private static Asset<Texture2D> TrailTexture;
 
         public override void SetStaticDefaults()
         {
@@ -94,68 +97,46 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Main.spriteBatch.End();
-            Effect effect = ShaderLoader.GlowyTrail;
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Matrix world = Matrix.CreateTranslation(-Main.screenPosition.Vec3());
-            Matrix view = Main.GameViewMatrix.ZoomMatrix;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailCircle");
 
-            effect.Parameters["transformMatrix"].SetValue(world * view * projection);
-            effect.Parameters["sampleTexture"].SetValue(ShaderLoader.MagicTrail.Value);
-            effect.Parameters["time"].SetValue((float)Main.timeForVisualEffects * 0.05f);
-            effect.Parameters["repeats"].SetValue(1);
+			Vector2 drawOrigin = new(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 previousPosition = NPC.Center;
 
-            trail?.Render(effect);
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				float scale = NPC.scale * (trailLength.Length - k) / (float)trailLength.Length;
+				scale *= 1f;
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                Color color = Color.Lerp(Color.Brown, Color.Gold, scale);
 
-            //draw aura
-            Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
 
-            Vector2 drawOrigin = new(tex.Width * 0.5f, NPC.height * 0.5f);
-            for (int numEffect = 0; numEffect < 4; numEffect++)
-            {
-                Color color = new Color(180, 180, 180, 0).MultiplyRGBA(Color.Lerp(Color.Gray, Color.Yellow, numEffect));
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
 
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(tex, vector, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale * 1.5f, SpriteEffects.None, 0);
-            }
+				float max = betweenPositions.Length() / (4 * scale);
 
-            return true;
-        }
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-        const int TrailLength = 5;
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, NPC.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
+				}
 
-        private void ManageCaches()
-        {
-            if (cache == null)
-            {
-                cache = new List<Vector2>();
-                for (int i = 0; i < TrailLength; i++)
-                {
-                    cache.Add(NPC.Center);
-                }
-            }
+				previousPosition = currentPos;
+			}
 
-            cache.Add(NPC.Center);
-
-            while (cache.Count > TrailLength)
-            {
-                cache.RemoveAt(0);
-            }
-        }
-
-        private void ManageTrail()
-        {
-            trail = trail ?? new Trail(Main.instance.GraphicsDevice, TrailLength, new RoundedTip(4), factor => 4, factor =>
-            {
-                return Color.Gray * factor.X;
-            });
-
-            trail.Positions = cache.ToArray();
-            trail.NextPosition = NPC.oldPosition;
-        }
+			return true;
+		}
 
         public override void AI()
         {
@@ -166,11 +147,22 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.active = false;
             }
 
-            if (!Main.dedServ)
-            {
-                ManageCaches();
-                ManageTrail();
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = NPC.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
 
             if (NPC.alpha > 0)
             {
