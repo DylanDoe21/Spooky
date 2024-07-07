@@ -167,6 +167,7 @@ Miscellaneous:
 -Old hunter piece tiles now give off light to make them easier to find
 -Old hunter pieces now have better generation and place in spots that are a bit easier to find
 -All fishing rods can now fish in the blood lake in the eye valley, but the goblin shark rod is still the only way to fish up the blood lake enemies
+-Revamped the visual effects for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
 
 
 Removals:

@@ -30,9 +30,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
     [AutoloadBossHead]
     public class DaffodilEye : ModNPC
     {
-        public bool Phase2 = false;
-        public bool SpawnedHands = false;
-        public bool ActuallyDead = false;
+        bool Phase2 = false;
+        bool SpawnedHands = false;
+        bool ActuallyDead = false;
 
         Vector2[] SavePoint = new Vector2[5];
         Vector2 SavePlayerPosition;
@@ -186,6 +186,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             //1 = slightly open
             //2 = open
             //3 = wide open
+
+            //TODO: rewrite all of this to use an actual variable to edit the frame in daffodils ai
 
             //open eye when awoken
             if (NPC.ai[0] == -1)

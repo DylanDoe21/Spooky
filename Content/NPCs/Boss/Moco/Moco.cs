@@ -149,14 +149,16 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             NPC.frameCounter++;
 
+            if (NPC.frameCounter > 2)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
+            }
+
+            //sneezing animation
             if (Sneezing)
             {
-                if (NPC.frameCounter > 2)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
-                }
-
+                //stop on the frame where mocos eyes are fully popped out by default
                 if (!FinishedSneezing)
                 {
                     if (NPC.frame.Y >= frameHeight * 6)
@@ -164,6 +166,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.frame.Y = 4 * frameHeight;
                     }
                 }
+                //if FinishedSneezing is true and the animation is finished playing, reset it
                 else
                 {
                     if (NPC.frame.Y >= frameHeight * 9)
@@ -172,6 +175,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
                 }
             }
+            //eyes popped out animation for his eye pop attack, bottom 2 frames of the second and fourth vertical columns
             else if (EyesPoppedOut)
             {
                 if (NPC.frame.Y < frameHeight * 9)
@@ -179,23 +183,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     NPC.frame.Y = 8 * frameHeight;
                 }
 
-                if (NPC.frameCounter > 2)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
-                }
                 if (NPC.frame.Y >= frameHeight * 10)
                 {
                     NPC.frame.Y = 8 * frameHeight;
                 }
             }
+            //default idle animation, first vertical row
             else
             {
-                if (NPC.frameCounter > 2)
-                {
-                    NPC.frame.Y = NPC.frame.Y + frameHeight;
-                    NPC.frameCounter = 0;
-                }
                 if (NPC.frame.Y >= frameHeight * 10)
                 {
                     NPC.frame.Y = 0 * frameHeight;
@@ -664,7 +659,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
-						NPC.ai[0] = Phase2 ? 1 : 3;
+						NPC.ai[0]++;
 
                         NPC.netUpdate = true;
                     }
@@ -802,7 +797,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         CurrentFrameX = 0;
 
                         NPC.localAI[0] = 0;
-						NPC.ai[0]++;
+						NPC.ai[0] = Phase2 ? 5 : 4;
 
                         NPC.netUpdate = true;
                     }
@@ -941,17 +936,44 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
                         }
 
-                        CurrentFrameX = 2;
-
                         MoveToPlayer(player, 0f, -300f);
                     }
+                    else
+                    {
+                        AfterImages = false;
 
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] % 20 == 0)
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    //save position for shaking
+                    if (NPC.localAI[0] == 70)
+                    {
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 70 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] >= 130 && NPC.localAI[0] < 260 && NPC.localAI[0] % 10 == 0)
                     {
                         int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
                         int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                        SoundEngine.PlaySound(FlyingSound, new Vector2(SpawnX, SpawnY));
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MoclingProjectile>(), Damage, 0f, Main.myPlayer);
+                    }
+
+                    if (NPC.localAI[0] >= 250)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 1;
                     }
 
                     break;
@@ -960,7 +982,43 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 //make every existing mocling minion shoot or charge at the player, and if no moclings exist when this attack is used then summon some
                 case 6:
 				{
-                    NPC.velocity *= 0;
+                    NPC.localAI[0]++;
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        CurrentFrameX = 3;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        MoveToPlayer(player, 0f, -300f);
+                    }
+                    else
+                    {
+                        AfterImages = false;
+
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    //save position for shaking
+                    if (NPC.localAI[0] == 70)
+                    {
+                        AfterImages = false;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 70 && NPC.localAI[0] < 120)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
 
                     break;
                 }

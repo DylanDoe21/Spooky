@@ -129,7 +129,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPC.frameCounter++;
 
-            //sneezing animation, first 6 frames on the second horizontal row
+            //sneezing animation, first 6 frames on the second vertical row
             if (Sneezing)
             {
                 if (NPC.frameCounter > 5)
@@ -142,7 +142,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = 3 * frameHeight;
                 }
             }
-            //casting animation, third horizontal row
+            //casting animation, third vertical row
             else if (Casting)
             {
                 if (NPC.frameCounter > 7)
@@ -155,7 +155,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = 3 * frameHeight;
                 }
             }
-            //charging animation, last 3 frames on the second horizontal row 
+            //charging animation, last 3 frames on the second vertical row 
             else if (Charging)
             {
                 if (NPC.frame.Y < frameHeight * 7)
@@ -175,7 +175,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = 6 * frameHeight;
                 }
             }
-            //default idle animation, first horizontal row
+            //default idle animation, first vertical row
             else
             {
                 if (NPC.frameCounter > 2)
