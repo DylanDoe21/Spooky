@@ -16,8 +16,8 @@ namespace Spooky.Content.Items.BossBags.Accessory
             Item.height = 18;
             Item.expert = true;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(gold: 10);
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(gold: 20);
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)

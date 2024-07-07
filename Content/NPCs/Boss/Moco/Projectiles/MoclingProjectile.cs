@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
             if (Projectile.ai[0] < 10)
             {
-                Vector2 GoTo = player.Center + new Vector2(Main.rand.Next(-250, 250), Main.rand.Next(-350, -250));
+                Vector2 GoTo = player.Center + new Vector2(Main.rand.Next(-250, 250), Main.rand.Next(-400, -350));
 
                 if (Projectile.Distance(GoTo) >= 200f)
                 { 
@@ -125,12 +125,19 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
             if (Projectile.ai[0] == 60)
             {
-                double Velocity = Math.Atan2(player.position.Y - Projectile.position.Y, player.position.X - Projectile.position.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 17;
+                Vector2 ChargeDirection = player.Center - Projectile.Center;
+                ChargeDirection.Normalize();
+                        
+                ChargeDirection.X *= 1f;
+                ChargeDirection.Y *= 2f;
+                Projectile.velocity.X = ChargeDirection.X;
+                Projectile.velocity.Y = ChargeDirection.Y;
             }
 
             if (Projectile.ai[0] > 60)
             {
+                Projectile.velocity *= 1.068f;
+
                 Projectile.tileCollide = true;
             }
 		}

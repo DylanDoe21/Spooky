@@ -2,15 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Projectiles.Sentient;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {

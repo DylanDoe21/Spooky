@@ -29,6 +29,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
         int CurrentFrameX = 0;
         int SaveDirection;
 
+        float IntensityMult = 1f;
+        float rot = 0f;
+
         bool Phase2 = false;
         bool Transition = false;
         bool Sneezing = false;
@@ -105,9 +108,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 5000;
-            NPC.damage = 42;
-            NPC.defense = 10;
+            NPC.lifeMax = 7000;
+            NPC.damage = 40;
+            NPC.defense = 12;
             NPC.width = 78;
             NPC.height = 128;
             NPC.knockBackResist = 0f;
@@ -242,7 +245,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 30;
+            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 35 / 2 : 30;
 
             NPC.rotation = NPC.velocity.X * 0.005f;
             NPC.spriteDirection = NPC.direction;
@@ -356,13 +359,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
 
-                        NPC.ai[0] = 1;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
+                        NPC.ai[0] = 0;
 
                         NPC.netUpdate = true;
                     }
-
 
 					break;
 				}
@@ -441,7 +443,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
 
                 //zip above the player and shoot out snot globs that turn into puddles
-                //TODO: in phase 2, create more snot globs and make their horizontal range higher
                 case 1:
 				{
                     NPC.localAI[0]++;
@@ -541,7 +542,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
 
                 //zip above the player and shoot out a giant bouncing snot glob
-                //TODO: in phase 2, the giant booger should explode into a bunch of boogers that land on the ground
                 case 2:
 				{
                     NPC.localAI[0]++;
@@ -942,25 +942,44 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         AfterImages = false;
 
-                        NPC.velocity *= 0.85f;
+                        NPC.velocity *= 0.95f;
+                    }
+
+                    if (NPC.localAI[0] >= 180 && NPC.localAI[0] < 240)
+                    {
+                        //quickly move towards the player if they try and run away
+                        if (NPC.Distance(player.Center) >= 750f)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                            AfterImages = true;
+
+                            MoveToPlayer(player, player.Center.X > NPC.Center.X ? -200f : 200f, -100f);
+                        }
+                        //if moco is close enough, then slow down its velocity
+                        else
+                        {
+                            AfterImages = false;
+
+                            NPC.velocity *= 0.85f;
+                        }
                     }
 
                     //save position for shaking
-                    if (NPC.localAI[0] == 70)
+                    if (NPC.localAI[0] == 90)
                     {
-                        AfterImages = false;
-
                         SaveNPCPosition = NPC.Center;
                     }
 
                     //shake
-                    if (NPC.localAI[0] > 70 && NPC.localAI[0] < 120)
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 140)
                     {
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
-                    if (NPC.localAI[0] >= 130 && NPC.localAI[0] < 260 && NPC.localAI[0] % 10 == 0)
+                    //spawn mocling projectiles from offscreen
+                    if (NPC.localAI[0] >= 150 && NPC.localAI[0] < 280 && NPC.localAI[0] % 10 == 0)
                     {
                         int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
                         int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
@@ -970,16 +989,19 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MoclingProjectile>(), Damage, 0f, Main.myPlayer);
                     }
 
-                    if (NPC.localAI[0] >= 250)
+                    if (NPC.localAI[0] >= 280)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 1;
+                        NPC.ai[0]++;
+
+                        NPC.netUpdate = true;
                     }
 
                     break;
                 }
 
-                //make every existing mocling minion shoot or charge at the player, and if no moclings exist when this attack is used then summon some
+                //prepare and shoot giant booger spread at the player, then come back on the opposite side of the screen
+                //TODO: make moclings teleport to moco when he switches to the opposite side of the player
                 case 6:
 				{
                     NPC.localAI[0]++;
@@ -989,7 +1011,144 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         AfterImages = true;
 
+                        CurrentFrameX = 2;
+
+                        if (NPC.localAI[0] == 60)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
+                        }
+
+                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -350f : 350f, 0f);
+                    }
+
+                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
+                    {
+                        AfterImages = false;
+
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    //save position for shaking
+                    if (NPC.localAI[0] == 90)
+                    {
+                        Sneezing = true;
+
                         CurrentFrameX = 3;
+
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 160)
+                    {
+                        if (NPC.localAI[0] == 92)
+                        {
+                            SoundEngine.PlaySound(SneezeSound3, NPC.Center);
+                        }
+
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-3 * IntensityMult, 3 * IntensityMult);
+
+                        IntensityMult += 0.05f;
+                    }
+
+                    if (NPC.localAI[0] > 70 && NPC.localAI[0] <= 160)
+                    {
+                        NPC.rotation = (NPC.Center.X < player.Center.X) ? -1.55f: 1.55f;
+                    }
+
+                    if (NPC.localAI[0] > 160)
+                    {
+                        NPC.rotation = (NPC.velocity.X < 0) ? -1.55f : 1.55f;
+                    }
+
+                    //shot snot spread
+                    if (NPC.localAI[0] == 160)
+                    {
+                        Sneezing = true;
+
+                        AfterImages = true;
+
+                        SoundEngine.PlaySound(SneezeSound3, NPC.Center);
+
+                        NPC.velocity.X = (NPC.Center.X < player.Center.X) ? -35 : 35;
+                        NPC.velocity.Y *= 0;
+
+                        int ShootTowards = (NPC.Center.X < player.Center.X) ? 100 : -100;
+
+                        for (int numProjectiles = 0; numProjectiles <= 15; numProjectiles++)
+                        {
+                            Vector2 ShootSpeed = new Vector2(NPC.Center.X + ShootTowards, player.Center.Y) - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= Main.rand.Next(10, 22);
+                            ShootSpeed.Y *= Main.rand.Next(-25, 26);
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
+                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                            {
+                                position += muzzleOffset;
+                            }
+
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    //handle moco switching sides
+                    if (NPC.localAI[0] >= 160)
+                    {
+                        if (NPC.Distance(player.Center) >= 2000f && !SwitchedSides) 
+                        {
+							NPC.localAI[1] = 1;
+                            NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X + 2000 : player.Center.X - 2000;
+                            FinishedSneezing = true;
+                            SwitchedSides = true;
+                        }
+                    }
+
+                    //once the sneezing animation is done, then set its animation back to idle
+                    if (SwitchedSides && NPC.frame.Y >= 8 * NPC.height)
+                    {
+                        Sneezing = false;
+                        FinishedSneezing = false;
+
+                        CurrentFrameX = 2;
+                    }
+
+                    if (NPC.localAI[0] >= 210)
+                    {
+                        NPC.velocity *= 0.98f;
+                    }
+
+                    if (NPC.localAI[0] >= 340)
+                    {
+                        IntensityMult = 1f;
+
+                        SwitchedSides = false;
+                        AfterImages = false;
+                        Sneezing = false;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.ai[0]++;
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //spawn moclings if there arent any, and then command them to attack the player directly
+                case 7:
+				{
+                    NPC.localAI[0]++;
+
+                    //zip to the players location
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    {
+                        AfterImages = true;
+
+                        CurrentFrameX = 2;
 
                         if (NPC.localAI[0] == 60)
                         {
@@ -998,35 +1157,68 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         MoveToPlayer(player, 0f, -300f);
                     }
-                    else
+
+
+                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
                     {
-                        AfterImages = false;
+                        AfterImages = true;
 
                         NPC.velocity *= 0.85f;
                     }
 
                     //save position for shaking
-                    if (NPC.localAI[0] == 70)
+                    if (NPC.localAI[0] == 90)
                     {
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        //summon moclings if there isnt any
+                        if (!NPC.AnyNPCs(ModContent.NPCType<MoclingMinion>()))
+                        {
+                            SpawnMoclings(Main.rand.Next(6, 11));
+                        }
                     }
 
                     //shake
-                    if (NPC.localAI[0] > 70 && NPC.localAI[0] < 120)
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 140)
                     {
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
-                    break;
-                }
+                    if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 320)
+                    {
+                        //quickly move towards the player if they try and run away
+                        if (NPC.Distance(player.Center) >= 750f)
+                        {
+                            SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
-                //shoot snot balls at the player horizontally with intense recoil and then come back on the other side of the screen
-                case 7:
-				{
-                    NPC.velocity *= 0;
+                            AfterImages = true;
+
+                            MoveToPlayer(player, player.Center.X > NPC.Center.X ? -200f : 200f, -100f);
+                        }
+                        //if moco is close enough, then slow down its velocity
+                        else
+                        {
+                            AfterImages = false;
+
+                            NPC.velocity *= 0.85f;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 320)
+                    {
+                        NPC.velocity *= 0;
+                    }
+
+                    if (NPC.localAI[0] >= 400)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 1;
+
+                        NPC.netUpdate = true;
+                    }
 
                     break;
                 }

@@ -30,8 +30,8 @@ namespace Spooky.Content.Items.SpookyHell
             Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
-            Item.rare = ItemRarityID.Green;
-           	Item.value = Item.buyPrice(gold: 5);
+            Item.rare = ItemRarityID.Orange;
+           	Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.Item10;
             Item.shoot = ModContent.ProjectileType<BoogerFlailProj>();
             Item.shootSpeed = 12f;

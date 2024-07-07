@@ -30,8 +30,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.useAnimation = 35;         
 			Item.useStyle = ItemUseStyleID.Swing;          
 			Item.knockBack = 1;
-			Item.rare = ItemRarityID.Green;  
-			Item.value = Item.buyPrice(gold: 5);
+			Item.rare = ItemRarityID.Orange;  
+			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item78;     
 			Item.buffType = ModContent.BuffType<NoseMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<NoseMinion>();

@@ -1,14 +1,5 @@
 Moco attack plan
 
-First phase - Done
-
-Second phase
-
-Nose flys: Minions moco will summon around him these minions will both shield him from attacks and occasionally attack themselves. 
-
-Nose fly swarm: Moco will summon nose flys that suicide charge at the player.
-
-
 Desperation phase
 
 Moco uses the last of his power to summon a swarm of nose flies to overwhelm you. These nose flies will line up in formations to shoot projectiles or to straight dash at you.

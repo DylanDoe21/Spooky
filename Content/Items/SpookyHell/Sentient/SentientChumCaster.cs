@@ -4,18 +4,13 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Projectiles.Sentient;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
     public class SentientChumCaster : ModItem, ICauldronOutput
     {
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.CanFishInLava[Item.type] = true;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 52;

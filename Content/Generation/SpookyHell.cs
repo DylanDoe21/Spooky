@@ -417,8 +417,8 @@ namespace Spooky.Content.Generation
 			Vector2 point = tile.ToWorldCoordinates();
 			float distX = center.X - point.X;
 			float distY = center.Y - point.Y;
+            point.X -= distX * 3f;
 			point.Y -= distY * 3f;
-			point.X -= distX * 3f;
 
 			float distance1 = Vector2.Distance(point, focus1);
 			float distance2 = Vector2.Distance(point, focus2);

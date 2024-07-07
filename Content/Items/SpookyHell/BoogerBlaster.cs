@@ -31,8 +31,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 5);
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.buyPrice(gold: 15);
 			Item.UseSound = SoundID.Item95;
 			Item.shoot = ModContent.ProjectileType<BoogerBlasterProj>();
 			Item.shootSpeed = 0f;

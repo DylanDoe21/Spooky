@@ -142,14 +142,14 @@ Enemy & Boss Changes:
 -Reduced boros short lunge dash attack speed a bit
 -Boro will now emerge out of the ground to the side of the player after using its flesh spine attack to prevent players from getting hit unfairly (similarly to the phase 1 flesh spine attack)
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
--Massively improved the visual effect for orro's and boro's enrage auras, and also changed the way the worms themselves are drawn so their heads and other segments arent weirdly off-center
+-Massively improved the visual effect for orro's and boro's enrage auras, and also changed the way the worms themselves are drawn so their heads and other segments aren't weirdly off-center
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
--Reduced the screenshake intensity for daffodil's fly and seed thorn attacks
+-Reduced the screenshake intensity for daffodil's fly bullet hell and seed thorn attacks
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
 -Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collision issues the old one had)
 -Daffodil now has a new punch attack in phase 2
--Spooky spirit now has a new beam projectile to fix collision issues the previous one had
--Nerfed spooky spirit's base health from 3500 to 3000, and its defense from 15 to 8
+-Spooky spirit now has a new eye deathbeam projectile to fix collision issues the previous one had
+-Nerfed spooky spirit's base health from 3500 to 3000, and its base defense from 15 to 8
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
@@ -173,8 +173,8 @@ Miscellaneous:
 Removals:
 
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
--Removed the cotton swabs crafting recipe due to its new obtainment method
--Removed the mechanic where gravestones wouldn't spawn if you died in the catacombs since you can now break blocks in it
+-Removed the cotton swabs crafting recipe due to the new way it is obtained
+-Removed the mechanic where gravestones wouldn't spawn from your character if you died in the catacombs since you can now break blocks in it
 
 
 
@@ -199,12 +199,14 @@ Fixed all of the following bugs and issues:
 -Suspicious contraband skeleton not selling items if you are using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Claret cephalopod repeatedly charging at the same location during its charge attack instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through some smaller enemies without actually hitting them
--Zomboid necromancer souls appearing in the positions where undead catacomb npcs were previously killed when the necromancer gets close to those positions
+-Zomboid necromancer souls appearing in the positions where undead catacomb enemies were previously killed when the necromancer gets close to those positions
 -Swimming hibiscus not being catchable in the catacombs
 -Old hunter pieces sometimes generating below the bottom of the spider grotto
 -Spider grotto structures sometimes generating outside of the actual grotto
 -Spider grotto sometimes generating with small floating clumps of tiles in it
 -I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
+-Moco's lingering booger projectiles getting stuck inside of blocks if moco is inside of blocks when shooting them
+-Goblin shark rod being able to fish in lava
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

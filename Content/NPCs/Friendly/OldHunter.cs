@@ -12,6 +12,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpiderCave.OldHunter;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Tiles.Blooms;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -120,7 +121,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<RustedBullet>()
 			.Add<MossyPebble>()
 			.Add<EyeValleyCompass>()
-			.Add(new Item(ModContent.ItemType<InchwormApple>()) { shopCustomPrice = 200000 });
+			.Add(new Item(ModContent.ItemType<InchwormApple>()) { shopCustomPrice = 200000 })
+			.Add(new Item(ModContent.ItemType<WinterSeed>()) { shopCustomPrice = 50000 });
             npcShop.Register();
         }
 

@@ -20,10 +20,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         Vector2 GoToPosition;
         Vector2 SavePosition;
+        Vector2 SavePlayerPosition;
 
         private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Pitch = 0.7f, Volume = 0.5f };
+        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Pitch = 0.45f, Volume = 0.5f };
 
         public override void SetStaticDefaults()
         {
@@ -85,7 +87,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 NPC.frame.Y = 0 * frameHeight;
             }
 
-            if (NPC.ai[0] > 0 && NPC.localAI[0] > 215 && NPC.localAI[0] < 245)
+            if (NPC.ai[0] == 1 && NPC.localAI[0] > NPC.localAI[1] && NPC.localAI[0] < NPC.localAI[1] + 80)
             {
                 NPC.frame.Y = 8 * frameHeight;
             }
@@ -93,7 +95,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
-			return false;
+			return NPC.ai[0] == 2;
 		}
 
 		public override void AI()
@@ -125,6 +127,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 //fly around moco
                 case 0:
                 {
+                    NPC.rotation = 0;
                     NPC.spriteDirection = NPC.velocity.X < 0 ? -1 : 1;
 
                     NPC.localAI[0]++;
@@ -140,37 +143,45 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 6, 15, 100);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
+                    //switch to attacking with booger when moco uses that attack
+                    if (Parent.ai[0] == 7 && Parent.localAI[0] == 140)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = Main.rand.Next(95, 120); //used to randomize the time it takes for each nose minion to shoot
+                        NPC.localAI[2] = Main.rand.Next(70, 120); //used to randomize the time it takes for each nose minion to charge
+                        NPC.ai[0] = Main.rand.Next(1, 3);
+                    }
+
                     break;
                 }
 
                 //shoot snot at the player
                 case 1:
                 {
-                    NPC.spriteDirection = NPC.direction;
-
                     //EoC rotation
                     Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
                     float RotateX = player.Center.X - vector.X;
                     float RotateY = player.Center.Y - vector.Y;
                     NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    NPC.spriteDirection = NPC.direction;
 
                     NPC.localAI[0]++;
 
                     if (NPC.localAI[0] == 1 || NPC.localAI[0] % 20 == 0)
                     {
-                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-200, 200), player.Center.Y - Main.rand.Next(80, 135));
+                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - Main.rand.Next(135, 165));
                     }
 
-                    if (NPC.localAI[0] <= 180)
+                    if (NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = GoToPosition;
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 4, 7);
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 12);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
                     //save npc center
-                    if (NPC.localAI[0] == 180)
+                    if (NPC.localAI[0] == 60)
                     {
                         NPC.velocity *= 0;
 
@@ -178,18 +189,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
 
                     //shake before shooting
-                    if (NPC.localAI[0] > 180 && NPC.localAI[0] < 210)
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
                     {
                         NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-7, 7);
                     }
 
-                    if (NPC.localAI[0] >= 215)
+                    if (NPC.localAI[0] >= NPC.localAI[1])
                     {
                         NPC.velocity *= 0.8f;
                     }
 
-                    if (NPC.localAI[0] == 215)
+                    if (NPC.localAI[0] == NPC.localAI[1])
                     {
                         SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
@@ -200,14 +211,72 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 5.5f;
+                        ShootSpeed *= 15f;
 
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
                     }
 
-                    if (NPC.localAI[0] >= 250)
+                    if (NPC.localAI[0] >= NPC.localAI[1] + 60)
                     {
                         NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.ai[0] = 0;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    NPC.rotation = 0;
+                    NPC.spriteDirection = NPC.direction;
+
+                    NPC.localAI[0]++;
+
+                    //go to the side of the player
+                    if (NPC.localAI[0] >= 30 && NPC.localAI[0] < NPC.localAI[2])
+                    {	
+                        Vector2 GoTo = player.Center;
+                        GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
+                        GoTo.Y -= 20;
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 50);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+
+                    //stop before charging
+                    if (NPC.localAI[0] == NPC.localAI[2])
+                    {
+                        SavePlayerPosition = player.Center;
+
+                        NPC.velocity *= 0f;
+                    }
+
+                    //charge
+                    if (NPC.localAI[0] == NPC.localAI[2] + 20)
+                    {
+                        SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                        ChargeDirection.Normalize();
+                                
+                        ChargeDirection.X *= 35f;
+                        ChargeDirection.Y *= 35f / 2.5f;
+                        NPC.velocity.X = ChargeDirection.X;
+                        NPC.velocity.Y = ChargeDirection.Y;
+                    }
+
+                    if (NPC.localAI[0] >= NPC.localAI[1] + 60)
+                    {
+                        NPC.velocity *= 0.1f;
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.ai[0] = 0;
 
                         NPC.netUpdate = true;
                     }

@@ -83,51 +83,65 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 Projectile.alpha -= 20;
             }
 
-            Projectile.ai[0]++;
-
+            if (!IsColliding())
+            {
+                Projectile.ai[0]++;
+            }
             if (Projectile.ai[0] > 20)
             {
-                int minTilePosX = (int)(Projectile.position.X / 16) - 1;
-                int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
-                int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
-                int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16) + 2;
-                if (minTilePosX < 0)
-                {
-                    minTilePosX = 0;
-                }
-                if (maxTilePosX > Main.maxTilesX)
-                {
-                    maxTilePosX = Main.maxTilesX;
-                }
-                if (minTilePosY < 0)
-                {
-                    minTilePosY = 0;
-                }
-                if (maxTilePosY > Main.maxTilesY)
-                {
-                    maxTilePosY = Main.maxTilesY;
-                }
+                Projectile.tileCollide = true;
 
-                for (int i = minTilePosX; i < maxTilePosX; ++i)
+                if (IsColliding())
                 {
-                    for (int j = minTilePosY; j < maxTilePosY; ++j)
+                    Projectile.Kill();
+                }
+            }
+		}
+
+        public bool IsColliding()
+        {
+            int minTilePosX = (int)(Projectile.position.X / 16) - 1;
+            int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
+            int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
+            int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16) + 2;
+            if (minTilePosX < 0)
+            {
+                minTilePosX = 0;
+            }
+            if (maxTilePosX > Main.maxTilesX)
+            {
+                maxTilePosX = Main.maxTilesX;
+            }
+            if (minTilePosY < 0)
+            {
+                minTilePosY = 0;
+            }
+            if (maxTilePosY > Main.maxTilesY)
+            {
+                maxTilePosY = Main.maxTilesY;
+            }
+
+            for (int i = minTilePosX; i < maxTilePosX; ++i)
+            {
+                for (int j = minTilePosY; j < maxTilePosY; ++j)
+                {
+                    if (Main.tile[i, j] != null && (Main.tile[i, j].HasTile && (Main.tileSolid[(int)Main.tile[i, j].TileType])))
                     {
-                        if (Main.tile[i, j] != null && (Main.tile[i, j].HasTile && (Main.tileSolid[(int)Main.tile[i, j].TileType])))
-                        {
-                            Vector2 vector2;
-                            vector2.X = (float)(i * 16);
-                            vector2.Y = (float)(j * 16);
+                        Vector2 vector2;
+                        vector2.X = (float)(i * 16);
+                        vector2.Y = (float)(j * 16);
 
-                            if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
-                            (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
-                            {
-                                Projectile.Kill();
-                            }
+                        if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
+                        (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
+                        {
+                            return true;
                         }
                     }
                 }
             }
-		}
+
+            return false;
+        }
 
 		public override void OnKill(int timeLeft)
 		{

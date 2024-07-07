@@ -2374,17 +2374,17 @@ DandelionSeed: {
 	Tooltip:
 		'''
 		Places a plant that grows various dandelion seed blooms
-		Requires a flat ground of Spring Garden Soil to be planted on
+		Requires a flat ground of garden soil to be planted on
 		'''
 }
 
 DragonfruitSeed: {
-	DisplayName: Diva Seed
+	DisplayName: Diva Sprout
 	Tooltip:
 		'''
-		Places an invasive plant that grows a strange bloom
-		Can be planted on a flat ground of any Garden Soil
-		Try not to plant this too close to other blooms
+		Places an invasive plant that grows a strange fruit
+		Requires a flat ground of garden soil to be planted on
+		Make sure not to plant this too close to your other blooms
 		'''
 }
 
@@ -2393,16 +2393,16 @@ FallSeed: {
 	Tooltip:
 		'''
 		Places a plant that grows various gourd blooms
-		Requires a flat ground of Autumn Garden Soil to be planted on
+		Requires a flat ground of garden soil to be planted on
 		'''
 }
 
 SpringSeed: {
-	DisplayName: Spring Pollen
+	DisplayName: Puff of Pollen
 	Tooltip:
 		'''
 		Places a plant that grows various flower blooms
-		Requires a flat ground of Spring Garden Soil to be planted on
+		Requires a flat ground of garden soil to be planted on
 		'''
 }
 
@@ -2411,16 +2411,16 @@ SummerSeed: {
 	Tooltip:
 		'''
 		Places a plant that grows various tropical blooms
-		Requires a flat ground of Summer Garden Soil to be planted on
+		Requires a flat ground of garden soil to be planted on
 		'''
 }
 
 WinterSeed: {
-	DisplayName: Snowy Berry Bush
+	DisplayName: Snow Berry Bush
 	Tooltip:
 		'''
-		Places a plant that grows various cold blooms
-		Requires a flat ground of Winter Garden Soil to be planted on
+		Places a plant that grows various different berries
+		Requires a flat ground of garden soil to be planted on
 		'''
 }
 

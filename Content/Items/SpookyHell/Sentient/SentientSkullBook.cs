@@ -2,13 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles;
 using Spooky.Content.Projectiles.Sentient;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Items.SpookyHell.Sentient
 {
