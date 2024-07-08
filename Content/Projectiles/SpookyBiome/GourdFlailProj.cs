@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		public ref float CollisionCounter => ref Projectile.localAI[0];
 		public ref float SpinningStateTimer => ref Projectile.localAI[1];
 
-        private int FlySpawnDelay = 0;
+		public int FlySpawnTimer = 0;
 
         private static Asset<Texture2D> ChainTexture;
         private static Asset<Texture2D> ProjTexture;
@@ -207,14 +207,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
 
 					//spawn flies
-					FlySpawnDelay++;
+					FlySpawnTimer++;
 
-					if (SpinningStateTimer % 60 == 20 && FlySpawnDelay >= 80)
+					if (FlySpawnTimer % 60 == 20)
 					{
                         if (Main.myPlayer == Projectile.owner && player.ownedProjectileCounts[ModContent.ProjectileType<GourdFlailFly>()] < 10)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity,
-                            ModContent.ProjectileType<GourdFlailFly>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<GourdFlailFly>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
                         }
 					}
 

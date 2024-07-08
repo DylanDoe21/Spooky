@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 
         public override void SetDefaults()
         {
-            Item.damage = 5;
+            Item.damage = 2;
             Item.DamageType = DamageClass.Ranged;
             Item.consumable = true;
             Item.width = 8;
