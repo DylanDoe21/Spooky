@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
@@ -320,7 +321,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         CurrentFrameX = 3;
 
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-8, 8);
 
                         int Steam1 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.Center.X - 3, NPC.Center.Y + 20), default, Main.rand.Next(61, 64), 0.5f);
@@ -478,7 +479,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //shake
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
                     {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
@@ -585,7 +586,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //shake
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
                     {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
@@ -712,7 +713,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //shake
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
                     {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
@@ -773,7 +774,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                     if (NPC.localAI[0] >= 300)
                     {
-                        NPC.velocity *= 0;
+                        NPC.velocity *= 0.85f;
                     }
 
                     //set this to true so the sneezing animation can finish playing
@@ -850,7 +851,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //shake
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] < 120)
                     {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
@@ -938,14 +939,28 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         MoveToPlayer(player, 0f, -300f);
                     }
-                    else
+
+                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 100)
                     {
                         AfterImages = false;
 
-                        NPC.velocity *= 0.95f;
+                        NPC.velocity *= 0.85f;
                     }
 
-                    if (NPC.localAI[0] >= 180 && NPC.localAI[0] < 240)
+                    //save position for shaking
+                    if (NPC.localAI[0] == 90)
+                    {
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    //shake
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 140)
+                    {
+                        NPC.Center = SaveNPCPosition;
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+                    }
+
+                    if (NPC.localAI[0] >= 150 && NPC.localAI[0] < 320)
                     {
                         //quickly move towards the player if they try and run away
                         if (NPC.Distance(player.Center) >= 750f)
@@ -965,19 +980,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         }
                     }
 
-                    //save position for shaking
-                    if (NPC.localAI[0] == 90)
-                    {
-                        SaveNPCPosition = NPC.Center;
-                    }
-
-                    //shake
-                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 140)
-                    {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
-                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
-                    }
-
                     //spawn mocling projectiles from offscreen
                     if (NPC.localAI[0] >= 150 && NPC.localAI[0] < 280 && NPC.localAI[0] % 10 == 0)
                     {
@@ -989,7 +991,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MoclingProjectile>(), Damage, 0f, Main.myPlayer);
                     }
 
-                    if (NPC.localAI[0] >= 280)
+                    if (NPC.localAI[0] >= 320)
+                    {
+                        NPC.velocity *= 0.85f;
+                    }
+
+                    if (NPC.localAI[0] >= 380)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;
@@ -1001,16 +1008,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
 
                 //prepare and shoot giant booger spread at the player, then come back on the opposite side of the screen
-                //TODO: make moclings teleport to moco when he switches to the opposite side of the player
                 case 6:
 				{
                     NPC.localAI[0]++;
 
-                    //zip to the players location
-                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 70)
+                    //zip to the side of the player for a while
+                    if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 100)
                     {
-                        AfterImages = true;
-
                         CurrentFrameX = 2;
 
                         if (NPC.localAI[0] == 60)
@@ -1021,15 +1025,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         MoveToPlayer(player, player.Center.X > NPC.Center.X ? -350f : 350f, 0f);
                     }
 
-                    if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
+                    if (NPC.localAI[0] >= 130 && NPC.localAI[0] <= 160)
                     {
-                        AfterImages = false;
-
                         NPC.velocity *= 0.85f;
                     }
 
-                    //save position for shaking
-                    if (NPC.localAI[0] == 90)
+                    if (NPC.localAI[0] == 100)
                     {
                         Sneezing = true;
 
@@ -1039,20 +1040,15 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
 
                     //shake
-                    if (NPC.localAI[0] > 90 && NPC.localAI[0] < 160)
+                    if (NPC.localAI[0] > 100 && NPC.localAI[0] < 160)
                     {
-                        if (NPC.localAI[0] == 92)
-                        {
-                            SoundEngine.PlaySound(SneezeSound3, NPC.Center);
-                        }
-
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-3 * IntensityMult, 3 * IntensityMult);
 
                         IntensityMult += 0.05f;
                     }
 
-                    if (NPC.localAI[0] > 70 && NPC.localAI[0] <= 160)
+                    if (NPC.localAI[0] > 30 && NPC.localAI[0] <= 160)
                     {
                         NPC.rotation = (NPC.Center.X < player.Center.X) ? -1.55f: 1.55f;
                     }
@@ -1078,12 +1074,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         for (int numProjectiles = 0; numProjectiles <= 15; numProjectiles++)
                         {
-                            Vector2 ShootSpeed = new Vector2(NPC.Center.X + ShootTowards, player.Center.Y) - NPC.Center;
+                            Vector2 ShootSpeed = new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y) - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed.X *= Main.rand.Next(10, 22);
-                            ShootSpeed.Y *= Main.rand.Next(-25, 26);
+                            ShootSpeed.X *= Main.rand.Next(15, 23);
 
-                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
+                            int RandomVelocityY = Main.rand.Next(-25, 26);
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, RandomVelocityY)) * 60f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
 
                             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -1091,7 +1088,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, new Vector2(ShootSpeed.X, RandomVelocityY), ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
                         }
                     }
 
@@ -1100,8 +1097,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         if (NPC.Distance(player.Center) >= 2000f && !SwitchedSides) 
                         {
-							NPC.localAI[1] = 1;
                             NPC.position.X = (NPC.Center.X < player.Center.X) ? player.Center.X + 2000 : player.Center.X - 2000;
+                            NPC.localAI[1] = 1; //used so the moclings teleport to moco after switching sides
                             FinishedSneezing = true;
                             SwitchedSides = true;
                         }
@@ -1116,12 +1113,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         CurrentFrameX = 2;
                     }
 
-                    if (NPC.localAI[0] >= 210)
+                    if (NPC.localAI[0] >= 220)
                     {
-                        NPC.velocity *= 0.98f;
+                        NPC.velocity *= 0.97f;
                     }
 
-                    if (NPC.localAI[0] >= 340)
+                    if (NPC.localAI[0] >= 300)
                     {
                         IntensityMult = 1f;
 
@@ -1158,7 +1155,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         MoveToPlayer(player, 0f, -300f);
                     }
 
-
                     if (NPC.localAI[0] >= 70 && NPC.localAI[0] <= 90)
                     {
                         AfterImages = true;
@@ -1174,20 +1170,19 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         SaveNPCPosition = NPC.Center;
 
                         //summon moclings if there isnt any
-                        if (!NPC.AnyNPCs(ModContent.NPCType<MoclingMinion>()))
-                        {
-                            SpawnMoclings(Main.rand.Next(6, 11));
-                        }
+                        int Amount = 12 - NumberOfMoclings();
+
+                        SpawnMoclings(Amount);
                     }
 
                     //shake
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] < 140)
                     {
-                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
                     }
 
-                    if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 320)
+                    if (NPC.localAI[0] >= 140 && NPC.localAI[0] < 500)
                     {
                         //quickly move towards the player if they try and run away
                         if (NPC.Distance(player.Center) >= 750f)
@@ -1196,7 +1191,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                             AfterImages = true;
 
-                            MoveToPlayer(player, player.Center.X > NPC.Center.X ? -200f : 200f, -100f);
+                            MoveToPlayer(player, player.Center.X > NPC.Center.X ? -200f : 200f, -300f);
                         }
                         //if moco is close enough, then slow down its velocity
                         else
@@ -1207,15 +1202,15 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         }
                     }
 
-                    if (NPC.localAI[0] >= 320)
+                    if (NPC.localAI[0] >= 500)
                     {
-                        NPC.velocity *= 0;
+                        NPC.velocity *= 0.85f;
                     }
 
-                    if (NPC.localAI[0] >= 400)
+                    if (NPC.localAI[0] >= 550)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.ai[0] = 1;
+                        NPC.ai[0] = 0;
 
                         NPC.netUpdate = true;
                     }
@@ -1225,6 +1220,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			}
 		}
 
+        //spawn mocling minions with the provided amount
         public void SpawnMoclings(int Amount)
         {
             for (int numFlies = 1; numFlies <= Amount; numFlies++)
@@ -1241,6 +1237,29 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 
             NPC.netUpdate = true;
+        }
+
+        public int NumberOfMoclings()
+        {
+            int numMoclings = 0;
+
+            for (int i = 0; i <= Main.maxNPCs; i++)
+            {
+                NPC Mocling = Main.npc[i];
+
+                if (Mocling.active && Mocling.type == ModContent.NPCType<MoclingMinion>())
+                {
+                    numMoclings++;
+
+                    //if moco has maximum moclings, then just return that value instantly without looping further
+                    if (numMoclings >= 12)
+                    {
+                        return numMoclings;
+                    }
+                }
+            }
+
+            return numMoclings;
         }
 
         //super fast movement to create a fly-like movement effect
@@ -1300,20 +1319,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             npcLoot.Add(notExpertRule);
         }
 
-        public override void HitEffect(NPC.HitInfo hit) 
-        {
-			if (NPC.life <= 0) 
-            {
-                for (int numGores = 1; numGores <= 7; numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/MocoGore" + numGores).Type);
-                    }
-                }
-            }
-        }
-
         public override void OnKill()
         {
             //drop a sentient heart for each active player in the world
@@ -1338,6 +1343,23 @@ namespace Spooky.Content.NPCs.Boss.Moco
             if (!MenuSaveSystem.hasDefeatedMoco)
             {
                 MenuSaveSystem.hasDefeatedMoco = true;
+            }
+
+            //spawn particles
+            for (int numParticles = 0; numParticles <= 12; numParticles++)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = NPC.Center + new Vector2(Main.rand.Next(-55, 56), Main.rand.Next(-55, 56))
+                });
+            }
+
+            //spawn little mocling outro
+            int MoclingOutro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<MocoOutro>());
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, number: MoclingOutro);
             }
         }
 

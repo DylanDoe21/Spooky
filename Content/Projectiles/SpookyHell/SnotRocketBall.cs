@@ -6,9 +6,9 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
+namespace Spooky.Content.Projectiles.SpookyHell
 {
-    public class LingeringSnotBall : ModProjectile
+    public class SnotRocketBall : ModProjectile
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Moco/Projectiles/SnotBall";
 
@@ -27,13 +27,17 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
         {
             Projectile.width = 26;                  			 
             Projectile.height = 26;          
-			Projectile.friendly = false;
-            Projectile.hostile = true;                 			  		
+			Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;             					
             Projectile.timeLeft = 400;
             Projectile.alpha = 255;
 		}
+
+        public override bool? CanDamage()
+		{
+            return Projectile.velocity.Y > 0;
+        }
         
         public override bool PreDraw(ref Color lightColor)
         {
@@ -53,11 +57,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Main.EntitySpriteDraw(ProjTexture.Value, RealDrawPos, rectangle, Projectile.GetAlpha(Color.Lime * 0.5f), Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
 
             return false;
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.OgreSpit, 60, true);
         }
 
         public override void AI()
@@ -83,23 +82,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 Projectile.alpha -= 20;
             }
 
-            if (!IsColliding())
-            {
-                Projectile.ai[0]++;
-            }
-            if (Projectile.ai[0] > 5)
-            {
-                Projectile.tileCollide = true;
-
-                if (IsColliding())
-                {
-                    Projectile.Kill();
-                }
-            }
-		}
-
-        public bool IsColliding()
-        {
             int minTilePosX = (int)(Projectile.position.X / 16) - 1;
             int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
             int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
@@ -134,20 +116,18 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                         if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
                         (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
                         {
-                            return true;
+                            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - (Projectile.height / 2), 0, 0, ModContent.ProjectileType<SnotRocketLinger>(), Projectile.damage, 0, Main.myPlayer);
+
+                            Projectile.Kill();
                         }
                     }
                 }
             }
-
-            return false;
-        }
+		}
 
 		public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SplatSound, Projectile.Center);
-
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - (Projectile.height / 2), 0, 0, ModContent.ProjectileType<LingeringSnot>(), Projectile.damage, 0, Main.myPlayer);
 
             for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                             

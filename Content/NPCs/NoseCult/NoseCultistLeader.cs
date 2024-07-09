@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.NoseTemple;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-                Position = new Vector2(2f, 30f),
+                Position = new Vector2(0f, 30f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 10f
             };

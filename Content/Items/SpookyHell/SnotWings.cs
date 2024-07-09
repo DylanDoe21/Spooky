@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Items.NoseTemple
+namespace Spooky.Content.Items.SpookyHell
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class SnotWings : ModItem
@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.NoseTemple
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new Terraria.DataStructures.WingStats(50, default, 1.05f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new Terraria.DataStructures.WingStats(50, default, 1.025f);
 		}
 
 		public override void SetDefaults()

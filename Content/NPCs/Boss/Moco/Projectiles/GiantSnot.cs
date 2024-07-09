@@ -32,11 +32,6 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             Projectile.timeLeft = 260;
             Projectile.alpha = 255;
 		}
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.OgreSpit, 180, true);
-        }
         
         public override bool PreDraw(ref Color lightColor)
         {
@@ -81,6 +76,11 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 			return false;
 		}
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.OgreSpit, 60, true);
+        }
+
         public override void AI()
         {
             Projectile.frameCounter++;
@@ -108,25 +108,25 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             {
                 Projectile.ai[2]++;
             }
-            if (Projectile.ai[2] > 20)
+            if (Projectile.ai[2] > 5)
             {
                 Projectile.tileCollide = true;
             }
 
             if (Projectile.ai[0] > 0 && Projectile.timeLeft <= 85)
             {
-                //make the mocling scale up and down rapidly
+                //make the booger scale up and down rapidly before exploding
                 Projectile.ai[1]++;
-                if (Projectile.ai[1] < 2)
+                if (Projectile.ai[1] < 3)
                 {
                     Projectile.scale -= 0.5f;
                 }
-                if (Projectile.ai[1] >= 2)
+                if (Projectile.ai[1] >= 3)
                 {
                     Projectile.scale += 0.5f;
                 }
                 
-                if (Projectile.ai[1] > 4)
+                if (Projectile.ai[1] > 6)
                 {
                     Projectile.ai[1] = 0;
                     Projectile.scale = 1f;

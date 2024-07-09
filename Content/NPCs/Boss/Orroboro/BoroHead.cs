@@ -117,7 +117,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * bossAdjustment);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

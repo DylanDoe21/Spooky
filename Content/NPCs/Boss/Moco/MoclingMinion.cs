@@ -22,6 +22,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         Vector2 SavePosition;
         Vector2 SavePlayerPosition;
 
+        private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Pitch = 0.7f, Volume = 0.5f };
@@ -30,6 +31,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+            NPCID.Sets.TrailingMode[NPC.type] = 1;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
@@ -40,12 +43,16 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {
             //floats
             writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //floats
             NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -55,7 +62,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.defense = 0;
             NPC.width = 38;
             NPC.height = 36;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -63,6 +70,36 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			NPC.DeathSound = SoundID.NPCDeath16;
             NPC.alpha = 255;
             NPC.aiStyle = -1;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            if (NPC.ai[0] == 1)
+            {
+                for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+				{
+					Vector2 drawPos = NPC.oldPos[oldPos] - screenPos + NPC.frame.Size() / 2 + new Vector2(0, NPC.gfxOffY + 4);
+					Color color = NPC.GetAlpha(Color.Lime) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+
+					spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.12f, effects, 0f);
+				}
+            }
+            if (NPC.ai[0] == 2)
+            {
+                for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+				{
+					Vector2 drawPos = NPC.oldPos[oldPos] - screenPos + NPC.frame.Size() / 2 + new Vector2(0, NPC.gfxOffY + 4);
+					Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+
+					spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.12f, effects, 0f);
+				}
+            }
+
+            return true;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -122,6 +159,22 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
             }
 
+            //teleport to moco when he does the side switching attack
+            if (Parent.ai[0] == 6)
+            {
+                if (Parent.localAI[1] == 1 && NPC.ai[2] == 0)
+                {
+                    NPC.position = Parent.Center;
+                    NPC.ai[2]++;
+                }
+
+                if (Parent.localAI[0] == 165)
+                {
+                    Parent.localAI[1] = 0;
+                    NPC.ai[2] = 0;
+                }
+            }
+
 			switch ((int)NPC.ai[0])
             {
                 //fly around moco
@@ -132,7 +185,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                     NPC.localAI[0]++;
 
-                    //randomly go to a position around the invisible parent npc
+                    //randomly go to a position around moco
                     if (NPC.localAI[0] == 1 || NPC.localAI[0] % 5 == 0)
                     {
                         GoToPosition = new Vector2(Parent.Center.X + Main.rand.Next(-150, 150), Parent.Center.Y + Main.rand.Next(-150, 150));
@@ -143,12 +196,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 6, 15, 100);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                    //switch to attacking with booger when moco uses that attack
+                    //switch to random attack when moco "commands" them
                     if (Parent.ai[0] == 7 && Parent.localAI[0] == 140)
                     {
                         NPC.localAI[0] = 0;
-                        NPC.localAI[1] = Main.rand.Next(95, 120); //used to randomize the time it takes for each nose minion to shoot
-                        NPC.localAI[2] = Main.rand.Next(70, 120); //used to randomize the time it takes for each nose minion to charge
+                        NPC.localAI[1] = Main.rand.Next(90, 100); //used to randomize the time it takes for each nose minion to shoot
+                        NPC.localAI[2] = Main.rand.Next(70, 100); //used to randomize the time it takes for each nose minion to charge
                         NPC.ai[0] = Main.rand.Next(1, 3);
                     }
 
@@ -169,14 +222,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                     if (NPC.localAI[0] == 1 || NPC.localAI[0] % 20 == 0)
                     {
-                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-300, 300), player.Center.Y - Main.rand.Next(135, 165));
+                        GoToPosition = new Vector2(player.Center.X + Main.rand.Next(-250, 250), player.Center.Y - Main.rand.Next(250, 300));
                     }
 
                     if (NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = GoToPosition;
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 12);
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 16);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
@@ -189,7 +242,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     }
 
                     //shake before shooting
-                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < NPC.localAI[1])
                     {
                         NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-7, 7);
@@ -216,7 +269,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
                     }
 
-                    if (NPC.localAI[0] >= NPC.localAI[1] + 60)
+                    if (NPC.localAI[0] >= NPC.localAI[1] + 75)
                     {
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
@@ -247,16 +300,24 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                     }
 
-                    //stop before charging
-                    if (NPC.localAI[0] == NPC.localAI[2])
+                    //save npc center
+                    if (NPC.localAI[0] == NPC.localAI[2] + 10)
                     {
-                        SavePlayerPosition = player.Center;
+                        NPC.velocity *= 0;
 
-                        NPC.velocity *= 0f;
+                        SavePosition = NPC.Center;
+                        SavePlayerPosition = player.Center;
+                    }
+
+                    //shake before shooting
+                    if (NPC.localAI[0] > NPC.localAI[2] + 10 && NPC.localAI[0] < NPC.localAI[2] + 40)
+                    {
+                        NPC.Center = new Vector2(SavePosition.X, SavePosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-7, 7);
                     }
 
                     //charge
-                    if (NPC.localAI[0] == NPC.localAI[2] + 20)
+                    if (NPC.localAI[0] == NPC.localAI[2] + 40)
                     {
                         SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
@@ -269,10 +330,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.velocity.Y = ChargeDirection.Y;
                     }
 
-                    if (NPC.localAI[0] >= NPC.localAI[1] + 60)
+                    if (NPC.localAI[0] >= NPC.localAI[2] + 60)
                     {
-                        NPC.velocity *= 0.1f;
-
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.localAI[2] = 0;

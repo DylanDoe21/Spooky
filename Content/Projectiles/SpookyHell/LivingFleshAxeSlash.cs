@@ -114,7 +114,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 hasHitSomething = true;
 
-                SoundEngine.PlaySound(SoundID.NPCDeath21, player.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath21, target.Center);
 
                 for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                 {

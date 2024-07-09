@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.Items.NoseTemple
+namespace Spooky.Content.Items.SpookyHell
 {
 	public class SnotArrow : ModItem
 	{

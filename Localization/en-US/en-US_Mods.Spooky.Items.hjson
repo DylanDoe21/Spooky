@@ -1131,34 +1131,6 @@ VampireGummy: {
 		'''
 }
 
-SnotArrow: {
-	DisplayName: Snot Arrow
-	Tooltip: Bounces off of solid surfaces
-}
-
-SnotBullet: {
-	DisplayName: Mucus Bullet
-	Tooltip: Ricochets to another nearby enemy when it hits an enemy
-}
-
-SnotRocket: {
-	DisplayName: Snot Rocket
-	Tooltip:
-		'''
-		Accelerates rapidly as it travels
-		Explodes into lingering snot on direct enemy hits
-		'''
-}
-
-SnotWings: {
-	DisplayName: Snot Bug Wings
-	Tooltip:
-		'''
-		Allows flight and slow fall
-		'Gross...'
-		'''
-}
-
 BatBlood: {
 	DisplayName: Bat Blood
 	Tooltip: Summons a creepy bat
@@ -2075,17 +2047,6 @@ SentientKatana: {
 		'''
 }
 
-SentientKeybrand: {
-	DisplayName: Molar Mauler
-	Tooltip:
-		'''
-		Deals more damage to enemies at low health
-		Hitting enemies below half health may create blood explosions
-		Every 5th swing will throw the mauler, which can embed its teeth into enemies it hits
-		'Should be brought to a dentist regularly'
-		'''
-}
-
 SentientLeatherWhip: {
 	DisplayName: Licker
 	Tooltip:
@@ -2316,6 +2277,34 @@ NerveWhip: {
 		'''
 		Your summons will focus struck enemies
 		Deals more damage the more enemies it hits, caps after 5 enemies are hit
+		'''
+}
+
+SnotArrow: {
+	DisplayName: Snot Arrow
+	Tooltip: Bounces off of solid surfaces
+}
+
+SnotBullet: {
+	DisplayName: Mucus Bullet
+	Tooltip: Ricochets to another nearby enemy when it hits an enemy
+}
+
+SnotRocket: {
+	DisplayName: Snot Rocket
+	Tooltip:
+		'''
+		Accelerates rapidly as it travels
+		Explodes into lingering snot on direct enemy hits
+		'''
+}
+
+SnotWings: {
+	DisplayName: Snot Bug Wings
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		'Gross...'
 		'''
 }
 

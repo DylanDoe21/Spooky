@@ -90,6 +90,7 @@ Other Miscellaneous Additions:
 -Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
 -Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory
+-Added a few new types of zomboids that spawn during various vanilla events
 
 
 
@@ -196,6 +197,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
 -Crux not killing its debuff aura if it was using one when killed
 -Boro's charging speed for its horizontal dash attack being slower while enraged instead of faster
+-Boro's expert and master mode health scaling being lower than orro's
 -Suspicious contraband skeleton not selling items if you are using another language besides english (Caused by an issue with its shop name not being correctly named)
 -Claret cephalopod repeatedly charging at the same location during its charge attack instead of actually charging at the players current location
 -High-velocity slingshot projectiles sometimes passing through some smaller enemies without actually hitting them

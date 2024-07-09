@@ -136,6 +136,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         if (Parent.ai[2] % 20 == 0)
                         {
+                            SoundEngine.PlaySound(SoundID.Item43 with { Volume = 0.5f }, Parent.Center);
+
                             Vector2 ProjectilePosition = Parent.Center + new Vector2(0, 65).RotatedByRandom(360);
 
                             Vector2 Velocity = Parent.Center - ProjectilePosition;

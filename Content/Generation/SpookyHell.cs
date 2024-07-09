@@ -895,6 +895,8 @@ namespace Spooky.Content.Generation
             //brick color variance
             int Brick = ModContent.TileType<NoseTempleBrickPurple>();
             int FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
+            int BrickSafe = ModContent.TileType<NoseTempleBrickPurpleSafe>();
+            int FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickPurpleSafe>();
             int BrickWall = ModContent.WallType<NoseTempleWallPurple>();
             int BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
             int FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
@@ -910,6 +912,8 @@ namespace Spooky.Content.Generation
                 {
                     Brick = ModContent.TileType<NoseTempleBrickGreen>();
                     FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickGreenSafe>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGreenSafe>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
                     Platform = ModContent.TileType<NoseTemplePlatformGreen>();
                     break;
@@ -918,6 +922,8 @@ namespace Spooky.Content.Generation
                 {
                     Brick = ModContent.TileType<NoseTempleBrickPurple>();
                     FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickPurpleSafe>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickPurpleSafe>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
                     Platform = ModContent.TileType<NoseTemplePlatformPurple>();
                     break;
@@ -926,6 +932,8 @@ namespace Spooky.Content.Generation
                 {
                     Brick = ModContent.TileType<NoseTempleBrickGray>();
                     FancyBrick = ModContent.TileType<NoseTempleFancyBrickGray>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickGraySafe>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGraySafe>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGGray>();
                     Platform = ModContent.TileType<NoseTemplePlatformGray>();
                     break;
@@ -977,6 +985,16 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == ModContent.TileType<NoseTempleFancyBrickPurple>())
                     {
                         tile.TileType = (ushort)FancyBrick;
+                    }
+                    //regular bricks safe
+                    if (tile.TileType == ModContent.TileType<NoseTempleBrickPurpleSafe>())
+                    {
+                        tile.TileType = (ushort)BrickSafe;
+                    }
+                    //fancy bricks safe
+                    if (tile.TileType == ModContent.TileType<NoseTempleFancyBrickPurpleSafe>())
+                    {
+                        tile.TileType = (ushort)FancyBrickSafe;
                     }
                     //walls
                     if (tile.WallType == ModContent.WallType<NoseTempleWallPurple>())
