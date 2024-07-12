@@ -30,8 +30,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         int CurrentFrameX = 0;
         int SaveDirection;
 
-        float IntensityMult = 1f;
-        float rot = 0f;
+        float ShakeIntensityMult = 1f;
 
         bool Phase2 = false;
         bool Transition = false;
@@ -1043,9 +1042,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     if (NPC.localAI[0] > 100 && NPC.localAI[0] < 160)
                     {
                         NPC.Center = SaveNPCPosition;
-                        NPC.Center += Main.rand.NextVector2Square(-3 * IntensityMult, 3 * IntensityMult);
+                        NPC.Center += Main.rand.NextVector2Square(-3 * ShakeIntensityMult, 3 * ShakeIntensityMult);
 
-                        IntensityMult += 0.05f;
+                        ShakeIntensityMult += 0.05f;
                     }
 
                     if (NPC.localAI[0] > 30 && NPC.localAI[0] <= 160)
@@ -1120,7 +1119,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                     if (NPC.localAI[0] >= 300)
                     {
-                        IntensityMult = 1f;
+                        ShakeIntensityMult = 1f;
 
                         SwitchedSides = false;
                         AfterImages = false;
@@ -1202,12 +1201,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         }
                     }
 
-                    if (NPC.localAI[0] >= 500)
+                    if (NPC.localAI[0] >= 420)
                     {
                         NPC.velocity *= 0.85f;
                     }
 
-                    if (NPC.localAI[0] >= 550)
+                    if (NPC.localAI[0] >= 470)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;

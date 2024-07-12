@@ -34,7 +34,7 @@ namespace Spooky.Content.Generation
             //biome position stuff
             initialStartPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
-            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) : Main.maxTilesY / 2;
+            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) : Main.maxTilesY / 2 + 100;
 
             //attempt to find a valid position for the biome to place in
             bool foundValidPosition = false;

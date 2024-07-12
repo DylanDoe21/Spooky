@@ -2405,7 +2405,7 @@ SummerSeed: {
 }
 
 WinterSeed: {
-	DisplayName: Snow Berry Bush
+	DisplayName: Snow Berry Shrub
 	Tooltip:
 		'''
 		Places a plant that grows various different berries

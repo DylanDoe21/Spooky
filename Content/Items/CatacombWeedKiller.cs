@@ -9,6 +9,7 @@ using System.Linq;
 using Spooky.Core;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
+using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items
 {
@@ -30,9 +31,9 @@ namespace Spooky.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 20; i < Main.maxTilesX - 20; i++)
             {
-                for (int j = 0; j < Main.maxTilesY; j++)
+                for (int j = 20; j < Main.maxTilesY - 20; j++)
                 {
                     Tile tile = Main.tile[i, j];
 

@@ -104,29 +104,31 @@ namespace Spooky.Content.NPCs.NoseCult
 			{
 				for (int j = NPCY - StartHeight; j <= NPCY + 20; j++)
 				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<CultistCandelabra>() && Main.tile[i, j].TileFrameX > 18)
+                    Tile tile = Framing.GetTileSafely(i, j);
+
+					if (tile.TileType == ModContent.TileType<CultistCandelabra>() && tile.TileFrameX > 18)
 					{
-						Main.tile[i, j].TileFrameX -= 36;
+						tile.TileFrameX -= 36;
 					}
 
-					if (Main.tile[i, j].TileType == ModContent.TileType<CultistCandle>() && Main.tile[i, j].TileFrameX > 0)
+					if (tile.TileType == ModContent.TileType<CultistCandle>() && tile.TileFrameX > 0)
 					{
-						Main.tile[i, j].TileFrameX -= 18;
+						tile.TileFrameX -= 18;
 					}
 
-					if (Main.tile[i, j].TileType == ModContent.TileType<CultistChandelier>() && Main.tile[i, j].TileFrameX > 36)
+					if (tile.TileType == ModContent.TileType<CultistChandelier>() && tile.TileFrameX > 36)
 					{
-						Main.tile[i, j].TileFrameX -= 54;
+						tile.TileFrameX -= 54;
 					}
 
-					if (Main.tile[i, j].TileType == ModContent.TileType<CultistLamp>() && Main.tile[i, j].TileFrameX > 0)
+					if (tile.TileType == ModContent.TileType<CultistLamp>() && tile.TileFrameX > 0)
 					{
-						Main.tile[i, j].TileFrameX -= 18;
+						tile.TileFrameX -= 18;
 					}
 
-					if (Main.tile[i, j].TileType == ModContent.TileType<CultistLantern>() && Main.tile[i, j].TileFrameX > 0)
+					if (tile.TileType == ModContent.TileType<CultistLantern>() && tile.TileFrameX > 0)
 					{
-						Main.tile[i, j].TileFrameX -= 18;
+						tile.TileFrameX -= 18;
 					}
 				}
 			}

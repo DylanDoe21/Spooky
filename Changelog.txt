@@ -50,6 +50,7 @@ Catacomb Improvements:
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
 -Resprited all of the plants and vines in the catacombs
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
+-Added a new fishing lake room to layer 2
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of every catacomb room
 -Daffodil's arena and big bone's arena now have new custom backgrounds, both made by Hat in a river

@@ -244,10 +244,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             int frameSize = 16;
-            int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
             Vector2 pos = TileCustomPosition(i, j);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
@@ -266,7 +264,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
-            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
@@ -289,11 +287,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             int frameSize = 16;
-            int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 offset = new((xOff * 2) - (frameOff / 2), 0);
-            Vector2 pos = TileCustomPosition(i, j) - offset;
+            Vector2 pos = TileCustomPosition(i, j);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
@@ -311,7 +307,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Vector2 treeNormalOffset = new Vector2(1, 0);
 
             //draw the actual tree
-            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
         }
     }
 }

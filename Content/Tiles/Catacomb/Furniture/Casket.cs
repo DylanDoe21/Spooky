@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
-            if (Main.rand.NextBool(750))
+            if (Main.rand.NextBool(750) && !Main.gamePaused && Main.instance.IsActive)
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PooFly, new ParticleOrchestraSettings
                 {

@@ -38,8 +38,6 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void RandomUpdate(int i, int j)
         {
-            return;
-
             Tile Tile = Framing.GetTileSafely(i, j);
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);

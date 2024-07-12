@@ -7,6 +7,7 @@ using Terraria.Localization;
 using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -372,7 +373,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-			//first place a bunch of spider caves as a barrier around the biome
+			//place an oval and fill it with the water producing walls based on where the water height limit is
 			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
 			{
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
@@ -398,7 +399,7 @@ namespace Spooky.Content.Generation
 							}
 							else
 							{
-								if (WorldGen.genRand.NextBool(3) && Y >= Main.maxTilesY - 105)
+								if (WorldGen.genRand.NextBool(3) && Y >= WaterHeightLimit + 25)
 								{
 									double RootAngle = Y / 3.0 * 2.0 + 0.57075;
 									WorldUtils.Gen(new Point(X, Y), new ShapeRoot((int)RootAngle, WorldGen.genRand.Next(80, 120), WorldGen.genRand.Next(5, 8)),
@@ -689,6 +690,66 @@ namespace Spooky.Content.Generation
 
             //place orroboro nest
             GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 23, 19);
+
+            //place random structures after the main ones are generated
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
+            {
+                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
+                {
+                    //ground structures
+                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
+                    {
+                        if (WorldGen.genRand.NextBool(15) && CanPlaceStructure(X, Y))
+                        {
+                            switch (WorldGen.genRand.Next(7))
+                            {
+                                case 0:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 11);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril1", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 1:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 11);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril2", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull1", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 3:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull2", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 4:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye1", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 5:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye2", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 6:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 11, Y - 6);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorRibs", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         //method for finding a valid surface and placing the structure on it
@@ -724,6 +785,29 @@ namespace Spooky.Content.Generation
 
                 placed = true;
             }
+        }
+
+        //determine if a structure can be placed at a set position
+        public static bool CanPlaceStructure(int X, int Y)
+        {
+            int[] InvalidTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
+            ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
+            ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(),
+            ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>() };
+
+            //check a 60 by 14 square for other structures before placing
+            for (int i = X - 35; i < X + 35; i++)
+            {
+                for (int j = Y - 10; j < Y + 10; j++)
+                {
+                    if (InvalidTiles.Contains(Main.tile[i, j].TileType))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void GenerateNoseTemple(GenerationProgress progress, GameConfiguration configuration)
@@ -892,6 +976,27 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place surface ruins structure
+            bool placed = false;
+            int attempts = 0;
+            while (!placed && attempts++ < 100000)
+            {
+                int SurfaceDungeonX = (StartPosition < Main.maxTilesX / 2 ? 250 : Main.maxTilesX - 250);
+                int X = SurfaceDungeonX <= (Main.maxTilesX / 2) ? SurfaceDungeonX + 75 : SurfaceDungeonX - 75;
+                int Y = Main.maxTilesY - 160;
+
+                while (!WorldGen.SolidTile(X, Y) && Y < Main.maxTilesY)
+				{
+					Y++;
+				}
+                if (WorldGen.SolidTile(X, Y))
+				{
+                    GenerateNoseTempleStructure(X, Y, "SurfaceRuins", 22, 20);
+
+                    placed = true;
+				}
+            }
+
             //brick color variance
             int Brick = ModContent.TileType<NoseTempleBrickPurple>();
             int FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
@@ -1050,20 +1155,20 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
-			if (GenIndex1 == -1)
+            int GenIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Lihzahrd Altars"));
+			if (GenIndex == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
-			tasks.Insert(GenIndex1 + 2, new PassLegacy("Blood Lake", GenerateBloodLake));
-			tasks.Insert(GenIndex1 + 3, new PassLegacy("Nose Cultist Dungeon", GenerateNoseTemple));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
-            tasks.Insert(GenIndex1 + 5, new PassLegacy("Eye Valley Structures", GenerateStructures));
-            tasks.Insert(GenIndex1 + 6, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
-            tasks.Insert(GenIndex1 + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
-            tasks.Insert(GenIndex1 + 8, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
+            tasks.Insert(GenIndex + 1, new PassLegacy("Eye Valley", GenerateSpookyHell));
+			tasks.Insert(GenIndex + 2, new PassLegacy("Blood Lake", GenerateBloodLake));
+			tasks.Insert(GenIndex + 3, new PassLegacy("Nose Cultist Dungeon", GenerateNoseTemple));
+            tasks.Insert(GenIndex + 4, new PassLegacy("Eye Valley Polish", SpookyHellPolish));
+            tasks.Insert(GenIndex + 5, new PassLegacy("Eye Valley Structures", GenerateStructures));
+            tasks.Insert(GenIndex + 6, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
+            tasks.Insert(GenIndex + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
+            tasks.Insert(GenIndex + 8, new PassLegacy("Eye Valley Ambient Tiles", SpookyHellAmbience));
         }
     }
 }

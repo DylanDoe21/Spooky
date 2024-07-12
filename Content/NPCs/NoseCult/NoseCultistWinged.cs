@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             NPC.frameCounter++;
 
-            if (NPC.ai[1] < 240)
+            if (NPC.ai[1] < 180)
             {
                 if (NPC.frameCounter > 2)
                 {
@@ -110,7 +110,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-300, 300), ParentCenter.Y - Main.rand.Next(10, 150));
             }
 
-            if (NPC.ai[1] > 5 && NPC.ai[0] < 240)
+            if (NPC.ai[1] > 5 && NPC.ai[0] < 180)
             {
                 Vector2 GoTo = SavePosition;
 
@@ -118,7 +118,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
             }
 
-            if (NPC.ai[1] >= 240)
+            if (NPC.ai[1] >= 180)
             {
                 NPC.velocity *= 0.85f;
 
