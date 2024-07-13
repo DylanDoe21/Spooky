@@ -2518,11 +2518,6 @@ GildedBrickItem: {
 	Tooltip: ""
 }
 
-BaxterPaintingItem: {
-	DisplayName: Portrait of Baxter
-	Tooltip: "'Waasephi'"
-}
-
 CemeteryBiomeChestItem: {
 	DisplayName: Swampy Cemetery Chest
 	Tooltip: ""
@@ -3126,6 +3121,11 @@ SpookyHellChestItem: {
 EyeBlockItem: {
 	DisplayName: Eye Block
 	Tooltip: ""
+}
+
+BaxterPaintingItem: {
+	DisplayName: Portrait of Baxter
+	Tooltip: "'Waasephi'"
 }
 
 EyeBathtubItem: {

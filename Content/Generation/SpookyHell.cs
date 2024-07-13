@@ -27,7 +27,7 @@ namespace Spooky.Content.Generation
     public class SpookyHell : ModSystem
     {
         int NoseTempleBrickColor;
-        int NoseTempleBrickWallColor;
+        int NoseTempleSlabColor;
         static int NoseTemplePositionY;
         static int NoseTempleEntranceTunnelX;
 
@@ -795,10 +795,9 @@ namespace Spooky.Content.Generation
             ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(),
             ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>() };
 
-            //check a 60 by 14 square for other structures before placing
             for (int i = X - 35; i < X + 35; i++)
             {
-                for (int j = Y - 10; j < Y + 10; j++)
+                for (int j = Y - 25; j < Y + 25; j++)
                 {
                     if (InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {
@@ -1015,62 +1014,62 @@ namespace Spooky.Content.Generation
             {
                 case 0:
                 {
-                    Brick = ModContent.TileType<NoseTempleBrickGreen>();
-                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
-                    BrickSafe = ModContent.TileType<NoseTempleBrickGreenSafe>();
-                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGreenSafe>();
-                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
-                    Platform = ModContent.TileType<NoseTemplePlatformGreen>();
+                    Brick = ModContent.TileType<NoseTempleBrickGray>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickGraySafe>();
+                    BrickWall = ModContent.WallType<NoseTempleWallGray>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallGraySafe>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGray>();
                     break;
                 }
                 case 1:
                 {
-                    Brick = ModContent.TileType<NoseTempleBrickPurple>();
-                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
-                    BrickSafe = ModContent.TileType<NoseTempleBrickPurpleSafe>();
-                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickPurpleSafe>();
-                    BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
-                    Platform = ModContent.TileType<NoseTemplePlatformPurple>();
+                    Brick = ModContent.TileType<NoseTempleBrickGreen>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickGreenSafe>();
+                    BrickWall = ModContent.WallType<NoseTempleWallGreen>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallGreenSafe>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGreen>();
                     break;
                 }
                 case 2:
                 {
-                    Brick = ModContent.TileType<NoseTempleBrickGray>();
-                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGray>();
-                    BrickSafe = ModContent.TileType<NoseTempleBrickGraySafe>();
-                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGraySafe>();
-                    BGBrickWall = ModContent.WallType<NoseTempleWallBGGray>();
-                    Platform = ModContent.TileType<NoseTemplePlatformGray>();
+                    Brick = ModContent.TileType<NoseTempleBrickPurple>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickPurpleSafe>();
+                    BrickWall = ModContent.WallType<NoseTempleWallPurple>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
                     break;
                 }
             }
 
-            NoseTempleBrickWallColor = Main.rand.Next(0, 3);
+            NoseTempleSlabColor = Main.rand.Next(0, 3);
 
-            switch (NoseTempleBrickWallColor)
+            switch (NoseTempleSlabColor)
             {
                 case 0:
                 {
-                    BrickWall = ModContent.WallType<NoseTempleWallGreen>();
-                    BrickWallSafe = ModContent.WallType<NoseTempleWallGreenSafe>();
-                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
-                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGreenSafe>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGray>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGraySafe>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGray>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGraySafe>();
+                    Platform = ModContent.TileType<NoseTemplePlatformGray>();
                     break;
                 }
                 case 1:
                 {
-                    BrickWall = ModContent.WallType<NoseTempleWallPurple>();
-                    BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
-                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
-                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallPurpleSafe>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickGreen>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickGreenSafe>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGreen>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGreenSafe>();
+                    Platform = ModContent.TileType<NoseTemplePlatformGreen>();
                     break;
                 }
                 case 2:
                 {
-                    BrickWall = ModContent.WallType<NoseTempleWallGray>();
-                    BrickWallSafe = ModContent.WallType<NoseTempleWallGraySafe>();
-                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallGray>();
-                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallGraySafe>();
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickPurple>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickPurpleSafe>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallPurple>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallPurpleSafe>();
+                    Platform = ModContent.TileType<NoseTemplePlatformPurple>();
                     break;
                 }
             }

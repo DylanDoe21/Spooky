@@ -23,6 +23,8 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             TileID.Sets.FramesOnKillWall[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
+            TileObjectData.newTile.Width = 3;
+			TileObjectData.newTile.Height = 2;
 			TileObjectData.newTile.Origin = new Point16(1, 1);
             TileObjectData.newTile.StyleWrapLimit = 2;
             TileObjectData.newTile.StyleMultiplier = 2;

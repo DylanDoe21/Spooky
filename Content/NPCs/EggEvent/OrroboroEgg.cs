@@ -168,7 +168,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public void SwitchToNextWave()
         {
-            if (EggEventWorld.Wave < 9)
+            if (EggEventWorld.Wave < 7)
             {
                 CombatText.NewText(NPC.getRect(), Color.Magenta, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventWaveComplete"), true);
                 
@@ -416,11 +416,11 @@ namespace Spooky.Content.NPCs.EggEvent
                         break;
                     }
 
-                    //wave enemies: Glutinous x4, Vigilante x3, Ventricle x2, Crux x2
-                    //post defeat: Vigilante x2, Ventricle x2
+                    //wave enemies: Glutinous x6, Vigilante x3, Ventricle x2, Crux x2, Vesicator x1
+                    //post defeat: Vesicator x1
                     case 7:
                     {
-                        for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
+                        for (int numEnemy = 1; numEnemy <= 6; numEnemy++)
                         {
                             SpawnEnemy(0);
                         }
@@ -431,35 +431,8 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
 
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(2);
-                            SpawnEnemy(3);
-                        }
-
-                        if (Flags.downedEggEvent)
-                        {
-                            for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                            {
-                                SpawnEnemy(1);
-                                SpawnEnemy(2);
-                            }
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x6, Vigilante x6, Crux x2, Vesicator x1
-                    //post defeat: Ventricle x2
-                    case 8:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 6; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 6; numEnemy++)
                         {   
-                            SpawnEnemy(1);
+                            SpawnEnemy(2);
                         }
 
                         for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
@@ -471,47 +444,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         if (Flags.downedEggEvent)
                         {
-                            for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                            {
-                                SpawnEnemy(2);
-                            }
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x6, Vigilante x5, Ventricle x3, Crux x1, Vesicator x1
-                    //post defeat: Glutinous x2, Vigilante x2, Ventricle x1, Crux x1
-                    case 9:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 6; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
-                        {   
-                            SpawnEnemy(1);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
-                        {   
-                            SpawnEnemy(2);
-                        }
-
-                        SpawnEnemy(3);
-                        SpawnEnemy(4);
-
-                        if (Flags.downedEggEvent)
-                        {
-                            for (int numEnemy = 1; numEnemy <= 6; numEnemy++)
-                            {
-                                SpawnEnemy(0);
-                                SpawnEnemy(1);
-                            }
-
-                            SpawnEnemy(2);
-                            SpawnEnemy(3);
+                            SpawnEnemy(4);
                         }
 
                         break;

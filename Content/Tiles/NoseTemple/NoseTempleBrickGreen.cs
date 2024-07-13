@@ -15,7 +15,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(83, 113, 55));
+			AddMapEntry(new Color(63, 82, 42));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MinPick = int.MaxValue;
@@ -39,7 +39,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(83, 113, 55));
+			AddMapEntry(new Color(63, 82, 42));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}

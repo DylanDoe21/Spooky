@@ -15,7 +15,7 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(81, 40, 114));
+			AddMapEntry(new Color(104, 83, 124));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MinPick = int.MaxValue;
@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.NoseTemple
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
-            frameXOffset = i % 3 * 288; //288 is the width of each individual sheet
+            frameXOffset = i % 2 * 288; //288 is the width of each individual sheet
 			frameYOffset = j % 2 * 270; //270 is the height of each individual sheet
         }
 
@@ -45,14 +45,14 @@ namespace Spooky.Content.Tiles.NoseTemple
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(81, 40, 114));
+			AddMapEntry(new Color(104, 83, 124));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
-            frameXOffset = i % 3 * 288; //288 is the width of each individual sheet
+            frameXOffset = i % 2 * 288; //288 is the width of each individual sheet
 			frameYOffset = j % 2 * 270; //270 is the height of each individual sheet
         }
 	}

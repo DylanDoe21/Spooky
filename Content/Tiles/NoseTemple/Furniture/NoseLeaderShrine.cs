@@ -53,6 +53,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			return true;
 		}
 
+		/*
 		public override bool RightClick(int i, int j)
 		{
 			if (NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeaderIdle>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>()) || NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()) || !Flags.downedMocoIdol6)
@@ -66,5 +67,6 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 
 			return true;
 		}
+		*/
     }
 }

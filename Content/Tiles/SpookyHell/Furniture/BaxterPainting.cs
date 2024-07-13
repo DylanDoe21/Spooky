@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Tiles.Cemetery.Furniture
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
     public class BaxterPainting : ModTile
     {

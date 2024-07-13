@@ -150,7 +150,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 75 / 3 : Main.expertMode ? 55 / 2 : 40;
+            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 50 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 

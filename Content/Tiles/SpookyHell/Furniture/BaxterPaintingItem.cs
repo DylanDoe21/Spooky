@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Tiles.Cemetery.Furniture
+namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {
 	public class BaxterPaintingItem : ModItem
     {
