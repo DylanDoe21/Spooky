@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
             Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.localAI[0] / 35 + (Projectile.localAI[0] < 450 ? time : time2), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.ai[0] / 35 + (Projectile.ai[0] < 450 ? time : time2), SpriteEffects.None, 0);
 
             return true;
         }
@@ -53,39 +53,84 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             return false;
         }
-    
-        public override void AI()
-        {
-            Projectile.rotation += 0.25f * (float)Projectile.direction;
-            
-            if (Projectile.localAI[0] < 450)
-            {
-                Projectile.localAI[0] += 10;
-            }
-
-            if (Projectile.localAI[0] >= 225)
-            {
-                Projectile.velocity.Y += 0.25f;
-            }
-
-            if (Projectile.localAI[0] >= 450 && Projectile.velocity.Y >= 15)
-            {
-                Projectile.tileCollide = true;
-            }
-            else
-            {
-                Projectile.tileCollide = false;
-            }
-        }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.localAI[0] >= 450 && Projectile.velocity.Y >= 15)
+            if (Projectile.ai[0] >= 450 && Projectile.velocity.Y >= 15)
             {
                 Projectile.Kill();
             }
 
             return true;
+        }
+    
+        public override void AI()
+        {
+            Projectile.rotation += 0.25f * (float)Projectile.direction;
+            
+            if (Projectile.ai[0] < 450)
+            {
+                Projectile.ai[0] += 10;
+            }
+
+            if (Projectile.ai[0] >= 225)
+            {
+                Projectile.velocity.Y += 0.25f;
+            }
+
+            if (!IsColliding())
+            {
+                Projectile.ai[1]++;
+            }
+            if (Projectile.ai[1] > 5 && Projectile.velocity.Y >= 5)
+            {
+                Projectile.tileCollide = true;
+            }
+        }
+
+        public bool IsColliding()
+        {
+            int minTilePosX = (int)(Projectile.position.X / 16) - 1;
+            int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
+            int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
+            int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16) + 2;
+            if (minTilePosX < 0)
+            {
+                minTilePosX = 0;
+            }
+            if (maxTilePosX > Main.maxTilesX)
+            {
+                maxTilePosX = Main.maxTilesX;
+            }
+            if (minTilePosY < 0)
+            {
+                minTilePosY = 0;
+            }
+            if (maxTilePosY > Main.maxTilesY)
+            {
+                maxTilePosY = Main.maxTilesY;
+            }
+
+            for (int i = minTilePosX; i < maxTilePosX; ++i)
+            {
+                for (int j = minTilePosY; j < maxTilePosY; ++j)
+                {
+                    if (Main.tile[i, j] != null && (Main.tile[i, j].HasTile && (Main.tileSolid[(int)Main.tile[i, j].TileType])))
+                    {
+                        Vector2 vector2;
+                        vector2.X = (float)(i * 16);
+                        vector2.Y = (float)(j * 16);
+
+                        if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
+                        (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public override void OnKill(int timeLeft)
@@ -101,7 +146,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Player player = Main.player[i];
                 if (player.active && !player.dead)
                 {
-                    if (player.Distance(Projectile.Center) <= Projectile.localAI[0] + time)
+                    if (player.Distance(Projectile.Center) <= Projectile.ai[0] + time)
                     {
                         player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
                     }
@@ -124,13 +169,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 //chance to shoot them directly up
                 if (Main.rand.NextBool(2))
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 4),
-                    Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 4), Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
                 }
                 else
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14),
-                    Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
                 }
             }
 
