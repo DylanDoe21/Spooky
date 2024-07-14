@@ -5,11 +5,11 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Blooms
 {
-    public class FallSeed : ModItem
+    public class BloomSoilItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 5;
+            Item.ResearchUnlockCount = 100;
         }
 
         public override void SetDefaults()
@@ -17,21 +17,13 @@ namespace Spooky.Content.Tiles.Blooms
             Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-            Item.width = 46;
-			Item.height = 30;
+            Item.width = 16;
+			Item.height = 16;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-            Item.rare = ItemRarityID.Blue;
 			Item.useStyle = ItemUseStyleID.Swing;
-            Item.placeStyle = Main.rand.Next(0, 4);
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<FallBloomPlant>();
+			Item.createTile = ModContent.TileType<BloomSoil>();
         }
-
-        public override bool? UseItem(Player player)
-		{
-			Item.placeStyle = Main.rand.Next(0, 4);
-			return null;
-		}
     }
 }

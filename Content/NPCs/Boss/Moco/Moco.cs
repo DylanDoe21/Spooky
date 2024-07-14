@@ -1012,7 +1012,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     NPC.localAI[0]++;
 
                     //zip to the side of the player for a while
-                    if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 100)
+                    if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 140)
                     {
                         CurrentFrameX = 2;
 
@@ -1021,7 +1021,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
                         }
 
-                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -350f : 350f, 0f);
+                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -420f : 420f, 0f);
                     }
 
                     if (NPC.localAI[0] >= 130 && NPC.localAI[0] <= 160)

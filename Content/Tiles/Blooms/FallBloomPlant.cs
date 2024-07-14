@@ -15,7 +15,7 @@ using Spooky.Content.Items.Blooms;
 
 namespace Spooky.Content.Tiles.Blooms
 {
-	public class FallSeedTile : ModTile
+	public class FallBloomPlant : ModTile
 	{
 		public override string Texture => "Spooky/Content/Tiles/Blooms/BloomPlantTestTexture";
 
@@ -28,6 +28,7 @@ namespace Spooky.Content.Tiles.Blooms
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
 			TileObjectData.newTile.DrawYOffset = 2;
+			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(147, 33, 27));
 			RegisterItemDrop(ModContent.ItemType<FallSeed>());
