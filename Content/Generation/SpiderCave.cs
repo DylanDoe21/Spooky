@@ -54,6 +54,15 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            if (initialStartPosX < Main.maxTilesX / 2 && startPosX > Main.maxTilesX / 2)
+            {
+                startPosX = Main.maxTilesX / 2;
+            }
+            if (initialStartPosX > Main.maxTilesX / 2 && startPosX < Main.maxTilesX / 2)
+            {
+                startPosX = Main.maxTilesX / 2;
+            }
+
             int cavePerlinSeed = WorldGen.genRand.Next();
 
             Point origin = new Point(startPosX, startPosY);
@@ -734,7 +743,7 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 100; j < Y; j++)
                 {
-                    int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sand, TileID.JungleGrass, TileID.LihzahrdBrick };
+                    int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sandstone, TileID.JungleGrass, TileID.LihzahrdBrick };
 
                     if (InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {

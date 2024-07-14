@@ -144,8 +144,9 @@ Enemy & Boss Changes:
 -Reduced boros short lunge dash attack speed a bit
 -Boro will now emerge out of the ground to the side of the player after using its flesh spine attack to prevent players from getting hit unfairly (similarly to the phase 1 flesh spine attack)
 -Changed boros flamethrower attack and made it so he whips his tongue at you instead (The attack itself is still mechanically the same, but with a new projectile)
--Nerfed orro-boros piercing projectile resistance (Previously it divided piercing projectile damage by 1.8, now it divides it by 1.5)
 -Massively improved the visual effect for orro's and boro's enrage auras, and also changed the way the worms themselves are drawn so their heads and other segments aren't weirdly off-center
+-Nerfed orro-boros piercing projectile resistance (Previously it divided piercing projectile damage by 1.8, now it divides it by 1.5)
+-Nerfed orro-boro's overall defense
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly bullet hell and seed thorn attacks
 -Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena

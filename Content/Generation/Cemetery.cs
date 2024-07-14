@@ -60,7 +60,7 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            int DistanceMax = Main.maxTilesX < 6400 ? 8 : 9;
+            int DistanceMax = Main.maxTilesX < 6400 ? 8 : 8;
 
             //if the catacombs placement position is too close to the edge of the world, cap it to prevent it from generating too close to the oceans
             if (Catacombs.PositionX <= (Main.maxTilesX / DistanceMax))

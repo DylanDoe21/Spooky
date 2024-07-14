@@ -1009,6 +1009,7 @@ namespace Spooky.Content.Generation
             int Platform = ModContent.TileType<NoseTemplePlatformPurple>();
 
             NoseTempleBrickColor = WorldGen.genRand.Next(0, 3);
+            NoseTempleSlabColor = WorldGen.genRand.Next(0, 3);
 
             switch (NoseTempleBrickColor)
             {
@@ -1040,8 +1041,6 @@ namespace Spooky.Content.Generation
                     break;
                 }
             }
-
-            NoseTempleSlabColor = Main.rand.Next(0, 3);
 
             switch (NoseTempleSlabColor)
             {

@@ -82,7 +82,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.lifeMax = 32000;
             NPC.damage = 55;
-            NPC.defense = 30;
+            NPC.defense = 15;
             NPC.width = 75;
             NPC.height = 75;
             NPC.npcSlots = 25f;
@@ -488,7 +488,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
-                            ChargeDirection *= 16;
+                            ChargeDirection *= 13;
                             NPC.velocity = ChargeDirection;
                         }
 
@@ -499,8 +499,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             {
                                 Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y + Main.rand.Next(-50, 50)) - NPC.Center;
                                 ShootSpeed.Normalize();
-                                ShootSpeed.X *= Main.rand.Next(12, 25);
-                                ShootSpeed.Y *= Main.rand.Next(12, 25);
+                                ShootSpeed.X *= Main.rand.Next(8, 21);
+                                ShootSpeed.Y *= Main.rand.Next(8, 21);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
