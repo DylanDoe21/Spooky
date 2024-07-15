@@ -2,14 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.SpookyBiome.Misc;
-using Terraria.DataStructures;
-using Spooky.Content.Tiles.SpookyBiome;
-using System.Collections.Generic;
+using System.Linq;
 
 using Spooky.Content.Items.Blooms;
 
@@ -109,14 +106,45 @@ namespace Spooky.Content.Tiles.Blooms
 					{
 						Tile CheckTile = Framing.GetTileSafely(x, y);
 						CheckTile.TileFrameX += 54;
-						
-						//TODO: make dragonfruit plant have a chance to convert other blooms around it when growing
+
+						for (int convertX = left - 4; convertX <= left + 6; convertX++)
+						{
+							ConvertNearbyBlooms(convertX, y);
+						}
 					}
 				}
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
 				{
-					NetMessage.SendTileSquare(-1, left, top, 12);
+					NetMessage.SendTileSquare(-1, left, top, 6);
+				}
+			}
+		}
+
+		public void ConvertNearbyBlooms(int i, int j)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+
+			int[] ValidBlooms = { ModContent.TileType<DandelionBloomPlant>(), ModContent.TileType<FallBloomPlant>(),
+			ModContent.TileType<SpringBloomPlant>(), ModContent.TileType<SummerBloomPlant>(), ModContent.TileType<WinterBloomPlant>() };
+
+			if (ValidBlooms.Contains(tile.TileType))
+			{
+				int left = i - tile.TileFrameX / 18 % 3;
+				int top = j - tile.TileFrameY / 18 % 3;
+
+				for (int x = left; x < left + 3; x++)
+				{
+					for (int y = top; y < top + 3; y++)
+					{
+						Tile CheckTile = Framing.GetTileSafely(x, y);
+						CheckTile.TileType = (ushort)ModContent.TileType<DragonfruitBloomPlant>();
+					}
+				}
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, left, top, 6);
 				}
 			}
 		}

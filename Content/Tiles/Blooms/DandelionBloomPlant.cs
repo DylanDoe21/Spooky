@@ -2,14 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Spooky.Content.Items.BossSummon;
-using Spooky.Content.Items.SpookyBiome.Misc;
-using Terraria.DataStructures;
-using Spooky.Content.Tiles.SpookyBiome;
-using System.Collections.Generic;
 
 using Spooky.Content.Items.Blooms;
 
@@ -123,7 +119,7 @@ namespace Spooky.Content.Tiles.Blooms
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
 				{
-					NetMessage.SendTileSquare(-1, left, top, 12);
+					NetMessage.SendTileSquare(-1, left, top, 6);
 				}
 			}
 		}
