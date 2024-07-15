@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Blooms
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item2;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.maxStack = 9999;
