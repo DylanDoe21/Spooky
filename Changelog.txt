@@ -57,19 +57,20 @@ Catacomb Improvements:
 -You can now break blocks and use explosives in the catacombs (However, the actual brick blocks in the catacombs are still unbreakable, the rod of discord is still disabled, and you still cant place anything besides torches)
 
 
-New Farming Mechanic:
+New Bloom Farming Mechanic:
 
--The blooms mechanic is a farming mechanic where you can plant special "seeds" on special farmland blocks, which grow into a different plant depending on the seed type you planted
--When the plant is fully grown, it will produce one of a few different blooms that you can pick off the plant and eat
+-The blooms mechanic is a farming mechanic where you can plant new "seeds" on special farmland blocks, which grow into a different plant depending on the seed type you planted
+-When each plant is fully grown, they will produce one of a few different blooms that you can pick off the plant and eat
 -Each individual bloom will give you a temporary bonus, with some giving you generic boosts, some giving you entirely unique abilities, and some even benefitting bloom crop growth
 -Unlike vanilla buffs though, blooms do not give you a regular buff, but instead have a special UI where their buffs show up
 -This bloom buffs UI only has a limited number of slots, with 2 by default and 2 additional slots you can unlock later on after using items dropped by daffodil and big bone
 -This means you can use any combination of bloom buffs that you'd like, but you can only have a limited number of them active at once, so make sure to consider which ones you want to use
 
 Some things to note about this buff mechanic:
--Bloom buffs, like vanilla buffs, can be manually removed by right clicking the icon of the buff you want to remove
+-Bloom buffs, like vanilla buffs, can be manually removed by right-clicking the icon of the buff you want to remove
 -Bloom buffs have stacking durations, if you eat multiple of the same bloom, then that blooms base duration will be added onto the remaining duration for the existing buff
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buffs duration will cap at 20 minutes and it will not go beyond that even if you eat more of that bloom)
+-The UI for the bloom buffs will only show up if you have a bloom buff active, otherwise it won't show up so don't be confused if you don't immediately see it in-game
 
 
 New Music:

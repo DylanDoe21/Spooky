@@ -24,7 +24,7 @@ namespace Spooky.Content.Tiles.Blooms
             Item.rare = ItemRarityID.Blue;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			//Item.createTile = ModContent.TileType<DragonfruitSeedPlant>();
+			Item.createTile = ModContent.TileType<DragonfruitBloomPlant>();
         }
     }
 }

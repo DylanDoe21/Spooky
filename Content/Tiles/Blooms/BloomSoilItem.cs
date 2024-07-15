@@ -1,7 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
+
+using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpiderCave;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Tiles.Blooms
 {
@@ -24,6 +28,34 @@ namespace Spooky.Content.Tiles.Blooms
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<BloomSoil>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(3)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ItemID.DirtBlock, 6)
+            .Register();
+
+            CreateRecipe(3)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ItemID.MudBlock, 6)
+            .Register();
+
+            CreateRecipe(3)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<CemeteryDirtItem>(), 6)
+            .Register();
+
+            CreateRecipe(3)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<DampSoilItem>(), 6)
+            .Register();
+
+            CreateRecipe(3)
+            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<SpookyDirtItem>(), 6)
+            .Register();
         }
     }
 }

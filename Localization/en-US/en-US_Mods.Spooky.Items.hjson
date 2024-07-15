@@ -162,8 +162,7 @@ WinterBlackberry: {
 	DisplayName: Blackberry Glacier
 	Tooltip:
 		'''
-		Any blooms you harvet have a chance to be refrigerated
-		A refrigerated bloom's effects will last for 50% longer
+		Any blooms you eat have a chance to last for double their normal duration
 		10 minute duration
 		'''
 }
@@ -183,7 +182,7 @@ WinterGooseberry: {
 	Tooltip:
 		'''
 		Every third instance of damage you deal has a 30% chance to spawn a Gooseberry you can pick up
-		Gooseberries increase life regeneration and damage by 10% when picked up for a short time
+		Gooseberries increase life regeneration and damage by 10% for a short time when picked up 
 		However, gooseberries will be destroyed upon making contact with hostile projectiles
 		5 minute duration
 		'''
@@ -193,7 +192,7 @@ WinterStrawberry: {
 	DisplayName: Mountain Strawberry
 	Tooltip:
 		'''
-		Ocasionally a mountain strawberry will spawn nearby you
+		Occasionally a mountain strawberry will spawn nearby you
 		Picking these strawberries up will grant a 10% boost to all stats for a few seconds
 		5 minute duration
 		'''

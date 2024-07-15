@@ -15,7 +15,7 @@ using Spooky.Content.Items.Blooms;
 
 namespace Spooky.Content.Tiles.Blooms
 {
-	public class FallBloomPlant : ModTile
+	public class DandelionBloomPlant : ModTile
 	{
 		public override string Texture => "Spooky/Content/Tiles/Blooms/BloomPlantTestTexture";
 
@@ -31,8 +31,8 @@ namespace Spooky.Content.Tiles.Blooms
 			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(147, 33, 27));
-			RegisterItemDrop(ModContent.ItemType<FallSeed>());
-			DustType = 288;
+			RegisterItemDrop(ModContent.ItemType<DandelionSeed>());
+			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
 		}
 
@@ -60,15 +60,15 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			Vector2 Offset = new Vector2(40, 46);
+			Vector2 Offset = new Vector2(34, 72);
 
 			//draw the tile only on the bottom center of each tiles y-frame
-			if (tile.TileFrameY == 36 || tile.TileFrameY == 90 || tile.TileFrameY == 144 || tile.TileFrameY == 198)
+			if (tile.TileFrameY == 36 || tile.TileFrameY == 90 || tile.TileFrameY == 144)
 			{
 				//also only draw the bloom tile on the middle x-frame
 				if (tile.TileFrameX == 18 || tile.TileFrameX == 72 || tile.TileFrameX == 126 || tile.TileFrameX == 180 || tile.TileFrameX == 234)
 				{
-					PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/FallBloomPlant");
+					PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/DandelionBloomPlant");
 
 					int frame = 0;
 
@@ -84,10 +84,9 @@ namespace Spooky.Content.Tiles.Blooms
 						if (tile.TileFrameY == 36) frame = 4;
 						if (tile.TileFrameY == 90) frame = 5;
 						if (tile.TileFrameY == 144) frame = 6;
-						if (tile.TileFrameY == 198) frame = 7;
 					}
 
-					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 50 * frame, 60, 48), TileOffset.ToWorldCoordinates(), Offset);
+					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 76 * frame, 52, 74), TileOffset.ToWorldCoordinates(), Offset);
 				}
 			}
 		}
@@ -98,10 +97,9 @@ namespace Spooky.Content.Tiles.Blooms
 
 			if (frameX == 216)
 			{
-				if (frameY == 0) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FallGourd>());
-				if (frameY == 54) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FallSoulPumpkin>());
-				if (frameY == 108) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FallWaterGourd>());
-				if (frameY == 162) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FallZucchini>());
+				if (frameY == 0) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<DandelionHerd>());
+				if (frameY == 54) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<DandelionMapleSeed>());
+				if (frameY == 108) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<DandelionTumbleweed>());
 			}
 		}
 

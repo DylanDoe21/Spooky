@@ -23,8 +23,15 @@ namespace Spooky.Content.Tiles.Blooms
 			Item.useAnimation = 15;
             Item.rare = ItemRarityID.Blue;
 			Item.useStyle = ItemUseStyleID.Swing;
+            Item.placeStyle = Main.rand.Next(0, 3);
 			Item.maxStack = 9999;
-			//Item.createTile = ModContent.TileType<DandelionSeedPlant>();
+			Item.createTile = ModContent.TileType<DandelionBloomPlant>();
         }
+
+        public override bool? UseItem(Player player)
+		{
+			Item.placeStyle = Main.rand.Next(0, 3);
+			return null;
+		}
     }
 }
