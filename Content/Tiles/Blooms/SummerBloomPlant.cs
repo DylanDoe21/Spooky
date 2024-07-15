@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.Blooms
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(147, 33, 27));
+			AddMapEntry(Color.Gold);
 			RegisterItemDrop(ModContent.ItemType<SummerSeed>());
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
@@ -105,7 +105,7 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			if (tile.TileFrameX < 216)
+			if (tile.TileFrameX < 216 && Main.rand.NextBool(15))
 			{
 				int left = i - tile.TileFrameX / 18 % 3;
 				int top = j - tile.TileFrameY / 18 % 3;

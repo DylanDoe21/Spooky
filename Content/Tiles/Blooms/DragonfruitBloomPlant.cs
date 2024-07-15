@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +18,8 @@ namespace Spooky.Content.Tiles.Blooms
 	{
 		public override string Texture => "Spooky/Content/Tiles/Blooms/BloomPlantTestTexture";
 
+		public static readonly SoundStyle SparkleSound = new("Spooky/Content/Sounds/DivaPlantGlitter", SoundType.Sound); //NAIL POLISH!!!!!
+
 		private Asset<Texture2D> PlantTexture;
 
 		public override void SetStaticDefaults()
@@ -27,7 +31,7 @@ namespace Spooky.Content.Tiles.Blooms
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(147, 33, 27));
+			AddMapEntry(Color.HotPink);
 			RegisterItemDrop(ModContent.ItemType<DragonfruitSeed>());
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;
@@ -95,7 +99,7 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			if (tile.TileFrameX < 216)
+			if (tile.TileFrameX < 216 && Main.rand.NextBool(15))
 			{
 				int left = i - tile.TileFrameX / 18 % 3;
 				int top = j - tile.TileFrameY / 18 % 3;
@@ -139,6 +143,21 @@ namespace Spooky.Content.Tiles.Blooms
 					{
 						Tile CheckTile = Framing.GetTileSafely(x, y);
 						CheckTile.TileType = (ushort)ModContent.TileType<DragonfruitBloomPlant>();
+
+						if (x == left + 1 && y == top + 1) 
+						{
+							SoundEngine.PlaySound(SoundID.NPCDeath42 with { Pitch = 0.75f, Volume = 0.05f }, new Vector2(x * 16, y * 16));
+							SoundEngine.PlaySound(SparkleSound, new Vector2(x * 16, y * 16));
+
+							//spawn particles
+							for (int numParticles = 0; numParticles <= 20; numParticles++)
+							{
+								ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.PrincessWeapon, new ParticleOrchestraSettings
+								{
+									PositionInWorld = new Vector2(x * 16, y * 16) + new Vector2(Main.rand.Next(-5, 16), Main.rand.Next(-5, 25))
+								});
+							}
+						}
 					}
 				}
 
