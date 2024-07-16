@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.Blooms
 	{
 		public override string Texture => "Spooky/Content/Tiles/Blooms/BloomPlantTestTexture";
 
-		public static readonly SoundStyle SparkleSound = new("Spooky/Content/Sounds/DivaPlantGlitter", SoundType.Sound); //NAIL POLISH!!!!!
+		public static readonly SoundStyle SparkleSound = new("Spooky/Content/Sounds/DivaPlantGlitter", SoundType.Sound) { Volume = 0.5f };
 
 		private Asset<Texture2D> PlantTexture;
 
@@ -99,7 +99,7 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			if (tile.TileFrameX < 216 && Main.rand.NextBool(12))
+			if (tile.TileFrameX < 216 && Main.rand.NextBool(20))
 			{
 				int left = i - tile.TileFrameX / 18 % 3;
 				int top = j - tile.TileFrameY / 18 % 3;
@@ -146,7 +146,7 @@ namespace Spooky.Content.Tiles.Blooms
 
 						if (x == left + 1 && y == top + 1) 
 						{
-							SoundEngine.PlaySound(SoundID.NPCDeath42 with { Pitch = 0.75f, Volume = 0.05f }, new Vector2(x * 16, y * 16));
+							SoundEngine.PlaySound(SoundID.NPCDeath42 with { Pitch = 0.75f, Volume = 0.1f }, new Vector2(x * 16, y * 16));
 							SoundEngine.PlaySound(SparkleSound, new Vector2(x * 16, y * 16));
 
 							//spawn particles

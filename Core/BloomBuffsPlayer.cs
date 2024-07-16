@@ -59,11 +59,12 @@ namespace Spooky.Core
         public int SpringIrisTimer = 0;
         public int SummerLemonsShot = 0;
         public int SummerLemonDelay = 0;
+		public int DandelionHerdTimer = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
 
         //UI default position
-        public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2 - 116f, 75f);
+        public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
         public bool CanConsumeFruit(string BuffName)
@@ -377,6 +378,21 @@ namespace Spooky.Core
 				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);
 			}
 
+			//spawn dandelion herd clusters while the player is flying, the timer itself is handled in ItemGlobal to account for the player using wings
+			if (DandelionHerd)
+			{
+				int[] Types = { ModContent.ProjectileType<DandelionFloater1>(), ModContent.ProjectileType<DandelionFloater2>(), ModContent.ProjectileType<DandelionFloater3>() };
+
+				if (DandelionHerdTimer % 30 == 0 && DandelionHerdTimer > 0)
+				{
+					Projectile.NewProjectile(null, Player.Center, new Vector2(0, Main.rand.Next(1, 3)), Main.rand.Next(Types), 35 + (Player.wingTimeMax / 10), 0, Player.whoAmI);
+				}
+			}
+			else
+			{
+				DandelionHerdTimer = 0;
+			}
+
 			//spawn orbiting dragon fruits around the player and spawn more with each stack the player has
 			if (Dragonfruit && Player.ownedProjectileCounts[ModContent.ProjectileType<DragonfruitOrbiter>()] < DragonfruitStacks)
 			{
@@ -451,7 +467,7 @@ namespace Spooky.Core
 			//if the player lands a crit wit hthe poker pineapple, then heal them and produce some pineapple dusts for a cool effect
 			if (SummerPineapple && hit.Crit)
 			{
-				int randomHealAmount = Main.rand.Next(10, 25);
+				int randomHealAmount = Main.rand.Next(5, 11);
 
 				Player.statLife += randomHealAmount;
 				Player.HealEffect(randomHealAmount, true);

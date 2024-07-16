@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.SpookyHell
 		{
 			Item.width = 34;
 			Item.height = 28;
-			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.value = Item.buyPrice(gold: 5);
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
 		}

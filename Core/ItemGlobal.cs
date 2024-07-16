@@ -179,5 +179,16 @@ namespace Spooky.Core
 
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
+
+		public override bool WingUpdate(int wings, Player player, bool inUse)
+		{
+			//increase timer for spawning dandelion herd projectiles while flying
+			if (player.GetModPlayer<BloomBuffsPlayer>().DandelionHerd && inUse && player.wingTime > 0)
+			{
+				player.GetModPlayer<BloomBuffsPlayer>().DandelionHerdTimer++;
+			}
+
+			return base.WingUpdate(wings, player, inUse);
+		}
 	}
 }

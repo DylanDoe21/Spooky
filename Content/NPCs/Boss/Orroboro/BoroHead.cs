@@ -183,7 +183,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -345,6 +345,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         int time1 = Enraged ? 45 : 45;
                         int time2 = Enraged ? 80 : 90;
                         int time3 = Enraged ? 115 : 130;
+                        
                         if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                         {
                             SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
@@ -357,10 +358,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
+                        else
+                        {
+                            NPC.velocity *= 0.95f;
+                        }
 
                         if (NPC.localAI[0] > time3)
                         {
-                            NPC.velocity *= 0.9f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1]++;
                             NPC.netUpdate = true;
@@ -370,6 +374,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         if (NPC.localAI[0] >= 60)
                         {
+                            NPC.velocity *= 0.9f;
+
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;

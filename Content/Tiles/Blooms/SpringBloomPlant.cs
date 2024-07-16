@@ -105,7 +105,7 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			if (tile.TileFrameX < 216 && Main.rand.NextBool(12))
+			if (tile.TileFrameX < 216 && Main.rand.NextBool(20))
 			{
 				int left = i - tile.TileFrameX / 18 % 3;
 				int top = j - tile.TileFrameY / 18 % 3;

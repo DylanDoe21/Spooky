@@ -1,0 +1,12 @@
+-Make egg incursion enemy resprites that are just weird conglomerated versions of eye valley enemies
+
+
+Slug- Man hole abomination, a slug of flesh with a manhole like mouth on it that can spit blood
+
+Vigilante- MrHandy abomination, hops around and can jump and slam the ground
+
+Ventricle- Red tortumor abomination that looks like a heart
+
+Crux- Eye bat abomination, can fly and create auras that inflict debuffs
+
+Vesicator- 

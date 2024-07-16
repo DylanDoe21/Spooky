@@ -24,26 +24,6 @@ namespace Spooky.Content.Biomes
 
                 if (!Main.bloodMoon && !Main.eclipse)
                 {
-                    /*
-                    //play normal theme if its not storming and the player isnt in a town
-                    if (!Main.raining && Main.LocalPlayer.townNPCs < 3f)
-                    {
-                        if (Main.dayTime)
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
-                        }
-                        else
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
-                        }
-                    }
-                    //play town theme if the player is in a town
-                    else if (!Main.raining && Main.LocalPlayer.townNPCs >= 3f)
-                    {
-                        music = Main.dayTime ? MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownDay") : MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeTownNight");
-                    }
-                    */
-
                     //play normal theme
                     if (!Main.raining)
                     {

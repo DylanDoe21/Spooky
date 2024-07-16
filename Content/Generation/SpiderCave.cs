@@ -52,15 +52,17 @@ namespace Spooky.Content.Generation
                 {
                     foundValidPosition = true;
                 }
-            }
 
-            if (initialStartPosX < Main.maxTilesX / 2 && startPosX > Main.maxTilesX / 2)
-            {
-                startPosX = Main.maxTilesX / 2;
-            }
-            if (initialStartPosX > Main.maxTilesX / 2 && startPosX < Main.maxTilesX / 2)
-            {
-                startPosX = Main.maxTilesX / 2;
+                if (initialStartPosX < Main.maxTilesX / 2 && startPosX > Main.maxTilesX / 2)
+                {
+                    startPosX = Main.maxTilesX / 2;
+                    foundValidPosition = true;
+                }
+                if (initialStartPosX > Main.maxTilesX / 2 && startPosX < Main.maxTilesX / 2)
+                {
+                    startPosX = Main.maxTilesX / 2;
+                    foundValidPosition = true;
+                }
             }
 
             int cavePerlinSeed = WorldGen.genRand.Next();
@@ -745,7 +747,7 @@ namespace Spooky.Content.Generation
                 {
                     int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sandstone, TileID.JungleGrass, TileID.LihzahrdBrick };
 
-                    if (InvalidTiles.Contains(Main.tile[i, j].TileType))
+                    if (Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {
                         return false;
                     }

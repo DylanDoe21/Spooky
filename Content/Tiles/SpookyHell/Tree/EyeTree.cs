@@ -113,14 +113,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                WorldGen.KillTile(i, j, false, false, false);
-
-                int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
                 }
+
+                WorldGen.KillTile(i, j, false, false, false);
             }
         }
 
@@ -184,7 +184,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 //spawn a seed from the tree
                 if (Main.rand.NextBool())
                 {
-                    int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
+                    int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
 					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
 
                     if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
@@ -198,7 +198,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
+                        Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i, j - 2) * 16),
                         new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
                     }
                 }
@@ -210,7 +210,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
                 if (Main.netMode != NetmodeID.Server) 
                 {
-                    Gore.NewGore(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j - 2) * 16),
+                    Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i, j - 2) * 16),
                     new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
                 }
             }

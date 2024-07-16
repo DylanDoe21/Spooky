@@ -952,22 +952,16 @@ namespace Spooky.Core
                     if (attempt.questFish == ModContent.ItemType<GourdFish>() && attempt.rare)
                     {
                         itemDrop = ModContent.ItemType<GourdFish>();
-
-                        return;
                     }
                     if (attempt.questFish == ModContent.ItemType<ZomboidFish>() && attempt.rare)
                     {
                         itemDrop = ModContent.ItemType<ZomboidFish>();
-
-                        return;
                     }
 
                     //crate
-                    if (Main.rand.NextBool(3) && attempt.crate && Flags.downedRotGourd)
+                    if (Main.rand.NextBool() && attempt.crate && Flags.downedRotGourd)
                     {
                         itemDrop = ModContent.ItemType<SpookyCrate>();
-
-                        return;
                     }
                 }
 
@@ -977,8 +971,6 @@ namespace Spooky.Core
                     if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.rare)
                     {
                         itemDrop = ModContent.ItemType<SpookySpiritFish>();
-
-                        return;
                     }
                 }
 
@@ -988,16 +980,12 @@ namespace Spooky.Core
                     if (attempt.questFish == ModContent.ItemType<HibiscusFish>() && attempt.rare)
                     {
                         itemDrop = ModContent.ItemType<HibiscusFish>();
-
-                        return;
                     }
 
                     //crate
-                    if (Main.rand.NextBool(3) && attempt.crate)
+                    if (Main.rand.NextBool() && attempt.crate)
                     {
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
-
-                        return;
                     }
                 }
             }

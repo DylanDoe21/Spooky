@@ -2,8 +2,9 @@ DandelionHerd: {
 	DisplayName: Dandelion Herd
 	Tooltip:
 		'''
-		Leave behind short-lived damaging dandelion seeds while flying that stick to enemies
-		4 minute duration
+		Leave behind dandelion seed clusters while flying that can slightly home on enemies
+		The seed clusters will deal more damage the higher your maximum flight time is
+		2 minute duration
 		'''
 }
 
@@ -36,7 +37,6 @@ Dragonfruit: {
 		Eating multiple of this bloom while having this bloom's ability active will increase its stack
 		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
 		3 minute duration
-		'Tastes like sass!'
 		'''
 }
 
@@ -2375,9 +2375,9 @@ DragonfruitSeed: {
 	DisplayName: Diva Sprout
 	Tooltip:
 		'''
-		Places an invasive plant that grows a strange fruit
+		Places an invasive plant that grows a strange bloom
 		Requires a flat ground of Bloom Soil to be planted on
-		Make sure not to plant this too close to your other blooms
+		Will convert other nearby planted blooms into itself as it grows
 		'''
 }
 
@@ -2412,7 +2412,7 @@ WinterSeed: {
 	DisplayName: Snow Berry Shrub
 	Tooltip:
 		'''
-		Places a plant that grows various different berries
+		Places a plant that grows various berry blooms
 		Requires a flat ground of Bloom Soil to be planted on
 		'''
 }

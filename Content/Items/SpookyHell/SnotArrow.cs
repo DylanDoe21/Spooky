@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.maxStack = 9999;
 			Item.consumable = true;
 			Item.knockBack = 3;
-			Item.value = Item.sellPrice(0, 0, 1, 0);
+			Item.value = Item.buyPrice(silver: 5);
 			Item.rare = ItemRarityID.Blue;
 			//Item.shoot = ModContent.ProjectileType<SnotArrowProj>();
 			//Item.shootSpeed = 3.5f;

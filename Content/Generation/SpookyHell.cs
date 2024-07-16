@@ -663,6 +663,12 @@ namespace Spooky.Content.Generation
                         WorldGen.KillTile(X - 1, Y);
                     }
 
+                    //get rid of single tiles on the ground since it looks weird
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
+                    {
+                        WorldGen.KillTile(X, Y);
+                    }
+
                     //slope tiles
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
                     Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||

@@ -570,7 +570,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 //set the vignette effect around the egg
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 1700f, 1f, Color.Black, new Vector2(NPC.Center.X, NPC.Center.Y - 85));
+                vignettePlayer.SetVignette(0f, 1700f, 1f, new Color(18, 2, 0), new Vector2(NPC.Center.X, NPC.Center.Y - 85));
 
                 //push players towards the egg if they get too far so they cannot leave the area during the event
                 for (int i = 0; i <= Main.maxPlayers; i++)
