@@ -22,6 +22,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.tileCollide = false;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
+            Projectile.alpha = 255;
         }
 
         public override bool? CanDamage()
@@ -42,12 +43,17 @@ namespace Spooky.Content.Projectiles.Blooms
                 Projectile.Kill();
             }
 
+            //fade in
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 5;
+            }
+
             //spawn the iris petal projectile and set this as its parent
-            if (Projectile.ai[0] == 0)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] == 60)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), 50, 0, player.whoAmI, Projectile.whoAmI);
-
-                Projectile.ai[0] = 1;
             }
         }
     }

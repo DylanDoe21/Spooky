@@ -73,7 +73,7 @@ namespace Spooky.Content.Projectiles.Blooms
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            Projectile.ai[1] += 0.01f;
+            Projectile.ai[1] += 0.015f;
 
             Vector2 Speed = Parent.Center - Projectile.Center;
             Speed.Normalize();
