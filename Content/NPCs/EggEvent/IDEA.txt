@@ -5,8 +5,8 @@ Slug- Man hole abomination, a slug of flesh with a manhole like mouth on it that
 
 Vigilante- MrHandy abomination, hops around and can jump and slam the ground
 
-Ventricle- Red tortumor abomination that looks like a heart
+Ventricle- Red tortumor abomination that looks like a heart and is covered with eyes, has a tube at the top it shoots from
 
 Crux- Eye bat abomination, can fly and create auras that inflict debuffs
 
-Vesicator- 
+Vesicator- Purple tortumor abomination, AI is the same but new sprite and animations

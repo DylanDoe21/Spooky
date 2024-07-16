@@ -63,7 +63,7 @@ FallWaterGourd: {
 	DisplayName: Watering Gourd
 	Tooltip:
 		'''
-		Any bloom crops you harvest have a chance to yield an extra bloom and additional seeds
+		Fully grown bloom crops have a chance to yield an extra bloom and seed
 		10 minute duration
 		'''
 }
@@ -152,7 +152,7 @@ SummerSunflower: {
 	DisplayName: Sunny-Side Up
 	Tooltip:
 		'''
-		Significantly increases the rate at which bloom plants grow
+		Significantly increases the growth rate of all bloom crops
 		Gives you the happy sunflower buff for 2 minutes
 		5 minute duration
 		'''
@@ -163,7 +163,7 @@ WinterBlackberry: {
 	Tooltip:
 		'''
 		Any blooms you eat have a chance to last for double their normal duration
-		10 minute duration
+		2 minute duration
 		'''
 }
 

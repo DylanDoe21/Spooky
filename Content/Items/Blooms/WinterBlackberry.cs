@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Blooms
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("WinterBlackberry", 36000);
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("WinterBlackberry", 7200);
 
 			return true;
 		}

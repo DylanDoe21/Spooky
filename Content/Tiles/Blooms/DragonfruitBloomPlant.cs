@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
+using Spooky.Core;
 using Spooky.Content.Items.Blooms;
 
 namespace Spooky.Content.Tiles.Blooms
@@ -91,7 +92,14 @@ namespace Spooky.Content.Tiles.Blooms
 
 			if (frameX == 216)
 			{
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<Dragonfruit>());
+				bool ShouldDropExtra = Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().FallWaterGourd && Main.rand.NextBool(7);
+
+				if (ShouldDropExtra)
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<DragonfruitSeed>());
+				}
+
+				Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<Dragonfruit>(), ShouldDropExtra ? 2 : 1);
 			}
 		}
 
@@ -99,7 +107,9 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			if (tile.TileFrameX < 216 && Main.rand.NextBool(20))
+			bool ShouldGrowFaster = Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().SummerSunflower;
+
+			if (tile.TileFrameX < 216 && Main.rand.NextBool(ShouldGrowFaster ? 12 : 20))
 			{
 				int left = i - tile.TileFrameX / 18 % 3;
 				int top = j - tile.TileFrameY / 18 % 3;

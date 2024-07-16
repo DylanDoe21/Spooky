@@ -99,13 +99,21 @@ namespace Spooky.Core
         //when the player consumes a bloom, add that blooms name to a buff list slot and set its duration in that specific slot
         public void AddBuffToList(string BuffName, int Duration)
         {
+            int TimeMultiplier = 1;
+            
+            //winter blackberry causes other blooms besides itself to have double the durations sometimes
+            if (WinterBlackberry && BuffName != "WinterBlackberry" && Main.rand.NextBool(5))
+            {
+                TimeMultiplier = 2;
+            }
+
             //if the player consumes a bloom they already have, then add that blooms base duration to the existing bloom buffs duration
             //also cap out the maximum duration for every single bloom buff at 72000 (which is 20 minutes in real time)
             if (BloomBuffSlots.Contains(BuffName))
             {
                 if (BloomBuffSlots[0] == BuffName)
                 {
-                    Duration1 += Duration;
+                    Duration1 += Duration * TimeMultiplier;
 
                     if (Duration1 > 72000)
                     {
@@ -114,7 +122,7 @@ namespace Spooky.Core
                 }
                 else if (BloomBuffSlots[1] == BuffName)
                 {
-                    Duration2 += Duration;
+                    Duration2 += Duration * TimeMultiplier;
 
                     if (Duration2 > 72000)
                     {
@@ -123,7 +131,7 @@ namespace Spooky.Core
                 }
                 else if (BloomBuffSlots[2] == BuffName && UnlockedSlot3)
                 {
-                    Duration3 += Duration;
+                    Duration3 += Duration * TimeMultiplier;
 
                     if (Duration3 > 72000)
                     {
@@ -132,7 +140,7 @@ namespace Spooky.Core
                 }
                 else if (BloomBuffSlots[3] == BuffName && UnlockedSlot4)
                 {
-                    Duration4 += Duration;
+                    Duration4 += Duration * TimeMultiplier;
 
                     if (Duration4 > 72000)
                     {
@@ -148,22 +156,22 @@ namespace Spooky.Core
             if (BloomBuffSlots[0] == string.Empty)
             {
                 BloomBuffSlots[0] = BuffName;
-                Duration1 = Duration;
+                Duration1 = Duration * TimeMultiplier;
             }
             else if (BloomBuffSlots[1] == string.Empty)
             {
                 BloomBuffSlots[1] = BuffName;
-                Duration2 = Duration;
+                Duration2 = Duration * TimeMultiplier;
             }
             else if (BloomBuffSlots[2] == string.Empty && UnlockedSlot3)
             {
                 BloomBuffSlots[2] = BuffName;
-                Duration3 = Duration;
+                Duration3 = Duration * TimeMultiplier;
             }
             else if (BloomBuffSlots[3] == string.Empty && UnlockedSlot4)
             {
                 BloomBuffSlots[3] = BuffName;
-                Duration4 = Duration;
+                Duration4 = Duration * TimeMultiplier;
             }
         }
 
